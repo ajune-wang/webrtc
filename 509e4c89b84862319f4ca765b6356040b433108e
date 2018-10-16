@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0193d884_46bf1aa6",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T13:25:17Z",
+      "side": 1,
+      "message": "You\u0027re reserving 12-14. This would place #11 in the middle of a block once they\u0027re used. I would therefore recommend moving it to #1.",
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea37c5f2_376c230d",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T13:25:17Z",
+      "side": 1,
+      "message": "Would be nice to have a comment on #107 here.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 42
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49ebc3bc_fbf76e6e",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T13:25:17Z",
+      "side": 1,
+      "message": "Similarly",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81eb1304_474e6f56",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-16T13:25:17Z",
+      "side": 1,
+      "message": "Something other than a comma. Maybe a full stop?",
+      "range": {
+        "startLine": 298,
+        "startChar": 45,
+        "endLine": 298,
+        "endChar": 46
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

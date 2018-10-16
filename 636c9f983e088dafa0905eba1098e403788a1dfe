@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52e81e31_5c442b4c",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-16T14:25:28Z",
+      "side": 1,
+      "message": "What error do you get if you remove the #ifndef?\n\nfield_trial::FindFullName is defined in Chromium (https://cs.chromium.org/chromium/src/third_party/webrtc_overrides/field_trial.cc?l\u003d11).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

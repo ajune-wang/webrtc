@@ -11,14 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_DIGITAL_GAIN_APPLIER_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_DIGITAL_GAIN_APPLIER_H_
 
-#include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/agc2/gain_applier.h"
-#include "modules/audio_processing/agc2/vad_with_level.h"
-#include "modules/audio_processing/include/audio_frame_view.h"
+#include "modules/audio_processing/agc2/agc2_common.h"          // for kInit...
+#include "modules/audio_processing/agc2/gain_applier.h"         // for GainA...
+#include "modules/audio_processing/agc2/vad_with_level.h"       // for VadWi...
+#include "modules/audio_processing/include/audio_frame_view.h"  // for Audio...
+#include "modules/audio_processing/logging/apm_data_dumper.h"   // for ApmDa...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 struct SignalWithLevels {
   SignalWithLevels(AudioFrameView<float> float_frame);

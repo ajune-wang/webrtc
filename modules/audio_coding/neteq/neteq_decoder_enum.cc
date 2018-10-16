@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <map>
-#include <string>
+#include <map>                         // for map
+#include <string>                      // for string, basic_string, operator<
 
 #include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 

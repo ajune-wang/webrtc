@@ -11,12 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC_STANDALONE_VAD_H_
 #define MODULES_AUDIO_PROCESSING_AGC_STANDALONE_VAD_H_
 
-#include "common_audio/vad/include/webrtc_vad.h"
-#include "modules/audio_processing/vad/common.h"
+#include <stddef.h>                               // for size_t
+#include <stdint.h>                               // for int16_t
+
+#include "common_audio/vad/include/webrtc_vad.h"  // for VadInst
+#include "modules/audio_processing/vad/common.h"  // for kLength10Ms
 
 namespace webrtc {
-
-class AudioFrame;
 
 class StandaloneVad {
  public:

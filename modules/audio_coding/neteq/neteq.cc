@@ -10,10 +10,8 @@
 
 #include "modules/audio_coding/neteq/include/neteq.h"
 
-#include <memory>
-
-#include "modules/audio_coding/neteq/neteq_impl.h"
-#include "rtc_base/strings/string_builder.h"
+#include "modules/audio_coding/neteq/neteq_impl.h"  // for NetEqImpl, NetEqI...
+#include "rtc_base/strings/string_builder.h"        // for SimpleStringBuilder
 
 namespace webrtc {
 

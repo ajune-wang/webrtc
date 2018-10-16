@@ -11,8 +11,10 @@
 
 #include "modules/audio_processing/aec3/moving_average.h"
 
-#include <algorithm>
-#include <functional>
+#include <algorithm>          // for copy, transform
+#include <functional>         // for plus
+
+#include "rtc_base/checks.h"  // for FatalLogCall, RTC_DCHECK
 
 namespace webrtc {
 namespace aec3 {

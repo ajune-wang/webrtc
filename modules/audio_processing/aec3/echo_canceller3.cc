@@ -9,10 +9,13 @@
  */
 #include "modules/audio_processing/aec3/echo_canceller3.h"
 
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
+#include <algorithm>                                           // for max, copy
+#include <utility>                                             // for move
+
+#include "modules/audio_processing/aec3/aec3_common.h"         // for Lowest...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/atomicops.h"                                // for AtomicOps
+#include "system_wrappers/include/field_trial.h"               // for IsEnabled
 
 namespace webrtc {
 

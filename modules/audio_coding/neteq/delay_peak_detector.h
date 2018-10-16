@@ -11,13 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DELAY_PEAK_DETECTOR_H_
 #define MODULES_AUDIO_CODING_NETEQ_DELAY_PEAK_DETECTOR_H_
 
-#include <string.h>  // size_t
+#include <stdint.h>                                 // for uint64_t
+#include <string.h>                                 // for size_t
+#include <list>                                     // for list
+#include <memory>                                   // for unique_ptr
 
-#include <list>
-#include <memory>
-
-#include "modules/audio_coding/neteq/tick_timer.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/tick_timer.h"  // for TickTimer
+#include "rtc_base/constructormagic.h"              // for RTC_DISALLOW_COPY...
 
 namespace webrtc {
 

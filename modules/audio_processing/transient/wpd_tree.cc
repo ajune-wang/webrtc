@@ -10,12 +10,10 @@
 
 #include "modules/audio_processing/transient/wpd_tree.h"
 
-#include <math.h>
-#include <string.h>
+#include <string.h>                                       // for size_t, NULL
 
-#include "modules/audio_processing/transient/dyadic_decimator.h"
-#include "modules/audio_processing/transient/wpd_node.h"
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/transient/wpd_node.h"  // for WPDNode
+#include "rtc_base/checks.h"                              // for FatalLogCall
 
 namespace webrtc {
 

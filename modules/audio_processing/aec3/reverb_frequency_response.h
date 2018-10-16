@@ -11,13 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_REVERB_FREQUENCY_RESPONSE_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_REVERB_FREQUENCY_RESPONSE_H_
 
-#include <memory>
-#include <vector>
+#include <array>                                        // for array
+#include <vector>                                       // for vector
 
-#include "absl/types/optional.h"
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "absl/types/optional.h"                        // for optional
+#include "api/array_view.h"                             // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kFftLengthBy2...
 
 namespace webrtc {
 

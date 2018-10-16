@@ -11,11 +11,15 @@
 #ifndef API_VIDEO_ENCODED_IMAGE_H_
 #define API_VIDEO_ENCODED_IMAGE_H_
 
-#include "absl/types/optional.h"
-#include "api/video/video_content_type.h"
-#include "api/video/video_rotation.h"
-#include "api/video/video_timing.h"
+#include <stdint.h>                              // for int64_t, uint32_t
+
+#include "absl/types/optional.h"                 // for optional, nullopt
+#include "api/video/video_bitrate_allocation.h"  // for kMaxSpatialLayers
+#include "api/video/video_content_type.h"        // for VideoContentType
+#include "api/video/video_rotation.h"            // for VideoRotation, kVide...
+#include "api/video/video_timing.h"              // for VideoSendTiming, Vid...
 #include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

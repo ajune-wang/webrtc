@@ -11,11 +11,11 @@
 #ifndef COMMON_AUDIO_FIR_FILTER_FACTORY_H_
 #define COMMON_AUDIO_FIR_FILTER_FACTORY_H_
 
-#include <string.h>
+#include <string.h>                   // for size_t
+
+#include "common_audio/fir_filter.h"  // for FIRFilter
 
 namespace webrtc {
-
-class FIRFilter;
 
 // Creates a filter with the given coefficients. All initial state values will
 // be zeros.

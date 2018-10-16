@@ -11,11 +11,13 @@
 #ifndef RTC_BASE_BYTEBUFFER_H_
 #define RTC_BASE_BYTEBUFFER_H_
 
-#include <string>
+#include <stddef.h>                     // for size_t
+#include <stdint.h>                     // for uint32_t, uint64_t, uint16_t
+#include <string>                       // for string, basic_string
 
-#include "rtc_base/buffer.h"
-#include "rtc_base/byteorder.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/buffer.h"            // for BufferT, Buffer
+#include "rtc_base/byteorder.h"         // for HostToNetwork32, HostToNetwork16
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace rtc {
 

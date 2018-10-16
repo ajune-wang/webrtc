@@ -10,13 +10,14 @@
 
 #include "modules/rtp_rtcp/source/ulpfec_receiver_impl.h"
 
-#include <memory>
-#include <utility>
+#include <string.h>                           // for memcpy, size_t
+#include <memory>                             // for unique_ptr
+#include <utility>                            // for move
 
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/clock.h"
+#include "modules/rtp_rtcp/source/byte_io.h"  // for ByteReader
+#include "rtc_base/logging.h"                 // for RTC_LOG
+#include "rtc_base/scoped_ref_ptr.h"          // for scoped_refptr
+#include "system_wrappers/include/clock.h"    // for Clock
 
 namespace webrtc {
 

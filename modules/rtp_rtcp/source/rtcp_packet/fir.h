@@ -11,13 +11,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_FIR_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_FIR_H_
 
-#include <vector>
+#include <stddef.h>                                             // for size_t
+#include <stdint.h>                                             // for uint32_t
+#include <vector>                                               // for vector
 
-#include "modules/rtp_rtcp/source/rtcp_packet/psfb.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "modules/rtp_rtcp/source/rtcp_packet/psfb.h"           // for Psfb
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 // Full intra request (FIR) (RFC 5104).
 class Fir : public Psfb {
  public:

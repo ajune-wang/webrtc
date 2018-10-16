@@ -11,9 +11,14 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_G711_AUDIO_DECODER_PCM_H_
 #define MODULES_AUDIO_CODING_CODECS_G711_AUDIO_DECODER_PCM_H_
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>                          // for size_t
+#include <stdint.h>                          // for uint8_t, int16_t, uint32_t
+#include <vector>                            // for vector
+
+#include "api/audio_codecs/audio_decoder.h"  // for AudioDecoder, AudioDecod...
+#include "rtc_base/buffer.h"                 // for Buffer
+#include "rtc_base/checks.h"                 // for FatalLogCall, RTC_DCHECK_GE
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
 
 namespace webrtc {
 

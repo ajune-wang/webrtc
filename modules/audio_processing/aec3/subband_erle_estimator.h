@@ -11,13 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_SUBBAND_ERLE_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_SUBBAND_ERLE_ESTIMATOR_H_
 
-#include <array>
-#include <memory>
+#include <stddef.h>                                            // for size_t
+#include <array>                                               // for array
+#include <memory>                                              // for unique...
 
-#include "absl/types/optional.h"
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kFftLe...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
 
 namespace webrtc {
 

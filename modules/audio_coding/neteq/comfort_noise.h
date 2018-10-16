@@ -11,15 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_COMFORT_NOISE_H_
 #define MODULES_AUDIO_CODING_NETEQ_COMFORT_NOISE_H_
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>                                         // for size_t
+
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/decoder_database.h"    // for DecoderDa...
+#include "modules/audio_coding/neteq/packet.h"              // for Packet
+#include "modules/audio_coding/neteq/sync_buffer.h"         // for SyncBuffer
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
-
-// Forward declarations.
-class DecoderDatabase;
-class SyncBuffer;
-struct Packet;
 
 // This class acts as an interface to the CNG generator.
 class ComfortNoise {

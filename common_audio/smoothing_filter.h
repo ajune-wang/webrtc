@@ -11,9 +11,10 @@
 #ifndef COMMON_AUDIO_SMOOTHING_FILTER_H_
 #define COMMON_AUDIO_SMOOTHING_FILTER_H_
 
-#include "absl/types/optional.h"
-#include "rtc_base/constructormagic.h"
-#include "system_wrappers/include/clock.h"
+#include <stdint.h>                     // for int64_t
+
+#include "absl/types/optional.h"        // for optional
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_IMPLICIT_CONSTRU...
 
 namespace webrtc {
 

@@ -10,13 +10,15 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search_internal.h"
 
-#include <algorithm>
-#include <cmath>
-#include <numeric>
-#include <utility>
+#include <stdlib.h>                                        // for abs
+#include <algorithm>                                       // for max, copy
+#include <cmath>                                           // for sqrt
+#include <complex>                                         // for complex
+#include <cstddef>                                         // for size_t
+#include <numeric>                                         // for inner_product
 
-#include "modules/audio_processing/agc2/rnn_vad/common.h"
-#include "rtc_base/checks.h"
+#include "modules/audio_processing/agc2/rnn_vad/common.h"  // for kMaxPitch2...
+#include "rtc_base/checks.h"                               // for FatalLogCall
 
 namespace webrtc {
 namespace rnn_vad {

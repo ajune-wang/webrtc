@@ -46,6 +46,30 @@
       "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57fe3c7f_8ebb3de4",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-16T14:33:59Z",
+      "side": 1,
+      "message": "Mmmh, it seems the Chromium test binary needs to depend on https://cs.chromium.org/chromium/src/third_party/webrtc_overrides/BUILD.gn?l\u003d123-130\u0026rcl\u003d58b27e683493b046ec4aee4747e3fbf598a57df7.\n\nIt is difficult to enforce with the build system since it is a dependency on the definition.\nIn theory, Chromium should always depend on //third_party/webrtc_overrides:field_trial but for some reasons in this case it is not depending on it.",
+      "parentUuid": "3f6979bf_f1300a47",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

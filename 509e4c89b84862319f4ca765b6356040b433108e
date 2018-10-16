@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "383a8745_5efc5acf",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T13:52:06Z",
+      "side": 1,
+      "message": "I think it is clearer to have required information first. There are also event that we\u0027re currently not planning to delta compress. If moving it first here, then we should probably reserve #1 for those events just in case we later decide to add delta compression.",
+      "parentUuid": "0193d884_46bf1aa6",
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ea37c5f2_376c230d",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "509e4c89b84862319f4ca765b6356040b433108e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb57bd4_5b2e52e7",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T13:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea37c5f2_376c230d",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 42
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "eb021996_3481e9b9",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T13:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49ebc3bc_fbf76e6e",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 56
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81eb1304_474e6f56",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 2
@@ -85,6 +151,30 @@
       "revId": "509e4c89b84862319f4ca765b6356040b433108e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "820f20b1_998188a6",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-16T13:52:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81eb1304_474e6f56",
+      "range": {
+        "startLine": 298,
+        "startChar": 45,
+        "endLine": 298,
+        "endChar": 46
+      },
+      "revId": "509e4c89b84862319f4ca765b6356040b433108e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

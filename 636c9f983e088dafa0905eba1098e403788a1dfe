@@ -22,6 +22,30 @@
       "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f6979bf_f1300a47",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-16T14:26:45Z",
+      "side": 1,
+      "message": "Here is it:\n\n[1273/10303] LINK ./capture_unittests\n  FAILED: capture_unittests \n  export DEVELOPER_DIR\u003d/b/s/w/ir/cache/builder/src/build/mac_files/Xcode.app;  TOOL_VERSION\u003d1539265388 ../../build/toolchain/mac/linker_driver.py ../../third_party/llvm-build/Release+Asserts/bin/clang++  -stdlib\u003dlibc++ -arch x86_64 -segprot PROTECTED_MEMORY rw r -Werror -isysroot ../../build/mac_files/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -mmacosx-version-min\u003d10.9.0 -Wl,-ObjC -L../../build/mac_files/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/lib -o \"./capture_unittests\" -Wl,-filelist,\"./capture_unittests.rsp\"  -framework Cocoa -framework Foundation -framework IOKit -framework Security -framework SystemConfiguration -framework AVFoundation -framework CoreFoundation -framework CoreGraphics -framework CoreMedia -framework CoreVideo -framework ApplicationServices -framework AppKit -lbsm -framework AudioToolbox -framework AudioUnit -framework CoreAudio -framework CoreText -framework IOSurface -framework Carbon -framework OpenGL -framework Quartz -framework VideoToolbox -framework Accelerate -framework QuartzCore -framework CFNetwork -framework CoreServices -lresolv -lsandbox -framework DiskArbitration\n  Undefined symbols for architecture x86_64:\n    \"webrtc::field_trial::FindFullName(std::__1::basic_string\u003cchar, std::__1::char_traits\u003cchar\u003e, std::__1::allocator\u003cchar\u003e \u003e const\u0026)\", referenced from:\n        webrtc::AudioPriorityConfig::AudioPriorityConfig() in bitrateallocationstrategy.o\n  ld: symbol(s) not found for architecture x86_64\n  clang: error: linker command failed with exit code 1 (use -v to see invocation)\n  Traceback (most recent call last):\n    File \"../../build/toolchain/mac/linker_driver.py\", line 229, in \u003cmodule\u003e\n      Main(sys.argv)\n    File \"../../build/toolchain/mac/linker_driver.py\", line 79, in Main\n      subprocess.check_call(compiler_driver_args)\n    File \"/b/s/w/ir/cipd_bin_packages/lib/python2.7/subprocess.py\", line 186, in check_call\n      raise CalledProcessError(retcode, cmd)",
+      "parentUuid": "52e81e31_5c442b4c",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

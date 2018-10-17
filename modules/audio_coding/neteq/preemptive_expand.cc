@@ -10,9 +10,9 @@
 
 #include "modules/audio_coding/neteq/preemptive_expand.h"
 
-#include <algorithm>  // min, max
+#include <algorithm>  // for max, min
 
-#include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "api/array_view.h"  // for ArrayView
 
 namespace webrtc {
 

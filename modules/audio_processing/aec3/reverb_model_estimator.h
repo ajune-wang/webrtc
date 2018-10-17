@@ -11,17 +11,18 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_REVERB_MODEL_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_REVERB_MODEL_ESTIMATOR_H_
 
+#include <array>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/audio/echo_canceller3_config.h"
+#include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/reverb_decay_estimator.h"
 #include "modules/audio_processing/aec3/reverb_frequency_response.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // Class for estimating the model parameters for the reverberant echo.
 class ReverbModelEstimator {

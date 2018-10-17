@@ -10,15 +10,16 @@
 #ifndef CALL_AUDIO_STATE_H_
 #define CALL_AUDIO_STATE_H_
 
-#include "api/audio/audio_mixer.h"
-#include "modules/audio_device/include/audio_device.h"
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/refcount.h"
-#include "rtc_base/scoped_ref_ptr.h"
+#include <stdint.h>  // for int32_t
+
+#include "api/audio/audio_mixer.h"                              // for Audio...
+#include "modules/audio_device/include/audio_device.h"          // for Audio...
+#include "modules/audio_device/include/audio_device_defines.h"  // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Audio...
+#include "rtc_base/refcount.h"                                  // for RefCo...
+#include "rtc_base/scoped_ref_ptr.h"                            // for scope...
 
 namespace webrtc {
-
-class AudioTransport;
 
 // AudioState holds the state which must be shared between multiple instances of
 // webrtc::Call for audio processing purposes.

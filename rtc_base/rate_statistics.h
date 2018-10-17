@@ -11,9 +11,11 @@
 #ifndef RTC_BASE_RATE_STATISTICS_H_
 #define RTC_BASE_RATE_STATISTICS_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t, uint32_t
+#include <memory>    // for unique_ptr
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace webrtc {
 

@@ -11,11 +11,11 @@
 #ifndef COMMON_VIDEO_H264_PPS_PARSER_H_
 #define COMMON_VIDEO_H264_PPS_PARSER_H_
 
-#include "absl/types/optional.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, uint8_t
 
-namespace rtc {
-class BitBuffer;
-}
+#include "absl/types/optional.h"  // for optional
+#include "rtc_base/bitbuffer.h"   // for BitBuffer
 
 namespace webrtc {
 

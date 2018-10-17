@@ -11,14 +11,16 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_MERGE_H_
 #define MODULES_AUDIO_CODING_NETEQ_MERGE_H_
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+#include <vector>    // for vector
+
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/expand.h"              // for Expand
+#include "modules/audio_coding/neteq/sync_buffer.h"         // for SyncBuffer
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
-
-// Forward declarations.
-class Expand;
-class SyncBuffer;
 
 // This class handles the transition from expansion to normal operation.
 // When a packet is not available for decoding when needed, the expand operation

@@ -11,12 +11,13 @@
 #ifndef API_VIDEO_VIDEO_FRAME_H_
 #define API_VIDEO_VIDEO_FRAME_H_
 
-#include <stdint.h>
+#include <stdint.h>  // for int64_t, uint32_t
 
-#include "absl/types/optional.h"
-#include "api/video/color_space.h"
-#include "api/video/video_frame_buffer.h"
-#include "api/video/video_rotation.h"
+#include "absl/types/optional.h"           // for optional
+#include "api/video/color_space.h"         // for ColorSpace
+#include "api/video/video_frame_buffer.h"  // for VideoFrameBuffer, VideoFra...
+#include "api/video/video_rotation.h"      // for VideoRotation, kVideoRotat...
+#include "rtc_base/scoped_ref_ptr.h"       // for scoped_refptr
 
 namespace webrtc {
 

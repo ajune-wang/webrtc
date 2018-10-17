@@ -10,14 +10,13 @@
 
 #include "audio/channel_receive_proxy.h"
 
-#include <utility>
+#include <utility>  // for move
 
-#include "api/call/audio_sink.h"
-#include "audio/channel_send_proxy.h"
-#include "call/rtp_transport_controller_send_interface.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "api/call/audio_sink.h"            // for AudioSinkInterface
+#include "audio/channel_send_proxy.h"       // for ChannelSendProxy
+#include "rtc_base/checks.h"                // for RTC_DCHECK
+#include "rtc_base/logging.h"               // for RTC_LOG
+#include "rtc_base/numerics/safe_minmax.h"  // for SafeClamp
 
 namespace webrtc {
 namespace voe {

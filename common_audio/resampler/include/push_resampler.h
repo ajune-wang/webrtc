@@ -11,12 +11,13 @@
 #ifndef COMMON_AUDIO_RESAMPLER_INCLUDE_PUSH_RESAMPLER_H_
 #define COMMON_AUDIO_RESAMPLER_INCLUDE_PUSH_RESAMPLER_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <memory>    // for unique_ptr
+#include <vector>    // for vector
+
+#include "common_audio/resampler/push_sinc_resampler.h"  // for PushSincResa...
 
 namespace webrtc {
-
-class PushSincResampler;
 
 // Wraps PushSincResampler to provide stereo support.
 // TODO(ajm): add support for an arbitrary number of channels.

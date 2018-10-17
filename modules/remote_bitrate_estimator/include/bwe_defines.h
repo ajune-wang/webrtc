@@ -11,8 +11,10 @@
 #ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_INCLUDE_BWE_DEFINES_H_
 #define MODULES_REMOTE_BITRATE_ESTIMATOR_INCLUDE_BWE_DEFINES_H_
 
-#include "absl/types/optional.h"
-#include "api/units/data_rate.h"
+#include <stdint.h>  // for uint32_t, int64_t
+
+#include "absl/types/optional.h"  // for optional
+#include "api/units/data_rate.h"  // for DataRate
 
 #define BWE_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define BWE_MIN(a, b) ((a) < (b) ? (a) : (b))

@@ -11,11 +11,14 @@
 #ifndef RTC_BASE_PLATFORM_THREAD_H_
 #define RTC_BASE_PLATFORM_THREAD_H_
 
+#ifndef WEBRTC_WIN
+#include <pthread.h>  // for pthread_t
+#endif
 #include <string>
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/platform_thread_types.h"
-#include "rtc_base/thread_checker.h"
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
+#include "rtc_base/platform_thread_types.h"  // for PlatformThreadRef
+#include "rtc_base/thread_checker.h"         // for ThreadChecker
 
 namespace rtc {
 

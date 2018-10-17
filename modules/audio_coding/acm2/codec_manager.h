@@ -11,9 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_ACM2_CODEC_MANAGER_H_
 #define MODULES_AUDIO_CODING_ACM2_CODEC_MANAGER_H_
 
-#include <map>
-
 #include "absl/types/optional.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/acm2/rent_a_codec.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
@@ -22,9 +21,6 @@
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
-
-class AudioDecoder;
-class AudioEncoder;
 
 namespace acm2 {
 

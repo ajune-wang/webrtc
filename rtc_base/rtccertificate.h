@@ -11,13 +11,14 @@
 #ifndef RTC_BASE_RTCCERTIFICATE_H_
 #define RTC_BASE_RTCCERTIFICATE_H_
 
-#include <stdint.h>
+#include <stdint.h>  // for uint64_t
+#include <memory>    // for unique_ptr
+#include <string>    // for string, basic_string
 
-#include <memory>
-
-#include "rtc_base/refcount.h"
-#include "rtc_base/scoped_ref_ptr.h"
-#include "rtc_base/sslidentity.h"
+#include "rtc_base/refcount.h"        // for RefCountInterface
+#include "rtc_base/scoped_ref_ptr.h"  // for scoped_refptr
+#include "rtc_base/sslcertificate.h"  // for SSLCertChain, SSLCertificate
+#include "rtc_base/sslidentity.h"     // for SSLIdentity
 
 namespace rtc {
 

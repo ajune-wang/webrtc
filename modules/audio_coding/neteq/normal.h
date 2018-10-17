@@ -11,22 +11,19 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NORMAL_H_
 #define MODULES_AUDIO_CODING_NETEQ_NORMAL_H_
 
-#include <string.h>  // Access to size_t.
+#include <stdint.h>  // for uint16_t
+#include <string.h>  // for size_t
 
-#include <vector>
-
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "modules/audio_coding/neteq/defines.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/background_noise.h"    // for Backgroun...
+#include "modules/audio_coding/neteq/decoder_database.h"    // for DecoderDa...
+#include "modules/audio_coding/neteq/defines.h"             // for Modes
+#include "modules/audio_coding/neteq/expand.h"              // for Expand
+#include "rtc_base/checks.h"                                // for CheckedDi...
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
+#include "rtc_base/numerics/safe_conversions.h"             // for dchecked_...
 
 namespace webrtc {
-
-// Forward declarations.
-class BackgroundNoise;
-class DecoderDatabase;
-class Expand;
 
 // This class provides the "Normal" DSP operation, that is performed when
 // there is no data loss, no need to stretch the timing of the signal, and

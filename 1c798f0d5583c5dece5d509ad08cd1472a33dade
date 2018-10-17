@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "e22a83a8_85f7a32d",
+        "filename": "api/video_codecs/video_codec.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T07:21:44Z",
+      "side": 1,
+      "message": "Ooops. My sed script will get this consistently wrong everywhere. I\u0027ll have to update all the substitutions manually.",
+      "parentUuid": "5ed14bfd_23745721",
+      "range": {
+        "startLine": 122,
+        "startChar": 45,
+        "endLine": 122,
+        "endChar": 50
+      },
+      "revId": "1c798f0d5583c5dece5d509ad08cd1472a33dade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cbaca550_3884e893",
         "filename": "common_types.h",
         "patchSetId": 3
@@ -53,6 +77,24 @@
       "writtenOn": "2018-10-16T15:36:38Z",
       "side": 1,
       "message": "No---it returns bool. Needs to be e.g.\n\n  (absl::EqualsIgnoreCase((s1), (s2)) ? 0 : 1)\n\nAnd that assumes no one is using it to *sort* strings...\n\nAre you planning to remove this macro in a follow-up?",
+      "revId": "1c798f0d5583c5dece5d509ad08cd1472a33dade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc29c2da_4554eb7a",
+        "filename": "common_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T07:21:44Z",
+      "side": 1,
+      "message": "\u003e Are you planning to remove this macro in a follow-up?\n\nI\u0027m planning to remove it, I wasn\u0027t not sure if I\u0027ll do that in this cl or a followup. If it\u0027s postponed, common_types.h needs to include the absl/strings/match.h, which seems undesirable. And the return value change is a pretty strong reason to eliminate STR_CASE_CMP right away.\n\nI also plan to remove _strnicmp and STR_NCASE_CMP, for a separate cl. I hope uses can be replaced by EqualsIgnoreCase with two array views, but I haven\u0027t investigated closely yet.",
+      "parentUuid": "cbaca550_3884e893",
       "revId": "1c798f0d5583c5dece5d509ad08cd1472a33dade",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -13,10 +13,11 @@
 #ifndef RTC_BASE_SSLIDENTITY_H_
 #define RTC_BASE_SSLIDENTITY_H_
 
-#include <ctime>
-#include <string>
+#include <stdint.h>  // for int64_t
+#include <ctime>     // for time_t, size_t
+#include <string>    // for string, basic_string
 
-#include "rtc_base/sslcertificate.h"
+#include "rtc_base/sslcertificate.h"  // for SSLCertChain, SSLCertificate
 
 namespace rtc {
 

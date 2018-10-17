@@ -11,15 +11,16 @@
 #ifndef RTC_BASE_SSLFINGERPRINT_H_
 #define RTC_BASE_SSLFINGERPRINT_H_
 
-#include <string>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+#include <string>    // for string
 
-#include "rtc_base/copyonwritebuffer.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/sslidentity.h"
+#include "rtc_base/copyonwritebuffer.h"  // for CopyOnWriteBuffer
+#include "rtc_base/rtccertificate.h"     // for RTCCertificate
+#include "rtc_base/sslcertificate.h"     // for SSLCertificate
+#include "rtc_base/sslidentity.h"        // for SSLIdentity
 
 namespace rtc {
-
-class SSLCertificate;
 
 struct SSLFingerprint {
   static SSLFingerprint* Create(const std::string& algorithm,

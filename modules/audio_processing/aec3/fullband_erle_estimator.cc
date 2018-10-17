@@ -10,15 +10,16 @@
 
 #include "modules/audio_processing/aec3/fullband_erle_estimator.h"
 
-#include <algorithm>
-#include <memory>
-#include <numeric>
+#include <algorithm>  // for max
+#include <memory>     // for unique...
+#include <numeric>    // for accumu...
 
-#include "absl/types/optional.h"
-#include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"         // for FastAp...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/numerics/safe_minmax.h"                     // for SafeClamp
 
 namespace webrtc {
 

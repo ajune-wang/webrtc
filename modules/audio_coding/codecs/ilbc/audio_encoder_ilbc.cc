@@ -10,12 +10,13 @@
 
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 
-#include <algorithm>
-#include <limits>
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/codecs/ilbc/ilbc.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include <algorithm>  // for copy
+#include <cstdint>    // for int16_t, uint32_t
+
+#include "common_types.h"                           // for CodecInst
+#include "modules/audio_coding/codecs/ilbc/ilbc.h"  // for WebRtcIlbcfix_Enc...
+#include "rtc_base/checks.h"                        // for RTC...
+#include "rtc_base/numerics/safe_conversions.h"     // for dchecked_cast
 
 namespace webrtc {
 

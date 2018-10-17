@@ -10,12 +10,10 @@
 
 #include "modules/audio_processing/agc2/adaptive_agc.h"
 
-#include <algorithm>
-#include <numeric>
-
-#include "common_audio/include/audio_util.h"
-#include "modules/audio_processing/agc2/vad_with_level.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include "common_audio/include/audio_util.h"                   // for FloatS...
+#include "modules/audio_processing/agc2/vad_with_level.h"      // for VadWit...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 

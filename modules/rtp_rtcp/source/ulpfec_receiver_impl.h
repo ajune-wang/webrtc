@@ -11,13 +11,16 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_ULPFEC_RECEIVER_IMPL_H_
 #define MODULES_RTP_RTCP_SOURCE_ULPFEC_RECEIVER_IMPL_H_
 
-#include <memory>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int32_t
+#include <memory>    // for unique...
+#include <vector>    // for vector
 
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/include/ulpfec_receiver.h"
-#include "modules/rtp_rtcp/source/forward_error_correction.h"
-#include "rtc_base/criticalsection.h"
+#include "api/rtp_headers.h"                                   // for RTPHeader
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"         // for Recove...
+#include "modules/rtp_rtcp/include/ulpfec_receiver.h"          // for FecPac...
+#include "modules/rtp_rtcp/source/forward_error_correction.h"  // for Forwar...
+#include "rtc_base/criticalsection.h"                          // for Critic...
 
 namespace webrtc {
 

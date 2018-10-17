@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbba7872_36397307",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-17T12:45:22Z",
+      "side": 1,
+      "message": "this might override correct resolution extracted by Depacketizer.\n(e.g. when frame is delta frame)\nadd a guard:\ne.g.\nif (generic_descriptor_wire-\u003eWidth() \u003e 0 \u0026\u0026 generic_descriptor_wire-\u003eHeight() \u003e 0) {\n  ....width \u003d \n  ....height \u003d \n}\n\nor other way around:\nif (webrtc_rtp_header.video_header().width \u003d\u003d 0 \u0026\u0026 \n    webrtc_rtp_header.video_header().height \u003d\u003d 0) {",
+      "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

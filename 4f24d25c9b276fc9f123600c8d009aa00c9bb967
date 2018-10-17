@@ -16,6 +16,24 @@
       "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add18925_e1ee63df",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-17T12:58:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow, when would Width()/Height() return an incorrect width/height?",
+      "parentUuid": "fbba7872_36397307",
+      "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

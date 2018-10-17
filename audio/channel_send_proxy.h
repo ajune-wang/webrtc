@@ -11,23 +11,25 @@
 #ifndef AUDIO_CHANNEL_SEND_PROXY_H_
 #define AUDIO_CHANNEL_SEND_PROXY_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
+#include <memory>    // for unique_ptr
 #include <string>
 #include <vector>
 
-#include "api/audio_codecs/audio_encoder.h"
-#include "audio/channel_send.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/race_checker.h"
-#include "rtc_base/thread_checker.h"
+#include "api/audio/audio_frame.h"                         // for AudioFrame
+#include "api/audio_codecs/audio_encoder.h"                // for ANAStats
+#include "api/call/transport.h"                            // for Transport
+#include "audio/channel_send.h"                            // for ChannelSend
+#include "call/rtp_transport_controller_send_interface.h"  // for RtpTranspo...
+#include "modules/rtp_rtcp/include/rtp_rtcp.h"             // for RtpRtcp
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"     // for RtcpBandwi...
+#include "rtc_base/constructormagic.h"                     // for RTC_DISALL...
+#include "rtc_base/function_view.h"                        // for FunctionView
+#include "rtc_base/race_checker.h"                         // for RaceChecker
+#include "rtc_base/thread_checker.h"                       // for ThreadChecker
 
 namespace webrtc {
-
-class FrameEncryptorInterface;
-class RtcpBandwidthObserver;
-class RtpRtcp;
-class RtpTransportControllerSendInterface;
-class Transport;
 
 namespace voe {
 

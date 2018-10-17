@@ -11,14 +11,16 @@
 #ifndef MODULES_AUDIO_PROCESSING_VAD_VOICE_ACTIVITY_DETECTOR_H_
 #define MODULES_AUDIO_PROCESSING_VAD_VOICE_ACTIVITY_DETECTOR_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+#include <memory>    // for unique_ptr
 #include <vector>
 
-#include "common_audio/resampler/include/resampler.h"
-#include "modules/audio_processing/vad/common.h"
-#include "modules/audio_processing/vad/pitch_based_vad.h"
-#include "modules/audio_processing/vad/standalone_vad.h"
-#include "modules/audio_processing/vad/vad_audio_proc.h"
+#include "common_audio/resampler/include/resampler.h"      // for Resampler
+#include "modules/audio_processing/vad/common.h"           // for AudioFeatures
+#include "modules/audio_processing/vad/pitch_based_vad.h"  // for PitchBasedVad
+#include "modules/audio_processing/vad/standalone_vad.h"   // for StandaloneVad
+#include "modules/audio_processing/vad/vad_audio_proc.h"   // for VadAudioProc
 
 namespace webrtc {
 

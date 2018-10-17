@@ -11,12 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_PCM16B_AUDIO_ENCODER_PCM16B_H_
 #define MODULES_AUDIO_CODING_CODECS_PCM16B_AUDIO_ENCODER_PCM16B_H_
 
-#include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+
+#include "api/audio_codecs/audio_encoder.h"                      // for Audi...
+#include "common_types.h"                                        // for Code...
+#include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"  // for Audi...
+#include "rtc_base/constructormagic.h"                           // for RTC_...
 
 namespace webrtc {
-
-struct CodecInst;
 
 class AudioEncoderPcm16B final : public AudioEncoderPcm {
  public:

@@ -10,11 +10,10 @@
 
 #include "modules/audio_processing/gain_control_for_experimental_agc.h"
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/criticalsection.h"
+#include "modules/audio_processing/include/audio_processing.h"  // for Audio...
+#include "modules/audio_processing/logging/apm_data_dumper.h"   // for ApmDa...
+#include "rtc_base/atomicops.h"                                 // for Atomi...
+#include "rtc_base/criticalsection.h"                           // for CritS...
 
 namespace webrtc {
 

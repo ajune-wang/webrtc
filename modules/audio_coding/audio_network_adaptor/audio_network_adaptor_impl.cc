@@ -10,11 +10,13 @@
 
 #include "modules/audio_coding/audio_network_adaptor/audio_network_adaptor_impl.h"
 
-#include <utility>
+#include <stdint.h>  // for uint32_t
+#include <utility>   // for move
+#include <vector>
 
-#include "rtc_base/logging.h"
-#include "rtc_base/timeutils.h"
-#include "system_wrappers/include/field_trial.h"
+#include "rtc_base/checks.h"                      // for RTC_D...
+#include "rtc_base/timeutils.h"                   // for TimeMillis
+#include "system_wrappers/include/field_trial.h"  // for IsEnabled
 
 namespace webrtc {
 

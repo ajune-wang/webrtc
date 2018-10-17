@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fa194be_032100d9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-17T12:13:45Z",
+      "side": 1,
+      "message": "may be be just video_header.width",
+      "range": {
+        "startLine": 96,
+        "startChar": 41,
+        "endLine": 96,
+        "endChar": 68
+      },
+      "revId": "39bca444a91864f2325f723d95e2757f091ef3e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daaa794c_37addbe4",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-17T12:13:45Z",
+      "side": 1,
+      "message": "there is already width \u0026 height in the RTPVideoHeader, not sure why add a copy.",
+      "revId": "39bca444a91864f2325f723d95e2757f091ef3e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

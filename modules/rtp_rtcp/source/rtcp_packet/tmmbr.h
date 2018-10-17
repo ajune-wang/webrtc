@@ -11,14 +11,17 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_TMMBR_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_TMMBR_H_
 
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+#include <vector>    // for vector
 
-#include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"          // for Rtpfb
+#include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"      // for TmmbItem
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 
 // Temporary Maximum Media Stream Bit Rate Request (TMMBR).
 // RFC 5104, Section 4.2.1.

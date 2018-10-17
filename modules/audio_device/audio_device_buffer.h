@@ -11,14 +11,16 @@
 #ifndef MODULES_AUDIO_DEVICE_AUDIO_DEVICE_BUFFER_H_
 #define MODULES_AUDIO_DEVICE_AUDIO_DEVICE_BUFFER_H_
 
-#include <atomic>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int32_t
+#include <atomic>    // for atomic
 
-#include "modules/audio_device/include/audio_device.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/task_queue.h"
-#include "rtc_base/thread_annotations.h"
-#include "rtc_base/thread_checker.h"
+#include "modules/audio_device/include/audio_device_defines.h"  // for Audio...
+#include "rtc_base/buffer.h"                                    // for BufferT
+#include "rtc_base/criticalsection.h"                           // for Criti...
+#include "rtc_base/task_queue.h"                                // for TaskQ...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
+#include "rtc_base/thread_checker.h"                            // for Threa...
 
 namespace webrtc {
 

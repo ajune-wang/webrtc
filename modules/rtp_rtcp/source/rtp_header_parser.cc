@@ -9,9 +9,12 @@
  */
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 
-#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
-#include "modules/rtp_rtcp/source/rtp_utility.h"
-#include "rtc_base/criticalsection.h"
+#include <string.h>  // for memset
+
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"  // for RtpHe...
+#include "modules/rtp_rtcp/source/rtp_utility.h"                // for RtpHe...
+#include "rtc_base/criticalsection.h"                           // for CritS...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
 
 namespace webrtc {
 

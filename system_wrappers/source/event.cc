@@ -8,18 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "system_wrappers/include/event_wrapper.h"
+#include "system_wrappers/include/event_wrapper.h"  // for EventWrapper, Eve...
 
 #if defined(_WIN32)
 #include <windows.h>
 #elif defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
 #include <ApplicationServices/ApplicationServices.h>
-#include <pthread.h>
-#else
-#include <pthread.h>
 #endif
 
-#include "rtc_base/event.h"
+#include "rtc_base/event.h"  // for Event, Event::kFo...
 
 namespace webrtc {
 

@@ -11,12 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_SEARCH_INTERNAL_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_SEARCH_INTERNAL_H_
 
-#include <array>
+#include <stddef.h>  // for size_t
+#include <array>     // for array
 
-#include "api/array_view.h"
-#include "common_audio/real_fourier.h"
-#include "modules/audio_processing/agc2/rnn_vad/common.h"
-#include "modules/audio_processing/agc2/rnn_vad/pitch_info.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "common_audio/real_fourier.h"                         // for RealFo...
+#include "modules/audio_processing/agc2/rnn_vad/common.h"      // for kBufSi...
+#include "modules/audio_processing/agc2/rnn_vad/pitch_info.h"  // for PitchInfo
 
 namespace webrtc {
 namespace rnn_vad {

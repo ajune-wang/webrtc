@@ -9,8 +9,7 @@
  */
 #include "modules/audio_processing/aec3/skew_estimator.h"
 
-#include <algorithm>
-#include <numeric>
+#include <algorithm>  // for fill
 
 namespace webrtc {
 

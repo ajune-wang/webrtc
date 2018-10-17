@@ -34,6 +34,24 @@
       "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6edbe6b_596be8c8",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-17T13:10:44Z",
+      "side": 1,
+      "message": "when absent: delta frame, or !FirstPacketInSubFrame()\n\nmost likely Depacketizer wouldn\u0027t have width/height too in that case, but I\u0027m unsure about H264 depacketizer.",
+      "parentUuid": "add18925_e1ee63df",
+      "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb04c982_e8a1f80c",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T09:23:01Z",
+      "side": 1,
+      "message": "I have a patch do do this, but might be best to do as a followup. One could argue that the wrapper is a useful abstraction, but I\u0027d prefer to delete it.",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 365,
+        "endChar": 38
+      },
+      "revId": "70c21db98d3bcf8526e9bd998eba45dc1de31eae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

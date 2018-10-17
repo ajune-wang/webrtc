@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a767b6b6_3459231d",
+        "filename": "common_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T09:23:01Z",
+      "side": 1,
+      "message": "This breaks PayloadTypeMapper, which depends on case-insensitive sorting for a \n  std::map\u003cwebrtc::SdpAudioFormat, int, SdpAudioFormatOrdering\u003e\n\nUsed in only one place, in WebRtcVoiceEngine::CollectCodecs, see https://cs.chromium.org/search/?q\u003dPayloadTypeMapper\u0026sq\u003dpackage:chromium\u0026type\u003dcs\n\nI\u0027d need advice, it\u0027s unclear to me what it does and if it can be done in a different way not relying on case-insensitive key comparison in the map.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "fda99aabad655768da904365b48d7bdffe817cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

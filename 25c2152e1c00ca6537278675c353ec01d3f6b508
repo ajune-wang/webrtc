@@ -70,6 +70,24 @@
       "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "851b7e7d_7620e093",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-17T12:42:51Z",
+      "side": 1,
+      "message": "Yes, I think it is good to copy the comments to Java land. Can you additionally make it javadoc please (with syntax /** Comment */)? This will make it show up in people\u0027s IDEs. :)",
+      "parentUuid": "70d7d63b_d59d91aa",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

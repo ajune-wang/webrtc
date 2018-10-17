@@ -10,8 +10,9 @@
 
 #include "api/candidate.h"
 
-#include "rtc_base/helpers.h"
-#include "rtc_base/strings/string_builder.h"
+#include "rtc_base/helpers.h"                 // for CreateRandomString
+#include "rtc_base/ipaddress.h"               // for IPAddressPrecedence
+#include "rtc_base/strings/string_builder.h"  // for StringBuilder
 
 namespace cricket {
 

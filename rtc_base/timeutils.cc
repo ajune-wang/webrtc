@@ -8,27 +8,27 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <stdint.h>
+#include <stdint.h>  // for int64_t, uint32_t, int32_t
 
 #if defined(WEBRTC_POSIX)
-#include <sys/time.h>
+#include <sys/time.h>  // for gettimeofday, CLOCK_MONOTONIC
 #if defined(WEBRTC_MAC)
 #include <mach/mach_time.h>
+#include "rtc_base/numerics/safe_conversions.h"
 #endif
 #endif
 
 #if defined(WEBRTC_WIN)
+#include <mmsystem.h>
+#include <sys/timeb.h>
 // clang-format off
 // clang formatting would put <windows.h> last,
 // which leads to compilation failure.
 #include <windows.h>
-#include <mmsystem.h>
-#include <sys/timeb.h>
 // clang-format on
 #endif
 
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK_GE
 #include "rtc_base/timeutils.h"
 
 namespace rtc {

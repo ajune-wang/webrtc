@@ -11,12 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_SPECTRAL_FEATURES_INTERNAL_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_SPECTRAL_FEATURES_INTERNAL_H_
 
-#include <array>
-#include <complex>
+#include <stddef.h>  // for size_t
+#include <array>     // for array
+#include <complex>   // for complex
 
-#include "api/array_view.h"
-#include "modules/audio_processing/agc2/rnn_vad/common.h"
-#include "rtc_base/function_view.h"
+#include "api/array_view.h"                                // for ArrayView
+#include "modules/audio_processing/agc2/rnn_vad/common.h"  // for kNumBands
+#include "rtc_base/function_view.h"                        // for FunctionView
 
 namespace webrtc {
 namespace rnn_vad {

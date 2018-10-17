@@ -11,7 +11,9 @@
 #ifndef RTC_BASE_SOCKETADDRESSPAIR_H_
 #define RTC_BASE_SOCKETADDRESSPAIR_H_
 
-#include "rtc_base/socketaddress.h"
+#include <stddef.h>  // for size_t
+
+#include "rtc_base/socketaddress.h"  // for SocketAddress
 
 namespace rtc {
 

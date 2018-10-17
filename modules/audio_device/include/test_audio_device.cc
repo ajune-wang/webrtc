@@ -7,28 +7,32 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#include <algorithm>
-#include <memory>
-#include <string>
-#include <utility>
-#include <vector>
+#include <algorithm>    // for fill
+#include <cstdint>      // for int16_t
+#include <cstdlib>      // for size_t
+#include <memory>       // for uniqu...
+#include <string>       // for string
+#include <type_traits>  // for remov...
+#include <utility>      // for move
+#include <vector>       // for vector
 
-#include "absl/memory/memory.h"
-#include "api/array_view.h"
-#include "common_audio/wav_file.h"
-#include "modules/audio_device/include/audio_device_default.h"
+#include "absl/memory/memory.h"                                 // for make_...
+#include "api/array_view.h"                                     // for Array...
+#include "common_audio/wav_file.h"                              // for WavRe...
+#include "modules/audio_device/include/audio_device_default.h"  // for Audio...
 #include "modules/audio_device/include/test_audio_device.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/event.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/platform_thread.h"
-#include "rtc_base/random.h"
-#include "rtc_base/refcountedobject.h"
-#include "rtc_base/thread.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/buffer.h"                     // for BufferT
+#include "rtc_base/checks.h"                     // for Fatal...
+#include "rtc_base/criticalsection.h"            // for CritS...
+#include "rtc_base/event.h"                      // for Event
+#include "rtc_base/logging.h"                    // for RTC_LOG
+#include "rtc_base/numerics/safe_conversions.h"  // for check...
+#include "rtc_base/platform_thread.h"            // for Platf...
+#include "rtc_base/random.h"                     // for Random
+#include "rtc_base/refcountedobject.h"           // for RefCo...
+#include "rtc_base/thread.h"                     // for Thread
+#include "rtc_base/thread_annotations.h"         // for RTC_G...
+#include "rtc_base/timeutils.h"                  // for TimeM...
 
 namespace webrtc {
 

@@ -11,7 +11,9 @@
 #ifndef RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
 #define RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
 
-#include "absl/types/optional.h"
+#include <stdint.h>  // for int64_t
+
+#include "absl/types/optional.h"  // for optional
 
 namespace rtc {
 

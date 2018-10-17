@@ -10,6 +10,11 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/pitch_search.h"
 
+#include <array>
+#include <cstddef>  // for size_t
+
+#include "rtc_base/checks.h"  // for RTC_DCHECK_EQ, RTC_DCHECK_LT
+
 namespace webrtc {
 namespace rnn_vad {
 

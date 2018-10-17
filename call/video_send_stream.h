@@ -11,21 +11,23 @@
 #ifndef CALL_VIDEO_SEND_STREAM_H_
 #define CALL_VIDEO_SEND_STREAM_H_
 
+#include <stdint.h>  // for uint32_t, int...
 #include <map>
 #include <string>
-#include <utility>
 #include <vector>
 
-#include "api/call/transport.h"
-#include "api/video/video_frame.h"
-#include "api/video/video_sink_interface.h"
-#include "api/video/video_source_interface.h"
-#include "api/video/video_stream_encoder_settings.h"
-#include "api/video_codecs/video_encoder_config.h"
-#include "api/video_codecs/video_encoder_factory.h"
-#include "call/rtp_config.h"
+#include "absl/types/optional.h"                      // for optional
+#include "api/call/transport.h"                       // for Transport
+#include "api/rtpparameters.h"                        // for DegradationPr...
+#include "api/video/video_content_type.h"             // for VideoContentType
+#include "api/video/video_frame.h"                    // for VideoFrame
+#include "api/video/video_sink_interface.h"           // for VideoSinkInte...
+#include "api/video/video_source_interface.h"         // for VideoSourceIn...
+#include "api/video/video_stream_encoder_settings.h"  // for VideoStreamEn...
+#include "api/video_codecs/video_encoder_config.h"    // for VideoEncoderC...
+#include "call/rtp_config.h"                          // for RtcpConfig
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"  // for StreamDataCou...
 
 namespace webrtc {
 

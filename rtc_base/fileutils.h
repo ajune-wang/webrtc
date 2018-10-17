@@ -16,19 +16,15 @@
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 #else
-#include <dirent.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include <dirent.h>    // for DIR
+#include <stdio.h>     // for size_t
+#include <sys/stat.h>  // for stat
 #endif  // WEBRTC_WIN
 
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_IMPLICIT_CONSTRU...
+#include "rtc_base/pathutils.h"         // for Pathname
 
 namespace rtc {
-
-class FileStream;
-class Pathname;
 
 //////////////////////////
 // Directory Iterator   //

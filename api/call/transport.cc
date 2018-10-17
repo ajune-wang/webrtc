@@ -10,6 +10,8 @@
 
 #include "api/call/transport.h"
 
+#include <cstdint>  // for uint8_t
+
 namespace webrtc {
 
 PacketOptions::PacketOptions() = default;

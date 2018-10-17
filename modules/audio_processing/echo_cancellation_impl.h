@@ -11,16 +11,20 @@
 #ifndef MODULES_AUDIO_PROCESSING_ECHO_CANCELLATION_IMPL_H_
 #define MODULES_AUDIO_PROCESSING_ECHO_CANCELLATION_IMPL_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <memory>    // for uniqu...
+#include <string>
 #include <vector>
 
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
+#include "api/array_view.h"                                     // for Array...
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Audio...
+#include "modules/audio_processing/include/config.h"            // for Config
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
+#include "rtc_base/criticalsection.h"                           // for Criti...
+#include "rtc_base/thread_annotations.h"                        // for RTC_G...
 
 namespace webrtc {
-
-class AudioBuffer;
 
 // The acoustic echo cancellation (AEC) component provides better performance
 // than AECM but also requires more processing power and is dependent on delay

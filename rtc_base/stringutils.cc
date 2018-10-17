@@ -10,8 +10,6 @@
 
 #include "rtc_base/stringutils.h"
 
-#include "rtc_base/checks.h"
-
 namespace rtc {
 
 void replace_substrs(const char* search,

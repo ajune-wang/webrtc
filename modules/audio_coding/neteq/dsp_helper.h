@@ -11,10 +11,12 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DSP_HELPER_H_
 #define MODULES_AUDIO_CODING_NETEQ_DSP_HELPER_H_
 
-#include <string.h>  // Access to size_t.
+#include <stdint.h>  // for int16_t
+#include <string.h>  // for size_t
 
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/audio_vector.h"        // for AudioVector
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
 

@@ -11,24 +11,24 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
 #define MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+#include <memory>    // for uniqu...
 #include <string>
 #include <vector>
 
-#include "api/array_view.h"
-#include "api/rtpparameters.h"
-#include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "modules/rtp_rtcp/source/rtp_header_extension_size.h"
-#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "modules/rtp_rtcp/source/ulpfec_generator.h"
-#include "rtc_base/random.h"
-#include "system_wrappers/include/clock.h"
+#include "api/array_view.h"                                     // for Array...
+#include "api/rtpparameters.h"                                  // for RtpEx...
+#include "modules/include/module_fec_types.h"                   // for FecPr...
+#include "modules/rtp_rtcp/include/rtp_header_extension_map.h"  // for RtpHe...
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"          // for RtpState
+#include "modules/rtp_rtcp/source/rtp_header_extension_size.h"  // for RtpEx...
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"         // for RtpPa...
+#include "modules/rtp_rtcp/source/ulpfec_generator.h"           // for Ulpfe...
+#include "rtc_base/random.h"                                    // for Random
+#include "system_wrappers/include/clock.h"                      // for Clock
 
 namespace webrtc {
-
-class RtpPacketToSend;
 
 // Note that this class is not thread safe, and thus requires external
 // synchronization. Currently, this is done using the lock in PayloadRouter.

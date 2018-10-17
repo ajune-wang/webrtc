@@ -11,9 +11,10 @@
 #ifndef API_AUDIO_OPTIONS_H_
 #define API_AUDIO_OPTIONS_H_
 
+#include <stdint.h>  // for uint16_t
 #include <string>
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace cricket {
 

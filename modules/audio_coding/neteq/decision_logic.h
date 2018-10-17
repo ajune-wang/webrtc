@@ -11,21 +11,22 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 #define MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 
-#include "modules/audio_coding/neteq/defines.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
-#include "modules/audio_coding/neteq/tick_timer.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+#include <memory>    // for unique_ptr
+
+#include "modules/audio_coding/neteq/buffer_level_filter.h"  // for BufferLe...
+#include "modules/audio_coding/neteq/decoder_database.h"     // for DecoderD...
+#include "modules/audio_coding/neteq/defines.h"              // for Operations
+#include "modules/audio_coding/neteq/delay_manager.h"        // for DelayMan...
+#include "modules/audio_coding/neteq/expand.h"               // for Expand
+#include "modules/audio_coding/neteq/packet.h"               // for Packet
+#include "modules/audio_coding/neteq/packet_buffer.h"        // for PacketBu...
+#include "modules/audio_coding/neteq/sync_buffer.h"          // for SyncBuffer
+#include "modules/audio_coding/neteq/tick_timer.h"           // for TickTimer
+#include "rtc_base/constructormagic.h"                       // for RTC_DISA...
 
 namespace webrtc {
-
-// Forward declarations.
-class BufferLevelFilter;
-class DecoderDatabase;
-class DelayManager;
-class Expand;
-class PacketBuffer;
-class SyncBuffer;
-struct Packet;
 
 // This is the class for the decision tree implementation.
 class DecisionLogic final {

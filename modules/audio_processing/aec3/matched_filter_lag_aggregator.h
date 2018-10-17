@@ -11,17 +11,19 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_MATCHED_FILTER_LAG_AGGREGATOR_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_MATCHED_FILTER_LAG_AGGREGATOR_H_
 
+#include <stddef.h>  // for size_t
+#include <array>
 #include <vector>
 
-#include "absl/types/optional.h"
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/aec3/delay_estimate.h"
-#include "modules/audio_processing/aec3/matched_filter.h"
-#include "rtc_base/constructormagic.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "api/audio/echo_canceller3_config.h"                  // for EchoCa...
+#include "modules/audio_processing/aec3/delay_estimate.h"      // for DelayE...
+#include "modules/audio_processing/aec3/matched_filter.h"      // for Matche...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // Aggregates lag estimates produced by the MatchedFilter class into a single
 // reliable combined lag estimate.

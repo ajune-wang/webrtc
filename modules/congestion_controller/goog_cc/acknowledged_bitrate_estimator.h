@@ -11,15 +11,15 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_GOOG_CC_ACKNOWLEDGED_BITRATE_ESTIMATOR_H_
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_ACKNOWLEDGED_BITRATE_ESTIMATOR_H_
 
+#include <stdint.h>
 #include <memory>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "modules/congestion_controller/goog_cc/bitrate_estimator.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 
 namespace webrtc {
-
-struct PacketFeedback;
 
 class AcknowledgedBitrateEstimator {
  public:

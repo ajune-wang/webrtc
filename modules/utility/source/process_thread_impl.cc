@@ -10,11 +10,13 @@
 
 #include "modules/utility/source/process_thread_impl.h"
 
-#include "modules/include/module.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/task_queue.h"
-#include "rtc_base/timeutils.h"
-#include "rtc_base/trace_event.h"
+#include <string>
+
+#include "modules/include/module.h"  // for Module
+#include "rtc_base/checks.h"         // for RTC_DCHECK, RTC_DC...
+#include "rtc_base/task_queue.h"     // for QueuedTask
+#include "rtc_base/timeutils.h"      // for TimeMillis
+#include "rtc_base/trace_event.h"    // for TraceEndOnScopeClose, TRACE_EVENT1
 
 namespace webrtc {
 namespace {

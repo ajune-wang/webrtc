@@ -11,7 +11,10 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_FLEXFEC_HEADER_READER_WRITER_H_
 #define MODULES_RTP_RTCP_SOURCE_FLEXFEC_HEADER_READER_WRITER_H_
 
-#include "modules/rtp_rtcp/source/forward_error_correction.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+
+#include "modules/rtp_rtcp/source/forward_error_correction.h"  // for Forwar...
 
 namespace webrtc {
 

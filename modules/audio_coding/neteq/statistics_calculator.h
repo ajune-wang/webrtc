@@ -11,15 +11,16 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_STATISTICS_CALCULATOR_H_
 #define MODULES_AUDIO_CODING_NETEQ_STATISTICS_CALCULATOR_H_
 
-#include <deque>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, uint...
+#include <deque>     // for deque
 #include <string>
 
-#include "modules/audio_coding/neteq/include/neteq.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_coding/neteq/delay_manager.h"  // for DelayManager
+#include "modules/audio_coding/neteq/include/neteq.h"  // for NetEqLifetimeS...
+#include "rtc_base/constructormagic.h"                 // for RTC_DISALLOW_C...
 
 namespace webrtc {
-
-class DelayManager;
 
 // This class handles various network statistics in NetEq.
 class StatisticsCalculator {

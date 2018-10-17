@@ -11,10 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_G711_AUDIO_ENCODER_PCM_H_
 #define MODULES_AUDIO_CODING_CODECS_G711_AUDIO_ENCODER_PCM_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t, uint8_t, uint32_t
 #include <vector>
 
-#include "api/audio_codecs/audio_encoder.h"
-#include "rtc_base/constructormagic.h"
+#include "api/array_view.h"                  // for ArrayView
+#include "api/audio_codecs/audio_encoder.h"  // for AudioEncoder, AudioEncod...
+#include "common_types.h"                    // for CodecInst
+#include "rtc_base/buffer.h"                 // for Buffer
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
 
 namespace webrtc {
 
@@ -69,7 +74,6 @@ class AudioEncoderPcm : public AudioEncoder {
   uint32_t first_timestamp_in_buffer_;
 };
 
-struct CodecInst;
 
 class AudioEncoderPcmA final : public AudioEncoderPcm {
  public:

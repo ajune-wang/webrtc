@@ -11,14 +11,17 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_TMMBN_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_TMMBN_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
 #include <vector>
 
-#include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"
+#include "modules/rtp_rtcp/source/rtcp_packet.h"                // for RtcpP...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "modules/rtp_rtcp/source/rtcp_packet/rtpfb.h"          // for Rtpfb
+#include "modules/rtp_rtcp/source/rtcp_packet/tmmb_item.h"      // for TmmbItem
 
 namespace webrtc {
 namespace rtcp {
-class CommonHeader;
 
 // Temporary Maximum Media Stream Bit Rate Notification (TMMBN).
 // RFC 5104, Section 4.2.2.

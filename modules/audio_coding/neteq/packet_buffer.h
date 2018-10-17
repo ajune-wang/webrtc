@@ -11,17 +11,18 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
 #define MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
 
-#include "absl/types/optional.h"
-#include "modules/audio_coding/neteq/decoder_database.h"
-#include "modules/audio_coding/neteq/packet.h"
-#include "modules/include/module_common_types.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+
+#include "absl/types/optional.h"                               // for optional
+#include "modules/audio_coding/neteq/decoder_database.h"       // for Decode...
+#include "modules/audio_coding/neteq/packet.h"                 // for Packet
+#include "modules/audio_coding/neteq/statistics_calculator.h"  // for Statis...
+#include "modules/audio_coding/neteq/tick_timer.h"             // for TickTimer
+#include "modules/include/module_common_types_public.h"        // for IsNewe...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
 
 namespace webrtc {
-
-class DecoderDatabase;
-class StatisticsCalculator;
-class TickTimer;
 
 // This is the actual buffer holding the packets before decoding.
 class PacketBuffer {

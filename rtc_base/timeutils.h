@@ -11,14 +11,12 @@
 #ifndef RTC_BASE_TIMEUTILS_H_
 #define RTC_BASE_TIMEUTILS_H_
 
-#include <stdint.h>
-#include <time.h>
-
-#include <ctime>
+#include <stdint.h>  // for int64_t, uint32_t, INT64_C
+#include <time.h>    // for tm
 #include <string>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/strings/string_builder.h"
+#include "rtc_base/strings/string_builder.h"  // for StringBuilder
 
 namespace rtc {
 

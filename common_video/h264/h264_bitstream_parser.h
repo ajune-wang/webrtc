@@ -10,16 +10,12 @@
 
 #ifndef COMMON_VIDEO_H264_H264_BITSTREAM_PARSER_H_
 #define COMMON_VIDEO_H264_H264_BITSTREAM_PARSER_H_
-#include <stddef.h>
-#include <stdint.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t, int32_t
 
-#include "absl/types/optional.h"
-#include "common_video/h264/pps_parser.h"
-#include "common_video/h264/sps_parser.h"
-
-namespace rtc {
-class BitBufferWriter;
-}
+#include "absl/types/optional.h"           // for optional
+#include "common_video/h264/pps_parser.h"  // for PpsParser
+#include "common_video/h264/sps_parser.h"  // for SpsParser
 
 namespace webrtc {
 

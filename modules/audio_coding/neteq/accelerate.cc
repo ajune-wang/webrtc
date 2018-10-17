@@ -10,7 +10,9 @@
 
 #include "modules/audio_coding/neteq/accelerate.h"
 
-#include "common_audio/signal_processing/include/signal_processing_library.h"
+#include <assert.h>
+
+#include "api/array_view.h"  // for ArrayView
 
 namespace webrtc {
 

@@ -15,16 +15,17 @@
 #ifndef MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
 #define MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
 
-#include <map>
+#include <stddef.h>
+#include <stdint.h>
 
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/congestion_controller/goog_cc/delay_based_bwe.h"
 #include "modules/include/module.h"
-#include "modules/pacing/paced_sender.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/deprecation.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
-
-class RtcEventLog;
 
 // Deprecated
 // TODO(perkj): Remove BitrateObserver when no implementations use it.

@@ -11,15 +11,15 @@
 #ifndef MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
 #define MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
 
-#include "modules/audio_processing/agc/agc_manager_direct.h"
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/thread_checker.h"
+#include <memory>  // for unique...
+
+#include "modules/audio_processing/agc/agc_manager_direct.h"   // for Volume...
+#include "modules/audio_processing/include/gain_control.h"     // for GainCo...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
+#include "rtc_base/criticalsection.h"                          // for Critic...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // This class has two main purposes:
 //

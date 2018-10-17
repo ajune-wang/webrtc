@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/agc2/biquad_filter.h"
 
+#include <stddef.h>  // for size_t
+
 namespace webrtc {
 
 // Transposed direct form I implementation of a bi-quad filter applied to an

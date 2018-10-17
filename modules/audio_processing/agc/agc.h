@@ -11,14 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC_AGC_H_
 #define MODULES_AUDIO_PROCESSING_AGC_AGC_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 
+#include "modules/audio_processing/agc/loudness_histogram.h"
 #include "modules/audio_processing/vad/voice_activity_detector.h"
 
 namespace webrtc {
-
-class AudioFrame;
-class LoudnessHistogram;
 
 class Agc {
  public:

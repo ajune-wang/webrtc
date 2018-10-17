@@ -11,10 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DTMF_BUFFER_H_
 #define MODULES_AUDIO_CODING_NETEQ_DTMF_BUFFER_H_
 
-#include <list>
-#include <string>  // size_t
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, uint8_t
+#include <list>      // for list
 
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

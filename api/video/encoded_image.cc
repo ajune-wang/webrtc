@@ -10,12 +10,7 @@
 
 #include "api/video/encoded_image.h"
 
-#include <string.h>
-
-#include <algorithm>  // swap
-
-#include "rtc_base/bind.h"
-#include "rtc_base/checks.h"
+#include <string.h>  // for size_t
 
 namespace webrtc {
 

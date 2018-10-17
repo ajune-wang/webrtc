@@ -11,16 +11,14 @@
 #ifndef CALL_FLEXFEC_RECEIVE_STREAM_H_
 #define CALL_FLEXFEC_RECEIVE_STREAM_H_
 
-#include <stdint.h>
+#include <stdint.h>  // for uint32_t, int64_t
+#include <string>    // for string
+#include <vector>    // for vector
 
-#include <string>
-#include <vector>
-
-#include "api/call/transport.h"
-#include "api/rtp_headers.h"
-#include "api/rtpparameters.h"
-#include "call/rtp_packet_sink_interface.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/call/transport.h"              // for Transport
+#include "api/rtp_headers.h"                 // for RtcpMode, RtcpMode::kCom...
+#include "api/rtpparameters.h"               // for RtpExtension
+#include "call/rtp_packet_sink_interface.h"  // for RtpPacketSinkInterface
 
 namespace webrtc {
 

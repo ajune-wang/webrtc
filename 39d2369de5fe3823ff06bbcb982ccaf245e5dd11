@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "409c893a_8ebc64c7",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T07:11:19Z",
+      "side": 1,
+      "message": "Can you write a test case for self-assignment? I.e., something like\n\n  rtc::Buffer buf \u003d \"foo\";\n  buf \u003d buf;  // Not sure if we need any tricks to forbid the optimizer from taking this out\n  ... expect buf to still contain \"foo\" ...\n\nLooks like it might be broken by this change.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 30
+      },
+      "revId": "39d2369de5fe3823ff06bbcb982ccaf245e5dd11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "478e6028_19f88d83",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T14:18:35Z",
+      "side": 1,
+      "message": "It shouldn\u0027t be needed with MediaTransport. Added here because the mock is easy to add and that that avoids hitting DCHECKs. I agree we should allow all rtp-related cofig objects to be null when using media transport, but this cl isn\u0027t there yet.",
+      "parentUuid": "2027f519_334992ba",
+      "range": {
+        "startLine": 52,
+        "startChar": 17,
+        "endLine": 52,
+        "endChar": 36
+      },
+      "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2e26f6e_1d9e1f84",
         "filename": "audio/test/media_transport_test.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69bc4a3d_0d0018dc",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T14:18:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2e26f6e_1d9e1f84",
+      "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

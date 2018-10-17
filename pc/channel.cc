@@ -99,6 +99,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
                          rtc::Thread* network_thread,
                          rtc::Thread* signaling_thread,
                          std::unique_ptr<MediaChannel> media_channel,
+                         webrtc::MediaTransportInterface* media_transport,
                          const std::string& content_name,
                          bool srtp_required,
                          webrtc::CryptoOptions crypto_options)
@@ -106,6 +107,7 @@ BaseChannel::BaseChannel(rtc::Thread* worker_thread,
       network_thread_(network_thread),
       signaling_thread_(signaling_thread),
       content_name_(content_name),
+      media_transport_(media_transport),
       srtp_required_(srtp_required),
       crypto_options_(crypto_options),
       media_channel_(std::move(media_channel)) {
@@ -162,12 +164,13 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport) {
 
   // Both RTP and RTCP channels should be set, we can call SetInterface on
   // the media channel and it can set network options.
-  media_channel_->SetInterface(this);
+  // TODO(sukhanov): Pass media transport here?
+  media_channel_->SetInterface(this, media_transport());
 }
 
 void BaseChannel::Deinit() {
   RTC_DCHECK(worker_thread_->IsCurrent());
-  media_channel_->SetInterface(NULL);
+  media_channel_->SetInterface(nullptr, nullptr);
   // Packets arrive on the network thread, processing packets calls virtual
   // functions, so need to stop this process in Deinit that is called in
   // derived classes destructor.
@@ -322,7 +325,10 @@ int BaseChannel::SetOption_n(SocketType type,
                              rtc::Socket::Option opt,
                              int value) {
   RTC_DCHECK(network_thread_->IsCurrent());
+
+  // TODO(sukhanov): Propagate media transport.
   RTC_DCHECK(rtp_transport_);
+
   rtc::PacketTransportInternal* transport = nullptr;
   switch (type) {
     case ST_RTP:
@@ -740,6 +746,7 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                            // TODO(nisse): Delete unused argument.
                            MediaEngineInterface* /* media_engine */,
                            std::unique_ptr<VoiceMediaChannel> media_channel,
+                           webrtc::MediaTransportInterface* media_transport,
                            const std::string& content_name,
                            bool srtp_required,
                            webrtc::CryptoOptions crypto_options)
@@ -747,6 +754,7 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
+                  media_transport,
                   content_name,
                   srtp_required,
                   crypto_options) {}
@@ -879,6 +887,7 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                            rtc::Thread* network_thread,
                            rtc::Thread* signaling_thread,
                            std::unique_ptr<VideoMediaChannel> media_channel,
+                           webrtc::MediaTransportInterface* media_transport,
                            const std::string& content_name,
                            bool srtp_required,
                            webrtc::CryptoOptions crypto_options)
@@ -886,6 +895,7 @@ VideoChannel::VideoChannel(rtc::Thread* worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
+                  media_transport,
                   content_name,
                   srtp_required,
                   crypto_options) {}
@@ -1024,6 +1034,7 @@ RtpDataChannel::RtpDataChannel(rtc::Thread* worker_thread,
                   network_thread,
                   signaling_thread,
                   std::move(media_channel),
+                  nullptr,  // TOOD(sukhanov): Add media transport.
                   content_name,
                   srtp_required,
                   crypto_options) {}

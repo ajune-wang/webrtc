@@ -80,6 +80,7 @@ class BaseChannel : public rtc::MessageHandler,
               rtc::Thread* network_thread,
               rtc::Thread* signaling_thread,
               std::unique_ptr<MediaChannel> media_channel,
+              webrtc::MediaTransportInterface* media_transport,
               const std::string& content_name,
               bool srtp_required,
               webrtc::CryptoOptions crypto_options);
@@ -96,6 +97,10 @@ class BaseChannel : public rtc::MessageHandler,
   // TODO(deadbeef): This is redundant; remove this.
   const std::string& transport_name() const { return transport_name_; }
   bool enabled() const { return enabled_; }
+
+  webrtc::MediaTransportInterface* media_transport() {
+    return media_transport_;
+  }
 
   // This function returns true if using SRTP (DTLS-based keying or SDES).
   bool srtp_active() const {
@@ -306,6 +311,7 @@ class BaseChannel : public rtc::MessageHandler,
   std::string transport_name_;
 
   webrtc::RtpTransportInternal* rtp_transport_ = nullptr;
+  webrtc::MediaTransportInterface* const media_transport_;
 
   std::vector<std::pair<rtc::Socket::Option, int> > socket_options_;
   std::vector<std::pair<rtc::Socket::Option, int> > rtcp_socket_options_;
@@ -341,6 +347,7 @@ class VoiceChannel : public BaseChannel {
                rtc::Thread* signaling_thread,
                MediaEngineInterface* media_engine,
                std::unique_ptr<VoiceMediaChannel> channel,
+               webrtc::MediaTransportInterface* media_transport,
                const std::string& content_name,
                bool srtp_required,
                webrtc::CryptoOptions crypto_options);
@@ -381,6 +388,7 @@ class VideoChannel : public BaseChannel {
                rtc::Thread* network_thread,
                rtc::Thread* signaling_thread,
                std::unique_ptr<VideoMediaChannel> media_channel,
+               webrtc::MediaTransportInterface* media_transport,
                const std::string& content_name,
                bool srtp_required,
                webrtc::CryptoOptions crypto_options);

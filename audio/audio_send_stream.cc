@@ -49,13 +49,17 @@ void CallEncoder(const std::unique_ptr<voe::ChannelSendProxy>& channel_proxy,
 std::unique_ptr<voe::ChannelSendProxy> CreateChannelAndProxy(
     rtc::TaskQueue* worker_queue,
     ProcessThread* module_process_thread,
+    MediaTransportInterface* media_transport,
     RtcpRttStats* rtcp_rtt_stats,
     RtcEventLog* event_log,
     FrameEncryptorInterface* frame_encryptor) {
   return absl::make_unique<voe::ChannelSendProxy>(
       absl::make_unique<voe::ChannelSend>(worker_queue, module_process_thread,
-                                          rtcp_rtt_stats, event_log,
-                                          frame_encryptor));
+                                          // TODO(sukhanov): Do we need above
+                                          // logic as in RTP, i.e. first time,
+                                          // TimedTransport, etc.
+                                          media_transport, rtcp_rtt_stats,
+                                          event_log, frame_encryptor));
 }
 }  // namespace
 
@@ -104,6 +108,7 @@ AudioSendStream::AudioSendStream(
                       overall_call_lifetime,
                       CreateChannelAndProxy(worker_queue,
                                             module_process_thread,
+                                            config.media_transport,
                                             rtcp_rtt_stats,
                                             event_log,
                                             config.frame_encryptor)) {}
@@ -120,7 +125,8 @@ AudioSendStream::AudioSendStream(
     TimeInterval* overall_call_lifetime,
     std::unique_ptr<voe::ChannelSendProxy> channel_proxy)
     : worker_queue_(worker_queue),
-      config_(Config(nullptr)),
+      config_(Config(/*send_transport=*/nullptr,
+                     /*media_transport=*/nullptr)),
       audio_state_(audio_state),
       channel_proxy_(std::move(channel_proxy)),
       event_log_(event_log),
@@ -136,8 +142,9 @@ AudioSendStream::AudioSendStream(
   RTC_DCHECK(worker_queue_);
   RTC_DCHECK(audio_state_);
   RTC_DCHECK(channel_proxy_);
-  RTC_DCHECK(bitrate_allocator_);
-  RTC_DCHECK(transport);
+  // TODO(nisse): Can this be optional?
+  // RTC_DCHECK(bitrate_allocator_);
+  RTC_DCHECK(transport || config.media_transport);
   RTC_DCHECK(overall_call_lifetime_);
 
   channel_proxy_->SetRTCPStatus(true);
@@ -147,17 +154,22 @@ AudioSendStream::AudioSendStream(
   ConfigureStream(this, config, true);
 
   pacer_thread_checker_.DetachFromThread();
-  // Signal congestion controller this object is ready for OnPacket* callbacks.
-  transport_->RegisterPacketFeedbackObserver(this);
+  if (transport_) {
+    // Signal congestion controller this object is ready for OnPacket*
+    // callbacks.
+    transport_->RegisterPacketFeedbackObserver(this);
+  }
 }
 
 AudioSendStream::~AudioSendStream() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_LOG(LS_INFO) << "~AudioSendStream: " << config_.rtp.ssrc;
   RTC_DCHECK(!sending_);
-  transport_->DeRegisterPacketFeedbackObserver(this);
-  channel_proxy_->RegisterTransport(nullptr);
-  channel_proxy_->ResetSenderCongestionControlObjects();
+  if (transport_) {
+    transport_->DeRegisterPacketFeedbackObserver(this);
+    channel_proxy_->RegisterTransport(nullptr);
+    channel_proxy_->ResetSenderCongestionControlObjects();
+  }
   // Lifetime can only be updated after deregistering
   // |timed_send_transport_adapter_| in the underlying channel object to avoid
   // data races in |active_lifetime_|.
@@ -261,14 +273,16 @@ void AudioSendStream::ConfigureStream(
       // Probing in application limited region is only used in combination with
       // send side congestion control, wich depends on feedback packets which
       // requires transport sequence numbers to be enabled.
-      stream->transport_->EnablePeriodicAlrProbing(true);
-      bandwidth_observer = stream->transport_->GetBandwidthObserver();
+      if (stream->transport_) {
+        stream->transport_->EnablePeriodicAlrProbing(true);
+        bandwidth_observer = stream->transport_->GetBandwidthObserver();
+      }
     }
-
-    channel_proxy->RegisterSenderCongestionControlObjects(stream->transport_,
-                                                          bandwidth_observer);
+    if (stream->transport_) {
+      channel_proxy->RegisterSenderCongestionControlObjects(stream->transport_,
+                                                            bandwidth_observer);
+    }
   }
-
   // MID RTP header extension.
   if ((first_time || new_ids.mid != old_ids.mid ||
        new_config.rtp.mid != old_config.rtp.mid) &&
@@ -729,32 +743,36 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
                                                bool has_packet_feedback) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK_GE(max_bitrate_bps, min_bitrate_bps);
-  rtc::Event thread_sync_event(false /* manual_reset */, false);
-  worker_queue_->PostTask([&] {
-    // We may get a callback immediately as the observer is registered, so make
-    // sure the bitrate limits in config_ are up-to-date.
-    config_.min_bitrate_bps = min_bitrate_bps;
-    config_.max_bitrate_bps = max_bitrate_bps;
-    config_.bitrate_priority = bitrate_priority;
-    // This either updates the current observer or adds a new observer.
-    bitrate_allocator_->AddObserver(
-        this, MediaStreamAllocationConfig{
-                  static_cast<uint32_t>(min_bitrate_bps),
-                  static_cast<uint32_t>(max_bitrate_bps), 0, true,
-                  config_.track_id, bitrate_priority, has_packet_feedback});
-    thread_sync_event.Set();
-  });
-  thread_sync_event.Wait(rtc::Event::kForever);
+  if (bitrate_allocator_) {
+    rtc::Event thread_sync_event(false /* manual_reset */, false);
+    worker_queue_->PostTask([&] {
+      // We may get a callback immediately as the observer is registered, so
+      // make sure the bitrate limits in config_ are up-to-date.
+      config_.min_bitrate_bps = min_bitrate_bps;
+      config_.max_bitrate_bps = max_bitrate_bps;
+      config_.bitrate_priority = bitrate_priority;
+      // This either updates the current observer or adds a new observer.
+      bitrate_allocator_->AddObserver(
+          this, MediaStreamAllocationConfig{
+                    static_cast<uint32_t>(min_bitrate_bps),
+                    static_cast<uint32_t>(max_bitrate_bps), 0, true,
+                    config_.track_id, bitrate_priority, has_packet_feedback});
+      thread_sync_event.Set();
+    });
+    thread_sync_event.Wait(rtc::Event::kForever);
+  }
 }
 
 void AudioSendStream::RemoveBitrateObserver() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  rtc::Event thread_sync_event(false /* manual_reset */, false);
-  worker_queue_->PostTask([this, &thread_sync_event] {
-    bitrate_allocator_->RemoveObserver(this);
-    thread_sync_event.Set();
-  });
-  thread_sync_event.Wait(rtc::Event::kForever);
+  if (bitrate_allocator_) {
+    rtc::Event thread_sync_event(false /* manual_reset */, false);
+    worker_queue_->PostTask([this, &thread_sync_event] {
+      bitrate_allocator_->RemoveObserver(this);
+      thread_sync_event.Set();
+    });
+    thread_sync_event.Wait(rtc::Event::kForever);
+  }
 }
 
 void AudioSendStream::RegisterCngPayloadType(int payload_type,

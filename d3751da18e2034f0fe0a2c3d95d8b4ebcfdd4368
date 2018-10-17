@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2c7f169_94ba2f7a",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-17T12:49:39Z",
+      "side": 1,
+      "message": "nit: a",
+      "range": {
+        "startLine": 140,
+        "startChar": 39,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "d3751da18e2034f0fe0a2c3d95d8b4ebcfdd4368",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

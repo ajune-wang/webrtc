@@ -46,6 +46,30 @@
       "revId": "fda99aabad655768da904365b48d7bdffe817cdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ab12065_05a8794a",
+        "filename": "common_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T11:24:47Z",
+      "side": 1,
+      "message": "\u003e Or build a comparison function using absl::ascii_tolower---that\u0027s probably easiest. And inquire whether Abseil would be interested in publishing their memcasecmp function...\n\nRight, that should be easy. An alternative might be to always lowercase before the std::map sees the strings. I also wonder if there\u0027s anything similar for video, I haven\u0027t seen any.",
+      "parentUuid": "5a30c5dd_3ceae0f9",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "fda99aabad655768da904365b48d7bdffe817cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

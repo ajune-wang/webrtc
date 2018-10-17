@@ -11,15 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_TRANSIENT_TRANSIENT_SUPPRESSOR_H_
 #define MODULES_AUDIO_PROCESSING_TRANSIENT_TRANSIENT_SUPPRESSOR_H_
 
-#include <deque>
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
-#include <set>
 
+#include "modules/audio_processing/transient/transient_detector.h"
 #include "rtc_base/gtest_prod_util.h"
 
 namespace webrtc {
-
-class TransientDetector;
 
 // Detects transients in an audio stream and suppress them using a simple
 // restoration algorithm that attenuates unexpected spikes in the spectrum.

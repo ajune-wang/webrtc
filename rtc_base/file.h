@@ -11,12 +11,12 @@
 #ifndef RTC_BASE_FILE_H_
 #define RTC_BASE_FILE_H_
 
-#include <stdint.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+#include <string>    // for string
 
-#include <string>
-
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/platform_file.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
+#include "rtc_base/platform_file.h"     // for PlatformFile
 
 namespace rtc {
 

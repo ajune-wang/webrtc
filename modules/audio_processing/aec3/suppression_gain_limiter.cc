@@ -10,10 +10,11 @@
 
 #include "modules/audio_processing/aec3/suppression_gain_limiter.h"
 
-#include <math.h>
-#include <algorithm>
+#include <math.h>     // for powf
+#include <algorithm>  // for min
 
-#include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kNumBlocksPer...
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace {

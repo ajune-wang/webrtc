@@ -11,7 +11,9 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_GAIN_APPLIER_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_GAIN_APPLIER_H_
 
-#include "modules/audio_processing/include/audio_frame_view.h"
+#include <stddef.h>  // for size_t
+
+#include "modules/audio_processing/include/audio_frame_view.h"  // for Audio...
 
 namespace webrtc {
 class GainApplier {

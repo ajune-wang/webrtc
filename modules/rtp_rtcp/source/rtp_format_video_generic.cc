@@ -8,12 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <string>
+#include <assert.h>  // for assert
+#include <string.h>  // for memcpy, size_t
 
-#include "modules/include/module_common_types.h"
+#include "absl/types/optional.h"  // for optional
 #include "modules/rtp_rtcp/source/rtp_format_video_generic.h"
-#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "rtc_base/logging.h"
+#include "modules/rtp_rtcp/source/rtp_packet_to_send.h"  // for RtpPacketToSend
+#include "rtc_base/checks.h"
+#include "rtc_base/logging.h"  // for RTC_LOG
 
 namespace webrtc {
 

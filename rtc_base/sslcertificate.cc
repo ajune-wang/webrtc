@@ -15,7 +15,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"                  // for WrapUnique, make_unique
-#include "rtc_base/checks.h"                     // for FatalLogCall, RTC_DC...
+#include "rtc_base/checks.h"                     // for RTC_DC...
 #include "rtc_base/opensslcertificate.h"         // for OpenSSLCertificate
 #include "rtc_base/sslfingerprint.h"             // for SSLFingerprint
 #include "rtc_base/third_party/base64/base64.h"  // for Base64

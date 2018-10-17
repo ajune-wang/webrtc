@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ca748b21_c69a39c3",
+        "filename": "audio/audio_receive_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-17T04:12:32Z",
+      "side": 1,
+      "message": "Adding enum would mean that each time we add a new implementation, we would need to update an enum.\n\nI think we should make it clear that this string can be used in logs, but cannot be compared too. (or we should ask implementations to expose the static/constant string value per implementation).",
+      "parentUuid": "63d613d0_8298d600",
+      "range": {
+        "startLine": 56,
+        "startChar": 54,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "6b0ce846bdde87b319f14a870f7c04d27deb7f05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "903d7f3c_16eb7a32",
         "filename": "audio/channel_receive.h",
         "patchSetId": 1

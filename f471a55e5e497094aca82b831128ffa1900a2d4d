@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "2027f519_334992ba",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-17T04:12:32Z",
+      "side": 1,
+      "message": "why is it needed if we\u0027re using media transport? (genuinely curious).\nalso: would it be a problem if rtcp_send_transport wasn\u0027t connected yet (because DTLS is still negotiating) but media_tranwport was already connected?",
+      "range": {
+        "startLine": 52,
+        "startChar": 17,
+        "endLine": 52,
+        "endChar": 36
+      },
+      "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2e26f6e_1d9e1f84",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-17T04:12:32Z",
+      "side": 1,
+      "message": "consider inlining.",
+      "revId": "f471a55e5e497094aca82b831128ffa1900a2d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a99fc10_ca9b3e03",
         "filename": "audio/test/media_transport_test.cc",
         "patchSetId": 7

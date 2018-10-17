@@ -52,6 +52,24 @@
       "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4334d983_23adad47",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-17T13:12:56Z",
+      "side": 1,
+      "message": "I see. I think this is fine since the long term goal is to remove the codec specific descriptor all together.",
+      "parentUuid": "e6edbe6b_596be8c8",
+      "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

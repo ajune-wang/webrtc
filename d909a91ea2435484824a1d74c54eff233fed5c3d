@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68d2a13e_25d7fdf1",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-17T13:27:22Z",
+      "side": 1,
+      "message": "If you\u0027re keeping this one, consider declaring it as two separate functions (with and without the `srclen` argument) so that you don\u0027t have to keep that strange default value.",
+      "revId": "d909a91ea2435484824a1d74c54eff233fed5c3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

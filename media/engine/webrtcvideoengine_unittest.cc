@@ -1261,7 +1261,7 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
     channel_->OnReadyToSend(true);
     EXPECT_TRUE(channel_.get() != NULL);
     network_interface_.SetDestination(channel_.get());
-    channel_->SetInterface(&network_interface_);
+    channel_->SetInterface(&network_interface_, /*media_transport=*/nullptr);
     cricket::VideoRecvParameters parameters;
     parameters.codecs = engine_.codecs();
     channel_->SetRecvParameters(parameters);
@@ -4597,16 +4597,28 @@ TEST_F(WebRtcVideoChannelTest, TestSetDscpOptions) {
   MediaConfig config;
   std::unique_ptr<cricket::WebRtcVideoChannel> channel;
 
+<<<<<<< HEAD
+  channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
+      engine_.CreateChannel(call_.get(), config, VideoOptions())));
+  channel->SetInterface(network_interface.get(), /*media_transport=*/nullptr);
+=======
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(engine_.CreateChannel(
       call_.get(), config, VideoOptions(), webrtc::CryptoOptions())));
   channel->SetInterface(network_interface.get());
+>>>>>>> 55fab32b71646ad6774786ebb322b9a9ad746efd
   // Default value when DSCP is disabled should be DSCP_DEFAULT.
   EXPECT_EQ(rtc::DSCP_DEFAULT, network_interface->dscp());
 
   config.enable_dscp = true;
+<<<<<<< HEAD
+  channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
+      engine_.CreateChannel(call_.get(), config, VideoOptions())));
+  channel->SetInterface(network_interface.get(), /*media_transport=*/nullptr);
+=======
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(engine_.CreateChannel(
       call_.get(), config, VideoOptions(), webrtc::CryptoOptions())));
   channel->SetInterface(network_interface.get());
+>>>>>>> 55fab32b71646ad6774786ebb322b9a9ad746efd
   EXPECT_EQ(rtc::DSCP_AF41, network_interface->dscp());
 
   // Packets should also self-identify their dscp in PacketOptions.
@@ -4618,9 +4630,15 @@ TEST_F(WebRtcVideoChannelTest, TestSetDscpOptions) {
   // Verify that setting the option to false resets the
   // DiffServCodePoint.
   config.enable_dscp = false;
+<<<<<<< HEAD
+  channel.reset(static_cast<cricket::WebRtcVideoChannel*>(
+      engine_.CreateChannel(call_.get(), config, VideoOptions())));
+  channel->SetInterface(network_interface.get(), /*media_transport=*/nullptr);
+=======
   channel.reset(static_cast<cricket::WebRtcVideoChannel*>(engine_.CreateChannel(
       call_.get(), config, VideoOptions(), webrtc::CryptoOptions())));
   channel->SetInterface(network_interface.get());
+>>>>>>> 55fab32b71646ad6774786ebb322b9a9ad746efd
   EXPECT_EQ(rtc::DSCP_DEFAULT, network_interface->dscp());
 }
 

@@ -1,0 +1,197 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0029a1a_df7c86bf",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "It says TODO(me) but I do not remember what I meant here....",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a88c8972_5b652707",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Nit. Consider s/transport_/rtp_transport/ so that naming matches media_transport?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5defca4d_6248b3e3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "If media transport does not currently support bitrate allocator, at least CHECK that it\u0027s provided with rtp transport.",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d1106a6_5afa9c30",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "s/CreateFakeWebrtcRTPHeader/CreateRtpHeaderForMediaTransportFrame/ or something like that.",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc8234f2_6ad27b7a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Should we pass channel_id from media transport sink as ssrc?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cca482ac_c6a9af36",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Nit. Remove comment // Fill rtp header",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ecb3c70_89c0f535",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Please pass channel id and set as ssrc in RTP Header. Make sure you also set channel_id in sender",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e768721_0c1c2fda",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "RTC_CHECK(_transportPtr \u003d\u003d nullptr)?\n\nI see that in audio streams you try to enforce that either either RTP or Media Transports are set. Can we enforece it in audio channels or we are not ready yet?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd2999c_8f539af3",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Sampling rate and sampling count should be available from encoder?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c853562f_078c40de",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Since media transport does not have bitrate update APIs yet, you can remove these commented out lines?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32026c93_0bf729b8",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-17T23:08:14Z",
+      "side": 1,
+      "message": "Would it make sense to follow similar code flow as in rtp transport, i.e. to have Register API?",
+      "range": {
+        "startLine": 457,
+        "startChar": 38,
+        "endLine": 457,
+        "endChar": 40
+      },
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

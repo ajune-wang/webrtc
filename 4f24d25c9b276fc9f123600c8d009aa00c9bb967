@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b5a531f6_f87e3dbc",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-17T13:29:35Z",
+      "side": 1,
+      "message": "They were populated on the receiving side after the codec specific descriptor or uncompressed header was parsed. Now we populate them on the sender side so we can send them in the generic descriptor.",
+      "parentUuid": "131ddaa5_9ade9c3f",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 49
+      },
+      "revId": "4f24d25c9b276fc9f123600c8d009aa00c9bb967",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fbba7872_36397307",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 7

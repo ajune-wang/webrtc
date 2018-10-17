@@ -16,6 +16,24 @@
       "revId": "d909a91ea2435484824a1d74c54eff233fed5c3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f978bb0_83b51d4a",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T13:35:44Z",
+      "side": 1,
+      "message": "Agree. But since this isn\u0027t the only use if the constant, I prefer not touching it in this cl. See\n\nrtc_base/strings/string_builder.h:  SimpleStringBuilder\u0026 Append(const char* str, size_t length \u003d SIZE_UNKNOWN);\n\nThat method should probably be changed to accept an absl::string_view.",
+      "parentUuid": "68d2a13e_25d7fdf1",
+      "revId": "d909a91ea2435484824a1d74c54eff233fed5c3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

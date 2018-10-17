@@ -22,6 +22,30 @@
       "revId": "fda99aabad655768da904365b48d7bdffe817cdb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a30c5dd_3ceae0f9",
+        "filename": "common_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-17T10:59:27Z",
+      "side": 1,
+      "message": "It really doesn\u0027t look like it cares about the specific ordering---it just needs *any* ordering that\u0027s consistent with \u003d\u003d to make the std::map work. But providing such a function, or a corresponding hash function, fundamentally requires more than just the ability to test strings for equality.\n\nSince the map is limited to 128 entries (one per 7-bit payload type), maybe the right thing to do is to just have a 128-element array of optional\u003cSdpAudioFormat\u003e, and do linear search when we need to find something by SdpAudioFormat?\n\nOr build a comparison function using absl::ascii_tolower---that\u0027s probably easiest. And inquire whether Abseil would be interested in publishing their memcasecmp function...",
+      "parentUuid": "a767b6b6_3459231d",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 69
+      },
+      "revId": "fda99aabad655768da904365b48d7bdffe817cdb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

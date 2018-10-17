@@ -36,6 +36,14 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 // B:   +      FID      +
 //      |               |
 //      +-+-+-+-+-+-+-+-+
+//      |               |
+//      +     Width     +
+// B=1  |               |
+// and  +-+-+-+-+-+-+-+-+
+// D=0  |               |
+//      +     Height    +
+//      |               |
+//      +-+-+-+-+-+-+-+-+
 // D:   |    FDIFF  |X|M|
 //      +---------------+
 // X:   |      ...      |
@@ -44,6 +52,7 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 //      +---------------+
 //      |      ...      |
 //      +-+-+-+-+-+-+-+-+
+
 constexpr RTPExtensionType RtpGenericFrameDescriptorExtension::kId;
 constexpr char RtpGenericFrameDescriptorExtension::kUri[];
 
@@ -91,7 +100,13 @@ bool RtpGenericFrameDescriptorExtension::Parse(
     if (!descriptor->AddFrameDependencyDiff(fdiff))
       return false;
   }
-  return data.size() == offset;
+  if (data.size() >= offset + 4) {
+    uint16_t width = (data[offset] << 8) | data[offset + 1];
+    uint16_t height = (data[offset + 2] << 8) | data[offset + 3];
+    descriptor->SetResolution(width, height);
+    offset += 4;
+  }
+  return true;
 }
 
 size_t RtpGenericFrameDescriptorExtension::ValueSize(
@@ -102,6 +117,11 @@ size_t RtpGenericFrameDescriptorExtension::ValueSize(
   size_t size = 4;
   for (uint16_t fdiff : descriptor.FrameDependenciesDiffs()) {
     size += (fdiff >= (1 << 6)) ? 2 : 1;
+  }
+  if (descriptor.FirstPacketInSubFrame() &&
+      descriptor.FrameDependenciesDiffs().empty() && descriptor.Width() > 0 &&
+      descriptor.Height() > 0) {
+    size += 4;
   }
   return size;
 }
@@ -138,6 +158,14 @@ bool RtpGenericFrameDescriptorExtension::Write(
     if (extended) {
       data[offset++] = fdiffs[i] >> 6;
     }
+  }
+  if (descriptor.FirstPacketInSubFrame() &&
+      descriptor.FrameDependenciesDiffs().empty() && descriptor.Width() > 0 &&
+      descriptor.Height() > 0) {
+    data[offset++] = (descriptor.Width() >> 8);
+    data[offset++] = (descriptor.Width() & 0xFF);
+    data[offset++] = (descriptor.Height() >> 8);
+    data[offset++] = (descriptor.Height() & 0xFF);
   }
   return true;
 }

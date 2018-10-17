@@ -88,6 +88,24 @@
       "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7dc3a32_5f49e353",
+        "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-17T14:22:51Z",
+      "side": 1,
+      "message": "Done. Note that this doesn\u0027t follow an established practice in this file.",
+      "parentUuid": "851b7e7d_7620e093",
+      "revId": "25c2152e1c00ca6537278675c353ec01d3f6b508",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

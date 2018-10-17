@@ -118,6 +118,30 @@
       "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "593b4c1a_fa026972",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-17T07:48:24Z",
+      "side": 1,
+      "message": "This will fix: https://chromium-review.googlesource.com/c/chromium/src/+/1286410.\n\nPlease remove the #ifndef.",
+      "parentUuid": "6fe97c9e_f1afdcb2",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

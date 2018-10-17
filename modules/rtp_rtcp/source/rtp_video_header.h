@@ -33,6 +33,8 @@ struct RTPVideoHeader {
     GenericDescriptorInfo(const GenericDescriptorInfo& other);
     ~GenericDescriptorInfo();
 
+    uint16_t width = 0;
+    uint16_t height = 0;
     int64_t frame_id = 0;
     int spatial_index = 0;
     int temporal_index = 0;

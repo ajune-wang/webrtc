@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f526d9f_20d97bf0",
+        "filename": "video/rtp_video_stream_receiver_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-17T11:59:24Z",
+      "side": 0,
+      "message": "The previous test tests the same diffs, so I just changed this test to use a keyframe instead.",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 574,
+        "endChar": 53
+      },
+      "revId": "5a464d3ee56ac2acc1c08a351f68f78e51bac144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

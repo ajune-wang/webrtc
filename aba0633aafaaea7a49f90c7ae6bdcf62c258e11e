@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8099ea78_524a6d41",
+        "filename": "rtc_base/win32.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-17T12:04:12Z",
+      "side": 0,
+      "message": "Odd convention that rtc::strchr takes a string rather than a char (its implementation was more like strcspn). And passing a string with two identical characters is odd.\n\nIt\u0027s possible that the intention was to search for the substring \"::\", but then it should have called C library strstr, not rtc::strchr.",
+      "range": {
+        "startLine": 228,
+        "startChar": 26,
+        "endLine": 228,
+        "endChar": 55
+      },
+      "revId": "aba0633aafaaea7a49f90c7ae6bdcf62c258e11e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,47 @@
       "revId": "39d2369de5fe3823ff06bbcb982ccaf245e5dd11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "538ecc5f_d6e89575",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-17T10:21:19Z",
+      "side": 1,
+      "message": "Copy self-assignment is supposed to work, but move self-assignment is generally not; see e.g. https://isocpp.org/wiki/faq/assignment-operators and https://en.cppreference.com/w/cpp/language/operators#Assignment_operator\n\nIt is supposed to at least leave the object in a valid state, though, just like when it has been moved from in a normal way. And looking a few lines further down...",
+      "parentUuid": "409c893a_8ebc64c7",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 30
+      },
+      "revId": "39d2369de5fe3823ff06bbcb982ccaf245e5dd11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b1e2c07_afc82f9f",
+        "filename": "rtc_base/buffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-17T10:21:19Z",
+      "side": 1,
+      "message": "... this line already caused move self-assignment to be broken. I\u0027ll add a test and a fix in a separate CL...",
+      "revId": "39d2369de5fe3823ff06bbcb982ccaf245e5dd11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

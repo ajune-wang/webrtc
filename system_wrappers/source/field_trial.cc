@@ -9,7 +9,8 @@
 
 #include "system_wrappers/include/field_trial.h"
 
-#include <string>
+#include <stddef.h>  // for size_t, NULL
+#include <string>    // for string, basic_string, operator==
 
 // Simple field trial implementation, which allows client to
 // specify desired flags in InitFieldTrialsFromString.

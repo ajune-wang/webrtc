@@ -14,12 +14,13 @@
 #ifndef API_JSEPICECANDIDATE_H_
 #define API_JSEPICECANDIDATE_H_
 
-#include <string>
-#include <vector>
+#include <stddef.h>  // for size_t
+#include <string>    // for string
+#include <vector>    // for vector
 
-#include "api/candidate.h"
-#include "api/jsep.h"
-#include "rtc_base/constructormagic.h"
+#include "api/candidate.h"              // for Candidate
+#include "api/jsep.h"                   // for IceCandidateInterface, IceCan...
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

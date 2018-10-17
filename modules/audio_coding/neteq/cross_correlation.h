@@ -11,7 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_CROSS_CORRELATION_H_
 #define MODULES_AUDIO_CODING_NETEQ_CROSS_CORRELATION_H_
 
-#include "common_types.h"  // NOLINT(build/include)
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t, int32_t
 
 namespace webrtc {
 

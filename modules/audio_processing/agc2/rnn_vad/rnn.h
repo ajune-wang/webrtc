@@ -11,10 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
 
-#include <array>
+#include <stddef.h>     // for size_t
+#include <sys/types.h>  // for int8_t
+#include <array>        // for array
 
-#include "api/array_view.h"
-#include "modules/audio_processing/agc2/rnn_vad/common.h"
+#include "api/array_view.h"                                // for ArrayView
+#include "modules/audio_processing/agc2/rnn_vad/common.h"  // for kFeatureVe...
 
 namespace webrtc {
 namespace rnn_vad {

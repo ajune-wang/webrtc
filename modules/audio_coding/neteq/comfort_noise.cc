@@ -10,13 +10,19 @@
 
 #include "modules/audio_coding/neteq/comfort_noise.h"
 
-#include <assert.h>
+#include <assert.h>  // for assert
+#include <cstdint>   // for int16_t
+#include <memory>    // for unique_ptr
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "modules/audio_coding/neteq/decoder_database.h"
-#include "modules/audio_coding/neteq/dsp_helper.h"
-#include "modules/audio_coding/neteq/sync_buffer.h"
-#include "rtc_base/logging.h"
+#include "api/array_view.h"                               // for ArrayView
+#include "modules/audio_coding/codecs/cng/webrtc_cng.h"   // for ComfortNois...
+#include "modules/audio_coding/neteq/audio_vector.h"      // for AudioVector
+#include "modules/audio_coding/neteq/decoder_database.h"  // for DecoderData...
+#include "modules/audio_coding/neteq/dsp_helper.h"        // for DspHelper
+#include "modules/audio_coding/neteq/sync_buffer.h"       // for SyncBuffer
+#include "rtc_base/buffer.h"                              // for Buffer
+#include "rtc_base/checks.h"
+#include "rtc_base/logging.h"  // for RTC_LOG
 
 namespace webrtc {
 

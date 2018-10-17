@@ -14,14 +14,12 @@
 
 #include "common_audio/wav_header.h"
 
-#include <algorithm>
-#include <cstring>
-#include <limits>
-#include <string>
+#include <cstring>  // for memcpy
+#include <limits>   // for numeric_limits
+#include <string>   // for operator!=, basic_string, string
 
-#include "common_audio/include/audio_util.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/system/arch.h"
+#include "rtc_base/checks.h"       // for RTC_CHECK
+#include "rtc_base/system/arch.h"  // for WEBRTC_ARCH_LITTLE_ENDIAN
 
 namespace webrtc {
 namespace {

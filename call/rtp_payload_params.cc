@@ -147,7 +147,6 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
 
   SetVideoTiming(image, &rtp_video_header.video_timing);
 
-  const bool is_keyframe = image._frameType == kVideoFrameKey;
   const bool first_frame_in_picture =
       (codec_specific_info && codec_specific_info->codecType == kVideoCodecVP9)
           ? codec_specific_info->codecSpecific.VP9.first_frame_in_picture
@@ -156,7 +155,7 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
   SetCodecSpecific(&rtp_video_header, first_frame_in_picture);
 
   if (generic_descriptor_experiment_)
-    SetGeneric(shared_frame_id, is_keyframe, &rtp_video_header);
+    SetGeneric(shared_frame_id, image, &rtp_video_header);
 
   return rtp_video_header;
 }
@@ -218,10 +217,16 @@ void RtpPayloadParams::SetCodecSpecific(RTPVideoHeader* rtp_video_header,
 }
 
 void RtpPayloadParams::SetGeneric(int64_t frame_id,
-                                  bool is_keyframe,
+                                  const EncodedImage& image,
                                   RTPVideoHeader* rtp_video_header) {
   if (rtp_video_header->codec == kVideoCodecVP8) {
-    Vp8ToGeneric(frame_id, is_keyframe, rtp_video_header);
+    Vp8ToGeneric(frame_id, image._frameType == kVideoFrameKey,
+                 rtp_video_header);
+  }
+
+  if (rtp_video_header->generic) {
+    rtp_video_header->generic->width = image._encodedWidth;
+    rtp_video_header->generic->height = image._encodedHeight;
   }
 
   // TODO(philipel): Implement VP9 to new generic descriptor.

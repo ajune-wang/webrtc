@@ -45,7 +45,7 @@ class RtpPayloadParams final {
   void SetCodecSpecific(RTPVideoHeader* rtp_video_header,
                         bool first_frame_in_picture);
   void SetGeneric(int64_t frame_id,
-                  bool is_keyframe,
+                  const EncodedImage& image,
                   RTPVideoHeader* rtp_video_header);
 
   void Vp8ToGeneric(int64_t shared_frame_id,

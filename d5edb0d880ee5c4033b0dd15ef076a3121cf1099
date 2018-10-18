@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "66fe9880_afb8c2d7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T19:46:36Z",
+      "side": 1,
+      "message": "we should remove it then.",
+      "parentUuid": "b8e57108_91290c63",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df806c5c_9787a479",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "68938286_15b9fafd",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T19:46:36Z",
+      "side": 1,
+      "message": "discussed offline. we need a setter in JsepTransportController.",
+      "parentUuid": "df806c5c_9787a479",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b0da756_2bbdc420",
         "filename": "pc/peerconnection.h",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "433bc4c8_95e435de",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T19:46:36Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "6b0da756_2bbdc420",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

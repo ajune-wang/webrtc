@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d09dab5_016e1ef0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-18T16:54:57Z",
+      "side": 1,
+      "message": "I don\u0027t have any specific plan other than generic cleanup as can be seen in the followup cls. I want to reduce the usage of templates to make is easier to use tools to browse the code and other benefits. I made you reviewer of the followup, for context.",
+      "parentUuid": "62ea0678_45a704c1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3b82ff55_7d5991f0",
         "filename": "media/base/mediaengine.h",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b3353b5e_3e897dbc",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-18T16:54:57Z",
+      "side": 1,
+      "message": "Yes, though, as the other code use Voice, I changed it to that for now. Better to rename all at once.",
+      "parentUuid": "3b82ff55_7d5991f0",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9dca92d_a9e3d973",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462a23d6_4b79e6bf",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-18T16:54:57Z",
+      "side": 1,
+      "message": "In this particular situation, what\u0027s required is a WebRtcVideoChannel rather than a VideoMediaChannel. However, the common usage, as provided by the interface and implemented in other classes, provides VideoMediaChannel.",
+      "parentUuid": "a9dca92d_a9e3d973",
+      "range": {
+        "startLine": 1258,
+        "startChar": 27,
+        "endLine": 1258,
+        "endChar": 46
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

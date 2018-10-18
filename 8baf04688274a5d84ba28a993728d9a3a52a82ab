@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "743f387f_4a03a969",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T12:07:24Z",
+      "side": 1,
+      "message": "These changes could be taken out to a separate cl.\n\nAre there no other tests that use TestAudioDeviceModule with more than one channel? I use 2 channels, because the opus encoder refused to do mono.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 28
+      },
+      "revId": "8baf04688274a5d84ba28a993728d9a3a52a82ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

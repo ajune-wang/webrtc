@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ffabf1c_60fbe8ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-18T08:45:45Z",
+      "side": 1,
+      "message": "And `git cl format` at the end, presumably?\n\nYou can reduce the risk of human error (authoring and review) by doing less copy+pasting:\n\n  for x in DECLARE DEFINE; do\n    for y in bool int float string FLAG; do\n      git grep -l $x_$y | xargs sed -i \"s/$x_$y/WEBRTC_$x_$y/g\"\n    done\n  done\n  git cl format\n\n(This will additionally not forget DECLARE_FLAG, and the use of /g means we won\u0027t fail to make more than one substitution per line if necessary.)\n\n(You could do the same thing with regexps instead of loops; it would be more efficient, but arguably easier to mess up, and I know what I\u0027d like to optimize for...)",
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9a84ff_a7c58a0e",
+        "filename": "rtc_base/flags.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-18T08:45:45Z",
+      "side": 1,
+      "message": "Rename this one too?",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6681252e_e6e554ab",
+        "filename": "rtc_base/flags.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-18T08:45:45Z",
+      "side": 1,
+      "message": "You\u0027ll need to say /g to sed to get it to make more than one substitution per line.",
+      "range": {
+        "startLine": 185,
+        "startChar": 36,
+        "endLine": 185,
+        "endChar": 48
+      },
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -795,7 +795,8 @@ PeerConnection::PeerConnection(PeerConnectionFactory* factory,
       rtcp_cname_(GenerateRtcpCname()),
       local_streams_(StreamCollection::Create()),
       remote_streams_(StreamCollection::Create()),
-      call_(std::move(call)) {}
+      call_(std::move(call)),
+      media_transport_factory_(factory->media_transport_factory()) {}
 
 PeerConnection::~PeerConnection() {
   TRACE_EVENT0("webrtc", "PeerConnection::~PeerConnection");
@@ -939,6 +940,7 @@ bool PeerConnection::Initialize(
   config.enable_external_auth = true;
 #endif
   config.active_reset_srtp_params = configuration.active_reset_srtp_params;
+  config.media_transport_factory = media_transport_factory_;
 
   if (configuration.use_media_transport) {
     if (!factory_->media_transport_factory()) {

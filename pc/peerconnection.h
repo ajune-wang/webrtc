@@ -1045,7 +1045,7 @@ class PeerConnection : public PeerConnectionInternal,
 
   // Optional media transport for sending / receiving encoded frames.
   // If available, media transport will be used instead of RTP / SRTP.
-  std::unique_ptr<MediaTransportFactory> media_transport_factory_;
+  MediaTransportFactory* media_transport_factory_;
 
   std::unique_ptr<WebRtcSessionDescriptionFactory> webrtc_session_desc_factory_;
 

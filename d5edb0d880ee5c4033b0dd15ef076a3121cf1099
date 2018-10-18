@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8e57108_91290c63",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-18T19:15:17Z",
+      "side": 1,
+      "message": "Why do you need to store it if you can always take it from factory_?",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df806c5c_9787a479",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-18T19:15:17Z",
+      "side": 1,
+      "message": "Please do not set config.media_transport_factory if use_media_transport is false. \n\nAnything wrong with code a few lines below?\n\nif (configuration.use_media_transport) {\n   ...\n   config.media_transport_factory \u003d factory_-\u003emedia_transport_factory();\n}",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b0da756_2bbdc420",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-18T19:15:17Z",
+      "side": 1,
+      "message": "Just remove it, you can take media_transport_factory from PeerConnectionFactory.\n\nstd::unique_ptr media_transport_factory is left from prototype when we wanted peer connection to own media_trnasport_factory.",
+      "revId": "d5edb0d880ee5c4033b0dd15ef076a3121cf1099",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

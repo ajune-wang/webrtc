@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "e10429d1_126015f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T09:27:04Z",
+      "side": 1,
+      "message": "Sounds good, let me create a new CL where I directly use the new command. I will close this one so we also get less patch sets on the new one.",
+      "parentUuid": "5c950642_6e377b2a",
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b9a84ff_a7c58a0e",
         "filename": "rtc_base/flags.h",
         "patchSetId": 4

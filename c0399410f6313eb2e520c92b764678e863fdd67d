@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34520597_dd43ea8c",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T11:32:47Z",
+      "side": 1,
+      "message": "Please add a bug so we will not forget about this and it will show up in your owned bugs.",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 12
+      },
+      "revId": "c0399410f6313eb2e520c92b764678e863fdd67d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

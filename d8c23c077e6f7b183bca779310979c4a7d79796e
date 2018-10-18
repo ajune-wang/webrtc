@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8a4542c_358a6392",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "can we add a message to these statements? They aren\u0027t obvious at the first glance.\n\n(no rtp transport or bitrate allocator: don\u0027t we expect bitrate allocator to be always present?)",
+      "range": {
+        "startLine": 145,
+        "startChar": 2,
+        "endLine": 145,
+        "endChar": 49
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8a725ce_a75ba084",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "please add a todo that in the feature it should be xor, not or. ERither rtp or media_transpot, but not both.",
+      "range": {
+        "startLine": 146,
+        "startChar": 13,
+        "endLine": 146,
+        "endChar": 53
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9eac323e_c88b71cd",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "pls document which fields are required, which fields are optional.\n\ne.g. I assumed we will keep BitrateAllocator in place, but it seems it\u0027s optional.",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f39823_feca32e2",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "consider removing comment in line 63 and creating a method \u0027ConvertMediaTransportFrameTypeToWebrtcFrameType\u0027",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9100eece_db2436b1",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "in 337 you used field, here you are using accessor method. considwer using the same (field?)",
+      "range": {
+        "startLine": 346,
+        "startChar": 6,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f6eb27_3f004d25",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "this is a new check?",
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbb02cf_0414e772",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "in the other file you used 1 and not 0.\n\n kDefaultFakeSSRC \u003d 1;",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 26
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba93bc4b_f796e299",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "does this todo still apply?",
+      "range": {
+        "startLine": 373,
+        "startChar": 24,
+        "endLine": 373,
+        "endChar": 40
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95c27d7e_14df3aca",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "are there standard error codes defined somewhere?",
+      "range": {
+        "startLine": 377,
+        "startChar": 10,
+        "endLine": 377,
+        "endChar": 14
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52704072_f1e6942c",
+        "filename": "call/call_perf_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "nit: /*media_transport\u003d*/",
+      "range": {
+        "startLine": 235,
+        "startChar": 46,
+        "endLine": 235,
+        "endChar": 53
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad09e08b_bb3ce9a4",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T23:01:31Z",
+      "side": 1,
+      "message": "pls add /*media_Transport\u003d*/ here and in the other places -- it makes it easier to read.",
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

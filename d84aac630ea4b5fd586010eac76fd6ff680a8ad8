@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e09d85c8_965c5960",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T09:17:58Z",
+      "side": 1,
+      "message": "Thanks, definitely more clear. I added \\b in order to be able to run it on the current commit (in order to avoid to rename WEBRTC_xxx_yyy twice because xxx_yyy_ matches).\n\nI have updated the CL description with script.",
+      "parentUuid": "4ffabf1c_60fbe8ff",
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b9a84ff_a7c58a0e",
         "filename": "rtc_base/flags.h",
         "patchSetId": 4

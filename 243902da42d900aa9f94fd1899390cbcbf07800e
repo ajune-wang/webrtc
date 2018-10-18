@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62ea0678_45a704c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T15:21:37Z",
+      "side": 1,
+      "message": "I would like a more specific tracking bug providing context and rough plan for the future cleanup.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b82ff55_7d5991f0",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T15:21:37Z",
+      "side": 1,
+      "message": "I guess it\u0027s intentional that it\u0027s \"AudioEngineInterface\" rather than \"VoiceEngineInterface\"?",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9dca92d_a9e3d973",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T15:21:37Z",
+      "side": 1,
+      "message": "Why this rename? Adding \"WebRtc\" doesn\u0027t make it any clearer, imo.",
+      "range": {
+        "startLine": 1258,
+        "startChar": 27,
+        "endLine": 1258,
+        "endChar": 46
+      },
+      "revId": "243902da42d900aa9f94fd1899390cbcbf07800e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

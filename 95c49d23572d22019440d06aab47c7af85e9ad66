@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6881c45_492105b6",
+        "filename": "rtc_base/flags.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T09:37:36Z",
+      "side": 1,
+      "message": "And indeed, starting from scratch was a really good idea. :)",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 35
+      },
+      "revId": "95c49d23572d22019440d06aab47c7af85e9ad66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

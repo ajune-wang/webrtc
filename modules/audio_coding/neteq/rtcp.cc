@@ -10,10 +10,10 @@
 
 #include "modules/audio_coding/neteq/rtcp.h"
 
-#include <stdlib.h>
-#include <string.h>
+#include <algorithm>  // for min
+#include <cstdlib>    // for abs
 
-#include <algorithm>
+#include "rtc_base/checks.h"  // for RTC_DCHECK_GE
 
 namespace webrtc {
 

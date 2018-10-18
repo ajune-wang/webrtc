@@ -10,12 +10,17 @@
 
 #include "rtc_base/sslfingerprint.h"
 
-#include <ctype.h>
+#include <ctype.h>    // for toupper
+#include <algorithm>  // for transform
+#include <cstdint>    // for uint8_t
 #include <string>
 
-#include "rtc_base/logging.h"
-#include "rtc_base/messagedigest.h"
-#include "rtc_base/stringencode.h"
+#include "rtc_base/logging.h"        // for RTC_LOG
+#include "rtc_base/messagedigest.h"  // for IsFips180DigestAlgorithm, Messag...
+#include "rtc_base/rtccertificate.h"     // for RTCCertificate
+#include "rtc_base/sslcertificate.h"     // for SSLCertificate
+#include "rtc_base/sslidentity.h"        // for SSLIdentity
+#include "rtc_base/stringencode.h"   // for hex_decode_with_delimiter, hex_e...
 
 namespace rtc {
 

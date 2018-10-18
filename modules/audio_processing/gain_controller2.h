@@ -11,18 +11,17 @@
 #ifndef MODULES_AUDIO_PROCESSING_GAIN_CONTROLLER2_H_
 #define MODULES_AUDIO_PROCESSING_GAIN_CONTROLLER2_H_
 
-#include <memory>
+#include <memory>  // for uni...
 #include <string>
 
-#include "modules/audio_processing/agc2/adaptive_agc.h"
-#include "modules/audio_processing/agc2/fixed_gain_controller.h"
-#include "modules/audio_processing/include/audio_processing.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/agc2/adaptive_agc.h"           // for Ada...
+#include "modules/audio_processing/agc2/fixed_gain_controller.h"  // for Fix...
+#include "modules/audio_processing/audio_buffer.h"                // for Aud...
+#include "modules/audio_processing/include/audio_processing.h"    // for Aud...
+#include "modules/audio_processing/logging/apm_data_dumper.h"     // for Apm...
+#include "rtc_base/constructormagic.h"                            // for RTC...
 
 namespace webrtc {
-
-class ApmDataDumper;
-class AudioBuffer;
 
 // Gain Controller 2 aims to automatically adjust levels by acting on the
 // microphone gain and/or applying digital gain.

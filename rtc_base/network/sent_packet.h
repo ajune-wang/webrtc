@@ -11,9 +11,10 @@
 #ifndef RTC_BASE_NETWORK_SENT_PACKET_H_
 #define RTC_BASE_NETWORK_SENT_PACKET_H_
 
-#include <inttypes.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t, uint16_t
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace rtc {
 

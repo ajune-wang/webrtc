@@ -14,14 +14,13 @@
 #include <array>
 #include <vector>
 
-#include "absl/types/optional.h"
-#include "api/array_view.h"
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "api/audio/echo_canceller3_config.h"                  // for EchoCa...
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kMaxAd...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
 
 namespace webrtc {
-
-class ApmDataDumper;
 
 // Class for estimating the decay of the late reverb.
 class ReverbDecayEstimator {

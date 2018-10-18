@@ -11,9 +11,9 @@
 #ifndef MODULES_CONGESTION_CONTROLLER_GOOG_CC_BITRATE_ESTIMATOR_H_
 #define MODULES_CONGESTION_CONTROLLER_GOOG_CC_BITRATE_ESTIMATOR_H_
 
-#include <vector>
+#include <stdint.h>  // for int64_t, uint32_t
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace webrtc {
 

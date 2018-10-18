@@ -11,9 +11,11 @@
 #ifndef RTC_BASE_BITRATEALLOCATIONSTRATEGY_H_
 #define RTC_BASE_BITRATEALLOCATIONSTRATEGY_H_
 
+#include <stdint.h>  // for uint32_t
 #include <string>
 #include <vector>
-#include "api/array_view.h"
+
+#include "api/array_view.h"  // for ArrayView
 
 namespace rtc {
 

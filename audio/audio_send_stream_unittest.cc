@@ -128,7 +128,7 @@ rtc::scoped_refptr<MockAudioEncoderFactory> SetupEncoderFactoryMock() {
 
 struct ConfigHelper {
   ConfigHelper(bool audio_bwe_enabled, bool expect_set_encoder_call)
-      : stream_config_(nullptr),
+      : stream_config_(nullptr, nullptr),
         audio_processing_(new rtc::RefCountedObject<MockAudioProcessing>()),
         bitrate_allocator_(&limit_observer_),
         worker_queue_("ConfigHelper_worker_queue"),
@@ -316,7 +316,7 @@ struct ConfigHelper {
 }  // namespace
 
 TEST(AudioSendStreamTest, ConfigToString) {
-  AudioSendStream::Config config(nullptr);
+  AudioSendStream::Config config(nullptr, nullptr);
   config.rtp.ssrc = kSsrc;
   config.rtp.c_name = kCName;
   config.min_bitrate_bps = 12000;

@@ -299,7 +299,7 @@ CreateForwardingMockDecoderFactory(
 struct AudioEncoderUnicornSparklesRainbow {
   using Config = webrtc::AudioEncoderL16::Config;
   static absl::optional<Config> SdpToConfig(webrtc::SdpAudioFormat format) {
-    if (STR_CASE_CMP(format.name.c_str(), "UnicornSparklesRainbow") == 0) {
+    if (rtc::StrCaseCmp(format.name.c_str(), "UnicornSparklesRainbow") == 0) {
       const webrtc::SdpAudioFormat::Parameters expected_params = {
           {"num_horns", "1"}};
       EXPECT_EQ(expected_params, format.parameters);
@@ -336,7 +336,7 @@ struct AudioEncoderUnicornSparklesRainbow {
 struct AudioDecoderUnicornSparklesRainbow {
   using Config = webrtc::AudioDecoderL16::Config;
   static absl::optional<Config> SdpToConfig(webrtc::SdpAudioFormat format) {
-    if (STR_CASE_CMP(format.name.c_str(), "UnicornSparklesRainbow") == 0) {
+    if (rtc::StrCaseCmp(format.name.c_str(), "UnicornSparklesRainbow") == 0) {
       const webrtc::SdpAudioFormat::Parameters expected_params = {
           {"num_horns", "1"}};
       EXPECT_EQ(expected_params, format.parameters);

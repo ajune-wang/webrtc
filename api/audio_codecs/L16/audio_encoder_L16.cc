@@ -17,6 +17,7 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
@@ -35,7 +36,7 @@ absl::optional<AudioEncoderL16::Config> AudioEncoderL16::SdpToConfig(
       config.frame_size_ms = rtc::SafeClamp(10 * (*ptime / 10), 10, 60);
     }
   }
-  return STR_CASE_CMP(format.name.c_str(), "L16") == 0 && config.IsOk()
+  return rtc::StrCaseCmp(format.name.c_str(), "L16") == 0 && config.IsOk()
              ? absl::optional<Config>(config)
              : absl::nullopt;
 }

@@ -15,6 +15,7 @@
 #include "modules/audio_coding/codecs/pcm16b/audio_decoder_pcm16b.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b_common.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
@@ -23,7 +24,7 @@ absl::optional<AudioDecoderL16::Config> AudioDecoderL16::SdpToConfig(
   Config config;
   config.sample_rate_hz = format.clockrate_hz;
   config.num_channels = rtc::checked_cast<int>(format.num_channels);
-  return STR_CASE_CMP(format.name.c_str(), "L16") == 0 && config.IsOk()
+  return rtc::StrCaseCmp(format.name.c_str(), "L16") == 0 && config.IsOk()
              ? absl::optional<Config>(config)
              : absl::nullopt;
 }

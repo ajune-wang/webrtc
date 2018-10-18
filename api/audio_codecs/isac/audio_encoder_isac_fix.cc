@@ -14,12 +14,13 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/isac/fix/include/audio_encoder_isacfix.h"
 #include "rtc_base/string_to_number.h"
+#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 
 absl::optional<AudioEncoderIsacFix::Config> AudioEncoderIsacFix::SdpToConfig(
     const SdpAudioFormat& format) {
-  if (STR_CASE_CMP(format.name.c_str(), "ISAC") == 0 &&
+  if (rtc::StrCaseCmp(format.name.c_str(), "ISAC") == 0 &&
       format.clockrate_hz == 16000 && format.num_channels == 1) {
     Config config;
     const auto ptime_iter = format.parameters.find("ptime");

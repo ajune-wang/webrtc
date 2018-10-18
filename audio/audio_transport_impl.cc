@@ -10,14 +10,14 @@
 
 #include "audio/audio_transport_impl.h"
 
-#include <algorithm>
-#include <memory>
-#include <utility>
+#include <algorithm>  // for min
+#include <memory>     // for unique_ptr
+#include <utility>    // for move
 
-#include "audio/remix_resample.h"
+#include "audio/remix_resample.h"                  // for RemixAndResample
 #include "audio/utility/audio_frame_operations.h"
 #include "call/audio_send_stream.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

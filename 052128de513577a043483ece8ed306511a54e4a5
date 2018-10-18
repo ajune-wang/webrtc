@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2c617c_3c22f367",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-18T13:04:49Z",
+      "side": 1,
+      "message": "Why is this needed? Won\u0027t the relationship between frame-\u003enum_channels and target_number_of_channels always be either \u003d\u003d, \u003c or \u003e ?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 3
+      },
+      "revId": "052128de513577a043483ece8ed306511a54e4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ace24e_0bc1d5c4",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-18T13:04:49Z",
+      "side": 1,
+      "message": "nit: use Number (rather than Amount) for countable nouns, like channels.",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "052128de513577a043483ece8ed306511a54e4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4f3e935a_1f539607",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Deleted. TimedTransport is related to overall_call_lifetime. Likely needed at some point also for MediaTransport, but unclear how to hook it up.",
+      "parentUuid": "a0029a1a_df7c86bf",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a88c8972_5b652707",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54114765_dba83133",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a88c8972_5b652707",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "72acd712_c635c3c8",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5defca4d_6248b3e3",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d1106a6_5afa9c30",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 9
@@ -67,6 +121,24 @@
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db0ccc1_f80d1df6",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d1106a6_5afa9c30",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "85636100_78cab0f6",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cca482ac_c6a9af36",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ecb3c70_89c0f535",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 9
@@ -115,6 +205,24 @@
       "writtenOn": "2018-10-17T23:08:14Z",
       "side": 1,
       "message": "Please pass channel id and set as ssrc in RTP Header. Make sure you also set channel_id in sender",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12f0372f_4f00bc07",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me what effect that has. I\u0027m not sure audio_coding_-\u003eIncomingPacket even examines the ssrc. I\u0027ll try to find out.\n\nI\u0027m working under the theory that for the time being, we don\u0027t support multiple streams. When we get to that, I\u0027d like the this code to get audio frames only for the right channel, i.e., after demux.",
+      "parentUuid": "2ecb3c70_89c0f535",
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "fef02505_1e2ee24b",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e768721_0c1c2fda",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dd2999c_8f539af3",
         "filename": "audio/channel_send.cc",
         "patchSetId": 9
@@ -149,6 +275,24 @@
       "writtenOn": "2018-10-17T23:08:14Z",
       "side": 1,
       "message": "Sampling rate and sampling count should be available from encoder?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91d44a63_3d9e3241",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Looks like we should add some code to ChannelSend::SetEncoder to record  sampling rate and sample count (assuming the latter is known at that point).",
+      "parentUuid": "2dd2999c_8f539af3",
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -169,6 +313,24 @@
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb572317_22f3f792",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-18T10:22:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c853562f_078c40de",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

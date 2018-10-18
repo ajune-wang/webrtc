@@ -11,10 +11,15 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
 #define MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
 
-#include "api/audio/audio_frame.h"
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
+#include <vector>
+
+#include "api/audio/audio_frame.h"                          // for AudioFrame
+#include "modules/audio_coding/neteq/audio_multi_vector.h"  // for AudioMult...
+#include "modules/audio_coding/neteq/audio_vector.h"        // for AudioVector
+#include "rtc_base/buffer.h"                                // for BufferT
+#include "rtc_base/constructormagic.h"                      // for RTC_DISAL...
 
 namespace webrtc {
 

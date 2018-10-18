@@ -10,15 +10,16 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 
-#include <algorithm>
-#include <utility>
+#include <algorithm>  // for min
+#include <cstdint>    // for uint16_t
+#include <utility>    // for move
 
-#include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/trace_event.h"
+#include "modules/include/module_common_types_public.h"         // for IsNew...
+#include "modules/rtp_rtcp/source/byte_io.h"                    // for ByteW...
+#include "modules/rtp_rtcp/source/rtcp_packet/common_header.h"  // for Commo...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/logging.h"                                   // for RTC_LOG
+#include "rtc_base/trace_event.h"                               // for TRACE...
 
 namespace webrtc {
 namespace rtcp {

@@ -10,9 +10,11 @@
 
 #include "rtc_base/bitrateallocationstrategy.h"
 
-#include <algorithm>
+#include <algorithm>  // for min, max
+#include <cstddef>    // for size_t, NULL
+#include <cstdint>    // for uint32_t
 #include <map>
-#include <utility>
+#include <utility>    // for pair, make_pair
 
 #include "rtc_base/numerics/safe_minmax.h"
 #include "system_wrappers/include/field_trial.h"

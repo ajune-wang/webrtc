@@ -10,9 +10,11 @@
 
 #include "modules/rtp_rtcp/source/packet_loss_stats.h"
 
+#include <cstdint>   // for uint16_t
+#include <iterator>  // for reverse_iterator
 #include <vector>
 
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK
 
 // After this many packets are added, adding additional packets will cause the
 // oldest packets to be pruned from the buffer.

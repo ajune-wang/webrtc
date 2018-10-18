@@ -11,9 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC_LOUDNESS_HISTOGRAM_H_
 #define MODULES_AUDIO_PROCESSING_AGC_LOUDNESS_HISTOGRAM_H_
 
-#include <string.h>
-
-#include <memory>
+#include <stdint.h>  // for int64_t
+#include <memory>    // for unique_ptr
 
 namespace webrtc {
 

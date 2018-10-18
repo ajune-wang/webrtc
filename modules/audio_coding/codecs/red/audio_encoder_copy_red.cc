@@ -10,11 +10,11 @@
 
 #include "modules/audio_coding/codecs/red/audio_encoder_copy_red.h"
 
-#include <string.h>
+#include <string.h>  // for size_t
+#include <utility>   // for move
+#include <vector>
 
-#include <utility>
-
-#include "rtc_base/checks.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK_EQ, RTC_CHECK
 
 namespace webrtc {
 

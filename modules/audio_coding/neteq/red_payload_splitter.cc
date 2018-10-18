@@ -11,12 +11,17 @@
 #include "modules/audio_coding/neteq/red_payload_splitter.h"
 
 #include <assert.h>
+#include <stddef.h>  // for size_t
+#include <cstdint>   // for uint8_t
+#include <list>
+#include <utility>   // for move
 #include <vector>
 
-#include "modules/audio_coding/neteq/decoder_database.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "modules/audio_coding/neteq/decoder_database.h"  // for DecoderData...
+#include "modules/audio_coding/neteq/packet.h"            // for PacketList
+#include "rtc_base/buffer.h"                              // for Buffer
+#include "rtc_base/logging.h"                             // for RTC_LOG
+#include "rtc_base/numerics/safe_conversions.h"           // for dchecked_cast
 
 namespace webrtc {
 

@@ -10,22 +10,26 @@
 
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 
-#include <string.h>
-#include <algorithm>
-#include <numeric>
+#include <stdlib.h>   // for abs
+#include <algorithm>  // for min, copy
+#include <memory>     // for unique...
+#include <numeric>    // for inner_...
 
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/aec3_fft.h"
-#include "modules/audio_processing/aec3/block_processor.h"
-#include "modules/audio_processing/aec3/decimator.h"
-#include "modules/audio_processing/aec3/fft_buffer.h"
-#include "modules/audio_processing/aec3/fft_data.h"
-#include "modules/audio_processing/aec3/matrix_buffer.h"
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
+#include "absl/types/optional.h"                               // for optional
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/aec3/aec3_common.h"         // for kBlock...
+#include "modules/audio_processing/aec3/aec3_fft.h"            // for Aec3Fft
+#include "modules/audio_processing/aec3/decimator.h"           // for Decimator
+#include "modules/audio_processing/aec3/fft_buffer.h"          // for FftBuffer
+#include "modules/audio_processing/aec3/fft_data.h"            // for FftData
+#include "modules/audio_processing/aec3/matrix_buffer.h"       // for Matrix...
+#include "modules/audio_processing/aec3/vector_buffer.h"       // for Vector...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/atomicops.h"                                // for AtomicOps
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/constructormagic.h"                         // for RTC_DI...
+#include "rtc_base/logging.h"                                  // for RTC_LOG
+#include "system_wrappers/include/field_trial.h"               // for IsEnabled
 
 namespace webrtc {
 namespace {

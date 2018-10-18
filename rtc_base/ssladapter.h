@@ -14,9 +14,10 @@
 #include <string>
 #include <vector>
 
-#include "rtc_base/asyncsocket.h"
-#include "rtc_base/sslcertificate.h"
-#include "rtc_base/sslstreamadapter.h"
+#include "rtc_base/asyncsocket.h"       // for AsyncSocket, AsyncSocketAdapter
+#include "rtc_base/sslcertificate.h"    // for SSLCertificateVerifier
+#include "rtc_base/sslidentity.h"       // for SSLIdentity
+#include "rtc_base/sslstreamadapter.h"  // for SSLMode, SSLRole
 
 namespace rtc {
 

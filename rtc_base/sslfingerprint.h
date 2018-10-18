@@ -11,15 +11,17 @@
 #ifndef RTC_BASE_SSLFINGERPRINT_H_
 #define RTC_BASE_SSLFINGERPRINT_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
 #include <string>
 
-#include "rtc_base/copyonwritebuffer.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/sslidentity.h"
+#include "rtc_base/copyonwritebuffer.h"  // for CopyOnWriteBuffer
 
 namespace rtc {
 
+class RTCCertificate;
 class SSLCertificate;
+class SSLIdentity;
 
 struct SSLFingerprint {
   // TODO(steveanton): Remove once downstream projects have moved off of this.

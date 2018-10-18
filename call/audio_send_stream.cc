@@ -9,9 +9,12 @@
  */
 
 #include "call/audio_send_stream.h"
-#include "rtc_base/stringencode.h"
-#include "rtc_base/strings/audio_format_to_string.h"
-#include "rtc_base/strings/string_builder.h"
+
+#include <stddef.h>  // for size_t
+
+#include "rtc_base/stringencode.h"                    // for ToString
+#include "rtc_base/strings/audio_format_to_string.h"  // for ToString
+#include "rtc_base/strings/string_builder.h"          // for SimpleStringBui...
 
 namespace webrtc {
 

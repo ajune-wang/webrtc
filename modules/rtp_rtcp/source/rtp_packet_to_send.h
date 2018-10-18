@@ -10,11 +10,14 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_PACKET_TO_SEND_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_PACKET_TO_SEND_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
 #include <vector>
 
-#include "api/array_view.h"
-#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
-#include "modules/rtp_rtcp/source/rtp_packet.h"
+#include "api/array_view.h"                                 // for ArrayView
+#include "api/video/video_timing.h"                         // for VideoSend...
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"  // for VideoTimi...
+#include "modules/rtp_rtcp/source/rtp_packet.h"             // for RtpPacket...
 
 namespace webrtc {
 // Class to hold rtp packet with metadata for sender side.

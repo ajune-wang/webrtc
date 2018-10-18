@@ -30,7 +30,7 @@ namespace webrtc {
 namespace {
 
 // Stereo, 48 kHz, 10 ms.
-constexpr int kMaximumAmountOfChannels = 2;
+constexpr int kMaximumAmountOfChannels = 6;
 constexpr int kMaximumChannelSize = 48 * AudioMixerImpl::kFrameDurationInMs;
 
 using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
@@ -77,6 +77,8 @@ std::array<OneChannelBuffer, kMaximumAmountOfChannels> MixToFloatFrame(
     const std::vector<AudioFrame*>& mix_list,
     size_t samples_per_channel,
     size_t number_of_channels) {
+  RTC_DCHECK_LE(number_of_channels, kMaximumAmountOfChannels);
+  RTC_DCHECK_LE(samples_per_channel, kMaximumChannelSize);
   // Convert to FloatS16 and mix.
   using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
   std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer{};

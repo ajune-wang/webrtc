@@ -92,12 +92,12 @@ void ISACTest::Setup() {
   for (codecCntr = 0; codecCntr < AudioCodingModule::NumberOfCodecs();
        codecCntr++) {
     EXPECT_EQ(0, AudioCodingModule::Codec(codecCntr, &codecParam));
-    if (!STR_CASE_CMP(codecParam.plname, "ISAC") &&
+    if (!rtc::StrCaseCmp(codecParam.plname, "ISAC") &&
         codecParam.plfreq == 16000) {
       memcpy(&_paramISAC16kHz, &codecParam, sizeof(CodecInst));
       _idISAC16kHz = codecCntr;
     }
-    if (!STR_CASE_CMP(codecParam.plname, "ISAC") &&
+    if (!rtc::StrCaseCmp(codecParam.plname, "ISAC") &&
         codecParam.plfreq == 32000) {
       memcpy(&_paramISAC32kHz, &codecParam, sizeof(CodecInst));
       _idISAC32kHz = codecCntr;

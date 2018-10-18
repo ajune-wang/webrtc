@@ -265,7 +265,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
     return HAR_IGNORE;
 
   // BASIC
-  if (_stricmp(auth_method.c_str(), "basic") == 0) {
+  if (rtc::StrCaseCmp(auth_method.c_str(), "basic") == 0) {
     if (context)
       return HAR_CREDENTIALS;  // Bad credentials
     if (username.empty())
@@ -293,7 +293,7 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
   }
 
   // DIGEST
-  if (_stricmp(auth_method.c_str(), "digest") == 0) {
+  if (rtc::StrCaseCmp(auth_method.c_str(), "digest") == 0) {
     if (context)
       return HAR_CREDENTIALS;  // Bad credentials
     if (username.empty())
@@ -360,8 +360,9 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
 
 #if defined(WEBRTC_WIN)
 #if 1
-  bool want_negotiate = (_stricmp(auth_method.c_str(), "negotiate") == 0);
-  bool want_ntlm = (_stricmp(auth_method.c_str(), "ntlm") == 0);
+  bool want_negotiate =
+      (rtc::StrCaseCmp(auth_method.c_str(), "negotiate") == 0);
+  bool want_ntlm = (rtc::StrCaseCmp(auth_method.c_str(), "ntlm") == 0);
   // SPNEGO & NTLM
   if (want_negotiate || want_ntlm) {
     const size_t MAX_MESSAGE = 12000, MAX_SPN = 256;

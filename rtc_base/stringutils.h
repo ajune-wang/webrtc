@@ -40,13 +40,14 @@
 #define STACK_ARRAY(TYPE, LEN) \
   static_cast<TYPE*>(::alloca((LEN) * sizeof(TYPE)))
 
+namespace rtc {
 
 #if defined(WEBRTC_POSIX)
 
-inline int _stricmp(const char* s1, const char* s2) {
+inline int StrCaseCmp(const char* s1, const char* s2) {
   return strcasecmp(s1, s2);
 }
-inline int _strnicmp(const char* s1, const char* s2, size_t n) {
+inline int StrNCaseCmp(const char* s1, const char* s2, size_t n) {
   return strncasecmp(s1, s2, n);
 }
 
@@ -55,8 +56,6 @@ inline int _strnicmp(const char* s1, const char* s2, size_t n) {
 ///////////////////////////////////////////////////////////////////////////////
 // Traits simplifies porting string functions to be CTYPE-agnostic
 ///////////////////////////////////////////////////////////////////////////////
-
-namespace rtc {
 
 const size_t SIZE_UNKNOWN = static_cast<size_t>(-1);
 

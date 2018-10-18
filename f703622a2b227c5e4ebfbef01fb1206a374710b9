@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dad8081_61f497ac",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T18:38:21Z",
+      "side": 1,
+      "message": "this should complain that we are wrapping pointer in unique_ptr?\n\nFixed in iteration 2",
+      "range": {
+        "startLine": 799,
+        "startChar": 31,
+        "endLine": 799,
+        "endChar": 65
+      },
+      "revId": "f703622a2b227c5e4ebfbef01fb1206a374710b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81ec90f4_d4153262",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-18T18:38:21Z",
+      "side": 1,
+      "message": "I don\u0027t believe this should be unique ptr?\n\nFixed in iteration 2. Anton please verify",
+      "range": {
+        "startLine": 943,
+        "startChar": 35,
+        "endLine": 943,
+        "endChar": 59
+      },
+      "revId": "f703622a2b227c5e4ebfbef01fb1206a374710b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

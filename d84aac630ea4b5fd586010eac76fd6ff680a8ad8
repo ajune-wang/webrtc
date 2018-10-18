@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5c950642_6e377b2a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-18T09:24:50Z",
+      "side": 1,
+      "message": "It\u0027s a good idea to use \\b liberally, so that you don\u0027t catch stuff you didn\u0027t intend. But not generally a good idea to not start over from scratch like this, because now the command sequence in the commit message isn\u0027t the one that was actually used to arrive at the current state. Careful review might indicate that the actual sequence is equivalent to the documented one, but it\u0027s better to just let the machine do some more work so that we don\u0027t have to.",
+      "parentUuid": "e09d85c8_965c5960",
+      "revId": "d84aac630ea4b5fd586010eac76fd6ff680a8ad8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b9a84ff_a7c58a0e",
         "filename": "rtc_base/flags.h",
         "patchSetId": 4

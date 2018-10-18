@@ -11,10 +11,11 @@
 #ifndef MODULES_PACING_BITRATE_PROBER_H_
 #define MODULES_PACING_BITRATE_PROBER_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
 #include <queue>
 
-#include "api/transport/network_types.h"
-#include "modules/include/module_common_types.h"
+#include "api/transport/network_types.h"  // for PacedPacketInfo
 
 namespace webrtc {
 class RtcEventLog;

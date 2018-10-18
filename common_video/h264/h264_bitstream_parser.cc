@@ -9,14 +9,13 @@
  */
 #include "common_video/h264/h264_bitstream_parser.h"
 
-#include <memory>
+#include <stdlib.h>  // for abs
+#include <cstdint>   // for uint8_t
 #include <vector>
 
-#include "rtc_base/bitbuffer.h"
-#include "rtc_base/checks.h"
-
-#include "common_video/h264/h264_common.h"
-#include "rtc_base/logging.h"
+#include "common_video/h264/h264_common.h"  // for SliceType, NaluIndex, kNa...
+#include "rtc_base/bitbuffer.h"             // for BitBuffer
+#include "rtc_base/logging.h"               // for RTC_LOG_F, RTC_LOG
 
 namespace {
 const int kMaxAbsQpDeltaValue = 51;

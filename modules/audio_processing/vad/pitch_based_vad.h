@@ -11,14 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_VAD_PITCH_BASED_VAD_H_
 #define MODULES_AUDIO_PROCESSING_VAD_PITCH_BASED_VAD_H_
 
-#include <memory>
+#include <memory>  // for unique_ptr
 
-#include "modules/audio_processing/vad/common.h"
-#include "modules/audio_processing/vad/gmm.h"
+#include "modules/audio_processing/vad/common.h"  // for AudioFeatures
+#include "modules/audio_processing/vad/gmm.h"     // for GmmParameters
 
 namespace webrtc {
 
-class AudioFrame;
 class VadCircularBuffer;
 
 // Computes the probability of the input audio frame to be active given

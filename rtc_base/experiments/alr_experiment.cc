@@ -10,11 +10,12 @@
 
 #include "rtc_base/experiments/alr_experiment.h"
 
+#include <inttypes.h>  // for PRId64
+#include <stdio.h>     // for sscanf
 #include <string>
 
-#include "rtc_base/format_macros.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
+#include "rtc_base/logging.h"                     // for RTC_LOG
+#include "system_wrappers/include/field_trial.h"  // for FindFullName
 
 namespace webrtc {
 

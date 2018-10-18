@@ -10,8 +10,9 @@
 
 #include "modules/audio_processing/agc2/gain_applier.h"
 
-#include "modules/audio_processing/agc2/agc2_common.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "api/array_view.h"                             // for ArrayView
+#include "modules/audio_processing/agc2/agc2_common.h"  // for kMaxFloatS16V...
+#include "rtc_base/numerics/safe_minmax.h"              // for SafeClamp
 
 namespace webrtc {
 namespace {

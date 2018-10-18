@@ -11,11 +11,14 @@
 #ifndef RTC_BASE_STRINGENCODE_H_
 #define RTC_BASE_STRINGENCODE_H_
 
+#include <stddef.h>     // for size_t
 #include <string>
+#include <type_traits>  // for enable_if, is_arithmetic, is_...
 #include <vector>
 
+#include "absl/types/optional.h"  // for optional
 #include "rtc_base/checks.h"
-#include "rtc_base/string_to_number.h"
+#include "rtc_base/string_to_number.h"  // for StringToNumber
 
 namespace rtc {
 

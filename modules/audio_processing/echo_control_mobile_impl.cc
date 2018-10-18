@@ -10,12 +10,14 @@
 
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 
-#include <string.h>
+#include <string.h>  // for size_t
+#include <cstdint>   // for int16_t
 
-#include "modules/audio_processing/aecm/echo_control_mobile.h"
-#include "modules/audio_processing/audio_buffer.h"
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/logging.h"
+#include "modules/audio_processing/aecm/echo_control_mobile.h"  // for AecmC...
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Audio...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
 
 namespace webrtc {
 

@@ -14,9 +14,11 @@
 #include <array>
 #include <vector>
 
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/aec3_fft.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/aec3/aec3_common.h"   // for kFftLengthBy2
+#include "modules/audio_processing/aec3/aec3_fft.h"      // for Aec3Fft
+#include "modules/audio_processing/aec3/fft_data.h"      // for FftData
+#include "modules/audio_processing/utility/ooura_fft.h"  // for OouraFft
+#include "rtc_base/constructormagic.h"                   // for RTC_DISALLOW...
 
 namespace webrtc {
 

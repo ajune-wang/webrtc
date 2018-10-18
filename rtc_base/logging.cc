@@ -20,25 +20,29 @@
 #include <CoreServices/CoreServices.h>
 #elif defined(WEBRTC_ANDROID)
 #include <android/log.h>
+
 // Android has a 1024 limit on log inputs. We use 60 chars as an
 // approx for the header/tag portion.
 // See android/system/core/liblog/logd_write.c
 static const int kMaxLogLineSize = 1024 - 60;
 #endif  // WEBRTC_MAC && !defined(WEBRTC_IOS) || WEBRTC_ANDROID
 
-#include <time.h>
-
-#include <algorithm>
-#include <cstdarg>
+#include <stdio.h>    // for fflush, fprintf, stderr
+#include <string.h>   // for strrchr, strerror
+#include <time.h>     // for time
+#include <algorithm>  // for min
+#include <cstdarg>    // for va_arg, va_end, va_list
 #include <vector>
 
-#include "rtc_base/criticalsection.h"
+#include "rtc_base/checks.h"           // for RTC_NOTREACHED
+#include "rtc_base/criticalsection.h"  // for CritScope, CriticalSection
 #include "rtc_base/logging.h"
-#include "rtc_base/platform_thread_types.h"
-#include "rtc_base/stringencode.h"
-#include "rtc_base/strings/string_builder.h"
-#include "rtc_base/stringutils.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/platform_thread_types.h"   // for CurrentThreadId, Platfo...
+#include "rtc_base/stringencode.h"            // for ToString, tokenize
+#include "rtc_base/strings/string_builder.h"  // for StringBuilder, SimpleSt...
+#include "rtc_base/stringutils.h"             // for LeftPad, ToHex
+#include "rtc_base/thread_annotations.h"      // for RTC_EXCLUSIVE_LOCKS_REQ...
+#include "rtc_base/timeutils.h"               // for SystemTimeMillis, TimeDiff
 
 namespace rtc {
 namespace {

@@ -11,6 +11,7 @@
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 
 #include "rtc_base/experiments/alr_experiment.h"
+#include "rtc_base/checks.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
 

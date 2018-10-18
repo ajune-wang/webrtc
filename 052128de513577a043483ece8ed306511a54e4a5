@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "066e2560_8cf489b3",
+        "filename": "modules/audio_mixer/audio_frame_manipulator.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-10-18T13:44:02Z",
+      "side": 1,
+      "message": "Right, true. I should handle the return code of Downmix/Upmix instead (there are some combinations that it can\u0027t handle, like going between 6 and 2).",
+      "parentUuid": "1a2c617c_3c22f367",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 3
+      },
+      "revId": "052128de513577a043483ece8ed306511a54e4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ace24e_0bc1d5c4",
         "filename": "modules/audio_mixer/frame_combiner.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "052128de513577a043483ece8ed306511a54e4a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5407f4f_c7676a3c",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-10-18T13:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97ace24e_0bc1d5c4",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "052128de513577a043483ece8ed306511a54e4a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

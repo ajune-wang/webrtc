@@ -23,7 +23,9 @@ rtc_static_library("audio_frame_operations") {
   deps = [
     "../..:webrtc_common",
     "../../api/audio:audio_frame_api",
+    "../../common_audio",
     "../../rtc_base:checks",
+    "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
   ]
 }

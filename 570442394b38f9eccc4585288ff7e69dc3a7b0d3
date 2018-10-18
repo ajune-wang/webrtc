@@ -22,6 +22,30 @@
       "revId": "570442394b38f9eccc4585288ff7e69dc3a7b0d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3385ce01_a267c0e7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T08:38:32Z",
+      "side": 1,
+      "message": "Victim of copy/paste. :)\n\nIt is https://webrtc.googlesource.com/src/+/HEAD/native-api.md. I\u0027ve updated the description.",
+      "parentUuid": "2bd19c65_89bc4711",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 6
+      },
+      "revId": "570442394b38f9eccc4585288ff7e69dc3a7b0d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

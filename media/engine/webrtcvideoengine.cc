@@ -457,7 +457,7 @@ WebRtcVideoEngine::~WebRtcVideoEngine() {
   RTC_LOG(LS_INFO) << "WebRtcVideoEngine::~WebRtcVideoEngine";
 }
 
-WebRtcVideoChannel* WebRtcVideoEngine::CreateChannel(
+WebRtcVideoChannel* WebRtcVideoEngine::CreateWebRtcChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const VideoOptions& options,
@@ -466,7 +466,13 @@ WebRtcVideoChannel* WebRtcVideoEngine::CreateChannel(
   return new WebRtcVideoChannel(call, config, options, crypto_options,
                                 encoder_factory_.get(), decoder_factory_.get());
 }
-
+VideoMediaChannel* WebRtcVideoEngine::CreateChannel(
+    webrtc::Call* call,
+    const MediaConfig& config,
+    const VideoOptions& options,
+    const webrtc::CryptoOptions& crypto_options) {
+  return CreateWebRtcChannel(call, config, options, crypto_options);
+}
 std::vector<VideoCodec> WebRtcVideoEngine::codecs() const {
   return AssignPayloadTypesAndDefaultCodecs(encoder_factory_.get());
 }

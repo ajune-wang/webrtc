@@ -166,6 +166,30 @@
       "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2395f93d_eea7f4d3",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-18T09:55:58Z",
+      "side": 1,
+      "message": "The Chromium CL seems blocked because //media/gpu cannot depend on WebRTC but it does.\n\nI added a couple of proposals there. Probably one of them will be accepted. Let\u0027s try to wait for tonight and see if we will make some progress.",
+      "parentUuid": "f95f3794_454b1d34",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "636c9f983e088dafa0905eba1098e403788a1dfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1258,7 +1258,7 @@ void VideoQualityTest::InitializeAudioDevice(Call::Config* send_call_config,
 }
 
 void VideoQualityTest::SetupAudio(Transport* transport) {
-  AudioSendStream::Config audio_send_config(transport);
+  AudioSendStream::Config audio_send_config(transport, nullptr);
   audio_send_config.rtp.ssrc = kAudioSendSsrc;
 
   // Add extension to enable audio send side BWE, and allow audio bit rate

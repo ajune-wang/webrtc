@@ -240,9 +240,7 @@ ChannelReceive::ChannelReceive(
   rtp_receive_statistics_->EnableRetransmitDetection(remote_ssrc_, true);
   RtpRtcp::Configuration configuration;
   configuration.audio = true;
-  // TODO(nisse): Also set receiver_only = true, but that seems to break RTT
-  // estimation, resulting in test failures for
-  // PeerConnectionIntegrationTest.GetCaptureStartNtpTimeWithOldStatsApi
+  configuration.receiver_only = true;
   configuration.outgoing_transport = rtcp_send_transport;
   configuration.receive_statistics = rtp_receive_statistics_.get();
 

@@ -10,9 +10,10 @@
 
 #include "modules/rtp_rtcp/source/time_util.h"
 
-#include <algorithm>
+#include <algorithm>  // for max
 
-#include "rtc_base/timeutils.h"
+#include "rtc_base/checks.h"     // for RTC_DCHECK_GE
+#include "rtc_base/timeutils.h"  // for kNumMicrosecsPerSec, TimeMicros, Tim...
 
 namespace webrtc {
 namespace {

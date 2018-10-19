@@ -11,8 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_DECODER_ILBC_H_
 #define MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_DECODER_ILBC_H_
 
-#include "api/audio_codecs/audio_decoder.h"
-#include "rtc_base/constructormagic.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t, uint32_t, uint8_t
+#include <vector>
+
+#include "api/audio_codecs/audio_decoder.h"  // for AudioDecoder, AudioDecod...
+#include "rtc_base/buffer.h"                 // for Buffer
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
 
 typedef struct iLBC_decinst_t_ IlbcDecoderInstance;
 

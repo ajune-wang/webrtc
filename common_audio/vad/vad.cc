@@ -10,9 +10,10 @@
 
 #include "common_audio/vad/include/vad.h"
 
-#include <memory>
+#include <memory>  // for unique_ptr
 
-#include "rtc_base/checks.h"
+#include "common_audio/vad/include/webrtc_vad.h"  // for WebRtcVad_Free, Web...
+#include "rtc_base/checks.h"                      // for RTC_C...
 
 namespace webrtc {
 

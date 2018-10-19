@@ -10,14 +10,16 @@
 
 #include "modules/audio_processing/aec3/reverb_decay_estimator.h"
 
-#include <algorithm>
-#include <cmath>
-#include <numeric>
+#include <stddef.h>   // for size_t
+#include <algorithm>  // for max, min
+#include <cmath>      // for fabs, pow
+#include <numeric>    // for accumu...
 
-#include "api/array_view.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/checks.h"
-#include "system_wrappers/include/field_trial.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "api/audio/echo_canceller3_config.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "system_wrappers/include/field_trial.h"               // for IsEnabled
 
 namespace webrtc {
 

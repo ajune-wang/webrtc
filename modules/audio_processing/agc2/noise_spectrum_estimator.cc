@@ -10,12 +10,13 @@
 
 #include "modules/audio_processing/agc2/noise_spectrum_estimator.h"
 
-#include <string.h>
-#include <algorithm>
+#include <string.h>   // for size_t
+#include <algorithm>  // for max, copy
 
-#include "api/array_view.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/arraysize.h"
+#include "api/array_view.h"                                    // for ArrayView
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/arraysize.h"                                // for arraysize
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 namespace {

@@ -10,14 +10,16 @@
 
 #include "rtc_base/platform_thread.h"
 
-#include "rtc_base/atomicops.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/timeutils.h"
-
-#if defined(WEBRTC_LINUX)
-#include <sys/prctl.h>
-#include <sys/syscall.h>
+#if !defined(WEBRTC_WIN)
+#include <sched.h>    // for sched_param, sched_priority, sched_g...
 #endif
+#include <stdint.h>   // for int64_t
+#include <time.h>     // for nanosleep, timespec
+#include <algorithm>  // for max
+
+#include "rtc_base/atomicops.h"  // for AtomicOps
+#include "rtc_base/checks.h"     // for RTC_DCHECK, RTC_CHECK_EQ
+#include "rtc_base/timeutils.h"  // for TimeMillis
 
 namespace rtc {
 namespace {

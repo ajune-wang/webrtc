@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11f6f021_1b83f8c1",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-19T21:02:35Z",
+      "side": 1,
+      "message": "Should we add a note that this is a short-term fix and we\u0027d like to make the media transport so that it doesn\u0027t care which thread destroys it?",
+      "revId": "c6ab775112a2d7f3f386b921db8428bf581f03d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

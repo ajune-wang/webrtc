@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57db099b_0cf6b46e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-19T08:06:09Z",
+      "side": 1,
+      "message": "Mention it\u0027s a preparation for removing the CompositeMediaEngine templating.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "630303ad3d8a9ac03cbeb9acb120c0a929842158",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03ac4ef8_dadd290e",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-19T08:06:09Z",
+      "side": 1,
+      "message": "Prefer CreateMediaChannel",
+      "range": {
+        "startLine": 67,
+        "startChar": 29,
+        "endLine": 67,
+        "endChar": 42
+      },
+      "revId": "630303ad3d8a9ac03cbeb9acb120c0a929842158",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b5bfb5_4466856b",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-19T08:06:09Z",
+      "side": 1,
+      "message": "Likewise",
+      "range": {
+        "startLine": 94,
+        "startChar": 29,
+        "endLine": 94,
+        "endChar": 42
+      },
+      "revId": "630303ad3d8a9ac03cbeb9acb120c0a929842158",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

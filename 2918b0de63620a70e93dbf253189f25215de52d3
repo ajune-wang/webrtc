@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bad3d554_6a2b5568",
+        "filename": "test/test_main_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-10-19T12:44:00Z",
+      "side": 1,
+      "message": "Consider pulling out a helper. I have no idea what to name it though. What if we make a helper define to make this a bit easier to read:\n\nearlier in file:\n\n#if defined(ADDRESS_SANITIZER) || defined(LEAK_SANITIZER) ||  \\\n    defined(MEMORY_SANITIZER) || defined(THREAD_SANITIZER) || \\\n    defined(UNDEFINED_SANITIZER)\n#define USING_SANITIZERS\n#endif\n\n...\n\n#if USING_SANITIZERS\n  // ...\n  return 0\n#endif\n\n  return exit_code;\n}\n\nI don\u0027t know, maybe it\u0027s not that much better. Your call.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "2918b0de63620a70e93dbf253189f25215de52d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

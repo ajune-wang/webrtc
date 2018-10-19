@@ -10,7 +10,8 @@
 
 #include "modules/audio_coding/neteq/timestamp_scaler.h"
 
-#include "modules/audio_coding/neteq/decoder_database.h"
+#include "api/audio_codecs/audio_format.h"                // for SdpAudioFormat
+#include "modules/audio_coding/neteq/decoder_database.h"  // for DecoderData...
 #include "rtc_base/checks.h"
 
 namespace webrtc {

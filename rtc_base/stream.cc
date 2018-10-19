@@ -7,26 +7,21 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-
-#if defined(WEBRTC_POSIX)
-#include <sys/file.h>
-#endif  // WEBRTC_POSIX
-#include <errno.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#include <string.h>  // for memcpy, memmove, strlen
-#include <algorithm>
+#include <errno.h>     // for errno, ENOMEM
+#include <string.h>    // for memcpy, memmove, strlen
+#include <sys/stat.h>  // for fstat, stat
+#include <algorithm>   // for min, max
 #include <string>
 
-#include "rtc_base/checks.h"
-#include "rtc_base/location.h"  // for RTC_FROM_HERE
-#include "rtc_base/messagequeue.h"
+#include "rtc_base/checks.h"        // for RTC_DCHECK, RTC_NOT...
+#include "rtc_base/location.h"      // for RTC_FROM_HERE
+#include "rtc_base/messagequeue.h"  // for Message, MessageData
 #include "rtc_base/stream.h"
-#include "rtc_base/thread.h"
+#include "rtc_base/thread.h"  // for Thread
 
 #if defined(WEBRTC_WIN)
 #include <windows.h>
+
 #define fileno _fileno
 #include "rtc_base/stringutils.h"  // for ToUtf16
 #endif

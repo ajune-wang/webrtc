@@ -12,27 +12,32 @@
 #pragma warning(disable : 4786)
 #endif
 
-#include <errno.h>
-#include <time.h>
+#include <errno.h>   // for EWOULDBLOCK
+#include <stdio.h>   // for sscanf
+#include <stdlib.h>  // for strtoul
+#include <string.h>  // for memmove, memcmp, memcpy
+#include <time.h>    // for size_t
 
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
+
 #define SECURITY_WIN32
 #include <security.h>
 #endif
 
-#include <algorithm>
+#include <algorithm>  // for min
 
-#include "rtc_base/bytebuffer.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/httpcommon.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/buffer.h"      // for BufferT
+#include "rtc_base/bytebuffer.h"  // for ByteBufferWriter, ByteB...
+#include "rtc_base/checks.h"      // for RTC_DCHECK
+#include "rtc_base/httpcommon.h"  // for HttpAuthenticate, HttpA...
+#include "rtc_base/logging.h"     // for RTC_LOG, RTC_LOG_ERR
 #include "rtc_base/socketadapters.h"
-#include "rtc_base/strings/string_builder.h"
-#include "rtc_base/stringutils.h"
-#include "rtc_base/zero_memory.h"
+#include "rtc_base/strings/string_builder.h"  // for StringBuilder
+#include "rtc_base/stringutils.h"             // for _strnicmp
+#include "rtc_base/zero_memory.h"             // for ExplicitZeroMemory
 
 namespace rtc {
 

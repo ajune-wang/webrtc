@@ -10,9 +10,12 @@
 
 #include "modules/rtp_rtcp/include/flexfec_receiver.h"
 
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/scoped_ref_ptr.h"
+#include <string.h>  // for memcpy, size_t
+
+#include "api/array_view.h"           // for ArrayView
+#include "rtc_base/checks.h"          // for RTC_CHECK, RTC_DC...
+#include "rtc_base/logging.h"         // for RTC_LOG
+#include "rtc_base/scoped_ref_ptr.h"  // for scoped_refptr
 
 namespace webrtc {
 

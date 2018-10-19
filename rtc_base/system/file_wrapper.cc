@@ -13,13 +13,10 @@
 #ifdef _WIN32
 #include <Windows.h>
 #else
-#include <stdarg.h>
-#include <string.h>
+#include <string.h>  // for strlen
 #endif
 
-#include <utility>
-
-#include "rtc_base/checks.h"
+#include <utility>  // for move
 
 namespace webrtc {
 namespace {

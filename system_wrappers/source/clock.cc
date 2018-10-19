@@ -17,16 +17,17 @@
 
 #include <mmsystem.h>
 
+#include "rtc_base/criticalsection.h"
+
 #elif defined(WEBRTC_POSIX)
 
-#include <sys/time.h>
-#include <time.h>
+#include <sys/time.h>  // for gettimeofday
+#include <time.h>      // for timeval
 
 #endif  // defined(WEBRTC_POSIX)
 
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/synchronization/rw_lock_wrapper.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/synchronization/rw_lock_wrapper.h"  // for RWLockWrapper
+#include "rtc_base/timeutils.h"                        // for TimeMicros
 
 namespace webrtc {
 

@@ -292,6 +292,30 @@
     },
     {
       "key": {
+        "uuid": "c21d1283_8b2c8929",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-19T14:06:02Z",
+      "side": 1,
+      "message": "I am asking if we can use something existing (constant, etc) instead of \u0027-1\u0027 (unless \u0027-1\u0027 is a convention in webrtc).",
+      "parentUuid": "47aad6aa_8380355a",
+      "range": {
+        "startLine": 377,
+        "startChar": 10,
+        "endLine": 377,
+        "endChar": 14
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52704072_f1e6942c",
         "filename": "call/call_perf_tests.cc",
         "patchSetId": 13

@@ -69,7 +69,7 @@ class PeerConnectionRtpBaseTest : public testing::Test {
   explicit PeerConnectionRtpBaseTest(SdpSemantics sdp_semantics)
       : sdp_semantics_(sdp_semantics),
         pc_factory_(
-            CreatePeerConnectionFactory(rtc::Thread::Current(),
+            CreatePeerConnectionFactory(&network_thread_,
                                         rtc::Thread::Current(),
                                         rtc::Thread::Current(),
                                         FakeAudioCaptureModule::Create(),
@@ -120,6 +120,7 @@ class PeerConnectionRtpBaseTest : public testing::Test {
     return absl::make_unique<PeerConnectionWrapper>(pc_factory_, pc,
                                                     std::move(observer));
   }
+  rtc::Thread network_thread_;
 };
 
 class PeerConnectionRtpTest

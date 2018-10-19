@@ -394,6 +394,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // Use new combined audio/video bandwidth estimation?
     absl::optional<bool> combined_audio_video_bwe;
 
+    // TODO(benwright) - Move to crypto_options
     // Can be used to disable DTLS-SRTP. This should never be done, but can be
     // useful for testing purposes, for example in setting up a loopback call
     // with a single PeerConnection.
@@ -556,6 +557,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // For all other users, specify kUnifiedPlan.
     SdpSemantics sdp_semantics = SdpSemantics::kPlanB;
 
+    // TODO(benwright) - Move to crypto_options or remove.
     // Actively reset the SRTP parameters whenever the DTLS transports
     // underneath are reset for every offer/answer negotiation.
     // This is only intended to be a workaround for crbug.com/835958
@@ -568,6 +570,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // It's invalid to set it to |true| if the MediaTransportFactory wasn't
     // provided.
     bool use_media_transport = false;
+
+    // Defines advanced optional cryptographic settings related to SRTP and
+    // frame encryption for native WebRTC.
+    absl::optional<CryptoOptions> crypto_options;
 
     //
     // Don't forget to update operator== if adding something.

@@ -11,11 +11,10 @@
 #ifndef RTC_BASE_SYSTEM_FILE_WRAPPER_H_
 #define RTC_BASE_SYSTEM_FILE_WRAPPER_H_
 
-#include <stddef.h>
-#include <stdio.h>
+#include <stddef.h>  // for size_t
+#include <stdio.h>   // for FILE
 
-#include "common_types.h"  // NOLINT(build/include)
-#include "rtc_base/criticalsection.h"
+#include "rtc_base/criticalsection.h"  // for CriticalSection
 
 // Implementation that can read (exclusive) or write from/to a file.
 

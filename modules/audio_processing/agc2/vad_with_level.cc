@@ -10,11 +10,13 @@
 
 #include "modules/audio_processing/agc2/vad_with_level.h"
 
-#include <algorithm>
+#include <algorithm>  // for max
+#include <array>
+#include <cmath>      // for fabs, sqrt
 
-#include "common_audio/include/audio_util.h"
-#include "modules/audio_processing/agc2/rnn_vad/common.h"
-#include "rtc_base/checks.h"
+#include "api/array_view.h"                                // for ArrayView
+#include "common_audio/include/audio_util.h"               // for FloatS16To...
+#include "modules/audio_processing/agc2/rnn_vad/common.h"  // for kFrameSize...
 
 namespace webrtc {
 

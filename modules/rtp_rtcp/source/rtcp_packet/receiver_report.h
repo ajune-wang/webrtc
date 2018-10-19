@@ -11,6 +11,8 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RECEIVER_REPORT_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RECEIVER_REPORT_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t
 #include <vector>
 
 #include "modules/rtp_rtcp/source/rtcp_packet.h"

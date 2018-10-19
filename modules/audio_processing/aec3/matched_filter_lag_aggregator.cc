@@ -9,7 +9,11 @@
  */
 #include "modules/audio_processing/aec3/matched_filter_lag_aggregator.h"
 
-#include "modules/audio_processing/logging/apm_data_dumper.h"
+#include <algorithm>  // for fill
+#include <iterator>   // for distance
+
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 

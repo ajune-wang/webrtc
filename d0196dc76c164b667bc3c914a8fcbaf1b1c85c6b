@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c48527b1_180a56ca",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-10-19T14:02:19Z",
+      "side": 1,
+      "message": "ffmpeg still needed here?",
+      "range": {
+        "startLine": 174,
+        "startChar": 5,
+        "endLine": 174,
+        "endChar": 60
+      },
+      "revId": "d0196dc76c164b667bc3c914a8fcbaf1b1c85c6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

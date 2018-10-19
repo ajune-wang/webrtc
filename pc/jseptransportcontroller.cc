@@ -86,6 +86,16 @@ JsepTransportController::JsepTransportController(
 }
 
 JsepTransportController::~JsepTransportController() {
+  RTC_DCHECK(network_thread_ != rtc::Thread::Current());
+
+  // Media transport destructors may try to send packets, but they should hop
+  // on the network thread on their own. We need to destroy it before
+  // destroying the PacketTransportInternal, which needs to be destroyed from
+  // the network thread.
+  for (auto& jsep_transport : jsep_transports_by_name_) {
+    jsep_transport.second->MaybeDestroyMediaTransport();
+  }
+
   // Channel destructors may try to send packets, so this needs to happen on
   // the network thread.
   network_thread_->Invoke<void>(

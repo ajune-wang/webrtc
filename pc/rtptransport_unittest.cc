@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <pthread.h>
 #include <string>
 #include <utility>
 
@@ -341,6 +342,20 @@ TEST(RtpTransportTest, DontSignalUnhandledRtpPayloadType) {
   EXPECT_EQ(0, observer.rtcp_count());
   // Remove the sink before destroying the transport.
   transport.UnregisterRtpDemuxerSink(&observer);
+}
+
+int Global;
+
+void* Thread1(void* x) {
+  Global = 42;
+  return x;
+}
+
+TEST(RtpTransportTest, TriggerThreadSanitizerForPocPurpose) {
+  pthread_t t;
+  pthread_create(&t, NULL, Thread1, NULL);
+  Global = 43;
+  pthread_join(t, NULL);
 }
 
 }  // namespace webrtc

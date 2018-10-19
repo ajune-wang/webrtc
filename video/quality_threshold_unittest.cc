@@ -130,4 +130,8 @@ TEST(QualityThresholdTest, FractionHigh) {
       0.001);
 }
 
+TEST(QualityThresholdTest, TriggerTestFailureForPocPurpose) {
+  EXPECT_EQ(1, 0);
+}
+
 }  // namespace webrtc

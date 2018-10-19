@@ -188,6 +188,10 @@ class JsepTransport : public sigslot::has_slots<> {
 
   void SetActiveResetSrtpParams(bool active_reset_srtp_params);
 
+  // If media transport is present, it destroys it.
+  // Do NOT invoke it on a network thread.
+  void MaybeDestroyMediaTransport();
+
  private:
   bool SetRtcpMux(bool enable, webrtc::SdpType type, ContentSource source);
 

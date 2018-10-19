@@ -41,6 +41,12 @@ static const char kDataMid1[] = "data1";
 
 namespace webrtc {
 
+// static
+rtc::Thread* NetworkThread() {
+  static rtc::Thread* network_thread = new rtc::Thread();
+  return network_thread;
+}
+
 class FakeTransportFactory : public cricket::TransportFactoryInterface {
  public:
   std::unique_ptr<cricket::IceTransportInternal> CreateIceTransport(
@@ -70,7 +76,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
   void CreateJsepTransportController(
       JsepTransportController::Config config,
       rtc::Thread* signaling_thread = rtc::Thread::Current(),
-      rtc::Thread* network_thread = rtc::Thread::Current(),
+      rtc::Thread* network_thread = NetworkThread(),
       cricket::PortAllocator* port_allocator = nullptr) {
     config.transport_observer = this;
     // The tests only works with |fake_transport_factory|;

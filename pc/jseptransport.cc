@@ -341,6 +341,10 @@ void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
   }
 }
 
+void JsepTransport::MaybeDestroyMediaTransport() {
+  media_transport_.reset();
+}
+
 void JsepTransport::SetLocalIceParameters(IceTransportInternal* ice_transport) {
   RTC_DCHECK(ice_transport);
   RTC_DCHECK(local_description_);

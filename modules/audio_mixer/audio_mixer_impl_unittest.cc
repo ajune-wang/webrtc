@@ -520,6 +520,7 @@ TEST(AudioMixer, AnyRateIsPossibleWithNoLimiter) {
 
         std::vector<MockMixerAudioSource> sources(number_of_sources);
         for (auto& source : sources) {
+          ResetFrame(source.fake_frame());
           mixer->AddSource(&source);
         }
 
@@ -530,4 +531,62 @@ TEST(AudioMixer, AnyRateIsPossibleWithNoLimiter) {
     }
   }
 }
+
+TEST(AudioMixer, MultipleChannelsOneParticipant) {
+  // Set up a participant with a 6-channel frame, and make sure a 6-channel
+  // frame with the right sample values comes out from the mixer. There are 2
+  // Mix calls because of ramp-up.
+  constexpr size_t kNumberOfChannels = 6;
+  MockMixerAudioSource source;
+  ResetFrame(source.fake_frame());
+  const auto mixer = AudioMixerImpl::Create();
+  mixer->AddSource(&source);
+  mixer->Mix(1, &frame_for_mixing);
+  auto* frame = source.fake_frame();
+  frame->num_channels_ = kNumberOfChannels;
+  std::fill(frame->mutable_data(),
+            frame->mutable_data() + AudioFrame::kMaxDataSizeSamples, 0);
+  for (size_t i = 0; i < kNumberOfChannels; ++i) {
+    frame->mutable_data()[100 * frame->num_channels_ + i] = 1000 * i;
+  }
+
+  mixer->Mix(kNumberOfChannels, &frame_for_mixing);
+
+  EXPECT_EQ(frame_for_mixing.num_channels_, kNumberOfChannels);
+  for (size_t i = 0; i < kNumberOfChannels; ++i) {
+    EXPECT_EQ(frame_for_mixing.data()[100 * frame_for_mixing.num_channels_ + i],
+              static_cast<int16_t>(1000 * i));
+  }
+}
+
+TEST(AudioMixer, MultipleChannelsManyParticipants) {
+  // Sets up 2 participants. One has a 6-channel frame. Make sure a 6-channel
+  // frame with the right sample values comes out from the mixer. There are 2
+  // Mix calls because of ramp-up.
+  constexpr size_t kNumberOfChannels = 6;
+  MockMixerAudioSource source;
+  const auto mixer = AudioMixerImpl::Create();
+  mixer->AddSource(&source);
+  ResetFrame(source.fake_frame());
+  mixer->Mix(1, &frame_for_mixing);
+  auto* frame = source.fake_frame();
+  frame->num_channels_ = kNumberOfChannels;
+  std::fill(frame->mutable_data(),
+            frame->mutable_data() + AudioFrame::kMaxDataSizeSamples, 0);
+  for (size_t i = 0; i < kNumberOfChannels; ++i) {
+    frame->mutable_data()[100 * frame->num_channels_ + i] = 1000 * i;
+  }
+  MockMixerAudioSource other_source;
+  ResetFrame(other_source.fake_frame());
+  mixer->AddSource(&other_source);
+
+  mixer->Mix(kNumberOfChannels, &frame_for_mixing);
+
+  EXPECT_EQ(frame_for_mixing.num_channels_, kNumberOfChannels);
+  for (size_t i = 0; i < kNumberOfChannels; ++i) {
+    EXPECT_EQ(frame_for_mixing.data()[100 * frame_for_mixing.num_channels_ + i],
+              static_cast<int16_t>(1000 * i));
+  }
+}
+
 }  // namespace webrtc

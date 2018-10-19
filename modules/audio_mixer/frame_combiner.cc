@@ -30,7 +30,7 @@ namespace webrtc {
 namespace {
 
 // Stereo, 48 kHz, 10 ms.
-constexpr int kMaximumAmountOfChannels = 2;
+constexpr int kMaximumNumberOfChannels = 6;
 constexpr int kMaximumChannelSize = 48 * AudioMixerImpl::kFrameDurationInMs;
 
 using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
@@ -73,13 +73,15 @@ void MixFewFramesWithNoLimiter(const std::vector<AudioFrame*>& mix_list,
             audio_frame_for_mixing->mutable_data());
 }
 
-std::array<OneChannelBuffer, kMaximumAmountOfChannels> MixToFloatFrame(
+std::array<OneChannelBuffer, kMaximumNumberOfChannels> MixToFloatFrame(
     const std::vector<AudioFrame*>& mix_list,
     size_t samples_per_channel,
     size_t number_of_channels) {
+  RTC_DCHECK_LE(number_of_channels, kMaximumNumberOfChannels);
+  RTC_DCHECK_LE(samples_per_channel, kMaximumChannelSize);
   // Convert to FloatS16 and mix.
   using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
-  std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer{};
+  std::array<OneChannelBuffer, kMaximumNumberOfChannels> mixing_buffer{};
 
   for (size_t i = 0; i < mix_list.size(); ++i) {
     const AudioFrame* const frame = mix_list[i];
@@ -155,11 +157,11 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
     return;
   }
 
-  std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer =
+  std::array<OneChannelBuffer, kMaximumNumberOfChannels> mixing_buffer =
       MixToFloatFrame(mix_list, samples_per_channel, number_of_channels);
 
   // Put float data in an AudioFrameView.
-  std::array<float*, kMaximumAmountOfChannels> channel_pointers{};
+  std::array<float*, kMaximumNumberOfChannels> channel_pointers{};
   for (size_t i = 0; i < number_of_channels; ++i) {
     channel_pointers[i] = &mixing_buffer[i][0];
   }

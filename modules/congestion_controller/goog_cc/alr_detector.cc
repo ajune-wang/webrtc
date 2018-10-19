@@ -10,20 +10,17 @@
 
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
 
-#include <algorithm>
-#include <cstdio>
-#include <string>
+#include <cstdint>  // for int64_t
+#include <cstdio>   // for size_t
 
-#include "absl/memory/memory.h"
-#include "logging/rtc_event_log/events/rtc_event_alr_state.h"
-#include "logging/rtc_event_log/rtc_event_log.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/experiments/alr_experiment.h"
-#include "rtc_base/format_macros.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/timeutils.h"
-#include "system_wrappers/include/field_trial.h"
+#include "absl/memory/memory.h"                                // for make_u...
+#include "logging/rtc_event_log/events/rtc_event.h"            // for RtcEvent
+#include "logging/rtc_event_log/events/rtc_event_alr_state.h"  // for RtcEve...
+#include "logging/rtc_event_log/rtc_event_log.h"               // for RtcEve...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/experiments/alr_experiment.h"               // for AlrExp...
+#include "rtc_base/numerics/safe_conversions.h"                // for dcheck...
+#include "rtc_base/timeutils.h"                                // for TimeMi...
 
 namespace webrtc {
 AlrDetector::AlrDetector() : AlrDetector(nullptr) {}

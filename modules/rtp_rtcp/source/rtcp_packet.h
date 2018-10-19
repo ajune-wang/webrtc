@@ -11,6 +11,10 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
+
+#include "api/array_view.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/function_view.h"
 

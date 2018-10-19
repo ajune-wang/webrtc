@@ -11,26 +11,29 @@
 #ifndef MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
 #define MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
 
+#include <stdint.h>  // for uint8_t
 #include <map>
-#include <memory>
+#include <memory>  // for unique...
 #include <string>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "api/audio/audio_frame.h"
-#include "common_audio/vad/include/webrtc_vad.h"
+#include "api/audio_codecs/audio_decoder.h"
+#include "api/audio_codecs/audio_format.h"  // for SdpAudioFormat
 #include "modules/audio_coding/acm2/acm_resampler.h"
 #include "modules/audio_coding/acm2/call_statistics.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
-#include "modules/audio_coding/neteq/include/neteq.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 
+class Clock;
 struct CodecInst;
 class NetEq;
+struct RTPHeader;
+struct WebRtcRTPHeader;
 
 namespace acm2 {
 

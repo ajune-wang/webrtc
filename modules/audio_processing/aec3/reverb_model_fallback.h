@@ -11,10 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_REVERB_MODEL_FALLBACK_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_REVERB_MODEL_FALLBACK_H_
 
+#include <stddef.h>  // for size_t
 #include <array>
 #include <vector>
 
-#include "modules/audio_processing/aec3/aec3_common.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kFftLengthBy2...
 
 namespace webrtc {
 

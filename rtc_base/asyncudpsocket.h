@@ -11,10 +11,14 @@
 #ifndef RTC_BASE_ASYNCUDPSOCKET_H_
 #define RTC_BASE_ASYNCUDPSOCKET_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <memory>    // for unique_ptr
 
-#include "rtc_base/asyncpacketsocket.h"
-#include "rtc_base/socketfactory.h"
+#include "rtc_base/asyncpacketsocket.h"  // for PacketOptions, AsyncPacketSo...
+#include "rtc_base/asyncsocket.h"        // for AsyncSocket
+#include "rtc_base/socket.h"             // for Socket, Socket::Option
+#include "rtc_base/socketaddress.h"      // for SocketAddress
+#include "rtc_base/socketfactory.h"      // for SocketFactory
 
 namespace rtc {
 

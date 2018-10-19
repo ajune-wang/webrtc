@@ -10,8 +10,10 @@
 
 #include "api/mediaconstraintsinterface.h"
 
-#include "api/peerconnectioninterface.h"
-#include "rtc_base/stringencode.h"
+#include "absl/types/optional.h"          // for optional
+#include "api/peerconnectioninterface.h"  // for PeerConnectionInterface::RT...
+#include "media/base/mediaconfig.h"       // for MediaConfig, MediaConfig::V...
+#include "rtc_base/stringencode.h"        // for FromString
 
 namespace {
 

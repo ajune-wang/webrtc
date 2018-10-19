@@ -10,10 +10,12 @@
 
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 
+#include <stddef.h>  // for size_t
+#include <cstdint>   // for uint8_t
 #include <vector>
 
-#include "modules/rtp_rtcp/source/rtp_header_extensions.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "modules/rtp_rtcp/source/rtp_header_extensions.h"  // for AbsoluteS...
+#include "rtc_base/numerics/safe_conversions.h"             // for dchecked_...
 
 namespace webrtc {
 

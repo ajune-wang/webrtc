@@ -13,7 +13,7 @@
 #include <stdarg.h>  // for va_end, va_list, va_start
 #include <cstring>   // for strlen
 
-#include "rtc_base/checks.h"                // for FatalLogCall, RTC_DCHECK
+#include "rtc_base/checks.h"                // for RTC_DCHECK
 #include "rtc_base/numerics/safe_minmax.h"  // for SafeMin
 
 namespace rtc {

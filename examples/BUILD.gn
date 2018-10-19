@@ -199,6 +199,13 @@ if (is_android) {
 
     data = [
       "../resources/reference_video_640x360_30fps.y4m",
+      "../rtc_tools/compare_videos.py",
+      "../rtc_tools/testing/prebuilt_apprtc.zip",
+      "../rtc_tools/testing/golang/linux/go.tar.gz",
+      "../rtc_tools/testing/build_apprtc.py",
+      "../rtc_tools/testing/utils.py",
+      "../tools_webrtc/video_quality_toolchain/linux/ffmpeg",
+      "../tools_webrtc/video_quality_toolchain/linux/frame_analyzer",
     ]
   }
 }

@@ -11,6 +11,7 @@
 #ifndef MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODEC_INTERFACE_H_
 #define MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODEC_INTERFACE_H_
 
+#include <string>
 #include <vector>
 
 #include "api/video/video_frame.h"
@@ -75,11 +76,11 @@ union CodecSpecificInfoUnion {
 // must be fitted with a copy-constructor. This is because it is copied
 // in the copy-constructor of VCMEncodedFrame.
 struct CodecSpecificInfo {
-  CodecSpecificInfo() : codecType(kVideoCodecGeneric), codec_name(nullptr) {
+  CodecSpecificInfo() : codecType(kVideoCodecGeneric) {
     memset(&codecSpecific, 0, sizeof(codecSpecific));
   }
   VideoCodecType codecType;
-  const char* codec_name;
+  std::string codec_name;
   CodecSpecificInfoUnion codecSpecific;
 };
 

@@ -825,7 +825,7 @@ void SendStatisticsProxy::UpdateEncoderFallbackStats(
   bool is_active = fallback_info->is_active;
   if (codec_info->codec_name != stats_.encoder_implementation_name) {
     // Implementation changed.
-    is_active = strcmp(codec_info->codec_name, kVp8SwCodecName) == 0;
+    is_active = codec_info->codec_name == kVp8SwCodecName;
     if (!is_active && stats_.encoder_implementation_name != kVp8SwCodecName) {
       // First or not a VP8 SW change, update stats on next call.
       return;
@@ -865,7 +865,7 @@ void SendStatisticsProxy::UpdateFallbackDisabledStats(
   }
 
   if (!IsForcedFallbackPossible(codec_info, simulcast_index) ||
-      strcmp(codec_info->codec_name, kVp8SwCodecName) == 0) {
+      codec_info->codec_name == kVp8SwCodecName) {
     uma_container_->fallback_info_disabled_.is_possible = false;
     return;
   }
@@ -895,7 +895,7 @@ void SendStatisticsProxy::OnSendEncodedImage(
   rtc::CritScope lock(&crit_);
   ++stats_.frames_encoded;
   if (codec_info) {
-    if (codec_info->codec_name) {
+    if (!codec_info->codec_name.empty()) {
       UpdateEncoderFallbackStats(
           codec_info,
           encoded_image._encodedWidth * encoded_image._encodedHeight,

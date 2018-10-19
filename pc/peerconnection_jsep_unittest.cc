@@ -46,7 +46,7 @@ using ::testing::UnorderedElementsAre;
 class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
  public:
   PeerConnectionFactoryForJsepTest()
-      : PeerConnectionFactory(rtc::Thread::Current(),
+      : PeerConnectionFactory(&network_thread_,
                               rtc::Thread::Current(),
                               rtc::Thread::Current(),
                               cricket::WebRtcMediaEngineFactory::Create(
@@ -65,6 +65,9 @@ class PeerConnectionFactoryForJsepTest : public PeerConnectionFactory {
   CreateSctpTransportInternalFactory() {
     return absl::make_unique<FakeSctpTransportFactory>();
   }
+
+ private:
+  rtc::Thread network_thread_;
 };
 
 class PeerConnectionJsepTest : public ::testing::Test {

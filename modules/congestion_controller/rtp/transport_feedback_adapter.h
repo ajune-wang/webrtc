@@ -48,6 +48,7 @@ class TransportFeedbackAdapter {
 
   absl::optional<TransportPacketsFeedback> ProcessTransportFeedback(
       const rtcp::TransportFeedback& feedback);
+  absl::optional<DelayedFeedbackInfo> GetDelayedFeedback();
 
   std::vector<PacketFeedback> GetTransportFeedbackVector() const;
 

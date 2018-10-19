@@ -159,6 +159,7 @@ class BbrNetworkController : public NetworkControllerInterface {
       TargetRateConstraints msg) override;
   NetworkControlUpdate OnTransportPacketsFeedback(
       TransportPacketsFeedback msg) override;
+  NetworkControlUpdate OnDelayedFeedback(TransportPacketsFeedback msg) override;
 
   // Part of remote bitrate estimation api, not implemented for BBR
   NetworkControlUpdate OnRemoteBitrateReport(RemoteBitrateReport msg) override;

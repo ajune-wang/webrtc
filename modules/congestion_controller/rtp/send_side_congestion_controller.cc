@@ -447,9 +447,15 @@ void SendSideCongestionController::OnTransportFeedback(
   if (feedback_msg) {
     task_queue_->PostTask([this, feedback_msg]() {
       RTC_DCHECK_RUN_ON(task_queue_);
-      if (controller_)
-        control_handler_->PostUpdates(
-            controller_->OnTransportPacketsFeedback(*feedback_msg));
+      if (controller_) {
+        if (feedback_msg->packet_feedbacks.empty()) {
+          control_handler_->PostUpdates(
+              controller_->OnDelayedFeedback(*feedback_msg));
+        } else {
+          control_handler_->PostUpdates(
+              controller_->OnTransportPacketsFeedback(*feedback_msg));
+        }
+      }
     });
   }
   MaybeUpdateOutstandingData();

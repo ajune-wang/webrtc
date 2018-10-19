@@ -106,14 +106,10 @@ std::vector<PacketFeedback> ReceivedPacketsFeedbackAsRtp(
     if (fb.receive_time.IsFinite()) {
       PacketFeedback pf(fb.receive_time.ms(), 0);
       pf.creation_time_ms = report.feedback_time.ms();
-      if (fb.sent_packet.has_value()) {
-        pf.payload_size = fb.sent_packet->size.bytes();
-        pf.pacing_info = fb.sent_packet->pacing_info;
-        pf.send_time_ms = fb.sent_packet->send_time.ms();
-        pf.unacknowledged_data = fb.sent_packet->prior_unacked_data.bytes();
-      } else {
-        pf.send_time_ms = PacketFeedback::kNoSendTime;
-      }
+      pf.payload_size = fb.sent_packet.size.bytes();
+      pf.pacing_info = fb.sent_packet.pacing_info;
+      pf.send_time_ms = fb.sent_packet.send_time.ms();
+      pf.unacknowledged_data = fb.sent_packet.prior_unacked_data.bytes();
       packet_feedback_vector.push_back(pf);
     }
   }
@@ -379,7 +375,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
 
   for (const auto& feedback : feedbacks) {
     TimeDelta feedback_rtt =
-        report.feedback_time - feedback.sent_packet->send_time;
+        report.feedback_time - feedback.sent_packet.send_time;
     TimeDelta min_pending_time = feedback.receive_time - max_recv_time;
     TimeDelta propagation_rtt = feedback_rtt - min_pending_time;
     max_feedback_rtt = std::max(max_feedback_rtt, feedback_rtt);
@@ -406,7 +402,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     for (const auto& packet_feedback : feedbacks) {
       TimeDelta pending_time = packet_feedback.receive_time - max_recv_time;
       TimeDelta rtt = report.feedback_time -
-                      packet_feedback.sent_packet->send_time - pending_time;
+                      packet_feedback.sent_packet.send_time - pending_time;
       // Value used for predicting NACK round trip time in FEC controller.
       feedback_min_rtt = std::min(rtt, feedback_min_rtt);
     }
@@ -496,6 +492,20 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   }
 
   return update;
+}
+
+NetworkControlUpdate GoogCcNetworkController::OnDelayedFeedback(
+    TransportPacketsFeedback msg) {
+  DelayBasedBwe::Result result = delay_based_bwe_->OnDelayedFeedback(
+      msg.sendless_arrival_times.back().ms());
+  if (result.updated) {
+    bandwidth_estimation_->UpdateDelayBasedEstimate(
+        msg.feedback_time, DataRate::bps(result.target_bitrate_bps));
+    NetworkControlUpdate update;
+    MaybeTriggerOnNetworkChanged(&update, msg.feedback_time);
+    return update;
+  }
+  return NetworkControlUpdate();
 }
 
 NetworkControlUpdate GoogCcNetworkController::GetNetworkState(

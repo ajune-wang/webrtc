@@ -50,6 +50,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   NetworkControlUpdate OnTransportLossReport(TransportLossReport msg) override;
   NetworkControlUpdate OnTransportPacketsFeedback(
       TransportPacketsFeedback msg) override;
+  NetworkControlUpdate OnDelayedFeedback(TransportPacketsFeedback msg) override;
 
   NetworkControlUpdate GetNetworkState(Timestamp at_time) const;
 

@@ -126,8 +126,18 @@ struct PacketResult {
   PacketResult(const PacketResult&);
   ~PacketResult();
 
-  absl::optional<SentPacket> sent_packet;
+  SentPacket sent_packet;
   Timestamp receive_time = Timestamp::PlusInfinity();
+};
+
+// Indicates that feedback was recieved, but send time information was missing
+// for all packets.
+struct DelayedFeedbackInfo {
+  DelayedFeedbackInfo();
+  DelayedFeedbackInfo(const DelayedFeedbackInfo&);
+  ~DelayedFeedbackInfo();
+
+  Timestamp feedback_time = Timestamp::PlusInfinity();
 };
 
 struct TransportPacketsFeedback {
@@ -139,6 +149,11 @@ struct TransportPacketsFeedback {
   DataSize data_in_flight = DataSize::Zero();
   DataSize prior_in_flight = DataSize::Zero();
   std::vector<PacketResult> packet_feedbacks;
+
+  // Arrival times for messages without send time information.
+  // Only used if there was no packets with accurate times.
+  // TODO(srte): Consider using a separate struct for this.
+  std::vector<Timestamp> sendless_arrival_times;
 
   std::vector<PacketResult> ReceivedWithSendInfo() const;
   std::vector<PacketResult> LostWithSendInfo() const;

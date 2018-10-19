@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ceb9426_7d1471f3",
+        "filename": "media/base/codec.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-19T08:57:21Z",
+      "side": 1,
+      "message": "I\u0027d ask you to implement this one with absl::EqualsIgnoreCase too, but I\u0027ve come to trust that when you say \"TODO: delete this later\", unlike most of us you\u0027ll actually get around to it reasonably soon.\n\nNo pressure, of course. ;-)",
+      "revId": "4f943a2c36c078796451c25a106d7e8688536c94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd6612be_271d7d5f",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-19T08:57:21Z",
+      "side": 1,
+      "message": "The outer parentheses are even more unnecessary now.",
+      "revId": "4f943a2c36c078796451c25a106d7e8688536c94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38b61811_b0f02b13",
+        "filename": "rtc_base/httpcommon.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-19T08:57:21Z",
+      "side": 1,
+      "message": "Remove outermost parentheses?",
+      "revId": "4f943a2c36c078796451c25a106d7e8688536c94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

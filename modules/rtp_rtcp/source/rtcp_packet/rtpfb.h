@@ -12,7 +12,10 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RTPFB_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RTPFB_H_
 
-#include "modules/rtp_rtcp/source/rtcp_packet.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, uint8_t
+
+#include "modules/rtp_rtcp/source/rtcp_packet.h"  // for RtcpPacket
 
 namespace webrtc {
 namespace rtcp {

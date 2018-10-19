@@ -11,10 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TICK_TIMER_H_
 #define MODULES_AUDIO_CODING_NETEQ_TICK_TIMER_H_
 
-#include <memory>
+#include <stdint.h>  // for uint64_t, UINT64_MAX
+#include <memory>    // for unique_ptr
 
 #include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

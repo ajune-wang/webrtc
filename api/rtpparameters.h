@@ -11,12 +11,13 @@
 #ifndef API_RTPPARAMETERS_H_
 #define API_RTPPARAMETERS_H_
 
+#include <stdint.h>  // for uint32_t
 #include <string>
-#include <unordered_map>
+#include <unordered_map>  // for operator==, unordered_map
 #include <vector>
 
-#include "absl/types/optional.h"
-#include "api/mediatypes.h"
+#include "absl/types/optional.h"  // for operator==, optional
+#include "api/mediatypes.h"       // for MediaTypeToString, MEDIA_TYPE_AUDIO
 
 namespace webrtc {
 

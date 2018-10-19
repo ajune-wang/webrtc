@@ -13,14 +13,17 @@
 #ifndef MODULES_BITRATE_CONTROLLER_SEND_SIDE_BANDWIDTH_ESTIMATION_H_
 #define MODULES_BITRATE_CONTROLLER_SEND_SIDE_BANDWIDTH_ESTIMATION_H_
 
-#include <deque>
-#include <utility>
+#include <stdint.h>  // for uint8_t, int64_t
+#include <deque>     // for deque
+#include <utility>   // for pair
 #include <vector>
 
-#include "absl/types/optional.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "rtc_base/experiments/field_trial_parser.h"
-#include "rtc_base/experiments/field_trial_units.h"
+#include "absl/types/optional.h"                      // for optional
+#include "api/transport/network_types.h"              // for SentPacket
+#include "api/units/data_rate.h"                      // for DataRate
+#include "api/units/time_delta.h"                     // for TimeDelta
+#include "api/units/timestamp.h"                      // for Timestamp
+#include "rtc_base/experiments/field_trial_parser.h"  // for FieldTrialParam...
 
 namespace webrtc {
 

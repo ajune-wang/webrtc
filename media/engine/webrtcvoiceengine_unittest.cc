@@ -210,9 +210,9 @@ class WebRtcVoiceEngineTestFake : public testing::Test {
 
   bool SetupChannel() {
     EXPECT_CALL(*apm_, SetExtraOptions(testing::_));
-    channel_ = engine_->CreateChannel(&call_, cricket::MediaConfig(),
-                                      cricket::AudioOptions(),
-                                      webrtc::CryptoOptions());
+    channel_ = engine_->CreateMediaChannel(&call_, cricket::MediaConfig(),
+                                           cricket::AudioOptions(),
+                                           webrtc::CryptoOptions());
     return (channel_ != nullptr);
   }
 
@@ -3380,9 +3380,9 @@ TEST(WebRtcVoiceEngineTest, StartupShutdown) {
   webrtc::RtcEventLogNullImpl event_log;
   std::unique_ptr<webrtc::Call> call(
       webrtc::Call::Create(webrtc::Call::Config(&event_log)));
-  cricket::VoiceMediaChannel* channel =
-      engine.CreateChannel(call.get(), cricket::MediaConfig(),
-                           cricket::AudioOptions(), webrtc::CryptoOptions());
+  cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
+      call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
+      webrtc::CryptoOptions());
   EXPECT_TRUE(channel != nullptr);
   delete channel;
 }
@@ -3404,9 +3404,9 @@ TEST(WebRtcVoiceEngineTest, StartupShutdownWithExternalADM) {
     webrtc::RtcEventLogNullImpl event_log;
     std::unique_ptr<webrtc::Call> call(
         webrtc::Call::Create(webrtc::Call::Config(&event_log)));
-    cricket::VoiceMediaChannel* channel =
-        engine.CreateChannel(call.get(), cricket::MediaConfig(),
-                             cricket::AudioOptions(), webrtc::CryptoOptions());
+    cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
+        call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
+        webrtc::CryptoOptions());
     EXPECT_TRUE(channel != nullptr);
     delete channel;
   }
@@ -3475,9 +3475,9 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
   cricket::VoiceMediaChannel* channels[32];
   size_t num_channels = 0;
   while (num_channels < arraysize(channels)) {
-    cricket::VoiceMediaChannel* channel =
-        engine.CreateChannel(call.get(), cricket::MediaConfig(),
-                             cricket::AudioOptions(), webrtc::CryptoOptions());
+    cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
+        call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
+        webrtc::CryptoOptions());
     if (!channel)
       break;
     channels[num_channels++] = channel;

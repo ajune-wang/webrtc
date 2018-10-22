@@ -488,69 +488,54 @@ class FakeDataMediaChannel : public RtpHelper<DataMediaChannel> {
   int max_bps_;
 };
 
-// A base class for all of the shared parts between FakeVoiceEngine
-// and FakeVideoEngine.
-class FakeBaseEngine {
- public:
-  FakeBaseEngine();
-  void set_fail_create_channel(bool fail);
-  void set_rtp_header_extensions(const std::vector<RtpExtension>& extensions);
-  void set_rtp_header_extensions(
-      const std::vector<cricket::RtpHeaderExtension>& extensions);
-
- protected:
-  // Flag used by optionsmessagehandler_unittest for checking whether any
-  // relevant setting has been updated.
-  // TODO(thaloun): Replace with explicit checks of before & after values.
-  bool options_changed_;
-  bool fail_create_channel_;
-  RtpCapabilities capabilities_;
-};
-
-class FakeVoiceEngine : public FakeBaseEngine {
+class FakeVoiceEngine : public VoiceEngineInterface {
  public:
   FakeVoiceEngine();
-  RtpCapabilities GetCapabilities() const;
-  void Init();
-  rtc::scoped_refptr<webrtc::AudioState> GetAudioState() const;
+  RtpCapabilities GetCapabilities() const override;
+  void Init() override;
+  rtc::scoped_refptr<webrtc::AudioState> GetAudioState() const override;
 
-  VoiceMediaChannel* CreateChannel(webrtc::Call* call,
-                                   const MediaConfig& config,
-                                   const AudioOptions& options,
-                                   const webrtc::CryptoOptions& crypto_options);
+  VoiceMediaChannel* CreateMediaChannel(
+      webrtc::Call* call,
+      const MediaConfig& config,
+      const AudioOptions& options,
+      const webrtc::CryptoOptions& crypto_options) override;
   FakeVoiceMediaChannel* GetChannel(size_t index);
   void UnregisterChannel(VoiceMediaChannel* channel);
 
   // TODO(ossu): For proper testing, These should either individually settable
   //             or the voice engine should reference mockable factories.
-  const std::vector<AudioCodec>& send_codecs() const;
-  const std::vector<AudioCodec>& recv_codecs() const;
+  const std::vector<AudioCodec>& send_codecs() const override;
+  const std::vector<AudioCodec>& recv_codecs() const override;
   void SetCodecs(const std::vector<AudioCodec>& codecs);
   int GetInputLevel();
-  bool StartAecDump(rtc::PlatformFile file, int64_t max_size_bytes);
-  void StopAecDump();
+  bool StartAecDump(rtc::PlatformFile file, int64_t max_size_bytes) override;
+  void StopAecDump() override;
   bool StartRtcEventLog(rtc::PlatformFile file, int64_t max_size_bytes);
   void StopRtcEventLog();
 
  private:
   std::vector<FakeVoiceMediaChannel*> channels_;
   std::vector<AudioCodec> codecs_;
+  bool fail_create_channel_;
+  RtpCapabilities capabilities_;
 
   friend class FakeMediaEngine;
 };
 
-class FakeVideoEngine : public FakeBaseEngine {
+class FakeVideoEngine : public VideoEngineInterface {
  public:
   FakeVideoEngine();
-  RtpCapabilities GetCapabilities() const;
+  RtpCapabilities GetCapabilities() const override;
   bool SetOptions(const VideoOptions& options);
-  VideoMediaChannel* CreateChannel(webrtc::Call* call,
-                                   const MediaConfig& config,
-                                   const VideoOptions& options,
-                                   const webrtc::CryptoOptions& crypto_options);
+  VideoMediaChannel* CreateMediaChannel(
+      webrtc::Call* call,
+      const MediaConfig& config,
+      const VideoOptions& options,
+      const webrtc::CryptoOptions& crypto_options) override;
   FakeVideoMediaChannel* GetChannel(size_t index);
   void UnregisterChannel(VideoMediaChannel* channel);
-  std::vector<VideoCodec> codecs() const;
+  std::vector<VideoCodec> codecs() const override;
   void SetCodecs(const std::vector<VideoCodec> codecs);
   bool SetCapture(bool capture);
 
@@ -559,6 +544,8 @@ class FakeVideoEngine : public FakeBaseEngine {
   std::vector<VideoCodec> codecs_;
   bool capture_;
   VideoOptions options_;
+  bool fail_create_channel_;
+  RtpCapabilities capabilities_;
 
   friend class FakeMediaEngine;
 };
@@ -576,17 +563,9 @@ class FakeMediaEngine
   void SetAudioRtpHeaderExtensions(const std::vector<RtpExtension>& extensions);
   void SetVideoRtpHeaderExtensions(const std::vector<RtpExtension>& extensions);
 
-  void SetAudioRtpHeaderExtensions(
-      const std::vector<cricket::RtpHeaderExtension>& extensions);
-  void SetVideoRtpHeaderExtensions(
-      const std::vector<cricket::RtpHeaderExtension>& extensions);
-
   FakeVoiceMediaChannel* GetVoiceChannel(size_t index);
   FakeVideoMediaChannel* GetVideoChannel(size_t index);
 
-  bool capture() const;
-  bool options_changed() const;
-  void clear_options_changed();
   void set_fail_create_channel(bool fail);
 
  private:

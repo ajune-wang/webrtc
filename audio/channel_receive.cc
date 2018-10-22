@@ -50,12 +50,49 @@ constexpr int64_t kMinRetransmissionWindowMs = 30;
 constexpr int kVoiceEngineMinMinPlayoutDelayMs = 0;
 constexpr int kVoiceEngineMaxMinPlayoutDelayMs = 10000;
 
+webrtc::FrameType WebrtcFrameTypeForMediaTransportFrameType(
+    MediaTransportEncodedAudioFrame::FrameType frame_type) {
+  switch (frame_type) {
+    case MediaTransportEncodedAudioFrame::FrameType::kSpeech:
+      return kAudioFrameSpeech;
+      break;
+
+    case MediaTransportEncodedAudioFrame::FrameType::
+        kDiscountinuousTransmission:
+      return kAudioFrameCN;
+      break;
+  }
+}
+
+WebRtcRTPHeader CreateWebrtcRTPHeaderForMediaTransportFrame(
+    const MediaTransportEncodedAudioFrame& frame) {
+  const uint32_t kDefaultFakeSSRC = 1;
+
+  webrtc::WebRtcRTPHeader webrtc_header = {};
+  webrtc_header.header.payloadType = frame.payload_type();
+  webrtc_header.header.payload_type_frequency = frame.sampling_rate_hz();
+  webrtc_header.header.timestamp = frame.starting_sample_index();
+  webrtc_header.header.sequenceNumber = frame.sequence_number();
+
+  webrtc_header.frameType =
+      WebrtcFrameTypeForMediaTransportFrameType(frame.frame_type());
+
+  // TODO(sukhanov): Set proper SSRC.
+  webrtc_header.header.ssrc = kDefaultFakeSSRC;
+
+  // The rest are initialized by the RTPHeader constructor.
+  return webrtc_header;
+}
+
 }  // namespace
 
 int32_t ChannelReceive::OnReceivedPayloadData(
     const uint8_t* payloadData,
     size_t payloadSize,
     const WebRtcRTPHeader* rtpHeader) {
+  // We should not be receiving any RTP packets if media_transport is set.
+  RTC_CHECK(!media_transport_);
+
   if (!channel_state_.Get().playing) {
     // Avoid inserting into NetEQ when we are not playing. Count the
     // packet as discarded.
@@ -80,6 +117,28 @@ int32_t ChannelReceive::OnReceivedPayloadData(
     ResendPackets(&(nack_list[0]), static_cast<int>(nack_list.size()));
   }
   return 0;
+}
+
+// MediaTransportAudioSinkInterface override.
+void ChannelReceive::OnData(uint64_t channel_id,
+                            MediaTransportEncodedAudioFrame frame) {
+  RTC_CHECK(media_transport_);
+
+  if (!channel_state_.Get().playing) {
+    // Avoid inserting into NetEQ when we are not playing. Count the
+    // packet as discarded.
+    return;
+  }
+
+  // Send encoded audio frame to Decoder / NetEq.
+  if (audio_coding_->IncomingPacket(
+          /*payload_data=*/reinterpret_cast<const uint8_t*>(
+              frame.encoded_data().data()),
+          /*payload_size=*/frame.encoded_data().size(),
+          CreateWebrtcRTPHeaderForMediaTransportFrame(frame)) != 0) {
+    RTC_DLOG(LS_ERROR) << "ChannelReceive::OnData: unable to "
+                          "push data to the ACM";
+  }
 }
 
 AudioMixer::Source::AudioFrameInfo ChannelReceive::GetAudioFrameWithInfo(
@@ -199,6 +258,7 @@ int ChannelReceive::PreferredSampleRate() const {
 ChannelReceive::ChannelReceive(
     ProcessThread* module_process_thread,
     AudioDeviceModule* audio_device_module,
+    MediaTransportInterface* media_transport,
     Transport* rtcp_send_transport,
     RtcEventLog* rtc_event_log,
     uint32_t remote_ssrc,
@@ -223,6 +283,7 @@ ChannelReceive::ChannelReceive(
       _audioDeviceModulePtr(audio_device_module),
       _outputGain(1.0f),
       associated_send_channel_(nullptr),
+      media_transport_(media_transport),
       frame_decryptor_(frame_decryptor),
       crypto_options_(crypto_options) {
   RTC_DCHECK(module_process_thread);
@@ -278,10 +339,19 @@ void ChannelReceive::Init() {
   // be transmitted since the Transport object will then be invalid.
   // RTCP is enabled by default.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
+
+  if (media_transport_) {
+    media_transport_->SetReceiveAudioSink(this);
+  }
 }
 
 void ChannelReceive::Terminate() {
   RTC_DCHECK(construction_thread_.CalledOnValidThread());
+
+  if (media_transport_ != nullptr) {
+    media_transport_->SetReceiveAudioSink(nullptr);
+  }
+
   // Must be called on the same thread as Init().
   rtp_receive_statistics_->RegisterRtcpStatisticsCallback(NULL);
 

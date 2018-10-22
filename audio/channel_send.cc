@@ -255,6 +255,22 @@ int32_t ChannelSend::SendData(FrameType frameType,
                               size_t payloadSize,
                               const RTPFragmentationHeader* fragmentation) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
+  if (media_transport() != nullptr) {
+    return SendMediaTransportAudio(frameType, payloadType, timeStamp,
+                                   payloadData, payloadSize, fragmentation);
+  } else {
+    return SendRtpAudio(frameType, payloadType, timeStamp, payloadData,
+                        payloadSize, fragmentation);
+  }
+}
+
+int32_t ChannelSend::SendRtpAudio(FrameType frameType,
+                                  uint8_t payloadType,
+                                  uint32_t timeStamp,
+                                  const uint8_t* payloadData,
+                                  size_t payloadSize,
+                                  const RTPFragmentationHeader* fragmentation) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
   if (_includeAudioLevelIndication) {
     // Store current audio level in the RTP/RTCP module.
     // The level will be used in combination with voice-activity state
@@ -312,9 +328,66 @@ int32_t ChannelSend::SendData(FrameType frameType,
   return 0;
 }
 
+int32_t ChannelSend::SendMediaTransportAudio(
+    FrameType frameType,
+    uint8_t payloadType,
+    uint32_t timeStamp,
+    const uint8_t* payloadData,
+    size_t payloadSize,
+    const RTPFragmentationHeader* fragmentation) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
+  // TODO(nisse): Use null _transportPtr for MediaTransport.
+  // RTC_DCHECK(_transportPtr == nullptr);
+
+  MediaTransportEncodedAudioFrame::FrameType audio_frame_type;
+
+  // Convert webrtc:: FrameType to MediaTransportEncodedAudioFrame::FrameType.
+  switch (frameType) {
+    case FrameType::kAudioFrameSpeech:
+      audio_frame_type = MediaTransportEncodedAudioFrame::FrameType::kSpeech;
+      break;
+
+    case FrameType::kAudioFrameCN:
+      audio_frame_type = MediaTransportEncodedAudioFrame::FrameType::
+          kDiscountinuousTransmission;
+      break;
+
+    default:
+      RTC_CHECK(false) << "Unexpected frame type=" << frameType;
+  }
+
+  // TODO(sukhanov): Pass proper parameters instead of hard-coded values.
+  const MediaTransportEncodedAudioFrame frame(
+      /*sampling_rate_hz=*/48000,
+      /*starting_sample_index=*/timeStamp,
+      /*sample_count=*/480,
+      /*sequence_number=*/send_sequence_number_, audio_frame_type, payloadType,
+      std::vector<uint8_t>(payloadData, payloadData + payloadSize));
+
+  // TODO(sukhanov): Pass proper ssrc.
+  uint32_t channel_id = 0;
+  RTCError rtc_error =
+      media_transport()->SendAudioFrame(channel_id, std::move(frame));
+
+  if (!rtc_error.ok()) {
+    RTC_LOG(LS_ERROR) << "Failed to send frame, rtc_error="
+                      << ToString(rtc_error.type()) << ", "
+                      << rtc_error.message();
+    return -1;
+  }
+
+  // TODO(nisse): OK to reuse the same sequence number state?
+  ++send_sequence_number_;
+
+  return 0;
+}
+
 bool ChannelSend::SendRtp(const uint8_t* data,
                           size_t len,
                           const PacketOptions& options) {
+  // We should not be sending RTP packets if media transport is available.
+  RTC_CHECK(!media_transport());
+
   rtc::CritScope cs(&_callbackCritSect);
 
   if (_transportPtr == NULL) {
@@ -356,6 +429,7 @@ int ChannelSend::PreferredSampleRate() const {
 
 ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
                          ProcessThread* module_process_thread,
+                         MediaTransportInterface* media_transport,
                          RtcpRttStats* rtcp_rtt_stats,
                          RtcEventLog* rtc_event_log,
                          FrameEncryptorInterface* frame_encryptor,
@@ -380,6 +454,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
       use_twcc_plr_for_ana_(
           webrtc::field_trial::FindFullName("UseTwccPlrForAna") == "Enabled"),
       encoder_queue_(encoder_queue),
+      media_transport_(media_transport),
       frame_encryptor_(frame_encryptor),
       crypto_options_(crypto_options) {
   RTC_DCHECK(module_process_thread);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8434f57a_b3fd25f3",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-22T11:40:22Z",
+      "side": 1,
+      "message": "If the first frame you receive is a delta frame that you can\u0027t decrypt then you will send two keyframe requests. I would suggest having a \"bool request_keyframe \u003d false;\" at the start of the function and then check at then end whether a keyframe should be requested or not.",
+      "range": {
+        "startLine": 407,
+        "startChar": 9,
+        "endLine": 407,
+        "endChar": 38
+      },
+      "revId": "5839cd7d0dab06f5d32e7427fc7259f7d98a093b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

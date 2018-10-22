@@ -11,10 +11,11 @@
 #ifndef COMMON_AUDIO_REAL_FOURIER_OOURA_H_
 #define COMMON_AUDIO_REAL_FOURIER_OOURA_H_
 
-#include <complex>
+#include <stddef.h>  // for size_t
+#include <complex>   // for complex
 #include <memory>
 
-#include "common_audio/real_fourier.h"
+#include "common_audio/real_fourier.h"  // for RealFourier
 
 namespace webrtc {
 

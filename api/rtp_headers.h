@@ -11,15 +11,15 @@
 #ifndef API_RTP_HEADERS_H_
 #define API_RTP_HEADERS_H_
 
-#include <stddef.h>
-#include <string.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t, uint32_t, uint16_t
+#include <string.h>  // for strncmp, strnlen
 
 #include "api/array_view.h"
-#include "api/video/video_content_type.h"
-#include "api/video/video_frame_marking.h"
-#include "api/video/video_rotation.h"
-#include "api/video/video_timing.h"
-
+#include "api/video/video_content_type.h"   // for VideoContentType
+#include "api/video/video_frame_marking.h"  // for FrameMarking
+#include "api/video/video_rotation.h"       // for VideoRotation
+#include "api/video/video_timing.h"         // for VideoSendTiming
 #include "common_types.h"  // NOLINT(build/include)
 
 namespace webrtc {

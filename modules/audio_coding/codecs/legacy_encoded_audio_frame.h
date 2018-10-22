@@ -11,10 +11,14 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_LEGACY_ENCODED_AUDIO_FRAME_H_
 #define MODULES_AUDIO_CODING_CODECS_LEGACY_ENCODED_AUDIO_FRAME_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, int16_t
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "api/audio_codecs/audio_decoder.h"
+#include "api/audio_codecs/audio_decoder.h"  // for AudioDecoder, AudioDecod...
+#include "rtc_base/buffer.h"                 // for Buffer
 
 namespace webrtc {
 

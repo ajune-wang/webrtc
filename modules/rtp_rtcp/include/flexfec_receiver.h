@@ -11,15 +11,19 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_FLEXFEC_RECEIVER_H_
 #define MODULES_RTP_RTCP_INCLUDE_FLEXFEC_RECEIVER_H_
 
+#include <stdint.h>  // for uint32_t
 #include <memory>
 
-#include "modules/rtp_rtcp/include/ulpfec_receiver.h"
-#include "modules/rtp_rtcp/source/forward_error_correction.h"
-#include "modules/rtp_rtcp/source/rtp_packet_received.h"
-#include "rtc_base/sequenced_task_checker.h"
-#include "system_wrappers/include/clock.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"         // for Recove...
+#include "modules/rtp_rtcp/include/ulpfec_receiver.h"          // for FecPac...
+#include "modules/rtp_rtcp/source/forward_error_correction.h"  // for Forwar...
+#include "modules/rtp_rtcp/source/rtp_packet_received.h"       // for RtpPac...
+#include "rtc_base/sequenced_task_checker.h"                   // for Sequen...
+#include "rtc_base/thread_annotations.h"                       // for RTC_GU...
 
 namespace webrtc {
+
+class Clock;
 
 class FlexfecReceiver {
  public:

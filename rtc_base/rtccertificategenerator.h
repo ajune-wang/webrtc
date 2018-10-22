@@ -11,12 +11,14 @@
 #ifndef RTC_BASE_RTCCERTIFICATEGENERATOR_H_
 #define RTC_BASE_RTCCERTIFICATEGENERATOR_H_
 
+#include <stdint.h>  // for uint64_t
+
 #include "absl/types/optional.h"
-#include "rtc_base/refcount.h"
-#include "rtc_base/rtccertificate.h"
-#include "rtc_base/scoped_ref_ptr.h"
-#include "rtc_base/sslidentity.h"
-#include "rtc_base/thread.h"
+#include "rtc_base/refcount.h"        // for RefCountInterface
+#include "rtc_base/rtccertificate.h"  // for RTCCertificate
+#include "rtc_base/scoped_ref_ptr.h"  // for scoped_refptr
+#include "rtc_base/sslidentity.h"     // for KeyParams
+#include "rtc_base/thread.h"          // for Thread
 
 namespace rtc {
 

@@ -14,7 +14,7 @@
 #include <openssl/ossl_typ.h>  // for EVP_PKEY, SSL_CTX
 
 #include <ctime>   // for time_t
-#include <memory>  // for unique_ptr
+#include <memory>
 #include <string>
 
 #include "rtc_base/checks.h"              // for RTC_DCHECK

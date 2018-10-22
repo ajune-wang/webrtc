@@ -10,11 +10,15 @@
 
 #include "modules/audio_processing/gain_control_impl.h"
 
+#include <cstdint>  // for int16_t
+
 #include "absl/types/optional.h"
-#include "modules/audio_processing/agc/legacy/gain_control.h"
-#include "modules/audio_processing/audio_buffer.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/agc/legacy/gain_control.h"   // for WebRt...
+#include "modules/audio_processing/audio_buffer.h"              // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Audio...
+#include "modules/audio_processing/logging/apm_data_dumper.h"   // for ApmDa...
+#include "rtc_base/checks.h"                                    // for Fatal...
+#include "rtc_base/constructormagic.h"                          // for RTC_D...
 
 namespace webrtc {
 

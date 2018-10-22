@@ -11,11 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_TRANSIENT_TRANSIENT_DETECTOR_H_
 #define MODULES_AUDIO_PROCESSING_TRANSIENT_TRANSIENT_DETECTOR_H_
 
-#include <deque>
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <deque>     // for deque
+#include <memory>    // for uniqu...
 
-#include "modules/audio_processing/transient/moving_moments.h"
-#include "modules/audio_processing/transient/wpd_tree.h"
+#include "modules/audio_processing/transient/moving_moments.h"  // for Movin...
+#include "modules/audio_processing/transient/wpd_tree.h"        // for WPDTree
 
 namespace webrtc {
 

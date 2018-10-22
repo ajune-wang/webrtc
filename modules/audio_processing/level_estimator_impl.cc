@@ -10,9 +10,13 @@
 
 #include "modules/audio_processing/level_estimator_impl.h"
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t
+
 #include "api/array_view.h"
-#include "modules/audio_processing/audio_buffer.h"
-#include "modules/audio_processing/rms_level.h"
+#include "modules/audio_processing/audio_buffer.h"  // for AudioBuffer
+#include "modules/audio_processing/rms_level.h"     // for RmsLevel
+#include "rtc_base/checks.h"                        // for RTC...
 
 namespace webrtc {
 

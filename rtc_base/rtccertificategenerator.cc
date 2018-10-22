@@ -10,12 +10,17 @@
 
 #include "rtc_base/rtccertificategenerator.h"
 
-#include <algorithm>
+#include <time.h>     // for time_t
+#include <algorithm>  // for min
 #include <memory>
+#include <utility>  // for move
 
-#include "rtc_base/checks.h"
-#include "rtc_base/refcountedobject.h"
-#include "rtc_base/sslidentity.h"
+#include "rtc_base/checks.h"            // for RTC_DCHECK, RTC...
+#include "rtc_base/location.h"          // for RTC_FROM_HERE
+#include "rtc_base/messagehandler.h"    // for MessageHandler
+#include "rtc_base/messagequeue.h"      // for Message, ScopedRefMessageData
+#include "rtc_base/refcountedobject.h"  // for RefCountedObject
+#include "rtc_base/sslidentity.h"       // for SSLIdentity, KeyParams
 
 namespace rtc {
 

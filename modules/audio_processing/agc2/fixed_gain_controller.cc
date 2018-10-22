@@ -10,17 +10,13 @@
 
 #include "modules/audio_processing/agc2/fixed_gain_controller.h"
 
-#include <algorithm>
-#include <cmath>
-
 #include "api/array_view.h"
-#include "common_audio/include/audio_util.h"
-#include "modules/audio_processing/agc2/agc2_common.h"
-#include "modules/audio_processing/agc2/interpolated_gain_curve.h"
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/logging.h"
-#include "rtc_base/numerics/safe_minmax.h"
+#include "common_audio/include/audio_util.h"                   // for DbToRatio
+#include "modules/audio_processing/agc2/agc2_common.h"         // for kMaxFl...
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
+#include "rtc_base/logging.h"                                  // for RTC_DLOG
+#include "rtc_base/numerics/safe_minmax.h"                     // for SafeClamp
 
 namespace webrtc {
 namespace {

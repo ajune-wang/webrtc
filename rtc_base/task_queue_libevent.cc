@@ -18,7 +18,7 @@
 #include <time.h>    // for nanosleep, timespec
 #include <unistd.h>
 #include <list>
-#include <memory>       // for unique_ptr, allocator
+#include <memory>
 #include <type_traits>  // for remove_reference<>::...
 #include <utility>      // for move
 

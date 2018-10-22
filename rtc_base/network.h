@@ -332,7 +332,7 @@ class Network {
   // 1) return all global temporary dynamic and non-deprecrated ones.
   // 2) if #1 not available, return global ones.
   // 3) if #2 not available, use ULA ipv6 as last resort. (ULA stands
-  // for unique local address, which is not route-able in open
+
   // internet but might be useful for a close WebRTC deployment.
 
   // TODO(guoweis): rule #3 actually won't happen at current

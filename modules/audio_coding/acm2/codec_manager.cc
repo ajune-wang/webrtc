@@ -10,10 +10,16 @@
 
 #include "modules/audio_coding/acm2/codec_manager.h"
 
+#include <string.h>  // for memcpy, size_t
+#include <map>
+#include <memory>
+#include <utility>  // for move
+
+#include "api/array_view.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "modules/audio_coding/acm2/rent_a_codec.h"  // for RentACodec, Rent...
 #include "rtc_base/checks.h"
-//#include "rtc_base/format_macros.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/logging.h"  // for RTC_LOG
 
 namespace webrtc {
 namespace acm2 {

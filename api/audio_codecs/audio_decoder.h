@@ -11,13 +11,15 @@
 #ifndef API_AUDIO_CODECS_AUDIO_DECODER_H_
 #define API_AUDIO_CODECS_AUDIO_DECODER_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int16_t, uint8_t, uint32_t
 #include <memory>
 #include <vector>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "rtc_base/buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/buffer.h"            // for Buffer, BufferT
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

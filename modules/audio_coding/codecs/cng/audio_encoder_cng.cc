@@ -10,10 +10,12 @@
 
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 
-#include <algorithm>
-#include <limits>
+#include <cstdint>  // for uint32_t, int16_t, int64_t
 #include <memory>
-#include <utility>
+#include <utility>  // for move
+
+#include "modules/audio_coding/codecs/cng/webrtc_cng.h"  // for ComfortNoise...
+#include "rtc_base/checks.h"  // for CheckedDivExact, RTC_CHECK
 
 namespace webrtc {
 

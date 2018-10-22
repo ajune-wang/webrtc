@@ -11,8 +11,8 @@
 #ifndef RTC_BASE_OPENSSLADAPTER_H_
 #define RTC_BASE_OPENSSLADAPTER_H_
 
-#include <openssl/ossl_typ.h>
-
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for int64_t
 #include <memory>
 #include <string>
 #include <vector>

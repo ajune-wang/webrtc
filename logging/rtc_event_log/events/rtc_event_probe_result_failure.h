@@ -11,9 +11,10 @@
 #ifndef LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_PROBE_RESULT_FAILURE_H_
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_PROBE_RESULT_FAILURE_H_
 
+#include <stdint.h>  // for int32_t
 #include <memory>
 
-#include "logging/rtc_event_log/events/rtc_event.h"
+#include "logging/rtc_event_log/events/rtc_event.h"  // for RtcEvent, RtcEve...
 
 namespace webrtc {
 

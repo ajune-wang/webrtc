@@ -11,7 +11,8 @@
 #ifndef RTC_BASE_ZERO_MEMORY_H_
 #define RTC_BASE_ZERO_MEMORY_H_
 
-#include <type_traits>
+#include <stddef.h>     // for size_t
+#include <type_traits>  // for enable_if, is_const, is_trivial
 
 #include "api/array_view.h"
 

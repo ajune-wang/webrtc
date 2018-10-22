@@ -11,11 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_CASCADED_BIQUAD_FILTER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_CASCADED_BIQUAD_FILTER_H_
 
-#include <complex>
+#include <stddef.h>  // for size_t
+#include <complex>   // for complex
 #include <vector>
 
 #include "api/array_view.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_IMPLICIT_CONSTRU...
 
 namespace webrtc {
 

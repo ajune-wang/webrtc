@@ -11,9 +11,10 @@
 #ifndef COMMON_AUDIO_AUDIO_CONVERTER_H_
 #define COMMON_AUDIO_AUDIO_CONVERTER_H_
 
+#include <stddef.h>  // for size_t
 #include <memory>
 
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

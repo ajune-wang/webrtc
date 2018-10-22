@@ -13,12 +13,11 @@
 
 #include <memory>
 
-#include "modules/audio_processing/vad/common.h"
-#include "modules/audio_processing/vad/gmm.h"
+#include "modules/audio_processing/vad/common.h"  // for AudioFeatures
+#include "modules/audio_processing/vad/gmm.h"     // for GmmParameters
 
 namespace webrtc {
 
-class AudioFrame;
 class VadCircularBuffer;
 
 // Computes the probability of the input audio frame to be active given

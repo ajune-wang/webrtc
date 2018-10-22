@@ -11,11 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_ERL_ESTIMATOR_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_ERL_ESTIMATOR_H_
 
+#include <stddef.h>  // for size_t
 #include <array>
 
 #include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "rtc_base/constructormagic.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kFftLengthBy2...
+#include "rtc_base/constructormagic.h"                  // for RTC_DISALLOW_...
 
 namespace webrtc {
 

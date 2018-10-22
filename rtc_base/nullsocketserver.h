@@ -11,8 +11,10 @@
 #ifndef RTC_BASE_NULLSOCKETSERVER_H_
 #define RTC_BASE_NULLSOCKETSERVER_H_
 
-#include "rtc_base/event.h"
-#include "rtc_base/socketserver.h"
+#include "rtc_base/asyncsocket.h"   // for AsyncSocket
+#include "rtc_base/event.h"         // for Event
+#include "rtc_base/socket.h"        // for Socket
+#include "rtc_base/socketserver.h"  // for SocketServer
 
 namespace rtc {
 

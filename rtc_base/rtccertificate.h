@@ -11,15 +11,18 @@
 #ifndef RTC_BASE_RTCCERTIFICATE_H_
 #define RTC_BASE_RTCCERTIFICATE_H_
 
-#include <stdint.h>
-
+#include <stdint.h>  // for uint64_t
 #include <memory>
+#include <string>
 
-#include "rtc_base/refcount.h"
-#include "rtc_base/scoped_ref_ptr.h"
-#include "rtc_base/sslidentity.h"
+#include "rtc_base/refcount.h"        // for RefCountInterface
+#include "rtc_base/scoped_ref_ptr.h"  // for scoped_refptr
 
 namespace rtc {
+
+class SSLCertChain;
+class SSLCertificate;
+class SSLIdentity;
 
 // This class contains PEM strings of an RTCCertificate's private key and
 // certificate and acts as a text representation of RTCCertificate. Certificates

@@ -11,8 +11,9 @@
 #ifndef RTC_BASE_STRING_TO_NUMBER_H_
 #define RTC_BASE_STRING_TO_NUMBER_H_
 
-#include <limits>
+#include <limits>  // for numeric_limits
 #include <string>
+#include <type_traits>  // for enable_if, is_integral, is_floating...
 
 #include "absl/types/optional.h"
 

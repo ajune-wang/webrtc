@@ -10,11 +10,12 @@
 
 #include "modules/audio_processing/agc2/fixed_digital_level_estimator.h"
 
-#include <algorithm>
-#include <cmath>
+#include <algorithm>  // for max
+#include <cmath>      // for abs
 
-#include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/checks.h"
+#include "api/array_view.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"  // for ApmDat...
+#include "rtc_base/checks.h"                                   // for FatalL...
 
 namespace webrtc {
 namespace {

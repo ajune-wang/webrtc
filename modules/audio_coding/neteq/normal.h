@@ -11,12 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_NORMAL_H_
 #define MODULES_AUDIO_CODING_NETEQ_NORMAL_H_
 
+#include <stdint.h>  // for uint16_t
 #include <string.h>  // Access to size_t.
 
-#include <vector>
-
-#include "modules/audio_coding/neteq/audio_multi_vector.h"
-#include "modules/audio_coding/neteq/defines.h"
+#include "modules/audio_coding/neteq/defines.h"  // for Modes
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -24,6 +22,7 @@
 namespace webrtc {
 
 // Forward declarations.
+class AudioMultiVector;
 class BackgroundNoise;
 class DecoderDatabase;
 class Expand;

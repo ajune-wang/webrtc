@@ -10,8 +10,9 @@
 
 #include "modules/audio_processing/aec3/block_framer.h"
 
-#include <algorithm>
+#include <algorithm>  // for copy
 
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kBlockSize
 #include "rtc_base/checks.h"
 
 namespace webrtc {

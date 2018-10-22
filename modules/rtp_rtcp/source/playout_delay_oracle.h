@@ -11,12 +11,14 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_PLAYOUT_DELAY_ORACLE_H_
 #define MODULES_RTP_RTCP_SOURCE_PLAYOUT_DELAY_ORACLE_H_
 
-#include <stdint.h>
+#include <stdint.h>  // for uint32_t
 
-#include "modules/include/module_common_types.h"
-#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
-#include "rtc_base/criticalsection.h"
-#include "rtc_base/thread_annotations.h"
+#include "common_types.h"  // NOLINT(build/include)
+#include "modules/include/module_common_types_public.h"  // for SequenceNumb...
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"   // for ReportBlockList
+#include "rtc_base/constructormagic.h"                   // for RTC_DISALLOW...
+#include "rtc_base/criticalsection.h"                    // for CritScope
+#include "rtc_base/thread_annotations.h"                 // for RTC_GUARDED_BY
 
 namespace webrtc {
 

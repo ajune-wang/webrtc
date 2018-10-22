@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "ff5942c1_06759709",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-22T12:21:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "528d95ff_29b370e3",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19df0ddb_12c850d2",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-22T12:21:30Z",
+      "side": 1,
+      "message": "What happens if this is unset?",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 80
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9f344a7_957e18b6",
         "filename": "modules/video_coding/fec_controller_default.cc",
         "patchSetId": 1
@@ -89,6 +136,53 @@
         "startChar": 0,
         "endLine": 60,
         "endChar": 44
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b350498_e0e40481",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-22T12:21:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8213791c_58d197fb",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1344d2e5_df9da6a9",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-22T12:21:30Z",
+      "side": 1,
+      "message": "Why is it not allowed to set this value to 0?\n\nIf we expect values outside this range, we probably should print a warning.",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 53
       },
       "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

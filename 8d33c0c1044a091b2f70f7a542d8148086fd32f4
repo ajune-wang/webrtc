@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b46f666a_983a3cdb",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-10-22T15:05:58Z",
+      "side": 0,
+      "message": "Lynx sight! That was a tricky one. timeutils.cc included:\n* \u003ctime.h\u003e\n* \u003cctime\u003e\n* \u003csys/time.h\u003e for WEBRTC_POSIX.\nThat\u0027s a pretty mess.\n\nThe tool removed \u003cctime\u003e, and in my book that was a good call.\nThere is no clear benefit, I\u0027ve kept that one for consistency sake (\u003ctime.h\u003e is used more often than \u003cctime\u003e in the codebase).\nBut then, the std::tm happened to only work by chance because obviously time.h doesn\u0027t know about std namespace. I had to manually fix it.\n\nI\u0027ll see if we can fix \u003csys/time.h\u003e in a subsequent cleanup.",
+      "parentUuid": "7b8b548b_bea070f9",
+      "range": {
+        "startLine": 242,
+        "startChar": 2,
+        "endLine": 242,
+        "endChar": 7
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b936d175_b780ed57",
         "filename": "rtc_base/unixfilesystem.cc",
         "patchSetId": 48
@@ -59,6 +83,30 @@
       "writtenOn": "2018-10-22T14:16:32Z",
       "side": 0,
       "message": "So, IIUC this means that ctype.h and algorithm were not used. Did you have to delete the #if/#endif manually?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e661be47_34ea0d80",
+        "filename": "rtc_base/unixfilesystem.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-10-22T15:05:58Z",
+      "side": 0,
+      "message": "Yes they were detected as unused (at least, on a linux build).\nThe fix_includes.py was smart enough to remove the #if/#endif by itself.",
+      "parentUuid": "b936d175_b780ed57",
       "range": {
         "startLine": 38,
         "startChar": 0,

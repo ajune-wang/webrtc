@@ -10,7 +10,10 @@
 
 #include "common_audio/channel_buffer.h"
 
-#include "rtc_base/checks.h"
+#include <cstdint>  // for int16_t
+
+#include "common_audio/include/audio_util.h"  // for FloatS16ToS16
+#include "rtc_base/checks.h"                  // for RTC_DCHECK
 
 namespace webrtc {
 

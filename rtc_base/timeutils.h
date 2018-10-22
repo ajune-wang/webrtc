@@ -11,14 +11,12 @@
 #ifndef RTC_BASE_TIMEUTILS_H_
 #define RTC_BASE_TIMEUTILS_H_
 
-#include <stdint.h>
-#include <time.h>
-
-#include <ctime>
+#include <stdint.h>  // for int64_t, uint32_t, INT64_C
+#include <time.h>    // for tm
 #include <string>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/strings/string_builder.h"
+#include "rtc_base/strings/string_builder.h"  // for StringBuilder
 
 namespace rtc {
 
@@ -110,10 +108,10 @@ class TimestampWrapAroundHandler {
   int64_t num_wrap_;
 };
 
-// Convert from std::tm, which is relative to 1900-01-01 00:00 to number of
-// seconds from 1970-01-01 00:00 ("epoch").  Don't return time_t since that
+// Convert from tm, which is relative to 1900-01-01 00:00 to number of
+// seconds from 1970-01-01 00:00 ("epoch"). Don't return time_t since that
 // is still 32 bits on many systems.
-int64_t TmToSeconds(const std::tm& tm);
+int64_t TmToSeconds(const tm& tm);
 
 // Return the number of microseconds since January 1, 1970, UTC.
 // Useful mainly when producing logs to be correlated with other

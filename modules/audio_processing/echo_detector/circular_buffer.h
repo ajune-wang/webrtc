@@ -11,9 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_ECHO_DETECTOR_CIRCULAR_BUFFER_H_
 #define MODULES_AUDIO_PROCESSING_ECHO_DETECTOR_CIRCULAR_BUFFER_H_
 
+#include <stddef.h>  // for size_t
 #include <vector>
 
-#include "absl/types/optional.h"
+#include "absl/types/optional.h"  // for optional
 
 namespace webrtc {
 

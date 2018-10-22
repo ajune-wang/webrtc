@@ -16,13 +16,15 @@
 #if defined(WEBRTC_ARCH_X86_FAMILY)
 #include <emmintrin.h>
 #endif
-#include <math.h>
-#include <algorithm>
+#include <algorithm>  // for transform, max
 #include <array>
-#include <functional>
-#include <numeric>
+#include <cmath>       // for cosf, sinf, sqrtf
+#include <cstdint>     // for int16_t, uint32_t, int32_t
+#include <functional>  // for multiplies
+#include <numeric>     // for accumulate
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

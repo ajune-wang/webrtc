@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d73fa50_49b0ca7f",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Are these comments automatically inserted by the tool?",
+      "range": {
+        "startLine": 21,
+        "startChar": 40,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a543854_c3184687",
+        "filename": "api/video/BUILD.gn",
+        "patchSetId": 48
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Please use this format: bugs.webrtc.org/8311",
+      "range": {
+        "startLine": 78,
+        "startChar": 11,
+        "endLine": 78,
+        "endChar": 19
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fed2afc6_3ffc0950",
         "filename": "modules/audio_coding/codecs/cng/audio_encoder_cng.cc",
         "patchSetId": 48
@@ -18,6 +64,144 @@
         "startChar": 20,
         "endLine": 13,
         "endChar": 53
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ff713a_8d79c502",
+        "filename": "modules/audio_coding/neteq/preemptive_expand.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "As in other places. Do we really need to add forward declarations?\n\nI think it makes sense to avoid to regress on this and only add them if really needed.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e7d44f0_14ec1996",
+        "filename": "modules/audio_coding/neteq/rtcp.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Why not adding the include on \"common_types.h\"?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1041dd30_52cb12c0",
+        "filename": "rtc_base/stringutils.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Why not moving this to the #if defined(WEBRTC_POSIX) below?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 6
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0bf57d1_b535d23a",
+        "filename": "rtc_base/synchronization/rw_lock_posix.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Can we switch to `nullptr` and remove this entirely?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b61b9c9c_862d4a88",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Is this required?\n\nThe style guide asks to avoid forward declarations (https://webrtc.googlesource.com/src/+/HEAD/style-guide.md#forward-declarations).",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84ff6262_ade70d86",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 1,
+      "message": "Is this one of the manual changes you had to do?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 37
       },
       "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

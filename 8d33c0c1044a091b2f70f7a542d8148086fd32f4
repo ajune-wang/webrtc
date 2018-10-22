@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34fd5c8_11bffb1d",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 0,
+      "message": "Nice! :)",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b8b548b_bea070f9",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 0,
+      "message": "What are the benefits of using time.h instead of ctime?",
+      "range": {
+        "startLine": 242,
+        "startChar": 2,
+        "endLine": 242,
+        "endChar": 7
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b936d175_b780ed57",
+        "filename": "rtc_base/unixfilesystem.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T14:16:32Z",
+      "side": 0,
+      "message": "So, IIUC this means that ctype.h and algorithm were not used. Did you have to delete the #if/#endif manually?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

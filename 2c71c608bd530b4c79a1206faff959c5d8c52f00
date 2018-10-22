@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "06b1187f_32fbacb7",
+        "filename": "api/audio_codecs/audio_decoder.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1c6f982d_52036db5",
+      "range": {
+        "startLine": 21,
+        "startChar": 40,
+        "endLine": 21,
+        "endChar": 62
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a543854_c3184687",
         "filename": "api/video/BUILD.gn",
         "patchSetId": 48
@@ -213,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "188b6283_e305710b",
+        "filename": "modules/audio_coding/neteq/rtcp.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 1,
+      "message": "Mmmh, I would like to have some consistency, though. I see your point, but in that case I would like that we use this pattern everywhere (or make it clear in the style guide).\n\nI guess we can talk with kwiberg@ and nisse@ tomorrow. It is not a blocker, but it is an exception to the style guide and that can cost time we will have to convince ourselves that \"in this case it is ok\".",
+      "parentUuid": "503e16bc_8311ea21",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1041dd30_52cb12c0",
         "filename": "rtc_base/stringutils.h",
         "patchSetId": 48
@@ -307,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "3366c426_42b88633",
+        "filename": "rtc_base/synchronization/rw_lock_posix.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 1,
+      "message": "Agreed, let\u0027s follow up with a NULL -\u003e nullptr CL. :)",
+      "parentUuid": "1fb976fb_e2933383",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 32
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b61b9c9c_862d4a88",
         "filename": "sdk/android/src/jni/audio_device/audio_device_module.h",
         "patchSetId": 48
@@ -327,6 +399,30 @@
       "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f658c7c_5a8738fe",
+        "filename": "sdk/android/src/jni/audio_device/audio_device_module.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 1,
+      "message": "No need to reply. Let\u0027s talk about this one tomorrow.",
+      "parentUuid": "b61b9c9c_862d4a88",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 24
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -374,6 +470,30 @@
       "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c4bc59_8d024589",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 1,
+      "message": "Nice.",
+      "parentUuid": "0fbf0c5f_f7c727b3",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 37
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

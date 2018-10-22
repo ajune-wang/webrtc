@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "10587a01_7e71b321",
+        "filename": "rtc_base/sslidentity.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 0,
+      "message": "Thanks for explaining.",
+      "parentUuid": "b46f666a_983a3cdb",
+      "range": {
+        "startLine": 242,
+        "startChar": 2,
+        "endLine": 242,
+        "endChar": 7
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b936d175_b780ed57",
         "filename": "rtc_base/unixfilesystem.cc",
         "patchSetId": 48
@@ -116,6 +140,30 @@
       "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a5dab5_69901b6f",
+        "filename": "rtc_base/unixfilesystem.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-22T15:29:34Z",
+      "side": 0,
+      "message": "Nice!",
+      "parentUuid": "e661be47_34ea0d80",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

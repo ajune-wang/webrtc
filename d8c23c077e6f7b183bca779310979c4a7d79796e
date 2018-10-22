@@ -294,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "53cff21e_d1619e3a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-22T21:40:04Z",
+      "side": 1,
+      "message": "This is still unresolved, right? Pls ping me when the comments are addressed.",
+      "parentUuid": "adbb02cf_0414e772",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 26
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba93bc4b_f796e299",
         "filename": "audio/channel_send.cc",
         "patchSetId": 13
@@ -433,6 +457,30 @@
       "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e9f3b81_71e0a0a2",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-22T21:40:04Z",
+      "side": 1,
+      "message": "thanks. resolving.",
+      "parentUuid": "415d877f_7d512ff6",
+      "range": {
+        "startLine": 377,
+        "startChar": 10,
+        "endLine": 377,
+        "endChar": 14
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

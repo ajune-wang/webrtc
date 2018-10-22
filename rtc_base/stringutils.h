@@ -15,11 +15,15 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#if defined(WEBRTC_POSIX)
+#include <strings.h>
+#endif
 
 #if defined(WEBRTC_WIN)
 #include <malloc.h>
 #include <wchar.h>
 #include <windows.h>
+
 #define alloca _alloca
 #endif  // WEBRTC_WIN
 

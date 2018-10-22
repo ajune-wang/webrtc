@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "74d2a83b_36d43883",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-22T14:06:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9da37c0_84238b3a",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52f39823_feca32e2",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 13
@@ -118,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "89695134_0e3c72c4",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-22T14:06:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52f39823_feca32e2",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9100eece_db2436b1",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 13
@@ -138,6 +186,30 @@
       "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddf13d06_d263f02e",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-22T14:06:45Z",
+      "side": 1,
+      "message": "Done. Deleted the (private) getter method.",
+      "parentUuid": "9100eece_db2436b1",
+      "range": {
+        "startLine": 346,
+        "startChar": 6,
+        "endLine": 346,
+        "endChar": 24
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -245,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "12909822_9a970fc9",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-22T14:06:45Z",
+      "side": 1,
+      "message": "Unclear to me what kind of debug string Anton meant. Deleting comment.",
+      "parentUuid": "ba93bc4b_f796e299",
+      "range": {
+        "startLine": 373,
+        "startChar": 24,
+        "endLine": 373,
+        "endChar": 40
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95c27d7e_14df3aca",
         "filename": "audio/channel_send.cc",
         "patchSetId": 13
@@ -304,6 +400,30 @@
       "side": 1,
       "message": "I am asking if we can use something existing (constant, etc) instead of \u0027-1\u0027 (unless \u0027-1\u0027 is a convention in webrtc).",
       "parentUuid": "47aad6aa_8380355a",
+      "range": {
+        "startLine": 377,
+        "startChar": 10,
+        "endLine": 377,
+        "endChar": 14
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "415d877f_7d512ff6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-22T14:06:45Z",
+      "side": 1,
+      "message": "I see. \n\nUsing int32_t as return type signals this is old code. For video coding, there are some more detailed error codes defined in modules/video_coding/include/video_error_codes.h, and a different set in modules/video_coding/include/video_coding_defines.h.\n\nBut this is audio code, and as far as I can tell, the convention is just 0 for success and -1 for error.",
+      "parentUuid": "c21d1283_8b2c8929",
       "range": {
         "startLine": 377,
         "startChar": 10,

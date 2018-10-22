@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d04b6419_cd194b94",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-22T16:29:06Z",
+      "side": 1,
+      "message": "There is no check to validate that the size is a power of 2 (it has to be).",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 50
+      },
+      "revId": "201596f004c80a0e155a493b5942f7ed862336b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13e68ef0_9ac7ba1a",
+        "filename": "modules/video_coding/fec_controller_default.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-22T14:42:07Z",
+      "side": 1,
+      "message": "Can you move this to be a helper function in an anonymous namespace in the cc?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "9b8eae647b39ca6d56c4bf307d1fd28889d30ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "125a659b_eda45bbb",
+        "filename": "modules/video_coding/fec_controller_default.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-10-22T14:42:07Z",
+      "side": 1,
+      "message": "const float",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 7
+      },
+      "revId": "9b8eae647b39ca6d56c4bf307d1fd28889d30ca0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

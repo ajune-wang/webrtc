@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "33739fc2_32d2a7d2",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-22T12:32:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff5942c1_06759709",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19df0ddb_12c850d2",
         "filename": "modules/video_coding/fec_controller_default.cc",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74cb57a2_e92a843e",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-22T12:32:17Z",
+      "side": 1,
+      "message": "If this is unset, strtof will return 0.",
+      "parentUuid": "19df0ddb_12c850d2",
+      "range": {
+        "startLine": 57,
+        "startChar": 56,
+        "endLine": 58,
+        "endChar": 80
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +235,30 @@
       "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d99f1d8c_693466ef",
+        "filename": "modules/video_coding/fec_controller_default.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-22T12:32:17Z",
+      "side": 1,
+      "message": "See above. Actually anything below 50% will not make much sense.\n\nAdded a warning below.",
+      "parentUuid": "1344d2e5_df9da6a9",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "266eb754bc084c72c4d7dd723b391b4b2f9bc815",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

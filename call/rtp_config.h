@@ -11,11 +11,13 @@
 #ifndef CALL_RTP_CONFIG_H_
 #define CALL_RTP_CONFIG_H_
 
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint32_t, int64_t, int16_t, uint8_t
 #include <string>
 #include <vector>
 
-#include "api/rtp_headers.h"
-#include "api/rtpparameters.h"
+#include "api/rtp_headers.h"    // for RtcpMode, RtcpMode::kCompound
+#include "api/rtpparameters.h"  // for RtpExtension
 
 namespace webrtc {
 // Currently only VP8/VP9 specific.

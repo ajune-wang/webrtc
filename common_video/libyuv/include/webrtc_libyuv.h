@@ -15,11 +15,14 @@
 #ifndef COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
 #define COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
 
-#include <stdio.h>
+#include <stdint.h>  // for uint8_t
+#include <stdio.h>   // for size_t, FILE
 #include <vector>
 
-#include "api/video/video_frame.h"
-#include "common_types.h"  // NOLINT(build/include)  // VideoTypes.
+#include "api/video/video_frame.h"         // for VideoFrame
+#include "api/video/video_frame_buffer.h"  // for I420BufferInterface
+#include "common_types.h"                  // NOLINT(build/include)
+#include "rtc_base/scoped_ref_ptr.h"       // for scoped_refptr
 
 namespace webrtc {
 

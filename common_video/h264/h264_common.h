@@ -11,10 +11,11 @@
 #ifndef COMMON_VIDEO_H264_H264_COMMON_H_
 #define COMMON_VIDEO_H264_H264_COMMON_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t
 #include <vector>
 
-#include "rtc_base/buffer.h"
+#include "rtc_base/buffer.h"  // for Buffer
 
 namespace webrtc {
 

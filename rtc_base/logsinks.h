@@ -11,12 +11,13 @@
 #ifndef RTC_BASE_LOGSINKS_H_
 #define RTC_BASE_LOGSINKS_H_
 
-#include <memory>
+#include <stddef.h>  // for size_t
+#include <memory>    // for unique_ptr
 #include <string>
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/filerotatingstream.h"
-#include "rtc_base/logging.h"
+#include "rtc_base/constructormagic.h"    // for RTC_DISALLOW_COPY_AND_ASSIGN
+#include "rtc_base/filerotatingstream.h"  // for FileRotatingStream
+#include "rtc_base/logging.h"             // for LogSink, LoggingSeverity
 
 namespace rtc {
 

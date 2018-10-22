@@ -11,6 +11,7 @@
 #ifndef RTC_BASE_MESSAGEDIGEST_H_
 #define RTC_BASE_MESSAGEDIGEST_H_
 
+#include <stddef.h>  // for size_t
 #include <string>
 
 namespace rtc {

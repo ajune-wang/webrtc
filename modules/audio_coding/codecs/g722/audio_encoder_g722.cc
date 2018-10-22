@@ -10,13 +10,12 @@
 
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
 
-#include <algorithm>
+#include <cstdint>  // for int16_t
 
-#include <limits>
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/codecs/g722/g722_interface.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "common_types.h"                                     // for CodecInst
+#include "modules/audio_coding/codecs/g722/g722_interface.h"  // for WebRtcG...
+#include "rtc_base/checks.h"                                  // for FatalLo...
+#include "rtc_base/numerics/safe_conversions.h"               // for dchecke...
 
 namespace webrtc {
 

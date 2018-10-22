@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4205140_e0a647e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-22T13:13:12Z",
+      "side": 1,
+      "message": "The recommended line length is 73 for all lines an 55 for titles.",
+      "revId": "25669b8254a670a66d06d03e2195aa0909148ac1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

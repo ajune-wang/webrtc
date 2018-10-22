@@ -11,15 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_LOGGING_APM_DATA_DUMPER_H_
 #define MODULES_AUDIO_PROCESSING_LOGGING_APM_DATA_DUMPER_H_
 
-#include <stdio.h>
-
-#include <memory>
-#include <string>
-#include <unordered_map>
+#include <stdint.h>  // for int16_t, int32_t
+#include <stdio.h>   // for size_t
 
 #include "api/array_view.h"
-#include "common_audio/wav_file.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_IMPLICIT_CONSTRU...
 
 // Check to verify that the define is properly set.
 #if !defined(WEBRTC_APM_DEBUG_DUMP) || \

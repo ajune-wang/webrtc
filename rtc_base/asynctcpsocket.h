@@ -11,6 +11,7 @@
 #ifndef RTC_BASE_ASYNCTCPSOCKET_H_
 #define RTC_BASE_ASYNCTCPSOCKET_H_
 
+#include <stddef.h>  // for size_t
 #include <memory>
 
 #include "rtc_base/asyncpacketsocket.h"  // for PacketOptions, AsyncPacketSo...

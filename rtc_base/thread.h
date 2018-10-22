@@ -11,16 +11,22 @@
 #ifndef RTC_BASE_THREAD_H_
 #define RTC_BASE_THREAD_H_
 
+#include <stdint.h>  // for uint32_t
 #include <list>
 #include <memory>
 #include <string>
+#include <type_traits>  // for forward
 
 #if defined(WEBRTC_POSIX)
-#include <pthread.h>
+#include <pthread.h>  // for pthread_key_t, pthread_t
 #endif
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/messagequeue.h"
-#include "rtc_base/platform_thread_types.h"
+#include "rtc_base/constructormagic.h"       // for RTC_DISALLOW_COPY_AND_AS...
+#include "rtc_base/location.h"               // for Location
+#include "rtc_base/messagehandler.h"         // for MessageHandler, FunctorM...
+#include "rtc_base/messagequeue.h"           // for Message, MQID_ANY, Messa...
+#include "rtc_base/platform_thread_types.h"  // for PlatformThreadRef
+#include "rtc_base/socketserver.h"           // for SocketServer
+#include "rtc_base/thread_annotations.h"     // for RTC_LOCKABLE
 
 #if defined(WEBRTC_WIN)
 #include "rtc_base/win32.h"

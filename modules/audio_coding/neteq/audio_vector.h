@@ -11,11 +11,12 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_AUDIO_VECTOR_H_
 #define MODULES_AUDIO_CODING_NETEQ_AUDIO_VECTOR_H_
 
-#include <string.h>  // Access to size_t.
+#include <string.h>  // for size_t
+#include <cstdint>   // for int16_t
 #include <memory>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
 
 namespace webrtc {
 

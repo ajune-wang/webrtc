@@ -10,12 +10,12 @@
 
 #include "rtc_base/messagedigest.h"
 
+#include <string.h>  // for size_t, memset, memcpy
+#include <cstdint>   // for uint8_t
 #include <memory>
 
-#include <string.h>
-
-#include "rtc_base/openssldigest.h"
-#include "rtc_base/stringencode.h"
+#include "rtc_base/openssldigest.h"  // for OpenSSLDigest
+#include "rtc_base/stringencode.h"   // for hex_encode
 
 namespace rtc {
 

@@ -11,9 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_TRANSIENT_WPD_TREE_H_
 #define MODULES_AUDIO_PROCESSING_TRANSIENT_WPD_TREE_H_
 
+#include <stddef.h>  // for size_t
 #include <memory>
 
-#include "modules/audio_processing/transient/wpd_node.h"
+#include "modules/audio_processing/transient/wpd_node.h"  // for WPDNode
 
 namespace webrtc {
 

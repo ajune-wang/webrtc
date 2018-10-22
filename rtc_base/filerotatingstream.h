@@ -11,12 +11,13 @@
 #ifndef RTC_BASE_FILEROTATINGSTREAM_H_
 #define RTC_BASE_FILEROTATINGSTREAM_H_
 
+#include <stddef.h>  // for size_t
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "rtc_base/constructormagic.h"
-#include "rtc_base/stream.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLOW_COPY_AND_ASSIGN
+#include "rtc_base/stream.h"            // for StreamResult, FileStream, Str...
 
 namespace rtc {
 

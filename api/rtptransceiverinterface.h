@@ -16,9 +16,12 @@
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
-#include "api/rtpreceiverinterface.h"
-#include "api/rtpsenderinterface.h"
-#include "rtc_base/refcount.h"
+#include "api/mediatypes.h"            // for MediaType
+#include "api/rtpparameters.h"         // for RtpEncodingParameters, RtpCode...
+#include "api/rtpreceiverinterface.h"  // for RtpReceiverInterface
+#include "api/rtpsenderinterface.h"    // for RtpSenderInterface
+#include "rtc_base/refcount.h"         // for RefCountInterface
+#include "rtc_base/scoped_ref_ptr.h"   // for scoped_refptr
 
 namespace webrtc {
 

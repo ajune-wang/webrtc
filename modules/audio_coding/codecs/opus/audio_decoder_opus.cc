@@ -10,9 +10,12 @@
 
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
 
-#include <utility>
+#include <memory>
+#include <utility>  // for move
 
-#include "rtc_base/checks.h"
+#include "absl/types/optional.h"
+#include "api/array_view.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK_EQ, RTC_DC...
 
 namespace webrtc {
 

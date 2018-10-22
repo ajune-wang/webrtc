@@ -15,17 +15,17 @@
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #endif              // UNIT_TEST
 
-#include <stdint.h>
-#include <algorithm>
-#include <cmath>
-#include <limits>
+#include <stdint.h>   // for int64_t, int32_t
+#include <algorithm>  // for max, min
+#include <cmath>      // for round, isnan
+#include <limits>     // for numeric_limits
 #include <string>
+#include <type_traits>  // for enable_if, is_floati...
 
+#include "api/units/data_size.h"   // for DataSize
+#include "api/units/time_delta.h"  // for TimeDelta
 #include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
-
-#include "api/units/data_size.h"
-#include "api/units/time_delta.h"
+#include "rtc_base/numerics/safe_conversions.h"  // for dchecked_cast
 
 namespace webrtc {
 namespace data_rate_impl {

@@ -10,11 +10,13 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_PACKET_RECEIVED_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_PACKET_RECEIVED_H_
 
+#include <stdint.h>  // for uint8_t, int64_t
 #include <vector>
 
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/rtp_rtcp/source/rtp_packet.h"
-#include "system_wrappers/include/ntp_time.h"
+#include "api/array_view.h"
+#include "api/rtp_headers.h"                     // for RTPHeader
+#include "modules/rtp_rtcp/source/rtp_packet.h"  // for RtpPacket, RtpPacket...
+#include "system_wrappers/include/ntp_time.h"    // for NtpTime
 
 namespace webrtc {
 // Class to hold rtp packet with metadata for receiver side.

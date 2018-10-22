@@ -11,14 +11,13 @@
 #ifndef MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
 #define MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
 
-#include <memory>
+#include <stdint.h>  // for int64_t
 #include <string>
-#include <vector>
 
-#include "api/array_view.h"
-#include "api/audio/audio_frame.h"
-#include "modules/audio_processing/include/audio_frame_view.h"
-#include "modules/audio_processing/include/audio_processing.h"
+#include "api/audio/audio_frame.h"                              // for Audio...
+#include "modules/audio_processing/include/audio_frame_view.h"  // for Audio...
+#include "modules/audio_processing/include/audio_processing.h"  // for Proce...
+#include "rtc_base/deprecation.h"                               // for RTC_D...
 
 namespace webrtc {
 

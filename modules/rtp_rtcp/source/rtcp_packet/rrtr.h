@@ -12,7 +12,10 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
 
-#include "system_wrappers/include/ntp_time.h"
+#include <stddef.h>  // for size_t
+#include <stdint.h>  // for uint8_t, uint16_t
+
+#include "system_wrappers/include/ntp_time.h"  // for NtpTime
 
 namespace webrtc {
 namespace rtcp {

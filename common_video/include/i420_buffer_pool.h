@@ -11,12 +11,13 @@
 #ifndef COMMON_VIDEO_INCLUDE_I420_BUFFER_POOL_H_
 #define COMMON_VIDEO_INCLUDE_I420_BUFFER_POOL_H_
 
-#include <limits>
+#include <stddef.h>  // for size_t
 #include <list>
 
-#include "api/video/i420_buffer.h"
-#include "rtc_base/race_checker.h"
-#include "rtc_base/refcountedobject.h"
+#include "api/video/i420_buffer.h"      // for I420Buffer
+#include "rtc_base/race_checker.h"      // for RaceChecker
+#include "rtc_base/refcountedobject.h"  // for RefCountedObject
+#include "rtc_base/scoped_ref_ptr.h"    // for scoped_refptr
 
 namespace webrtc {
 

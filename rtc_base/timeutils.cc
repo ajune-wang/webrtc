@@ -8,12 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <stdint.h>
+#include <stdint.h>  // for int64_t, uint32_t, int32_t
 
 #if defined(WEBRTC_POSIX)
-#include <sys/time.h>
+#include <sys/time.h>  // for gettimeofday, CLOCK_MONOTONIC
 #if defined(WEBRTC_MAC)
 #include <mach/mach_time.h>
+#include "rtc_base/numerics/safe_conversions.h"
 #endif
 #endif
 
@@ -27,8 +28,7 @@
 // clang-format on
 #endif
 
-#include "rtc_base/checks.h"
-#include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/checks.h"  // for RTC_DCHECK_GE
 #include "rtc_base/timeutils.h"
 
 namespace rtc {
@@ -154,7 +154,7 @@ int64_t TimestampWrapAroundHandler::Unwrap(uint32_t ts) {
   return ts + (num_wrap_ << 32);
 }
 
-int64_t TmToSeconds(const std::tm& tm) {
+int64_t TmToSeconds(const tm& tm) {
   static short int mdays[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
   static short int cumul_mdays[12] = {0,   31,  59,  90,  120, 151,
                                       181, 212, 243, 273, 304, 334};

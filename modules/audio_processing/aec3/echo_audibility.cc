@@ -10,11 +10,12 @@
 
 #include "modules/audio_processing/aec3/echo_audibility.h"
 
-#include <algorithm>
-#include <cmath>
+#include <algorithm>  // for max
+#include <cmath>      // for fabs
+#include <utility>    // for pair
+#include <vector>
 
 #include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/matrix_buffer.h"
 #include "modules/audio_processing/aec3/stationarity_estimator.h"
 #include "modules/audio_processing/aec3/vector_buffer.h"

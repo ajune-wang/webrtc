@@ -11,14 +11,16 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC3_RENDER_SIGNAL_ANALYZER_H_
 #define MODULES_AUDIO_PROCESSING_AEC3_RENDER_SIGNAL_ANALYZER_H_
 
+#include <algorithm>  // for any_of
 #include <array>
-#include <memory>
+#include <cstddef>  // for size_t
 
-#include "absl/types/optional.h"
-#include "api/audio/echo_canceller3_config.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
-#include "modules/audio_processing/aec3/render_buffer.h"
-#include "rtc_base/constructormagic.h"
+#include "absl/types/optional.h"                          // for optional
+#include "api/audio/echo_canceller3_config.h"             // for EchoCancell...
+#include "modules/audio_processing/aec3/aec3_common.h"    // for kFftLengthBy2
+#include "modules/audio_processing/aec3/render_buffer.h"  // for RenderBuffer
+#include "rtc_base/checks.h"
+#include "rtc_base/constructormagic.h"  // for RTC_DISALLO...
 
 namespace webrtc {
 

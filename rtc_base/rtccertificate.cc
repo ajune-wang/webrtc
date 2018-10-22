@@ -14,6 +14,8 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/refcountedobject.h"
+#include "rtc_base/sslcertificate.h"  // for SSLCertChain, SSLCertificate
+#include "rtc_base/sslidentity.h"     // for SSLIdentity
 #include "rtc_base/timeutils.h"
 
 namespace rtc {

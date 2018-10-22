@@ -10,10 +10,10 @@
 
 #include "modules/audio_processing/aec3/subtractor_output_analyzer.h"
 
-#include <array>
-#include <numeric>
+#include <algorithm>  // for min
 
-#include "system_wrappers/include/field_trial.h"
+#include "modules/audio_processing/aec3/aec3_common.h"  // for kBlockSize
+#include "system_wrappers/include/field_trial.h"        // for IsEnabled
 
 namespace webrtc {
 namespace {

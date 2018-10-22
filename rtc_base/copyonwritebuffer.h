@@ -11,13 +11,17 @@
 #ifndef RTC_BASE_COPYONWRITEBUFFER_H_
 #define RTC_BASE_COPYONWRITEBUFFER_H_
 
-#include <algorithm>
-#include <utility>
+#include <stdint.h>   // for uint8_t
+#include <algorithm>  // for max
+#include <cstring>    // for size_t, memcpy
+#include <string>
+#include <type_traits>  // for enable_if
+#include <utility>      // for move, swap
 
-#include "rtc_base/buffer.h"
+#include "rtc_base/buffer.h"  // for Buffer, BufferCompat
 #include "rtc_base/checks.h"
-#include "rtc_base/refcountedobject.h"
-#include "rtc_base/scoped_ref_ptr.h"
+#include "rtc_base/refcountedobject.h"  // for RefCountedObject
+#include "rtc_base/scoped_ref_ptr.h"    // for scoped_refptr
 
 namespace rtc {
 

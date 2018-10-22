@@ -11,18 +11,19 @@
 #include "modules/audio_coding/neteq/decision_logic.h"
 
 #include <assert.h>
-#include <algorithm>
-#include <limits>
+#include <stdio.h>  // for size_t
+#include <string>
 
-#include "modules/audio_coding/neteq/buffer_level_filter.h"
-#include "modules/audio_coding/neteq/decoder_database.h"
-#include "modules/audio_coding/neteq/delay_manager.h"
-#include "modules/audio_coding/neteq/expand.h"
-#include "modules/audio_coding/neteq/packet_buffer.h"
-#include "modules/audio_coding/neteq/sync_buffer.h"
-#include "modules/include/module_common_types.h"
-#include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
+#include "modules/audio_coding/neteq/buffer_level_filter.h"  // for BufferLe...
+#include "modules/audio_coding/neteq/decoder_database.h"     // for DecoderD...
+#include "modules/audio_coding/neteq/delay_manager.h"        // for DelayMan...
+#include "modules/audio_coding/neteq/expand.h"               // for Expand
+#include "modules/audio_coding/neteq/packet_buffer.h"        // for PacketBu...
+#include "modules/audio_coding/neteq/sync_buffer.h"          // for SyncBuffer
+#include "rtc_base/checks.h"                                 // for FatalLog...
+#include "rtc_base/logging.h"                                // for RTC_LOG
+#include "rtc_base/numerics/safe_conversions.h"              // for dchecked...
+#include "system_wrappers/include/field_trial.h"             // for IsEnabled
 
 namespace {
 constexpr char kPostponeDecodingFieldTrial[] =

@@ -11,9 +11,7 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_AGC2_COMMON_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_AGC2_COMMON_H_
 
-#include <stddef.h>
-
-#include <cmath>
+#include <stddef.h>  // for size_t
 
 namespace webrtc {
 

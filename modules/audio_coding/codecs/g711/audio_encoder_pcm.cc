@@ -10,12 +10,11 @@
 
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
 
-#include <algorithm>
-#include <limits>
+#include <cstdint>  // for int16_t
 
-#include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/codecs/g711/g711_interface.h"
-#include "rtc_base/checks.h"
+#include "common_types.h"                                     // for CodecInst
+#include "modules/audio_coding/codecs/g711/g711_interface.h"  // for WebRtcG...
+#include "rtc_base/checks.h"                                  // for FatalLo...
 
 namespace webrtc {
 

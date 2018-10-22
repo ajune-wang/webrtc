@@ -10,9 +10,11 @@
 
 #include "rtc_base/stringencode.h"
 
-#include "rtc_base/arraysize.h"
-#include "rtc_base/checks.h"
-#include "rtc_base/stringutils.h"
+#include <cstdio>  // for size_t, snprintf
+
+#include "rtc_base/arraysize.h"    // for arraysize
+#include "rtc_base/checks.h"       // for RTC_DCHECK_LE, RTC_D...
+#include "rtc_base/stringutils.h"  // for STACK_ARRAY
 
 namespace rtc {
 

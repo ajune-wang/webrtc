@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "ee78c3ab_f8ee346b",
+        "filename": "modules/audio_coding/codecs/cng/audio_encoder_cng.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-10-22T14:17:15Z",
+      "side": 1,
+      "message": "I agree for this example and the redundant ones (e.g. \"string_builder.h\"  // for StringBuilder.\nWhat about cases where the mapping isn\u0027t so obvious? Such as:\n#include \"rtc_base/location.h\"  // for RTC_FROM_HERE",
+      "parentUuid": "fed2afc6_3ffc0950",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "09ff713a_8d79c502",
         "filename": "modules/audio_coding/neteq/preemptive_expand.h",
         "patchSetId": 48

@@ -449,25 +449,6 @@ bool FakeDataMediaChannel::SetMaxSendBandwidth(int bps) {
   return true;
 }
 
-FakeBaseEngine::FakeBaseEngine()
-    : options_changed_(false), fail_create_channel_(false) {}
-void FakeBaseEngine::set_fail_create_channel(bool fail) {
-  fail_create_channel_ = fail;
-}
-void FakeBaseEngine::set_rtp_header_extensions(
-    const std::vector<webrtc::RtpExtension>& extensions) {
-  capabilities_.header_extensions = extensions;
-}
-void FakeBaseEngine::set_rtp_header_extensions(
-    const std::vector<RtpHeaderExtension>& extensions) {
-  for (const cricket::RtpHeaderExtension& ext : extensions) {
-    RtpExtension webrtc_ext;
-    webrtc_ext.uri = ext.uri;
-    webrtc_ext.id = ext.id;
-    capabilities_.header_extensions.push_back(webrtc_ext);
-  }
-}
-
 FakeVoiceEngine::FakeVoiceEngine() {
   // Add a fake audio codec. Note that the name must not be "" as there are
   // sanity checks against that.
@@ -480,7 +461,7 @@ void FakeVoiceEngine::Init() {}
 rtc::scoped_refptr<webrtc::AudioState> FakeVoiceEngine::GetAudioState() const {
   return rtc::scoped_refptr<webrtc::AudioState>();
 }
-VoiceMediaChannel* FakeVoiceEngine::CreateChannel(
+VoiceMediaChannel* FakeVoiceEngine::CreateMediaChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const AudioOptions& options,
@@ -532,10 +513,9 @@ RtpCapabilities FakeVideoEngine::GetCapabilities() const {
 }
 bool FakeVideoEngine::SetOptions(const VideoOptions& options) {
   options_ = options;
-  options_changed_ = true;
   return true;
 }
-VideoMediaChannel* FakeVideoEngine::CreateChannel(
+VideoMediaChannel* FakeVideoEngine::CreateMediaChannel(
     webrtc::Call* call,
     const MediaConfig& config,
     const VideoOptions& options,
@@ -581,20 +561,13 @@ void FakeMediaEngine::SetVideoCodecs(const std::vector<VideoCodec>& codecs) {
 }
 void FakeMediaEngine::SetAudioRtpHeaderExtensions(
     const std::vector<webrtc::RtpExtension>& extensions) {
-  voice_->set_rtp_header_extensions(extensions);
+  voice_->capabilities_.header_extensions = extensions;
 }
 void FakeMediaEngine::SetVideoRtpHeaderExtensions(
     const std::vector<webrtc::RtpExtension>& extensions) {
-  video_->set_rtp_header_extensions(extensions);
+  voice_->capabilities_.header_extensions = extensions;
 }
-void FakeMediaEngine::SetAudioRtpHeaderExtensions(
-    const std::vector<RtpHeaderExtension>& extensions) {
-  voice_->set_rtp_header_extensions(extensions);
-}
-void FakeMediaEngine::SetVideoRtpHeaderExtensions(
-    const std::vector<RtpHeaderExtension>& extensions) {
-  video_->set_rtp_header_extensions(extensions);
-}
+
 FakeVoiceMediaChannel* FakeMediaEngine::GetVoiceChannel(size_t index) {
   return voice_->GetChannel(index);
 }
@@ -602,18 +575,9 @@ FakeVideoMediaChannel* FakeMediaEngine::GetVideoChannel(size_t index) {
   return video_->GetChannel(index);
 }
 
-bool FakeMediaEngine::capture() const {
-  return video_->capture_;
-}
-bool FakeMediaEngine::options_changed() const {
-  return video_->options_changed_;
-}
-void FakeMediaEngine::clear_options_changed() {
-  video_->options_changed_ = false;
-}
 void FakeMediaEngine::set_fail_create_channel(bool fail) {
-  voice_->set_fail_create_channel(fail);
-  video_->set_fail_create_channel(fail);
+  voice_->fail_create_channel_ = fail;
+  video_->fail_create_channel_ = fail;
 }
 
 DataMediaChannel* FakeDataEngine::CreateChannel(const MediaConfig& config) {

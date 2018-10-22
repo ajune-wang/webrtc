@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fed2afc6_3ffc0950",
+        "filename": "modules/audio_coding/codecs/cng/audio_encoder_cng.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-10-22T14:08:15Z",
+      "side": 1,
+      "message": "In general, these comment don\u0027t seem very useful. As the file changes and the code starts using more or less of the things in the comment the comment will also go out of date.",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

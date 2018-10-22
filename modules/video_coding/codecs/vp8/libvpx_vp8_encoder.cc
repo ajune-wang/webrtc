@@ -160,6 +160,7 @@ LibvpxVp8Encoder::LibvpxVp8Encoder()
 LibvpxVp8Encoder::LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface)
     : libvpx_(std::move(interface)),
       use_gf_boost_(webrtc::field_trial::IsEnabled(kVp8GfBoostFieldTrial)),
+      experimental_cpu_speed_config_arm_(CpuSpeedExperiment::GetConfigs()),
       encoded_complete_callback_(nullptr),
       inited_(false),
       timestamp_(0),
@@ -533,6 +534,11 @@ int LibvpxVp8Encoder::SetCpuSpeed(int width, int height) {
   RTC_DCHECK_GT(number_of_cores_, 0);
   if (number_of_cores_ <= 3)
     return -12;
+
+  if (experimental_cpu_speed_config_arm_) {
+    return CpuSpeedExperiment::GetValue(width * height,
+                                        *experimental_cpu_speed_config_arm_);
+  }
 
   if (width * height <= 352 * 288)
     return -8;

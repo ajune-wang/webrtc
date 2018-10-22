@@ -22,6 +22,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp8/libvpx_interface.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/experiments/cpu_speed_experiment.h"
 
 #include "vpx/vp8cx.h"
 #include "vpx/vpx_encoder.h"
@@ -87,6 +88,8 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   const std::unique_ptr<LibvpxInterface> libvpx_;
   const bool use_gf_boost_;
+  const absl::optional<std::vector<CpuSpeedExperiment::Config>>
+      experimental_cpu_speed_config_arm_;
 
   EncodedImageCallback* encoded_complete_callback_;
   VideoCodec codec_;

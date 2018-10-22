@@ -22,6 +22,30 @@
       "revId": "5839cd7d0dab06f5d32e7427fc7259f7d98a093b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f082f8e_ec70a45d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-22T20:34:07Z",
+      "side": 1,
+      "message": "Moving the logic to the end increases complexity. I have mitigated this with a flag.",
+      "parentUuid": "8434f57a_b3fd25f3",
+      "range": {
+        "startLine": 407,
+        "startChar": 9,
+        "endLine": 407,
+        "endChar": 38
+      },
+      "revId": "5839cd7d0dab06f5d32e7427fc7259f7d98a093b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

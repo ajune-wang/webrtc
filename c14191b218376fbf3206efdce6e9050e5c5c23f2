@@ -22,6 +22,30 @@
       "revId": "c14191b218376fbf3206efdce6e9050e5c5c23f2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1028fd78_e482d65c",
+        "filename": "modules/rtp_rtcp/include/rtp_header_extension_map.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-23T08:19:18Z",
+      "side": 1,
+      "message": "Same name as the function/variable. I have changed to make it more explicit.",
+      "parentUuid": "cb4036d1_ee35fc0e",
+      "range": {
+        "startLine": 57,
+        "startChar": 38,
+        "endLine": 57,
+        "endChar": 56
+      },
+      "revId": "c14191b218376fbf3206efdce6e9050e5c5c23f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "b47e4507732fd62547f994aa1a7ab67560257788",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b335f355_36212fbf",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T15:55:13Z",
+      "side": 1,
+      "message": "Yes, the auto formatter wanted it, guess it might be some weird space char. I figure it probably is best to allow it to be changed so it\u0027s fixed.",
+      "parentUuid": "80bf00d4_aa7bea3e",
+      "range": {
+        "startLine": 1665,
+        "startChar": 0,
+        "endLine": 1665,
+        "endChar": 80
+      },
+      "revId": "b47e4507732fd62547f994aa1a7ab67560257788",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

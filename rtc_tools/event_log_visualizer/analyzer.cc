@@ -1296,9 +1296,10 @@ void EventLogAnalyzer::CreateReceiveSideBweSimulationGraph(Plot* plot) {
 void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
   TimeSeries late_feedback_series("Late feedback results.", LineStyle::kNone,
                                   PointStyle::kHighlight);
-  TimeSeries time_series("Network Delay Change", LineStyle::kLine,
+  TimeSeries time_series("Network delay", LineStyle::kLine,
                          PointStyle::kHighlight);
-  int64_t estimated_base_delay_ms = std::numeric_limits<int64_t>::max();
+  int64_t min_observed_delay = std::numeric_limits<int64_t>::max();
+  int64_t min_rtt = std::numeric_limits<int64_t>::max();
 
   int64_t prev_y = 0;
   for (auto packet : GetNetworkTrace(parsed_log_)) {
@@ -1311,16 +1312,19 @@ void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
     }
     int64_t y = packet.arrival_time_ms - packet.send_time_ms;
     prev_y = y;
-    estimated_base_delay_ms = std::min(y, estimated_base_delay_ms);
+    int64_t rtt = packet.feedback_arrival_time_ms - packet.send_time_ms;
+    min_rtt = std::min(min_rtt, rtt);
+    min_observed_delay = std::min(y, min_observed_delay);
     time_series.points.emplace_back(x, y);
   }
 
-  // We assume that the base network delay (w/o queues) is the min delay
-  // observed during the call.
+  // We assume that the base network delay (w/o queues) is equal to half
+  // the minimum RTT. Therefore we rescale the by subtracting the minimum
+  // observed 1-ways delay and add half the minumum RTT.
   for (TimeSeriesPoint& point : time_series.points)
-    point.y -= estimated_base_delay_ms;
+    point.y += min_rtt / 2 - min_observed_delay;
   for (TimeSeriesPoint& point : late_feedback_series.points)
-    point.y -= estimated_base_delay_ms;
+    point.y += min_rtt / 2 - min_observed_delay;
   // Add the data set to the plot.
   plot->AppendTimeSeriesIfNotEmpty(std::move(time_series));
   plot->AppendTimeSeriesIfNotEmpty(std::move(late_feedback_series));
@@ -1328,7 +1332,7 @@ void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
   plot->SetXAxis(ToCallTimeSec(begin_time_), call_duration_s_, "Time (s)",
                  kLeftMargin, kRightMargin);
   plot->SetSuggestedYAxis(0, 10, "Delay (ms)", kBottomMargin, kTopMargin);
-  plot->SetTitle("Network Delay Change.");
+  plot->SetTitle("Network delay (based on per-packet feedback)");
 }
 
 void EventLogAnalyzer::CreatePacerDelayGraph(Plot* plot) {

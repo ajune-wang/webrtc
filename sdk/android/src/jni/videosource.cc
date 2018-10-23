@@ -30,16 +30,19 @@ static jlong JNI_VideoSource_GetInternalSource(JNIEnv* jni,
   return NativeToJavaPointer(AndroidVideoTrackSourceFromJavaProxy(j_source));
 }
 
-static void JNI_VideoSource_AdaptOutputFormat(JNIEnv* jni,
-                                              const JavaParamRef<jclass>&,
-                                              jlong j_source,
-                                              jint j_width,
-                                              jint j_height,
-                                              jint j_fps) {
+static void JNI_VideoSource_AdaptOutputFormat(
+    JNIEnv* jni,
+    const JavaParamRef<jclass>&,
+    jlong j_source,
+    jint j_width,
+    jint j_height,
+    jint j_fps,
+    +jboolean j_preserve_aspect_ratio) {
   RTC_LOG(LS_INFO) << "VideoSource_nativeAdaptOutputFormat";
   AndroidVideoTrackSource* source =
       AndroidVideoTrackSourceFromJavaProxy(j_source);
-  source->OnOutputFormatRequest(j_width, j_height, j_fps);
+  source->OnOutputFormatRequest(j_width, j_height, j_fps,
+                                j_preserve_aspect_ratio);
 }
 
 }  // namespace jni

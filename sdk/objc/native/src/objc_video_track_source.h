@@ -45,7 +45,10 @@ class ObjCVideoTrackSource : public rtc::AdaptedVideoTrackSource {
   void OnCapturedFrame(RTCVideoFrame* frame);
 
   // Called by RTCVideoSource.
-  void OnOutputFormatRequest(int width, int height, int fps);
+  void OnOutputFormatRequest(int width,
+                             int height,
+                             int fps,
+                             bool preserveAspectRatio);
 
  private:
   rtc::VideoBroadcaster broadcaster_;

@@ -196,6 +196,7 @@ class RTC_EXPORT VideoCapturer
   // timestamp, but using the same epoch and frequency as system time.
   bool AdaptFrame(int width,
                   int height,
+                  webrtc::VideoRotation rotation,
                   int64_t camera_time_us,
                   int64_t system_time_us,
                   int* out_width,

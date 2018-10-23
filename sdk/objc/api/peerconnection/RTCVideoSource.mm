@@ -68,8 +68,12 @@ static webrtc::ObjCVideoTrackSource *getObjCVideoSource(
   getObjCVideoSource(_nativeVideoSource)->OnCapturedFrame(frame);
 }
 
-- (void)adaptOutputFormatToWidth:(int)width height:(int)height fps:(int)fps {
-  getObjCVideoSource(_nativeVideoSource)->OnOutputFormatRequest(width, height, fps);
+- (void)adaptOutputFormatToWidth:(int)width
+                          height:(int)height
+                             fps:(int)fps
+             preserveAspectRatio:(BOOL)preserveAspectRatio {
+  getObjCVideoSource(_nativeVideoSource)
+      ->OnOutputFormatRequest(width, height, fps, preserveAspectRatio);
 }
 
 #pragma mark - Private

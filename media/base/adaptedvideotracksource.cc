@@ -87,6 +87,7 @@ void AdaptedVideoTrackSource::OnSinkWantsChanged(
 
 bool AdaptedVideoTrackSource::AdaptFrame(int width,
                                          int height,
+                                         webrtc::VideoRotation rotation,
                                          int64_t time_us,
                                          int* out_width,
                                          int* out_height,
@@ -104,8 +105,8 @@ bool AdaptedVideoTrackSource::AdaptFrame(int width,
   }
 
   if (!video_adapter_.AdaptFrameResolution(
-          width, height, time_us * rtc::kNumNanosecsPerMicrosec, crop_width,
-          crop_height, out_width, out_height)) {
+          width, height, rotation, time_us * rtc::kNumNanosecsPerMicrosec,
+          crop_width, crop_height, out_width, out_height)) {
     broadcaster_.OnDiscardedFrame();
     // VideoAdapter dropped the frame.
     return false;

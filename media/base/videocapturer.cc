@@ -164,6 +164,7 @@ void VideoCapturer::OnSinkWantsChanged(const rtc::VideoSinkWants& wants) {
 
 bool VideoCapturer::AdaptFrame(int width,
                                int height,
+                               webrtc::VideoRotation rotation,
                                int64_t camera_time_us,
                                int64_t system_time_us,
                                int* out_width,
@@ -183,8 +184,9 @@ bool VideoCapturer::AdaptFrame(int width,
 
   if (enable_video_adapter_) {
     if (!video_adapter_.AdaptFrameResolution(
-            width, height, camera_time_us * rtc::kNumNanosecsPerMicrosec,
-            crop_width, crop_height, out_width, out_height)) {
+            width, height, rotation,
+            camera_time_us * rtc::kNumNanosecsPerMicrosec, crop_width,
+            crop_height, out_width, out_height)) {
       // VideoAdapter dropped the frame.
       broadcaster_.OnDiscardedFrame();
       return false;

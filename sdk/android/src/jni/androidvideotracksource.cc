@@ -84,7 +84,7 @@ void AndroidVideoTrackSource::OnFrameCaptured(
   int crop_x;
   int crop_y;
 
-  if (!AdaptFrame(width, height, camera_time_us, &adapted_width,
+  if (!AdaptFrame(width, height, rotation, camera_time_us, &adapted_width,
                   &adapted_height, &crop_width, &crop_height, &crop_x,
                   &crop_y)) {
     return;
@@ -103,12 +103,13 @@ void AndroidVideoTrackSource::OnFrameCaptured(
   OnFrame(VideoFrame(buffer, rotation, translated_camera_time_us));
 }
 
-void AndroidVideoTrackSource::OnOutputFormatRequest(int width,
-                                                    int height,
-                                                    int fps) {
+void AndroidVideoTrackSource::OnOutputFormatRequest(
+    int width,
+    int height,
+    int fps bool preserve_aspect_ratio) {
   cricket::VideoFormat format(width, height,
                               cricket::VideoFormat::FpsToInterval(fps), 0);
-  video_adapter()->OnOutputFormatRequest(format);
+  video_adapter()->OnOutputFormatRequest(format, preserve_aspect_ratio);
 }
 
 }  // namespace jni

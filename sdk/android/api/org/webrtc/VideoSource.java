@@ -27,10 +27,12 @@ public class VideoSource extends MediaSource {
    * Calling this function will cause frames to be scaled down to the requested resolution. Also,
    * frames will be cropped to match the requested aspect ratio, and frames will be dropped to match
    * the requested fps. The requested aspect ratio is orientation agnostic and will be adjusted to
-   * maintain the input orientation, so it doesn't matter if e.g. 1280x720 or 720x1280 is requested.
+   * maintain the input orientation, so it doesn't matter if e.g. 1280x720 or 720x1280 is requested
+   * unless preserveAspectRatio is false.   If preserveAspectRatio is false the requested aspect
+   * ratio is preserved.
    */
-  public void adaptOutputFormat(int width, int height, int fps) {
-    nativeAdaptOutputFormat(getNativeVideoTrackSource(), width, height, fps);
+  public void adaptOutputFormat(int width, int height, int fps, boolean preserveAspectRatio) {
+    nativeAdaptOutputFormat(getNativeVideoTrackSource(), width, height, fps, preserveAspectRatio);
   }
 
   public CapturerObserver getCapturerObserver() {
@@ -44,5 +46,6 @@ public class VideoSource extends MediaSource {
 
   // Returns source->internal() from webrtc::VideoTrackSourceProxy.
   private static native long nativeGetInternalSource(long source);
-  private static native void nativeAdaptOutputFormat(long source, int width, int height, int fps);
+  private static native void nativeAdaptOutputFormat(
+      long source, int width, int height, int fps, bool preserveAspectRatio);
 }

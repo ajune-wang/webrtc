@@ -22,6 +22,30 @@
       "revId": "9d5f54daa2ef1410f8a14c2c73273abae200ddf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9eb713d_b7bc3db9",
+        "filename": "sdk/objc/helpers/UIDevice+RTCDevice.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-10-23T13:56:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ba3404e_2f2547cf",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 23
+      },
+      "revId": "9d5f54daa2ef1410f8a14c2c73273abae200ddf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

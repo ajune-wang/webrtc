@@ -706,6 +706,7 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
     absl::optional<rtc::AdapterType> network_preference;
     bool active_reset_srtp_params;
     bool use_media_transport;
+    absl::optional<CryptoOptions> crypto_options;
   };
   static_assert(sizeof(stuff_being_tested_for_equality) == sizeof(*this),
                 "Did you add something to RTCConfiguration and forget to "
@@ -754,7 +755,8 @@ bool PeerConnectionInterface::RTCConfiguration::operator==(
          sdp_semantics == o.sdp_semantics &&
          network_preference == o.network_preference &&
          active_reset_srtp_params == o.active_reset_srtp_params &&
-         use_media_transport == o.use_media_transport;
+         use_media_transport == o.use_media_transport &&
+         crypto_options == o.crypto_options;
 }
 
 bool PeerConnectionInterface::RTCConfiguration::operator!=(
@@ -932,7 +934,10 @@ bool PeerConnection::Initialize(
   config.disable_encryption = options.disable_encryption;
   config.bundle_policy = configuration.bundle_policy;
   config.rtcp_mux_policy = configuration.rtcp_mux_policy;
-  config.crypto_options = options.crypto_options;
+  // TODO(benwright) - Remove options.crypto_options then remove this stub.
+  config.crypto_options = configuration.crypto_options.has_value()
+                              ? *configuration.crypto_options
+                              : options.crypto_options;
   config.transport_observer = this;
   config.event_log = event_log_.get();
 #if defined(ENABLE_EXTERNAL_AUTH)
@@ -975,6 +980,10 @@ bool PeerConnection::Initialize(
   stats_collector_ = RTCStatsCollector::Create(this);
 
   configuration_ = configuration;
+  // TODO(benwright) - Remove options.crypto_options then remove this stub.
+  if (!configuration.crypto_options.has_value()) {
+    configuration_.crypto_options = options.crypto_options;
+  }
 
   // Obtain a certificate from RTCConfiguration if any were provided (optional).
   rtc::scoped_refptr<rtc::RTCCertificate> certificate;
@@ -1043,7 +1052,8 @@ bool PeerConnection::Initialize(
   }
 
   webrtc_session_desc_factory_->set_enable_encrypted_rtp_header_extensions(
-      options.crypto_options.srtp.enable_encrypted_rtp_header_extensions);
+      configuration_.crypto_options->srtp
+          .enable_encrypted_rtp_header_extensions);
 
   // Add default audio/video transceivers for Plan B SDP.
   if (!IsUnifiedPlan()) {
@@ -2938,6 +2948,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   modified_config.active_reset_srtp_params =
       configuration.active_reset_srtp_params;
   modified_config.use_media_transport = configuration.use_media_transport;
+  modified_config.crypto_options = configuration.crypto_options;
   if (configuration != modified_config) {
     RTC_LOG(LS_ERROR) << "Modifying the configuration in an unsupported way.";
     return SafeSetError(RTCErrorType::INVALID_MODIFICATION, error);
@@ -3715,7 +3726,7 @@ void PeerConnection::GetOptionsForOffer(
   }
 
   session_options->rtcp_cname = rtcp_cname_;
-  session_options->crypto_options = factory_->options().crypto_options;
+  session_options->crypto_options = *configuration_.crypto_options;
   session_options->is_unified_plan = IsUnifiedPlan();
   session_options->pooled_ice_credentials =
       network_thread()->Invoke<std::vector<cricket::IceParameters>>(
@@ -3980,7 +3991,7 @@ void PeerConnection::GetOptionsForAnswer(
   }
 
   session_options->rtcp_cname = rtcp_cname_;
-  session_options->crypto_options = factory_->options().crypto_options;
+  session_options->crypto_options = *configuration_.crypto_options;
   session_options->is_unified_plan = IsUnifiedPlan();
   session_options->pooled_ice_credentials =
       network_thread()->Invoke<std::vector<cricket::IceParameters>>(
@@ -5588,8 +5599,8 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
 
   cricket::VoiceChannel* voice_channel = channel_manager()->CreateVoiceChannel(
       call_.get(), configuration_.media_config, rtp_transport, media_transport,
-      signaling_thread(), mid, SrtpRequired(),
-      factory_->options().crypto_options, audio_options_);
+      signaling_thread(), mid, SrtpRequired(), *configuration_.crypto_options,
+      audio_options_);
   if (!voice_channel) {
     return nullptr;
   }
@@ -5610,8 +5621,8 @@ cricket::VideoChannel* PeerConnection::CreateVideoChannel(
   // TODO(sukhanov): Propagate media_transport to video channel.
   cricket::VideoChannel* video_channel = channel_manager()->CreateVideoChannel(
       call_.get(), configuration_.media_config, rtp_transport,
-      signaling_thread(), mid, SrtpRequired(),
-      factory_->options().crypto_options, video_options_);
+      signaling_thread(), mid, SrtpRequired(), *configuration_.crypto_options,
+      video_options_);
   if (!video_channel) {
     return nullptr;
   }
@@ -5645,7 +5656,7 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
     RtpTransportInternal* rtp_transport = GetRtpTransport(mid);
     rtp_data_channel_ = channel_manager()->CreateRtpDataChannel(
         configuration_.media_config, rtp_transport, signaling_thread(), mid,
-        SrtpRequired(), factory_->options().crypto_options);
+        SrtpRequired(), *configuration_.crypto_options);
     if (!rtp_data_channel_) {
       return false;
     }

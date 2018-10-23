@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f32e144c_948d75d6",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-23T10:41:47Z",
+      "side": 1,
+      "message": "\u003e It can\u0027t be named Create(Media)Channel because that is used by the interface implementation. Renamed to CreateWebRtcVideoChannel.\n\nAs far as I see, the interface uses CreateMediaChannel, but *not* CreateChannel (I\u0027m looking at the mediaengine.h diff in this cl). But CreateWebRtcVideoChannel is ok too, if that\u0027s what you prefer.",
+      "parentUuid": "0556ffd2_5a2c3805",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 41
+      },
+      "revId": "77fe27735d2bd458f616b60505964d4005512a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3203ea22_22f0605f",
         "filename": "media/engine/webrtcvoiceengine_unittest.cc",
         "patchSetId": 6

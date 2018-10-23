@@ -988,7 +988,8 @@ int64_t ChannelSend::GetRTT() const {
   return rtt;
 }
 
-void ChannelSend::SetFrameEncryptor(FrameEncryptorInterface* frame_encryptor) {
+void ChannelSend::SetFrameEncryptor(
+    rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor) {
   rtc::CritScope cs(&encoder_queue_lock_);
   if (encoder_queue_is_active_) {
     encoder_queue_->PostTask([this, frame_encryptor]() {

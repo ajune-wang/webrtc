@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "api/crypto/frameencryptorinterface.h"
 #include "api/test/mock_audio_mixer.h"
 #include "audio/audio_receive_stream.h"
 #include "audio/conversion.h"

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c34bb47f_71c84b0f",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T11:27:53Z",
+      "side": 1,
+      "message": "It returns a MediaChannel, internally it\u0027s the same ass CreateMediaChannel, only, it keeps a more specific type signature.",
+      "parentUuid": "f32e144c_948d75d6",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 41
+      },
+      "revId": "77fe27735d2bd458f616b60505964d4005512a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3203ea22_22f0605f",
         "filename": "media/engine/webrtcvoiceengine_unittest.cc",
         "patchSetId": 6

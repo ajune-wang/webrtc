@@ -157,6 +157,7 @@ bool VideoAdapter::KeepFrame(int64_t in_timestamp_ns) {
 
 bool VideoAdapter::AdaptFrameResolution(int in_width,
                                         int in_height,
+                                        webrtc::VideoRotation rotation,
                                         int64_t in_timestamp_ns,
                                         int* cropped_width,
                                         int* cropped_height,
@@ -200,14 +201,22 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
     *cropped_width = in_width;
     *cropped_height = in_height;
   } else {
-    // Adjust |target_aspect_ratio_| orientation to match input.
-    if ((in_width > in_height) !=
-        (target_aspect_ratio_->first > target_aspect_ratio_->second)) {
-      std::swap(target_aspect_ratio_->first, target_aspect_ratio_->second);
+    int requested_width = target_aspect_ratio_->first;
+    int requested_height = target_aspect_ratio_->second;
+    if (preserve_aspect_ratio_) {
+      // Adjust |target_aspect_ratio_| orientation to match input.
+      if ((in_width > in_height) !=
+          (target_aspect_ratio_->first > target_aspect_ratio_->second)) {
+        std::swap(requested_width, requested_height);
+      }
+    } else {
+      // Adjust |target_aspect_ratio_| when frame is rotated.
+      if (rotation % 180 != 0) {
+        std::swap(requested_width, requested_height);
+      }
     }
     const float requested_aspect =
-        target_aspect_ratio_->first /
-        static_cast<float>(target_aspect_ratio_->second);
+        requested_width / static_cast<float>(requested_height);
     *cropped_width =
         std::min(in_width, static_cast<int>(in_height * requested_aspect));
     *cropped_height =
@@ -257,7 +266,8 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
 }
 
 void VideoAdapter::OnOutputFormatRequest(
-    const absl::optional<VideoFormat>& format) {
+    const absl::optional<VideoFormat>& format,
+    bool preserve_aspect_ratio) {
   absl::optional<std::pair<int, int>> target_aspect_ratio;
   absl::optional<int> max_pixel_count;
   absl::optional<int> max_fps;
@@ -267,17 +277,20 @@ void VideoAdapter::OnOutputFormatRequest(
     if (format->interval > 0)
       max_fps = rtc::kNumNanosecsPerSec / format->interval;
   }
-  OnOutputFormatRequest(target_aspect_ratio, max_pixel_count, max_fps);
+  OnOutputFormatRequest(target_aspect_ratio, max_pixel_count, max_fps,
+                        preserve_aspect_ratio);
 }
 
 void VideoAdapter::OnOutputFormatRequest(
     const absl::optional<std::pair<int, int>>& target_aspect_ratio,
     const absl::optional<int>& max_pixel_count,
-    const absl::optional<int>& max_fps) {
+    const absl::optional<int>& max_fps,
+    bool preserve_aspect_ratio) {
   rtc::CritScope cs(&critical_section_);
   target_aspect_ratio_ = target_aspect_ratio;
   max_pixel_count_ = max_pixel_count;
   max_fps_ = max_fps;
+  preserve_aspect_ratio_ = preserve_aspect_ratio;
   next_frame_timestamp_ns_ = absl::nullopt;
 }
 

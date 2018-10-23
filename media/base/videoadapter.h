@@ -14,6 +14,7 @@
 #include <utility>
 
 #include "absl/types/optional.h"
+#include "api/video/video_rotation.h"
 #include "media/base/videocommon.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
@@ -38,6 +39,7 @@ class VideoAdapter {
   // should be adapted, and false if it should be dropped.
   bool AdaptFrameResolution(int in_width,
                             int in_height,
+                            webrtc::VideoRotation rotation,
                             int64_t in_timestamp_ns,
                             int* cropped_width,
                             int* cropped_height,
@@ -53,7 +55,8 @@ class VideoAdapter {
   // maintain the input orientation, so it doesn't matter if e.g. 1280x720 or
   // 720x1280 is requested.
   // Note: Should be called from the source only.
-  void OnOutputFormatRequest(const absl::optional<VideoFormat>& format);
+  void OnOutputFormatRequest(const absl::optional<VideoFormat>& format,
+                             bool preserve_aspect_ratio);
 
   // Requests output frame size and frame interval from |AdaptFrameResolution|.
   // |target_aspect_ratio|: The input frame size will be cropped to match the
@@ -66,7 +69,8 @@ class VideoAdapter {
   void OnOutputFormatRequest(
       const absl::optional<std::pair<int, int>>& target_aspect_ratio,
       const absl::optional<int>& max_pixel_count,
-      const absl::optional<int>& max_fps);
+      const absl::optional<int>& max_fps,
+      bool preserve_aspect_ratio);
 
   // Requests the output frame size from |AdaptFrameResolution| to have as close
   // as possible to |target_pixel_count| pixels (if set) but no more than
@@ -107,6 +111,7 @@ class VideoAdapter {
   int resolution_request_target_pixel_count_ RTC_GUARDED_BY(critical_section_);
   int resolution_request_max_pixel_count_ RTC_GUARDED_BY(critical_section_);
   int max_framerate_request_ RTC_GUARDED_BY(critical_section_);
+  bool preserve_aspect_ratio_ RTC_GUARDED_BY(critical_section_);
 
   // The critical section to protect the above variables.
   rtc::CriticalSection critical_section_;

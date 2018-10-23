@@ -56,9 +56,12 @@ bool ObjCVideoTrackSource::remote() const {
   return false;
 }
 
-void ObjCVideoTrackSource::OnOutputFormatRequest(int width, int height, int fps) {
+void ObjCVideoTrackSource::OnOutputFormatRequest(int width,
+                                                 int height,
+                                                 int fps,
+                                                 bool preserveAspectRatio) {
   cricket::VideoFormat format(width, height, cricket::VideoFormat::FpsToInterval(fps), 0);
-  video_adapter()->OnOutputFormatRequest(format);
+  video_adapter()->OnOutputFormatRequest(format, preserveAspectRatio);
 }
 
 void ObjCVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
@@ -72,8 +75,10 @@ void ObjCVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
   int crop_height;
   int crop_x;
   int crop_y;
+  webrtc::VideoRotation rotation = static_cast<webrtc::VideoRotation>(frame.rotation);
   if (!AdaptFrame(frame.width,
                   frame.height,
+                  rotation,
                   timestamp_us,
                   &adapted_width,
                   &adapted_height,
@@ -110,7 +115,6 @@ void ObjCVideoTrackSource::OnCapturedFrame(RTCVideoFrame *frame) {
 
   // Applying rotation is only supported for legacy reasons and performance is
   // not critical here.
-  VideoRotation rotation = static_cast<VideoRotation>(frame.rotation);
   if (apply_rotation() && rotation != kVideoRotation_0) {
     buffer = I420Buffer::Rotate(*buffer->ToI420(), rotation);
     rotation = kVideoRotation_0;

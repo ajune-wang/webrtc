@@ -42,6 +42,7 @@ class AdaptedVideoTrackSource
   // sinks, or if the VideoAdapter decides to drop the frame.
   bool AdaptFrame(int width,
                   int height,
+                  webrtc::VideoRotation rotation,
                   int64_t time_us,
                   int* out_width,
                   int* out_height,

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98ab17da_5a034c8e",
+        "filename": "rtc_base/asyncresolverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-23T20:21:01Z",
+      "side": 1,
+      "message": "How about also requiring that |addr| should have a hostname?",
+      "range": {
+        "startLine": 25,
+        "startChar": 34,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "458283d4c7a95c72b47ad0334408c82ac1312b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a2fee60_9ec4016d",
+        "filename": "rtc_base/asyncresolverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-10-23T20:21:01Z",
+      "side": 1,
+      "message": "It may be helpful to make it explicit that e.g, \"i.e. |addr| has both the hostname and the resolved IP\".",
+      "range": {
+        "startLine": 30,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "458283d4c7a95c72b47ad0334408c82ac1312b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

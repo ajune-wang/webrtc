@@ -196,7 +196,10 @@ struct ConfigHelper {
     EXPECT_CALL(*channel_proxy_, SetLocalSSRC(kSsrc)).Times(1);
     EXPECT_CALL(*channel_proxy_, SetRTCP_CNAME(StrEq(kCName))).Times(1);
     EXPECT_CALL(*channel_proxy_, SetNACKStatus(true, 10)).Times(1);
-    EXPECT_CALL(*channel_proxy_, SetFrameEncryptor(nullptr)).Times(1);
+    EXPECT_CALL(
+        *channel_proxy_,
+        SetFrameEncryptor(rtc::scoped_refptr<FrameEncryptorInterface>(nullptr)))
+        .Times(1);
     EXPECT_CALL(*channel_proxy_,
                 SetSendAudioLevelIndicationStatus(true, kAudioLevelId))
         .Times(1);

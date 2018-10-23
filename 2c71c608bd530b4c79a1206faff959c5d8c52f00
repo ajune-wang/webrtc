@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "480bf370_3edacfec",
+        "filename": "modules/audio_coding/neteq/rtcp.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-23T08:02:51Z",
+      "side": 1,
+      "message": "Resolving this one. We agreed to land this CL and talk about forward declaration by person and eventually file a CL to remove the ones introduced.",
+      "parentUuid": "188b6283_e305710b",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "2c71c608bd530b4c79a1206faff959c5d8c52f00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1041dd30_52cb12c0",
         "filename": "rtc_base/stringutils.h",
         "patchSetId": 48

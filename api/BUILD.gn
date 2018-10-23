@@ -220,7 +220,6 @@ rtc_source_set("ortc_api") {
     "ortc/sessiondescription.cc",
     "ortc/sessiondescription.h",
     "ortc/srtptransportinterface.h",
-    "ortc/udptransportinterface.h",
   ]
 
   # For mediastreaminterface.h, etc.

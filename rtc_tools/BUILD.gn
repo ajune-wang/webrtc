@@ -40,7 +40,6 @@ group("rtc_tools") {
         ":event_log_visualizer",
         ":rtp_analyzer",
         ":unpack_aecdump",
-        "network_tester",
       ]
     }
   }
@@ -372,10 +371,6 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/libyuv",
     ]
-
-    if (rtc_enable_protobuf) {
-      deps += [ "network_tester:network_tester_unittests" ]
-    }
 
     data = tools_unittests_resources
     if (is_android) {

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03155060_5c5ba881",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T16:58:59Z",
+      "side": 1,
+      "message": "I usually prefer to not label the send-receive clock offset as delay, since it includes any differences in the time base. You can keep it if you want, but it might be clearer to indicate that it isn\u0027t just a delay value.\n\nAlso, you might want to add unit suffixes?",
+      "range": {
+        "startLine": 1301,
+        "startChar": 23,
+        "endLine": 1301,
+        "endChar": 28
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8084787_ebfd1857",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T16:58:59Z",
+      "side": 1,
+      "message": "observed_delay? (or whatever you decide on based on comment above)",
+      "range": {
+        "startLine": 1313,
+        "startChar": 12,
+        "endLine": 1313,
+        "endChar": 13
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f430b6_35a71443",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T16:58:59Z",
+      "side": 1,
+      "message": "supernit: different order of the new vs updated argument compared to for rtt.",
+      "range": {
+        "startLine": 1317,
+        "startChar": 34,
+        "endLine": 1317,
+        "endChar": 55
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "728e42e3_ec5c0d67",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T16:58:59Z",
+      "side": 1,
+      "message": "since this is constant and used twice, maybe:\nconst int64_t estimated_clock_offset_ms \u003d  min_rtt / 2 - min_observed_delay;",
+      "range": {
+        "startLine": 1325,
+        "startChar": 15,
+        "endLine": 1325,
+        "endChar": 47
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

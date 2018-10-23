@@ -800,6 +800,7 @@ PeerConnection::PeerConnection(PeerConnectionFactory* factory,
 PeerConnection::~PeerConnection() {
   TRACE_EVENT0("webrtc", "PeerConnection::~PeerConnection");
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_CHECK(IsClosed());
 
   // Need to stop transceivers before destroying the stats collector because
   // AudioRtpSender has a reference to the StatsCollector it will update when

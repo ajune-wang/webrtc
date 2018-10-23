@@ -46,6 +46,30 @@
       "revId": "8baf04688274a5d84ba28a993728d9a3a52a82ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61e8805c_a996a949",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-23T15:07:43Z",
+      "side": 1,
+      "message": "I do not mind this change in this CL.\n\nWe are not breaking downstream apps, because they do not use media transport.\n\nPlease add WebRTC bug to add more tests with \u003e1 channel, looks like \u003e1 channel was missing test coverage.",
+      "parentUuid": "c5206f97_a39c90d1",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 28
+      },
+      "revId": "8baf04688274a5d84ba28a993728d9a3a52a82ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

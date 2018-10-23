@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "97085c34_161b3fb9",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-23T15:07:43Z",
+      "side": 1,
+      "message": "I would pass it, because it\u0027s simple and there will be fewer lines of code and comments that explain why we use fake ssrc.",
+      "parentUuid": "90adfc95_48beb5a0",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cca482ac_c6a9af36",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 9
@@ -295,6 +313,24 @@
       "side": 1,
       "message": "It looks like neteq uses ssrc here:\nmodules/audio_coding/neteq/neteq_impl.cc#l\u003d554\n\n  bool update_sample_rate_and_channels \u003d\n      first_packet_ || (rtp_header.ssrc !\u003d ssrc_);\n\nand in 582\n\n    // Store new SSRC.\n    ssrc_ \u003d rtp_header.ssrc;\n\n\nInvokation path:\n\n AudioCodingModuleImpl::IncomingPacket\n-\u003e\n AcmReceiver::InsertPacket\n-\u003e\n NetEq::InsertPacket\n-\u003e\n NetEqImpl::InsertPacket(\n-\u003e\n NetEqImpl::InsertPacketInternal",
       "parentUuid": "12f0372f_4f00bc07",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47f3118_b70fc42a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-23T15:07:43Z",
+      "side": 1,
+      "message": "Just pass ssrc....",
+      "parentUuid": "a8174d82_69505042",
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

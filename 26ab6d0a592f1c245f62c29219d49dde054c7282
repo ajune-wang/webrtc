@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ed590453_0a9cc3c4",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-23T12:40:38Z",
+      "side": 1,
+      "message": "TODO deleted, lets get back to overall_call_lifetime later, if needed.",
+      "parentUuid": "4f3e935a_1f539607",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a88c8972_5b652707",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 9
@@ -153,6 +171,24 @@
       "writtenOn": "2018-10-17T23:08:14Z",
       "side": 1,
       "message": "Should we pass channel_id from media transport sink as ssrc?",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d9f702_e3228c2e",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-23T12:40:38Z",
+      "side": 1,
+      "message": "I\u0027m asking audio people if the ssrc is used for anything downstream from here.",
+      "parentUuid": "dc8234f2_6ad27b7a",
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -22,6 +22,30 @@
       "revId": "201596f004c80a0e155a493b5942f7ed862336b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6187cde8_87ff8538",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-23T10:34:32Z",
+      "side": 1,
+      "message": "Fixed!\nSee https://webrtc-review.googlesource.com/c/src/+/107620",
+      "parentUuid": "d04b6419_cd194b94",
+      "range": {
+        "startLine": 167,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 50
+      },
+      "revId": "201596f004c80a0e155a493b5942f7ed862336b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

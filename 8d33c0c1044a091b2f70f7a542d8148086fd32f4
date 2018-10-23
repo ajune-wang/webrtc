@@ -164,6 +164,30 @@
       "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40d345ad_4f5d86ff",
+        "filename": "rtc_base/unixfilesystem.cc",
+        "patchSetId": 48
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-10-23T05:31:38Z",
+      "side": 0,
+      "message": "OTOH, it didn\u0027t delete an emptied \u0027extern \"C\"\u0027 clause, and sometimes it can remove too much:\nI\u0027ve encountered the case where a needed forward declaration in PROXY_MAP_BOILERPLATE was wrongly considered useless, and the whole macro invokation was removed :(",
+      "parentUuid": "48a5dab5_69901b6f",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 6
+      },
+      "revId": "8d33c0c1044a091b2f70f7a542d8148086fd32f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

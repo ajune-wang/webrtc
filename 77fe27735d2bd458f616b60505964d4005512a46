@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0556ffd2_5a2c3805",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T10:11:13Z",
+      "side": 1,
+      "message": "It can\u0027t be named Create(Media)Channel because that is used by the interface implementation. Renamed to CreateWebRtcVideoChannel.",
+      "parentUuid": "0af6bef2_b63a26f9",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 41
+      },
+      "revId": "77fe27735d2bd458f616b60505964d4005512a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3203ea22_22f0605f",
         "filename": "media/engine/webrtcvoiceengine_unittest.cc",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-23T09:11:40Z",
       "side": 1,
       "message": "Not added in this cl, but\n\n1. The Create functions should return std::unique_ptr. Can you do that in a followup?\n\n2. It would be nice to get rid of the static casts here. Are they needed? Would using C++ covariant return types be of any help (if that works at all with unique_ptr)?",
+      "range": {
+        "startLine": 2918,
+        "startChar": 6,
+        "endLine": 2918,
+        "endChar": 53
+      },
+      "revId": "77fe27735d2bd458f616b60505964d4005512a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "704b52b6_44ed5539",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2918,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-23T10:11:13Z",
+      "side": 1,
+      "message": "Seems like reasonable things to look at, but in a future CL.",
+      "parentUuid": "3203ea22_22f0605f",
       "range": {
         "startLine": 2918,
         "startChar": 6,

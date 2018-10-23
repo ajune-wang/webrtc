@@ -314,6 +314,24 @@
     },
     {
       "key": {
+        "uuid": "3838673a_8425896f",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-23T14:46:32Z",
+      "side": 1,
+      "message": "resolved.",
+      "parentUuid": "c9a88e9a_f7b6d7e5",
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35418d77_938dc4f1",
         "filename": "audio/channel_send.cc",
         "patchSetId": 13
@@ -429,6 +447,30 @@
       "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4efad47_553d7389",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-23T14:46:32Z",
+      "side": 1,
+      "message": "Thanks for TODO.",
+      "parentUuid": "e6840362_61f21a64",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 26
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

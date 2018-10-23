@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "90adfc95_48beb5a0",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-23T14:46:32Z",
+      "side": 1,
+      "message": "let us know what\u0027s the answer :)",
+      "parentUuid": "76d9f702_e3228c2e",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cca482ac_c6a9af36",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 9
@@ -259,6 +277,24 @@
       "side": 1,
       "message": "It\u0027s unclear to me what effect that has. I\u0027m not sure audio_coding_-\u003eIncomingPacket even examines the ssrc. I\u0027ll try to find out.\n\nI\u0027m working under the theory that for the time being, we don\u0027t support multiple streams. When we get to that, I\u0027d like the this code to get audio frames only for the right channel, i.e., after demux.",
       "parentUuid": "2ecb3c70_89c0f535",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8174d82_69505042",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-23T14:46:32Z",
+      "side": 1,
+      "message": "It looks like neteq uses ssrc here:\nmodules/audio_coding/neteq/neteq_impl.cc#l\u003d554\n\n  bool update_sample_rate_and_channels \u003d\n      first_packet_ || (rtp_header.ssrc !\u003d ssrc_);\n\nand in 582\n\n    // Store new SSRC.\n    ssrc_ \u003d rtp_header.ssrc;\n\n\nInvokation path:\n\n AudioCodingModuleImpl::IncomingPacket\n-\u003e\n AcmReceiver::InsertPacket\n-\u003e\n NetEq::InsertPacket\n-\u003e\n NetEqImpl::InsertPacket(\n-\u003e\n NetEqImpl::InsertPacketInternal",
+      "parentUuid": "12f0372f_4f00bc07",
       "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

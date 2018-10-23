@@ -22,6 +22,30 @@
       "revId": "7430c774b71fdd6c456130ac2ebf553516421cc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fccb995_8d5cc24e",
+        "filename": "video/frame_dumping_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-10-23T18:34:58Z",
+      "side": 1,
+      "message": "Ivf has a fourcc id in the header, so it should be codec agnostic. It does however have several drawbacks, including not audio, a single track, and depending on payload might not support resolution change.\nSince this is really only for manual debugging, adding mkv has not really been a priority so far.",
+      "parentUuid": "21546682_ed3108c1",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "7430c774b71fdd6c456130ac2ebf553516421cc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

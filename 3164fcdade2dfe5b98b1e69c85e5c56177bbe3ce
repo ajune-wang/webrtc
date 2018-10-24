@@ -22,6 +22,30 @@
       "revId": "3164fcdade2dfe5b98b1e69c85e5c56177bbe3ce",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fa5ff2f_bc4182fb",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-24T14:05:45Z",
+      "side": 1,
+      "message": "\u003e Despite this, two bots (linux_libfuzzer_rel and linux_gcc_rel) fail with\n\u003e \n\u003e /b/s/w/ir/cache/builder/src/buildtools/linux64/gn gen //out/linux_libfuzzer_rel --check\n\u003e   -\u003e returned 1\n\u003e ERROR Unresolved dependencies.\n\u003e //examples:relayserver(//build/toolchain/linux:clang_x64)\n\u003e   needs //p2p:p2p_server_utils(//build/toolchain/linux:clang_x64)\n\u003e \n\u003e I guess that means that rtc_include_tests is false. It\u0027s not clear to me what that flag means, when should a test_only target be conditional on rtc_include_tests?\n\u003e \n\u003e I\u0027ll try making the new p2p_server_utils target unconditional.\n\nYes, what is happening here is that these example build targets are also built when rtc_include_tests is False, so all their deps should be there too.\n\nI think making it unconditional is the right thing to do.\n\nI think the flag should only be used for tests and not test libraries. In this case, even if we don\u0027t want to build and run tests, we still want to build example apps.",
+      "parentUuid": "36fc22de_70a454d4",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 32
+      },
+      "revId": "3164fcdade2dfe5b98b1e69c85e5c56177bbe3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

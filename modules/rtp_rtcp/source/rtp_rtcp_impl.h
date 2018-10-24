@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <map>
 #include <memory>
 #include <set>
 #include <string>
@@ -350,6 +351,11 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   // Send side
   int64_t nack_last_time_sent_full_ms_;
   uint16_t nack_last_seq_number_sent_;
+
+  // Registered clock rate per payload type.
+  std::unique_ptr<RWLockWrapper> rw_lock_rtp_clock_rates_;
+  std::map<uint8_t, uint32_t> rtp_clock_rates_
+      RTC_GUARDED_BY(rw_lock_rtp_clock_rates_);
 
   KeyFrameRequestMethod key_frame_req_method_;
 

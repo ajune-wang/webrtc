@@ -84,6 +84,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       packet_overhead_(28),  // IPV4 UDP.
       nack_last_time_sent_full_ms_(0),
       nack_last_seq_number_sent_(0),
+      rw_lock_rtp_clock_rates_(RWLockWrapper::CreateRWLock()),
       key_frame_req_method_(kKeyFrameReqPliRtcp),
       remote_bitrate_(configuration.remote_bitrate_estimator),
       rtt_stats_(configuration.rtt_stats),
@@ -256,6 +257,10 @@ void ModuleRtpRtcpImpl::IncomingRtcpPacket(const uint8_t* rtcp_packet,
 }
 
 int32_t ModuleRtpRtcpImpl::RegisterSendPayload(const CodecInst& voice_codec) {
+  {
+    WriteLockScoped lock(*rw_lock_rtp_clock_rates_);
+    rtp_clock_rates_[voice_codec.pltype] = voice_codec.plfreq;
+  }
   return rtp_sender_->RegisterPayload(
       voice_codec.plname, voice_codec.pltype, voice_codec.plfreq,
       voice_codec.channels, (voice_codec.rate < 0) ? 0 : voice_codec.rate);
@@ -263,8 +268,13 @@ int32_t ModuleRtpRtcpImpl::RegisterSendPayload(const CodecInst& voice_codec) {
 
 void ModuleRtpRtcpImpl::RegisterVideoSendPayload(int payload_type,
                                                  const char* payload_name) {
-  RTC_CHECK_EQ(
-      0, rtp_sender_->RegisterPayload(payload_name, payload_type, 90000, 0, 0));
+  {
+    WriteLockScoped lock(*rw_lock_rtp_clock_rates_);
+    rtp_clock_rates_[payload_type] = kVideoPayloadTypeFrequency;
+  }
+  RTC_CHECK_EQ(0,
+               rtp_sender_->RegisterPayload(payload_name, payload_type,
+                                            kVideoPayloadTypeFrequency, 0, 0));
 }
 
 int32_t ModuleRtpRtcpImpl::DeRegisterSendPayload(const int8_t payload_type) {
@@ -410,7 +420,12 @@ bool ModuleRtpRtcpImpl::SendOutgoingData(
     const RTPFragmentationHeader* fragmentation,
     const RTPVideoHeader* rtp_video_header,
     uint32_t* transport_frame_id_out) {
-  rtcp_sender_.SetLastRtpTime(time_stamp, capture_time_ms);
+  uint32_t rtp_clock_rate_hz;
+  {
+    ReadLockScoped lock(*rw_lock_rtp_clock_rates_);
+    rtp_clock_rate_hz = rtp_clock_rates_[payload_type];
+  }
+  rtcp_sender_.SetLastRtpTime(time_stamp, capture_time_ms, rtp_clock_rate_hz);
   // Make sure an RTCP report isn't queued behind a key frame.
   if (rtcp_sender_.TimeToSendRTCPReport(kVideoFrameKey == frame_type)) {
     rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);

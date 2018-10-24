@@ -82,7 +82,11 @@ class RTCPSender {
 
   void SetTimestampOffset(uint32_t timestamp_offset);
 
-  void SetLastRtpTime(uint32_t rtp_timestamp, int64_t capture_time_ms);
+  // TODO(bugs.webrtc.org/6458): Remove default argument value when all the
+  // depending projects are updated to correctly set rtp rate for RtcpSender.
+  void SetLastRtpTime(uint32_t rtp_timestamp,
+                      int64_t capture_time_ms,
+                      uint32_t rtp_clock_rate_hz = 0);
 
   uint32_t SSRC() const;
 
@@ -244,6 +248,9 @@ class RTCPSender {
       RTC_GUARDED_BY(critical_section_rtcp_sender_);
   bool send_video_bitrate_allocation_
       RTC_GUARDED_BY(critical_section_rtcp_sender_);
+
+  uint32_t rtp_clock_rate_khz_ RTC_GUARDED_BY(critical_section_rtcp_sender_);
+
   absl::optional<VideoBitrateAllocation> CheckAndUpdateLayerStructure(
       const VideoBitrateAllocation& bitrate) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(critical_section_rtcp_sender_);

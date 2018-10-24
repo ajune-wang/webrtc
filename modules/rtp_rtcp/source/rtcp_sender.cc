@@ -135,11 +135,8 @@ RTCPSender::RTCPSender(
       ssrc_(0),
       remote_ssrc_(0),
       receive_statistics_(receive_statistics),
-
       sequence_number_fir_(0),
-
       remb_bitrate_(0),
-
       tmmbr_send_bps_(0),
       packet_oh_send_(0),
       max_packet_size_(IP_PACKET_SIZE - 28),  // IPv4 + UDP by default.
@@ -151,7 +148,8 @@ RTCPSender::RTCPSender(
 
       xr_send_receiver_reference_time_enabled_(false),
       packet_type_counter_observer_(packet_type_counter_observer),
-      send_video_bitrate_allocation_(false) {
+      send_video_bitrate_allocation_(false),
+      rtp_clock_rate_khz_(0) {
   RTC_DCHECK(transport_ != nullptr);
 
   builders_[kRtcpSr] = &RTCPSender::BuildSR;
@@ -254,8 +252,10 @@ void RTCPSender::SetTimestampOffset(uint32_t timestamp_offset) {
 }
 
 void RTCPSender::SetLastRtpTime(uint32_t rtp_timestamp,
-                                int64_t capture_time_ms) {
+                                int64_t capture_time_ms,
+                                uint32_t rtp_clock_rate_hz) {
   rtc::CritScope lock(&critical_section_rtcp_sender_);
+  rtp_clock_rate_khz_ = rtp_clock_rate_hz / 1000;
   last_rtp_timestamp_ = rtp_timestamp;
   if (capture_time_ms < 0) {
     // We don't currently get a capture time from VoiceEngine.
@@ -411,8 +411,12 @@ std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildSR(const RtcpContext& ctx) {
   // the frame being captured at this moment. We are calculating that
   // timestamp as the last frame's timestamp + the time since the last frame
   // was captured.
-  uint32_t rtp_rate =
-      (audio_ ? kBogusRtpRateForAudioRtcp : kVideoPayloadTypeFrequency) / 1000;
+  uint32_t rtp_rate = rtp_clock_rate_khz_;
+  if (rtp_rate == 0) {
+    rtp_rate =
+        (audio_ ? kBogusRtpRateForAudioRtcp : kVideoPayloadTypeFrequency) /
+        1000;
+  }
   uint32_t rtp_timestamp =
       timestamp_offset_ + last_rtp_timestamp_ +
       (clock_->TimeInMilliseconds() - last_frame_capture_time_ms_) * rtp_rate;

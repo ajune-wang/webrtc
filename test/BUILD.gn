@@ -322,6 +322,7 @@ if (rtc_include_tests) {
       ":test_main",
       ":test_support",
       ":test_support_test_artifacts",
+      ":video_proxy_factory",
       ":video_test_common",
       ":video_test_support",
       "../api:create_simulcast_test_fixture_api",
@@ -611,6 +612,22 @@ rtc_source_set("fake_video_codecs") {
   ]
 }
 
+rtc_source_set("video_proxy_factory") {
+  testonly = true
+  visibility = [ "*" ]
+  public = [
+    "function_video_decoder_factory.h",
+    "function_video_encoder_factory.h",
+    "video_decoder_proxy_factory.h",
+    "video_encoder_proxy_factory.h",
+  ]
+  deps = [
+    "../api/video_codecs:video_codecs_api",
+    "../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+}
+
 rtc_source_set("test_common") {
   testonly = true
   sources = [
@@ -623,8 +640,6 @@ rtc_source_set("test_common") {
     "encoder_settings.cc",
     "encoder_settings.h",
     "fake_videorenderer.h",
-    "function_video_decoder_factory.h",
-    "function_video_encoder_factory.h",
     "layer_filtering_transport.cc",
     "layer_filtering_transport.h",
     "mock_transport.cc",
@@ -634,8 +649,6 @@ rtc_source_set("test_common") {
     "rtp_rtcp_observer.h",
     "statistics.cc",
     "statistics.h",
-    "video_decoder_proxy_factory.h",
-    "video_encoder_proxy_factory.h",
     "win/run_loop_win.cc",
   ]
   if (!is_win) {
@@ -656,6 +669,7 @@ rtc_source_set("test_common") {
     ":fileutils",
     ":rtp_test_utils",
     ":test_support",
+    ":video_proxy_factory",
     ":video_test_common",
     "../api:libjingle_peerconnection_api",
     "../api:simulated_network_api",

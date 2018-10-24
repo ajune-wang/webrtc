@@ -36,6 +36,7 @@ if (rtc_include_tests) {
       "../:fileutils",
       "../:test_common",
       "../:test_support",
+      "../:video_proxy_factory",
       "../:video_test_common",
       "../..:webrtc_common",
       "../../api:libjingle_peerconnection_api",

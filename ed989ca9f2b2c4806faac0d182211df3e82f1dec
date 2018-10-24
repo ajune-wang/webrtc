@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "ff6df487_c8f51136",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-24T12:20:10Z",
+      "side": 1,
+      "message": "Long but accurate would be send_receive_clock_offset, I\u0027d go for min_observed_offset which is more vague but can considered more clear in this specific context. Maybe min_send_receive_offset? Maybe send_receive_diff?",
+      "parentUuid": "08debcdc_302d2844",
+      "range": {
+        "startLine": 1301,
+        "startChar": 23,
+        "endLine": 1301,
+        "endChar": 28
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8084787_ebfd1857",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b6713ba_81f755ad",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-24T12:20:10Z",
+      "side": 1,
+      "message": "Maybe they should be changed too? But sure.",
+      "parentUuid": "4c3d5e39_acebb51d",
+      "range": {
+        "startLine": 1313,
+        "startChar": 12,
+        "endLine": 1313,
+        "endChar": 13
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

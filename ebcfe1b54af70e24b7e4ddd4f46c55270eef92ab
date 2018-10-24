@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65b9243f_bff6004e",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-24T09:56:02Z",
+      "side": 1,
+      "message": "Why do you need this local variable?",
+      "revId": "ebcfe1b54af70e24b7e4ddd4f46c55270eef92ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c15809a_ab398d29",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-24T09:56:02Z",
+      "side": 1,
+      "message": "Why not size_t?",
+      "range": {
+        "startLine": 118,
+        "startChar": 7,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "ebcfe1b54af70e24b7e4ddd4f46c55270eef92ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a21b78d_58a35839",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-24T09:56:02Z",
+      "side": 1,
+      "message": "Unnecessary parentheses.",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "ebcfe1b54af70e24b7e4ddd4f46c55270eef92ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b2e9ce5_d501ee04",
+        "filename": "rtc_base/bitrateallocationstrategy.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-24T09:56:02Z",
+      "side": 1,
+      "message": "If you want, this can be done without explicit indexes and without default-constructing all the elements in `updated_track_configs`:\n\n  std::vector\u003cTrackConfig\u003e updated_track_configs;\n  for (auto\u0026 tc : track_configs) {\n    updated_track_configs.push_back(*tc);\n    *tc \u003d \u0026updated_track_configs.back();\n  }\n\nHowever, unless I\u0027m mistaken, both this code and what you write will result in the caller\u0027s array (referenced by track_configs) holding pointers to stuff in updated_track_configs, which is destroyed when this function returns. That doesn\u0027t seem good.",
+      "revId": "ebcfe1b54af70e24b7e4ddd4f46c55270eef92ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

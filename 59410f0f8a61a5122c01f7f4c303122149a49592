@@ -46,6 +46,30 @@
       "revId": "59410f0f8a61a5122c01f7f4c303122149a49592",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f546ceda_bff4d967",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-24T13:12:47Z",
+      "side": 1,
+      "message": "Would make sense to point out this visibility change in the commit message.",
+      "parentUuid": "d23d63f1_428b236e",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "59410f0f8a61a5122c01f7f4c303122149a49592",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

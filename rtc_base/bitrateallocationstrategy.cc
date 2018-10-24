@@ -113,44 +113,38 @@ AudioPriorityBitrateAllocationStrategy::AudioPriorityBitrateAllocationStrategy(
 std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
     uint32_t available_bitrate,
     const ArrayView<const TrackConfig*> track_configs) {
-  absl::optional<TrackConfig> audio_track_config;
+  size_t track_configs_size = track_configs.size();
+  std::vector<TrackConfig> updated_track_configs(track_configs_size);
+  for (unsigned long i = 0; i < track_configs_size; i++) {
+    updated_track_configs[i] = (*track_configs[i]);
+    track_configs[i] = &updated_track_configs[i];
+  }
+
+  TrackConfig* audio_track_config = nullptr;
   size_t audio_config_index = 0;
   uint32_t sum_min_bitrates = 0;
   uint32_t sum_max_bitrates = 0;
 
-  for (const auto*& track_config : track_configs) {
-    if (track_config->track_id == audio_track_id_) {
-      audio_config_index = &track_config - &track_configs[0];
-      audio_track_config = *track_config;
+  for (auto& track_config : updated_track_configs) {
+    if (track_config.track_id == audio_track_id_) {
+      audio_config_index = &track_config - &updated_track_configs[0];
+      audio_track_config = &track_config;
       if (config_.min_rate)
         audio_track_config->min_bitrate_bps = config_.min_rate->bps();
       if (config_.max_rate)
         audio_track_config->max_bitrate_bps = config_.max_rate->bps();
-      sum_min_bitrates += audio_track_config->min_bitrate_bps;
-      sum_max_bitrates += audio_track_config->max_bitrate_bps;
-    } else {
-      sum_min_bitrates += track_config->min_bitrate_bps;
-      sum_max_bitrates += track_config->max_bitrate_bps;
     }
+    sum_min_bitrates += track_config.min_bitrate_bps;
+    sum_max_bitrates += track_config.max_bitrate_bps;
   }
   if (sum_max_bitrates < available_bitrate) {
     // Allow non audio streams to go above max upto
     // kTransmissionMaxBitrateMultiplier * max_bitrate_bps
-    size_t track_configs_size = track_configs.size();
-    std::vector<TrackConfig> increased_track_configs(track_configs_size);
-    std::vector<const TrackConfig*> increased_track_configs_ptr(
-        track_configs_size);
-    for (unsigned long i = 0; i < track_configs_size; i++) {
-      increased_track_configs[i] = (*track_configs[i]);
-      increased_track_configs_ptr[i] = &increased_track_configs[i];
-      if (track_configs[i]->track_id != audio_track_id_) {
-        increased_track_configs[i].max_bitrate_bps =
-            track_configs[i]->max_bitrate_bps *
-            kTransmissionMaxBitrateMultiplier;
-      }
+    for (auto& track_config : updated_track_configs) {
+      if (&track_config != audio_track_config)
+        track_config.max_bitrate_bps *= kTransmissionMaxBitrateMultiplier;
     }
-    return DistributeBitratesEvenly(increased_track_configs_ptr,
-                                    available_bitrate);
+    return DistributeBitratesEvenly(track_configs, available_bitrate);
   }
   if (!audio_track_config) {
     return DistributeBitratesEvenly(track_configs, available_bitrate);
@@ -172,9 +166,7 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
       // Setting audio track minimum to safe_sufficient_audio_bitrate will
       // allow using DistributeBitratesEvenly to allocate at least sufficient
       // bitrate for audio and the rest evenly.
-      TrackConfig sufficient_track_config(*track_configs[audio_config_index]);
-      sufficient_track_config.min_bitrate_bps = safe_sufficient_audio_bitrate;
-      track_configs[audio_config_index] = &sufficient_track_config;
+      audio_track_config->min_bitrate_bps = safe_sufficient_audio_bitrate;
       std::vector<uint32_t> track_allocations =
           DistributeBitratesEvenly(track_configs, available_bitrate);
       return track_allocations;

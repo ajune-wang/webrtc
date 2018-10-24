@@ -48,6 +48,24 @@ namespace {
 constexpr int64_t kMaxRetransmissionWindowMs = 1000;
 constexpr int64_t kMinRetransmissionWindowMs = 30;
 
+MediaTransportEncodedAudioFrame::FrameType
+MediaTransportFrameTypeForWebrtcFrameType(webrtc::FrameType frame_type) {
+  switch (frame_type) {
+    case kAudioFrameSpeech:
+      return MediaTransportEncodedAudioFrame::FrameType::kSpeech;
+      break;
+
+    case kAudioFrameCN:
+      return MediaTransportEncodedAudioFrame::FrameType::
+          kDiscountinuousTransmission;
+      break;
+
+    default:
+      RTC_CHECK(false) << "Unexpected frame type=" << frame_type;
+      break;
+  }
+}
+
 }  // namespace
 
 const int kTelephoneEventAttenuationdB = 10;
@@ -255,6 +273,22 @@ int32_t ChannelSend::SendData(FrameType frameType,
                               size_t payloadSize,
                               const RTPFragmentationHeader* fragmentation) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
+  if (media_transport() != nullptr) {
+    return SendMediaTransportAudio(frameType, payloadType, timeStamp,
+                                   payloadData, payloadSize, fragmentation);
+  } else {
+    return SendRtpAudio(frameType, payloadType, timeStamp, payloadData,
+                        payloadSize, fragmentation);
+  }
+}
+
+int32_t ChannelSend::SendRtpAudio(FrameType frameType,
+                                  uint8_t payloadType,
+                                  uint32_t timeStamp,
+                                  const uint8_t* payloadData,
+                                  size_t payloadSize,
+                                  const RTPFragmentationHeader* fragmentation) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
   if (_includeAudioLevelIndication) {
     // Store current audio level in the RTP/RTCP module.
     // The level will be used in combination with voice-activity state
@@ -312,9 +346,69 @@ int32_t ChannelSend::SendData(FrameType frameType,
   return 0;
 }
 
+int32_t ChannelSend::SendMediaTransportAudio(
+    FrameType frameType,
+    uint8_t payloadType,
+    uint32_t timeStamp,
+    const uint8_t* payloadData,
+    size_t payloadSize,
+    const RTPFragmentationHeader* fragmentation) {
+  RTC_DCHECK_RUN_ON(encoder_queue_);
+  // TODO(nisse): Use null _transportPtr for MediaTransport.
+  // RTC_DCHECK(_transportPtr == nullptr);
+  uint64_t channel_id;
+  int sampling_rate_hz;
+  {
+    rtc::CritScope cs(&media_transport_lock_);
+    if (media_transport_payload_type_ != payloadType) {
+      // Payload type is being changed, media_transport_sampling_frequency_,
+      // no longer current.
+      return -1;
+    }
+    sampling_rate_hz = media_transport_sampling_frequency_;
+    channel_id = media_transport_channel_id_;
+  }
+  const MediaTransportEncodedAudioFrame frame(
+      /*sampling_rate_hz=*/sampling_rate_hz,
+
+      // TODO(nisse): timeStamp differs from sample index for G722 due to an
+      // error in the spec. Hence, G722 over MediaTransport isn't currently
+      // working. That workaround should be handled in RTP-specific code, not
+      // here.
+      /*starting_sample_index=*/timeStamp,
+
+      // Sample count isn't conveniently available from the AudioCodingModule,
+      // and needs some refactoring to wire up in a good way. For now, left as
+      // zero.
+      /*sample_count=*/0,
+
+      /*sequence_number=*/media_transport_sequence_number_,
+      MediaTransportFrameTypeForWebrtcFrameType(frameType), payloadType,
+      std::vector<uint8_t>(payloadData, payloadData + payloadSize));
+
+  // TODO(nisse): Introduce a MediaTransportSender object bound to a specific
+  // channel id.
+  RTCError rtc_error =
+      media_transport()->SendAudioFrame(channel_id, std::move(frame));
+
+  if (!rtc_error.ok()) {
+    RTC_LOG(LS_ERROR) << "Failed to send frame, rtc_error="
+                      << ToString(rtc_error.type()) << ", "
+                      << rtc_error.message();
+    return -1;
+  }
+
+  ++media_transport_sequence_number_;
+
+  return 0;
+}
+
 bool ChannelSend::SendRtp(const uint8_t* data,
                           size_t len,
                           const PacketOptions& options) {
+  // We should not be sending RTP packets if media transport is available.
+  RTC_CHECK(!media_transport());
+
   rtc::CritScope cs(&_callbackCritSect);
 
   if (_transportPtr == NULL) {
@@ -356,6 +450,7 @@ int ChannelSend::PreferredSampleRate() const {
 
 ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
                          ProcessThread* module_process_thread,
+                         MediaTransportInterface* media_transport,
                          RtcpRttStats* rtcp_rtt_stats,
                          RtcEventLog* rtc_event_log,
                          FrameEncryptorInterface* frame_encryptor,
@@ -380,6 +475,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
       use_twcc_plr_for_ana_(
           webrtc::field_trial::FindFullName("UseTwccPlrForAna") == "Enabled"),
       encoder_queue_(encoder_queue),
+      media_transport_(media_transport),
       frame_encryptor_(frame_encryptor),
       crypto_options_(crypto_options) {
   RTC_DCHECK(module_process_thread);
@@ -556,6 +652,13 @@ bool ChannelSend::SetEncoder(int payload_type,
     }
   }
 
+  if (media_transport_) {
+    rtc::CritScope cs(&media_transport_lock_);
+    media_transport_payload_type_ = payload_type;
+    // TODO(nisse): Currently broken for G722, since timestamps passed through
+    // encoder use RTP clock rather than sample count, and they differ for G722.
+    media_transport_sampling_frequency_ = rtp_codec.plfreq;
+  }
   audio_coding_->SetEncoder(std::move(encoder));
   return true;
 }
@@ -714,6 +817,10 @@ int ChannelSend::SetLocalSSRC(unsigned int ssrc) {
   if (channel_state_.Get().sending) {
     RTC_DLOG(LS_ERROR) << "SetLocalSSRC() already sending";
     return -1;
+  }
+  if (media_transport_) {
+    rtc::CritScope cs(&media_transport_lock_);
+    media_transport_channel_id_ = ssrc;
   }
   _rtpRtcpModule->SetSSRC(ssrc);
   return 0;

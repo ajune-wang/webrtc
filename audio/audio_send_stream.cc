@@ -560,6 +560,11 @@ bool AudioSendStream::SetupSendCodec(AudioSendStream* stream,
     } else {
       RTC_NOTREACHED();
     }
+  } else if (field_trial::IsEnabled("WebRTC-Audio-ForceANA")) {
+    bool success = encoder->EnableAudioNetworkAdaptor(stream->event_log_);
+    RTC_DCHECK(success);
+    RTC_DLOG(LS_INFO) << "Audio network adaptor enabled on SSRC "
+                      << new_config.rtp.ssrc;
   }
 
   // Wrap the encoder in a an AudioEncoderCNG, if VAD is enabled.

@@ -199,6 +199,9 @@ class AudioEncoder {
   virtual bool EnableAudioNetworkAdaptor(const std::string& config_string,
                                          RtcEventLog* event_log);
 
+  // Enables audio network adaptor. Returns true if successful.
+  virtual bool EnableAudioNetworkAdaptor(RtcEventLog* event_log);
+
   // Disables audio network adaptor.
   virtual void DisableAudioNetworkAdaptor();
 

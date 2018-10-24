@@ -873,8 +873,6 @@ def CheckApiDepsFileIsUpToDate(input_api, output_api):
     deps_content = _ParseDeps(f.read())
 
   include_rules = deps_content.get('include_rules', [])
-  specific_include_rules = deps_content.get('specific_include_rules', [])
-  cc_include_rules = specific_include_rules.get(r'.*\.cc', [])
 
   top_level_files = [f for f in os.listdir(input_api.PresubmitLocalPath())
                      if f != 'api' and not f.startswith('.')]
@@ -888,37 +886,12 @@ def CheckApiDepsFileIsUpToDate(input_api, output_api):
     rule = '-%s' % p
     if rule not in include_rules:
       missing_include_rules.append(rule)
+
   if missing_include_rules:
     results.append(output_api.PresubmitError(
         'Please add the following lines to `include_rules` in file\n'
         '%s:\n%s' % (api_deps, str(missing_include_rules))))
 
-  missing_cc_include_rules = []
-  non_webrtc_dirs = [
-      'base',
-      'build',
-      'build_overrides',
-      'buildtools',
-      'data',
-      'infra',
-      'ios',
-      'out',
-      'resources',
-      'testing',
-      'style-guide',
-  ]
-  webrtc_top_level_dirs = [d for d in top_level_dirs
-                           if d not in non_webrtc_dirs]
-
-  for p in webrtc_top_level_dirs:
-    rule = '+%s' % p
-    if rule not in cc_include_rules:
-      missing_cc_include_rules.append(rule)
-  if missing_cc_include_rules:
-    results.append(output_api.PresubmitError(
-        r'Please add the following lines to the `.*\.cc` rule under '
-        '`specific_include_rules` in file\n'
-        '%s:\n%s' % (api_deps, str(missing_cc_include_rules))))
   return results
 
 

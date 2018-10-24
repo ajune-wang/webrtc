@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c574fcf5_74b6f5dc",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCryptoOptions.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-10-24T07:44:39Z",
+      "side": 1,
+      "message": "Please don\u0027t add new files to this dir. The headers here are only left for back-compat and we want to remove them.",
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

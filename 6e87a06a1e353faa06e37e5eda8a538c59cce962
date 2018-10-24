@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "6a9e27cb_8e90007a",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-24T11:55:21Z",
+      "side": 1,
+      "message": "Java documentation should be understandable without looking at the C++ code. It is nice to reference the C++ class but it is not great as the only documentation.",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29dca082_8b791338",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-24T11:55:21Z",
+      "side": 1,
+      "message": "Since you are creating a new class, can you follow the pattern where POD objects are immutable. If you want to allow optionally specifying parameters, it is best to use a builder pattern.",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ff04ed_9d36deea",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-24T11:55:21Z",
+      "side": 1,
+      "message": "Please deprecate the old methods a file a bug for tracking their removal. I would like to have a timeline for this and a PSA send out once the new API is available.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c574fcf5_74b6f5dc",
         "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCryptoOptions.h",
         "patchSetId": 13

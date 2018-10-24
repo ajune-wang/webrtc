@@ -369,6 +369,7 @@ if (rtc_include_tests) {
       "../test:test_common",
       "../test:test_renderer",
       "../test:test_support",
+      "../test:video_proxy_factory",
       "../test:video_test_common",
       "../test:video_test_support",
     ]
@@ -480,6 +481,7 @@ if (rtc_include_tests) {
       "../test:rtp_test_utils",
       "../test:test_common",
       "../test:test_support",
+      "../test:video_proxy_factory",
       "../test:video_test_common",
       "//testing/gtest",
       "//third_party/abseil-cpp/absl/memory",

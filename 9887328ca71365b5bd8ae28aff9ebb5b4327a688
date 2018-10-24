@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5991c64_9ad09353",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-24T14:50:55Z",
+      "side": 1,
+      "message": "Might be clearer as\n\noverhead_bps \u003d Calculate...;\nRTC_DCHECK_LE(overhead_bps, bitrate_bps);\npayload_bitrate_bps \u003d bitrate_bps - overhead_bps;",
+      "range": {
+        "startLine": 609,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 73
+      },
+      "revId": "9887328ca71365b5bd8ae28aff9ebb5b4327a688",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

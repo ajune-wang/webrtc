@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1a46c1e_6b40234d",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-24T21:10:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a9e27cb_8e90007a",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29dca082_8b791338",
         "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "253a8bcb_8cfb91f2",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-24T21:10:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29dca082_8b791338",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -85,6 +133,24 @@
       "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9eb0631_e67f62ad",
+        "filename": "sdk/objc/Framework/Headers/WebRTC/RTCCryptoOptions.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-24T21:10:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c574fcf5_74b6f5dc",
+      "revId": "6e87a06a1e353faa06e37e5eda8a538c59cce962",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

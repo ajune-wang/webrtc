@@ -73,13 +73,15 @@ DelayBasedBwe::Result::Result()
     : updated(false),
       probe(false),
       target_bitrate_bps(0),
-      recovered_from_overuse(false) {}
+      recovered_from_overuse(false),
+      overusing(false) {}
 
 DelayBasedBwe::Result::Result(bool probe, uint32_t target_bitrate_bps)
     : updated(true),
       probe(probe),
       target_bitrate_bps(target_bitrate_bps),
-      recovered_from_overuse(false) {}
+      recovered_from_overuse(false),
+      overusing(false) {}
 
 DelayBasedBwe::Result::~Result() {}
 
@@ -232,6 +234,7 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
   // Currently overusing the bandwidth.
   if (delay_detector_->State() == BandwidthUsage::kBwOverusing) {
+    result.overusing = true;
     if (acked_bitrate_bps &&
         rate_control_.TimeToReduceFurther(now_ms, *acked_bitrate_bps)) {
       result.updated =

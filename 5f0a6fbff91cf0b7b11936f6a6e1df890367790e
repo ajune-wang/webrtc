@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "657e9298_4dcf55de",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T09:17:03Z",
+      "side": 1,
+      "message": "it might be more appropriate to write\nTODO(bugs.webrtc.org/6458): ...\n\n( https://google.github.io/styleguide/cppguide.html#TODO_Comments )",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad11e61_711c6514",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T09:17:03Z",
+      "side": 1,
+      "message": "it might be good to merge this function with \nSetLastRtpTimestamp (or at least keep it next to it):\nsince clock rate is payload_type dependent it \u0027may\u0027 change on each rtp packet.",
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "474ca518_1baaa645",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T09:17:03Z",
+      "side": 1,
+      "message": "That will force using last registered payload format, not last used.\nso if module is configured with\nisac/16000\ncn/8000\ncn/32000\ncn/48000\n\nand use mostly 1st payload type, depending on order of registering payload types it may end up always incorrectly using 48k rtp rate",
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

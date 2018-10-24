@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16622e2f_57f982aa",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T11:26:19Z",
+      "side": 1,
+      "message": "fyi: payload_type \u003d 0 is a valid (static) payload_type.\nDoesn\u0027t really matter since default value is temporary and it would be correct: payload_type \u003d 0 is PCMU with clock rate 8000 [matches BogusRtpRateForAudio]",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "087b2ca39c298f553c1255f6789e3ebad00b18cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

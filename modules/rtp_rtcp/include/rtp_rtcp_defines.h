@@ -32,8 +32,9 @@ class TransportFeedback;
 }
 
 const int kVideoPayloadTypeFrequency = 90000;
-// TODO(solenberg): RTP time stamp rate for RTCP is fixed at 8k, this is legacy
-// and should be fixed.
+
+// TODO(ilnik): Remove this when all the depending projects are updated to
+// correctly set rtp rate for RtcpSender.
 // See: https://bugs.chromium.org/p/webrtc/issues/detail?id=6458
 const int kBogusRtpRateForAudioRtcp = 8000;
 

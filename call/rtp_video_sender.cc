@@ -606,6 +606,7 @@ void RtpVideoSender::OnBitrateUpdated(uint32_t bitrate_bps,
             rtp_config_.max_packet_size + transport_overhead_bytes_per_packet_),
         overhead_bytes_per_packet_ + transport_overhead_bytes_per_packet_,
         bitrate_bps);
+    RTC_DCHECK_LE(payload_bitrate_bps, bitrate_bps);  // Should not wrap.
   }
 
   // Get the encoder target rate. It is the estimated network rate -

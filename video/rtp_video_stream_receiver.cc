@@ -378,63 +378,23 @@ int32_t RtpVideoStreamReceiver::ResendPackets(const uint16_t* sequence_numbers,
 
 void RtpVideoStreamReceiver::OnReceivedFrame(
     std::unique_ptr<video_coding::RtpFrameObject> frame) {
-  // Request a key frame as soon as possible.
   bool key_frame_requested = false;
   if (!has_received_frame_) {
     has_received_frame_ = true;
-    if (frame->FrameType() != kVideoFrameKey) {
-      key_frame_requested = true;
-      keyframe_request_sender_->RequestKeyFrame();
-    }
+    key_frame_requested = RequestKeyFrameIfRequired(frame->FrameType());
   }
-
-  // Optionally attempt to decrypt the raw video frame if it was provided.
-  if (frame_decryptor_ != nullptr) {
-    // When using encryption we expect the frame to have the generic descriptor.
-    absl::optional<RtpGenericFrameDescriptor> descriptor =
-        frame->GetGenericFrameDescriptor();
-    if (!descriptor) {
-      RTC_LOG(LS_ERROR) << "No generic frame descriptor found dropping frame.";
+  if (IsFrameDecryptionEnabled()) {
+    if (!DecryptFrame(frame.get())) {
       return;
     }
-
-    // Retrieve the bitstream of the encrypted video frame.
-    rtc::ArrayView<const uint8_t> encrypted_frame_bitstream(frame->Buffer(),
-                                                            frame->size());
-    // Retrieve the maximum possible size of the decrypted payload.
-    const size_t max_plaintext_byte_size =
-        frame_decryptor_->GetMaxPlaintextByteSize(cricket::MEDIA_TYPE_VIDEO,
-                                                  frame->size());
-    RTC_CHECK(max_plaintext_byte_size <= frame->size());
-    // Place the decrypted frame inline into the existing frame.
-    rtc::ArrayView<uint8_t> inline_decrypted_bitstream(frame->MutableBuffer(),
-                                                       max_plaintext_byte_size);
-
-    // Attempt to decrypt the video frame.
-    size_t bytes_written = 0;
-    if (frame_decryptor_->Decrypt(
-            cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{},
-            /*additional_data=*/nullptr, encrypted_frame_bitstream,
-            inline_decrypted_bitstream, &bytes_written) != 0) {
-      return;
-    }
-
-    if (!has_received_decrypted_frame_ && !key_frame_requested) {
+    // Only request a frame if we haven't  already requested one.
+    if (!has_received_decrypted_frame_) {
       has_received_decrypted_frame_ = true;
-      if (frame->FrameType() != kVideoFrameKey) {
-        keyframe_request_sender_->RequestKeyFrame();
+      if (!key_frame_requested) {
+        RequestKeyFrameIfRequired(frame->FrameType());
       }
     }
-
-    RTC_CHECK(bytes_written <= max_plaintext_byte_size);
-    // Update the frame to contain just the written bytes.
-    frame->SetLength(bytes_written);
-  } else if (config_.crypto_options.sframe.require_frame_encryption) {
-    RTC_LOG(LS_WARNING) << "Frame decryption required but not attached to this "
-                           "stream. Dropping  frame.";
-    return;
   }
-
   reference_finder_->ManageFrame(std::move(frame));
 }
 
@@ -733,6 +693,57 @@ void RtpVideoStreamReceiver::InsertSpsPpsIntoTracker(uint8_t payload_type) {
 
   tracker_.InsertSpsPpsNalus(sprop_decoder.sps_nalu(),
                              sprop_decoder.pps_nalu());
+}
+
+bool RtpVideoStreamReceiver::IsFrameDecryptionEnabled() const {
+  return frame_decryptor_ != nullptr ||
+         config_.crypto_options.sframe.require_frame_encryption;
+}
+
+bool RtpVideoStreamReceiver::DecryptFrame(video_coding::RtpFrameObject* frame) {
+  if (frame_decryptor_ == nullptr) {
+    RTC_LOG(LS_WARNING) << "Frame decryption required but not attached to this "
+                           "stream. Dropping  frame.";
+    return false;
+  }
+  // When using encryption we expect the frame to have the generic descriptor.
+  absl::optional<RtpGenericFrameDescriptor> descriptor =
+      frame->GetGenericFrameDescriptor();
+  if (!descriptor) {
+    RTC_LOG(LS_ERROR) << "RtpGenericFrameDecryptor not found dropping frame.";
+    return false;
+  }
+  // Retrieve the bitstream of the encrypted video frame.
+  rtc::ArrayView<const uint8_t> encrypted_frame_bitstream(frame->Buffer(),
+                                                          frame->size());
+  // Retrieve the maximum possible size of the decrypted payload.
+  const size_t max_plaintext_byte_size =
+      frame_decryptor_->GetMaxPlaintextByteSize(cricket::MEDIA_TYPE_VIDEO,
+                                                frame->size());
+  RTC_CHECK(max_plaintext_byte_size <= frame->size());
+  // Place the decrypted frame inline into the existing frame.
+  rtc::ArrayView<uint8_t> inline_decrypted_bitstream(frame->MutableBuffer(),
+                                                     max_plaintext_byte_size);
+  // Attempt to decrypt the video frame.
+  size_t bytes_written = 0;
+  if (frame_decryptor_->Decrypt(
+          cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{},
+          /*additional_data=*/nullptr, encrypted_frame_bitstream,
+          inline_decrypted_bitstream, &bytes_written) != 0) {
+    return false;
+  }
+  // Update the frame to contain just the written bytes.
+  RTC_CHECK(bytes_written <= max_plaintext_byte_size);
+  frame->SetLength(bytes_written);
+  return true;
+}
+
+bool RtpVideoStreamReceiver::RequestKeyFrameIfRequired(FrameType frame_type) {
+  if (frame_type == kVideoFrameKey) {
+    return false;
+  }
+  keyframe_request_sender_->RequestKeyFrame();
+  return true;
 }
 
 std::vector<webrtc::RtpSource> RtpVideoStreamReceiver::GetSources() const {

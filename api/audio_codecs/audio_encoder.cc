@@ -76,6 +76,10 @@ bool AudioEncoder::EnableAudioNetworkAdaptor(const std::string& config_string,
   return false;
 }
 
+bool AudioEncoder::EnableAudioNetworkAdaptor(RtcEventLog* event_log) {
+  return false;
+}
+
 void AudioEncoder::DisableAudioNetworkAdaptor() {}
 
 void AudioEncoder::OnReceivedUplinkPacketLossFraction(

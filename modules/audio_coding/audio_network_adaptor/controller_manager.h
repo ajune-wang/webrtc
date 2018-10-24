@@ -57,6 +57,16 @@ class ControllerManagerImpl final : public ControllerManager {
       bool initial_fec_enabled,
       bool initial_dtx_enabled);
 
+  static std::unique_ptr<ControllerManager> CreateFromTrials(
+      size_t num_encoder_channels,
+      rtc::ArrayView<const int> encoder_frame_lengths_ms,
+      int min_encoder_bitrate_bps,
+      size_t intial_channels_to_encode,
+      int initial_frame_length_ms,
+      int initial_bitrate_bps,
+      bool initial_fec_enabled,
+      bool initial_dtx_enabled);
+
   static std::unique_ptr<ControllerManager> Create(
       const ProtoString& config_string,
       size_t num_encoder_channels,

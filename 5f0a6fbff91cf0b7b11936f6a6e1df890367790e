@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "892541d8_b5f0dd4f",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-24T10:16:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "657e9298_4dcf55de",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad11e61_711c6514",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "e5d504df_b6d5617a",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-24T10:16:23Z",
+      "side": 1,
+      "message": "Merged.",
+      "parentUuid": "fad11e61_711c6514",
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "474ca518_1baaa645",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773aa226_1c0e919c",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-24T10:16:23Z",
+      "side": 1,
+      "message": "Fixed. Now this method is called for outgoing data.",
+      "parentUuid": "474ca518_1baaa645",
+      "revId": "5f0a6fbff91cf0b7b11936f6a6e1df890367790e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "bac9bfa7_cdaaedcb",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-24T12:06:32Z",
+      "side": 1,
+      "message": "Done. I asked minyue@ which fields of WebRtcRTPHeader are needed. As far as I understand,\n\nssrc is used to detect stream switches, which is of questionable utility with current usage.\n\ntimestamp, seqno and payload type are needed for decoding.\n\ncsrc likely to be used soon.",
+      "parentUuid": "97085c34_161b3fb9",
+      "revId": "26ab6d0a592f1c245f62c29219d49dde054c7282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cca482ac_c6a9af36",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 9

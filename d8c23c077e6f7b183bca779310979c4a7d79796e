@@ -474,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "3ad1e6dc_4f683ceb",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-24T12:06:32Z",
+      "side": 1,
+      "message": "I\u0027ve now wired it up from SetLocalSSRC, for symmetry with ChannelReceive.",
+      "parentUuid": "c4efad47_553d7389",
+      "range": {
+        "startLine": 368,
+        "startChar": 24,
+        "endLine": 368,
+        "endChar": 26
+      },
+      "revId": "d8c23c077e6f7b183bca779310979c4a7d79796e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba93bc4b_f796e299",
         "filename": "audio/channel_send.cc",
         "patchSetId": 13

@@ -155,6 +155,14 @@ class RtpVideoStreamReceiver : public RecoveredPacketReceiver,
   void UpdateHistograms();
   bool IsRedEnabled() const;
   void InsertSpsPpsIntoTracker(uint8_t payload_type);
+  // Returns true if a FrameDecryptor is attached to the Receiver or if the
+  // PeerConnection configuration requires one to be attached.
+  bool IsFrameDecryptionEnabled() const;
+  // Returns true if the payload was successfully decrypted and the frame was
+  // modified to contain the plaintext data.
+  bool DecryptFrame(video_coding::RtpFrameObject* frame);
+  // Returns true if a key frame was requested.
+  bool RequestKeyFrameIfRequired(FrameType frame_type);
 
   Clock* const clock_;
   // Ownership of this object lies with VideoReceiveStream, which owns |this|.

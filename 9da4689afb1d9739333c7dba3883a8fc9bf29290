@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "52392c1e_69e6a406",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-24T14:07:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d089e904_4f9820dc",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 123,
+        "endChar": 21
+      },
+      "revId": "9da4689afb1d9739333c7dba3883a8fc9bf29290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9485f176_3ce7d7af",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "9da4689afb1d9739333c7dba3883a8fc9bf29290",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b23104_489712d9",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-24T14:07:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9485f176_3ce7d7af",
+      "range": {
+        "startLine": 174,
+        "startChar": 28,
+        "endLine": 174,
+        "endChar": 46
+      },
+      "revId": "9da4689afb1d9739333c7dba3883a8fc9bf29290",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

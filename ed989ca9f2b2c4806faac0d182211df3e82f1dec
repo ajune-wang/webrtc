@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08debcdc_302d2844",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1301,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-24T11:23:54Z",
+      "side": 1,
+      "message": "Can you suggest any alternatives to delay?",
+      "parentUuid": "03155060_5c5ba881",
+      "range": {
+        "startLine": 1301,
+        "startChar": 23,
+        "endLine": 1301,
+        "endChar": 28
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a8084787_ebfd1857",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-23T16:58:59Z",
       "side": 1,
       "message": "observed_delay? (or whatever you decide on based on comment above)",
+      "range": {
+        "startLine": 1313,
+        "startChar": 12,
+        "endLine": 1313,
+        "endChar": 13
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c3d5e39_acebb51d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-24T11:23:54Z",
+      "side": 1,
+      "message": "In all other plots, we use x and y to denote the coordinates. I prefer to keep for consistency.",
+      "parentUuid": "a8084787_ebfd1857",
       "range": {
         "startLine": 1313,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c361c3f3_bcecb2bc",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-24T11:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3f430b6_35a71443",
+      "range": {
+        "startLine": 1317,
+        "startChar": 34,
+        "endLine": 1317,
+        "endChar": 55
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "728e42e3_ec5c0d67",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6d411b1_cbcde7b6",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-24T11:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "728e42e3_ec5c0d67",
+      "range": {
+        "startLine": 1325,
+        "startChar": 15,
+        "endLine": 1325,
+        "endChar": 47
+      },
+      "revId": "ed989ca9f2b2c4806faac0d182211df3e82f1dec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

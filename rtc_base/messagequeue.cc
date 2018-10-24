@@ -350,8 +350,10 @@ void MessageQueue::Post(const Location& posted_from,
                         uint32_t id,
                         MessageData* pdata,
                         bool time_sensitive) {
-  if (IsQuitting())
+  if (IsQuitting()) {
+    delete pdata;
     return;
+  }
 
   // Keep thread safe
   // Add the message to the end of the queue

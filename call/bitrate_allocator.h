@@ -28,6 +28,7 @@ class Clock;
 
 struct BitrateAllocationUpdate {
   uint32_t bitrate_bps;
+  uint32_t bandwidth_bps;
   uint8_t fraction_loss;
   int64_t rtt;
   int64_t bwe_period_ms;
@@ -107,6 +108,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
 
   // Allocate target_bitrate across the registered BitrateAllocatorObservers.
   void OnNetworkChanged(uint32_t target_bitrate_bps,
+                        uint32_t bandwidth_bps,
                         uint8_t fraction_loss,
                         int64_t rtt,
                         int64_t bwe_period_ms);
@@ -236,6 +238,7 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // Stored in a list to keep track of the insertion order.
   ObserverConfigs bitrate_observer_configs_ RTC_GUARDED_BY(&sequenced_checker_);
   uint32_t last_bitrate_bps_ RTC_GUARDED_BY(&sequenced_checker_);
+  uint32_t last_bandwidth_bps_ RTC_GUARDED_BY(&sequenced_checker_);
   uint32_t last_non_zero_bitrate_bps_ RTC_GUARDED_BY(&sequenced_checker_);
   uint8_t last_fraction_loss_ RTC_GUARDED_BY(&sequenced_checker_);
   int64_t last_rtt_ RTC_GUARDED_BY(&sequenced_checker_);

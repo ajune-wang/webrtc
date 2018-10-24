@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53b53e2f_3d3315a4",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "According to style guide, unsigned types should not be used to reflect that a number cannot be negative, but only for bit-masking etc.",
+      "range": {
+        "startLine": 285,
+        "startChar": 6,
+        "endLine": 285,
+        "endChar": 14
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09bad944_49e08beb",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "Same as above",
+      "range": {
+        "startLine": 295,
+        "startChar": 10,
+        "endLine": 295,
+        "endChar": 18
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32621b5a_9897c887",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "Don\u0027t think this is relevant anymore.",
+      "range": {
+        "startLine": 317,
+        "startChar": 4,
+        "endLine": 318,
+        "endChar": 78
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ecfcbc6_b211cc54",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "This looks largely like inlining of old SendPacket(), without the critsect_.Leave. Could you just change Sendpacket to avoid the long multiply indented hard to read loop?",
+      "range": {
+        "startLine": 333,
+        "startChar": 2,
+        "endLine": 361,
+        "endChar": 7
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5801bb03_dc283726",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "I do not understand why this condition was changed.",
+      "range": {
+        "startLine": 377,
+        "startChar": 7,
+        "endLine": 377,
+        "endChar": 16
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05100e18_efed74b5",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "Could this be negative, making a difference from padding_negative \u003e 0?",
+      "range": {
+        "startLine": 388,
+        "startChar": 6,
+        "endLine": 388,
+        "endChar": 20
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8660bbd2_c893e2e0",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-24T08:08:26Z",
+      "side": 1,
+      "message": "Why not use OnBytesSent here? (outside Mutex scope)",
+      "range": {
+        "startLine": 393,
+        "startChar": 3,
+        "endLine": 397,
+        "endChar": 5
+      },
+      "revId": "15a768fe7b1a78a25f884bab79872ebfd6246fff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

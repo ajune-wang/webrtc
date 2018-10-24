@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36fc22de_70a454d4",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-24T13:55:32Z",
+      "side": 1,
+      "message": "Despite this, two bots (linux_libfuzzer_rel and linux_gcc_rel) fail with\n\n/b/s/w/ir/cache/builder/src/buildtools/linux64/gn gen //out/linux_libfuzzer_rel --check\n  -\u003e returned 1\nERROR Unresolved dependencies.\n//examples:relayserver(//build/toolchain/linux:clang_x64)\n  needs //p2p:p2p_server_utils(//build/toolchain/linux:clang_x64)\n\nI guess that means that rtc_include_tests is false. It\u0027s not clear to me what that flag means, when should a test_only target be conditional on rtc_include_tests?\n\nI\u0027ll try making the new p2p_server_utils target unconditional.",
+      "range": {
+        "startLine": 737,
+        "startChar": 0,
+        "endLine": 737,
+        "endChar": 32
+      },
+      "revId": "3164fcdade2dfe5b98b1e69c85e5c56177bbe3ce",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

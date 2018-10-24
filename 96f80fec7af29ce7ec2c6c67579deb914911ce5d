@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7355742b_4b041151",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T10:55:30Z",
+      "side": 1,
+      "message": "btw, there is no good reason for rtp_rate to use uint32_t type, so if you can avoid spreading that [e.g. use int as value in the map or as function parameter], it would be nice.\nSimilar for payload type - use int instead of fixed sized int8_t or uint8_t\n\nfrom: https://google.github.io/styleguide/cppguide.html#Integer_Types\n\"You should not use the unsigned integer types such as uint32_t, unless there is a valid reason such as representing a bit pattern rather than a number, or you need defined overflow modulo 2^N. In particular, do not use unsigned types to say a number will never be negative. Instead, use assertions for this.\"",
+      "range": {
+        "startLine": 414,
+        "startChar": 2,
+        "endLine": 414,
+        "endChar": 10
+      },
+      "revId": "96f80fec7af29ce7ec2c6c67579deb914911ce5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6e91922_e84ad2e5",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-24T10:55:30Z",
+      "side": 1,
+      "message": "suggestion: move this map from rtp_rtcp_impl into rtcp_sender_\n(and add RtcpSender::RegisterPayload(int payload_type, int rtp_clock_rate_hz) )\nin SetLastRtpTimestamp pass payload_type instead of rtp_rate\nthen you can reuse already existent lock (that you take anyway both when setting last payload_type/rtp_rate and when reading it)",
+      "revId": "96f80fec7af29ce7ec2c6c67579deb914911ce5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

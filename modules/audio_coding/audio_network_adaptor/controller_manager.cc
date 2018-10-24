@@ -21,8 +21,11 @@
 #include "modules/audio_coding/audio_network_adaptor/fec_controller_rplr_based.h"
 #include "modules/audio_coding/audio_network_adaptor/frame_length_controller.h"
 #include "modules/audio_coding/audio_network_adaptor/util/threshold_curve.h"
+#include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/field_trial_units.h"
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/timeutils.h"
+#include "system_wrappers/include/field_trial.h"
 
 #if WEBRTC_ENABLE_PROTOBUF
 RTC_PUSH_IGNORING_WUNDEF()
@@ -37,6 +40,48 @@ RTC_POP_IGNORING_WUNDEF()
 namespace webrtc {
 
 namespace {
+struct BitrateAdaptationTrial {
+  FieldTrialFlag enabled;
+  FieldTrialParameter<int> overhead_offset_after_frame_length_increase;
+  FieldTrialParameter<int> overhead_offset_after_frame_length_decrease;
+  explicit BitrateAdaptationTrial(std::string trial_string)
+      : enabled("Enabled"),
+        overhead_offset_after_frame_length_increase("oh_offs_len_inc", 0),
+        overhead_offset_after_frame_length_decrease("oh_offs_len_dec", 0) {
+    ParseFieldTrial({&enabled, &overhead_offset_after_frame_length_increase,
+                     &overhead_offset_after_frame_length_decrease},
+                    trial_string);
+  }
+};
+
+struct FrameLengthAdaptationTrial {
+  FieldTrialFlag enabled;
+  FieldTrialParameter<double> min_packet_loss_for_decrease;
+  FieldTrialParameter<double> max_packet_loss_for_increase;
+  FieldTrialParameter<int> overhead_offset_for_increase;
+  FieldTrialParameter<int> overhead_offset_for_decrease;
+  FieldTrialParameter<DataRate> min_rate_for_20_ms;
+  FieldTrialParameter<DataRate> max_rate_for_60_ms;
+  FieldTrialParameter<DataRate> min_rate_for_60_ms;
+  FieldTrialParameter<DataRate> max_rate_for_120_ms;
+  explicit FrameLengthAdaptationTrial(std::string trial_string)
+      : enabled("Enabled"),
+        min_packet_loss_for_decrease("min_loss_dec", 0),
+        max_packet_loss_for_increase("max_loss_inc", 1),
+        overhead_offset_for_increase("oh_offs_inc", 0),
+        overhead_offset_for_decrease("oh_offs_dec", 0),
+        min_rate_for_20_ms("min20", DataRate::Zero()),
+        max_rate_for_60_ms("max60", DataRate::Infinity()),
+        min_rate_for_60_ms("min60", DataRate::Zero()),
+        max_rate_for_120_ms("max120", DataRate::Infinity()) {
+    ParseFieldTrial(
+        {&enabled, &min_packet_loss_for_decrease, &max_packet_loss_for_increase,
+         &overhead_offset_for_increase, &overhead_offset_for_decrease,
+         &min_rate_for_20_ms, &max_rate_for_60_ms, &min_rate_for_60_ms,
+         &max_rate_for_120_ms},
+        trial_string);
+  }
+};
 
 #if WEBRTC_ENABLE_PROTOBUF
 
@@ -226,6 +271,57 @@ std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(
                 min_encoder_bitrate_bps, intial_channels_to_encode,
                 initial_frame_length_ms, initial_bitrate_bps,
                 initial_fec_enabled, initial_dtx_enabled, nullptr);
+}
+
+std::unique_ptr<ControllerManager> ControllerManagerImpl::CreateFromTrials(
+    size_t num_encoder_channels,
+    rtc::ArrayView<const int> encoder_frame_lengths_ms,
+    int min_encoder_bitrate_bps,
+    size_t intial_channels_to_encode,
+    int initial_frame_length_ms,
+    int initial_bitrate_bps,
+    bool initial_fec_enabled,
+    bool initial_dtx_enabled) {
+  std::vector<std::unique_ptr<Controller>> controllers;
+  // TODO(srte): Enable more controllers if needed.
+  if (field_trial::IsEnabled("WebRTC-Audio-BitrateAdaptation")) {
+    BitrateAdaptationTrial trial(
+        field_trial::FindFullName("WebRTC-Audio-BitrateAdaptationConfig"));
+    if (trial.enabled) {
+      controllers.push_back(
+          absl::make_unique<BitrateController>(BitrateController::Config(
+              initial_bitrate_bps, initial_frame_length_ms,
+              trial.overhead_offset_after_frame_length_increase,
+              trial.overhead_offset_after_frame_length_decrease)));
+    }
+  }
+  if (field_trial::IsEnabled("WebRTC-Audio-FrameLengthAdaptation")) {
+    FrameLengthAdaptationTrial trial(
+        field_trial::FindFullName("WebRTC-Audio-FrameLengthAdaptationConfig"));
+    if (trial.enabled) {
+      std::map<FrameLengthController::Config::FrameLengthChange, int>
+          thresholds_bps = {{{20, 60}, trial.min_rate_for_20_ms->bps()},
+                            {{60, 20}, trial.max_rate_for_60_ms->bps()}};
+      if (!trial.min_rate_for_60_ms->IsZero() &&
+          trial.max_rate_for_120_ms->IsFinite()) {
+        thresholds_bps.insert({{60, 120}, trial.min_rate_for_60_ms->bps()});
+        thresholds_bps.insert({{120, 60}, trial.max_rate_for_120_ms->bps()});
+      }
+      FrameLengthController::Config config(
+          std::vector<int>(), initial_frame_length_ms, min_encoder_bitrate_bps,
+          trial.max_packet_loss_for_increase,
+          trial.min_packet_loss_for_decrease,
+          trial.overhead_offset_for_increase,
+          trial.overhead_offset_for_decrease, std::move(thresholds_bps));
+
+      for (auto frame_length : encoder_frame_lengths_ms)
+        config.encoder_frame_lengths_ms.push_back(frame_length);
+      controllers.push_back(absl::make_unique<FrameLengthController>(config));
+    }
+  }
+  RTC_DCHECK(controllers.size() != 0);
+  return std::unique_ptr<ControllerManagerImpl>(new ControllerManagerImpl(
+      ControllerManagerImpl::Config(0, 0), std::move(controllers), {}));
 }
 
 std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(

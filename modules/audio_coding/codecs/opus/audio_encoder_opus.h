@@ -111,6 +111,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   void SetMaxPlaybackRate(int frequency_hz) override;
   bool EnableAudioNetworkAdaptor(const std::string& config_string,
                                  RtcEventLog* event_log) override;
+  bool EnableAudioNetworkAdaptor(RtcEventLog* event_log) override;
   void DisableAudioNetworkAdaptor() override;
   void OnReceivedUplinkPacketLossFraction(
       float uplink_packet_loss_fraction) override;

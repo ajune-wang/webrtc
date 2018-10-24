@@ -578,6 +578,18 @@ bool AudioEncoderOpusImpl::EnableAudioNetworkAdaptor(
   return audio_network_adaptor_.get() != nullptr;
 }
 
+bool AudioEncoderOpusImpl::EnableAudioNetworkAdaptor(RtcEventLog* event_log) {
+  AudioNetworkAdaptorImpl::Config config;
+  config.event_log = event_log;
+  audio_network_adaptor_.reset(new AudioNetworkAdaptorImpl(
+      config, ControllerManagerImpl::CreateFromTrials(
+                  NumChannels(), supported_frame_lengths_ms(),
+                  AudioEncoderOpusConfig::kMinBitrateBps,
+                  num_channels_to_encode_, next_frame_length_ms_,
+                  GetTargetBitrate(), config_.fec_enabled, GetDtx())));
+  return true;
+}
+
 void AudioEncoderOpusImpl::DisableAudioNetworkAdaptor() {
   audio_network_adaptor_.reset(nullptr);
 }

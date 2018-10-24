@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd965716_6201249d",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-24T09:56:37Z",
+      "side": 1,
+      "message": "Set values_optional here instead of the any_of below?",
+      "range": {
+        "startLine": 319,
+        "startChar": 6,
+        "endLine": 319,
+        "endChar": 14
+      },
+      "revId": "2ee6214f055792200df032bb2bb4075534979d70",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

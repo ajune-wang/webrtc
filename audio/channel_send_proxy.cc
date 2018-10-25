@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "api/crypto/frameencryptorinterface.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "rtc_base/checks.h"
 
@@ -195,7 +196,7 @@ ChannelSend* ChannelSendProxy::GetChannel() const {
 }
 
 void ChannelSendProxy::SetFrameEncryptor(
-    FrameEncryptorInterface* frame_encryptor) {
+    rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   channel_->SetFrameEncryptor(frame_encryptor);
 }

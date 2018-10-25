@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7621a71_fd8bf3e5",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T12:53:49Z",
+      "side": 1,
+      "message": "Doing it this way helps people who grep for usages of BitrateAllocationUpdate. And since it\u0027s only used three times here I think the small overhead in verbosity is worth it.",
+      "parentUuid": "f9fa68ca_2c1bf2d9",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "552cc102_3592f208",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38cdd14e_68732c28",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T12:53:49Z",
+      "side": 1,
+      "message": "My thinking is to use this struct to forward the information further. E,g, from VideoSendStreamImpl, to VideoStreamEncoder, etc. So I want this to be a separate struct.",
+      "parentUuid": "552cc102_3592f208",
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

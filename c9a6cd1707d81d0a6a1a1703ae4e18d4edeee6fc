@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfb3e110_b1ba14ab",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "What\u0027s stopping you?",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 78
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565875d3_0de6d0d6",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "Lines 342 and 350 should probably be identical.",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36606699_cb99d2af",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "ArrayView?",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 50
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53eea3b3_18e8e8ef",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "ArrayView?",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d33a5d_642d4edb",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "const? GUARDED_BY?",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f2215e4_b1344e4c",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "Why \u0026, and not *?",
+      "range": {
+        "startLine": 321,
+        "startChar": 54,
+        "endLine": 321,
+        "endChar": 55
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8912a6d5_3f9fc18e",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "Can this be const?",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cc67a5a_5d7df741",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "No need to be explicit now that it takes two args.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 12
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeb59eab_0f1a4707",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T14:02:06Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

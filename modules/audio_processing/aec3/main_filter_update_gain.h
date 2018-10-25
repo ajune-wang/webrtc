@@ -18,6 +18,7 @@
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/echo_path_variability.h"
+#include "modules/audio_processing/aec3/moving_average.h"
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 #include "modules/audio_processing/aec3/subtractor_output.h"
 #include "rtc_base/constructormagic.h"
@@ -70,6 +71,8 @@ class MainFilterUpdateGain {
   size_t poor_excitation_counter_;
   size_t call_counter_ = 0;
   int config_change_counter_ = 0;
+  aec3::MovingAverage E2_shadow_smoother_;
+  aec3::MovingAverage E2_main_smoother_;
 
   // Updates the current config towards the target config.
   void UpdateCurrentConfig();

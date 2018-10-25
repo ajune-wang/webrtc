@@ -140,6 +140,30 @@
       "revId": "1251898c2cc51238b292e14650e67e97aec42971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16561294_786637d7",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-25T11:17:28Z",
+      "side": 1,
+      "message": "It is not clear to me that we want to remove it.\n\nIn the case of the analyzer, we want to plot feedback that arrives too late. One could also imagine estimators where one would increase the \"uncertainty\" of the estimate if packets arrive too late, or print warning about late feedback.",
+      "parentUuid": "f29b58d2_21e20456",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

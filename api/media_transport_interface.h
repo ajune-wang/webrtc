@@ -18,6 +18,7 @@
 #define API_MEDIA_TRANSPORT_INTERFACE_H_
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -32,6 +33,16 @@ class Thread;
 }  // namespace rtc
 
 namespace webrtc {
+
+// A collection of settings for creation of media transport.
+struct MediaTransportSettings {
+  // Group calls are not currently supported, in 1:1 call one side must set
+  //   is_caller = true and another is_caller = false.
+  bool is_caller;
+
+  // If pre_shared_key is known, this setting should be set.
+  optional<string> pre_shared_key;
+};
 
 // Represents encoded audio frame in any encoding (type of encoding is opaque).
 // To avoid copying of encoded data use move semantics when passing by value.
@@ -241,10 +252,19 @@ class MediaTransportFactory {
   // - Does not take ownership of packet_transport or network_thread.
   // - Does not support group calls, in 1:1 call one side must set
   //   is_caller = true and another is_caller = false.
+  // TODO(psla) This constructor will be removed and replaced with the one
+  // below.
   virtual RTCErrorOr<std::unique_ptr<MediaTransportInterface>>
   CreateMediaTransport(rtc::PacketTransportInternal* packet_transport,
                        rtc::Thread* network_thread,
                        bool is_caller) = 0;
+
+  // Creates media transport.
+  // - Does not take ownership of packet_transport or network_thread.
+  virtual RTCErrorOr<std::unique_ptr<MediaTransportInterface>>
+  CreateMediaTransport(rtc::PacketTransportInternal* packet_transport,
+                       rtc::Thread* network_thread,
+                       MediaTransportSettings settings){}
 };
 
 }  // namespace webrtc

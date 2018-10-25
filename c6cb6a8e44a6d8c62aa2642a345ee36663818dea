@@ -22,6 +22,30 @@
       "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e4f4f5_e2086c32",
+        "filename": "rtc_base/openssl/openssladapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-25T18:07:41Z",
+      "side": 1,
+      "message": "I believe this is the C header?",
+      "parentUuid": "92a0d065_2cef5cf9",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

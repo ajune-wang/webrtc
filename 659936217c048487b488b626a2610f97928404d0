@@ -93,6 +93,52 @@
       "revId": "659936217c048487b488b626a2610f97928404d0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "208e9cf8_30920696",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T09:44:36Z",
+      "side": 1,
+      "message": "Not sure this is a good idea, unless we actively wake the thread, which we currently aren\u0027t doing. This will be evaluated at the end of the Process call anyway in most cases. However, other modules on the same thread or other causes from waking the thread would cause this function be called and change the behavior or the code. That risks causing flakiness.\n\nIf the goal is to ensure that we process earlier if the underlying state changes. Add a call to wake up the process at all places where this occurs. Then you could add this update to those call sites and achieve the same result.",
+      "range": {
+        "startLine": 289,
+        "startChar": 38,
+        "endLine": 289,
+        "endChar": 80
+      },
+      "revId": "659936217c048487b488b626a2610f97928404d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "353f985c_85c2a7e2",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T09:44:36Z",
+      "side": 1,
+      "message": "guessing here, but would this be true?\n\"to be sure that the packet is ready by the time next process occurs.\"\n\nIf that\u0027s the reason I think this formulation is clearer.",
+      "range": {
+        "startLine": 292,
+        "startChar": 31,
+        "endLine": 293,
+        "endChar": 46
+      },
+      "revId": "659936217c048487b488b626a2610f97928404d0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

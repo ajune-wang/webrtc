@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLIDENTITY_H_
-#define RTC_BASE_OPENSSLIDENTITY_H_
+#ifndef RTC_BASE_OPENSSL_OPENSSLIDENTITY_H_
+#define RTC_BASE_OPENSSL_OPENSSLIDENTITY_H_
 
 #include <openssl/ossl_typ.h>
 
@@ -19,7 +19,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
-#include "rtc_base/opensslcertificate.h"
+#include "rtc_base/openssl/opensslcertificate.h"
 #include "rtc_base/sslcertificate.h"
 #include "rtc_base/sslidentity.h"
 
@@ -98,4 +98,4 @@ class OpenSSLIdentity : public SSLIdentity {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLIDENTITY_H_
+#endif  // RTC_BASE_OPENSSL_OPENSSLIDENTITY_H_

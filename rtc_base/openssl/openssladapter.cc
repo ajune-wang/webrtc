@@ -8,26 +8,25 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/openssladapter.h"
+#include "rtc_base/openssl/openssladapter.h"
 
 #include <errno.h>
+#include <string.h>
+#include <time.h>
 
 #include <openssl/bio.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
 #include <openssl/x509.h>
-#include "rtc_base/openssl.h"
-
-#include <string.h>
-#include <time.h>
+#include "rtc_base/openssl/openssl.h"
 
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/opensslcertificate.h"
-#include "rtc_base/opensslutility.h"
+#include "rtc_base/openssl/opensslcertificate.h"
+#include "rtc_base/openssl/opensslutility.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/thread.h"
 

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/opensslstreamadapter.h"
+#include "rtc_base/openssl/opensslstreamadapter.h"
 
 #include <openssl/bio.h>
 #include <openssl/crypto.h>
@@ -28,10 +28,10 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
-#include "rtc_base/openssladapter.h"
-#include "rtc_base/openssldigest.h"
-#include "rtc_base/opensslidentity.h"
+#include "rtc_base/openssl/openssl.h"
+#include "rtc_base/openssl/openssladapter.h"
+#include "rtc_base/openssl/openssldigest.h"
+#include "rtc_base/openssl/opensslidentity.h"
 #include "rtc_base/sslcertificate.h"
 #include "rtc_base/stream.h"
 #include "rtc_base/stringutils.h"
@@ -162,7 +162,7 @@ static const SslCipherMapEntry kSslCipherMap[] = {
 static int stream_write(BIO* h, const char* buf, int num);
 static int stream_read(BIO* h, char* buf, int size);
 static int stream_puts(BIO* h, const char* str);
-static long stream_ctrl(BIO* h, int cmd, long arg1, void* arg2);
+static long stream_ctrl(BIO* h, int cmd, long arg1, void* arg2);  // NOLINT
 static int stream_new(BIO* h);
 static int stream_free(BIO* data);
 
@@ -243,7 +243,7 @@ static int stream_puts(BIO* b, const char* str) {
   return stream_write(b, str, checked_cast<int>(strlen(str)));
 }
 
-static long stream_ctrl(BIO* b, int cmd, long num, void* ptr) {
+static long stream_ctrl(BIO* b, int cmd, long num, void* ptr) {  // NOLINT
   switch (cmd) {
     case BIO_CTRL_RESET:
       return 0;

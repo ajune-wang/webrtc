@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cde8dae_d1f12ebc",
+        "filename": "rtc_base/sslstreamadapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-25T16:50:12Z",
+      "side": 1,
+      "message": "nit: align /",
+      "range": {
+        "startLine": 139,
+        "startChar": 77,
+        "endLine": 139,
+        "endChar": 78
+      },
+      "revId": "be8ced114f8c06b584063e06f6630a53596e39b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "849622df_21572e1e",
+        "filename": "rtc_base/sslstreamadapter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-25T16:50:12Z",
+      "side": 1,
+      "message": "nit: Deprecated. Do not... and below",
+      "range": {
+        "startLine": 240,
+        "startChar": 5,
+        "endLine": 240,
+        "endChar": 22
+      },
+      "revId": "be8ced114f8c06b584063e06f6630a53596e39b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

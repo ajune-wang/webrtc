@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "866c0fc3_79b84555",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-25T17:11:54Z",
+      "side": 1,
+      "message": "I am not familiar with this part of code, but I am wondering if you need to set an expectation before this like your tests in the send stream. It looks to me this test would pass so long as the ctor of ConfigHelper does not crash.",
+      "range": {
+        "startLine": 387,
+        "startChar": 15,
+        "endLine": 387,
+        "endChar": 26
+      },
+      "revId": "eff0170de4a83c915c21c8fb9393427d2924a8aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

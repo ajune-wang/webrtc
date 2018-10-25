@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2bfba41_3cb86295",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Current code creates and passes the rtp objects unconditionally.",
+      "parentUuid": "dfb3e110_b1ba14ab",
+      "range": {
+        "startLine": 147,
+        "startChar": 37,
+        "endLine": 147,
+        "endChar": 78
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cabd7d7f_d5554890",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 19
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "a208c8ff_5fa072f6",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Looks unneeded. Also dropped the comments, they\u0027re not that useful here.",
+      "parentUuid": "cabd7d7f_d5554890",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "565875d3_0de6d0d6",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 19
@@ -56,6 +98,47 @@
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "181b9db8_119a11fe",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Fixed to use if (media_transport_) at both places.",
+      "parentUuid": "565875d3_0de6d0d6",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d38b4cd5_7c6872f9",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "But this one should be const. Fixed.",
+      "range": {
+        "startLine": 268,
+        "startChar": 27,
+        "endLine": 268,
+        "endChar": 43
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "04fc35d3_678612dc",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Renamed constant. Have to keep the old name as alias until downstream code is updated.",
+      "parentUuid": "916099c7_c7561a9a",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a9e25ef_fc8416e6",
         "filename": "audio/channel_send.cc",
         "patchSetId": 19
@@ -99,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "8b85a46f_b8060d88",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Rephrasing.",
+      "parentUuid": "5a9e25ef_fc8416e6",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1766f17c_a1dda121",
         "filename": "audio/channel_send.cc",
         "patchSetId": 19
@@ -113,6 +238,24 @@
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8462fec4_cab75ff1",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1766f17c_a1dda121",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "0d534a5a_588cfcef",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36606699_cb99d2af",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 50
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53eea3b3_18e8e8ef",
         "filename": "audio/channel_send.h",
         "patchSetId": 19
@@ -162,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "4407316d_1cdf10e6",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53eea3b3_18e8e8ef",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 61
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63d33a5d_642d4edb",
         "filename": "audio/channel_send.h",
         "patchSetId": 19
@@ -176,6 +367,24 @@
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e09a6863_92c5cc8c",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Added const, it is set on construction.",
+      "parentUuid": "63d33a5d_642d4edb",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +411,30 @@
     },
     {
       "key": {
+        "uuid": "184f74c8_31aa9796",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "I\u0027m confused by the convention for RTC_GUARDED_BY. Delete \u0026, so now it looks the same as the guards for, e.g., rms_level_, a few lines above.",
+      "parentUuid": "4f2215e4_b1344e4c",
+      "range": {
+        "startLine": 321,
+        "startChar": 54,
+        "endLine": 321,
+        "endChar": 55
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8912a6d5_3f9fc18e",
         "filename": "call/audio_receive_stream.h",
         "patchSetId": 19
@@ -216,6 +449,24 @@
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf00ff7_a7862f7e",
+        "filename": "call/audio_receive_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "This is the config struct, so no const.",
+      "parentUuid": "8912a6d5_3f9fc18e",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -242,6 +493,30 @@
     },
     {
       "key": {
+        "uuid": "a6b2b342_487f7f52",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cc67a5a_5d7df741",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 12
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb59eab_0f1a4707",
         "filename": "call/audio_send_stream.h",
         "patchSetId": 19
@@ -256,6 +531,24 @@
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1cbb171_6c00a12e",
+        "filename": "call/audio_send_stream.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-25T16:36:48Z",
+      "side": 1,
+      "message": "This is also a config struct, so no.",
+      "parentUuid": "eeb59eab_0f1a4707",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

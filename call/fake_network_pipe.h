@@ -155,7 +155,6 @@ class FakeNetworkPipe : public webrtc::SimulatedPacketReceiverInterface,
   void AddToTotalDelay(int delay_us);
   int64_t GetTimeInMicroseconds() const;
   bool ShouldProcess(int64_t time_now_us) const;
-  void SetTimeToNextProcess(int64_t skip_us);
 
  private:
   struct StoredPacket {
@@ -210,8 +209,6 @@ class FakeNetworkPipe : public webrtc::SimulatedPacketReceiverInterface,
   size_t dropped_packets_ RTC_GUARDED_BY(process_lock_);
   size_t sent_packets_ RTC_GUARDED_BY(process_lock_);
   int64_t total_packet_delay_us_ RTC_GUARDED_BY(process_lock_);
-
-  int64_t next_process_time_us_;
 
   int64_t last_log_time_us_;
 

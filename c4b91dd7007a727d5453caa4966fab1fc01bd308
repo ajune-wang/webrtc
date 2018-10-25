@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e062ef92_f8eb1b0e",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-25T20:48:25Z",
+      "side": 1,
+      "message": "do you want to remove copy\u0026move?",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 27
+      },
+      "revId": "c4b91dd7007a727d5453caa4966fab1fc01bd308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b44715_0fee0e9c",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-25T20:48:25Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 45,
+        "startChar": 25,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "c4b91dd7007a727d5453caa4966fab1fc01bd308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de79508d_bd567ab5",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-25T20:48:25Z",
+      "side": 1,
+      "message": "and at most?",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "c4b91dd7007a727d5453caa4966fab1fc01bd308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc7c9f7_583b78ac",
+        "filename": "rtc_base/openssl_key_derivation_hkdf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-25T20:48:25Z",
+      "side": 1,
+      "message": "it would definitely be useful to return errors here (RTCError is not allow)\n\nhow about returning a success value / error code, and have a ptr to the output zeroonfreebuffer?",
+      "range": {
+        "startLine": 41,
+        "startChar": 10,
+        "endLine": 41,
+        "endChar": 25
+      },
+      "revId": "c4b91dd7007a727d5453caa4966fab1fc01bd308",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

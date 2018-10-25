@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e3458fd_6bbe0fb8",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-25T16:30:11Z",
+      "side": 1,
+      "message": "nit: TODO\u0027s should reference bugs going forward.\n\n// TODO(bugs.webrtc.org/9891",
+      "range": {
+        "startLine": 409,
+        "startChar": 7,
+        "endLine": 409,
+        "endChar": 22
+      },
+      "revId": "b0478c55462f0dcbb9518e4a4e57c82ba50cd1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e81578d_ba556cad",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-25T16:30:11Z",
+      "side": 1,
+      "message": "nit: Here too for the bug.",
+      "range": {
+        "startLine": 937,
+        "startChar": 10,
+        "endLine": 937,
+        "endChar": 19
+      },
+      "revId": "b0478c55462f0dcbb9518e4a4e57c82ba50cd1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9c2e2ed_47f3c36f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2924,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-25T16:30:11Z",
+      "side": 1,
+      "message": "SetRemoteDescription --\u003e SetLocalDescription",
+      "range": {
+        "startLine": 2924,
+        "startChar": 26,
+        "endLine": 2924,
+        "endChar": 46
+      },
+      "revId": "b0478c55462f0dcbb9518e4a4e57c82ba50cd1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35aba072_4f5269bb",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 6359,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-25T16:30:11Z",
+      "side": 1,
+      "message": "nit: here too.",
+      "range": {
+        "startLine": 6359,
+        "startChar": 10,
+        "endLine": 6359,
+        "endChar": 19
+      },
+      "revId": "b0478c55462f0dcbb9518e4a4e57c82ba50cd1bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

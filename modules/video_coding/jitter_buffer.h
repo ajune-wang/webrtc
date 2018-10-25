@@ -27,6 +27,7 @@
 #include "modules/video_coding/jitter_estimator.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/event.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
@@ -35,7 +36,6 @@ enum VCMNackMode { kNack, kNoNack };
 
 // forward declarations
 class Clock;
-class EventFactory;
 class EventWrapper;
 class VCMFrameBuffer;
 class VCMPacket;
@@ -108,7 +108,6 @@ class Vp9SsMap {
 class VCMJitterBuffer {
  public:
   VCMJitterBuffer(Clock* clock,
-                  std::unique_ptr<EventWrapper> event,
                   NackSender* nack_sender = nullptr,
                   KeyFrameRequestSender* keyframe_request_sender = nullptr);
 
@@ -319,7 +318,7 @@ class VCMJitterBuffer {
   bool running_;
   rtc::CriticalSection crit_sect_;
   // Event to signal when we have a frame ready for decoder.
-  std::unique_ptr<EventWrapper> frame_event_;
+  rtc::Event frame_event_;
   // Number of allocated frames.
   int max_number_of_frames_;
   UnorderedFrameList free_frames_ RTC_GUARDED_BY(crit_sect_);

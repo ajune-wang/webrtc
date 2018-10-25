@@ -222,12 +222,11 @@ void Vp9SsMap::UpdateFrames(FrameList* frames) {
 }
 
 VCMJitterBuffer::VCMJitterBuffer(Clock* clock,
-                                 std::unique_ptr<EventWrapper> event,
                                  NackSender* nack_sender,
                                  KeyFrameRequestSender* keyframe_request_sender)
     : clock_(clock),
       running_(false),
-      frame_event_(std::move(event)),
+      frame_event_(false, false),
       max_number_of_frames_(kStartNumberOfFrames),
       free_frames_(),
       decodable_frames_(),
@@ -342,7 +341,7 @@ void VCMJitterBuffer::Stop() {
   last_decoded_state_.Reset();
 
   // Make sure we wake up any threads waiting on these events.
-  frame_event_->Set();
+  frame_event_.Set();
 }
 
 bool VCMJitterBuffer::Running() const {
@@ -463,10 +462,9 @@ VCMEncodedFrame* VCMJitterBuffer::NextCompleteFrame(uint32_t max_wait_time_ms) {
     int64_t wait_time_ms = max_wait_time_ms;
     while (wait_time_ms > 0) {
       crit_sect_.Leave();
-      const EventTypeWrapper ret =
-          frame_event_->Wait(static_cast<uint32_t>(wait_time_ms));
+      bool ret = frame_event_.Wait(static_cast<uint32_t>(wait_time_ms));
       crit_sect_.Enter();
-      if (ret == kEventSignaled) {
+      if (ret) {
         // Are we shutting down the jitter buffer?
         if (!running_) {
           crit_sect_.Leave();
@@ -753,7 +751,7 @@ VCMFrameBufferEnum VCMJitterBuffer::InsertPacket(const VCMPacket& packet,
         CountFrame(*frame);
         if (continuous) {
           // Signal that we have a complete session.
-          frame_event_->Set();
+          frame_event_.Set();
         }
       }
       RTC_FALLTHROUGH();

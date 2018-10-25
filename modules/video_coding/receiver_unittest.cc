@@ -18,7 +18,6 @@
 #include "modules/video_coding/packet.h"
 #include "modules/video_coding/receiver.h"
 #include "modules/video_coding/test/stream_generator.h"
-#include "modules/video_coding/test/test_util.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/clock.h"
@@ -31,7 +30,7 @@ class TestVCMReceiver : public ::testing::Test {
   TestVCMReceiver()
       : clock_(new SimulatedClock(0)),
         timing_(clock_.get()),
-        receiver_(&timing_, clock_.get(), &event_factory_) {
+        receiver_(&timing_, clock_.get()) {
     stream_generator_.reset(
         new StreamGenerator(0, clock_->TimeInMilliseconds()));
   }
@@ -81,7 +80,6 @@ class TestVCMReceiver : public ::testing::Test {
 
   std::unique_ptr<SimulatedClock> clock_;
   VCMTiming timing_;
-  NullEventFactory event_factory_;
   VCMReceiver receiver_;
   std::unique_ptr<StreamGenerator> stream_generator_;
 };
@@ -340,40 +338,6 @@ class SimulatedClockWithFrames : public SimulatedClock {
   VCMReceiver* receiver_;
 };
 
-// Use a SimulatedClockWithFrames
-// Wait call will do either of these:
-// 1. If |stop_on_frame| is true, the clock will be turned to the exact instant
-// that the first frame comes and the frame will be inserted into the jitter
-// buffer, or the clock will be turned to now + |max_time| if no frame comes in
-// the window.
-// 2. If |stop_on_frame| is false, the clock will be turn to now + |max_time|,
-// and all the frames arriving between now and now + |max_time| will be
-// inserted into the jitter buffer.
-//
-// This is used to simulate the JitterBuffer getting packets from internet as
-// time elapses.
-
-class FrameInjectEvent : public EventWrapper {
- public:
-  FrameInjectEvent(SimulatedClockWithFrames* clock, bool stop_on_frame)
-      : clock_(clock), stop_on_frame_(stop_on_frame) {}
-
-  bool Set() override { return true; }
-
-  EventTypeWrapper Wait(unsigned long max_time) override {  // NOLINT
-    if (clock_->AdvanceTimeMilliseconds(max_time, stop_on_frame_) &&
-        stop_on_frame_) {
-      return EventTypeWrapper::kEventSignaled;
-    } else {
-      return EventTypeWrapper::kEventTimeout;
-    }
-  }
-
- private:
-  SimulatedClockWithFrames* clock_;
-  bool stop_on_frame_;
-};
-
 class VCMReceiverTimingTest : public ::testing::Test {
  protected:
   VCMReceiverTimingTest()
@@ -381,12 +345,7 @@ class VCMReceiverTimingTest : public ::testing::Test {
       : clock_(&stream_generator_, &receiver_),
         stream_generator_(0, clock_.TimeInMilliseconds()),
         timing_(&clock_),
-        receiver_(
-            &timing_,
-            &clock_,
-            std::unique_ptr<EventWrapper>(new FrameInjectEvent(&clock_, false)),
-            std::unique_ptr<EventWrapper>(
-                new FrameInjectEvent(&clock_, true))) {}
+        receiver_(&timing_, &clock_) {}
 
   virtual void SetUp() { receiver_.Reset(); }
 

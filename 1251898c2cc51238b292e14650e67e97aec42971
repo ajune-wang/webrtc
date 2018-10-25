@@ -164,6 +164,30 @@
       "revId": "1251898c2cc51238b292e14650e67e97aec42971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b7db59_56d31b90",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T13:04:34Z",
+      "side": 1,
+      "message": "If feedback commonly arrives late, I think we should increase the feedback history to avoid the problem, the cost of maintaining a longer send time history is low compared to the extra complexity of such handling code. As I see it, we should handle the event gracefully, but not optimally, since the optimal way to handle it would be to maintain a longer history.\n\nAnd given that we avoid this happening commonly, the analyzer wont need detailed information about, just a simple event would be enough.\n\nOs is there a good reason why we would not want to save a long enough send time history?",
+      "parentUuid": "16561294_786637d7",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

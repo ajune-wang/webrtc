@@ -14,7 +14,7 @@
 #include <cstdint>
 #include <memory>
 
-#include "rtc_base/openssldigest.h"
+#include "rtc_base/openssl/openssldigest.h"
 #include "rtc_base/stringencode.h"
 
 namespace rtc {
@@ -101,7 +101,7 @@ size_t ComputeHmac(MessageDigest* digest,
                    void* output,
                    size_t out_len) {
   // We only handle algorithms with a 64-byte blocksize.
-  // TODO: Add BlockSize() method to MessageDigest.
+  // TODO(benwright): Add BlockSize() method to MessageDigest.
   size_t block_len = kBlockSize;
   if (digest->Size() > 32) {
     return 0;

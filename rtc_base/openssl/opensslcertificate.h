@@ -8,13 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLCERTIFICATE_H_
-#define RTC_BASE_OPENSSLCERTIFICATE_H_
+#ifndef RTC_BASE_OPENSSL_OPENSSLCERTIFICATE_H_
+#define RTC_BASE_OPENSSL_OPENSSLCERTIFICATE_H_
 
 #include <openssl/ossl_typ.h>
 
 #include <stddef.h>
 #include <stdint.h>
+#include <memory>
 #include <string>
 
 #include "rtc_base/buffer.h"
@@ -75,4 +76,4 @@ class OpenSSLCertificate : public SSLCertificate {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLCERTIFICATE_H_
+#endif  // RTC_BASE_OPENSSL_OPENSSLCERTIFICATE_H_

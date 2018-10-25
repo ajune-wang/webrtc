@@ -31,8 +31,8 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
-#include "rtc_base/opensslutility.h"
+#include "rtc_base/openssl/openssl.h"
+#include "rtc_base/openssl/opensslutility.h"
 #include "rtc_base/sslroots.h"
 #include "test/gmock.h"
 

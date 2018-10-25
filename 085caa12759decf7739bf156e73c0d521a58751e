@@ -33,6 +33,29 @@
       "revId": "085caa12759decf7739bf156e73c0d521a58751e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2112ed3_5e3aff18",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5706
+      },
+      "writtenOn": "2018-10-25T16:30:43Z",
+      "side": 1,
+      "message": "Should these assigments be move assignments?",
+      "range": {
+        "startLine": 996,
+        "startChar": 31,
+        "endLine": 996,
+        "endChar": 46
+      },
+      "revId": "085caa12759decf7739bf156e73c0d521a58751e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

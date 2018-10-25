@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/opensslcertificate.h"
+#include "rtc_base/openssl/opensslcertificate.h"
 
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
@@ -25,9 +25,9 @@
 #include "rtc_base/helpers.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/messagedigest.h"
-#include "rtc_base/openssldigest.h"
-#include "rtc_base/opensslidentity.h"
-#include "rtc_base/opensslutility.h"
+#include "rtc_base/openssl/openssldigest.h"
+#include "rtc_base/openssl/opensslidentity.h"
+#include "rtc_base/openssl/opensslutility.h"
 
 namespace rtc {
 

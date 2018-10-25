@@ -8,9 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/opensslsessioncache.h"
+#include "rtc_base/openssl/opensslsessioncache.h"
+
 #include "rtc_base/checks.h"
-#include "rtc_base/openssl.h"
+#include "rtc_base/openssl/openssl.h"
 
 namespace rtc {
 

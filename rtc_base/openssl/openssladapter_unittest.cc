@@ -8,14 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <sstream>
 #include <string>
 #include <vector>
 
 #include "absl/memory/memory.h"
 #include "rtc_base/asyncsocket.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/openssladapter.h"
+#include "rtc_base/openssl/openssladapter.h"
 #include "test/gmock.h"
 
 namespace rtc {
@@ -64,14 +63,14 @@ TEST(OpenSSLAdapterTest, TestTransformAlpnProtocols) {
 
   // One protocol test.
   std::vector<std::string> alpn_protos{"h2"};
-  std::stringstream expected_response;
-  expected_response << static_cast<char>(2) << "h2";
-  EXPECT_EQ(expected_response.str(), TransformAlpnProtocols(alpn_protos));
+  std::string expected_response;
+  expected_response = "\x02h2";
+  EXPECT_EQ(expected_response, TransformAlpnProtocols(alpn_protos));
 
   // Standard protocols test (h2,http/1.1).
   alpn_protos.push_back("http/1.1");
-  expected_response << static_cast<char>(8) << "http/1.1";
-  EXPECT_EQ(expected_response.str(), TransformAlpnProtocols(alpn_protos));
+  expected_response += "\x08http/1.1";
+  EXPECT_EQ(expected_response, TransformAlpnProtocols(alpn_protos));
 }
 
 // Verifies that SSLStart works when OpenSSLAdapter is started in standalone

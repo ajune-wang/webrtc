@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec7cb425_4dd442e3",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-10-25T11:31:43Z",
+      "side": 1,
+      "message": "Braces for consistency, please! Same for other files.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "3b864011e9a0631dabd4d4566830602a95e5973a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

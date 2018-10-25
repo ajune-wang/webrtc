@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d16b1b1_fd5ed585",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "Make final",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 24
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fe479ae_12f25fdb",
+        "filename": "sdk/android/src/jni/pc/cryptooptions.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "nit: Use absl::nullopt",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 13
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b957df6_64c9b70f",
+        "filename": "sdk/android/src/jni/pc/cryptooptions.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "Looks like this is no longer possible, check can be removed.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a924eda_c734d56c",
+        "filename": "sdk/android/src/jni/pc/cryptooptions.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "Looks like this is no longer possible, check can be removed.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19caffbf_010cb8b5",
+        "filename": "sdk/android/tests/src/org/webrtc/CryptoOptionsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "nit: Can you please use the more modern assertTruth?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562c74b2_6c80a3c6",
+        "filename": "sdk/android/tests/src/org/webrtc/CryptoOptionsTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-25T08:44:50Z",
+      "side": 1,
+      "message": "I think each of these should be a separate test and then we can rid of the number postfixes from the variable names.",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 72
+      },
+      "revId": "1906457636f553cdc55787c40ec85199ce0ebbde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

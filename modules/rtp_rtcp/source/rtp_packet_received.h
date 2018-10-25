@@ -23,6 +23,7 @@ namespace webrtc {
 class RtpPacketReceived : public RtpPacket {
  public:
   RtpPacketReceived();
+  explicit RtpPacketReceived(const ExtensionManager& extensions);
   explicit RtpPacketReceived(const ExtensionManager* extensions);
   RtpPacketReceived(const RtpPacketReceived& packet);
   RtpPacketReceived(RtpPacketReceived&& packet);

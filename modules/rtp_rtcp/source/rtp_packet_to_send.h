@@ -23,6 +23,8 @@ namespace webrtc {
 // Class to hold rtp packet with metadata for sender side.
 class RtpPacketToSend : public RtpPacket {
  public:
+  explicit RtpPacketToSend(const ExtensionManager& extensions);
+  RtpPacketToSend(const ExtensionManager& extensions, size_t capacity);
   explicit RtpPacketToSend(const ExtensionManager* extensions);
   RtpPacketToSend(const ExtensionManager* extensions, size_t capacity);
   RtpPacketToSend(const RtpPacketToSend& packet);

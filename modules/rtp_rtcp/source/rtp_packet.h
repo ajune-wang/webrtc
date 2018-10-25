@@ -31,9 +31,14 @@ class RtpPacket {
   // Adding and getting extensions will fail until |extensions| is
   // provided via constructor or IdentifyExtensions function.
   RtpPacket();
-  explicit RtpPacket(const ExtensionManager* extensions);
   RtpPacket(const RtpPacket&);
+  explicit RtpPacket(const ExtensionManager& extensions);
+  RtpPacket(const ExtensionManager& extensions, size_t capacity);
+
+  // The following two constructors are deprecated and will be removed.
+  explicit RtpPacket(const ExtensionManager* extensions);
   RtpPacket(const ExtensionManager* extensions, size_t capacity);
+
   ~RtpPacket();
 
   RtpPacket& operator=(const RtpPacket&) = default;

@@ -23,7 +23,7 @@ inline int64_t DivideRoundToNearest(int64_t x, uint32_t y) {
   return (x + y / 2) / y;
 }
 
-int64_t NtpOffsetUs() {
+int64_t NtpOffsetUsComputedOnce() {
   constexpr int64_t kNtpJan1970Sec = 2208988800;
   int64_t clock_time = rtc::TimeMicros();
   int64_t utc_time = rtc::TimeUTCMicros();
@@ -32,11 +32,13 @@ int64_t NtpOffsetUs() {
 
 }  // namespace
 
-NtpTime TimeMicrosToNtp(int64_t time_us) {
+int64_t NtpOffsetMs() {
   // Calculate the offset once.
-  static int64_t ntp_offset_us = NtpOffsetUs();
-
-  int64_t time_ntp_us = time_us + ntp_offset_us;
+  static int64_t ntp_offset_us = NtpOffsetUsComputedOnce();
+  return ntp_offset_us / 1000;
+}
+NtpTime TimeMicrosToNtp(int64_t time_us) {
+  int64_t time_ntp_us = time_us + NtpOffsetMs() * 1000;
   RTC_DCHECK_GE(time_ntp_us, 0);  // Time before year 1900 is unsupported.
 
   // TODO(danilchap): Convert both seconds and fraction together using int128

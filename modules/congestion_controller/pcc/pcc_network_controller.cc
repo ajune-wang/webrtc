@@ -148,7 +148,7 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
   if (IsTimeoutExpired(msg.send_time)) {
     DataSize received_size = DataSize::Zero();
     for (size_t i = 1; i < last_received_packets_.size(); ++i) {
-      received_size += last_received_packets_[i].sent_packet->size;
+      received_size += last_received_packets_[i].sent_packet.size;
     }
     TimeDelta sending_time = TimeDelta::Zero();
     if (last_received_packets_.size() > 0)
@@ -166,7 +166,7 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
       msg.send_time - start_time_ >= kStartupDuration) {
     DataSize received_size = DataSize::Zero();
     for (size_t i = 1; i < last_received_packets_.size(); ++i) {
-      received_size += last_received_packets_[i].sent_packet->size;
+      received_size += last_received_packets_[i].sent_packet.size;
     }
     TimeDelta sending_time = TimeDelta::Zero();
     if (last_received_packets_.size() > 0)
@@ -294,6 +294,11 @@ NetworkControlUpdate PccNetworkController::OnTransportPacketsFeedback(
     if (mode_ != Mode::kDoubleCheck)
       UpdateSendingRateAndMode();
   }
+  return NetworkControlUpdate();
+}
+
+NetworkControlUpdate PccNetworkController::OnDelayedFeedback(
+    TransportPacketsFeedback msg) {
   return NetworkControlUpdate();
 }
 

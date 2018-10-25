@@ -24,6 +24,10 @@ namespace webrtc {
 // system time.
 NtpTime TimeMicrosToNtp(int64_t time_us);
 
+// Difference between Ntp time and local relative time returned by
+// rtc::TimeMicros()
+int64_t NtpOffsetMs();
+
 // Converts NTP timestamp to RTP timestamp.
 inline uint32_t NtpToRtp(NtpTime ntp, uint32_t freq) {
   uint32_t tmp = (static_cast<uint64_t>(ntp.fractions()) * freq) >> 32;

@@ -22,6 +22,30 @@
       "revId": "eff0170de4a83c915c21c8fb9393427d2924a8aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ee2081_34fbd6e4",
+        "filename": "audio/audio_receive_stream_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-25T17:14:51Z",
+      "side": 1,
+      "message": "This test case could be better but this is testing the scenario of crashing on reconfigure directly.",
+      "parentUuid": "866c0fc3_79b84555",
+      "range": {
+        "startLine": 387,
+        "startChar": 15,
+        "endLine": 387,
+        "endChar": 26
+      },
+      "revId": "eff0170de4a83c915c21c8fb9393427d2924a8aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

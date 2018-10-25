@@ -37,7 +37,7 @@ class NtpTime {
     static constexpr double kNtpFracPerMs = 4.294967296E6;  // 2^32 / 1000.
     const double frac_ms = static_cast<double>(fractions()) / kNtpFracPerMs;
     return 1000 * static_cast<int64_t>(seconds()) +
-           static_cast<int64_t>(frac_ms + 0.5);
+           static_cast<int64_t>(frac_ms);
   }
   // NTP standard (RFC1305, section 3.1) explicitly state value 0 is invalid.
   bool Valid() const { return value_ != 0; }

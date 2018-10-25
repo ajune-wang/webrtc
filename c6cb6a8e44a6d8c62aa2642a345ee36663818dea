@@ -46,6 +46,104 @@
       "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c5ba71_f5653cc1",
+        "filename": "rtc_base/openssl/openssladapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2018-10-25T19:19:18Z",
+      "side": 1,
+      "message": "(There is \u003ccstring\u003e which is the C++ alias for \u003cstring.h\u003e. The style guide says \"Note that the C compatibility headers such as stddef.h are essentially interchangeable with their C++ counterparts (cstddef) Either style is acceptable, but prefer consistency with existing code.\". Existing code seems to use the C names?)",
+      "parentUuid": "55e4f4f5_e2086c32",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626106e3_bed449aa",
+        "filename": "rtc_base/openssl/openssladapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2018-10-25T19:19:18Z",
+      "side": 1,
+      "message": "Optional: you could also write\n\nstd::string expected_response \u003d \"\\x02h2\"; and expected_response +\u003d \"\\x08http/1.1\".",
+      "range": {
+        "startLine": 67,
+        "startChar": 22,
+        "endLine": 67,
+        "endChar": 66
+      },
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6abf1e_9625bd2f",
+        "filename": "rtc_base/openssl/opensslcertificate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2018-10-25T19:19:18Z",
+      "side": 1,
+      "message": "Nit: I think we usually don\u0027t include a header in foo.cc if it was already included in foo.h. But ignore me if WebRTC\u0027s conventions are different.",
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24ffae13_6d3e1e37",
+        "filename": "rtc_base/openssl/opensslsessioncache.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2018-10-25T19:19:18Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f953379_2330231e",
+        "filename": "rtc_base/openssl/opensslutility.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2018-10-25T19:19:18Z",
+      "side": 1,
+      "message": "Nit/existing issue: should this be down with the other includes?",
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

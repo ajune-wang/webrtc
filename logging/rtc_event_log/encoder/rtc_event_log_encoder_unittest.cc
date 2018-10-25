@@ -43,10 +43,13 @@
 namespace webrtc {
 
 class RtcEventLogEncoderTest
-    : public testing::TestWithParam<std::tuple<int, bool>> {
+    : public testing::TestWithParam<std::tuple<int, bool, size_t>> {
  protected:
   RtcEventLogEncoderTest()
-      : seed_(std::get<0>(GetParam())), prng_(seed_), gen_(seed_ * 880001UL) {
+      : seed_(std::get<0>(GetParam())),
+        prng_(seed_),
+        gen_(seed_ * 880001UL),
+        event_count_(std::get<2>(GetParam())) {
     if (std::get<1>(GetParam()))
       encoder_ = absl::make_unique<RtcEventLogEncoderNewFormat>();
     else
@@ -68,20 +71,27 @@ class RtcEventLogEncoderTest
   const uint64_t seed_;
   Random prng_;
   test::EventGenerator gen_;
+  const size_t event_count_;
 };
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAlrState) {
-  std::unique_ptr<RtcEventAlrState> event = gen_.NewAlrState();
-  history_.push_back(event->Copy());
+  std::vector<std::unique_ptr<RtcEventAlrState>> events(event_count_);
+  for (size_t i = 0; i < event_count_; ++i) {
+    events[i] = gen_.NewAlrState();
+    history_.push_back(events[i]->Copy());
+  }
 
   std::string encoded = encoder_->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded));
   const auto& alr_state_events = parsed_log_.alr_state_events();
 
-  ASSERT_EQ(alr_state_events.size(), 1u);
-  test::VerifyLoggedAlrStateEvent(*event, alr_state_events[0]);
+  ASSERT_EQ(alr_state_events.size(), event_count_);
+  for (size_t i = 0; i < event_count_; ++i) {
+    test::VerifyLoggedAlrStateEvent(*events[i], alr_state_events[i]);
+  }
 }
 
+// TODO: !!! ???
 void RtcEventLogEncoderTest::TestRtcEventAudioNetworkAdaptation(
     std::unique_ptr<AudioEncoderRuntimeConfig> runtime_config) {
   // This function is called repeatedly. Clear state between calls.
@@ -175,21 +185,29 @@ TEST_P(RtcEventLogEncoderTest, RtcEventAudioNetworkAdaptationAll) {
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioPlayout) {
-  uint32_t ssrc = prng_.Rand<uint32_t>();
-  std::unique_ptr<RtcEventAudioPlayout> event = gen_.NewAudioPlayout(ssrc);
-  history_.push_back(event->Copy());
+  std::vector<std::unique_ptr<RtcEventAudioPlayout>> events(event_count_);
+  // TODO: !!! Avoid repeated SSRCs?
+  for (size_t i = 0; i < event_count_; ++i) {
+    const uint32_t ssrc = prng_.Rand<uint32_t>();
+    printf("ssrc = %u\n", ssrc);
+    events[i] = gen_.NewAudioPlayout(ssrc);
+    history_.push_back(events[i]->Copy());
+  }
 
   std::string encoded = encoder_->EncodeBatch(history_.begin(), history_.end());
   ASSERT_TRUE(parsed_log_.ParseString(encoded));
 
   const auto& playout_events = parsed_log_.audio_playout_events();
-  ASSERT_EQ(playout_events.size(), 1u);
-  const auto playout_stream = playout_events.find(ssrc);
-  ASSERT_TRUE(playout_stream != playout_events.end());
+  ASSERT_EQ(playout_events.size(), event_count_);
 
-  ASSERT_EQ(playout_stream->second.size(), 1u);
-  LoggedAudioPlayoutEvent playout_event = playout_stream->second[0];
-  test::VerifyLoggedAudioPlayoutEvent(*event, playout_event);
+  for (size_t i = 0; i < event_count_; ++i) {
+    const auto playout_stream = playout_events.find(events[i]->ssrc_);
+    ASSERT_TRUE(playout_stream != playout_events.end());
+
+    ASSERT_EQ(playout_stream->second.size(), 1u);
+    LoggedAudioPlayoutEvent playout_event = playout_stream->second[0];
+    test::VerifyLoggedAudioPlayoutEvent(*events[i], playout_event);
+  }
 }
 
 TEST_P(RtcEventLogEncoderTest, RtcEventAudioReceiveStreamConfig) {
@@ -438,6 +456,7 @@ TEST_P(RtcEventLogEncoderTest, RtcEventVideoSendStreamConfig) {
 INSTANTIATE_TEST_CASE_P(RandomSeeds,
                         RtcEventLogEncoderTest,
                         ::testing::Combine(::testing::Values(1, 2, 3, 4, 5),
-                                           ::testing::Bool()));
+                                           ::testing::Bool(),
+                                           ::testing::Values(1, 2, 10, 100)));
 
 }  // namespace webrtc

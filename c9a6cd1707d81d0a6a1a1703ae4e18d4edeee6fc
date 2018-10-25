@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "cabd7d7f_d5554890",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-25T14:27:29Z",
+      "side": 1,
+      "message": "Why do you need to reinterpret_cast here?",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "565875d3_0de6d0d6",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 19
@@ -36,6 +53,63 @@
       "writtenOn": "2018-10-25T14:02:06Z",
       "side": 1,
       "message": "Lines 342 and 350 should probably be identical.",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "916099c7_c7561a9a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-25T14:27:29Z",
+      "side": 1,
+      "message": "That\u0027s not how Discontinuous is spelled.",
+      "range": {
+        "startLine": 60,
+        "startChar": 11,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a9e25ef_fc8416e6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-25T14:27:29Z",
+      "side": 1,
+      "message": "Don\u0027t think it matters whether or not this was a mistake in the spec. The important distinction is that RTP uses a clockrate that may or may not be the same as the actual sample rate. As another example, I believe MPEG audio is specified to use 90000 as its clockrate (just like MPEG video), regardless of sample rate. I agree that that mapping should be done in RTP specific code.",
+      "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1766f17c_a1dda121",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-25T14:27:29Z",
+      "side": 1,
+      "message": "You can get the sampling rate directly from the encoder. Don\u0027t use the CodecInst stuff in new code if you can get away with it.",
       "revId": "c9a6cd1707d81d0a6a1a1703ae4e18d4edeee6fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -13,6 +13,7 @@
 
 #include "pc/iceserverparsing.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/ssladapter.h"
 
 namespace webrtc {
 
@@ -48,6 +49,16 @@ class IceServerParsingTest : public testing::Test {
                 const std::string& password,
                 PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
                 const std::string& hostname) {
+    return ParseUrl(url, username, password, tls_certificate_policy, "",
+                    rtc::SSLConfig());
+  }
+
+  bool ParseUrl(const std::string& url,
+                const std::string& username,
+                const std::string& password,
+                PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
+                const std::string& hostname,
+                rtc::SSLConfig ssl_config) {
     stun_servers_.clear();
     turn_servers_.clear();
     PeerConnectionInterface::IceServers servers;
@@ -57,6 +68,7 @@ class IceServerParsingTest : public testing::Test {
     server.password = password;
     server.tls_cert_policy = tls_certificate_policy;
     server.hostname = hostname;
+    server.ssl_config = ssl_config;
     servers.push_back(server);
     return webrtc::ParseIceServers(servers, &stun_servers_, &turn_servers_) ==
            webrtc::RTCErrorType::NONE;
@@ -97,6 +109,16 @@ TEST_F(IceServerParsingTest, ParseStunPrefixes) {
   EXPECT_TRUE(turn_servers_[0].tls_cert_policy ==
               cricket::TlsCertPolicy::TLS_CERT_POLICY_INSECURE_NO_CHECK);
   EXPECT_EQ(cricket::PROTO_TLS, turn_servers_[0].ports[0].proto);
+
+  rtc::SSLConfig ssl_config;
+  ssl_config.tls_alpn_protocols = {"fake_protocol_1", "fake_protocol_2"};
+  EXPECT_TRUE(ParseUrl(
+      "turns:hostname", "username", "password",
+      PeerConnectionInterface::TlsCertPolicy::kTlsCertPolicyInsecureNoCheck,
+      "hostname", ssl_config));
+  EXPECT_EQ(0U, stun_servers_.size());
+  EXPECT_EQ(1U, turn_servers_.size());
+  EXPECT_EQ(turn_servers_[0].ssl_config, ssl_config);
 
   // invalid prefixes
   EXPECT_FALSE(ParseUrl("stunn:hostname"));

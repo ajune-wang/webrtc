@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd7f609a_62982d9a",
+        "filename": "logging/rtc_event_log/encoder/varint.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-25T09:49:34Z",
+      "side": 1,
+      "message": "I think we might be OK with skipping this. Wdyt?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "184e4df3879f2546c2fb2edfa8a8f674d68ef985",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

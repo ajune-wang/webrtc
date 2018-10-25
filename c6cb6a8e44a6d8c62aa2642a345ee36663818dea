@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92a0d065_2cef5cf9",
+        "filename": "rtc_base/openssl/openssladapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-25T16:57:48Z",
+      "side": 1,
+      "message": "nit: maybe for consistency with the rest files, just \u003cname\u003e for c++ sys headers",
+      "range": {
+        "startLine": 14,
+        "startChar": 16,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "c6cb6a8e44a6d8c62aa2642a345ee36663818dea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

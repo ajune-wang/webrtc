@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39c7f87f_20008a6b",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-25T07:39:18Z",
+      "side": 1,
+      "message": "Mmmh, another idea... \n\nLet\u0027s check only newly added directories. I am receiving e-mails from people with strange directories at the root. I assume it is ok to have a dirty checkout, we just want to check directories that actually exist in the repository.",
+      "range": {
+        "startLine": 880,
+        "startChar": 2,
+        "endLine": 882,
+        "endChar": 30
+      },
+      "revId": "013b173f3db2100ec1555fa1630ba86f6ce63d43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1c9c11fb_c3be4bca",
+        "filename": "rtc_base/asyncresolverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-10-25T20:49:16Z",
+      "side": 1,
+      "message": "Looking in to this made me realize there is another difference between the webrtc and chromium implementations. The webrtc version will only return addresses using the same family as the addr passed in here, but the chromium version will ignore the family. I\u0027m not sure if this matters in practice or what the best thing to do is - leaving it open for now.",
+      "parentUuid": "98ab17da_5a034c8e",
+      "range": {
+        "startLine": 25,
+        "startChar": 34,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "458283d4c7a95c72b47ad0334408c82ac1312b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a2fee60_9ec4016d",
         "filename": "rtc_base/asyncresolverinterface.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "458283d4c7a95c72b47ad0334408c82ac1312b2d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6005363e_a65a23f9",
+        "filename": "rtc_base/asyncresolverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-10-25T20:49:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a2fee60_9ec4016d",
+      "range": {
+        "startLine": 30,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "458283d4c7a95c72b47ad0334408c82ac1312b2d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

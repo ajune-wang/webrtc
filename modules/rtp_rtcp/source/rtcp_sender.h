@@ -275,6 +275,8 @@ class RTCPSender {
   // Map from RTCPPacketType to builder.
   std::map<uint32_t, BuilderFunc> builders_;
 
+  int64_t ntp_offset_ms_;
+
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RTCPSender);
 };
 }  // namespace webrtc

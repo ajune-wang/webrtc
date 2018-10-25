@@ -151,7 +151,8 @@ RTCPSender::RTCPSender(
 
       xr_send_receiver_reference_time_enabled_(false),
       packet_type_counter_observer_(packet_type_counter_observer),
-      send_video_bitrate_allocation_(false) {
+      send_video_bitrate_allocation_(false),
+      ntp_offset_ms_(NtpOffsetUs() / 1000) {
   RTC_DCHECK(transport_ != nullptr);
 
   builders_[kRtcpSr] = &RTCPSender::BuildSR;
@@ -415,7 +416,8 @@ std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildSR(const RtcpContext& ctx) {
       (audio_ ? kBogusRtpRateForAudioRtcp : kVideoPayloadTypeFrequency) / 1000;
   uint32_t rtp_timestamp =
       timestamp_offset_ + last_rtp_timestamp_ +
-      (clock_->TimeInMilliseconds() - last_frame_capture_time_ms_) * rtp_rate;
+      (ctx.now_.ToMs() - ntp_offset_ms_ - last_frame_capture_time_ms_) *
+          rtp_rate;
 
   rtcp::SenderReport* report = new rtcp::SenderReport();
   report->SetSenderSsrc(ssrc_);
@@ -675,7 +677,7 @@ int32_t RTCPSender::SendCompoundRTCP(
 
     // We need to send our NTP even if we haven't received any reports.
     RtcpContext context(feedback_state, nack_size, nack_list,
-                        clock_->CurrentNtpTime());
+                        TimeMicrosToNtp(clock_->TimeInMicroseconds()));
 
     PrepareReport(feedback_state);
 
@@ -791,7 +793,7 @@ std::vector<rtcp::ReportBlock> RTCPSender::CreateReportBlocks(
   if (!result.empty() && ((feedback_state.last_rr_ntp_secs != 0) ||
                           (feedback_state.last_rr_ntp_frac != 0))) {
     // Get our NTP as late as possible to avoid a race.
-    uint32_t now = CompactNtp(clock_->CurrentNtpTime());
+    uint32_t now = CompactNtp(TimeMicrosToNtp(clock_->TimeInMicroseconds()));
 
     uint32_t receive_time = feedback_state.last_rr_ntp_secs & 0x0000FFFF;
     receive_time <<= 16;

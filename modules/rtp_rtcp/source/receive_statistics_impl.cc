@@ -91,7 +91,7 @@ StreamDataCounters StreamStatisticianImpl::UpdateCounters(
   // are received, 4 will be ignored.
   if (in_order) {
     // Current time in samples.
-    NtpTime receive_time = clock_->CurrentNtpTime();
+    NtpTime receive_time = TimeMicrosToNtp(clock_->TimeInMicroseconds());
 
     // Wrong if we use RetransmitOfOldPacket.
     if (receive_counters_.transmitted.packets > 1 &&
@@ -196,7 +196,8 @@ bool StreamStatisticianImpl::GetActiveStatisticsAndReset(
     RtcpStatistics* statistics) {
   {
     rtc::CritScope cs(&stream_lock_);
-    if (clock_->CurrentNtpInMilliseconds() - last_receive_time_ntp_.ToMs() >=
+    if (TimeMicrosToNtp(clock_->TimeInMicroseconds()).ToMs() -
+            last_receive_time_ntp_.ToMs() >=
         kStatisticsTimeoutMs) {
       // Not active.
       return false;

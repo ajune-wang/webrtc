@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fb3805e_b51fefba",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-25T15:05:24Z",
+      "side": 1,
+      "message": "not sure why this time need to use ntp offset [may be just because ntp has better resolution than ms]\n\nMay it would be better to change it to us.",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21fc865b_ef5ba533",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-25T15:05:24Z",
+      "side": 1,
+      "message": "haven\u0027t you fix it?",
+      "range": {
+        "startLine": 414,
+        "startChar": 11,
+        "endLine": 415,
+        "endChar": 79
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6c58e60_ceded791",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-25T15:05:24Z",
+      "side": 1,
+      "message": "why this change belong here?",
+      "range": {
+        "startLine": 418,
+        "startChar": 7,
+        "endLine": 418,
+        "endChar": 38
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1666d322_276ebc22",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-25T15:05:24Z",
+      "side": 1,
+      "message": "why reduce accuracy?\n\nmay be add private NtpOffsetUs into unnamed section that keeps the global.\nThen you can have both NtpOffsetMs and TimeMicrosToNtp without need to reduce accuracy.",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

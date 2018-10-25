@@ -16,7 +16,7 @@
 #include <string>
 
 #include "rtc_base/checks.h"
-#include "rtc_base/opensslidentity.h"
+#include "rtc_base/openssl/opensslidentity.h"
 #include "rtc_base/sslcertificate.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/third_party/base64/base64.h"

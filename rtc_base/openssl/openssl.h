@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSL_H_
-#define RTC_BASE_OPENSSL_H_
+#ifndef RTC_BASE_OPENSSL_OPENSSL_H_
+#define RTC_BASE_OPENSSL_OPENSSL_H_
 
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
@@ -22,4 +22,4 @@
 #error OpenSSL is older than 1.1.0, which is the minimum supported version.
 #endif
 
-#endif  // RTC_BASE_OPENSSL_H_
+#endif  // RTC_BASE_OPENSSL_OPENSSL_H_

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "464df6f6_681fbe28",
+        "filename": "rtc_base/sslstreamadapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T12:25:13Z",
+      "side": 1,
+      "message": "You added a default member initializer, so you don\u0027t need this anymore.",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 32
+      },
+      "revId": "c5710a35d2f8609aaed20e820a12db3c0e73e1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da907d9c_ed156297",
+        "filename": "rtc_base/sslstreamadapter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T12:25:13Z",
+      "side": 1,
+      "message": "Looking at the binary size numbers, de-inlining these made us bigger---perhaps because the production binaries now carry 1 instead of 0 copies of this code.\n\nConsider inlining them again.",
+      "revId": "c5710a35d2f8609aaed20e820a12db3c0e73e1d6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

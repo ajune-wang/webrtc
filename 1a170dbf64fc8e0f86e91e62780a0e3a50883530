@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67e10363_81e9fc7b",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-25T15:57:54Z",
+      "side": 1,
+      "message": "I am not sure either. It\u0027s not needed here and only used to calculate difference in rtp clock or milliseconds. I\u0027ve reverted this file as not necessary change. I just thought about going out with wall-clock ntp time at all. It\u0027s not good for calculating time intervals.\n\nThis file just needs some precise clock. We should replace Ntp clock to TimeInMicroseconds() later here.",
+      "parentUuid": "2fb3805e_b51fefba",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21fc865b_ef5ba533",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-25T15:05:24Z",
       "side": 1,
       "message": "haven\u0027t you fix it?",
+      "range": {
+        "startLine": 414,
+        "startChar": 11,
+        "endLine": 415,
+        "endChar": 79
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fb23019_0ce011f1",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-25T15:57:54Z",
+      "side": 1,
+      "message": "Forgot to sync my workspace. Rebasing in next patchset.",
+      "parentUuid": "21fc865b_ef5ba533",
       "range": {
         "startLine": 414,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "44175782_211a040b",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-25T15:57:54Z",
+      "side": 1,
+      "message": "Because this is the goal of this CL - use the same time instance for calculating NTP and RTP timestamps in the RTCP SRs.\n\nIf you want, I can separate it to a follow-up CL.",
+      "parentUuid": "d6c58e60_ceded791",
+      "range": {
+        "startLine": 418,
+        "startChar": 7,
+        "endLine": 418,
+        "endChar": 38
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1666d322_276ebc22",
         "filename": "modules/rtp_rtcp/source/time_util.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-25T15:05:24Z",
       "side": 1,
       "message": "why reduce accuracy?\n\nmay be add private NtpOffsetUs into unnamed section that keeps the global.\nThen you can have both NtpOffsetMs and TimeMicrosToNtp without need to reduce accuracy.",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b784234_5dca43f0",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-25T15:57:54Z",
+      "side": 1,
+      "message": "This method was not absolutely precise anyway, that\u0027s why we calculate Ntp offset once. The next moment monotonic clock may tick slower or ntp clock suddenly jump. Thus, reducing the precision of offset by 1ms is not a problem.\n\nThere\u0027s no chance as well no goal to keep this (relative clock based) NTP time equal to wallclock time.\n\nThe round-to-ms offset is needed because I plan to use NTP time actually written in RTCP SR to calculate RTP time there. These two have to be calculated for the same time instance of the same clock, that\u0027s why we are making this change in the first place.\n\nBut we can\u0027t directly calculate RTP timestamp from ntp timestamp, we can only add difference in milliseconds from the last known rtp timestamp of a packet multiplied by rtp rate. So we have to convert the exact NTP time from the SR to ms in the same clock reference as rtc::TimeMillis(), which last rtp timestamp is given. We do it by subtracting offset.\n\nFractional in milliseconds offset will introduce 1ms error in some RTCP SRs invalidating the very goal of this change.",
+      "parentUuid": "1666d322_276ebc22",
       "range": {
         "startLine": 41,
         "startChar": 48,

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9fa68ca_2c1bf2d9",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T11:50:39Z",
+      "side": 1,
+      "message": "I think you can omit the struct name here, and use only braces.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "552cc102_3592f208",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-25T11:50:39Z",
+      "side": 1,
+      "message": "Would it make sense to name this struct e.g. BitrateAllocatorObserver::Parameters, since it\u0027s used only by BitrateAllocatorObserver?",
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

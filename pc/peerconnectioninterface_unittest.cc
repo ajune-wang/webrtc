@@ -684,7 +684,7 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
 #endif
   }
 
-  virtual void SetUp() {
+  void SetUp() override {
     // Use fake audio capture module since we're only testing the interface
     // level, and using a real one could make tests flaky when run in parallel.
     fake_audio_capture_module_ = FakeAudioCaptureModule::Create();
@@ -701,6 +701,12 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
     pc_factory_for_test_ =
         PeerConnectionFactoryForTest::CreatePeerConnectionFactoryForTest();
     pc_factory_for_test_->Initialize();
+  }
+
+  void TearDown() override {
+    if (pc_) {
+      pc_->Close();
+    }
   }
 
   void CreatePeerConnection() {
@@ -734,6 +740,10 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   }
 
   void CreatePeerConnection(const RTCConfiguration& config) {
+    // When several connections are created in one test,
+    // we have to Close() the previous one before destroying it.
+    ReleasePeerConnection();
+
     std::unique_ptr<cricket::FakePortAllocator> port_allocator(
         new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
     port_allocator_ = port_allocator.get();
@@ -803,8 +813,11 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   }
 
   void ReleasePeerConnection() {
-    pc_ = NULL;
-    observer_.SetPeerConnectionInterface(NULL);
+    if (pc_) {
+      pc_->Close();
+      pc_ = NULL;
+      observer_.SetPeerConnectionInterface(NULL);
+    }
   }
 
   rtc::scoped_refptr<VideoTrackInterface> CreateVideoTrack(
@@ -3956,12 +3969,27 @@ class PeerConnectionMediaConfigTest : public testing::Test {
     rtc::scoped_refptr<PeerConnectionInterface> pc(
         pcf_->CreatePeerConnection(config, nullptr, nullptr, &observer_));
     EXPECT_TRUE(pc.get());
-    return pc->GetConfiguration().media_config;
+    observer_.SetPeerConnectionInterface(pc.get());  // Required.
+    auto media_config = pc->GetConfiguration().media_config;
+    // Needed before destruction
+    pc->Close();
+    return media_config;
   }
 
   rtc::scoped_refptr<PeerConnectionFactoryForTest> pcf_;
   MockPeerConnectionObserver observer_;
 };
+
+// This sanity check validates the test infrastructure itself.
+TEST_F(PeerConnectionMediaConfigTest, TestClose) {
+  PeerConnectionInterface::RTCConfiguration config;
+  rtc::scoped_refptr<PeerConnectionInterface> pc(
+      pcf_->CreatePeerConnection(config, nullptr, nullptr, &observer_));
+  EXPECT_TRUE(pc.get());
+  observer_.SetPeerConnectionInterface(pc.get());  // Required.
+  pc->Close();                                     // No abort -> ok.
+  SUCCEED();
+}
 
 // This test verifies the default behaviour with no constraints and a
 // default RTCConfiguration.

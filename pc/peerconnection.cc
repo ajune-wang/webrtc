@@ -801,39 +801,10 @@ PeerConnection::~PeerConnection() {
   TRACE_EVENT0("webrtc", "PeerConnection::~PeerConnection");
   RTC_DCHECK_RUN_ON(signaling_thread());
 
-  // Need to stop transceivers before destroying the stats collector because
-  // AudioRtpSender has a reference to the StatsCollector it will update when
-  // stopping.
-  for (auto transceiver : transceivers_) {
-    transceiver->Stop();
-  }
-
-  stats_.reset(nullptr);
-  if (stats_collector_) {
-    stats_collector_->WaitForPendingRequest();
-    stats_collector_ = nullptr;
-  }
-
-  // Don't destroy BaseChannels until after stats has been cleaned up so that
-  // the last stats request can still read from the channels.
-  DestroyAllChannels();
-
-  RTC_LOG(LS_INFO) << "Session: " << session_id() << " is destroyed.";
-
-  webrtc_session_desc_factory_.reset();
-  sctp_invoker_.reset();
-  sctp_factory_.reset();
-  transport_controller_.reset();
-
-  // port_allocator_ lives on the network thread and should be destroyed there.
-  network_thread()->Invoke<void>(RTC_FROM_HERE,
-                                 [this] { port_allocator_.reset(); });
-  // call_ and event_log_ must be destroyed on the worker thread.
-  worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
-    call_.reset();
-    // The event log must outlive call (and any other object that uses it).
-    event_log_.reset();
-  });
+  // It would be too late to call Close() now. See bugs.webrtc.com/9847
+  // State can be kNew when initialization failed.
+  RTC_CHECK(connection_state_ == PeerConnectionState::kNew ||
+            connection_state_ == PeerConnectionState::kClosed);
 }
 
 void PeerConnection::DestroyAllChannels() {
@@ -3281,6 +3252,9 @@ void PeerConnection::Close() {
   ChangeSignalingState(PeerConnectionInterface::kClosed);
   NoteUsageEvent(UsageEvent::CLOSE_CALLED);
 
+  // Need to stop transceivers before destroying the stats collector because
+  // AudioRtpSender has a reference to the StatsCollector it will update when
+  // stopping.
   for (auto transceiver : transceivers_) {
     transceiver->Stop();
   }
@@ -3611,6 +3585,7 @@ void PeerConnection::ChangeSignalingState(
   signaling_state_ = signaling_state;
   if (signaling_state == kClosed) {
     ice_connection_state_ = kIceConnectionClosed;
+    RTC_CHECK(Observer());
     Observer()->OnIceConnectionChange(ice_connection_state_);
     standardized_ice_connection_state_ =
         PeerConnectionInterface::IceConnectionState::kIceConnectionClosed;

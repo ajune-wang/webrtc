@@ -67,7 +67,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
   }
   void OnSignalingChange(
       PeerConnectionInterface::SignalingState new_state) override {
-    RTC_DCHECK(pc_->signaling_state() == new_state);
+    RTC_DCHECK(pc_ && pc_->signaling_state() == new_state);
     state_ = new_state;
   }
 
@@ -92,7 +92,7 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
 
   void OnIceConnectionChange(
       PeerConnectionInterface::IceConnectionState new_state) override {
-    RTC_DCHECK(pc_->ice_connection_state() == new_state);
+    RTC_DCHECK(pc_ && pc_->ice_connection_state() == new_state);
     // When ICE is finished, the caller will get to a kIceConnectionCompleted
     // state, because it has the ICE controlling role, while the callee
     // will get to a kIceConnectionConnected state. This means that both ICE
@@ -104,14 +104,14 @@ class MockPeerConnectionObserver : public PeerConnectionObserver {
   }
   void OnIceGatheringChange(
       PeerConnectionInterface::IceGatheringState new_state) override {
-    RTC_DCHECK(pc_->ice_gathering_state() == new_state);
+    RTC_DCHECK(pc_ && pc_->ice_gathering_state() == new_state);
     ice_gathering_complete_ =
         new_state == PeerConnectionInterface::kIceGatheringComplete;
     callback_triggered_ = true;
   }
   void OnIceCandidate(const IceCandidateInterface* candidate) override {
-    RTC_DCHECK(PeerConnectionInterface::kIceGatheringNew !=
-               pc_->ice_gathering_state());
+    RTC_DCHECK(pc_ && PeerConnectionInterface::kIceGatheringNew !=
+                          pc_->ice_gathering_state());
     candidates_.push_back(absl::make_unique<JsepIceCandidate>(
         candidate->sdp_mid(), candidate->sdp_mline_index(),
         candidate->candidate()));

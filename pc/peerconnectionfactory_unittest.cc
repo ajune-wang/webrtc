@@ -181,6 +181,7 @@ TEST(PeerConnectionFactoryTestInternal, DISABLED_CreatePCUsingInternalModules) {
       config, nullptr, std::move(cert_generator), &observer));
 
   EXPECT_TRUE(pc.get() != nullptr);
+  pc->Close();
 }
 
 TEST_F(PeerConnectionFactoryTest, CheckRtpSenderAudioCapabilities) {
@@ -280,6 +281,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingIceServers) {
                                    kTurnPassword, cricket::PROTO_TCP);
   turn_servers.push_back(turn2);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 // This test verifies creation of PeerConnection with valid STUN and TURN
@@ -310,6 +312,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingIceServersUrls) {
                                    kTurnPassword, cricket::PROTO_TCP);
   turn_servers.push_back(turn2);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingNoUsernameInUri) {
@@ -332,6 +335,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingNoUsernameInUri) {
                                   kTurnPassword, cricket::PROTO_UDP);
   turn_servers.push_back(turn);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 // This test verifies the PeerConnection created properly with TURN url which
@@ -353,6 +357,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingTurnUrlWithTransportParam) {
                                   kTurnPassword, cricket::PROTO_TCP);
   turn_servers.push_back(turn);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
@@ -386,6 +391,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
                                    cricket::PROTO_TLS);
   turn_servers.push_back(turn3);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingIPLiteralAddress) {
@@ -424,6 +430,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingIPLiteralAddress) {
                                    cricket::PROTO_UDP);
   turn_servers.push_back(turn1);
   VerifyTurnServers(turn_servers);
+  pc->Close();
 }
 
 // This test verifies the captured stream is rendered locally using a

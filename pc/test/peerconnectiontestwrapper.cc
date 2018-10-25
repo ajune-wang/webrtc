@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "pc/test/peerconnectiontestwrapper.h"
+
 #include <string>
 #include <utility>
 #include <vector>
@@ -20,7 +22,6 @@
 #include "pc/test/fakeperiodicvideotracksource.h"
 #include "pc/test/fakertccertificategenerator.h"
 #include "pc/test/mockpeerconnectionobservers.h"
-#include "pc/test/peerconnectiontestwrapper.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/timeutils.h"
 
@@ -66,7 +67,11 @@ PeerConnectionTestWrapper::PeerConnectionTestWrapper(
       network_thread_(network_thread),
       worker_thread_(worker_thread) {}
 
-PeerConnectionTestWrapper::~PeerConnectionTestWrapper() {}
+PeerConnectionTestWrapper::~PeerConnectionTestWrapper() {
+  if (pc()) {
+    pc()->Close();
+  }
+}
 
 bool PeerConnectionTestWrapper::CreatePc(
     const webrtc::PeerConnectionInterface::RTCConfiguration& config,

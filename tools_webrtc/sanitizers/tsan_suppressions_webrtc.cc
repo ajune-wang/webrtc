@@ -62,8 +62,8 @@ char kTSanDefaultSuppressions[] =
     // Test-only race due to PeerConnection::session() being virtual for
     // testing. The stats collector may call session() before or after the
     // destructor begins executing, which modifies the vtable.
-    "race:*RTCStatsIntegrationTest_GetsStatsWhileDestroyingPeerConnections_"
-    "Test::TestBody\n"
+    // "race:*RTCStatsIntegrationTest_GetsStatsWhileDestroyingPeerConnections_"
+    // "Test::TestBody\n"
 
     // End of suppressions.
     ;  // Please keep this semicolon.

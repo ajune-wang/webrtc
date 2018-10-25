@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8e2456cb_a6c107d4",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T10:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78e8e034_5d5a44cf",
+      "range": {
+        "startLine": 133,
+        "startChar": 31,
+        "endLine": 133,
+        "endChar": 39
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad174a3a_9332f4db",
         "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e97f445f_40c4c6c8",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T10:02:31Z",
+      "side": 1,
+      "message": "It\u0027s currently used by the legacy send side congestion controller. But yes, when we get rid of that it can be removed.",
+      "parentUuid": "ad174a3a_9332f4db",
+      "range": {
+        "startLine": 168,
+        "startChar": 11,
+        "endLine": 168,
+        "endChar": 30
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8640078_50f2ebce",
         "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-10-25T09:45:44Z",
       "side": 1,
       "message": "Should sendless_arrival_times only be set if there are no packets with send time? What if there are both packets with and without send times?",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f29b58d2_21e20456",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-25T10:02:31Z",
+      "side": 1,
+      "message": "We currently don\u0027t handle that case (we ignore packets without send time history if we have packet with valid history).\n\nI think it\u0027s exceptional enough that we might want to signal even less, or even ignore it. But for now I just chose to preserve current behavior in a way that is easy to ignore. That\u0027s why I want to separate the two cases. It makes it easier to reason about the code (either we had only late packets, and do recovery, or we do normal operation)",
+      "parentUuid": "f8640078_50f2ebce",
       "range": {
         "startLine": 169,
         "startChar": 8,

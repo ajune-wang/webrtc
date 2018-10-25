@@ -22,6 +22,30 @@
       "revId": "3b864011e9a0631dabd4d4566830602a95e5973a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f6f624_6ee419b2",
+        "filename": "test/fuzzers/agc_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-10-25T11:48:55Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "ec7cb425_4dd442e3",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "3b864011e9a0631dabd4d4566830602a95e5973a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

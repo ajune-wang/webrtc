@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae940326_80466b2a",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T18:10:19Z",
+      "side": 1,
+      "message": "As discussed, I think it would be nicer if the delay based estimator and prober reported both the target and the estimated capacity. Not a blocker for this CL though.",
+      "range": {
+        "startLine": 494,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 5
+      },
+      "revId": "43e9de090bdd42a0016d2582a254fbe0da4828da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "953db4d3_d83c4318",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T18:10:19Z",
+      "side": 1,
+      "message": "I\u0027d prefer stable_ or something over accurate_. It is not a priori clear that this is more accurate than the target rate, especially since we might be sending at a lower rate than this during most of the call.",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 41
+      },
+      "revId": "43e9de090bdd42a0016d2582a254fbe0da4828da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50b2e88_09475459",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T18:10:19Z",
+      "side": 1,
+      "message": "As in another CL, how about last_target_bitrate and link_capacity_?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 30
+      },
+      "revId": "43e9de090bdd42a0016d2582a254fbe0da4828da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

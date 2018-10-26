@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f50fd77_03ac6f01",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-26T13:53:25Z",
+      "side": 1,
+      "message": "I wonder if ctx.now_ make sense to pass in the RtcpContext instead of calculating here as\nTimeMicrosToNtp(ctx.now_us_)",
+      "range": {
+        "startLine": 443,
+        "startChar": 17,
+        "endLine": 443,
+        "endChar": 25
+      },
+      "revId": "3a455b7d7e69ce19943b45f21a7fbe8707c4da9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

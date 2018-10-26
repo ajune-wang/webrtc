@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "978dffbc_4ed0cc60",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-26T13:53:25Z",
+      "side": 1,
+      "message": "The main (and only) problem was that I miss understood this.\nComment helps, \nUpdating NtpOffsetMsCalledOnce to do calculation directly in ms also reduces confusion.\nthank you!",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 65
+      },
+      "revId": "054615f94827dcd87ebb4f2238574b58648b49d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

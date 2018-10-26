@@ -22,6 +22,30 @@
       "revId": "3a455b7d7e69ce19943b45f21a7fbe8707c4da9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79c6878b_d01a4437",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-26T14:00:22Z",
+      "side": 1,
+      "message": "It indeed will be more clear. I thought there\u0027re a lot of place there ctx.now_ is used, but it\u0027s actually only one other place. So adding more conversions won\u0027t do any harm. Changed.",
+      "parentUuid": "1f50fd77_03ac6f01",
+      "range": {
+        "startLine": 443,
+        "startChar": 17,
+        "endLine": 443,
+        "endChar": 25
+      },
+      "revId": "3a455b7d7e69ce19943b45f21a7fbe8707c4da9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

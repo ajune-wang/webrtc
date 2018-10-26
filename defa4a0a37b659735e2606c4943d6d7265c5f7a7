@@ -22,6 +22,30 @@
       "revId": "defa4a0a37b659735e2606c4943d6d7265c5f7a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d655aa1_e079dad5",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-26T18:14:07Z",
+      "side": 1,
+      "message": "It takes 2s to run; that seems fine to me.\n(I\u0027m landing this. If you\u0027re adamant about changing this, we can do that in a follow-up CL.)",
+      "parentUuid": "72ab53e4_e50ad48b",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 40
+      },
+      "revId": "defa4a0a37b659735e2606c4943d6d7265c5f7a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

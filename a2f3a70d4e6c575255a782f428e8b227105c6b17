@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "928203c0_109a8990",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-26T11:37:06Z",
+      "side": 1,
+      "message": "Can you link to previous cl (https://webrtc-review.googlesource.com/c/107305), and create a bug for the removal PostTaskAndReply?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 9
+      },
+      "revId": "a2f3a70d4e6c575255a782f428e8b227105c6b17",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

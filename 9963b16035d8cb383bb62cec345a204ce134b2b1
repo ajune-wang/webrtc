@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e754f258_2ff49c25",
+        "filename": "media/base/videoadapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-26T11:49:50Z",
+      "side": 1,
+      "message": "nit: There seems to be a pattern to name tests starting with \"Test\" so possible name this \"TestForcePortrait\"?",
+      "range": {
+        "startLine": 1144,
+        "startChar": 42,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "9963b16035d8cb383bb62cec345a204ce134b2b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

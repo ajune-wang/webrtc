@@ -48,9 +48,12 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
                           SSLCertificateVerifier* ssl_cert_verifier = nullptr);
   ~OpenSSLAdapter() override;
 
+  // TODO(diogor, webrtc:9673): Remove SetIgnoreBadCert, SetAlpnProtocols and
+  // SetEllipticCurves, in favor of using SetSSLConfig.
   void SetIgnoreBadCert(bool ignore) override;
   void SetAlpnProtocols(const std::vector<std::string>& protos) override;
   void SetEllipticCurves(const std::vector<std::string>& curves) override;
+  void SetSSLConfig(const SSLConfig& ssl_config) override;
   void SetMode(SSLMode mode) override;
   void SetCertVerifier(SSLCertificateVerifier* ssl_cert_verifier) override;
   void SetIdentity(SSLIdentity* identity) override;
@@ -98,6 +101,9 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   void Error(const char* context, int err, bool signal = true);
   void Cleanup();
 
+  // If true, the server certificate need not match the configured hostname.
+  bool ShouldIgnoreBadCert();
+
   // Return value and arguments have the same meanings as for Send; |error| is
   // an output parameter filled with the result of SSL_get_error.
   int DoSslWrite(const void* pv, size_t cb, int* error);
@@ -141,12 +147,16 @@ class OpenSSLAdapter : public SSLAdapter, public MessageHandler {
   std::string ssl_host_name_;
   // Set the adapter to DTLS or TLS mode before creating the context.
   SSLMode ssl_mode_;
+  // TODO(diogor, webrtc:9673): Remove ignore_bad_cert_, alpn_protocols_ and
+  // elliptic_curves_, in favor of just using ssl_config_.
   // If true, the server certificate need not match the configured hostname.
   bool ignore_bad_cert_;
   // List of protocols to be used in the TLS ALPN extension.
   std::vector<std::string> alpn_protocols_;
   // List of elliptic curves to be used in the TLS elliptic curves extension.
   std::vector<std::string> elliptic_curves_;
+  // SSL configuration for this session.
+  SSLConfig ssl_config_;
   // Holds the result of the call to run of the ssl_cert_verify_->Verify()
   bool custom_cert_verifier_status_;
 };

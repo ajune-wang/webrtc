@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "567ebd89_7f75503f",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-10-26T18:44:17Z",
+      "side": 1,
+      "message": "I\u0027d personally prefer\nconst auto field_trial::IsEnabled \u003d ... ? ... : ...;",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 452,
+        "endChar": 57
+      },
+      "revId": "c79629a444f2102b7132cd7b63feb1820cc39fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

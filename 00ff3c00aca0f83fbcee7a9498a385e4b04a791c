@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "92d3eae2_f0341ef1",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-26T21:53:48Z",
+      "side": 1,
+      "message": "Given how short-lived this will be, I\u0027d rather return null, than leave illusion of working :)\n\nPlus we expect this to be implemented by all implementers. I was even considering returning RTCError here.",
+      "parentUuid": "4ef450fb_d100828f",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc21c14a_e11fa616",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2018-10-26T21:39:05Z",
       "side": 1,
       "message": "Any particular reason to make it final?",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8090e1d_548c7f82",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-26T21:53:48Z",
+      "side": 1,
+      "message": "You can always \u0027unfinalize\u0027 it and it\u0027s backward compatible, while you cannot make it final once it wasn\u0027t final (without breaking compatibility).\n\nIt seems that in webrtc they prefer to mark most things final rather than not.\n\nI have no strong preference.",
+      "parentUuid": "cc21c14a_e11fa616",
       "range": {
         "startLine": 39,
         "startChar": 30,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "bcf7438f_30f2aed9",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-26T21:53:48Z",
+      "side": 1,
+      "message": "chrome validator complains that this is a complex type and must have a constructor defined.\nChrome style complains if the definition and declaration are together, and requires you to separate to a separate file.\n\nIf I remove these two entirely:\n../../api/media_transport_interface.h:39:1: error: [chromium-style] Complex class/struct needs an explicit out-of-line constructor.\nstruct MediaTransportSettings final {\n^\n../../api/media_transport_interface.h:39:1: error: [chromium-style] Complex class/struct needs an explicit out-of-line destructor.\n2 errors generated.\n\n\nIf I inline the implementation (that is \u003d default in .h):\n../../api/media_transport_interface.h:40:3: error: [chromium-style] Complex constructor has an inlined body.\n  MediaTransportSettings() \u003d default;\n  ^",
+      "parentUuid": "79e8933f_d528533f",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ff2d6be_f3db74df",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "28789184_8489921e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-26T21:53:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ff2d6be_f3db74df",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d011833f_372bc5d7",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -96,6 +180,24 @@
       "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08c96f44_4879c591",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-26T21:53:48Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d011833f_372bc5d7",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

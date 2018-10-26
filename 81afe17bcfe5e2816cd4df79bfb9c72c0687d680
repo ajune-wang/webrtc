@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6601a48_8258e9f2",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-26T14:35:00Z",
+      "side": 1,
+      "message": "Don\u0027t you want to have this depend on that flag, then?",
+      "revId": "81afe17bcfe5e2816cd4df79bfb9c72c0687d680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

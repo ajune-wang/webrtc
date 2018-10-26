@@ -13,6 +13,7 @@
 
 #include "pc/iceserverparsing.h"
 #include "rtc_base/gunit.h"
+#include "rtc_base/ssladapter.h"
 
 namespace webrtc {
 
@@ -48,6 +49,16 @@ class IceServerParsingTest : public testing::Test {
                 const std::string& password,
                 PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
                 const std::string& hostname) {
+    return ParseUrl(url, username, password, tls_certificate_policy, "",
+                    rtc::SSLConfig());
+  }
+
+  bool ParseUrl(const std::string& url,
+                const std::string& username,
+                const std::string& password,
+                PeerConnectionInterface::TlsCertPolicy tls_certificate_policy,
+                const std::string& hostname,
+                rtc::SSLConfig ssl_config) {
     stun_servers_.clear();
     turn_servers_.clear();
     PeerConnectionInterface::IceServers servers;
@@ -57,6 +68,7 @@ class IceServerParsingTest : public testing::Test {
     server.password = password;
     server.tls_cert_policy = tls_certificate_policy;
     server.hostname = hostname;
+    server.ssl_config = ssl_config;
     servers.push_back(server);
     return webrtc::ParseIceServers(servers, &stun_servers_, &turn_servers_) ==
            webrtc::RTCErrorType::NONE;
@@ -178,6 +190,18 @@ TEST_F(IceServerParsingTest, ParseHostnameAndPort) {
   EXPECT_FALSE(ParseUrl("stun:[1:2:3:4:5:6:7:8]junk:1000"));
   EXPECT_FALSE(ParseUrl("stun::5555"));
   EXPECT_FALSE(ParseUrl("stun:"));
+}
+
+TEST_F(IceServerParsingTest, VerifySSLConfig) {
+  rtc::SSLConfig ssl_config;
+  ssl_config.tls_alpn_protocols = {"fake_protocol_1", "fake_protocol_2"};
+  EXPECT_TRUE(ParseUrl(
+      "turns:1.2.3.4:1234", "username", "password",
+      PeerConnectionInterface::TlsCertPolicy::kTlsCertPolicyInsecureNoCheck,
+      "hostname", ssl_config));
+  EXPECT_EQ(0U, stun_servers_.size());
+  EXPECT_EQ(1U, turn_servers_.size());
+  EXPECT_EQ(turn_servers_[0].ssl_config, ssl_config);
 }
 
 // Test parsing the "?transport=xxx" part of the URL.

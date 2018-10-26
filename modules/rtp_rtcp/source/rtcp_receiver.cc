@@ -503,7 +503,11 @@ void RTCPReceiver::HandleReportBlock(const ReportBlock& report_block,
   // If no SR has been received yet, the field is set to zero.
   // Receiver rtp_rtcp module is not expected to calculate rtt using
   // Sender Reports even if it accidentally can.
-  if (!receiver_only_ && send_time_ntp != 0) {
+
+  // TODO(nisse): However, the capture_start_ntp_time_ms_ stat, produced by
+  // voe::ChannelReceive, depends on an RemoteNtpTimeEstimator, which in turn
+  // needs a non-zero RTT. See ChannelReceive::ReceivedRTCPPacket.
+  if (send_time_ntp != 0) {
     uint32_t delay_ntp = report_block.delay_since_last_sr();
     // Local NTP time.
     uint32_t receive_time_ntp = CompactNtp(clock_->CurrentNtpTime());

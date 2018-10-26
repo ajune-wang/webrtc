@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5d7993c4_855c5bb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-26T11:08:07Z",
+      "side": 1,
+      "message": "Could you update the bug to be a bit more specific? I feel like almost anyone could reference that bug when refactoring/cleaning up.",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "7659761a53127bd50551968eb7281684ddb2215d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3328ff2e_02236023",
         "filename": "modules/pacing/paced_sender.cc",
         "patchSetId": 9
@@ -18,6 +41,53 @@
         "startChar": 0,
         "endLine": 291,
         "endChar": 48
+      },
+      "revId": "7659761a53127bd50551968eb7281684ddb2215d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e77dcb3_804bafe3",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-26T11:08:07Z",
+      "side": 1,
+      "message": "I can think of two reasons for reading the timestamp while holding the lock:\n1. The timestamp will be more precise relative to when the logic actually executes.\n2. The timestamp will be monotonic when ordered by execution order of the functions requiring the lock.",
+      "parentUuid": "3328ff2e_02236023",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 48
+      },
+      "revId": "7659761a53127bd50551968eb7281684ddb2215d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7cd00d6_626d323c",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-26T11:08:07Z",
+      "side": 1,
+      "message": "I think a more accurate CL description would be \"Make the PacedSender critsect_.Leave() more visible\", you had my hopes up :)",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 22
       },
       "revId": "7659761a53127bd50551968eb7281684ddb2215d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

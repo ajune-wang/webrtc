@@ -22,6 +22,30 @@
       "revId": "fb5c1eca300efee691a6d1c02b78549dec498eda",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc5e8d8a_9c921cf9",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-26T11:08:07Z",
+      "side": 0,
+      "message": "I also think you should keep/update this comment.",
+      "parentUuid": "b411fd92_327a88bf",
+      "range": {
+        "startLine": 318,
+        "startChar": 2,
+        "endLine": 319,
+        "endChar": 78
+      },
+      "revId": "fb5c1eca300efee691a6d1c02b78549dec498eda",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

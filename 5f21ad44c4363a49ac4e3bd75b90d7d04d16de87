@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ad7e12bd_337ad229",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-26T11:23:59Z",
+      "side": 1,
+      "message": "I don\u0027t know off hand but I can look into it later. I asked oprypin@ and he also thinks this approach it ok.",
+      "parentUuid": "7614d63c_5f1b83ac",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41ab343c_88e5da00",
         "filename": "PRESUBMIT.py",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "f47edcd9_91729520",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-26T11:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41ab343c_88e5da00",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f49ea447_c3c3b080",
         "filename": "PRESUBMIT.py",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e478a58_ad9be613",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-26T11:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f49ea447_c3c3b080",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "a3c4cac1_353a614e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-26T11:23:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04ae6c61_93046c7e",
+      "range": {
+        "startLine": 904,
+        "startChar": 13,
+        "endLine": 904,
+        "endChar": 34
+      },
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb222745_6951eede",
         "filename": "PRESUBMIT.py",
         "patchSetId": 2
@@ -90,6 +168,24 @@
       "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7182561b_56267e27",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-10-26T11:23:59Z",
+      "side": 1,
+      "message": "Good point. The presubmit is already slow, I have implemented your advice.",
+      "parentUuid": "fb222745_6951eede",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

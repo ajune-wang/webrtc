@@ -22,6 +22,30 @@
       "revId": "9963b16035d8cb383bb62cec345a204ce134b2b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41307b9a_8535ab6c",
+        "filename": "media/base/videoadapter_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-10-26T12:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e754f258_2ff49c25",
+      "range": {
+        "startLine": 1144,
+        "startChar": 42,
+        "endLine": 1144,
+        "endChar": 55
+      },
+      "revId": "9963b16035d8cb383bb62cec345a204ce134b2b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

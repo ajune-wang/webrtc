@@ -1301,11 +1301,9 @@ LoggedAudioPlayoutEvent ParsedRtcEventLogNew::GetAudioPlayout(
   RTC_CHECK_EQ(event.type(), rtclog::Event::AUDIO_PLAYOUT_EVENT);
   RTC_CHECK(event.has_audio_playout_event());
   const rtclog::AudioPlayoutEvent& playout_event = event.audio_playout_event();
-  LoggedAudioPlayoutEvent res;
-  res.timestamp_us = GetTimestamp(event);
   RTC_CHECK(playout_event.has_local_ssrc());
-  res.ssrc = playout_event.local_ssrc();
-  return res;
+  return LoggedAudioPlayoutEvent(GetTimestamp(event),
+                                 playout_event.local_ssrc());
 }
 
 LoggedBweLossBasedUpdate ParsedRtcEventLogNew::GetLossBasedBweUpdate(
@@ -1347,14 +1345,11 @@ LoggedBweDelayBasedUpdate ParsedRtcEventLogNew::GetDelayBasedBweUpdate(
   RTC_CHECK(event.has_delay_based_bwe_update());
   const rtclog::DelayBasedBweUpdate& delay_event =
       event.delay_based_bwe_update();
-
-  LoggedBweDelayBasedUpdate res;
-  res.timestamp_us = GetTimestamp(event);
   RTC_CHECK(delay_event.has_bitrate_bps());
-  res.bitrate_bps = delay_event.bitrate_bps();
   RTC_CHECK(delay_event.has_detector_state());
-  res.detector_state = GetRuntimeDetectorState(delay_event.detector_state());
-  return res;
+  return LoggedBweDelayBasedUpdate(
+      GetTimestamp(event), delay_event.bitrate_bps(),
+      GetRuntimeDetectorState(delay_event.detector_state()));
 }
 
 LoggedAudioNetworkAdaptationEvent
@@ -1373,22 +1368,22 @@ ParsedRtcEventLogNew::GetAudioNetworkAdaptation(
   const rtclog::AudioNetworkAdaptation& ana_event =
       event.audio_network_adaptation();
 
-  LoggedAudioNetworkAdaptationEvent res;
-  res.timestamp_us = GetTimestamp(event);
+  AudioEncoderRuntimeConfig config;
   if (ana_event.has_bitrate_bps())
-    res.config.bitrate_bps = ana_event.bitrate_bps();
+    config.bitrate_bps = ana_event.bitrate_bps();
   if (ana_event.has_enable_fec())
-    res.config.enable_fec = ana_event.enable_fec();
+    config.enable_fec = ana_event.enable_fec();
   if (ana_event.has_enable_dtx())
-    res.config.enable_dtx = ana_event.enable_dtx();
+    config.enable_dtx = ana_event.enable_dtx();
   if (ana_event.has_frame_length_ms())
-    res.config.frame_length_ms = ana_event.frame_length_ms();
+    config.frame_length_ms = ana_event.frame_length_ms();
   if (ana_event.has_num_channels())
-    res.config.num_channels = ana_event.num_channels();
+    config.num_channels = ana_event.num_channels();
   if (ana_event.has_uplink_packet_loss_fraction())
-    res.config.uplink_packet_loss_fraction =
+    config.uplink_packet_loss_fraction =
         ana_event.uplink_packet_loss_fraction();
-  return res;
+
+  return LoggedAudioNetworkAdaptationEvent(GetTimestamp(event), config);
 }
 
 LoggedBweProbeClusterCreatedEvent
@@ -1493,12 +1488,8 @@ LoggedAlrStateEvent ParsedRtcEventLogNew::GetAlrState(
   RTC_CHECK_EQ(event.type(), rtclog::Event::ALR_STATE_EVENT);
   RTC_CHECK(event.has_alr_state());
   const rtclog::AlrState& alr_event = event.alr_state();
-  LoggedAlrStateEvent res;
-  res.timestamp_us = GetTimestamp(event);
   RTC_CHECK(alr_event.has_in_alr());
-  res.in_alr = alr_event.in_alr();
-
-  return res;
+  return LoggedAlrStateEvent(GetTimestamp(event), alr_event.in_alr());
 }
 
 LoggedIceCandidatePairConfig ParsedRtcEventLogNew::GetIceCandidatePairConfig(
@@ -1784,10 +1775,7 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
 void ParsedRtcEventLogNew::StoreAlrStateEvent(const rtclog2::AlrState& proto) {
   RTC_CHECK(proto.has_timestamp_ms());
   RTC_CHECK(proto.has_in_alr());
-  LoggedAlrStateEvent alr_event;
-  alr_event.timestamp_us = proto.timestamp_ms() * 1000;
-  alr_event.in_alr = proto.in_alr();
-
+  LoggedAlrStateEvent alr_event(proto.timestamp_ms() * 1000, proto.in_alr());
   alr_state_events_.push_back(alr_event);
   // TODO(terelius): Should we delta encode this event type?
 }
@@ -1796,12 +1784,8 @@ void ParsedRtcEventLogNew::StoreAudioPlayoutEvent(
     const rtclog2::AudioPlayoutEvents& proto) {
   RTC_CHECK(proto.has_timestamp_ms());
   RTC_CHECK(proto.has_local_ssrc());
-  LoggedAudioPlayoutEvent audio_playout_event;
-  audio_playout_event.timestamp_us = proto.timestamp_ms() * 1000;
-  audio_playout_event.ssrc = proto.local_ssrc();
-
-  audio_playout_events_[audio_playout_event.ssrc].push_back(
-      audio_playout_event);
+  audio_playout_events_[proto.local_ssrc()].emplace_back(
+      proto.timestamp_ms() * 1000, proto.local_ssrc());
   // TODO(terelius): Parse deltas.
 }
 
@@ -1987,14 +1971,9 @@ void ParsedRtcEventLogNew::StoreBweDelayBasedUpdate(
   RTC_CHECK(proto.has_timestamp_ms());
   RTC_CHECK(proto.has_bitrate_bps());
   RTC_CHECK(proto.has_detector_state());
-
-  LoggedBweDelayBasedUpdate delay_update;
-  delay_update.timestamp_us = proto.timestamp_ms() * 1000;
-  delay_update.bitrate_bps = proto.bitrate_bps();
-  delay_update.detector_state = GetRuntimeDetectorState(proto.detector_state());
-
-  bwe_delay_updates_.push_back(delay_update);
-
+  bwe_delay_updates_.emplace_back(
+      proto.timestamp_ms() * 1000, proto.bitrate_bps(),
+      GetRuntimeDetectorState(proto.detector_state()));
   // TODO(terelius): Parse deltas.
 }
 
@@ -2049,31 +2028,30 @@ void ParsedRtcEventLogNew::StoreBweProbeFailureEvent(
 
 void ParsedRtcEventLogNew::StoreAudioNetworkAdaptationEvent(
     const rtclog2::AudioNetworkAdaptations& proto) {
-  LoggedAudioNetworkAdaptationEvent ana_event;
   RTC_CHECK(proto.has_timestamp_ms());
-  ana_event.timestamp_us = proto.timestamp_ms() * 1000;
 
+  AudioEncoderRuntimeConfig config;
   if (proto.has_bitrate_bps()) {
-    ana_event.config.bitrate_bps = proto.bitrate_bps();
+    config.bitrate_bps = proto.bitrate_bps();
   }
   if (proto.has_frame_length_ms()) {
-    ana_event.config.frame_length_ms = proto.frame_length_ms();
+    config.frame_length_ms = proto.frame_length_ms();
   }
   if (proto.has_uplink_packet_loss_fraction()) {
-    ana_event.config.uplink_packet_loss_fraction =
-        proto.uplink_packet_loss_fraction();
+    config.uplink_packet_loss_fraction = proto.uplink_packet_loss_fraction();
   }
   if (proto.has_enable_fec()) {
-    ana_event.config.enable_fec = proto.enable_fec();
+    config.enable_fec = proto.enable_fec();
   }
   if (proto.has_enable_dtx()) {
-    ana_event.config.enable_dtx = proto.enable_dtx();
+    config.enable_dtx = proto.enable_dtx();
   }
   if (proto.has_num_channels()) {
-    ana_event.config.num_channels = proto.num_channels();
+    config.num_channels = proto.num_channels();
   }
 
-  audio_network_adaptation_events_.push_back(ana_event);
+  audio_network_adaptation_events_.emplace_back(proto.timestamp_ms() * 1000,
+                                                config);
 
   // TODO(terelius): Parse deltas.
 }

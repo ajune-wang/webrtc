@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72ab53e4_e50ad48b",
+        "filename": "logging/rtc_event_log/encoder/delta_encoding_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T17:52:24Z",
+      "side": 1,
+      "message": "In total, the delta encoding adds 11880 test cases to the test suit if I\u0027ve counted correctly. This seems excessive considering WebRTC as a whole had less than 10000 tests. Can we prune the numbers somewhat?",
+      "range": {
+        "startLine": 629,
+        "startChar": 0,
+        "endLine": 629,
+        "endChar": 40
+      },
+      "revId": "defa4a0a37b659735e2606c4943d6d7265c5f7a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

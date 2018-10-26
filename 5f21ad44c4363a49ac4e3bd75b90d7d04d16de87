@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7614d63c_5f1b83ac",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-26T08:54:12Z",
+      "side": 1,
+      "message": "I presume there\u0027s no way to get a list of the version controlled directories (i.e. even those that weren\u0027t changed in this CL)? That is, we can\u0027t just run `git show HEAD^{tree}` or something like that?",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41ab343c_88e5da00",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-26T08:54:12Z",
+      "side": 1,
+      "message": "Should dirs_to_check be a set, so that we don\u0027t end up with a lot of duplicate entries?",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f49ea447_c3c3b080",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-26T08:54:12Z",
+      "side": 1,
+      "message": "missing_include_rules should arguably also be a set, although if you eliminate duplicates above, none will remain here.",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ae6c61_93046c7e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-26T08:54:12Z",
+      "side": 1,
+      "message": "sorted(missing_include_rules) is probably better---especially if you take my advice and use sets.",
+      "range": {
+        "startLine": 904,
+        "startChar": 13,
+        "endLine": 904,
+        "endChar": 34
+      },
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb222745_6951eede",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-10-26T08:54:12Z",
+      "side": 1,
+      "message": "Not a problem here since you have so few entries, but a good habit in Python is to never concatenate more than a constant number of strings with +. Python strings are immutable, so you end up creating a new string each time---so O(n) allocations and deallocations, and O(n^2) time to copy all the data.\n\nInstead, collect all the string fragments in a list, and concatenate it all at once with string.joinn at the end:\n\n  strings \u003d []\n  for ...\n    strings.append(s)\n  return \"\".join(strings)",
+      "revId": "5f21ad44c4363a49ac4e3bd75b90d7d04d16de87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

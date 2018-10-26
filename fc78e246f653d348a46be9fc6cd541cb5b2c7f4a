@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1366f631_3578f5c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-10-26T08:15:27Z",
+      "side": 1,
+      "message": "nit: Update title.",
+      "range": {
+        "startLine": 7,
+        "startChar": 21,
+        "endLine": 7,
+        "endChar": 23
+      },
+      "revId": "fc78e246f653d348a46be9fc6cd541cb5b2c7f4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

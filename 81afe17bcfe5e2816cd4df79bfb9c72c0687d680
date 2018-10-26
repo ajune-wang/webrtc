@@ -16,6 +16,24 @@
       "revId": "81afe17bcfe5e2816cd4df79bfb9c72c0687d680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4624e8b_9ef6024d",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-26T14:51:01Z",
+      "side": 1,
+      "message": "I don\u0027t think we have any use case for that being unset. Do you know if that\u0027s actually something we do? I guess we could CHECK for it if we think people might try to use that build config.",
+      "parentUuid": "d6601a48_8258e9f2",
+      "revId": "81afe17bcfe5e2816cd4df79bfb9c72c0687d680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

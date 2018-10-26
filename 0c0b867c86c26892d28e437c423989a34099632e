@@ -22,6 +22,30 @@
       "revId": "0c0b867c86c26892d28e437c423989a34099632e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cced9dc2_7daa94a3",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-26T20:10:22Z",
+      "side": 1,
+      "message": "Added a bug for this: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9932\n\nWe should resolve this in another CL but seems like this condition can happen. I think enforcing stop anyway is probably a good idea in the mean time.",
+      "parentUuid": "da1b46af_50418a12",
+      "range": {
+        "startLine": 630,
+        "startChar": 2,
+        "endLine": 631,
+        "endChar": 17
+      },
+      "revId": "0c0b867c86c26892d28e437c423989a34099632e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

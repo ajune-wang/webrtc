@@ -14,6 +14,7 @@
 #include <string>
 
 #include "rtc_base/arraysize.h"
+#include "rtc_base/ssladapter.h"
 
 namespace webrtc {
 
@@ -254,6 +255,10 @@ static RTCErrorType ParseIceServerUrl(
       }
       cricket::RelayServerConfig config = cricket::RelayServerConfig(
           socket_address, username, server.password, turn_transport_type);
+
+      config.ssl_config = server.ssl_config;
+
+      // TODO(diogor, webrtc:9673): Remove these in favor of using ssl_config.
       if (server.tls_cert_policy ==
           PeerConnectionInterface::kTlsCertPolicyInsecureNoCheck) {
         config.tls_cert_policy =

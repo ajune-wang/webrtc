@@ -16,6 +16,7 @@
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/proxyinfo.h"
+#include "rtc_base/ssladapter.h"
 #include "rtc_base/sslcertificate.h"
 #include "rtc_base/system/rtc_export.h"
 
@@ -27,8 +28,15 @@ struct PacketSocketTcpOptions {
   ~PacketSocketTcpOptions();
 
   int opts = 0;
+
+  // TODO(diogor, webrtc:9673): Remove tls_alpn_protocols and
+  // tls_elliptic_curves, in favor of using just ssl_config.
   std::vector<std::string> tls_alpn_protocols;
   std::vector<std::string> tls_elliptic_curves;
+
+  // SSL configuration options.
+  rtc::SSLConfig ssl_config;
+
   // An optional custom SSL certificate verifier that an API user can provide to
   // inject their own certificate verification logic.
   SSLCertificateVerifier* tls_cert_verifier = nullptr;

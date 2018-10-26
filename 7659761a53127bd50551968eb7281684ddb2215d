@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3328ff2e_02236023",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-10-26T08:44:27Z",
+      "side": 1,
+      "message": "I wonder: could there be negative effects of making the clock system call under the lock? I actually do not think there is a reason to do that here as all other clock reads in here are on same path.",
+      "range": {
+        "startLine": 290,
+        "startChar": 0,
+        "endLine": 291,
+        "endChar": 48
+      },
+      "revId": "7659761a53127bd50551968eb7281684ddb2215d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

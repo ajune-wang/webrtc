@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75f2479f_7762cac9",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T16:52:03Z",
+      "side": 0,
+      "message": "This was dead code?",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

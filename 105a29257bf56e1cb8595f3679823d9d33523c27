@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904b4f54_5a27181e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T16:52:03Z",
+      "side": 1,
+      "message": "The difference between bitrate and bandwidth isn\u0027t immediately clear. How about target_bitrate and link_capacity?",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "105a29257bf56e1cb8595f3679823d9d33523c27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

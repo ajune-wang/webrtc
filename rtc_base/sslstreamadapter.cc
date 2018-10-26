@@ -10,7 +10,7 @@
 
 #include "rtc_base/sslstreamadapter.h"
 
-#include "rtc_base/opensslstreamadapter.h"
+#include "rtc_base/openssl/opensslstreamadapter.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 

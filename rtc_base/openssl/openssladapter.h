@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLADAPTER_H_
-#define RTC_BASE_OPENSSLADAPTER_H_
+#ifndef RTC_BASE_OPENSSL_OPENSSLADAPTER_H_
+#define RTC_BASE_OPENSSL_OPENSSLADAPTER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -21,8 +21,8 @@
 #include "rtc_base/buffer.h"
 #include "rtc_base/messagehandler.h"
 #include "rtc_base/messagequeue.h"
-#include "rtc_base/opensslidentity.h"
-#include "rtc_base/opensslsessioncache.h"
+#include "rtc_base/openssl/opensslidentity.h"
+#include "rtc_base/openssl/opensslsessioncache.h"
 #include "rtc_base/socket.h"
 #include "rtc_base/socketaddress.h"
 #include "rtc_base/ssladapter.h"
@@ -189,4 +189,4 @@ std::string TransformAlpnProtocols(const std::vector<std::string>& protos);
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLADAPTER_H_
+#endif  // RTC_BASE_OPENSSL_OPENSSLADAPTER_H_

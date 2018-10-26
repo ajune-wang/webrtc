@@ -1,0 +1,41 @@
+# Copyright (c) 2014 The WebRTC project authors. All Rights Reserved.
+#
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file in the root of the source
+# tree. An additional intellectual property rights grant can be found
+# in the file PATENTS.  All contributing project authors may
+# be found in the AUTHORS file in the root of the source tree.
+import("//build/config/crypto.gni")
+import("//build/config/ui.gni")
+import("../../webrtc.gni")
+
+rtc_source_set("rtc_openssl") {
+  sources = [
+    "openssl.h",
+    "openssladapter.cc",
+    "openssladapter.h",
+    "opensslcertificate.cc",
+    "opensslcertificate.h",
+    "openssldigest.cc",
+    "openssldigest.h",
+    "opensslidentity.cc",
+    "opensslidentity.h",
+    "opensslsessioncache.cc",
+    "opensslsessioncache.h",
+    "opensslstreamadapter.cc",
+    "opensslstreamadapter.h",
+    "opensslutility.cc",
+    "opensslutility.h",
+  ]
+  deps = [
+    "..:checks",
+    "..:logging",
+    "..:macromagic",
+    "..:rtc_base",
+    "..:rtc_base_approved",
+    "..:safe_conversions",
+    "..:stringutils",
+    "..:timeutils",
+    "../../third_party/abseil-cpp/absl/memory:memory",
+  ]
+}

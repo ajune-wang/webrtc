@@ -24,6 +24,7 @@
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "api/rtpparameters.h"
+#include "logging/rtc_event_log/encoder/delta_encoding.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
@@ -1675,6 +1676,7 @@ const std::vector<MatchedSendArrivalTimes> GetNetworkTrace(
   return rtp_rtcp_matched;
 }
 
+// TODO: !!! Comment should maybe be edited, too.
 // Helper functions for new format starts here
 void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
     const rtclog2::EventStream& stream) {
@@ -1683,101 +1685,121 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
   RTC_DCHECK_LE(stream.incoming_rtp_packets_size(), 1);
   if (stream.incoming_rtp_packets_size() == 1) {
     StoreIncomingRtpPackets(stream.incoming_rtp_packets(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.outgoing_rtp_packets_size(), 1);
   if (stream.outgoing_rtp_packets_size() == 1) {
     StoreOutgoingRtpPacket(stream.outgoing_rtp_packets(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.incoming_rtcp_packets_size(), 1);
   if (stream.incoming_rtcp_packets_size() == 1) {
     StoreIncomingRtcpPackets(stream.incoming_rtcp_packets(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.outgoing_rtcp_packets_size(), 1);
   if (stream.outgoing_rtcp_packets_size() == 1) {
     StoreOutgoingRtcpPackets(stream.outgoing_rtcp_packets(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.audio_playout_events_size(), 1);
   if (stream.audio_playout_events_size() == 1) {
     StoreAudioPlayoutEvent(stream.audio_playout_events(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.begin_log_events_size(), 1);
   if (stream.begin_log_events_size() == 1) {
     StoreStartEvent(stream.begin_log_events(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.end_log_events_size(), 1);
   if (stream.end_log_events_size() == 1) {
     StoreStopEvent(stream.end_log_events(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.loss_based_bwe_updates_size(), 1);
   if (stream.loss_based_bwe_updates_size() == 1) {
     StoreBweLossBasedUpdate(stream.loss_based_bwe_updates(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.delay_based_bwe_updates_size(), 1);
   if (stream.delay_based_bwe_updates_size() == 1) {
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.audio_network_adaptations_size(), 1);
   if (stream.audio_network_adaptations_size() == 1) {
     StoreAudioNetworkAdaptationEvent(stream.audio_network_adaptations(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.probe_clusters_size(), 1);
   if (stream.probe_clusters_size() == 1) {
     StoreBweProbeClusterCreated(stream.probe_clusters(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.probe_success_size(), 1);
   if (stream.probe_success_size() == 1) {
     StoreBweProbeSuccessEvent(stream.probe_success(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.probe_failure_size(), 1);
   if (stream.probe_failure_size() == 1) {
     StoreBweProbeFailureEvent(stream.probe_failure(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.alr_states_size(), 1);
   if (stream.alr_states_size() == 1) {
     StoreAlrStateEvent(stream.alr_states(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.ice_candidate_configs_size(), 1);
   if (stream.ice_candidate_configs_size() == 1) {
     StoreIceCandidatePairConfig(stream.ice_candidate_configs(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.ice_candidate_events_size(), 1);
   if (stream.ice_candidate_events_size() == 1) {
     StoreIceCandidateEvent(stream.ice_candidate_events(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.audio_recv_stream_configs_size(), 1);
   if (stream.audio_recv_stream_configs_size() == 1) {
     StoreAudioRecvConfig(stream.audio_recv_stream_configs(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.audio_send_stream_configs_size(), 1);
   if (stream.audio_send_stream_configs_size() == 1) {
     StoreAudioSendConfig(stream.audio_send_stream_configs(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.video_recv_stream_configs_size(), 1);
   if (stream.video_recv_stream_configs_size() == 1) {
     StoreVideoRecvConfig(stream.video_recv_stream_configs(0));
+    return;
   }
 
   RTC_DCHECK_LE(stream.video_send_stream_configs_size(), 1);
   if (stream.video_send_stream_configs_size() == 1) {
     StoreVideoSendConfig(stream.video_send_stream_configs(0));
+    return;
   }
 }
 
@@ -1792,17 +1814,48 @@ void ParsedRtcEventLogNew::StoreAlrStateEvent(const rtclog2::AlrState& proto) {
   // TODO(terelius): Should we delta encode this event type?
 }
 
+// TODO: !!! Check all of the TODOs (not only mine) in this file.
 void ParsedRtcEventLogNew::StoreAudioPlayoutEvent(
     const rtclog2::AudioPlayoutEvents& proto) {
   RTC_CHECK(proto.has_timestamp_ms());
   RTC_CHECK(proto.has_local_ssrc());
-  LoggedAudioPlayoutEvent audio_playout_event;
-  audio_playout_event.timestamp_us = proto.timestamp_ms() * 1000;
-  audio_playout_event.ssrc = proto.local_ssrc();
 
-  audio_playout_events_[audio_playout_event.ssrc].push_back(
-      audio_playout_event);
-  // TODO(terelius): Parse deltas.
+  // Base event
+  const int64_t base_timestamp_ms = proto.timestamp_ms() * 1000;
+  const uint32_t base_local_ssrc = proto.local_ssrc();
+  auto map_it = audio_playout_events_[proto.local_ssrc()];
+  audio_playout_events_[proto.local_ssrc()].emplace_back(base_timestamp_ms,
+                                                         base_local_ssrc);
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  // timestamp_ms
+  RTC_CHECK(proto.has_timestamp_deltas_ms());
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values = DecodeDeltas(
+      proto.timestamp_deltas_ms(), base_timestamp_ms, number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // local_ssrc
+  RTC_CHECK(proto.has_local_ssrc_deltas());
+  std::vector<absl::optional<uint64_t>> local_ssrc_values = DecodeDeltas(
+      proto.local_ssrc_deltas(), base_local_ssrc, number_of_deltas);
+  RTC_CHECK_EQ(local_ssrc_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+    RTC_CHECK(local_ssrc_values[i].has_value());
+    RTC_CHECK_LE(local_ssrc_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t local_ssrc =
+        static_cast<uint32_t>(local_ssrc_values[i].value());
+    audio_playout_events_[local_ssrc].emplace_back(
+        timestamp_ms_values[i].value(), local_ssrc);
+  }
 }
 
 void ParsedRtcEventLogNew::StoreIncomingRtpPackets(

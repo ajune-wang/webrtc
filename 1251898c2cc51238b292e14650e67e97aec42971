@@ -188,6 +188,30 @@
       "revId": "1251898c2cc51238b292e14650e67e97aec42971",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b5a25bb_e406ff81",
+        "filename": "modules/congestion_controller/rtp/transport_feedback_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-26T09:20:00Z",
+      "side": 1,
+      "message": "In the analyzer, this happens a lot. Not sure why. It\u0027s probably not actual delay, so let\u0027s ignore that for the moment.\n\nImo, it is surprising and possibly error prone to have a struct that\u0027s meant to convey information about events A and B, but then it turns out that B might not be set even if B occurs but only if A also occurs and the struct is created in a special way. When someone refactors the code in the future, they might not be aware of the special conditions required to set the fields.\n\nI think the natural way is; A is set is A occurs, B is set if B occurs, A and B are set if A and B occurs. In this case, I don\u0027t think there is any significant cost to setting both the normal packet feedback and the late feedback vector, and let the consumer decide which is interesting.",
+      "parentUuid": "30b7db59_56d31b90",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 169,
+        "endChar": 30
+      },
+      "revId": "1251898c2cc51238b292e14650e67e97aec42971",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

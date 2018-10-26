@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d1c17c21_aaad51b5",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T22:03:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92d3eae2_f0341ef1",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc21c14a_e11fa616",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "9802aced_31a57a15",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T22:03:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a8090e1d_548c7f82",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79e8933f_d528533f",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -128,6 +170,30 @@
       "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d425e92d_f42016ae",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T22:03:22Z",
+      "side": 1,
+      "message": "It seems that chromium\u0027s linter arbitrarily deems this \"complex\" because of the templated member variable.  Since I think this is mostly about code size, that\u0027s probably ok.  If the linter wants it this way, let\u0027s just do it this way.",
+      "parentUuid": "bcf7438f_30f2aed9",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

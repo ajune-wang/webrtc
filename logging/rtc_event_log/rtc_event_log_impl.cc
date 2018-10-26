@@ -18,8 +18,9 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/rtceventlogoutput.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h"
-#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
+#include "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/event.h"
@@ -64,7 +65,11 @@ std::unique_ptr<RtcEventLogEncoder> CreateEncoder(
     RtcEventLog::EncodingType type) {
   switch (type) {
     case RtcEventLog::EncodingType::Legacy:
+      RTC_LOG(LS_INFO) << "Creating legacy encoder for RTC event log.";
       return absl::make_unique<RtcEventLogEncoderLegacy>();
+    case RtcEventLog::EncodingType::NewFormat:
+      RTC_LOG(LS_INFO) << "Creating new format encoder for RTC event log.";
+      return absl::make_unique<RtcEventLogEncoderNewFormat>();
     default:
       RTC_LOG(LS_ERROR) << "Unknown RtcEventLog encoder type (" << int(type)
                         << ")";

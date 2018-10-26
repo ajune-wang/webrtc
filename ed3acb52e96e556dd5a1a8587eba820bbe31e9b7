@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52bc1605_e5159201",
+        "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1994,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-26T14:47:25Z",
+      "side": 1,
+      "message": "IIUC, this will log after timeout when it didn\u0027t before. Is this necessary? I\u0027m guessing event waiting generally never fails but sometimes times out?",
+      "revId": "ed3acb52e96e556dd5a1a8587eba820bbe31e9b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d76a1a_6e3f5934",
+        "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2163,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-10-26T14:47:25Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "ed3acb52e96e556dd5a1a8587eba820bbe31e9b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

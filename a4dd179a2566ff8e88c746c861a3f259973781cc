@@ -22,6 +22,30 @@
       "revId": "a4dd179a2566ff8e88c746c861a3f259973781cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca8e9a6d_ae63bd5f",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-26T13:15:47Z",
+      "side": 1,
+      "message": "To minimize conversions I pass both Ntp time and underlying time in micros. Otherwise there would be redundant conversions in each block builder.",
+      "parentUuid": "d636c766_bf398131",
+      "range": {
+        "startLine": 695,
+        "startChar": 24,
+        "endLine": 695,
+        "endChar": 40
+      },
+      "revId": "a4dd179a2566ff8e88c746c861a3f259973781cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

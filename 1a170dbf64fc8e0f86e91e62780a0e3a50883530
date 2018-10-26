@@ -211,6 +211,30 @@
       "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d2749c0_0d2b02fd",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-10-26T13:15:47Z",
+      "side": 1,
+      "message": "The RtcpSenderTest.SendSr test fails if NtpOffset is not rounded to 1ms.\n\nWhat happens is that clock_-\u003eCurrentTimeInMilliseconds() returns current time, but fractional offset tips the Ntp time to the next ms. Thus, without any advancing of the simulated time, the next, wrong RTP timestamp is generated. And this behavior depends on the exact system time during the test.\n\nRegarding RtcpTransceiver: rtt calculation there is not affected because it, as in RTCP module, takes difference between two timestamps. Absolute offset in the clock doesn\u0027t affect it at all.\n\nOtherwise, it would return incorrect results if the system time is incorrect, which is not the case, right?\n\nI added the comment here and removed artificial offset rounding. Now it\u0027s calculated down to 1ms to begin with.\n\n\nOnce again, there\u0027s this comment for TimeMicorsToNtp() in time_utils.h:\n// As a result TimeMicrosToNtp(rtc::TimeMicros()) doesn\u0027t guarantee to match\n// system time.\n\nSo changing offset doesn\u0027t break any assumptions.\n\nI added the comment that it\u0027s guaranteed to have integral ms difference to current time micros.",
+      "parentUuid": "e8bbf982_fb5429aa",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

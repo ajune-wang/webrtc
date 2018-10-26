@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ef450fb_d100828f",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T21:39:05Z",
+      "side": 1,
+      "message": "By default, should it call the other overload of CreateMediaTransport with the is_caller value from settings?",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc21c14a_e11fa616",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T21:39:05Z",
+      "side": 1,
+      "message": "Any particular reason to make it final?",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 35
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e8933f_d528533f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T21:39:05Z",
+      "side": 1,
+      "message": "Why do we declare these, only to define them `\u003d default` in the cc file?  Can\u0027t we just leave them out entirely?",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ff2d6be_f3db74df",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T21:39:05Z",
+      "side": 1,
+      "message": "I\u0027d probably phrase this a bit differently, something like \"must be set if a pre-shared key is used for the call\".",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d011833f_372bc5d7",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-26T21:39:05Z",
+      "side": 1,
+      "message": "Should this have a TODO to delete the default implementation once all implementations override it?",
+      "revId": "00ff3c00aca0f83fbcee7a9498a385e4b04a791c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

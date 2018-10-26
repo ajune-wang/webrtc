@@ -8,10 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "rtc_base/openssldigest.h"
+#include "rtc_base/openssl/openssldigest.h"
 
 #include "rtc_base/checks.h"  // RTC_DCHECK, RTC_CHECK
-#include "rtc_base/openssl.h"
+#include "rtc_base/openssl/openssl.h"
 
 namespace rtc {
 

@@ -187,6 +187,30 @@
       "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bbf982_fb5429aa",
+        "filename": "modules/rtp_rtcp/source/time_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-26T12:28:22Z",
+      "side": 1,
+      "message": "Sorry, I still do not understand, if you want to do something strange, at least explain that in comments in code, not just in a CL.\nbetter yet, add unittests to demonstrate your use case.\n\nIt seems to me you want to do Ntp\u003c-\u003eRtp calculation rely on implementation detail of this function, which makes it harder to follow the code.\nI believe there is better way to improve precision of that conversion than by reducing precision of this conversion\n\nAlso note that RtcpTransceiver already uses this conversion function, so reducing its precision would also reduce precision of rtt calculation done by RtcpTransceiver [slightly, max 1ms, but still]",
+      "parentUuid": "5b784234_5dca43f0",
+      "range": {
+        "startLine": 41,
+        "startChar": 48,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "1a170dbf64fc8e0f86e91e62780a0e3a50883530",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

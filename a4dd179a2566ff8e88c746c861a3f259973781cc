@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d636c766_bf398131",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-26T12:28:22Z",
+      "side": 1,
+      "message": "I believe it is better to do less time conversions, so would suggest to pass clock_-\u003eTimeInMicroseconds() to the RtcpContext and convert it to NtpTime when rtcp_sender actually needs ntp and convert it directly to ms without need to convert it to NtpTime and then back.",
+      "range": {
+        "startLine": 695,
+        "startChar": 24,
+        "endLine": 695,
+        "endChar": 40
+      },
+      "revId": "a4dd179a2566ff8e88c746c861a3f259973781cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

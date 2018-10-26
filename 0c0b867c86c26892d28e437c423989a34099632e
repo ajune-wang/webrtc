@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da1b46af_50418a12",
+        "filename": "pc/rtpsender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-26T09:29:04Z",
+      "side": 1,
+      "message": "Is there a case where the media channel is set and stopped_ \u003d\u003d true? In other words, do we call SetChannel() on the transceiver/sender after the transceiver/sender are stopped? Maybe this should be prevented in SetChannel().",
+      "range": {
+        "startLine": 630,
+        "startChar": 2,
+        "endLine": 631,
+        "endChar": 17
+      },
+      "revId": "0c0b867c86c26892d28e437c423989a34099632e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

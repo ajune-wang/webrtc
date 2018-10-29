@@ -52,6 +52,24 @@
       "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14623fed_4d3c4965",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T18:06:42Z",
+      "side": 1,
+      "message": "Thanks! This makes sense.",
+      "parentUuid": "9d19c8e5_129fcc76",
+      "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

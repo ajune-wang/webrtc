@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16be5167_fcce1be0",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-29T12:07:19Z",
+      "side": 1,
+      "message": "Usually we try to add the field trials as close to the implementation as possible, to avoid adding plumbing code that can be hard to follow and will be removed either way as soon as we know what we want to do. I\u0027m not sure what the first question means, what do you mean by application in this case? And how would it be injected from the stream?",
+      "parentUuid": "db3eeefc_5ef7f215",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 29
+      },
+      "revId": "1ab0746e88168d567e33976e1c272f56f0fd9d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4bd63366_4f61f681",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "1ab0746e88168d567e33976e1c272f56f0fd9d4e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d348266_bf29a703",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-29T12:07:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bd63366_4f61f681",
+      "range": {
+        "startLine": 684,
+        "startChar": 4,
+        "endLine": 684,
+        "endChar": 8
+      },
+      "revId": "1ab0746e88168d567e33976e1c272f56f0fd9d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

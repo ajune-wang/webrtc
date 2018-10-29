@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1a72949_0c5929ea",
+        "filename": "modules/utility/source/process_thread_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2018-10-29T08:21:23Z",
+      "side": 1,
+      "message": "nit: /*argument_name \u003dfalse*/, /*argument_name..",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 20
+      },
+      "revId": "df406d567c7f1fbd63d4d91e357609bf0b42a29d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

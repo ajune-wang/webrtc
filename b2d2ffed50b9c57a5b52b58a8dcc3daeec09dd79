@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8122c220_356a71c6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T14:41:13Z",
+      "side": 1,
+      "message": "Cleaned up.",
+      "parentUuid": "a0783800_097fef17",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "b2d2ffed50b9c57a5b52b58a8dcc3daeec09dd79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c909969_3eac892d",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "b2d2ffed50b9c57a5b52b58a8dcc3daeec09dd79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434eda8f_a7a1c13f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T14:41:13Z",
+      "side": 1,
+      "message": "I realize, it felt a bit too much to create a bug for every backward incompatible change we will be making. Added a bug though.\n\nBtw you made me realize that it shouldn\u0027t be an abstract method if it\u0027s going to be removed; so changed it to an empty implementation.",
+      "parentUuid": "2c909969_3eac892d",
+      "range": {
+        "startLine": 262,
+        "startChar": 5,
+        "endLine": 262,
+        "endChar": 15
+      },
+      "revId": "b2d2ffed50b9c57a5b52b58a8dcc3daeec09dd79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

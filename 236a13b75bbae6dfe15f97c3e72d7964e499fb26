@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5285d7c8_8f2ef206",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-10-29T21:59:41Z",
+      "side": 1,
+      "message": "Based on previous discussions an optional null array view seems to make little sense so we use null to indicate optional in this case.",
+      "parentUuid": "e6e25187_07a263d5",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "236a13b75bbae6dfe15f97c3e72d7964e499fb26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7efe9b3f_0c85d0fe",
         "filename": "rtc_base/key_derivation.h",
         "patchSetId": 2

@@ -46,6 +46,30 @@
       "revId": "a72526305b184565fc0e5994bcd48a7c55214975",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae385f8a_e8e2b717",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-10-29T09:27:31Z",
+      "side": 1,
+      "message": "Done. Thanks! They were in the original DEPS! https://chromium-review.googlesource.com/c/chromium/src/+/1110225",
+      "parentUuid": "80ab7783_e16f17e2",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "a72526305b184565fc0e5994bcd48a7c55214975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

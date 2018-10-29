@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0783800_097fef17",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-29T06:01:52Z",
+      "side": 1,
+      "message": "nit: Did you mean to add these spaces in the comment?",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 7
+      },
+      "revId": "b2d2ffed50b9c57a5b52b58a8dcc3daeec09dd79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c909969_3eac892d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-29T06:01:52Z",
+      "side": 1,
+      "message": "nit: In general, we try and use bug references for TODOs:\n\n// TODO(bugs.webrtc.org/9719): This constructor will be removed....",
+      "range": {
+        "startLine": 262,
+        "startChar": 5,
+        "endLine": 262,
+        "endChar": 15
+      },
+      "revId": "b2d2ffed50b9c57a5b52b58a8dcc3daeec09dd79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

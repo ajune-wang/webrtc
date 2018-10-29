@@ -20,6 +20,9 @@
 namespace webrtc {
 
 RtpPacketReceived::RtpPacketReceived() = default;
+RtpPacketReceived::RtpPacketReceived(const ExtensionManager& extensions)
+    : RtpPacket(extensions) {}
+// TODO(kron): Remove this constructor once all uses of it have been removed.
 RtpPacketReceived::RtpPacketReceived(const ExtensionManager* extensions)
     : RtpPacket(extensions) {}
 RtpPacketReceived::RtpPacketReceived(const RtpPacketReceived& packet) = default;

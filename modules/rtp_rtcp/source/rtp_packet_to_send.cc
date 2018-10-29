@@ -14,8 +14,17 @@
 
 namespace webrtc {
 
+RtpPacketToSend::RtpPacketToSend() = default;
+RtpPacketToSend::RtpPacketToSend(size_t capacity) : RtpPacket(capacity) {}
+RtpPacketToSend::RtpPacketToSend(const ExtensionManager& extensions)
+    : RtpPacket(extensions) {}
+RtpPacketToSend::RtpPacketToSend(const ExtensionManager& extensions,
+                                 size_t capacity)
+    : RtpPacket(extensions, capacity) {}
+// TODO(kron): Remove this constructor once all uses of it have been removed.
 RtpPacketToSend::RtpPacketToSend(const ExtensionManager* extensions)
     : RtpPacket(extensions) {}
+// TODO(kron): Remove this constructor once all uses of it have been removed.
 RtpPacketToSend::RtpPacketToSend(const ExtensionManager* extensions,
                                  size_t capacity)
     : RtpPacket(extensions, capacity) {}

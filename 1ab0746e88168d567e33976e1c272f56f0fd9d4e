@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db3eeefc_5ef7f215",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-29T10:47:02Z",
+      "side": 1,
+      "message": "btw, are you injecting the application from audio send stream? If so, then fine, otherwise, we can move this even higher up. \n\nand if possible, I would like these fieldtrial parsers to be moved to your application.",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 29
+      },
+      "revId": "1ab0746e88168d567e33976e1c272f56f0fd9d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bd63366_4f61f681",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2018-10-29T10:47:02Z",
+      "side": 1,
+      "message": "looking good, but I would like the code to be a bit cleaner:\nwe may add at line 673\n\nconst string ana_config \u003d new_config.audio_network_adaptor_config ? *new_config.audio_network_adaptor_config : CreateAdaptationStringFromTrials();\n\nand merge the rest. I like your RTC_DCHECK(success) more than the if-else in 676",
+      "range": {
+        "startLine": 684,
+        "startChar": 4,
+        "endLine": 684,
+        "endChar": 8
+      },
+      "revId": "1ab0746e88168d567e33976e1c272f56f0fd9d4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

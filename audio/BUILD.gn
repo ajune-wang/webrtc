@@ -92,6 +92,9 @@ rtc_static_library("audio") {
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+  if (rtc_enable_protobuf) {
+    deps += [ "../modules/audio_coding:ana_config_proto" ]
+  }
 }
 if (rtc_include_tests) {
   rtc_source_set("audio_end_to_end_test") {

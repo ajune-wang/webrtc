@@ -28,6 +28,7 @@
 #include "api/rtcerror.h"
 #include "api/video/encoded_image.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/copyonwritebuffer.h"
 
 namespace rtc {
 class PacketTransportInternal;
@@ -226,6 +227,58 @@ class MediaTransportStateCallback {
   virtual void OnStateChanged(MediaTransportState state) = 0;
 };
 
+// Supported types of application data messages.
+enum class DataMessageType {
+  // Application data buffer with the binary bit unset.
+  kText,
+
+  // Application data buffer with the binary bit set.
+  kBinary,
+
+  // Transport-agnostic control messages, such as open or open-ack messages.
+  kControl,
+};
+
+// Parameters for sending data.
+struct SendDataParams {
+  // Id of the data channel.
+  int channel_id = 0;
+
+  DataMessageType type = DataMessageType::kText;
+
+  // Whether to deliver the message in order with respect to other ordered
+  // messages on the same data channel.
+  bool ordered = false;
+
+  // If non-negative, the maximum number of times this message may be
+  // retransmitted by the transport before it is dropped.
+  // Setting this value to zero disables retransmission.
+  int max_rtx_count = -1;
+
+  // If non-negative, the maximum number of milliseconds for which the transport
+  // may retransmit this message before it is dropped.
+  // Setting this value to zero disables retransmission.
+  int max_rtx_ms = -1;
+};
+
+// Sink for callbacks related to a data channel.
+class DataChannelSink {
+ public:
+  virtual ~DataChannelSink() = default;
+
+  // Callback issued when data is received by the transport.
+  virtual void OnDataReceived(int channel_id,
+                              DataMessageType type,
+                              const rtc::CopyOnWriteBuffer& buffer) = 0;
+
+  // Callback issued when a remote data channel begins the closing procedure.
+  virtual void OnChannelClosing(int channel_id) = 0;
+
+  // Callback issued when a (remote or local) data channel completes the closing
+  // procedure.
+  virtual void OnChannelClosed(int channel_id) = 0;
+};
+
 // Media transport interface for sending / receiving encoded audio/video frames
 // and receiving bandwidth estimate update from congestion control.
 class MediaTransportInterface {
@@ -274,6 +327,29 @@ class MediaTransportInterface {
   // TODO(mellem): Make this pure virtual once all implementations support it.
   virtual void SetMediaTransportStateCallback(
       MediaTransportStateCallback* callback) {}
+
+  // Opens a data channel with the given |channel_id|. Returns false if the data
+  // channel is unable to be opened on this transport (for example, because the
+  // |channel_id| is already in use). Returns true otherwise.
+  // TODO(mellem): Make this pure virtual once all implementations support it.
+  virtual bool OpenDataChannel(int channel_id);
+
+  // Sends a data buffer to the remote endpoint using the given send parameters.
+  // Returns true if successful, false otherwise.
+  // TODO(mellem): Make this pure virtual once all implementations support it.
+  virtual bool SendData(const SendDataParams& params,
+                        const rtc::CopyOnWriteBuffer& buffer);
+
+  // Closes |channel_id| gracefully.  Returns false if |channel_id| is not open,
+  // true otherwise.
+  // TODO(mellem): Make this pure virtual once all implementations support it.
+  virtual bool CloseChannel(int channel_id);
+
+  // Sets a sink for data messages and channel state callbacks. Before media
+  // transport is destroyed, the sink must be unregistered by setting it to
+  // nullptr.
+  // TODO(mellem): Make this pure virtual once all implementations support it.
+  virtual void SetDataSink(std::unique_ptr<DataChannelSink> sink) {}
 
   // TODO(sukhanov): RtcEventLogs.
 };

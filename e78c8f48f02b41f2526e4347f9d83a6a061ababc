@@ -16,6 +16,24 @@
       "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca295cf4_bf9395ca",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T17:43:39Z",
+      "side": 1,
+      "message": "We probably should. it\u0027s a slippery slope. Then we should probably have move assignment operator and move constructor. (though we can ignore it for now).\n\nWhy can\u0027t we just use generated operators? (genuinely curious why does chrome style require these to be explicit). I guess there is some risk, but requiring explicit constructors with body in the cc file makes it overly bloat.\n\n  # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).\n    suppressed_configs +\u003d [ \"//build/config/clang:find_bad_constructs\" ]\n\n\nAnyway, done.",
+      "parentUuid": "4f21a45e_172bd8ae",
+      "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44c00dce_4b8208f7",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-10-29T09:18:24Z",
+      "side": 1,
+      "message": "Probably shouldn\u0027t use Tab characters",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 1
+      },
+      "revId": "a72526305b184565fc0e5994bcd48a7c55214975",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

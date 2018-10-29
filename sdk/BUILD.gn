@@ -1037,6 +1037,7 @@ if (is_ios || is_mac) {
             "objc/unittests/RTCPeerConnectionFactory_xctest.m",
             "objc/unittests/frame_buffer_helpers.h",
             "objc/unittests/frame_buffer_helpers.mm",
+            "objc/unittests/nalu_rewriter_xctest.mm",
           ]
 
           # TODO(peterhanspers): Reenable these tests on simulator.

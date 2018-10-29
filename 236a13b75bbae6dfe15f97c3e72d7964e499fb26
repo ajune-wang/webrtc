@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e6e25187_07a263d5",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T20:09:14Z",
+      "side": 1,
+      "message": "if it\u0027s optional, should it be null or empty? or should it be absl::optional\u003crtc::ArrayView\u003e?",
+      "range": {
+        "startLine": 47,
+        "startChar": 11,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "236a13b75bbae6dfe15f97c3e72d7964e499fb26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7efe9b3f_0c85d0fe",
         "filename": "rtc_base/key_derivation.h",
         "patchSetId": 2

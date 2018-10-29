@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f21a45e_172bd8ae",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-29T16:23:17Z",
+      "side": 1,
+      "message": "If we\u0027re going to add a copy ctor, should we also add a copy-assignment operator?",
+      "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

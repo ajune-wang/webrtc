@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dbd5014b_212a5a8f",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-29T13:37:15Z",
+      "side": 1,
+      "message": "That seems to be a good tradeoff. I was thinking about something similar but didn\u0027t proceed with the idea. Looking at your suggestion, it looks quite neat an achieves the same thing without all extra constructors to handle the special case of nullptr.",
+      "parentUuid": "2b87a6a3_8374988f",
+      "range": {
+        "startLine": 71,
+        "startChar": 23,
+        "endLine": 71,
+        "endChar": 24
+      },
+      "revId": "e8a4a5d5883b71d55f3a06f54ebfeb61fad85017",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df604a99_d0fce87e",
         "filename": "modules/rtp_rtcp/source/rtp_packet.h",
         "patchSetId": 5

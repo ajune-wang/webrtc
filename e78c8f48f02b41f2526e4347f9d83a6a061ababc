@@ -34,6 +34,24 @@
       "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d19c8e5_129fcc76",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-29T18:05:07Z",
+      "side": 1,
+      "message": "I believe the chromium rule is about binary size.  Automatically-generated constructors are inline, which means they\u0027re defined in every compilation unit that includes the header.",
+      "parentUuid": "ca295cf4_bf9395ca",
+      "revId": "e78c8f48f02b41f2526e4347f9d83a6a061ababc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

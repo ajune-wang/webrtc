@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1103454_3e35b6df",
+        "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1994,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-29T08:11:43Z",
+      "side": 1,
+      "message": "Looks like EventWrapper::Wait can return only kEventSignaled or kEventTimeout.\n\nI\u0027ll delete the log messages.",
+      "parentUuid": "52bc1605_e5159201",
+      "revId": "ed3acb52e96e556dd5a1a8587eba820bbe31e9b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39d76a1a_6e3f5934",
         "filename": "modules/audio_device/linux/audio_device_pulse_linux.cc",
         "patchSetId": 2

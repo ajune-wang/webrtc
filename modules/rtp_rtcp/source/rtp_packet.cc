@@ -53,13 +53,19 @@ constexpr size_t kDefaultPacketSize = 1500;
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 // |               padding         | Padding size  |
 // +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-RtpPacket::RtpPacket() : RtpPacket(nullptr, kDefaultPacketSize) {}
+RtpPacket::RtpPacket() : RtpPacket(kDefaultPacketSize) {}
 
-RtpPacket::RtpPacket(const ExtensionManager* extensions)
-    : RtpPacket(extensions, kDefaultPacketSize) {}
+RtpPacket::RtpPacket(size_t capacity) : buffer_(capacity) {
+  Clear();
+}
 
 RtpPacket::RtpPacket(const RtpPacket&) = default;
 
+// TODO(kron): Remove this constructor once all uses of it have been removed.
+RtpPacket::RtpPacket(const ExtensionManager* extensions)
+    : RtpPacket(extensions, kDefaultPacketSize) {}
+
+// TODO(kron): Remove this constructor once all uses of it have been removed.
 RtpPacket::RtpPacket(const ExtensionManager* extensions, size_t capacity)
     : buffer_(capacity) {
   RTC_DCHECK_GE(capacity, kFixedHeaderSize);
@@ -67,6 +73,15 @@ RtpPacket::RtpPacket(const ExtensionManager* extensions, size_t capacity)
   if (extensions) {
     extensions_ = *extensions;
   }
+}
+
+RtpPacket::RtpPacket(const ExtensionManager& extensions)
+    : RtpPacket(extensions, kDefaultPacketSize) {}
+
+RtpPacket::RtpPacket(const ExtensionManager& extensions, size_t capacity)
+    : extensions_(extensions), buffer_(capacity) {
+  RTC_DCHECK_GE(capacity, kFixedHeaderSize);
+  Clear();
 }
 
 RtpPacket::~RtpPacket() {}

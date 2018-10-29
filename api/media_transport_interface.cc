@@ -79,6 +79,19 @@ MediaTransportEncodedVideoFrame::MediaTransportEncodedVideoFrame(
 MediaTransportEncodedVideoFrame::MediaTransportEncodedVideoFrame(
     MediaTransportEncodedVideoFrame&&) = default;
 
+bool MediaTransportInterface::OpenDataChannel(int channel_id) {
+  return false;
+}
+
+bool MediaTransportInterface::SendData(const SendDataParams& params,
+                                       const rtc::CopyOnWriteBuffer& buffer) {
+  return false;
+}
+
+bool MediaTransportInterface::CloseChannel(int channel_id) {
+  return false;
+}
+
 RTCErrorOr<std::unique_ptr<MediaTransportInterface>>
 MediaTransportFactory::CreateMediaTransport(
     rtc::PacketTransportInternal* packet_transport,

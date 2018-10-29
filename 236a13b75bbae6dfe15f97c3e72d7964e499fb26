@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7efe9b3f_0c85d0fe",
+        "filename": "rtc_base/key_derivation.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-29T20:04:01Z",
+      "side": 1,
+      "message": "also, please document if it\u0027s ok to call it each time you need to use key derivation, or whether it should be cached. (how expensive is it to create the instance of this class)?\n\nI think it\u0027s cheap and it\u0027s fine to do it once per connection ;-)",
+      "revId": "236a13b75bbae6dfe15f97c3e72d7964e499fb26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

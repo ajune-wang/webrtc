@@ -23,6 +23,8 @@ namespace webrtc {
 class RtpPacketReceived : public RtpPacket {
  public:
   RtpPacketReceived();
+  explicit RtpPacketReceived(const ExtensionManager& extensions);
+  // TODO(kron): Remove this constructor once all uses of it have been removed.
   explicit RtpPacketReceived(const ExtensionManager* extensions);
   RtpPacketReceived(const RtpPacketReceived& packet);
   RtpPacketReceived(RtpPacketReceived&& packet);

@@ -17,6 +17,7 @@
 #include "p2p/base/port.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/key_derivation.h"
 #include "rtc_base/thread.h"
 
 using webrtc::SdpType;
@@ -542,6 +543,7 @@ RTCError JsepTransportController::ApplyDescription_n(
         (IsBundled(content_info.name) && content_info.name != *bundled_mid())) {
       continue;
     }
+
     error = MaybeCreateJsepTransport(local, content_info);
     if (!error.ok()) {
       return error;
@@ -940,16 +942,72 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
         CreateDtlsTransport(content_info.name, /*rtcp =*/true);
   }
 
+  absl::optional<cricket::CryptoParams> selected_crypto_for_media_transport;
+  if (!content_info.media_description()->cryptos().empty()) {
+    // Order of cryptos is deterministic, so we just select the first one (in
+    // fact the first one should be the most preferred one.) We ignore the HMAC
+    // size, as media transport crypto settings currently don't expose HMAC
+    // size, nor crypto protocol for that matter.
+    selected_crypto_for_media_transport =
+        content_info.media_description()->cryptos()[0];
+  }
+
   if (config_.media_transport_factory != nullptr) {
-    auto media_transport_result =
-        config_.media_transport_factory->CreateMediaTransport(
-            rtp_dtls_transport->ice_transport(), network_thread_,
-            /*is_caller=*/local);
+    if (!selected_crypto_for_media_transport.has_value()) {
+      RTC_LOG(LS_WARNING)
+          << "The crypto flags were not set in the offer. Cannot continue with "
+             "media transport. Falling back to RTP. is_local="
+          << local;
 
-    // TODO(sukhanov): Proper error handling.
-    RTC_CHECK(media_transport_result.ok());
+      // Remove media_transport_factory from config, because we don't want to
+      // use it on the subsequent call (for the other side of the offer).
+      config_.media_transport_factory = nullptr;
+    } else {
+      // Note that we ignore here lifetime and MKI length.
+      // In fact we take those bits (inline, lifetime and length) and keep it as
+      // part of key derivation.
+      // We also ignore the fact that key is a key that is base64 encoded of a
+      // particular length. We simply take it to the key derivation function.
+      // (SrtpTransport::ParseKeyParams takes care of parsing if you need it).
+      //
+      // Technically, we are also not following rfc4568, which requires us to
+      // send and answer with the key that we chose. In practice, for media
+      // transport, current approach should be sufficient.
+      std::unique_ptr<rtc::KeyDerivation> key_derivation =
+          rtc::KeyDerivation::Create(rtc::KeyDerivationAlgorithm::HKDF_SHA256);
+      std::string derivator = "MediaTransportDerivation";
+      constexpr int kDerivedKeyByteSize = 32;
+      absl::optional<rtc::ZeroOnFreeBuffer<uint8_t>> key =
+          key_derivation->DeriveKey(
+              rtc::ArrayView<const uint8_t>(
+                  reinterpret_cast<const uint8_t*>(
+                      selected_crypto_for_media_transport.value()
+                          .key_params.data()),
+                  selected_crypto_for_media_transport.value()
+                      .key_params.size()),
+              rtc::ArrayView<const uint8_t>(),
+              rtc::ArrayView<const uint8_t>(
+                  reinterpret_cast<const uint8_t*>(derivator.data()),
+                  derivator.size()),
+              kDerivedKeyByteSize);
 
-    media_transport = std::move(media_transport_result.value());
+      // We want to crash the app if we don't have a key, and not silently fall
+      // back to the unsecure communication.
+      RTC_CHECK(key.has_value());
+      MediaTransportSettings settings;
+      settings.is_caller = local;
+      settings.pre_shared_key =
+          std::string(reinterpret_cast<const char*>(key.value().data()),
+                      key.value().size());
+      auto media_transport_result =
+          config_.media_transport_factory->CreateMediaTransport(
+              rtp_dtls_transport->ice_transport(), network_thread_, settings);
+
+      // TODO(sukhanov): Proper error handling.
+      RTC_CHECK(media_transport_result.ok());
+
+      media_transport = std::move(media_transport_result.value());
+    }
   }
 
   // TODO(sukhanov): Do not create RTP/RTCP transports if media transport is

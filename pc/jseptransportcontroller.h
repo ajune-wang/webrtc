@@ -355,6 +355,15 @@ class JsepTransportController : public sigslot::has_slots<> {
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransportController);
 };
 
+// There may be multiple cryptos in the crypto section.
+// Some media transports use single crypto for entire connection, while some
+// others (e.g. RTP) can, in future, use multiple cryptos for different
+// streams. At this point media transport does not accept choices of different
+// cryptos -- all it wants to know is the preshared key to use for the
+// connection.
+absl::optional<cricket::CryptoParams> SelectBestCryptoForMediaTransport(
+    const std::vector<cricket::CryptoParams>& cryptos);
+
 }  // namespace webrtc
 
 #endif  // PC_JSEPTRANSPORTCONTROLLER_H_

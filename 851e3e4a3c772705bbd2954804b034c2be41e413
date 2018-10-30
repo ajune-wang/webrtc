@@ -166,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "a7acd88d_3a943d84",
+        "filename": "rtc_base/openssl_key_derivation_hkdf.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T21:20:34Z",
+      "side": 1,
+      "message": "Up to you: alternatively, you could inline the value of these constants in the header, if that makes it easier to read the class definition, i.e., static const size_t kMinKeyByteSize \u003d 16",
+      "parentUuid": "f01adb5d_836d325c",
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82356488_5c73fb9f",
         "filename": "rtc_base/openssl_key_derivation_hkdf_unittest.cc",
         "patchSetId": 6

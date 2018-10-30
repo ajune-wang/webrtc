@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9def3db5_2b9d74ac",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T22:15:32Z",
+      "side": 1,
+      "message": "Not in a way that\u0027s compatible with SCTP.  SCTP encodes this in send info\u0027s payload protocol identifier, rather than in the payload:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/sctp/sctptransport.cc?l\u003d525\u0026rcl\u003d3b149e4be88059c853cdfc1940d006e5fe456b32\n\nhttps://tools.ietf.org/html/draft-ietf-rtcweb-data-channel-13#section-8\n\nI think we need to leave it up to each protocol exactly how to handle the type.",
+      "parentUuid": "40cfb755_8712bf87",
+      "range": {
+        "startLine": 233,
+        "startChar": 27,
+        "endLine": 233,
+        "endChar": 28
+      },
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e6fa124_14e05170",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a7a409_9bd8418f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T22:15:32Z",
+      "side": 1,
+      "message": "Done.\n\nYes, channel_id can be reused.  I think we need to know about closing, because the standards require us to flush all pending transmissions before releasing the channel id.  So the transport needs to finish pending transmissions and then call back to the application for \"channel closed\" when everything has been released.\n\nOn the other hand, I think we can get away with not having an open method, because WebRTC already prevents channel id collisions at a higher layer.  We can implicitly open a channel the first time a message is sent, as long as the same channel id isn\u0027t currently closing.\n\nWebRTC does send opaque control messages to open channels, but not to close them.  (And it only sends the open message if in-band negotiation is required.)  It relies on SCTP\u0027s stream reset to close channels.",
+      "parentUuid": "3e6fa124_14e05170",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "172e5732_e1cefc67",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T22:15:32Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "05663f5b_88495c60",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35331915_b572a31c",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4
@@ -91,6 +151,24 @@
       "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "072b9de3_ea29b2d4",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T22:15:32Z",
+      "side": 1,
+      "message": "The application gives webrtc a CopyOnWriteBuffer, and that\u0027s what webrtc passes to SCTP.  Unfortunately, at that layer it\u0027s a const reference so it can\u0027t be moved.\n\nIf we make webrtc copy it into a moveable type outside media transport, we\u0027re optimizing for one implementation.  I think std::string would be easiest for the QUIC media transport to consume, but only due to the way we serialize it.  If we did serialization differently we\u0027d want something else--probably just a unique_ptr\u003cchar[]\u003e.  Converting between string and array requires another copy.  So I think we should just take the buffer without copying and let each implementation handle it however is most convenient.",
+      "parentUuid": "35331915_b572a31c",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

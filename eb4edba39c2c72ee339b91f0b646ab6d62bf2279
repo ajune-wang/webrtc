@@ -117,6 +117,23 @@
     },
     {
       "key": {
+        "uuid": "5fcaf8e9_0b40b04d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T18:38:13Z",
+      "side": 1,
+      "message": "If implementation of this API will just check channel_id, so we need it? It adds extra state, which we do not have for audio and video.",
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d643331d_c64a5205",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -157,6 +174,23 @@
         "endLine": 335,
         "endChar": 30
       },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b4e888c_8fae836a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T18:38:13Z",
+      "side": 1,
+      "message": "For audio and video APIs, channel_id is passed as a separate parameter. Why not to have similar interface here?",
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "3e6fa124_14e05170",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T20:34:35Z",
+      "side": 1,
+      "message": "Nit. Clarify that \"same\" data channel is defined as having the same channel_id.\n\nCan channel_id be reused if new channel is opened? If yes, MediaTransport should be aware of closing / opening (this is related to my other question if opening / closing can be transmitted as opaque control messages).",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e296fda1_cb1958a7",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4

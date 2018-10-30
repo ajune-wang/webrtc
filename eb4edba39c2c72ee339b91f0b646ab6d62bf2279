@@ -495,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "2d38fff7_a1108483",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T20:03:58Z",
+      "side": 1,
+      "message": "I was asking for my own benefits. Can we state the above in the comment?",
+      "parentUuid": "2ea6bd68_e7ec2819",
+      "range": {
+        "startLine": 344,
+        "startChar": 9,
+        "endLine": 344,
+        "endChar": 20
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6b0c492_ec31c700",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -612,6 +636,30 @@
       "side": 1,
       "message": "I\u0027m not sure there\u0027s any reason to specify that.  You don\u0027t need to have a channel open to receive callbacks (the peer could send you an open message), so there\u0027s not much benefit to requiring them to be closed.  You could miss messages either way.",
       "parentUuid": "931dea40_470e7a10",
+      "range": {
+        "startLine": 352,
+        "startChar": 15,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6b2bc37_066b8d3b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T20:03:58Z",
+      "side": 1,
+      "message": "got it.\n\nI am somewhat concerned that DataTransportInterface does not have an explicit .Connect() method\n-- instead we rely on \u0027SetCallback\u0027 to call immediately with the current state.\n\nI think it would only be natural to first set the DataSink, and then trigger .Connect(), instead of first triggering .Connect() in the constructor and then setting sinks.\n\nBut this is a bigger discussion.",
+      "parentUuid": "cecd6168_e28c15f7",
       "range": {
         "startLine": 352,
         "startChar": 15,

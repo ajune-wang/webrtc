@@ -41,19 +41,21 @@ bool Limit(int* value, int min, int max) {
 }  // namespace
 
 EchoCanceller3Config::EchoCanceller3Config() = default;
-EchoCanceller3Config::EchoCanceller3Config(const EchoCanceller3Config& e) =
+EchoCanceller3Config::EchoCanceller3Config(const EchoCanceller3Config&) =
     default;
 EchoCanceller3Config::Delay::Delay() = default;
-EchoCanceller3Config::Delay::Delay(const EchoCanceller3Config::Delay& e) =
+EchoCanceller3Config::Delay::Delay(const EchoCanceller3Config::Delay&) =
     default;
-
+EchoCanceller3Config::Filter::Filter() = default;
+EchoCanceller3Config::Filter::Filter(const EchoCanceller3Config::Filter&) =
+    default;
 EchoCanceller3Config::EchoModel::EchoModel() = default;
 EchoCanceller3Config::EchoModel::EchoModel(
-    const EchoCanceller3Config::EchoModel& e) = default;
+    const EchoCanceller3Config::EchoModel&) = default;
 
 EchoCanceller3Config::Suppressor::Suppressor() = default;
 EchoCanceller3Config::Suppressor::Suppressor(
-    const EchoCanceller3Config::Suppressor& e) = default;
+    const EchoCanceller3Config::Suppressor&) = default;
 
 EchoCanceller3Config::Suppressor::MaskingThresholds::MaskingThresholds(
     float enr_transparent,
@@ -64,7 +66,7 @@ EchoCanceller3Config::Suppressor::MaskingThresholds::MaskingThresholds(
       emr_transparent(emr_transparent) {}
 EchoCanceller3Config::Suppressor::Suppressor::MaskingThresholds::
     MaskingThresholds(
-        const EchoCanceller3Config::Suppressor::MaskingThresholds& e) = default;
+        const EchoCanceller3Config::Suppressor::MaskingThresholds&) = default;
 
 EchoCanceller3Config::Suppressor::Tuning::Tuning(MaskingThresholds mask_lf,
                                                  MaskingThresholds mask_hf,
@@ -75,7 +77,7 @@ EchoCanceller3Config::Suppressor::Tuning::Tuning(MaskingThresholds mask_lf,
       max_inc_factor(max_inc_factor),
       max_dec_factor_lf(max_dec_factor_lf) {}
 EchoCanceller3Config::Suppressor::Tuning::Tuning(
-    const EchoCanceller3Config::Suppressor::Tuning& e) = default;
+    const EchoCanceller3Config::Suppressor::Tuning&) = default;
 
 bool EchoCanceller3Config::Validate(EchoCanceller3Config* config) {
   RTC_DCHECK(config);

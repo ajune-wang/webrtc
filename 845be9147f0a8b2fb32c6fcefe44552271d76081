@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbd35c47_921d479a",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-10-30T08:46:45Z",
+      "side": 1,
+      "message": "A final question before leaving this, what do you think about turning extensions_ into an absl::optional\u003cExtensionManager\u003e ?",
+      "range": {
+        "startLine": 64,
+        "startChar": 6,
+        "endLine": 64,
+        "endChar": 17
+      },
+      "revId": "845be9147f0a8b2fb32c6fcefe44552271d76081",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08a26641_66da81bd",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "-And +Remove",
+      "range": {
+        "startLine": 132,
+        "startChar": 5,
+        "endLine": 132,
+        "endChar": 10
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47216e18_46172fad",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "Why is this method not returning void?",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 11
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed426bf_989cfbe7",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "Are these only recovered by FEC, or are they any recovered packets?",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 49
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0464d692_351251a5",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "Why did we add it to the nack list to begin with if the NackModule already knew about this packet? Shouldn\u0027t we remove packets from the nack list whenever we notify the NackModule about them instead of keeping track of them in the recovered_list_?",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 32
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3f8fa7_0d99ee39",
+        "filename": "modules/video_coding/nack_module.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32b2917b_c6e1efd7",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-10-30T10:16:33Z",
+      "side": 1,
+      "message": "I don\u0027t really get why we have to handle normal packets and recovered packets in different ways?",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 5
+      },
+      "revId": "660de6a1ad94058d27862391797d32244404e9ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

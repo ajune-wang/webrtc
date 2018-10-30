@@ -46,6 +46,29 @@
       "revId": "58a8d6b2d20f087800c930fdaf61553552abcd82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2075a5a_8c44ddd8",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-30T16:11:28Z",
+      "side": 1,
+      "message": "Reading the TODO, I\u0027m not sure what suppose to be done here.\nInstead it might make sense to delete 2 lines above.\nor describe what can be done: \u0027Calculate RTT of receiver-only audio channels/\nMake RTT caclulated by audio senders available to audio receivers/\nmay be something else, more generic description that hack to provide rtt to receive channels should be avoided or motivated.",
+      "range": {
+        "startLine": 507,
+        "startChar": 5,
+        "endLine": 507,
+        "endChar": 18
+      },
+      "revId": "58a8d6b2d20f087800c930fdaf61553552abcd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "e296fda1_cb1958a7",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T20:28:11Z",
+      "side": 1,
+      "message": "What is the difference between Closing and Closed? Should \"Closing\" be simply part of control message? Why MediaTransport should be aware of it?",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35331915_b572a31c",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4

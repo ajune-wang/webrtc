@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e62cc6d9_96ad4c13",
+        "filename": "rtc_base/openssl_key_derivation_hkdf.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T20:39:06Z",
+      "side": 1,
+      "message": "should this be 16 or 32? I am seeing 16(secret)+14(salt) as the secret.size() in default sdes setting",
+      "revId": "df78a8b0bb240a27b014ab28c5f33596e65ee5a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -243,6 +243,23 @@
     },
     {
       "key": {
+        "uuid": "f6b0c492_ec31c700",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T18:41:18Z",
+      "side": 1,
+      "message": "Why you need default implementation of data channel APIs?",
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "931dea40_470e7a10",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3

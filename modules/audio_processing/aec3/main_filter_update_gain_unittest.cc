@@ -59,7 +59,9 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   ShadowFilterUpdateGain shadow_gain(
       config.filter.shadow, config.filter.config_change_duration_blocks);
   MainFilterUpdateGain main_gain(config.filter.main,
-                                 config.filter.config_change_duration_blocks);
+                                 config.filter.config_change_duration_blocks,
+                                 config.filter.num_error_comparison_blocks,
+                                 config.filter.convergence_threshold);
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<float> y(kBlockSize, 0.f);
@@ -202,7 +204,9 @@ TEST(MainFilterUpdateGain, NullDataOutputGain) {
   RenderSignalAnalyzer analyzer(EchoCanceller3Config{});
   SubtractorOutput output;
   MainFilterUpdateGain gain(config.filter.main,
-                            config.filter.config_change_duration_blocks);
+                            config.filter.config_change_duration_blocks,
+                            config.filter.num_error_comparison_blocks,
+                            config.filter.convergence_threshold);
   std::array<float, kFftLengthBy2Plus1> render_power;
   render_power.fill(0.f);
   EXPECT_DEATH(

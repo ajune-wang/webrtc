@@ -33,15 +33,26 @@ constexpr int kPoorExcitationCounterInitial = 1000;
 
 int MainFilterUpdateGain::instance_count_ = 0;
 
+MainFilterUpdateGain::MainFilterUpdateGain(const EchoCanceller3Config& config)
+    : MainFilterUpdateGain(config.filter.main_initial,
+                           config.filter.config_change_duration_blocks,
+                           config.filter.num_error_comparison_blocks,
+                           config.filter.convergence_threshold) {}
+
 MainFilterUpdateGain::MainFilterUpdateGain(
-    const EchoCanceller3Config::Filter::MainConfiguration& config,
-    size_t config_change_duration_blocks)
+    const EchoCanceller3Config::Filter::MainConfiguration& config_main,
+    size_t config_change_duration_blocks,
+    size_t num_error_comparison_blocks,
+    float convergence_threshold)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
       config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)),
-      poor_excitation_counter_(kPoorExcitationCounterInitial) {
-  SetConfig(config, true);
+      poor_excitation_counter_(kPoorExcitationCounterInitial),
+      E2_shadow_smoother_(kFftLengthBy2Plus1, num_error_comparison_blocks),
+      E2_main_smoother_(kFftLengthBy2Plus1, num_error_comparison_blocks),
+      convergence_threshold_(convergence_threshold) {
+  SetConfig(config_main, true);
   H_error_.fill(kHErrorInitial);
   RTC_DCHECK_LT(0, config_change_duration_blocks_);
   one_by_config_change_duration_blocks_ = 1.f / config_change_duration_blocks_;
@@ -122,11 +133,17 @@ void MainFilterUpdateGain::Compute(
   }
 
   // H_error = H_error + factor * erl.
+  std::array<float, kFftLengthBy2Plus1> E2_shadow_avg;
+  std::array<float, kFftLengthBy2Plus1> E2_main_avg;
+  E2_shadow_smoother_.Average(E2_shadow, E2_shadow_avg);
+  E2_main_smoother_.Average(E2_main, E2_main_avg);
   std::array<float, kFftLengthBy2Plus1> H_error_increase;
-  std::transform(E2_shadow.begin(), E2_shadow.end(), E2_main.begin(),
-                 H_error_increase.begin(), [&](float a, float b) {
-                   return a >= b ? current_config_.leakage_converged
-                                 : current_config_.leakage_diverged;
+  std::transform(E2_shadow_avg.begin(), E2_shadow_avg.end(),
+                 E2_main_avg.begin(), H_error_increase.begin(),
+                 [&](float a, float b) {
+                   return a >= convergence_threshold_ * b
+                              ? current_config_.leakage_converged
+                              : current_config_.leakage_diverged;
                  });
   std::transform(erl.begin(), erl.end(), H_error_increase.begin(),
                  H_error_increase.begin(), std::multiplies<float>());

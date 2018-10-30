@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a9c83fea_630b99d9",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "nit (that I learned today)\n\nRTC_NOTREACHED();\nreturn false;",
+      "range": {
+        "startLine": 83,
+        "startChar": 9,
+        "endLine": 83,
+        "endChar": 14
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "975bd90d_6adedb79",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -25,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "b735c510_9f3f8ef5",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "and if negative? ignored? if so, consider optional.",
+      "range": {
+        "startLine": 253,
+        "startChar": 7,
+        "endLine": 253,
+        "endChar": 69
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d9bfcbe1_bc937312",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -41,6 +87,167 @@
         "startChar": 0,
         "endLine": 261,
         "endChar": 22
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d57c168_ffcde512",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "pls document when can \u0027closing\u0027 change to \u0027closed\u0027. i.e. when all of the bytes are flushed, etc.\n\nAlso, please document what is and isn\u0027t allowed in \u0027closing\u0027 state (i.e. you cannot invoke any more writes, but you can still get OnDataReceived callbacks).",
+      "range": {
+        "startLine": 277,
+        "startChar": 45,
+        "endLine": 277,
+        "endChar": 80
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d643331d_c64a5205",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "should we instead return RTCError with an error message?",
+      "range": {
+        "startLine": 333,
+        "startChar": 17,
+        "endLine": 333,
+        "endChar": 35
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d8761b4_d5b208a8",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "do we require SetDataSink to be called before OpenDataChannel? if so, pls document.",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 335,
+        "endChar": 30
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c1e7628_fc42a188",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "is there a size limit? if so, please document.",
+      "range": {
+        "startLine": 341,
+        "startChar": 54,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7649c6d_4a8564f8",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "once closed, would we stop receiving callbacks?",
+      "range": {
+        "startLine": 344,
+        "startChar": 9,
+        "endLine": 344,
+        "endChar": 20
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "931dea40_470e7a10",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "when setting datasink to nullptr, do we want to require to have all channels closed?",
+      "range": {
+        "startLine": 352,
+        "startChar": 15,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1361834_24893e3f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-10-30T16:50:07Z",
+      "side": 1,
+      "message": "this is somewhat unusual, as this passes ownership of the sink to the MediaTransport. Since the reader might not have an access to design doc or full picture, please document the ownership.",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 60
       },
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

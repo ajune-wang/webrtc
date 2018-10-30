@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "486c1cb1_6cca97a4",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-10-30T17:00:14Z",
+      "side": 1,
+      "message": "I would appreciate any guidance on handling simulcast. If stream 0 cannot have temporal layering, what is the appropriate way to enable and observe temporal layering? How are simulcast and temporal layering related?\nSo far, I\u0027ve been using peerconnection_client to test my updates. If I need to use simulcast to properly use temporal layering, how do I test/debug simulcast streams?",
+      "parentUuid": "672f1ec6_1ce1d0d6",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c10bf74d_9e86f558",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6

@@ -73,7 +73,7 @@ std::unique_ptr<FixedGainController> CreateFixedGainController(
 
 }  // namespace
 
-TEST(AutomaticGainController2FixedDigital, CreateUse) {
+TEST(GainController2FixedDigital, CreateUse) {
   const int kSampleRate = 44000;
   auto test_data_dumper = GetApmDataDumper();
   std::unique_ptr<FixedGainController> fixed_gc = CreateFixedGainController(
@@ -86,7 +86,7 @@ TEST(AutomaticGainController2FixedDigital, CreateUse) {
   EXPECT_LT(kInputLevelLinear, channel[0]);
 }
 
-TEST(AutomaticGainController2FixedDigital, CheckSaturationBehaviorWithLimiter) {
+TEST(GainController2FixedDigital, CheckSaturationBehaviorWithLimiter) {
   const float kInputLevel = 32767.f;
   const size_t kNumFrames = 5;
   const size_t kSampleRate = 42000;
@@ -126,7 +126,7 @@ TEST(AutomaticGainController2FixedDigital, CheckSaturationBehaviorWithLimiter) {
   }
 }
 
-TEST(AutomaticGainController2FixedDigital,
+TEST(GainController2FixedDigital,
      CheckSaturationBehaviorWithLimiterSingleSample) {
   const float kInputLevel = 32767.f;
   const size_t kNumFrames = 5;
@@ -167,7 +167,7 @@ TEST(AutomaticGainController2FixedDigital,
   }
 }
 
-TEST(AutomaticGainController2FixedDigital, GainShouldChangeOnSetGain) {
+TEST(GainController2FixedDigital, GainShouldChangeOnSetGain) {
   constexpr float kInputLevel = 1000.f;
   constexpr size_t kNumFrames = 5;
   constexpr size_t kSampleRate = 8000;
@@ -194,8 +194,7 @@ TEST(AutomaticGainController2FixedDigital, GainShouldChangeOnSetGain) {
       kInputLevel * 10);
 }
 
-TEST(AutomaticGainController2FixedDigital,
-     SetGainShouldBeFastAndTimeInvariant) {
+TEST(GainController2FixedDigital, SetGainShouldBeFastAndTimeInvariant) {
   // Number of frames required for the fixed gain controller to adapt on the
   // input signal when the gain changes.
   constexpr size_t kNumFrames = 5;
@@ -225,7 +224,7 @@ TEST(AutomaticGainController2FixedDigital,
   EXPECT_EQ(output_level_pre, output_level_post);
 }
 
-TEST(AutomaticGainController2FixedDigital, RegionHistogramIsUpdated) {
+TEST(GainController2FixedDigital, RegionHistogramIsUpdated) {
   constexpr size_t kSampleRate = 8000;
   constexpr float kGainDb = 0.f;
   constexpr float kInputLevel = 1000.f;

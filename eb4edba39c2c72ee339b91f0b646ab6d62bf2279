@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "975bd90d_6adedb79",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-30T10:29:05Z",
+      "side": 1,
+      "message": "The parameters other than the channel_id, are they expected to vary per message (on the same channel)?",
+      "range": {
+        "startLine": 243,
+        "startChar": 7,
+        "endLine": 243,
+        "endChar": 21
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9bfcbe1_bc937312",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-30T10:29:05Z",
+      "side": 1,
+      "message": "Comments don\u0027t explain what the default value, -1, means. If no limit is intended, consider using std::numeric_limits\u003cint\u003e::max() rather than -1.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 22
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

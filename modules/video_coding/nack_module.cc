@@ -16,6 +16,7 @@
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -33,9 +34,12 @@ const int kNumReorderingBuckets = 10;
 NackModule::NackInfo::NackInfo()
     : seq_num(0), send_at_seq_num(0), sent_at_time(-1), retries(0) {}
 
-NackModule::NackInfo::NackInfo(uint16_t seq_num, uint16_t send_at_seq_num)
+NackModule::NackInfo::NackInfo(uint16_t seq_num,
+                               uint16_t send_at_seq_num,
+                               int64_t created_at_time)
     : seq_num(seq_num),
       send_at_seq_num(send_at_seq_num),
+      created_at_time(-1),
       sent_at_time(-1),
       retries(0) {}
 
@@ -108,11 +112,31 @@ int NackModule::OnReceivedPacket(uint16_t seq_num, bool is_keyframe) {
   return 0;
 }
 
+void NackModule::OnRecoveredPacket(uint16_t seq_num, bool is_keyframe) {
+  rtc::CritScope lock(&crit_);
+  recovered_list_.insert(seq_num);
+  // Remove old ones so we don't accumulate recovered packets.
+  auto it = recovered_list_.lower_bound(seq_num - kMaxPacketAge);
+  if (it != recovered_list_.begin())
+    recovered_list_.erase(recovered_list_.begin(), it);
+
+  // Keep track of new keyframes.
+  if (is_keyframe)
+    keyframe_list_.insert(seq_num);
+
+  // And remove old ones so we don't accumulate keyframes.
+  it = keyframe_list_.lower_bound(seq_num - kMaxPacketAge);
+  if (it != keyframe_list_.begin())
+    keyframe_list_.erase(keyframe_list_.begin(), it);
+}
+
 void NackModule::ClearUpTo(uint16_t seq_num) {
   rtc::CritScope lock(&crit_);
   nack_list_.erase(nack_list_.begin(), nack_list_.lower_bound(seq_num));
   keyframe_list_.erase(keyframe_list_.begin(),
                        keyframe_list_.lower_bound(seq_num));
+  recovered_list_.erase(recovered_list_.begin(),
+                        recovered_list_.lower_bound(seq_num));
 }
 
 void NackModule::UpdateRtt(int64_t rtt_ms) {
@@ -124,6 +148,7 @@ void NackModule::Clear() {
   rtc::CritScope lock(&crit_);
   nack_list_.clear();
   keyframe_list_.clear();
+  recovered_list_.clear();
 }
 
 int64_t NackModule::TimeUntilNextProcess() {
@@ -200,7 +225,11 @@ void NackModule::AddPacketsToNack(uint16_t seq_num_start,
   }
 
   for (uint16_t seq_num = seq_num_start; seq_num != seq_num_end; ++seq_num) {
-    NackInfo nack_info(seq_num, seq_num + WaitNumberOfPackets(0.5));
+    // Do not send nack for FEC and RTX recovered packets
+    if (recovered_list_.find(seq_num) != recovered_list_.end())
+      continue;
+    NackInfo nack_info(seq_num, seq_num + WaitNumberOfPackets(0.5),
+                       clock_->TimeInMilliseconds());
     RTC_DCHECK(nack_list_.find(seq_num) == nack_list_.end());
     nack_list_[seq_num] = nack_info;
   }
@@ -213,22 +242,12 @@ std::vector<uint16_t> NackModule::GetNackBatch(NackFilterOptions options) {
   std::vector<uint16_t> nack_batch;
   auto it = nack_list_.begin();
   while (it != nack_list_.end()) {
-    if (consider_seq_num && it->second.sent_at_time == -1 &&
-        AheadOrAt(newest_seq_num_, it->second.send_at_seq_num)) {
-      nack_batch.emplace_back(it->second.seq_num);
-      ++it->second.retries;
-      it->second.sent_at_time = now_ms;
-      if (it->second.retries >= kMaxNackRetries) {
-        RTC_LOG(LS_WARNING) << "Sequence number " << it->second.seq_num
-                            << " removed from NACK list due to max retries.";
-        it = nack_list_.erase(it);
-      } else {
-        ++it;
-      }
-      continue;
-    }
-
-    if (consider_timestamp && it->second.sent_at_time + rtt_ms_ <= now_ms) {
+    bool nack_on_rtt_passed = it->second.sent_at_time + rtt_ms_ <= now_ms;
+    bool nack_on_seq_num_passed =
+        it->second.sent_at_time == -1 &&
+        AheadOrAt(newest_seq_num_, it->second.send_at_seq_num);
+    if ((consider_seq_num && nack_on_seq_num_passed) ||
+        (consider_timestamp && nack_on_rtt_passed)) {
       nack_batch.emplace_back(it->second.seq_num);
       ++it->second.retries;
       it->second.sent_at_time = now_ms;

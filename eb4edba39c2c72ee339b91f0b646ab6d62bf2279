@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "46b0826c_d502be33",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c83fea_630b99d9",
+      "range": {
+        "startLine": 83,
+        "startChar": 9,
+        "endLine": 83,
+        "endChar": 14
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "975bd90d_6adedb79",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caabf525_f6f4e2ad",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Yes.  The application-level channel has a fixed configuration, but control messages are always sent reliably and in-order.  WebRTC also sends application messages reliably and in-order after sending the open message and before negotiation is acked.",
+      "parentUuid": "975bd90d_6adedb79",
+      "range": {
+        "startLine": 243,
+        "startChar": 7,
+        "endLine": 243,
+        "endChar": 21
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "35171343_1b8a3765",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b735c510_9f3f8ef5",
+      "range": {
+        "startLine": 253,
+        "startChar": 7,
+        "endLine": 253,
+        "endChar": 69
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9bfcbe1_bc937312",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71308e8a_71ecde9a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "I like Peter\u0027s idea of making these optional.  Now they must be positive if they\u0027re set.",
+      "parentUuid": "d9bfcbe1_bc937312",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 22
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "fe0d833a_2ab0ba13",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d57c168_ffcde512",
+      "range": {
+        "startLine": 277,
+        "startChar": 45,
+        "endLine": 277,
+        "endChar": 80
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fcaf8e9_0b40b04d",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -131,6 +251,24 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff04823c_777cc89a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Yeah, we actually don\u0027t need this.  Probably simpler to leave it out.",
+      "parentUuid": "5fcaf8e9_0b40b04d",
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "fd08717f_6deaea3a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d643331d_c64a5205",
+      "range": {
+        "startLine": 333,
+        "startChar": 17,
+        "endLine": 333,
+        "endChar": 35
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d8761b4_d5b208a8",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "a8b77be9_db338b0e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d8761b4_d5b208a8",
+      "range": {
+        "startLine": 335,
+        "startChar": 15,
+        "endLine": 335,
+        "endChar": 30
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b4e888c_8fae836a",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -194,6 +380,24 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c3c2501_fd360d25",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b4e888c_8fae836a",
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "1e4ccfc8_d27c084f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c1e7628_fc42a188",
+      "range": {
+        "startLine": 341,
+        "startChar": 54,
+        "endLine": 341,
+        "endChar": 60
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7649c6d_4a8564f8",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "2ea6bd68_e7ec2819",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "We can\u0027t specify that.  It\u0027s possible for the remote peer to re-open the channel after it\u0027s closed (by sending a new open message with the same channel id).",
+      "parentUuid": "a7649c6d_4a8564f8",
+      "range": {
+        "startLine": 344,
+        "startChar": 9,
+        "endLine": 344,
+        "endChar": 20
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6b0c492_ec31c700",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -257,6 +509,24 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a421dc7_af497ccb",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "The implementation doesn\u0027t have the methods yet, and isn\u0027t in the WebRTC repository, so we can\u0027t add a pure virtual function in one cl.\n\nAlso, because the functions work with newly defined types (params, callback class, etc), we cannot add them to the subclass first--there\u0027s no way to match the type signatures for SetDataSink and SendData without first landing this cl.",
+      "parentUuid": "f6b0c492_ec31c700",
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -303,6 +573,54 @@
       "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c451bffb_8ac4901b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "Good catch, I actually don\u0027t want to pass ownership.",
+      "parentUuid": "f1361834_24893e3f",
+      "range": {
+        "startLine": 352,
+        "startChar": 28,
+        "endLine": 352,
+        "endChar": 60
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cecd6168_e28c15f7",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-30T19:39:53Z",
+      "side": 1,
+      "message": "I\u0027m not sure there\u0027s any reason to specify that.  You don\u0027t need to have a channel open to receive callbacks (the peer could send you an open message), so there\u0027s not much benefit to requiring them to be closed.  You could miss messages either way.",
+      "parentUuid": "931dea40_470e7a10",
+      "range": {
+        "startLine": 352,
+        "startChar": 15,
+        "endLine": 352,
+        "endChar": 26
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

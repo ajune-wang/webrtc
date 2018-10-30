@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84cf5948_bcc2c5c2",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-30T08:45:52Z",
+      "side": 1,
+      "message": "Is this check really needed? Is there plans to make CreateBuiltinVideoBitrateAllocatorFactory sometimes not return a value? Otherwise I\u0027d suggest skipping this check.",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 40
+      },
+      "revId": "d21599f2f89cf1d0724db239f18f5e9364977cb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

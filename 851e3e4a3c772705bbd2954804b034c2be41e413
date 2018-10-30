@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe1c3c6_4cee7c3c",
+        "filename": "rtc_base/key_derivation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "nit: // static",
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e02509c5_39b9a1e0",
+        "filename": "rtc_base/key_derivation.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED()",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b12b1d_75c7a2da",
+        "filename": "rtc_base/openssl_key_derivation_hkdf.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "nit: or more than kMaxKeyByteSize?",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 4
+      },
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0b79193_08b62e0f",
+        "filename": "rtc_base/openssl_key_derivation_hkdf.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "Do you need these constants elsewhere? If not, better scoped to an anonymous namespace in the .cc.",
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82356488_5c73fb9f",
+        "filename": "rtc_base/openssl_key_derivation_hkdf_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "nit: sys header to the front with a blank line",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 12,
+        "endChar": 8
+      },
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccd7214_6686d54f",
+        "filename": "rtc_base/openssl_key_derivation_hkdf_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "nit: here and below, expected as the first arg",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 11
+      },
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1d809f3_963fdde1",
+        "filename": "rtc_base/openssl_key_derivation_hkdf_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-10-30T00:28:14Z",
+      "side": 1,
+      "message": "nit: period; also below",
+      "range": {
+        "startLine": 32,
+        "startChar": 37,
+        "endLine": 32,
+        "endChar": 42
+      },
+      "revId": "851e3e4a3c772705bbd2954804b034c2be41e413",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

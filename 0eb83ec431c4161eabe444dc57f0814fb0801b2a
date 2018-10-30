@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a29ed19_b6a7b830",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-30T10:35:35Z",
+      "side": 1,
+      "message": "\"Don\u0027t trigger NACK when recovering packets out of order.\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0a88a3_1649475f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-30T10:35:35Z",
+      "side": 1,
+      "message": "Please make this change in another CL.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 78
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b06e2c56_ccc2ef7e",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-30T10:35:35Z",
+      "side": 1,
+      "message": "Why not void?",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 3
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae0f6804_086eebbb",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-10-30T10:35:35Z",
+      "side": 1,
+      "message": "I think it\u0027s easier to just check if the packet we trying to add to the |nack_list_| is already in the |recovered_list_|.",
+      "range": {
+        "startLine": 246,
+        "startChar": 4,
+        "endLine": 246,
+        "endChar": 36
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

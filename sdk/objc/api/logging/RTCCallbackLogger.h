@@ -15,6 +15,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^CallbackLoggerHandler)(NSString *message);
+typedef void (^CallbackWithSeverityLoggerHandler)(NSString *message,
+                                                  RTCLoggingSeverity loggingSeverity);
+
 // This class intercepts WebRTC logs and forwards them to a registered block.
 // This class is not threadsafe.
 RTC_OBJC_EXPORT
@@ -26,7 +30,8 @@ RTC_OBJC_EXPORT
 // The callback will be called on the same thread that does the logging, so
 // if the logging callback can be slow it may be a good idea to implement
 // dispatching to some other queue.
-- (void)start:(nullable void (^)(NSString*))callback;
+- (void)start:(nullable CallbackLoggerHandler)callback;
+- (void)startWithSeverity:(nullable CallbackWithSeverityLoggerHandler)callback;
 
 - (void)stop;
 

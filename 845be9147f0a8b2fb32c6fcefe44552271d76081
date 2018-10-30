@@ -22,6 +22,30 @@
       "revId": "845be9147f0a8b2fb32c6fcefe44552271d76081",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b546da69_e1abd164",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-10-30T09:13:24Z",
+      "side": 1,
+      "message": "I do not see a good reason for not having ExtensionManager,\ni.e. what would it mean it is nullopt?",
+      "parentUuid": "bbd35c47_921d479a",
+      "range": {
+        "startLine": 64,
+        "startChar": 6,
+        "endLine": 64,
+        "endChar": 17
+      },
+      "revId": "845be9147f0a8b2fb32c6fcefe44552271d76081",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

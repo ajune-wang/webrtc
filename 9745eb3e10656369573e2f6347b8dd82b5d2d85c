@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "05663f5b_88495c60",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T20:29:25Z",
+      "side": 1,
+      "message": "To clarify: if media transport should not be aware of channel states, opening / closing should be simply transmitted as control messages.",
+      "parentUuid": "e296fda1_cb1958a7",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35331915_b572a31c",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 4

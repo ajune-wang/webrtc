@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40cfb755_8712bf87",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T20:19:23Z",
+      "side": 1,
+      "message": "Can / should this be encoded in the message buffer?",
+      "range": {
+        "startLine": 233,
+        "startChar": 27,
+        "endLine": 233,
+        "endChar": 28
+      },
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35331915_b572a31c",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-10-30T20:19:23Z",
+      "side": 1,
+      "message": "How much we are saving by using CopyOnWriteBuffer vs movable string or const string\u0026? If there is copy involved going in/out anyway, I think it\u0027s better to use string and copy in the caller?\n\nCan CopyOnWriteBuffer take non-owned pieces for zero-copy string \u003d\u003e CopyOnWriteBuffer during OnDataReceived?",
+      "revId": "9745eb3e10656369573e2f6347b8dd82b5d2d85c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

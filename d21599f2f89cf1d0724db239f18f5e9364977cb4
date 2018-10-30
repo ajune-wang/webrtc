@@ -22,6 +22,30 @@
       "revId": "d21599f2f89cf1d0724db239f18f5e9364977cb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "648b20a8_3ae4e7cb",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-30T17:25:56Z",
+      "side": 1,
+      "message": "Not really. I just mirrored what we did for the encoder_factory_",
+      "parentUuid": "84cf5948_bcc2c5c2",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 40
+      },
+      "revId": "d21599f2f89cf1d0724db239f18f5e9364977cb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

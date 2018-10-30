@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7ac49969_cc16d856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3ca22b5_9a3a353c",
+      "range": {
+        "startLine": 9,
+        "startChar": 13,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e226cd0d_3631c0dd",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f909d18_8c9d6534",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e226cd0d_3631c0dd",
+      "range": {
+        "startLine": 12,
+        "startChar": 66,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "aa1f2f61_ae553353",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e161a8a_2283f9f8",
+      "range": {
+        "startLine": 13,
+        "startChar": 57,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f44fc4f5_8d79194e",
         "filename": "modules/video_coding/nack_module.cc",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e1d264_1e3d3db9",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f44fc4f5_8d79194e",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "9b74f1d3_930d777e",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5cf6a2c_7cb5ef13",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 50
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03d12da3_82ef7224",
         "filename": "modules/video_coding/nack_module.cc",
         "patchSetId": 7
@@ -160,6 +280,30 @@
       "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "782bd916_445552c2",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03d12da3_82ef7224",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 15
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "a132787c_03c0949b",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "568d85c2_8acdd39e",
+      "range": {
+        "startLine": 264,
+        "startChar": 46,
+        "endLine": 264,
+        "endChar": 47
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e61ff16_adfcf770",
         "filename": "modules/video_coding/nack_module.cc",
         "patchSetId": 7
@@ -197,6 +365,30 @@
       "writtenOn": "2018-10-30T09:16:56Z",
       "side": 1,
       "message": "Know it is not part of your change but the code repetition looks fishy.\n\nSomething like this should get rid of it:\nbool delay_timed_out \u003d now_ms - it-\u003esecond.created_at_time \u003e\u003d send_nack_delay_ms_;\nbool nack_on_rtt_passed \u003d  it-\u003esecond.sent_at_time + rtt_ms_ \u003c\u003d now_ms;\nbool nack_on_seq_num_passed \u003d it-\u003esecond.sent_at_time \u003d\u003d -1 \u0026\u0026 AheadOrAt(newest_seq_num_, it-\u003esecond.send_at_seq_num);\n\nif (consider_seq_num \u0026\u0026 delay_timed_out \u0026\u0026 (nack_on_rtt_passed || nack_on_seq_num_passed) {\n... everything in loop\n}",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 279,
+        "endChar": 70
+      },
+      "revId": "f5609af2b1501cc8f7f8c25ee1f475b1e3aba9bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f76c22_22881c77",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "good idea. updated this part.",
+      "parentUuid": "7e61ff16_adfcf770",
       "range": {
         "startLine": 278,
         "startChar": 4,

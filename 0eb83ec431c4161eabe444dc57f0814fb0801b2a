@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c701a373_8bee6dd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "I am not sure about that. The bug I am trying to fix is like that: \nMedia packet 1 - 4. 1 and 4 are protected by FEC packet A, 2 and 3 are protected by packet B.\n1. packet 1 arrives\n2. packet A arrives\n3. packet 4 gets recovered by packet 1 and packet A\n4. NACKs are sent for packets 2 and 3 (but shouldn\u0027t)\n5. packet 2 and 3 arrive",
+      "parentUuid": "7a29ed19_b6a7b830",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba0a88a3_1649475f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9287656e_371becce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba0a88a3_1649475f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 78
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "028f99dd_999104d0",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b06e2c56_ccc2ef7e",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 3
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae0f6804_086eebbb",
         "filename": "modules/video_coding/nack_module.cc",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-30T10:35:35Z",
       "side": 1,
       "message": "I think it\u0027s easier to just check if the packet we trying to add to the |nack_list_| is already in the |recovered_list_|.",
+      "range": {
+        "startLine": 246,
+        "startChar": 4,
+        "endLine": 246,
+        "endChar": 36
+      },
+      "revId": "0eb83ec431c4161eabe444dc57f0814fb0801b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f792c2d0_aece33b8",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-10-30T13:10:16Z",
+      "side": 1,
+      "message": "great idea",
+      "parentUuid": "ae0f6804_086eebbb",
       "range": {
         "startLine": 246,
         "startChar": 4,

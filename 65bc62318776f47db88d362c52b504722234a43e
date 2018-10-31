@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d12faf_5ffb5cef",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-10-31T16:03:04Z",
+      "side": 1,
+      "message": "nit: You can use |\u003d, which looks like a smiley.",
+      "revId": "65bc62318776f47db88d362c52b504722234a43e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3805b13f_dac8bb4a",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-10-31T16:03:04Z",
+      "side": 1,
+      "message": "Could you clarify the significance of this? E.g. this is used for the calculation of the \"new_combined_state\". Does that have a spec-correspondent? Why is a hack needed?",
+      "revId": "65bc62318776f47db88d362c52b504722234a43e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eeeb194_9352d18d",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-10-31T10:13:13Z",
+      "side": 1,
+      "message": "Can we use a member initialisation list here instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 24,
+        "endLine": 38,
+        "endChar": 39
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "717a502b_10790677",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-10-31T10:13:13Z",
+      "side": 1,
+      "message": "AFAIK this is not necessary. I know it\u0027s done above but I\u0027d prefer if you refactored that as well to not have an overridden dtor.",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34131091_0601eb0d",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-10-31T10:13:13Z",
+      "side": 1,
+      "message": "break, not return.",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f424e806_776fcd48",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-10-31T10:13:13Z",
+      "side": 1,
+      "message": "nit: why these brackets?",
+      "range": {
+        "startLine": 72,
+        "startChar": 30,
+        "endLine": 72,
+        "endChar": 31
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

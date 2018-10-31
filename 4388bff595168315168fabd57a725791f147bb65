@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2c7db92b_8f5a1293",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T18:23:47Z",
+      "side": 1,
+      "message": "They are not in api/ and this is.  It\u0027s a lot simpler to define new types directly in api/ than to move the ones that are defined in mediachannel.h.  I can file a cleanup item to merge these with the cricket:: structs if you\u0027d like.",
+      "parentUuid": "be94f8fd_b8ddd7dc",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 26
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4123e9ac_ff50b04a",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "4388bff595168315168fabd57a725791f147bb65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c52f340_e8d4b113",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T18:23:47Z",
+      "side": 1,
+      "message": "It\u0027s deprecated in cricket::SendDataParams and nothing sets or uses it.",
+      "parentUuid": "4123e9ac_ff50b04a",
+      "range": {
+        "startLine": 247,
+        "startChar": 3,
+        "endLine": 247,
+        "endChar": 13
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -115,6 +163,30 @@
       "revId": "4388bff595168315168fabd57a725791f147bb65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35df4900_cd4e7bb9",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T18:23:47Z",
+      "side": 1,
+      "message": "We\u0027ll reuse the signal from MediaTransportStateCallback for that.  When the state becomes kWritable, we\u0027ll signal \"ready to send\".",
+      "parentUuid": "7f9179e1_93060b6f",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 273,
+        "endChar": 21
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

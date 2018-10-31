@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce7153a0_537c4c5a",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-10-31T15:10:20Z",
+      "side": 1,
+      "message": "Will change. Please note VP8 and VP9 still use char.",
+      "parentUuid": "02d7e448_ffaed8ca",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "672f1ec6_1ce1d0d6",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6
@@ -223,6 +247,30 @@
       "writtenOn": "2018-10-25T09:09:27Z",
       "side": 1,
       "message": "num_temporal_layers? To be consistent with H264EncoderImpl::num_temporal_layers_ and CodecSpecificInfoVP9::num_spatial_layers.",
+      "range": {
+        "startLine": 66,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 30
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78349c92_cf7b6d5d",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-10-31T15:10:20Z",
+      "side": 1,
+      "message": "I agree that temporal_layer_count should be unnecessary. However, when testing with Chromium, there was an issue where the temporal layer id was set to zero, not 0xFF, and invalid frame marking extensions were being transmitted. So, this variable was added to guard against such interoperability errors.",
+      "parentUuid": "621ac5bf_5da75701",
       "range": {
         "startLine": 66,
         "startChar": 10,

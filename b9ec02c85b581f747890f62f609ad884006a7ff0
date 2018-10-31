@@ -46,6 +46,30 @@
       "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f18218d_29e4ca4b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-31T15:47:24Z",
+      "side": 1,
+      "message": "I think having this amount of shared code is a bad trade off to get line number info. Basically anyone debugging this code will want to read both, in case the bug is a typo in one of the implementations etc. If it\u0027s really required to know which of the functions originated the error you could add a string argument. For the continue issue you could return a bool. If you need to hold state over time a helper class might help.\n\nJust keeping one of the functions is also fine to me.",
+      "parentUuid": "545610e1_de8c5f20",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 6
+      },
+      "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

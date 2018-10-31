@@ -22,6 +22,30 @@
       "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "545610e1_de8c5f20",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-10-31T15:35:27Z",
+      "side": 1,
+      "message": "Yes.\n\nThe \"continue\"s can\u0027t really be placed in a helper function, and the log statements would lose the line information. The rest is a bunch of local variables. Basically, I think we would need a way to share state between the functions to avoid duplicating the code, and I don\u0027t think shared state is cleaner/easier to read.\n\nI was also considering removing the graph above, since I\u0027m not sure how useful it is.",
+      "parentUuid": "56b133e7_3ba1cc77",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 6
+      },
+      "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

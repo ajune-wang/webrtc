@@ -551,6 +551,10 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return pc()->ice_connection_state();
   }
 
+  webrtc::PeerConnectionInterface::PeerConnectionState peer_connection_state() {
+    return pc()->peer_connection_state();
+  }
+
   webrtc::PeerConnectionInterface::IceGatheringState ice_gathering_state() {
     return pc()->ice_gathering_state();
   }
@@ -1192,17 +1196,11 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
   }
 
   bool DtlsConnected() {
-    // TODO(deadbeef): kIceConnectionConnected currently means both ICE and DTLS
-    // are connected. This is an important distinction. Once we have separate
-    // ICE and DTLS state, this check needs to use the DTLS state.
-    return (callee()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionConnected ||
-            callee()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionCompleted) &&
-           (caller()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionConnected ||
-            caller()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionCompleted);
+    return callee()->peer_connection_state() ==
+               webrtc::PeerConnectionInterface::PeerConnectionState::
+                   kConnected &&
+           caller()->peer_connection_state() ==
+               webrtc::PeerConnectionInterface::PeerConnectionState::kConnected;
   }
 
   // When |event_log_factory| is null, the default implementation of the event
@@ -3567,7 +3565,7 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   // background.
   caller()->CreateAndSetAndSignalOffer();
 
-  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
+  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kDefaultTimeout);
 
   // Verify that the observer was notified of the intermediate transitions.
@@ -3596,13 +3594,13 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied";
-  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
+  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
                  caller()->ice_connection_state(), kDefaultTimeout);
 
   // Let ICE re-establish by removing the firewall rules.
   firewall()->ClearRules();
   RTC_LOG(LS_INFO) << "Firewall rules cleared";
-  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
+  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kDefaultTimeout);
 
   // According to RFC7675, if there is no response within 30 seconds then the
@@ -3613,7 +3611,7 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied again";
-  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
+  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
                  caller()->ice_connection_state(), kConsentTimeout);
 }
 
@@ -3716,7 +3714,7 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kMaxWaitForFramesMs);
-  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
                  callee()->ice_connection_state(), kMaxWaitForFramesMs);
 
   // Grab the ufrags/candidates again.

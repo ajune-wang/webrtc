@@ -12,8 +12,10 @@
 #define LOGGING_RTC_EVENT_LOG_ENCODER_RTC_EVENT_LOG_ENCODER_NEW_FORMAT_H_
 
 #include <deque>
+#include <map>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "api/array_view.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder.h"
@@ -98,6 +100,10 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
       rtc::ArrayView<const RtcEventRtcpPacketOutgoing*> batch,
       rtclog2::EventStream* event_stream);
   void EncodeRtpPacketIncoming(
+      const std::map<uint32_t, std::vector<const RtcEventRtpPacketIncoming*>>&
+          batch,
+      rtclog2::EventStream* event_stream);
+  void EncodeRtpPacketIncomingSingleSsrc(
       rtc::ArrayView<const RtcEventRtpPacketIncoming*> batch,
       rtclog2::EventStream* event_stream);
   void EncodeRtpPacketOutgoing(

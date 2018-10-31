@@ -603,7 +603,7 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
             logged_header.extension.hasTransmissionTimeOffset);
   if (logged_header.extension.hasTransmissionTimeOffset) {
     int32_t offset;
-    original_header.GetExtension<TransmissionOffset>(&offset);
+    ASSERT_TRUE(original_header.GetExtension<TransmissionOffset>(&offset));
     EXPECT_EQ(offset, logged_header.extension.transmissionTimeOffset);
   }
 
@@ -612,7 +612,7 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
             logged_header.extension.hasAbsoluteSendTime);
   if (logged_header.extension.hasAbsoluteSendTime) {
     uint32_t sendtime;
-    original_header.GetExtension<AbsoluteSendTime>(&sendtime);
+    ASSERT_TRUE(original_header.GetExtension<AbsoluteSendTime>(&sendtime));
     EXPECT_EQ(sendtime, logged_header.extension.absoluteSendTime);
   }
 
@@ -621,7 +621,7 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
             logged_header.extension.hasTransportSequenceNumber);
   if (logged_header.extension.hasTransportSequenceNumber) {
     uint16_t seqnum;
-    original_header.GetExtension<TransportSequenceNumber>(&seqnum);
+    ASSERT_TRUE(original_header.GetExtension<TransportSequenceNumber>(&seqnum));
     EXPECT_EQ(seqnum, logged_header.extension.transportSequenceNumber);
   }
 
@@ -631,7 +631,8 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
   if (logged_header.extension.hasAudioLevel) {
     bool voice_activity;
     uint8_t audio_level;
-    original_header.GetExtension<AudioLevel>(&voice_activity, &audio_level);
+    ASSERT_TRUE(original_header.GetExtension<AudioLevel>(&voice_activity,
+                                                         &audio_level));
     EXPECT_EQ(voice_activity, logged_header.extension.voiceActivity);
     EXPECT_EQ(audio_level, logged_header.extension.audioLevel);
   }
@@ -641,7 +642,7 @@ void VerifyLoggedRtpHeader(const RtpPacket& original_header,
             logged_header.extension.hasVideoRotation);
   if (logged_header.extension.hasVideoRotation) {
     uint8_t rotation;
-    original_header.GetExtension<VideoOrientation>(&rotation);
+    ASSERT_TRUE(original_header.GetExtension<VideoOrientation>(&rotation));
     EXPECT_EQ(ConvertCVOByteToVideoRotation(rotation),
               logged_header.extension.videoRotation);
   }

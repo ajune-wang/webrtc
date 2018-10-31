@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d9092421_8915a94a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T18:46:43Z",
+      "side": 1,
+      "message": "I filed https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9948 to combine the structs.",
+      "parentUuid": "c52f0f58_e8ec7c24",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 26
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4123e9ac_ff50b04a",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 5

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56b133e7_3ba1cc77",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-31T14:43:38Z",
+      "side": 1,
+      "message": "Deja vu?",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 6
+      },
+      "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

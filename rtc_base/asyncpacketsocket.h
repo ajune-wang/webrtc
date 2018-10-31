@@ -53,17 +53,15 @@ struct PacketOptions {
 // This structure will have the information about when packet is actually
 // received by socket.
 struct PacketTime {
-  PacketTime() : timestamp(-1), not_before(-1) {}
-  PacketTime(int64_t timestamp, int64_t not_before)
-      : timestamp(timestamp), not_before(not_before) {}
+  PacketTime() : timestamp(-1) {}
+  // Intentionally implicit.
+  PacketTime(int64_t timestamp) : timestamp(timestamp) {}
+  PacketTime(int64_t timestamp, int64_t /* not_before */)
+      : timestamp(timestamp) {}
+
+  operator int64_t() const { return timestamp; }
 
   int64_t timestamp;  // Receive time after socket delivers the data.
-
-  // Earliest possible time the data could have arrived, indicating the
-  // potential error in the |timestamp| value, in case the system, is busy. For
-  // example, the time of the last select() call.
-  // If unknown, this value will be set to zero.
-  int64_t not_before;
 };
 
 inline PacketTime CreatePacketTime(int64_t not_before) {

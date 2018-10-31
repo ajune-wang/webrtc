@@ -69,6 +69,30 @@
       "revId": "58a8d6b2d20f087800c930fdaf61553552abcd82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecc4f03b_1270a029",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-31T14:26:05Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me why audio receive channels need RTT. \n\nWe do have the AudioReceiveStream::AssociateSendStream method; if that is used, the receive stream gets the rtt from the associated send stream. Maybe that\u0027s all that is needed, and that the real error is that the test cases aren\u0027t setting that up correctly?\n\nI\u0027ll try to rephrase the TODO.",
+      "parentUuid": "c2075a5a_8c44ddd8",
+      "range": {
+        "startLine": 507,
+        "startChar": 5,
+        "endLine": 507,
+        "endChar": 18
+      },
+      "revId": "58a8d6b2d20f087800c930fdaf61553552abcd82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

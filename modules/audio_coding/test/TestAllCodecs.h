@@ -30,7 +30,8 @@ class TestPack : public AudioPacketizationCallback {
                    uint32_t timestamp,
                    const uint8_t* payload_data,
                    size_t payload_size,
-                   const RTPFragmentationHeader* fragmentation) override;
+                   const RTPFragmentationHeader* fragmentation,
+                   int64_t capture_timestamp) override;
 
   size_t payload_size();
   uint32_t timestamp_diff();

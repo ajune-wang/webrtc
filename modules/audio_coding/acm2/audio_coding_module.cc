@@ -198,6 +198,7 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
  private:
   struct InputData {
     uint32_t input_timestamp;
+    int64_t capture_timestamp;
     const int16_t* audio;
     size_t length_per_channel;
     size_t audio_channel;
@@ -533,7 +534,8 @@ int32_t AudioCodingModuleImpl::Encode(const InputData& input_data) {
           frame_type, encoded_info.payload_type, encoded_info.encoded_timestamp,
           encode_buffer_.data(), encode_buffer_.size(),
           my_fragmentation.fragmentationVectorSize > 0 ? &my_fragmentation
-                                                       : nullptr);
+                                                       : nullptr,
+          input_data.capture_timestamp);
     }
 
     if (vad_callback_) {
@@ -705,6 +707,7 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
 
   // TODO(yujo): Skip encode of muted frames.
   input_data->input_timestamp = ptr_frame->timestamp_;
+  input_data->capture_timestamp = ptr_frame->ntp_time_ms_;
   input_data->audio = ptr_audio;
   input_data->length_per_channel = ptr_frame->samples_per_channel_;
   input_data->audio_channel = current_num_channels;

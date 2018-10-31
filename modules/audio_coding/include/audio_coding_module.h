@@ -46,7 +46,8 @@ class AudioPacketizationCallback {
                            uint32_t timestamp,
                            const uint8_t* payload_data,
                            size_t payload_len_bytes,
-                           const RTPFragmentationHeader* fragmentation) = 0;
+                           const RTPFragmentationHeader* fragmentation,
+                           int64_t capture_timestamp) = 0;
 };
 
 // Callback class used for reporting VAD decision

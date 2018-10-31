@@ -62,7 +62,8 @@ int32_t TestPack::SendData(FrameType frame_type,
                            uint32_t timestamp,
                            const uint8_t* payload_data,
                            size_t payload_size,
-                           const RTPFragmentationHeader* fragmentation) {
+                           const RTPFragmentationHeader* fragmentation,
+                           int64_t capture_timestamp) {
   WebRtcRTPHeader rtp_info;
   int32_t status;
 

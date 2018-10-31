@@ -23,7 +23,8 @@ int32_t Channel::SendData(FrameType frameType,
                           uint32_t timeStamp,
                           const uint8_t* payloadData,
                           size_t payloadSize,
-                          const RTPFragmentationHeader* fragmentation) {
+                          const RTPFragmentationHeader* fragmentation,
+                          int64_t capture_timestamp) {
   WebRtcRTPHeader rtpInfo;
   int32_t status;
   size_t payloadDataSize = payloadSize;

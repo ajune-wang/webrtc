@@ -18,6 +18,7 @@
 #include "audio/utility/audio_frame_operations.h"
 #include "call/audio_send_stream.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 
@@ -122,6 +123,8 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
   }
 
   std::unique_ptr<AudioFrame> audio_frame(new AudioFrame());
+  audio_frame->ntp_time_ms_ = Clock::GetRealTimeClock()->TimeInMilliseconds() -
+                              audio_delay_milliseconds;
   InitializeCaptureFrame(sample_rate, send_sample_rate_hz, number_of_channels,
                          send_num_channels, audio_frame.get());
   voe::RemixAndResample(static_cast<const int16_t*>(audio_data),

@@ -118,7 +118,8 @@ class AcmReceiverTestOldApi : public AudioPacketizationCallback,
                uint32_t timestamp,
                const uint8_t* payload_data,
                size_t payload_len_bytes,
-               const RTPFragmentationHeader* fragmentation) override {
+               const RTPFragmentationHeader* fragmentation,
+               int64_t capture_timestamp) override {
     if (frame_type == kEmptyFrame)
       return 0;
 

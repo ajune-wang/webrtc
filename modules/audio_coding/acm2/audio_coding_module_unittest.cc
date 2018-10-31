@@ -106,7 +106,8 @@ class PacketizationCallbackStubOldApi : public AudioPacketizationCallback {
                    uint32_t timestamp,
                    const uint8_t* payload_data,
                    size_t payload_len_bytes,
-                   const RTPFragmentationHeader* fragmentation) override {
+                   const RTPFragmentationHeader* fragmentation,
+                   int64_t capture_timestamp) override {
     rtc::CritScope lock(&crit_sect_);
     ++num_calls_;
     last_frame_type_ = frame_type;

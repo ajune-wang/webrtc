@@ -33,7 +33,8 @@ class TestPacketization : public AudioPacketizationCallback {
                    const uint32_t timeStamp,
                    const uint8_t* payloadData,
                    const size_t payloadSize,
-                   const RTPFragmentationHeader* fragmentation) override;
+                   const RTPFragmentationHeader* fragmentation,
+                   int64_t capture_timestamp) override;
 
  private:
   static void MakeRTPheader(uint8_t* rtpHeader, uint8_t payloadType,

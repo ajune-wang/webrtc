@@ -192,7 +192,8 @@ class ChannelSend
                    uint32_t timeStamp,
                    const uint8_t* payloadData,
                    size_t payloadSize,
-                   const RTPFragmentationHeader* fragmentation) override;
+                   const RTPFragmentationHeader* fragmentation,
+                   int64_t capture_timestamp) override;
 
   // From Transport (called by the RTP/RTCP module)
   bool SendRtp(const uint8_t* data,
@@ -259,7 +260,8 @@ class ChannelSend
                        uint8_t payloadType,
                        uint32_t timeStamp,
                        rtc::ArrayView<const uint8_t> payload,
-                       const RTPFragmentationHeader* fragmentation);
+                       const RTPFragmentationHeader* fragmentation,
+                       int64_t capture_timestamp);
 
   int32_t SendMediaTransportAudio(FrameType frameType,
                                   uint8_t payloadType,

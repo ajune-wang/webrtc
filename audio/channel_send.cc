@@ -271,7 +271,8 @@ int32_t ChannelSend::SendData(FrameType frameType,
                               uint32_t timeStamp,
                               const uint8_t* payloadData,
                               size_t payloadSize,
-                              const RTPFragmentationHeader* fragmentation) {
+                              const RTPFragmentationHeader* fragmentation,
+                              int64_t capture_timestamp) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   rtc::ArrayView<const uint8_t> payload(payloadData, payloadSize);
 
@@ -280,7 +281,7 @@ int32_t ChannelSend::SendData(FrameType frameType,
                                    fragmentation);
   } else {
     return SendRtpAudio(frameType, payloadType, timeStamp, payload,
-                        fragmentation);
+                        fragmentation, capture_timestamp);
   }
 }
 
@@ -288,7 +289,8 @@ int32_t ChannelSend::SendRtpAudio(FrameType frameType,
                                   uint8_t payloadType,
                                   uint32_t timeStamp,
                                   rtc::ArrayView<const uint8_t> payload,
-                                  const RTPFragmentationHeader* fragmentation) {
+                                  const RTPFragmentationHeader* fragmentation,
+                                  int64_t capture_timestamp) {
   RTC_DCHECK_RUN_ON(encoder_queue_);
   if (_includeAudioLevelIndication) {
     // Store current audio level in the RTP/RTCP module.
@@ -331,13 +333,9 @@ int32_t ChannelSend::SendRtpAudio(FrameType frameType,
   // Push data from ACM to RTP/RTCP-module to deliver audio frame for
   // packetization.
   // This call will trigger Transport::SendPacket() from the RTP/RTCP module.
-  if (!_rtpRtcpModule->SendOutgoingData((FrameType&)frameType, payloadType,
-                                        timeStamp,
-                                        // Leaving the time when this frame was
-                                        // received from the capture device as
-                                        // undefined for voice for now.
-                                        -1, payload.data(), payload.size(),
-                                        fragmentation, nullptr, nullptr)) {
+  if (!_rtpRtcpModule->SendOutgoingData(
+          (FrameType&)frameType, payloadType, timeStamp, capture_timestamp,
+          payload.data(), payload.size(), fragmentation, nullptr, nullptr)) {
     RTC_DLOG(LS_ERROR)
         << "ChannelSend::SendData() failed to send data to RTP/RTCP module";
     return -1;

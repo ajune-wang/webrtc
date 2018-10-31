@@ -36,10 +36,13 @@ TestPacketization::~TestPacketization() {
 }
 
 int32_t TestPacketization::SendData(
-    const FrameType /* frameType */, const uint8_t payloadType,
-    const uint32_t timeStamp, const uint8_t* payloadData,
+    const FrameType /* frameType */,
+    const uint8_t payloadType,
+    const uint32_t timeStamp,
+    const uint8_t* payloadData,
     const size_t payloadSize,
-    const RTPFragmentationHeader* /* fragmentation */) {
+    const RTPFragmentationHeader* /* fragmentation */,
+    int64_t /* capture_timestamp */) {
   _rtpStream->Write(payloadType, timeStamp, _seqNo++, payloadData, payloadSize,
                     _frequency);
   return 1;

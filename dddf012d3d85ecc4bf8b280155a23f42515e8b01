@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7e8e2245_ef1adfa4",
+        "filename": "api/video_codecs/video_codec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-31T15:55:03Z",
+      "side": 1,
+      "message": "New code should use short dtypes notations.",
+      "parentUuid": "ce7153a0_537c4c5a",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "672f1ec6_1ce1d0d6",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6
@@ -271,6 +295,30 @@
       "side": 1,
       "message": "I agree that temporal_layer_count should be unnecessary. However, when testing with Chromium, there was an issue where the temporal layer id was set to zero, not 0xFF, and invalid frame marking extensions were being transmitted. So, this variable was added to guard against such interoperability errors.",
       "parentUuid": "621ac5bf_5da75701",
+      "range": {
+        "startLine": 66,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 30
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d8456f_a93e8af5",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-31T15:55:03Z",
+      "side": 1,
+      "message": "Value of temporal_idx is set by the H264 enc wrapper which sets it to 0xFF in case of single temporal layer (h264_encoder_impl.cc:535). If there is other module which sets temporal_idx !\u003d 0xFF in that case then it probably should be fixed.",
+      "parentUuid": "78349c92_cf7b6d5d",
       "range": {
         "startLine": 66,
         "startChar": 10,

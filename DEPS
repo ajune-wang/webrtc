@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '7e85c0922ce2aa01c8e2fad91afd18eb000019b7',
+  'chromium_revision': '0d6cfa24c431768730688e068eb1129ac5c8a631',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -42,7 +42,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '0ac1e165f927d60b6c57ad4669e3a28e74e7c425',
+    Var('chromium_git') + '/chromium/src/base' + '@' + 'f05d24f38b4e03dcab5d60e58b129b6a9a6704a5',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + '850c1eb9dadd73a89aad57d5ee57303c5f106c42',
   'src/buildtools':
@@ -58,9 +58,9 @@ deps = {
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'f28edda73d6a23b6b766e650e0fe6b62cbad0818',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'dff88b18f4de6853c203f344c42996d7549ad04b',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '39ec02d7f773c0e432b791ddf76cb079f23c2f1f',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '8c421e01f1f47bf28f40b5e53fafa55e373c1b55',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -158,7 +158,7 @@ deps = {
   'src/third_party/libsrtp':
     Var('chromium_git') + '/chromium/deps/libsrtp.git' + '@' + '650611720ecc23e0e6b32b0e3100f8b4df91696c',
   'src/third_party/libvpx/source/libvpx':
-    Var('chromium_git') + '/webm/libvpx.git' + '@' +  '137d99c91fc7f03b6b886e5ac342ee4ef7f875ec',
+    Var('chromium_git') + '/webm/libvpx.git' + '@' +  'fa0076282e62f649483bde868602aab86448a661',
   'src/third_party/libyuv':
     Var('chromium_git') + '/libyuv/libyuv.git' + '@' + 'b36c86fdfe746d7be904c3a565b047b24d58087e',
   'src/third_party/lss': {

@@ -16,6 +16,24 @@
       "revId": "e89c25ed5515c2d73baee8f99298cf6ff2ea591c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c2b01a_f1bd16b3",
+        "filename": "api/test/fake_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T22:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6b9704_b53bdc26",
+      "revId": "e89c25ed5515c2d73baee8f99298cf6ff2ea591c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

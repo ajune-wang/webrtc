@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "247b2177_83ac6cb5",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-10-31T16:09:56Z",
+      "side": 1,
+      "message": "I\u0027d prefer using MAX_INT for unlimited. That will make the code simpler than optional, since one can use plain comparisons, with no checks for set/unset. See e.g., VideoSinkWants::max_pixel_count. But optional is ok too, so I leave that for your judgement.",
+      "parentUuid": "71308e8a_71ecde9a",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 22
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d57c168_ffcde512",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3

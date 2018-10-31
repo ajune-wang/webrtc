@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05edcf2b_9dea2096",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-31T19:01:40Z",
+      "side": 1,
+      "message": "LoggerHandlerWithMessage and LoggerHandlerWithMessageAndSeverity?",
+      "parentUuid": "77a1db7f_4fee40e4",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b2fff8df_5ac47e05",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-31T12:44:00Z",
       "side": 1,
       "message": "Please consider renaming these to match the type for clarity:\n- (void)startWithLoggerHandler:(...)\n- (void)startWithSeverityLoggerHandler:(...)",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 79
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0ddbd17_87529dec",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-31T19:01:40Z",
+      "side": 1,
+      "message": "startWithMessageHandler:\nstartWithMessageAndSeverityHandler:",
+      "parentUuid": "b2fff8df_5ac47e05",
       "range": {
         "startLine": 33,
         "startChar": 0,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "e2bf5d7c_b1f57806",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-31T19:01:40Z",
+      "side": 1,
+      "message": "We don\u0027t have a Sensitive level for objc api. We don\u0027t want to log in this case. That is why this case we will return to get out of the callback.",
+      "parentUuid": "34131091_0601eb0d",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 16
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f424e806_776fcd48",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
         "patchSetId": 3
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "f44001e7_9cd2a268",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-31T19:01:40Z",
+      "side": 1,
+      "message": "No particular reason, just some copy-pasta from https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/logging.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d76.",
+      "parentUuid": "f424e806_776fcd48",
+      "range": {
+        "startLine": 72,
+        "startChar": 30,
+        "endLine": 72,
+        "endChar": 31
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4b47b7a8_a410ebf6",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
         "patchSetId": 3
@@ -151,6 +247,30 @@
       "writtenOn": "2018-10-31T10:23:43Z",
       "side": 1,
       "message": "This method sounds like it takes a severity level and sets it before starting logging, maybe come up with a clearer name.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3ca40a3_8c81f15c",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-10-31T19:01:40Z",
+      "side": 1,
+      "message": "One of the hardest problem of engineering - Coming up with names. I will try.",
+      "parentUuid": "4b47b7a8_a410ebf6",
       "range": {
         "startLine": 111,
         "startChar": 8,

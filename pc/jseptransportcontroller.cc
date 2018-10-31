@@ -435,6 +435,8 @@ JsepTransportController::CreateDtlsTransport(const std::string& transport_name,
       this, &JsepTransportController::OnTransportRoleConflict_n);
   dtls->ice_transport()->SignalStateChanged.connect(
       this, &JsepTransportController::OnTransportStateChanged_n);
+  dtls->ice_transport()->SignalIceTransportStateChanged.connect(
+      this, &JsepTransportController::OnTransportStateChanged_n);
   return dtls;
 }
 
@@ -1158,16 +1160,12 @@ void JsepTransportController::UpdateAggregateStates_n() {
   RTC_DCHECK(network_thread_->IsCurrent());
 
   auto dtls_transports = GetDtlsTransports();
-  cricket::IceConnectionState new_connection_state =
-      cricket::kIceConnectionConnecting;
   PeerConnectionInterface::IceConnectionState new_ice_connection_state =
       PeerConnectionInterface::IceConnectionState::kIceConnectionNew;
   PeerConnectionInterface::PeerConnectionState new_combined_state =
       PeerConnectionInterface::PeerConnectionState::kNew;
   cricket::IceGatheringState new_gathering_state = cricket::kIceGatheringNew;
-  bool any_failed = false;
-  bool all_connected = !dtls_transports.empty();
-  bool all_completed = !dtls_transports.empty();
+  bool any_ice_connected = false;
   bool any_gathering = false;
   bool all_done_gathering = !dtls_transports.empty();
 
@@ -1175,16 +1173,8 @@ void JsepTransportController::UpdateAggregateStates_n() {
   std::map<cricket::DtlsTransportState, int> dtls_state_counts;
 
   for (const auto& dtls : dtls_transports) {
-    any_failed = any_failed || dtls->ice_transport()->GetState() ==
-                                   cricket::IceTransportState::STATE_FAILED;
-    all_connected = all_connected && dtls->writable();
-    all_completed =
-        all_completed && dtls->writable() &&
-        dtls->ice_transport()->GetState() ==
-            cricket::IceTransportState::STATE_COMPLETED &&
-        dtls->ice_transport()->GetIceRole() == cricket::ICEROLE_CONTROLLING &&
-        dtls->ice_transport()->gathering_state() ==
-            cricket::kIceGatheringComplete;
+    any_ice_connected = any_ice_connected || dtls->ice_transport()->writable();
+
     any_gathering = any_gathering || dtls->ice_transport()->gathering_state() !=
                                          cricket::kIceGatheringNew;
     all_done_gathering =
@@ -1193,20 +1183,6 @@ void JsepTransportController::UpdateAggregateStates_n() {
 
     dtls_state_counts[dtls->dtls_state()]++;
     ice_state_counts[dtls->ice_transport()->GetIceTransportState()]++;
-  }
-  if (any_failed) {
-    new_connection_state = cricket::kIceConnectionFailed;
-  } else if (all_completed) {
-    new_connection_state = cricket::kIceConnectionCompleted;
-  } else if (all_connected) {
-    new_connection_state = cricket::kIceConnectionConnected;
-  }
-  if (ice_connection_state_ != new_connection_state) {
-    ice_connection_state_ = new_connection_state;
-    invoker_.AsyncInvoke<void>(RTC_FROM_HERE, signaling_thread_,
-                               [this, new_connection_state] {
-                                 SignalIceConnectionState(new_connection_state);
-                               });
   }
 
   // Compute the current RTCIceConnectionState as described in
@@ -1225,9 +1201,20 @@ void JsepTransportController::UpdateAggregateStates_n() {
   if (total_ice_failed > 0) {
     // Any of the RTCIceTransports are in the "failed" state.
     new_ice_connection_state = PeerConnectionInterface::kIceConnectionFailed;
-  } else if (total_ice_disconnected > 0) {
+  } else if (total_ice_disconnected > 0 ||
+             (!any_ice_connected &&
+              (ice_connection_state_ ==
+                   PeerConnectionInterface::kIceConnectionCompleted ||
+               ice_connection_state_ ==
+                   PeerConnectionInterface::kIceConnectionDisconnected))) {
     // Any of the RTCIceTransports are in the "disconnected" state and none of
     // them are in the "failed" state.
+    //
+    // As a hack we also mark the connection as disconnected if it used to be
+    // completed but our connections are no longer writable.
+    if (total_ice_disconnected == 0) {
+      total_ice_disconnected = 1;
+    }
     new_ice_connection_state =
         PeerConnectionInterface::kIceConnectionDisconnected;
   } else if (total_ice_checking > 0) {
@@ -1257,11 +1244,11 @@ void JsepTransportController::UpdateAggregateStates_n() {
     RTC_NOTREACHED();
   }
 
-  if (standardized_ice_connection_state_ != new_ice_connection_state) {
-    standardized_ice_connection_state_ = new_ice_connection_state;
+  if (ice_connection_state_ != new_ice_connection_state) {
+    ice_connection_state_ = new_ice_connection_state;
     invoker_.AsyncInvoke<void>(
         RTC_FROM_HERE, signaling_thread_, [this, new_ice_connection_state] {
-          SignalStandardizedIceConnectionState(new_ice_connection_state);
+          SignalIceConnectionState(new_ice_connection_state);
         });
   }
 

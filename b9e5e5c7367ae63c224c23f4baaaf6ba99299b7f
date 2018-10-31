@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "77a1db7f_4fee40e4",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-10-31T12:44:00Z",
+      "side": 1,
+      "message": "Perhaps we can pick one of \"callback\" and \"handler\" here? Like \"LoggerCallback\"?",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2fff8df_5ac47e05",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2018-10-31T12:44:00Z",
+      "side": 1,
+      "message": "Please consider renaming these to match the type for clarity:\n- (void)startWithLoggerHandler:(...)\n- (void)startWithSeverityLoggerHandler:(...)",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 79
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1eeeb194_9352d18d",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
         "patchSetId": 3

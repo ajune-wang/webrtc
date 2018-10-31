@@ -863,9 +863,6 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
     int part_idx = 0;
     encoded_images_[encoder_idx]._length = 0;
     encoded_images_[encoder_idx]._frameType = kVideoFrameDelta;
-    RTPFragmentationHeader frag_info;
-    // kTokenPartitions is number of bits used.
-    frag_info.VerifyAndAllocateFragmentationHeader((1 << kTokenPartitions) + 1);
     CodecSpecificInfo codec_specific;
     bool is_keyframe = false;
     const vpx_codec_cx_pkt_t* pkt = NULL;
@@ -884,10 +881,6 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
           }
           memcpy(&encoded_images_[encoder_idx]._buffer[length],
                  pkt->data.frame.buf, pkt->data.frame.sz);
-          frag_info.fragmentationOffset[part_idx] = length;
-          frag_info.fragmentationLength[part_idx] = pkt->data.frame.sz;
-          frag_info.fragmentationPlType[part_idx] = 0;  // not known here
-          frag_info.fragmentationTimeDiff[part_idx] = 0;
           encoded_images_[encoder_idx]._length += pkt->data.frame.sz;
           assert(length <= encoded_images_[encoder_idx]._size);
           ++part_idx;
@@ -932,7 +925,7 @@ int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
                                &qp_128);
         encoded_images_[encoder_idx].qp_ = qp_128;
         encoded_complete_callback_->OnEncodedImage(encoded_images_[encoder_idx],
-                                                   &codec_specific, &frag_info);
+                                                   &codec_specific, nullptr);
       } else if (!temporal_layers_[stream_idx]
                       ->SupportsEncoderFrameDropping()) {
         result = WEBRTC_VIDEO_CODEC_TARGET_BITRATE_OVERSHOOT;

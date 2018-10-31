@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "574afae7_cc9b7a9d",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-10-31T18:46:46Z",
+      "side": 1,
+      "message": "How is simulcast tested for VP8 or VP9?\nAlso, since we are now enabling temporal scalability here in H.264, can we simply delete this obsolete error message?\nAs far as I know, there is no correlation between temporal layering and multiple simulcast streams that would somehow endanger the decodability of each stream. Each simulcast stream is encoded by its own encoder instance which can be configured for whatever temporal layer structure and it should have no effect on any other stream.",
+      "parentUuid": "89b38845_7fda7658",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c10bf74d_9e86f558",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6

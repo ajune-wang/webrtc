@@ -91,6 +91,29 @@
       "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b47b7a8_a410ebf6",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-10-31T10:23:43Z",
+      "side": 1,
+      "message": "This method sounds like it takes a severity level and sets it before starting logging, maybe come up with a clearer name.",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "b9e5e5c7367ae63c224c23f4baaaf6ba99299b7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

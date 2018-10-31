@@ -52,6 +52,24 @@
       "revId": "81afe17bcfe5e2816cd4df79bfb9c72c0687d680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb0e10b3_f3da707b",
+        "filename": "test/scenario/audio_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-10-31T08:48:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4a5bc25_237df834",
+      "revId": "81afe17bcfe5e2816cd4df79bfb9c72c0687d680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

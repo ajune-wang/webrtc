@@ -22,6 +22,30 @@
       "revId": "4388bff595168315168fabd57a725791f147bb65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b53f85d5_ec9749e5",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T17:21:44Z",
+      "side": 1,
+      "message": "It\u0027s a restriction set by data channels and SCTP.  I think we\u0027d like this interface to be compatible with the API that\u0027s backed by SCTP, so for now I\u0027m specifying the same restrictions.",
+      "parentUuid": "b0e4c12c_31d90261",
+      "range": {
+        "startLine": 260,
+        "startChar": 27,
+        "endLine": 261,
+        "endChar": 20
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

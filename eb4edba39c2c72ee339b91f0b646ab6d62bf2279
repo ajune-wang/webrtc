@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "e4a978a5_eb11c7df",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-10-31T17:21:44Z",
+      "side": 1,
+      "message": "I agree in principle.  For things treated more like a max I would go with your suggestion.  But I believe both QUIC and SCTP would check if it is MAX_INT to avoid setting retransmission parameters at all in that case.",
+      "parentUuid": "247b2177_83ac6cb5",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 22
+      },
+      "revId": "eb4edba39c2c72ee339b91f0b646ab6d62bf2279",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d57c168_ffcde512",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3

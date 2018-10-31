@@ -126,7 +126,7 @@ struct PacketResult {
   PacketResult(const PacketResult&);
   ~PacketResult();
 
-  absl::optional<SentPacket> sent_packet;
+  SentPacket sent_packet;
   Timestamp receive_time = Timestamp::PlusInfinity();
   // TODO(bugs.webrtc.org/9934): Remove this when sent_packet is made
   // non-optional.
@@ -145,6 +145,9 @@ struct TransportPacketsFeedback {
   DataSize data_in_flight = DataSize::Zero();
   DataSize prior_in_flight = DataSize::Zero();
   std::vector<PacketResult> packet_feedbacks;
+
+  // Arrival times for messages without send time information.
+  std::vector<Timestamp> sendless_arrival_times;
 
   std::vector<PacketResult> ReceivedWithSendInfo() const;
   std::vector<PacketResult> LostWithSendInfo() const;

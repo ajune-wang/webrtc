@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "be94f8fd_b8ddd7dc",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-31T18:04:05Z",
+      "side": 1,
+      "message": "Why aren\u0027t you reusing cricket::DataMessageType and cricket::SendDataParams?",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 26
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4123e9ac_ff50b04a",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-31T18:04:05Z",
+      "side": 1,
+      "message": "I don\u0027t see a field for reliable? I see it in cricket::SendDataParams.",
+      "range": {
+        "startLine": 247,
+        "startChar": 3,
+        "endLine": 247,
+        "endChar": 13
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0e4c12c_31d90261",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 5
@@ -46,6 +92,29 @@
       "revId": "4388bff595168315168fabd57a725791f147bb65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f9179e1_93060b6f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-10-31T18:04:05Z",
+      "side": 1,
+      "message": "I see that the SctpDataChannel also has a callback for \"SignalSctpReadyToSendData\", that\u0027s wired up to DataChannel::OnChannelReady. Will this be necessary as well to have a callback for?\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?type\u003dcs\u0026g\u003d0\u0026l\u003d5169",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 273,
+        "endChar": 21
+      },
+      "revId": "4388bff595168315168fabd57a725791f147bb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

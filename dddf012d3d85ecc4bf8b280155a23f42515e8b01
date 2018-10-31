@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "89b38845_7fda7658",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-31T09:52:46Z",
+      "side": 1,
+      "message": "I can\u0027t find any end-to-end tests for h264 simulcast. It would be right to assume that simulcast with temporal layering is not supported until this is tested and to replace the condition with:\nif (number_of_streams \u003e 1 \u0026\u0026 inst-\u003esimulcastStream[i].numberOfTemporalLayers \u003e 1) {\n  Release();\n  return WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED;\n}",
+      "parentUuid": "486c1cb1_6cca97a4",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c10bf74d_9e86f558",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6
@@ -106,6 +130,30 @@
       "writtenOn": "2018-10-25T09:09:27Z",
       "side": 1,
       "message": "frame tid in case of 3 temporal layers:\n0 3 2 3 1 3 2(!) 3\nbase_layer_sync will be true for the second tl2 frame. but it is predicted from tl1, not tl0.",
+      "range": {
+        "startLine": 547,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 48
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80db81e3_bf7031b5",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-10-31T09:52:46Z",
+      "side": 1,
+      "message": "not 3 but 4 temporal layers. sorry.",
+      "parentUuid": "2a5dd179_4ea1e85e",
       "range": {
         "startLine": 547,
         "startChar": 8,

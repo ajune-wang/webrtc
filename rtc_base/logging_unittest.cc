@@ -127,7 +127,8 @@ class LogSinkImpl : public LogSink, public Base {
   explicit LogSinkImpl(P* p) : Base(p) {}
 
  private:
-  void OnLogMessage(const std::string& message) override {
+  void OnLogMessage(const std::string& message,
+                    LoggingSeverity severity) override {
     static_cast<Base*>(this)->WriteAll(message.data(), message.size(), nullptr,
                                        nullptr);
   }

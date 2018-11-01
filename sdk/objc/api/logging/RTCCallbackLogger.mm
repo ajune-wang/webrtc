@@ -18,20 +18,40 @@
 
 class CallbackLogSink : public rtc::LogSink {
  public:
-  CallbackLogSink(void (^callbackHandler)(NSString *message)) {
-    callback_handler_ = callbackHandler;
-  }
+  CallbackLogSink(RTCCallbackLoggerHandler callbackHandler) : callback_handler_(callbackHandler) {}
 
-  ~CallbackLogSink() override { callback_handler_ = nil; }
-
-  void OnLogMessage(const std::string &message) override {
+  void OnLogMessage(const std::string &message, rtc::LoggingSeverity severity) override {
     if (callback_handler_) {
-      callback_handler_([NSString stringWithUTF8String:message.c_str()]);
+      RTCLoggingSeverity loggingSeverity = RTCLoggingSeverityNone;
+      switch (severity) {
+        case rtc::LS_VERBOSE:
+          loggingSeverity = RTCLoggingSeverityVerbose;
+          break;
+        case rtc::LS_INFO:
+          loggingSeverity = RTCLoggingSeverityInfo;
+          break;
+        case rtc::LS_WARNING:
+          loggingSeverity = RTCLoggingSeverityWarning;
+          break;
+        case rtc::LS_ERROR:
+          loggingSeverity = RTCLoggingSeverityError;
+          break;
+        case rtc::LS_NONE:
+          loggingSeverity = RTCLoggingSeverityNone;
+          break;
+        case rtc::LS_SENSITIVE:
+          // There is no RTCLoggingSeveritySensitive
+          // Return from the callback without calling the handler.
+          return;
+        default:
+          RTC_NOTREACHED();
+      }
+      callback_handler_([NSString stringWithUTF8String:message.c_str()], loggingSeverity);
     }
   }
 
  private:
-  void (^callback_handler_)(NSString *message);
+  RTCCallbackLoggerHandler callback_handler_;
 };
 
 @implementation RTCCallbackLogger {
@@ -53,7 +73,7 @@ class CallbackLogSink : public rtc::LogSink {
   [self stop];
 }
 
-- (void)start:(nullable void (^)(NSString *))callback {
+- (void)start:(nullable RTCCallbackLoggerHandler)callback {
   if (_hasStarted) {
     return;
   }

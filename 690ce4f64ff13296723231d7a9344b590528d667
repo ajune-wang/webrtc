@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1f666e1_190a42c2",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-11-01T16:36:03Z",
+      "side": 1,
+      "message": "+\u003d",
+      "range": {
+        "startLine": 117,
+        "startChar": 40,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "690ce4f64ff13296723231d7a9344b590528d667",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

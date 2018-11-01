@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a2cfefb0_0ef53f5f",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1176,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-11-01T10:29:51Z",
+      "side": 1,
+      "message": "oh right, bools are integers. Neat!",
+      "parentUuid": "b0d12faf_5ffb5cef",
+      "revId": "65bc62318776f47db88d362c52b504722234a43e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3805b13f_dac8bb4a",
         "filename": "pc/jseptransportcontroller.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-31T16:03:04Z",
       "side": 1,
       "message": "Could you clarify the significance of this? E.g. this is used for the calculation of the \"new_combined_state\". Does that have a spec-correspondent? Why is a hack needed?",
+      "revId": "65bc62318776f47db88d362c52b504722234a43e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "405dccd1_c27669e4",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-11-01T10:29:51Z",
+      "side": 1,
+      "message": "It\u0027s kinda sorta spec-compliant. The \"disconnected\" IceTransportState is implementation dependent, and that\u0027s what causes the IceConnectionState to become disconnected. I\u0027ve tried to handle it in the transport, but kept running into issues with disconnect not being signalled, or incorrectly firing during setup etc. In the end I gave up and did this instead.\n\nThis is pretty much what the old code did to handle disconnects, but it kept the logic in the peerconnection and used the dtls writable() instead of the ice one.\n\nI\u0027ll extend the comment with more info.",
+      "parentUuid": "3805b13f_dac8bb4a",
       "revId": "65bc62318776f47db88d362c52b504722234a43e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

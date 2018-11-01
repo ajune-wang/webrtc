@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65a4e351_216ac2ee",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-01T23:43:00Z",
+      "side": 1,
+      "message": "https://cs.chromium.org/chromium/src/third_party/webrtc/api/media_transport_interface.h?l\u003d106\u0026rcl\u003d096d016accb0c805b230c7361db154551a3f1fca",
+      "parentUuid": "dcca20b6_1628d84b",
+      "range": {
+        "startLine": 54,
+        "startChar": 52,
+        "endLine": 54,
+        "endChar": 57
+      },
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48cd30c4_8092b07c",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "834bbe0b_f06d2a2c",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-01T23:43:00Z",
+      "side": 1,
+      "message": "I looked at CopyOnWriteBuffer, and it looks like it should be safe to capture it by value, since the underlying buffer is ref-counted.  Done.",
+      "parentUuid": "48cd30c4_8092b07c",
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d48ce9de_d0fcd546",
+        "filename": "api/test/loopback_media_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-01T23:43:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f131818_98d86c40",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e04b1883_285be092",
         "filename": "audio/test/media_transport_test.cc",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10eb161c_77088ef1",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-01T23:43:00Z",
+      "side": 1,
+      "message": "I considered making the thread owned by MediaTransportPair, and maybe that would be easier.  However, I think where there\u0027s already a network thread, we should inject and use that.\n\nI think if we\u0027re concerned about repeating in in the other unit test\u0027s cases, we should just make a fixture that does the setup for them.",
+      "parentUuid": "e04b1883_285be092",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 60
+      },
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

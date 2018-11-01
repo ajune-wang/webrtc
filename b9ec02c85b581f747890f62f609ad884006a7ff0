@@ -70,6 +70,30 @@
       "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3af76e98_4897b64d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-01T13:36:48Z",
+      "side": 1,
+      "message": "I think setting up the shared state would add roughly this amount of boilerplate code. I\u0027ll remove one of the functions instead, but I\u0027m not sure if it is used.",
+      "parentUuid": "3f18218d_29e4ca4b",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 836,
+        "endChar": 6
+      },
+      "revId": "b9ec02c85b581f747890f62f609ad884006a7ff0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

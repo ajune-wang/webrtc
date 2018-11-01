@@ -48,6 +48,9 @@ RTC_POP_IGNORING_WUNDEF()
 
 namespace webrtc {
 
+template <typename T>
+class RtpPacketsProtoReader;
+
 enum class BandwidthUsage;
 struct AudioEncoderRuntimeConfig;
 
@@ -1015,9 +1018,16 @@ class ParsedRtcEventLogNew {
   void StoreParsedNewFormatEvent(const rtclog2::EventStream& event);
 
   void StoreIncomingRtpPackets(const rtclog2::IncomingRtpPackets& proto);
-  void StoreOutgoingRtpPacket(const rtclog2::OutgoingRtpPackets& proto);
+  void StoreOutgoingRtpPackets(const rtclog2::OutgoingRtpPackets& proto);
+
+  template <typename ProtoType, typename LoggedType>
+  void StoreRtpPackets(
+      RtpPacketsProtoReader<ProtoType> proto,
+      std::map<uint32_t, std::vector<LoggedType>>* rtp_packets_map);
+
   void StoreIncomingRtcpPackets(const rtclog2::IncomingRtcpPackets& proto);
   void StoreOutgoingRtcpPackets(const rtclog2::OutgoingRtcpPackets& proto);
+
   void StoreAudioPlayoutEvent(const rtclog2::AudioPlayoutEvents& proto);
   void StoreStartEvent(const rtclog2::BeginLogEvent& proto);
   void StoreStopEvent(const rtclog2::EndLogEvent& proto);

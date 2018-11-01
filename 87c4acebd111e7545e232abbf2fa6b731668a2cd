@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18e078c5_8381ab7e",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-11-01T16:23:43Z",
+      "side": 1,
+      "message": "const EncoderInfo\u0026 encoder_impl_info to use a different name?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 28
+      },
+      "revId": "87c4acebd111e7545e232abbf2fa6b731668a2cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15acd7f2_63e4f395",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5682
+      },
+      "writtenOn": "2018-11-01T16:23:43Z",
+      "side": 1,
+      "message": "This should be false by default. We need to access pixel data for YUV-AXX split in l.182.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 79
+      },
+      "revId": "87c4acebd111e7545e232abbf2fa6b731668a2cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

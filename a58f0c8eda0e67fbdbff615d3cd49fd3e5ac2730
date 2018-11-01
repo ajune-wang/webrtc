@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "304b0d08_73348041",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-01T15:21:50Z",
+      "side": 1,
+      "message": "Thanks for your answer. If ok for you, I\u0027d leave this TODO since, even if cheap, it\u0027s nicer to avoid this unnecessary set. I can take care of it.",
+      "parentUuid": "be4b4fd9_b0937383",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 77
+      },
+      "revId": "a58f0c8eda0e67fbdbff615d3cd49fd3e5ac2730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "826f6426_69368335",
         "filename": "modules/audio_processing/gain_controller2_unittest.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "a58f0c8eda0e67fbdbff615d3cd49fd3e5ac2730",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3900fdb_4c1d2e3b",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-01T15:21:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "826f6426_69368335",
+      "range": {
+        "startLine": 161,
+        "startChar": 28,
+        "endLine": 161,
+        "endChar": 67
+      },
+      "revId": "a58f0c8eda0e67fbdbff615d3cd49fd3e5ac2730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

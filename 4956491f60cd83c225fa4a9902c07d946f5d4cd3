@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "90c64b98_76a358aa",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-01T10:21:47Z",
+      "side": 1,
+      "message": "Right.\nYes, it does converge to a good value within a few seconds. In one very nasty test case it started at maybe 50ms and then ramped up to 120ms after a few seconds.\nWithout this change it would peak up to anywhere from 200 to 500ms, and then slowly come down to 150ms, but that would take like five minutes or so.",
+      "parentUuid": "7c46cb35_42755e57",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 80
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19af5c59_3783cd80",
         "filename": "modules/video_coding/jitter_estimator.cc",
         "patchSetId": 7
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I don\u0027t think there are any key frame assumptions in here though? May still be that this isn\u0027t where the issue is though.",
       "parentUuid": "d65b8c29_6bce78ed",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 57
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5641d2c4_aca0d880",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-01T10:21:47Z",
+      "side": 1,
+      "message": "I was thinking of the block of code at #186 - #196 for instance.",
+      "parentUuid": "35dc1a64_31431003",
       "range": {
         "startLine": 363,
         "startChar": 28,

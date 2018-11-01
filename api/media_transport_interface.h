@@ -28,6 +28,7 @@
 #include "api/rtcerror.h"
 #include "api/video/encoded_image.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "rtc_base/asyncinvoker.h"
 #include "rtc_base/copyonwritebuffer.h"
 
 namespace rtc {
@@ -389,6 +390,53 @@ class MediaTransportFactory {
   CreateMediaTransport(rtc::PacketTransportInternal* packet_transport,
                        rtc::Thread* network_thread,
                        const MediaTransportSettings& settings);
+};
+
+// Provides a thread safe callback for a SetMediaTransportStateCallback which
+// delegates all of the invokes to the provided thread.
+//
+// In order to make it thread safe, you should:
+// 1) Create the instance of MediaTransportStateCallbackThreadSafeWrapper.
+// 2) Associate the actual callback (the one that you want to execute on
+// |thread|) with the wrapper using SetMediaTransportStateCallback.
+// 3) Register the wrapper as the actual callback, using
+// 'RegisterToMediaTransport'. You must call these two methods in order and in
+// the single thread.
+class MediaTransportStateCallbackThreadSafeWrapper final
+    : private MediaTransportStateCallback {
+ public:
+  explicit MediaTransportStateCallbackThreadSafeWrapper(rtc::Thread* thread)
+      : thread_(thread) {
+    RTC_CHECK(thread != nullptr);
+  }
+
+  ~MediaTransportStateCallbackThreadSafeWrapper() override;
+
+  void SetMediaTransportStateCallback(
+      MediaTransportStateCallback* actual_callback) {
+    RTC_CHECK(!media_transport_) << "You must make sure to register this "
+                                    "callback before associating with the "
+                                    "media transport.";
+    actual_callback_ = actual_callback;
+  }
+
+  void RegisterToMediaTransport(MediaTransportInterface* media_transport) {
+    RTC_CHECK(actual_callback_) << "You must set actual callback before "
+                                   "registering to media transport.";
+    RTC_CHECK(!media_transport_)
+        << "This callback was already registered to a media transport";
+    media_transport_ = media_transport;
+    media_transport->SetMediaTransportStateCallback(this);
+  }
+
+  void OnStateChanged(MediaTransportState state) override;
+  ;
+
+ private:
+  rtc::Thread* const thread_;
+  MediaTransportStateCallback* actual_callback_ = nullptr;
+  MediaTransportInterface* media_transport_ = nullptr;
+  rtc::AsyncInvoker invoker_;
 };
 
 }  // namespace webrtc

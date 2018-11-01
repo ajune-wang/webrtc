@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "dcca20b6_1628d84b",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-01T23:09:06Z",
+      "side": 1,
+      "message": "do we actually have a copy ctor on the frame? I am not sure if this would work correctly. The frame should probably be moved (which would be tricky....)",
+      "range": {
+        "startLine": 54,
+        "startChar": 52,
+        "endLine": 54,
+        "endChar": 57
+      },
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48cd30c4_8092b07c",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 1
@@ -13,6 +36,52 @@
       "writtenOn": "2018-11-01T22:28:49Z",
       "side": 1,
       "message": "Is it not sufficient to capture by value in the lambda?",
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f131818_98d86c40",
+        "filename": "api/test/loopback_media_transport_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-01T23:09:06Z",
+      "side": 1,
+      "message": "consider const(expr) kChannelId",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04b1883_285be092",
+        "filename": "audio/test/media_transport_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-01T23:09:06Z",
+      "side": 1,
+      "message": "feels like we should consider test helper class, because this is repeated quite a lot.\n\nTransportPairSetup/TransportPairFactory f;\nf.pair()\n\nmaybe.\n\nTransportPairFactory() {\n  rtc_thread;\n  thread.Start();\n  pair(thread.get());\n}",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 60
+      },
       "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

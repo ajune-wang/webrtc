@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2d38c6e_b4e8c478",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-01T09:35:19Z",
+      "side": 1,
+      "message": "This is changing public API without being backwards-compatabile. Please keep this method as-is and add a new one with the new signature.",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07fda353_e8c96270",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-01T09:35:19Z",
+      "side": 1,
+      "message": "Return is not the right thing to do here. IMO break is what we want.",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

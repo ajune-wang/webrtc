@@ -73,7 +73,7 @@ CriticalSection g_log_crit;
 void LogSink::OnLogMessage(const std::string& msg,
                            LoggingSeverity severity,
                            const char* tag) {
-  OnLogMessage(tag + (": " + msg));
+  OnLogMessage(tag + (": " + msg), severity);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -206,7 +206,7 @@ LogMessage::~LogMessage() {
 #if defined(WEBRTC_ANDROID)
       kv.first->OnLogMessage(str, severity_, tag_);
 #else
-      kv.first->OnLogMessage(str);
+      kv.first->OnLogMessage(str, severity_);
 #endif
     }
   }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "803194a4_a9bea680",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-01T09:45:55Z",
+      "side": 1,
+      "message": "Doesn\u0027t this already happen at PeerConnectionWrapper construction?\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnectionwrapper.cc?type\u003dcs\u0026q\u003dSetPeerConnectionInterface\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d43\n\nAnd PeerConnection is supposed to be done with the observer_ when the PC is closed.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d3331",
+      "revId": "4e93329839463c51d1957682ff47f09773ec9eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

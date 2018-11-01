@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9954b379_b248af20",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-01T10:07:31Z",
+      "side": 1,
+      "message": "You should probably add a new method and keep the old one. And the new one needs a default implementation that discards the severity and calls the old one---look at how the one on line 115 does it.",
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcdd2c88_ee0d8c31",
+        "filename": "rtc_base/logsinks.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-01T10:07:31Z",
+      "side": 1,
+      "message": "If you\u0027re going to ignore an argument, please write it as\n\n  LoggingSeverity /*sev*/) {\n\nto help readers out.",
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c2d38c6e_b4e8c478",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.h",
         "patchSetId": 2

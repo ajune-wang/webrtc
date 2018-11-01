@@ -39,6 +39,14 @@ void WriteFakeVp8(unsigned char* payload,
     payload[6] = (width & 0x00FF);
   }
 }
+
+void WriteCounter(unsigned char* payload, uint32_t counter) {
+  payload[1] = (counter & 0x00FF);
+  payload[2] = (counter & 0xFF00) >> 8;
+  payload[3] = (counter & 0xFF0000) >> 16;
+  payload[4] = (counter & 0xFF000000) >> 24;
+}
+
 }  // namespace
 
 namespace webrtc {
@@ -46,7 +54,7 @@ namespace webrtc {
 namespace test {
 
 FakeVP8Encoder::FakeVP8Encoder(Clock* clock)
-    : FakeEncoder(clock), callback_(nullptr) {
+    : FakeEncoder(clock), callback_(nullptr), counter_(0) {
   FakeEncoder::RegisterEncodeCompleteCallback(this);
   sequence_checker_.Detach();
 }
@@ -130,6 +138,9 @@ EncodedImageCallback::Result FakeVP8Encoder::OnEncodedImage(
   WriteFakeVp8(encoded_image._buffer, encoded_image._encodedWidth,
                encoded_image._encodedHeight,
                encoded_image._frameType == kVideoFrameKey);
+
+  // Write a counter to the image to make each frame unique.
+  WriteCounter(encoded_image._buffer, counter_++);
   return callback_->OnEncodedImage(encoded_image, &overrided_specific_info,
                                    fragments);
 }

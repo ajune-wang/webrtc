@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "767c634a_83f5d24f",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-01T09:45:33Z",
+      "side": 1,
+      "message": "After the |kFsAccuStartupSamples| first frames you mean? And yes, it is sort of restrictive, but\nthe first couple of frames is also where I usually see the largest spikes, that causes long\ndelays that stick around for a long time afterwards.\nRunning apprtc with really lossy networks, it\u0027s like we creep up on the correct delay rather than overshooting a lot and then creeping down towards a good delay. I found that even with terrible conditions, maybe one frame per second or so would actually hit this limit after the first second.",
+      "parentUuid": "f3e4ceca_c5914305",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 80
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19af5c59_3783cd80",
         "filename": "modules/video_coding/jitter_estimator.cc",
         "patchSetId": 7
@@ -68,6 +92,30 @@
       "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d65b8c29_6bce78ed",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-01T09:45:33Z",
+      "side": 1,
+      "message": "I tried that, but it had very limited effect. The big jumps came from delay deviations.\nNot the \"one large, the a number of small ones\" we have a code path for (keyframe scenario), more often it was jumping wildly back and forth several times. If looks like scene changes plus temporal layers is a problem since you\u0027ll have layers alternating in generating large frames, so the keyframe assumption sort of brakes down.",
+      "parentUuid": "19af5c59_3783cd80",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 57
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -89,7 +89,9 @@ class JsepTransport : public sigslot::has_slots<>,
       std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport,
       std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
       std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
-      std::unique_ptr<webrtc::MediaTransportInterface> media_transport);
+      std::unique_ptr<webrtc::MediaTransportInterface> media_transport,
+      std::unique_ptr<webrtc::MediaTransportStateCallbackThreadSafeWrapper>
+          state_callback);
 
   ~JsepTransport() override;
 
@@ -268,6 +270,8 @@ class JsepTransport : public sigslot::has_slots<>,
 
   // Optional media transport (experimental).
   std::unique_ptr<webrtc::MediaTransportInterface> media_transport_;
+  std::unique_ptr<webrtc::MediaTransportStateCallbackThreadSafeWrapper>
+      state_callback_;
 
   // If |media_transport_| is provided, this variable represents the state of
   // media transport.

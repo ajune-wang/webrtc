@@ -103,4 +103,27 @@ MediaTransportFactory::CreateMediaTransport(
   return std::unique_ptr<MediaTransportInterface>(nullptr);
 }
 
+webrtc::MediaTransportStateCallbackThreadSafeWrapper::
+    ~MediaTransportStateCallbackThreadSafeWrapper() {
+  // Unsubscribe from media transport state callback. From now on no new
+  // callbacks will be invoked.
+  if (media_transport_) {
+    media_transport_->SetMediaTransportStateCallback(nullptr);
+  }
+
+  // We might still be running a callback on network thread. We need to wait
+  // until all callbacks complete. Async invoker takes care of this.
+}
+
+void webrtc::MediaTransportStateCallbackThreadSafeWrapper::OnStateChanged(
+    MediaTransportState state) {
+  if (thread_->IsCurrent()) {
+    actual_callback_->OnStateChanged(state);
+  } else {
+    invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this, state] {
+      actual_callback_->OnStateChanged(state);
+    });
+  }
+}
+
 }  // namespace webrtc

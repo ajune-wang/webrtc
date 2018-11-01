@@ -94,12 +94,21 @@ JsepTransport::JsepTransport(
     std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport,
     std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
     std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
-    std::unique_ptr<webrtc::MediaTransportInterface> media_transport)
+    std::unique_ptr<webrtc::MediaTransportInterface> media_transport,
+    // We pass a wrapper that guarantees a callback on the network thread.
+    // We need to own this wrapper. It can be null if media_transport is null.
+    // JsepTransport does not own and have a network thread, and assumes all of
+    // its methods are executed on a network thread. Since we don't want to pass
+    // a network thread down to jsep transport, we want to guarantee that state
+    // change callbacks from media transport are passed on the network thread.
+    std::unique_ptr<webrtc::MediaTransportStateCallbackThreadSafeWrapper>
+        state_callback)
     : mid_(mid),
       local_certificate_(local_certificate),
       rtp_dtls_transport_(std::move(rtp_dtls_transport)),
       rtcp_dtls_transport_(std::move(rtcp_dtls_transport)),
-      media_transport_(std::move(media_transport)) {
+      media_transport_(std::move(media_transport)),
+      state_callback_(std::move(state_callback)) {
   RTC_DCHECK(rtp_dtls_transport_);
   if (unencrypted_rtp_transport) {
     RTC_DCHECK(!sdes_transport);
@@ -117,15 +126,13 @@ JsepTransport::JsepTransport(
   }
 
   if (media_transport_) {
-    media_transport_->SetMediaTransportStateCallback(this);
+    RTC_DCHECK(state_callback_);
+    state_callback_->SetMediaTransportStateCallback(this);
+    state_callback_->RegisterToMediaTransport(media_transport_.get());
   }
 }
 
-JsepTransport::~JsepTransport() {
-  if (media_transport_) {
-    media_transport_->SetMediaTransportStateCallback(nullptr);
-  }
-}
+JsepTransport::~JsepTransport() {}
 
 webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     const JsepTransportDescription& jsep_description,

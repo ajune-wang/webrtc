@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "de1630ef_702a72e1",
+        "filename": "rtc_base/logging.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-01T18:35:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9954b379_b248af20",
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcdd2c88_ee0d8c31",
         "filename": "rtc_base/logsinks.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539922f3_b012c1bf",
+        "filename": "rtc_base/logsinks.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-01T18:35:18Z",
+      "side": 1,
+      "message": "I probably will revert this change because the other backward compatibility change.",
+      "parentUuid": "bcdd2c88_ee0d8c31",
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -79,6 +115,30 @@
       "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39446363_197cacc4",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-01T18:35:18Z",
+      "side": 1,
+      "message": "I will have to add a new enum to the objc side then.",
+      "parentUuid": "07fda353_e8c96270",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

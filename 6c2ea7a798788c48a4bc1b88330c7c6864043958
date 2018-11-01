@@ -16,6 +16,24 @@
       "revId": "6c2ea7a798788c48a4bc1b88330c7c6864043958",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8306af2b_406d86ae",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-01T10:37:50Z",
+      "side": 1,
+      "message": "Oh, right! Neat! Thank you. I updated the code.",
+      "parentUuid": "9f04b7fe_58ce3b91",
+      "revId": "6c2ea7a798788c48a4bc1b88330c7c6864043958",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07f4b42e_a8ed580b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-01T08:07:26Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e4ceca_c5914305",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-01T08:07:26Z",
+      "side": 1,
+      "message": "So for the first couple of frames this means the jitter estimate will change very slowly, right? \n3.5 * sqrt(4) \u003d 7 ms will be the max deviation. This seems overly restrictive to me?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 80
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19af5c59_3783cd80",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-01T08:07:26Z",
+      "side": 1,
+      "message": "I was thinking that maybe this is what we should have a max on, did you try that? It would avoid adding significant delay just for a few large frames.",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 57
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

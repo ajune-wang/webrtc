@@ -26,7 +26,6 @@
 
 namespace rtc {
 struct PacketOptions;
-struct PacketTime;
 struct SentPacket;
 
 class RTC_EXPORT PacketTransportInternal
@@ -84,11 +83,7 @@ class RTC_EXPORT PacketTransportInternal
   sigslot::signal1<PacketTransportInternal*> SignalReceivingState;
 
   // Signalled each time a packet is received on this channel.
-  sigslot::signal5<PacketTransportInternal*,
-                   const char*,
-                   size_t,
-                   const rtc::PacketTime&,
-                   int>
+  sigslot::signal5<PacketTransportInternal*, const char*, size_t, int64_t, int>
       SignalReadPacket;
 
   // Signalled each time a packet is sent on this channel.

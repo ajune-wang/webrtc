@@ -283,6 +283,7 @@ if (rtc_enable_protobuf) {
       "rtc_event_log/rtc_event_log_parser.h",
       "rtc_event_log/rtc_event_log_parser_new.cc",
       "rtc_event_log/rtc_event_log_parser_new.h",
+      "rtc_event_log/rtc_event_log_proto_utils.h",
       "rtc_event_log/rtc_event_processor.h",
     ]
 
@@ -291,6 +292,7 @@ if (rtc_enable_protobuf) {
       ":rtc_event_bwe",
       ":rtc_event_log2_proto",
       ":rtc_event_log_api",
+      ":rtc_event_log_impl_encoder",
       ":rtc_event_log_proto",
       ":rtc_stream_config",
       "..:webrtc_common",

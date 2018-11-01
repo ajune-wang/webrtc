@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7c46cb35_42755e57",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-01T09:51:33Z",
+      "side": 1,
+      "message": "I was mostly thinking about the fact that _varNoise is initialized to 4, so we likely will hit this max a lot in the beginning and the update of _varNoise will be slow. Have you verified that it actually converges to reasonable values with a few seconds?",
+      "parentUuid": "767c634a_83f5d24f",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 170,
+        "endChar": 80
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19af5c59_3783cd80",
         "filename": "modules/video_coding/jitter_estimator.cc",
         "patchSetId": 7
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "I tried that, but it had very limited effect. The big jumps came from delay deviations.\nNot the \"one large, the a number of small ones\" we have a code path for (keyframe scenario), more often it was jumping wildly back and forth several times. If looks like scene changes plus temporal layers is a problem since you\u0027ll have layers alternating in generating large frames, so the keyframe assumption sort of brakes down.",
       "parentUuid": "19af5c59_3783cd80",
+      "range": {
+        "startLine": 363,
+        "startChar": 28,
+        "endLine": 363,
+        "endChar": 57
+      },
+      "revId": "4956491f60cd83c225fa4a9902c07d946f5d4cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35dc1a64_31431003",
+        "filename": "modules/video_coding/jitter_estimator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-01T09:51:33Z",
+      "side": 1,
+      "message": "I don\u0027t think there are any key frame assumptions in here though? May still be that this isn\u0027t where the issue is though.",
+      "parentUuid": "d65b8c29_6bce78ed",
       "range": {
         "startLine": 363,
         "startChar": 28,

@@ -139,6 +139,30 @@
       "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e3231d7_ab885772",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-01T18:38:19Z",
+      "side": 1,
+      "message": "Second thought, I will just convert the sensitive level to none.",
+      "parentUuid": "39446363_197cacc4",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 16
+      },
+      "revId": "5d5a10e800e203e2df6fbcbaa9f5bea954bffb62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

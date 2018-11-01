@@ -30,6 +30,8 @@ class AudioBuffer;
 // than AECM but also requires more processing power and is dependent on delay
 // stability and reporting accuracy. As such it is well-suited and recommended
 // for PC and IP phone applications.
+// The class is not thread-safe. It must be operated on in a single-threaded
+// fashion.
 class EchoCancellationImpl {
  public:
   explicit EchoCancellationImpl();

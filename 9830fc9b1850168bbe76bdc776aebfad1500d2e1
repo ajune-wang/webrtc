@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf03a67_993f49f3",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-01T21:19:03Z",
+      "side": 1,
+      "message": "This type of checks is usually DCHECK in the codebase, especially if this is not a public interface and the check is for sanity.",
+      "range": {
+        "startLine": 410,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 13
+      },
+      "revId": "9830fc9b1850168bbe76bdc776aebfad1500d2e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c796ff3b_32cf2b00",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-01T21:19:03Z",
+      "side": 1,
+      "message": "nit: how about \"This callback must be registered ...\"",
+      "range": {
+        "startLine": 417,
+        "startChar": 37,
+        "endLine": 417,
+        "endChar": 72
+      },
+      "revId": "9830fc9b1850168bbe76bdc776aebfad1500d2e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bbf312_b9d4cece",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-01T21:19:03Z",
+      "side": 1,
+      "message": "It reads better to me if these comments are moved to the header.",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 6
+      },
+      "revId": "9830fc9b1850168bbe76bdc776aebfad1500d2e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "379bb542_1b968294",
+        "filename": "pc/jseptransport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-01T21:19:03Z",
+      "side": 1,
+      "message": "\u003d default",
+      "range": {
+        "startLine": 135,
+        "startChar": 32,
+        "endLine": 135,
+        "endChar": 34
+      },
+      "revId": "9830fc9b1850168bbe76bdc776aebfad1500d2e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

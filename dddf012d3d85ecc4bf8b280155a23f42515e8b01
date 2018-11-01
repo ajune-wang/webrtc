@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "2b37180f_eff4ed76",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-01T12:10:55Z",
+      "side": 1,
+      "message": "VP8 simulcast and VP9 SVC tests can be found here - https://cs.chromium.org/chromium/src/third_party/webrtc/video/full_stack_tests.cc (SimulcastVP8_3SL_.. and VP9SVC_3SL_..).\n\nI agree that temporal layering should not cause any issue at simulcasting since spatial layers are completely independent. I\u0027m fine if you remove this check.",
+      "parentUuid": "574afae7_cc9b7a9d",
+      "range": {
+        "startLine": 246,
+        "startChar": 8,
+        "endLine": 246,
+        "endChar": 13
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c10bf74d_9e86f558",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6

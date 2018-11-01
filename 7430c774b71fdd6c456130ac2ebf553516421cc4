@@ -46,6 +46,30 @@
       "revId": "7430c774b71fdd6c456130ac2ebf553516421cc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "931407ff_5c442351",
+        "filename": "video/frame_dumping_decoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 8122
+      },
+      "writtenOn": "2018-11-01T17:22:39Z",
+      "side": 1,
+      "message": "This feature request is not for manual debugging only. In our team we would like to build some automated tools on the top of this feature, and we need both video and audio to analyse. \n\nHow hard would it be to add a support for MKV container and what is the right process to request this feature?\n\nThanks",
+      "parentUuid": "6fccb995_8d5cc24e",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "7430c774b71fdd6c456130ac2ebf553516421cc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9df9f13_16a17234",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-01T10:56:29Z",
+      "side": 1,
+      "message": "This comment needs updating, right?",
+      "revId": "a2813e357214fd480e70acbd91f5da44b24c72fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

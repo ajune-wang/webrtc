@@ -1038,7 +1038,9 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
           content_info.name, certificate_, std::move(unencrypted_rtp_transport),
           std::move(sdes_transport), std::move(dtls_srtp_transport),
           std::move(rtp_dtls_transport), std::move(rtcp_dtls_transport),
-          std::move(media_transport));
+          std::move(media_transport),
+          absl::make_unique<MediaTransportStateCallbackThreadSafeWrapper>(
+              network_thread_));
   jsep_transport->SignalRtcpMuxActive.connect(
       this, &JsepTransportController::UpdateAggregateStates_n);
   jsep_transport->SignalMediaTransportStateChanged.connect(

@@ -53,6 +53,7 @@ MultiplexEncoderAdapter::MultiplexEncoderAdapter(
     : factory_(factory),
       associated_format_(associated_format),
       encoded_complete_callback_(nullptr),
+      key_frame_interval_(0),
       supports_augmented_data_(supports_augmented_data) {}
 
 MultiplexEncoderAdapter::~MultiplexEncoderAdapter() {
@@ -92,6 +93,10 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
       break;
   }
 
+  encoder_info = EncoderInfo();
+  encoder_info.implementation_name = "MultiplexEncoderAdapter (";
+  encoder_info.supports_native_handle = true;
+
   for (size_t i = 0; i < kAlphaCodecStreams; ++i) {
     std::unique_ptr<VideoEncoder> encoder =
         factory_->CreateVideoEncoder(associated_format_);
@@ -104,8 +109,18 @@ int MultiplexEncoderAdapter::InitEncode(const VideoCodec* inst,
     adapter_callbacks_.emplace_back(new AdapterEncodedImageCallback(
         this, static_cast<AlphaCodecStream>(i)));
     encoder->RegisterEncodeCompleteCallback(adapter_callbacks_.back().get());
+
+    EncoderInfo encoder_info = encoder->GetEncoderInfo();
+    encoder_info.supports_native_handle &= encoder_info.supports_native_handle;
+    encoder_info.implementation_name += encoder_info.implementation_name;
+    if (i != kAlphaCodecStreams - 1) {
+      encoder_info.implementation_name = ", ";
+    }
+
     encoders_.emplace_back(std::move(encoder));
   }
+  encoder_info.implementation_name += ")";
+
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
@@ -238,8 +253,8 @@ int MultiplexEncoderAdapter::Release() {
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
-const char* MultiplexEncoderAdapter::ImplementationName() const {
-  return "MultiplexEncoderAdapter";
+VideoEncoder::EncoderInfo MultiplexEncoderAdapter::GetEncoderInfo() const {
+  return encoder_info;
 }
 
 EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(

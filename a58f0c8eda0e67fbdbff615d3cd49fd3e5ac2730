@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be4b4fd9_b0937383",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-11-01T12:23:27Z",
+      "side": 1,
+      "message": "Yes, unless we add logic in both the Mixer and FrameCombiner to keep track of the rate between calls. Setting the rate just updates one or two int variables, it\u0027s very cheap.\n\n*OR* we could make Limiter re-compute the rate from \u0027mixing_buffer_view\u0027 at every Process() call. Maybe that\u0027s better?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 77
+      },
+      "revId": "a58f0c8eda0e67fbdbff615d3cd49fd3e5ac2730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "826f6426_69368335",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-11-01T12:23:27Z",
+      "side": 1,
+      "message": "Will it be more difficult to make it a struct {gain_min, gain_max, rate, sat_expct} instead?",
+      "range": {
+        "startLine": 161,
+        "startChar": 28,
+        "endLine": 161,
+        "endChar": 67
+      },
+      "revId": "a58f0c8eda0e67fbdbff615d3cd49fd3e5ac2730",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

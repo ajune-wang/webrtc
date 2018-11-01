@@ -48,7 +48,8 @@ class LogObserver {
    public:
     Callback() : done_(false, false) {}
 
-    void OnLogMessage(const std::string& message) override {
+    void OnLogMessage(const std::string& message,
+                      rtc::LoggingSeverity severity) override {
       rtc::CritScope lock(&crit_sect_);
       // Ignore log lines that are due to missing AST extensions, these are
       // logged when we switch back from AST to TOF until the wrapping bitrate

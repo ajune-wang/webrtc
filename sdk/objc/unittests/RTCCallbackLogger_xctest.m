@@ -39,8 +39,9 @@
 
   XCTestExpectation *callbackExpectation = [self expectationWithDescription:@"callbackWarning"];
 
-  [self.logger start:^(NSString *message) {
+  [self.logger start:^(NSString *message, RTCLoggingSeverity severity) {
     XCTAssertTrue([message hasSuffix:@"Horrible error\n"]);
+    XCTAssertEqual(severity, RTCLoggingSeverityError);
     [callbackExpectation fulfill];
   }];
 
@@ -54,8 +55,9 @@
 
   XCTestExpectation *callbackExpectation = [self expectationWithDescription:@"callbackError"];
 
-  [self.logger start:^(NSString *message) {
+  [self.logger start:^(NSString *message, RTCLoggingSeverity severity) {
     XCTAssertTrue([message hasSuffix:@"Horrible error\n"]);
+    XCTAssertEqual(severity, RTCLoggingSeverityError);
     [callbackExpectation fulfill];
   }];
 
@@ -71,7 +73,7 @@
 
   XCTestExpectation *callbackExpectation = [self expectationWithDescription:@"unexpectedCallback"];
 
-  [self.logger start:^(NSString *message) {
+  [self.logger start:^(NSString *message, RTCLoggingSeverity severity) {
     [callbackExpectation fulfill];
     XCTAssertTrue(false);
   }];
@@ -94,7 +96,7 @@
 - (void)testStopCallbackLogger {
   XCTestExpectation *callbackExpectation = [self expectationWithDescription:@"stopped"];
 
-  [self.logger start:^(NSString *message) {
+  [self.logger start:^(NSString *message, RTCLoggingSeverity severity) {
     [callbackExpectation fulfill];
   }];
 
@@ -110,7 +112,7 @@
 - (void)testDestroyingCallbackLogger {
   XCTestExpectation *callbackExpectation = [self expectationWithDescription:@"destroyed"];
 
-  [self.logger start:^(NSString *message) {
+  [self.logger start:^(NSString *message, RTCLoggingSeverity severity) {
     [callbackExpectation fulfill];
   }];
 

@@ -35,7 +35,8 @@ FileRotatingLogSink::FileRotatingLogSink(FileRotatingStream* stream)
 
 FileRotatingLogSink::~FileRotatingLogSink() {}
 
-void FileRotatingLogSink::OnLogMessage(const std::string& message) {
+void FileRotatingLogSink::OnLogMessage(const std::string& message,
+                                       LoggingSeverity sev) {
   if (stream_->GetState() != SS_OPEN) {
     std::fprintf(stderr, "Init() must be called before adding this sink.\n");
     return;

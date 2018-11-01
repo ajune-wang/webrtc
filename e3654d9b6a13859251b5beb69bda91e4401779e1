@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48cd30c4_8092b07c",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-01T22:28:49Z",
+      "side": 1,
+      "message": "Is it not sufficient to capture by value in the lambda?",
+      "revId": "e3654d9b6a13859251b5beb69bda91e4401779e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

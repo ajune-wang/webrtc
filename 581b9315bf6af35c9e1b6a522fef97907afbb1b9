@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9010ecb6_4cc39ec8",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-02T05:36:13Z",
+      "side": 1,
+      "message": "or SCTP?",
+      "range": {
+        "startLine": 590,
+        "startChar": 41,
+        "endLine": 590,
+        "endChar": 44
+      },
+      "revId": "581b9315bf6af35c9e1b6a522fef97907afbb1b9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

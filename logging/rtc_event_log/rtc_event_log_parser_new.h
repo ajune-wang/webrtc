@@ -24,6 +24,7 @@
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "logging/rtc_event_log/rtc_event_log_proto_utils.h"
 #include "logging/rtc_event_log/rtc_stream_config.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
@@ -1015,9 +1016,16 @@ class ParsedRtcEventLogNew {
   void StoreParsedNewFormatEvent(const rtclog2::EventStream& event);
 
   void StoreIncomingRtpPackets(const rtclog2::IncomingRtpPackets& proto);
-  void StoreOutgoingRtpPacket(const rtclog2::OutgoingRtpPackets& proto);
+  void StoreOutgoingRtpPackets(const rtclog2::OutgoingRtpPackets& proto);
+
+  template <typename ProtoType, typename LoggedType>
+  void StoreRtpPackets(
+      RtpPacketsProtoReader<ProtoType> proto,
+      std::map<uint32_t, std::vector<LoggedType>>* rtp_packets_map);
+
   void StoreIncomingRtcpPackets(const rtclog2::IncomingRtcpPackets& proto);
   void StoreOutgoingRtcpPackets(const rtclog2::OutgoingRtcpPackets& proto);
+
   void StoreAudioPlayoutEvent(const rtclog2::AudioPlayoutEvents& proto);
   void StoreStartEvent(const rtclog2::BeginLogEvent& proto);
   void StoreStopEvent(const rtclog2::EndLogEvent& proto);

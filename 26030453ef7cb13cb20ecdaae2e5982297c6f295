@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbb947a2_1a7d8e7e",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "CHECK that sum_ can\u0027t overflow with this window size? (Alternatively. DCHECK every time in AddSample.)",
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0089cc1_932010cf",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "This subtraction is done with ints, and can overflow.",
+      "range": {
+        "startLine": 25,
+        "startChar": 10,
+        "endLine": 25,
+        "endChar": 34
+      },
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b1a976_d2c0fec8",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Doesn\u0027t it make more sense to do integer division, instead of converting to double and back again?",
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621b06e9_8f2c6176",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a5d6526_8dfc1399",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "This should not be necessary, right?",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7df58c95_c316f45f",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Please add comments for the data members.",
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4123bac_6c191796",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Please put the new files in a build target of their own (see the TODO on line 71).",
+      "revId": "7e2573a9ac1f1a608e1e229452cc7e054fb5a924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f333fd04_46283a02",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Semicolon, or a new sentence.",
+      "range": {
+        "startLine": 28,
+        "startChar": 20,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "7e2573a9ac1f1a608e1e229452cc7e054fb5a924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ad31777_891a8a50",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "S",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 10
+      },
+      "revId": "7e2573a9ac1f1a608e1e229452cc7e054fb5a924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10fe4541_71082cab",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T11:50:20Z",
+      "side": 1,
+      "message": "Move these up with the rest of the constructors. See https://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "revId": "7e2573a9ac1f1a608e1e229452cc7e054fb5a924",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cc99a7c_11518b5b",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T08:46:00Z",
+      "side": 1,
+      "message": "Could we please rename this method to GetCpuSpeed?",
+      "range": {
+        "startLine": 529,
+        "startChar": 22,
+        "endLine": 529,
+        "endChar": 33
+      },
+      "revId": "9519dec594314e00097e47a555ffa42e48907b5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16af416a_1a1ff3d1",
+        "filename": "rtc_base/experiments/cpu_speed_experiment.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T08:46:00Z",
+      "side": 1,
+      "message": "Use std::vector\u003cConfig\u003e here already and resize() it to 3 elements. Then you can do c[1].cpu_speed etc below.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "9519dec594314e00097e47a555ffa42e48907b5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4bf15aa_dbde0508",
+        "filename": "rtc_base/experiments/cpu_speed_experiment.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T08:46:00Z",
+      "side": 1,
+      "message": "If you do as suggested this line is not needed.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "9519dec594314e00097e47a555ffa42e48907b5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -285,4 +285,22 @@ TEST_F(TestNackModule, HandleFecRecoveredPacket) {
   EXPECT_EQ(2u, sent_nacks_.size());
 }
 
+TEST_F(TestNackModule, SendNackWithoutDelay) {
+  nack_module_.OnReceivedPacket(0, false, false);
+  nack_module_.OnReceivedPacket(100, false, false);
+  EXPECT_EQ(99u, sent_nacks_.size());
+}
+
+TEST_F(TestNackModule, SendNackWithDelay) {
+  nack_module_.SetSendNackDelay(10);
+  nack_module_.OnReceivedPacket(0, false, false);
+  nack_module_.OnReceivedPacket(100, false, false);
+  EXPECT_EQ(0u, sent_nacks_.size());
+  clock_->AdvanceTimeMilliseconds(10);
+  nack_module_.OnReceivedPacket(106, false, false);
+  EXPECT_EQ(99u, sent_nacks_.size());
+  clock_->AdvanceTimeMilliseconds(10);
+  nack_module_.OnReceivedPacket(109, false, false);
+  EXPECT_EQ(104u, sent_nacks_.size());
+}
 }  // namespace webrtc

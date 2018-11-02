@@ -42,6 +42,9 @@ class NackModule : public Module {
   int64_t TimeUntilNextProcess() override;
   void Process() override;
 
+  // For unittest
+  void SetSendNackDelay(int64_t delay_ms);
+
  private:
   // Which fields to consider when deciding which packet to nack in
   // GetNackBatch.
@@ -52,10 +55,13 @@ class NackModule : public Module {
   // we have tried to nack this packet.
   struct NackInfo {
     NackInfo();
-    NackInfo(uint16_t seq_num, uint16_t send_at_seq_num);
+    NackInfo(uint16_t seq_num,
+             uint16_t send_at_seq_num,
+             int64_t created_at_time);
 
     uint16_t seq_num;
     uint16_t send_at_seq_num;
+    int64_t created_at_time;
     int64_t sent_at_time;
     int retries;
   };
@@ -98,6 +104,9 @@ class NackModule : public Module {
 
   // Only touched on the process thread.
   int64_t next_process_time_ms_;
+
+  // Adds a delay before send nack on packet received.
+  int64_t send_nack_delay_ms_;
 };
 
 }  // namespace webrtc

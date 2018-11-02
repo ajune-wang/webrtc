@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0773d327_e51d2287",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6049
+      },
+      "writtenOn": "2018-11-02T09:47:10Z",
+      "side": 1,
+      "message": "\"to configure\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "9945e2dad54b99a43c73b7603eb781878d31d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73c640a_fbd3b058",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6049
+      },
+      "writtenOn": "2018-11-02T09:47:10Z",
+      "side": 1,
+      "message": "Why ul when we read into int?",
+      "range": {
+        "startLine": 35,
+        "startChar": 22,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "9945e2dad54b99a43c73b7603eb781878d31d754",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

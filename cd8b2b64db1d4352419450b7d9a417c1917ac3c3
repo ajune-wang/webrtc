@@ -90,6 +90,40 @@
       "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e45f011_86296622",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:40:45Z",
+      "side": 1,
+      "message": "...since the last reset.",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1dd24f9_bf52c86e",
+        "filename": "rtc_base/numerics/moving_average_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:40:45Z",
+      "side": 1,
+      "message": "Easier to understand if you EXPECT_EQ(absl::nullopt, ...);",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

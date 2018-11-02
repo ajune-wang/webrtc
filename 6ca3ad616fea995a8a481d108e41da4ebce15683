@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a6e7d30_399a681b",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-02T18:21:03Z",
+      "side": 1,
+      "message": "It is used by MockVideoBitrateAllocatorFactory::CreateVideoBitrateAllocator above. gmock cannot mock functions that returns unique_ptr (I don\u0027t remember the reason anymore), this is the common practice to workaround this. There are examples in other webrtc mocks. \n\nIt doesn\u0027t have to be call \"Proxy\" though. You can suggest a better naming.",
+      "parentUuid": "7bdb2164_4d275a80",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e766ca20_e0cb0817",
         "filename": "media/engine/webrtcmediaengine.h",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "650ff862_0cd5be3f",
+        "filename": "media/engine/webrtcmediaengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-02T18:21:03Z",
+      "side": 1,
+      "message": "I would like to have it be consistent with other factories. I would keep it this way unless you are suggesting we change all the forward declaration into includes.",
+      "parentUuid": "e766ca20_e0cb0817",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90ba4c9a_536f4985",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-02T08:53:22Z",
       "side": 1,
       "message": "Obsolete. Use api/video/encoded_image.h instead. If the include is needed at all; it should be brought in together with the declaration of EncodedImageCallback (in api/video_codecs/video_encoder.h), and since that\u0027s the only use, I don\u0027t think a direct inclusion is needed.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e1454db_4d2e5ab5",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-02T18:21:03Z",
+      "side": 1,
+      "message": "Oops. This must be a bad merge. I didn\u0027t touch anything video frame related. Will remove it.",
+      "parentUuid": "90ba4c9a_536f4985",
       "range": {
         "startLine": 21,
         "startChar": 0,

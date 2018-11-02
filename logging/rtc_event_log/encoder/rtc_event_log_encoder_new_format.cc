@@ -322,7 +322,7 @@ void EncodeRtcpPacket(rtc::ArrayView<const EventType*> batch,
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // raw_packet
@@ -336,7 +336,7 @@ void EncodeRtcpPacket(rtc::ArrayView<const EventType*> batch,
     scrubed_packets[i].resize(buffer_length);
   }
   // TODO(eladalon): s/deltas/blobs in separate CL.
-  proto_batch->set_raw_packet_deltas(EncodeBlobs(scrubed_packets));
+  proto_batch->set_raw_packet_blobs(EncodeBlobs(scrubed_packets));
 }
 
 template <typename EventType, typename ProtoType>
@@ -429,7 +429,7 @@ void EncodeRtpPacket(const std::vector<const EventType*>& batch,
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // marker (RTP base)
@@ -842,7 +842,7 @@ void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // bitrate_bps
@@ -852,7 +852,7 @@ void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
   }
   encoded_deltas = EncodeDeltas(base_event->config_->bitrate_bps, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_bitrate_deltas_bps(encoded_deltas);
+    proto_batch->set_bitrate_bps_deltas(encoded_deltas);
   }
 
   // frame_length_ms
@@ -862,7 +862,7 @@ void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
   }
   encoded_deltas = EncodeDeltas(base_event->config_->frame_length_ms, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_frame_length_deltas_ms(encoded_deltas);
+    proto_batch->set_frame_length_ms_deltas(encoded_deltas);
   }
 
   // uplink_packet_loss_fraction
@@ -939,7 +939,7 @@ void RtcEventLogEncoderNewFormat::EncodeAudioPlayout(
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // local_ssrc
@@ -1024,7 +1024,7 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateDelayBased(
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // bitrate_bps
@@ -1034,7 +1034,7 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateDelayBased(
   }
   encoded_deltas = EncodeDeltas(base_event->bitrate_bps_, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_bitrate_deltas_bps(encoded_deltas);
+    proto_batch->set_bitrate_bps_deltas(encoded_deltas);
   }
 
   // detector_state
@@ -1079,7 +1079,7 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateLossBased(
   }
   encoded_deltas = EncodeDeltas(base_event->timestamp_us_ / 1000, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_timestamp_deltas_ms(encoded_deltas);
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
   }
 
   // bitrate_bps
@@ -1089,7 +1089,7 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateLossBased(
   }
   encoded_deltas = EncodeDeltas(base_event->bitrate_bps_, values);
   if (!encoded_deltas.empty()) {
-    proto_batch->set_bitrate_deltas_bps(encoded_deltas);
+    proto_batch->set_bitrate_bps_deltas(encoded_deltas);
   }
 
   // fraction_loss

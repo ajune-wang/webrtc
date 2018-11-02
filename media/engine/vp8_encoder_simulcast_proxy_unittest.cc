@@ -153,5 +153,31 @@ TEST(VP8EncoderSimulcastProxy, ChoosesCorrectImplementation) {
   simulcast_disabled_proxy.Release();
 }
 
+// TEST(VP8EncoderSimulcastProxy, ForwardsTrustedSetting) {
+//  NiceMock<MockEncoder>* mock_encoder = new NiceMock<MockEncoder>();
+//  NiceMock<MockVideoEncoderFactory> simulcast_factory;
+//
+//  EXPECT_CALL(*mock_encoder, InitEncode(_, _, _))
+//      .WillOnce(Return(WEBRTC_VIDEO_CODEC_OK));
+//
+//  EXPECT_CALL(simulcast_factory, CreateVideoEncoderProxy(_))
+//      .Times(1)
+//      .WillOnce(Return(mock_encoder));
+//
+//  VP8EncoderSimulcastProxy simulcast_enabled_proxy(&simulcast_factory,
+//                                                   SdpVideoFormat("VP8"));
+//  VideoCodec codec_settings;
+//  webrtc::test::CodecSettings(kVideoCodecVP8, &codec_settings);
+//  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+//            simulcast_enabled_proxy.InitEncode(&codec_settings, 4, 1200));
+//
+//  VideoEncoder::EncoderInfo info;
+//  info.has_trusted_rate_controller = true;
+//  EXPECT_CALL(*mock_encoder, GetEncoderInfo())
+//      .WillRepeatedly(Return(info));
+//
+//  EXPECT_TRUE(simulcast_enabled_proxy.HasTrustedRateController());
+//}
+
 }  // namespace testing
 }  // namespace webrtc

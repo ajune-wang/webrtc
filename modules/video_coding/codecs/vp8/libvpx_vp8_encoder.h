@@ -87,6 +87,8 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   const std::unique_ptr<LibvpxInterface> libvpx_;
 
+  const bool trusted_rate_controller_;
+
   EncodedImageCallback* encoded_complete_callback_;
   VideoCodec codec_;
   bool inited_;

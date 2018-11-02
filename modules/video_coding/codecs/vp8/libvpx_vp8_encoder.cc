@@ -28,6 +28,9 @@
 
 namespace webrtc {
 namespace {
+const char kVp8TrustedRateControllerFieldTrial[] =
+    "WebRTC-Vp8TrustedRateController";
+
 // QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
 // bitstream range of [0, 127] and not the user-level range of [0,63].
 constexpr int kLowVp8QpThreshold = 29;
@@ -142,6 +145,8 @@ LibvpxVp8Encoder::LibvpxVp8Encoder()
 
 LibvpxVp8Encoder::LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface)
     : libvpx_(std::move(interface)),
+      trusted_rate_controller_(
+          webrtc::field_trial::IsEnabled(kVp8TrustedRateControllerFieldTrial)),
       encoded_complete_callback_(nullptr),
       inited_(false),
       timestamp_(0),

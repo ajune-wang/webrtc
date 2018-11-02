@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67c8241a_3bdb6881",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-02T10:52:08Z",
+      "side": 1,
+      "message": "I don\u0027t know exactly what we are testing with this experiment, but is a 20 ms limit enough?",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 36
+      },
+      "revId": "ab0b5a6e7b6a8d676bc922151cc45431cdce5893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

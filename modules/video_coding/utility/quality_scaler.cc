@@ -183,8 +183,9 @@ void QualityScaler::CheckQp() {
 
   // Check if we should scale down due to high frame drop.
   const absl::optional<int> drop_rate =
-      config_.use_all_drop_reasons ? framedrop_percent_all_.GetAverage()
-                                   : framedrop_percent_media_opt_.GetAverage();
+      config_.use_all_drop_reasons
+          ? framedrop_percent_all_.GetAverageRoundedDown()
+          : framedrop_percent_media_opt_.GetAverageRoundedDown();
   if (drop_rate && *drop_rate >= kFramedropPercentThreshold) {
     RTC_LOG(LS_INFO) << "Reporting high QP, framedrop percent " << *drop_rate;
     ReportQpHigh();
@@ -192,11 +193,12 @@ void QualityScaler::CheckQp() {
   }
 
   // Check if we should scale up or down based on QP.
-  const absl::optional<int> avg_qp_high = qp_smoother_high_
-                                              ? qp_smoother_high_->GetAvg()
-                                              : average_qp_.GetAverage();
+  const absl::optional<int> avg_qp_high =
+      qp_smoother_high_ ? qp_smoother_high_->GetAvg()
+                        : average_qp_.GetAverageRoundedDown();
   const absl::optional<int> avg_qp_low =
-      qp_smoother_low_ ? qp_smoother_low_->GetAvg() : average_qp_.GetAverage();
+      qp_smoother_low_ ? qp_smoother_low_->GetAvg()
+                       : average_qp_.GetAverageRoundedDown();
   if (avg_qp_high && avg_qp_low) {
     RTC_LOG(LS_INFO) << "Checking average QP " << *avg_qp_high << " ("
                      << *avg_qp_low << ").";

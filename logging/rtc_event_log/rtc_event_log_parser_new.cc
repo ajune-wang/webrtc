@@ -24,6 +24,9 @@
 #include "absl/types/optional.h"
 #include "api/rtp_headers.h"
 #include "api/rtpparameters.h"
+#include "logging/rtc_event_log/encoder/blob_encoding.h"
+#include "logging/rtc_event_log/encoder/delta_encoding.h"
+#include "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
@@ -35,6 +38,7 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/protobuf_utils.h"
 
 namespace webrtc {
@@ -440,6 +444,323 @@ void SortPacketFeedbackVectorWithLoss(std::vector<PacketFeedback>* vec) {
     }
   };
   std::sort(vec->begin(), vec->end(), LossHandlingPacketFeedbackComparator());
+}
+
+template <typename ProtoType, typename LoggedType>
+void StoreRtpPackets(
+    const ProtoType& proto,
+    std::map<uint32_t, std::vector<LoggedType>>* rtp_packets_map) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_marker());
+  RTC_CHECK(proto.has_payload_type());
+  RTC_CHECK(proto.has_sequence_number());
+  RTC_CHECK(proto.has_rtp_timestamp());
+  RTC_CHECK(proto.has_ssrc());
+  RTC_CHECK(proto.has_payload_size());
+  RTC_CHECK(proto.has_header_size());
+  RTC_CHECK(proto.has_padding_size());
+
+  // Base event
+  {
+    RTPHeader header;
+    header.markerBit = rtc::checked_cast<bool>(proto.marker());
+    header.payloadType = rtc::checked_cast<uint8_t>(proto.payload_type());
+    header.sequenceNumber =
+        rtc::checked_cast<uint16_t>(proto.sequence_number());
+    header.timestamp = rtc::checked_cast<uint32_t>(proto.rtp_timestamp());
+    header.ssrc = rtc::checked_cast<uint32_t>(proto.ssrc());
+    header.numCSRCs = 0;  // TODO(terelius): Implement CSRC.
+    header.paddingLength = rtc::checked_cast<size_t>(proto.padding_size());
+    header.headerLength = rtc::checked_cast<size_t>(proto.header_size());
+    // TODO(terelius): Should we implement payload_type_frequency?
+    if (proto.has_transport_sequence_number()) {
+      header.extension.hasTransportSequenceNumber = true;
+      header.extension.transportSequenceNumber =
+          rtc::checked_cast<uint16_t>(proto.transport_sequence_number());
+    }
+    if (proto.has_transmission_time_offset()) {
+      header.extension.hasTransmissionTimeOffset = true;
+      header.extension.transmissionTimeOffset =
+          rtc::checked_cast<int32_t>(proto.transmission_time_offset());
+    }
+    if (proto.has_absolute_send_time()) {
+      header.extension.hasAbsoluteSendTime = true;
+      header.extension.absoluteSendTime =
+          rtc::checked_cast<uint32_t>(proto.absolute_send_time());
+    }
+    if (proto.has_video_rotation()) {
+      header.extension.hasVideoRotation = true;
+      header.extension.videoRotation = ConvertCVOByteToVideoRotation(
+          rtc::checked_cast<uint8_t>(proto.video_rotation()));
+    }
+    if (proto.has_audio_level()) {
+      header.extension.hasAudioLevel = true;
+      const uint8_t audio_level =
+          rtc::checked_cast<uint8_t>(proto.audio_level());
+      header.extension.voiceActivity = (audio_level >> 7) != 0;
+      header.extension.audioLevel = audio_level & 0x7Fu;
+    }
+    (*rtp_packets_map)[header.ssrc].emplace_back(
+        proto.timestamp_ms() * 1000, header, proto.header_size(),
+        proto.payload_size() + header.headerLength + header.paddingLength);
+  }
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  const std::string kEmptyString;
+
+  // timestamp_ms (event)
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // marker (RTP base)
+  const std::string& marker_deltas =
+      proto.has_marker_deltas() ? proto.marker_deltas() : kEmptyString;
+  std::vector<absl::optional<uint64_t>> marker_values =
+      DecodeDeltas(marker_deltas, proto.marker(), number_of_deltas);
+  RTC_CHECK_EQ(marker_values.size(), number_of_deltas);
+
+  // payload_type (RTP base)
+  const std::string& payload_type_deltas = proto.has_payload_type_deltas()
+                                               ? proto.payload_type_deltas()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> payload_type_values =
+      DecodeDeltas(payload_type_deltas, proto.payload_type(), number_of_deltas);
+  RTC_CHECK_EQ(payload_type_values.size(), number_of_deltas);
+
+  // sequence_number (RTP base)
+  const std::string& sequence_number_deltas =
+      proto.has_sequence_number_deltas() ? proto.sequence_number_deltas()
+                                         : kEmptyString;
+  std::vector<absl::optional<uint64_t>> sequence_number_values = DecodeDeltas(
+      sequence_number_deltas, proto.sequence_number(), number_of_deltas);
+  RTC_CHECK_EQ(sequence_number_values.size(), number_of_deltas);
+
+  // rtp_timestamp (RTP base)
+  const std::string& rtp_timestamp_deltas = proto.has_rtp_timestamp_deltas()
+                                                ? proto.rtp_timestamp_deltas()
+                                                : kEmptyString;
+  std::vector<absl::optional<uint64_t>> rtp_timestamp_values = DecodeDeltas(
+      rtp_timestamp_deltas, proto.rtp_timestamp(), number_of_deltas);
+  RTC_CHECK_EQ(rtp_timestamp_values.size(), number_of_deltas);
+
+  // ssrc (RTP base)
+  const std::string& ssrc_deltas =
+      proto.has_ssrc_deltas() ? proto.ssrc_deltas() : kEmptyString;
+  std::vector<absl::optional<uint64_t>> ssrc_values =
+      DecodeDeltas(ssrc_deltas, proto.ssrc(), number_of_deltas);
+  RTC_CHECK_EQ(ssrc_values.size(), number_of_deltas);
+
+  // payload_size (RTP base)
+  const std::string& payload_size_deltas = proto.has_payload_size_deltas()
+                                               ? proto.payload_size_deltas()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> payload_size_values =
+      DecodeDeltas(payload_size_deltas, proto.payload_size(), number_of_deltas);
+  RTC_CHECK_EQ(payload_size_values.size(), number_of_deltas);
+
+  // header_size (RTP base)
+  const std::string& header_size_deltas = proto.has_header_size_deltas()
+                                              ? proto.header_size_deltas()
+                                              : kEmptyString;
+  std::vector<absl::optional<uint64_t>> header_size_values =
+      DecodeDeltas(header_size_deltas, proto.header_size(), number_of_deltas);
+  RTC_CHECK_EQ(header_size_values.size(), number_of_deltas);
+
+  // padding_size (RTP base)
+  const std::string& padding_size_deltas = proto.has_padding_size_deltas()
+                                               ? proto.padding_size_deltas()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> padding_size_values =
+      DecodeDeltas(padding_size_deltas, proto.padding_size(), number_of_deltas);
+  RTC_CHECK_EQ(padding_size_values.size(), number_of_deltas);
+
+  // transport_sequence_number (RTP extension)
+  std::vector<absl::optional<uint64_t>> transport_sequence_number_values;
+  {
+    const std::string& transport_sequence_number_deltas =
+        proto.has_transport_sequence_number_deltas()
+            ? proto.transport_sequence_number_deltas()
+            : kEmptyString;
+    const absl::optional<uint64_t> base_transport_sequence_number =
+        proto.has_transport_sequence_number()
+            ? proto.transport_sequence_number()
+            : absl::optional<uint64_t>();
+    transport_sequence_number_values =
+        DecodeDeltas(transport_sequence_number_deltas,
+                     base_transport_sequence_number, number_of_deltas);
+    RTC_CHECK_EQ(transport_sequence_number_values.size(), number_of_deltas);
+  }
+
+  // transmission_time_offset (RTP extension)
+  std::vector<absl::optional<uint64_t>> transmission_time_offset_values;
+  {
+    const std::string& transmission_time_offset_deltas =
+        proto.has_transmission_time_offset_deltas()
+            ? proto.transmission_time_offset_deltas()
+            : kEmptyString;
+    const absl::optional<uint64_t> base_transmission_time_offset =
+        proto.has_transmission_time_offset() ? proto.transmission_time_offset()
+                                             : absl::optional<uint64_t>();
+    transmission_time_offset_values =
+        DecodeDeltas(transmission_time_offset_deltas,
+                     base_transmission_time_offset, number_of_deltas);
+    RTC_CHECK_EQ(transmission_time_offset_values.size(), number_of_deltas);
+  }
+
+  // absolute_send_time (RTP extension)
+  std::vector<absl::optional<uint64_t>> absolute_send_time_values;
+  {
+    const std::string& absolute_send_time_deltas =
+        proto.has_absolute_send_time_deltas()
+            ? proto.absolute_send_time_deltas()
+            : kEmptyString;
+    const absl::optional<uint64_t> base_absolute_send_time =
+        proto.has_absolute_send_time() ? proto.absolute_send_time()
+                                       : absl::optional<uint64_t>();
+    absolute_send_time_values = DecodeDeltas(
+        absolute_send_time_deltas, base_absolute_send_time, number_of_deltas);
+    RTC_CHECK_EQ(absolute_send_time_values.size(), number_of_deltas);
+  }
+
+  // video_rotation (RTP extension)
+  std::vector<absl::optional<uint64_t>> video_rotation_values;
+  {
+    const std::string& video_rotation_deltas =
+        proto.has_video_rotation_deltas() ? proto.video_rotation_deltas()
+                                          : kEmptyString;
+    const absl::optional<uint64_t> base_video_rotation =
+        proto.has_video_rotation() ? proto.video_rotation()
+                                   : absl::optional<uint64_t>();
+    video_rotation_values = DecodeDeltas(video_rotation_deltas,
+                                         base_video_rotation, number_of_deltas);
+    RTC_CHECK_EQ(video_rotation_values.size(), number_of_deltas);
+  }
+
+  // audio_level (RTP extension)
+  std::vector<absl::optional<uint64_t>> audio_level_values;
+  {
+    const std::string& audio_level_deltas = proto.has_audio_level_deltas()
+                                                ? proto.audio_level_deltas()
+                                                : kEmptyString;
+    const absl::optional<uint64_t> base_audio_level =
+        proto.has_audio_level() ? proto.audio_level()
+                                : absl::optional<uint64_t>();
+    audio_level_values =
+        DecodeDeltas(audio_level_deltas, base_audio_level, number_of_deltas);
+    RTC_CHECK_EQ(audio_level_values.size(), number_of_deltas);
+  }
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+    RTC_CHECK(marker_values[i].has_value());
+    RTC_CHECK(payload_type_values[i].has_value());
+    RTC_CHECK(sequence_number_values[i].has_value());
+    RTC_CHECK(rtp_timestamp_values[i].has_value());
+    RTC_CHECK(ssrc_values[i].has_value());
+    RTC_CHECK(payload_size_values[i].has_value());
+    RTC_CHECK(header_size_values[i].has_value());
+    RTC_CHECK(padding_size_values[i].has_value());
+
+    RTPHeader header;
+    header.markerBit = rtc::checked_cast<bool>(*marker_values[i]);
+    header.payloadType = rtc::checked_cast<uint8_t>(*payload_type_values[i]);
+    header.sequenceNumber =
+        rtc::checked_cast<uint16_t>(*sequence_number_values[i]);
+    header.timestamp = rtc::checked_cast<uint32_t>(*rtp_timestamp_values[i]);
+    header.ssrc = rtc::checked_cast<uint32_t>(*ssrc_values[i]);
+    header.numCSRCs = 0;  // TODO(terelius): Implement CSRC.
+    header.paddingLength = rtc::checked_cast<size_t>(*padding_size_values[i]);
+    header.headerLength = rtc::checked_cast<size_t>(*header_size_values[i]);
+    // TODO(terelius): Should we implement payload_type_frequency?
+    if (transport_sequence_number_values.size() > i &&
+        transport_sequence_number_values[i].has_value()) {
+      header.extension.hasTransportSequenceNumber = true;
+      header.extension.transportSequenceNumber = rtc::checked_cast<uint16_t>(
+          transport_sequence_number_values[i].value());
+    }
+    if (transmission_time_offset_values.size() > i &&
+        transmission_time_offset_values[i].has_value()) {
+      header.extension.hasTransmissionTimeOffset = true;
+      RTC_CHECK_LE(transmission_time_offset_values[i].value(),
+                   std::numeric_limits<uint32_t>::max());
+      header.extension.transmissionTimeOffset =
+          static_cast<int32_t>(transmission_time_offset_values[i].value());
+    }
+    if (absolute_send_time_values.size() > i &&
+        absolute_send_time_values[i].has_value()) {
+      header.extension.hasAbsoluteSendTime = true;
+      header.extension.absoluteSendTime =
+          rtc::checked_cast<uint32_t>(absolute_send_time_values[i].value());
+    }
+    if (video_rotation_values.size() > i &&
+        video_rotation_values[i].has_value()) {
+      header.extension.hasVideoRotation = true;
+      header.extension.videoRotation = ConvertCVOByteToVideoRotation(
+          rtc::checked_cast<uint8_t>(video_rotation_values[i].value()));
+    }
+    if (audio_level_values.size() > i && audio_level_values[i].has_value()) {
+      header.extension.hasAudioLevel = true;
+      const uint8_t audio_level =
+          rtc::checked_cast<uint8_t>(audio_level_values[i].value());
+      header.extension.voiceActivity = (audio_level >> 7) != 0;
+      header.extension.audioLevel = audio_level & 0x7Fu;
+    }
+    (*rtp_packets_map)[header.ssrc].emplace_back(
+        timestamp_ms_values[i].value() * 1000, header, header.headerLength,
+        payload_size_values[i].value() + header.headerLength +
+            header.paddingLength);
+  }
+}
+
+template <typename ProtoType, typename LoggedType>
+void StoreRtcpPackets(const ProtoType& proto,
+                      std::vector<LoggedType>* rtcp_packets) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_raw_packet());
+
+  // Base event
+  rtcp_packets->emplace_back(proto.timestamp_ms() * 1000, proto.raw_packet());
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  const std::string kEmptyString;
+
+  // timestamp_ms
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // raw_packet
+  RTC_CHECK(proto.has_raw_packet_deltas());
+  std::vector<absl::string_view> raw_packet_values =
+      DecodeBlobs(proto.raw_packet_deltas(), number_of_deltas);
+  RTC_CHECK_EQ(raw_packet_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+    rtcp_packets->emplace_back(
+        1000 * timestamp_ms_values[i].value(),
+        reinterpret_cast<const uint8_t*>(raw_packet_values[i].data()),
+        raw_packet_values[i].size());
+  }
 }
 
 }  // namespace
@@ -1675,109 +1996,71 @@ const std::vector<MatchedSendArrivalTimes> GetNetworkTrace(
   return rtp_rtcp_matched;
 }
 
-// Helper functions for new format starts here
+// Helper functions for new format start here
 void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
     const rtclog2::EventStream& stream) {
   RTC_DCHECK_EQ(stream.stream_size(), 0);
 
-  RTC_DCHECK_LE(stream.incoming_rtp_packets_size(), 1);
+  RTC_DCHECK_EQ(
+      stream.incoming_rtp_packets_size() + stream.outgoing_rtp_packets_size() +
+          stream.incoming_rtcp_packets_size() +
+          stream.outgoing_rtcp_packets_size() +
+          stream.audio_playout_events_size() + stream.begin_log_events_size() +
+          stream.end_log_events_size() + stream.loss_based_bwe_updates_size() +
+          stream.delay_based_bwe_updates_size() +
+          stream.audio_network_adaptations_size() +
+          stream.probe_clusters_size() + stream.probe_success_size() +
+          stream.probe_failure_size() + stream.alr_states_size() +
+          stream.ice_candidate_configs_size() +
+          stream.ice_candidate_events_size() +
+          stream.audio_recv_stream_configs_size() +
+          stream.audio_send_stream_configs_size() +
+          stream.video_recv_stream_configs_size() +
+          stream.video_send_stream_configs_size(),
+      1u);
+
   if (stream.incoming_rtp_packets_size() == 1) {
     StoreIncomingRtpPackets(stream.incoming_rtp_packets(0));
-  }
-
-  RTC_DCHECK_LE(stream.outgoing_rtp_packets_size(), 1);
-  if (stream.outgoing_rtp_packets_size() == 1) {
-    StoreOutgoingRtpPacket(stream.outgoing_rtp_packets(0));
-  }
-
-  RTC_DCHECK_LE(stream.incoming_rtcp_packets_size(), 1);
-  if (stream.incoming_rtcp_packets_size() == 1) {
+  } else if (stream.outgoing_rtp_packets_size() == 1) {
+    StoreOutgoingRtpPackets(stream.outgoing_rtp_packets(0));
+  } else if (stream.incoming_rtcp_packets_size() == 1) {
     StoreIncomingRtcpPackets(stream.incoming_rtcp_packets(0));
-  }
-
-  RTC_DCHECK_LE(stream.outgoing_rtcp_packets_size(), 1);
-  if (stream.outgoing_rtcp_packets_size() == 1) {
+  } else if (stream.outgoing_rtcp_packets_size() == 1) {
     StoreOutgoingRtcpPackets(stream.outgoing_rtcp_packets(0));
-  }
-
-  RTC_DCHECK_LE(stream.audio_playout_events_size(), 1);
-  if (stream.audio_playout_events_size() == 1) {
+  } else if (stream.audio_playout_events_size() == 1) {
     StoreAudioPlayoutEvent(stream.audio_playout_events(0));
-  }
-
-  RTC_DCHECK_LE(stream.begin_log_events_size(), 1);
-  if (stream.begin_log_events_size() == 1) {
+  } else if (stream.begin_log_events_size() == 1) {
     StoreStartEvent(stream.begin_log_events(0));
-  }
-
-  RTC_DCHECK_LE(stream.end_log_events_size(), 1);
-  if (stream.end_log_events_size() == 1) {
+  } else if (stream.end_log_events_size() == 1) {
     StoreStopEvent(stream.end_log_events(0));
-  }
-
-  RTC_DCHECK_LE(stream.loss_based_bwe_updates_size(), 1);
-  if (stream.loss_based_bwe_updates_size() == 1) {
+  } else if (stream.loss_based_bwe_updates_size() == 1) {
     StoreBweLossBasedUpdate(stream.loss_based_bwe_updates(0));
-  }
-
-  RTC_DCHECK_LE(stream.delay_based_bwe_updates_size(), 1);
-  if (stream.delay_based_bwe_updates_size() == 1) {
+  } else if (stream.delay_based_bwe_updates_size() == 1) {
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
-  }
-
-  RTC_DCHECK_LE(stream.audio_network_adaptations_size(), 1);
-  if (stream.audio_network_adaptations_size() == 1) {
+  } else if (stream.audio_network_adaptations_size() == 1) {
     StoreAudioNetworkAdaptationEvent(stream.audio_network_adaptations(0));
-  }
-
-  RTC_DCHECK_LE(stream.probe_clusters_size(), 1);
-  if (stream.probe_clusters_size() == 1) {
+  } else if (stream.probe_clusters_size() == 1) {
     StoreBweProbeClusterCreated(stream.probe_clusters(0));
-  }
-
-  RTC_DCHECK_LE(stream.probe_success_size(), 1);
-  if (stream.probe_success_size() == 1) {
+  } else if (stream.probe_success_size() == 1) {
     StoreBweProbeSuccessEvent(stream.probe_success(0));
-  }
-
-  RTC_DCHECK_LE(stream.probe_failure_size(), 1);
-  if (stream.probe_failure_size() == 1) {
+  } else if (stream.probe_failure_size() == 1) {
     StoreBweProbeFailureEvent(stream.probe_failure(0));
-  }
-
-  RTC_DCHECK_LE(stream.alr_states_size(), 1);
-  if (stream.alr_states_size() == 1) {
+  } else if (stream.alr_states_size() == 1) {
     StoreAlrStateEvent(stream.alr_states(0));
-  }
-
-  RTC_DCHECK_LE(stream.ice_candidate_configs_size(), 1);
-  if (stream.ice_candidate_configs_size() == 1) {
+  } else if (stream.ice_candidate_configs_size() == 1) {
     StoreIceCandidatePairConfig(stream.ice_candidate_configs(0));
-  }
-
-  RTC_DCHECK_LE(stream.ice_candidate_events_size(), 1);
-  if (stream.ice_candidate_events_size() == 1) {
+  } else if (stream.ice_candidate_events_size() == 1) {
     StoreIceCandidateEvent(stream.ice_candidate_events(0));
-  }
-
-  RTC_DCHECK_LE(stream.audio_recv_stream_configs_size(), 1);
-  if (stream.audio_recv_stream_configs_size() == 1) {
+  } else if (stream.audio_recv_stream_configs_size() == 1) {
     StoreAudioRecvConfig(stream.audio_recv_stream_configs(0));
-  }
-
-  RTC_DCHECK_LE(stream.audio_send_stream_configs_size(), 1);
-  if (stream.audio_send_stream_configs_size() == 1) {
+  } else if (stream.audio_send_stream_configs_size() == 1) {
     StoreAudioSendConfig(stream.audio_send_stream_configs(0));
-  }
-
-  RTC_DCHECK_LE(stream.video_recv_stream_configs_size(), 1);
-  if (stream.video_recv_stream_configs_size() == 1) {
+  } else if (stream.video_recv_stream_configs_size() == 1) {
     StoreVideoRecvConfig(stream.video_recv_stream_configs(0));
-  }
-
-  RTC_DCHECK_LE(stream.video_send_stream_configs_size(), 1);
-  if (stream.video_send_stream_configs_size() == 1) {
+  } else if (stream.video_send_stream_configs_size() == 1) {
     StoreVideoSendConfig(stream.video_send_stream_configs(0));
+  } else {
+    RTC_NOTREACHED();
   }
 }
 
@@ -1796,157 +2079,66 @@ void ParsedRtcEventLogNew::StoreAudioPlayoutEvent(
     const rtclog2::AudioPlayoutEvents& proto) {
   RTC_CHECK(proto.has_timestamp_ms());
   RTC_CHECK(proto.has_local_ssrc());
-  LoggedAudioPlayoutEvent audio_playout_event;
-  audio_playout_event.timestamp_us = proto.timestamp_ms() * 1000;
-  audio_playout_event.ssrc = proto.local_ssrc();
 
-  audio_playout_events_[audio_playout_event.ssrc].push_back(
-      audio_playout_event);
-  // TODO(terelius): Parse deltas.
+  // Base event
+  auto map_it = audio_playout_events_[proto.local_ssrc()];
+  audio_playout_events_[proto.local_ssrc()].emplace_back(
+      1000 * proto.timestamp_ms(), proto.local_ssrc());
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  const std::string kEmptyString;
+
+  // timestamp_ms
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // local_ssrc
+  const std::string& local_ssrc_deltas =
+      proto.has_local_ssrc_deltas() ? proto.local_ssrc_deltas() : kEmptyString;
+  std::vector<absl::optional<uint64_t>> local_ssrc_values =
+      DecodeDeltas(local_ssrc_deltas, proto.local_ssrc(), number_of_deltas);
+  RTC_CHECK_EQ(local_ssrc_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+    RTC_CHECK(local_ssrc_values[i].has_value());
+    RTC_CHECK_LE(local_ssrc_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t local_ssrc =
+        static_cast<uint32_t>(local_ssrc_values[i].value());
+    audio_playout_events_[local_ssrc].emplace_back(
+        1000 * timestamp_ms_values[i].value(), local_ssrc);
+  }
 }
 
 void ParsedRtcEventLogNew::StoreIncomingRtpPackets(
     const rtclog2::IncomingRtpPackets& proto) {
-  RTC_CHECK(proto.has_timestamp_ms());
-  int64_t timestamp_ms = proto.timestamp_ms();
-
-  RTC_CHECK(proto.has_header_size());
-  size_t header_length = proto.header_size();
-
-  RTC_CHECK(proto.has_padding_size());
-  size_t padding_length = proto.padding_size();
-
-  RTC_CHECK(proto.has_payload_size());
-  size_t total_length = proto.payload_size() + header_length + padding_length;
-
-  RTPHeader header;
-  RTC_CHECK(proto.has_marker());
-  header.markerBit = proto.marker();
-  RTC_CHECK(proto.has_payload_type());
-  header.payloadType = proto.payload_type();
-  RTC_CHECK(proto.has_sequence_number());
-  header.sequenceNumber = proto.sequence_number();
-  RTC_CHECK(proto.has_rtp_timestamp());
-  header.timestamp = proto.rtp_timestamp();
-  RTC_CHECK(proto.has_ssrc());
-  header.ssrc = proto.ssrc();
-
-  header.numCSRCs = 0;  // TODO(terelius): Implement CSRC.
-  header.paddingLength = padding_length;
-  header.headerLength = header_length;
-  // TODO(terelius): Should we implement payload_type_frequency?
-
-  if (proto.has_transmission_time_offset()) {
-    header.extension.hasTransmissionTimeOffset = true;
-    header.extension.transmissionTimeOffset = proto.transmission_time_offset();
-  }
-  if (proto.has_absolute_send_time()) {
-    header.extension.hasAbsoluteSendTime = true;
-    header.extension.absoluteSendTime = proto.absolute_send_time();
-  }
-  if (proto.has_transport_sequence_number()) {
-    header.extension.hasTransportSequenceNumber = true;
-    header.extension.transportSequenceNumber =
-        proto.transport_sequence_number();
-  }
-  if (proto.has_audio_level()) {
-    header.extension.hasAudioLevel = true;
-    header.extension.voiceActivity = (proto.audio_level() >> 7) != 0;
-    header.extension.audioLevel = proto.audio_level() & 0x7Fu;
-  }
-  if (proto.has_video_rotation()) {
-    header.extension.hasVideoRotation = true;
-    header.extension.videoRotation =
-        ConvertCVOByteToVideoRotation(proto.video_rotation());
-  }
-
-  incoming_rtp_packets_map_[header.ssrc].push_back(LoggedRtpPacketIncoming(
-      timestamp_ms * 1000, header, header_length, total_length));
-  // TODO(terelius): Parse deltas.
+  StoreRtpPackets(proto, &incoming_rtp_packets_map_);
 }
 
-void ParsedRtcEventLogNew::StoreOutgoingRtpPacket(
+void ParsedRtcEventLogNew::StoreOutgoingRtpPackets(
     const rtclog2::OutgoingRtpPackets& proto) {
-  RTC_CHECK(proto.has_timestamp_ms());
-  int64_t timestamp_ms = proto.timestamp_ms();
-
-  RTC_CHECK(proto.has_header_size());
-  size_t header_length = proto.header_size();
-
-  RTC_CHECK(proto.has_padding_size());
-  size_t padding_length = proto.padding_size();
-
-  RTC_CHECK(proto.has_payload_size());
-  size_t total_length = proto.payload_size() + header_length + padding_length;
-
-  RTPHeader header;
-  RTC_CHECK(proto.has_marker());
-  header.markerBit = proto.marker();
-  RTC_CHECK(proto.has_payload_type());
-  header.payloadType = proto.payload_type();
-  RTC_CHECK(proto.has_sequence_number());
-  header.sequenceNumber = proto.sequence_number();
-  RTC_CHECK(proto.has_rtp_timestamp());
-  header.timestamp = proto.rtp_timestamp();
-  RTC_CHECK(proto.has_ssrc());
-  header.ssrc = proto.ssrc();
-
-  header.numCSRCs = 0;  // TODO(terelius): Implement CSRC.
-  header.paddingLength = padding_length;
-  header.headerLength = header_length;
-  // TODO(terelius): Should we implement payload_type_frequency?
-
-  if (proto.has_transmission_time_offset()) {
-    header.extension.hasTransmissionTimeOffset = true;
-    header.extension.transmissionTimeOffset = proto.transmission_time_offset();
-  }
-  if (proto.has_absolute_send_time()) {
-    header.extension.hasAbsoluteSendTime = true;
-    header.extension.absoluteSendTime = proto.absolute_send_time();
-  }
-  if (proto.has_transport_sequence_number()) {
-    header.extension.hasTransportSequenceNumber = true;
-    header.extension.transportSequenceNumber =
-        proto.transport_sequence_number();
-  }
-  if (proto.has_audio_level()) {
-    header.extension.hasAudioLevel = true;
-    header.extension.voiceActivity = (proto.audio_level() >> 7) != 0;
-    header.extension.audioLevel = proto.audio_level() & 0x7Fu;
-  }
-  if (proto.has_video_rotation()) {
-    header.extension.hasVideoRotation = true;
-    header.extension.videoRotation =
-        ConvertCVOByteToVideoRotation(proto.video_rotation());
-  }
-
-  outgoing_rtp_packets_map_[header.ssrc].push_back(LoggedRtpPacketOutgoing(
-      timestamp_ms * 1000, header, header_length, total_length));
-  // TODO(terelius): Parse deltas.
+  StoreRtpPackets(proto, &outgoing_rtp_packets_map_);
 }
 
 void ParsedRtcEventLogNew::StoreIncomingRtcpPackets(
     const rtclog2::IncomingRtcpPackets& proto) {
-  RTC_CHECK(proto.has_timestamp_ms());
-  int64_t timestamp_ms = proto.timestamp_ms();
-
-  RTC_CHECK(proto.has_raw_packet());
-  incoming_rtcp_packets_.push_back(
-      LoggedRtcpPacketIncoming(timestamp_ms * 1000, proto.raw_packet()));
-
-  // TODO(terelius): Parse deltas.
+  StoreRtcpPackets(proto, &incoming_rtcp_packets_);
 }
 
 void ParsedRtcEventLogNew::StoreOutgoingRtcpPackets(
     const rtclog2::OutgoingRtcpPackets& proto) {
-  RTC_CHECK(proto.has_timestamp_ms());
-  int64_t timestamp_ms = proto.timestamp_ms();
-
-  RTC_CHECK(proto.has_raw_packet());
-  outgoing_rtcp_packets_.push_back(
-      LoggedRtcpPacketOutgoing(timestamp_ms * 1000, proto.raw_packet()));
-
-  // TODO(terelius): Parse deltas.
+  StoreRtcpPackets(proto, &outgoing_rtcp_packets_);
 }
 
 void ParsedRtcEventLogNew::StoreStartEvent(
@@ -1971,15 +2163,76 @@ void ParsedRtcEventLogNew::StoreBweLossBasedUpdate(
   RTC_CHECK(proto.has_fraction_loss());
   RTC_CHECK(proto.has_total_packets());
 
-  LoggedBweLossBasedUpdate loss_update;
-  loss_update.timestamp_us = proto.timestamp_ms() * 1000;
-  loss_update.bitrate_bps = proto.bitrate_bps();
-  loss_update.fraction_lost = proto.fraction_loss();
-  loss_update.expected_packets = proto.total_packets();
+  // Base event
+  bwe_loss_updates_.emplace_back(1000 * proto.timestamp_ms(),
+                                 proto.bitrate_bps(), proto.fraction_loss(),
+                                 proto.total_packets());
 
-  bwe_loss_updates_.push_back(loss_update);
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
 
-  // TODO(terelius): Parse deltas.
+  const std::string kEmptyString;
+
+  // timestamp_ms
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // bitrate_bps
+  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
+                                              ? proto.bitrate_deltas_bps()
+                                              : kEmptyString;
+  std::vector<absl::optional<uint64_t>> bitrate_bps_values =
+      DecodeDeltas(bitrate_deltas_bps, proto.bitrate_bps(), number_of_deltas);
+  RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
+
+  // fraction_loss
+  const std::string& fraction_loss_deltas = proto.has_fraction_loss_deltas()
+                                                ? proto.fraction_loss_deltas()
+                                                : kEmptyString;
+  std::vector<absl::optional<uint64_t>> fraction_loss_values = DecodeDeltas(
+      fraction_loss_deltas, proto.fraction_loss(), number_of_deltas);
+  RTC_CHECK_EQ(fraction_loss_values.size(), number_of_deltas);
+
+  // total_packets
+  const std::string& total_packets_deltas = proto.has_total_packets_deltas()
+                                                ? proto.total_packets_deltas()
+                                                : kEmptyString;
+  std::vector<absl::optional<uint64_t>> total_packets_values = DecodeDeltas(
+      total_packets_deltas, proto.total_packets(), number_of_deltas);
+  RTC_CHECK_EQ(total_packets_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+
+    RTC_CHECK(bitrate_bps_values[i].has_value());
+    RTC_CHECK_LE(bitrate_bps_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t bitrate_bps =
+        static_cast<uint32_t>(bitrate_bps_values[i].value());
+
+    RTC_CHECK(fraction_loss_values[i].has_value());
+    RTC_CHECK_LE(fraction_loss_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t fraction_loss =
+        static_cast<uint32_t>(fraction_loss_values[i].value());
+
+    RTC_CHECK(total_packets_values[i].has_value());
+    RTC_CHECK_LE(total_packets_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t total_packets =
+        static_cast<uint32_t>(total_packets_values[i].value());
+
+    bwe_loss_updates_.emplace_back(1000 * timestamp_ms_values[i].value(),
+                                   bitrate_bps, fraction_loss, total_packets);
+  }
 }
 
 void ParsedRtcEventLogNew::StoreBweDelayBasedUpdate(
@@ -1988,14 +2241,64 @@ void ParsedRtcEventLogNew::StoreBweDelayBasedUpdate(
   RTC_CHECK(proto.has_bitrate_bps());
   RTC_CHECK(proto.has_detector_state());
 
-  LoggedBweDelayBasedUpdate delay_update;
-  delay_update.timestamp_us = proto.timestamp_ms() * 1000;
-  delay_update.bitrate_bps = proto.bitrate_bps();
-  delay_update.detector_state = GetRuntimeDetectorState(proto.detector_state());
+  // Base event
+  const BandwidthUsage base_detector_state =
+      GetRuntimeDetectorState(proto.detector_state());
+  bwe_delay_updates_.emplace_back(1000 * proto.timestamp_ms(),
+                                  proto.bitrate_bps(), base_detector_state);
 
-  bwe_delay_updates_.push_back(delay_update);
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
 
-  // TODO(terelius): Parse deltas.
+  const std::string kEmptyString;
+
+  // timestamp_ms
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // bitrate_bps
+  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
+                                              ? proto.bitrate_deltas_bps()
+                                              : kEmptyString;
+  std::vector<absl::optional<uint64_t>> bitrate_bps_values =
+      DecodeDeltas(bitrate_deltas_bps, proto.bitrate_bps(), number_of_deltas);
+  RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
+
+  // detector_state
+  const std::string& detector_state_deltas = proto.has_detector_state_deltas()
+                                                 ? proto.detector_state_deltas()
+                                                 : kEmptyString;
+  std::vector<absl::optional<uint64_t>> detector_state_values = DecodeDeltas(
+      detector_state_deltas, static_cast<uint64_t>(base_detector_state),
+      number_of_deltas);
+  RTC_CHECK_EQ(detector_state_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+
+    RTC_CHECK(bitrate_bps_values[i].has_value());
+    RTC_CHECK_LE(bitrate_bps_values[i].value(),
+                 std::numeric_limits<uint32_t>::max());
+    const uint32_t bitrate_bps =
+        static_cast<uint32_t>(bitrate_bps_values[i].value());
+
+    RTC_CHECK(detector_state_values[i].has_value());
+    const auto detector_state =
+        static_cast<rtclog::DelayBasedBweUpdate::DetectorState>(
+            detector_state_values[i].value());
+
+    bwe_delay_updates_.emplace_back(1000 * timestamp_ms_values[i].value(),
+                                    bitrate_bps,
+                                    GetRuntimeDetectorState(detector_state));
+  }
 }
 
 void ParsedRtcEventLogNew::StoreBweProbeClusterCreated(
@@ -2049,33 +2352,158 @@ void ParsedRtcEventLogNew::StoreBweProbeFailureEvent(
 
 void ParsedRtcEventLogNew::StoreAudioNetworkAdaptationEvent(
     const rtclog2::AudioNetworkAdaptations& proto) {
-  LoggedAudioNetworkAdaptationEvent ana_event;
   RTC_CHECK(proto.has_timestamp_ms());
-  ana_event.timestamp_us = proto.timestamp_ms() * 1000;
 
-  if (proto.has_bitrate_bps()) {
-    ana_event.config.bitrate_bps = proto.bitrate_bps();
-  }
-  if (proto.has_frame_length_ms()) {
-    ana_event.config.frame_length_ms = proto.frame_length_ms();
-  }
-  if (proto.has_uplink_packet_loss_fraction()) {
-    ana_event.config.uplink_packet_loss_fraction =
-        proto.uplink_packet_loss_fraction();
-  }
-  if (proto.has_enable_fec()) {
-    ana_event.config.enable_fec = proto.enable_fec();
-  }
-  if (proto.has_enable_dtx()) {
-    ana_event.config.enable_dtx = proto.enable_dtx();
-  }
-  if (proto.has_num_channels()) {
-    ana_event.config.num_channels = proto.num_channels();
+  // Base event
+  {
+    AudioEncoderRuntimeConfig runtime_config;
+    if (proto.has_bitrate_bps()) {
+      runtime_config.bitrate_bps = proto.bitrate_bps();
+    }
+    if (proto.has_frame_length_ms()) {
+      runtime_config.frame_length_ms = proto.frame_length_ms();
+    }
+    if (proto.has_uplink_packet_loss_fraction()) {
+      float uplink_packet_loss_fraction;
+      RTC_CHECK(ParsePacketLossFractionFromProtoFormat(
+          proto.uplink_packet_loss_fraction(), &uplink_packet_loss_fraction));
+      runtime_config.uplink_packet_loss_fraction = uplink_packet_loss_fraction;
+    }
+    if (proto.has_enable_fec()) {
+      runtime_config.enable_fec = proto.enable_fec();
+    }
+    if (proto.has_enable_dtx()) {
+      runtime_config.enable_dtx = proto.enable_dtx();
+    }
+    if (proto.has_num_channels()) {
+      runtime_config.num_channels = proto.num_channels();
+    }
+    audio_network_adaptation_events_.emplace_back(1000 * proto.timestamp_ms(),
+                                                  runtime_config);
   }
 
-  audio_network_adaptation_events_.push_back(ana_event);
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
 
-  // TODO(terelius): Parse deltas.
+  const std::string kEmptyString;
+
+  // timestamp_ms
+  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
+                                               ? proto.timestamp_deltas_ms()
+                                               : kEmptyString;
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // bitrate_bps
+  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
+                                              ? proto.bitrate_deltas_bps()
+                                              : kEmptyString;
+  const absl::optional<uint64_t> bitrate_bps =
+      proto.has_bitrate_bps() ? absl::optional<uint64_t>(proto.bitrate_bps())
+                              : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> bitrate_bps_values =
+      DecodeDeltas(bitrate_deltas_bps, bitrate_bps, number_of_deltas);
+  RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
+
+  // frame_length_ms
+  const std::string& frame_length_deltas_ms =
+      proto.has_frame_length_deltas_ms() ? proto.frame_length_deltas_ms()
+                                         : kEmptyString;
+  const absl::optional<uint64_t> frame_length_ms =
+      proto.has_frame_length_ms()
+          ? absl::optional<uint64_t>(proto.frame_length_ms())
+          : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> frame_length_ms_values =
+      DecodeDeltas(frame_length_deltas_ms, frame_length_ms, number_of_deltas);
+  RTC_CHECK_EQ(frame_length_ms_values.size(), number_of_deltas);
+
+  // uplink_packet_loss_fraction
+  const std::string& uplink_packet_loss_fraction_deltas =
+      proto.has_uplink_packet_loss_fraction_deltas()
+          ? proto.uplink_packet_loss_fraction_deltas()
+          : kEmptyString;
+  const absl::optional<uint64_t> uplink_packet_loss_fraction =
+      proto.has_uplink_packet_loss_fraction()
+          ? absl::optional<uint64_t>(proto.uplink_packet_loss_fraction())
+          : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> uplink_packet_loss_fraction_values =
+      DecodeDeltas(uplink_packet_loss_fraction_deltas,
+                   uplink_packet_loss_fraction, number_of_deltas);
+  RTC_CHECK_EQ(uplink_packet_loss_fraction_values.size(), number_of_deltas);
+
+  // enable_fec
+  const std::string& enable_fec_deltas =
+      proto.has_enable_fec_deltas() ? proto.enable_fec_deltas() : kEmptyString;
+  const absl::optional<uint64_t> enable_fec =
+      proto.has_enable_fec() ? absl::optional<uint64_t>(proto.enable_fec())
+                             : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> enable_fec_values =
+      DecodeDeltas(enable_fec_deltas, enable_fec, number_of_deltas);
+  RTC_CHECK_EQ(enable_fec_values.size(), number_of_deltas);
+
+  // enable_dtx
+  const std::string& enable_dtx_deltas =
+      proto.has_enable_dtx_deltas() ? proto.enable_dtx_deltas() : kEmptyString;
+  const absl::optional<uint64_t> enable_dtx =
+      proto.has_enable_dtx() ? absl::optional<uint64_t>(proto.enable_dtx())
+                             : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> enable_dtx_values =
+      DecodeDeltas(enable_dtx_deltas, enable_dtx, number_of_deltas);
+  RTC_CHECK_EQ(enable_dtx_values.size(), number_of_deltas);
+
+  // num_channels
+  const std::string& num_channels_deltas = proto.has_num_channels_deltas()
+                                               ? proto.num_channels_deltas()
+                                               : kEmptyString;
+  const absl::optional<uint64_t> num_channels =
+      proto.has_num_channels() ? absl::optional<uint64_t>(proto.num_channels())
+                               : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> num_channels_values =
+      DecodeDeltas(num_channels_deltas, num_channels, number_of_deltas);
+  RTC_CHECK_EQ(num_channels_values.size(), number_of_deltas);
+
+  // Delta decoding
+  for (size_t i = 0; i < number_of_deltas; ++i) {
+    RTC_CHECK(timestamp_ms_values[i].has_value());
+
+    AudioEncoderRuntimeConfig runtime_config;
+    if (bitrate_bps_values[i].has_value()) {
+      const unsigned int bitrate_bps =
+          rtc::checked_cast<unsigned int>(bitrate_bps_values[i].value());
+      runtime_config.bitrate_bps = static_cast<int>(bitrate_bps);
+    }
+    if (frame_length_ms_values[i].has_value()) {
+      const unsigned int frame_length_ms =
+          rtc::checked_cast<unsigned int>(frame_length_ms_values[i].value());
+      runtime_config.frame_length_ms = static_cast<int>(frame_length_ms);
+    }
+    if (uplink_packet_loss_fraction_values[i].has_value()) {
+      float uplink_packet_loss_fraction;
+      RTC_CHECK(ParsePacketLossFractionFromProtoFormat(
+          rtc::checked_cast<uint32_t>(
+              uplink_packet_loss_fraction_values[i].value()),
+          &uplink_packet_loss_fraction));
+      runtime_config.uplink_packet_loss_fraction = uplink_packet_loss_fraction;
+    }
+    if (enable_fec_values[i].has_value()) {
+      runtime_config.enable_fec =
+          rtc::checked_cast<bool>(enable_fec_values[i].value());
+    }
+    if (enable_dtx_values[i].has_value()) {
+      runtime_config.enable_dtx =
+          rtc::checked_cast<bool>(enable_dtx_values[i].value());
+    }
+    if (num_channels_values[i].has_value()) {
+      runtime_config.num_channels =
+          rtc::checked_cast<size_t>(num_channels_values[i].value());
+    }
+    audio_network_adaptation_events_.emplace_back(
+        1000 * timestamp_ms_values[i].value(), runtime_config);
+  }
 }
 
 void ParsedRtcEventLogNew::StoreIceCandidatePairConfig(

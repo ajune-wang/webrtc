@@ -22,6 +22,30 @@
       "revId": "ab0b5a6e7b6a8d676bc922151cc45431cdce5893",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370c91f4_2b515c10",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-11-02T12:29:44Z",
+      "side": 1,
+      "message": "It is a trade off between re-transmit rate and delay. In many cases I see the packets out of order arrive just a couple ms late, so hopefully a 5ms delay will be useful in these cases.",
+      "parentUuid": "67c8241a_3bdb6881",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 36
+      },
+      "revId": "ab0b5a6e7b6a8d676bc922151cc45431cdce5893",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

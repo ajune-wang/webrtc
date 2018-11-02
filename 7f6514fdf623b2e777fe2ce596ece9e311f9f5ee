@@ -114,6 +114,30 @@
       "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7b321a_538cdcbb",
+        "filename": "modules/video_coding/nack_module.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-11-02T12:29:44Z",
+      "side": 1,
+      "message": "added unittests, and added a setter for this parameter for tests",
+      "parentUuid": "427a2400_d72f830d",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

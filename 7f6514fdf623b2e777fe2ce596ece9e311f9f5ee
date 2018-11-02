@@ -68,6 +68,52 @@
       "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88eddaeb_b0dd86b8",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T10:36:58Z",
+      "side": 1,
+      "message": "Can we change this to:\nnow_ms - it-\u003esecond.sent_at_time \u003e rtt_ms_\n\nfor readability?",
+      "range": {
+        "startLine": 261,
+        "startChar": 30,
+        "endLine": 261,
+        "endChar": 73
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "427a2400_d72f830d",
+        "filename": "modules/video_coding/nack_module.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T10:36:58Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 30
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

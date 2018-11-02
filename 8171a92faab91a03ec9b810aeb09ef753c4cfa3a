@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae5cd87d_f14c553d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-11-02T10:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ce9125c_78341fc2",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "8171a92faab91a03ec9b810aeb09ef753c4cfa3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f8708f0_dbeae66a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-02T09:47:10Z",
       "side": 1,
       "message": "Think this is slightly imprecise. Isn\u0027t it rather:\nCurrently, we send Nack as soon as a skip is observed in sequence numbers. This is not necessary when the skip is simply caused by shallow reordering on the link, or by FEC recovery. This CL...",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 172
+      },
+      "revId": "8171a92faab91a03ec9b810aeb09ef753c4cfa3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4a9fbbc_b1d5b070",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6290
+      },
+      "writtenOn": "2018-11-02T10:09:23Z",
+      "side": 1,
+      "message": "Packet out of order caused by FEC recovery is fixed with a previous CL. In the description here I was trying to say these \"missing\" packets can be recovered by FEC thus no need to Nack them. Modified my CL description above.",
+      "parentUuid": "0f8708f0_dbeae66a",
       "range": {
         "startLine": 9,
         "startChar": 0,

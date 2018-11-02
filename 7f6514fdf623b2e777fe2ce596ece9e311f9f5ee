@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5dd8987_4d92d201",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-02T10:34:12Z",
+      "side": 1,
+      "message": "No bug?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76284b2d_d0c94792",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-02T10:34:12Z",
+      "side": 1,
+      "message": "I think a better name would be kDefaultSendNackDelay. Or you can just return 0 from GetSendNackDelayMs instead, you don\u0027t really need this constant.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a8f2f14_3fbfe29d",
+        "filename": "modules/video_coding/nack_module.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-02T10:34:12Z",
+      "side": 1,
+      "message": "This function is much cleaner now, great!",
+      "range": {
+        "startLine": 252,
+        "startChar": 34,
+        "endLine": 252,
+        "endChar": 46
+      },
+      "revId": "7f6514fdf623b2e777fe2ce596ece9e311f9f5ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

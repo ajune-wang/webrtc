@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c5c036c_4a9d405c",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "Please don\u0027t do this either! We\u0027re trying to stop using public_deps. Better to have the targets that use it depend on it directly.",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fcdc273_4c35b3fa",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "Can you avoid this? rtc_base/numerics/ isn\u0027t an API directory, so we should avoid putting API files there.",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c3f9f3_2d123710",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "`long` can be 32 bits. Better to say int64_t{1} \u003c\u003c 32. Or limit the size to 2**32 - 1 instead (see comment below).",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02e5d3b_152107f0",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure that this version can underflow sum_ if you add 2**32 + 1 samples with value -2**31. But this will cease to be a problem if you revert the Reset \"optimization\" I suggested.",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f92541_6f66343f",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "This addition can be 2**32 * (2**31 - 1) + 2**31 \u003d 2**63, which overflows by 1. I would suggest that you fix this by limiting the max window size to 2**32 - 1.",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

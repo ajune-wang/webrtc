@@ -201,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "d6d27238_7280634f",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-02T13:33:52Z",
+      "side": 1,
+      "message": "Ah, I see. Then you should keep this line, since it seems very likely that optimizing Reset at the expense of AddSample is the wrong thing to do.\n\nSorry for the extra work. :-/",
+      "parentUuid": "88888d96_7dd3974a",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "26030453ef7cb13cb20ecdaae2e5982297c6f295",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7df58c95_c316f45f",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 3

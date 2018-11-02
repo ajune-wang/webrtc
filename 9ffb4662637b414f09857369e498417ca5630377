@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98eb791b_a9febed5",
+        "filename": "modules/video_coding/nack_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T12:33:48Z",
+      "side": 1,
+      "message": "Instead of introducing this method you can use ScopedFieldTrials in your unittest.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 17
+      },
+      "revId": "9ffb4662637b414f09857369e498417ca5630377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "084286f4_b4a582ab",
+        "filename": "modules/video_coding/nack_module.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-02T12:33:48Z",
+      "side": 1,
+      "message": "Still think this should be const :)",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "9ffb4662637b414f09857369e498417ca5630377",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

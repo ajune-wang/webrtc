@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bdb2164_4d275a80",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-02T08:53:22Z",
+      "side": 1,
+      "message": "The \"Proxy\" part of the name doesn\u0027t look right. Where is this class used?",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e766ca20_e0cb0817",
+        "filename": "media/engine/webrtcmediaengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-02T08:53:22Z",
+      "side": 1,
+      "message": "Prefer real includes over forward declarations.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ba4c9a_536f4985",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-02T08:53:22Z",
+      "side": 1,
+      "message": "Obsolete. Use api/video/encoded_image.h instead. If the include is needed at all; it should be brought in together with the declaration of EncodedImageCallback (in api/video_codecs/video_encoder.h), and since that\u0027s the only use, I don\u0027t think a direct inclusion is needed.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

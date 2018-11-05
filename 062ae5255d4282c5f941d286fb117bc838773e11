@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9868407f_ac6b7a4d",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-05T16:25:34Z",
+      "side": 1,
+      "message": "LibvpxVp8",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "062ae5255d4282c5f941d286fb117bc838773e11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5080189_23273033",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-05T16:25:34Z",
+      "side": 1,
+      "message": "LibvpxVp9",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 15
+      },
+      "revId": "062ae5255d4282c5f941d286fb117bc838773e11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

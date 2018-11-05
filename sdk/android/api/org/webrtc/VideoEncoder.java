@@ -157,6 +157,12 @@ public interface VideoEncoder {
     }
   }
 
+  public class EncoderInfo {
+    public ScalingSettings scaling_settings = ScalingSettings.OFF;
+    public String implementation_name;
+    public bool supports_native_handle;
+  }
+
   public interface Callback {
     /**
      * Call to return an encoded frame. It is safe to assume the byte buffer held by |frame| is not
@@ -221,12 +227,6 @@ public interface VideoEncoder {
   /** Sets the bitrate allocation and the target framerate for the encoder. */
   @CalledByNative VideoCodecStatus setRateAllocation(BitrateAllocation allocation, int framerate);
 
-  /** Any encoder that wants to use WebRTC provided quality scaler must implement this method. */
-  @CalledByNative ScalingSettings getScalingSettings();
-
-  /**
-   * Should return a descriptive name for the implementation. Gets called once and cached. May be
-   * called from arbitrary thread.
-   */
-  @CalledByNative String getImplementationName();
+  /** Returns meta data about the encoder: implementation, quality scaling settings, etc. */
+  @CalledByNative EncoderInfo getEncoderInfo();
 }

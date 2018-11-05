@@ -420,25 +420,26 @@ class HardwareVideoEncoder implements VideoEncoder {
   }
 
   @Override
-  public ScalingSettings getScalingSettings() {
+  public EncoderInfo getEncoderInfo() {
     encodeThreadChecker.checkIsOnValidThread();
-    if (automaticResizeOn) {
+
+    EncoderInfo info = new EncoderInfo();
+    info.implementation_name = "HWEncoder";
+    info.supports_native_handle =
+
+        if (automaticResizeOn) {
       if (codecType == VideoCodecType.VP8) {
         final int kLowVp8QpThreshold = 29;
         final int kHighVp8QpThreshold = 95;
-        return new ScalingSettings(kLowVp8QpThreshold, kHighVp8QpThreshold);
+        info.scaling_settings = new ScalingSettings(kLowVp8QpThreshold, kHighVp8QpThreshold);
       } else if (codecType == VideoCodecType.H264) {
         final int kLowH264QpThreshold = 24;
         final int kHighH264QpThreshold = 37;
-        return new ScalingSettings(kLowH264QpThreshold, kHighH264QpThreshold);
+        info.scaling_settings = new ScalingSettings(kLowH264QpThreshold, kHighH264QpThreshold);
       }
     }
-    return ScalingSettings.OFF;
-  }
 
-  @Override
-  public String getImplementationName() {
-    return "HWEncoder";
+    return info;
   }
 
   private VideoCodecStatus resetCodec(int newWidth, int newHeight, boolean newUseSurfaceMode) {

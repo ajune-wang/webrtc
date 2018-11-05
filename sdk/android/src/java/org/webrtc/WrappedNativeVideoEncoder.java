@@ -43,12 +43,7 @@ abstract class WrappedNativeVideoEncoder implements VideoEncoder {
   }
 
   @Override
-  public ScalingSettings getScalingSettings() {
-    throw new UnsupportedOperationException("Not implemented.");
-  }
-
-  @Override
-  public String getImplementationName() {
+  public String getEncoderInfo() {
     throw new UnsupportedOperationException("Not implemented.");
   }
 }

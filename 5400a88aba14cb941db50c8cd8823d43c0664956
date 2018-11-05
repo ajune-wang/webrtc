@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "659e0b4d_7ad7379d",
+        "filename": "modules/audio_processing/echo_control_mobile_impl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-05T14:09:37Z",
+      "side": 1,
+      "message": "I don\u0027t think this needs to be explicit, since it does not take any parameters.",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "5400a88aba14cb941db50c8cd8823d43c0664956",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

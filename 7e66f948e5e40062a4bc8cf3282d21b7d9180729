@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d8e19e91_8bc093ee",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-05T15:07:53Z",
+      "side": 1,
+      "message": "is it same as calling\nUpdate(now_ms, csrcs, absl::nullopt);\nmay be just call the other version here to avoid code duplication.",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3aed4c_8662edad",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-05T15:07:53Z",
+      "side": 1,
+      "message": "put child type before the function [DeleteOldEntries]\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 16
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db761a45_b6032bf2",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 4

@@ -46,6 +46,30 @@
       "revId": "845be9147f0a8b2fb32c6fcefe44552271d76081",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53b15083_b522fd37",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-05T16:16:46Z",
+      "side": 1,
+      "message": "Sorry for the late response, I\u0027ve been OOO.\n\nNow a default constructed ExtensionManager() is used to declare that there are no extensions. I was just thinking if having an optional\u003cExtensionManager\u003e would express this more clearly.",
+      "parentUuid": "b546da69_e1abd164",
+      "range": {
+        "startLine": 64,
+        "startChar": 6,
+        "endLine": 64,
+        "endChar": 17
+      },
+      "revId": "845be9147f0a8b2fb32c6fcefe44552271d76081",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

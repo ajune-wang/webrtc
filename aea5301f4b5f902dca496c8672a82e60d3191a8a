@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "31a00706_a3435d63",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T12:09:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e5479521_576516d2",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ebf8d31_d44bc4cb",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 5
@@ -104,6 +122,24 @@
       "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4bcb9b8_24306df0",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T12:09:50Z",
+      "side": 1,
+      "message": "No, that\u0027s fine. It would have made the code easier to read (since the window size would have been a true constant) and also more efficient (for the same reason), but it\u0027s simple enough and performant enough as it is---until bugs or benchmarks prove otherwise. :-)",
+      "parentUuid": "11d52a9b_1962fd67",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -142,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "af54c1a1_b6a463f3",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T12:09:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da0a4f89_f421b607",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd614c66_7253585f",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 5
@@ -171,6 +225,24 @@
       "side": 1,
       "message": "I don\u0027t think the vector is too unreadable. It\u0027s not resized anywhere and is more commonly used type.",
       "parentUuid": "bd614c66_7253585f",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88a67671_ab3771c1",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T12:09:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "abf6a28e_6ffc1d0d",
       "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

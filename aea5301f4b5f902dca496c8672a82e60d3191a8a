@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b0fa217_364623b5",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T11:10:22Z",
+      "side": 1,
+      "message": "The comment in the header says \u003c\u003d 2**32-1, and here you say \u003c 2**32-1. Which is it?",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "336a47d9_66109f01",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T11:10:22Z",
+      "side": 1,
+      "message": "Were you going to revert this conditional and zero out all the elements in Reset, to restore the code to the state it was in before I offered my \"good\" advice?",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ebf8d31_d44bc4cb",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T11:10:22Z",
+      "side": 1,
+      "message": "It just occurred to me: do you need the window size to be runtime configurable? Otherwise, it could be a template argument, and you could store the samples in a std::array.",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "237e1a7d_13562e3a",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T11:10:22Z",
+      "side": 1,
+      "message": "Also note that this vector always has size `window_size`, and that the unused elements are 0?",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd614c66_7253585f",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-05T11:10:22Z",
+      "side": 1,
+      "message": "Optionally, use absl::FixedArray here. It works more or less exactly like std::vector, but can\u0027t be resized after construction, which makes the code easier to read. Also, if the array size is at most some small constant (by default 256 bytes, I think, but you can ask for a specific number of elements) it\u0027ll store the elements in-line instead of on the heap.",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

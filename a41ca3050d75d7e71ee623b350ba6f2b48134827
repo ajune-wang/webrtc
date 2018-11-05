@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1f9fe36_9b1047e4",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-05T13:27:01Z",
+      "side": 1,
+      "message": "This function will be removed in two steps, and having a default implementation is the first step.",
+      "range": {
+        "startLine": 219,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 9
+      },
+      "revId": "a41ca3050d75d7e71ee623b350ba6f2b48134827",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

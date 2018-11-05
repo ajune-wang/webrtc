@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73bbc796_e74cd03c",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T10:45:29Z",
+      "side": 1,
+      "message": "Prefer separate constructor over default arguments.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dddc5de8_0401650c",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T10:45:29Z",
+      "side": 1,
+      "message": "Maybe |last_seen_ms| is clearer?",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "718594dd_cdd80777",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T10:45:29Z",
+      "side": 1,
+      "message": "Why not absl::optional?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edaf86c7_4f81314a",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T10:45:29Z",
+      "side": 1,
+      "message": "Rename member. Maybe |active_csrcs_|?",
+      "range": {
+        "startLine": 51,
+        "startChar": 28,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

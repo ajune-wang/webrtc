@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "6da5a955_684b90c4",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-05T15:41:24Z",
+      "side": 1,
+      "message": "Default argumenta banned for virtual functions (not this case)\nand discouraged in favor of overloads (this case)\nhttps://google.github.io/styleguide/cppguide.html#Default_Arguments",
+      "parentUuid": "75de8138_3d8c1f23",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee3aed4c_8662edad",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 4

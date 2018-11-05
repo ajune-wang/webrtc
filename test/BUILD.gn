@@ -7,6 +7,7 @@
 # be found in the AUTHORS file in the root of the source tree.
 
 import("../webrtc.gni")
+import("//build/buildflag_header.gni")
 import("//build/config/ui.gni")
 if (is_android) {
   import("//build/config/android/rules.gni")
@@ -137,13 +138,21 @@ if (is_ios) {
     testonly = true
     visibility = [ ":test_support" ]
     sources = [
+      "ios/coverage_util_ios.h",
+      "ios/coverage_util_ios.mm",
       "ios/test_support.h",
       "ios/test_support.mm",
     ]
     deps = [
       ":perf_test",
+      ":webrtc_ios_enable_coverage",
       "../sdk:helpers_objc",
     ]
+  }
+
+  buildflag_header("webrtc_ios_enable_coverage") {
+    header = "webrtc_ios_enable_coverage.h"
+    flags = [ "WEBRTC_IOS_ENABLE_COVERAGE=$use_clang_coverage" ]
   }
 }
 

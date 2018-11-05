@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "75de8138_3d8c1f23",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-11-05T15:38:00Z",
+      "side": 1,
+      "message": "Although I was sure we had such a ban, I cannot find a ban on default arguments anymore, so that could also be an option (i.e. add \u003d absl::nullopt to the declaration of Update in the header and you\u0027re set). Though, I may start a style war with this. :)",
+      "parentUuid": "d89b15c3_f93b9f68",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee3aed4c_8662edad",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 4
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I think the ideal would be to add entries for new csrcs using emplace (possibly with the copy constructor), and update old using the assignment operator.\n\nBut if that results in a lot more complex code than simply using the [] operator, I\u0027d say stick to the [] operator, and accept that it needs to default-construct new elements of the map.\n\nSpeaking of updates, what\u0027s the intended behavior for recorded audio level in case you get a stream of packets mentioning the same csrc, and half of them carry an audio level and the others don\u0027t?",
       "parentUuid": "79d773a0_0c7ab9c8",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2ce0b27_3797b65d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-11-05T15:38:00Z",
+      "side": 1,
+      "message": "I think I\u0027d prefer changing the code to avoid the default constructor, but I\u0027m not going to battle Niels over it. Perhaps leaving the code as-is for now is fine. Up to you!",
+      "parentUuid": "867653a6_0196a68d",
       "range": {
         "startLine": 47,
         "startChar": 0,

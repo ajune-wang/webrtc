@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "946f2264_8aeca25c",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-05T08:50:18Z",
+      "side": 1,
+      "message": "This needs a more descriptive name, perhaps nativeSeverityToObjcSeverity? Then you can also avoid using the qualified name of the function at the call site.",
+      "range": {
+        "startLine": 51,
+        "startChar": 28,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "b788789d9267ab38977e7a22988f03d48b461f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f0b1ec8_03111750",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-05T08:50:18Z",
+      "side": 1,
+      "message": "nit: I don\u0027t think the default case is needed as your switch should cover all cases. If a new enum value is added I\u0027d rather want the compiler to complain than a crash at runtime.",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "b788789d9267ab38977e7a22988f03d48b461f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

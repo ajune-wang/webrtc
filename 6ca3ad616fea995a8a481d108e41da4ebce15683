@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e337cd75_29225902",
+        "filename": "api/test/mock_video_bitrate_allocator_factory.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T08:32:43Z",
+      "side": 1,
+      "message": "It seems \"Proxy\" is used in at least two other places, in MockVideoEncoderFactory and MockVideoDecoderFactory. Do you know what other examples of this pattern uses? \n\nSo I guess Proxy is ok, for consistency with other api/test/ classes.",
+      "parentUuid": "1a6e7d30_399a681b",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "6ca3ad616fea995a8a481d108e41da4ebce15683",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e766ca20_e0cb0817",
         "filename": "media/engine/webrtcmediaengine.h",
         "patchSetId": 6

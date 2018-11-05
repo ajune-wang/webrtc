@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cbaa7493_b1bfdab8",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-11-05T11:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73bbc796_e74cd03c",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dddc5de8_0401650c",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3fd9707c_c4aacabf",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-11-05T11:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dddc5de8_0401650c",
+      "range": {
+        "startLine": 45,
+        "startChar": 12,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "718594dd_cdd80777",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-05T10:45:29Z",
       "side": 1,
       "message": "Why not absl::optional?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eec58d6e_52e8f7ee",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-11-05T11:43:08Z",
+      "side": 1,
+      "message": "ehh,...the chromium style guide enforces that I need a out-of-line constructor,\n(maybe since optional is a template, not sure why) and I thought it only complicates things.\nWDYT ?",
+      "parentUuid": "718594dd_cdd80777",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf5bc647_16129236",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-11-05T11:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edaf86c7_4f81314a",
+      "range": {
+        "startLine": 51,
+        "startChar": 28,
+        "endLine": 51,
+        "endChar": 41
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96614a63_40b15eda",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c5c036c_4a9d405c",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fcdc273_4c35b3fa",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-02T13:33:52Z",
       "side": 1,
       "message": "Can you avoid this? rtc_base/numerics/ isn\u0027t an API directory, so we should avoid putting API files there.",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4b0bef8_04f51ce3",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Removed this target. Included now in rtc_numerics.",
+      "parentUuid": "5fcdc273_4c35b3fa",
       "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7e7e0f3d_c1349d3d",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c3f9f3_2d123710",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a02e5d3b_152107f0",
         "filename": "rtc_base/numerics/moving_average.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ab7114_2374ce44",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a02e5d3b_152107f0",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "f81b73ce_297cca5e",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6f92541_6f66343f",
+      "range": {
+        "startLine": 42,
+        "startChar": 10,
+        "endLine": 42,
+        "endChar": 27
+      },
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e45f011_86296622",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 4
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "676e7335_a1b1ce28",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e45f011_86296622",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1dd24f9_bf52c86e",
         "filename": "rtc_base/numerics/moving_average_unittest.cc",
         "patchSetId": 4
@@ -124,6 +238,24 @@
       "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "943b64dd_d8276916",
+        "filename": "rtc_base/numerics/moving_average_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T09:14:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1dd24f9_bf52c86e",
+      "revId": "cd8b2b64db1d4352419450b7d9a417c1917ac3c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

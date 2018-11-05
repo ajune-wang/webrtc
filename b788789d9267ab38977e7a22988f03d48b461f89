@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cccbba3d_c555e22d",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-05T23:13:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "946f2264_8aeca25c",
+      "range": {
+        "startLine": 51,
+        "startChar": 28,
+        "endLine": 51,
+        "endChar": 36
+      },
+      "revId": "b788789d9267ab38977e7a22988f03d48b461f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f0b1ec8_03111750",
         "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "b788789d9267ab38977e7a22988f03d48b461f89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b6619d8_c648c98b",
+        "filename": "sdk/objc/api/logging/RTCCallbackLogger.mm",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-05T23:13:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f0b1ec8_03111750",
+      "range": {
+        "startLine": 67,
+        "startChar": 6,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "b788789d9267ab38977e7a22988f03d48b461f89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

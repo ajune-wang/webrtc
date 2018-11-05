@@ -109,9 +109,7 @@ class MediaCodecVideoEncoder : public VideoEncoder {
                                int64_t /* rtt */) override;
   int32_t SetRateAllocation(const VideoBitrateAllocation& rate_allocation,
                             uint32_t frame_rate) override;
-
-  bool SupportsNativeHandle() const override { return has_egl_context_; }
-  const char* ImplementationName() const override;
+  EncoderInfo GetEncoderInfo() const override;
 
   // Fills the input buffer with data from the buffers passed as parameters.
   bool FillInputBuffer(JNIEnv* jni,
@@ -179,8 +177,6 @@ class MediaCodecVideoEncoder : public VideoEncoder {
   // Deliver any outputs pending in the MediaCodec to our |callback_| and return
   // true on success.
   bool DeliverPendingOutputs(JNIEnv* jni);
-
-  VideoEncoder::ScalingSettings GetScalingSettings() const override;
 
   // Displays encoder statistics.
   void LogStatistics(bool force_log);
@@ -930,6 +926,74 @@ int32_t MediaCodecVideoEncoder::SetRateAllocation(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+VideoEncoder::EncoderInfo MediaCodecVideoEncoder::GetEncoderInfo() const {
+  EncoderInfo info;
+  info.supports_native_handle = has_egl_context_;
+  info.implementation_name = "MediaCodec";
+
+  if (!scale_) {
+    info.scaling_settings = VideoEncoder::ScalingSettings::kOff;
+    return info;
+  }
+
+  const VideoCodecType codec_type = GetCodecType();
+  if (field_trial::IsEnabled(kCustomQPThresholdsFieldTrial)) {
+    std::string experiment_string =
+        field_trial::FindFullName(kCustomQPThresholdsFieldTrial);
+    ALOGD << "QP custom thresholds: " << experiment_string << " for codec "
+          << codec_type;
+    int low_vp8_qp_threshold;
+    int high_vp8_qp_threshold;
+    int low_h264_qp_threshold;
+    int high_h264_qp_threshold;
+    int parsed_values = sscanf(experiment_string.c_str(), "Enabled-%u,%u,%u,%u",
+                               &low_vp8_qp_threshold, &high_vp8_qp_threshold,
+                               &low_h264_qp_threshold, &high_h264_qp_threshold);
+    if (parsed_values == 4) {
+      RTC_CHECK_GT(high_vp8_qp_threshold, low_vp8_qp_threshold);
+      RTC_CHECK_GT(low_vp8_qp_threshold, 0);
+      RTC_CHECK_GT(high_h264_qp_threshold, low_h264_qp_threshold);
+      RTC_CHECK_GT(low_h264_qp_threshold, 0);
+      if (codec_type == kVideoCodecVP8) {
+        info.scaling_settings = VideoEncoder::ScalingSettings(
+            low_vp8_qp_threshold, high_vp8_qp_threshold);
+        return info;
+      } else if (codec_type == kVideoCodecH264) {
+        info.scaling_settings = VideoEncoder::ScalingSettings(
+            low_h264_qp_threshold, high_h264_qp_threshold);
+        return info;
+      }
+    }
+  }
+  if (codec_type == kVideoCodecVP8) {
+    // Same as in vp8_impl.cc.
+    static const int kLowVp8QpThreshold = 29;
+    static const int kHighVp8QpThreshold = 95;
+
+    info.scaling_settings =
+        VideoEncoder::ScalingSettings(kLowVp8QpThreshold, kHighVp8QpThreshold);
+  } else if (codec_type == kVideoCodecVP9) {
+    // QP is obtained from VP9-bitstream, so the QP corresponds to the bitstream
+    // range of [0, 255] and not the user-level range of [0,63].
+    static const int kLowVp9QpThreshold = 96;
+    static const int kHighVp9QpThreshold = 185;
+
+    info.scaling_settings =
+        VideoEncoder::ScalingSettings(kLowVp9QpThreshold, kHighVp9QpThreshold);
+  } else if (codec_type == kVideoCodecH264) {
+    // Same as in h264_encoder_impl.cc.
+    static const int kLowH264QpThreshold = 24;
+    static const int kHighH264QpThreshold = 37;
+
+    info.scaling_settings = VideoEncoder::ScalingSettings(kLowH264QpThreshold,
+                                                          kHighH264QpThreshold);
+  } else {
+    info.scaling_settings = VideoEncoder::ScalingSettings::kOff;
+  }
+
+  return info;
+}
+
 bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_checker_);
 
@@ -1146,68 +1210,6 @@ void MediaCodecVideoEncoder::LogStatistics(bool force_log) {
     current_acc_qp_ = 0;
     current_encoding_time_ms_ = 0;
   }
-}
-
-VideoEncoder::ScalingSettings MediaCodecVideoEncoder::GetScalingSettings()
-    const {
-  if (!scale_)
-    return VideoEncoder::ScalingSettings::kOff;
-
-  const VideoCodecType codec_type = GetCodecType();
-  if (field_trial::IsEnabled(kCustomQPThresholdsFieldTrial)) {
-    std::string experiment_string =
-        field_trial::FindFullName(kCustomQPThresholdsFieldTrial);
-    ALOGD << "QP custom thresholds: " << experiment_string << " for codec "
-          << codec_type;
-    int low_vp8_qp_threshold;
-    int high_vp8_qp_threshold;
-    int low_h264_qp_threshold;
-    int high_h264_qp_threshold;
-    int parsed_values = sscanf(experiment_string.c_str(), "Enabled-%u,%u,%u,%u",
-                               &low_vp8_qp_threshold, &high_vp8_qp_threshold,
-                               &low_h264_qp_threshold, &high_h264_qp_threshold);
-    if (parsed_values == 4) {
-      RTC_CHECK_GT(high_vp8_qp_threshold, low_vp8_qp_threshold);
-      RTC_CHECK_GT(low_vp8_qp_threshold, 0);
-      RTC_CHECK_GT(high_h264_qp_threshold, low_h264_qp_threshold);
-      RTC_CHECK_GT(low_h264_qp_threshold, 0);
-      if (codec_type == kVideoCodecVP8) {
-        return VideoEncoder::ScalingSettings(low_vp8_qp_threshold,
-                                             high_vp8_qp_threshold);
-      } else if (codec_type == kVideoCodecH264) {
-        return VideoEncoder::ScalingSettings(low_h264_qp_threshold,
-                                             high_h264_qp_threshold);
-      }
-    }
-  }
-  if (codec_type == kVideoCodecVP8) {
-    // Same as in vp8_impl.cc.
-    static const int kLowVp8QpThreshold = 29;
-    static const int kHighVp8QpThreshold = 95;
-
-    return VideoEncoder::ScalingSettings(kLowVp8QpThreshold,
-                                         kHighVp8QpThreshold);
-  } else if (codec_type == kVideoCodecVP9) {
-    // QP is obtained from VP9-bitstream, so the QP corresponds to the bitstream
-    // range of [0, 255] and not the user-level range of [0,63].
-    static const int kLowVp9QpThreshold = 96;
-    static const int kHighVp9QpThreshold = 185;
-
-    return VideoEncoder::ScalingSettings(kLowVp9QpThreshold,
-                                         kHighVp9QpThreshold);
-  } else if (codec_type == kVideoCodecH264) {
-    // Same as in h264_encoder_impl.cc.
-    static const int kLowH264QpThreshold = 24;
-    static const int kHighH264QpThreshold = 37;
-
-    return VideoEncoder::ScalingSettings(kLowH264QpThreshold,
-                                         kHighH264QpThreshold);
-  }
-  return VideoEncoder::ScalingSettings::kOff;
-}
-
-const char* MediaCodecVideoEncoder::ImplementationName() const {
-  return "MediaCodec";
 }
 
 static void JNI_MediaCodecVideoEncoder_FillInputBuffer(

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fe6ce83b_87538cbf",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T11:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b0fa217_364623b5",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "336a47d9_66109f01",
         "filename": "rtc_base/numerics/moving_average.cc",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e5479521_576516d2",
+        "filename": "rtc_base/numerics/moving_average.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T11:55:37Z",
+      "side": 1,
+      "message": "No, I like the current more - it\u0027s runtime is more consistent. Having fill in Reset is not very good.",
+      "parentUuid": "336a47d9_66109f01",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ebf8d31_d44bc4cb",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 5
@@ -47,6 +83,24 @@
       "writtenOn": "2018-11-05T11:10:22Z",
       "side": 1,
       "message": "It just occurred to me: do you need the window size to be runtime configurable? Otherwise, it could be a template argument, and you could store the samples in a std::array.",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d52a9b_1962fd67",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T11:55:37Z",
+      "side": 1,
+      "message": "I don\u0027t need the window size to be configurable, but rewriting this class to be a template is too much work for moving the class around.\n\nDo you think it\u0027s necessary?",
+      "parentUuid": "1ebf8d31_d44bc4cb",
       "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "da0a4f89_f421b607",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T11:55:37Z",
+      "side": 1,
+      "message": "Reworded a comment a little to make it more clear about the size of the vector.\nNo comment about 0 because it\u0027s not the case.",
+      "parentUuid": "237e1a7d_13562e3a",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd614c66_7253585f",
         "filename": "rtc_base/numerics/moving_average.h",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abf6a28e_6ffc1d0d",
+        "filename": "rtc_base/numerics/moving_average.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-05T11:55:37Z",
+      "side": 1,
+      "message": "I don\u0027t think the vector is too unreadable. It\u0027s not resized anywhere and is more commonly used type.",
+      "parentUuid": "bd614c66_7253585f",
+      "revId": "aea5301f4b5f902dca496c8672a82e60d3191a8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -46,6 +46,30 @@
       "revId": "25b5e1b53a6397309a0281ff13e1205e1c8c4cb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b13c27f2_01ef96f9",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T13:28:13Z",
+      "side": 1,
+      "message": "Still no absl::optional here. Did you intend to do that?",
+      "parentUuid": "c3910f55_1239d03e",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "25b5e1b53a6397309a0281ff13e1205e1c8c4cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

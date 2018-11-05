@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4529b531_a4158817",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T13:28:13Z",
+      "side": 1,
+      "message": "I think you can rely on implicit conversion, and just write { now_ms, audio_level }",
+      "range": {
+        "startLine": 30,
+        "startChar": 26,
+        "endLine": 30,
+        "endChar": 62
+      },
+      "revId": "3430b2d6829d67a4e84346e18c7947f75e4979cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "567166c5_92ade4ef",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T13:28:13Z",
+      "side": 1,
+      "message": "absl::nullopt.",
+      "range": {
+        "startLine": 44,
+        "startChar": 26,
+        "endLine": 44,
+        "endChar": 51
+      },
+      "revId": "3430b2d6829d67a4e84346e18c7947f75e4979cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2aa553b_511f5023",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T13:28:13Z",
+      "side": 1,
+      "message": ".has_value() isn\u0027t needed, since there\u0027s implicit conversion to bool. But feel free to keep it, if you think that is clearer.\n\nHmm, if you can also change the constructor of RtpSource to take an optional, you don\u0027t even need this conditional, then an unconditional\n\n  sources.emplace_back(record.second.last_seen_ms, record.first,\n                       RtpSourceType::CSRC,\n                       record.second.audio_level);\n\nshould be correct. But that might be out of scope for this cl.",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "3430b2d6829d67a4e84346e18c7947f75e4979cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

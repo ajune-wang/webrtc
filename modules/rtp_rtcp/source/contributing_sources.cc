@@ -25,9 +25,25 @@ ContributingSources::ContributingSources() = default;
 ContributingSources::~ContributingSources() = default;
 
 void ContributingSources::Update(int64_t now_ms,
-                                 rtc::ArrayView<const uint32_t> csrcs) {
+                                 rtc::ArrayView<const uint32_t> csrcs,
+                                 uint8_t audio_level) {
+  Entry entry = { now_ms, true, audio_level };
   for (uint32_t csrc : csrcs) {
-    last_seen_ms_[csrc] = now_ms;
+    active_csrcs_[csrc] = entry;
+  }
+  if (!next_pruning_ms_) {
+    next_pruning_ms_ = now_ms + kPruningIntervalMs;
+  } else if (now_ms > next_pruning_ms_) {
+    // To prevent unlimited growth, prune it every 15 seconds.
+    DeleteOldEntries(now_ms);
+  }
+}
+
+void ContributingSources::Update(int64_t now_ms,
+                                 rtc::ArrayView<const uint32_t> csrcs) {
+  Entry entry = { now_ms, false, /* audio_level */ 0};
+  for (uint32_t csrc : csrcs) {
+    active_csrcs_[csrc] = entry;
   }
   if (!next_pruning_ms_) {
     next_pruning_ms_ = now_ms + kPruningIntervalMs;
@@ -43,9 +59,16 @@ void ContributingSources::Update(int64_t now_ms,
 // non-const.
 std::vector<RtpSource> ContributingSources::GetSources(int64_t now_ms) const {
   std::vector<RtpSource> sources;
-  for (auto& record : last_seen_ms_) {
-    if (record.second >= now_ms - kHistoryMs) {
-      sources.emplace_back(record.second, record.first, RtpSourceType::CSRC);
+  for (auto& record : active_csrcs_) {
+    if (record.second.last_seen_ms >= now_ms - kHistoryMs) {
+      if (record.second.has_audio_level) {
+        sources.emplace_back(record.second.last_seen_ms, record.first,
+                             RtpSourceType::CSRC,
+                             record.second.audio_level);
+      } else {
+        sources.emplace_back(record.second.last_seen_ms, record.first,
+                             RtpSourceType::CSRC);
+      }
     }
   }
 
@@ -54,12 +77,12 @@ std::vector<RtpSource> ContributingSources::GetSources(int64_t now_ms) const {
 
 // Delete stale entries.
 void ContributingSources::DeleteOldEntries(int64_t now_ms) {
-  for (auto it = last_seen_ms_.begin(); it != last_seen_ms_.end();) {
-    if (it->second >= now_ms - kHistoryMs) {
+  for (auto it = active_csrcs_.begin(); it != active_csrcs_.end();) {
+    if (it->second.last_seen_ms >= now_ms - kHistoryMs) {
       // Still relevant.
       ++it;
     } else {
-      it = last_seen_ms_.erase(it);
+      it = active_csrcs_.erase(it);
     }
   }
   next_pruning_ms_ = now_ms + kPruningIntervalMs;

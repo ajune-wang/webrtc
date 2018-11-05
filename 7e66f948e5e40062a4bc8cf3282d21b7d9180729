@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "531ff3e0_5c76703f",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-11-05T16:14:03Z",
+      "side": 1,
+      "message": "I\u0027d not say overloads are an improvement in this case, but if the two-parameter variant just redirected to the three-parameter variant, I guess it\u0027s fine. If you do that in the header file, it can just inline away, which makes it essentially a default argument anyways. :)\n\nBacktracking a bit, I just took a look at how many places Update is called from and I find two outside of tests. Just update the callsites and remove the two-parameter variant.",
+      "parentUuid": "6da5a955_684b90c4",
+      "range": {
+        "startLine": 43,
+        "startChar": 71,
+        "endLine": 43,
+        "endChar": 72
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee3aed4c_8662edad",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 4

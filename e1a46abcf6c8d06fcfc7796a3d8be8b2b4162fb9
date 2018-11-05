@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "642b5f55_a19dcd70",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T12:21:25Z",
+      "side": 1,
+      "message": "I think using absl::optional is right, even if that means a few biolerplat lines in the .cc file.",
+      "parentUuid": "eec58d6e_52e8f7ee",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "e1a46abcf6c8d06fcfc7796a3d8be8b2b4162fb9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edaf86c7_4f81314a",
         "filename": "modules/rtp_rtcp/source/contributing_sources.h",
         "patchSetId": 1

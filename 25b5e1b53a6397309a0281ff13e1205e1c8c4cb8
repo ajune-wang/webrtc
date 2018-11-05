@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecb90729_31a7e474",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T12:21:25Z",
+      "side": 1,
+      "message": "I think it would make sense to use absl::optional\u003cuint8_t\u003e for the argument. But doesn\u0027t matter much until we have callers that represent the value as an optional.",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "25b5e1b53a6397309a0281ff13e1205e1c8c4cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

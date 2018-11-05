@@ -22,6 +22,30 @@
       "revId": "25b5e1b53a6397309a0281ff13e1205e1c8c4cb8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3910f55_1239d03e",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5613
+      },
+      "writtenOn": "2018-11-05T13:10:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecb90729_31a7e474",
+      "range": {
+        "startLine": 38,
+        "startChar": 14,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "25b5e1b53a6397309a0281ff13e1205e1c8c4cb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

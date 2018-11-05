@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db761a45_b6032bf2",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T14:21:46Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused as to which operators are needed.\n\nIt seems we rely on the default assignment operator, in order to update values in the map?\n\nI guess default constructor is needed for map insertion. It\u0027s not so nice that it leaves the last_seem_ms_ member uninitialized (but no real problem, I think, since it\u0027s immediately assigned).",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

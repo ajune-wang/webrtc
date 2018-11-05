@@ -70,6 +70,30 @@
       "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "867653a6_0196a68d",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-05T15:04:55Z",
+      "side": 1,
+      "message": "I think the ideal would be to add entries for new csrcs using emplace (possibly with the copy constructor), and update old using the assignment operator.\n\nBut if that results in a lot more complex code than simply using the [] operator, I\u0027d say stick to the [] operator, and accept that it needs to default-construct new elements of the map.\n\nSpeaking of updates, what\u0027s the intended behavior for recorded audio level in case you get a stream of packets mentioning the same csrc, and half of them carry an audio level and the others don\u0027t?",
+      "parentUuid": "79d773a0_0c7ab9c8",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

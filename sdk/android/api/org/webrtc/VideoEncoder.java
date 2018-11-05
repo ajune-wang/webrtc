@@ -216,7 +216,9 @@ public interface VideoEncoder {
    * @param packetLoss How many packets are lost on average per 255 packets.
    * @param roundTripTimeMs Round-trip time of the network in milliseconds.
    */
-  @CalledByNative VideoCodecStatus setChannelParameters(short packetLoss, long roundTripTimeMs);
+  default VideoCodecStatus setChannelParameters(short packetLoss, long roundTripTimeMs) {
+    return VideoCodecStatus.OK;
+  }
 
   /** Sets the bitrate allocation and the target framerate for the encoder. */
   @CalledByNative VideoCodecStatus setRateAllocation(BitrateAllocation allocation, int framerate);

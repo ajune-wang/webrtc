@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d3eeb2c_7897df00",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-05T17:14:56Z",
+      "side": 0,
+      "message": "I wonder why the compiler did not issue a warning for an unused private member. It should be mentioned that eliminating RTC_GUARDED_BY does not rectify this. Probably the module is compiled without the appropriate flags?",
+      "revId": "0367d1a1fb0a74ddb0e256625c48107648675885",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -156,16 +156,21 @@ int32_t VideoEncoderWrapper::SetRateAllocation(
   return HandleReturnCode(jni, ret, "setRateAllocation");
 }
 
-VideoEncoderWrapper::ScalingSettings VideoEncoderWrapper::GetScalingSettings()
-    const {
+VideoEncoder::EncoderInfo VideoEncoderWrapper::GetEncoderInfo() const {
+  EncoderInfo info;
+  info.supports_native_handle = true;
+  info.implementation_name = implementation_name_;
+
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
   ScopedJavaLocalRef<jobject> j_scaling_settings =
       Java_VideoEncoder_getScalingSettings(jni, encoder_);
   bool isOn =
       Java_VideoEncoderWrapper_getScalingSettingsOn(jni, j_scaling_settings);
 
-  if (!isOn)
-    return ScalingSettings::kOff;
+  if (isOn) {
+    info.scaling_settings = ScalingSettings::kOff;
+    return info;
+  }
 
   absl::optional<int> low = JavaToNativeOptionalInt(
       jni,
@@ -174,16 +179,19 @@ VideoEncoderWrapper::ScalingSettings VideoEncoderWrapper::GetScalingSettings()
       jni,
       Java_VideoEncoderWrapper_getScalingSettingsHigh(jni, j_scaling_settings));
 
-  if (low && high)
-    return ScalingSettings(*low, *high);
+  if (low && high) {
+    info.scaling_settings = ScalingSettings(*low, *high);
+    return info;
+  }
 
   switch (codec_settings_.codecType) {
     case kVideoCodecVP8: {
       // Same as in vp8_impl.cc.
       static const int kLowVp8QpThreshold = 29;
       static const int kHighVp8QpThreshold = 95;
-      return ScalingSettings(low.value_or(kLowVp8QpThreshold),
-                             high.value_or(kHighVp8QpThreshold));
+      info.scaling_settings = ScalingSettings(
+          low.value_or(kLowVp8QpThreshold), high.value_or(kHighVp8QpThreshold));
+      break;
     }
     case kVideoCodecVP9: {
       // QP is obtained from VP9-bitstream, so the QP corresponds to the
@@ -191,27 +199,24 @@ VideoEncoderWrapper::ScalingSettings VideoEncoderWrapper::GetScalingSettings()
       static const int kLowVp9QpThreshold = 96;
       static const int kHighVp9QpThreshold = 185;
 
-      return VideoEncoder::ScalingSettings(kLowVp9QpThreshold,
-                                           kHighVp9QpThreshold);
+      info.scaling_settings = VideoEncoder::ScalingSettings(
+          kLowVp9QpThreshold, kHighVp9QpThreshold);
+      break;
     }
     case kVideoCodecH264: {
       // Same as in h264_encoder_impl.cc.
       static const int kLowH264QpThreshold = 24;
       static const int kHighH264QpThreshold = 37;
-      return ScalingSettings(low.value_or(kLowH264QpThreshold),
-                             high.value_or(kHighH264QpThreshold));
+      info.scaling_settings =
+          ScalingSettings(low.value_or(kLowH264QpThreshold),
+                          high.value_or(kHighH264QpThreshold));
+      break;
     }
     default:
-      return ScalingSettings::kOff;
+      info.scaling_settings = ScalingSettings::kOff;
   }
-}
 
-bool VideoEncoderWrapper::SupportsNativeHandle() const {
-  return true;
-}
-
-const char* VideoEncoderWrapper::ImplementationName() const {
-  return implementation_name_.c_str();
+  return info;
 }
 
 void VideoEncoderWrapper::OnEncodedFrame(JNIEnv* jni,

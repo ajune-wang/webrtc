@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cab90d3f_7e5a7148",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-05T15:48:35Z",
+      "side": 1,
+      "message": "Looks like you reversed the logic here?",
+      "range": {
+        "startLine": 170,
+        "startChar": 6,
+        "endLine": 170,
+        "endChar": 10
+      },
+      "revId": "c559013cad1946d83b093c59759290f60aedcd3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac179163_a405e7da",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-05T15:48:35Z",
+      "side": 1,
+      "message": "I think it would be clearer to still have a private member function doing this.",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "c559013cad1946d83b093c59759290f60aedcd3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

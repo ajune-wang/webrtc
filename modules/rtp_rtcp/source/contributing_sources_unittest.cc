@@ -108,4 +108,22 @@ TEST(ContributingSourcesTest, PurgeOldSources) {
                            RtpSource(kTime3, kCsrc3, RtpSourceType::CSRC)));
 }
 
+TEST(ContributingSourcesTest, AudioLevel) {
+  ContributingSources csrcs;
+  constexpr uint32_t kCsrcs[] = {kCsrc1, kCsrc2};
+  constexpr int64_t kTime1 = 10;
+  csrcs.Update(kTime1, kCsrcs, absl::optional<uint8_t>(47));
+  EXPECT_THAT(
+      csrcs.GetSources(kTime1),
+      UnorderedElementsAre(RtpSource(kTime1, kCsrc1, RtpSourceType::CSRC, 47),
+                           RtpSource(kTime1, kCsrc2, RtpSourceType::CSRC, 47)));
+
+  constexpr uint32_t kCsrcsSubset[] = {kCsrc1};
+  csrcs.Update(kTime1 + 1, kCsrcsSubset);
+  EXPECT_THAT(
+      csrcs.GetSources(kTime1 + 1),
+      UnorderedElementsAre(RtpSource(kTime1 + 1, kCsrc1, RtpSourceType::CSRC),
+                           RtpSource(kTime1, kCsrc2, RtpSourceType::CSRC, 47)));
+}
+
 }  // namespace webrtc

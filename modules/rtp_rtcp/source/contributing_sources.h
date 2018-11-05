@@ -32,9 +32,8 @@ class ContributingSources {
   ContributingSources();
   ~ContributingSources();
 
-  // TODO(bugs.webrtc.org/3333): Needs to be extended with audio-level, to
-  // support RFC6465.
-  void Update(int64_t now_ms, rtc::ArrayView<const uint32_t> csrcs);
+  void Update(int64_t now_ms, rtc::ArrayView<const uint32_t> csrcs,
+              absl::optional<uint8_t> audio_level = absl::optional<uint8_t>());
 
   // Returns contributing sources seen the last 10 s.
   std::vector<RtpSource> GetSources(int64_t now_ms) const;
@@ -42,8 +41,14 @@ class ContributingSources {
  private:
   void DeleteOldEntries(int64_t now_ms);
 
+  struct Entry {
+    int64_t timestamp_ms;
+    bool has_audio_level;
+    uint8_t audio_level;
+  };
+
   // Indexed by csrc.
-  std::map<uint32_t, int64_t> last_seen_ms_;
+  std::map<uint32_t, Entry> last_seen_ms_;
   absl::optional<int64_t> next_pruning_ms_;
 };
 

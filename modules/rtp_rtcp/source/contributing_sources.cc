@@ -25,9 +25,15 @@ ContributingSources::ContributingSources() = default;
 ContributingSources::~ContributingSources() = default;
 
 void ContributingSources::Update(int64_t now_ms,
-                                 rtc::ArrayView<const uint32_t> csrcs) {
+                                 rtc::ArrayView<const uint32_t> csrcs,
+                                 absl::optional<uint8_t> audio_level) {
+  Entry entry = { now_ms };
+  entry.has_audio_level = audio_level.has_value();
+  if (audio_level.has_value()) {
+    entry.audio_level = *audio_level;
+  }
   for (uint32_t csrc : csrcs) {
-    last_seen_ms_[csrc] = now_ms;
+    last_seen_ms_[csrc] = entry;
   }
   if (!next_pruning_ms_) {
     next_pruning_ms_ = now_ms + kPruningIntervalMs;
@@ -44,8 +50,15 @@ void ContributingSources::Update(int64_t now_ms,
 std::vector<RtpSource> ContributingSources::GetSources(int64_t now_ms) const {
   std::vector<RtpSource> sources;
   for (auto& record : last_seen_ms_) {
-    if (record.second >= now_ms - kHistoryMs) {
-      sources.emplace_back(record.second, record.first, RtpSourceType::CSRC);
+    if (record.second.timestamp_ms >= now_ms - kHistoryMs) {
+      if (record.second.has_audio_level) {
+        sources.emplace_back(record.second.timestamp_ms, record.first,
+                             RtpSourceType::CSRC,
+                             record.second.audio_level);
+      } else {
+        sources.emplace_back(record.second.timestamp_ms, record.first,
+                             RtpSourceType::CSRC);
+      }
     }
   }
 
@@ -55,7 +68,7 @@ std::vector<RtpSource> ContributingSources::GetSources(int64_t now_ms) const {
 // Delete stale entries.
 void ContributingSources::DeleteOldEntries(int64_t now_ms) {
   for (auto it = last_seen_ms_.begin(); it != last_seen_ms_.end();) {
-    if (it->second >= now_ms - kHistoryMs) {
+    if (it->second.timestamp_ms >= now_ms - kHistoryMs) {
       // Still relevant.
       ++it;
     } else {

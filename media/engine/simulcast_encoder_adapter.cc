@@ -518,17 +518,18 @@ void SimulcastEncoderAdapter::DestroyStoredEncoders() {
 
 VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
   EncoderInfo info;
+  info.has_trusted_rate_controller = true;
+  info.supports_native_handle = true;
 
   if (Initialized() && NumberOfStreams(codec_) > 1) {
     info = streaminfos_[0].encoder->GetEncoderInfo();
   }
 
-  info.supports_native_handle = true;
   for (const auto& streaminfo : streaminfos_) {
-    if (!streaminfo.encoder->GetEncoderInfo().supports_native_handle) {
-      info.supports_native_handle = false;
-      break;
-    }
+    const EncoderInfo encoder_impl_info = streaminfo.encoder->GetEncoderInfo();
+    info.supports_native_handle &= encoder_impl_info.supports_native_handle;
+    info.has_trusted_rate_controller &=
+        encoder_impl_info.has_trusted_rate_controller;
   }
 
   info.implementation_name = implementation_name_;

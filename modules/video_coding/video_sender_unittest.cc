@@ -392,6 +392,17 @@ TEST_F(TestVideoSenderWithMockEncoder,
   AddFrame();
 }
 
+TEST_F(TestVideoSenderWithMockEncoder, ChecksTrustedRateController) {
+  // Checks that encoder is asked if rate controller is trusted.
+  EXPECT_CALL(encoder_, HasTrustedRateController())
+      .Times(1)
+      .WillOnce(Return(true));
+
+  VideoCodec codec;
+  webrtc::test::CodecSettings(kVideoCodecVP8, &codec);
+  EXPECT_EQ(0, sender_->RegisterSendCodec(&codec, 1, 1200));
+}
+
 class TestVideoSenderWithVp8 : public TestVideoSender {
  public:
   TestVideoSenderWithVp8()

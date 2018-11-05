@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8abd12bc_1a943162",
+        "filename": "sdk/android/api/org/webrtc/VideoEncoder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-05T16:10:25Z",
+      "side": 1,
+      "message": "Mark with @Deprecated and link to a bug for a complete removal.",
+      "range": {
+        "startLine": 219,
+        "startChar": 27,
+        "endLine": 219,
+        "endChar": 47
+      },
+      "revId": "018f95b72bc555e28cbc69f50dccc8ee1be75cde",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

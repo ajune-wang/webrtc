@@ -22,6 +22,30 @@
       "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e4c4908_aff86d91",
+        "filename": "modules/rtp_rtcp/source/contributing_sources.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-11-05T14:40:04Z",
+      "side": 1,
+      "message": "No, I don\u0027t think you need default construction for map insertion, unless you insist on using the [] operator. It\u0027s a bit cumbersome without it, though: until c++17, you\u0027ll have to try and find() the element and replace its contents, if it exists, or insert() (or emplace()) otherwise. A small helper lambda could make that slightly less awful, I think.",
+      "parentUuid": "db761a45_b6032bf2",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "7e66f948e5e40062a4bc8cf3282d21b7d9180729",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

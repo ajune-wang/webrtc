@@ -26,6 +26,7 @@
 #include "api/audio/echo_canceller3_config.h"
 #include "api/audio/echo_control.h"
 #include "modules/audio_processing/include/audio_generator.h"
+#include "modules/audio_processing/include/audio_processing_capture_stats.h"
 #include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/audio_processing/include/config.h"
 #include "modules/audio_processing/include/gain_control.h"
@@ -275,6 +276,10 @@ class AudioProcessing : public rtc::RefCountInterface {
       float extra_saturation_margin_db = 2.f;
       float fixed_gain_db = 0.f;
     } gain_controller2;
+
+    struct LevelEstimation {
+      bool enabled = false;
+    } level_estimation;
 
     // Explicit copy assignment implementation to avoid issues with memory
     // sanitizer complaints in case of self-assignment.
@@ -526,6 +531,9 @@ class AudioProcessing : public rtc::RefCountInterface {
   // AudioProcessing, because they only make sense if there is at least one
   // remote track.
   virtual AudioProcessingStats GetStatistics(bool has_remote_tracks) const = 0;
+
+  // Get statistics for the last processed capture frame.
+  virtual AudioProcessingCaptureStats GetCaptureStatistics() const = 0;
 
   // These provide access to the component interfaces and should never return
   // NULL. The pointers will be valid for the lifetime of the APM instance.

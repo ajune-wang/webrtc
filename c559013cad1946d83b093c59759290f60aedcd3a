@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "623052c3_78afecdb",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-06T15:29:02Z",
+      "side": 1,
+      "message": "Oops, yes. Fixed.",
+      "parentUuid": "cab90d3f_7e5a7148",
+      "range": {
+        "startLine": 170,
+        "startChar": 6,
+        "endLine": 170,
+        "endChar": 10
+      },
+      "revId": "c559013cad1946d83b093c59759290f60aedcd3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac179163_a405e7da",
         "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "c559013cad1946d83b093c59759290f60aedcd3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "574145f3_d75996a2",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-06T15:29:02Z",
+      "side": 1,
+      "message": "Fair point, just renaming this method and making it a normal private one then.",
+      "parentUuid": "ac179163_a405e7da",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "c559013cad1946d83b093c59759290f60aedcd3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

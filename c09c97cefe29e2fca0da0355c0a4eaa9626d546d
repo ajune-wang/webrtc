@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9e82da7e_01263e82",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T12:59:02Z",
+      "side": 1,
+      "message": "Actually, rtc_internal_video_codecs is public, so I can just make the downstream target depend directly on that.",
+      "parentUuid": "b9150c22_ccca0f89",
+      "range": {
+        "startLine": 632,
+        "startChar": 6,
+        "endLine": 632,
+        "endChar": 61
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a836089a_c1b73b43",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

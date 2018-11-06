@@ -40,7 +40,8 @@ VideoSender::VideoSender(Clock* clock,
       _encodedFrameCallback(post_encode_callback, &_mediaOpt),
       post_encode_callback_(post_encode_callback),
       _codecDataBase(&_encodedFrameCallback),
-      frame_dropper_enabled_(true),
+      frame_dropper_requested_(true),
+      force_disable_frame_dropper_(false),
       current_codec_(),
       encoder_params_({VideoBitrateAllocation(), 0, 0, 0}),
       encoder_has_internal_source_(false),
@@ -96,15 +97,12 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     numLayers = 1;
   }
 
-  // If we have screensharing and we have layers, we disable frame dropper.
-  const bool disable_frame_dropper =
+  // Force-disable frame dropper if either:
+  //  * We have screensharing with layers.
+  //  * "WebRTC-FrameDropper" field trial is "Disabled".
+  force_disable_frame_dropper_ =
       field_trial::IsDisabled(kFrameDropperFieldTrial) ||
       (numLayers > 1 && sendCodec->mode == VideoCodecMode::kScreensharing);
-  if (disable_frame_dropper) {
-    _mediaOpt.EnableFrameDropper(false);
-  } else if (frame_dropper_enabled_) {
-    _mediaOpt.EnableFrameDropper(true);
-  }
 
   {
     rtc::CritScope cs(&params_crit_);
@@ -262,6 +260,14 @@ int32_t VideoSender::AddVideoFrame(const VideoFrame& videoFrame,
   if (_encoder == nullptr)
     return VCM_UNINITIALIZED;
   SetEncoderParameters(encoder_params, encoder_has_internal_source);
+
+  // Frame dropping is enabled iff frame dropping has been requested, and
+  // frame dropping is not force-disable, and rate controller is not trusted.
+  bool frame_dropping_enabled = frame_dropper_requested_ &&
+                                !force_disable_frame_dropper_ &&
+                                !_encoder->HasTrustedRateController();
+  _mediaOpt.EnableFrameDropper(frame_dropping_enabled);
+
   if (_mediaOpt.DropFrame()) {
     RTC_LOG(LS_VERBOSE) << "Drop Frame "
                         << "target bitrate "
@@ -355,7 +361,7 @@ int32_t VideoSender::IntraFrameRequest(size_t stream_index) {
 
 int32_t VideoSender::EnableFrameDropper(bool enable) {
   rtc::CritScope lock(&encoder_crit_);
-  frame_dropper_enabled_ = enable;
+  frame_dropper_requested_ = enable;
   _mediaOpt.EnableFrameDropper(enable);
   return VCM_OK;
 }

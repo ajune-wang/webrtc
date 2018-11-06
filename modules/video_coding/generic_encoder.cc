@@ -157,6 +157,11 @@ bool VCMGenericEncoder::SupportsNativeHandle() const {
   return encoder_->GetEncoderInfo().supports_native_handle;
 }
 
+bool VCMGenericEncoder::HasTrustedRateController() const {
+  RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
+  return encoder_->GetEncoderInfo().has_trusted_rate_controller;
+}
+
 VCMEncodedFrameCallback::VCMEncodedFrameCallback(
     EncodedImageCallback* post_encode_callback,
     media_optimization::MediaOptimization* media_opt)

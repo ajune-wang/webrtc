@@ -249,12 +249,14 @@ void EchoRemoverImpl::ProcessCapture(
     --gain_change_hangover_;
   }
 
+  std::array<float, kFftLengthBy2Plus1> Y2_rect;
   std::array<float, kFftLengthBy2Plus1> Y2;
   std::array<float, kFftLengthBy2Plus1> E2;
   std::array<float, kFftLengthBy2Plus1> R2;
   std::array<float, kFftLengthBy2Plus1> S2_linear;
   std::array<float, kFftLengthBy2Plus1> G;
   float high_bands_gain;
+  FftData Y_rect;
   FftData Y;
   FftData E;
   FftData comfort_noise;
@@ -278,9 +280,11 @@ void EchoRemoverImpl::ProcessCapture(
   FormLinearFilterOutput(use_smooth_signal_transitions_, subtractor_output, e);
 
   // Compute spectra.
+  fft_.PaddedFft(y0, y_old_, Aec3Fft::Window::kRectangular, &Y_rect);
   WindowedPaddedFft(fft_, y0, y_old_, &Y);
   WindowedPaddedFft(fft_, e, e_old_, &E);
   LinearEchoPower(E, Y, &S2_linear);
+  Y_rect.Spectrum(optimization_, Y2_rect);
   Y.Spectrum(optimization_, Y2);
   E.Spectrum(optimization_, E2);
 
@@ -315,7 +319,7 @@ void EchoRemoverImpl::ProcessCapture(
                                     &R2);
 
   // Estimate the comfort noise.
-  cng_.Compute(aec_state_, Y2, &comfort_noise, &high_band_comfort_noise);
+  cng_.Compute(aec_state_, Y2_rect, &comfort_noise, &high_band_comfort_noise);
 
   // Compute and apply the suppression gain.
   const auto& echo_spectrum =

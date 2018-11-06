@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "24ab3953_fb7c7b28",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "I intentionally made it different, because the other functions return a rtclog2::Type, and this function doesn\u0027t. However, if you reiterate a preference for that type of name despite this difference, I\u0027ll rename. Wdys?",
+      "parentUuid": "d13688fd_1e4c5086",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 23
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00831e71_bae12fa0",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-06T01:11:39Z",
       "side": 1,
       "message": "vector\u003cuint8_t\u003e?",
+      "range": {
+        "startLine": 329,
+        "startChar": 14,
+        "endLine": 329,
+        "endChar": 25
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d60df7c6_7ea123f8",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "This would require a change to EncodeBlobs(). That much is possible, of course, but what would the benefit be, other than that the (relatively safe) cast to uint8_t* would no longer be necessary?",
+      "parentUuid": "00831e71_bae12fa0",
       "range": {
         "startLine": 329,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ec7cd7e6_57f75bf9",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "constexpr size_t kMaxEventsInHistory \u003d 10000;\n#define IP_PACKET_SIZE 1500\n\nI am worried that a malicious remote client could intentionally use 15MBs of memory, while only using a fraction of that in bandwidth to trigger the behavior. Not the worst attack possible, but there\u0027s no guarantee kMaxEventsInHistory won\u0027t be increased in the future. I therefore propose:\n1. Keep this resize(), to make sure we don\u0027t needlessly inflate our memory consumption while iterating through the loop.\n2. In RtcEventLogImpl::LogToMemory, take account not only of the number of events, but also of their total (projected) size.",
+      "parentUuid": "6cdf1c41_054ed789",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 45
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e43272e_6f515943",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-06T01:11:39Z",
       "side": 1,
       "message": "It seems strange to reuse audio level for both level and level+voice bit. How about calling ProtoAudioLevel twice (as above).",
+      "range": {
+        "startLine": 410,
+        "startChar": 6,
+        "endLine": 410,
+        "endChar": 17
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd6e6e1_9383ac97",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "The name in the proto is \"audio_level\". Do we perhaps want to change that to audio_level_and_voice_activity, or something similar? If so, I can use an intermediary with the appropriate name here, and for |base_audio_level|.",
+      "parentUuid": "3e43272e_6f515943",
       "range": {
         "startLine": 410,
         "startChar": 6,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2c125ab4_0feef636",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "Thanks for catching!",
+      "parentUuid": "ab6903a0_bf0cc629",
+      "range": {
+        "startLine": 1046,
+        "startChar": 53,
+        "endLine": 1046,
+        "endChar": 68
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ac8e7f6_e65ca8e4",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 2
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "cd24fa37_be16368c",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ac8e7f6_e65ca8e4",
+      "range": {
+        "startLine": 577,
+        "startChar": 22,
+        "endLine": 577,
+        "endChar": 23
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b32aee1_29733495",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 2
@@ -160,6 +304,30 @@
       "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffe92b43_139714f9",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T10:03:58Z",
+      "side": 1,
+      "message": "Yeah, abs is better than min/max, and more traditional. I wonder what I was thinking.",
+      "parentUuid": "9b32aee1_29733495",
+      "range": {
+        "startLine": 541,
+        "startChar": 49,
+        "endLine": 541,
+        "endChar": 55
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

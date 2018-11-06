@@ -84,6 +84,18 @@ enum class IceCandidatePairState {
   // frozen because we have not implemented ICE freezing logic.
 };
 
+enum class MdnsNameRegistrationStatus {
+  // IP concealment with mDNS is not enabled or the name registration process is
+  // not started yet.
+  kNotStarted,
+  // A request to create and register an mDNS name for a local IP address of a
+  // host candidate is sent to the mDNS responder.
+  kInProgress,
+  // The name registration is complete and the created name is returned by the
+  // mDNS responder.
+  kCompleted,
+};
+
 // Stats that we can return about the port of a STUN candidate.
 class StunStats {
  public:
@@ -382,19 +394,6 @@ class Port : public PortInterface,
 
   void set_type(const std::string& type) { type_ = type; }
 
-  // Deprecated. Use the AddAddress() method below with "url" instead.
-  // TODO(zhihuang): Remove this after downstream applications stop using it.
-  void AddAddress(const rtc::SocketAddress& address,
-                  const rtc::SocketAddress& base_address,
-                  const rtc::SocketAddress& related_address,
-                  const std::string& protocol,
-                  const std::string& relay_protocol,
-                  const std::string& tcptype,
-                  const std::string& type,
-                  uint32_t type_preference,
-                  uint32_t relay_preference,
-                  bool final);
-
   void AddAddress(const rtc::SocketAddress& address,
                   const rtc::SocketAddress& base_address,
                   const rtc::SocketAddress& related_address,
@@ -408,6 +407,8 @@ class Port : public PortInterface,
                   bool is_final);
 
   void FinishAddingAddress(const Candidate& c, bool is_final);
+
+  virtual void PostAddingAddress(const Candidate& c, bool is_final);
 
   // Adds the given connection to the map keyed by the remote candidate address.
   // If an existing connection has the same address, the existing one will be
@@ -443,6 +444,13 @@ class Port : public PortInterface,
   virtual void HandleConnectionDestroyed(Connection* conn) {}
 
   void CopyPortInformationToPacketInfo(rtc::PacketInfo* info) const;
+
+  MdnsNameRegistrationStatus mdns_name_registration_status() const {
+    return mdns_name_registration_status_;
+  }
+  void set_mdns_name_registration_status(MdnsNameRegistrationStatus status) {
+    mdns_name_registration_status_ = status;
+  }
 
  private:
   void Construct();
@@ -488,6 +496,8 @@ class Port : public PortInterface,
   int16_t network_cost_;
   State state_ = State::INIT;
   int64_t last_time_all_connections_removed_ = 0;
+  MdnsNameRegistrationStatus mdns_name_registration_status_ =
+      MdnsNameRegistrationStatus::kNotStarted;
 
   rtc::WeakPtrFactory<Port> weak_factory_;
 

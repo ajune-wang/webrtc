@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9fd6d4dc_72b928d9",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:16:26Z",
+      "side": 1,
+      "message": "This is necessary in C, but has never been needed in C++; please remove.",
+      "range": {
+        "startLine": 66,
+        "startChar": 28,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3f69cb2_452fad22",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -18,6 +41,70 @@
         "startChar": 19,
         "endLine": 70,
         "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b867470c_b9bdc0d1",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:16:26Z",
+      "side": 1,
+      "message": "+1 for Nisse\u0027s suggestion; it makes it clearer that hdr_metadata_ is an optional. But I don\u0027t feel strongly about it.",
+      "parentUuid": "a3f69cb2_452fad22",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52bfee57_18185624",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:16:26Z",
+      "side": 1,
+      "message": "Fix this now? Or at least fix the comment? absl::optional\u003cint\u003e is trivially copyable.\n\n(However, absl::optional\u003cHdrMetadata\u003e isn\u0027t trivially copyable, because HdrMetadata isn\u0027t trivially copyable, because it has a user-defined copy constructor. It looks like it would become trivially copyable if you removed the user-defined copy constructors for HdrMetadata and HdrMasteringMetadata.)",
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab20a02_53bfd884",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:16:26Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 110,
+        "startChar": 17,
+        "endLine": 110,
+        "endChar": 23
       },
       "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

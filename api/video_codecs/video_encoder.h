@@ -120,11 +120,6 @@ class RTC_EXPORT VideoEncoder {
   // Struct containing metadata about the encoder implementing this interface.
   struct EncoderInfo {
     EncoderInfo();
-    EncoderInfo(const ScalingSettings& scaling_settings,
-                bool supports_native_handle,
-                const std::string& implementation_name);
-    // EncoderInfo(const EncoderInfo& rhs);
-    // EncoderInfo& operator=(const EncoderInfo& rhs);
     ~EncoderInfo();
 
     // Any encoder implementation wishing to use the WebRTC provided
@@ -137,6 +132,19 @@ class RTC_EXPORT VideoEncoder {
 
     // The name of this particular encoder implementation, e.g. "libvpx".
     std::string implementation_name;
+
+    // If this field is true, the encoder rate controller must perform
+    // well even in difficult situations, and produce close to the specified
+    // target bitrate seen over a reasonable time window, drop frames if
+    // necessary in order to keep the rate correct, and react quickly to
+    // changing bitrate targets. If this method returns true, we disable the
+    // frame dropper in the media optimization module and rely entirely on the
+    // encoder to produce media at a bitrate that closely matches the target.
+    // Any overshooting may result in delay buildup. If this method returns
+    // false (default behavior), the media opt frame dropper will drop input
+    // frames if it suspect encoder misbehavior. Misbehavior is common,
+    // especially in hardware codecs. Disable media opt at your own risk.
+    bool has_trusted_rate_controller;
   };
 
   static VideoCodecVP8 GetDefaultVp8Settings();

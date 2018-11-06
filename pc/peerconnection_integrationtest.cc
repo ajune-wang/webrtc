@@ -551,6 +551,10 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     return pc()->ice_connection_state();
   }
 
+  webrtc::PeerConnectionInterface::PeerConnectionState peer_connection_state() {
+    return pc()->peer_connection_state();
+  }
+
   webrtc::PeerConnectionInterface::IceGatheringState ice_gathering_state() {
     return pc()->ice_gathering_state();
   }
@@ -1192,17 +1196,11 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
   }
 
   bool DtlsConnected() {
-    // TODO(deadbeef): kIceConnectionConnected currently means both ICE and DTLS
-    // are connected. This is an important distinction. Once we have separate
-    // ICE and DTLS state, this check needs to use the DTLS state.
-    return (callee()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionConnected ||
-            callee()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionCompleted) &&
-           (caller()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionConnected ||
-            caller()->ice_connection_state() ==
-                webrtc::PeerConnectionInterface::kIceConnectionCompleted);
+    return callee()->peer_connection_state() ==
+               webrtc::PeerConnectionInterface::PeerConnectionState::
+                   kConnected &&
+           caller()->peer_connection_state() ==
+               webrtc::PeerConnectionInterface::PeerConnectionState::kConnected;
   }
 
   // When |event_log_factory| is null, the default implementation of the event
@@ -3716,7 +3714,7 @@ TEST_P(PeerConnectionIntegrationTest, MediaContinuesFlowingAfterIceRestart) {
   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
   EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
                  caller()->ice_connection_state(), kMaxWaitForFramesMs);
-  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionConnected,
+  EXPECT_EQ_WAIT(webrtc::PeerConnectionInterface::kIceConnectionCompleted,
                  callee()->ice_connection_state(), kMaxWaitForFramesMs);
 
   // Grab the ufrags/candidates again.

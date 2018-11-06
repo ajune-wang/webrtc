@@ -69,6 +69,30 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa159c31_56300c6b",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T15:51:12Z",
+      "side": 1,
+      "message": "\u003e 1) Can you explain why?\n\nBecause TQ is generally preferred for new code, and because AsyncInvoker is a hairy and brittle piece of code that I\u0027d like to move away from...\n\n\u003e 2) Is there a way to drain a TaskQueue, or do you need to depend on weak pointers when destroying the object?\n\nThe standard trick for test code is to post a task that sets an event, and wait for that event. Then you know that all tasks posted prior (and not posted using PostDelayedTask) have completed.\n\nWe also use the same trick in production code in a few places, but that\u0027s not so nice.\n\nDestroying a task queue will destroy pending tasks without running them, and block until any currently running task is completed. I think the weak pointers are intended for the case that *other* objects might be destroyed while the task queue and its tasks still are alive; they\u0027re an abstraction adopted from chromium, and so far haven\u0027t been that useful. You probably don\u0027t need any.",
+      "parentUuid": "e5e4261c_5cbcfce1",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

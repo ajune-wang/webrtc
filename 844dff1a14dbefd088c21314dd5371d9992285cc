@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb1fc716_5b394e5d",
+        "filename": "style-guide.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T16:54:03Z",
+      "side": 1,
+      "message": "Here, it would be possible to add a short paragraph saying something along the lines of,\n\n  This reasoning can be useful for return values too, if there are multiple implementations (as in the case of virtual functions) or if it would be hard to change the return type to match future changes in the single implementation.\n\nBut it\u0027s unclear if advice belongs in the style guide.",
+      "revId": "844dff1a14dbefd088c21314dd5371d9992285cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

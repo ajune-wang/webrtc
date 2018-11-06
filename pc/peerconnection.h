@@ -146,7 +146,6 @@ class PeerConnection : public PeerConnectionInternal,
   SignalingState signaling_state() override;
 
   IceConnectionState ice_connection_state() override;
-  IceConnectionState standardized_ice_connection_state();
   PeerConnectionState peer_connection_state() override;
   IceGatheringState ice_gathering_state() override;
 
@@ -859,7 +858,8 @@ class PeerConnection : public PeerConnectionInternal,
   bool SrtpRequired() const;
 
   // JsepTransportController signal handlers.
-  void OnTransportControllerConnectionState(cricket::IceConnectionState state);
+  void OnTransportControllerConnectionState(
+      PeerConnectionInterface::IceConnectionState state);
   void OnTransportControllerGatheringState(cricket::IceGatheringState state);
   void OnTransportControllerCandidatesGathered(
       const std::string& transport_name,
@@ -957,8 +957,6 @@ class PeerConnection : public PeerConnectionInternal,
 
   SignalingState signaling_state_ = kStable;
   IceConnectionState ice_connection_state_ = kIceConnectionNew;
-  PeerConnectionInterface::IceConnectionState
-      standardized_ice_connection_state_ = kIceConnectionNew;
   PeerConnectionInterface::PeerConnectionState connection_state_ =
       PeerConnectionState::kNew;
 

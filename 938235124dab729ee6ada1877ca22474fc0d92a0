@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "359fd190_018148da",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T13:40:27Z",
+      "side": 1,
+      "message": "Thanks for the clarifying argument -- that sounds like good reasons to use T*.\n\nFixed!",
+      "parentUuid": "1f563536_a73c10d0",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "432f182c_1a48b138",
         "filename": "api/video/video_frame.h",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18879d16_0371959c",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T13:40:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "035e94c6_4e228030",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

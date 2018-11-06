@@ -110,6 +110,7 @@ class AudioProcessingImpl : public AudioProcessing {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
   AudioProcessingStats GetStatistics(bool has_remote_tracks) const override;
+  AudioProcessingCaptureStats GetCaptureStatistics() const override;
 
   // Methods returning pointers to APM submodules.
   // No locks are aquired in those, as those locks
@@ -390,6 +391,7 @@ class AudioProcessingImpl : public AudioProcessing {
     bool echo_path_gain_change;
     int prev_analog_mic_level;
     float prev_pre_amp_gain;
+    AudioProcessingCaptureStats stats;
   } capture_ RTC_GUARDED_BY(crit_capture_);
 
   struct ApmCaptureNonLockedState {

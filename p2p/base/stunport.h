@@ -160,6 +160,9 @@ class UDPPort : public Port {
 
   void OnLocalAddressReady(rtc::AsyncPacketSocket* socket,
                            const rtc::SocketAddress& address);
+
+  void PostAddAddress(const Candidate& c, bool is_final) override;
+
   void OnReadPacket(rtc::AsyncPacketSocket* socket,
                     const char* data,
                     size_t size,

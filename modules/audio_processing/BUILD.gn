@@ -159,6 +159,8 @@ rtc_source_set("gain_control_interface") {
 rtc_source_set("audio_processing_statistics") {
   visibility = [ "*" ]
   sources = [
+    "include/audio_processing_capture_stats.cc",
+    "include/audio_processing_capture_stats.h",
     "include/audio_processing_statistics.cc",
     "include/audio_processing_statistics.h",
   ]

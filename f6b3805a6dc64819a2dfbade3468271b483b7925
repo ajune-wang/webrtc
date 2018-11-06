@@ -68,6 +68,29 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d6d6bb_e29bf3dc",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-06T13:50:08Z",
+      "side": 1,
+      "message": "return seems a different use-case than pass.\n(const T\u0026 is generally not a good return type for anything other than accessor.\ndo not see why optional\u003cT\u003e is special)\n\nMotivation also cover the pass use-case, but doesn\u0027t explain what\u0027s wrong with return.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

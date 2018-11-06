@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3f69cb2_452fad22",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:44:50Z",
+      "side": 1,
+      "message": "or \u003d absl::nullopt;",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df8f92b6_96dd20e7",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:44:50Z",
+      "side": 1,
+      "message": "Likewise.",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

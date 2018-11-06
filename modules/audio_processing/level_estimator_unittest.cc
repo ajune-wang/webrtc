@@ -28,7 +28,6 @@ void RunBitexactnessTest(int sample_rate_hz,
                          int rms_reference) {
   rtc::CriticalSection crit_capture;
   LevelEstimatorImpl level_estimator(&crit_capture);
-  level_estimator.Initialize();
   level_estimator.Enable(true);
 
   int samples_per_channel = rtc::CheckedDivExact(sample_rate_hz, 100);

@@ -173,6 +173,7 @@ class MockAudioProcessing : public testing::NiceMock<AudioProcessing> {
 
   MOCK_METHOD0(UpdateHistogramsOnCallEnd, void());
   MOCK_CONST_METHOD1(GetStatistics, AudioProcessingStats(bool));
+  MOCK_CONST_METHOD0(GetCaptureStatistics, AudioProcessingCaptureStats());
   virtual MockGainControl* gain_control() const { return gain_control_.get(); }
   virtual MockLevelEstimator* level_estimator() const {
     return level_estimator_.get();

@@ -259,6 +259,30 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e35352be_5d10d696",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-06T17:00:29Z",
+      "side": 1,
+      "message": "That I agree.\n\nyes, my reason doesn\u0027t apply to interface function, because I consider reference [including reference type] a bad choice for functions that are not simple accessors.\nvirtual functions usually shouldn\u0027t pretend they are simple accessors.",
+      "parentUuid": "027315f5_188ab3d1",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

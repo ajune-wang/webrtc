@@ -53,7 +53,6 @@ class FakeVP8Encoder : public FakeEncoder, public EncodedImageCallback {
 
   rtc::SequencedTaskChecker sequence_checker_;
   EncodedImageCallback* callback_ RTC_GUARDED_BY(sequence_checker_);
-
   std::vector<std::unique_ptr<Vp8TemporalLayers>> temporal_layers_
       RTC_GUARDED_BY(sequence_checker_);
 };

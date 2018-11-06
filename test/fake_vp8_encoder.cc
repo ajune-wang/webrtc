@@ -39,6 +39,7 @@ void WriteFakeVp8(unsigned char* payload,
     payload[6] = (width & 0x00FF);
   }
 }
+
 }  // namespace
 
 namespace webrtc {

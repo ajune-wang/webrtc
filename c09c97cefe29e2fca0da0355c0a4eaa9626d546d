@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0fa4ca28_c3e61531",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T13:56:37Z",
+      "side": 1,
+      "message": "If we can\u0027t include :swcodecs_jni in :peerconnection_jni, then this needs to stay. ../../modules/video_coding:webrtc_vp8 and ../../modules/video_coding:webrtc_vp9 are not sufficient because they don\u0027t include the jni part, which isn\u0027t linked in anywhere else.",
+      "parentUuid": "9e82da7e_01263e82",
+      "range": {
+        "startLine": 632,
+        "startChar": 6,
+        "endLine": 632,
+        "endChar": 61
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a836089a_c1b73b43",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3
@@ -141,6 +165,30 @@
       "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74d488d_05421292",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T13:56:37Z",
+      "side": 1,
+      "message": "Ah, good point. Done.",
+      "parentUuid": "fc9d02a4_9d72bdcc",
+      "range": {
+        "startLine": 724,
+        "startChar": 6,
+        "endLine": 724,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

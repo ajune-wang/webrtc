@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ac072b7_891e8235",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-06T16:58:10Z",
+      "side": 1,
+      "message": "Please add a comment that audio level and voice activity are always used together.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "6e33938e26949227beb9e6b3a1e76c697446125d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

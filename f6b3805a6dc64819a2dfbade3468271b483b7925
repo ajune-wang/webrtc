@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee0c61ae_eedcd2ef",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:40:32Z",
+      "side": 1,
+      "message": "Maybe shorten to \"Passing `absl::optional\u003cT\u003e`\", since the text covers both by value (encouraged) and by reference (discouraged).",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 67
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174b60ff_8058a685",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:40:32Z",
+      "side": 1,
+      "message": "And the exception is internal functions or methods where all relevant callers/callees use optional for storage. Is that worth mentioning? I don\u0027t think the small potential efficiency gain is that relevant, but it makes the code a bit nicer to not have to convert via |o ? \u0026*o: nullptr|.",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c14ebe8_a8143104",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:40:32Z",
+      "side": 1,
+      "message": "Nit: I think it is nicer to the eyes to terminate the emphasis after \"return\".",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

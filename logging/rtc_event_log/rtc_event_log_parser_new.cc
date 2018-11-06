@@ -514,11 +514,11 @@ void StoreRtpPackets(
   const std::string kEmptyString;
 
   // timestamp_ms (event)
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // marker (RTP base)
@@ -740,17 +740,17 @@ void StoreRtcpPackets(const ProtoType& proto,
   const std::string kEmptyString;
 
   // timestamp_ms
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // raw_packet
-  RTC_CHECK(proto.has_raw_packet_deltas());
+  RTC_CHECK(proto.has_raw_packet_blobs());
   std::vector<absl::string_view> raw_packet_values =
-      DecodeBlobs(proto.raw_packet_deltas(), number_of_deltas);
+      DecodeBlobs(proto.raw_packet_blobs(), number_of_deltas);
   RTC_CHECK_EQ(raw_packet_values.size(), number_of_deltas);
 
   // Delta decoding
@@ -2094,11 +2094,11 @@ void ParsedRtcEventLogNew::StoreAudioPlayoutEvent(
   const std::string kEmptyString;
 
   // timestamp_ms
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // local_ssrc
@@ -2177,19 +2177,19 @@ void ParsedRtcEventLogNew::StoreBweLossBasedUpdate(
   const std::string kEmptyString;
 
   // timestamp_ms
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // bitrate_bps
-  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
-                                              ? proto.bitrate_deltas_bps()
+  const std::string& bitrate_bps_deltas = proto.has_bitrate_bps_deltas()
+                                              ? proto.bitrate_bps_deltas()
                                               : kEmptyString;
   std::vector<absl::optional<uint64_t>> bitrate_bps_values =
-      DecodeDeltas(bitrate_deltas_bps, proto.bitrate_bps(), number_of_deltas);
+      DecodeDeltas(bitrate_bps_deltas, proto.bitrate_bps(), number_of_deltas);
   RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
 
   // fraction_loss
@@ -2256,19 +2256,19 @@ void ParsedRtcEventLogNew::StoreBweDelayBasedUpdate(
   const std::string kEmptyString;
 
   // timestamp_ms
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // bitrate_bps
-  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
-                                              ? proto.bitrate_deltas_bps()
+  const std::string& bitrate_bps_deltas = proto.has_bitrate_bps_deltas()
+                                              ? proto.bitrate_bps_deltas()
                                               : kEmptyString;
   std::vector<absl::optional<uint64_t>> bitrate_bps_values =
-      DecodeDeltas(bitrate_deltas_bps, proto.bitrate_bps(), number_of_deltas);
+      DecodeDeltas(bitrate_bps_deltas, proto.bitrate_bps(), number_of_deltas);
   RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
 
   // detector_state
@@ -2391,34 +2391,34 @@ void ParsedRtcEventLogNew::StoreAudioNetworkAdaptationEvent(
   const std::string kEmptyString;
 
   // timestamp_ms
-  const std::string& timestamp_deltas_ms = proto.has_timestamp_deltas_ms()
-                                               ? proto.timestamp_deltas_ms()
+  const std::string& timestamp_ms_deltas = proto.has_timestamp_ms_deltas()
+                                               ? proto.timestamp_ms_deltas()
                                                : kEmptyString;
   std::vector<absl::optional<uint64_t>> timestamp_ms_values =
-      DecodeDeltas(timestamp_deltas_ms, proto.timestamp_ms(), number_of_deltas);
+      DecodeDeltas(timestamp_ms_deltas, proto.timestamp_ms(), number_of_deltas);
   RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
 
   // bitrate_bps
-  const std::string& bitrate_deltas_bps = proto.has_bitrate_deltas_bps()
-                                              ? proto.bitrate_deltas_bps()
+  const std::string& bitrate_bps_deltas = proto.has_bitrate_bps_deltas()
+                                              ? proto.bitrate_bps_deltas()
                                               : kEmptyString;
   const absl::optional<uint64_t> bitrate_bps =
       proto.has_bitrate_bps() ? absl::optional<uint64_t>(proto.bitrate_bps())
                               : absl::optional<uint64_t>();
   std::vector<absl::optional<uint64_t>> bitrate_bps_values =
-      DecodeDeltas(bitrate_deltas_bps, bitrate_bps, number_of_deltas);
+      DecodeDeltas(bitrate_bps_deltas, bitrate_bps, number_of_deltas);
   RTC_CHECK_EQ(bitrate_bps_values.size(), number_of_deltas);
 
   // frame_length_ms
-  const std::string& frame_length_deltas_ms =
-      proto.has_frame_length_deltas_ms() ? proto.frame_length_deltas_ms()
+  const std::string& frame_length_ms_deltas =
+      proto.has_frame_length_ms_deltas() ? proto.frame_length_ms_deltas()
                                          : kEmptyString;
   const absl::optional<uint64_t> frame_length_ms =
       proto.has_frame_length_ms()
           ? absl::optional<uint64_t>(proto.frame_length_ms())
           : absl::optional<uint64_t>();
   std::vector<absl::optional<uint64_t>> frame_length_ms_values =
-      DecodeDeltas(frame_length_deltas_ms, frame_length_ms, number_of_deltas);
+      DecodeDeltas(frame_length_ms_deltas, frame_length_ms, number_of_deltas);
   RTC_CHECK_EQ(frame_length_ms_values.size(), number_of_deltas);
 
   // uplink_packet_loss_fraction

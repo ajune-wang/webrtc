@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1edf4ce1_3f025d5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-06T17:18:26Z",
+      "side": 1,
+      "message": "I think my commit message may have been poorly written.  I agree with everything you said here.  What I made async is *not* the LoopbackMediaTransport -\u003e Sink callback (for receiving data) but the local LoopbackMediaTransport -\u003e remote LoopbackMediaTransport call.\n\nI made this async because it will be async in production.  It goes over the network, so we really don\u0027t have a choice.  I have seen issues in the past (not necessarily in WebRTC, but elsewhere) where the mismatch between synchronous test utilities and async production code causes subtle issues.  I\u0027d rather avoid that.",
+      "parentUuid": "6e87245f_ef4c9c47",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e810a59_984188f4",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc7d67a4_eafae123",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-06T17:18:26Z",
+      "side": 1,
+      "message": "I used AsyncInvoker and a thread because I think this will be cleaner when we actually set up a media transport in end-to-end tests.  MediaTransport gets an rtc::Thread* (the network thread) as one of its inputs.\n\n(As a side note, it\u0027s not practical to remove the network thread from media transport unless we rewrite the network layer to stop relying on the network thread--but that\u0027s a discussion for another thread.)\n\nIt made sense to me to do this on the network thread, as it\u0027s simulating the network transit.  But it\u0027s not strictly necessary.  It could use a completely separate TaskQueue, since it doesn\u0027t actually interact with networking objects.\n\nI have a change in the works that I think will use this (once I get far enough to worry about data transfer).  Why don\u0027t I finish that, show it to you, and you can let me know what you think of the thread use in that context.  If you look at the context and still don\u0027t think it\u0027s worth sharing the network thread, I can change it to own its own TaskQueue.",
+      "parentUuid": "fa159c31_56300c6b",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

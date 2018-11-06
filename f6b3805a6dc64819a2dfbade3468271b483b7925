@@ -235,6 +235,30 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "027315f5_188ab3d1",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T16:42:21Z",
+      "side": 1,
+      "message": "I agree in principle: if changing the return type is not hard, then avoiding `const optional\u003cT\u003e\u0026` as a return type is correspondingly less valuable. Provided there\u0027s a single implementation---your reasoning doesn\u0027t apply to interface functions.\n\nFor these reasons, I would still argue that `const T*` is the right default, but in the interest of style rule brevity (and bikeshedding brevity), the right thing to do is probably to change this CL to talk only about argument passing, and not mention return values. We can always go back and change that later if we change our minds.\n\nChanges forthcoming.",
+      "parentUuid": "10b3dcd5_8bd58822",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

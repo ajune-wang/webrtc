@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c8b319d_ac39de7d",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:29:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0c61ae_eedcd2ef",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 67
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "174b60ff_8058a685",
         "filename": "style-guide.md",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-06T13:40:32Z",
       "side": 1,
       "message": "And the exception is internal functions or methods where all relevant callers/callees use optional for storage. Is that worth mentioning? I don\u0027t think the small potential efficiency gain is that relevant, but it makes the code a bit nicer to not have to convert via |o ? \u0026*o: nullptr|.",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c782f82b_139b2f48",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:29:55Z",
+      "side": 1,
+      "message": "The general mood before has been to keep these style rules short, with a minimum of supporting arguments.",
+      "parentUuid": "174b60ff_8058a685",
       "range": {
         "startLine": 87,
         "startChar": 47,
@@ -111,6 +159,54 @@
         "startChar": 0,
         "endLine": 88,
         "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9bdd4c_2b17a29a",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:29:55Z",
+      "side": 1,
+      "message": "What Nisse said. By-reference isn\u0027t useful nearly as often for return values as for arguments, but when it is useful, the same reasoning applies in both cases w.r.t. const optional\u003cT\u003e\u0026 vs. const T*.",
+      "parentUuid": "5214a7b7_9ff71988",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaf5b9fe_6bc0daef",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T14:29:55Z",
+      "side": 1,
+      "message": "I added the emphasis so that it would be possible to read only that part of the text and skip everything else. If I follow your suggestion, that\u0027s no longer the case. (This is a technique to avoid stating the most important point once at the beginning, and then again in context in the middle of the text.)\n\nWould you still argue that only \"do not pass or return\" should be emphasized?",
+      "parentUuid": "9c14ebe8_a8143104",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 9
       },
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f7bea3c1_4774157b",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db9e0487_5e65ce93",
+      "range": {
+        "startLine": 240,
+        "startChar": 8,
+        "endLine": 240,
+        "endChar": 23
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00831e71_bae12fa0",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -167,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "250dc498_b6bb56cc",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "The non-const version of std::string::data() is not available before C++17.",
+      "parentUuid": "439c6753_8df85f7c",
+      "range": {
+        "startLine": 335,
+        "startChar": 51,
+        "endLine": 335,
+        "endChar": 73
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cdf1c41_054ed789",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -226,6 +274,30 @@
       "side": 1,
       "message": "I see. How about instead replacing \nscrubed_packets[i].resize(IP_PACKET_SIZE);\nby\nscrubed_packets[i].resize(event-\u003epacket_.size());\nand skipping the second resize?",
       "parentUuid": "ec7cd7e6_57f75bf9",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 45
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c03c4d7_55ed0b31",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "Replacing IP_PACKET_SIZE by event-\u003epacket_.size() is a good idea; done. But I\u0027ve not removed the second resize(). Admittedly, your suggestion makes the attack more expensive by the speed memory may be consumed to the rate of network ingress, but it\u0027s still possible to trigger the consumption of more memory than is necessary, by injecting non-whitelisted RTCP messages into the packet. If you\u0027re still strongly inclined to remove the second resize(), maybe we could discuss it offline?",
+      "parentUuid": "caa2a167_c6a9137c",
       "range": {
         "startLine": 336,
         "startChar": 0,
@@ -306,6 +378,30 @@
       "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b97ef2f_d1c374d1",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "Discussed offline; we\u0027ll break the two apart in the proto in a follow-up CL.",
+      "parentUuid": "2151cc17_c78bf3fe",
+      "range": {
+        "startLine": 410,
+        "startChar": 6,
+        "endLine": 410,
+        "endChar": 17
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -426,6 +522,30 @@
     },
     {
       "key": {
+        "uuid": "519e6078_a33afd1b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "First is dchecked, to make sure the values are in the correct range.\nSecond converts unsigned to signed, for a constant bit width; no dcheck used.\nI think it\u0027s problematic that we implicitly assume that int \u003d int32 here, though. Wdyt?",
+      "parentUuid": "12e57f6d_d5bff3b8",
+      "range": {
+        "startLine": 2475,
+        "startChar": 25,
+        "endLine": 2475,
+        "endChar": 36
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "615d681a_d8c8bacd",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 2
@@ -437,6 +557,30 @@
       "writtenOn": "2018-11-06T13:24:15Z",
       "side": 1,
       "message": "Same.",
+      "range": {
+        "startLine": 2480,
+        "startChar": 0,
+        "endLine": 2480,
+        "endChar": 42
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15351153_dc8df12c",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2480,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "Same answer.",
+      "parentUuid": "615d681a_d8c8bacd",
       "range": {
         "startLine": 2480,
         "startChar": 0,
@@ -507,6 +651,30 @@
       "writtenOn": "2018-11-06T13:24:15Z",
       "side": 1,
       "message": "uses?\nSame below.",
+      "range": {
+        "startLine": 83,
+        "startChar": 61,
+        "endLine": 83,
+        "endChar": 69
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d94c59_3de593ef",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-06T15:01:05Z",
+      "side": 1,
+      "message": "I think \"exhibits\" conveys the nuance better.\n\"Exhibit - manifest clearly (a quality or a type of behaviour).\"\n1. It\u0027s for a unit test.\n2. \"Uses\" maintains some ambiguity about whether an extension is available or actually present, that \"exhibits\" does not seem to have.",
+      "parentUuid": "a5ead1c8_10c3045a",
       "range": {
         "startLine": 83,
         "startChar": 61,

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2553110d_2346c300",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T15:41:21Z",
+      "side": 1,
+      "message": "Can the poison now be removed?",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 671,
+        "endChar": 46
+      },
+      "revId": "aed84036664e53734dee9bc02d005fa38096d339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "709e68a2_df5f6758",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T15:41:21Z",
+      "side": 1,
+      "message": "Can you add a TODO for adding video_jni dependency here. We can\u0027t right because it would be a circular dependency.",
+      "range": {
+        "startLine": 776,
+        "startChar": 0,
+        "endLine": 778,
+        "endChar": 46
+      },
+      "revId": "aed84036664e53734dee9bc02d005fa38096d339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -62,9 +62,9 @@ typedef NS_ENUM(NSInteger, RTCFileVideoCapturerStatus) {
       return;
     }
 
-    _lastPresentationTime = CMTimeMake(0, 0);
+    self->_lastPresentationTime = CMTimeMake(0, 0);
 
-    _fileURL = [NSURL fileURLWithPath:pathForFile];
+    self->_fileURL = [NSURL fileURLWithPath:pathForFile];
     [self setupReaderOnError:errorBlock];
   });
 }

@@ -214,6 +214,7 @@ class MockVideoEncoder : public VideoEncoder {
     EncoderInfo info;
     info.supports_native_handle = supports_native_handle_;
     info.implementation_name = implementation_name_;
+    info.has_trusted_rate_controller = has_trusted_rate_controller_;
     return info;
   }
 
@@ -244,12 +245,17 @@ class MockVideoEncoder : public VideoEncoder {
     init_encode_return_value_ = value;
   }
 
+  void set_has_trusted_rate_controller(bool trusted) {
+    has_trusted_rate_controller_ = trusted;
+  }
+
   VideoBitrateAllocation last_set_bitrate() const { return last_set_bitrate_; }
 
  private:
   MockVideoEncoderFactory* const factory_;
   bool supports_native_handle_ = false;
   std::string implementation_name_ = "unknown";
+  bool has_trusted_rate_controller_ = false;
   int32_t init_encode_return_value_ = 0;
   VideoBitrateAllocation last_set_bitrate_;
 
@@ -943,5 +949,50 @@ TEST_F(TestSimulcastEncoderAdapterFake, ActivatesCorrectStreamsInInitEncode) {
   frame_types.resize(3, kVideoFrameKey);
   EXPECT_EQ(0, adapter_->Encode(input_frame, nullptr, &frame_types));
 }
+
+TEST_F(TestSimulcastEncoderAdapterFake, TrustedRateControl) {
+  // Set up common settings for three streams.
+  SimulcastTestFixtureImpl::DefaultSettings(
+      &codec_, static_cast<const int*>(kTestTemporalLayerProfile),
+      kVideoCodecVP8);
+  rate_allocator_.reset(new SimulcastRateAllocator(codec_));
+  adapter_->RegisterEncodeCompleteCallback(this);
+
+  // Only enough start bitrate for the lowest stream.
+  ASSERT_EQ(3u, codec_.numberOfSimulcastStreams);
+  codec_.startBitrate = codec_.simulcastStream[0].targetBitrate +
+                        codec_.simulcastStream[1].minBitrate - 1;
+
+  // Input data.
+  rtc::scoped_refptr<VideoFrameBuffer> buffer(I420Buffer::Create(1280, 720));
+  VideoFrame input_frame(buffer, 100, 1000, kVideoRotation_180);
+
+  // No encoder trusted, so simulcast adapter should not be either.
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
+  EXPECT_FALSE(adapter_->GetEncoderInfo().has_trusted_rate_controller);
+
+  // Encode with three streams.
+  std::vector<MockVideoEncoder*> original_encoders =
+      helper_->factory()->encoders();
+
+  // All encoders are trusted, so simulcast adapter should be too.
+  original_encoders[0]->set_has_trusted_rate_controller(true);
+  original_encoders[1]->set_has_trusted_rate_controller(true);
+  original_encoders[2]->set_has_trusted_rate_controller(true);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
+  EXPECT_TRUE(adapter_->GetEncoderInfo().has_trusted_rate_controller);
+
+  // One encoder not trusted, so simulcast adapter should not be either.
+  original_encoders[2]->set_has_trusted_rate_controller(false);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
+  EXPECT_FALSE(adapter_->GetEncoderInfo().has_trusted_rate_controller);
+
+  // No encoder trusted, so simulcast adapter should not be either.
+  original_encoders[0]->set_has_trusted_rate_controller(false);
+  original_encoders[1]->set_has_trusted_rate_controller(false);
+  EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
+  EXPECT_FALSE(adapter_->GetEncoderInfo().has_trusted_rate_controller);
+}
+
 }  // namespace test
 }  // namespace webrtc

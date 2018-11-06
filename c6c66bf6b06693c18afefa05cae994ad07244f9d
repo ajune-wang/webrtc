@@ -310,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "000df6ad_680ee927",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-06T17:19:05Z",
+      "side": 1,
+      "message": "If you are confident that resizing to the same size doesn\u0027t cause an realloc, then I\u0027m fine with this. I haven\u0027t been able to find that guarantee documented though.",
+      "parentUuid": "6c03c4d7_55ed0b31",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 45
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e43272e_6f515943",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -546,6 +570,30 @@
     },
     {
       "key": {
+        "uuid": "d4e2d388_4b456e1e",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-06T17:19:05Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t follow. Where do we assume that int \u003d int32?",
+      "parentUuid": "519e6078_a33afd1b",
+      "range": {
+        "startLine": 2475,
+        "startChar": 25,
+        "endLine": 2475,
+        "endChar": 36
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "615d681a_d8c8bacd",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 2
@@ -684,6 +732,30 @@
       "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a8251d8_d5e57b21",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-06T17:19:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "63d94c59_3de593ef",
+      "range": {
+        "startLine": 83,
+        "startChar": 61,
+        "endLine": 83,
+        "endChar": 69
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

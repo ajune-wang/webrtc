@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ebff8e3_4a1259ee",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T12:22:57Z",
+      "side": 1,
+      "message": "Can this be replaced with a direct dependency on \"../../modules/video_coding:webrtc_vp8\" and \"../../modules/video_coding:webrtc_vp9\"?",
+      "range": {
+        "startLine": 632,
+        "startChar": 6,
+        "endLine": 632,
+        "endChar": 61
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a836089a_c1b73b43",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T12:22:57Z",
+      "side": 1,
+      "message": "I don\u0027t really understand why this is necessary?",
+      "range": {
+        "startLine": 724,
+        "startChar": 6,
+        "endLine": 724,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87a26e69_cd7781cc",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T12:22:57Z",
+      "side": 1,
+      "message": "Can you pull in transitive deps i.e. video_jni?",
+      "range": {
+        "startLine": 761,
+        "startChar": 6,
+        "endLine": 761,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

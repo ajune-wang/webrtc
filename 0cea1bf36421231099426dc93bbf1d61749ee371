@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "314c5425_b02d9e6c",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T14:32:43Z",
+      "side": 1,
+      "message": "It doesn\u0027t build without it; it\u0027s because the getter has the same name as the class. I guess you could argue if that\u0027s bad practice :) I see no clear disadvantage.",
+      "parentUuid": "9fd6d4dc_72b928d9",
+      "range": {
+        "startLine": 66,
+        "startChar": 28,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3f69cb2_452fad22",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "def06ad0_d427e41d",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T14:32:43Z",
+      "side": 1,
+      "message": "I would have preferred this if a ternary expression would have worked:\nhdr_metadata_ \u003d hdr_metadata ? *hdr_metadata : absl::nullopt\n\nHowever, that doesn\u0027t work since the type of absl::nullopt is not the same as hdr_metadata_.\n\nI don\u0027t see how it\u0027s more clear using absl::nullopt. I think reset() is more clear and requires less internal knowledge of how optional is implemented.",
+      "parentUuid": "a3f69cb2_452fad22",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52bfee57_18185624",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -83,6 +131,24 @@
       "writtenOn": "2018-11-06T14:16:26Z",
       "side": 1,
       "message": "Fix this now? Or at least fix the comment? absl::optional\u003cint\u003e is trivially copyable.\n\n(However, absl::optional\u003cHdrMetadata\u003e isn\u0027t trivially copyable, because HdrMetadata isn\u0027t trivially copyable, because it has a user-defined copy constructor. It looks like it would become trivially copyable if you removed the user-defined copy constructors for HdrMetadata and HdrMasteringMetadata.)",
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fdafa2_8a4241b1",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T14:32:43Z",
+      "side": 1,
+      "message": "I will look into that. I had some build problems on linux_chromium_compile and mac_chromium_compile that were solved by adding some constructors, but perhaps that was not the copy constructor.",
+      "parentUuid": "52bfee57_18185624",
       "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -109,6 +175,30 @@
       "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a32fb27d_75a3e6e4",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-06T14:32:43Z",
+      "side": 1,
+      "message": "doesn\u0027t build without it.",
+      "parentUuid": "bab20a02_53bfd884",
+      "range": {
+        "startLine": 110,
+        "startChar": 17,
+        "endLine": 110,
+        "endChar": 23
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

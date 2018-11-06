@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "fc9d02a4_9d72bdcc",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-06T13:42:16Z",
+      "side": 1,
+      "message": "Yes, that is the general direction. I think the reason for swcodecs_java dependency is MediaCodecVideoDecoder/MediaCodecVideoEncoder and their dependency on the default codec factories.\n\nWe can\u0027t add this dependency since this will bloat libjingle_peerconnection_datachannelonly_so.",
+      "parentUuid": "f0b1a84e_abbc1590",
+      "range": {
+        "startLine": 724,
+        "startChar": 6,
+        "endLine": 724,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87a26e69_cd7781cc",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3

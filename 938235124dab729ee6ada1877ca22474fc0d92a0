@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7bc03ca_a84e6bc9",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T11:01:30Z",
+      "side": 1,
+      "message": "Not at all sure what\u0027s best, but you could consider returning a pointer instead,\n\nconst HdrMetadata* HdrMetadata() const {\n  return hdr_metadata_ ? \u0026*hdr_metadata_ : nullptr;\n}\n\n(At least, I think styleguide prefers pointer over reference-to-optional for input arguments, except when all callers are expected to already have an optional).",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "432f182c_1a48b138",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T11:01:30Z",
+      "side": 1,
+      "message": "I think const ref optional is discouraged, but now I can\u0027t find any mention in style guides.\n\nIt\u0027s functionally equivalent to const HdrMetadata*.",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

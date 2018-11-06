@@ -85,6 +85,7 @@ message IncomingRtpPackets {
   optional uint32 absolute_send_time = 17;
   optional uint32 video_rotation = 18;
   optional uint32 audio_level = 19;
+  optional bool voice_activity = 20;
   // TODO(terelius): Add other header extensions like playout delay?
 
   // Delta encodings.
@@ -104,6 +105,7 @@ message IncomingRtpPackets {
   optional bytes absolute_send_time_deltas = 117;
   optional bytes video_rotation_deltas = 118;
   optional bytes audio_level_deltas = 119;
+  optional bytes voice_activity_deltas = 120;
 }
 
 message OutgoingRtpPackets {
@@ -149,6 +151,7 @@ message OutgoingRtpPackets {
   optional uint32 absolute_send_time = 17;
   optional uint32 video_rotation = 18;
   optional uint32 audio_level = 19;
+  optional bool voice_activity = 20;
   // TODO(terelius): Add other header extensions like playout delay?
 
   // Delta encodings.
@@ -168,6 +171,7 @@ message OutgoingRtpPackets {
   optional bytes absolute_send_time_deltas = 117;
   optional bytes video_rotation_deltas = 118;
   optional bytes audio_level_deltas = 119;
+  optional bytes voice_activity_deltas = 120;
 }
 
 message IncomingRtcpPackets {

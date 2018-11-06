@@ -228,7 +228,7 @@ struct AudioProcessingImpl::ApmPublicSubmodules {
   ApmPublicSubmodules() {}
   // Accessed externally of APM without any lock acquired.
   std::unique_ptr<GainControlImpl> gain_control;
-  std::unique_ptr<LevelEstimatorImpl> level_estimator;
+  std::unique_ptr<LevelEstimatorImpl> public_level_estimator;
   std::unique_ptr<NoiseSuppressionImpl> noise_suppression;
   std::unique_ptr<VoiceDetectionImpl> voice_detection;
   std::unique_ptr<GainControlForExperimentalAgc>
@@ -259,6 +259,7 @@ struct AudioProcessingImpl::ApmPrivateSubmodules {
   std::unique_ptr<CustomProcessing> render_pre_processor;
   std::unique_ptr<GainApplier> pre_amplifier;
   std::unique_ptr<CustomAudioAnalyzer> capture_analyzer;
+  std::unique_ptr<LevelEstimatorImpl> output_level_estimator;
 };
 
 AudioProcessingBuilder::AudioProcessingBuilder() = default;
@@ -369,7 +370,7 @@ AudioProcessingImpl::AudioProcessingImpl(
 
     public_submodules_->gain_control.reset(
         new GainControlImpl(&crit_render_, &crit_capture_));
-    public_submodules_->level_estimator.reset(
+    public_submodules_->public_level_estimator.reset(
         new LevelEstimatorImpl(&crit_capture_));
     public_submodules_->noise_suppression.reset(
         new NoiseSuppressionImpl(&crit_capture_));
@@ -539,7 +540,7 @@ int AudioProcessingImpl::InitializeLocked() {
   public_submodules_->noise_suppression->Initialize(num_proc_channels(),
                                                     proc_sample_rate_hz());
   public_submodules_->voice_detection->Initialize(proc_split_sample_rate_hz());
-  public_submodules_->level_estimator->Initialize();
+  public_submodules_->public_level_estimator->Initialize();
   InitializeResidualEchoDetector();
   InitializeEchoController();
   InitializeGainController2();
@@ -673,6 +674,12 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
                    << config_.gain_controller2.enabled;
   RTC_LOG(LS_INFO) << "Pre-amplifier activated: "
                    << config_.pre_amplifier.enabled;
+
+  if (config_.level_estimation.enabled &&
+      !private_submodules_->output_level_estimator) {
+    private_submodules_->output_level_estimator.reset(
+        new LevelEstimatorImpl(&crit_capture_));
+  }
 }
 
 void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
@@ -1335,7 +1342,15 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   }
 
   // The level estimator operates on the recombined data.
-  public_submodules_->level_estimator->ProcessStream(capture_buffer);
+  public_submodules_->public_level_estimator->ProcessStream(capture_buffer);
+
+  if (config_.level_estimation.enabled) {
+    private_submodules_->output_level_estimator->ProcessStream(capture_buffer);
+    capture_.stats.output_rms_dbfs =
+        private_submodules_->output_level_estimator->RMS();
+  } else {
+    capture_.stats.output_rms_dbfs = absl::nullopt;
+  }
 
   capture_output_rms_.Analyze(rtc::ArrayView<const int16_t>(
       capture_buffer->channels_const()[0],
@@ -1635,6 +1650,11 @@ AudioProcessingStats AudioProcessingImpl::GetStatistics(
   return stats;
 }
 
+AudioProcessingCaptureStats AudioProcessingImpl::GetCaptureStatistics() const {
+  rtc::CritScope cs_capture(&crit_capture_);
+  return capture_.stats;
+}
+
 GainControl* AudioProcessingImpl::gain_control() const {
   if (constants_.use_experimental_agc) {
     return public_submodules_->gain_control_for_experimental_agc.get();
@@ -1643,7 +1663,7 @@ GainControl* AudioProcessingImpl::gain_control() const {
 }
 
 LevelEstimator* AudioProcessingImpl::level_estimator() const {
-  return public_submodules_->level_estimator.get();
+  return public_submodules_->public_level_estimator.get();
 }
 
 NoiseSuppression* AudioProcessingImpl::noise_suppression() const {
@@ -1679,7 +1699,7 @@ bool AudioProcessingImpl::UpdateActiveSubmoduleStates() {
       config_.gain_controller2.enabled, config_.pre_amplifier.enabled,
       capture_nonlocked_.echo_controller_enabled,
       public_submodules_->voice_detection->is_enabled(),
-      public_submodules_->level_estimator->is_enabled(),
+      public_submodules_->public_level_estimator->is_enabled(),
       capture_.transient_suppressor_enabled);
 }
 

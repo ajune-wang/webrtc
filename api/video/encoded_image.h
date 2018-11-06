@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/video/hdr_metadata.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video/video_content_type.h"
 #include "api/video/video_rotation.h"
@@ -59,6 +60,13 @@ class RTC_EXPORT EncodedImage {
     spatial_index_ = spatial_index.value_or(-1);
   }
 
+  const absl::optional<HdrMetadata>& HdrMetadata() const {
+    return hdr_metadata_;
+  }
+  void SetHdrMetadata(const absl::optional<struct HdrMetadata>& hdr_metadata) {
+    hdr_metadata_ = hdr_metadata;
+  }
+
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   // NTP time of the capture time in local timebase in milliseconds.
@@ -95,6 +103,7 @@ class RTC_EXPORT EncodedImage {
   // -1 means not set. Use a plain int rather than optional, to keep this class
   // copyable with memcpy.
   int spatial_index_ = -1;
+  absl::optional<struct HdrMetadata> hdr_metadata_;
 };
 
 }  // namespace webrtc

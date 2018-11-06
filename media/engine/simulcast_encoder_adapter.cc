@@ -19,6 +19,7 @@
 #include "api/video_codecs/video_encoder_factory.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/logging.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "third_party/libyuv/include/libyuv/scale.h"
@@ -126,7 +127,6 @@ SimulcastEncoderAdapter::SimulcastEncoderAdapter(VideoEncoderFactory* factory,
       factory_(factory),
       video_format_(format),
       encoded_complete_callback_(nullptr),
-      implementation_name_("SimulcastEncoderAdapter"),
       experimental_boosted_screenshare_qp_(GetScreenshareBoostedQpValue()) {
   RTC_DCHECK(factory_);
 
@@ -203,6 +203,9 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
   }
 
   std::string implementation_name;
+  encoder_info_.has_trusted_rate_controller = true;
+  encoder_info_.supports_native_handle = true;
+  encoder_info_.scaling_settings.thresholds = absl::nullopt;
   // Create |number_of_streams| of encoder instances and init them.
   for (int i = 0; i < number_of_streams; ++i) {
     VideoCodec stream_codec;
@@ -246,6 +249,7 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
       Release();
       return ret;
     }
+
     std::unique_ptr<EncodedImageCallback> callback(
         new AdapterEncodedImageCallback(this, i));
     encoder->RegisterEncodeCompleteCallback(callback.get());
@@ -256,15 +260,72 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
     if (i != 0) {
       implementation_name += ", ";
     }
-    implementation_name +=
-        streaminfos_[i].encoder->GetEncoderInfo().implementation_name;
+
+    EncoderInfo encoder_impl_info = streaminfos_[i].encoder->GetEncoderInfo();
+    implementation_name += encoder_impl_info.implementation_name;
+
+    // Native handle and trusted rate controller only if all encoders fulfull
+    // these requirements.
+    encoder_info_.supports_native_handle &=
+        encoder_impl_info.supports_native_handle;
+    encoder_info_.has_trusted_rate_controller &=
+        encoder_impl_info.has_trusted_rate_controller;
+
+    // Try to merge scaling settings.
+    if (encoder_impl_info.scaling_settings.thresholds) {
+      if (!encoder_info_.scaling_settings.thresholds) {
+        encoder_info_.scaling_settings.thresholds =
+            encoder_impl_info.scaling_settings.thresholds;
+      } else {
+        // Two encoders both have scaling settings set, check if they are
+        // compatible.
+        QpThresholds& combined_thresholds =
+            *encoder_info_.scaling_settings.thresholds;
+        const QpThresholds& encoder_impl_thresholds =
+            *encoder_impl_info.scaling_settings.thresholds;
+
+        if (combined_thresholds.low == -1) {
+          combined_thresholds.low = encoder_impl_thresholds.low;
+        } else if (encoder_impl_thresholds.low != -1 &&
+                   encoder_impl_thresholds.low != combined_thresholds.low) {
+          RTC_LOG(LS_ERROR) << "Two encoders used in simulcast adapter define "
+                               "incompatible low QP thresholds: "
+                            << combined_thresholds.low << " vs "
+                            << encoder_impl_thresholds.low;
+          Release();
+          return WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED;
+        }
+
+        if (combined_thresholds.high == -1) {
+          combined_thresholds.high = encoder_impl_thresholds.high;
+        } else if (encoder_impl_thresholds.high != -1 &&
+                   encoder_impl_thresholds.high != combined_thresholds.high) {
+          RTC_LOG(LS_ERROR) << "Two encoders used in simulcast adapter define "
+                               "incompatible high QP thresholds: "
+                            << combined_thresholds.high << " vs "
+                            << encoder_impl_thresholds.high;
+          Release();
+          return WEBRTC_VIDEO_CODEC_ERR_SIMULCAST_PARAMETERS_NOT_SUPPORTED;
+        }
+      }
+    }
+
+    // Use max of |min_pixels_per_frame| setting.
+    if (i == 0) {
+      encoder_info_.scaling_settings.min_pixels_per_frame =
+          encoder_impl_info.scaling_settings.min_pixels_per_frame;
+    } else {
+      encoder_info_.scaling_settings.min_pixels_per_frame =
+          std::max(encoder_info_.scaling_settings.min_pixels_per_frame,
+                   encoder_impl_info.scaling_settings.min_pixels_per_frame);
+    }
   }
 
   if (doing_simulcast) {
-    implementation_name_ =
+    encoder_info_.implementation_name =
         "SimulcastEncoderAdapter (" + implementation_name + ")";
   } else {
-    implementation_name_ = implementation_name;
+    encoder_info_.implementation_name = implementation_name;
   }
 
   // To save memory, don't store encoders that we don't use.
@@ -508,23 +569,11 @@ void SimulcastEncoderAdapter::DestroyStoredEncoders() {
 }
 
 VideoEncoder::EncoderInfo SimulcastEncoderAdapter::GetEncoderInfo() const {
-  EncoderInfo info;
-
-  if (Initialized() && NumberOfStreams(codec_) > 1) {
-    info = streaminfos_[0].encoder->GetEncoderInfo();
+  if (!Initialized()) {
+    return EncoderInfo();
   }
 
-  info.supports_native_handle = true;
-  for (const auto& streaminfo : streaminfos_) {
-    if (!streaminfo.encoder->GetEncoderInfo().supports_native_handle) {
-      info.supports_native_handle = false;
-      break;
-    }
-  }
-
-  info.implementation_name = implementation_name_;
-
-  return info;
+  return encoder_info_;
 }
 
 }  // namespace webrtc

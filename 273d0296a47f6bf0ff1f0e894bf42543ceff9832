@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e87245f_ef4c9c47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T10:37:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure I agree... I think the api convention should be that callbacks like OnData are expected to return quickly, and that a callee that needs to do a lot of processing or take lots of locks should be responsible for posting to some worker thread or task queue.",
+      "range": {
+        "startLine": 12,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e810a59_984188f4",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T10:37:02Z",
+      "side": 1,
+      "message": "And if you really think asynchronous callbacks are desirable, I\u0027d strongly prefer using a TaskQueue (owned by the MediaTransportPair if you\u0027re willing to share it between the two directions, otherwise each LoopbackMediaTransport can have its own).",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

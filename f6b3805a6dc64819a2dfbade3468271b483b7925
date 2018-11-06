@@ -211,6 +211,30 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10b3dcd5_8bd58822",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-06T15:04:54Z",
+      "side": 1,
+      "message": "I disagree.\nusing reference at the parameter put burden on the user of the class, there generally lot\u0027s of users with different needs.\nusing reference when returning put burden on the implementer of the class, there is generally single implementation.\nThus restricting return seems too heavy to me to put it into style guide.\n\nlooking at the example I see that forcing to return const T* instead of const optional\u003cT\u003e\u0026 forces extra translation.\n\n(Personally I usually do not abstract return type. Often it just adds an extra layer of indirection without any value. Sure refactoring can be harder in that case, but refactoring is less common that reading or using the accessor)",
+      "parentUuid": "4f9bdd4c_2b17a29a",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

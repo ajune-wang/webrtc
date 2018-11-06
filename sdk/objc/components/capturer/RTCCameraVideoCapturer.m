@@ -157,25 +157,26 @@ const int64_t kNanosecondsPerSecond = 1000000000;
                       [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 #endif
 
-                      _currentDevice = device;
+                      self->_currentDevice = device;
 
                       NSError *error = nil;
-                      if (![_currentDevice lockForConfiguration:&error]) {
-                        RTCLogError(
-                            @"Failed to lock device %@. Error: %@", _currentDevice, error.userInfo);
+                      if (![self->_currentDevice lockForConfiguration:&error]) {
+                        RTCLogError(@"Failed to lock device %@. Error: %@",
+                                    self->_currentDevice,
+                                    error.userInfo);
                         if (completionHandler) {
                           completionHandler(error);
                         }
-                        _willBeRunning = NO;
+                        self->_willBeRunning = NO;
                         return;
                       }
                       [self reconfigureCaptureSessionInput];
                       [self updateOrientation];
                       [self updateDeviceCaptureFormat:format fps:fps];
                       [self updateVideoDataOutputPixelFormat:format];
-                      [_captureSession startRunning];
-                      [_currentDevice unlockForConfiguration];
-                      _isRunning = YES;
+                      [self->_captureSession startRunning];
+                      [self->_currentDevice unlockForConfiguration];
+                      self->_isRunning = YES;
                       if (completionHandler) {
                         completionHandler(nil);
                       }
@@ -188,16 +189,16 @@ const int64_t kNanosecondsPerSecond = 1000000000;
       dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                     block:^{
                       RTCLogInfo("Stop");
-                      _currentDevice = nil;
-                      for (AVCaptureDeviceInput *oldInput in [_captureSession.inputs copy]) {
-                        [_captureSession removeInput:oldInput];
+                      self->_currentDevice = nil;
+                      for (AVCaptureDeviceInput *oldInput in [self->_captureSession.inputs copy]) {
+                        [self->_captureSession removeInput:oldInput];
                       }
-                      [_captureSession stopRunning];
+                      [self->_captureSession stopRunning];
 
 #if TARGET_OS_IPHONE
                       [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 #endif
-                      _isRunning = NO;
+                      self->_isRunning = NO;
                       if (completionHandler) {
                         completionHandler();
                       }
@@ -340,7 +341,7 @@ const int64_t kNanosecondsPerSecond = 1000000000;
                                block:^{
                                  // If we successfully restarted after an unknown error,
                                  // allow future retries on fatal errors.
-                                 _hasRetriedOnFatalError = NO;
+                                 self->_hasRetriedOnFatalError = NO;
                                }];
 }
 
@@ -352,10 +353,10 @@ const int64_t kNanosecondsPerSecond = 1000000000;
   [RTCDispatcher
       dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                     block:^{
-                      if (!_hasRetriedOnFatalError) {
+                      if (!self->_hasRetriedOnFatalError) {
                         RTCLogWarning(@"Attempting to recover from fatal capture error.");
                         [self handleNonFatalError];
-                        _hasRetriedOnFatalError = YES;
+                        self->_hasRetriedOnFatalError = YES;
                       } else {
                         RTCLogError(@"Previous fatal error recovery failed.");
                       }
@@ -366,8 +367,8 @@ const int64_t kNanosecondsPerSecond = 1000000000;
   [RTCDispatcher dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                                block:^{
                                  RTCLog(@"Restarting capture session after error.");
-                                 if (_isRunning) {
-                                   [_captureSession startRunning];
+                                 if (self->_isRunning) {
+                                   [self->_captureSession startRunning];
                                  }
                                }];
 }
@@ -379,9 +380,9 @@ const int64_t kNanosecondsPerSecond = 1000000000;
 - (void)handleApplicationDidBecomeActive:(NSNotification *)notification {
   [RTCDispatcher dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                                block:^{
-                                 if (_isRunning && !_captureSession.isRunning) {
+                                 if (self->_isRunning && !self->_captureSession.isRunning) {
                                    RTCLog(@"Restarting capture session on active.");
-                                   [_captureSession startRunning];
+                                   [self->_captureSession startRunning];
                                  }
                                }];
 }

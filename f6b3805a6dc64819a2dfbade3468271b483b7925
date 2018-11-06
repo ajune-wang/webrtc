@@ -91,6 +91,30 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5214a7b7_9ff71988",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T13:58:36Z",
+      "side": 1,
+      "message": "The example given earlier is an access method, where the implementation is changed from internally using an absl::optional\u003cFoo\u003e for storage to using an std::unique_ptr\u003cFoo\u003e. If the corresponding getter method returns an an const absl::optional\u003cFoo\u003e\u0026, that results in a bad impedance mismatch.\n\nWhile with const Foo*, no interface change is needed. Basically same reason why you\u0027d return an ArrayView rather than a const std::vector\u0026, even if the current implementation uses an std::vector for underlying storage.",
+      "parentUuid": "b8d6d6bb_e29bf3dc",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

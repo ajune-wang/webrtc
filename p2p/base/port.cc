@@ -844,7 +844,8 @@ void Port::SendBindingResponse(StunMessage* request,
 
     conn->stats_.sent_ping_responses++;
     conn->LogCandidatePairEvent(
-        webrtc::IceCandidatePairEventType::kCheckResponseSent);
+        webrtc::IceCandidatePairEventType::kCheckResponseSent,
+        request->transaction_id(), rtc::TimeMillis());
   }
 }
 
@@ -1324,7 +1325,8 @@ void Connection::HandleBindingRequest(IceMessage* msg) {
   }
 
   stats_.recv_ping_requests++;
-  LogCandidatePairEvent(webrtc::IceCandidatePairEventType::kCheckReceived);
+  LogCandidatePairEvent(webrtc::IceCandidatePairEventType::kCheckReceived,
+                        msg->transaction_id(), rtc::TimeMillis());
 
   // This is a validated stun request from remote peer.
   port_->SendBindingResponse(msg, remote_addr);
@@ -1661,11 +1663,13 @@ void Connection::LogCandidatePairConfig(
   ice_event_log_->LogCandidatePairConfig(type, id(), ToLogDescription());
 }
 
-void Connection::LogCandidatePairEvent(webrtc::IceCandidatePairEventType type) {
+void Connection::LogCandidatePairEvent(webrtc::IceCandidatePairEventType type,
+                                       std::string transaction_id,
+                                       uint32_t timestamp) {
   if (ice_event_log_ == nullptr) {
     return;
   }
-  ice_event_log_->LogCandidatePairEvent(type, id());
+  ice_event_log_->LogCandidatePairEvent(type, id(), transaction_id, timestamp);
 }
 
 void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
@@ -1692,7 +1696,8 @@ void Connection::OnConnectionRequestResponse(ConnectionRequest* request,
 
   stats_.recv_ping_responses++;
   LogCandidatePairEvent(
-      webrtc::IceCandidatePairEventType::kCheckResponseReceived);
+      webrtc::IceCandidatePairEventType::kCheckResponseReceived,
+      response->transaction_id(), time_received);
 
   MaybeUpdateLocalCandidate(request, response);
 }
@@ -1738,7 +1743,8 @@ void Connection::OnConnectionRequestSent(ConnectionRequest* request) {
                  << ", use_candidate=" << use_candidate_attr()
                  << ", nomination=" << nomination();
   stats_.sent_ping_requests_total++;
-  LogCandidatePairEvent(webrtc::IceCandidatePairEventType::kCheckSent);
+  LogCandidatePairEvent(webrtc::IceCandidatePairEventType::kCheckSent,
+                        request->id(), rtc::TimeMillis());
   if (stats_.recv_ping_responses == 0) {
     stats_.sent_ping_requests_before_first_response++;
   }

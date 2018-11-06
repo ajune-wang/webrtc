@@ -16,14 +16,21 @@ namespace webrtc {
 
 RtcEventIceCandidatePair::RtcEventIceCandidatePair(
     IceCandidatePairEventType type,
-    uint32_t candidate_pair_id)
-    : type_(type), candidate_pair_id_(candidate_pair_id) {}
+    uint32_t candidate_pair_id,
+    std::string transaction_id,
+    uint32_t timestamp)
+    : type_(type),
+      candidate_pair_id_(candidate_pair_id),
+      transaction_id_(transaction_id),
+      timestamp_(timestamp) {}
 
 RtcEventIceCandidatePair::RtcEventIceCandidatePair(
     const RtcEventIceCandidatePair& other)
     : RtcEvent(other.timestamp_us_),
       type_(other.type_),
-      candidate_pair_id_(other.candidate_pair_id_) {}
+      candidate_pair_id_(other.candidate_pair_id_),
+      transaction_id_(other.transaction_id_),
+      timestamp_(other.timestamp_) {}
 
 RtcEventIceCandidatePair::~RtcEventIceCandidatePair() = default;
 

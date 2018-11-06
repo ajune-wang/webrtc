@@ -199,7 +199,8 @@ EventGenerator::NewIceCandidatePair() {
           static_cast<uint32_t>(IceCandidatePairEventType::kNumValues) - 1));
   uint32_t pair_id = prng_.Rand<uint32_t>();
 
-  return absl::make_unique<RtcEventIceCandidatePair>(type, pair_id);
+  // TODO(zstein): transaction_id and timestamp
+  return absl::make_unique<RtcEventIceCandidatePair>(type, pair_id, "", 0);
 }
 
 rtcp::ReportBlock EventGenerator::NewReportBlock() {

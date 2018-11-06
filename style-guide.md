@@ -77,6 +77,20 @@ instead of                          | use
 
 See [the source](api/array_view.h) for more detailed docs.
 
+### `absl::optional<T>` as function argument or return value
+
+`absl::optional<T>` is generally a good choice when you want to pass a
+possibly missing `T` to a function, or return a possibly missing
+`T`&mdash;provided of course that `T` is a type that it makes sense to
+pass by value.
+
+However, when you want to avoid pass-by-value, generally **do not pass
+or return `const absl::optional<T>&`; use `const T*` instead.** `const
+absl::optional<T>&` forces the caller (in case of a function argument)
+or the function definition (in case of a return value) to store the
+`T` in an `absl::optional<T>`. `const T*`, on the other hand, makes no
+assumptions about how the `T` is stored.
+
 ### sigslot
 
 sigslot is a lightweight library that adds a signal/slot language

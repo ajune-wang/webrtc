@@ -84,6 +84,8 @@ class RelayPort : public Port {
 
   void SetReady();
 
+  void PostAddAddress(bool is_final) override {}
+
   int SendTo(const void* data,
              size_t size,
              const rtc::SocketAddress& addr,

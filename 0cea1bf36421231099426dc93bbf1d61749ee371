@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "bc627f3f_0583cfc8",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T15:20:10Z",
+      "side": 1,
+      "message": "I think ternary expression works if you write out the conversion explicitly,\n\n  hdr_metadata_ \u003d hdr_metadata ? absl::optional\u003cHdrMetaData\u003e(*hdr_metadata) : absl::nullopt;\n\nIt might also work with explicit type for the other operand,\n\n  hdr_metadata_ \u003d hdr_metadata ? *hdr_metadata : absl::optional\u003cHdrMetadata\u003e();\n\nBut it fails if both operands need conversion to get to the desired type.\n\nI have the feeling that .reset() is generally out of fashion, with assignment of appropriate null-constant being the trendier alternative. But I don\u0027t have a strong opinion.",
+      "parentUuid": "def06ad0_d427e41d",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52bfee57_18185624",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -149,6 +173,24 @@
       "side": 1,
       "message": "I will look into that. I had some build problems on linux_chromium_compile and mac_chromium_compile that were solved by adding some constructors, but perhaps that was not the copy constructor.",
       "parentUuid": "52bfee57_18185624",
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e763ec5_da9a066c",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-06T15:20:10Z",
+      "side": 1,
+      "message": "That comment is mine. I didn\u0027t want to add the first complicated member to this old class in the same cl that moved spatial index around. Changing to optional now makes sense to me. (And rtc::Optional was complex because of some hacks to inform memory sanitizers of its state).",
+      "parentUuid": "e6fdafa2_8a4241b1",
       "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

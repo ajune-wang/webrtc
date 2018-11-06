@@ -1406,7 +1406,14 @@ TEST_P(VideoSendStreamTest, NoPaddingWhenVideoIsMuted) {
       return SEND_PACKET;
     }
 
-    size_t GetNumVideoStreams() const override { return 3; }
+    void ModifyVideoConfigs(
+        VideoSendStream::Config* send_config,
+        std::vector<VideoReceiveStream::Config>* receive_configs,
+        VideoEncoderConfig* encoder_config) override {
+      // Make sure we will always try to send some padding.
+      encoder_config->min_transmit_bitrate_bps =
+          encoder_config->max_bitrate_bps + 50000;
+    }
 
     void OnFrameGeneratorCapturerCreated(
         test::FrameGeneratorCapturer* frame_generator_capturer) override {

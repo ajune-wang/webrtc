@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f563536_a73c10d0",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T12:37:58Z",
+      "side": 1,
+      "message": "I think T* is a better default choice than optional\u003cT\u003e\u0026 for both arguments and return values. And that default choice is a good choice in this case.\n\nIf the type is optional\u003cT\u003e\u0026, the value really has to be stored in an optional; but if the type is T*, the value can be stored any way you like. This is the same sort of difference that exists between std::string and absl::string_view, and between std::vector and rtc::ArrayView. Sure, you can make a function that takes a const std::vector\u003cint\u003e\u0026 argument, but then the caller has to have a vector; but if the function instead took an rtc::ArrayView\u003cconst int\u003e, the caller can pass anything that\u0027s stored as a contiguous array of ints.\n\nIn the present case, a return type of const absl::optional\u003cHdrMetadata\u003e\u0026 is fine as long as the implementation actually stores the HdrMetadata in an optional. But if you later want to change the implementation so that you store a std::unique_ptr\u003cHdrMetadata\u003e instead, this return type becomes a problem. If the return type had instead been const HdrMetadata*, there would have been no problem.",
+      "parentUuid": "a7bc03ca_a84e6bc9",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 3
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "432f182c_1a48b138",
         "filename": "api/video/video_frame.h",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-06T11:01:30Z",
       "side": 1,
       "message": "I think const ref optional is discouraged, but now I can\u0027t find any mention in style guides.\n\nIt\u0027s functionally equivalent to const HdrMetadata*.",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "938235124dab729ee6ada1877ca22474fc0d92a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035e94c6_4e228030",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-06T12:37:58Z",
+      "side": 1,
+      "message": "Yes, use const HdrMetadata* instead (for the exact same reasons as for the return type we\u0027re discussing above).",
+      "parentUuid": "432f182c_1a48b138",
       "range": {
         "startLine": 43,
         "startChar": 30,

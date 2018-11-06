@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b9150c22_ccca0f89",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T12:53:33Z",
+      "side": 1,
+      "message": "Strictly speaking, the only real dependency is on :rtc_internal_video_codecs. Previously, this was also the only place that actually included the VP8/VP9 JNI deps. Since :peerconnection_jni now includes :swcodecs_jni, we could remove it from here entirely.\n\nBut I have a downstream target I need to clean up first, and I can\u0027t do the cleanup until this change goes in, so it needs to stay for now.",
+      "parentUuid": "2ebff8e3_4a1259ee",
+      "range": {
+        "startLine": 632,
+        "startChar": 6,
+        "endLine": 632,
+        "endChar": 61
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a836089a_c1b73b43",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f0b1a84e_abbc1590",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T12:53:33Z",
+      "side": 1,
+      "message": "You said that depending on the _jni target should ideally be sufficient to prevent UnsatisfiedLinkError when using the corresponding _java target. peerconnection_java depends on swcodecs_java, so peerconnection_jni should depend on swcodecs_jni.",
+      "parentUuid": "a836089a_c1b73b43",
+      "range": {
+        "startLine": 724,
+        "startChar": 6,
+        "endLine": 724,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87a26e69_cd7781cc",
         "filename": "sdk/android/BUILD.gn",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d33b119_24175c64",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 6013
+      },
+      "writtenOn": "2018-11-06T12:53:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87a26e69_cd7781cc",
+      "range": {
+        "startLine": 761,
+        "startChar": 6,
+        "endLine": 761,
+        "endChar": 22
+      },
+      "revId": "c09c97cefe29e2fca0da0355c0a4eaa9626d546d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

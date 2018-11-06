@@ -45,6 +45,30 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5e4261c_5cbcfce1",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-06T15:36:46Z",
+      "side": 1,
+      "message": "1) Can you explain why?\n2) Is there a way to drain a TaskQueue, or do you need to depend on weak pointers when destroying the object?",
+      "parentUuid": "5e810a59_984188f4",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

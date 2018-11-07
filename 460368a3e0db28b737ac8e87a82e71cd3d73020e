@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb9f9bd3_3ad2cf40",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:09:03Z",
+      "side": 1,
+      "message": "Can we keep comments in the right place? :)\n\n(Or maybe change this copy of the comment to be relevant to the network-change callback?)",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642c697e_ec480c42",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:09:03Z",
+      "side": 1,
+      "message": "Change this to \"(by calling RemoveTargetTransferRateObserver)\".",
+      "range": {
+        "startLine": 350,
+        "startChar": 39,
+        "endLine": 350,
+        "endChar": 55
+      },
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d7910a_f8888005",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:09:03Z",
+      "side": 1,
+      "message": "I\u0027d call out UDP/TCP here as well.",
+      "range": {
+        "startLine": 362,
+        "startChar": 51,
+        "endLine": 362,
+        "endChar": 55
+      },
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c067e544_5b787fc8",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:09:03Z",
+      "side": 1,
+      "message": "Should it be named GetAudioPacketOverhead() if it assumes it\u0027s an audio packet?",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0546ca8a_acee0580",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:09:03Z",
+      "side": 1,
+      "message": "I am not sure I understand the need for the synchronous getters yet, but I will withhold judgement until I\u0027ve seen what we need them for.",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "a441fd9c_0dd99a92",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5370,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-07T23:36:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "20cf50fa_e9e8db03",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8165bab_9c7e62f5",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -160,6 +178,24 @@
       "side": 1,
       "message": "It does, but RTC_DCHECK_RUN_ON also asserts a lock for static analysis purposes.  HandleOpenMessage_s and SignalMediaTransportReceivedData_s are both annotated RTC_RUN_ON(signaling_thread()), so we must assert we\u0027re on that thread before calling them.",
       "parentUuid": "f8165bab_9c7e62f5",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07abe95f_103c2719",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5375,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-07T23:36:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fbe78761_65067108",
       "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

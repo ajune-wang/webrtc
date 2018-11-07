@@ -45,6 +45,7 @@ class SendSideBandwidthEstimation {
   explicit SendSideBandwidthEstimation(RtcEventLog* event_log);
   ~SendSideBandwidthEstimation();
 
+  void Reset();
   void CurrentEstimate(int* bitrate, uint8_t* loss, int64_t* rtt) const;
 
   // Call periodically to update estimate.

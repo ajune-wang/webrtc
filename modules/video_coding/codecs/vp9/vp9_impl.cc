@@ -37,6 +37,9 @@
 namespace webrtc {
 
 namespace {
+const char kVp9TrustedRateControllerFieldTrial[] =
+    "WebRTC-LibvpxVp9TrustedRateController";
+
 // Maps from gof_idx to encoder internal reference frame buffer index. These
 // maps work for 1,2 and 3 temporal layers with GOF length of 1,2 and 4 frames.
 uint8_t kRefBufIdx[4] = {0, 0, 0, 1};
@@ -168,6 +171,8 @@ VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec)
       inter_layer_pred_(InterLayerPredMode::kOn),
       external_ref_control_(
           webrtc::field_trial::IsEnabled("WebRTC-Vp9ExternalRefCtrl")),
+      trusted_rate_controller_(
+          webrtc::field_trial::IsEnabled(kVp9TrustedRateControllerFieldTrial)),
       is_flexible_mode_(false) {
   memset(&codec_, 0, sizeof(codec_));
   memset(&svc_params_, 0, sizeof(vpx_svc_extra_cfg_t));
@@ -1250,6 +1255,7 @@ VideoEncoder::EncoderInfo VP9EncoderImpl::GetEncoderInfo() const {
   info.supports_native_handle = false;
   info.implementation_name = "libvpx";
   info.scaling_settings = VideoEncoder::ScalingSettings::kOff;
+  info.has_trusted_rate_controller = trusted_rate_controller_;
   return info;
 }
 

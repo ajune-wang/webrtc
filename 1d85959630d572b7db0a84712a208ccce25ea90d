@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f22e3dad_306a979a",
+        "filename": "modules/video_coding/receiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-07T12:46:51Z",
+      "side": 1,
+      "message": "This is the next obstacle to deleting EventWrapper. I haven\u0027t yet tried to understand what\u0027s being tested, but overriding the Event class seems a bit obscure. Any advice appreciated.",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 44
+      },
+      "revId": "1d85959630d572b7db0a84712a208ccce25ea90d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

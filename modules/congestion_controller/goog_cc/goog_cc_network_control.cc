@@ -183,14 +183,14 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   ClampBitrates(&start_bitrate_bps, &min_bitrate_bps, &max_bitrate_bps);
 
   if (safe_reset_on_route_change_) {
-    int32_t estimated_bitrate_bps;
-    uint8_t fraction_loss;
-    int64_t rtt_ms;
-    bandwidth_estimation_->CurrentEstimate(&estimated_bitrate_bps,
-                                           &fraction_loss, &rtt_ms);
-    if (!msg.constraints.starting_rate ||
-        estimated_bitrate_bps <= start_bitrate_bps) {
-      start_bitrate_bps = estimated_bitrate_bps;
+    absl::optional<uint32_t> estimated_bitrate_bps =
+        acknowledged_bitrate_estimator_->bitrate_bps();
+    if (!estimated_bitrate_bps)
+      estimated_bitrate_bps = acknowledged_bitrate_estimator_->PeekBps();
+
+    if (estimated_bitrate_bps && (!msg.constraints.starting_rate ||
+                                  estimated_bitrate_bps < start_bitrate_bps)) {
+      start_bitrate_bps = *estimated_bitrate_bps;
       if (msg.constraints.starting_rate) {
         msg.constraints.starting_rate = DataRate::bps(start_bitrate_bps);
       }

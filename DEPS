@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '38dcb5ed0137923d9b1f758a8d8ddf7b0035c86c',
+  'chromium_revision': '6188dcc1a087752900a6c4082e0b4701b65a288a',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -28,7 +28,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
-  'libfuzzer_revision': 'a305a5eb85ed42edc5c965c14f308f576cb245ca',
+  'libfuzzer_revision': '2a53098584c48af50aec3fb51febe5e651489774',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling freetype
   # and whatever else without interference from each other.
@@ -60,7 +60,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '7e5b9bf06ba729118829484dd4c5a28e060d47db',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '1dd44c1c64b37b811176c168cfc927722fc234c8',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '2b7fdb4604fbc86291cac50cb8459718b7e41ad0',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -218,7 +218,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'dc7f4d2a7b3b367df1c01bd6b78247d33904445b',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '1eeb4ade1327d570e7f5d120a2e7f3597be293c8',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

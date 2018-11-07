@@ -594,6 +594,30 @@
     },
     {
       "key": {
+        "uuid": "94b611cd_264d1dab",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-07T19:19:26Z",
+      "side": 1,
+      "message": "As discussed offline.\n\n#include \u003climits\u003e\n#include \u003ccstdint\u003e\n#include \u003ccassert\u003e\n\n\n// This function returns a signed number |y| of type T, congruent\n// to |x| module 2^64. The function requires that such a number\n// exists and should only be called if\n// x \u003d static_cast\u003cuint64_t\u003e(y) where y has type T.\n// In this case, ToSigned\u003cT\u003e computes the inverse of\n// static_cast\u003cuint64_t\u003e\n// Note that static_cast\u003cT\u003e(x) would work on most platforms\n// and compilers, but involves undefined behavior. This function is well-defined\n// and can be optimized to a noop for 64 bit types, or a few arithmetic\n// instruction plus a single conditional jump for smaller types.\ntemplate \u003ctypename T\u003e\nT ToSigned(uint64_t x) {\n  static_assert(std::numeric_limits\u003cT\u003e::is_integer);\n  static_assert(std::numeric_limits\u003cT\u003e::is_signed);\n  static_assert(std::numeric_limits\u003cT\u003e::digits \u003c 64);\n\n  // Check that T_MAX \u003e\u003d abs(T_MIN) - 1\n  static_assert(std::numeric_limits\u003cT\u003e::max() + std::numeric_limits\u003cT\u003e::min() + 1 \u003e\u003d 0);\n\n  // A cast from signed to unsigned returns a number that is\n  // congruent to the argument modulo 2^n where n is the bit-size of the destination type.\n  // This implies that non-negative values map to (0, 1, ..., T_MAX)\n  // and negative numbers map to (2^n + T_MIN, ..., 2^n - 2, 2^n - 1).\n\n  if (x \u003c\u003d static_cast\u003cuint64_t\u003e(std::numeric_limits\u003cT\u003e::max())) {\n    // The original value was positive, so it is safe to just static_cast.\n    return static_cast\u003cT\u003e(x);\n  }\n  if (x \u003e\u003d static_cast\u003cuint64_t\u003e(std::numeric_limits\u003cT\u003e::min()) ) {\n    // The original number was negative. We can therefore subtract\n    // 2^n + T_MIN to get a value in the range [0, abs(T_MIN)). Assuming\n    // T_MAX \u003e\u003d abs(T_MIN) - 1, this value fits in a T. Since it is positive,\n    // we can safely add T_MIN back.\n    return static_cast\u003cT\u003e(x - static_cast\u003cuint64_t\u003e(std::numeric_limits\u003cT\u003e::min())) + std::numeric_limits\u003cT\u003e::min();\n  }\n\n  // |x| was not converted from a value of type T, violating the precondition of the function.\n  assert(false);\n}",
+      "parentUuid": "d4e2d388_4b456e1e",
+      "range": {
+        "startLine": 2475,
+        "startChar": 25,
+        "endLine": 2475,
+        "endChar": 36
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "615d681a_d8c8bacd",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 2

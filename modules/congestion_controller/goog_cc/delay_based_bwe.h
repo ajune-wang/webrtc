@@ -56,6 +56,8 @@ class DelayBasedBwe {
   void SetMinBitrate(int min_bitrate_bps);
   int64_t GetExpectedBwePeriodMs() const;
 
+  uint32_t link_capacity_estimate_bps() const;
+
  private:
   friend class GoogCcStatePrinter;
   void IncomingPacketFeedback(const PacketFeedback& packet_feedback,
@@ -83,6 +85,7 @@ class DelayBasedBwe {
   double trendline_threshold_gain_;
   int consecutive_delayed_feedbacks_;
   uint32_t prev_bitrate_;
+  uint32_t link_capacity_estimate_bps_;
   BandwidthUsage prev_state_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(DelayBasedBwe);

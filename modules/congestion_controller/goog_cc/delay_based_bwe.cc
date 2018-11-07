@@ -98,6 +98,7 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log)
       trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
       consecutive_delayed_feedbacks_(0),
       prev_bitrate_(0),
+      link_capacity_estimate_bps_(0),
       prev_state_(BandwidthUsage::kBwNormal) {
   RTC_LOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
@@ -239,6 +240,9 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
   // Currently overusing the bandwidth.
   if (delay_detector_->State() == BandwidthUsage::kBwOverusing) {
+    if (acked_bitrate_bps)
+      link_capacity_estimate_bps_ =
+          std::min(link_capacity_estimate_bps_, *acked_bitrate_bps);
     if (acked_bitrate_bps &&
         rate_control_.TimeToReduceFurther(now_ms, *acked_bitrate_bps)) {
       result.updated =
@@ -259,8 +263,12 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
       result.probe = true;
       result.updated = true;
       result.target_bitrate_bps = *probe_bitrate_bps;
+      link_capacity_estimate_bps_ = *probe_bitrate_bps;
       rate_control_.SetEstimate(*probe_bitrate_bps, now_ms);
     } else {
+      if (acked_bitrate_bps)
+        link_capacity_estimate_bps_ =
+            std::max(link_capacity_estimate_bps_, *acked_bitrate_bps);
       result.updated =
           UpdateEstimate(now_ms, acked_bitrate_bps, &result.target_bitrate_bps);
       result.recovered_from_overuse = recovered_from_overuse;
@@ -316,6 +324,7 @@ bool DelayBasedBwe::LatestEstimate(std::vector<uint32_t>* ssrcs,
 void DelayBasedBwe::SetStartBitrate(int start_bitrate_bps) {
   RTC_LOG(LS_INFO) << "BWE Setting start bitrate to: " << start_bitrate_bps;
   rate_control_.SetStartBitrate(start_bitrate_bps);
+  link_capacity_estimate_bps_ = start_bitrate_bps;
 }
 
 void DelayBasedBwe::SetMinBitrate(int min_bitrate_bps) {
@@ -326,5 +335,9 @@ void DelayBasedBwe::SetMinBitrate(int min_bitrate_bps) {
 
 int64_t DelayBasedBwe::GetExpectedBwePeriodMs() const {
   return rate_control_.GetExpectedBandwidthPeriodMs();
+}
+
+uint32_t DelayBasedBwe::link_capacity_estimate_bps() const {
+  return link_capacity_estimate_bps_;
 }
 }  // namespace webrtc

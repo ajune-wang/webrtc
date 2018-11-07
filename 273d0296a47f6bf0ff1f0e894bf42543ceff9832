@@ -141,6 +141,30 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa7585a2_38556fe3",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-07T09:39:38Z",
+      "side": 1,
+      "message": "\u003e I used AsyncInvoker and a thread because I think this will be cleaner when we actually set up a media transport in end-to-end tests.  MediaTransport gets an rtc::Thread* (the network thread) as one of its inputs.\n\nThat the current MediaTransport gets an rtc::Thread is an implementation quirk that I don\u0027t think we need copy to the test class.\n\n\u003e I have a change in the works that I think will use this (once I get far enough to worry about data transfer).  Why don\u0027t I finish that, show it to you, and you can let me know what you think of the thread use in that context.  If you look at the context and still don\u0027t think it\u0027s worth sharing the network thread, I can change it to own its own TaskQueue.\n\nSGTM.",
+      "parentUuid": "fc7d67a4_eafae123",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

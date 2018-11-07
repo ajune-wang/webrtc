@@ -16,6 +16,24 @@
       "revId": "6d4510da8e8333dfe1abea227788ee5a63fc5c8a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6439063_3e0352c0",
+        "filename": "p2p/base/relayport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-07T01:55:45Z",
+      "side": 1,
+      "message": "Thanks for the comment. It just helped me realize we don\u0027t need the explicit override. RelayPort followed the default logic of Port with AddAddress(..., is_final \u003d false) that just bypasses the signal without special handling like in UDPPort for STUN. Removed this one.",
+      "parentUuid": "9bf075c0_91e719e9",
+      "revId": "6d4510da8e8333dfe1abea227788ee5a63fc5c8a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

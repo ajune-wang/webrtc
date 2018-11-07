@@ -494,11 +494,16 @@ void StoreRtpPackets(
           rtc::checked_cast<uint8_t>(proto.video_rotation()));
     }
     if (proto.has_audio_level()) {
+      RTC_CHECK(proto.has_voice_activity());
       header.extension.hasAudioLevel = true;
+      header.extension.voiceActivity =
+          rtc::checked_cast<bool>(proto.voice_activity());
       const uint8_t audio_level =
           rtc::checked_cast<uint8_t>(proto.audio_level());
-      header.extension.voiceActivity = (audio_level >> 7) != 0;
-      header.extension.audioLevel = audio_level & 0x7Fu;
+      RTC_CHECK_LE(audio_level, 0x7Fu);
+      header.extension.audioLevel = audio_level;
+    } else {
+      RTC_CHECK(!proto.has_voice_activity());
     }
     (*rtp_packets_map)[header.ssrc].emplace_back(
         proto.timestamp_ms() * 1000, header, proto.header_size(),
@@ -659,6 +664,20 @@ void StoreRtpPackets(
     RTC_CHECK_EQ(audio_level_values.size(), number_of_deltas);
   }
 
+  // voice_activity (RTP extension)
+  std::vector<absl::optional<uint64_t>> voice_activity_values;
+  {
+    const std::string& voice_activity_deltas =
+        proto.has_voice_activity_deltas() ? proto.voice_activity_deltas()
+                                          : kEmptyString;
+    const absl::optional<uint64_t> base_voice_activity =
+        proto.has_voice_activity() ? proto.voice_activity()
+                                   : absl::optional<uint64_t>();
+    voice_activity_values = DecodeDeltas(voice_activity_deltas,
+                                         base_voice_activity, number_of_deltas);
+    RTC_CHECK_EQ(voice_activity_values.size(), number_of_deltas);
+  }
+
   // Delta decoding
   for (size_t i = 0; i < number_of_deltas; ++i) {
     RTC_CHECK(timestamp_ms_values[i].has_value());
@@ -709,11 +728,18 @@ void StoreRtpPackets(
           rtc::checked_cast<uint8_t>(video_rotation_values[i].value()));
     }
     if (audio_level_values.size() > i && audio_level_values[i].has_value()) {
+      RTC_CHECK(voice_activity_values.size() > i &&
+                voice_activity_values[i].has_value());
       header.extension.hasAudioLevel = true;
+      header.extension.voiceActivity =
+          rtc::checked_cast<bool>(voice_activity_values[i].value());
       const uint8_t audio_level =
           rtc::checked_cast<uint8_t>(audio_level_values[i].value());
-      header.extension.voiceActivity = (audio_level >> 7) != 0;
-      header.extension.audioLevel = audio_level & 0x7Fu;
+      RTC_CHECK_LE(audio_level, 0x7Fu);
+      header.extension.audioLevel = audio_level;
+    } else {
+      RTC_CHECK(voice_activity_values.size() <= i ||
+                !voice_activity_values[i].has_value());
     }
     (*rtp_packets_map)[header.ssrc].emplace_back(
         timestamp_ms_values[i].value() * 1000, header, header.headerLength,
@@ -2376,6 +2402,7 @@ void ParsedRtcEventLogNew::StoreAudioNetworkAdaptationEvent(
       runtime_config.enable_dtx = proto.enable_dtx();
     }
     if (proto.has_num_channels()) {
+      // TODO(eladalon): Encode 1/2 -> 0/1, to improve
       runtime_config.num_channels = proto.num_channels();
     }
     audio_network_adaptation_events_.emplace_back(1000 * proto.timestamp_ms(),
@@ -2472,14 +2499,12 @@ void ParsedRtcEventLogNew::StoreAudioNetworkAdaptationEvent(
 
     AudioEncoderRuntimeConfig runtime_config;
     if (bitrate_bps_values[i].has_value()) {
-      const unsigned int bitrate_bps =
-          rtc::checked_cast<unsigned int>(bitrate_bps_values[i].value());
-      runtime_config.bitrate_bps = static_cast<int>(bitrate_bps);
+      runtime_config.bitrate_bps =
+          rtc::checked_cast<int>(bitrate_bps_values[i].value());
     }
     if (frame_length_ms_values[i].has_value()) {
-      const unsigned int frame_length_ms =
-          rtc::checked_cast<unsigned int>(frame_length_ms_values[i].value());
-      runtime_config.frame_length_ms = static_cast<int>(frame_length_ms);
+      runtime_config.frame_length_ms =
+          rtc::checked_cast<int>(frame_length_ms_values[i].value());
     }
     if (uplink_packet_loss_fraction_values[i].has_value()) {
       float uplink_packet_loss_fraction;

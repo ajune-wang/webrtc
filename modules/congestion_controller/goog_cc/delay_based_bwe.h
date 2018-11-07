@@ -39,6 +39,7 @@ class DelayBasedBwe {
     bool probe;
     uint32_t target_bitrate_bps;
     bool recovered_from_overuse;
+    bool overusing;
   };
 
   explicit DelayBasedBwe(RtcEventLog* event_log);

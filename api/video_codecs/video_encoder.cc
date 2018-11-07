@@ -124,8 +124,4 @@ VideoEncoder::EncoderInfo VideoEncoder::GetEncoderInfo() const {
   return EncoderInfo(GetScalingSettings(), SupportsNativeHandle(),
                      ImplementationName());
 }
-
-int32_t VideoEncoder::SetChannelParameters(uint32_t packet_loss, int64_t rtt) {
-  return 0;
-}
 }  // namespace webrtc

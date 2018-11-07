@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bf58b0d_e2a581e3",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-07T09:48:48Z",
+      "side": 1,
+      "message": "Consider saying `absl::make_optional` instead, to avoid having to repeat the type.",
+      "range": {
+        "startLine": 66,
+        "startChar": 26,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "ceb4f456e9477d1fc497dfd12638611cc29252d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "979ec9e9_14feca7e",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-07T09:44:01Z",
+      "side": 1,
+      "message": "I added the webrtc namespace to the struct name to avoid shadowing. I think that makes it a bit less confusing.",
+      "parentUuid": "314c5425_b02d9e6c",
+      "range": {
+        "startLine": 66,
+        "startChar": 28,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3f69cb2_452fad22",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -192,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "5074b71c_0d74e58b",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-07T09:44:01Z",
+      "side": 1,
+      "message": "I have changed to a ternary expression to keep the symmetry with the getter.",
+      "parentUuid": "bc627f3f_0583cfc8",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52bfee57_18185624",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -245,6 +293,24 @@
     },
     {
       "key": {
+        "uuid": "c4eb0590_147eaef9",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-07T09:44:01Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "7e763ec5_da9a066c",
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab20a02_53bfd884",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -292,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "b7e32c7f_a92dd4a4",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-07T09:44:01Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "a32fb27d_75a3e6e4",
+      "range": {
+        "startLine": 110,
+        "startChar": 17,
+        "endLine": 110,
+        "endChar": 23
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df8f92b6_96dd20e7",
         "filename": "api/video/video_frame.cc",
         "patchSetId": 2
@@ -312,6 +402,30 @@
       "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74bcdb8e_9482e8f0",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-07T09:44:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df8f92b6_96dd20e7",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

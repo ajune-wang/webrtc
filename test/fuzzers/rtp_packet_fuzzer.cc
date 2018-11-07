@@ -101,6 +101,10 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         FrameMarking frame_marking;
         packet.GetExtension<FrameMarkingExtension>(&frame_marking);
         break;
+      case kRtpExtensionHdrMetadata:
+        HdrMetadata hdr_metadata;
+        packet.GetExtension<HdrMetadataExtension>(&hdr_metadata);
+        break;
       case kRtpExtensionRtpStreamId: {
         std::string rsid;
         packet.GetExtension<RtpStreamId>(&rsid);

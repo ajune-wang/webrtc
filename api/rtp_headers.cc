@@ -28,7 +28,8 @@ RTPHeaderExtension::RTPHeaderExtension()
       videoContentType(VideoContentType::UNSPECIFIED),
       has_video_timing(false),
       has_frame_marking(false),
-      frame_marking({false, false, false, false, false, 0xFF, 0, 0}) {}
+      frame_marking({false, false, false, false, false, 0xFF, 0, 0}),
+      has_hdr_metadata(false) {}
 
 RTPHeaderExtension::RTPHeaderExtension(const RTPHeaderExtension& other) =
     default;

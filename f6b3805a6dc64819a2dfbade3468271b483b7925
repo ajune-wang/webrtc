@@ -283,6 +283,54 @@
       "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c04e96b6_a1530c54",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-07T09:34:30Z",
+      "side": 1,
+      "message": "I think typographic emphasis should be used for the particular words you would stress a lot when reading the text out loud. Long phrases in bold look a bit shouty. If I were writing this text, I would likely put typographic emphasis only on \"do not\". But this is all an ultra-nit.",
+      "parentUuid": "aaf5b9fe_6bc0daef",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 88,
+        "endChar": 9
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd14dc1_7f0341f0",
+        "filename": "style-guide.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-07T09:34:30Z",
+      "side": 1,
+      "message": "One data point: The related cl includes this line,\n\n  encoded_image_.SetHdrMetadata(input_image_-\u003ehdr_metadata());\n\nThat would be a lot more cumbersome if argument were const T* but return value absl::optional\u003cT\u003e\u0026. Consistency is valuable.\n\nAlso, if underlying storage is a unique_ptr, returning an optional\u0026 isn\u0027t just a piece of boilerplate code for type conversion, it requires actually allocating an optional, right? I think it\u0027s a fairly strong argument to let that choice belong to the implementation and not be visible in the interface.\n\nSo I\u0027d prefer const T* for return values too, but it\u0027s fine to land recommendation for arguments only, and discuss the case for return values later, possible core meeting on Monday.\n\n\u003e yes, my reason doesn\u0027t apply to interface function, because I consider reference [including reference type] a bad choice for functions that are not simple accessors.\n\u003e virtual functions usually shouldn\u0027t pretend they are simple accessors.\n\nDepends on what you mean by \"usually\", but I don\u0027t agree with this as a general rule. It\u0027s sometimes sensible with an abstract interface representing storage. E.g., the various interfaces defined in api/video/video_frame_buffer.h. It\u0027s all depends on what the interface is supposed to represent. In this case, interfaces provide read-only access to pixel storage, and concrete subclasses add the ability to create and write to the storage.",
+      "parentUuid": "e35352be_5d10d696",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "f6b3805a6dc64819a2dfbade3468271b483b7925",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

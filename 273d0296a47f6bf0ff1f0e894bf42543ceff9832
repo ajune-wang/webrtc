@@ -189,6 +189,23 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b106e135_d66935cd",
+        "filename": "api/test/loopback_media_transport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-07T23:11:35Z",
+      "side": 1,
+      "message": "I think FlushAsyncInvokes should be in destructor of  MediaTransportPair t",
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

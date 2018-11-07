@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08ad0aa2_ff127451",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-07T17:02:31Z",
+      "side": 1,
+      "message": "why base_layer_sync is set to true for IDR but not for P TL0 frames?",
+      "range": {
+        "startLine": 541,
+        "startChar": 9,
+        "endLine": 543,
+        "endChar": 53
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c74e38_208be5e0",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-07T17:02:31Z",
+      "side": 1,
+      "message": "please use braces even for single line statements.",
+      "range": {
+        "startLine": 544,
+        "startChar": 8,
+        "endLine": 547,
+        "endChar": 31
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fdaef0d_77a0daa7",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-07T17:02:31Z",
+      "side": 1,
+      "message": "This magic number can be replaced with num_temporal_layers_.",
+      "range": {
+        "startLine": 547,
+        "startChar": 27,
+        "endLine": 547,
+        "endChar": 30
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32863e8e_b03c1cd3",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-07T17:02:31Z",
+      "side": 1,
+      "message": "there is no need for tl0sync_limit_ to be a member of the class, right?",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efe5aefc_7d20d489",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-07T18:53:19Z",
+      "side": 1,
+      "message": "Overhead for audio or video or both? It\u0027s definitely different for audio and video.",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 2
+      },
+      "revId": "36e1d0fdc47a77221c86dbb932ed44a86befa880",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00977201_8539272d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-07T18:53:19Z",
+      "side": 1,
+      "message": "Should we have overhead and transfer rate in one observer / getter? They are kind of used together anyway?",
+      "revId": "36e1d0fdc47a77221c86dbb932ed44a86befa880",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

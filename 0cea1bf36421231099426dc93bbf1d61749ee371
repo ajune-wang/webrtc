@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "60965469_4f4bacdc",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-07T09:13:47Z",
+      "side": 1,
+      "message": "I would call it unnecessarily confusing; please reconsider. But I\u0027ll leave the choice to you.",
+      "parentUuid": "314c5425_b02d9e6c",
+      "range": {
+        "startLine": 66,
+        "startChar": 28,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3f69cb2_452fad22",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I think ternary expression works if you write out the conversion explicitly,\n\n  hdr_metadata_ \u003d hdr_metadata ? absl::optional\u003cHdrMetaData\u003e(*hdr_metadata) : absl::nullopt;\n\nIt might also work with explicit type for the other operand,\n\n  hdr_metadata_ \u003d hdr_metadata ? *hdr_metadata : absl::optional\u003cHdrMetadata\u003e();\n\nBut it fails if both operands need conversion to get to the desired type.\n\nI have the feeling that .reset() is generally out of fashion, with assignment of appropriate null-constant being the trendier alternative. But I don\u0027t have a strong opinion.",
       "parentUuid": "def06ad0_d427e41d",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 28
+      },
+      "revId": "0cea1bf36421231099426dc93bbf1d61749ee371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0811e854_3b08bee2",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-07T09:13:47Z",
+      "side": 1,
+      "message": ".reset() works for all smart pointer types in addition to optional. \u003dnullopt only works with optional, so it gives a more specific clue to the reader. That\u0027s why I prefer it.\n\nIf you want a ternary expression, try\n\n  hdr_metadata_ \u003d hdr_metadata ? absl::make_optional(*hdr_metadata)\n                               : absl::nullopt;",
+      "parentUuid": "bc627f3f_0583cfc8",
       "range": {
         "startLine": 70,
         "startChar": 19,

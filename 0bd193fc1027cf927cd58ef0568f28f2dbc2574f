@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "137937af_460e40f7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4243,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ef8bb4_d7bcb58c",
+      "range": {
+        "startLine": 4243,
+        "startChar": 13,
+        "endLine": 4243,
+        "endChar": 30
+      },
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15adeaa9_a451fc57",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8d45d303_d402c310",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5249,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15adeaa9_a451fc57",
+      "range": {
+        "startLine": 5249,
+        "startChar": 45,
+        "endLine": 5249,
+        "endChar": 46
+      },
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad9bca83_ccf80242",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 4
@@ -62,6 +110,24 @@
       "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20cf50fa_e9e8db03",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5370,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "I think we left it unspecified in the interface, on purpose, in order to keep open the possibility that it uses a TaskQueue or something in the future.  But in reality, it\u0027s the network thread.\n\nWhether the media transport should specify this or not still seems to be under discussion, so I\u0027d rather not assert it in the DataChannelSink methods.  They don\u0027t do anything that requires them to be on a particular thread, they just post to the signaling thread.",
+      "parentUuid": "ad9bca83_ccf80242",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "fbe78761_65067108",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5375,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "It does, but RTC_DCHECK_RUN_ON also asserts a lock for static analysis purposes.  HandleOpenMessage_s and SignalMediaTransportReceivedData_s are both annotated RTC_RUN_ON(signaling_thread()), so we must assert we\u0027re on that thread before calling them.",
+      "parentUuid": "f8165bab_9c7e62f5",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01578e26_dd5fd6ec",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 4
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "a2ad7ed0_1c2bc35e",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01578e26_dd5fd6ec",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8222f50b_3e457496",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 4
@@ -113,6 +215,24 @@
       "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "475efa55_e0c2ff0c",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T23:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8222f50b_3e457496",
+      "revId": "0bd193fc1027cf927cd58ef0568f28f2dbc2574f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

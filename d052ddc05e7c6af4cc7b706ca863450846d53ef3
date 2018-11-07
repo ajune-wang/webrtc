@@ -115,6 +115,30 @@
       "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b384291c_d5a68f55",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-11-07T22:40:20Z",
+      "side": 1,
+      "message": "How else can I make it persistent and unique to each instance H264EncoderImpl?",
+      "parentUuid": "32863e8e_b03c1cd3",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

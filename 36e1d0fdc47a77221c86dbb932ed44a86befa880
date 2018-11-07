@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ebc1cfa4_7a3b5c87",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-07T19:32:22Z",
+      "side": 1,
+      "message": "next sentence.\n\u0027regardless\n  // if it\u0027s audio or video packet.\u0027\n\nUpdated it to say \"currently it reports one number (for audio)\".",
+      "parentUuid": "efe5aefc_7d20d489",
+      "range": {
+        "startLine": 361,
+        "startChar": 0,
+        "endLine": 361,
+        "endChar": 2
+      },
+      "revId": "36e1d0fdc47a77221c86dbb932ed44a86befa880",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00977201_8539272d",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2018-11-07T18:53:19Z",
       "side": 1,
       "message": "Should we have overhead and transfer rate in one observer / getter? They are kind of used together anyway?",
+      "revId": "36e1d0fdc47a77221c86dbb932ed44a86befa880",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "744182cc_891b502e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-07T19:32:22Z",
+      "side": 1,
+      "message": "In one place they are used together, in another place only one is used.\nAlso, transfer rate changes regularly, overhead changes rarely.\n\nI think having two makes sense.",
+      "parentUuid": "00977201_8539272d",
       "revId": "36e1d0fdc47a77221c86dbb932ed44a86befa880",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

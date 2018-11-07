@@ -22,6 +22,30 @@
       "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c38e80bf_21c9077c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-07T19:36:30Z",
+      "side": 0,
+      "message": "Yes, AllocateBitrates is const and we don\u0027t use the value.",
+      "parentUuid": "75f2479f_7762cac9",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

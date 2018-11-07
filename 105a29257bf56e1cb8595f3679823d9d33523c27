@@ -22,6 +22,30 @@
       "revId": "105a29257bf56e1cb8595f3679823d9d33523c27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3071320d_6e1377f1",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-07T19:36:30Z",
+      "side": 1,
+      "message": "To avoid making this CL larger than needed, I\u0027d like to keep bitrate_bps as is. But I added a TODO. Renamed bandwidth to link_capacity.",
+      "parentUuid": "904b4f54_5a27181e",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "105a29257bf56e1cb8595f3679823d9d33523c27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

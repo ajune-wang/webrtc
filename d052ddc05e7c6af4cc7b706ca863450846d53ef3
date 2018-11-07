@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7292f9c7_c4d300de",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-11-07T22:32:58Z",
+      "side": 1,
+      "message": "I seem to recall seeing some spec or note about IDRs setting this sync bit.  Must be losing my mind, because I can\u0027t find that source now. Anyway, for IDRs and TL0 frames, this bit is pretty much useless. I\u0027ll just remove the IDR condition to avoid confusion.",
+      "parentUuid": "08ad0aa2_ff127451",
+      "range": {
+        "startLine": 541,
+        "startChar": 9,
+        "endLine": 543,
+        "endChar": 53
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d0c74e38_208be5e0",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 7

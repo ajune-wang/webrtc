@@ -139,6 +139,30 @@
       "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaeaaf58_a14a968f",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-07T23:36:01Z",
+      "side": 1,
+      "message": "right...",
+      "parentUuid": "b384291c_d5a68f55",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 24
+      },
+      "revId": "d052ddc05e7c6af4cc7b706ca863450846d53ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

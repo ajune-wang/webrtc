@@ -20,6 +20,7 @@
 #include "modules/video_coding/packet.h"
 #include "modules/video_coding/timing.h"
 #include "rtc_base/criticalsection.h"
+#include "rtc_base/event.h"
 
 namespace webrtc {
 
@@ -30,32 +31,11 @@ class VCMReceiver {
  public:
   // Constructor for current interface, will be removed when the
   // new jitter buffer is in place.
-  VCMReceiver(VCMTiming* timing, Clock* clock, EventFactory* event_factory);
+  VCMReceiver(VCMTiming* timing, Clock* clock);
 
   // Create method for the new jitter buffer.
   VCMReceiver(VCMTiming* timing,
               Clock* clock,
-              EventFactory* event_factory,
-              NackSender* nack_sender,
-              KeyFrameRequestSender* keyframe_request_sender);
-
-  // Using this constructor, you can specify a different event factory for the
-  // jitter buffer. Useful for unit tests when you want to simulate incoming
-  // packets, in which case the jitter buffer's wait event is different from
-  // that of VCMReceiver itself.
-  //
-  // Constructor for current interface, will be removed when the
-  // new jitter buffer is in place.
-  VCMReceiver(VCMTiming* timing,
-              Clock* clock,
-              std::unique_ptr<EventWrapper> receiver_event,
-              std::unique_ptr<EventWrapper> jitter_buffer_event);
-
-  // Create method for the new jitter buffer.
-  VCMReceiver(VCMTiming* timing,
-              Clock* clock,
-              std::unique_ptr<EventWrapper> receiver_event,
-              std::unique_ptr<EventWrapper> jitter_buffer_event,
               NackSender* nack_sender,
               KeyFrameRequestSender* keyframe_request_sender);
 
@@ -92,7 +72,7 @@ class VCMReceiver {
   Clock* const clock_;
   VCMJitterBuffer jitter_buffer_;
   VCMTiming* timing_;
-  std::unique_ptr<EventWrapper> render_wait_event_;
+  rtc::Event render_wait_event_;
   int max_video_delay_ms_;
 };
 

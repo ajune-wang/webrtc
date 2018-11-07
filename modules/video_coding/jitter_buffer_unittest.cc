@@ -218,8 +218,7 @@ class TestBasicJitterBuffer : public ::testing::TestWithParam<std::string>,
   TestBasicJitterBuffer() {}
   void SetUp() override {
     clock_.reset(new SimulatedClock(0));
-    jitter_buffer_.reset(new VCMJitterBuffer(
-        clock_.get(), absl::WrapUnique(EventWrapper::Create()), this, this));
+    jitter_buffer_.reset(new VCMJitterBuffer(clock_.get(), this, this));
     jitter_buffer_->Start();
     seq_num_ = 1234;
     timestamp_ = 0;
@@ -334,8 +333,7 @@ class TestRunningJitterBuffer : public ::testing::TestWithParam<std::string>,
     clock_.reset(new SimulatedClock(0));
     max_nack_list_size_ = 150;
     oldest_packet_to_nack_ = 250;
-    jitter_buffer_ = new VCMJitterBuffer(
-        clock_.get(), absl::WrapUnique(EventWrapper::Create()), this, this);
+    jitter_buffer_ = new VCMJitterBuffer(clock_.get(), this, this);
     stream_generator_ = new StreamGenerator(0, clock_->TimeInMilliseconds());
     jitter_buffer_->Start();
     jitter_buffer_->SetNackSettings(max_nack_list_size_, oldest_packet_to_nack_,

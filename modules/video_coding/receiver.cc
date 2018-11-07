@@ -28,64 +28,27 @@ namespace webrtc {
 
 enum { kMaxReceiverDelayMs = 10000 };
 
-VCMReceiver::VCMReceiver(VCMTiming* timing,
-                         Clock* clock,
-                         EventFactory* event_factory)
+VCMReceiver::VCMReceiver(VCMTiming* timing, Clock* clock)
     : VCMReceiver::VCMReceiver(timing,
                                clock,
-                               event_factory,
                                nullptr,  // NackSender
                                nullptr)  // KeyframeRequestSender
 {}
 
 VCMReceiver::VCMReceiver(VCMTiming* timing,
                          Clock* clock,
-                         EventFactory* event_factory,
-                         NackSender* nack_sender,
-                         KeyFrameRequestSender* keyframe_request_sender)
-    : VCMReceiver(
-          timing,
-          clock,
-          std::unique_ptr<EventWrapper>(event_factory
-                                            ? event_factory->CreateEvent()
-                                            : EventWrapper::Create()),
-          std::unique_ptr<EventWrapper>(event_factory
-                                            ? event_factory->CreateEvent()
-                                            : EventWrapper::Create()),
-          nack_sender,
-          keyframe_request_sender) {}
-
-VCMReceiver::VCMReceiver(VCMTiming* timing,
-                         Clock* clock,
-                         std::unique_ptr<EventWrapper> receiver_event,
-                         std::unique_ptr<EventWrapper> jitter_buffer_event)
-    : VCMReceiver::VCMReceiver(timing,
-                               clock,
-                               std::move(receiver_event),
-                               std::move(jitter_buffer_event),
-                               nullptr,  // NackSender
-                               nullptr)  // KeyframeRequestSender
-{}
-
-VCMReceiver::VCMReceiver(VCMTiming* timing,
-                         Clock* clock,
-                         std::unique_ptr<EventWrapper> receiver_event,
-                         std::unique_ptr<EventWrapper> jitter_buffer_event,
                          NackSender* nack_sender,
                          KeyFrameRequestSender* keyframe_request_sender)
     : clock_(clock),
-      jitter_buffer_(clock_,
-                     std::move(jitter_buffer_event),
-                     nack_sender,
-                     keyframe_request_sender),
+      jitter_buffer_(clock_, nack_sender, keyframe_request_sender),
       timing_(timing),
-      render_wait_event_(std::move(receiver_event)),
+      render_wait_event_(false, false),
       max_video_delay_ms_(kMaxVideoDelayMs) {
   Reset();
 }
 
 VCMReceiver::~VCMReceiver() {
-  render_wait_event_->Set();
+  render_wait_event_.Set();
 }
 
 void VCMReceiver::Reset() {
@@ -125,7 +88,7 @@ int32_t VCMReceiver::InsertPacket(const VCMPacket& packet) {
 
 void VCMReceiver::TriggerDecoderShutdown() {
   jitter_buffer_.Stop();
-  render_wait_event_->Set();
+  render_wait_event_.Set();
 }
 
 VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
@@ -199,11 +162,11 @@ VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
       // We're not allowed to wait until the frame is supposed to be rendered,
       // waiting as long as we're allowed to avoid busy looping, and then return
       // NULL. Next call to this function might return the frame.
-      render_wait_event_->Wait(new_max_wait_time);
+      render_wait_event_.Wait(new_max_wait_time);
       return NULL;
     }
     // Wait until it's time to render.
-    render_wait_event_->Wait(wait_time_ms);
+    render_wait_event_.Wait(wait_time_ms);
   }
 
   // Extract the frame from the jitter buffer and set the render time.

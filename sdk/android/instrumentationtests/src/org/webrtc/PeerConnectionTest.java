@@ -45,6 +45,7 @@ import org.junit.runner.RunWith;
 import org.webrtc.Metrics.HistogramInfo;
 import org.webrtc.PeerConnection.IceConnectionState;
 import org.webrtc.PeerConnection.IceGatheringState;
+import org.webrtc.PeerConnection.PeerConnectionState;
 import org.webrtc.PeerConnection.SignalingState;
 
 /** End-to-end tests for PeerConnection.java. */
@@ -187,6 +188,11 @@ public class PeerConnectionTest {
 
       assertEquals(expectedIceConnectionChanges.remove(), newState);
     }
+
+    @Override
+    // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
+    @SuppressWarnings("NoSynchronizedMethodCheck")
+    public synchronized void onConnectionChange(PeerConnectionState newState) {}
 
     @Override
     // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.

@@ -930,6 +930,12 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
   }
 
   @Override
+  public void onConnected() {}
+
+  @Override
+  public void onDisconnected() {}
+
+  @Override
   public void onPeerConnectionClosed() {}
 
   @Override

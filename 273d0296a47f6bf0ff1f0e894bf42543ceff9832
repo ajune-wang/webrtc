@@ -165,6 +165,30 @@
       "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d46f9a2_7ea3a0f1",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-07T22:57:23Z",
+      "side": 1,
+      "message": "It turned out I needed a bit more than just the changes in this cl to use the loopback for data channels.  The rest of the changes are bundled with the context in https://webrtc-review.googlesource.com/c/src/+/109740.\n\nI believe the crucial piece that really has to happen on the network thread is the callback when the loopback media transport\u0027s state changes.  I didn\u0027t realize this until I wrote the data channel change.  The state callback goes to JsepTransport, which requires that it fire on the network thread.  See this comment:\nhttps://webrtc-review.googlesource.com/c/src/+/108901/10/pc/jseptransport.cc#648\n\nUnfortunately, there\u0027s a mismatch between the threading model we want for media transport (callback may happen on any thread and the media transport shouldn\u0027t be aware of callee threading requirements) and the model in JsepTransport (everything happens on the network thread, including all the callbacks from transport objects).  This mismatch is part of what forced us to run QUIC media transport\u0027s callbacks on the network thread.\n\nI think we will need to correct that mismatch before we can use a TaskQueue here.  It looks like it will be more work than I expected.  I\u0027m likely to leave it alone in the short term, but if you still think it should be changed, I\u0027ll at least file bugs and TODOs to use TaskQueue.",
+      "parentUuid": "fa7585a2_38556fe3",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 31
+      },
+      "revId": "273d0296a47f6bf0ff1f0e894bf42543ceff9832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

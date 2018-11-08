@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "975d56f1_8fe94591",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T08:33:58Z",
+      "side": 1,
+      "message": "Ok, so GetEncoderInfo on the same encoder can change mid-stream? I would prefer if it were more static. If it really needs to change, that should be documented in api/video_codecs/video_encoder.h.\n\nI was aware that some encoders change scaling_settings when Init is called (which caused me some trouble in the VideoStreamEncoder refactoring), but software fallback happens more spontaneously, right? To we get any related callbacks?\n\nDo we check has_trusted_rate_controller more or less every frame?",
+      "parentUuid": "66e729ff_677a7c51",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 69
+      },
+      "revId": "78a19047ca5efdce4d9fc3dd53fd38da489893dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11dbf804_ac0a84ff",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "I tried not to change the logic here. Maybe is should fix this adapter in a separate cl first,\nthe code got kinda messy when I tried to make it more proper.",
       "parentUuid": "5d37bfe6_5e965272",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 0
+      },
+      "revId": "78a19047ca5efdce4d9fc3dd53fd38da489893dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a766a1a3_fd90356f",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T08:33:58Z",
+      "side": 1,
+      "message": "\u003e I tried not to change the logic here. Maybe is should fix this adapter in a separate cl first,\n\u003e the code got kinda messy when I tried to make it more proper.\n\nThat would be nice.",
+      "parentUuid": "3ac04b66_e52627f7",
       "range": {
         "startLine": 524,
         "startChar": 0,

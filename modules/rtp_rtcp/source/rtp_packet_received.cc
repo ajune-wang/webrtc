@@ -69,6 +69,12 @@ void RtpPacketReceived::GetHeader(RTPHeader* header) const {
   GetExtension<RepairedRtpStreamId>(&header->extension.repaired_stream_id);
   GetExtension<RtpMid>(&header->extension.mid);
   GetExtension<PlayoutDelayLimits>(&header->extension.playout_delay);
+
+  HdrMetadata hdr_metadata;
+  header->extension.hdr_metadata =
+      GetExtension<HdrMetadataExtension>(&hdr_metadata)
+          ? absl::make_optional(hdr_metadata)
+          : absl::nullopt;
 }
 
 }  // namespace webrtc

@@ -1563,6 +1563,8 @@ LoggedIceCandidatePairEvent ParsedRtcEventLogNew::GetIceCandidatePairEvent(
   res.type = GetRuntimeIceCandidatePairEventType(event.event_type());
   RTC_CHECK(event.has_candidate_pair_id());
   res.candidate_pair_id = event.candidate_pair_id();
+  RTC_CHECK(event.has_transaction_id());
+  res.transaction_id = event.transaction_id();
   return res;
 }
 
@@ -2124,6 +2126,8 @@ void ParsedRtcEventLogNew::StoreIceCandidateEvent(
   ice_event.type = GetRuntimeIceCandidatePairEventType(proto.event_type());
   RTC_CHECK(proto.has_candidate_pair_id());
   ice_event.candidate_pair_id = proto.candidate_pair_id();
+  RTC_CHECK(proto.has_transaction_id());
+  ice_event.transaction_id = proto.transaction_id();
 
   ice_candidate_pair_events_.push_back(ice_event);
 

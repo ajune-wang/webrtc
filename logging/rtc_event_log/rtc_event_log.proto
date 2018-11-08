@@ -412,4 +412,7 @@ message IceCandidatePairEvent {
 
   // required
   optional uint32 candidate_pair_id = 2;
+
+  // required
+  optional string transaction_id = 3;
 }

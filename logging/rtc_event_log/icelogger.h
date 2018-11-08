@@ -11,6 +11,7 @@
 #ifndef LOGGING_RTC_EVENT_LOG_ICELOGGER_H_
 #define LOGGING_RTC_EVENT_LOG_ICELOGGER_H_
 
+#include <string>
 #include <unordered_map>
 
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
@@ -36,7 +37,8 @@ class IceEventLog {
       const IceCandidatePairDescription& candidate_pair_desc);
 
   void LogCandidatePairEvent(IceCandidatePairEventType type,
-                             uint32_t candidate_pair_id);
+                             uint32_t candidate_pair_id,
+                             const std::string& transaction_id);
 
   // This method constructs a config event for each candidate pair with their
   // description and logs these config events. It is intended to be called when

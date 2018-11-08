@@ -512,6 +512,7 @@ std::string RtcEventLogEncoderLegacy::EncodeIceCandidatePairEvent(
   encoded_ice_event->set_event_type(
       ConvertIceCandidatePairEventType(event.type_));
   encoded_ice_event->set_candidate_pair_id(event.candidate_pair_id_);
+  encoded_ice_event->set_transaction_id(event.transaction_id_);
   return Serialize(&encoded_rtc_event);
 }
 

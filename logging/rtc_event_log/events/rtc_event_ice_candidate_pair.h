@@ -12,6 +12,7 @@
 #define LOGGING_RTC_EVENT_LOG_EVENTS_RTC_EVENT_ICE_CANDIDATE_PAIR_H_
 
 #include <memory>
+#include <string>
 
 #include "logging/rtc_event_log/events/rtc_event.h"
 
@@ -28,7 +29,8 @@ enum class IceCandidatePairEventType {
 class RtcEventIceCandidatePair final : public RtcEvent {
  public:
   RtcEventIceCandidatePair(IceCandidatePairEventType type,
-                           uint32_t candidate_pair_id);
+                           uint32_t candidate_pair_id,
+                           const std::string& transaction_id);
 
   ~RtcEventIceCandidatePair() override;
 
@@ -40,6 +42,7 @@ class RtcEventIceCandidatePair final : public RtcEvent {
 
   const IceCandidatePairEventType type_;
   const uint32_t candidate_pair_id_;
+  const std::string transaction_id_;
 
  private:
   RtcEventIceCandidatePair(const RtcEventIceCandidatePair& other);

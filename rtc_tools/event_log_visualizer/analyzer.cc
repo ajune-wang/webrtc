@@ -1966,18 +1966,22 @@ std::string EventLogAnalyzer::GetCandidatePairLogDescriptionFromId(
 }
 
 void EventLogAnalyzer::CreateIceConnectivityCheckGraph(Plot* plot) {
-  std::map<uint32_t, TimeSeries> checks_by_cp_id;
+  std::map<std::pair<uint32_t, std::string>, TimeSeries> checks_by_cp_id;
   for (const auto& event : parsed_log_.ice_candidate_pair_events()) {
-    if (checks_by_cp_id.find(event.candidate_pair_id) ==
+    if (checks_by_cp_id.find({event.candidate_pair_id, event.transaction_id}) ==
         checks_by_cp_id.end()) {
-      checks_by_cp_id[event.candidate_pair_id] = TimeSeries(
-          "[" + std::to_string(event.candidate_pair_id) + "]" +
-              GetCandidatePairLogDescriptionFromId(event.candidate_pair_id),
-          LineStyle::kNone, PointStyle::kHighlight);
+      checks_by_cp_id[{event.candidate_pair_id, event.transaction_id}] =
+          TimeSeries(
+              "[" + std::to_string(event.candidate_pair_id) + "," +
+                  event.transaction_id + "]" +
+                  GetCandidatePairLogDescriptionFromId(event.candidate_pair_id),
+              LineStyle::kNone, PointStyle::kHighlight);
     }
     float x = ToCallTimeSec(event.log_time_us());
     float y = static_cast<float>(event.type);
-    checks_by_cp_id[event.candidate_pair_id].points.emplace_back(x, y);
+
+    checks_by_cp_id[{event.candidate_pair_id, event.transaction_id}]
+        .points.emplace_back(x, y);
   }
 
   // TODO(qingsi): The same issue as in CreateIceCandidatePairConfigGraph.

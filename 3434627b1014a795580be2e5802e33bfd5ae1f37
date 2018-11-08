@@ -34,6 +34,24 @@
       "revId": "3434627b1014a795580be2e5802e33bfd5ae1f37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6eb9d61_db6c5eab",
+        "filename": "p2p/base/fakeicetransport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T21:07:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "469c8d7a_b978d0bd",
+      "revId": "3434627b1014a795580be2e5802e33bfd5ae1f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c2235ae_b22e5891",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "You don\u0027t need to override this, just add\n\n  using MediaTransportFactory::CreateMediaTransport;\n\n(Needed because step 1 of method resolution considers only method name, not signature).\n\nAnd add a TODO(bugs.webrtc.org/9938) to delete it.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d61b119_be95245e",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "Can you ensure that it\u0027s called only once, e.g, by setting wrapped_ \u003d nullptr at first call?",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 64
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fb186ec_ba9491fc",
+        "filename": "media/base/mediaengine.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "It looks like DCT_SCTP and DCT_MEDIA_TRANSPORT are handled equally everywhere? Does it really need a separate enum, or would it be better to rename DCT_SCTP to DCT_NON_RTP (with old name as alias)?\n\nIf we could do a data transport interface, then we wouldn\u0027t need this enum at all, I think. Then conditions on DataChannelType would instead by vtable lookup.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 25
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa9ff127_ffa10093",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "Is this the demuxing? All channels get the data, and all but the one with the right id ignores it?\n\nI\u0027d prefer to have demuxing in MediaTransport, but that\u0027s going to be a fair amount of work.\n\nWe would need to define some kind of data transport (send/receive) interfaces, where a DataChannel can be registered as a sink, and then implement those interfaces for all of MediaTransport, Rtp and Sctp.\n\nI also note that despite a separate if statement, SCTP and MEDIA_TRANSPORT are handled equally.",
+      "range": {
+        "startLine": 362,
+        "startChar": 6,
+        "endLine": 362,
+        "endChar": 30
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4b8d4b6_e0822ef8",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "Do we really need a separate flag for this? The logic would be simpler if we ler use_media_transport imply that we use it for data channels too. Do you see any reasonable use case with media transport for media but data channel over SCTP or RTP?",
+      "range": {
+        "startLine": 1043,
+        "startChar": 20,
+        "endLine": 1043,
+        "endChar": 57
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f104c92_2d8a469e",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 5380,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "I find it a bit confusing to try to follow the calls back and forth between PeerConnection and DataChannel.\n\nWhere is the demuxing on channel id taking place?",
+      "range": {
+        "startLine": 5367,
+        "startChar": 0,
+        "endLine": 5380,
+        "endChar": 1
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3cad614_512632fe",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3406,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T10:54:41Z",
+      "side": 1,
+      "message": "Are the media tracks relevant for this test?",
+      "range": {
+        "startLine": 3405,
+        "startChar": 0,
+        "endLine": 3406,
+        "endChar": 34
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

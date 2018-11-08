@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fe9abe7_d4742a88",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-08T15:31:00Z",
+      "side": 1,
+      "message": "We can probably remove this caching if encoder info is only calculated once.",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "cca036dac426df6c44ce10ff1c89efc4c44e0d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6a700ce_4a3a37d6",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-08T15:31:00Z",
+      "side": 1,
+      "message": "nit: You can just just pass in existing JNIEnv.",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 64
+      },
+      "revId": "cca036dac426df6c44ce10ff1c89efc4c44e0d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

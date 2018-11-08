@@ -34,6 +34,24 @@
       "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7124282c_60f5c31f",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-08T12:47:18Z",
+      "side": 1,
+      "message": "GetExtension could *return* absl::optional\u003cHdrMetadata\u003e. Provided HdrMetadata is moveable, of course.\n\n  header-\u003eextension.hdr_metadata \u003d GetExtension\u003cHdrMetadataExtension\u003e();",
+      "parentUuid": "350032d4_161eb7a0",
+      "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -100,6 +100,7 @@ class VideoEncoderWrapper : public VideoEncoder {
   int num_resets_;
   int number_of_cores_;
   VideoCodec codec_settings_;
+  EncoderInfo encoder_info_;
   H264BitstreamParser h264_bitstream_parser_;
 
   // VP9 variables to populate codec specific structure.

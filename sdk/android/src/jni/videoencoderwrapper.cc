@@ -82,6 +82,10 @@ int32_t VideoEncoderWrapper::InitEncodeInternal(JNIEnv* jni) {
       jni, Java_VideoEncoder_initEncode(jni, encoder_, settings, callback));
   RTC_LOG(LS_INFO) << "initEncode: " << status;
 
+  encoder_info_.supports_native_handle = true;
+  encoder_info_.implementation_name = implementation_name_;
+  encoder_info_.scaling_settings = GetScalingSettingsInternal();
+
   if (status == WEBRTC_VIDEO_CODEC_OK) {
     initialized_ = true;
   }
@@ -149,11 +153,7 @@ int32_t VideoEncoderWrapper::SetRateAllocation(
 }
 
 VideoEncoder::EncoderInfo VideoEncoderWrapper::GetEncoderInfo() const {
-  EncoderInfo info;
-  info.supports_native_handle = true;
-  info.implementation_name = implementation_name_;
-  info.scaling_settings = GetScalingSettingsInternal();
-  return info;
+  return encoder_info_;
 }
 
 VideoEncoderWrapper::ScalingSettings

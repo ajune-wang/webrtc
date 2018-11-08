@@ -46,6 +46,30 @@
       "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68210884_8738a78e",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-08T15:46:58Z",
+      "side": 1,
+      "message": "I guess you would add ASSERT_TRUE(time_offset) first then.\nJust wanted to make sure it wasn\u0027t a mistake.",
+      "parentUuid": "64cd3f19_ca82dc38",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 38
+      },
+      "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

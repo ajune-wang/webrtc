@@ -263,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "a13cb13b_812d6216",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-11-08T21:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c10bf74d_9e86f558",
+      "range": {
+        "startLine": 547,
+        "startChar": 42,
+        "endLine": 547,
+        "endChar": 57
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a5dd179_4ea1e85e",
         "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
         "patchSetId": 6
@@ -307,6 +331,30 @@
       "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "659980ad_ef5f5459",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-11-08T21:01:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80db81e3_bf7031b5",
+      "range": {
+        "startLine": 547,
+        "startChar": 8,
+        "endLine": 550,
+        "endChar": 48
+      },
+      "revId": "dddf012d3d85ecc4bf8b280155a23f42515e8b01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

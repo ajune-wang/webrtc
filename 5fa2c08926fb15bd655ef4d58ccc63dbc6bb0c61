@@ -70,6 +70,30 @@
       "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f13119c_1550943b",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-08T15:58:52Z",
+      "side": 1,
+      "message": "it is by design, reason exactly as Karl described them.\n\nwhen I see \nASSERT_TRUE(some_optional);\nEXPECT_EQ(*some_optional, value);\nor \nif (some_optional \u0026\u0026 *some_optional \u003d\u003d value)\n\nI recommend to switch to single\nEXPECT_EQ(some_optional, value);\nor\nif (some_optional \u003d\u003d value)\n\nit is cleaner, e.g. allows test to continue if that expectation fails because of nullopt.",
+      "parentUuid": "68210884_8738a78e",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 38
+      },
+      "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

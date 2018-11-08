@@ -801,4 +801,39 @@ TEST(RtpPacketTest, ParseLegacyTimingFrameExtension) {
   EXPECT_EQ(receivied_timing.flags, 0);
 }
 
+HdrMetadata CreateTestHdrMetadata() {
+  // Random but reasonable HDR metadata.
+  HdrMetadata hdr_metadata;
+  hdr_metadata.mastering_metadata.luminance_max = 2000.0;
+  hdr_metadata.mastering_metadata.luminance_min = 2.0001;
+  hdr_metadata.mastering_metadata.primary_r.x = 0.3003;
+  hdr_metadata.mastering_metadata.primary_r.y = 0.4004;
+  hdr_metadata.mastering_metadata.primary_g.x = 0.3201;
+  hdr_metadata.mastering_metadata.primary_g.y = 0.4604;
+  hdr_metadata.mastering_metadata.primary_b.x = 0.3409;
+  hdr_metadata.mastering_metadata.primary_b.y = 0.4907;
+  hdr_metadata.mastering_metadata.white_point.x = 0.4103;
+  hdr_metadata.mastering_metadata.white_point.y = 0.4806;
+  hdr_metadata.max_content_light_level = 2345;
+  hdr_metadata.max_frame_average_light_level = 1789;
+  return hdr_metadata;
+}
+
+TEST(RtpPacketTest, CreateAndParseHdrMetadataExtension) {
+  // Create packet with extension.
+  RtpPacket::ExtensionManager extensions(/*extmap-allow-mixed=*/true);
+  extensions.Register<HdrMetadataExtension>(1);
+  RtpPacket packet(&extensions);
+  HdrMetadata hdr_metadata = CreateTestHdrMetadata();
+  EXPECT_TRUE(packet.SetExtension<HdrMetadataExtension>(hdr_metadata));
+  packet.SetPayloadSize(42);
+
+  // Read packet with the extension.
+  RtpPacketReceived parsed(&extensions);
+  EXPECT_TRUE(parsed.Parse(packet.Buffer()));
+  HdrMetadata parsed_hdr_metadata;
+  EXPECT_TRUE(parsed.GetExtension<HdrMetadataExtension>(&parsed_hdr_metadata));
+  EXPECT_EQ(hdr_metadata, parsed_hdr_metadata);
+}
+
 }  // namespace webrtc

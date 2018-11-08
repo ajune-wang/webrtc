@@ -89,6 +89,9 @@ class RtpTransportControllerSend final
       PacketFeedbackObserver* observer) override;
   void DeRegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) override;
+
+  void DeRegisterTargetTransferRateObserver(
+      TargetTransferRateObserver* observer) override;
   void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) override;
   void OnNetworkRouteChanged(const std::string& transport_name,

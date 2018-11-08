@@ -52,6 +52,24 @@
       "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15532d3f_d002f463",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-08T13:17:09Z",
+      "side": 1,
+      "message": "I don\u0027t think that would work. GetExtension\u003c\u003e can also be called from a templated function in RtpPacket, so return type must be bool.\n\nUnfortunately, HdrMetadata is not moveable, or there are only primitives so there\u0027s no gain in moving or copying.",
+      "parentUuid": "7124282c_60f5c31f",
+      "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64cd3f19_ca82dc38",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-08T14:47:52Z",
+      "side": 1,
+      "message": "No, because then you get a crash (or UB) if it\u0027s nullopt, instead of a clean test failure.",
+      "parentUuid": "001e1527_c0264306",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 38
+      },
+      "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350032d4_161eb7a0",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-08T12:22:34Z",
+      "side": 1,
+      "message": "The reason was consistency and also better adaptation to the parser,\nbool HdrMetadataExtension::Parse(rtc::ArrayView\u003cconst uint8_t\u003e data, HdrMetadata* hdr_metadata);\n\nChanging this to absl::optional\u003cHdrMetadata\u003e, I get something like this when calling this function:\n  HdrMetadata hdr_metadata;\n  header-\u003eextension.hdr_metadata \u003d\n      GetExtension\u003cHdrMetadataExtension\u003e(\u0026hdr_metadata)\n          ? absl::make_optional(hdr_metadata)\n          : absl::nullopt;\n\nNot too bad, but I don\u0027t like the creation of the temporary object.\n\nOr maybe I should change the signature of GetExtension to accept absl::optional\u003cHdrMetadata\u003e* hdr_metadata?\n\nDo you have any ideas?",
+      "parentUuid": "f1eea41a_3d8188a8",
+      "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

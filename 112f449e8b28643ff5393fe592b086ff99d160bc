@@ -70,6 +70,24 @@
       "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaeb3f97_d550b047",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-08T13:52:16Z",
+      "side": 1,
+      "message": "You can have two GetExtension\u003c\u003e, one that takes a pointer argument and returns bool (the old one) and one that takes no argument and returns an optional (the one I proposed).\n\nHdrMetadata is moveable (all copyable types are). It\u0027s not *more efficient* to move than to copy, but that isn\u0027t the issue here. (In practice, we\u0027ll probably get RVO and the assignment will end up being zero cost.)",
+      "parentUuid": "15532d3f_d002f463",
+      "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

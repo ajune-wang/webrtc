@@ -16,6 +16,24 @@
       "revId": "2fe2d75e77c1ab31e0b436054d36e1bd15d85c90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06bcc3bc_fee27958",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-08T13:17:53Z",
+      "side": 1,
+      "message": "Unfortunately, I don\u0027t expect that switching to std::is_trivially_copyable is guaranteed to help, because even if that function becomes available in all the downstream projects, different STL impls can still lead to different behaviors.\n\nPlus, all the other functions in this file always check \"#if RTC_HAS_MSAN\", so my view is that we don\u0027t want any side effect when not sanitizing - not even compile time side effects.\n\nTL;DR: I also feel itchy, but here we should only care about MSAN.",
+      "parentUuid": "a8940d96_a17a2578",
+      "revId": "2fe2d75e77c1ab31e0b436054d36e1bd15d85c90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

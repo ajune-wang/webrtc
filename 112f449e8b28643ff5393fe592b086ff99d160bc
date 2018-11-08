@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1eea41a_3d8188a8",
+        "filename": "api/rtp_headers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-08T01:13:18Z",
+      "side": 1,
+      "message": "Why is this not an absl::optional? For consistency with the other members? The TODO on line 108 would suggest that optional rather than bool would be best for new code.",
+      "revId": "112f449e8b28643ff5393fe592b086ff99d160bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

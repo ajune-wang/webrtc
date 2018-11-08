@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "07ff104f_9bf9b2e7",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s not so nice that we have to check the encoder_info on every frame.\n\nThe SW fallback can activate per frame, whenever the HW fails. I don\u0027t think we can get rid of this behaviour, but I guess we could return an error code that lets the VideoStreamEncoder reinit the fallback wrapper?\n\nThe forced SW fallback should only happen on re-inits, I believe. I can file a bug to try to clean up that code though -- it has gotten a bit stale.",
+      "parentUuid": "730cc3a8_1bd6e276",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 580,
+        "endChar": 69
+      },
+      "revId": "78a19047ca5efdce4d9fc3dd53fd38da489893dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11dbf804_ac0a84ff",
         "filename": "api/video_codecs/video_encoder.h",
         "patchSetId": 6

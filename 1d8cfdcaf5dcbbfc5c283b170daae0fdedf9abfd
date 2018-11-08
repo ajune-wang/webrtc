@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e97d170_ba9d8a01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "Bug number?",
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fefa91fe_6f4e7ccf",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "Can be removed.",
+      "range": {
+        "startLine": 151,
+        "startChar": 10,
+        "endLine": 151,
+        "endChar": 18
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fdd4428_0a797d9a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "Might as well remove this too :)",
+      "range": {
+        "startLine": 173,
+        "startChar": 10,
+        "endLine": 173,
+        "endChar": 18
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2d89cb9_dd1fb029",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 175,
+        "startChar": 10,
+        "endLine": 175,
+        "endChar": 18
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4052fcd8_c6e2527e",
+        "filename": "modules/video_coding/video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "disabled",
+      "range": {
+        "startLine": 267,
+        "startChar": 37,
+        "endLine": 267,
+        "endChar": 40
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a2fac40_48bcf02f",
+        "filename": "modules/video_coding/video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "const bool",
+      "range": {
+        "startLine": 268,
+        "startChar": 2,
+        "endLine": 268,
+        "endChar": 6
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c6a276_d53f1d93",
+        "filename": "modules/video_coding/video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-08T13:55:25Z",
+      "side": 1,
+      "message": "Hmm, should there be a ! here?",
+      "range": {
+        "startLine": 270,
+        "startChar": 32,
+        "endLine": 270,
+        "endChar": 33
+      },
+      "revId": "1d8cfdcaf5dcbbfc5c283b170daae0fdedf9abfd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b52b51b3_6dfad2e1",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-08T03:28:32Z",
+      "side": 1,
+      "message": "Nit. Please add comment. Maybe mention that there are two ways to get transfer rate.\n\nAnd move up next to rate observer?",
+      "revId": "792af2ab330d8c5c958e51de9437aeeba7b80716",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

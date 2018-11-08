@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8aebf5ef_08afd22b",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-08T15:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7fe9abe7_d4742a88",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "cca036dac426df6c44ce10ff1c89efc4c44e0d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6a700ce_4a3a37d6",
         "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "cca036dac426df6c44ce10ff1c89efc4c44e0d5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37acd7dd_05c0ef8e",
+        "filename": "sdk/android/src/jni/videoencoderwrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-08T15:48:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6a700ce_4a3a37d6",
+      "range": {
+        "startLine": 87,
+        "startChar": 35,
+        "endLine": 87,
+        "endChar": 64
+      },
+      "revId": "cca036dac426df6c44ce10ff1c89efc4c44e0d5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

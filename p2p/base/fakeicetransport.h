@@ -239,7 +239,11 @@ class FakeIceTransport : public IceTransportInternal {
   }
   void SetNetworkRoute(absl::optional<rtc::NetworkRoute> network_route) {
     network_route_ = network_route;
+    network_thread_->Invoke<void>(
+        RTC_FROM_HERE, [this] { SignalNetworkRouteChanged(network_route_); });
   }
+
+  void set_network_thread(rtc::Thread* thread) { network_thread_ = thread; }
 
  private:
   void set_writable(bool writable) {
@@ -295,6 +299,7 @@ class FakeIceTransport : public IceTransportInternal {
   absl::optional<rtc::NetworkRoute> network_route_;
   std::map<rtc::Socket::Option, int> socket_options_;
   rtc::CopyOnWriteBuffer last_sent_packet_;
+  rtc::Thread* network_thread_ = rtc::Thread::Current();
 };
 
 }  // namespace cricket

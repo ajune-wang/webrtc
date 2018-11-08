@@ -267,6 +267,7 @@ class MediaCodecVideoEncoder : public VideoEncoder {
   size_t gof_idx_;
 
   const bool has_egl_context_;
+  EncoderInfo encoder_info_;
 
   // Temporary fix for VP8.
   // Sends a key frame if frames are largely spaced apart (possibly
@@ -353,6 +354,10 @@ int32_t MediaCodecVideoEncoder::InitEncode(const VideoCodec* codec_settings,
     profile_ = profile_level_id->profile;
     ALOGD << "H.264 profile: " << profile_;
   }
+
+  encoder_info_.supports_native_handle = has_egl_context_;
+  encoder_info_.implementation_name = "MediaCodec";
+  encoder_info_.scaling_settings = GetScalingSettingsInternal();
 
   return InitEncodeInternal(
       init_width, init_height, codec_settings->startBitrate,
@@ -915,18 +920,13 @@ int32_t MediaCodecVideoEncoder::SetRateAllocation(
       rtc::dchecked_cast<int>(last_set_fps_));
   if (CheckException(jni) || !ret) {
     ProcessHWError(true /* reset_if_fallback_unavailable */);
-    return sw_fallback_required_ ? WEBRTC_VIDEO_CODEC_OK
-                                 : WEBRTC_VIDEO_CODEC_ERROR;
+    return sw_fallback_required_ ? WEBRTC_VIDEOOK : WEBRTC_VIDEO_CODEC_ERROR;
   }
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
 VideoEncoder::EncoderInfo MediaCodecVideoEncoder::GetEncoderInfo() const {
-  EncoderInfo info;
-  info.supports_native_handle = has_egl_context_;
-  info.implementation_name = "MediaCodec";
-  info.scaling_settings = GetScalingSettingsInternal();
-  return info;
+  return encoder_info_;
 }
 
 bool MediaCodecVideoEncoder::DeliverPendingOutputs(JNIEnv* jni) {

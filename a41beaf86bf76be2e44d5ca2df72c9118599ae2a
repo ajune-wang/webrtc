@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41450f5b_9f9f24f8",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T15:03:39Z",
+      "side": 1,
+      "message": "\"hardware wrapper\" is a bit unclear.",
+      "range": {
+        "startLine": 238,
+        "startChar": 5,
+        "endLine": 238,
+        "endChar": 28
+      },
+      "revId": "a41beaf86bf76be2e44d5ca2df72c9118599ae2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

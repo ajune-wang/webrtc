@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39588252_56e7e4a7",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-08T13:53:15Z",
+      "side": 1,
+      "message": "Sorry about the clutter. Deleted in ps#2.",
+      "range": {
+        "startLine": 1503,
+        "startChar": 0,
+        "endLine": 1503,
+        "endChar": 53
+      },
+      "revId": "22440926f24248d4d755891f033a72d690f5758d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

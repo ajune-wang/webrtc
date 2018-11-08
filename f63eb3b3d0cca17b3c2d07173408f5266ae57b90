@@ -46,6 +46,30 @@
       "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "330ff0e3_dc6ffa0c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-08T12:40:38Z",
+      "side": 0,
+      "message": "I\u0027m not very familiar with the allocation code. Maybe worth asking someone if the call was intended to do anything?",
+      "parentUuid": "c38e80bf_21c9077c",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 62
+      },
+      "revId": "f63eb3b3d0cca17b3c2d07173408f5266ae57b90",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

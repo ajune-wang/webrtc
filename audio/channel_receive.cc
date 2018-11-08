@@ -520,7 +520,7 @@ int32_t ChannelReceive::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
   // Deliver RTCP packet to RTP/RTCP module for parsing
   _rtpRtcpModule->IncomingRtcpPacket(data, length);
 
-  int64_t rtt = GetRTT();
+  int64_t rtt = GetRTTMs();
   if (rtt == 0) {
     // Waiting for valid RTT.
     return 0;
@@ -611,7 +611,7 @@ int ChannelReceive::GetRTPStatistics(CallReceiveStatistics& stats) {
   stats.jitterSamples = statistics.jitter;
 
   // --- RTT
-  stats.rttMs = GetRTT();
+  stats.rttMs = GetRTTMs();
 
   // --- Data counters
 
@@ -756,7 +756,21 @@ int ChannelReceive::GetRtpTimestampRateHz() const {
              : audio_coding_->PlayoutFrequency();
 }
 
-int64_t ChannelReceive::GetRTT() const {
+int64_t ChannelReceive::GetRTTMs() const {
+  if (media_transport_) {
+    // This method computes RTT based on sender reports, even though
+    //  a receive stream is not supposed to do that.
+    // See a todo below. We might consider exposing 'remote' rtt in the media
+    // transport interface. Realistically though, the RTT would be pretty much
+    // the same.
+    auto target_rate = media_transport_->GetLatestTargetTransferRate();
+    if (target_rate.has_value()) {
+      return target_rate.value().network_estimate.round_trip_time.ms();
+    }
+
+    return 0;
+  }
+
   RtcpMode method = _rtpRtcpModule->RTCP();
   if (method == RtcpMode::kOff) {
     return 0;
@@ -772,7 +786,7 @@ int64_t ChannelReceive::GetRTT() const {
     if (!associated_send_channel_) {
       return 0;
     }
-    return associated_send_channel_->GetRTT();
+    return associated_send_channel_->GetRTTMs();
   }
 
   int64_t rtt = 0;

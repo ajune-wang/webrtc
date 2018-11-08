@@ -202,7 +202,7 @@ class ChannelReceive : public RtpData, public MediaTransportAudioSinkInterface {
   void UpdatePlayoutTimestamp(bool rtcp);
 
   int GetRtpTimestampRateHz() const;
-  int64_t GetRTT() const;
+  int64_t GetRTTMs() const;
 
   rtc::CriticalSection _callbackCritSect;
   rtc::CriticalSection volume_settings_critsect_;

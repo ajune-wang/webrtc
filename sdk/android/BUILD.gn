@@ -1499,7 +1499,6 @@ if (is_android) {
       "../../pc:libjingle_peerconnection",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
-      "../../system_wrappers:system_wrappers",
       "../../test:fileutils",
       "../../test:test_support",
       "../../testing/gtest",

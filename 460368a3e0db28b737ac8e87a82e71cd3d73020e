@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a35dc1e6_67d18e96",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T01:30:10Z",
+      "side": 1,
+      "message": "I doubt the comments on those interfaces are valuable at all. They feel redundant. Nevertheless fixed.",
+      "parentUuid": "eb9f9bd3_3ad2cf40",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "642c697e_ec480c42",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -39,6 +57,30 @@
       "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0191c4b9_562ee96f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T01:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "642c697e_ec480c42",
+      "range": {
+        "startLine": 350,
+        "startChar": 39,
+        "endLine": 350,
+        "endChar": 55
+      },
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "4a38f5bb_74009b5b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T01:30:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5d7910a_f8888005",
+      "range": {
+        "startLine": 362,
+        "startChar": 51,
+        "endLine": 362,
+        "endChar": 55
+      },
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c067e544_5b787fc8",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "15acb4f5_3b758fc0",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T01:30:10Z",
+      "side": 1,
+      "message": "I was wondering. renamed for now.",
+      "parentUuid": "c067e544_5b787fc8",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0546ca8a_acee0580",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 6
@@ -93,6 +177,24 @@
       "writtenOn": "2018-11-07T23:09:03Z",
       "side": 1,
       "message": "I am not sure I understand the need for the synchronous getters yet, but I will withhold judgement until I\u0027ve seen what we need them for.",
+      "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34707f0a_6b90965e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T01:30:10Z",
+      "side": 1,
+      "message": "Since we allow multiple listeners now for target bitrate, we could get away without it (and cache the rtt in channel_send and channel_receive).",
+      "parentUuid": "0546ca8a_acee0580",
       "revId": "460368a3e0db28b737ac8e87a82e71cd3d73020e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

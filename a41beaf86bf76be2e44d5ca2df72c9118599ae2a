@@ -22,6 +22,30 @@
       "revId": "a41beaf86bf76be2e44d5ca2df72c9118599ae2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387e844f_77dde79c",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-08T15:23:25Z",
+      "side": 1,
+      "message": "Rephrased as\n  // Returns meta-data about the encoder, such as implementation name.\n  // The output of this method may change during runtime. For instance if a\n  // hardware encoder fails, it may fall back to doing software encoding using\n  // an implementation with different characteristics.",
+      "parentUuid": "41450f5b_9f9f24f8",
+      "range": {
+        "startLine": 238,
+        "startChar": 5,
+        "endLine": 238,
+        "endChar": 28
+      },
+      "revId": "a41beaf86bf76be2e44d5ca2df72c9118599ae2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

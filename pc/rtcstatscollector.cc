@@ -1349,19 +1349,34 @@ void RTCStatsCollector::ProduceTransportStats_n(
           new RTCTransportStats(RTCTransportStatsIDFromTransportChannel(
                                     transport_name, channel_stats.component),
                                 timestamp_us));
-      transport_stats->bytes_sent = 0;
-      transport_stats->bytes_received = 0;
+      // Transport state and cipher suites
       transport_stats->dtls_state = DtlsTransportStateToRTCDtlsTransportState(
           channel_stats.dtls_state);
+      if (channel_stats.ssl_cipher_suite != rtc::TLS_NULL_WITH_NULL_NULL) {
+        transport_stats->dtls_cipher =
+            rtc::SSLStreamAdapter::SslCipherSuiteToName(
+                channel_stats.ssl_cipher_suite);
+      }
+      if (channel_stats.srtp_crypto_suite != rtc::SRTP_INVALID_CRYPTO_SUITE) {
+        transport_stats->srtp_cipher =
+            rtc::SrtpCryptoSuiteToName(channel_stats.srtp_crypto_suite);
+      }
+
+      transport_stats->bytes_sent = 0;
+      transport_stats->bytes_received = 0;
       for (const cricket::ConnectionInfo& info :
            channel_stats.connection_infos) {
+        // Bytes sent/received
         *transport_stats->bytes_sent += info.sent_total_bytes;
         *transport_stats->bytes_received += info.recv_total_bytes;
+
+        // Set selected candidate pair
         if (info.best_connection) {
           transport_stats->selected_candidate_pair_id =
               RTCIceCandidatePairStatsIDFromConnectionInfo(info);
         }
       }
+
       if (channel_stats.component != cricket::ICE_CANDIDATE_COMPONENT_RTCP &&
           !rtcp_transport_stats_id.empty()) {
         transport_stats->rtcp_transport_stats_id = rtcp_transport_stats_id;

@@ -1979,6 +1979,23 @@ TEST_F(RTCStatsCollectorTest, CollectRTCTransportStats) {
   EXPECT_EQ(
       expected_rtcp_transport,
       report->Get(expected_rtcp_transport.id())->cast_to<RTCTransportStats>());
+
+  // Get stats with ciphersuite info
+  rtcp_transport_channel_stats.ssl_cipher_suite = 0xC02C;
+  rtcp_transport_channel_stats.srtp_crypto_suite = rtc::SRTP_AES128_CM_SHA1_80;
+  pc_->SetTransportStats(kTransportName, {rtp_transport_channel_stats,
+                                          rtcp_transport_channel_stats});
+
+  report = stats_->GetFreshStatsReport();
+
+  expected_rtcp_transport.dtls_cipher =
+      "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384";
+  expected_rtcp_transport.srtp_cipher = "AES_CM_128_HMAC_SHA1_80";
+
+  ASSERT_TRUE(report->Get(expected_rtcp_transport.id()));
+  EXPECT_EQ(
+      expected_rtcp_transport,
+      report->Get(expected_rtcp_transport.id())->cast_to<RTCTransportStats>());
 }
 
 TEST_F(RTCStatsCollectorTest, CollectNoStreamRTCOutboundRTPStreamStats_Audio) {

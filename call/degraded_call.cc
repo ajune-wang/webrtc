@@ -215,4 +215,9 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   return status;
 }
 
+void DegradedCall::MediaTransportChange(
+    MediaTransportInterface* media_transport) {
+  // DegradedCall is not documented, not clear what should happen here.
+}
+
 }  // namespace webrtc

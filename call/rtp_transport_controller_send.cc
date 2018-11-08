@@ -137,15 +137,15 @@ void RtpTransportControllerSend::OnNetworkChanged(uint32_t bitrate_bps,
   if (!task_queue_.IsCurrent()) {
     task_queue_.PostTask([this, msg] {
       rtc::CritScope cs(&observer_crit_);
-      // We won't register as observer until we have an observers.
-      RTC_DCHECK(observer_ != nullptr);
-      observer_->OnTargetTransferRate(msg);
+      if (observer_) {
+        observer_->OnTargetTransferRate(msg);
+      }
     });
   } else {
     rtc::CritScope cs(&observer_crit_);
-    // We won't register as observer until we have an observers.
-    RTC_DCHECK(observer_ != nullptr);
-    observer_->OnTargetTransferRate(msg);
+    if (observer_) {
+      observer_->OnTargetTransferRate(msg);
+    }
   }
 }
 
@@ -200,6 +200,17 @@ void RtpTransportControllerSend::DeRegisterPacketFeedbackObserver(
   send_side_cc_->DeRegisterPacketFeedbackObserver(observer);
 }
 
+void RtpTransportControllerSend::DeRegisterTargetTransferRateObserver(
+    TargetTransferRateObserver* observer) {
+  // Remove the observer_ to avoid callbacks, but don't unregister from
+  // send_side_cc_.
+  {
+    rtc::CritScope cs(&observer_crit_);
+    RTC_DCHECK(observer_ == observer);
+    observer_ = nullptr;
+  }
+}
+
 void RtpTransportControllerSend::RegisterTargetTransferRateObserver(
     TargetTransferRateObserver* observer) {
   {
@@ -207,8 +218,10 @@ void RtpTransportControllerSend::RegisterTargetTransferRateObserver(
     RTC_DCHECK(observer_ == nullptr);
     observer_ = observer;
   }
+
   send_side_cc_->RegisterNetworkObserver(this);
 }
+
 void RtpTransportControllerSend::OnNetworkRouteChanged(
     const std::string& transport_name,
     const rtc::NetworkRoute& network_route) {

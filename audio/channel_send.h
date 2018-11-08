@@ -108,11 +108,11 @@ class ChannelSendState {
   State state_;
 };
 
-class ChannelSend
-    : public Transport,
-      public AudioPacketizationCallback,  // receive encoded packets from the
-                                          // ACM
-      public OverheadObserver {
+class ChannelSend : public Transport,
+                    public AudioPacketizationCallback,  // receive encoded
+                                                        // packets from the ACM
+                    public OverheadObserver,
+                    public TargetTransferRateObserver {
  public:
   // TODO(nisse): Make OnUplinkPacketLossRate public, and delete friend
   // declaration.
@@ -229,11 +229,16 @@ class ChannelSend
 
   void OnRecoverableUplinkPacketLossRate(float recoverable_packet_loss_rate);
 
-  int64_t GetRTT() const;
+  // Returns the RTT in milliseconds.
+  int64_t GetRTTMs() const;
 
   // E2EE Custom Audio Frame Encryption
   void SetFrameEncryptor(
       rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor);
+
+  // In RTP we currently rely on RTCP packets to inform about RTT.
+  // In media transport we rely on target transfer rate observer though
+  void OnTargetTransferRate(TargetTransferRate rate) override;
 
  private:
   class ProcessAndEncodeAudioTask;

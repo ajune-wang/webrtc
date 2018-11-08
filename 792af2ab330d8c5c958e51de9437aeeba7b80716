@@ -16,6 +16,24 @@
       "revId": "792af2ab330d8c5c958e51de9437aeeba7b80716",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122a34d3_23720794",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T03:47:36Z",
+      "side": 1,
+      "message": "The comment I thought of was \u0027Returns the last known target transfer rate\u0027 which feels redundant to the method name. I will add \u0027as reported to TargetTransferRateObserver\u0027.\nMoved.",
+      "parentUuid": "b52b51b3_6dfad2e1",
+      "revId": "792af2ab330d8c5c958e51de9437aeeba7b80716",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

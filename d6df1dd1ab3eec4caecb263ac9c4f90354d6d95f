@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "60f2f326_f0d20bf5",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "are we still adding it for media transport?",
+      "range": {
+        "startLine": 285,
+        "startChar": 13,
+        "endLine": 285,
+        "endChar": 35
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "aa9ff127_ffa10093",
         "filename": "pc/datachannel.cc",
         "patchSetId": 6
@@ -94,6 +117,98 @@
     },
     {
       "key": {
+        "uuid": "b59b0af4_8454af53",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "should we RTC_LOG here? we don\u0027t expect more than one ssrc / sid, do we? (or they at least shouldn\u0027t be routed this way)",
+      "range": {
+        "startLine": 363,
+        "startChar": 4,
+        "endLine": 363,
+        "endChar": 10
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3b3b7d_eb048096",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "consider making a method\nIsSctpLikeDataChannel\n\nand then you would have if(IsSctpLikeDataChannel) and if(!IsSctpLikeDataChannel) instead of \nif(!x \u0026\u0026 !y)\nor if(x || y)",
+      "range": {
+        "startLine": 613,
+        "startChar": 6,
+        "endLine": 614,
+        "endChar": 56
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90b4ef99_ae8d5995",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "redundant with 643?\n1) doesn\u0027t c++ compiler/clang-analyze recognize that all switch cases are fulfilled?\n2) and doesn\u0027t it complain about dead code?",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 27
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef1f1337_27e180c5",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "nit: redundant with 658?",
+      "range": {
+        "startLine": 660,
+        "startChar": 2,
+        "endLine": 660,
+        "endChar": 16
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4b8d4b6_e0822ef8",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 6
@@ -110,6 +225,145 @@
         "startChar": 20,
         "endLine": 1043,
         "endChar": 57
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffb1d910_0f52206b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "Yes. One needs to be able to test changes independently, and if needed enable data channel over media transport without media transport itself.",
+      "parentUuid": "f4b8d4b6_e0822ef8",
+      "range": {
+        "startLine": 1043,
+        "startChar": 20,
+        "endLine": 1043,
+        "endChar": 57
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a35b9602_73f70b15",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "\u0027and can\u0027t be both set to true at the same time\u0027",
+      "range": {
+        "startLine": 1047,
+        "startChar": 28,
+        "endLine": 1047,
+        "endChar": 38
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdbbeadb_846fb252",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2079,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "now that I think about it, I think is_caller_ should be optional, and we should DCHECK(.has_value()) when using it.\n\nRight now we could accidentally access the value before the description is applied and draw a conclusion that we are not a caller, while all it means is that we don\u0027t know if we are a caller.",
+      "range": {
+        "startLine": 2079,
+        "startChar": 4,
+        "endLine": 2079,
+        "endChar": 14
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "482f5127_34e2c2bf",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "(mentioned it in the other file, \u0027if(IsSctpLikeDataChannel)\u0027 would read nicer :)",
+      "range": {
+        "startLine": 2164,
+        "startChar": 6,
+        "endLine": 2165,
+        "endChar": 58
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d4ac69d_38801fa7",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2166,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "what does this do in media transport mode? it looks like it always returns false? (or is sctp_mid populated when we use media transport?)",
+      "range": {
+        "startLine": 2166,
+        "startChar": 6,
+        "endLine": 2166,
+        "endChar": 20
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31656fe5_8b300597",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 4729,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "is sid a \u0027session id\u0027? I get confused because sometimes we use ssrc and sometimes sid.\nHow about \u0027for params.ssrc\u003d\u0027 \u003c\u003c params.ssrc\n?",
+      "range": {
+        "startLine": 4729,
+        "startChar": 67,
+        "endLine": 4729,
+        "endChar": 70
       },
       "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -151,6 +405,30 @@
       "writtenOn": "2018-11-08T10:54:41Z",
       "side": 1,
       "message": "Are the media tracks relevant for this test?",
+      "range": {
+        "startLine": 3405,
+        "startChar": 0,
+        "endLine": 3406,
+        "endChar": 34
+      },
+      "revId": "d6df1dd1ab3eec4caecb263ac9c4f90354d6d95f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b198b7dd_1d8910b2",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3406,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:14:58Z",
+      "side": 1,
+      "message": "at least one is required. m\u003dcrypto line is only added for audio/video tracks AFAIK, and we use it to set the transports pre-shared key. without pre-shared key we fall back to RTP.",
+      "parentUuid": "e3cad614_512632fe",
       "range": {
         "startLine": 3405,
         "startChar": 0,

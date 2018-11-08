@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "16a1c877_e3f63c3d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "edc5c9f5_1175cb4d",
+      "range": {
+        "startLine": 150,
+        "startChar": 31,
+        "endLine": 150,
+        "endChar": 44
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b870b19c_439c0da6",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "886cf06d_a0ba7027",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "\u0027GetLatestTargetTransferRate\u0027 is kind of a hack - app should rely on callbacks, but the existing integration uses both apis (callbacks and getters).\n\nAs a principle, it feels to me that if something is changing at arbitrary point in time, you should expose a callback (and not poll for the changes). You would get faster updates (without depending on polling interval) and use fewer resources ;)\n\nAck.",
+      "parentUuid": "b870b19c_439c0da6",
+      "range": {
+        "startLine": 351,
+        "startChar": 2,
+        "endLine": 352,
+        "endChar": 31
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5022ebe1_1165aaf7",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3165293a_7322509d",
+      "range": {
+        "startLine": 354,
+        "startChar": 6,
+        "endLine": 354,
+        "endChar": 14
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e7d36a8_7052f755",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 10
@@ -91,6 +163,30 @@
       "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2caa99e_44b3f2b6",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "very good point... is there a \u0027bytes\u0027 data struct in webrtc?",
+      "parentUuid": "2e7d36a8_7052f755",
+      "range": {
+        "startLine": 365,
+        "startChar": 27,
+        "endLine": 365,
+        "endChar": 35
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "441de57c_35500532",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26d47cbc_1c38d1f1",
+      "range": {
+        "startLine": 367,
+        "startChar": 36,
+        "endLine": 367,
+        "endChar": 44
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "036372e3_4bc0f7dd",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 10
@@ -137,6 +257,30 @@
       "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e072e7_03987325",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-08T15:44:21Z",
+      "side": 1,
+      "message": "we did not want to have both a callback and the getter, so we consistently use the callback right now -- but this is something we should discuss.\n\nHaving a getter would require extra locking in implementations (and extra complexity), and we wanted to avoid that.\n\nWe do this for SetMediaTransportStateCallback and SetTargetTransferRateObserver already.\n\nAck.",
+      "parentUuid": "036372e3_4bc0f7dd",
+      "range": {
+        "startLine": 372,
+        "startChar": 43,
+        "endLine": 373,
+        "endChar": 36
+      },
+      "revId": "27e4eb0afdf8750ebbc25730e9c5bd3d239b93a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

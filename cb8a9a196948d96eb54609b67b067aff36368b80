@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44557e2f_2399e5e2",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T08:56:35Z",
+      "side": 1,
+      "message": "When do you expect this to happen? Isolated outliers, or large change to the system clock? To me, one hour sounds like a very large threshold. But I guess this could be extended later, e.g., check if the rtp timestamp change is \u003c 10 s but the ntp timestamp change \u003e 5 minutes.",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "cb8a9a196948d96eb54609b67b067aff36368b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

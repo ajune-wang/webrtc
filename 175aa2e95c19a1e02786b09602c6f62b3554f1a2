@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8948e943_8392de1e",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3391,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:20:48Z",
+      "side": 1,
+      "message": "You eliminated audio and video from the test, right?",
+      "range": {
+        "startLine": 3390,
+        "startChar": 0,
+        "endLine": 3391,
+        "endChar": 26
+      },
+      "revId": "175aa2e95c19a1e02786b09602c6f62b3554f1a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

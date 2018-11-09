@@ -34,7 +34,7 @@ struct RTC_EXPORT EchoCanceller3Config {
 
   struct Delay {
     Delay();
-    Delay(const Delay& e);
+    Delay(const Delay&);
     size_t default_delay = 5;
     size_t down_sampling_factor = 4;
     size_t num_filters = 5;
@@ -54,6 +54,8 @@ struct RTC_EXPORT EchoCanceller3Config {
   } delay;
 
   struct Filter {
+    Filter();
+    Filter(const Filter&);
     struct MainConfiguration {
       size_t length_blocks;
       float leakage_converged;
@@ -69,7 +71,7 @@ struct RTC_EXPORT EchoCanceller3Config {
       float noise_gate;
     };
 
-    MainConfiguration main = {13, 0.00005f, 0.05f, 0.001f, 2.f, 20075344.f};
+    MainConfiguration main = {13, 0.00005f, 0.07f, 0.001f, 2.f, 20075344.f};
     ShadowConfiguration shadow = {13, 0.7f, 20075344.f};
 
     MainConfiguration main_initial = {12,     0.005f, 0.5f,
@@ -80,6 +82,8 @@ struct RTC_EXPORT EchoCanceller3Config {
     float initial_state_seconds = 2.5f;
     bool conservative_initial_phase = false;
     bool enable_shadow_filter_output_usage = true;
+    size_t num_error_comparison_blocks = 8;
+    float convergence_threshold = 0.75f;
   } filter;
 
   struct Erle {
@@ -129,7 +133,7 @@ struct RTC_EXPORT EchoCanceller3Config {
 
   struct EchoModel {
     EchoModel();
-    EchoModel(const EchoModel& e);
+    EchoModel(const EchoModel&);
     size_t noise_floor_hold = 50;
     float min_noise_floor_power = 1638400.f;
     float stationary_gate_slope = 10.f;
@@ -145,7 +149,7 @@ struct RTC_EXPORT EchoCanceller3Config {
 
   struct Suppressor {
     Suppressor();
-    Suppressor(const Suppressor& e);
+    Suppressor(const Suppressor&);
 
     size_t nearend_average_blocks = 4;
 
@@ -153,7 +157,7 @@ struct RTC_EXPORT EchoCanceller3Config {
       MaskingThresholds(float enr_transparent,
                         float enr_suppress,
                         float emr_transparent);
-      MaskingThresholds(const MaskingThresholds& e);
+      MaskingThresholds(const MaskingThresholds&);
       float enr_transparent;
       float enr_suppress;
       float emr_transparent;
@@ -164,7 +168,7 @@ struct RTC_EXPORT EchoCanceller3Config {
              MaskingThresholds mask_hf,
              float max_inc_factor,
              float max_dec_factor_lf);
-      Tuning(const Tuning& e);
+      Tuning(const Tuning&);
       MaskingThresholds mask_lf;
       MaskingThresholds mask_hf;
       float max_inc_factor;

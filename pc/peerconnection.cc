@@ -6558,7 +6558,8 @@ void PeerConnection::DestroyBaseChannel(cricket::BaseChannel* channel) {
 bool PeerConnection::OnTransportChanged(
     const std::string& mid,
     RtpTransportInternal* rtp_transport,
-    cricket::DtlsTransportInternal* dtls_transport) {
+    cricket::DtlsTransportInternal* dtls_transport,
+    MediaTransportInterface* media_transport) {
   bool ret = true;
   auto base_channel = GetChannel(mid);
   if (base_channel) {
@@ -6566,6 +6567,11 @@ bool PeerConnection::OnTransportChanged(
   }
   if (sctp_transport_ && mid == sctp_mid_) {
     sctp_transport_->SetDtlsTransport(dtls_transport);
+  }
+
+  if (!ret) {
+    // If we are going to bundle, we don't change the media transport.
+    call_->MediaTransportChange(media_transport);
   }
   return ret;
 }

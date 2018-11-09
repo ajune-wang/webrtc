@@ -224,6 +224,11 @@ class Call final : public webrtc::Call,
                                  uint32_t allocated_without_feedback_bps,
                                  bool has_packet_feedback) override;
 
+  // This method is invoked when the media transport is created and when the
+  // media transport is being destructed.
+  // We only allow one media transport per connection.
+  void MediaTransportChange(MediaTransportInterface* media_transport) override;
+
  private:
   DeliveryStatus DeliverRtcp(MediaType media_type,
                              const uint8_t* packet,
@@ -362,6 +367,9 @@ class Call final : public webrtc::Call,
   // Declared last since it will issue callbacks from a task queue. Declaring it
   // last ensures that it is destroyed first and any running tasks are finished.
   std::unique_ptr<RtpTransportControllerSendInterface> transport_send_;
+
+  MediaTransportInterface* media_transport_ = nullptr;
+
   RTC_DISALLOW_COPY_AND_ASSIGN(Call);
 };
 }  // namespace internal
@@ -472,6 +480,26 @@ Call::~Call() {
   }
   UpdateReceiveHistograms();
   UpdateHistograms();
+}
+
+void Call::MediaTransportChange(MediaTransportInterface* media_transport) {
+  // Ignoring mid, we are assuming there is only one media_transport.
+  if (media_transport) {
+    RTC_DCHECK(!media_transport_);
+    transport_send_->DeRegisterTargetTransferRateObserver(this);
+    media_transport->AddTargetTransferRateObserver(this);
+    media_transport_ = media_transport;
+  } else {
+    if (media_transport_) {
+      media_transport_->RemoveTargetTransferRateObserver(this);
+
+      // This code is not very useful: we don't allow to fallback from
+      // media transport to RTP after media transport has already started.
+      // This branch is executed when all transports are undergoing destruction.
+      transport_send_->RegisterTargetTransferRateObserver(this);
+      media_transport_ = nullptr;
+    }
+  }
 }
 
 void Call::UpdateHistograms() {
@@ -1031,6 +1059,15 @@ void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
 }
 
 void Call::OnTargetTransferRate(TargetTransferRate msg) {
+  // Call::OnTargetTransferRate requires that on target transfer rate is invoked
+  // from the worker queue. Media transport does not guarantee the callback on
+  // the worker queue, so we dispatch the callback on the network queue.
+  if (!transport_send_ptr_->GetWorkerQueue()->IsCurrent()) {
+    transport_send_ptr_->GetWorkerQueue()->PostTask(
+        [this, msg] { this->OnTargetTransferRate(msg); });
+    return;
+  }
+
   uint32_t target_bitrate_bps = msg.target_rate.bps();
   int loss_ratio_255 = msg.network_estimate.loss_rate_ratio * 255;
   uint8_t fraction_loss =

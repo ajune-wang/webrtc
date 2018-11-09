@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "3fdc7419_dd3b9997",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T01:15:15Z",
+      "side": 1,
+      "message": "When you register to \u0027send side\u0027, it creates a some objects with const observer (that you cannot change).\nThose objects would have to be recreated (and lose their state).\n\nI didn\u0027t decide to go and refactor eerything there, because we really don\u0027t allow for media transport to be destroyed mid-call and then continue with RTP instead -- so I wouldn\u0027t want to invest in that.\nAs soon as RTP moves to media transportt, those lines ( transport_send_-\u003eDeRegisterTargetTransferRateObserver(this) will be removed, because transport_send will not exist here :) (it will be part of media transport itself).",
+      "parentUuid": "f609fd62_0bf909ed",
+      "range": {
+        "startLine": 497,
+        "startChar": 37,
+        "endLine": 497,
+        "endChar": 80
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b50fbb9e_4a27fe8f",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 4

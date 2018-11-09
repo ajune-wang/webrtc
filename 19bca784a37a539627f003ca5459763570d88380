@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "470d04cc_29371f26",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-09T23:20:54Z",
+      "side": 1,
+      "message": "channel?",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e5b9f9_6d9b77bc",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-09T23:20:54Z",
+      "side": 1,
+      "message": "CannotSetStreamOnStoppedTransceiver --\u003e CannotSetChannelOnStoppedTransceiver",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 62
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0bb0b6a_b252e5fa",
+        "filename": "pc/test/mock_basechannel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-09T23:20:54Z",
+      "side": 1,
+      "message": "What\u0027s the reason for including this as an argument instead of just passing \"content\" into the BaseChannel constructor?",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cdd7717_79a397d6",
+        "filename": "pc/test/mock_basechannel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-09T23:20:54Z",
+      "side": 1,
+      "message": "Since we\u0027re required to create the BaseChannel anyways it seems to take some of the advantage away of using a mock in your case. What do you think? Is it still worth being independent of the Audio/Video/RtpDataChannel behavior?",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

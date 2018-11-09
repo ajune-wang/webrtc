@@ -70,6 +70,30 @@
       "revId": "cb8a9a196948d96eb54609b67b067aff36368b80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5149b107_f976c1f5",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-09T09:37:26Z",
+      "side": 1,
+      "message": "Yes, the idea is to reset the estimation after the long pause. One hour was chosen arbitrary, as a big enough threshold as to not affect most use-cases, but still so time span in milliseconds fits in 32 bits, and RTP timestamps don\u0027t wrap-around.\n\nWe use the same mechanism with 3 incorrect samples before resetting in case of some outliers/corrupted RTCP packets.\n\nAdded the comment.",
+      "parentUuid": "df32b702_ea4dabf2",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "cb8a9a196948d96eb54609b67b067aff36368b80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de6d8b24_c8c1a337",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-09T08:18:39Z",
+      "side": 1,
+      "message": "Other \u0027mode\u0027-like parameters are int. Use that here too, to be consistent with the rest of audioproc_f and not need so much string-handling boilerplate.\nYou can basically mirror how the agc_mode flag is handled (CHECK range and cast to enum).",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "ff595db61e6afd89b1808e9a0e4d22a2f9af71af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "ff595db61e6afd89b1808e9a0e4d22a2f9af71af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d9cfc6e_d031501c",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-09T11:01:58Z",
+      "side": 1,
+      "message": "True, there are other settings that receive an integer for enums, and consistency is good to have.\n\nBut personally I find annoying when I need to check the code to map the option I want to an integer. I much prefer a human readable CLI.\n\nI\u0027d rather keep my change and refactor audioproc_f in a separate CL to correct other params. Let\u0027s discuss offline this options also asking others. I will accept any verdict from the crowd :)",
+      "parentUuid": "de6d8b24_c8c1a337",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "ff595db61e6afd89b1808e9a0e4d22a2f9af71af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

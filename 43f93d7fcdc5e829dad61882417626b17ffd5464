@@ -255,6 +255,24 @@
     },
     {
       "key": {
+        "uuid": "dbf4d5e8_0d863f6c",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T23:18:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc32c2a0_fd42caf4",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25ea4270_6f7daf05",
         "filename": "audio/channel_send.cc",
         "patchSetId": 4
@@ -530,6 +548,24 @@
     },
     {
       "key": {
+        "uuid": "ff5d95aa_3619339a",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T23:18:41Z",
+      "side": 1,
+      "message": "It has to be part of Call object refactoring. Right now we don\u0027t know *when* we can register.",
+      "parentUuid": "3cbece4a_a8d712de",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f609fd62_0bf909ed",
         "filename": "call/call.cc",
         "patchSetId": 4
@@ -615,6 +651,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a057b269_a180707e",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T23:18:41Z",
+      "side": 1,
+      "message": "We use the same interface. Added comment.",
+      "parentUuid": "8d1ce82d_d9cd4903",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

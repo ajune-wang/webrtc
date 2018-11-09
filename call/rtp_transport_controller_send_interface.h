@@ -140,6 +140,11 @@ class RtpTransportControllerSendInterface {
       PacketFeedbackObserver* observer) = 0;
   virtual void DeRegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) = 0;
+
+  // You can only call it once.
+  // After calling 'DeRegister' you cannot 'Register' again.
+  virtual void DeRegisterTargetTransferRateObserver(
+      TargetTransferRateObserver* observer) = 0;
   virtual void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) = 0;
   virtual void OnNetworkRouteChanged(

@@ -22,6 +22,30 @@
       "revId": "73d0e4bd108b1bd36ac36e8d69fc940ace854537",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e67e02_70d8f910",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-09T14:46:48Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters much, do whatever you prefer.\n\nThe problem really is that we really should never use anything but int64_t for bitrates, or even better, make sure to always use the DataRate class (/api/units/data_rate.h) which is safer and more convenient. (you avoid issues like this). But this fix is fine for now.",
+      "parentUuid": "88371450_c78dcf58",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 70
+      },
+      "revId": "73d0e4bd108b1bd36ac36e8d69fc940ace854537",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

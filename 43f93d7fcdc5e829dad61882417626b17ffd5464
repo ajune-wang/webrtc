@@ -25,6 +25,47 @@
     },
     {
       "key": {
+        "uuid": "12aba49c_4353bae9",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:19:14Z",
+      "side": 1,
+      "message": "Yep, I am not if it\u0027s used anywhere. This RTT seems to be propagated to AudioReceiveStream::GetStats(). Maybe there is some external use, but send RTT definitely does not make sense here. \n\nThere is nisse@ comment below which says:\n\n  // TODO(nisse): This method computes RTT based on sender reports, even though\n  // a receive stream is not supposed to do that.\n\nSo maybe keep it as is for now.",
+      "parentUuid": "f73dc713_24ac06eb",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 765,
+        "endChar": 16
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc32c2a0_fd42caf4",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:19:14Z",
+      "side": 1,
+      "message": "nit. extra line",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8cac216_a3b019ea",
         "filename": "audio/channel_send.h",
         "patchSetId": 4

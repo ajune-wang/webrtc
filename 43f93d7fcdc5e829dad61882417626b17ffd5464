@@ -215,6 +215,23 @@
     },
     {
       "key": {
+        "uuid": "6727a9dc_7d977a2f",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T02:02:35Z",
+      "side": 1,
+      "message": "I do not understand why you need to de-register observer from RtpTransportController. \n\nWould it possible to keep RTP logic unchanged in this CL and refactor it later or you wanted to make it closer to media_transport where you have unregister?",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b50fbb9e_4a27fe8f",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 4

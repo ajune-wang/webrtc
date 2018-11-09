@@ -15,6 +15,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/test/fake_media_transport.h"
 #include "api/test/mock_audio_mixer.h"
 #include "audio/audio_receive_stream.h"
 #include "audio/audio_send_stream.h"
@@ -287,6 +288,16 @@ TEST(CallTest, RecreatingAudioStreamWithSameSsrcReusesRtpState) {
   EXPECT_EQ(rtp_state1.last_timestamp_time_ms,
             rtp_state2.last_timestamp_time_ms);
   EXPECT_EQ(rtp_state1.media_has_been_sent, rtp_state2.media_has_been_sent);
+}
+
+TEST(CallTest, RegisterMediaTransportBitrateCallbacks) {
+  CallHelper call;
+  MediaTransportSettings settings;
+  webrtc::FakeMediaTransport fake_media_transport(settings);
+  call->MediaTransportChange(&fake_media_transport);
+  EXPECT_EQ(1, fake_media_transport.target_rate_observers_size());
+  call->MediaTransportChange(nullptr);
+  EXPECT_EQ(0, fake_media_transport.target_rate_observers_size());
 }
 
 }  // namespace webrtc

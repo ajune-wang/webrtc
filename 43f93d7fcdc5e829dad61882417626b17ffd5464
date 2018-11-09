@@ -66,6 +66,57 @@
     },
     {
       "key": {
+        "uuid": "25ea4270_6f7daf05",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:24:06Z",
+      "side": 1,
+      "message": "Suggestion: Maybe instead of many if media_transport ?, have one big if in the beginning. \n\nWe also do not need transport_sequence_number_allocator, retransmission_rate_limiter , etc. for media_transport. We can remove them later, but it will be easier to see if media transport stuff is separate.",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "791148ea_fab68bde",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:24:06Z",
+      "side": 1,
+      "message": "What does rtp_packet_sender_proxy_ means for media transport?",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c557dace_ec974ad7",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:24:06Z",
+      "side": 1,
+      "message": "Nit. Why after Init() everything else seems to be setup before calling Init().",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8cac216_a3b019ea",
         "filename": "audio/channel_send.h",
         "patchSetId": 4

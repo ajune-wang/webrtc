@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "14c3d2a0_c7ae77f3",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "I\u0027ll remove this comment, I just copied Niels\u0027s comment.",
+      "parentUuid": "05d8380a_4ba4ec61",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 765,
+        "endChar": 16
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40ad8ba7_1561345d",
         "filename": "audio/channel_receive.cc",
         "patchSetId": 4
@@ -93,6 +117,30 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2486dab_b4eea88b",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Yeah, I didn\u0027t quite like the implicit conversion.",
+      "parentUuid": "40ad8ba7_1561345d",
+      "range": {
+        "startLine": 767,
+        "startChar": 19,
+        "endLine": 767,
+        "endChar": 31
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "2d082dee_c8ddac87",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ebbb8ac_f1727cb9",
+      "range": {
+        "startLine": 768,
+        "startChar": 24,
+        "endLine": 768,
+        "endChar": 33
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14529451_7f0a0620",
         "filename": "audio/channel_receive.h",
         "patchSetId": 4
@@ -139,6 +211,30 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01664a09_8e7754df",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll revert the name back.",
+      "parentUuid": "14529451_7f0a0620",
+      "range": {
+        "startLine": 205,
+        "startChar": 2,
+        "endLine": 205,
+        "endChar": 27
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +272,24 @@
     },
     {
       "key": {
+        "uuid": "e0beb88d_938900dd",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "I\u0027d prefer to remove them in a separate CL, as they are unrelated to what I am changing.\n\nAdded an if! :)",
+      "parentUuid": "25ea4270_6f7daf05",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "791148ea_fab68bde",
         "filename": "audio/channel_send.cc",
         "patchSetId": 4
@@ -190,6 +304,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58fd27e8_b5a78bef",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Not sure -- I did not investigate other fields (I assumed that since we have a working version, I am only going to change things related to bitrate allocation)\n\nAs far as I can see, RtpPacketSenderProxy is just a thread-safe sender.",
+      "parentUuid": "791148ea_fab68bde",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -210,6 +342,24 @@
     },
     {
       "key": {
+        "uuid": "68b23977_343f2517",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Added comment\n// We want to invoke the \u0027TargetRateObserver\u0027 and overhead callbacks after the audio_coding_ is fully initialized.",
+      "parentUuid": "c557dace_ec974ad7",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b3683d3_7b3f7368",
         "filename": "audio/channel_send.cc",
         "patchSetId": 4
@@ -224,6 +374,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a08116_3bb4bb15",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "agrr it was supposed to be assigned. Very good catch.\nI changed the callback to the getter...",
+      "parentUuid": "8b3683d3_7b3f7368",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -250,6 +418,30 @@
     },
     {
       "key": {
+        "uuid": "86907df2_4d7afc10",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "It is wired up similarily: see ChannelSend::ReceivedRTCPPacket -- it does a few more things (like adjusting nack window), but then it calls ModifyEncoder.\n\nadded a method UpdateRtt();",
+      "parentUuid": "b70db077_6bfd5bd6",
+      "range": {
+        "startLine": 1158,
+        "startChar": 0,
+        "endLine": 1165,
+        "endChar": 1
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8cac216_a3b019ea",
         "filename": "audio/channel_send.h",
         "patchSetId": 4
@@ -267,6 +459,24 @@
     },
     {
       "key": {
+        "uuid": "fa5453d6_ef58ac02",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "This was supposed to be the entire comment (i missed the period). Reworded.",
+      "parentUuid": "c8cac216_a3b019ea",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3be1c826_13e4ed3c",
         "filename": "call/call.cc",
         "patchSetId": 4
@@ -278,6 +488,24 @@
       "writtenOn": "2018-11-09T01:44:09Z",
       "side": 1,
       "message": "I think we should not register RTP observer in the first place if media transport is available.",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52f8d758_8a51afd6",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "We don\u0027t know, in the constructor of Call object, if media transport is available. We don\u0027t know if it will be available (because of fallback to RTP)",
+      "parentUuid": "3be1c826_13e4ed3c",
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -365,6 +593,24 @@
     },
     {
       "key": {
+        "uuid": "5019490c_bb8603be",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Call object registers target rate observer in constructor (before we know whether media transport will be used).\n\nKeeping the observer would make us get incorrect callbacks from RTCP.\n\nThere are two choices\n1) Do not register the observer in the constructor, and do it later, when you know for sure that there won\u0027t be media transport (somewhat convoluted and complex).\n\n2) Allow to register the observer in the constructor, but unregister it as soon as media transport is created.\n\nI went with option (2).\n\nhttps://webrtc.googlesource.com/src/+/master/call/call.cc#435\n\n\nIf I leave it unchanged, we get incorrect callbacks from RTP/RTCP path with target transfer rate.",
+      "parentUuid": "6727a9dc_7d977a2f",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b50fbb9e_4a27fe8f",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 4
@@ -376,6 +622,30 @@
       "writtenOn": "2018-11-09T01:07:41Z",
       "side": 1,
       "message": "What does this part mean?  Don\u0027t unregister the transport controller from send_side_cc_?  Or don\u0027t unregister the observer from send_side_cc_?  If it\u0027s the observer, it seems like we *should* unregister it from send_side_cc_.  The observer doesn\u0027t want callbacks from RTP.",
+      "range": {
+        "startLine": 205,
+        "startChar": 46,
+        "endLine": 206,
+        "endChar": 19
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b1764d2_5a3e0adf",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "Clarified in the comment. It feels like these comments are creating confusion nevertheless, I\u0027ll investigate what would it take to change send_side_cc to allow for deregistration of its observers, but it feels dangerous. We will chat in person.",
+      "parentUuid": "b50fbb9e_4a27fe8f",
       "range": {
         "startLine": 205,
         "startChar": 46,
@@ -402,6 +672,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fd2a082_d17ba681",
+        "filename": "p2p/base/fakeicetransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-09T16:36:05Z",
+      "side": 1,
+      "message": "I have a separate review for it:\nhttps://webrtc-review.googlesource.com/c/src/+/110363\n\nI would say it was a missing feature :)",
+      "parentUuid": "f807a80f_95b430f0",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

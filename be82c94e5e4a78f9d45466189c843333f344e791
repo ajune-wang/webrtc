@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21961cea_63ac202e",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-09T07:04:41Z",
+      "side": 1,
+      "message": "Rationale",
+      "range": {
+        "startLine": 404,
+        "startChar": 6,
+        "endLine": 404,
+        "endChar": 14
+      },
+      "revId": "be82c94e5e4a78f9d45466189c843333f344e791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b851991_c750d640",
+        "filename": "BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-09T07:04:41Z",
+      "side": 1,
+      "message": "I think you can remove the marked text. This entire target is for convenience, and people who use will almost certainly not care about binary size.\n\nIn fact, I think you can remove the entire comment 403-408 and replace it with \n\n# Include audio and video codecs by default.",
+      "range": {
+        "startLine": 406,
+        "startChar": 6,
+        "endLine": 408,
+        "endChar": 72
+      },
+      "revId": "be82c94e5e4a78f9d45466189c843333f344e791",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

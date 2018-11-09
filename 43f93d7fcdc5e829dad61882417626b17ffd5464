@@ -49,6 +49,99 @@
     },
     {
       "key": {
+        "uuid": "05d8380a_4ba4ec61",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:38:48Z",
+      "side": 1,
+      "message": "My comment refers to an RTP quirk, which I don\u0027t quite understand. For MediaTransport, I think it makes more sense to have a single RTT for the transport and return that.\n\nIn the other hand, maybe the associated_send_channel_ should be taken into account also in the MediaTransport case? Or if it doens\u0027t matter (it would just query the same MediaTransport in the same way?), just add a comment on that.",
+      "parentUuid": "12aba49c_4353bae9",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 765,
+        "endChar": 16
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ad8ba7_1561345d",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:38:48Z",
+      "side": 1,
+      "message": "Redundant, since there\u0027s implicit conversion to bool. But feel free to keep, if you think it adds clarity.",
+      "range": {
+        "startLine": 767,
+        "startChar": 19,
+        "endLine": 767,
+        "endChar": 31
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ebbb8ac_f1727cb9",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:38:48Z",
+      "side": 1,
+      "message": "Please shorten to just |target_rate-\u003enetwork_estimate...|",
+      "range": {
+        "startLine": 768,
+        "startChar": 24,
+        "endLine": 768,
+        "endChar": 33
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14529451_7f0a0620",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:38:48Z",
+      "side": 1,
+      "message": "Can you do the rename as a separate cl? And by current coding style, it should be GetRttMs.",
+      "range": {
+        "startLine": 205,
+        "startChar": 2,
+        "endLine": 205,
+        "endChar": 27
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc32c2a0_fd42caf4",
         "filename": "audio/channel_send.cc",
         "patchSetId": 4
@@ -128,6 +221,29 @@
       "writtenOn": "2018-11-09T05:12:07Z",
       "side": 1,
       "message": "Do we need to do something with the overhead?  If not, why are we calling the getter?",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b70db077_6bfd5bd6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:38:48Z",
+      "side": 1,
+      "message": "Is this called for MediaTransport only? It would be preferable to wire it it up similarly to how it\u0027s done in the Rtp case (I\u0027m sorry I don\u0027t really know how that is).",
+      "range": {
+        "startLine": 1158,
+        "startChar": 0,
+        "endLine": 1165,
+        "endChar": 1
+      },
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

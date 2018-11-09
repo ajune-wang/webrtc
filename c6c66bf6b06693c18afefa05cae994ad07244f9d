@@ -334,6 +334,30 @@
     },
     {
       "key": {
+        "uuid": "dfa237a1_fbc91c0c",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-09T14:17:26Z",
+      "side": 1,
+      "message": "I\u0027ve added an if statement for that.",
+      "parentUuid": "000df6ad_680ee927",
+      "range": {
+        "startLine": 336,
+        "startChar": 0,
+        "endLine": 336,
+        "endChar": 45
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e43272e_6f515943",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 2
@@ -615,6 +639,30 @@
       "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4fb0551_5deed447",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-09T14:17:26Z",
+      "side": 1,
+      "message": "For posterity - we\u0027ve decided to take a slightly different approach.",
+      "parentUuid": "94b611cd_264d1dab",
+      "range": {
+        "startLine": 2475,
+        "startChar": 25,
+        "endLine": 2475,
+        "endChar": 36
+      },
+      "revId": "c6c66bf6b06693c18afefa05cae994ad07244f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

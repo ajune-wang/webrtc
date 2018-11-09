@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1ef78cc_01d96afd",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-09T23:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "470d04cc_29371f26",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2e5b9f9_6d9b77bc",
         "filename": "pc/rtptransceiver_unittest.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "19bca784a37a539627f003ca5459763570d88380",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f85c5d9_1e1ede20",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-09T23:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2e5b9f9_6d9b77bc",
+      "range": {
+        "startLine": 23,
+        "startChar": 27,
+        "endLine": 23,
+        "endChar": 62
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7494cc67_974555ed",
+        "filename": "pc/test/mock_basechannel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-09T23:51:16Z",
+      "side": 1,
+      "message": "So i do not limit what is possible when mocking (while still providing an easy way to create the object if you do not care about the content). \nIt is reasonable for another test to require some specific value for content (maybe it will check that the value matches another value). This overload will allow you to pass that value.\n\nIt is somewhat subjective, which pieces need to be \u0027injectible\u0027. for example, i was debating if CryptoOptions needs to be a parameter. i definitely think that there is a valid use case for doing so, but i felt that adding CryptoOptions is not as easy and would require more code (this might be me thinking in c#, and it\u0027s actually identical to how i did it for string. in c# you can only do this for primitive types or null).",
+      "parentUuid": "d0bb0b6a_b252e5fa",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cdd7717_79a397d6",
         "filename": "pc/test/mock_basechannel.h",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "19bca784a37a539627f003ca5459763570d88380",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de272fc5_7bc8e021",
+        "filename": "pc/test/mock_basechannel.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-09T23:51:16Z",
+      "side": 1,
+      "message": "I believe it is, in the grand scheme of things / the bigger picture. this class gives me complete control in what actually happens. \nThe ideal scenario is that i can test my class (transceiver in this case) without knowing or relying on any implementation detail of BaseChannel (or of audio/video). In my test i can define what happens when anything is called.\ni can use this ability to easily test the functionality in the class - for example, i can test that a mismatch in media type leads to some error without having to worry about the implementation (i explicitly specify the media type for the mock). I can also test that BaseChannel::Stop() is called if RtpTransceiver::Stop() is called without having to check some side-effect in the BaseChannel class (like a stopped_ member, if one exists).\n\nUnfortunately, the current implementation of transceiver, might not allow using a mock in all scenarios, because concrete types (and not interfaces) are coded into the logic - like explicitly casting the channel to a VoiceChannel or VideoChannel depending on the media_type. These are things that i would like for us to stop doing. i can explain more F2F.",
+      "parentUuid": "6cdd7717_79a397d6",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "19bca784a37a539627f003ca5459763570d88380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

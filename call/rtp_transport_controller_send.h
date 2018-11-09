@@ -89,6 +89,9 @@ class RtpTransportControllerSend final
       PacketFeedbackObserver* observer) override;
   void DeRegisterPacketFeedbackObserver(
       PacketFeedbackObserver* observer) override;
+
+  void DeRegisterTargetTransferRateObserver(
+      TargetTransferRateObserver* observer) override;
   void RegisterTargetTransferRateObserver(
       TargetTransferRateObserver* observer) override;
   void OnNetworkRouteChanged(const std::string& transport_name,
@@ -121,6 +124,8 @@ class RtpTransportControllerSend final
   rtc::CriticalSection observer_crit_;
   TargetTransferRateObserver* observer_ RTC_GUARDED_BY(observer_crit_);
   std::unique_ptr<SendSideCongestionControllerInterface> send_side_cc_;
+  // Whether we subscribed to the send_side_cc_ as an observer.
+  bool send_side_cc_subsribed_ = false;
   RateLimiter retransmission_rate_limiter_;
 
   // TODO(perkj): |task_queue_| is supposed to replace |process_thread_|.

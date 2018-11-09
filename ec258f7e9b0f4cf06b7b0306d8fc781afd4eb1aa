@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac5bb1ce_9745fd52",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-09T12:51:10Z",
+      "side": 1,
+      "message": "Maybe a couple of unit tests for these functions? E.g. 0, +1, -1, INT_MIN, INT_MAX",
+      "range": {
+        "startLine": 32,
+        "startChar": 9,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "ec258f7e9b0f4cf06b7b0306d8fc781afd4eb1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c120ab07_d5294838",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-09T12:51:10Z",
+      "side": 1,
+      "message": "Maybe a comment about digits for signed numbers.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "ec258f7e9b0f4cf06b7b0306d8fc781afd4eb1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b716017f_8f439913",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-09T12:51:10Z",
+      "side": 1,
+      "message": "Would the kMinT style be better? The style guide isn\u0027t entirely clear. Same below.",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "ec258f7e9b0f4cf06b7b0306d8fc781afd4eb1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "085977a2_d6bc9a82",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-09T12:51:10Z",
+      "side": 1,
+      "message": "Would\nusing UNSIGNED_T \u003d typename std::make_unsigned\u003cT\u003e::type;\nmake this statement fit on a single line?",
+      "range": {
+        "startLine": 67,
+        "startChar": 27,
+        "endLine": 67,
+        "endChar": 62
+      },
+      "revId": "ec258f7e9b0f4cf06b7b0306d8fc781afd4eb1aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

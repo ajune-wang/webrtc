@@ -134,6 +134,23 @@
     },
     {
       "key": {
+        "uuid": "3be1c826_13e4ed3c",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:44:09Z",
+      "side": 1,
+      "message": "I think we should not register RTP observer in the first place if media transport is available.",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f609fd62_0bf909ed",
         "filename": "call/call.cc",
         "patchSetId": 4
@@ -181,6 +198,23 @@
     },
     {
       "key": {
+        "uuid": "8d1ce82d_d9cd4903",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:44:09Z",
+      "side": 1,
+      "message": "Add comment that we do it because media_transport does not guarantee callback on the worker queue.\n\nOr alternatively can we have a different callback name from media transport or we can not because we use same interface?",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b50fbb9e_4a27fe8f",
         "filename": "call/rtp_transport_controller_send.cc",
         "patchSetId": 4
@@ -198,6 +232,23 @@
         "endLine": 206,
         "endChar": 19
       },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f807a80f_95b430f0",
+        "filename": "p2p/base/fakeicetransport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T01:44:09Z",
+      "side": 1,
+      "message": "Was it bug before?",
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

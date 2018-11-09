@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f73dc713_24ac06eb",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-09T01:07:41Z",
+      "side": 1,
+      "message": "I don\u0027t understand this.  There\u0027s really only one value for RTT.  It\u0027s the transfer time in each direction, added together.  Why does it matter who does the computation?  If the remote side tells us it\u0027s observed RTT, it\u0027s just going to lag behind our latest measurement by ~1/2 RTT.",
+      "range": {
+        "startLine": 761,
+        "startChar": 4,
+        "endLine": 765,
+        "endChar": 16
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8cac216_a3b019ea",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-09T01:07:41Z",
+      "side": 1,
+      "message": "Is there supposed to be more to this comment?  Seems like it trails off.",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f609fd62_0bf909ed",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-09T01:07:41Z",
+      "side": 1,
+      "message": "Why can\u0027t DeRegister do that?",
+      "range": {
+        "startLine": 497,
+        "startChar": 37,
+        "endLine": 497,
+        "endChar": 80
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50fbb9e_4a27fe8f",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-09T01:07:41Z",
+      "side": 1,
+      "message": "What does this part mean?  Don\u0027t unregister the transport controller from send_side_cc_?  Or don\u0027t unregister the observer from send_side_cc_?  If it\u0027s the observer, it seems like we *should* unregister it from send_side_cc_.  The observer doesn\u0027t want callbacks from RTP.",
+      "range": {
+        "startLine": 205,
+        "startChar": 46,
+        "endLine": 206,
+        "endChar": 19
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fae2f54_42c1e17f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2018-11-09T01:07:41Z",
+      "side": 1,
+      "message": "Would it make sense to pass the ICE transport down here and hook up to its network change callbacks directly, rather than requiring MediaTransport to pipe the state up?\n\nBoth PacketTransportInternal and MediaTransport should be available around here, which is on all the paths to reach this function with a non-null media transport:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.cc?l\u003d5624\u0026rcl\u003de769ed90c3599a131166d5a61625c1b64318fb91\n\nOn the one hand, media transport probably wants to know about network changes itself, so it\u0027s probably not hard to expose it.  But on the other hand, media transport does not own PacketTransportInternal, so there\u0027s no reason code needs to go through media transport.\n\nIf this was already hooked directly to PacketTransportInternal, we would not have to worry about the difference between media transport and RTP.  So my sense is that\u0027s the right place to attach the callback going forward as well--it may make future changes easier.\n\nThe only reason I can think to involve media transport is if a bunch of extra components need direct access to ICE that wouldn\u0027t otherwise.  But I don\u0027t think that\u0027s the case, or we\u0027d need to support multiple callbacks on media transport.",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

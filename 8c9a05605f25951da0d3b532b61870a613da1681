@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9c7b07a_59d5aa9c",
+        "filename": "p2p/base/fakeicetransport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-09T16:12:51Z",
+      "side": 1,
+      "message": "This looks to me redundant given the initialization list defined in the ctor.",
+      "range": {
+        "startLine": 305,
+        "startChar": 37,
+        "endLine": 305,
+        "endChar": 61
+      },
+      "revId": "8c9a05605f25951da0d3b532b61870a613da1681",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

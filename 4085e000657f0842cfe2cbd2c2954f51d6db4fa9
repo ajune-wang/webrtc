@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "084eef7b_f8b1fd88",
+        "filename": "system_wrappers/source/rtp_to_ntp_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-09T09:45:48Z",
+      "side": 1,
+      "message": "If I get the numbers right, one hour is roughly one 10th of the RTP wraparound period, assuming 90kHz RTP clock.\n\nSeems reasonable. \n\nMaybe mention that RTP timestamp unwrapping breaks down with long pauses? If that\u0027s the underlying problem.",
+      "range": {
+        "startLine": 25,
+        "startChar": 42,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "4085e000657f0842cfe2cbd2c2954f51d6db4fa9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

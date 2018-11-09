@@ -94,6 +94,30 @@
       "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7716912_4af59149",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-09T10:08:30Z",
+      "side": 1,
+      "message": "When I write code to test optional values, I usually go one step further and do\n\n  EXPECT_EQ(x, absl::optional\u003cint\u003e(17));\n\nThis works exactly like\n\n  EXPECT_EQ(x, 17);\n\nbut additionally provides a compile-time guarantee that x has type absl::optional\u003cint\u003e, which I find good for readability. I don\u0027t usually feel strongly enough about it to actively recommend others to do the same, though.",
+      "parentUuid": "8f13119c_1550943b",
+      "range": {
+        "startLine": 482,
+        "startChar": 2,
+        "endLine": 482,
+        "endChar": 38
+      },
+      "revId": "5fa2c08926fb15bd655ef4d58ccc63dbc6bb0c61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

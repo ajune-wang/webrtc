@@ -512,6 +512,24 @@
     },
     {
       "key": {
+        "uuid": "3cbece4a_a8d712de",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T22:47:50Z",
+      "side": 1,
+      "message": "Maybe we can postpone RTP observer registration (looks like option 2 form your other reply).But this could be part of Call object refactoring.",
+      "parentUuid": "52f8d758_8a51afd6",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f609fd62_0bf909ed",
         "filename": "call/call.cc",
         "patchSetId": 4
@@ -632,6 +650,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c3cdc9a_485c8144",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T22:47:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5019490c_bb8603be",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

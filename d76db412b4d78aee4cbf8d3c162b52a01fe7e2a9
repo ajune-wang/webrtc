@@ -22,6 +22,30 @@
       "revId": "d76db412b4d78aee4cbf8d3c162b52a01fe7e2a9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ceedaf3_2946a814",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-09T22:47:50Z",
+      "side": 1,
+      "message": "I am concerned about race if media_transport_ is accessed from network_thread, but I do not think it\u0027s possible in current implementation.",
+      "parentUuid": "0f1d2d55_59ca5011",
+      "range": {
+        "startLine": 176,
+        "startChar": 1,
+        "endLine": 176,
+        "endChar": 37
+      },
+      "revId": "d76db412b4d78aee4cbf8d3c162b52a01fe7e2a9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

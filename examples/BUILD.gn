@@ -53,6 +53,9 @@ group("examples") {
       ":stunserver",
       ":turnserver",
     ]
+    if (current_os == "winuwp") {
+      deps -= [ ":peerconnection_client" ]
+    }
   }
 
   if (is_android || is_win) {

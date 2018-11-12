@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "488106ec_f90e277d",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-11-12T08:18:46Z",
+      "side": 1,
+      "message": "If \u0027use_saturation_protector_\u0027 always means that the config is \u0027LevelEstimator::kRms\u0027, then it\u0027s not needed.",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "e1506a5a7d2687531273371e237ef3c1f9d0e34e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

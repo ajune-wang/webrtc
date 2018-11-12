@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84d54406_2096ade1",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-11-12T23:08:10Z",
+      "side": 1,
+      "message": "Make this a separate file to allow for multiple implementations without including the concrete implementation.",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e55e351_f6f53a22",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-11-12T23:08:10Z",
+      "side": 1,
+      "message": "Minimize white space vertically. The comments act as a good enough buffer for readability:\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156b2bf1_008228cc",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-11-12T23:08:10Z",
+      "side": 1,
+      "message": "This appears to be incorrectly formatted:\ngit cl format.",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 14
+      },
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

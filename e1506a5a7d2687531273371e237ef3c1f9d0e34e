@@ -22,6 +22,30 @@
       "revId": "e1506a5a7d2687531273371e237ef3c1f9d0e34e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6efe4c6_27828098",
+        "filename": "modules/audio_processing/agc2/adaptive_mode_level_estimator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-12T14:33:30Z",
+      "side": 1,
+      "message": "good point, my intent is to have all the params decoupled and leave the responsibility of defining presets to the caller",
+      "parentUuid": "488106ec_f90e277d",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "e1506a5a7d2687531273371e237ef3c1f9d0e34e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

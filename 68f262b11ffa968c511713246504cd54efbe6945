@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8850e94_1d892d50",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "Move this line just below the is_win.",
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04fbd0e4_1cdb5bf8",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "Nit: punctuation. Perhaps drop this comment and rename the variable time_zone_bias_ns.",
+      "range": {
+        "startLine": 65,
+        "startChar": 60,
+        "endLine": 65,
+        "endChar": 65
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a17e55_95beeef8",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "See previous comment",
+      "range": {
+        "startLine": 94,
+        "startChar": 60,
+        "endLine": 94,
+        "endChar": 65
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edee1fa7_e71275cb",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "I don\u0027t understand this.",
+      "range": {
+        "startLine": 95,
+        "startChar": 60,
+        "endLine": 95,
+        "endChar": 70
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e60811e3_df829c1c",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "Nit: uppercase T, end with .",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 50
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3187a98_0ff4508c",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-12T10:34:25Z",
+      "side": 1,
+      "message": "Umm, so _win.cc/h aren\u0027t included when building for win uwp? I don\u0027t remember, is there such a mechanism in gn? If it works for win but not uwp we should fix it.",
+      "range": {
+        "startLine": 641,
+        "startChar": 6,
+        "endLine": 641,
+        "endChar": 54
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

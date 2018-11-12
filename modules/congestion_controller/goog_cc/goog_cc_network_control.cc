@@ -213,8 +213,7 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   delay_based_bwe_.reset(new DelayBasedBwe(event_log_));
   delay_based_bwe_->SetStartBitrate(start_bitrate_bps);
   delay_based_bwe_->SetMinBitrate(min_bitrate_bps);
-  bandwidth_estimation_ =
-      absl::make_unique<SendSideBandwidthEstimation>(event_log_);
+  bandwidth_estimation_->OnRouteChange();
   bandwidth_estimation_->SetBitrates(
       msg.constraints.starting_rate, DataRate::bps(min_bitrate_bps),
       msg.constraints.max_data_rate.value_or(DataRate::Infinity()),

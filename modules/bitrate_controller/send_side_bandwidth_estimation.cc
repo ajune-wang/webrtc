@@ -107,10 +107,13 @@ bool ReadBweLossExperimentParameters(float* low_loss_threshold,
 RttBasedBackoffConfig::RttBasedBackoffConfig()
     : rtt_limit("limit", TimeDelta::PlusInfinity()),
       drop_fraction("fraction", 0.5),
-      drop_interval("interval", TimeDelta::ms(300)) {
+      drop_interval("interval", TimeDelta::ms(300)),
+      persist_on_route_change("persist") {
   std::string trial_string =
       field_trial::FindFullName("WebRTC-Bwe-MaxRttLimit");
-  ParseFieldTrial({&rtt_limit, &drop_fraction, &drop_interval}, trial_string);
+  ParseFieldTrial(
+      {&rtt_limit, &drop_fraction, &drop_interval, &persist_on_route_change},
+      trial_string);
 }
 RttBasedBackoffConfig::RttBasedBackoffConfig(const RttBasedBackoffConfig&) =
     default;
@@ -167,6 +170,36 @@ SendSideBandwidthEstimation::SendSideBandwidthEstimation(RtcEventLog* event_log)
 }
 
 SendSideBandwidthEstimation::~SendSideBandwidthEstimation() {}
+
+void SendSideBandwidthEstimation::OnRouteChange() {
+  lost_packets_since_last_loss_update_ = 0;
+  expected_packets_since_last_loss_update_ = 0;
+  current_bitrate_ = DataRate::Zero();
+  min_bitrate_configured_ =
+      DataRate::bps(congestion_controller::GetMinBitrateBps());
+  max_bitrate_configured_ = kDefaultMaxBitrate;
+  last_low_bitrate_log_ = Timestamp::MinusInfinity();
+  has_decreased_since_last_fraction_loss_ = false;
+  last_loss_feedback_ = Timestamp::MinusInfinity();
+  last_loss_packet_report_ = Timestamp::MinusInfinity();
+  last_timeout_ = Timestamp::MinusInfinity();
+  last_fraction_loss_ = 0;
+  last_logged_fraction_loss_ = 0;
+  last_round_trip_time_ = TimeDelta::Zero();
+  bwe_incoming_ = DataRate::Zero();
+  delay_based_bitrate_ = DataRate::Zero();
+  time_last_decrease_ = Timestamp::MinusInfinity();
+  first_report_time_ = Timestamp::MinusInfinity();
+  initially_lost_packets_ = 0;
+  bitrate_at_2_seconds_ = DataRate::Zero();
+  uma_update_state_ = kNoUpdate;
+  uma_rtt_state_ = kNoUpdate;
+  last_rtc_event_log_ = Timestamp::MinusInfinity();
+  if (!rtt_backoff_config_.persist_on_route_change) {
+    last_propagation_rtt_update_ = Timestamp::PlusInfinity();
+    last_propagation_rtt_ = TimeDelta::Zero();
+  }
+}
 
 void SendSideBandwidthEstimation::SetBitrates(
     absl::optional<DataRate> send_bitrate,

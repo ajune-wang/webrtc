@@ -37,6 +37,7 @@ struct RttBasedBackoffConfig {
   FieldTrialParameter<TimeDelta> rtt_limit;
   FieldTrialParameter<double> drop_fraction;
   FieldTrialParameter<TimeDelta> drop_interval;
+  FieldTrialFlag persist_on_route_change;
 };
 
 class SendSideBandwidthEstimation {
@@ -45,6 +46,7 @@ class SendSideBandwidthEstimation {
   explicit SendSideBandwidthEstimation(RtcEventLog* event_log);
   ~SendSideBandwidthEstimation();
 
+  void OnRouteChange();
   void CurrentEstimate(int* bitrate, uint8_t* loss, int64_t* rtt) const;
 
   // Call periodically to update estimate.

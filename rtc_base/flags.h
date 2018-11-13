@@ -211,6 +211,10 @@ class FlagList {
                             const char** value,
                             bool* is_bool);
 
+  // Reset all the flags to the default values.
+  // This method must be called when flags are parsed more than once.
+  static void SetAllFlagsToDefault();
+
   // Set the flag values by parsing the command line. If remove_flags
   // is set, the flags and associated values are removed from (argc,
   // argv). Returns 0 if no error occurred. Otherwise, returns the

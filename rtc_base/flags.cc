@@ -197,6 +197,14 @@ void FlagList::SplitArgument(const char* arg,
   }
 }
 
+void FlagList::SetAllFlagsToDefault() {
+  Flag* f = list_;
+  while (f != nullptr) {
+    f->SetToDefault();
+    f = f->next();
+  }
+}
+
 int FlagList::SetFlagsFromCommandLine(int* argc,
                                       const char** argv,
                                       bool remove_flags) {

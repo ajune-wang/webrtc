@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "68416b5f_83242e16",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T22:22:56Z",
+      "side": 1,
+      "message": "removed the obvious comments.\nI\u0027m not sure about the documentation of Enable and SetLocal/RemoteContent as i am not sure what these do. documentation was just copied from original.",
+      "parentUuid": "952deee2_9f48621d",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc3e330_56c77ba4",
         "filename": "pc/channelinterface.h",
         "patchSetId": 10

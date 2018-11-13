@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "38ba2a25_e5cce606",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T02:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b3f6e8c_70a9a94e",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e55e351_f6f53a22",
         "filename": "pc/channel.h",
         "patchSetId": 9
@@ -206,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "9422ec9b_73220367",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T02:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "410bd2d8_cb117c61",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 61
+      },
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a7622a9_8d9dadef",
         "filename": "pc/rtptransceiver.cc",
         "patchSetId": 9
@@ -249,6 +291,30 @@
       "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d498966e_ca4d3e3e",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T02:05:06Z",
+      "side": 1,
+      "message": "will add a test case to separate the two cases:\n1. CannotSetChannelOnStoppedTransceiver\n2. CanUnsetChannelOnStoppedTransceiver",
+      "parentUuid": "cda31b04_56892f3c",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b668ca5_a5cbe3de",
+        "filename": "sdk/android/src/java/org/webrtc/TimestampAligner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-13T22:29:17Z",
+      "side": 1,
+      "message": "Can we align this with the current design patterns for native wrapper classes:\n - Do pointer checking in Java code\n - Release should be called \"dispose\"\n - Add a simple test to make sure the class can be instantiated and methods don\u0027t crash",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "270a4ef31aab432932a7c7e2429c2c4190a7c4bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "354a41b5_38fa1040",
+        "filename": "sdk/android/src/java/org/webrtc/TimestampAligner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-13T22:29:17Z",
+      "side": 1,
+      "message": "Why volatile?",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "270a4ef31aab432932a7c7e2429c2c4190a7c4bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

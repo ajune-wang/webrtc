@@ -476,6 +476,7 @@ void PerformBasicParameterSanityChecks(const SimulationSettings& settings) {
 int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
                        int argc,
                        char* argv[]) {
+  rtc::FlagList::SetAllFlagsToDefault();
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true) || FLAG_help ||
       argc != 1) {
     printf("%s", kUsageDescription);

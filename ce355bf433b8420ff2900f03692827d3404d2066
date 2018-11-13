@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "9397160b_2a199182",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbc51e67_bef90431",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8a8f5e4_78179ca6",
         "filename": "pc/channel.h",
         "patchSetId": 9
@@ -128,6 +146,30 @@
       "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0463f6da_38a3778c",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "summarizing F2F discussion. in general, events are not part of the language, so they are not exposed via interface, but through signals which are class members.\nThe general guiding principle is that sizeof(interface) \u003d\u003d 0, i.e. no members, just methods.\nExposing members reduces the flexibility in general and especially for testing (as you are tied to an implementation that is harder to mock/test).\nIdeally, we would be able to define events as methods and implement them via signals - i.e. define an event interface that allows subscribing (+\u003d) disconnecting (-\u003d) clearing, etc. not based on a specific implementation.\nI might need to research a bit more about how multiple inheritance works in c++, as this might be very close to what we are already doing, and there is some minor tweak that is missing.",
+      "parentUuid": "f8a8f5e4_78179ca6",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 33
+      },
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

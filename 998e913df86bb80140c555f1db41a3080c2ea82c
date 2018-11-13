@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba955223_d71d3b3b",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "using this: SignalFirstPacketReceived_",
+      "parentUuid": "78877d7d_179cebad",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fa38f4c_745362f8",
         "filename": "pc/channel.h",
         "patchSetId": 10
@@ -39,6 +63,24 @@
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d01f75_05aeb745",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Removed and i agree that in this case it doesn\u0027t add (any?) value.\nI would like to see some \u0027standard\u0027 in that all (at least public) methods have documentation (even trivial).\nIs that something we can work on going forward, or is it against some coding guideline?",
+      "parentUuid": "5fa38f4c_745362f8",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "203752b7_d189e79d",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Related to other comment on having all methods documented. I think i\u0027m still missing some documentation standard in c++ (like javadoc, or c# doc, etc.).\nI will leave these as is for now in this file (in the base channel class i removed some comments), because the file is small and still fits on a screen. I\u0027m hopeful, that these comments can be improved rather than removed.\nLet me know if you feel otherwise.",
+      "parentUuid": "4da32cef_99a88160",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc3e330_56c77ba4",
         "filename": "pc/channelinterface.h",
         "patchSetId": 10
@@ -73,6 +133,24 @@
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a49141b_1057ec8d",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "agree, this should be stated as an example and not to be taken as a comprehensive list. i will modify the text to express that.\nideally, this should be a pointer to an interface rather than an internal class, but that requires a different refactor.\n\n  // Set an RTP level transport.\n  // Some examples:\n  //   * An RtpTransport without encryption.\n  //   * An SrtpTransport for SDES.\n  //   * A DtlsSrtpTransport for DTLS-SRTP.",
+      "parentUuid": "fcc3e330_56c77ba4",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "66ab14a1_8b013e11",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Done. also renamed method to DestroyChannelInterface",
+      "parentUuid": "8e971242_9a238bb1",
+      "range": {
+        "startLine": 925,
+        "startChar": 24,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aec025e3_5304244e",
         "filename": "pc/rtpreceiver.cc",
         "patchSetId": 10
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "b77b3351_c254c6f8",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "we can talk about the pros and cons. there was no type safety before hand, there was a runtime check that you didn\u0027t call the wrong method, but nothing prevented you from doing the wrong cast and calling the right method.\nI added a media_type() to the MediaChannel so now this method also DCHECKS that the media types match.",
+      "parentUuid": "aec025e3_5304244e",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c2d6627_33b21c85",
         "filename": "pc/rtptransceiver_unittest.cc",
         "patchSetId": 10
@@ -130,6 +250,24 @@
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4484cbe1_2085c428",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "1c2d6627_33b21c85",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "f327b0c3_59786718",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b10e0743_8a0de311",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 31
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5636d017_9493c4de",
         "filename": "pc/rtptransceiver_unittest.cc",
         "patchSetId": 10
@@ -176,6 +338,30 @@
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83337a0b_89140e55",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T18:56:41Z",
+      "side": 1,
+      "message": "changed all to EXPECT_EQ. not sure what you mean unless test would crash.\ndo you mean that EXPECT_EQ will allow the test to continue vs. ASSERT_EQ which would stop the test? if so, then i will probably need to put ASSERT_EQ because once something fails in the test, the rest of the execution is invalid.",
+      "parentUuid": "5636d017_9493c4de",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

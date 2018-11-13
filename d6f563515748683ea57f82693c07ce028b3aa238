@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abb72d9f_3ce300dc",
+        "filename": "pc/rtpsender.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-13T00:28:08Z",
+      "side": 1,
+      "message": "As mentioned in the other comment, this check no longer gets hit because we don\u0027t check type.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 21
+      },
+      "revId": "d6f563515748683ea57f82693c07ce028b3aa238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "ef5146b3_cce164d4",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-13T21:32:44Z",
+      "side": 1,
+      "message": "I think moving forward we should definitely have all public functions have documentation. Although for getters/setters I don\u0027t know if it\u0027s necessary. In this case having a comment above the member variable itself seems sufficient. I would also argue that overrides don\u0027t need documentation except the specifics of the override (you can look in the base class for the initial comment). I see this is actually mentioned in the style guide:\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments",
+      "parentUuid": "d5d01f75_05aeb745",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4da32cef_99a88160",
         "filename": "pc/channelinterface.h",
         "patchSetId": 10
@@ -113,6 +131,24 @@
       "side": 1,
       "message": "Related to other comment on having all methods documented. I think i\u0027m still missing some documentation standard in c++ (like javadoc, or c# doc, etc.).\nI will leave these as is for now in this file (in the base channel class i removed some comments), because the file is small and still fits on a screen. I\u0027m hopeful, that these comments can be improved rather than removed.\nLet me know if you feel otherwise.",
       "parentUuid": "4da32cef_99a88160",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "952deee2_9f48621d",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-13T21:32:44Z",
+      "side": 1,
+      "message": "My thoughts (Steve\u0027s might be different).\n-I think the getter comments that state the obvious should be removed. From the style guide: \"comments may be omitted only if the function is simple and obvious (e.g. simple accessors for obvious properties of the class)....do not be unnecessarily verbose or state the completely obvious\"\n-Enable() could probably be expanded - \"what does enabling do?\" I think \"Enables or disables the channel.\" doesn\u0027t add anything.\n-SetLocalContent/SetRemoteContent could probably also be expanded. \"Channel control\" doesn\u0027t help much (I know this was the previous comment so I understand if you don\u0027t want to change this now).\n\nAlso, I haven\u0027t seen the same type of documentation standard like javadoc for c++ :(.",
+      "parentUuid": "203752b7_d189e79d",
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

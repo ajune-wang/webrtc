@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4daade4c_3e64115f",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-13T21:32:44Z",
+      "side": 1,
+      "message": "nit: Again I don\u0027t know if a comment on  a getter is useful here.",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 187,
+        "endChar": 60
+      },
+      "revId": "2f592bb969cf02fd5c9ff499a8d8f3b6567cb282",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

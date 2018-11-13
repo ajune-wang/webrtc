@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78877d7d_179cebad",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "nit: I suggest either SignalFirstPacketReceived_ (e.g. https://codesearch.chromium.org/chromium/src/third_party/webrtc/pc/peerconnection.h?l\u003d231\u0026rcl\u003de769ed90c3599a131166d5a61625c1b64318fb91) or signal_first_packet_received_.",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 145,
+        "endChar": 37
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fa38f4c_745362f8",
+        "filename": "pc/channel.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "unnecessary comment",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4da32cef_99a88160",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "I would say most of these comments could be omitted since they aren\u0027t adding much explanation.\n\nAlternatively, they could be elaborated more. There\u0027s some suggestions in the style guide: https://google.github.io/styleguide/cppguide.html#Function_Comments",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcc3e330_56c77ba4",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "This is a more helpful comment but breaks abstraction by listing all the subclasses of RtpTransportInternal.",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e971242_9a238bb1",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "ChannelInterface?",
+      "range": {
+        "startLine": 925,
+        "startChar": 24,
+        "endLine": 925,
+        "endChar": 35
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec025e3_5304244e",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "One significant drawback of this approach is that we lose type safety between voice/video media channels.\n\nActually, I remember now changing it from a generic SetMediaChannel to separate SetVoiceMediaChannel/SetVideoMediaChannel: https://webrtc-review.googlesource.com/c/src/+/49580/7/pc/rtpsender.h\n\nMaybe we should talk about the pros/cons :)",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c2d6627_33b21c85",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "Can omit this and just use TEST(",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b10e0743_8a0de311",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "I\u0027d suggest adding a using at the top of the file for all the testing::XXX classes used. It can make the test body a bit more readable.",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 31
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5636d017_9493c4de",
+        "filename": "pc/rtptransceiver_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-13T05:40:23Z",
+      "side": 1,
+      "message": "Use EXPECT_EQ unless the test would crash if the assertion was false.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

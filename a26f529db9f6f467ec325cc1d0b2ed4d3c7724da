@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9269c16d_874eaef1",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-13T15:13:27Z",
+      "side": 0,
+      "message": "Will you remove \"_new\" in a later CL?",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 49
+      },
+      "revId": "a26f529db9f6f467ec325cc1d0b2ed4d3c7724da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

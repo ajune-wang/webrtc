@@ -1306,6 +1306,12 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
         msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
       // Media type must match unless this media section is being recycled.
+      RTC_LOG(LS_INFO) << "At i=" << msection_index;
+      RTC_LOG(LS_INFO) << "Rejected? "
+                       << (current_content->rejected ? "yes" : "no");
+      RTC_LOG(LS_INFO) << "Current media type: "
+                       << current_content->media_description()->type();
+      RTC_LOG(LS_INFO) << "New media type: " << media_description_options.type;
       RTC_DCHECK(current_content->rejected ||
                  IsMediaContentOfType(current_content,
                                       media_description_options.type));

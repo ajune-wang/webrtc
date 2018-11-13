@@ -162,6 +162,7 @@ class MediaSessionDescriptionFactory {
   SessionDescription* CreateOffer(
       const MediaSessionOptions& options,
       const SessionDescription* current_description) const;
+  // const SessionDescription* secondary_current_description) const;
   SessionDescription* CreateAnswer(
       const SessionDescription* offer,
       const MediaSessionOptions& options,

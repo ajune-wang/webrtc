@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e3cdc26b_3def0620",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T00:06:31Z",
+      "side": 1,
+      "message": "Done. Also renamed to ChannelInterface",
+      "parentUuid": "84d54406_2096ade1",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e55e351_f6f53a22",
         "filename": "pc/channel.h",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-12T23:08:10Z",
       "side": 1,
       "message": "Minimize white space vertically. The comments act as a good enough buffer for readability:\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace",
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc51e67_bef90431",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T00:06:31Z",
+      "side": 1,
+      "message": "i thought this was ok. \"don\u0027t put more than one or two blank lines between functions\".\nthe space between methods actually helps me read it, if in general, it doesn\u0027t i can remove it.",
+      "parentUuid": "0e55e351_f6f53a22",
       "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -56,6 +92,30 @@
       "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c11556a4_2a4a51e7",
+        "filename": "pc/channel.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-13T00:06:31Z",
+      "side": 1,
+      "message": "i thought so too, but actually git cl format is what created this abomination :)\nHopefully now that the interface name changed the line is shorter and can fit in under 80 chars.",
+      "parentUuid": "156b2bf1_008228cc",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 14
+      },
+      "revId": "ce355bf433b8420ff2900f03692827d3404d2066",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

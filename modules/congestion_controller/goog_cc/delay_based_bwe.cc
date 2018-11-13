@@ -68,6 +68,16 @@ size_t ReadTrendlineFilterWindowSize() {
 }  // namespace
 
 namespace webrtc {
+namespace {
+absl::optional<DataRate> OptionalRateFromOptionalBps(
+    absl::optional<int> bitrate_bps) {
+  if (bitrate_bps) {
+    return DataRate::bps(*bitrate_bps);
+  } else {
+    return absl::nullopt;
+  }
+}
+}  // namespace
 
 DelayBasedBwe::Result::Result()
     : updated(false),
@@ -175,11 +185,11 @@ DelayBasedBwe::Result DelayBasedBwe::OnLongFeedbackDelay(
   // or to estimate the throughput based on the feedback we received.
   RTC_DCHECK(rate_control_.ValidEstimate());
   rate_control_.SetEstimate(rate_control_.LatestEstimate() / 2,
-                            arrival_time_ms);
+                            Timestamp::ms(arrival_time_ms));
   Result result;
   result.updated = true;
   result.probe = false;
-  result.target_bitrate_bps = rate_control_.LatestEstimate();
+  result.target_bitrate_bps = rate_control_.LatestEstimate().bps();
   RTC_LOG(LS_WARNING) << "Long feedback delay detected, reducing BWE to "
                       << result.target_bitrate_bps;
   return result;
@@ -233,33 +243,34 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
     bool recovered_from_overuse,
     int64_t at_time_ms) {
   Result result;
+  Timestamp at_time = Timestamp::ms(at_time_ms);
   int64_t now_ms = at_time_ms;
 
   absl::optional<int> probe_bitrate_bps =
       probe_bitrate_estimator_.FetchAndResetLastEstimatedBitrateBps();
   // Currently overusing the bandwidth.
   if (delay_detector_->State() == BandwidthUsage::kBwOverusing) {
-    if (acked_bitrate_bps &&
-        rate_control_.TimeToReduceFurther(now_ms, *acked_bitrate_bps)) {
+    if (acked_bitrate_bps && rate_control_.TimeToReduceFurther(
+                                 at_time, DataRate::bps(*acked_bitrate_bps))) {
       result.updated =
           UpdateEstimate(now_ms, acked_bitrate_bps, &result.target_bitrate_bps);
     } else if (!acked_bitrate_bps && rate_control_.ValidEstimate() &&
-               rate_control_.InitialTimeToReduceFurther(now_ms)) {
+               rate_control_.InitialTimeToReduceFurther(at_time)) {
       // Overusing before we have a measured acknowledged bitrate. Reduce send
       // rate by 50% every 200 ms.
       // TODO(tschumim): Improve this and/or the acknowledged bitrate estimator
       // so that we (almost) always have a bitrate estimate.
-      rate_control_.SetEstimate(rate_control_.LatestEstimate() / 2, now_ms);
+      rate_control_.SetEstimate(rate_control_.LatestEstimate() / 2, at_time);
       result.updated = true;
       result.probe = false;
-      result.target_bitrate_bps = rate_control_.LatestEstimate();
+      result.target_bitrate_bps = rate_control_.LatestEstimate().bps();
     }
   } else {
     if (probe_bitrate_bps) {
       result.probe = true;
       result.updated = true;
       result.target_bitrate_bps = *probe_bitrate_bps;
-      rate_control_.SetEstimate(*probe_bitrate_bps, now_ms);
+      rate_control_.SetEstimate(DataRate::bps(*probe_bitrate_bps), at_time);
     } else {
       result.updated =
           UpdateEstimate(now_ms, acked_bitrate_bps, &result.target_bitrate_bps);
@@ -288,13 +299,15 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
 bool DelayBasedBwe::UpdateEstimate(int64_t now_ms,
                                    absl::optional<uint32_t> acked_bitrate_bps,
                                    uint32_t* target_bitrate_bps) {
-  const RateControlInput input(delay_detector_->State(), acked_bitrate_bps);
-  *target_bitrate_bps = rate_control_.Update(&input, now_ms);
+  const RateControlInput input(delay_detector_->State(),
+                               OptionalRateFromOptionalBps(acked_bitrate_bps));
+  *target_bitrate_bps =
+      rate_control_.Update(&input, Timestamp::ms(now_ms)).bps<uint32_t>();
   return rate_control_.ValidEstimate();
 }
 
 void DelayBasedBwe::OnRttUpdate(int64_t avg_rtt_ms) {
-  rate_control_.SetRtt(avg_rtt_ms);
+  rate_control_.SetRtt(TimeDelta::ms(avg_rtt_ms));
 }
 
 bool DelayBasedBwe::LatestEstimate(std::vector<uint32_t>* ssrcs,
@@ -309,22 +322,22 @@ bool DelayBasedBwe::LatestEstimate(std::vector<uint32_t>* ssrcs,
     return false;
 
   *ssrcs = {kFixedSsrc};
-  *bitrate_bps = rate_control_.LatestEstimate();
+  *bitrate_bps = rate_control_.LatestEstimate().bps<uint32_t>();
   return true;
 }
 
 void DelayBasedBwe::SetStartBitrate(int start_bitrate_bps) {
   RTC_LOG(LS_INFO) << "BWE Setting start bitrate to: " << start_bitrate_bps;
-  rate_control_.SetStartBitrate(start_bitrate_bps);
+  rate_control_.SetStartBitrate(DataRate::bps(start_bitrate_bps));
 }
 
 void DelayBasedBwe::SetMinBitrate(int min_bitrate_bps) {
   // Called from both the configuration thread and the network thread. Shouldn't
   // be called from the network thread in the future.
-  rate_control_.SetMinBitrate(min_bitrate_bps);
+  rate_control_.SetMinBitrate(DataRate::bps(min_bitrate_bps));
 }
 
 int64_t DelayBasedBwe::GetExpectedBwePeriodMs() const {
-  return rate_control_.GetExpectedBandwidthPeriodMs();
+  return rate_control_.GetExpectedBandwidthPeriod().ms();
 }
 }  // namespace webrtc

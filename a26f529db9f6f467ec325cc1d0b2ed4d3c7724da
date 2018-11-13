@@ -22,6 +22,30 @@
       "revId": "a26f529db9f6f467ec325cc1d0b2ed4d3c7724da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8569b23_e77201a4",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-13T15:36:15Z",
+      "side": 0,
+      "message": "Eventually, but it will probably require reintroducing a dummy rtc_event_log_parser.h that just includes rtc_event_log_parser_new.h, wait for all downstream projects to include rtc_event_log_parser.h instead, and then moving the code.",
+      "parentUuid": "9269c16d_874eaef1",
+      "range": {
+        "startLine": 291,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 49
+      },
+      "revId": "a26f529db9f6f467ec325cc1d0b2ed4d3c7724da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

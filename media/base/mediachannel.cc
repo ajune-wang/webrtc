@@ -105,4 +105,16 @@ bool DataMediaChannel::GetStats(DataMediaInfo* info) {
   return true;
 }
 
+cricket::MediaType DataMediaChannel::media_type() const {
+  return cricket::MediaType::MEDIA_TYPE_DATA;
+}
+
+cricket::MediaType VoiceMediaChannel::media_type() const {
+  return cricket::MediaType::MEDIA_TYPE_AUDIO;
+}
+
+cricket::MediaType VideoMediaChannel::media_type() const {
+  return cricket::MediaType::MEDIA_TYPE_VIDEO;
+}
+
 }  // namespace cricket

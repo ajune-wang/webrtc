@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c214bf0a_c6c56567",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-13T18:17:17Z",
+      "side": 0,
+      "message": "Euh! In the global namespace... all of these should go, really. (But not in this CL, I guess.)",
+      "revId": "cb7eddb9559e7914cdba0d93b3a87550a476f4bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

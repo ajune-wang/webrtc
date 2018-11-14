@@ -772,6 +772,30 @@
     },
     {
       "key": {
+        "uuid": "20723435_b4cdb33d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-14T15:45:20Z",
+      "side": 1,
+      "message": "Old patchset. Resolving. This code was removed.",
+      "parentUuid": "3b1764d2_5a3e0adf",
+      "range": {
+        "startLine": 205,
+        "startChar": 46,
+        "endLine": 206,
+        "endChar": 19
+      },
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f807a80f_95b430f0",
         "filename": "p2p/base/fakeicetransport.h",
         "patchSetId": 4
@@ -839,6 +863,24 @@
       "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76136bdf_ebf77c78",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-14T15:45:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bced2453_73158082",
+      "revId": "43f93d7fcdc5e829dad61882417626b17ffd5464",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -191,6 +191,13 @@ class MockVideoSource : public rtc::VideoSourceInterface<webrtc::VideoFrame> {
                void(rtc::VideoSinkInterface<webrtc::VideoFrame>* sink));
 };
 
+std::unique_ptr<webrtc::Call> CreateCall(webrtc::RtcEventLog* event_log) {
+  webrtc::Call::Config config(event_log);
+  config.rtp_transport_send =
+      absl::make_unique<webrtc::MockRtpTransportControllerSend>();
+  return absl::WrapUnique(webrtc::Call::Create(std::move(config)));
+}
+
 }  // namespace
 
 #define EXPECT_FRAME_WAIT(c, w, h, t)                        \
@@ -211,7 +218,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
   WebRtcVideoEngineTest() : WebRtcVideoEngineTest("") {}
   explicit WebRtcVideoEngineTest(const char* field_trials)
       : override_field_trials_(field_trials),
-        call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
+        call_(CreateCall(&event_log_)),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
         decoder_factory_(new cricket::FakeWebRtcVideoDecoderFactory),
         engine_(std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(

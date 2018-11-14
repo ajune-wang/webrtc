@@ -22,6 +22,30 @@
       "revId": "5256bd965e9b7adb44a9f6e9e21ef500f4596ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03a5dc44_6b56b15c",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-14T16:11:30Z",
+      "side": 1,
+      "message": "I mentioned in another comment that GetRTT is currently only called in RTP codepath, so I would just DCHECK(!media_transport) for now.",
+      "parentUuid": "43ec69ae_c6ee5403",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 71
+      },
+      "revId": "5256bd965e9b7adb44a9f6e9e21ef500f4596ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

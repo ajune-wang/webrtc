@@ -94,6 +94,30 @@
       "revId": "6bd41a7b3deb3bd53208fcf4d1b687d311cf0af7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258e6036_5dc1998b",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-14T23:08:27Z",
+      "side": 1,
+      "message": "That is an ok solution, but I think the fact that we are creating video path even though we use media transport for audio is wrong.\nIt creates RTP senders for Video (and potentially calls bitrate allocator from RTP code path).\n\nThis may make debugging tests difficult, if something goes wrong.\n\nI am adding a separate change that would force max bundle, but even then we shouldn\u0027t use RTP code when using media transport.",
+      "parentUuid": "9687fa41_259b1a85",
+      "range": {
+        "startLine": 765,
+        "startChar": 10,
+        "endLine": 766,
+        "endChar": 70
+      },
+      "revId": "6bd41a7b3deb3bd53208fcf4d1b687d311cf0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

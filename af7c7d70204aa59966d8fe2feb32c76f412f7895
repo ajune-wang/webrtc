@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fd3dee36_1142c404",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-14T13:16:25Z",
+      "side": 1,
+      "message": "Will fix this class in upcoming CL, do it in that?",
+      "parentUuid": "b642590c_68cb4d8a",
+      "range": {
+        "startLine": 256,
+        "startChar": 25,
+        "endLine": 256,
+        "endChar": 32
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29e844b2_0018ccc2",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "028b3006_b4879b49",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-14T13:16:25Z",
+      "side": 1,
+      "message": "No, just missed it after search \u0026 replace. Fixed.",
+      "parentUuid": "29e844b2_0018ccc2",
+      "range": {
+        "startLine": 145,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecaf7ed1_4b7d037c",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-14T12:16:58Z",
       "side": 1,
       "message": "Could still be constexpr by \"TimeDelta\u003c3000\u003e::Millis()\", or?",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 229,
+        "endChar": 54
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99dc683_e8e9adab",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-14T13:16:25Z",
+      "side": 1,
+      "message": "Yes, but the non-constexpr versions looks nicer and since it\u0027s a local scope there\u0027s no real benefit to using constexpr.",
+      "parentUuid": "ecaf7ed1_4b7d037c",
       "range": {
         "startLine": 228,
         "startChar": 1,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b9552714_b204c136",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-14T13:16:25Z",
+      "side": 1,
+      "message": "Yes, you are right. To make this distinction more clear. I changed this code to use double and units specified in the variable name instead and added clarifying intermediate variables. Better?",
+      "parentUuid": "1655f0ff_e50dca6f",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 236,
+        "endChar": 48
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f42163d0_298b3494",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2018-11-14T12:16:58Z",
       "side": 1,
       "message": "Shouldn\u0027t this be DataRate as well?",
+      "range": {
+        "startLine": 260,
+        "startChar": 35,
+        "endLine": 260,
+        "endChar": 56
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd169e5c_d4cd0794",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-14T13:16:25Z",
+      "side": 1,
+      "message": "Since it\u0027s a filter state variable I think it\u0027s safer to keep it as double to avoid rounding issues etc.",
+      "parentUuid": "f42163d0_298b3494",
       "range": {
         "startLine": 260,
         "startChar": 35,

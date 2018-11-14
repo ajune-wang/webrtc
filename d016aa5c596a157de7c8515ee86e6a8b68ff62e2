@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2b9dfb42_c547f573",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-14T08:56:02Z",
+      "side": 1,
+      "message": "How can you be sure audio modules are configured with different default?\n(e.g. audio/ChannelReceive should use different interval)\n\nMay be complicated a bit: use default value 0 and in RtpRtcpImpl do a check:\nrtcp_report_interval_ms \u003e 0 ? rtcp_report_interval_ms : (audio ? 5000 : 1000);",
+      "range": {
+        "startLine": 98,
+        "startChar": 39,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "00fd8448_4478a757",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 1

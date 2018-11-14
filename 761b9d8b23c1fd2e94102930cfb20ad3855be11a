@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a8ee862_77cbda61",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T14:38:09Z",
+      "side": 1,
+      "message": "Assign this in the initializer list?",
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61c67548_8539a574",
+        "filename": "call/call_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T14:38:09Z",
+      "side": 1,
+      "message": "nit: PeerConnection",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d87b329e_6d21deed",
+        "filename": "call/call_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T14:38:09Z",
+      "side": 1,
+      "message": "What is this referring to?",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d7cacd2_af6cbace",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T14:38:09Z",
+      "side": 1,
+      "message": "nit: RTP",
+      "range": {
+        "startLine": 498,
+        "startChar": 22,
+        "endLine": 498,
+        "endChar": 25
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

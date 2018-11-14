@@ -14,13 +14,17 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/audio_processing_simulator.h"
 #include "modules/audio_processing/test/audioproc_float_impl.h"
 #include "modules/audio_processing/test/wav_based_simulator.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
 namespace test {
@@ -36,6 +40,17 @@ const char kUsageDescription[] =
     "Command-line tool to simulate a call using the audio "
     "processing module, either based on wav files or "
     "protobuf debug dump recordings.\n";
+
+std::string ConcatenateMessageAndListOfValues(absl::string_view message,
+                                              std::vector<std::string> values) {
+  rtc::StringBuilder ss;
+  ss << message << " [ ";
+  for (const auto& v : values) {
+    ss << v << " ";
+  }
+  ss << "]";
+  return ss.Release();
+}
 
 WEBRTC_DEFINE_string(dump_input, "", "Aec dump input filename");
 WEBRTC_DEFINE_string(dump_output, "", "Aec dump output filename");
@@ -150,6 +165,18 @@ WEBRTC_DEFINE_float(agc2_enable_adaptive_gain,
                     kParameterNotSpecifiedValue,
                     "Activate (1) or deactivate(0) the AGC2 adaptive gain");
 WEBRTC_DEFINE_float(agc2_fixed_gain_db, 0.f, "AGC2 fixed gain (dB) to apply");
+
+// TODO(alessiob): If DEFINE_string starts supporting std::string, use
+// ConcatenateMessageAndListOfValues() and the function below to create the
+// description for the agc2_adaptive_level_estimator flag.
+std::vector<std::string> GetAgc2AdaptiveLevelEstimatorNames() {
+  return {"RMS", "peak"};
+}
+WEBRTC_DEFINE_string(
+    agc2_adaptive_level_estimator,
+    "RMS",
+    "AGC2 adaptive digital level estimator to use [RMS, peak]");
+
 WEBRTC_DEFINE_float(pre_amplifier_gain_factor,
                     1.f,
                     "Pre-amplifier gain factor (linear) to apply");
@@ -226,6 +253,21 @@ void SetSettingIfFlagSet(int32_t flag, absl::optional<bool>* parameter) {
   }
 }
 
+AudioProcessing::Config::GainController2::LevelEstimator
+StringToAgc2AdaptiveDigitalLevelEstimator(absl::string_view name) {
+  using LevelEstimatorType =
+      AudioProcessing::Config::GainController2::LevelEstimator;
+  if (name.compare("RMS") == 0) {
+    return LevelEstimatorType::kRms;
+  }
+  if (name.compare("peak") == 0) {
+    return LevelEstimatorType::kPeak;
+  }
+  RTC_NOTREACHED() << ConcatenateMessageAndListOfValues(
+      "Invalid value for agc2_adaptive_level_estimator, valid options:",
+      GetAgc2AdaptiveLevelEstimatorNames());
+}
+
 SimulationSettings CreateSettings() {
   SimulationSettings settings;
   if (FLAG_all_default) {
@@ -293,6 +335,9 @@ SimulationSettings CreateSettings() {
   SetSettingIfFlagSet(FLAG_agc2_enable_adaptive_gain,
                       &settings.agc2_use_adaptive_gain);
   settings.agc2_fixed_gain_db = FLAG_agc2_fixed_gain_db;
+  settings.agc2_adaptive_level_estimator =
+      StringToAgc2AdaptiveDigitalLevelEstimator(
+          FLAG_agc2_adaptive_level_estimator);
   settings.pre_amplifier_gain_factor = FLAG_pre_amplifier_gain_factor;
   SetSettingIfSpecified(FLAG_vad_likelihood, &settings.vad_likelihood);
   SetSettingIfSpecified(FLAG_ns_level, &settings.ns_level);

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b642590c_68cb4d8a",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-14T12:16:58Z",
+      "side": 1,
+      "message": "at_time.ms() to get rid of now_ms?",
+      "range": {
+        "startLine": 256,
+        "startChar": 25,
+        "endLine": 256,
+        "endChar": 32
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29e844b2_0018ccc2",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-14T12:16:58Z",
+      "side": 1,
+      "message": "This cast necessary? Scalar multiplication not overloaded for DataRate?",
+      "range": {
+        "startLine": 145,
+        "startChar": 31,
+        "endLine": 145,
+        "endChar": 52
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecaf7ed1_4b7d037c",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-14T12:16:58Z",
+      "side": 1,
+      "message": "Could still be constexpr by \"TimeDelta\u003c3000\u003e::Millis()\", or?",
+      "range": {
+        "startLine": 228,
+        "startChar": 1,
+        "endLine": 229,
+        "endChar": 54
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1655f0ff_e50dca6f",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-14T12:16:58Z",
+      "side": 1,
+      "message": "This part confused me for a while. Dividing a DataRate by DataRate yields TimeDelta. The reason is that \"increase_rate\" is not really a [DataRate] but a [DataRate/TimeDelta].\n\nWould\nconst TimeDelta increase_frequency \u003d TimeDelta::seconds(1);\nTimeDelta increase_period  \u003d increase_frequency * (*last_decrease_ / increase_rate);\nreturn increase_period.Clamped(...)\nbe more intuitive?",
+      "range": {
+        "startLine": 231,
+        "startChar": 2,
+        "endLine": 236,
+        "endChar": 48
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f42163d0_298b3494",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-14T12:16:58Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be DataRate as well?",
+      "range": {
+        "startLine": 260,
+        "startChar": 35,
+        "endLine": 260,
+        "endChar": 56
+      },
+      "revId": "af7c7d70204aa59966d8fe2feb32c76f412f7895",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

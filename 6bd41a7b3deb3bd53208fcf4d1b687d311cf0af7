@@ -22,6 +22,30 @@
       "revId": "6bd41a7b3deb3bd53208fcf4d1b687d311cf0af7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "824b08e9_3d99ede7",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T22:08:57Z",
+      "side": 1,
+      "message": "Yes, I think so.",
+      "parentUuid": "4910895a_3dd3abdc",
+      "range": {
+        "startLine": 765,
+        "startChar": 10,
+        "endLine": 766,
+        "endChar": 70
+      },
+      "revId": "6bd41a7b3deb3bd53208fcf4d1b687d311cf0af7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

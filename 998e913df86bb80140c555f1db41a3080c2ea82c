@@ -173,6 +173,24 @@
     },
     {
       "key": {
+        "uuid": "c6884317_703be90c",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T00:06:56Z",
+      "side": 1,
+      "message": "I think what you have now looks good. Looks like some of the comments BaseChannel were low quality themselves, but I won\u0027t burden this change with improving them.",
+      "parentUuid": "68416b5f_83242e16",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc3e330_56c77ba4",
         "filename": "pc/channelinterface.h",
         "patchSetId": 10
@@ -202,6 +220,24 @@
       "side": 1,
       "message": "agree, this should be stated as an example and not to be taken as a comprehensive list. i will modify the text to express that.\nideally, this should be a pointer to an interface rather than an internal class, but that requires a different refactor.\n\n  // Set an RTP level transport.\n  // Some examples:\n  //   * An RtpTransport without encryption.\n  //   * An SrtpTransport for SDES.\n  //   * A DtlsSrtpTransport for DTLS-SRTP.",
       "parentUuid": "fcc3e330_56c77ba4",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8af72b7b_738a344e",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T00:06:56Z",
+      "side": 1,
+      "message": "Just realized these were all copied from BaseChannel -- anyways, thanks for improving it :)",
+      "parentUuid": "8a49141b_1057ec8d",
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -284,6 +320,24 @@
       "side": 1,
       "message": "we can talk about the pros and cons. there was no type safety before hand, there was a runtime check that you didn\u0027t call the wrong method, but nothing prevented you from doing the wrong cast and calling the right method.\nI added a media_type() to the MediaChannel so now this method also DCHECKS that the media types match.",
       "parentUuid": "aec025e3_5304244e",
+      "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "799ef124_fd1cce14",
+        "filename": "pc/rtpreceiver.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T00:06:56Z",
+      "side": 1,
+      "message": "Talked about it offline and came to the conclusion that neither approach is great but we\u0027ll try it this way.",
+      "parentUuid": "b77b3351_c254c6f8",
       "revId": "998e913df86bb80140c555f1db41a3080c2ea82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2cd32c13_d6fe8050",
+        "filename": "media/base/mediachannel.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-14T00:06:56Z",
+      "side": 1,
+      "message": "Convention is to order definitions in the same order as the declaration.\n\nSo VoiceMediaChannel would be between AudioSendParameters::ToStringMap and VideoSendParameters::VideoSendParameters().\n\nAnd VideoMediaChannel would be between VideoSendParameters::ToStringMap and DataMediaChannel::DataMediaChannel()",
+      "revId": "6f1be916a048c9e72e41ab7ec6a2e270b03f45fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

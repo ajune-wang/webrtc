@@ -44,7 +44,8 @@ MultiStreamTester::~MultiStreamTester() {}
 
 void MultiStreamTester::RunTest() {
   webrtc::RtcEventLogNullImpl event_log;
-  Call::Config config(&event_log);
+  Call::Config send_config(&event_log);
+  Call::Config recv_config(&event_log);
   std::unique_ptr<Call> sender_call;
   std::unique_ptr<Call> receiver_call;
   std::unique_ptr<test::DirectTransport> sender_transport;
@@ -60,8 +61,8 @@ void MultiStreamTester::RunTest() {
   InternalDecoderFactory decoder_factory;
 
   task_queue_->SendTask([&]() {
-    sender_call = absl::WrapUnique(Call::Create(config));
-    receiver_call = absl::WrapUnique(Call::Create(config));
+    sender_call = absl::WrapUnique(Call::Create(std::move(send_config)));
+    receiver_call = absl::WrapUnique(Call::Create(std::move(recv_config)));
     sender_transport =
         absl::WrapUnique(CreateSendTransport(task_queue_, sender_call.get()));
     receiver_transport = absl::WrapUnique(

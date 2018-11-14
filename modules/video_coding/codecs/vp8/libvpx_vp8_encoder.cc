@@ -542,7 +542,8 @@ int LibvpxVp8Encoder::GetCpuSpeed(int width, int height) {
 }
 
 int LibvpxVp8Encoder::NumberOfThreads(int width, int height, int cpus) {
-#if defined(WEBRTC_ANDROID)
+#if defined(WEBRTC_ARCH_ARM) || defined(WEBRTC_ARCH_ARM64) || \
+    defined(WEBRTC_ANDROID)
   if (width * height >= 320 * 180) {
     if (cpus >= 4) {
       // 3 threads for CPUs with 4 and more cores since most of times only 4

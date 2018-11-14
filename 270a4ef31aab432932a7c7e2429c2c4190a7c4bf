@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e03961d2_1fd799d0",
+        "filename": "sdk/android/src/java/org/webrtc/TimestampAligner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-11-14T15:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b668ca5_a5cbe3de",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "270a4ef31aab432932a7c7e2429c2c4190a7c4bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "354a41b5_38fa1040",
         "filename": "sdk/android/src/java/org/webrtc/TimestampAligner.java",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "270a4ef31aab432932a7c7e2429c2c4190a7c4bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79b3621d_4fdb5e81",
+        "filename": "sdk/android/src/java/org/webrtc/TimestampAligner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-11-14T15:02:55Z",
+      "side": 1,
+      "message": "To make it thread safe in case translateTimestamp() and release() are called concurrently. Since I added pointer checking to enforce strict usage of this class it\u0027s no longer relevant.",
+      "parentUuid": "354a41b5_38fa1040",
+      "range": {
+        "startLine": 22,
+        "startChar": 10,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "270a4ef31aab432932a7c7e2429c2c4190a7c4bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

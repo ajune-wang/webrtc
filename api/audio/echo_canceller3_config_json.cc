@@ -190,6 +190,8 @@ void Aec3ConfigFromJsonString(absl::string_view json_string,
               &cfg.filter.conservative_initial_phase);
     ReadParam(section, "enable_shadow_filter_output_usage",
               &cfg.filter.enable_shadow_filter_output_usage);
+    ReadParam(section, "enable_adaptation_during_poor_excitation",
+              &cfg.filter.enable_adaptation_during_poor_excitation);
   }
 
   if (rtc::GetValueFromJsonObject(aec3_root, "erle", &section)) {
@@ -416,7 +418,11 @@ std::string Aec3ConfigToJsonString(const EchoCanceller3Config& config) {
   ost << "\"conservative_initial_phase\": "
       << (config.filter.conservative_initial_phase ? "true" : "false") << ",";
   ost << "\"enable_shadow_filter_output_usage\": "
-      << (config.filter.enable_shadow_filter_output_usage ? "true" : "false");
+      << (config.filter.enable_shadow_filter_output_usage ? "true" : "false")
+      << ",";
+  ost << "\"enable_adaptation_during_poor_excitation\": "
+      << (config.filter.enable_adaptation_during_poor_excitation ? "true"
+                                                                 : "false");
 
   ost << "},";
 

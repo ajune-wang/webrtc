@@ -19,8 +19,10 @@ namespace webrtc {
 
 ShadowFilterUpdateGain::ShadowFilterUpdateGain(
     const EchoCanceller3Config::Filter::ShadowConfiguration& config,
+    bool enable_adaptation_during_poor_excitation,
     size_t config_change_duration_blocks)
-    : config_change_duration_blocks_(
+    : update_during_poor_excitation_(enable_adaptation_during_poor_excitation),
+      config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)) {
   SetConfig(config, true);
   RTC_DCHECK_LT(0, config_change_duration_blocks_);
@@ -46,12 +48,14 @@ void ShadowFilterUpdateGain::Compute(
 
   UpdateCurrentConfig();
 
-  if (render_signal_analyzer.PoorSignalExcitation()) {
+  if (!update_during_poor_excitation_ &&
+      render_signal_analyzer.PoorSignalExcitation()) {
     poor_signal_excitation_counter_ = 0;
   }
 
   // Do not update the filter if the render is not sufficiently excited.
-  if (++poor_signal_excitation_counter_ < size_partitions ||
+  if ((++poor_signal_excitation_counter_ < size_partitions &&
+       !update_during_poor_excitation_) ||
       saturated_capture_signal || call_counter_ <= size_partitions) {
     G->re.fill(0.f);
     G->im.fill(0.f);

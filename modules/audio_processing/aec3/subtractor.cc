@@ -124,8 +124,10 @@ Subtractor::Subtractor(const EchoCanceller3Config& config,
                      optimization,
                      data_dumper_),
       G_main_(config_.filter.main_initial,
+              config_.filter.enable_adaptation_during_poor_excitation,
               config_.filter.config_change_duration_blocks),
       G_shadow_(config_.filter.shadow_initial,
+                config_.filter.enable_adaptation_during_poor_excitation,
                 config.filter.config_change_duration_blocks) {
   RTC_DCHECK(data_dumper_);
 }

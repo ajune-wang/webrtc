@@ -80,6 +80,7 @@ struct RTC_EXPORT EchoCanceller3Config {
     float initial_state_seconds = 2.5f;
     bool conservative_initial_phase = false;
     bool enable_shadow_filter_output_usage = true;
+    bool enable_adaptation_during_poor_excitation = true;
   } filter;
 
   struct Erle {

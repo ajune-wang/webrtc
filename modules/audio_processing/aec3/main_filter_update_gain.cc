@@ -35,9 +35,11 @@ int MainFilterUpdateGain::instance_count_ = 0;
 
 MainFilterUpdateGain::MainFilterUpdateGain(
     const EchoCanceller3Config::Filter::MainConfiguration& config,
+    bool enable_adaptation_during_poor_excitation,
     size_t config_change_duration_blocks)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+      update_during_poor_excitation_(enable_adaptation_during_poor_excitation),
       config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)),
       poor_excitation_counter_(kPoorExcitationCounterInitial) {
@@ -86,12 +88,14 @@ void MainFilterUpdateGain::Compute(
 
   UpdateCurrentConfig();
 
-  if (render_signal_analyzer.PoorSignalExcitation()) {
+  if (!update_during_poor_excitation_ &&
+      render_signal_analyzer.PoorSignalExcitation()) {
     poor_excitation_counter_ = 0;
   }
 
   // Do not update the filter if the render is not sufficiently excited.
-  if (++poor_excitation_counter_ < size_partitions ||
+  if ((++poor_excitation_counter_ < size_partitions &&
+       !update_during_poor_excitation_) ||
       saturated_capture_signal || call_counter_ <= size_partitions) {
     G->re.fill(0.f);
     G->im.fill(0.f);

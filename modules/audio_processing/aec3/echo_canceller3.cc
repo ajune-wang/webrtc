@@ -86,6 +86,11 @@ bool UseEarlyDelayDetection() {
   return !field_trial::IsEnabled("WebRTC-Aec3EarlyDelayDetectionKillSwitch");
 }
 
+bool AllowUpdatesDuringPoorExcitation() {
+  return !field_trial::IsEnabled(
+      "WebRTC-Aec3AllowFilterUpdatesDuringPoorExcitationKillSwitch");
+}
+
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
   EchoCanceller3Config adjusted_cfg = config;
@@ -167,6 +172,10 @@ EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
 
   if (!UseEarlyDelayDetection()) {
     adjusted_cfg.delay.delay_selection_thresholds = {25, 25};
+  }
+
+  if (!AllowUpdatesDuringPoorExcitation()) {
+    adjusted_cfg.filter.enable_adaptation_during_poor_excitation = false;
   }
 
   return adjusted_cfg;

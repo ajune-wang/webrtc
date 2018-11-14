@@ -24,8 +24,9 @@ namespace webrtc {
 // Provides functionality for computing the fixed gain for the shadow filter.
 class ShadowFilterUpdateGain {
  public:
-  explicit ShadowFilterUpdateGain(
+  ShadowFilterUpdateGain(
       const EchoCanceller3Config::Filter::ShadowConfiguration& config,
+      bool enable_adaptation_during_poor_excitation,
       size_t config_change_duration_blocks);
 
   // Takes action in the case of a known echo path change.
@@ -57,6 +58,7 @@ class ShadowFilterUpdateGain {
   EchoCanceller3Config::Filter::ShadowConfiguration current_config_;
   EchoCanceller3Config::Filter::ShadowConfiguration target_config_;
   EchoCanceller3Config::Filter::ShadowConfiguration old_target_config_;
+  const bool update_during_poor_excitation_;
   const int config_change_duration_blocks_;
   float one_by_config_change_duration_blocks_;
   // TODO(peah): Check whether this counter should instead be initialized to a

@@ -57,9 +57,13 @@ void RunFilterUpdateTest(int num_blocks_to_process,
   std::array<float, kBlockSize> x_old;
   x_old.fill(0.f);
   ShadowFilterUpdateGain shadow_gain(
-      config.filter.shadow, config.filter.config_change_duration_blocks);
-  MainFilterUpdateGain main_gain(config.filter.main,
-                                 config.filter.config_change_duration_blocks);
+      config.filter.shadow,
+      config.filter.enable_adaptation_during_poor_excitation,
+      config.filter.config_change_duration_blocks);
+  MainFilterUpdateGain main_gain(
+      config.filter.main,
+      config.filter.enable_adaptation_during_poor_excitation,
+      config.filter.config_change_duration_blocks);
   Random random_generator(42U);
   std::vector<std::vector<float>> x(3, std::vector<float>(kBlockSize, 0.f));
   std::vector<float> y(kBlockSize, 0.f);

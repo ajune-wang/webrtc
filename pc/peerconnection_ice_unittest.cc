@@ -978,6 +978,11 @@ class PeerConnectionIceConfigTest : public testing::Test {
         CreateBuiltinVideoDecoderFactory(), nullptr /* audio_mixer */,
         nullptr /* audio_processing */);
   }
+  void TearDown() override {
+    if (pc_) {
+      pc_->Close();
+    }
+  }
   void CreatePeerConnection(const RTCConfiguration& config) {
     std::unique_ptr<cricket::FakePortAllocator> port_allocator(
         new cricket::FakePortAllocator(rtc::Thread::Current(), nullptr));
@@ -987,6 +992,7 @@ class PeerConnectionIceConfigTest : public testing::Test {
                                           nullptr /* cert_generator */,
                                           &observer_));
     EXPECT_TRUE(pc.get());
+    observer_.SetPeerConnectionInterface(pc.get());  // Required.
     pc_ = std::move(pc.get());
   }
 

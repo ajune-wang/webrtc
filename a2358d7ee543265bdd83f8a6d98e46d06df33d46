@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0d1d86b_16ff733a",
+        "filename": "sdk/android/native_unittests/video/videosource_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-14T17:20:09Z",
+      "side": 1,
+      "message": "Why is this false here and true in the other tests? If the point is to test different paths, it should be a separate test.",
+      "range": {
+        "startLine": 45,
+        "startChar": 37,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "a2358d7ee543265bdd83f8a6d98e46d06df33d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

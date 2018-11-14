@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45660c6f_0359c798",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-14T00:22:32Z",
+      "side": 1,
+      "message": "Nit. Can it result in excessive logging if we start detecting overhead dynamically?",
+      "revId": "a7279bbd89c911f0ce59277c6479e076e0ae7f11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df8f7191_c1ef0af3",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-14T00:22:32Z",
+      "side": 1,
+      "message": "Do you need to handle medoa_transport here? GetRTT is called from ChannelSend::ReceivedRTCPPacket, which should not be used on media_transport path, right? With media transport RTT is update in ChannelSend::OnTargetTransferRate.",
+      "revId": "a7279bbd89c911f0ce59277c6479e076e0ae7f11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a7eaca_9bbbd305",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-14T00:22:32Z",
+      "side": 1,
+      "message": "DCHECK(media_transport_)?",
+      "revId": "a7279bbd89c911f0ce59277c6479e076e0ae7f11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

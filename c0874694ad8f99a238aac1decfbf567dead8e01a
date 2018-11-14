@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fda661a_e7645732",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-14T22:13:53Z",
+      "side": 1,
+      "message": "Although we have some concern if 3 is a good number for A11 processor on iPhone. Because they have only 2 high-perf cores. Setting thread number to 3 could mean that one thread will be assign to a low-perf core, dragging down the overall perf.",
+      "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

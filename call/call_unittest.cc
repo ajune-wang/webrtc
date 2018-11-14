@@ -28,13 +28,15 @@
 #include "test/fake_encoder.h"
 #include "test/gtest.h"
 #include "test/mock_audio_decoder_factory.h"
+#include "test/mock_rtp_transport_controller_send.h"
 #include "test/mock_transport.h"
 
+namespace webrtc {
 namespace {
 
 struct CallHelper {
   CallHelper() {
-    webrtc::AudioState::Config audio_state_config;
+    AudioState::Config audio_state_config;
     audio_state_config.audio_mixer =
         new rtc::RefCountedObject<webrtc::test::MockAudioMixer>();
     audio_state_config.audio_processing =
@@ -42,8 +44,10 @@ struct CallHelper {
     audio_state_config.audio_device_module =
         new rtc::RefCountedObject<webrtc::test::MockAudioDeviceModule>();
     webrtc::Call::Config config(&event_log_);
-    config.audio_state = webrtc::AudioState::Create(audio_state_config);
-    call_.reset(webrtc::Call::Create(config));
+    config.audio_state = AudioState::Create(audio_state_config);
+    config.rtp_transport_send =
+        absl::make_unique<MockRtpTransportControllerSend>();
+    call_.reset(Call::Create(std::move(config)));
   }
 
   webrtc::Call* operator->() { return call_.get(); }
@@ -53,8 +57,6 @@ struct CallHelper {
   std::unique_ptr<webrtc::Call> call_;
 };
 }  // namespace
-
-namespace webrtc {
 
 TEST(CallTest, ConstructDestruct) {
   CallHelper call;

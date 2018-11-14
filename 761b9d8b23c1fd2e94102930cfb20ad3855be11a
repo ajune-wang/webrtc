@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "22add3cd_7f7565b7",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T14:53:14Z",
+      "side": 1,
+      "message": "Done. It would be nicer to leave it in config_, and make config_ const, but that would change destruction order, so avoiding htat now.",
+      "parentUuid": "1a8ee862_77cbda61",
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61c67548_8539a574",
         "filename": "call/call_config.h",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "8dc40827_562d0df0",
+        "filename": "call/call_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T14:53:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61c67548_8539a574",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d87b329e_6d21deed",
         "filename": "call/call_config.h",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2018-11-14T14:38:09Z",
       "side": 1,
       "message": "What is this referring to?",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8309c71_e963cc35",
+        "filename": "call/call_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T14:53:14Z",
+      "side": 1,
+      "message": "Call::CreateVideoSendStream passes transport_send_ptr_ as an argument to the new VideoSendStream call, and similarly for Call:CreateAudioSendStream. I\u0027m changing \"explicit\" to \"separate\".",
+      "parentUuid": "d87b329e_6d21deed",
       "range": {
         "startLine": 59,
         "startChar": 38,
@@ -85,6 +151,30 @@
       "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "535a309f_ca39307e",
+        "filename": "pc/peerconnectionfactory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T14:53:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d7cacd2_af6cbace",
+      "range": {
+        "startLine": 498,
+        "startChar": 22,
+        "endLine": 498,
+        "endChar": 25
+      },
+      "revId": "761b9d8b23c1fd2e94102930cfb20ad3855be11a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

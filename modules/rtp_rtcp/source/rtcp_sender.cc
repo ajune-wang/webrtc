@@ -118,14 +118,14 @@ RTCPSender::RTCPSender(
     RtcpPacketTypeCounterObserver* packet_type_counter_observer,
     RtcEventLog* event_log,
     Transport* outgoing_transport,
-    RtcpIntervalConfig interval_config)
+    int report_interval_ms)
     : audio_(audio),
       clock_(clock),
       random_(clock_->TimeInMicroseconds()),
       method_(RtcpMode::kOff),
       event_log_(event_log),
       transport_(outgoing_transport),
-      interval_config_(interval_config),
+      report_interval_ms_(report_interval_ms),
       sending_(false),
       next_time_to_send_rtcp_(0),
       timestamp_offset_(0),
@@ -180,9 +180,8 @@ void RTCPSender::SetRTCPStatus(RtcpMode new_method) {
 
   if (method_ == RtcpMode::kOff && new_method != RtcpMode::kOff) {
     // When switching on, reschedule the next packet
-    int64_t interval_ms = audio_ ? interval_config_.audio_interval_ms
-                                 : interval_config_.video_interval_ms;
-    next_time_to_send_rtcp_ = clock_->TimeInMilliseconds() + (interval_ms / 2);
+    next_time_to_send_rtcp_ =
+        clock_->TimeInMilliseconds() + (report_interval_ms_ / 2);
   }
   method_ = new_method;
 }
@@ -765,8 +764,7 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
     }
 
     // generate next time to send an RTCP report
-    uint32_t minIntervalMs =
-        rtc::dchecked_cast<uint32_t>(interval_config_.audio_interval_ms);
+    uint32_t minIntervalMs = rtc::dchecked_cast<uint32_t>(report_interval_ms_);
 
     if (!audio_) {
       if (sending_) {
@@ -775,10 +773,8 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
         if (send_bitrate_kbit != 0)
           minIntervalMs = 360000 / send_bitrate_kbit;
       }
-      if (minIntervalMs >
-          rtc::dchecked_cast<uint32_t>(interval_config_.video_interval_ms)) {
-        minIntervalMs =
-            rtc::dchecked_cast<uint32_t>(interval_config_.video_interval_ms);
+      if (minIntervalMs > rtc::dchecked_cast<uint32_t>(report_interval_ms_)) {
+        minIntervalMs = rtc::dchecked_cast<uint32_t>(report_interval_ms_);
       }
     }
 
@@ -966,12 +962,8 @@ bool RTCPSender::SendFeedbackPacket(const rtcp::TransportFeedback& packet) {
   return packet.Build(max_packet_size, callback) && !send_failure;
 }
 
-int64_t RTCPSender::RtcpAudioReportInverval() const {
-  return interval_config_.audio_interval_ms;
-}
-
-int64_t RTCPSender::RtcpVideoReportInverval() const {
-  return interval_config_.video_interval_ms;
+int RTCPSender::ReportInvervalMs() const {
+  return report_interval_ms_;
 }
 
 }  // namespace webrtc

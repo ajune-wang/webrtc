@@ -64,7 +64,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
                    configuration.rtcp_packet_type_counter_observer,
                    configuration.event_log,
                    configuration.outgoing_transport,
-                   configuration.rtcp_interval_config),
+                   configuration.rtcp_report_interval_ms),
       rtcp_receiver_(configuration.clock,
                      configuration.receiver_only,
                      configuration.rtcp_packet_type_counter_observer,
@@ -179,7 +179,7 @@ void ModuleRtpRtcpImpl::Process() {
 
     // Verify receiver reports are delivered and the reported sequence number
     // is increasing.
-    int64_t rtcp_interval = RtcpReportInterval();
+    int rtcp_interval = rtcp_sender_.ReportInvervalMs();
     if (rtcp_receiver_.RtcpRrTimeout(rtcp_interval)) {
       RTC_LOG_F(LS_WARNING) << "Timeout: No RTCP RR received.";
     } else if (rtcp_receiver_.RtcpRrSequenceNumberTimeout(rtcp_interval)) {
@@ -857,13 +857,6 @@ bool ModuleRtpRtcpImpl::LastReceivedNTP(
 // Called from RTCPsender.
 std::vector<rtcp::TmmbItem> ModuleRtpRtcpImpl::BoundingSet(bool* tmmbr_owner) {
   return rtcp_receiver_.BoundingSet(tmmbr_owner);
-}
-
-int64_t ModuleRtpRtcpImpl::RtcpReportInterval() {
-  if (audio_)
-    return rtcp_sender_.RtcpAudioReportInverval();
-  else
-    return rtcp_sender_.RtcpVideoReportInverval();
 }
 
 void ModuleRtpRtcpImpl::SetRtcpReceiverSsrcs(uint32_t main_ssrc) {

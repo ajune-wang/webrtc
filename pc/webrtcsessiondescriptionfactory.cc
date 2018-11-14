@@ -328,9 +328,11 @@ void WebRtcSessionDescriptionFactory::InternalCreateOffer(
   }
 
   cricket::SessionDescription* desc(session_desc_factory_.CreateOffer(
-      request.options, pc_->local_description()
-                           ? pc_->local_description()->description()
-                           : nullptr));
+      request.options,
+      pc_->local_description() ? pc_->local_description()->description()
+                               : nullptr,
+      pc_->remote_description() ? pc_->remote_description()->description()
+                                : nullptr));
   // RFC 3264
   // When issuing an offer that modifies the session,
   // the "o=" line of the new SDP MUST be identical to that in the

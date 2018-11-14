@@ -161,7 +161,8 @@ class MediaSessionDescriptionFactory {
 
   SessionDescription* CreateOffer(
       const MediaSessionOptions& options,
-      const SessionDescription* current_description) const;
+      const SessionDescription* current_local_description,
+      const SessionDescription* current_remote_description) const;
   SessionDescription* CreateAnswer(
       const SessionDescription* offer,
       const MediaSessionOptions& options,
@@ -211,7 +212,8 @@ class MediaSessionDescriptionFactory {
   bool AddAudioContentForOffer(
       const MediaDescriptionOptions& media_description_options,
       const MediaSessionOptions& session_options,
-      const ContentInfo* current_content,
+      const ContentInfo* current_local_content,
+      const ContentInfo* current_remote_content,
       const SessionDescription* current_description,
       const RtpHeaderExtensions& audio_rtp_extensions,
       const AudioCodecs& audio_codecs,
@@ -222,7 +224,8 @@ class MediaSessionDescriptionFactory {
   bool AddVideoContentForOffer(
       const MediaDescriptionOptions& media_description_options,
       const MediaSessionOptions& session_options,
-      const ContentInfo* current_content,
+      const ContentInfo* current_local_content,
+      const ContentInfo* current_remote_content,
       const SessionDescription* current_description,
       const RtpHeaderExtensions& video_rtp_extensions,
       const VideoCodecs& video_codecs,

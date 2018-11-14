@@ -33,6 +33,7 @@
 #include "rtc_base/stringutils.h"
 #include "rtc_base/third_party/base64/base64.h"
 
+namespace cricket {
 namespace {
 
 using webrtc::RtpTransceiverDirection;
@@ -49,9 +50,20 @@ void GetSupportedSdesCryptoSuiteNames(
     names->push_back(rtc::SrtpCryptoSuiteToName(crypto));
   }
 }
-}  // namespace
 
-namespace cricket {
+// Logic to decide if an m= section can be recycled. This means that the new
+// m= section is not rejected, but the old local or remote m= section is
+// rejected. |current_local_content| and |remote_local_content| refer to the m=
+// section of the current local and remote descriptions respectively. We need to
+// check both the old local and remote because either could be the most current
+// from the latest negotation.
+bool IsMediaSectionBeingRecycled(const ContentInfo* current_local_content,
+                                 const ContentInfo* current_remote_content) {
+  return (current_local_content && current_local_content->rejected) ||
+         (current_remote_content && current_remote_content->rejected);
+}
+
+}  // namespace
 
 // RTP Profile names
 // http://www.iana.org/assignments/rtp-parameters/rtp-parameters.xml
@@ -1264,18 +1276,19 @@ void MediaSessionDescriptionFactory::set_audio_codecs(
 
 SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
     const MediaSessionOptions& session_options,
-    const SessionDescription* current_description) const {
+    const SessionDescription* current_local_description,
+    const SessionDescription* current_remote_description) const {
   std::unique_ptr<SessionDescription> offer(new SessionDescription());
 
   IceCredentialsIterator ice_credentials(
       session_options.pooled_ice_credentials);
   StreamParamsVec current_streams;
-  GetCurrentStreamParams(current_description, &current_streams);
+  GetCurrentStreamParams(current_local_description, &current_streams);
 
   AudioCodecs offer_audio_codecs;
   VideoCodecs offer_video_codecs;
   DataCodecs offer_data_codecs;
-  GetCodecsForOffer(current_description, &offer_audio_codecs,
+  GetCodecsForOffer(current_local_description, &offer_audio_codecs,
                     &offer_video_codecs, &offer_data_codecs);
 
   if (!session_options.vad_enabled) {
@@ -1287,49 +1300,63 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
 
   RtpHeaderExtensions audio_rtp_extensions;
   RtpHeaderExtensions video_rtp_extensions;
-  GetRtpHdrExtsToOffer(session_options, current_description,
+  GetRtpHdrExtsToOffer(session_options, current_local_description,
                        &audio_rtp_extensions, &video_rtp_extensions);
 
   // Must have options for each existing section.
-  if (current_description) {
-    RTC_DCHECK(current_description->contents().size() <=
+  if (current_local_description) {
+    RTC_DCHECK(current_local_description->contents().size() <=
                session_options.media_description_options.size());
   }
 
   // Iterate through the media description options, matching with existing media
-  // descriptions in |current_description|.
+  // descriptions in |current_local_description|.
   size_t msection_index = 0;
   for (const MediaDescriptionOptions& media_description_options :
        session_options.media_description_options) {
-    const ContentInfo* current_content = nullptr;
-    if (current_description &&
-        msection_index < current_description->contents().size()) {
-      current_content = &current_description->contents()[msection_index];
+    const ContentInfo* current_local_content = nullptr;
+    const ContentInfo* current_remote_content = nullptr;
+    if (current_local_description &&
+        msection_index < current_local_description->contents().size()) {
+      current_local_content =
+          &current_local_description->contents()[msection_index];
+      if (current_remote_description &&
+          msection_index < current_remote_description->contents().size()) {
+        current_remote_content =
+            &current_remote_description->contents()[msection_index];
+      }
       // Media type must match unless this media section is being recycled.
-      RTC_DCHECK(current_content->rejected ||
-                 IsMediaContentOfType(current_content,
-                                      media_description_options.type));
+      if (!IsMediaSectionBeingRecycled(current_local_content,
+                                       current_remote_content)) {
+        RTC_DCHECK(IsMediaContentOfType(current_local_content,
+                                        media_description_options.type));
+      }
     }
     switch (media_description_options.type) {
       case MEDIA_TYPE_AUDIO:
         if (!AddAudioContentForOffer(
-                media_description_options, session_options, current_content,
-                current_description, audio_rtp_extensions, offer_audio_codecs,
-                &current_streams, offer.get(), &ice_credentials)) {
+                media_description_options, session_options,
+                current_local_content, current_remote_content,
+                current_local_description, audio_rtp_extensions,
+                offer_audio_codecs, &current_streams, offer.get(),
+                &ice_credentials)) {
           return nullptr;
         }
         break;
       case MEDIA_TYPE_VIDEO:
         if (!AddVideoContentForOffer(
-                media_description_options, session_options, current_content,
-                current_description, video_rtp_extensions, offer_video_codecs,
-                &current_streams, offer.get(), &ice_credentials)) {
+                media_description_options, session_options,
+                current_local_content, current_remote_content,
+                current_local_description, video_rtp_extensions,
+                offer_video_codecs, &current_streams, offer.get(),
+                &ice_credentials)) {
           return nullptr;
         }
         break;
       case MEDIA_TYPE_DATA:
         if (!AddDataContentForOffer(media_description_options, session_options,
-                                    current_content, current_description,
+                                    current_local_content,
+                                    current_local_description,
                                     offer_data_codecs, &current_streams,
                                     offer.get(), &ice_credentials)) {
           return nullptr;
@@ -1845,7 +1872,8 @@ bool MediaSessionDescriptionFactory::AddTransportAnswer(
 bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
     const MediaDescriptionOptions& media_description_options,
     const MediaSessionOptions& session_options,
-    const ContentInfo* current_content,
+    const ContentInfo* current_local_content,
+    const ContentInfo* current_remote_content,
     const SessionDescription* current_description,
     const RtpHeaderExtensions& audio_rtp_extensions,
     const AudioCodecs& audio_codecs,
@@ -1859,10 +1887,12 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
 
   AudioCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
-    RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
+  if (current_local_content &&
+      !IsMediaSectionBeingRecycled(current_local_content,
+                                   current_remote_content)) {
+    RTC_CHECK(IsMediaContentOfType(current_local_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
-        current_content->media_description()->as_audio();
+        current_local_content->media_description()->as_audio();
     for (const AudioCodec& codec : acd->codecs()) {
       if (FindMatchingCodec<AudioCodec>(acd->codecs(), audio_codecs, codec,
                                         nullptr)) {
@@ -1884,8 +1914,9 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
   }
 
   cricket::SecurePolicy sdes_policy =
-      IsDtlsActive(current_content, current_description) ? cricket::SEC_DISABLED
-                                                         : secure();
+      IsDtlsActive(current_local_content, current_description)
+          ? cricket::SEC_DISABLED
+          : secure();
 
   std::unique_ptr<AudioContentDescription> audio(new AudioContentDescription());
   std::vector<std::string> crypto_suites;
@@ -1893,7 +1924,7 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
                                         &crypto_suites);
   if (!CreateMediaContentOffer(
           media_description_options.sender_options, session_options,
-          filtered_codecs, sdes_policy, GetCryptos(current_content),
+          filtered_codecs, sdes_policy, GetCryptos(current_local_content),
           crypto_suites, audio_rtp_extensions, current_streams, audio.get())) {
     return false;
   }
@@ -1917,7 +1948,8 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
 bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
     const MediaDescriptionOptions& media_description_options,
     const MediaSessionOptions& session_options,
-    const ContentInfo* current_content,
+    const ContentInfo* current_local_content,
+    const ContentInfo* current_remote_content,
     const SessionDescription* current_description,
     const RtpHeaderExtensions& video_rtp_extensions,
     const VideoCodecs& video_codecs,
@@ -1925,8 +1957,9 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
     SessionDescription* desc,
     IceCredentialsIterator* ice_credentials) const {
   cricket::SecurePolicy sdes_policy =
-      IsDtlsActive(current_content, current_description) ? cricket::SEC_DISABLED
-                                                         : secure();
+      IsDtlsActive(current_local_content, current_description)
+          ? cricket::SEC_DISABLED
+          : secure();
 
   std::unique_ptr<VideoContentDescription> video(new VideoContentDescription());
   std::vector<std::string> crypto_suites;
@@ -1935,10 +1968,12 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
 
   VideoCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
-    RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
+  if (current_local_content &&
+      !IsMediaSectionBeingRecycled(current_local_content,
+                                   current_remote_content)) {
+    RTC_CHECK(IsMediaContentOfType(current_local_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
-        current_content->media_description()->as_video();
+        current_local_content->media_description()->as_video();
     for (const VideoCodec& codec : vcd->codecs()) {
       if (FindMatchingCodec<VideoCodec>(vcd->codecs(), video_codecs, codec,
                                         nullptr)) {
@@ -1961,7 +1996,7 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
 
   if (!CreateMediaContentOffer(
           media_description_options.sender_options, session_options,
-          filtered_codecs, sdes_policy, GetCryptos(current_content),
+          filtered_codecs, sdes_policy, GetCryptos(current_local_content),
           crypto_suites, video_rtp_extensions, current_streams, video.get())) {
     return false;
   }

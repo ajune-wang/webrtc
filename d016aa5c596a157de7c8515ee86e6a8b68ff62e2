@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00fd8448_4478a757",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T07:40:38Z",
+      "side": 1,
+      "message": "Could perhaps be simplified to something like\n\n  if (audio_) {\n    minIntervalMs \u003d report_interval_ms_;\n  } else {\n    minIntervalMs \u003d max(report_interval_ms_, ... );\n  }\n\nAnd can we use int64_t throughout, without casting to uint32_t? It looks like next_time_to_send_rtcp_, the member ultimately updated, is an int64_t.",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 5
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68d7c74_d43f103e",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-14T07:40:38Z",
+      "side": 1,
+      "message": "Do we need this getter at all? It\u0027s a construction time const, and method used in only one place, ModuleRtpRtcpImpl::Process. \n\nRtpRtcp could pass the config value when constructing RtcpReceiver, and delete arguments to RtcpReceiver::RtcpRrTimeout and RtcpReceiver::RtcpRrSequenceNumberTimeout.\n\n(And method name is mis-spelled).",
+      "range": {
+        "startLine": 965,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 1
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

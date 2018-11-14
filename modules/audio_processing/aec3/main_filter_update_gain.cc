@@ -22,9 +22,15 @@
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "rtc_base/atomicops.h"
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
+
+bool EnableUpdatesDuringPoorExcitation() {
+  return !field_trial::IsEnabled(
+      "WebRTC-Aec3EnableShadowFilterUpdatesDuringPoorExcitationKillSwitch");
+}
 
 constexpr float kHErrorInitial = 10000.f;
 constexpr int kPoorExcitationCounterInitial = 1000;
@@ -38,6 +44,7 @@ MainFilterUpdateGain::MainFilterUpdateGain(
     size_t config_change_duration_blocks)
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
+      update_during_poor_excitation_(EnableUpdatesDuringPoorExcitation()),
       config_change_duration_blocks_(
           static_cast<int>(config_change_duration_blocks)),
       poor_excitation_counter_(kPoorExcitationCounterInitial) {
@@ -86,12 +93,14 @@ void MainFilterUpdateGain::Compute(
 
   UpdateCurrentConfig();
 
-  if (render_signal_analyzer.PoorSignalExcitation()) {
+  if (!update_during_poor_excitation_ &&
+      render_signal_analyzer.PoorSignalExcitation()) {
     poor_excitation_counter_ = 0;
   }
 
   // Do not update the filter if the render is not sufficiently excited.
-  if (++poor_excitation_counter_ < size_partitions ||
+  if ((++poor_excitation_counter_ < size_partitions &&
+       !update_during_poor_excitation_) ||
       saturated_capture_signal || call_counter_ <= size_partitions) {
     G->re.fill(0.f);
     G->im.fill(0.f);

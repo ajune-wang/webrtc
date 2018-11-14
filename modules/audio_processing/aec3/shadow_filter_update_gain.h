@@ -57,6 +57,7 @@ class ShadowFilterUpdateGain {
   EchoCanceller3Config::Filter::ShadowConfiguration current_config_;
   EchoCanceller3Config::Filter::ShadowConfiguration target_config_;
   EchoCanceller3Config::Filter::ShadowConfiguration old_target_config_;
+  const bool update_during_poor_excitation_;
   const int config_change_duration_blocks_;
   float one_by_config_change_duration_blocks_;
   // TODO(peah): Check whether this counter should instead be initialized to a

@@ -63,6 +63,7 @@ class MainFilterUpdateGain {
  private:
   static int instance_count_;
   std::unique_ptr<ApmDataDumper> data_dumper_;
+  const bool update_during_poor_excitation_;
   const int config_change_duration_blocks_;
   float one_by_config_change_duration_blocks_;
   EchoCanceller3Config::Filter::MainConfiguration current_config_;

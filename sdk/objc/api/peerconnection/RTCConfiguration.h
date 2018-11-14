@@ -201,6 +201,16 @@ RTC_OBJC_EXPORT
  */
 @property(nonatomic, nullable) RTCCryptoOptions *cryptoOptions;
 
+/**
+ * Time interval between audio RTCP reports.
+ */
+@property(nonatomic, assign) int64_t rtcpAudioReportIntervalMs;
+
+/**
+ * Time interval between video RTCP reports.
+ */
+@property(nonatomic, assign) int64_t rtcpVideoReportIntervalMs;
+
 - (instancetype)init;
 
 @end

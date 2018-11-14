@@ -70,6 +70,30 @@
       "revId": "5256bd965e9b7adb44a9f6e9e21ef500f4596ca2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c97d5f07_a3b4565b",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-11-14T17:49:11Z",
+      "side": 1,
+      "message": "Understood! Once we refactor JSEP not to create RTP/DTLS with media transport, we can probably add DCHECK.",
+      "parentUuid": "ba6d22a1_6567bdee",
+      "range": {
+        "startLine": 753,
+        "startChar": 4,
+        "endLine": 753,
+        "endChar": 71
+      },
+      "revId": "5256bd965e9b7adb44a9f6e9e21ef500f4596ca2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

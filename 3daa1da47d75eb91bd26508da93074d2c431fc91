@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae3fa6b6_76597011",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 7072
+      },
+      "writtenOn": "2018-11-15T08:54:37Z",
+      "side": 1,
+      "message": "The optional inclusion happens in optional.h.\nOn C++17 mode, ABSL_HAVE_STD_OPTIONAL is on, and abseil::optional will be replaced with std::optional, and optional.h inclusion is skipped.\nhttps://cs.chromium.org/chromium/src/third_party/abseil-cpp/absl/types/optional.h?q\u003dfile:optional%5C.h\u0026sq\u003dpackage:chromium\u0026dr\u0026l\u003d63\n\nThere may be other similar cases, but most of cases I hit recently were this pattern.\nhttps://webrtc-review.googlesource.com/q/owner:tzik%2540chromium.org",
+      "parentUuid": "98c7fa3e_c6233f72",
+      "range": {
+        "startLine": 925,
+        "startChar": 4,
+        "endLine": 925,
+        "endChar": 26
+      },
+      "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ba95110_3e4ffeed",
         "filename": "api/proxy.cc",
         "patchSetId": 3

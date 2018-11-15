@@ -104,6 +104,24 @@
       "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3158cab0_7c4eaa5c",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T20:43:28Z",
+      "side": 1,
+      "message": "That works for me, but it looks like the cast I proposed also works - in other places in this file (e.g. line 4645). So may still want to use that to keep the code simpler. Also, it may be surprising to someone adding tests to discover that channel_ is not actually tied to engine_.",
+      "parentUuid": "e0942f1c_6aa874bc",
+      "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

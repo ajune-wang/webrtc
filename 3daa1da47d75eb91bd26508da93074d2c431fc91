@@ -45,6 +45,30 @@
       "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57ac2bf_46068f95",
+        "filename": "api/proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-15T08:35:08Z",
+      "side": 1,
+      "message": "Hmm, it needs to be a member, but it doesn\u0027t need to be a pointer. See https://webrtc-review.googlesource.com/c/src/+/111080",
+      "parentUuid": "5ba95110_3e4ffeed",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

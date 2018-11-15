@@ -52,6 +52,24 @@
       "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af8c4f86_272f7518",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-15T18:19:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "639478d6_96ae35db",
+      "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

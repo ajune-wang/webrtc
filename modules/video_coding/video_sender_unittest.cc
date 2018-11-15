@@ -186,7 +186,8 @@ class TestVideoSender : public ::testing::Test {
 
   void AddFrame() {
     assert(generator_.get());
-    sender_->AddVideoFrame(*generator_->NextFrame(), NULL);
+    sender_->AddVideoFrame(*generator_->NextFrame(), nullptr,
+                           encoder_->GetEncoderInfo());
   }
 
   SimulatedClock clock_;

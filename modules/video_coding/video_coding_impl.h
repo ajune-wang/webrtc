@@ -93,7 +93,8 @@ class VideoSender {
       VideoBitrateAllocationObserver* bitrate_updated_callback);
 
   int32_t AddVideoFrame(const VideoFrame& videoFrame,
-                        const CodecSpecificInfo* codecSpecificInfo);
+                        const CodecSpecificInfo* codecSpecificInfo,
+                        absl::optional<VideoEncoder::EncoderInfo> encoder_info);
 
   int32_t IntraFrameRequest(size_t stream_index);
   int32_t EnableFrameDropper(bool enable);

@@ -22,6 +22,29 @@
       "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ba95110_3e4ffeed",
+        "filename": "api/proxy.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-15T08:26:08Z",
+      "side": 1,
+      "message": "I don\u0027t see why this needs to be a pointer, or a member variable. Let me try a different cl to turn it into a local variable without make_unique.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 41
+      },
+      "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

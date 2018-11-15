@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5d1adbdf_b25c9ef4",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-15T17:24:21Z",
+      "side": 1,
+      "message": "Removed this method, making the log message accurate again.",
+      "parentUuid": "05b1e344_3a05bc32",
+      "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f758e639_67ce6664",
         "filename": "media/engine/webrtcvideoengine.h",
         "patchSetId": 10
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a393378_5795240c",
+        "filename": "media/engine/webrtcvideoengine.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-15T17:24:21Z",
+      "side": 1,
+      "message": "I made it use WebRtcVideoChannel directly, which makes sense, since it\u0027s a test specifically of the WebRtcVideoChannel implementation, rather than of the VideoMediaChannel interface.",
+      "parentUuid": "f758e639_67ce6664",
+      "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49e47ab2_b345ad7c",
         "filename": "media/engine/webrtcvideoengine_unittest.cc",
         "patchSetId": 10
@@ -50,6 +86,24 @@
       "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0942f1c_6aa874bc",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-15T17:24:21Z",
+      "side": 1,
+      "message": "Can\u0027t (semantically if nothing else) static cast to a sub class. But I replaced this with creating the channel here instead. I think that makes more sense as it\u0027s WebRtcVideoChannelTest and not MediaEngineTest.",
+      "parentUuid": "49e47ab2_b345ad7c",
+      "revId": "01d51bfb5880d08e5d5d52da1f82373b105466a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

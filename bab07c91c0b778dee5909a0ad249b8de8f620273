@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "c770b39e_f453f5d3",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-15T08:54:43Z",
+      "side": 1,
+      "message": "please use int instead\n(doesn\u0027t look like this variable needs to be exactly 32 bits)",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "bab07c91c0b778dee5909a0ad249b8de8f620273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5219859d_4fc64445",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-15T08:54:43Z",
+      "side": 1,
+      "message": "ditto: please use int",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 15
+      },
+      "revId": "bab07c91c0b778dee5909a0ad249b8de8f620273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dc9bd1f_44f79ff3",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 2
@@ -41,6 +87,29 @@
         "startChar": 4,
         "endLine": 781,
         "endChar": 12
+      },
+      "revId": "bab07c91c0b778dee5909a0ad249b8de8f620273",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a0fed0e_f3a0e377",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-15T08:54:43Z",
+      "side": 1,
+      "message": "ditto: use plain int",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 20
       },
       "revId": "bab07c91c0b778dee5909a0ad249b8de8f620273",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -34,6 +34,24 @@
       "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "639478d6_96ae35db",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-15T18:18:57Z",
+      "side": 1,
+      "message": "I cannot find a way to count the high-perf cores programmatically. One solution we can try for iOS is to just cap the thread number to 2. \n\nBut let\u0027s submit this first, we will run some experiment on that later.",
+      "parentUuid": "6df333e9_174a2ded",
+      "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

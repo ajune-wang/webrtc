@@ -36,6 +36,48 @@
 
 namespace webrtc {
 
+std::vector<SdpVideoFormat> SupportedVP9Codecs() {
+#ifndef RTC_DISABLE_VP9
+  // TODO(emircan): Add Profile 2 support after fixing browser_tests.
+  std::vector<SdpVideoFormat> supported_formats{SdpVideoFormat(
+      cricket::kVp9CodecName,
+      {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile0)}})};
+  return supported_formats;
+#else
+  return std::vector<SdpVideoFormat>();
+#endif
+}
+
+std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
+#ifndef RTC_DISABLE_VP9
+  return absl::make_unique<VP9EncoderImpl>(cricket::VideoCodec());
+#else
+  RTC_NOTREACHED();
+  return nullptr;
+#endif
+}
+
+std::unique_ptr<VP9Encoder> VP9Encoder::Create(
+    const cricket::VideoCodec& codec) {
+#ifndef RTC_DISABLE_VP9
+  return absl::make_unique<VP9EncoderImpl>(codec);
+#else
+  RTC_NOTREACHED();
+  return nullptr;
+#endif
+}
+
+std::unique_ptr<VP9Decoder> VP9Decoder::Create() {
+#ifndef RTC_DISABLE_VP9
+  return absl::make_unique<VP9DecoderImpl>();
+#else
+  RTC_NOTREACHED();
+  return nullptr;
+#endif
+}
+
+#ifndef RTC_DISABLE_VP9
+
 namespace {
 const char kVp9TrustedRateControllerFieldTrial[] =
     "WebRTC-LibvpxVp9TrustedRateController";
@@ -123,23 +165,6 @@ ColorSpace ExtractVP9ColorSpace(vpx_color_space_t space_t,
   return ColorSpace(primaries, transfer, matrix, range);
 }
 }  // namespace
-
-std::vector<SdpVideoFormat> SupportedVP9Codecs() {
-  // TODO(emircan): Add Profile 2 support after fixing browser_tests.
-  std::vector<SdpVideoFormat> supported_formats{SdpVideoFormat(
-      cricket::kVp9CodecName,
-      {{kVP9FmtpProfileId, VP9ProfileToString(VP9Profile::kProfile0)}})};
-  return supported_formats;
-}
-
-std::unique_ptr<VP9Encoder> VP9Encoder::Create() {
-  return absl::make_unique<VP9EncoderImpl>(cricket::VideoCodec());
-}
-
-std::unique_ptr<VP9Encoder> VP9Encoder::Create(
-    const cricket::VideoCodec& codec) {
-  return absl::make_unique<VP9EncoderImpl>(codec);
-}
 
 void VP9EncoderImpl::EncoderOutputCodedPacketCallback(vpx_codec_cx_pkt* pkt,
                                                       void* user_data) {
@@ -1260,10 +1285,6 @@ VideoEncoder::EncoderInfo VP9EncoderImpl::GetEncoderInfo() const {
   return info;
 }
 
-std::unique_ptr<VP9Decoder> VP9Decoder::Create() {
-  return absl::make_unique<VP9DecoderImpl>();
-}
-
 VP9DecoderImpl::VP9DecoderImpl()
     : decode_complete_callback_(nullptr),
       inited_(false),
@@ -1456,5 +1477,7 @@ int VP9DecoderImpl::Release() {
 const char* VP9DecoderImpl::ImplementationName() const {
   return "libvpx";
 }
+
+#endif  // RTC_DISABLE_VP9
 
 }  // namespace webrtc

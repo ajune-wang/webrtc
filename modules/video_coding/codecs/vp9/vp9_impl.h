@@ -26,6 +26,8 @@
 #include "vpx/vpx_decoder.h"
 #include "vpx/vpx_encoder.h"
 
+#ifndef RTC_DISABLE_VP9
+
 namespace webrtc {
 
 class VP9EncoderImpl : public VP9Encoder {
@@ -178,5 +180,7 @@ class VP9DecoderImpl : public VP9Decoder {
   bool key_frame_required_;
 };
 }  // namespace webrtc
+
+#endif  // RTC_DISABLE_VP9
 
 #endif  // MODULES_VIDEO_CODING_CODECS_VP9_VP9_IMPL_H_

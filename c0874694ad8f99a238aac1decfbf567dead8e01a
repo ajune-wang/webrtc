@@ -16,6 +16,24 @@
       "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df333e9_174a2ded",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-15T08:04:07Z",
+      "side": 1,
+      "message": "If that\u0027s a problem, I think that should be addressed in the code that produces the core count; it would make sense to make it count high-perf cores only.",
+      "parentUuid": "1fda661a_e7645732",
+      "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

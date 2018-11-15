@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98c7fa3e_c6233f72",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-15T08:20:35Z",
+      "side": 1,
+      "message": "Thanks for doing this!\n\nIs absl/memory/memory.h the only affected header? Where does the optional inclusion happen?",
+      "range": {
+        "startLine": 925,
+        "startChar": 4,
+        "endLine": 925,
+        "endChar": 26
+      },
+      "revId": "3daa1da47d75eb91bd26508da93074d2c431fc91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

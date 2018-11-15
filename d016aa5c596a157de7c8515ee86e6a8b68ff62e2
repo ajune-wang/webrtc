@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "c277a468_30931b13",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-15T08:18:34Z",
+      "side": 1,
+      "message": "If you don\u0027t need 64 bits, I think plain int is preferable over int32_t. See https://google.github.io/styleguide/cppguide.html#Integer_Types",
+      "parentUuid": "0d3b3b89_40d39d24",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 5
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c68d7c74_d43f103e",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 1

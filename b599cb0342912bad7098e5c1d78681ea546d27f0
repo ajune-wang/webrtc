@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a48bab92_1fb7139e",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-15T16:27:08Z",
+      "side": 1,
+      "message": "I think these are useful. Channel send is only created once per connection, which doesn\u0027t excessive, but I changed them to DLOG in order to not increase the binary size.",
+      "parentUuid": "b461f976_cc21cf8f",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e8e3d08_e703d0ba",
         "filename": "pc/channel.cc",
         "patchSetId": 19
@@ -33,6 +51,24 @@
       "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d59c2052_34dbe872",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-15T16:27:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e8e3d08_e703d0ba",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "afa46d97_d28c74ed",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-15T16:27:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87788d10_ef203302",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbcb30fb_fa73a1ff",
         "filename": "pc/channel.cc",
         "patchSetId": 19
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "1c8ba011_5c1e4c2f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-15T16:27:08Z",
+      "side": 1,
+      "message": "Replaced with one log.",
+      "parentUuid": "dbcb30fb_fa73a1ff",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06162564_8b005531",
         "filename": "pc/channel.cc",
         "patchSetId": 19
@@ -84,6 +156,24 @@
       "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0f4a4af_dedd110e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-15T16:27:08Z",
+      "side": 1,
+      "message": "Not sure which \u0027lower layers\u0027 do you mean, but I removed the rest of the logs.",
+      "parentUuid": "06162564_8b005531",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "75574aeb_9a8de344",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-15T19:22:38Z",
+      "side": 1,
+      "message": "This should be changed so it doesn\u0027t say new/old, which is confusing because the parameters only include current.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "c698ffb5f2b9af75d915e542c426e511596c2e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "581f532d_a22d0c7d",
         "filename": "pc/mediasession.cc",
         "patchSetId": 2
@@ -13,6 +36,52 @@
       "writtenOn": "2018-11-15T06:10:52Z",
       "side": 1,
       "message": "Naming nit: This should be \"IsMediaSectionRecyclable\", since it\u0027s a statement about the current state of the media section, not about what happens next.\n\nIf I understand things rightly, if the local browser creates an offer after stopping the transceiver, the local will be \"rejected\" as soon as SLD is called; remote won\u0027t be rejected until SRD is called on the answer - but after that, both will be \"rejected\" until recycle happens.\n\nIf a remote offer contains an offer with a port zero m-line, the corresponding remote content will be \"rejected\" when SRD(offer) is applied, and the local content will be \"rejected\" when SLD(answer) is applied (you can\u0027t refuse a rejection).\n\nWith incoming offers, if a local browser stops a transceiver after SRD(offer), the local description will be \"rejected\" as soon as SLD(answer) is applied, but the remote description will remain unrejected until the next offer/answer cycle (is that right?)\n\nThe upshot of all these musings is that \"rejected\" is going to be inconsistent while not in a stable signalling state, and we should probably document that somewhere.",
+      "revId": "c698ffb5f2b9af75d915e542c426e511596c2e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2093f424_8fe01cac",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-15T19:22:38Z",
+      "side": 1,
+      "message": "Is it worth adding the following line before you do caller-\u003eSLD?\nEXPECT_EQ(first_mid, caller_first_transceiver-\u003emid());\n\nIt would guarantee that it gets dissociated after setting the new offer. Currently it would pass if the transceiver dissociates after the rejected answer is set with SRD.\n\nIf this is being tested somewhere else then I don\u0027t know if it\u0027s necessary. If you think it is you could do the same for the callee too.",
+      "range": {
+        "startLine": 850,
+        "startChar": 34,
+        "endLine": 850,
+        "endChar": 69
+      },
+      "revId": "c698ffb5f2b9af75d915e542c426e511596c2e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6c409c_9b683369",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 886,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-15T19:22:38Z",
+      "side": 1,
+      "message": "As discussed offline, your tests for only remote or local being rejected test 3/4 cases:\nJust the local rejected:\n-(tested) recycle with SRD(offer)\n-(tested) recycle with SLD(offer)\n\nJust the remote rejected:\n-(tested) recycle with SLD(offer)\n-(not tested!) recycle with SRD(offer)\n\n\nI think you can test this case in a similar setup as RemoteOnlyRejected(), but the callee sends the new offer:\ncallee-\u003eSetRemoteDescription(caller-\u003eCreateOfferAndSetAsLocal());\ncallee_first_transceiver-\u003eStop();\ncaller-\u003eSetRemoteDescription(callee-\u003eCreateAnswerAndSetAsLocal());\n\n// Now callee has only local rejected, and caller has only remote rejected.\nauto callee_second_transceiver \u003d callee-\u003eAddTransceiver(second_type_);\n// The caller setting the new remote offer should recycle the m section properly.\ncaller-\u003eSetRemoteDescription(callee-\u003eCreateOfferAndSetAsLocal());",
+      "range": {
+        "startLine": 885,
+        "startChar": 0,
+        "endLine": 886,
+        "endChar": 0
+      },
       "revId": "c698ffb5f2b9af75d915e542c426e511596c2e01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

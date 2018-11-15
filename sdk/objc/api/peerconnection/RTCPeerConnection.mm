@@ -181,8 +181,11 @@ void PeerConnectionDelegateAdapter::OnIceConnectionChange(
 
 void PeerConnectionDelegateAdapter::OnConnectionChange(
     PeerConnectionInterface::PeerConnectionState new_state) {
-  RTCPeerConnectionState state = [RTCPeerConnection connectionStateForNativeState:new_state];
-  [peer_connection_.delegate peerConnection:peer_connection_ didChangeConnectionState:state];
+  if ([peer_connection_.delegate
+          respondsToSelector:@selector(peerConnection:didChangeConnectionState:)]) {
+    RTCPeerConnectionState state = [RTCPeerConnection connectionStateForNativeState:new_state];
+    [peer_connection_.delegate peerConnection:peer_connection_ didChangeConnectionState:state];
+  }
 }
 
 void PeerConnectionDelegateAdapter::OnIceGatheringChange(

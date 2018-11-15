@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6828caed_9c81ebb6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-15T08:00:35Z",
+      "side": 1,
+      "message": "Done. I moved this in the constructor of `ModuleRtpRtcpImpl`",
+      "parentUuid": "2b9dfb42_c547f573",
+      "range": {
+        "startLine": 98,
+        "startChar": 39,
+        "endLine": 99,
+        "endChar": 0
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00fd8448_4478a757",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0d3b3b89_40d39d24",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-15T08:00:35Z",
+      "side": 1,
+      "message": "Good point, I don\u0027t think we need int64_t. Looks like int32_t should be enough and result in minimal amount of casts.",
+      "parentUuid": "00fd8448_4478a757",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 779,
+        "endChar": 5
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c68d7c74_d43f103e",
         "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d582533f_cd402f94",
+        "filename": "modules/rtp_rtcp/source/rtcp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-15T08:00:35Z",
+      "side": 1,
+      "message": "Done.\n\nProvide interval to the RtcpReceiver constructor. Because RtcpReceiver does not have the is `audio_` flag, so the default value will be computed in RtpRtcpModule",
+      "parentUuid": "c68d7c74_d43f103e",
+      "range": {
+        "startLine": 965,
+        "startChar": 0,
+        "endLine": 967,
+        "endChar": 1
+      },
+      "revId": "d016aa5c596a157de7c8515ee86e6a8b68ff62e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

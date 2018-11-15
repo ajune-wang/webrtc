@@ -108,12 +108,17 @@ public final class CryptoOptions {
   }
 
   public static class Builder {
-    private boolean enableGcmCryptoSuites = false;
-    private boolean enableAes128Sha1_32CryptoCipher = false;
-    private boolean enableEncryptedRtpHeaderExtensions = false;
-    private boolean requireFrameEncryption = false;
+    private boolean enableGcmCryptoSuites;
+    private boolean enableAes128Sha1_32CryptoCipher;
+    private boolean enableEncryptedRtpHeaderExtensions;
+    private boolean requireFrameEncryption;
 
-    private Builder() {}
+    private Builder() {
+      this.enableGcmCryptoSuites = false;
+      this.enableAes128Sha1_32CryptoCipher = false;
+      this.enableEncryptedRtpHeaderExtensions = false;
+      this.requireFrameEncryption = false;
+    }
 
     public Builder setEnableGcmCryptoSuites(boolean enableGcmCryptoSuites) {
       this.enableGcmCryptoSuites = enableGcmCryptoSuites;

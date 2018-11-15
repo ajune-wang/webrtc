@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b83204_15fb569f",
+        "filename": "modules/video_coding/video_coding_impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-11-15T15:30:30Z",
+      "side": 1,
+      "message": "Include optional.h?",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 38
+      },
+      "revId": "9d758f33efdf8378100bfcfc21e533a6714f9ac9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "581f532d_a22d0c7d",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-11-15T06:10:52Z",
+      "side": 1,
+      "message": "Naming nit: This should be \"IsMediaSectionRecyclable\", since it\u0027s a statement about the current state of the media section, not about what happens next.\n\nIf I understand things rightly, if the local browser creates an offer after stopping the transceiver, the local will be \"rejected\" as soon as SLD is called; remote won\u0027t be rejected until SRD is called on the answer - but after that, both will be \"rejected\" until recycle happens.\n\nIf a remote offer contains an offer with a port zero m-line, the corresponding remote content will be \"rejected\" when SRD(offer) is applied, and the local content will be \"rejected\" when SLD(answer) is applied (you can\u0027t refuse a rejection).\n\nWith incoming offers, if a local browser stops a transceiver after SRD(offer), the local description will be \"rejected\" as soon as SLD(answer) is applied, but the remote description will remain unrejected until the next offer/answer cycle (is that right?)\n\nThe upshot of all these musings is that \"rejected\" is going to be inconsistent while not in a stable signalling state, and we should probably document that somewhere.",
+      "revId": "c698ffb5f2b9af75d915e542c426e511596c2e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -30,6 +30,7 @@ std::unique_ptr<SendSideCongestionControllerInterface> CreateController(
     Clock* clock,
     rtc::TaskQueue* task_queue,
     webrtc::RtcEventLog* event_log,
+    FieldTrialInterface* field_trials,
     PacedSender* pacer,
     const BitrateConstraints& bitrate_config,
     bool task_queue_controller,
@@ -37,9 +38,9 @@ std::unique_ptr<SendSideCongestionControllerInterface> CreateController(
   if (task_queue_controller) {
     RTC_LOG(LS_INFO) << "Using TaskQueue based SSCC";
     return absl::make_unique<webrtc::webrtc_cc::SendSideCongestionController>(
-        clock, task_queue, event_log, pacer, bitrate_config.start_bitrate_bps,
-        bitrate_config.min_bitrate_bps, bitrate_config.max_bitrate_bps,
-        controller_factory);
+        clock, task_queue, event_log, field_trials, pacer,
+        bitrate_config.start_bitrate_bps, bitrate_config.min_bitrate_bps,
+        bitrate_config.max_bitrate_bps, controller_factory);
   }
   RTC_LOG(LS_INFO) << "Using Legacy SSCC";
   auto cc = absl::make_unique<webrtc::SendSideCongestionController>(
@@ -55,6 +56,7 @@ std::unique_ptr<SendSideCongestionControllerInterface> CreateController(
 RtpTransportControllerSend::RtpTransportControllerSend(
     Clock* clock,
     webrtc::RtcEventLog* event_log,
+    FieldTrialInterface* field_trials,
     NetworkControllerFactoryInterface* controller_factory,
     const BitrateConstraints& bitrate_config)
     : clock_(clock),
@@ -66,7 +68,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       task_queue_("rtp_send_controller") {
   // Created after task_queue to be able to post to the task queue internally.
   send_side_cc_ = CreateController(
-      clock, &task_queue_, event_log, &pacer_, bitrate_config,
+      clock, &task_queue_, event_log, field_trials, &pacer_, bitrate_config,
       !field_trial::IsDisabled(kTaskQueueExperiment), controller_factory);
 
   process_thread_->RegisterModule(&pacer_, RTC_FROM_HERE);

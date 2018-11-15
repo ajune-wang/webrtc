@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 
+#include "api/config/field_trial_default.h"
 #include "call/call.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/audio_device/include/test_audio_device.h"
@@ -88,6 +89,8 @@ class CallClient : public NetworkReceiverInterface {
   void AddExtensions(std::vector<RtpExtension> extensions);
 
   Clock* clock_;
+  std::unique_ptr<FieldTrialInterface> field_trials_;
+
   LoggingNetworkControllerFactory network_controller_factory_;
   CallClientFakeAudio fake_audio_setup_;
   std::unique_ptr<Call> call_;

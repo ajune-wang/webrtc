@@ -11,6 +11,7 @@
 #include <memory>
 #include <string>
 
+#include "api/config/field_trial_default.h"
 #include "call/rtp_transport_controller_send.h"
 #include "call/rtp_video_sender.h"
 #include "modules/video_coding/fec_controller_default.h"
@@ -88,7 +89,11 @@ class RtpVideoSenderTestFixture {
       : clock_(0),
         config_(&transport_),
         send_delay_stats_(&clock_),
-        transport_controller_(&clock_, &event_log_, nullptr, bitrate_config_),
+        transport_controller_(&clock_,
+                              &event_log_,
+                              &field_trials_,
+                              nullptr,
+                              bitrate_config_),
         process_thread_(ProcessThread::Create("test_thread")),
         call_stats_(&clock_, process_thread_.get()),
         stats_proxy_(&clock_,
@@ -117,6 +122,7 @@ class RtpVideoSenderTestFixture {
   NiceMock<MockTransport> transport_;
   NiceMock<MockCongestionObserver> congestion_observer_;
   NiceMock<MockRtcpIntraFrameObserver> encoder_feedback_;
+  FieldTrialDefaultImplementation field_trials_;
   SimulatedClock clock_;
   RtcEventLogNullImpl event_log_;
   VideoSendStream::Config config_;

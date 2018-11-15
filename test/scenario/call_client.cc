@@ -11,6 +11,8 @@
 
 #include <utility>
 
+#include "absl/memory/memory.h"
+#include "api/config/field_trial_default.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/congestion_controller/bbr/test/bbr_printer.h"
@@ -41,9 +43,11 @@ CallClientFakeAudio InitAudio() {
 }
 
 Call* CreateCall(CallClientConfig config,
+                 FieldTrialInterface* field_trials,
                  LoggingNetworkControllerFactory* network_controller_factory_,
                  rtc::scoped_refptr<AudioState> audio_state) {
-  CallConfig call_config(network_controller_factory_->GetEventLog());
+  CallConfig call_config(network_controller_factory_->GetEventLog(),
+                         field_trials);
   call_config.bitrate_config.max_bitrate_bps =
       config.transport.rates.max_rate.bps_or(-1);
   call_config.bitrate_config.min_bitrate_bps =
@@ -140,14 +144,15 @@ CallClient::CallClient(Clock* clock,
                        std::string log_filename,
                        CallClientConfig config)
     : clock_(clock),
+      field_trials_(absl::make_unique<FieldTrialDefaultImplementation>()),
       network_controller_factory_(log_filename, config.transport),
       fake_audio_setup_(InitAudio()),
       call_(CreateCall(config,
+                       field_trials_.get(),
                        &network_controller_factory_,
                        fake_audio_setup_.audio_state)),
       transport_(clock_, call_.get()),
-      header_parser_(RtpHeaderParser::Create()) {
-}  // namespace test
+      header_parser_(RtpHeaderParser::Create()) {}  // namespace test
 
 CallClient::~CallClient() {
   delete header_parser_;

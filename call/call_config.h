@@ -11,6 +11,7 @@
 #define CALL_CALL_CONFIG_H_
 
 #include "api/bitrate_constraints.h"
+#include "api/config/field_trial.h"
 #include "api/fec_controller.h"
 #include "api/rtcerror.h"
 #include "api/transport/network_control.h"
@@ -22,7 +23,8 @@ class AudioProcessing;
 class RtcEventLog;
 
 struct CallConfig {
-  explicit CallConfig(RtcEventLog* event_log);
+  explicit CallConfig(RtcEventLog* event_log,
+                      FieldTrialInterface* field_trials);
   CallConfig(const CallConfig&);
   ~CallConfig();
 
@@ -43,6 +45,8 @@ struct CallConfig {
   // RtcEventLog to use for this call. Required.
   // Use webrtc::RtcEventLog::CreateNull() for a null implementation.
   RtcEventLog* event_log = nullptr;
+
+  FieldTrialInterface* field_trials = nullptr;
 
   // FecController to use for this call.
   FecControllerFactoryInterface* fec_controller_factory = nullptr;

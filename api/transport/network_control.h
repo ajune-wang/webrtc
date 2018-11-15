@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <memory>
 
+#include "api/config/field_trial.h"
 #include "api/transport/network_types.h"
 
 namespace webrtc {
@@ -36,6 +37,8 @@ struct NetworkControllerConfig {
   // Initial stream specific configuration, these are changed at any later time
   // by calls to OnStreamsConfig.
   StreamsConfig stream_based_config;
+
+  FieldTrialInterface* field_trials = nullptr;
 };
 
 // NetworkControllerInterface is implemented by network controllers. A network

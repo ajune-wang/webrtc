@@ -14,7 +14,9 @@
 
 namespace webrtc {
 
-CallConfig::CallConfig(RtcEventLog* event_log) : event_log(event_log) {
+CallConfig::CallConfig(RtcEventLog* event_log,
+                       FieldTrialInterface* field_trials)
+    : event_log(event_log), field_trials(field_trials) {
   RTC_DCHECK(event_log);
 }
 

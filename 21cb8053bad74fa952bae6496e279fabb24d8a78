@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31eafc7a_10dc5db3",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2018-11-15T16:04:56Z",
+      "side": 1,
+      "message": "This check is the only thing changed from the last review. The original CL caused a runtime error if didChangeConnectionState wasn\u0027t implemented.",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 84
+      },
+      "revId": "21cb8053bad74fa952bae6496e279fabb24d8a78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

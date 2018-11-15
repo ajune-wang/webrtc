@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b461f976_cc21cf8f",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T10:28:58Z",
+      "side": 1,
+      "message": "Are these log messages that useful? Consider DLOG instead?",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8e3d08_e703d0ba",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T10:28:58Z",
+      "side": 1,
+      "message": "This log doesn\u0027t seem all that useful. If you need to know in client logs whether media_transport_ is use or not, a single log in Init_w should be enough.",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87788d10_ef203302",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T10:28:58Z",
+      "side": 1,
+      "message": "Remove",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbcb30fb_fa73a1ff",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T10:28:58Z",
+      "side": 1,
+      "message": "Remove these log lines. If we know media_transport_ is !\u003d nullptr we can figure this out without bloating the binary.",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06162564_8b005531",
+        "filename": "pc/channel.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-15T10:28:58Z",
+      "side": 1,
+      "message": "This looks useful though, but then we don\u0027t need any in the lower layers.",
+      "revId": "b599cb0342912bad7098e5c1d78681ea546d27f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

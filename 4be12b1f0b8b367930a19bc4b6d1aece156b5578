@@ -1,0 +1,271 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "babf2773_4dffa5e3",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "We usually only *add* stuff conditionally. Can you re-write so that this is added if !\u003d \"winuwp\"?",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef01d98_696496a1",
+        "filename": "rtc_base/synchronization/rw_lock_win.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "It looks like this variable is only used in one function. Consider making it a function-local static instead.\n\nHmm. Looking at that function, it\u0027s unclear to me why it needs to be static at all...",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20c676a_198277b7",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "No C style casts, please. Use int64_t{foo} if the compiler will let you, or rtc::dchecked_cast\u003cint64_t\u003e(foo) if you know that the value will fit but can\u0027t prove it to the compiler. Use static_cast only in cases where the value can legitimately wrap.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84bc089f_d61c345b",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "It may be beneficial to cache the return value of Singleton() in a local variable; it initializes a function-local static, and that means grabbing mutexes and whatnot: https://godbolt.org/z/xJHMER\n\n(Although to be fair, it looks like the hot path is lock free.)",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "891114d3_002ac45e",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "See comment on casts a bit higher up.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec647a10_e10aca89",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "C style cast.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bcd811d_924e33b5",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "s",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 23
+      },
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1326be91_f5181c19",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "C style cast.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "413f0b49_5c4f15aa",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "C style casts galore.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e2805d6_6083af77",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 125,
+        "startChar": 9,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d313e99a_17baacb3",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "Why zero the member variables? The constructor fills them all in.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeda7a2d_384ee4b7",
+        "filename": "rtc_base/win/windows_version.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "Hoist this one out of the #ifdef? Also, it doesn\u0027t need to be initialized, right?",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9674cd39_84b381dc",
+        "filename": "rtc_base/win/windows_version.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "Please don\u0027t put preprocessor directives in the middle of an if statement like this. Prefer to duplicate the return statement on line 420 instead.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82513f4b_1427d974",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "See my first comment about casts. Here, you probably want int64_t{} for the constants and rtc::dchecked_cast when converting from int64_t to long.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c313b2eb_061bebf9",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-15T14:41:32Z",
+      "side": 1,
+      "message": "Again, prefer to conditionally add rather than conditionally remove things.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

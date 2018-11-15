@@ -22,6 +22,30 @@
       "revId": "a2358d7ee543265bdd83f8a6d98e46d06df33d46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f12aaeec_43909e0d",
+        "filename": "sdk/android/native_unittests/video/videosource_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-11-15T11:07:51Z",
+      "side": 1,
+      "message": "Thanks for spotting, it\u0027s just a mistake from copy pasting.\n\nSince we have this nice test infra in place, I added a new test that tests that timestamps are preserved when setting align_timestamps to false.",
+      "parentUuid": "a0d1d86b_16ff733a",
+      "range": {
+        "startLine": 45,
+        "startChar": 37,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "a2358d7ee543265bdd83f8a6d98e46d06df33d46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -10,6 +10,8 @@
 
 #include "api/proxy.h"
 
+#include "absl/memory/memory.h"
+
 namespace webrtc {
 namespace internal {
 

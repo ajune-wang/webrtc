@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "99db4b12_ef58ff58",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6278
+      },
+      "writtenOn": "2018-11-16T00:45:03Z",
+      "side": 1,
+      "message": "I found that VideoSendStreamPeer is the only thing that is in the test namespace. If I move kRtcpIntervalMs into that. We will have to put test:: before all the kRtcpIntervalMs.",
+      "parentUuid": "c92ec75d_7d2155d0",
+      "revId": "b046f2e88bdc253cf18d711d8397312580f17504",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b2cb992_13bef574",
         "filename": "video/video_send_stream_tests.cc",
         "patchSetId": 3

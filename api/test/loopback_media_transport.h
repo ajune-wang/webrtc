@@ -52,11 +52,6 @@ class WrapperMediaTransport : public MediaTransportInterface {
     wrapped_->SetReceiveVideoSink(sink);
   }
 
-  void SetTargetTransferRateObserver(
-      webrtc::TargetTransferRateObserver* observer) override {
-    wrapped_->SetTargetTransferRateObserver(observer);
-  }
-
   void SetMediaTransportStateCallback(
       MediaTransportStateCallback* callback) override {
     wrapped_->SetMediaTransportStateCallback(callback);
@@ -165,9 +160,6 @@ class MediaTransportPair {
     }
 
     void SetReceiveVideoSink(MediaTransportVideoSinkInterface* sink) override {}
-
-    void SetTargetTransferRateObserver(
-        webrtc::TargetTransferRateObserver* observer) override {}
 
     void SetMediaTransportStateCallback(
         MediaTransportStateCallback* callback) override {

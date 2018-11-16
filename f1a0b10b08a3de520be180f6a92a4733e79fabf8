@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "524688c0_94f7f8c6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T17:27:32Z",
+      "side": 1,
+      "message": "yeah, it looks like call.cc calls it from worker thread. I initially added a sequence checker instead of a DCHECK.\n\n\nvoid ChannelSend::OnReceivedRtt(int64_t rtt_ms) {\n  RTC_DCHECK_CALLED_SEQUENTIALLY(\u0026on_received_rtt_sequence_checker_);\n\n\nvoid ChannelSend::SetBitRate(int bitrate_bps, int64_t probing_interval_ms) {\n  RTC_DCHECK_CALLED_SEQUENTIALLY(\u0026on_received_rtt_sequence_checker_);\n\n\nbut ... it started firing. It looks like there is a race on these two.\n\nLuckily, ModifyEncoder() is thread safe.\n\n\nSo I didn\u0027t add any checks.",
+      "parentUuid": "46938b02_8ef3fd9c",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d3dce3d_5ebca473",
         "filename": "audio/channel_send.h",
         "patchSetId": 22
@@ -107,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "b14ea970_3b43f0c6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T17:27:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16f3d6dd_24e7dfef",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "310b55f7_c6d2786b",
         "filename": "pc/channel.cc",
         "patchSetId": 22
@@ -121,6 +157,24 @@
       "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c32e410_d0e2088d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T17:27:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "310b55f7_c6d2786b",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

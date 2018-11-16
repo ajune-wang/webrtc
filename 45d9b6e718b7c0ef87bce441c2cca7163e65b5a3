@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0a12a49_4a20a836",
+        "filename": "pc/channel.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-16T17:54:28Z",
+      "side": 1,
+      "message": "nit: newline above",
+      "revId": "45d9b6e718b7c0ef87bce441c2cca7163e65b5a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab95605_63edc9b2",
+        "filename": "pc/channel.h",
+        "patchSetId": 25
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-16T17:54:28Z",
+      "side": 1,
+      "message": "Add comment:\n// MediaTransportNetworkChangeCallback override.",
+      "revId": "45d9b6e718b7c0ef87bce441c2cca7163e65b5a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

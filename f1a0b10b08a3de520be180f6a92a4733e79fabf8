@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df42d54e_31bd9226",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-16T16:11:14Z",
+      "side": 1,
+      "message": "on which thread are we being called here? can we add a thread check to document?",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3dce3d_5ebca473",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-16T16:11:14Z",
+      "side": 1,
+      "message": "Is the end goal to create an RTP version of media transport? Special casing throughout the codebase doesn\u0027t sound appealing...\n\nOh, there\u0027s a comment in the .cc which explains that. :) Perhaps change this comment as well?",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f3d6dd_24e7dfef",
+        "filename": "pc/channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-16T16:11:14Z",
+      "side": 1,
+      "message": "like this!",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "310b55f7_c6d2786b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-16T16:11:14Z",
+      "side": 1,
+      "message": "nit: new line",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

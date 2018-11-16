@@ -500,12 +500,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
   _rtpRtcpModule.reset(RtpRtcp::CreateRtpRtcp(configuration));
   _rtpRtcpModule->SetSendingMediaStatus(false);
 
-  channel_state_.Reset();
-
   _moduleProcessThreadPtr->RegisterModule(_rtpRtcpModule.get(), RTC_FROM_HERE);
-
-  int error = audio_coding_->InitializeReceiver();
-  RTC_DCHECK_EQ(0, error);
 
   // Ensure that RTCP is enabled by default for the created channel.
   // Note that, the module will keep generating RTCP until it is explicitly
@@ -515,7 +510,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
   // RTCP is enabled by default.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
 
-  error = audio_coding_->RegisterTransportCallback(this);
+  int error = audio_coding_->RegisterTransportCallback(this);
   RTC_DCHECK_EQ(0, error);
 }
 
@@ -529,13 +524,14 @@ ChannelSend::~ChannelSend() {
 
   if (_moduleProcessThreadPtr)
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
-
-  RTC_DCHECK(!channel_state_.Get().sending);
 }
 
 void ChannelSend::StartSend() {
-  RTC_DCHECK(!channel_state_.Get().sending);
-  channel_state_.SetSending(true);
+  {
+    rtc::CritScope lock(&sending_lock_);
+    RTC_DCHECK(!sending_);
+    sending_ = true;
+  }
 
   // Resume the previous sequence number which was reset by StopSend(). This
   // needs to be done before |sending| is set to true on the RTP/RTCP module.
@@ -553,10 +549,13 @@ void ChannelSend::StartSend() {
 }
 
 void ChannelSend::StopSend() {
-  if (!channel_state_.Get().sending) {
-    return;
+  {
+    rtc::CritScope lock(&sending_lock_);
+    if (!sending_) {
+      return;
+    }
+    sending_ = false;
   }
-  channel_state_.SetSending(false);
 
   // Post a task to the encoder thread which sets an event when the task is
   // executed. We know that no more encoding tasks will be added to the task
@@ -731,8 +730,11 @@ bool ChannelSend::SendTelephoneEventOutband(int event, int duration_ms) {
   RTC_DCHECK_GE(255, event);
   RTC_DCHECK_LE(0, duration_ms);
   RTC_DCHECK_GE(65535, duration_ms);
-  if (!Sending()) {
-    return false;
+  {
+      rtc::CritScope lock(&sending_lock_);
+      if (!sending_) {
+        return false;
+      }
   }
   if (_rtpRtcpModule->SendTelephoneEventOutband(
           event, duration_ms, kTelephoneEventAttenuationdB) != 0) {
@@ -763,7 +765,10 @@ bool ChannelSend::SetSendTelephoneEventPayloadType(int payload_type,
 }
 
 void ChannelSend::SetLocalSSRC(unsigned int ssrc) {
-  RTC_DCHECK(!channel_state_.Get().sending);
+  {
+    rtc::CritScope lock(&sending_lock_);
+    RTC_DCHECK(!sending_);
+  }
 
   if (media_transport_) {
     rtc::CritScope cs(&media_transport_lock_);

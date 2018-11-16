@@ -16,6 +16,24 @@
       "revId": "6d75fa4f1d954b0bf122052c88cf16cad7568904",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aea490c6_0f569922",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-16T15:39:07Z",
+      "side": 1,
+      "message": "Some NO-BREAK SPACE characters that just happened to be auto formatted away.",
+      "parentUuid": "a0b6d9dc_c67eae3b",
+      "revId": "6d75fa4f1d954b0bf122052c88cf16cad7568904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7ae7f36_3a429a5c",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-16T10:22:35Z",
+      "side": 0,
+      "message": "I\u0027m a bit confused about how the construction works. The relevant initialization comes from\n\n  WebRtcRTPHeader webrtc_rtp_header \u003d {};\n\nwhich (I think) zero initializes members and member\u0027s members that don\u0027t provide any other default construction.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 53
+      },
+      "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

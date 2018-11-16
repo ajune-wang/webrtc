@@ -18,6 +18,7 @@
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/aec_dump.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/audio_processing/render_queue_item_verifier.h"
 #include "modules/audio_processing/rms_level.h"
 #include "rtc_base/criticalsection.h"
@@ -264,6 +265,8 @@ class AudioProcessingImpl : public AudioProcessing {
   // Capture-side exclusive methods possibly running APM in a multi-threaded
   // manner that are called with the render lock already acquired.
   int ProcessCaptureStreamLocked() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
+  void UpdateEchoStatistics(AudioProcessingStats* stats) const
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void MaybeUpdateHistograms() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
 
   // Render-side exclusive methods possibly running APM in a multi-threaded
@@ -390,6 +393,7 @@ class AudioProcessingImpl : public AudioProcessing {
     bool echo_path_gain_change;
     int prev_analog_mic_level;
     float prev_pre_amp_gain;
+    AudioProcessingStats stats;
   } capture_ RTC_GUARDED_BY(crit_capture_);
 
   struct ApmCaptureNonLockedState {

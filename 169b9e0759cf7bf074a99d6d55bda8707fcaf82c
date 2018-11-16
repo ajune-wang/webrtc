@@ -16,6 +16,24 @@
       "revId": "169b9e0759cf7bf074a99d6d55bda8707fcaf82c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594ef9f4_8731e1a4",
+        "filename": "pc/jseptransportcontroller.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T22:14:08Z",
+      "side": 1,
+      "message": "or std::move(media_transport_result).value().... which is probably best of the three. but it also doesn\u0027t matter which one is used here ;)",
+      "parentUuid": "d6831a9b_16e5b2d8",
+      "revId": "169b9e0759cf7bf074a99d6d55bda8707fcaf82c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

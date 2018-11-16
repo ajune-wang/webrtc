@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6251e98_25512a58",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1022,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-16T16:55:12Z",
+      "side": 1,
+      "message": "Maybe the same should be done for incoming streams?",
+      "range": {
+        "startLine": 1022,
+        "startChar": 0,
+        "endLine": 1022,
+        "endChar": 56
+      },
+      "revId": "243a5177d5d78d95b26f853ad322a55f79ad1677",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

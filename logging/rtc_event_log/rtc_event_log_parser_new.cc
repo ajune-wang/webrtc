@@ -1030,10 +1030,12 @@ void ParsedRtcEventLogNew::StoreParsedLegacyEvent(const rtclog::Event& event) {
       std::vector<rtclog::StreamConfig> configs = GetVideoSendConfig(event);
       video_send_configs_.emplace_back(GetTimestamp(event), configs);
       for (const auto& config : configs) {
-        outgoing_rtp_extensions_maps_[config.local_ssrc] =
-            RtpHeaderExtensionMap(config.rtp_extensions);
-        outgoing_rtp_extensions_maps_[config.rtx_ssrc] =
-            RtpHeaderExtensionMap(config.rtp_extensions);
+        if (!config.rtp_extensions.empty()) {
+          outgoing_rtp_extensions_maps_[config.local_ssrc] =
+              RtpHeaderExtensionMap(config.rtp_extensions);
+          outgoing_rtp_extensions_maps_[config.rtx_ssrc] =
+              RtpHeaderExtensionMap(config.rtp_extensions);
+        }
         outgoing_video_ssrcs_.insert(config.local_ssrc);
         outgoing_video_ssrcs_.insert(config.rtx_ssrc);
         outgoing_rtx_ssrcs_.insert(config.rtx_ssrc);
@@ -1053,8 +1055,10 @@ void ParsedRtcEventLogNew::StoreParsedLegacyEvent(const rtclog::Event& event) {
     case rtclog::Event::AUDIO_SENDER_CONFIG_EVENT: {
       rtclog::StreamConfig config = GetAudioSendConfig(event);
       audio_send_configs_.emplace_back(GetTimestamp(event), config);
-      outgoing_rtp_extensions_maps_[config.local_ssrc] =
-          RtpHeaderExtensionMap(config.rtp_extensions);
+      if (!config.rtp_extensions.empty()) {
+        outgoing_rtp_extensions_maps_[config.local_ssrc] =
+            RtpHeaderExtensionMap(config.rtp_extensions);
+      }
       outgoing_audio_ssrcs_.insert(config.local_ssrc);
       break;
     }

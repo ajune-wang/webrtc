@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "078367be_d19769e8",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-16T16:02:38Z",
+      "side": 1,
+      "message": "I\u0027d rather take this at the top of the function, that way there won\u0027t be any disagreement between GetBitRate() and other ways of getting the rate (say, from the encoder itself).",
+      "revId": "550db2e4e815b5eb41c87efe4cb89a5e51bfb344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

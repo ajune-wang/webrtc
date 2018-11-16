@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0b6d9dc_c67eae3b",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1720,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-16T15:34:09Z",
+      "side": 1,
+      "message": "What are these diffs about?",
+      "revId": "6d75fa4f1d954b0bf122052c88cf16cad7568904",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

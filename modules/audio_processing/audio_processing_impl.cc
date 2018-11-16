@@ -1587,10 +1587,10 @@ void AudioProcessingImpl::DetachPlayoutAudioGenerator() {
 
 AudioProcessingStats AudioProcessingImpl::GetStatistics(
     bool has_remote_tracks) const {
-  AudioProcessingStats stats;
+  rtc::CritScope cs_capture(&crit_capture_);
+  AudioProcessingStats stats = capture_.stats;
   if (has_remote_tracks) {
     EchoCancellationImpl::Metrics metrics;
-    rtc::CritScope cs_capture(&crit_capture_);
     if (private_submodules_->echo_controller) {
       auto ec_metrics = private_submodules_->echo_controller->GetMetrics();
       stats.echo_return_loss = ec_metrics.echo_return_loss;

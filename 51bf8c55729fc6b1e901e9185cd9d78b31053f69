@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34f3528_60127e8a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-16T13:25:23Z",
+      "side": 1,
+      "message": "I am wondering if I should land a CL that adds this target (empty) in order to start depending on it from Chromium. So when webrtc::CreatePeerConnectionFactory will be moved here it will magically work. WDYT?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d51edb6_fd7a283d",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-16T13:25:23Z",
+      "side": 1,
+      "message": "This code was kept in a different build target to avoid to pull in video codecs, this is why I am creating a different target from libjingle_peerconnection_api.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19980a1b_08628ab0",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-16T13:25:23Z",
+      "side": 1,
+      "message": "To avoid to leak private headers I am using forward declarations. Is this a good idea?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

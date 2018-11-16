@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e123da42_3da1b52b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-16T14:48:40Z",
+      "side": 0,
+      "message": "Don\u0027t we need to #include the new file here, so that users who #include this file and expect to get CreatePeerConnectionFactory() won\u0027t break?",
+      "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

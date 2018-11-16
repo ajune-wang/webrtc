@@ -25,6 +25,47 @@
     },
     {
       "key": {
+        "uuid": "c7ae2e4a_e6e1a7b1",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-16T14:48:40Z",
+      "side": 1,
+      "message": "Sure. That sort of tactic is legit.",
+      "parentUuid": "c34f3528_60127e8a",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad805dc8_d2218534",
+        "filename": "api/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-16T14:48:40Z",
+      "side": 1,
+      "message": "This one should move to api/... (Not in this CL though.)",
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d51edb6_fd7a283d",
         "filename": "api/create_peerconnection_factory.cc",
         "patchSetId": 4
@@ -59,6 +100,30 @@
       "writtenOn": "2018-11-16T13:25:23Z",
       "side": 1,
       "message": "To avoid to leak private headers I am using forward declarations. Is this a good idea?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 65
+      },
+      "revId": "51bf8c55729fc6b1e901e9185cd9d78b31053f69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07de7535_f424e718",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-16T14:48:40Z",
+      "side": 1,
+      "message": "I\u0027d say yes. Forward declaring things that you own is OK, provided the advantages outweigh the extra maintenance burden. Which it should in this case.",
+      "parentUuid": "19980a1b_08628ab0",
       "range": {
         "startLine": 22,
         "startChar": 0,

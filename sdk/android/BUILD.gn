@@ -118,7 +118,7 @@ if (is_android) {
       ":media_jni",
       ":peerconnection_jni",
       ":video_jni",
-      "../../pc:create_pc_factory",
+      "../../api:create_peerconnection_factory",
     ]
   }
 

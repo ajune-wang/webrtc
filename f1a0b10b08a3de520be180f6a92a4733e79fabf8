@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a9c6cbe9_45f83ed6",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T16:45:46Z",
+      "side": 1,
+      "message": "Good question. We are called on the network thread.\n\nI didn\u0027t add the check because channel_send.cc does not have a reference to the network thread... I believe ReceivedRTCPPacket is also called on the network thread.\n\nBut I am confused, the comment in AudioSendStream mentions that it is called on the worker thread, but should be on network thread, and the check verifies that it\u0027s a worker thread.\n\nSo which one should it be?\n\n\u0027bool AudioSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {\n  // TODO(solenberg): Tests call this function on a network thread, libjingle\n  // calls on the worker thread. We should move towards always using a network\n  // thread. Then this check can be enabled.\n  // RTC_DCHECK(!worker_thread_checker_.CalledOnValidThread());",
+      "parentUuid": "df42d54e_31bd9226",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d3dce3d_5ebca473",
         "filename": "audio/channel_send.h",
         "patchSetId": 22
@@ -33,6 +51,24 @@
       "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80d64696_6767aadc",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-16T16:45:46Z",
+      "side": 1,
+      "message": "There is a plan for that. Updated the comment here as well.",
+      "parentUuid": "6d3dce3d_5ebca473",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

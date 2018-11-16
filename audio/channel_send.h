@@ -74,40 +74,6 @@ class TransportFeedbackProxy;
 class TransportSequenceNumberProxy;
 class VoERtcpObserver;
 
-// Helper class to simplify locking scheme for members that are accessed from
-// multiple threads.
-// Example: a member can be set on thread T1 and read by an internal audio
-// thread T2. Accessing the member via this class ensures that we are
-// safe and also avoid TSan v2 warnings.
-class ChannelSendState {
- public:
-  struct State {
-    bool sending = false;
-  };
-
-  ChannelSendState() {}
-  virtual ~ChannelSendState() {}
-
-  void Reset() {
-    rtc::CritScope lock(&lock_);
-    state_ = State();
-  }
-
-  State Get() const {
-    rtc::CritScope lock(&lock_);
-    return state_;
-  }
-
-  void SetSending(bool enable) {
-    rtc::CritScope lock(&lock_);
-    state_.sending = enable;
-  }
-
- private:
-  rtc::CriticalSection lock_;
-  State state_;
-};
-
 class ChannelSend
     : public Transport,
       public AudioPacketizationCallback,  // receive encoded packets from the
@@ -127,15 +93,12 @@ class ChannelSend
               const webrtc::CryptoOptions& crypto_options,
               bool extmap_allow_mixed,
               int rtcp_report_interval_ms);
-
-  virtual ~ChannelSend();
+  ~ChannelSend() override;
 
   // Send using this encoder, with this payload type.
   bool SetEncoder(int payload_type, std::unique_ptr<AudioEncoder> encoder);
   void ModifyEncoder(
       rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)> modifier);
-
-  // API methods
 
   void StartSend();
   void StopSend();
@@ -146,7 +109,6 @@ class ChannelSend
 
   // Network
   void RegisterTransport(Transport* transport);
-
   bool ReceivedRTCPPacket(const uint8_t* data, size_t length);
 
   // Muting, Volume and Level.
@@ -165,7 +127,6 @@ class ChannelSend
 
   // RTP+RTCP
   void SetLocalSSRC(uint32_t ssrc);
-
   void SetMid(const std::string& mid, int extension_id);
   void SetExtmapAllowMixed(bool extmap_allow_mixed);
   void SetSendAudioLevelIndicationStatus(bool enable, int id);
@@ -175,7 +136,6 @@ class ChannelSend
       RtpTransportControllerSendInterface* transport,
       RtcpBandwidthObserver* bandwidth_observer);
   void ResetSenderCongestionControlObjects();
-  void SetRTCPStatus(bool enable);
   void SetRTCP_CNAME(absl::string_view c_name);
   std::vector<ReportBlock> GetRemoteRTCPReportBlocks() const;
   CallSendStatistics GetRTCPStatistics() const;
@@ -192,7 +152,6 @@ class ChannelSend
   // packet.
   void ProcessAndEncodeAudio(std::unique_ptr<AudioFrame> audio_frame);
 
- public:
   void SetTransportOverhead(size_t transport_overhead_per_packet);
 
   // The existence of this function alongside OnUplinkPacketLossRate is
@@ -212,9 +171,6 @@ class ChannelSend
  private:
   class ProcessAndEncodeAudioTask;
 
-  void Init();
-  void Terminate();
-
   // From AudioPacketizationCallback in the ACM
   int32_t SendData(FrameType frameType,
                    uint8_t payloadType,
@@ -228,10 +184,6 @@ class ChannelSend
                size_t len,
                const PacketOptions& packet_options) override;
   bool SendRtcp(const uint8_t* data, size_t len) override;
-
-  int PreferredSampleRate() const;
-
-  bool Sending() const { return channel_state_.Get().sending; }
 
   // From OverheadObserver in the RTP/RTCP module
   void OnOverheadChanged(size_t overhead_bytes_per_packet) override;
@@ -270,7 +222,8 @@ class ChannelSend
   rtc::CriticalSection _callbackCritSect;
   rtc::CriticalSection volume_settings_critsect_;
 
-  ChannelSendState channel_state_;
+  rtc::CriticalSection sending_lock_;
+  bool sending_ RTC_GUARDED_BY(sending_lock_) = false;
 
   RtcEventLog* const event_log_;
 

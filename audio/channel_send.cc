@@ -442,12 +442,6 @@ bool ChannelSend::SendRtcp(const uint8_t* data, size_t len) {
   return true;
 }
 
-int ChannelSend::PreferredSampleRate() const {
-  // Return the bigger of playout and receive frequency in the ACM.
-  return std::max(audio_coding_->ReceiveFrequency(),
-                  audio_coding_->PlayoutFrequency());
-}
-
 ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
                          ProcessThread* module_process_thread,
                          MediaTransportInterface* media_transport,
@@ -505,25 +499,8 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
 
   _rtpRtcpModule.reset(RtpRtcp::CreateRtpRtcp(configuration));
   _rtpRtcpModule->SetSendingMediaStatus(false);
-  Init();
-}
 
-ChannelSend::~ChannelSend() {
-  Terminate();
-  RTC_DCHECK(!channel_state_.Get().sending);
-}
-
-void ChannelSend::Init() {
-  channel_state_.Reset();
-
-  // --- Add modules to process thread (for periodic schedulation)
   _moduleProcessThreadPtr->RegisterModule(_rtpRtcpModule.get(), RTC_FROM_HERE);
-
-  // --- ACM initialization
-  int error = audio_coding_->InitializeReceiver();
-  RTC_DCHECK_EQ(0, error);
-
-  // --- RTP/RTCP module initialization
 
   // Ensure that RTCP is enabled by default for the created channel.
   // Note that, the module will keep generating RTCP until it is explicitly
@@ -533,34 +510,28 @@ void ChannelSend::Init() {
   // RTCP is enabled by default.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
 
-  // --- Register all permanent callbacks
-  error = audio_coding_->RegisterTransportCallback(this);
+  int error = audio_coding_->RegisterTransportCallback(this);
   RTC_DCHECK_EQ(0, error);
 }
 
-void ChannelSend::Terminate() {
+ChannelSend::~ChannelSend() {
   RTC_DCHECK(construction_thread_.CalledOnValidThread());
-  // Must be called on the same thread as Init().
 
   StopSend();
 
-  // The order to safely shutdown modules in a channel is:
-  // 1. De-register callbacks in modules
-  // 2. De-register modules in process thread
-  // 3. Destroy modules
   int error = audio_coding_->RegisterTransportCallback(NULL);
   RTC_DCHECK_EQ(0, error);
 
-  // De-register modules in process thread
   if (_moduleProcessThreadPtr)
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
-
-  // End of modules shutdown
 }
 
 void ChannelSend::StartSend() {
-  RTC_DCHECK(!channel_state_.Get().sending);
-  channel_state_.SetSending(true);
+  {
+    rtc::CritScope lock(&sending_lock_);
+    RTC_DCHECK(!sending_);
+    sending_ = true;
+  }
 
   // Resume the previous sequence number which was reset by StopSend(). This
   // needs to be done before |sending| is set to true on the RTP/RTCP module.
@@ -578,10 +549,13 @@ void ChannelSend::StartSend() {
 }
 
 void ChannelSend::StopSend() {
-  if (!channel_state_.Get().sending) {
-    return;
+  {
+    rtc::CritScope lock(&sending_lock_);
+    if (!sending_) {
+      return;
+    }
+    sending_ = false;
   }
-  channel_state_.SetSending(false);
 
   // Post a task to the encoder thread which sets an event when the task is
   // executed. We know that no more encoding tasks will be added to the task
@@ -756,8 +730,11 @@ bool ChannelSend::SendTelephoneEventOutband(int event, int duration_ms) {
   RTC_DCHECK_GE(255, event);
   RTC_DCHECK_LE(0, duration_ms);
   RTC_DCHECK_GE(65535, duration_ms);
-  if (!Sending()) {
-    return false;
+  {
+      rtc::CritScope lock(&sending_lock_);
+      if (!sending_) {
+        return false;
+      }
   }
   if (_rtpRtcpModule->SendTelephoneEventOutband(
           event, duration_ms, kTelephoneEventAttenuationdB) != 0) {
@@ -788,7 +765,10 @@ bool ChannelSend::SetSendTelephoneEventPayloadType(int payload_type,
 }
 
 void ChannelSend::SetLocalSSRC(unsigned int ssrc) {
-  RTC_DCHECK(!channel_state_.Get().sending);
+  {
+    rtc::CritScope lock(&sending_lock_);
+    RTC_DCHECK(!sending_);
+  }
 
   if (media_transport_) {
     rtc::CritScope cs(&media_transport_lock_);
@@ -851,10 +831,6 @@ void ChannelSend::ResetSenderCongestionControlObjects() {
   packet_router_->RemoveSendRtpModule(_rtpRtcpModule.get());
   packet_router_ = nullptr;
   rtp_packet_sender_proxy_->SetPacketSender(nullptr);
-}
-
-void ChannelSend::SetRTCPStatus(bool enable) {
-  _rtpRtcpModule->SetRTCPStatus(enable ? RtcpMode::kCompound : RtcpMode::kOff);
 }
 
 void ChannelSend::SetRTCP_CNAME(absl::string_view c_name) {

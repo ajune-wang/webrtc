@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "adb7f04f_e3adc266",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-16T13:41:39Z",
+      "side": 1,
+      "message": "You\u0027re right. I removed the prefix.",
+      "parentUuid": "c160c4c2_2da1f928",
+      "range": {
+        "startLine": 231,
+        "startChar": 38,
+        "endLine": 231,
+        "endChar": 60
+      },
+      "revId": "f6acfa8dd9b445691c75643ea0e1adc540c7d26d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8550f1e_0b660485",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-11T20:56:19Z",
       "side": 1,
       "message": "What is the use of estimating the level twice using two level estimators?\n\nWhy can\u0027t we do\n public_submodules_-\u003epublic_level_estimator-\u003eProcessStream(capture_buffer);\n\n if (config_.level_estimation.enabled) {\n    capture_.stats.output_rms_dbfs \u003d\n        public_submodules_-\u003epublic_level_estimator-\u003e-\u003eRMS();\n  } else {\n    capture_.stats.output_rms_dbfs \u003d absl::nullopt;\n  }",
+      "range": {
+        "startLine": 1345,
+        "startChar": 46,
+        "endLine": 1345,
+        "endChar": 59
+      },
+      "revId": "f6acfa8dd9b445691c75643ea0e1adc540c7d26d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9afb063c_33d74901",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-16T13:41:39Z",
+      "side": 1,
+      "message": "The level estimator resets when RMS() is called.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/rms_level.cc?type\u003dcs\u0026g\u003d0\u0026l\u003d85\n\n Part of the interface is that you can call RMS() e.g. every 10 seconds to get the 10 second RMS level. If we call it like your code example, it would return 0 every time one calls apm-\u003elevel_estimator-\u003eRMS() because we reset the estimate immediately, when updating capture_.stats.",
+      "parentUuid": "e8550f1e_0b660485",
       "range": {
         "startLine": 1345,
         "startChar": 46,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "699192b0_dd1c56d3",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-16T13:41:39Z",
+      "side": 1,
+      "message": "Merged, as discussed elsewhere.",
+      "parentUuid": "7fd9acc6_11b53820",
+      "range": {
+        "startLine": 29,
+        "startChar": 43,
+        "endLine": 29,
+        "endChar": 73
+      },
+      "revId": "f6acfa8dd9b445691c75643ea0e1adc540c7d26d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f9e3e43_d75a843e",
         "filename": "modules/audio_processing/include/audio_processing_capture_stats.h",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "f6acfa8dd9b445691c75643ea0e1adc540c7d26d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da509308_2d25f46e",
+        "filename": "modules/audio_processing/include/audio_processing_capture_stats.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-16T13:41:39Z",
+      "side": 1,
+      "message": "Yes. Done.",
+      "parentUuid": "2f9e3e43_d75a843e",
+      "range": {
+        "startLine": 18,
+        "startChar": 18,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "f6acfa8dd9b445691c75643ea0e1adc540c7d26d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

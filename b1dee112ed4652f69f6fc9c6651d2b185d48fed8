@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed27a82d_60d46cd3",
+        "filename": "modules/audio_processing/include/audio_processing_statistics.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-16T13:41:39Z",
+      "side": 1,
+      "message": "peah@, wdyt?\nI don\u0027t quite understand why we report this as an integer. It is computed as a float, but sign-reversed and casted to int in the RmsLevel class. It is convenient for the UMA reporting in Chrome, but I would prefer to just let the user decide what resolution they want. This API change is a chance make the change, it\u0027s a small addition in the RmsLevel/LevelEstimatorImpl interfaces.",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 20
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -60,7 +60,7 @@ class CongestionControlHandler {
   uint8_t last_reported_fraction_loss_ = 0;
   int64_t last_reported_rtt_ms_ = 0;
   const bool pacer_pushback_experiment_ = false;
-  uint32_t min_pushback_target_bitrate_bps_;
+  uint32_t min_pushback_target_bitrate_bps_ = 0;
   int64_t pacer_expected_queue_ms_ = 0;
   double encoding_rate_ratio_ = 1.0;
 

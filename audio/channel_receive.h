@@ -62,7 +62,7 @@ struct CallReceiveStatistics {
 
 namespace voe {
 
-class ChannelSend;
+class ChannelSendInterface;
 
 // Interface class needed for AudioReceiveStream tests that use a
 // MockChannelReceive.
@@ -70,6 +70,11 @@ class ChannelSend;
 class ChannelReceiveInterface : public RtpPacketSinkInterface {
  public:
   virtual ~ChannelReceiveInterface() = default;
+
+  // Shared with ChannelSendInterface.
+  virtual void SetLocalSSRC(uint32_t ssrc) = 0;
+  virtual void SetNACKStatus(bool enable, int max_packets) = 0;
+  virtual bool ReceivedRTCPPacket(const uint8_t* data, size_t length) = 0;
 
   virtual void SetSink(AudioSinkInterface* sink) = 0;
 
@@ -80,8 +85,6 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
   virtual void StopPlayout() = 0;
 
   virtual bool GetRecCodec(CodecInst* codec) const = 0;
-
-  virtual bool ReceivedRTCPPacket(const uint8_t* data, size_t length) = 0;
 
   virtual void SetChannelOutputVolumeScaling(float scaling) = 0;
   virtual int GetSpeechOutputLevelFullRange() const = 0;
@@ -103,14 +106,11 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
   virtual absl::optional<Syncable::Info> GetSyncInfo() const = 0;
 
   // RTP+RTCP
-  virtual void SetLocalSSRC(uint32_t ssrc) = 0;
-
   virtual void RegisterReceiverCongestionControlObjects(
       PacketRouter* packet_router) = 0;
   virtual void ResetReceiverCongestionControlObjects() = 0;
 
   virtual CallReceiveStatistics GetRTCPStatistics() const = 0;
-  virtual void SetNACKStatus(bool enable, int max_packets) = 0;
 
   virtual AudioMixer::Source::AudioFrameInfo GetAudioFrameWithInfo(
       int sample_rate_hz,
@@ -120,7 +120,8 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
 
   // Associate to a send channel.
   // Used for obtaining RTT for a receive-only channel.
-  virtual void SetAssociatedSendChannel(const ChannelSend* channel) = 0;
+  virtual void SetAssociatedSendChannel(
+      const ChannelSendInterface* channel) = 0;
 
   virtual std::vector<RtpSource> GetSources() const = 0;
 };

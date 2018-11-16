@@ -201,7 +201,7 @@ class ChannelReceive : public ChannelReceiveInterface,
 
   // Associate to a send channel.
   // Used for obtaining RTT for a receive-only channel.
-  void SetAssociatedSendChannel(const ChannelSend* channel) override;
+  void SetAssociatedSendChannel(const ChannelSendInterface* channel) override;
 
   std::vector<RtpSource> GetSources() const override;
 
@@ -218,7 +218,7 @@ class ChannelReceive : public ChannelReceiveInterface,
   void UpdatePlayoutTimestamp(bool rtcp);
 
   int GetRtpTimestampRateHz() const;
-  int64_t GetRTT() const;
+  int64_t GetRtt() const;
 
   // MediaTransportAudioSinkInterface override;
   void OnData(uint64_t channel_id,
@@ -294,7 +294,7 @@ class ChannelReceive : public ChannelReceiveInterface,
 
   // An associated send channel.
   rtc::CriticalSection assoc_send_channel_lock_;
-  const ChannelSend* associated_send_channel_
+  const ChannelSendInterface* associated_send_channel_
       RTC_GUARDED_BY(assoc_send_channel_lock_);
 
   PacketRouter* packet_router_ = nullptr;
@@ -752,7 +752,7 @@ bool ChannelReceive::ReceivedRTCPPacket(const uint8_t* data, size_t length) {
   // Deliver RTCP packet to RTP/RTCP module for parsing
   _rtpRtcpModule->IncomingRtcpPacket(data, length);
 
-  int64_t rtt = GetRTT();
+  int64_t rtt = GetRtt();
   if (rtt == 0) {
     // Waiting for valid RTT.
     return true;
@@ -851,7 +851,7 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
   stats.jitterSamples = statistics.jitter;
 
   // --- RTT
-  stats.rttMs = GetRTT();
+  stats.rttMs = GetRtt();
 
   // --- Data counters
 
@@ -889,7 +889,8 @@ int ChannelReceive::ResendPackets(const uint16_t* sequence_numbers,
   return _rtpRtcpModule->SendNACK(sequence_numbers, length);
 }
 
-void ChannelReceive::SetAssociatedSendChannel(const ChannelSend* channel) {
+void ChannelReceive::SetAssociatedSendChannel(
+    const ChannelSendInterface* channel) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   rtc::CritScope lock(&assoc_send_channel_lock_);
   associated_send_channel_ = channel;
@@ -1003,7 +1004,7 @@ int ChannelReceive::GetRtpTimestampRateHz() const {
              : audio_coding_->PlayoutFrequency();
 }
 
-int64_t ChannelReceive::GetRTT() const {
+int64_t ChannelReceive::GetRtt() const {
   RtcpMode method = _rtpRtcpModule->RTCP();
   if (method == RtcpMode::kOff) {
     return 0;
@@ -1019,7 +1020,7 @@ int64_t ChannelReceive::GetRTT() const {
     if (!associated_send_channel_) {
       return 0;
     }
-    return associated_send_channel_->GetRTT();
+    return associated_send_channel_->GetRtt();
   }
 
   int64_t rtt = 0;

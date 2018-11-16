@@ -1,5 +1,5 @@
 /*
- *  Copyright 2017 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2018 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,10 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "api/create_peerconnection_factory.h"
+
+#include <memory>
+#include <utility>
+
 #include "api/call/callfactoryinterface.h"
 #include "api/peerconnectioninterface.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
+#include "logging/rtc_event_log/rtc_event_log_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
 #include "media/engine/webrtcmediaengine.h"
 #include "modules/audio_device/include/audio_device.h"

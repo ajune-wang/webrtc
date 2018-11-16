@@ -22,6 +22,9 @@ namespace {
 // the congestion window and/or data spikes reduces encoder allocations.
 const char kPacerPushbackExperiment[] = "WebRTC-PacerPushbackExperiment";
 
+// When pushback experiment is active, don't reduce encoder rate below 50%.
+static constexpr double kPushbackMinRatio = 0.5;
+
 bool IsPacerPushbackExperimentEnabled() {
   return field_trial::IsEnabled(kPacerPushbackExperiment);
 }
@@ -109,9 +112,9 @@ void CongestionControlHandler::OnNetworkInvalidation() {
 
   if (!network_available_) {
     target_bitrate_bps = 0;
-  } else if (!pacer_pushback_experiment_) {
-    target_bitrate_bps = IsSendQueueFull() ? 0 : target_bitrate_bps;
-  } else {
+  } else if (IsSendQueueFull()) {
+    target_bitrate_bps = 0;
+  } else if (pacer_pushback_experiment_) {
     int64_t queue_length_ms = pacer_expected_queue_ms_;
 
     if (queue_length_ms == 0) {
@@ -119,7 +122,7 @@ void CongestionControlHandler::OnNetworkInvalidation() {
     } else if (queue_length_ms > 50) {
       double encoding_ratio = 1.0 - queue_length_ms / 1000.0;
       encoding_rate_ratio_ = std::min(encoding_rate_ratio_, encoding_ratio);
-      encoding_rate_ratio_ = std::max(encoding_rate_ratio_, 0.0);
+      encoding_rate_ratio_ = std::max(encoding_rate_ratio_, kPushbackMinRatio);
     }
 
     target_bitrate_bps *= encoding_rate_ratio_;

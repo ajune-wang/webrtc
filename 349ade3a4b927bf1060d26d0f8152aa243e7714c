@@ -16,6 +16,24 @@
       "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f051791_cdc60153",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-16T14:57:40Z",
+      "side": 0,
+      "message": "Yes, that is correct. I am not doing it because it causes a circular dependency (because the new target includes this header to get PeerConnectionFactoryInterface.\n\nThat is why I am trying to forward fix by creating the empty target with the empty header.\n\nThis sounds also like we need to send out a PSA. Shouldn\u0027t we?",
+      "parentUuid": "e123da42_3da1b52b",
+      "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

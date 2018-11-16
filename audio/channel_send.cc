@@ -647,10 +647,13 @@ void ChannelSend::SetBitRate(int bitrate_bps, int64_t probing_interval_ms) {
     }
   });
   retransmission_rate_limiter_->SetMaxRate(bitrate_bps);
+
+  rtc::CritScope lock(&bitrate_crit_section_);
   configured_bitrate_bps_ = bitrate_bps;
 }
 
 int ChannelSend::GetBitRate() const {
+  rtc::CritScope lock(&bitrate_crit_section_);
   return configured_bitrate_bps_;
 }
 

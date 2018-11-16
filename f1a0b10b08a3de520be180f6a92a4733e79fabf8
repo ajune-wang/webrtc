@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "46938b02_8ef3fd9c",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-16T16:51:20Z",
+      "side": 1,
+      "message": "AFAIK everything in media/ and below is called on the libjingle worker thread (unless dealing with a specific module thread, for example). I don\u0027t think anything is called from the network thread today.",
+      "parentUuid": "a9c6cbe9_45f83ed6",
+      "revId": "f1a0b10b08a3de520be180f6a92a4733e79fabf8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d3dce3d_5ebca473",
         "filename": "audio/channel_send.h",
         "patchSetId": 22

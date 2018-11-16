@@ -12,6 +12,8 @@
 #ifndef MODULES_VIDEO_CODING_CODECS_VP9_VP9_FRAME_BUFFER_POOL_H_
 #define MODULES_VIDEO_CODING_CODECS_VP9_VP9_FRAME_BUFFER_POOL_H_
 
+#ifndef RTC_DISABLE_VP9
+
 #include <vector>
 
 #include "rtc_base/buffer.h"
@@ -119,5 +121,7 @@ class Vp9FrameBufferPool {
 };
 
 }  // namespace webrtc
+
+#endif  // RTC_DISABLE_VP9
 
 #endif  // MODULES_VIDEO_CODING_CODECS_VP9_VP9_FRAME_BUFFER_POOL_H_

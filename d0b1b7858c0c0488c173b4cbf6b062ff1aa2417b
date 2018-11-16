@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffaa7b31_474eb84f",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3003,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-16T22:29:55Z",
+      "side": 1,
+      "message": "Suggestion:\n\nMedia transport requires max BUNDLE policy.",
+      "range": {
+        "startLine": 3003,
+        "startChar": 12,
+        "endLine": 3003,
+        "endChar": 73
+      },
+      "revId": "d0b1b7858c0c0488c173b4cbf6b062ff1aa2417b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

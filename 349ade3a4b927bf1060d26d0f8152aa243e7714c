@@ -34,6 +34,24 @@
       "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dce20dd_1427ad96",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-18T11:42:29Z",
+      "side": 0,
+      "message": "Sounds good. The build targets that contain API files are effectively part of the API themselves.",
+      "parentUuid": "0f051791_cdc60153",
+      "revId": "349ade3a4b927bf1060d26d0f8152aa243e7714c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

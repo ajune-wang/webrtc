@@ -647,6 +647,30 @@
     },
     {
       "key": {
+        "uuid": "c4ac92bb_10709088",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dace2c59_995d1181",
+      "range": {
+        "startLine": 98,
+        "startChar": 32,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "68f262b11ffa968c511713246504cd54efbe6945",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3187a98_0ff4508c",
         "filename": "test/BUILD.gn",
         "patchSetId": 2

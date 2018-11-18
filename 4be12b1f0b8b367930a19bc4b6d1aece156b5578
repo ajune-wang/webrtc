@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "544ceab9_cd983461",
+        "filename": "examples/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "babf2773_4dffa5e3",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ef01d98_696496a1",
         "filename": "rtc_base/synchronization/rw_lock_win.cc",
         "patchSetId": 3
@@ -88,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "65431752_b46ae773",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Originally I did store this as a variable and got asked to change it to a method for clarity. Do you want it back as a variable except made as a static?",
+      "parentUuid": "84bc089f_d61c345b",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "891114d3_002ac45e",
         "filename": "rtc_base/timeutils.cc",
         "patchSetId": 3
@@ -145,6 +181,30 @@
     },
     {
       "key": {
+        "uuid": "73b6cf36_22f5bd19",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bcd811d_924e33b5",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 23
+      },
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1326be91_f5181c19",
         "filename": "rtc_base/timeutils.cc",
         "patchSetId": 3
@@ -162,6 +222,24 @@
     },
     {
       "key": {
+        "uuid": "50bfd01a_e9119eba",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1326be91_f5181c19",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "413f0b49_5c4f15aa",
         "filename": "rtc_base/timeutils.cc",
         "patchSetId": 3
@@ -176,6 +254,24 @@
       "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3db89fbb_a2b02249",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "413f0b49_5c4f15aa",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +298,30 @@
     },
     {
       "key": {
+        "uuid": "82121e22_a7f35742",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e2805d6_6083af77",
+      "range": {
+        "startLine": 125,
+        "startChar": 9,
+        "endLine": 125,
+        "endChar": 14
+      },
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d313e99a_17baacb3",
         "filename": "rtc_base/timeutils.cc",
         "patchSetId": 3
@@ -216,6 +336,24 @@
       "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c395324b_fb42a4ee",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d313e99a_17baacb3",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -236,6 +374,24 @@
     },
     {
       "key": {
+        "uuid": "541d221e_50124834",
+        "filename": "rtc_base/win/windows_version.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done -- no, it doesn\u0027t technically need to be initialized because it\u0027s an out value of a successful call but the original code initialized it so I hesitate to change working code but I can if you prefer.",
+      "parentUuid": "eeda7a2d_384ee4b7",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9674cd39_84b381dc",
         "filename": "rtc_base/win/windows_version.cc",
         "patchSetId": 3
@@ -250,6 +406,24 @@
       "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29704dc3_1f01b788",
+        "filename": "rtc_base/win/windows_version.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 6219
+      },
+      "writtenOn": "2018-11-18T21:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9674cd39_84b381dc",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

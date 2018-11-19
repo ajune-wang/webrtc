@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58eeb389_ec1937ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-19T08:39:00Z",
+      "side": 1,
+      "message": "I\u0027d prefer mentioning RateControlRegion here:\n\"Removes RateControlRegion from AimdRateController.\"\n\nMy reasoning is that the reader of the log might be wondering about \"where did RateControlRegion go?\" but is likely to care about the other two minor changes.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cd66ddd_89aa4627",
+        "filename": "modules/congestion_controller/goog_cc/test/goog_cc_printer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-19T08:39:00Z",
+      "side": 1,
+      "message": "Why not just NAN from math.h?",
+      "range": {
+        "startLine": 43,
+        "startChar": 57,
+        "endLine": 43,
+        "endChar": 60
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8877bfbd_4a022dcd",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-19T08:39:00Z",
+      "side": 1,
+      "message": "In most cases we use implicit bool operator to check an optional. Do you think an exception is warranted in this case?",
+      "range": {
+        "startLine": 382,
+        "startChar": 7,
+        "endLine": 382,
+        "endChar": 47
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4551f05_6c2ffa1e",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-11-19T08:39:00Z",
+      "side": 1,
+      "message": "We usually use * operator on optional to access the value. Do you think this usage warrants an exception?",
+      "range": {
+        "startLine": 386,
+        "startChar": 51,
+        "endLine": 386,
+        "endChar": 58
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

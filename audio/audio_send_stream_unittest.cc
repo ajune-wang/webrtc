@@ -168,7 +168,6 @@ struct ConfigHelper {
         new internal::AudioSendStream(
             stream_config_, audio_state_, &worker_queue_, &rtp_transport_,
             &bitrate_allocator_, &event_log_, &rtcp_rtt_stats_, absl::nullopt,
-            &active_lifetime_,
             std::unique_ptr<voe::ChannelSendInterface>(channel_send_)));
   }
 
@@ -179,7 +178,6 @@ struct ConfigHelper {
   }
   MockChannelSend* channel_send() { return channel_send_; }
   RtpTransportControllerSendInterface* transport() { return &rtp_transport_; }
-  TimeInterval* active_lifetime() { return &active_lifetime_; }
 
   static void AddBweToConfig(AudioSendStream::Config* config) {
     config->rtp.extensions.push_back(RtpExtension(
@@ -217,11 +215,6 @@ struct ConfigHelper {
           .Times(1);
     }
     EXPECT_CALL(*channel_send_, ResetSenderCongestionControlObjects()).Times(1);
-    {
-      ::testing::InSequence unregister_on_destruction;
-      EXPECT_CALL(*channel_send_, RegisterTransport(_)).Times(1);
-      EXPECT_CALL(*channel_send_, RegisterTransport(nullptr)).Times(1);
-    }
   }
 
   void SetupMockForSetupSendCodec(bool expect_set_encoder_call) {
@@ -301,7 +294,6 @@ struct ConfigHelper {
   testing::StrictMock<MockChannelSend>* channel_send_ = nullptr;
   rtc::scoped_refptr<MockAudioProcessing> audio_processing_;
   AudioProcessingStats audio_processing_stats_;
-  TimeInterval active_lifetime_;
   testing::StrictMock<MockRtcpBandwidthObserver> bandwidth_observer_;
   testing::NiceMock<MockRtcEventLog> event_log_;
   testing::NiceMock<MockRtpTransportControllerSend> rtp_transport_;
@@ -558,6 +550,7 @@ TEST(AudioSendStreamTest, ReconfigureWithFrameEncryptor) {
   send_stream->Reconfigure(new_config);
 }
 
+#if 0
 // Checks that AudioSendStream logs the times at which RTP packets are sent
 // through its interface.
 TEST(AudioSendStreamTest, UpdateLifetime) {
@@ -585,5 +578,6 @@ TEST(AudioSendStreamTest, UpdateLifetime) {
   EXPECT_TRUE(!helper.active_lifetime()->Empty());
   EXPECT_EQ(helper.active_lifetime()->Length(), kTimeBetweenSendRtpCallsMs);
 }
+#endif
 }  // namespace test
 }  // namespace webrtc

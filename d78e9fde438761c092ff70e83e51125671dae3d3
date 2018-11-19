@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b893d2f_e93d26a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-19T14:45:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58eeb389_ec1937ff",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cd66ddd_89aa4627",
         "filename": "modules/congestion_controller/goog_cc/test/goog_cc_printer.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9561cf3d_828ea9ab",
+        "filename": "modules/congestion_controller/goog_cc/test/goog_cc_printer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-19T14:45:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cd66ddd_89aa4627",
+      "range": {
+        "startLine": 43,
+        "startChar": 57,
+        "endLine": 43,
+        "endChar": 60
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fcc1140d_91cb7fac",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-19T14:45:32Z",
+      "side": 1,
+      "message": "As below.",
+      "parentUuid": "8877bfbd_4a022dcd",
+      "range": {
+        "startLine": 382,
+        "startChar": 7,
+        "endLine": 382,
+        "endChar": 47
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4551f05_6c2ffa1e",
         "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-19T08:39:00Z",
       "side": 1,
       "message": "We usually use * operator on optional to access the value. Do you think this usage warrants an exception?",
+      "range": {
+        "startLine": 386,
+        "startChar": 51,
+        "endLine": 386,
+        "endChar": 58
+      },
+      "revId": "d78e9fde438761c092ff70e83e51125671dae3d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39b3e50f_f2f400b0",
+        "filename": "modules/remote_bitrate_estimator/aimd_rate_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-19T14:45:32Z",
+      "side": 1,
+      "message": "As discussed offline, .value() seems slightly clearer here.",
+      "parentUuid": "e4551f05_6c2ffa1e",
       "range": {
         "startLine": 386,
         "startChar": 51,

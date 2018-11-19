@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25360214_ead368a3",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-19T22:05:49Z",
+      "side": 1,
+      "message": "Roll this into the DCHECK:\nDCHECK(state !\u003d kActive || rejected || IsMediaContentOfType())",
+      "range": {
+        "startLine": 1309,
+        "startChar": 10,
+        "endLine": 1309,
+        "endChar": 75
+      },
+      "revId": "aaf44f5b47932e61d5eda2b33c0c074c55152a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def5159a_b437803a",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1942,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-19T22:05:49Z",
+      "side": 1,
+      "message": "does kActive still always mean \"not being recycled\"?\nif not, the comments above these changes need to be updated.",
+      "range": {
+        "startLine": 1942,
+        "startChar": 58,
+        "endLine": 1942,
+        "endChar": 79
+      },
+      "revId": "aaf44f5b47932e61d5eda2b33c0c074c55152a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9a3c601_ebbec22d",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-19T22:05:49Z",
+      "side": 1,
+      "message": "general observation - i see a lot of the code (private methods as well) allowing null to be passed as a parameter and doing some custom (sometimes natural) logic like returning a null.\nIMHO, this is more error prone and makes the code unnecessarily complex at times (this case might not be a good example).\na DCHECK(sdesc) could replace this.\nI would recommend avoiding this pattern as much as possible, and having explicit functions instead of accepting null for cases when passing null is actually \u0027removing\u0027 or \u0027unsetting\u0027 something.",
+      "range": {
+        "startLine": 666,
+        "startChar": 2,
+        "endLine": 666,
+        "endChar": 12
+      },
+      "revId": "aaf44f5b47932e61d5eda2b33c0c074c55152a4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "cfde36d0_3cc97682",
+        "filename": "rtc_base/synchronization/rw_lock_win.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "Please fix it, since (1) it\u0027s a correct fix that (2) would make the code simpler. In general, pretend that people are in the habit of writing tests for behaviors they care about.",
+      "parentUuid": "ecd090c6_83ab2af5",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e20c676a_198277b7",
         "filename": "rtc_base/timeutils.cc",
         "patchSetId": 3
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Originally I did store this as a variable and got asked to change it to a method for clarity. Do you want it back as a variable except made as a static?",
       "parentUuid": "84bc089f_d61c345b",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fb53f7a_e56cd062",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "Ah---having a method to return the singleton instead of a naked global variable is a good idea, so that we get to the control when the singleton constructor executes (mandated by the style guide here: https://google.github.io/styleguide/cppguide.html#Static_and_Global_Variables). But Singleton() is probably not free to call because of the synchronization it has to do, so it may make sense to not call it more than once in each function. So store it in a local variable\n\n  auto\u0026 singleton \u003d Singleton();\n\nonce in this function, instead of the two separate calls. (And similarly for the three calls in TickNs().)\n\nI would categorize this as a micro-optimization, though, which is why I started this comment with \"It may be beneficial to...\" instead of something stronger.",
+      "parentUuid": "65431752_b46ae773",
       "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -392,6 +428,24 @@
     },
     {
       "key": {
+        "uuid": "8b0414de_8675b846",
+        "filename": "rtc_base/win/windows_version.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "You can leave it if you like. But generally, you should be able to assume that if it\u0027s important, it\u0027s protected by a test. Without that assumption, code gets unduly difficult to maintain.",
+      "parentUuid": "541d221e_50124834",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9674cd39_84b381dc",
         "filename": "rtc_base/win/windows_version.cc",
         "patchSetId": 3
@@ -455,6 +509,24 @@
       "writtenOn": "2018-11-15T14:41:32Z",
       "side": 1,
       "message": "Again, prefer to conditionally add rather than conditionally remove things.",
+      "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05e4a5b0_2f58f550",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "Looks like you forgot this one?",
+      "parentUuid": "c313b2eb_061bebf9",
       "revId": "4be12b1f0b8b367930a19bc4b6d1aece156b5578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

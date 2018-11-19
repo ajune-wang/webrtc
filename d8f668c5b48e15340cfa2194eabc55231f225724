@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60c8f22a_70463036",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "This looks like a narrowing conversion (uint64_t -\u003e int64_t). The compiler should be complaining about that; see https://en.cppreference.com/w/cpp/language/list_initialization:\n\n  \"Otherwise (if T is not a class type), if the braced-init-list has only one element and either T isn\u0027t a reference type or is a reference type that is compatible with the type of the element, T is direct-initialized (in direct-list-initialization) or copy-initialized (in copy-list-initialization), except that narrowing conversions are not allowed.\"\n\nIf you need to do a narrowing conversion that you\u0027re sure will not actually wrap, use rtc::dchecked_cast; it\u0027ll compile to a CHECK + a static_cast in debug builds, and to just a static_cast in production builds.",
+      "range": {
+        "startLine": 78,
+        "startChar": 13,
+        "endLine": 78,
+        "endChar": 21
+      },
+      "revId": "d8f668c5b48e15340cfa2194eabc55231f225724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09204dc1_eacd31f7",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "This also looks like a narrowing conversion (int64_t -\u003e uint64_t).",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 31
+      },
+      "revId": "d8f668c5b48e15340cfa2194eabc55231f225724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e967219_97325634",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "Nit: These suffixes aren\u0027t necessary, are they?",
+      "range": {
+        "startLine": 80,
+        "startChar": 26,
+        "endLine": 80,
+        "endChar": 29
+      },
+      "revId": "d8f668c5b48e15340cfa2194eabc55231f225724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20db57c8_148694fb",
+        "filename": "rtc_base/timeutils.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "Casts look like they are narrowing here too; see comments around line 78.",
+      "revId": "d8f668c5b48e15340cfa2194eabc55231f225724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11863875_42f1feda",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T14:20:05Z",
+      "side": 1,
+      "message": "This is a narrowing conversion on 32-bit platforms---and on Win64 too, right? So dchecked_cast, please.\n\nDo our Windows compiler flags not ask for these to be caught?",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "d8f668c5b48e15340cfa2194eabc55231f225724",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ae9c385f_47be275f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T14:00:10Z",
+      "side": 1,
+      "message": "Either that, or move it up to Call, after destroying the send channel.\n\nHmm, now I see that I\u0027ve broken this; old code associated \u0026active_lifetime_ with the TimedTransportWrapper, and added it to overall_call_lifetime_ here. My patchset passes overall_call_lifetime_ directly to TimedTransport, and makes active_lifetime_ unused.\n\nMaybe it\u0027s better to make the \"active\" interval owned by TimedTransport, give it a pointer to the overall_call_lifetime_, and let the destructor of TimedTransport do this Extend call?\n\nI take it SendRtp/SendRtcp are not called on the worker thread (but on the network thread)? Then we\u0027ll have a (fairly benign) data race here anyway.",
+      "parentUuid": "a492c156_61cebc45",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73583eb0_587e439d",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-19T13:27:36Z",
       "side": 1,
       "message": "This is where I got stuck with my attempt - I contemplated this very solution but felt it too clumsy. What are the alternatives?\n\nOne way is to make AudioSendStream implement Transport and fold the TimedTransport behavior into it. More?",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7a0f922_f0bc367c",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T14:00:10Z",
+      "side": 1,
+      "message": "\u003e This is where I got stuck with my attempt - I contemplated this very solution but felt it too clumsy. What are the alternatives?\n\nI had a hard time coming up with something better. I think it\u0027s reasonable for a private constructor.\n\n\u003e One way is to make AudioSendStream implement Transport and fold the TimedTransport behavior into it. \n\nNot so nice, I\u0027d like to get Rtp-specifics out of AudioSendStream.\n\n\u003e More?\n\nSince the timer is owned by Call, one option might be to move the TimedTransport wrapper to Call? Would need some extra book-keeping (std::map\u003cAudioSendStream*, std::unique_ptr\u003cTimedTransport\u003e\u003e ?) to destroy the wrapper together with the send stream, but may still be the cleanest solution. In either case, ownership of the TimedTransport seems to be the tricky part.\n\nAll this seems to be implementing the WebRTC.Call.TimeSendingAudioRtpPacketsInSeconds stat. It\u0027s not clear to me what that is or if there might be some different way to implement it.",
+      "parentUuid": "73583eb0_587e439d",
       "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

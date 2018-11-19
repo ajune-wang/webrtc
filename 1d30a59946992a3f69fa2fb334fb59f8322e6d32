@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81e98a24_d68df91a",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T18:07:49Z",
+      "side": 1,
+      "message": "This is strange, both WEBRTC_USE_PIPEWIRE and DLOPEN_PIPEWIRE are not part of a build target (before WEBRTC_USE_PIPEWIRE was part of modules/desktop_capture:pipewire) but are just variables, I think this doesn\u0027t work. Do you see any error?",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a542fc4_ad2891f0",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T18:07:49Z",
+      "side": 1,
+      "message": "Is this a WebRTC macro? In that case I suggest WEBRTC_DLOPEN_PIPEWIRE.",
+      "range": {
+        "startLine": 177,
+        "startChar": 20,
+        "endLine": 177,
+        "endChar": 35
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

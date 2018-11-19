@@ -77,40 +77,6 @@ class TransportFeedbackProxy;
 class TransportSequenceNumberProxy;
 class VoERtcpObserver;
 
-// Helper class to simplify locking scheme for members that are accessed from
-// multiple threads.
-// Example: a member can be set on thread T1 and read by an internal audio
-// thread T2. Accessing the member via this class ensures that we are
-// safe and also avoid TSan v2 warnings.
-class ChannelSendState {
- public:
-  struct State {
-    bool sending = false;
-  };
-
-  ChannelSendState() {}
-  virtual ~ChannelSendState() {}
-
-  void Reset() {
-    rtc::CritScope lock(&lock_);
-    state_ = State();
-  }
-
-  State Get() const {
-    rtc::CritScope lock(&lock_);
-    return state_;
-  }
-
-  void SetSending(bool enable) {
-    rtc::CritScope lock(&lock_);
-    state_.sending = enable;
-  }
-
- private:
-  rtc::CriticalSection lock_;
-  State state_;
-};
-
 class ChannelSend
     : public ChannelSendInterface,
       public Transport,
@@ -142,7 +108,6 @@ class ChannelSend
                          modifier) override;
 
   // API methods
-
   void StartSend() override;
   void StopSend() override;
 
@@ -152,7 +117,6 @@ class ChannelSend
 
   // Network
   void RegisterTransport(Transport* transport) override;
-
   bool ReceivedRTCPPacket(const uint8_t* data, size_t length) override;
 
   // Muting, Volume and Level.
@@ -171,7 +135,6 @@ class ChannelSend
 
   // RTP+RTCP
   void SetLocalSSRC(uint32_t ssrc) override;
-
   void SetMid(const std::string& mid, int extension_id) override;
   void SetExtmapAllowMixed(bool extmap_allow_mixed) override;
   void SetSendAudioLevelIndicationStatus(bool enable, int id) override;
@@ -231,7 +194,10 @@ class ChannelSend
                const PacketOptions& packet_options) override;
   bool SendRtcp(const uint8_t* data, size_t len) override;
 
-  bool Sending() const { return channel_state_.Get().sending; }
+  bool Sending() const {
+    rtc::CritScope lock(&sending_lock_);
+    return sending_;
+  }
 
   // From OverheadObserver in the RTP/RTCP module
   void OnOverheadChanged(size_t overhead_bytes_per_packet) override;
@@ -286,7 +252,8 @@ class ChannelSend
   rtc::CriticalSection _callbackCritSect;
   rtc::CriticalSection volume_settings_critsect_;
 
-  ChannelSendState channel_state_;
+  rtc::CriticalSection sending_lock_;
+  bool sending_ RTC_GUARDED_BY(sending_lock_) = false;
 
   RtcEventLog* const event_log_;
 
@@ -802,12 +769,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
     RTC_DLOG(LS_INFO) << "Not setting media_transport_ rate observers.";
   }
 
-  channel_state_.Reset();
-
   _moduleProcessThreadPtr->RegisterModule(_rtpRtcpModule.get(), RTC_FROM_HERE);
-
-  int error = audio_coding_->InitializeReceiver();
-  RTC_DCHECK_EQ(0, error);
 
   // Ensure that RTCP is enabled by default for the created channel.
   // Note that, the module will keep generating RTCP until it is explicitly
@@ -817,7 +779,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
   // RTCP is enabled by default.
   _rtpRtcpModule->SetRTCPStatus(RtcpMode::kCompound);
 
-  error = audio_coding_->RegisterTransportCallback(this);
+  int error = audio_coding_->RegisterTransportCallback(this);
   RTC_DCHECK_EQ(0, error);
 }
 
@@ -835,14 +797,15 @@ ChannelSend::~ChannelSend() {
 
   if (_moduleProcessThreadPtr)
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
-
-  RTC_DCHECK(!channel_state_.Get().sending);
 }
 
 void ChannelSend::StartSend() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_DCHECK(!channel_state_.Get().sending);
-  channel_state_.SetSending(true);
+  {
+    rtc::CritScope lock(&sending_lock_);
+    RTC_DCHECK(!sending_);
+    sending_ = true;
+  }
 
   // Resume the previous sequence number which was reset by StopSend(). This
   // needs to be done before |sending| is set to true on the RTP/RTCP module.
@@ -861,10 +824,13 @@ void ChannelSend::StartSend() {
 
 void ChannelSend::StopSend() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  if (!channel_state_.Get().sending) {
-    return;
+  {
+    rtc::CritScope lock(&sending_lock_);
+    if (!sending_) {
+      return;
+    }
+    sending_ = false;
   }
-  channel_state_.SetSending(false);
 
   // Post a task to the encoder thread which sets an event when the task is
   // executed. We know that no more encoding tasks will be added to the task
@@ -1092,7 +1058,7 @@ bool ChannelSend::SetSendTelephoneEventPayloadType(int payload_type,
 
 void ChannelSend::SetLocalSSRC(uint32_t ssrc) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  RTC_DCHECK(!channel_state_.Get().sending);
+  RTC_DCHECK(!Sending());
 
   if (media_transport_) {
     rtc::CritScope cs(&media_transport_lock_);

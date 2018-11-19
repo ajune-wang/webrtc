@@ -22,6 +22,30 @@
       "revId": "4e4338432c93e55b3afb6446f59b9f6a4ee0ae73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53def810_63aa19b0",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T13:08:06Z",
+      "side": 1,
+      "message": "Yes, that change was intentional since it\u0027s a short time and does not look deadlock prone.",
+      "parentUuid": "64ad5724_7a93afad",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 28
+      },
+      "revId": "4e4338432c93e55b3afb6446f59b9f6a4ee0ae73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

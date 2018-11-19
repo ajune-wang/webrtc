@@ -16,6 +16,24 @@
       "revId": "e0d06bdb704446d97856edfd8590fe64c37f5070",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ca208c4_0bb35084",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2288,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-19T22:39:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fc37cad_5989eb25",
+      "revId": "e0d06bdb704446d97856edfd8590fe64c37f5070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

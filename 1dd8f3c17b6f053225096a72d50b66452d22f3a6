@@ -68,6 +68,30 @@
       "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861aba9d_755026a1",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T10:55:12Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "548127f2_15c6b026",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 10
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

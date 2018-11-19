@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "a492c156_61cebc45",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T13:27:36Z",
+      "side": 1,
+      "message": "Doesn\u0027t this comment imply that we now must explicitly delete ChannelSend?",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73583eb0_587e439d",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T13:27:36Z",
+      "side": 1,
+      "message": "This is where I got stuck with my attempt - I contemplated this very solution but felt it too clumsy. What are the alternatives?\n\nOne way is to make AudioSendStream implement Transport and fold the TimedTransport behavior into it. More?",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ab4b68a_f5e54f42",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 3

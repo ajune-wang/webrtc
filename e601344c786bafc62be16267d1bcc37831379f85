@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "f3f84201_7f9831a4",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2279,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2018-11-19T22:45:21Z",
+      "side": 1,
+      "message": "Suggest using \n\n\u003e else if (candidate.type() \u003d\u003d STUN_PORT_TYPE) {\n\nto make the overall flow easier to follow",
+      "revId": "e601344c786bafc62be16267d1bcc37831379f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ebe0ca2a_4dde8333",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3

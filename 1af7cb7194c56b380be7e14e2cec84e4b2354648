@@ -37,6 +37,92 @@
     },
     {
       "key": {
+        "uuid": "36be29f1_7403feff",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "I think you\u0027re right, I recall that too but not exactly what was said. Maintaining the same grouping makes sense, but the comment isn\u0027t necessary. Sorry if I was unclear. No need to change things further now that you undid it.",
+      "parentUuid": "9e357918_73665a3c",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc9f923b_fc0b4586",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "max_packets",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d891678_387c5169",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "document threading assumptions (ChannelSendProxy comments that it can be called on worker/network thread).",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "156a9d65_33c3bb16",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "uint32_t",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5919b832_489e912a",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "max_packets",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ea29435_47f51085",
         "filename": "audio/channel_send.h",
         "patchSetId": 5

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea94964e_fe11e897",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-19T08:30:19Z",
+      "side": 1,
+      "message": "Remove Transport and OverheadObserver from interface - looks to be only hooked up in ChannelSend ctor, when configuring the RtpRtcp module.\n\n(don\u0027t forget the mock)",
+      "revId": "bde027de81fc49b33c7327c20270a15a6f89d78b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -546,3 +546,69 @@ webrtc_fuzzer_test("frame_buffer2_fuzzer") {
     "../../system_wrappers:system_wrappers",
   ]
 }
+
+webrtc_fuzzer_test("vp8_replay_packet_fuzzer") {
+  sources = [
+    "vp8_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/vp8"
+}
+
+webrtc_fuzzer_test("vp8_fec_replay_packet_fuzzer") {
+  sources = [
+    "vp8_fec_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/vp8_fec"
+}
+
+webrtc_fuzzer_test("vp9_replay_packet_fuzzer") {
+  sources = [
+    "vp9_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/vp9"
+}
+
+webrtc_fuzzer_test("vp9_fec_replay_packet_fuzzer") {
+  sources = [
+    "vp9_fec_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/vp9_fec"
+}
+
+webrtc_fuzzer_test("h264_replay_packet_fuzzer") {
+  sources = [
+    "h264_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/h264"
+}
+
+webrtc_fuzzer_test("h264_fec_replay_packet_fuzzer") {
+  sources = [
+    "h264_fec_replay_packet_fuzzer.cc",
+  ]
+  deps = [
+    "../../system_wrappers:system_wrappers",
+    "../../test:rtp_dump_replayer",
+  ]
+  seed_corpus = "corpora/codec-packet-corpus/h264_fec"
+}

@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "96a483cc_e2248cc2",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T11:31:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "747b37e4_b7f129fd",
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44bb9b02_3970bffd",
         "filename": "api/scoped_ref_ptr.h",
         "patchSetId": 1
@@ -189,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "e278f5d6_0da31120",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T11:31:14Z",
+      "side": 1,
+      "message": "I guess that may have been the original intention, but we expose plenty of rtc:: things in our API.\n\nMy vote is on just leaving it in rtc:: for now to reduce churn and API breakage, and let this be swept along if and when we mass-move everything from rtc:: to webrtc::.",
+      "parentUuid": "6544dc7e_5f95cc9e",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "548127f2_15c6b026",
         "filename": "api/scoped_ref_ptr.h",
         "patchSetId": 1
@@ -281,6 +323,30 @@
       "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aba7b80_15d39a23",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T11:31:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5be30d4b_6595737a",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 10
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

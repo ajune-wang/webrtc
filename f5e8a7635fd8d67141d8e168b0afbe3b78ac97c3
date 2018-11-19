@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5000211_b74fd002",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-19T12:45:33Z",
+      "side": 1,
+      "message": "We could perhaps put it last and set it to 255? ...which is also \"reserved\".\nI think it\u0027s a good idea to keep it at 1 byte to save the bytes that are being transferred.",
+      "parentUuid": "d4ca45cf_67849c47",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "f5e8a7635fd8d67141d8e168b0afbe3b78ac97c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ff9276_c5f5b156",
         "filename": "api/video/color_space.h",
         "patchSetId": 4

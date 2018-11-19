@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4ca45cf_67849c47",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T12:32:45Z",
+      "side": 1,
+      "message": "Looks like this value is \"reserved\" in the spec.\n\nDo we need this constant? If we need a magic value meaning \"not set\" or the like, we could either use kUNSPECIFIED, or use a number outside of the spec (e.g., widening type to int and using -1). And if we use the value 0 with the specs meaning, rename the constant to kReserved.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "f5e8a7635fd8d67141d8e168b0afbe3b78ac97c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ff9276_c5f5b156",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T12:32:45Z",
+      "side": 1,
+      "message": "Likewise, is \"reserved\" in the spec.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 12
+      },
+      "revId": "f5e8a7635fd8d67141d8e168b0afbe3b78ac97c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

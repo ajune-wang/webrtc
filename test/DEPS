@@ -19,6 +19,7 @@ include_rules = [
   "+sdk",
   "+system_wrappers",
   "+third_party/libyuv",
+  "+video",
 ]
 
 specific_include_rules = {

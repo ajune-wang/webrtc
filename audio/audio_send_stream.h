@@ -12,6 +12,7 @@
 #define AUDIO_AUDIO_SEND_STREAM_H_
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "audio/channel_send.h"
@@ -57,8 +58,10 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                   RtcEventLog* event_log,
                   RtcpRttStats* rtcp_rtt_stats,
                   const absl::optional<RtpState>& suspended_rtp_state,
-                  TimeInterval* overall_call_lifetime,
                   std::unique_ptr<voe::ChannelSendInterface> channel_send);
+
+ private:
+ public:
   ~AudioSendStream() override;
 
   // webrtc::AudioSendStream implementation.
@@ -95,8 +98,32 @@ class AudioSendStream final : public webrtc::AudioSendStream,
  private:
   class TimedTransport;
 
+  // Public constructors delegate to this one.
+  AudioSendStream(const webrtc::AudioSendStream::Config& config,
+                  const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
+                  rtc::TaskQueue* worker_queue,
+                  RtpTransportControllerSendInterface* rtp_transport,
+                  BitrateAllocatorInterface* bitrate_allocator,
+                  RtcEventLog* event_log,
+                  RtcpRttStats* rtcp_rtt_stats,
+                  const absl::optional<RtpState>& suspended_rtp_state,
+                  std::pair<std::unique_ptr<TimedTransport>,
+                            std::unique_ptr<voe::ChannelSendInterface>>
+                      transport_and_channel_send);
+
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
+
+  // Helper function needed by constructor.
+  static std::pair<std::unique_ptr<AudioSendStream::TimedTransport>,
+                   std::unique_ptr<voe::ChannelSendInterface>>
+  CreateTimedTransportAndChannelSend(
+      rtc::TaskQueue* worker_queue,
+      ProcessThread* module_process_thread,
+      const webrtc::AudioSendStream::Config& config,
+      RtcEventLog* event_log,
+      RtcpRttStats* rtcp_rtt_stats,
+      TimeInterval* overall_call_lifetime);
 
   void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
 
@@ -145,8 +172,6 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   absl::optional<RtpState> const suspended_rtp_state_;
 
   std::unique_ptr<TimedTransport> timed_send_transport_adapter_;
-  TimeInterval active_lifetime_;
-  TimeInterval* overall_call_lifetime_ = nullptr;
 
   // RFC 5285: Each distinct extension MUST have a unique ID. The value 0 is
   // reserved for padding and MUST NOT be used as a local identifier.

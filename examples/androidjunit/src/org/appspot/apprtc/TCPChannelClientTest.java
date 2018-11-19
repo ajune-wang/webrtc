@@ -22,6 +22,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLog;
@@ -29,6 +32,9 @@ import org.robolectric.shadows.ShadowLog;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 @RunWith(LocalRobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
@@ -39,6 +45,7 @@ public class TCPChannelClientTest {
    * previously only 10, which was too short (tests were flaky).
    */
   private static final int SERVER_WAIT = 100;
+  private static final int CONNECTION_STARTED_WAIT = 1000;
   private static final int CONNECT_TIMEOUT = 100;
   private static final int SEND_TIMEOUT = 100;
   private static final int DISCONNECT_TIMEOUT = 100;
@@ -52,6 +59,7 @@ public class TCPChannelClientTest {
   private ExecutorService executor;
   private TCPChannelClient server;
   private TCPChannelClient client;
+  private CompletableFuture<Object> connectionIsStarted;
 
   @Before
   public void setUp() {
@@ -60,6 +68,19 @@ public class TCPChannelClientTest {
     MockitoAnnotations.initMocks(this);
 
     executor = Executors.newSingleThreadExecutor();
+
+    connectionIsStarted = new CompletableFuture<>();
+
+    Mockito
+        .doAnswer(new Answer() {
+          @Override
+          public Object answer(InvocationOnMock invocation) {
+            connectionIsStarted.complete(new Object());
+            return null;
+          }
+        })
+        .when(serverEvents)
+        .onTCPConnected(Mockito.anyBoolean());
   }
 
   @After
@@ -92,6 +113,7 @@ public class TCPChannelClientTest {
       fail(e.getMessage());
     }
     setUpIPv4Client();
+    waitConnectionToStart();
 
     verify(serverEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(true);
     verify(clientEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(false);
@@ -106,6 +128,7 @@ public class TCPChannelClientTest {
       fail(e.getMessage());
     }
     setUpIPv6Client();
+    waitConnectionToStart();
 
     verify(serverEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(true);
     verify(clientEvents, timeout(CONNECT_TIMEOUT)).onTCPConnected(false);
@@ -177,6 +200,14 @@ public class TCPChannelClientTest {
 
   private void setUpClient(String ip, int port) {
     client = new TCPChannelClient(executor, clientEvents, ip, port);
+  }
+
+  private void waitConnectionToStart() {
+    try {
+      connectionIsStarted.get(CONNECTION_STARTED_WAIT, TimeUnit.MILLISECONDS);
+    } catch (ExecutionException | TimeoutException | InterruptedException e) {
+      fail(e.getMessage());
+    }
   }
 
   /**

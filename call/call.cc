@@ -1099,6 +1099,8 @@ void Call::OnSentPacket(const rtc::SentPacket& sent_packet) {
 }
 
 void Call::OnTargetTransferRate(TargetTransferRate msg) {
+  RTC_LOG(LS_SENSITIVE) << "Call::OnTargetTransferRate, msg.target_rate.bps()="
+                        << msg.target_rate.bps();
   // TODO(bugs.webrtc.org/9719)
   // Call::OnTargetTransferRate requires that on target transfer rate is invoked
   // from the worker queue (because bitrate_allocator_ requires it). Media

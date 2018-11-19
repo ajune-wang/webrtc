@@ -2246,8 +2246,8 @@ TEST_F(BasicPortAllocatorTest, IceRegatheringMetricsLoggedWhenNetworkChanges) {
 }
 
 // Test that when an mDNS responder is present, the local address of a host
-// candidate is masked by an mDNS hostname and the related address of any other
-// type of candidates is set to 0.0.0.0 or ::0.
+// candidate is concealed by an mDNS hostname and the related address of a srflx
+// candidate is set to 0.0.0.0 or ::0.
 TEST_F(BasicPortAllocatorTest, HostCandidateAddressIsReplacedByHostname) {
   // Default config uses GTURN and no NAT, so replace that with the
   // desired setup (NAT, STUN server, TURN server, UDP/TCP).
@@ -2278,12 +2278,14 @@ TEST_F(BasicPortAllocatorTest, HostCandidateAddressIsReplacedByHostname) {
       }
     } else {
       EXPECT_NE(PRFLX_PORT_TYPE, candidate.type());
-      // The related address should be set to 0.0.0.0 or ::0 for srflx and
-      // relay candidates.
-      EXPECT_EQ(rtc::SocketAddress(), candidate.related_address());
+      const auto& raddr = candidate.related_address();
+      // For a srflx candidate, the related address should be set to 0.0.0.0 or
+      // ::0
       if (candidate.type() == STUN_PORT_TYPE) {
+        EXPECT_TRUE(IPIsAny(raddr.ipaddr()) && raddr.port() == 0);
         ++num_srflx_candidates;
       } else {
+        EXPECT_EQ(kNatUdpAddr.ipaddr(), raddr.ipaddr());
         ++num_relay_candidates;
       }
     }

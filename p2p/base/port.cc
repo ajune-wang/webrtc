@@ -459,9 +459,18 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                                                          callback);
       return;
     }
-    // For other types of candidates, the related address should be set to
-    // 0.0.0.0 or ::0.
-    c.set_related_address(rtc::SocketAddress());
+
+    if (type == STUN_PORT_TYPE) {
+      // For srflx candidates, the related address should be set to
+      // 0.0.0.0 or ::0.
+      c.set_related_address(
+          rtc::EmptySocketAddressWithFamily(c.address().family()));
+    } else {
+      // For relay candidates, the related address is a stun address which
+      // needs to be set
+      c.set_related_address(related_address);
+    }
+
   } else {
     c.set_related_address(related_address);
   }

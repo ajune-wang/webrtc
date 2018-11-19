@@ -11,6 +11,7 @@
 
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/congestion_controller/bbr/test/bbr_printer.h"
@@ -44,15 +45,17 @@ Call* CreateCall(CallClientConfig config,
                  LoggingNetworkControllerFactory* network_controller_factory_,
                  rtc::scoped_refptr<AudioState> audio_state) {
   CallConfig call_config(network_controller_factory_->GetEventLog());
-  call_config.bitrate_config.max_bitrate_bps =
-      config.transport.rates.max_rate.bps_or(-1);
-  call_config.bitrate_config.min_bitrate_bps =
-      config.transport.rates.min_rate.bps();
-  call_config.bitrate_config.start_bitrate_bps =
-      config.transport.rates.start_rate.bps();
-  call_config.network_controller_factory = network_controller_factory_;
+  BitrateConstraints bitrate_config;
+  bitrate_config.max_bitrate_bps = config.transport.rates.max_rate.bps_or(-1);
+  bitrate_config.min_bitrate_bps = config.transport.rates.min_rate.bps();
+  bitrate_config.start_bitrate_bps = config.transport.rates.start_rate.bps();
   call_config.audio_state = audio_state;
-  return Call::Create(call_config);
+  call_config.rtp_transport_send =
+      absl::make_unique<RtpTransportControllerSend>(
+          Clock::GetRealTimeClock(), network_controller_factory_->GetEventLog(),
+          network_controller_factory_, bitrate_config);
+
+  return Call::Create(std::move(call_config));
 }
 }
 

@@ -26,7 +26,7 @@ class CallFactoryInterface {
  public:
   virtual ~CallFactoryInterface() {}
 
-  virtual Call* CreateCall(const CallConfig& config) = 0;
+  virtual Call* CreateCall(CallConfig config) = 0;
 };
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory();

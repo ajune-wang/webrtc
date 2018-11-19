@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '3efc758c50fd21bb3fc14dfc1878f3e6aa2e961f',
+  'chromium_revision': '7906804b2d6aa6f07354da609762ae0996d578b8',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -54,13 +54,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '0eab37629be4f494d63f56db9378f4746af17eef',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '6924d0338ad52b20cbb5f9a64338ae845ddb04d8',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '014b747ae8b8b25571ac82ae8932a6cf12ab5e25',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'b31f514df347928fdafc069e5e7a971d09c8e514',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '1019eaa5c19f40fb70cde0e5338f4ee45a8ec7c3',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -225,7 +225,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '48b912888019e587112c27fa13135b6cecfdba36',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '4a2d270ed46c5e729eb91ab84304c85b0a218357',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

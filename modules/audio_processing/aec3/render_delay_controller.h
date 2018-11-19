@@ -44,6 +44,9 @@ class RenderDelayController {
       size_t render_delay_buffer_delay,
       const absl::optional<int>& echo_remover_delay,
       rtc::ArrayView<const float> capture) = 0;
+
+  // Returns true if clockdrift has been detected.
+  virtual bool Clockdrift() = 0;
 };
 }  // namespace webrtc
 

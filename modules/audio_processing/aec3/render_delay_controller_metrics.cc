@@ -43,10 +43,10 @@ constexpr int kMaxSkewShiftCount = 20;
 
 RenderDelayControllerMetrics::RenderDelayControllerMetrics() = default;
 
-void RenderDelayControllerMetrics::Update(
-    absl::optional<size_t> delay_samples,
-    size_t buffer_delay_blocks,
-    absl::optional<int> skew_shift_blocks) {
+void RenderDelayControllerMetrics::Update(absl::optional<size_t> delay_samples,
+                                          size_t buffer_delay_blocks,
+                                          absl::optional<int> skew_shift_blocks,
+                                          int clockdrift) {
   ++call_counter_;
 
   if (!initial_update) {
@@ -114,6 +114,9 @@ void RenderDelayControllerMetrics::Update(
         "WebRTC.Audio.EchoCanceller.DelayChanges",
         static_cast<int>(delay_changes),
         static_cast<int>(DelayChangesCategory::kNumCategories));
+
+    RTC_HISTOGRAM_ENUMERATION("WebRTC.Audio.EchoCanceller.ClockdriftLevel",
+                              clockdrift, 3);
 
     metrics_reported_ = true;
     call_counter_ = 0;

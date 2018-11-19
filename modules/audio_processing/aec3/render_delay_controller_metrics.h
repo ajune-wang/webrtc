@@ -26,7 +26,8 @@ class RenderDelayControllerMetrics {
   // Updates the metric with new data.
   void Update(absl::optional<size_t> delay_samples,
               size_t buffer_delay_blocks,
-              absl::optional<int> skew_shift_blocks);
+              absl::optional<int> skew_shift_blocks,
+              int clockdrift);
 
   // Returns true if the metrics have just been reported, otherwise false.
   bool MetricsReported() { return metrics_reported_; }

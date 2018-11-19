@@ -22,10 +22,10 @@ TEST(RenderDelayControllerMetrics, NormalUsage) {
 
   for (int j = 0; j < 3; ++j) {
     for (int k = 0; k < kMetricsReportingIntervalBlocks - 1; ++k) {
-      metrics.Update(absl::nullopt, 0, absl::nullopt);
+      metrics.Update(absl::nullopt, 0, absl::nullopt, 0);
       EXPECT_FALSE(metrics.MetricsReported());
     }
-    metrics.Update(absl::nullopt, 0, absl::nullopt);
+    metrics.Update(absl::nullopt, 0, absl::nullopt, 0);
     EXPECT_TRUE(metrics.MetricsReported());
   }
 }

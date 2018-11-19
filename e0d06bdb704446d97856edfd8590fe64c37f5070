@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fc37cad_5989eb25",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2288,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-19T22:21:53Z",
+      "side": 1,
+      "message": "Can you also check address families?",
+      "revId": "e0d06bdb704446d97856edfd8590fe64c37f5070",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

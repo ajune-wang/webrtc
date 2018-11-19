@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "747b37e4_b7f129fd",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T11:21:53Z",
+      "side": 1,
+      "message": "This is an excellent observation! I vote the WEBRTC_ prefix (I can do it later).",
+      "parentUuid": "21eb3756_1a4fee78",
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44bb9b02_3970bffd",
         "filename": "api/scoped_ref_ptr.h",
         "patchSetId": 1
@@ -147,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "6544dc7e_5f95cc9e",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T11:21:53Z",
+      "side": 1,
+      "message": "My understanding was that webrtc:: is public while rtc:: was intended for internal things (it is not a strictly internal namespace, but I always consider webrtc:: vs rtc:: really confusing for our users).",
+      "parentUuid": "d271c0b3_5b0377a4",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "548127f2_15c6b026",
         "filename": "api/scoped_ref_ptr.h",
         "patchSetId": 1
@@ -215,6 +257,30 @@
       "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5be30d4b_6595737a",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T11:21:53Z",
+      "side": 1,
+      "message": "Let me look more carefully into re-adding this in a follow-up.",
+      "parentUuid": "b3b14206_f5b3350f",
+      "range": {
+        "startLine": 76,
+        "startChar": 2,
+        "endLine": 76,
+        "endChar": 10
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

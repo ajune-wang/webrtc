@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8955b4c9_c682c194",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T11:48:34Z",
+      "side": 1,
+      "message": "Looks like the variable is accessed only on the worker thread. Can we add an annotation for that, instead of adding a lock?",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 54
+      },
+      "revId": "61aa5d230784ae3814a6cb6f076dbd1e2bc7eee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c40658_4d6f62eb",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T11:48:34Z",
+      "side": 1,
+      "message": "This looks like the only use of the Sending method. Do we really need it?",
+      "range": {
+        "startLine": 1027,
+        "startChar": 7,
+        "endLine": 1027,
+        "endChar": 14
+      },
+      "revId": "61aa5d230784ae3814a6cb6f076dbd1e2bc7eee0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

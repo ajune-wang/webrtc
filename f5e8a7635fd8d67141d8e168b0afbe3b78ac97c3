@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "7ba380bc_437974f6",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T13:04:43Z",
+      "side": 1,
+      "message": "I see, didn\u0027t check chromium. Looks like it should be easy to delete there; usage looks like\n\n    case webrtc::ColorSpace::PrimaryID::kInvalid:\n    default:\n\nso just deleting the case label is no change in behavior.\n\nBut I have no strong opinion on which order these things are done.",
+      "parentUuid": "9e1bc298_bf83600a",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "f5e8a7635fd8d67141d8e168b0afbe3b78ac97c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ff9276_c5f5b156",
         "filename": "api/video/color_space.h",
         "patchSetId": 4

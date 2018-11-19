@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58c633f5_3fb0795b",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T13:22:34Z",
+      "side": 1,
+      "message": "Does it work to add RTC_GUARDED_BY(\u0026worker_thread_checker_); here?\n\nIt\u0027s not entire clear to me what kinds of objects that can be used with RTC_GUARDED_BY.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 24
+      },
+      "revId": "677fce085889caf24fbcc752f5c36885e339f59f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

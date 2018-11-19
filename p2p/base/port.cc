@@ -432,8 +432,8 @@ void Port::AddAddress(const rtc::SocketAddress& address,
   c.set_url(url);
   // TODO(bugs.webrtc.org/9723): Use a config to control the feature of IP
   // handling with mDNS.
-  if (network_->GetMdnsResponder() != nullptr) {
-    // Obfuscate the IP address of a host candidates by an mDNS hostname.
+  if (network_->GetMdnsResponder() != nullptr && type != RELAY_PORT_TYPE) {
+    // Conceal the IP address of a host candidate by an mDNS hostname.
     if (type == LOCAL_PORT_TYPE) {
       auto weak_ptr = weak_factory_.GetWeakPtr();
       auto callback = [weak_ptr, c, is_final](const rtc::IPAddress& addr,
@@ -459,9 +459,12 @@ void Port::AddAddress(const rtc::SocketAddress& address,
                                                          callback);
       return;
     }
-    // For other types of candidates, the related address should be set to
-    // 0.0.0.0 or ::0.
-    c.set_related_address(rtc::SocketAddress());
+    // For server-reflexive candidates, the related address should be set to
+    // 0.0.0.0 or ::, and the related port should be set to 0.
+    if (type == STUN_PORT_TYPE) {
+      c.set_related_address(
+          rtc::SocketAddress(rtc::GetAnyIP(c.address().family()), 0));
+    }
   } else {
     c.set_related_address(related_address);
   }

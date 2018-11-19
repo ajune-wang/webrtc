@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66db23cf_0c26d302",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T12:02:33Z",
+      "side": 1,
+      "message": "Please add a comment saying clearly that numeric values should equal values in the H.264 specification. Preferably with also with a reference to which section or table in the specification that defines the values.\n\nAnd similarly for the TransferID and MatrixID enums.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "fc506068bcee7b979e7e2ede82578a21d1d1c870",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

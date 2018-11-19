@@ -40,6 +40,7 @@
 #include "test/run_test.h"
 #include "test/test_video_capturer.h"
 #include "test/testsupport/frame_writer.h"
+#include "test/video_json_config.h"
 #include "test/video_renderer.h"
 
 namespace {
@@ -236,59 +237,6 @@ class DecoderBitstreamFileWriter : public test::FakeDecoder {
   FILE* file_;
 };
 
-// Deserializes a JSON representation of the VideoReceiveStream::Config back
-// into a valid object. This will not initialize the decoders or the renderer.
-class VideoReceiveStreamConfigDeserializer final {
- public:
-  static VideoReceiveStream::Config Deserialize(webrtc::Transport* transport,
-                                                const Json::Value& json) {
-    auto receive_config = VideoReceiveStream::Config(transport);
-    for (const auto decoder_json : json["decoders"]) {
-      VideoReceiveStream::Decoder decoder;
-      decoder.video_format =
-          SdpVideoFormat(decoder_json["payload_name"].asString());
-      decoder.payload_type = decoder_json["payload_type"].asInt64();
-      for (const auto& params_json : decoder_json["codec_params"]) {
-        std::vector<std::string> members = params_json.getMemberNames();
-        RTC_CHECK_EQ(members.size(), 1);
-        decoder.video_format.parameters[members[0]] =
-            params_json[members[0]].asString();
-      }
-      receive_config.decoders.push_back(decoder);
-    }
-    receive_config.render_delay_ms = json["render_delay_ms"].asInt64();
-    receive_config.target_delay_ms = json["target_delay_ms"].asInt64();
-    receive_config.rtp.remote_ssrc = json["remote_ssrc"].asInt64();
-    receive_config.rtp.local_ssrc = json["local_ssrc"].asInt64();
-    receive_config.rtp.rtcp_mode =
-        json["rtcp_mode"].asString() == "RtcpMode::kCompound"
-            ? RtcpMode::kCompound
-            : RtcpMode::kReducedSize;
-    receive_config.rtp.remb = json["remb"].asBool();
-    receive_config.rtp.transport_cc = json["transport_cc"].asBool();
-    receive_config.rtp.nack.rtp_history_ms =
-        json["nack"]["rtp_history_ms"].asInt64();
-    receive_config.rtp.ulpfec_payload_type =
-        json["ulpfec_payload_type"].asInt64();
-    receive_config.rtp.red_payload_type = json["red_payload_type"].asInt64();
-    receive_config.rtp.rtx_ssrc = json["rtx_ssrc"].asInt64();
-
-    for (const auto& pl_json : json["rtx_payload_types"]) {
-      std::vector<std::string> members = pl_json.getMemberNames();
-      RTC_CHECK_EQ(members.size(), 1);
-      Json::Value rtx_payload_type = pl_json[members[0]];
-      receive_config.rtp.rtx_associated_payload_types[std::stoi(members[0])] =
-          rtx_payload_type.asInt64();
-    }
-    for (const auto& ext_json : json["extensions"]) {
-      receive_config.rtp.extensions.emplace_back(ext_json["uri"].asString(),
-                                                 ext_json["id"].asInt64(),
-                                                 ext_json["encrypt"].asBool());
-    }
-    return receive_config;
-  }
-};
-
 // The RtpReplayer is responsible for parsing the configuration provided by the
 // user, setting up the windows, recieve streams and decoders and then replaying
 // the provided RTP dump.
@@ -359,7 +307,7 @@ class RtpReplayer final {
     size_t config_count = 0;
     for (const auto& json : json_configs) {
       // Create the configuration and parse the JSON into the config.
-      auto receive_config = VideoReceiveStreamConfigDeserializer::Deserialize(
+      auto receive_config = test::JsonToVideoReceiveStreamConfig(
           &(stream_state->transport), json);
       // Instantiate the underlying decoder.
       for (auto& decoder : receive_config.decoders) {

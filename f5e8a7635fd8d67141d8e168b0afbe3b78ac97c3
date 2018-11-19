@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "38817511_b723b379",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T12:55:06Z",
+      "side": 1,
+      "message": "Can we postpone choice of the numerical value until we actually need a kInvalid constant for anything? And for now, just delete the constant? Or is there some usage I\u0027m missing?",
+      "parentUuid": "c5000211_b74fd002",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "f5e8a7635fd8d67141d8e168b0afbe3b78ac97c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97ff9276_c5f5b156",
         "filename": "api/video/color_space.h",
         "patchSetId": 4

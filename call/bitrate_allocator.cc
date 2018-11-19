@@ -91,6 +91,9 @@ void BitrateAllocator::OnNetworkChanged(uint32_t target_bitrate_bps,
                                         uint8_t fraction_loss,
                                         int64_t rtt,
                                         int64_t bwe_period_ms) {
+  RTC_LOG(LS_SENSITIVE)
+      << "BitrateAllocator::OnNetworkChanged, target_bitrate_bps="
+      << target_bitrate_bps << ", rtt=" << rtt;
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
   last_bitrate_bps_ = target_bitrate_bps;
   last_non_zero_bitrate_bps_ =

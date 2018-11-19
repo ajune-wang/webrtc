@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e357918_73665a3c",
+        "filename": "audio/channel_receive.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Ok, undoing this part of the change.\n\nI thought grouping of shared methods was requested in the review for one of the earlier cls, but I can\u0027t find that now.",
+      "parentUuid": "734426ff_5267ea2a",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6ea29435_47f51085",
         "filename": "audio/channel_send.h",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab71eff5_4c146f1a",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ea29435_47f51085",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1ffb1a22_b1310999",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff6dc093_4d4f76b6",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ed3e92f_728dd7df",
         "filename": "audio/channel_send.h",
         "patchSetId": 5
@@ -67,6 +121,24 @@
       "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b658f339_8ce0c405",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ed3e92f_728dd7df",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "266ce406_660f8042",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22fa53e6_931cbd48",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e2a8efd_1b6f895f",
         "filename": "audio/channel_send.h",
         "patchSetId": 5
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "62e600ad_bd9c595b",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e2a8efd_1b6f895f",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "386ee26f_8ce9f091",
         "filename": "audio/channel_send.h",
         "patchSetId": 5
@@ -118,6 +226,24 @@
       "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ded4bb75_ac38d1f6",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T07:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "386ee26f_8ce9f091",
+      "revId": "1af7cb7194c56b380be7e14e2cec84e4b2354648",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "94b25809_8f289597",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T14:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b324633_8996f438",
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "981f1248_92c73deb",
         "filename": "api/BUILD.gn",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd5687d5_d8202a3a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T14:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "981f1248_92c73deb",
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +255,30 @@
       "side": 1,
       "message": "I guess that may have been the original intention, but we expose plenty of rtc:: things in our API.\n\nMy vote is on just leaving it in rtc:: for now to reduce churn and API breakage, and let this be swept along if and when we mass-move everything from rtc:: to webrtc::.",
       "parentUuid": "6544dc7e_5f95cc9e",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 13
+      },
+      "revId": "1dd8f3c17b6f053225096a72d50b66452d22f3a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b03fcc0_bc024a62",
+        "filename": "api/scoped_ref_ptr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-19T14:03:13Z",
+      "side": 1,
+      "message": "Wise choice! :)",
+      "parentUuid": "e278f5d6_0da31120",
       "range": {
         "startLine": 69,
         "startChar": 10,

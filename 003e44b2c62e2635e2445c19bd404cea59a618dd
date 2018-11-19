@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ab4b68a_f5e54f42",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T12:21:25Z",
+      "side": 1,
+      "message": "This test no longer works when injecting a MockChannelSend, since AudioSendStream then gets no chance to inject the TimedTransport wrapper. Maybe it could work to use the real ChannelSend object, with an injected MockTransport.",
+      "range": {
+        "startLine": 556,
+        "startChar": 0,
+        "endLine": 556,
+        "endChar": 43
+      },
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

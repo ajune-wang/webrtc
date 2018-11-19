@@ -22,6 +22,30 @@
       "revId": "3951477f55154a10f6469b76e3d683875c804c1a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd92491a_8ed43927",
+        "filename": "sdk/android/api/org/webrtc/CryptoOptions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-19T07:42:30Z",
+      "side": 1,
+      "message": "Yeah, The Java memory model guarantees that uninitialized variables are set to a known default (which for booleans is false).",
+      "parentUuid": "b3d4126d_3f26d6e3",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "3951477f55154a10f6469b76e3d683875c804c1a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "2e6edd6a_ea8dbdc2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-19T14:53:24Z",
+      "side": 1,
+      "message": "\u003e Maybe it\u0027s better to make the \"active\" interval owned by TimedTransport, give it a pointer to the overall_call_lifetime_, and let the destructor of TimedTransport do this Extend call?\n\nTried this approach.",
+      "parentUuid": "ae9c385f_47be275f",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73583eb0_587e439d",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 3

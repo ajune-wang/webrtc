@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "620918d9_b1003a59",
+        "filename": "audio/channel_send.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-19T16:27:09Z",
+      "side": 1,
+      "message": "would it be worth putting it in a separate target? there is no need for tests that need a ChannelSendInterface (and a mock of it) to require a dependency on a ChannelSend itself.\n\nAlso, the file should probable be renamed to channel_send_interface.h, now that it doesn\u0027t include ChannelSend class?",
+      "range": {
+        "startLine": 54,
+        "startChar": 6,
+        "endLine": 54,
+        "endChar": 26
+      },
+      "revId": "dced9f6d2a848bb8b9eff971336d372fd369ee68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

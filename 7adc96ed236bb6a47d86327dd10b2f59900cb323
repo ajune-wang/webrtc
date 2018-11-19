@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf002e41_16b77d8e",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-19T10:42:40Z",
+      "side": 1,
+      "message": "I was about to complain that an empty .cc file isn\u0027t necessary, but it\u0027s not as if it matters all that much, so just land this as-is.",
+      "revId": "7adc96ed236bb6a47d86327dd10b2f59900cb323",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

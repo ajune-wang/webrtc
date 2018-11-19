@@ -3866,7 +3866,7 @@ void PeerConnection::GetOptionsForPlanBOffer(
         cricket::MediaDescriptionOptions(
             cricket::MEDIA_TYPE_AUDIO, cricket::CN_AUDIO,
             RtpTransceiverDirectionFromSendRecv(send_audio, recv_audio),
-            false));
+            cricket::MediaDescriptionState::kActive));
     audio_index = session_options->media_description_options.size() - 1;
   }
   if (!video_index && offer_new_video_description) {
@@ -3874,7 +3874,7 @@ void PeerConnection::GetOptionsForPlanBOffer(
         cricket::MediaDescriptionOptions(
             cricket::MEDIA_TYPE_VIDEO, cricket::CN_VIDEO,
             RtpTransceiverDirectionFromSendRecv(send_video, recv_video),
-            false));
+            cricket::MediaDescriptionState::kActive));
     video_index = session_options->media_description_options.size() - 1;
   }
   if (!data_index && offer_new_data_description) {
@@ -3918,10 +3918,18 @@ static cricket::MediaDescriptionOptions
 GetMediaDescriptionOptionsForTransceiver(
     rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>
         transceiver,
-    const std::string& mid) {
+    const std::string& mid,
+    bool recycled) {
+  cricket::MediaDescriptionState state;
+  if (transceiver->stopped()) {
+    state = cricket::MediaDescriptionState::kRejected;
+  } else if (recycled) {
+    state = cricket::MediaDescriptionState::kRecycled;
+  } else {
+    state = cricket::MediaDescriptionState::kActive;
+  }
   cricket::MediaDescriptionOptions media_description_options(
-      transceiver->media_type(), mid, transceiver->direction(),
-      transceiver->stopped());
+      transceiver->media_type(), mid, transceiver->direction(), state);
   // This behavior is specified in JSEP. The gist is that:
   // 1. The MSID is included if the RtpTransceiver's direction is sendonly or
   //    sendrecv.
@@ -3951,9 +3959,14 @@ void PeerConnection::GetOptionsForUnifiedPlanOffer(
   const ContentInfos& local_contents =
       (local_description() ? local_description()->description()->contents()
                            : ContentInfos());
-  const ContentInfos& remote_contents =
-      (remote_description() ? remote_description()->description()->contents()
-                            : ContentInfos());
+  const ContentInfos& current_local_contents =
+      (current_local_description()
+           ? current_local_description()->description()->contents()
+           : ContentInfos());
+  const ContentInfos& current_remote_contents =
+      (current_remote_description()
+           ? current_remote_description()->description()->contents()
+           : ContentInfos());
   // The mline indices that can be recycled. New transceivers should reuse these
   // slots first.
   std::queue<size_t> recycleable_mline_indices;
@@ -3965,19 +3978,25 @@ void PeerConnection::GetOptionsForUnifiedPlanOffer(
   // associated transceiver. If a media section can be recycled, generate a
   // default, rejected media section here that can be later overwritten.
   for (size_t i = 0;
-       i < std::max(local_contents.size(), remote_contents.size()); ++i) {
-    // Either |local_content| or |remote_content| is non-null.
+       i < std::max(local_contents.size(), current_remote_contents.size());
+       ++i) {
+    // Either |local_content| or |current_remote_content| is non-null.
     const ContentInfo* local_content =
         (i < local_contents.size() ? &local_contents[i] : nullptr);
-    const ContentInfo* remote_content =
-        (i < remote_contents.size() ? &remote_contents[i] : nullptr);
-    bool had_been_rejected = (local_content && local_content->rejected) ||
-                             (remote_content && remote_content->rejected);
+    const ContentInfo* current_local_content =
+        (i < current_local_contents.size() ? &current_local_contents[i]
+                                           : nullptr);
+    const ContentInfo* current_remote_content =
+        (i < current_remote_contents.size() ? &current_remote_contents[i]
+                                            : nullptr);
+    bool had_been_rejected =
+        (current_local_content && current_local_content->rejected) ||
+        (current_remote_content && current_remote_content->rejected);
     const std::string& mid =
-        (local_content ? local_content->name : remote_content->name);
+        (local_content ? local_content->name : current_remote_content->name);
     cricket::MediaType media_type =
         (local_content ? local_content->media_description()->type()
-                       : remote_content->media_description()->type());
+                       : current_remote_content->media_description()->type());
     if (media_type == cricket::MEDIA_TYPE_AUDIO ||
         media_type == cricket::MEDIA_TYPE_VIDEO) {
       auto transceiver = GetAssociatedTransceiver(mid);
@@ -3986,13 +4005,15 @@ void PeerConnection::GetOptionsForUnifiedPlanOffer(
       // rejected in either the local or remote description.
       if (had_been_rejected && transceiver->stopped()) {
         session_options->media_description_options.push_back(
-            cricket::MediaDescriptionOptions(transceiver->media_type(), mid,
-                                             RtpTransceiverDirection::kInactive,
-                                             /*stopped=*/true));
+            cricket::MediaDescriptionOptions(
+                transceiver->media_type(), mid,
+                RtpTransceiverDirection::kInactive,
+                cricket::MediaDescriptionState::kRejected));
         recycleable_mline_indices.push(i);
       } else {
         session_options->media_description_options.push_back(
-            GetMediaDescriptionOptionsForTransceiver(transceiver, mid));
+            GetMediaDescriptionOptionsForTransceiver(
+                transceiver, mid, /*recycled=*/had_been_rejected));
         // CreateOffer shouldn't really cause any state changes in
         // PeerConnection, but we need a way to match new transceivers to new
         // media sections in SetLocalDescription and JSEP specifies this is done
@@ -4026,12 +4047,14 @@ void PeerConnection::GetOptionsForUnifiedPlanOffer(
       recycleable_mline_indices.pop();
       session_options->media_description_options[mline_index] =
           GetMediaDescriptionOptionsForTransceiver(transceiver,
-                                                   AllocateMid(&used_mids));
+                                                   AllocateMid(&used_mids),
+                                                   /*recycled=*/true);
     } else {
       mline_index = session_options->media_description_options.size();
       session_options->media_description_options.push_back(
           GetMediaDescriptionOptionsForTransceiver(transceiver,
-                                                   AllocateMid(&used_mids)));
+                                                   AllocateMid(&used_mids),
+                                                   /*recycled=*/false));
     }
     // See comment above for why CreateOffer changes the transceiver's state.
     transceiver->internal()->set_mline_index(mline_index);
@@ -4126,6 +4149,18 @@ void PeerConnection::GetOptionsForPlanBAnswer(
                       offer_answer_options.num_simulcast_layers);
 }
 
+static const ContentInfo* GetContentByIndex(
+    const SessionDescriptionInterface* sdesc,
+    size_t i) {
+  if (sdesc) {
+    const ContentInfos& contents = sdesc->description()->contents();
+    if (i < contents.size()) {
+      return &contents[i];
+    }
+  }
+  return nullptr;
+}
+
 void PeerConnection::GetOptionsForUnifiedPlanAnswer(
     const PeerConnectionInterface::RTCOfferAnswerOptions& offer_answer_options,
     cricket::MediaSessionOptions* session_options) {
@@ -4133,27 +4168,38 @@ void PeerConnection::GetOptionsForUnifiedPlanAnswer(
   // Answers) and 5.3.2 (Subsequent Answers).
   RTC_DCHECK(remote_description());
   RTC_DCHECK(remote_description()->GetType() == SdpType::kOffer);
-  for (const ContentInfo& content :
-       remote_description()->description()->contents()) {
-    cricket::MediaType media_type = content.media_description()->type();
+  const ContentInfos& remote_contents =
+      remote_description()->description()->contents();
+  for (size_t i = 0; i < remote_contents.size(); ++i) {
+    const ContentInfo& remote_content = remote_contents[i];
+    const ContentInfo* current_local_content =
+        GetContentByIndex(current_local_description(), i);
+    const ContentInfo* current_remote_content =
+        GetContentByIndex(current_remote_description(), i);
+    bool had_been_rejected =
+        (current_local_content ? current_local_content->rejected : false) ||
+        (current_remote_content ? current_remote_content->rejected : false);
+    cricket::MediaType media_type = remote_content.media_description()->type();
     if (media_type == cricket::MEDIA_TYPE_AUDIO ||
         media_type == cricket::MEDIA_TYPE_VIDEO) {
-      auto transceiver = GetAssociatedTransceiver(content.name);
+      auto transceiver = GetAssociatedTransceiver(remote_content.name);
       RTC_CHECK(transceiver);
       session_options->media_description_options.push_back(
-          GetMediaDescriptionOptionsForTransceiver(transceiver, content.name));
+          GetMediaDescriptionOptionsForTransceiver(
+              transceiver, remote_content.name,
+              /*recycled=*/had_been_rejected));
     } else {
       RTC_CHECK_EQ(cricket::MEDIA_TYPE_DATA, media_type);
       // Reject all data sections if data channels are disabled.
       // Reject a data section if it has already been rejected.
       // Reject all data sections except for the first one.
-      if (data_channel_type_ == cricket::DCT_NONE || content.rejected ||
-          content.name != *GetDataMid()) {
+      if (data_channel_type_ == cricket::DCT_NONE || remote_content.rejected ||
+          remote_content.name != *GetDataMid()) {
         session_options->media_description_options.push_back(
-            GetMediaDescriptionOptionsForRejectedData(content.name));
+            GetMediaDescriptionOptionsForRejectedData(remote_content.name));
       } else {
         session_options->media_description_options.push_back(
-            GetMediaDescriptionOptionsForActiveData(content.name));
+            GetMediaDescriptionOptionsForActiveData(remote_content.name));
       }
     }
   }
@@ -4175,12 +4221,17 @@ void PeerConnection::GenerateMediaDescriptionOptions(
         session_options->media_description_options.push_back(
             cricket::MediaDescriptionOptions(
                 cricket::MEDIA_TYPE_AUDIO, content.name,
-                RtpTransceiverDirection::kInactive, true));
+                RtpTransceiverDirection::kInactive,
+                cricket::MediaDescriptionState::kRejected));
       } else {
+        cricket::MediaDescriptionState state =
+            (audio_direction != RtpTransceiverDirection::kInactive
+                 ? cricket::MediaDescriptionState::kActive
+                 : cricket::MediaDescriptionState::kRejected);
         session_options->media_description_options.push_back(
-            cricket::MediaDescriptionOptions(
-                cricket::MEDIA_TYPE_AUDIO, content.name, audio_direction,
-                audio_direction == RtpTransceiverDirection::kInactive));
+            cricket::MediaDescriptionOptions(cricket::MEDIA_TYPE_AUDIO,
+                                             content.name, audio_direction,
+                                             state));
         *audio_index = session_options->media_description_options.size() - 1;
       }
     } else if (IsVideoContent(&content)) {
@@ -4189,12 +4240,17 @@ void PeerConnection::GenerateMediaDescriptionOptions(
         session_options->media_description_options.push_back(
             cricket::MediaDescriptionOptions(
                 cricket::MEDIA_TYPE_VIDEO, content.name,
-                RtpTransceiverDirection::kInactive, true));
+                RtpTransceiverDirection::kInactive,
+                cricket::MediaDescriptionState::kRejected));
       } else {
+        cricket::MediaDescriptionState state =
+            (video_direction != RtpTransceiverDirection::kInactive
+                 ? cricket::MediaDescriptionState::kActive
+                 : cricket::MediaDescriptionState::kRejected);
         session_options->media_description_options.push_back(
-            cricket::MediaDescriptionOptions(
-                cricket::MEDIA_TYPE_VIDEO, content.name, video_direction,
-                video_direction == RtpTransceiverDirection::kInactive));
+            cricket::MediaDescriptionOptions(cricket::MEDIA_TYPE_VIDEO,
+                                             content.name, video_direction,
+                                             state));
         *video_index = session_options->media_description_options.size() - 1;
       }
     } else {
@@ -4217,9 +4273,9 @@ PeerConnection::GetMediaDescriptionOptionsForActiveData(
     const std::string& mid) const {
   // Direction for data sections is meaningless, but legacy endpoints might
   // expect sendrecv.
-  cricket::MediaDescriptionOptions options(cricket::MEDIA_TYPE_DATA, mid,
-                                           RtpTransceiverDirection::kSendRecv,
-                                           /*stopped=*/false);
+  cricket::MediaDescriptionOptions options(
+      cricket::MEDIA_TYPE_DATA, mid, RtpTransceiverDirection::kSendRecv,
+      cricket::MediaDescriptionState::kActive);
   AddRtpDataChannelOptions(rtp_data_channels_, &options);
   return options;
 }
@@ -4227,9 +4283,9 @@ PeerConnection::GetMediaDescriptionOptionsForActiveData(
 cricket::MediaDescriptionOptions
 PeerConnection::GetMediaDescriptionOptionsForRejectedData(
     const std::string& mid) const {
-  cricket::MediaDescriptionOptions options(cricket::MEDIA_TYPE_DATA, mid,
-                                           RtpTransceiverDirection::kInactive,
-                                           /*stopped=*/true);
+  cricket::MediaDescriptionOptions options(
+      cricket::MEDIA_TYPE_DATA, mid, RtpTransceiverDirection::kInactive,
+      cricket::MediaDescriptionState::kRejected);
   AddRtpDataChannelOptions(rtp_data_channels_, &options);
   return options;
 }

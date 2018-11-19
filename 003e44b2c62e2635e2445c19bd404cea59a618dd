@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "0ce26df0_8e40c165",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-19T15:02:15Z",
+      "side": 1,
+      "message": "Thanks for adding me! I added the TimedTransport etc. to track the (RTP-sending) lifetime of a Call object. I don\u0027t know if it\u0027s reasonable to keep tracking the metric, so it might be possible to just delete it. I\u0027ll try to find out.",
+      "parentUuid": "c7a0f922_f0bc367c",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ab4b68a_f5e54f42",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 3

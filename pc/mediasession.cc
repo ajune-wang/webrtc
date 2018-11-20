@@ -1292,8 +1292,8 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
 
   // Must have options for each existing section.
   if (current_description) {
-    RTC_DCHECK(current_description->contents().size() <=
-               session_options.media_description_options.size());
+    RTC_DCHECK_LE(current_description->contents().size(),
+                  session_options.media_description_options.size());
   }
 
   // Iterate through the media description options, matching with existing media
@@ -1306,7 +1306,8 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
         msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
       // Media type must match unless this media section is being recycled.
-      RTC_DCHECK(current_content->rejected ||
+      RTC_DCHECK(media_description_options.state ==
+                     MediaDescriptionState::kRecycled ||
                  IsMediaContentOfType(current_content,
                                       media_description_options.type));
     }
@@ -1859,7 +1860,8 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
 
   AudioCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -1903,8 +1905,10 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
 
   audio->set_direction(media_description_options.direction);
 
+  bool rejected =
+      (media_description_options.state == MediaDescriptionState::kRejected);
   desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                   media_description_options.stopped, audio.release());
+                   rejected, audio.release());
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
                          current_description, desc, ice_credentials)) {
@@ -1935,7 +1939,8 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
 
   VideoCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();
@@ -1973,8 +1978,10 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
 
   video->set_direction(media_description_options.direction);
 
-  desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                   media_description_options.stopped, video.release());
+  desc->AddContent(
+      media_description_options.mid, MediaProtocolType::kRtp,
+      (media_description_options.state == MediaDescriptionState::kRejected),
+      video.release());
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
                          current_description, desc, ice_credentials)) {
@@ -2040,8 +2047,10 @@ bool MediaSessionDescriptionFactory::AddDataContentForOffer(
   } else {
     data->set_bandwidth(kDataMaxBandwidth);
     SetMediaProtocol(secure_transport, data.get());
-    desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                     media_description_options.stopped, data.release());
+    desc->AddContent(
+        media_description_options.mid, MediaProtocolType::kRtp,
+        (media_description_options.state == MediaDescriptionState::kRejected),
+        data.release());
   }
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
@@ -2098,7 +2107,8 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
 
   AudioCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -2139,10 +2149,11 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
 
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : audio_transport->secure();
-  bool rejected = media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_AUDIO,
-                                            audio_answer->protocol(), secure);
+  bool rejected =
+      (media_description_options.state == MediaDescriptionState::kRejected) ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_AUDIO, audio_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(audio_transport.get()), answer)) {
     return false;
@@ -2184,7 +2195,8 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
 
   VideoCodecs filtered_codecs;
   // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();
@@ -2225,10 +2237,11 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
   }
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : video_transport->secure();
-  bool rejected = media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_VIDEO,
-                                            video_answer->protocol(), secure);
+  bool rejected =
+      media_description_options.state == MediaDescriptionState::kRejected ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_VIDEO, video_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(video_transport.get()), answer)) {
     return false;
@@ -2290,11 +2303,12 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : data_transport->secure();
 
-  bool rejected = session_options.data_channel_type == DCT_NONE ||
-                  media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_DATA,
-                                            data_answer->protocol(), secure);
+  bool rejected =
+      session_options.data_channel_type == DCT_NONE ||
+      media_description_options.state == MediaDescriptionState::kRejected ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_DATA, data_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(data_transport.get()), answer)) {
     return false;

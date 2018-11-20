@@ -37,6 +37,121 @@
     },
     {
       "key": {
+        "uuid": "a5457ce9_037d643d",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "Update comment here, as mentioned. It\u0027s in various other places as well. Maybe:\n\"and is active (meaning not being recycled or rejected).\"?",
+      "range": {
+        "startLine": 1862,
+        "startChar": 54,
+        "endLine": 1862,
+        "endChar": 80
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01fd1141_a4c785c0",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "All of the mediasession_unittest.cc test kActive/kRejected, but there aren\u0027t any tests for kRecycled. It looks like it\u0027s treated exactly the same in mediasession.cc as kRejected, the difference being that PeerConnection handles them differently. Should this be tested?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b4fbd33_dad050fe",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4021,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "Looks like this helper only does special stuff when the transceiver isn\u0027t stopped. If you wanted you could only call it in that case (recycled or active).",
+      "range": {
+        "startLine": 4021,
+        "startChar": 12,
+        "endLine": 4021,
+        "endChar": 52
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52ad1583_a0b5c762",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4184,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "this is only recycled if the transceiver is not stopped. Is this always the case here? Maybe the function parameter |recycled| should be |can_be_recycled|, meaning that either the current remote or current local are rejected?",
+      "range": {
+        "startLine": 4184,
+        "startChar": 14,
+        "endLine": 4184,
+        "endChar": 44
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad4bf3f1_273015e8",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "Would it be overkill to have this test where there is a current remote/local description?",
+      "range": {
+        "startLine": 916,
+        "startChar": 49,
+        "endLine": 916,
+        "endChar": 26
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "126e053b_320fb43c",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -66,6 +181,29 @@
       "side": 1,
       "message": "I\u0027m not really sure what should happen in that case, or if it\u0027s even a valid interaction.\n\nJSEP doesn\u0027t really say anything about receiving new, rejected m\u003d sections: https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-25#section-5.10\n\nThe implementation here will create two transceivers, the first one stopped.",
       "parentUuid": "126e053b_320fb43c",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a59f64_539b3aab",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-20T20:47:30Z",
+      "side": 1,
+      "message": "description",
+      "range": {
+        "startLine": 953,
+        "startChar": 34,
+        "endLine": 953,
+        "endChar": 45
+      },
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

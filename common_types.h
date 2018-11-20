@@ -243,18 +243,6 @@ enum Profile {
 
 }  // namespace H264
 
-// Video codec types
-enum VideoCodecType {
-  // There are various memset(..., 0, ...) calls in the code that rely on
-  // kVideoCodecGeneric being zero.
-  kVideoCodecGeneric = 0,
-  kVideoCodecVP8,
-  kVideoCodecVP9,
-  kVideoCodecH264,
-  kVideoCodecI420,
-  kVideoCodecMultiplex,
-};
-
 struct SpatialLayer {
   bool operator==(const SpatialLayer& other) const;
   bool operator!=(const SpatialLayer& other) const { return !(*this == other); }

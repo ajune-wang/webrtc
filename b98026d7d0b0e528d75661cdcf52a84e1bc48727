@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60b79e1f_a698ef6b",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-20T12:43:34Z",
+      "side": 1,
+      "message": "This allows both \"recycled\" and \"rejected\", rather than checking if it is \"recycled or matching\" like the comment says. Check for recycled or update comment?\n\nAlso, does input validation ensures that it is impossible to reach this DCHECK?\nShould we have a test case that rejects AND changes media type to make sure it doesn\u0027t crash?",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "126e053b_320fb43c",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-20T12:43:34Z",
+      "side": 1,
+      "message": "Should we, in this or in a another test, test what happens when you subsequently do an offer/answer?\nI suspect that despite having two m\u003d sections (one rejected, one active) the callee-side would only create one transceiver (for the active m\u003d section) - is this correct? Please assert somewhere.",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "809c1753_3c4f5ea5",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-20T12:43:34Z",
+      "side": 1,
+      "message": "What if we setRemoteDescription(answer), again should we assert that the number of transceivers are correct on caller and callee side?",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

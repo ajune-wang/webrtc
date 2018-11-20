@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34628866_7fa79c18",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-20T15:18:42Z",
+      "side": 1,
+      "message": "I am wondering if we can reduce the amount of \"if\" in this code.\n\nFor example by removing the one at line 436 and do something like:\n\n  if (rtc_use_pipewire) {\n    sources +\u003d [\n      \"linux/base_capturer_pipewire.cc\",\n      \"linux/base_capturer_pipewire.h\",\n      \"linux/screen_capturer_pipewire.cc\",\n      \"linux/screen_capturer_pipewire.h\",\n      \"linux/window_capturer_pipewire.cc\",\n      \"linux/window_capturer_pipewire.h\",\n    ]\n    configs +\u003d [\n      \":pipewire_config\",\n      \":gio\",\n    ]\n    if (rtc_link_pipewire) {\n      configs +\u003d [ \":pipewire\" ]\n    } else {\n      libs \u003d [ \"dl\" ]\n      deps +\u003d [ \":pipewire_generate_stubs\" ]\n      sources +\u003d get_target_outputs(\":pipewire_generate_stubs\")\n    }\n  }\n\nThis will keep pipewire related things all together. What do you think?",
+      "range": {
+        "startLine": 487,
+        "startChar": 2,
+        "endLine": 500,
+        "endChar": 3
+      },
+      "revId": "8108bbb3b7f848593ccd73fb8ae9d7de0c98932a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

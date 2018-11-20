@@ -70,6 +70,30 @@
       "revId": "ff595db61e6afd89b1808e9a0e4d22a2f9af71af",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83b05b60_da4c3b93",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-20T08:43:56Z",
+      "side": 1,
+      "message": "as discussed offline, it\u0027s ok to have a string param\nmain reasons: less error-prone, params are added and removed all the time",
+      "parentUuid": "630cca75_0bf9943b",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 0
+      },
+      "revId": "ff595db61e6afd89b1808e9a0e4d22a2f9af71af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

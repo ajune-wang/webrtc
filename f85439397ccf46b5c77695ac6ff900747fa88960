@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b09320eb_4d4d40d3",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-20T07:52:34Z",
+      "side": 1,
+      "message": "Why LS_SENSITIVE? That\u0027s a log level that is mostly unused.",
+      "range": {
+        "startLine": 1382,
+        "startChar": 2,
+        "endLine": 1382,
+        "endChar": 24
+      },
+      "revId": "f85439397ccf46b5c77695ac6ff900747fa88960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

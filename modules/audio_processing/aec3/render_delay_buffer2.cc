@@ -19,6 +19,7 @@
 #include "api/audio/echo_canceller3_config.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/aec3_fft.h"
+#include "modules/audio_processing/aec3/api_call_jitter_metrics.h"
 #include "modules/audio_processing/aec3/decimator.h"
 #include "modules/audio_processing/aec3/downsampled_render_buffer.h"
 #include "modules/audio_processing/aec3/fft_buffer.h"
@@ -88,6 +89,7 @@ class RenderDelayBufferImpl2 final : public RenderDelayBuffer {
   size_t min_latency_blocks_ = 0;
   size_t excess_render_detection_counter_ = 0;
   size_t num_bands_;
+  ApiCallJitterMetrics api_call_metrics_;
 
   int MapDelayToTotalDelay(size_t delay) const;
   int ComputeDelay() const;
@@ -177,12 +179,19 @@ void RenderDelayBufferImpl2::Reset() {
     // Unset the delays which are set by SetDelay.
     delay_ = absl::nullopt;
   }
+
+  // Reset API call metrics.
+  api_call_metrics_.Reset();
 }
 
 // Inserts a new block into the render buffers.
 RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl2::Insert(
     const std::vector<std::vector<float>>& block) {
   ++render_call_counter_;
+
+  // Report render call in the metrics.
+  api_call_metrics_.ReportRenderCall();
+
   if (delay_) {
     if (!last_call_was_render_) {
       last_call_was_render_ = true;
@@ -228,6 +237,10 @@ RenderDelayBuffer::BufferingEvent
 RenderDelayBufferImpl2::PrepareCaptureProcessing() {
   RenderDelayBuffer::BufferingEvent event = BufferingEvent::kNone;
   ++capture_call_counter_;
+
+  // Report capture call in the metrics and periodically update API call
+  // metrics.
+  api_call_metrics_.ReportCaptureCall();
 
   if (delay_) {
     if (last_call_was_render_) {

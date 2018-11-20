@@ -46,6 +46,29 @@
       "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07104904_17bc3b59",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-20T10:24:03Z",
+      "side": 0,
+      "message": "I guessed this would configure the size of some sent packet buffer, used to send packets in response to NACK. But looking at AudioCodingModuleImpl::EnableNack, it\u0027s wired only to the AcmReceiver object, and from there to neteq.",
+      "range": {
+        "startLine": 1181,
+        "startChar": 0,
+        "endLine": 1181,
+        "endChar": 43
+      },
+      "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

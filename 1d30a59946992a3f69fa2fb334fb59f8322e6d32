@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cd508bb5_322507c7",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-11-20T08:23:23Z",
+      "side": 1,
+      "message": "I does work - compare these two files:\n\ngn gen out/Default --args\u003d\"rtc_link_pipewire\u003dfalse\" \u0026\u0026 gn desc out/Default //modules/desktop_capture:desktop_capture_generic\nthat is https://fedorapeople.org/~tpopela/gn_desc.log\n\nand\n\ngn gen out/Default --args\u003d\"rtc_link_pipewire\u003dtrue\" \u0026\u0026 gn desc out/Default //modules/desktop_capture:desktop_capture_generic\nthat is https://fedorapeople.org/~tpopela/gn_desc_link.log\n\nyou will see that the DLOPEN_PIPEWIRE is being defined for that target.",
+      "parentUuid": "37ac1550_98d8359c",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a542fc4_ad2891f0",
         "filename": "modules/desktop_capture/BUILD.gn",
         "patchSetId": 6
@@ -69,6 +93,30 @@
       "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af4bc2e_ca23767d",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-11-20T08:23:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a542fc4_ad2891f0",
+      "range": {
+        "startLine": 177,
+        "startChar": 20,
+        "endLine": 177,
+        "endChar": 35
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

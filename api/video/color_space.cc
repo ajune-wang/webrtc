@@ -13,6 +13,7 @@
 namespace webrtc {
 
 ColorSpace::ColorSpace() = default;
+ColorSpace::ColorSpace(const ColorSpace& other) = default;
 
 ColorSpace::ColorSpace(PrimaryID primaries,
                        TransferID transfer,
@@ -37,6 +38,15 @@ ColorSpace::MatrixID ColorSpace::matrix() const {
 
 ColorSpace::RangeID ColorSpace::range() const {
   return range_;
+}
+
+void ColorSpace::set_hdr_metadata(const HdrMetadata* hdr_metadata) {
+  hdr_metadata_ =
+      hdr_metadata ? absl::make_optional(*hdr_metadata) : absl::nullopt;
+}
+
+const HdrMetadata* ColorSpace::hdr_metadata() const {
+  return hdr_metadata_ ? &*hdr_metadata_ : nullptr;
 }
 
 }  // namespace webrtc

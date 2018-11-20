@@ -13,6 +13,9 @@
 
 #include <stdint.h>
 
+#include "absl/types/optional.h"
+#include "api/video/hdr_metadata.h"
+
 namespace webrtc {
 
 // This class represents color information as specified in T-REC H.273,
@@ -95,27 +98,36 @@ class ColorSpace {
     // Limited Rec. 709 color range with RGB values ranging from 16 to 235.
     kLimited = 1,
     // Full RGB color range with RGB valees from 0 to 255.
-    kFull = 2,
-    // Range is defined by MatrixCoefficients/TransferCharacteristics.
-    kDerived = 3
+    kFull,
   };
 
   ColorSpace();
+  ColorSpace(const ColorSpace& other);
   ColorSpace(PrimaryID primaries,
              TransferID transfer,
              MatrixID matrix,
              RangeID full_range);
+  bool operator==(const ColorSpace& other) const {
+    return primaries_ == other.primaries() && transfer_ == other.transfer() &&
+           matrix_ == other.matrix() && range_ == other.range() &&
+           ((hdr_metadata_.has_value() && other.hdr_metadata() &&
+             *hdr_metadata_ == *other.hdr_metadata()) ||
+            (!hdr_metadata_.has_value() && other.hdr_metadata() == nullptr));
+  }
 
   PrimaryID primaries() const;
   TransferID transfer() const;
   MatrixID matrix() const;
   RangeID range() const;
+  void set_hdr_metadata(const HdrMetadata* hdr_metadata);
+  const HdrMetadata* hdr_metadata() const;
 
  private:
   PrimaryID primaries_ = PrimaryID::kInvalid;
   TransferID transfer_ = TransferID::kInvalid;
   MatrixID matrix_ = MatrixID::kInvalid;
   RangeID range_ = RangeID::kInvalid;
+  absl::optional<HdrMetadata> hdr_metadata_;
 };
 
 }  // namespace webrtc

@@ -18,6 +18,7 @@
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
+#include "logging/rtc_event_log/events/rtc_event_dtls_writable.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
@@ -316,6 +317,11 @@ std::string RtcEventLogEncoderLegacy::Encode(const RtcEvent& event) {
       return EncodeDtlsTransportState(rtc_event);
     }
 
+    case RtcEvent::Type::DtlsWritable: {
+      auto& rtc_event = static_cast<const RtcEventDtlsWritable&>(event);
+      return EncodeDtlsWritable(rtc_event);
+    }
+
     case RtcEvent::Type::IceCandidatePairConfig: {
       auto& rtc_event =
           static_cast<const RtcEventIceCandidatePairConfig&>(event);
@@ -508,6 +514,19 @@ std::string RtcEventLogEncoderLegacy::EncodeDtlsTransportState(
   auto* dtls_event = rtclog_event.mutable_dtls_transport_state_event();
   dtls_event->set_dtls_transport_state(
       ConvertDtlsTransportState(event.dtls_transport_state()));
+
+  return Serialize(&rtclog_event);
+}
+
+std::string RtcEventLogEncoderLegacy::EncodeDtlsWritable(
+    const RtcEventDtlsWritable& event) {
+  rtclog::Event rtclog_event;
+  rtclog_event.set_timestamp_us(event.timestamp_us());
+  rtclog_event.set_type(rtclog::Event::DTLS_WRITABLE);
+
+  auto* dtls_event = rtclog_event.mutable_dtls_writable();
+  dtls_event->set_writable(event.writable());
+
   return Serialize(&rtclog_event);
 }
 

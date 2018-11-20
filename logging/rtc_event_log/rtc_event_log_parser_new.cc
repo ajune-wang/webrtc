@@ -1252,6 +1252,10 @@ void ParsedRtcEventLogNew::StoreParsedLegacyEvent(const rtclog::Event& event) {
       dtls_transport_states_.push_back(GetDtlsTransportState(event));
       break;
     }
+    case rtclog::Event::DTLS_WRITABLE: {
+      dtls_writable_.push_back(GetDtlsWritable(event));
+      break;
+    }
     case rtclog::Event::AUDIO_NETWORK_ADAPTATION_EVENT: {
       LoggedAudioNetworkAdaptationEvent ana_event =
           GetAudioNetworkAdaptation(event);
@@ -1585,6 +1589,20 @@ LoggedDtlsTransportState ParsedRtcEventLogNew::GetDtlsTransportState(
   return res;
 }
 
+LoggedDtlsWritable ParsedRtcEventLogNew::GetDtlsWritable(
+    const rtclog::Event& event) const {
+  RTC_CHECK(event.has_type());
+  RTC_CHECK_EQ(event.type(), rtclog::Event::DTLS_WRITABLE);
+  RTC_CHECK(event.has_dtls_writable());
+  const rtclog::DtlsWritable& dtls_event = event.dtls_writable();
+
+  LoggedDtlsWritable res;
+  res.timestamp_us = GetTimestamp(event);
+  RTC_CHECK(dtls_event.has_writable());
+  res.writable = dtls_event.writable();
+  return res;
+}
+
 LoggedAudioNetworkAdaptationEvent
 ParsedRtcEventLogNew::GetAudioNetworkAdaptation(
     const rtclog::Event& event) const {
@@ -1868,6 +1886,7 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
           stream.end_log_events_size() + stream.loss_based_bwe_updates_size() +
           stream.delay_based_bwe_updates_size() +
           stream.dtls_transport_state_events_size() +
+          stream.dtls_writable_size() +
           stream.audio_network_adaptations_size() +
           stream.probe_clusters_size() + stream.probe_success_size() +
           stream.probe_failure_size() + stream.alr_states_size() +
@@ -1899,6 +1918,8 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
   } else if (stream.dtls_transport_state_events_size() == 1) {
     StoreDtlsTransportState(stream.dtls_transport_state_events(0));
+  } else if (stream.dtls_writable_size() == 1) {
+    StoreDtlsWritable(stream.dtls_writable(0));
   } else if (stream.audio_network_adaptations_size() == 1) {
     StoreAudioNetworkAdaptationEvent(stream.audio_network_adaptations(0));
   } else if (stream.probe_clusters_size() == 1) {
@@ -2143,6 +2164,17 @@ void ParsedRtcEventLogNew::StoreBweDelayBasedUpdate(
     bwe_delay_updates_.emplace_back(1000 * timestamp_ms, bitrate_bps,
                                     GetRuntimeDetectorState(detector_state));
   }
+}
+
+void ParsedRtcEventLogNew::StoreDtlsWritable(
+    const rtclog2::DtlsWritable& proto) {
+  LoggedDtlsWritable dtls_writable;
+  RTC_CHECK(proto.has_timestamp_ms());
+  dtls_writable.timestamp_us = proto.timestamp_ms() * 1000;
+  RTC_CHECK(proto.has_writable());
+  dtls_writable.writable = proto.writable();
+
+  dtls_writable_.push_back(dtls_writable);
 }
 
 void ParsedRtcEventLogNew::StoreBweProbeClusterCreated(

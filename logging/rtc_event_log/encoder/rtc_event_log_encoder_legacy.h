@@ -31,6 +31,7 @@ class RtcEventAudioSendStreamConfig;
 class RtcEventBweUpdateDelayBased;
 class RtcEventBweUpdateLossBased;
 class RtcEventDtlsTransportState;
+class RtcEventDtlsWritable;
 class RtcEventIceCandidatePairConfig;
 class RtcEventIceCandidatePair;
 class RtcEventLoggingStarted;
@@ -74,6 +75,7 @@ class RtcEventLogEncoderLegacy final : public RtcEventLogEncoder {
       const RtcEventBweUpdateDelayBased& event);
   std::string EncodeBweUpdateLossBased(const RtcEventBweUpdateLossBased& event);
   std::string EncodeDtlsTransportState(const RtcEventDtlsTransportState& event);
+  std::string EncodeDtlsWritable(const RtcEventDtlsWritable& event);
   std::string EncodeIceCandidatePairConfig(
       const RtcEventIceCandidatePairConfig& event);
   std::string EncodeIceCandidatePairEvent(

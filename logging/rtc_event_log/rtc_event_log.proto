@@ -44,6 +44,7 @@ message Event {
     ICE_CANDIDATE_PAIR_CONFIG = 20;
     ICE_CANDIDATE_PAIR_EVENT = 21;
     DTLS_TRANSPORT_STATE_EVENT = 22;
+    DTLS_WRITABLE = 23;
   }
 
   // required - Indicates the type of this event
@@ -97,6 +98,9 @@ message Event {
 
     // required if type == DTLS_TRANSPORT_STATE
     DtlsTransportStateEvent dtls_transport_state_event = 22;
+
+    // required if type == DTLS_WRITABLE
+    DtlsWritable dtls_writable = 23;
   }
 }
 
@@ -429,4 +433,9 @@ message DtlsTransportStateEvent {
 
   // required
   optional DtlsTransportState dtls_transport_state = 1;
+}
+
+message DtlsWritable {
+  // required
+  optional bool writable = 1;
 }

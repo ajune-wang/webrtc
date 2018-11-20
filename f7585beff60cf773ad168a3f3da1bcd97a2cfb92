@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "075e8b21_4dc8a4f4",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1984,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-11-20T20:11:48Z",
+      "side": 1,
+      "message": "Nit: is there a reason for not simply inlining the expression here?",
+      "revId": "f7585beff60cf773ad168a3f3da1bcd97a2cfb92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef0d1263_c6f90092",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2053,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-11-20T20:11:48Z",
+      "side": 1,
+      "message": "same comment.",
+      "revId": "f7585beff60cf773ad168a3f3da1bcd97a2cfb92",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

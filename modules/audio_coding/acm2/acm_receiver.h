@@ -225,8 +225,6 @@ class AcmReceiver {
   //                           -1 if failed, e.g. given payload-type is not
   //                              registered.
   //
-  int DecoderByPayloadType(uint8_t payload_type,
-                           CodecInst* codec) const;
   absl::optional<SdpAudioFormat> DecoderByPayloadType(int payload_type) const;
 
   //

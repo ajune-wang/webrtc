@@ -21,6 +21,7 @@ rtc_static_library("audio_format_conversion") {
     "codecs/audio_format_conversion.h",
   ]
   deps = [
+    ":audio_coding_module_typedefs",
     "../..:webrtc_common",
     "../../api:array_view",
     "../../api/audio_codecs:audio_codecs_api",
@@ -68,6 +69,7 @@ rtc_source_set("audio_coding_module_typedefs") {
   deps = [
     "../..:webrtc_common",
     "../../rtc_base:deprecation",
+    "//third_party/abseil-cpp/absl/strings",
   ]
 }
 

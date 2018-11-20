@@ -348,20 +348,6 @@ void AcmReceiver::GetNetworkStatistics(NetworkStatistics* acm_stat) {
   acm_stat->jitterBufferDelayMs = neteq_lifetime_stat.jitter_buffer_delay_ms;
 }
 
-int AcmReceiver::DecoderByPayloadType(uint8_t payload_type,
-                                      CodecInst* codec) const {
-  rtc::CritScope lock(&crit_sect_);
-  const absl::optional<CodecInst> ci = neteq_->GetDecoder(payload_type);
-  if (ci) {
-    *codec = *ci;
-    return 0;
-  } else {
-    RTC_LOG(LERROR) << "AcmReceiver::DecoderByPayloadType "
-                    << static_cast<int>(payload_type);
-    return -1;
-  }
-}
-
 absl::optional<SdpAudioFormat> AcmReceiver::DecoderByPayloadType(
     int payload_type) const {
   rtc::CritScope lock(&crit_sect_);

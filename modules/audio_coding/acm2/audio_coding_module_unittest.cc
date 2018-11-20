@@ -241,10 +241,7 @@ class AudioCodingModuleTestOldApi : public ::testing::Test {
   WebRtcRTPHeader rtp_header_;
   AudioFrame input_frame_;
 
-  // These two have to be kept in sync for now. In the future, we'll be able to
-  // eliminate the CodecInst and keep only the SdpAudioFormat.
   absl::optional<SdpAudioFormat> audio_format_;
-  CodecInst codec_;
 
   Clock* clock_;
 };
@@ -1746,11 +1743,11 @@ TEST_F(AcmChangeBitRateOldApi, Pcm16_8khz_10ms_32kbps) {
 }
 
 TEST_F(AcmSenderBitExactnessOldApi, External_Pcmu_20ms) {
-  CodecInst codec_inst;
-  codec_inst.channels = 1;
-  codec_inst.pacsize = 160;
-  codec_inst.pltype = 0;
-  AudioEncoderPcmU encoder(codec_inst);
+  AudioEncoderPcm::Config config;
+  config.frame_size_ms = 20;
+  config.num_channels = 1;
+  config.payload_type = 0;
+  AudioEncoderPcmU encoder(config);
   auto mock_encoder = absl::make_unique<MockAudioEncoder>();
   // Set expectations on the mock encoder and also delegate the calls to the
   // real encoder.

@@ -26,7 +26,6 @@
 
 namespace webrtc {
 
-struct CodecInst;
 class LockedIsacBandwidthInfo;
 
 namespace acm2 {

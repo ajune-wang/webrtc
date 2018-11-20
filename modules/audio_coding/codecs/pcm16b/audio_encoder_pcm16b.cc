@@ -30,19 +30,19 @@ AudioEncoder::CodecType AudioEncoderPcm16B::GetCodecType() const {
   return CodecType::kOther;
 }
 
-namespace {
+// namespace {
 
-AudioEncoderPcm16B::Config CreateConfig(const CodecInst& codec_inst) {
-  AudioEncoderPcm16B::Config config;
-  config.num_channels = codec_inst.channels;
-  config.sample_rate_hz = codec_inst.plfreq;
-  config.frame_size_ms = rtc::CheckedDivExact(
-      codec_inst.pacsize, rtc::CheckedDivExact(config.sample_rate_hz, 1000));
-  config.payload_type = codec_inst.pltype;
-  return config;
-}
+// AudioEncoderPcm16B::Config CreateConfig(const CodecInst& codec_inst) {
+//   AudioEncoderPcm16B::Config config;
+//   config.num_channels = codec_inst.channels;
+//   config.sample_rate_hz = codec_inst.plfreq;
+//   config.frame_size_ms = rtc::CheckedDivExact(
+//       codec_inst.pacsize, rtc::CheckedDivExact(config.sample_rate_hz, 1000));
+//   config.payload_type = codec_inst.pltype;
+//   return config;
+// }
 
-}  // namespace
+// }  // namespace
 
 bool AudioEncoderPcm16B::Config::IsOk() const {
   if ((sample_rate_hz != 8000) && (sample_rate_hz != 16000) &&
@@ -50,8 +50,5 @@ bool AudioEncoderPcm16B::Config::IsOk() const {
     return false;
   return AudioEncoderPcm::Config::IsOk();
 }
-
-AudioEncoderPcm16B::AudioEncoderPcm16B(const CodecInst& codec_inst)
-    : AudioEncoderPcm16B(CreateConfig(codec_inst)) {}
 
 }  // namespace webrtc

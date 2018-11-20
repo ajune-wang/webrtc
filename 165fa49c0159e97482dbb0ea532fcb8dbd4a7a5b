@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b535b14_afdc1a65",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_libvpx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-20T12:10:10Z",
+      "side": 1,
+      "message": "From https://chromium-swarm.appspot.com/task?id\u003d414855f5d79fd410\u0026refresh\u003d10\u0026show_raw\u003d1\nExpected: (video_stat.avg_delay_sec) \u003c\u003d (rc_thresholds-\u003emax_avg_buffer_level_sec), actual: 0.407751 vs 0.4\n\nMax avg buffer level slightly increased due to some change in libvpx VP9 encoder\u0027s rate control.\n\nI\u0027d like to suggest to increase this threshold up to 0.5 instead of disabling test.",
+      "range": {
+        "startLine": 152,
+        "startChar": 18,
+        "endLine": 152,
+        "endChar": 21
+      },
+      "revId": "165fa49c0159e97482dbb0ea532fcb8dbd4a7a5b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

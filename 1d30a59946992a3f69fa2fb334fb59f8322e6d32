@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "37ac1550_98d8359c",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5027
+      },
+      "writtenOn": "2018-11-20T07:49:52Z",
+      "side": 1,
+      "message": "Yeah, this looks wrong, the defines is effectively out in the gn top level and not under any target. I missed that earlier in the review, sorry.",
+      "parentUuid": "81e98a24_d68df91a",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a542fc4_ad2891f0",
         "filename": "modules/desktop_capture/BUILD.gn",
         "patchSetId": 6

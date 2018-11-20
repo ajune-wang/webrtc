@@ -606,6 +606,11 @@ void AudioEncoderOpusImpl::OnReceivedUplinkRecoverablePacketLossFraction(
 void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     int target_audio_bitrate_bps,
     absl::optional<int64_t> bwe_period_ms) {
+  RTC_LOG(LS_VERBOSE)
+      << "AudioEncoderOpusImpl::OnReceivedUplinkBwe, target_audio_bitrate_bps="
+      << target_audio_bitrate_bps
+      << ", audio_network_adaptor_=" << (audio_network_adaptor_ != nullptr)
+      << ", send_side_bwe_with_overhead_=" << send_side_bwe_with_overhead_;
   if (audio_network_adaptor_) {
     audio_network_adaptor_->SetTargetAudioBitrate(target_audio_bitrate_bps);
     // We give smoothed bitrate allocation to audio network adaptor as
@@ -626,7 +631,7 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     ApplyAudioNetworkAdaptor();
   } else if (send_side_bwe_with_overhead_) {
     if (!overhead_bytes_per_packet_) {
-      RTC_LOG(LS_INFO)
+      RTC_LOG(LS_VERBOSE)
           << "AudioEncoderOpusImpl: Overhead unknown, target audio bitrate "
           << target_audio_bitrate_bps << " bps is ignored.";
       return;
@@ -643,6 +648,9 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
 }
 
 void AudioEncoderOpusImpl::OnReceivedRtt(int rtt_ms) {
+  RTC_LOG(LS_VERBOSE) << "AudioEncoderOpusImpl::OnReceivedRtt, rtt=" << rtt_ms
+                      << ", audio_network_adaptor_="
+                      << (audio_network_adaptor_ != nullptr);
   if (!audio_network_adaptor_)
     return;
   audio_network_adaptor_->SetRtt(rtt_ms);
@@ -832,6 +840,8 @@ void AudioEncoderOpusImpl::SetTargetBitrate(int bits_per_second) {
   config_.bitrate_bps = rtc::SafeClamp<int>(
       bits_per_second, AudioEncoderOpusConfig::kMinBitrateBps,
       AudioEncoderOpusConfig::kMaxBitrateBps);
+
+  RTC_LOG(LS_VERBOSE) << "Set target bitrate, bits_ps=" << bits_per_second;
   RTC_DCHECK(config_.IsOk());
   RTC_CHECK_EQ(0, WebRtcOpus_SetBitRate(inst_, GetBitrateBps(config_)));
   const auto new_complexity = GetNewComplexity(config_);

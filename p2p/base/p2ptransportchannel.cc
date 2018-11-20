@@ -1379,6 +1379,9 @@ int P2PTransportChannel::SendPacket(const char *data, size_t len,
     RTC_DCHECK(sent < 0);
     error_ = selected_connection_->GetError();
   }
+  RTC_LOG(LS_VERBOSE) << "P2PTransportChannel::SendPacket, transport_name="
+                      << transport_name_ << ", len=" << len
+                      << ", sent_len=" << sent;
   return sent;
 }
 

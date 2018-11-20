@@ -519,6 +519,11 @@ int32_t ChannelSend::SendData(FrameType frameType,
   RTC_DCHECK_RUN_ON(encoder_queue_);
   rtc::ArrayView<const uint8_t> payload(payloadData, payloadSize);
 
+  RTC_LOG(LS_VERBOSE) << "ChannelSend::SendData: payload.size()="
+                      << payload.size() << ", sequence_number_="
+                      << media_transport_sequence_number_
+                      << ", media_transport=" << (media_transport() != nullptr);
+
   if (media_transport() != nullptr) {
     return SendMediaTransportAudio(frameType, payloadType, timeStamp, payload,
                                    fragmentation);
@@ -911,6 +916,9 @@ void ChannelSend::SetBitrate(int bitrate_bps, int64_t probing_interval_ms) {
   // rules.
   // RTC_DCHECK(worker_thread_checker_.CalledOnValidThread() ||
   //            module_process_thread_checker_.CalledOnValidThread());
+  RTC_LOG(LS_VERBOSE) << "ChannelSend::SetBitRate, bitrate=" << bitrate_bps
+                      << ", probing_interval_ms=" << probing_interval_ms;
+
   rtc::CritScope lock(&bitrate_crit_section_);
 
   audio_coding_->ModifyEncoder([&](std::unique_ptr<AudioEncoder>* encoder) {
@@ -1264,6 +1272,8 @@ void ChannelSend::SetTransportOverhead(size_t transport_overhead_per_packet) {
 
 // TODO(solenberg): Make AudioSendStream an OverheadObserver instead.
 void ChannelSend::OnOverheadChanged(size_t overhead_bytes_per_packet) {
+  RTC_LOG(LS_VERBOSE) << "Overhead changed, bytes_per_packet="
+                      << overhead_bytes_per_packet;
   rtc::CritScope cs(&overhead_per_packet_lock_);
   rtp_overhead_per_packet_ = overhead_bytes_per_packet;
   UpdateOverheadForEncoder();
@@ -1361,6 +1371,7 @@ void ChannelSend::OnTargetTransferRate(TargetTransferRate rate) {
 
 void ChannelSend::OnReceivedRtt(int64_t rtt_ms) {
   // Invoke audio encoders OnReceivedRtt().
+  RTC_LOG(LS_VERBOSE) << "Updating encoder rtt=" << rtt_ms;
   audio_coding_->ModifyEncoder(
       [rtt_ms](std::unique_ptr<AudioEncoder>* encoder) {
         if (*encoder) {

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f64d205d_ca8a914f",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-20T19:12:26Z",
+      "side": 1,
+      "message": "I think it\u0027s safe to check that media type is the same if rejecting. Changed the DCHECK.\n\nYes, the peerconnection validates this in the helper MediaSectionsInSameOrder.",
+      "parentUuid": "60b79e1f_a698ef6b",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "126e053b_320fb43c",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6413eaa4_03e256ec",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-20T19:12:26Z",
+      "side": 1,
+      "message": "I\u0027m not really sure what should happen in that case, or if it\u0027s even a valid interaction.\n\nJSEP doesn\u0027t really say anything about receiving new, rejected m\u003d sections: https://tools.ietf.org/html/draft-ietf-rtcweb-jsep-25#section-5.10\n\nThe implementation here will create two transceivers, the first one stopped.",
+      "parentUuid": "126e053b_320fb43c",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "809c1753_3c4f5ea5",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2018-11-20T12:43:34Z",
       "side": 1,
       "message": "What if we setRemoteDescription(answer), again should we assert that the number of transceivers are correct on caller and callee side?",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c5de4b_de40c594",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-20T19:12:26Z",
+      "side": 1,
+      "message": "This was only intended to test CreateOffer. I don\u0027t think we have the same cases for CreateAnswer.",
+      "parentUuid": "809c1753_3c4f5ea5",
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

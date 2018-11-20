@@ -195,7 +195,6 @@ struct ConfigHelper {
     }));
     EXPECT_CALL(*channel_send_, SetLocalSSRC(kSsrc)).Times(1);
     EXPECT_CALL(*channel_send_, SetRTCP_CNAME(StrEq(kCName))).Times(1);
-    EXPECT_CALL(*channel_send_, SetNACKStatus(true, 10)).Times(1);
     EXPECT_CALL(*channel_send_, SetFrameEncryptor(_)).Times(1);
     EXPECT_CALL(*channel_send_, SetExtmapAllowMixed(false)).Times(1);
     EXPECT_CALL(*channel_send_,

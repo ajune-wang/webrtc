@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bd0b60a6_8d6f876c",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-20T10:56:29Z",
+      "side": 1,
+      "message": "Oh, I know what is happening here! The variable \"defines\" becomes part of :gio because of the GN scoping rules.\n\n$ gn gen out/Default --args\u003d\"rtc_use_pipewire\u003dtrue\" \u0026\u0026 gn desc out/Default //modules/desktop_capture:gio\n[...]\ndefines\n  WEBRTC_USE_PIPEWIRE\n  DLOPEN_PIPEWIRE\n\nlibs\n  gio-2.0\n  gobject-2.0\n  glib-2.0\n\nSo this is working because :gio is a pkg_config on which :desktop_capture_generic depends on, but I suggest you explicitly move the \"defines\" inside the pkg_config because the current situation is error prone. This is why it wasn\u0027t working when you moved the \"defines\" after the :pipewire_generate_stubs action (this should reply to https://webrtc-review.googlesource.com/c/src/+/111081/6#message-b4199ec51bff2d688cb2cfcf7f40ddebcedba5eb).",
+      "parentUuid": "cd508bb5_322507c7",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a542fc4_ad2891f0",
         "filename": "modules/desktop_capture/BUILD.gn",
         "patchSetId": 6

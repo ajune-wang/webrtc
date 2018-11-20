@@ -22,6 +22,30 @@
       "revId": "8108bbb3b7f848593ccd73fb8ae9d7de0c98932a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c34100a_f7f4ab7b",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-11-20T15:44:27Z",
+      "side": 1,
+      "message": "Yes, that sounds good!",
+      "parentUuid": "34628866_7fa79c18",
+      "range": {
+        "startLine": 487,
+        "startChar": 2,
+        "endLine": 500,
+        "endChar": 3
+      },
+      "revId": "8108bbb3b7f848593ccd73fb8ae9d7de0c98932a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

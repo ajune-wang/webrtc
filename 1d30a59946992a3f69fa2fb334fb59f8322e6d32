@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "26cbc66c_6b18a18c",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-20T12:05:24Z",
+      "side": 1,
+      "message": "\u003e Oh that\u0027s it! Thank you Mirko! I can\u0027t move the defines there as the pkg-config() is not used when using dlopen() and thus these won\u0027t be defined for that case. I will do a separate config for that.\n\nYes, this sounds like the best way to solve this build config problem. Thanks!",
+      "parentUuid": "bfdcbc0f_b0416100",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 39
+      },
+      "revId": "1d30a59946992a3f69fa2fb334fb59f8322e6d32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a542fc4_ad2891f0",
         "filename": "modules/desktop_capture/BUILD.gn",
         "patchSetId": 6

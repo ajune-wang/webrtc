@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b02e1bb_1f89da52",
+        "filename": "examples/androidjunit/src/org/appspot/apprtc/TCPChannelClientTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-20T13:28:55Z",
+      "side": 1,
+      "message": "This already waits for the the method to be called, isn\u0027t this effectively the same as increasing CONNECT_TIMEOUT constant?",
+      "range": {
+        "startLine": 118,
+        "startChar": 51,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "734aa2ca08c584212dba386906b8e196a5bfa222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

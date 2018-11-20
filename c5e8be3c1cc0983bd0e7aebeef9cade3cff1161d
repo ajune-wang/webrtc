@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13830b95_6fde8b47",
+        "filename": "sdk/objc/api/peerconnection/RTCFieldTrials.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-20T06:14:46Z",
+      "side": 0,
+      "message": "This is still in use by some projects.",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 68
+      },
+      "revId": "c5e8be3c1cc0983bd0e7aebeef9cade3cff1161d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

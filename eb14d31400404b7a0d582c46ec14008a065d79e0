@@ -22,6 +22,30 @@
       "revId": "eb14d31400404b7a0d582c46ec14008a065d79e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de534bb6_f4049db9",
+        "filename": "modules/audio_processing/test/audioproc_float_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-20T11:27:16Z",
+      "side": 1,
+      "message": "good catch, I didn\u0027t know that RTC_NOTREACHED is only active in debug mode, thanks!",
+      "parentUuid": "820dc870_156a2329",
+      "range": {
+        "startLine": 258,
+        "startChar": 2,
+        "endLine": 258,
+        "endChar": 16
+      },
+      "revId": "eb14d31400404b7a0d582c46ec14008a065d79e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

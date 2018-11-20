@@ -69,6 +69,30 @@
       "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175fbe2c_8b68259d",
+        "filename": "audio/channel_send.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1181,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-20T12:07:51Z",
+      "side": 0,
+      "message": "Yes. It looks like NACK SDP parameters on send codecs only affect our receive streams.",
+      "parentUuid": "07104904_17bc3b59",
+      "range": {
+        "startLine": 1181,
+        "startChar": 0,
+        "endLine": 1181,
+        "endChar": 43
+      },
+      "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

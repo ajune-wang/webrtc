@@ -22,6 +22,30 @@
       "revId": "734aa2ca08c584212dba386906b8e196a5bfa222",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a83b30b6_6b323ee0",
+        "filename": "examples/androidjunit/src/org/appspot/apprtc/TCPChannelClientTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-11-20T15:05:05Z",
+      "side": 1,
+      "message": "Hmm... Yes, I have missed that.\nOK, I have reverted my changes and just increased timeouts.\nI have also increased SERVER_WAIT because sometimes 100 ms is not enough.",
+      "parentUuid": "3b02e1bb_1f89da52",
+      "range": {
+        "startLine": 118,
+        "startChar": 51,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "734aa2ca08c584212dba386906b8e196a5bfa222",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

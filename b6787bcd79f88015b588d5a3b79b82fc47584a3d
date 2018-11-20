@@ -22,6 +22,30 @@
       "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01ff1dea_277baecd",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-20T10:13:45Z",
+      "side": 0,
+      "message": "Yes, it looks like we can.",
+      "parentUuid": "264bf53d_328a9128",
+      "range": {
+        "startLine": 263,
+        "startChar": 47,
+        "endLine": 263,
+        "endChar": 51
+      },
+      "revId": "b6787bcd79f88015b588d5a3b79b82fc47584a3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

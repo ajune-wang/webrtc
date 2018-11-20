@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "b8749eee_a9baf066",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-20T16:38:22Z",
+      "side": 1,
+      "message": "Made a CL to get rid of the UMA stat and TimedTransport parts.\nhttps://webrtc-review.googlesource.com/c/src/+/111506",
+      "parentUuid": "0ce26df0_8e40c165",
+      "revId": "003e44b2c62e2635e2445c19bd404cea59a618dd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5ab4b68a_f5e54f42",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 3

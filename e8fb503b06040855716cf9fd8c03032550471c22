@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3719626c_fb7dd85a",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-20T14:09:21Z",
+      "side": 1,
+      "message": "ColorSpace is also a per-frame property?",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 50
+      },
+      "revId": "e8fb503b06040855716cf9fd8c03032550471c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2393ae69_56022a5f",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-20T14:09:21Z",
+      "side": 1,
+      "message": "Please drop _ptr suffix.",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 35
+      },
+      "revId": "e8fb503b06040855716cf9fd8c03032550471c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

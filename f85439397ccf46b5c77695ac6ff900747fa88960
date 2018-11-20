@@ -22,6 +22,30 @@
       "revId": "f85439397ccf46b5c77695ac6ff900747fa88960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51cf7049_bcc39cbf",
+        "filename": "p2p/base/p2ptransportchannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-11-20T16:43:06Z",
+      "side": 1,
+      "message": "Because it\u0027s the most \"detailed\" log (more detailed than ls_verbose) and this would be logged for every packet, which may be too much for some.\n\nMy take was:\nLS_VERBOSE for things that happen often, but not too often\nLS_SENSITIVE for things that happen with every packet (very often).\n\nI changed it to LS_VERBOSE then.",
+      "parentUuid": "b09320eb_4d4d40d3",
+      "range": {
+        "startLine": 1382,
+        "startChar": 2,
+        "endLine": 1382,
+        "endChar": 24
+      },
+      "revId": "f85439397ccf46b5c77695ac6ff900747fa88960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

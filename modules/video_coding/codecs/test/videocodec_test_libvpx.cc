@@ -134,7 +134,7 @@ TEST(VideoCodecTestLibvpx, ChangeBitrateVP9) {
   fixture->RunTest(rate_profiles, &rc_thresholds, &quality_thresholds, nullptr);
 }
 
-TEST(VideoCodecTestLibvpx, ChangeFramerateVP9) {
+TEST(VideoCodecTestLibvpx, DISABLED_ChangeFramerateVP9) {
   auto config = CreateConfig();
   config.SetCodecSettings(cricket::kVp9CodecName, 1, 1, 1, false, true, false,
                           kCifWidth, kCifHeight);

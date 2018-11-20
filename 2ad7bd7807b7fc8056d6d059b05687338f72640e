@@ -22,6 +22,30 @@
       "revId": "2ad7bd7807b7fc8056d6d059b05687338f72640e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9701d72_4ccf28fa",
+        "filename": "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-20T13:15:15Z",
+      "side": 1,
+      "message": "The copy constructor is (deliberately) private, so it can unfortunately not be called from make_unique.",
+      "parentUuid": "c134d080_147f6c4f",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 51
+      },
+      "revId": "2ad7bd7807b7fc8056d6d059b05687338f72640e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

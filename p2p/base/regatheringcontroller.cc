@@ -39,6 +39,8 @@ BasicRegatheringController::BasicRegatheringController(
   RTC_DCHECK(thread_);
   ice_transport_->SignalStateChanged.connect(
       this, &BasicRegatheringController::OnIceTransportStateChanged);
+  ice_transport_->SignalIceTransportStateChanged.connect(
+      this, &BasicRegatheringController::OnIceTransportStateChanged);
   ice_transport->SignalWritableState.connect(
       this, &BasicRegatheringController::OnIceTransportWritableState);
   ice_transport->SignalReceivingState.connect(

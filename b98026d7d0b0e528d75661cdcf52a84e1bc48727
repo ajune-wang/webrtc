@@ -187,6 +187,24 @@
     },
     {
       "key": {
+        "uuid": "ee20f97f_cc7d1623",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-21T09:52:30Z",
+      "side": 1,
+      "message": "Ah, I don\u0027t think my above suspicion is correct.\n\nYour link seem to say \"for each m\u003d section\", not excluding rejected ones, and https://w3c.github.io/webrtc-pc/#set-description says what to do for each m\u003d section, with a final step \"If the media description is rejected, and transceiver is not already stopped, stop the RTCRtpTransceiver transceiver.\"\n\nSo I think the current implementation of creating two transceivers, the first one being stopped, is correct. Can you add test coverage for this?",
+      "parentUuid": "6413eaa4_03e256ec",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8a59f64_539b3aab",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -242,6 +260,24 @@
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e350057a_0f89a316",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-21T09:52:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "32c5de4b_de40c594",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c184d9ef_c617b421",
+        "filename": "api/crypto/cryptooptions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-21T17:21:20Z",
+      "side": 1,
+      "message": "|Sframe.require_frame_encryption|",
+      "range": {
+        "startLine": 48,
+        "startChar": 30,
+        "endLine": 48,
+        "endChar": 54
+      },
+      "revId": "cf5d3b03ae90f3e09649713c7753d2acacd9440b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d5531b6_c4e187ca",
+        "filename": "api/crypto/cryptooptions.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-21T17:21:20Z",
+      "side": 1,
+      "message": "Rephrase suggestion:\n\nSince video traffic is more affected by the weakened security guarantees of this cipher, the cipher (if configured) will only apply to video if |SFrame.require_frame_encryption| is also true.",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "cf5d3b03ae90f3e09649713c7753d2acacd9440b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac18fb53_b1473068",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-21T17:21:20Z",
+      "side": 1,
+      "message": "I think this might be more clear:\n\nbool allow_gcm_hmac_32 (or whatever name looks best) \u003d\n    (offer-\u003etype() \u003d\u003d MEDIA_TYPE_AUDIO) ||\n    (offer-\u003etype() \u003d\u003d MEDIA_TYPE_VIDEO \u0026\u0026 crypto_options.sframe.require_frame_encryption);",
+      "revId": "cf5d3b03ae90f3e09649713c7753d2acacd9440b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

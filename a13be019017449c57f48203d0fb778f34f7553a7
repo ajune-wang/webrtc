@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f50e5ff_5978343a",
+        "filename": "BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-11-21T09:38:07Z",
+      "side": 1,
+      "message": "We should try to avoid adding this to every target, if at all possible.\nWorth noting that somehow the `generate_jni` template seems to manage without it, even though it puts header files into the gen dir.",
+      "range": {
+        "startLine": 137,
+        "startChar": 6,
+        "endLine": 137,
+        "endChar": 20
+      },
+      "revId": "a13be019017449c57f48203d0fb778f34f7553a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

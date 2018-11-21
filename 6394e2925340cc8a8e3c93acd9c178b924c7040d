@@ -22,6 +22,30 @@
       "revId": "6394e2925340cc8a8e3c93acd9c178b924c7040d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02f57b56_96f0b894",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-21T09:25:22Z",
+      "side": 1,
+      "message": "Only public build targets need to declare themselves allow_poison, to reduce the amount of annotations. It looks like that would solve the mystery?",
+      "parentUuid": "9e3d8931_eab0b043",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "6394e2925340cc8a8e3c93acd9c178b924c7040d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

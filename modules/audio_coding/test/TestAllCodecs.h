@@ -13,7 +13,7 @@
 
 #include <memory>
 
-#include "modules/audio_coding/test/Channel.h"
+#include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/PCMFile.h"
 
 namespace webrtc {

@@ -15,7 +15,6 @@
 
 #include <memory>
 
-#include "modules/audio_coding/test/Channel.h"
 #include "modules/audio_coding/test/PCMFile.h"
 
 #define PCMA_AND_PCMU

@@ -13,6 +13,7 @@
 
 #include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
@@ -79,7 +80,8 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
   virtual void StartPlayout() = 0;
   virtual void StopPlayout() = 0;
 
-  virtual bool GetRecCodec(CodecInst* codec) const = 0;
+  virtual absl::optional<std::pair<int, SdpAudioFormat>>
+      GetReceiveCodec() const = 0;
 
   virtual bool ReceivedRTCPPacket(const uint8_t* data, size_t length) = 0;
 

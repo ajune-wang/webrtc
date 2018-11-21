@@ -65,11 +65,6 @@ class ISACTest {
   PCMFile _outFileA;
   PCMFile _outFileB;
 
-  uint8_t _idISAC16kHz;
-  uint8_t _idISAC32kHz;
-  CodecInst _paramISAC16kHz;
-  CodecInst _paramISAC32kHz;
-
   std::string file_name_swb_;
 
   ACMTestTimer _myTimer;

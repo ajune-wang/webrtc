@@ -20,14 +20,14 @@ namespace webrtc {
 
 namespace {
 
-template <typename T>
-typename T::Config CreateConfig(const CodecInst& codec_inst) {
-  typename T::Config config;
-  config.frame_size_ms = codec_inst.pacsize / 8;
-  config.num_channels = codec_inst.channels;
-  config.payload_type = codec_inst.pltype;
-  return config;
-}
+// template <typename T>
+// typename T::Config CreateConfig(const CodecInst& codec_inst) {
+//   typename T::Config config;
+//   config.frame_size_ms = codec_inst.pacsize / 8;
+//   config.num_channels = codec_inst.channels;
+//   config.payload_type = codec_inst.pltype;
+//   return config;
+// }
 
 }  // namespace
 
@@ -103,9 +103,6 @@ void AudioEncoderPcm::Reset() {
   speech_buffer_.clear();
 }
 
-AudioEncoderPcmA::AudioEncoderPcmA(const CodecInst& codec_inst)
-    : AudioEncoderPcmA(CreateConfig<AudioEncoderPcmA>(codec_inst)) {}
-
 size_t AudioEncoderPcmA::EncodeCall(const int16_t* audio,
                                     size_t input_len,
                                     uint8_t* encoded) {
@@ -119,9 +116,6 @@ size_t AudioEncoderPcmA::BytesPerSample() const {
 AudioEncoder::CodecType AudioEncoderPcmA::GetCodecType() const {
   return AudioEncoder::CodecType::kPcmA;
 }
-
-AudioEncoderPcmU::AudioEncoderPcmU(const CodecInst& codec_inst)
-    : AudioEncoderPcmU(CreateConfig<AudioEncoderPcmU>(codec_inst)) {}
 
 size_t AudioEncoderPcmU::EncodeCall(const int16_t* audio,
                                     size_t input_len,

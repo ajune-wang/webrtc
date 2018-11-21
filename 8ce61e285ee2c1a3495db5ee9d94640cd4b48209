@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "541d84e3_b5d8b0da",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc318578_faa7add0",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 39
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a37cff8_a44a02ac",
         "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ee167d6_ccfe7751",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a37cff8_a44a02ac",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fbead89a_59d6b46f",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "As you write the delay estimates originate from the histogram and are somewhat reliable.\nYou are also correct when you say that delay estimates may change slightly due movement etc.\n\nTo cope with this uncertainty, the delay estimator does not flag individual delay changes as clockdrift.\n\nWhen it sees three consecutive delays following one of the described patterns (like 1000, 1001, 1002) it likely that the system is suffering from clockdrift. The clockdrift detector considers this \"probable clockdrift\".\n\nWhen a fourth delay also matches the pattern, the clockdrift is certain enough to call it \"verified clockdrift\".\n\nNote that monotonically increasing/decreasing are not the only patterns that are recognized as clockdrift. 1000, 1002, 1001, 1003 is also a valid pattern.",
+      "parentUuid": "04e38957_7fec320c",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c0bac51_6066ccad",
         "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fd5f76f_f42a6303",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c0bac51_6066ccad",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9c38700d_7b68e54d",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34b7748a_c56520ff",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19dbc076_21a0032b",
         "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
         "patchSetId": 1
@@ -131,6 +251,24 @@
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae62ceed_44f1eb92",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19dbc076_21a0032b",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "0f8c7c78_733fbd6e",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68997db0_42e0e584",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae2d3e59_ca4a7650",
         "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
         "patchSetId": 1
@@ -171,6 +333,24 @@
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76c4d6ed_dc319c9f",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae2d3e59_ca4a7650",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "bbb4d497_942ea60e",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "See response to comment in echo_path_delay_estimator.h.\nMaking it more explicit.",
+      "parentUuid": "951f43da_a66bff3e",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f480736_c2c71ed5",
         "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.h",
         "patchSetId": 1
@@ -202,6 +400,24 @@
       "writtenOn": "2018-11-21T05:41:01Z",
       "side": 1,
       "message": "What about adding an enum for this? That would improve the code readability.",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb75102_dff28d47",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "I did it this way to avoid \"leaking\" the enum outside of the clockdrift detector.\nThe code gets IMHO insanely verbose when using ClockdriftDetector::ClockdriftLevel::kNone.\nIf you really hate the int-representation I can change it, but I prefer it this way.",
+      "parentUuid": "3f480736_c2c71ed5",
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -231,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "efc90e3a_5687718e",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "560325db_cd86ee32",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71228c84_0d17c9a3",
         "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
         "patchSetId": 1
@@ -245,6 +485,24 @@
       "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31d453c2_8154a340",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-21T14:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71228c84_0d17c9a3",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

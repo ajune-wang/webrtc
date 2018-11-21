@@ -22,6 +22,30 @@
       "revId": "bc33b814574178cf5ec4281b407f6130bcb80931",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b25cd01e_a75ce5ac",
+        "filename": "modules/video_coding/video_frame_stash.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-21T10:18:52Z",
+      "side": 1,
+      "message": "I agree with Stefan, even if you added a function similar to RtpFrameReferenceFinder::ClearTo I would still think it\u0027s cleaner to just have a deque in RtpVideoStreamReceiver.",
+      "parentUuid": "c7a468f7_728d48c0",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "bc33b814574178cf5ec4281b407f6130bcb80931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

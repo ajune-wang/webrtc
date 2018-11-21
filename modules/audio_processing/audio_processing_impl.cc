@@ -259,6 +259,7 @@ struct AudioProcessingImpl::ApmPrivateSubmodules {
   std::unique_ptr<CustomProcessing> render_pre_processor;
   std::unique_ptr<GainApplier> pre_amplifier;
   std::unique_ptr<CustomAudioAnalyzer> capture_analyzer;
+  std::unique_ptr<LevelEstimatorImpl> output_level_estimator;
 };
 
 AudioProcessingBuilder::AudioProcessingBuilder() = default;
@@ -673,6 +674,13 @@ void AudioProcessingImpl::ApplyConfig(const AudioProcessing::Config& config) {
                    << config_.gain_controller2.enabled;
   RTC_LOG(LS_INFO) << "Pre-amplifier activated: "
                    << config_.pre_amplifier.enabled;
+
+  if (config_.level_estimation.enabled &&
+      !private_submodules_->output_level_estimator) {
+    private_submodules_->output_level_estimator.reset(
+        new LevelEstimatorImpl(&crit_capture_));
+    private_submodules_->output_level_estimator->Enable(true);
+  }
 }
 
 void AudioProcessingImpl::SetExtraOptions(const webrtc::Config& config) {
@@ -1334,8 +1342,15 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     private_submodules_->capture_post_processor->Process(capture_buffer);
   }
 
-  // The level estimator operates on the recombined data.
+  // Level estimation operates on the recombined data.
   public_submodules_->level_estimator->ProcessStream(capture_buffer);
+  if (config_.level_estimation.enabled) {
+    private_submodules_->output_level_estimator->ProcessStream(capture_buffer);
+    capture_.stats.output_rms_dbfs =
+        private_submodules_->output_level_estimator->RMS();
+  } else {
+    capture_.stats.output_rms_dbfs = absl::nullopt;
+  }
 
   capture_output_rms_.Analyze(rtc::ArrayView<const int16_t>(
       capture_buffer->channels_const()[0],
@@ -1587,10 +1602,10 @@ void AudioProcessingImpl::DetachPlayoutAudioGenerator() {
 
 AudioProcessingStats AudioProcessingImpl::GetStatistics(
     bool has_remote_tracks) const {
-  AudioProcessingStats stats;
+  rtc::CritScope cs_capture(&crit_capture_);
+  AudioProcessingStats stats = capture_.stats;
   if (has_remote_tracks) {
     EchoCancellationImpl::Metrics metrics;
-    rtc::CritScope cs_capture(&crit_capture_);
     if (private_submodules_->echo_controller) {
       auto ec_metrics = private_submodules_->echo_controller->GetMetrics();
       stats.echo_return_loss = ec_metrics.echo_return_loss;

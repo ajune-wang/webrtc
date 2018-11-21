@@ -22,7 +22,7 @@
 
 namespace webrtc {
 // DataSize is a class represeting a count of bytes.
-class DataSize final : public rtc_units_impl::RelativeUnit<DataSize> {
+class DataSize : public rtc_units_impl::RelativeUnit<DataSize> {
  public:
   DataSize() = delete;
   static constexpr DataSize Infinity() { return PlusInfinity(); }

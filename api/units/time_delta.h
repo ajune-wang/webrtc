@@ -29,7 +29,7 @@ namespace webrtc {
 // undefined. To simplify usage, it can be constructed and converted to
 // different units, specifically seconds (s), milliseconds (ms) and
 // microseconds (us).
-class TimeDelta final : public rtc_units_impl::RelativeUnit<TimeDelta> {
+class TimeDelta : public rtc_units_impl::RelativeUnit<TimeDelta> {
  public:
   TimeDelta() = delete;
   template <int64_t seconds>

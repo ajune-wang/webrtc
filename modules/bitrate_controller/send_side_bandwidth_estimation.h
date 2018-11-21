@@ -105,11 +105,12 @@ class SendSideBandwidthEstimation {
   // min bitrate used during last kBweIncreaseIntervalMs.
   void UpdateMinHistory(Timestamp at_time);
 
-  DataRate MaybeRampupOrBackoff(DataRate new_bitrate, Timestamp at_time);
+  Limited<DataRate> MaybeRampupOrBackoff(Limited<DataRate> new_bitrate,
+                                         Timestamp at_time);
 
   // Cap |bitrate| to [min_bitrate_configured_, max_bitrate_configured_] and
   // set |current_bitrate_| to the capped value and updates the event log.
-  void CapBitrateToThresholds(Timestamp at_time, DataRate bitrate);
+  void CapBitrateToThresholds(Timestamp at_time, Limited<DataRate> bitrate);
 
   RttBasedBackoff rtt_backoff_;
 
@@ -119,8 +120,8 @@ class SendSideBandwidthEstimation {
   int lost_packets_since_last_loss_update_;
   int expected_packets_since_last_loss_update_;
 
-  DataRate current_bitrate_;
-  DataRate min_bitrate_configured_;
+  Limited<DataRate> current_bitrate_;
+  Limited<DataRate> min_bitrate_configured_;
   DataRate max_bitrate_configured_;
   Timestamp last_low_bitrate_log_;
 
@@ -130,14 +131,14 @@ class SendSideBandwidthEstimation {
   Timestamp last_timeout_;
   uint8_t last_fraction_loss_;
   uint8_t last_logged_fraction_loss_;
-  TimeDelta last_round_trip_time_;
+  Limited<TimeDelta> last_round_trip_time_;
 
-  DataRate bwe_incoming_;
-  DataRate delay_based_bitrate_;
+  Limited<DataRate> bwe_incoming_;
+  Limited<DataRate> delay_based_bitrate_;
   Timestamp time_last_decrease_;
   Timestamp first_report_time_;
   int initially_lost_packets_;
-  DataRate bitrate_at_2_seconds_;
+  Limited<DataRate> bitrate_at_2_seconds_;
   UmaState uma_update_state_;
   UmaState uma_rtt_state_;
   std::vector<bool> rampup_uma_stats_updated_;
@@ -146,7 +147,7 @@ class SendSideBandwidthEstimation {
   bool in_timeout_experiment_;
   float low_loss_threshold_;
   float high_loss_threshold_;
-  DataRate bitrate_threshold_;
+  Limited<DataRate> bitrate_threshold_;
   LossBasedBandwidthEstimation loss_based_bandwidth_estimation_;
 };
 }  // namespace webrtc

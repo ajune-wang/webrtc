@@ -50,6 +50,13 @@ class TestUnit final : public rtc_units_impl::RelativeUnit<TestUnit> {
 };
 }  // namespace
 namespace test {
+TEST(UnitBaseTest, Limited) {
+  const int64_t kValue = 499;
+  Limited<TestUnit> test_a = Limited<TestUnit>::FromValue(kValue);
+  Limited<TestUnit> test_b = Limited<TestUnit>::FromValue(kValue);
+  EXPECT_EQ((test_a + test_b).ToValue(), kValue + kValue);
+}
+
 TEST(UnitBaseTest, ConstExpr) {
   constexpr int64_t kValue = -12345;
   constexpr TestUnit kTestUnitZero = TestUnit::Zero();

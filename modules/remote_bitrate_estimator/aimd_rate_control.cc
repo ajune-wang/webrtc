@@ -106,13 +106,13 @@ AimdRateControl::AimdRateControl()
 
 AimdRateControl::~AimdRateControl() {}
 
-void AimdRateControl::SetStartBitrate(DataRate start_bitrate) {
+void AimdRateControl::SetStartBitrate(Limited<DataRate> start_bitrate) {
   current_bitrate_ = start_bitrate;
   latest_estimated_throughput_ = current_bitrate_;
   bitrate_is_initialized_ = true;
 }
 
-void AimdRateControl::SetMinBitrate(DataRate min_bitrate) {
+void AimdRateControl::SetMinBitrate(Limited<DataRate> min_bitrate) {
   min_configured_bitrate_ = min_bitrate;
   current_bitrate_ = std::max(min_bitrate, current_bitrate_);
 }
@@ -125,15 +125,16 @@ TimeDelta AimdRateControl::GetFeedbackInterval() const {
   // Estimate how often we can send RTCP if we allocate up to 5% of bandwidth
   // to feedback.
   const DataSize kRtcpSize = DataSize::bytes(80);
-  const DataRate rtcp_bitrate = current_bitrate_ * 0.05;
+  const Limited<DataRate> rtcp_bitrate = current_bitrate_ * 0.05;
   const TimeDelta interval = kRtcpSize / rtcp_bitrate;
   const TimeDelta kMinFeedbackInterval = TimeDelta::ms(200);
   const TimeDelta kMaxFeedbackInterval = TimeDelta::ms(1000);
   return interval.Clamped(kMinFeedbackInterval, kMaxFeedbackInterval);
 }
 
-bool AimdRateControl::TimeToReduceFurther(Timestamp at_time,
-                                          DataRate estimated_throughput) const {
+bool AimdRateControl::TimeToReduceFurther(
+    Timestamp at_time,
+    Limited<DataRate> estimated_throughput) const {
   const TimeDelta bitrate_reduction_interval =
       rtt_.Clamped(TimeDelta::ms(10), TimeDelta::ms(200));
   if (at_time - time_last_bitrate_change_ >= bitrate_reduction_interval) {
@@ -142,7 +143,7 @@ bool AimdRateControl::TimeToReduceFurther(Timestamp at_time,
   if (ValidEstimate()) {
     // TODO(terelius/holmer): Investigate consequences of increasing
     // the threshold to 0.95 * LatestEstimate().
-    const DataRate threshold = 0.5 * LatestEstimate();
+    const Limited<DataRate> threshold = 0.5 * LatestEstimate();
     return estimated_throughput < threshold;
   }
   return false;
@@ -151,8 +152,9 @@ bool AimdRateControl::TimeToReduceFurther(Timestamp at_time,
 bool AimdRateControl::InitialTimeToReduceFurther(Timestamp at_time) const {
   if (!in_initial_backoff_interval_experiment_) {
     return ValidEstimate() &&
-           TimeToReduceFurther(at_time,
-                               LatestEstimate() / 2 - DataRate::bps(1));
+           TimeToReduceFurther(
+               at_time,
+               LatestEstimate() / 2 - Limited<DataRate>(DataRate::bps(1)));
   }
   // TODO(terelius): We could use the RTT (clamped to suitable limits) instead
   // of a fixed bitrate_reduction_interval.
@@ -163,7 +165,7 @@ bool AimdRateControl::InitialTimeToReduceFurther(Timestamp at_time) const {
   return false;
 }
 
-DataRate AimdRateControl::LatestEstimate() const {
+Limited<DataRate> AimdRateControl::LatestEstimate() const {
   return current_bitrate_;
 }
 
@@ -171,8 +173,8 @@ void AimdRateControl::SetRtt(TimeDelta rtt) {
   rtt_ = rtt;
 }
 
-DataRate AimdRateControl::Update(const RateControlInput* input,
-                                 Timestamp at_time) {
+Limited<DataRate> AimdRateControl::Update(const RateControlInput* input,
+                                          Timestamp at_time) {
   RTC_CHECK(input);
 
   // Set the initial bit rate value to what we're receiving the first half
@@ -198,7 +200,7 @@ DataRate AimdRateControl::Update(const RateControlInput* input,
 
 void AimdRateControl::SetEstimate(DataRate bitrate, Timestamp at_time) {
   bitrate_is_initialized_ = true;
-  DataRate prev_bitrate = current_bitrate_;
+  Limited<DataRate> prev_bitrate = current_bitrate_;
   current_bitrate_ = ClampBitrate(bitrate, bitrate);
   time_last_bitrate_change_ = at_time;
   if (current_bitrate_ < prev_bitrate) {
@@ -239,10 +241,10 @@ TimeDelta AimdRateControl::GetExpectedBandwidthPeriod() const {
   return period.Clamped(kMinPeriod, kMaxPeriod);
 }
 
-DataRate AimdRateControl::ChangeBitrate(DataRate new_bitrate,
-                                        const RateControlInput& input,
-                                        Timestamp at_time) {
-  DataRate estimated_throughput =
+Limited<DataRate> AimdRateControl::ChangeBitrate(Limited<DataRate> new_bitrate,
+                                                 const RateControlInput& input,
+                                                 Timestamp at_time) {
+  Limited<DataRate> estimated_throughput =
       input.estimated_throughput.value_or(latest_estimated_throughput_);
   if (input.estimated_throughput)
     latest_estimated_throughput_ = *input.estimated_throughput;
@@ -274,11 +276,11 @@ DataRate AimdRateControl::ChangeBitrate(DataRate new_bitrate,
         avg_max_bitrate_kbps_ = -1.0;
       }
       if (rate_control_region_ == kRcNearMax) {
-        DataRate additive_increase =
+        Limited<DataRate> additive_increase =
             AdditiveRateIncrease(at_time, time_last_bitrate_change_);
         new_bitrate += additive_increase;
       } else {
-        DataRate multiplicative_increase = MultiplicativeRateIncrease(
+        Limited<DataRate> multiplicative_increase = MultiplicativeRateIncrease(
             at_time, time_last_bitrate_change_, new_bitrate);
         new_bitrate += multiplicative_increase;
       }
@@ -330,12 +332,14 @@ DataRate AimdRateControl::ChangeBitrate(DataRate new_bitrate,
   return ClampBitrate(new_bitrate, estimated_throughput);
 }
 
-DataRate AimdRateControl::ClampBitrate(DataRate new_bitrate,
-                                       DataRate estimated_throughput) const {
+Limited<DataRate> AimdRateControl::ClampBitrate(
+    Limited<DataRate> new_bitrate,
+    Limited<DataRate> estimated_throughput) const {
   // Don't change the bit rate if the send side is too far off.
   // We allow a bit more lag at very low rates to not too easily get stuck if
   // the encoder produces uneven outputs.
-  const DataRate max_bitrate = 1.5 * estimated_throughput + DataRate::kbps(10);
+  const Limited<DataRate> max_bitrate =
+      1.5 * estimated_throughput + Limited<DataRate>(DataRate::kbps(10));
   if (new_bitrate > current_bitrate_ && new_bitrate > max_bitrate) {
     new_bitrate = std::max(current_bitrate_, max_bitrate);
   }
@@ -343,22 +347,23 @@ DataRate AimdRateControl::ClampBitrate(DataRate new_bitrate,
   return new_bitrate;
 }
 
-DataRate AimdRateControl::MultiplicativeRateIncrease(
+Limited<DataRate> AimdRateControl::MultiplicativeRateIncrease(
     Timestamp at_time,
     Timestamp last_time,
-    DataRate current_bitrate) const {
+    Limited<DataRate> current_bitrate) const {
   double alpha = 1.08;
   if (last_time.IsFinite()) {
     auto time_since_last_update = at_time - last_time;
     alpha = pow(alpha, std::min(time_since_last_update.seconds<double>(), 1.0));
   }
-  DataRate multiplicative_increase =
-      std::max(current_bitrate * (alpha - 1.0), DataRate::bps(1000));
+  Limited<DataRate> multiplicative_increase = std::max(
+      current_bitrate * (alpha - 1.0), Limited<DataRate>(DataRate::bps(1000)));
   return multiplicative_increase;
 }
 
-DataRate AimdRateControl::AdditiveRateIncrease(Timestamp at_time,
-                                               Timestamp last_time) const {
+Limited<DataRate> AimdRateControl::AdditiveRateIncrease(
+    Timestamp at_time,
+    Timestamp last_time) const {
   double time_period_seconds = (at_time - last_time).seconds<double>();
   double data_rate_increase_bps =
       GetNearMaxIncreaseRateBpsPerSecond() * time_period_seconds;

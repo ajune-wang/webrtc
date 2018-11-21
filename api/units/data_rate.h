@@ -38,7 +38,7 @@ inline int64_t Microbits(const DataSize& size) {
 // DataRate is a class that represents a given data rate. This can be used to
 // represent bandwidth, encoding bitrate, etc. The internal storage is bits per
 // second (bps).
-class DataRate final : public rtc_units_impl::RelativeUnit<DataRate> {
+class DataRate : public rtc_units_impl::RelativeUnit<DataRate> {
  public:
   DataRate() = delete;
   static constexpr DataRate Infinity() { return PlusInfinity(); }

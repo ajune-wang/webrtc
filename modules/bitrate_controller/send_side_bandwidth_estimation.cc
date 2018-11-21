@@ -243,7 +243,8 @@ void SendSideBandwidthEstimation::SetMinMaxBitrate(DataRate min_bitrate,
   min_bitrate_configured_ =
       std::max(min_bitrate, congestion_controller::GetMinBitrate());
   if (max_bitrate > DataRate::Zero() && max_bitrate.IsFinite()) {
-    max_bitrate_configured_ = std::max(min_bitrate_configured_, max_bitrate);
+    max_bitrate_configured_ =
+        std::max(min_bitrate_configured_, Limited<DataRate>(max_bitrate));
   } else {
     max_bitrate_configured_ = kDefaultMaxBitrate;
   }
@@ -332,7 +333,8 @@ void SendSideBandwidthEstimation::UpdatePacketsLost(int packets_lost,
 
 void SendSideBandwidthEstimation::UpdateUmaStatsPacketsLost(Timestamp at_time,
                                                             int packets_lost) {
-  DataRate bitrate_kbps = DataRate::kbps((current_bitrate_.bps() + 500) / 1000);
+  Limited<DataRate> bitrate_kbps =
+      DataRate::kbps((current_bitrate_.bps() + 500) / 1000);
   for (size_t i = 0; i < kNumUmaRampupMetrics; ++i) {
     if (!rampup_uma_stats_updated_[i] &&
         bitrate_kbps.kbps() >= kUmaRampupMetrics[i].bitrate_kbps) {
@@ -373,7 +375,7 @@ void SendSideBandwidthEstimation::UpdateRtt(TimeDelta rtt, Timestamp at_time) {
 }
 
 void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
-  DataRate new_bitrate = current_bitrate_;
+  Limited<DataRate> new_bitrate = current_bitrate_;
   if (rtt_backoff_.RttLowerBound(at_time) > rtt_backoff_.rtt_limit_) {
     if (at_time - time_last_decrease_ >= rtt_backoff_.drop_interval_) {
       time_last_decrease_ = at_time;
@@ -513,8 +515,9 @@ void SendSideBandwidthEstimation::UpdateMinHistory(Timestamp at_time) {
   min_bitrate_history_.push_back(std::make_pair(at_time, current_bitrate_));
 }
 
-DataRate SendSideBandwidthEstimation::MaybeRampupOrBackoff(DataRate new_bitrate,
-                                                           Timestamp at_time) {
+Limited<DataRate> SendSideBandwidthEstimation::MaybeRampupOrBackoff(
+    Limited<DataRate> new_bitrate,
+    Timestamp at_time) {
   // TODO(crodbro): reuse this code in UpdateEstimate instead of current
   // inlining of very similar functionality.
   const TimeDelta time_since_loss_packet_report =
@@ -542,8 +545,9 @@ DataRate SendSideBandwidthEstimation::MaybeRampupOrBackoff(DataRate new_bitrate,
   return new_bitrate;
 }
 
-void SendSideBandwidthEstimation::CapBitrateToThresholds(Timestamp at_time,
-                                                         DataRate bitrate) {
+void SendSideBandwidthEstimation::CapBitrateToThresholds(
+    Timestamp at_time,
+    Limited<DataRate> bitrate) {
   if (bwe_incoming_ > DataRate::Zero() && bitrate > bwe_incoming_) {
     bitrate = bwe_incoming_;
   }
@@ -553,7 +557,8 @@ void SendSideBandwidthEstimation::CapBitrateToThresholds(Timestamp at_time,
   }
   if (loss_based_bandwidth_estimation_.Enabled() &&
       loss_based_bandwidth_estimation_.GetEstimate() > DataRate::Zero()) {
-    bitrate = std::min(bitrate, loss_based_bandwidth_estimation_.GetEstimate());
+    bitrate = std::min(
+        bitrate, loss_based_bandwidth_estimation_.GetEstimate().AsLimited());
   }
   if (bitrate > max_bitrate_configured_) {
     bitrate = max_bitrate_configured_;

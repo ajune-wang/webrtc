@@ -35,8 +35,8 @@ class AimdRateControl {
   // either if it has been explicitly set via SetStartBitrate/SetEstimate, or if
   // we have measured a throughput.
   bool ValidEstimate() const;
-  void SetStartBitrate(DataRate start_bitrate);
-  void SetMinBitrate(DataRate min_bitrate);
+  void SetStartBitrate(Limited<DataRate> start_bitrate);
+  void SetMinBitrate(Limited<DataRate> min_bitrate);
   TimeDelta GetFeedbackInterval() const;
 
   // Returns true if the bitrate estimate hasn't been changed for more than
@@ -44,13 +44,13 @@ class AimdRateControl {
   // estimate. Should be used to decide if we should reduce the rate further
   // when over-using.
   bool TimeToReduceFurther(Timestamp at_time,
-                           DataRate estimated_throughput) const;
+                           Limited<DataRate> estimated_throughput) const;
   // As above. To be used if overusing before we have measured a throughput.
   bool InitialTimeToReduceFurther(Timestamp at_time) const;
 
-  DataRate LatestEstimate() const;
+  Limited<DataRate> LatestEstimate() const;
   void SetRtt(TimeDelta rtt);
-  DataRate Update(const RateControlInput* input, Timestamp at_time);
+  Limited<DataRate> Update(const RateControlInput* input, Timestamp at_time);
   void SetEstimate(DataRate bitrate, Timestamp at_time);
 
   // Returns the increase rate when used bandwidth is near the link capacity.
@@ -67,26 +67,28 @@ class AimdRateControl {
   // in the "decrease" state the bitrate will be decreased to slightly below the
   // current throughput. When in the "hold" state the bitrate will be kept
   // constant to allow built up queues to drain.
-  DataRate ChangeBitrate(DataRate current_bitrate,
-                         const RateControlInput& input,
-                         Timestamp at_time);
+  Limited<DataRate> ChangeBitrate(Limited<DataRate> current_bitrate,
+                                  const RateControlInput& input,
+                                  Timestamp at_time);
   // Clamps new_bitrate to within the configured min bitrate and a linear
   // function of the throughput, so that the new bitrate can't grow too
   // large compared to the bitrate actually being received by the other end.
-  DataRate ClampBitrate(DataRate new_bitrate,
-                        DataRate estimated_throughput) const;
-  DataRate MultiplicativeRateIncrease(Timestamp at_time,
-                                      Timestamp last_ms,
-                                      DataRate current_bitrate) const;
-  DataRate AdditiveRateIncrease(Timestamp at_time, Timestamp last_time) const;
+  Limited<DataRate> ClampBitrate(Limited<DataRate> new_bitrate,
+                                 Limited<DataRate> estimated_throughput) const;
+  Limited<DataRate> MultiplicativeRateIncrease(
+      Timestamp at_time,
+      Timestamp last_ms,
+      Limited<DataRate> current_bitrate) const;
+  Limited<DataRate> AdditiveRateIncrease(Timestamp at_time,
+                                         Timestamp last_time) const;
   void UpdateChangePeriod(Timestamp at_time);
   void UpdateMaxThroughputEstimate(float estimated_throughput_kbps);
   void ChangeState(const RateControlInput& input, Timestamp at_time);
 
-  DataRate min_configured_bitrate_;
+  Limited<DataRate> min_configured_bitrate_;
   DataRate max_configured_bitrate_;
-  DataRate current_bitrate_;
-  DataRate latest_estimated_throughput_;
+  Limited<DataRate> current_bitrate_;
+  Limited<DataRate> latest_estimated_throughput_;
   float avg_max_bitrate_kbps_;
   float var_max_bitrate_kbps_;
   RateControlState rate_control_state_;
@@ -96,11 +98,11 @@ class AimdRateControl {
   Timestamp time_first_throughput_estimate_;
   bool bitrate_is_initialized_;
   float beta_;
-  TimeDelta rtt_;
+  Limited<TimeDelta> rtt_;
   const bool in_experiment_;
   const bool smoothing_experiment_;
   const bool in_initial_backoff_interval_experiment_;
-  TimeDelta initial_backoff_interval_;
+  Limited<TimeDelta> initial_backoff_interval_;
   absl::optional<DataRate> last_decrease_;
 };
 }  // namespace webrtc

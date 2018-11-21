@@ -20,8 +20,11 @@
 #include "rtc_base/numerics/safe_conversions.h"
 
 namespace webrtc {
-namespace rtc_units_impl {
 
+template <class Unit_T>
+class Limited;
+
+namespace rtc_units_impl {
 // UnitBase is a base class for implementing custom value types with a specific
 // unit. It provides type safety and sommonly useful operations. The undelying
 // storage is always an int64_t, it's up to the unit implementation to choose
@@ -35,11 +38,9 @@ template <class Unit_T>
 class UnitBase {
  public:
   UnitBase() = delete;
-  static constexpr Unit_T Zero() { return Unit_T(0); }
   static constexpr Unit_T PlusInfinity() { return Unit_T(PlusInfinityVal()); }
   static constexpr Unit_T MinusInfinity() { return Unit_T(MinusInfinityVal()); }
 
-  constexpr bool IsZero() const { return value_ == 0; }
   constexpr bool IsFinite() const { return !IsInfinite(); }
   constexpr bool IsInfinite() const {
     return value_ == PlusInfinityVal() || value_ == MinusInfinityVal();
@@ -67,6 +68,8 @@ class UnitBase {
   constexpr bool operator<(const Unit_T& other) const {
     return value_ < other.value_;
   }
+  constexpr operator const Unit_T&() const { return AsSubClassRef(); }
+  operator Unit_T&() { return AsSubClassRef(); }
 
  protected:
   template <int64_t value>
@@ -186,9 +189,13 @@ class UnitBase {
 
   explicit constexpr UnitBase(int64_t value) : value_(value) {}
 
+  constexpr int64_t UncheckedValue() const { return value_; }
+
  private:
   template <class RelativeUnit_T>
   friend class RelativeUnit;
+  template <class LimitedUnit_T>
+  friend class Limited;
 
   static inline constexpr int64_t PlusInfinityVal() {
     return std::numeric_limits<int64_t>::max();
@@ -219,6 +226,16 @@ class UnitBase {
 template <class Unit_T>
 class RelativeUnit : public UnitBase<Unit_T> {
  public:
+  static constexpr Unit_T Zero() { return Unit_T(0); }
+  operator Limited<Unit_T>() const {
+    RTC_DCHECK(UnitBase<Unit_T>::IsFinite());
+    return Limited<Unit_T>(*this);
+  }
+  Limited<Unit_T> AsLimited() const {
+    RTC_DCHECK(UnitBase<Unit_T>::IsFinite());
+    return Limited<Unit_T>(*this);
+  }
+  constexpr bool IsZero() const { return UnitBase<Unit_T>::value_ == 0; }
   Unit_T Clamped(Unit_T min_value, Unit_T max_value) const {
     return std::max(min_value,
                     std::min(UnitBase<Unit_T>::AsSubClassRef(), max_value));
@@ -226,6 +243,7 @@ class RelativeUnit : public UnitBase<Unit_T> {
   void Clamp(Unit_T min_value, Unit_T max_value) {
     *this = Clamped(min_value, max_value);
   }
+
   Unit_T operator+(const Unit_T other) const {
     if (this->IsPlusInfinity() || other.IsPlusInfinity()) {
       RTC_DCHECK(!this->IsMinusInfinity());
@@ -299,6 +317,53 @@ inline Unit_T operator*(const int32_t& scalar,
 
 }  // namespace rtc_units_impl
 
+template <class Unit_T>
+class Limited : public Unit_T {
+ public:
+  // template<typename
+  // std::enable_if<std::is_base_of<rtc_units_impl::RelativeUnit<Unit_T>,
+  // Unit_T>::value>::type* = nullptr>
+  explicit Limited(rtc_units_impl::RelativeUnit<Unit_T> value) : Unit_T(value) {
+    RTC_DCHECK(Unit_T::IsFinite());
+  }
+  operator const Unit_T&() const { return *this; }
+  Limited operator+(const Limited other) const {
+    return Limited(this->UncheckedValue() + other.UncheckedValue());
+  }
+  Limited operator-(const Limited other) const {
+    return Limited(this->UncheckedValue() - other.UncheckedValue());
+  }
+  Limited& operator+=(const Limited other) {
+    *this = *this + other;
+    return *this;
+  }
+  Limited& operator-=(const Limited other) {
+    *this = *this - other;
+    return *this;
+  }
+  constexpr double operator/(const Limited other) const {
+    return static_cast<double>(this->UncheckedValue()) / other.UncheckedValue();
+  }
+  template <typename T>
+  typename std::enable_if<std::is_arithmetic<T>::value, Limited>::type
+  operator/(const T& scalar) const {
+    return Limited(
+        std::round(static_cast<double>(this->UncheckedValue()) / scalar));
+  }
+  Limited operator*(const double scalar) const {
+    return Limited(std::round(this->UncheckedValue() * scalar));
+  }
+  Limited operator*(const int64_t scalar) const {
+    return Limited(this->UncheckedValue() * scalar);
+  }
+  Limited operator*(const int32_t scalar) const {
+    return Limited(this->UncheckedValue() * scalar);
+  }
+
+ private:
+  friend class rtc_units_impl::RelativeUnit<Unit_T>;
+  using Unit_T::Unit_T;
+};
 }  // namespace webrtc
 
 #endif  // RTC_BASE_UNITS_UNIT_BASE_H_

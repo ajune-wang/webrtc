@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d893ea86_c986b65f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "I think so. We are explicitly reporting only the current frame\u0027s audio level. This is a difference from public_submodules_-\u003elevel_estimator, which accumulates until polled for RMS().\n\nOn the other hand, I realize this Initialize() is not necessary. The level estimator is reset every time this is run, when we read the RMS level. I have removed it. Thank you!",
+      "parentUuid": "9fb5645a_2aff1d99",
+      "range": {
+        "startLine": 1347,
+        "startChar": 49,
+        "endLine": 1347,
+        "endChar": 59
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e27d3338_42011a3a",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-21T05:51:54Z",
       "side": 1,
       "message": "The above is very similar to what is done here.",
+      "range": {
+        "startLine": 1355,
+        "startChar": 22,
+        "endLine": 1355,
+        "endChar": 29
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba135c6d_b64c861b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "Yes. Any thoughts?\n\nThere are two differences:\n1) We only measure the first channel here, and\n2) capture_output_rms_ is only reset if (log_rms), i.e. we measure over 10 second intervals.",
+      "parentUuid": "e27d3338_42011a3a",
       "range": {
         "startLine": 1355,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ebb422ab_edfb59c4",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "I assumed the compiler would do return value optimization.  I added an early return anyway, like you suggest.\nhttps://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization",
+      "parentUuid": "7c70c985_11622b90",
+      "range": {
+        "startLine": 1606,
+        "startChar": 23,
+        "endLine": 1606,
+        "endChar": 28
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca8aeba0_1c89af5a",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-21T05:51:54Z",
       "side": 1,
       "message": "Maybe state what happens with the value if level_estimation.enabled \u003d true",
+      "range": {
+        "startLine": 286,
+        "startChar": 30,
+        "endLine": 286,
+        "endChar": 31
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2820615_e6cc74ba",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "Ah, I thought this comment did just that.. What\u0027s a better formulation?\n\"Enables reporting of |output_rms_dbfs| in webrtc::AudioProcessingStats?\"",
+      "parentUuid": "ca8aeba0_1c89af5a",
       "range": {
         "startLine": 286,
         "startChar": 30,

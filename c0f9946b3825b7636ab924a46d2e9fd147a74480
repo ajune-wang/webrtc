@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f6da368_3fc69cdd",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "This diff got malformed, I don\u0027t know how to fix that. I checked that only whitespace changed.",
+      "range": {
+        "startLine": 1613,
+        "startChar": 0,
+        "endLine": 1627,
+        "endChar": 63
+      },
+      "revId": "c0f9946b3825b7636ab924a46d2e9fd147a74480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "077ba086_04a2da05",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2834,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-11-21T10:49:02Z",
+      "side": 1,
+      "message": "Interesting note: Until patch set 7, the level estimator was never enabled. It returned AudioProcessing::kNotEnabledError as the RMS level. This silently passed the test because I didn\u0027t have a line like this.",
+      "range": {
+        "startLine": 2834,
+        "startChar": 2,
+        "endLine": 2834,
+        "endChar": 39
+      },
+      "revId": "c0f9946b3825b7636ab924a46d2e9fd147a74480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

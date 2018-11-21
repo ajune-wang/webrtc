@@ -358,6 +358,12 @@ void UDPPort::OnLocalAddressReady(rtc::AsyncPacketSocket* socket,
   MaybePrepareStunCandidate();
 }
 
+void UDPPort::MaybeObfuscateAddress(Candidate* c,
+                                    const std::string& type,
+                                    bool is_final) {
+  ObfuscateAddress(c, type, is_final);
+}
+
 void UDPPort::PostAddAddress(bool is_final) {
   MaybeSetPortCompleteOrError();
 }

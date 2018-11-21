@@ -161,6 +161,10 @@ class UDPPort : public Port {
   void OnLocalAddressReady(rtc::AsyncPacketSocket* socket,
                            const rtc::SocketAddress& address);
 
+  void MaybeObfuscateAddress(Candidate* c,
+                             const std::string& type,
+                             bool is_final) override;
+
   void PostAddAddress(bool is_final) override;
 
   void OnReadPacket(rtc::AsyncPacketSocket* socket,

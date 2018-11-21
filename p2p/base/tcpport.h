@@ -78,6 +78,10 @@ class TCPPort : public Port {
   void OnNewConnection(rtc::AsyncPacketSocket* socket,
                        rtc::AsyncPacketSocket* new_socket);
 
+  void MaybeObfuscateAddress(Candidate* c,
+                             const std::string& type,
+                             bool is_final) override;
+
  private:
   struct Incoming {
     rtc::SocketAddress addr;

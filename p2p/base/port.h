@@ -419,6 +419,12 @@ class Port : public PortInterface,
                   const std::string& url,
                   bool is_final);
 
+  virtual void MaybeObfuscateAddress(Candidate* c,
+                                     const std::string& type,
+                                     bool is_final) {}
+
+  void ObfuscateAddress(Candidate* c, const std::string& type, bool is_final);
+
   void FinishAddingAddress(const Candidate& c, bool is_final);
 
   virtual void PostAddAddress(bool is_final);

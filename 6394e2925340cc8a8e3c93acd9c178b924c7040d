@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e3d8931_eab0b043",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-21T08:23:59Z",
+      "side": 1,
+      "message": "I had to add \"allow_poison\" here, I am not sure why it wasn\u0027t needed here: https://cs.chromium.org/chromium/src/third_party/webrtc/pc/BUILD.gn?l\u003d227-255\u0026rcl\u003ddd9390c4910e0cf4d0f223fdaf9f38961a74d4e1.\n\nIIUC these video codecs are pulled in by media:rtc_audio_video which was already a dependency:\n\nERROR at //webrtc.gni:493:3: assert_no_deps failed.\n  static_library(target_name) {\n  ^----------------------------\n//api:create_peerconnection_factory has an assert_no_deps entry:\n  //.:poison_software_video_codecs\nwhich fails for the dependency path:\n  //api:create_peerconnection_factory -\u003e\n  //media:rtc_audio_video -\u003e\n  //media:rtc_internal_video_codecs -\u003e\n  //modules/video_coding:webrtc_vp8 -\u003e\n  //:poison_software_video_codecs",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 44
+      },
+      "revId": "6394e2925340cc8a8e3c93acd9c178b924c7040d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

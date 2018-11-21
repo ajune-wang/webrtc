@@ -65,10 +65,8 @@ class ISACTest {
   PCMFile _outFileA;
   PCMFile _outFileB;
 
-  uint8_t _idISAC16kHz;
-  uint8_t _idISAC32kHz;
-  CodecInst _paramISAC16kHz;
-  CodecInst _paramISAC32kHz;
+  const SdpAudioFormat isac_16k_format_ = { "ISAC", 16000, 1 };
+  const SdpAudioFormat isac_32k_format_ = { "ISAC", 32000, 1 };
 
   std::string file_name_swb_;
 

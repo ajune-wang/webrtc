@@ -105,14 +105,6 @@ class AcmReceiverTestOldApi : public AudioPacketizationCallback,
     return num_10ms_frames;
   }
 
-  template <size_t N>
-  void AddSetOfCodecs(rtc::ArrayView<SdpAudioFormat> formats) {
-    static int payload_type = 0;
-    for (const auto& format : formats) {
-      EXPECT_TRUE(receiver_->AddCodec(payload_type++, format));
-    }
-  }
-
   int SendData(FrameType frame_type,
                uint8_t payload_type,
                uint32_t timestamp,

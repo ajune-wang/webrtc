@@ -85,43 +85,6 @@ class AcmReceiver {
   void SetCodecs(const std::map<int, SdpAudioFormat>& codecs);
 
   //
-  // Adds a new codec to the NetEq codec database.
-  //
-  // Input:
-  //   - acm_codec_id        : ACM codec ID; -1 means external decoder.
-  //   - payload_type        : payload type.
-  //   - sample_rate_hz      : sample rate.
-  //   - audio_decoder       : pointer to a decoder object. If it's null, then
-  //                           NetEq will internally create a decoder object
-  //                           based on the value of |acm_codec_id| (which
-  //                           mustn't be -1). Otherwise, NetEq will use the
-  //                           given decoder for the given payload type. NetEq
-  //                           won't take ownership of the decoder; it's up to
-  //                           the caller to delete it when it's no longer
-  //                           needed.
-  //
-  //                           Providing an existing decoder object here is
-  //                           necessary for external decoders, but may also be
-  //                           used for built-in decoders if NetEq doesn't have
-  //                           all the info it needs to construct them properly
-  //                           (e.g. iSAC, where the decoder needs to be paired
-  //                           with an encoder).
-  //
-  // Return value             : 0 if OK.
-  //                           <0 if NetEq returned an error.
-  //
-  int AddCodec(int acm_codec_id,
-               uint8_t payload_type,
-               size_t channels,
-               int sample_rate_hz,
-               AudioDecoder* audio_decoder,
-               const std::string& name);
-
-  // Adds a new decoder to the NetEq codec database. Returns true iff
-  // successful.
-  bool AddCodec(int rtp_payload_type, const SdpAudioFormat& audio_format);
-
-  //
   // Sets a minimum delay for packet buffer. The given delay is maintained,
   // unless channel condition dictates a higher delay.
   //
@@ -173,17 +136,6 @@ class AcmReceiver {
   void FlushBuffers();
 
   //
-  // Removes a payload-type from the NetEq codec database.
-  //
-  // Input:
-  //   - payload_type         : the payload-type to be removed.
-  //
-  // Return value             : 0 if OK.
-  //                           -1 if an error occurred.
-  //
-  int RemoveCodec(uint8_t payload_type);
-
-  //
   // Remove all registered codecs.
   //
   void RemoveAllCodecs();
@@ -225,8 +177,6 @@ class AcmReceiver {
   //                           -1 if failed, e.g. given payload-type is not
   //                              registered.
   //
-  int DecoderByPayloadType(uint8_t payload_type,
-                           CodecInst* codec) const;
   absl::optional<SdpAudioFormat> DecoderByPayloadType(int payload_type) const;
 
   //

@@ -13,6 +13,7 @@
 
 #include <map>
 
+#include "absl/strings/match.h"
 #include "rtc_base/deprecation.h"
 
 namespace webrtc {
@@ -117,6 +118,25 @@ struct NetworkStatistics {
   int maxWaitingTimeMs;
   // added samples in off mode due to packet loss
   size_t addedSamples;
+};
+
+// DEPRECATED
+struct CodecInst {
+  int pltype;
+  char plname[32u];
+  int plfreq;
+  int pacsize;
+  size_t channels;
+  int rate;  // bits/sec unlike {start,min,max}Bitrate elsewhere in this file!
+
+  bool operator==(const CodecInst& other) const {
+    return pltype == other.pltype &&
+           absl::EqualsIgnoreCase(plname, other.plname) &&
+           plfreq == other.plfreq && pacsize == other.pacsize &&
+           channels == other.channels && rate == other.rate;
+  }
+
+  bool operator!=(const CodecInst& other) const { return !(*this == other); }
 };
 
 }  // namespace webrtc

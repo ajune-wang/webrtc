@@ -33,11 +33,6 @@ absl::optional<CodecInst> RentACodec::CodecInstById(CodecId codec_id) {
             : absl::nullopt;
 }
 
-absl::optional<RentACodec::CodecId> RentACodec::CodecIdByInst(
-    const CodecInst& codec_inst) {
-  return CodecIdFromIndex(ACMCodecDB::CodecNumber(codec_inst));
-}
-
 absl::optional<CodecInst> RentACodec::CodecInstByParams(
     const char* payload_name,
     int sampling_freq_hz,

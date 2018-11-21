@@ -254,10 +254,6 @@ class NetEq {
   // (Config::sample_rate_hz) is returned.
   virtual int last_output_sample_rate_hz() const = 0;
 
-  // Returns info about the decoder for the given payload type, or an empty
-  // value if we have no decoder for that payload type.
-  virtual absl::optional<CodecInst> GetDecoder(int payload_type) const = 0;
-
   // Returns the decoder format for the given payload type. Returns empty if no
   // such payload type was registered.
   virtual absl::optional<SdpAudioFormat> GetDecoderFormat(

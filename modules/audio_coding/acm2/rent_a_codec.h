@@ -26,7 +26,6 @@
 
 namespace webrtc {
 
-struct CodecInst;
 class LockedIsacBandwidthInfo;
 
 namespace acm2 {
@@ -123,14 +122,9 @@ struct RentACodec {
                                                  int sampling_freq_hz,
                                                  size_t channels);
   static absl::optional<CodecInst> CodecInstById(CodecId codec_id);
-  static absl::optional<CodecId> CodecIdByInst(const CodecInst& codec_inst);
   static absl::optional<CodecInst> CodecInstByParams(const char* payload_name,
                                                      int sampling_freq_hz,
                                                      size_t channels);
-
-  static inline bool IsPayloadTypeValid(int payload_type) {
-    return payload_type >= 0 && payload_type <= 127;
-  }
 
   static absl::optional<NetEqDecoder> NetEqDecoderFromCodecId(
       CodecId codec_id,

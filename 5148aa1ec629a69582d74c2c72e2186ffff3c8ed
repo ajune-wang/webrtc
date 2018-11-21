@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c3e556b_c2f0f133",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "Maybe rtc_event_dtls_writable_state.cc to be consistent with the similar rtc_event_dtls_transport_state.cc and rtc_event_alr_state.cc?",
+      "range": {
+        "startLine": 399,
+        "startChar": 26,
+        "endLine": 399,
+        "endChar": 49
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd82ba1_aa35aac7",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_legacy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "State?",
+      "range": {
+        "startLine": 78,
+        "startChar": 14,
+        "endLine": 78,
+        "endChar": 32
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f322a43_2f3b39c7",
+        "filename": "logging/rtc_event_log/events/rtc_event_dtls_writable.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "RtcEventDtlsWritableState?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7f2f7b_3c0d7586",
+        "filename": "logging/rtc_event_log/rtc_event_log.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "As discussed offline, I\u0027m still not convinced that it will be practical to add new events to the legacy format.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee68426_ec306895",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "Could you explain how \"writable\" is different from DTLS_TRANSPORT_CONNECTED above?",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 29
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb5016b5_64132a8f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-21T12:52:25Z",
+      "side": 1,
+      "message": "State?",
+      "range": {
+        "startLine": 142,
+        "startChar": 7,
+        "endLine": 142,
+        "endChar": 25
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

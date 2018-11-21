@@ -269,6 +269,30 @@
       "revId": "cf5d3b03ae90f3e09649713c7753d2acacd9440b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa719c01_4e80d5de",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-21T20:39:25Z",
+      "side": 1,
+      "message": "In that case, the tests below will pass even if you set sframe.require_frame_encryption \u003d false? But you want to test that this only works for video when sframe.require_frame_encryption \u003d true.\n\nIf that in fact is true, TestNegotiatedSuite should probably be updated to test for the case of video as well, right?",
+      "parentUuid": "77f83aee_3b107f92",
+      "range": {
+        "startLine": 2922,
+        "startChar": 38,
+        "endLine": 2922,
+        "endChar": 75
+      },
+      "revId": "cf5d3b03ae90f3e09649713c7753d2acacd9440b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

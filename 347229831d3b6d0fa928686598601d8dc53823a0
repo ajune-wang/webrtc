@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "122a856a_eedf2bdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-21T07:58:19Z",
+      "side": 1,
+      "message": "Mention what the replacement is (SdpAudioFormat?).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "347229831d3b6d0fa928686598601d8dc53823a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bae26fa_c2c24926",
+        "filename": "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-21T07:58:19Z",
+      "side": 1,
+      "message": "Left-over? (There are a few more like these. Is it unclear how to delete/replace them?)",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "347229831d3b6d0fa928686598601d8dc53823a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

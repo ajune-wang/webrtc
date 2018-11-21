@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d286e32a_8f0af564",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-21T22:35:15Z",
+      "side": 1,
+      "message": "It turned out the code is also needed for tcpport.cc. Did move stuff around a little to at least avoid the obfuscation for turnports.",
+      "parentUuid": "66499bfe_e4eab0d7",
+      "revId": "e601344c786bafc62be16267d1bcc37831379f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f3f84201_7f9831a4",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "4633a289_6f701a73",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2279,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-21T22:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3f84201_7f9831a4",
+      "revId": "e601344c786bafc62be16267d1bcc37831379f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebe0ca2a_4dde8333",
         "filename": "p2p/client/basicportallocator_unittest.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "e601344c786bafc62be16267d1bcc37831379f85",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ac642ed_67ce636b",
+        "filename": "p2p/client/basicportallocator_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2285,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-21T22:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebe0ca2a_4dde8333",
+      "revId": "e601344c786bafc62be16267d1bcc37831379f85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

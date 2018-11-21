@@ -22,6 +22,30 @@
       "revId": "21cb8053bad74fa952bae6496e279fabb24d8a78",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27468924_953c0942",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2018-11-21T13:30:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "31eafc7a_10dc5db3",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 185,
+        "endChar": 84
+      },
+      "revId": "21cb8053bad74fa952bae6496e279fabb24d8a78",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

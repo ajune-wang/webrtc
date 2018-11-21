@@ -222,6 +222,10 @@ void GetSupportedVideoSdesCryptoSuites(
     crypto_suites->push_back(rtc::SRTP_AEAD_AES_256_GCM);
     crypto_suites->push_back(rtc::SRTP_AEAD_AES_128_GCM);
   }
+  if (crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher &&
+      crypto_options.sframe.require_frame_encryption) {
+    crypto_suites->push_back(rtc::SRTP_AES128_CM_SHA1_32);
+  }
   crypto_suites->push_back(rtc::SRTP_AES128_CM_SHA1_80);
 }
 
@@ -250,21 +254,24 @@ void GetSupportedDataSdesCryptoSuiteNames(
 }
 
 // Support any GCM cipher (if enabled through options). For video support only
-// 80-bit SHA1 HMAC. For audio 32-bit HMAC is tolerated (if enabled) unless
-// bundle is enabled because it is low overhead.
+// 80-bit SHA1 HMAC unless 32 bit is requested and frame encryption is required.
+// For audio 32-bit HMAC is tolerated (if enabled) unless bundle is enabled
+// because it is low overhead.
 // Pick the crypto in the list that is supported.
 static bool SelectCrypto(const MediaContentDescription* offer,
                          bool bundle,
                          const webrtc::CryptoOptions& crypto_options,
                          CryptoParams* crypto_out) {
-  bool audio = offer->type() == MEDIA_TYPE_AUDIO;
+  const bool audio = offer->type() == MEDIA_TYPE_AUDIO;
+  const bool video = offer->type() == MEDIA_TYPE_VIDEO;
   const CryptoParamsVec& cryptos = offer->cryptos();
 
   for (const CryptoParams& crypto : cryptos) {
     if ((crypto_options.srtp.enable_gcm_crypto_suites &&
          rtc::IsGcmCryptoSuiteName(crypto.cipher_suite)) ||
         rtc::CS_AES_CM_128_HMAC_SHA1_80 == crypto.cipher_suite ||
-        (rtc::CS_AES_CM_128_HMAC_SHA1_32 == crypto.cipher_suite && audio &&
+        (rtc::CS_AES_CM_128_HMAC_SHA1_32 == crypto.cipher_suite &&
+         (audio || (video && crypto_options.sframe.require_frame_encryption)) &&
          !bundle && crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher)) {
       return CreateCryptoParams(crypto.tag, crypto.cipher_suite, crypto_out);
     }

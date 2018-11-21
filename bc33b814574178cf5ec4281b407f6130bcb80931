@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c7a468f7_728d48c0",
+        "filename": "modules/video_coding/video_frame_stash.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-21T08:26:35Z",
+      "side": 1,
+      "message": "Do you think this class pulls its own weight? Seems to me that we might as well use deque directly?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "bc33b814574178cf5ec4281b407f6130bcb80931",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

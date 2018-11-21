@@ -1,0 +1,250 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc318578_faa7add0",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "For the general reader I don\u0027t think the meaning of a lag is clear. I think some more comments/renaming is needed to further clarify it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 39
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a37cff8_a44a02ac",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "Would it be possible to quantify what this means in seconds? How long approximately does this correspond to?",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 60
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04e38957_7fec320c",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "Do I get this correctly, so that drift is detected if the delay has shifted 1 step for each of the last delay updates?\n\nThis makes sense, in particular since the lag values are very reliable as they originate from the histogram. It would, however, be good to document this in the code so that it is clear that it is strongly verified delay estimates that go in to this detector.\n\nOne concern I have is that I think the estimation relies on the downsampling. For 16 kHz, the sound travels about 2 cm for each sample, and it is not very unlikely for a setup with external speakers to have  changes as detected here that occur without clockdrift. For 4 kHz it is less probable, but still possible.\nI think it is fully fine to use for detection for the purpose of reporting, though.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c0bac51_6066ccad",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "This class should have a unittest that verifies that detector functionality.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b7748a_c56520ff",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "Please document the role of lag to make clear what it is that should be used as input. My feeling is that it would make sense to rename it to something more descriptive such as\ndelay_estimate\nbuffer_delay_estimate\nalignment_delay\nbuffer_latency_estimate.\n\nI think it is probably good to somehow make it clear that the value provided is an estimate with an uncertainty in its value.",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19dbc076_21a0032b",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "It would be good with some comments that describe how probable and verified differ and should be interpreted.",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68997db0_42e0e584",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "stability_counter -\u003e stability_counter_",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 26
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae2d3e59_ca4a7650",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "int clockdrift \u003d clockdrift_detector_.ProbableClockdrift();",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "951f43da_a66bff3e",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "Seeing this, I get a strong feeling that readability would benefit from an enum.\n\nThe implicit conversion from bool to an int does not add to the readability either I think. if used, please make it explicit using a static_cast\u003cint\u003e",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f480736_c2c71ed5",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "What about adding an enum for this? That would improve the code readability.",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "560325db_cd86ee32",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "What about ClockDrift() -\u003e HasClockDrift()\n\nThe current name is a bit ambiguous in that it is not clear from the name only whether it returns the actual drift, or whether there is drift or not.",
+      "range": {
+        "startLine": 49,
+        "startChar": 15,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71228c84_0d17c9a3",
+        "filename": "modules/audio_processing/aec3/render_delay_controller_metrics.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-21T05:41:01Z",
+      "side": 1,
+      "message": "This code would as well be more readable if an enum would clockdrift to take more than 3 values.\n\nIn any case, I think the clockdrift value should be either DCHECK-ed or clamped to be in the range 0-2",
+      "revId": "8ce61e285ee2c1a3495db5ee9d94640cd4b48209",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

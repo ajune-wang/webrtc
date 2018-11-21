@@ -44,7 +44,10 @@ struct CryptoOptions {
     // If set to true, the (potentially insecure) crypto cipher
     // SRTP_AES128_CM_SHA1_32 will be included in the list of supported ciphers
     // during negotiation. It will only be used if both peers support it and no
-    // other ciphers get preferred.
+    // other ciphers get preferred. Since video traffic is more affected by the
+    // weakend security guarantees of this cipher, the cipher (if configured)
+    // will only apply to video if |sframe.require_frame_encryption| is also
+    // true.
     bool enable_aes128_sha1_32_crypto_cipher = false;
 
     // If set to true, encrypted RTP header extensions as defined in RFC 6904

@@ -1606,6 +1606,25 @@ class PeerConnectionIntegrationBaseTest : public testing::Test {
                      expected_cipher_suite));
   }
 
+  void TestNegotiatedCipherSuiteVideoOnly(
+      const PeerConnectionFactory::Options& caller_options,
+      const PeerConnectionFactory::Options& callee_options,
+      int expected_cipher_suite) {
+    ASSERT_TRUE(CreatePeerConnectionWrappersWithOptions(caller_options,
+                                                        callee_options));
+    ConnectFakeSignaling();
+    caller()->AddVideoTrack();
+    callee()->AddVideoTrack();
+    caller()->CreateAndSetAndSignalOffer();
+    ASSERT_TRUE_WAIT(DtlsConnected(), kDefaultTimeout);
+    EXPECT_EQ_WAIT(rtc::SrtpCryptoSuiteToName(expected_cipher_suite),
+                   caller()->OldGetStats()->SrtpCipher(), kDefaultTimeout);
+    // TODO(bugs.webrtc.org/9456): Fix it.
+    EXPECT_EQ(1, webrtc::metrics::NumEvents(
+                     "WebRTC.PeerConnection.SrtpCryptoSuite.Video",
+                     expected_cipher_suite));
+  }
+
   void TestGcmNegotiationUsesCipherSuite(bool local_gcm_enabled,
                                          bool remote_gcm_enabled,
                                          int expected_cipher_suite) {
@@ -2927,6 +2946,49 @@ TEST_P(PeerConnectionIntegrationTest, Aes128Sha1_32_CipherUsedWhenSupported) {
   int expected_cipher_suite = rtc::SRTP_AES128_CM_SHA1_32;
   TestNegotiatedCipherSuite(caller_options, callee_options,
                             expected_cipher_suite);
+}
+
+// The three tests below verify that "enable_aes128_sha1_32_crypto_cipher"
+// works as expected if require_frame_encryption is also enabled.
+TEST_P(PeerConnectionIntegrationTest,
+       Aes128Sha1_32_CipherNotUsedWhenOnlyCallerSupportedWithRequireFrameEnc) {
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.sframe.require_frame_encryption = true;
+  caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.sframe.require_frame_encryption = true;
+  callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher =
+      false;
+  constexpr int expected_video_cipher_suite = rtc::SRTP_AES128_CM_SHA1_80;
+  TestNegotiatedCipherSuiteVideoOnly(caller_options, callee_options,
+                                     expected_video_cipher_suite);
+}
+
+TEST_P(PeerConnectionIntegrationTest,
+       Aes128Sha1_32_CipherNotUsedWhenOnlyCalleeSupportedWithRequireFrameEnc) {
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.sframe.require_frame_encryption = true;
+  caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher =
+      false;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.sframe.require_frame_encryption = true;
+  callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
+  constexpr int expected_video_cipher_suite = rtc::SRTP_AES128_CM_SHA1_80;
+  TestNegotiatedCipherSuiteVideoOnly(caller_options, callee_options,
+                                     expected_video_cipher_suite);
+}
+
+TEST_P(PeerConnectionIntegrationTest,
+       Aes128Sha1_32_CipherUsedWhenSupportedWithRequireFrameEnc) {
+  PeerConnectionFactory::Options caller_options;
+  caller_options.crypto_options.sframe.require_frame_encryption = true;
+  caller_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
+  PeerConnectionFactory::Options callee_options;
+  callee_options.crypto_options.sframe.require_frame_encryption = true;
+  callee_options.crypto_options.srtp.enable_aes128_sha1_32_crypto_cipher = true;
+  constexpr int expected_video_cipher_suite = rtc::SRTP_AES128_CM_SHA1_32;
+  TestNegotiatedCipherSuiteVideoOnly(caller_options, callee_options,
+                                     expected_video_cipher_suite);
 }
 
 // Test that a non-GCM cipher is used if both sides only support non-GCM.

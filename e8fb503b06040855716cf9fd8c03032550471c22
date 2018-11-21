@@ -117,6 +117,30 @@
       "revId": "e8fb503b06040855716cf9fd8c03032550471c22",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b31e5e1_a6586cd3",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-21T08:54:19Z",
+      "side": 1,
+      "message": "The color_space() function is called from Chrome, that\u0027s why I couldn\u0027t simply remove it. It seems as if returning a const optional\u003cColorSpace\u003e\u0026 would do the trick in this case ;)\n\nI have a CL on the way that will change how it\u0027s accessed from Chrome so that it doesn\u0027t matter it\u0027s an optional or pointer. So after that CL has landed I will update this CL to only include the ColorSpace* function.",
+      "parentUuid": "c122b921_f5764517",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 35
+      },
+      "revId": "e8fb503b06040855716cf9fd8c03032550471c22",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

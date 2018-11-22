@@ -68,6 +68,30 @@
       "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bf9e4e0_f0f79265",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-22T14:26:30Z",
+      "side": 1,
+      "message": "I rely on comment in the OnRtpPacket mentioning deadlock that happen few years ago.\n\ncurrently it is declared that calls into stream statistician shouldn\u0027t be done while holding \nreceive_statistics_lock_ because there are callback from individual statisticians that take that lock.\n\nMay be that can be changed, likely it should be changed other way around [or changed to run on some TaskQueue and have no locks]\n\nbut for now I try to be consistent with other ReceiveStatisticsImpl functions.\n\n\n[Do not want to worry right now since in practice this call would happen only in the very beginning while staticticians_ is empty()]",
+      "parentUuid": "df1f6a65_9eaee759",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 77
+      },
+      "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

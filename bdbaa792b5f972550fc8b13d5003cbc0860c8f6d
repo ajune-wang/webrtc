@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9ba7e6f_de07e6d6",
+        "filename": "rtc_tools/frame_analyzer/video_geometry_aligner.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-11-22T14:21:20Z",
+      "side": 1,
+      "message": "Yes, removed. Turns out the optimal crop for the video I\u0027m looking at is cropping the top row and the bottom row.",
+      "parentUuid": "1206f7f5_502e5a13",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 29
+      },
+      "revId": "bdbaa792b5f972550fc8b13d5003cbc0860c8f6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23abe18c_451a7161",
         "filename": "rtc_tools/frame_analyzer/video_geometry_aligner.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bdbaa792b5f972550fc8b13d5003cbc0860c8f6d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe052922_933fa76d",
+        "filename": "rtc_tools/frame_analyzer/video_geometry_aligner.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-11-22T14:21:20Z",
+      "side": 1,
+      "message": "It\u0027s not worth to use unsigned types for this reason IMO. Every time you compare an unsigned with a signed int you need to be careful.",
+      "parentUuid": "23abe18c_451a7161",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 5
+      },
+      "revId": "bdbaa792b5f972550fc8b13d5003cbc0860c8f6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

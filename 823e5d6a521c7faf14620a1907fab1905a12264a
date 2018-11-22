@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62cf5230_866c01f0",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2018-11-22T14:07:40Z",
+      "side": 1,
+      "message": "Should this really be a list of lists?...",
+      "range": {
+        "startLine": 650,
+        "startChar": 29,
+        "endLine": 650,
+        "endChar": 32
+      },
+      "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1bfb03d_29be8479",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2018-11-22T14:07:40Z",
+      "side": 1,
+      "message": "Nit: indent",
+      "range": {
+        "startLine": 653,
+        "startChar": 10,
+        "endLine": 653,
+        "endChar": 13
+      },
+      "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

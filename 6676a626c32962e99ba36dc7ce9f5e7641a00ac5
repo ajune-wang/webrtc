@@ -92,6 +92,30 @@
       "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeea9295_3acb7bff",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:45:42Z",
+      "side": 1,
+      "message": "Ack.\n\nCurrent organization looks a bit convoluted, StreamStatisticianImpl::OnRtpPacket invokes a callback that actually points back to ReceiveStatisticsImpl::DataCountersUpdated, which grabs the lock and calls rtp_stats_callback_.\n\nWould be a lot simpler to let StreamStatisticianImpl::OnRtpPacket return the new stats.",
+      "parentUuid": "4bf9e4e0_f0f79265",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 77
+      },
+      "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

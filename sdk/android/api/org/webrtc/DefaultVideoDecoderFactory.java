@@ -10,10 +10,11 @@
 
 package org.webrtc;
 
-import javax.annotation.Nullable;
+import android.media.MediaCodecInfo;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Helper class that combines HW and SW decoders.
@@ -28,6 +29,16 @@ public class DefaultVideoDecoderFactory implements VideoDecoderFactory {
    */
   public DefaultVideoDecoderFactory(@Nullable EglBase.Context eglContext) {
     this.hardwareVideoDecoderFactory = new HardwareVideoDecoderFactory(eglContext);
+    this.platformSoftwareVideoDecoderFactory = new PlatformSoftwareVideoDecoderFactory(eglContext);
+  }
+
+  /**
+   * Create decoder factory using default hardware decoder factory with user-provided blacklist.
+   */
+  public DefaultVideoDecoderFactory(@Nullable EglBase.Context eglContext,
+      @Nullable MediaCodecVideoDecoderFactory.Predicate<MediaCodecInfo> isCodecBlacklisted) {
+    this.hardwareVideoDecoderFactory =
+        new HardwareVideoDecoderFactory(eglContext, isCodecBlacklisted);
     this.platformSoftwareVideoDecoderFactory = new PlatformSoftwareVideoDecoderFactory(eglContext);
   }
 

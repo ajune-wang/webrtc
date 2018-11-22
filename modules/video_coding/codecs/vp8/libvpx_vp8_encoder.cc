@@ -385,12 +385,6 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
   configurations_[0].g_timebase.den = 90000;
   configurations_[0].g_lag_in_frames = 0;  // 0- no frame lagging
 
-  // Set the error resilience mode for temporal layers (but not simulcast).
-  configurations_[0].g_error_resilient =
-      (SimulcastUtility::NumberOfTemporalLayers(*inst, 0) > 1)
-          ? VPX_ERROR_RESILIENT_DEFAULT
-          : 0;
-
   // rate control settings
   configurations_[0].rc_dropframe_thresh = FrameDropThreshold(0);
   configurations_[0].rc_end_usage = VPX_CBR;

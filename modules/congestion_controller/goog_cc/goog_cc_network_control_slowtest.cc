@@ -79,7 +79,8 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
   EXPECT_NEAR(client->send_bandwidth().kbps(), kStartRate.kbps(), 30);
 }
 
-TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
+// Disabled as flaky, depends on probe success that is known to be flaky.
+TEST(GoogCcNetworkControllerTest, DISABLED_DetectsHighRateInSafeResetTrial) {
   ScopedFieldTrials trial("WebRTC-Bwe-SafeResetOnRouteChange/Enabled/");
   const DataRate kInitialLinkCapacity = DataRate::kbps(200);
   const DataRate kNewLinkCapacity = DataRate::kbps(800);

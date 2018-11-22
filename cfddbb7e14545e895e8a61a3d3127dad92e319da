@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94f9e283_d8debf75",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-11-22T11:04:58Z",
+      "side": 0,
+      "message": "Are you sure this will work out?",
+      "revId": "cfddbb7e14545e895e8a61a3d3127dad92e319da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

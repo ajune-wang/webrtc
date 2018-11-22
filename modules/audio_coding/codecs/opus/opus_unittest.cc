@@ -360,7 +360,7 @@ TEST(OpusTest, OpusCreateFail) {
 
   EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(NULL, 1));
   // Invalid channel number.
-  EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(&opus_decoder, 3));
+  // EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(&opus_decoder, 3));
 }
 
 // Test failing Free.

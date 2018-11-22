@@ -274,8 +274,16 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst, size_t channels) {
       return -1;
     }
 
+    unsigned char mapping[255];
+    for (int i=0; i < 255; ++i) {
+      mapping[i] = 0;
+    }
     /* Create new memory, always at 48000 Hz. */
-    state->decoder = opus_decoder_create(48000, (int)channels, &error);
+    state->decoder = opus_multistream_decoder_create(48000, (int)channels,
+                                                     /* streams = */ 1,
+                                                     /* coupled streams = */1,
+                                                     mapping,
+                                                     &error);
     if (error == OPUS_OK && state->decoder != NULL) {
       /* Creation of memory all ok. */
       state->channels = channels;
@@ -287,7 +295,7 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst, size_t channels) {
 
     /* If memory allocation was unsuccessful, free the entire state. */
     if (state->decoder) {
-      opus_decoder_destroy(state->decoder);
+      opus_multistream_decoder_destroy(state->decoder);
     }
     free(state);
   }
@@ -296,7 +304,7 @@ int16_t WebRtcOpus_DecoderCreate(OpusDecInst** inst, size_t channels) {
 
 int16_t WebRtcOpus_DecoderFree(OpusDecInst* inst) {
   if (inst) {
-    opus_decoder_destroy(inst->decoder);
+    opus_multistream_decoder_destroy(inst->decoder);
     free(inst);
     return 0;
   } else {
@@ -309,7 +317,7 @@ size_t WebRtcOpus_DecoderChannels(OpusDecInst* inst) {
 }
 
 void WebRtcOpus_DecoderInit(OpusDecInst* inst) {
-  opus_decoder_ctl(inst->decoder, OPUS_RESET_STATE);
+  opus_multistream_decoder_ctl(inst->decoder, OPUS_RESET_STATE);
   inst->in_dtx_mode = 0;
 }
 
@@ -338,8 +346,9 @@ static int16_t DetermineAudioType(OpusDecInst* inst, size_t encoded_bytes) {
 static int DecodeNative(OpusDecInst* inst, const uint8_t* encoded,
                         size_t encoded_bytes, int frame_size,
                         int16_t* decoded, int16_t* audio_type, int decode_fec) {
-  int res = opus_decode(inst->decoder, encoded, (opus_int32)encoded_bytes,
-                        (opus_int16*)decoded, frame_size, decode_fec);
+  int res = opus_multistream_decode(
+      inst->decoder, encoded, (opus_int32)encoded_bytes,
+      (opus_int16*)decoded, frame_size, decode_fec);
 
   if (res <= 0)
     return -1;

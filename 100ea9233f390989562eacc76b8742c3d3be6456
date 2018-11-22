@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f93a8a97_fdb1180c",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:55:55Z",
+      "side": 1,
+      "message": "I\u0027m not familiar with protos, but is it a good idea to renumber the ids? Alternative would be to mark the value 5 as unused/obsolete.",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 58
+      },
+      "revId": "100ea9233f390989562eacc76b8742c3d3be6456",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

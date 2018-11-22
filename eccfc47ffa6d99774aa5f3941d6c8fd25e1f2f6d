@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02c3d4ef_894270b1",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:55:55Z",
+      "side": 0,
+      "message": "This is StreamConfig::rsid (logging/rtc_event_log/rtc_stream_config.h) ?\n\nCan that member be deleted too?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 28,
+        "endLine": 1047,
+        "endChar": 53
+      },
+      "revId": "eccfc47ffa6d99774aa5f3941d6c8fd25e1f2f6d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

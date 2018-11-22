@@ -8,6 +8,7 @@
 
 import("//build/config/linux/pkg_config.gni")
 import("//build/config/ui.gni")
+import("//tools/generate_stubs/rules.gni")
 import("../../webrtc.gni")
 
 use_desktop_capture_differ_sse2 = current_cpu == "x86" || current_cpu == "x64"
@@ -180,42 +181,15 @@ if (is_linux) {
     } else {
       # When libpipewire is not directly linked, use stubs to allow for dlopening of
       # the binary.
-      action("pipewire_generate_stubs") {
+      generate_stubs("pipewire_stubs") {
         extra_header = "linux/pipewire_stub_header.fragment"
-
-        script = "//tools/generate_stubs/generate_stubs.py"
-        sources = [
-          "linux/pipewire.sigs",
+        sigs = [ "linux/pipewire.sigs" ]
+        output_name = "linux/pipewire_stubs"
+        deps = [
+          "../../rtc_base",
         ]
-        inputs = [
-          extra_header,
-        ]
-        stubs_filename_root = "pipewire_stubs"
-
-        outputs = [
-          "$target_gen_dir/linux/$stubs_filename_root.cc",
-          "$target_gen_dir/linux/$stubs_filename_root.h",
-        ]
-        args = [
-          "-i",
-          rebase_path("$target_gen_dir/linux", root_build_dir),
-          "-o",
-          rebase_path("$target_gen_dir/linux", root_build_dir),
-          "-t",
-          "posix_stubs",
-          "-e",
-          rebase_path(extra_header, root_build_dir),
-          "-s",
-          stubs_filename_root,
-          "-p",
-          "modules/desktop_capture/linux",
-          "-l",
-          "RTC_LOG(LS_VERBOSE)",
-          "-n",
-          "rtc_base/logging.h",
-        ]
-
-        args += rebase_path(sources, root_build_dir)
+        logging_function = "RTC_LOG(LS_VERBOSE)"
+        logging_include = "rtc_base/logging.h"
       }
     }
 
@@ -488,9 +462,7 @@ rtc_static_library("desktop_capture_generic") {
     if (rtc_link_pipewire) {
       configs += [ ":pipewire" ]
     } else {
-      libs = [ "dl" ]
-      deps += [ ":pipewire_generate_stubs" ]
-      sources += get_target_outputs(":pipewire_generate_stubs")
+      deps += [ ":pipewire_stubs" ]
     }
   }
 }

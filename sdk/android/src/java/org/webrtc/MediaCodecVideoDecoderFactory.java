@@ -28,22 +28,23 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
   private static final String TAG = "MediaCodecVideoDecoderFactory";
 
   private final @Nullable EglBase.Context sharedContext;
-  private final String[] prefixWhitelist;
-  private final String[] prefixBlacklist;
+  @Nullable private final Predicate<MediaCodecInfo> isCodecWhitelisted;
+  @Nullable private final Predicate<MediaCodecInfo> isCodecBlacklisted;
 
   /**
    * MediaCodecVideoDecoderFactory will support codecs whitelisted excluding those blacklisted.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
    *                      this disables texture support.
-   * @param prefixWhitelist List of codec prefixes to be whitelisted.
-   * @param prefixBlacklist List of codec prefixes to be blacklisted.
+   * @param isCodecWhitelisted optional predicate to test if codec whitelisted.
+   * @param isCodecBlacklisted optional predicate to test if codec blacklisted.
    */
-  public MediaCodecVideoDecoderFactory(
-      @Nullable EglBase.Context sharedContext, String[] prefixWhitelist, String[] prefixBlacklist) {
+  public MediaCodecVideoDecoderFactory(@Nullable EglBase.Context sharedContext,
+      @Nullable Predicate<MediaCodecInfo> isCodecWhitelisted,
+      @Nullable Predicate<MediaCodecInfo> isCodecBlacklisted) {
     this.sharedContext = sharedContext;
-    this.prefixWhitelist = Arrays.copyOf(prefixWhitelist, prefixWhitelist.length);
-    this.prefixBlacklist = Arrays.copyOf(prefixBlacklist, prefixBlacklist.length);
+    this.isCodecWhitelisted = isCodecWhitelisted;
+    this.isCodecBlacklisted = isCodecBlacklisted;
   }
 
   @Nullable
@@ -123,25 +124,21 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
         == null) {
       return false;
     }
-    return isWhitelisted(name) && !isBlacklisted(name);
+    return isWhitelisted(info) && !isBlacklisted(info);
   }
 
-  private boolean isWhitelisted(String name) {
-    for (String prefix : prefixWhitelist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
+  private boolean isWhitelisted(MediaCodecInfo info) {
+    if (isCodecWhitelisted == null) {
+      return true;
     }
-    return false;
+    return isCodecWhitelisted.test(info);
   }
 
-  private boolean isBlacklisted(String name) {
-    for (String prefix : prefixBlacklist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
+  private boolean isBlacklisted(MediaCodecInfo info) {
+    if (isCodecBlacklisted == null) {
+      return false;
     }
-    return false;
+    return isCodecBlacklisted.test(info);
   }
 
   private boolean isH264HighProfileSupported(MediaCodecInfo info) {
@@ -155,5 +152,27 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
       return true;
     }
     return false;
+  }
+
+  public interface Predicate<T> {
+    boolean test(T arg);
+
+    default Predicate<T> or(Predicate<? super T> other) {
+      return new Predicate<T>() {
+        @Override
+        public boolean test(T arg) {
+          return Predicate.this.test(arg) || other.test(arg);
+        }
+      };
+    }
+
+    default Predicate<T> and(Predicate<? super T> other) {
+      return new Predicate<T>() {
+        @Override
+        public boolean test(T arg) {
+          return Predicate.this.test(arg) && other.test(arg);
+        }
+      };
+    }
   }
 }

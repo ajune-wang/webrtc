@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3afbbcb_7f58f087",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:36:30Z",
+      "side": 1,
+      "message": "Consider if the kInvalid values should be included. The ones that have a name in the spec (but should be renamed kReserved here) should perhaps be included. But MatrixId::kInvalid probably shouldn\u0027t.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b46373_f2a55298",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:36:30Z",
+      "side": 1,
+      "message": "I\u0027d prefer moving the kPrimaryIds array to be a local in this function.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 57
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "327f880d_c9ef2955",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:36:30Z",
+      "side": 1,
+      "message": "|index| is a poor argument name. _from_uint8 is clear, but doesn\u0027t look so nice.\n\nWould be nice to also have setters using the enum as argument type.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1c3c88_0a0e9d8a",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T14:36:30Z",
+      "side": 1,
+      "message": "Move to .cc-file?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

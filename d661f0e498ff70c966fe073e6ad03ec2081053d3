@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "37aa781c_f49e125f",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "I agree it is not a perfect name, but I cannot come up with a better one.\nPicture it as a level of certainty.",
+      "parentUuid": "2e964c53_da8c0465",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 18
+      },
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "306386aa_b33de66d",
         "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cbfc640f_30910bc5",
+        "filename": "modules/audio_processing/aec3/clockdrift_detector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "306386aa_b33de66d",
+      "range": {
+        "startLine": 29,
+        "startChar": 24,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3a2a243_b322f540",
         "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ee356ce_85ed4746",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3a2a243_b322f540",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "52a993e1_447e78ad",
+        "filename": "modules/audio_processing/aec3/echo_path_delay_estimator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "061ed41a_a85c1e03",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "001d9bf2_4f9d0fb2",
         "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19407b0f_d5acd387",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "001d9bf2_4f9d0fb2",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "514f6c0e_a006bfde",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2e9e192_ec0c87fd",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "823061d0_1ca2bddb",
         "filename": "modules/audio_processing/aec3/render_delay_controller.h",
         "patchSetId": 3
@@ -130,6 +250,24 @@
       "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f686d4_39221729",
+        "filename": "modules/audio_processing/aec3/render_delay_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "823061d0_1ca2bddb",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "82c96be2_87d3acce",
+        "filename": "modules/audio_processing/aec3/render_delay_controller2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a83e70_7cf96e7f",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0092113_9b59410e",
         "filename": "modules/audio_processing/aec3/render_delay_controller2.cc",
         "patchSetId": 3
@@ -164,6 +320,24 @@
       "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabc65b3_e0bce86a",
+        "filename": "modules/audio_processing/aec3/render_delay_controller2.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2018-11-22T14:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0092113_9b59410e",
+      "revId": "d661f0e498ff70c966fe073e6ad03ec2081053d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

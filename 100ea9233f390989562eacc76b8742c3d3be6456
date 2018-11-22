@@ -22,6 +22,30 @@
       "revId": "100ea9233f390989562eacc76b8742c3d3be6456",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a4c8283_339b5c8b",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-22T15:15:40Z",
+      "side": 1,
+      "message": "Renumbering the IDs breaks backwards compatibility, so normally it wouldn\u0027t be possible to renumber the fields. In this case, the new format is not launched (and clearly marked as experimental), so there is no backwards compatibility to break.",
+      "parentUuid": "f93a8a97_fdb1180c",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 58
+      },
+      "revId": "100ea9233f390989562eacc76b8742c3d3be6456",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

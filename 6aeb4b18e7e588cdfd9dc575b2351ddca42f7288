@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2095b61_56fcc07f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-22T10:55:23Z",
+      "side": 1,
+      "message": "no, I don\u0027t.",
+      "parentUuid": "392b3890_8df50bcb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 41
+      },
+      "revId": "6aeb4b18e7e588cdfd9dc575b2351ddca42f7288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb290c5_6e89fcb1",
         "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "6aeb4b18e7e588cdfd9dc575b2351ddca42f7288",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60e033de_5b02c2b3",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-22T10:55:23Z",
+      "side": 1,
+      "message": "good idea, and yes, prefer it to be done in another CL.\nThis one tries not to change any behavior.",
+      "parentUuid": "8fb290c5_6e89fcb1",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 48
+      },
+      "revId": "6aeb4b18e7e588cdfd9dc575b2351ddca42f7288",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

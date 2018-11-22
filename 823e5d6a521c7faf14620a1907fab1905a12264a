@@ -93,6 +93,30 @@
       "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95fc796e_45a34123",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2018-11-22T14:58:49Z",
+      "side": 1,
+      "message": "Wat. That must be a formatter bug. Oh well...",
+      "parentUuid": "e03587ae_267f467b",
+      "range": {
+        "startLine": 653,
+        "startChar": 10,
+        "endLine": 653,
+        "endChar": 13
+      },
+      "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -256,6 +256,7 @@ class AudioProcessing : public rtc::RefCountInterface {
       bool enabled = false;
     } high_pass_filter;
 
+    // TODO(webrtc:7494): Switch to GainController2::pre_fixed_digital.
     // Enabled the pre-amplifier. It amplifies the capture signal
     // before any other processing is done.
     struct PreAmplifier {
@@ -263,15 +264,16 @@ class AudioProcessing : public rtc::RefCountInterface {
       float fixed_gain_factor = 1.f;
     } pre_amplifier;
 
-    // Enables the next generation AGC functionality. This feature replaces the
-    // standard methods of gain control in the previous AGC. Enabling this
-    // submodule enables an adaptive digital AGC followed by a limiter. By
-    // setting |fixed_gain_db|, the limiter can be turned into a compressor that
-    // first applies a fixed gain. The adaptive digital AGC can be turned off by
-    // setting |adaptive_digital_mode=false|.
+    // Parameters for AGC2. The latter replaces the current gain control
+    // submodules.
     struct GainController2 {
       enum LevelEstimator { kRms, kPeak };
       bool enabled = false;
+      // Pre-processing settings.
+      struct {
+        float gain_factor = 1.f;
+      } pre_fixed_digital;
+      // Post-processing settings.
       struct {
         float gain_db = 0.f;
       } fixed_digital;

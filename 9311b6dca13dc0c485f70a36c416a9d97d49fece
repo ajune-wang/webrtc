@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c1b3798_b98565ef",
+        "filename": "rtc_base/sanitizer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-22T07:40:54Z",
+      "side": 1,
+      "message": "This should be:\n\n  #include \"absl/meta/type_traits.h\"\n\nAnd (if reviewers will +1) these files should be also updated:\n\n- https://cs.chromium.org/chromium/src/third_party/webrtc/DEPS?l\u003d1447-1454\u0026rcl\u003da526ae65cc4a44721757e388d14c715f26d1578b\n- https://cs.chromium.org/chromium/src/third_party/webrtc/abseil-in-webrtc.md?l\u003d12-19\u0026rcl\u003d3c7d599750405bc734e1d5adbf1b54265b725a9d",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "9311b6dca13dc0c485f70a36c416a9d97d49fece",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

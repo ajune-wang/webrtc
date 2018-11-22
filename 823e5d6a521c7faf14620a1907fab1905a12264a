@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "433d74e2_49973705",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-11-22T14:45:10Z",
+      "side": 1,
+      "message": "Yes, that is the requirement of underlying template implementation",
+      "parentUuid": "62cf5230_866c01f0",
+      "range": {
+        "startLine": 650,
+        "startChar": 29,
+        "endLine": 650,
+        "endChar": 32
+      },
+      "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1bfb03d_29be8479",
         "filename": "BUILD.gn",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e03587ae_267f467b",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-11-22T14:45:10Z",
+      "side": 1,
+      "message": "This is automatic formatting, it can be done only in that way.",
+      "parentUuid": "d1bfb03d_29be8479",
+      "range": {
+        "startLine": 653,
+        "startChar": 10,
+        "endLine": 653,
+        "endChar": 13
+      },
+      "revId": "823e5d6a521c7faf14620a1907fab1905a12264a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

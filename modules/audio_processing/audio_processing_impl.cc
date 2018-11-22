@@ -387,8 +387,6 @@ AudioProcessingImpl::AudioProcessingImpl(
 
     private_submodules_->echo_cancellation.reset(new EchoCancellationImpl());
     private_submodules_->echo_control_mobile.reset(new EchoControlMobileImpl());
-    // TODO(alessiob): Move the injected gain controller once injection is
-    // implemented.
     private_submodules_->gain_controller2.reset(new GainController2());
 
     RTC_LOG(LS_INFO) << "Capture analyzer activated: "
@@ -857,10 +855,14 @@ void AudioProcessingImpl::HandleCaptureRuntimeSettings() {
     }
     switch (setting.type()) {
       case RuntimeSetting::Type::kCapturePreGain:
-        if (config_.pre_amplifier.enabled) {
-          float value;
-          setting.GetFloat(&value);
+        float value;
+        setting.GetFloat(&value);
+        if (private_submodules_->pre_amplifier) {
           private_submodules_->pre_amplifier->SetGainFactor(value);
+        }
+        if (config_.gain_controller2.enabled) {
+          private_submodules_->gain_controller2
+              ->HandleCapturePreGainRuntimeSettings(value);
         }
         // TODO(bugs.chromium.org/9138): Log setting handling by Aec Dump.
         break;
@@ -1155,6 +1157,11 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   RTC_DCHECK(!(private_submodules_->echo_cancellation->is_enabled() &&
                private_submodules_->echo_control_mobile->is_enabled()));
 
+  // Ensure that not both the pre-amplifier and AGC2 are active at the same
+  // time.
+  RTC_DCHECK(
+      !(config_.pre_amplifier.enabled && config_.gain_controller2.enabled));
+
   MaybeUpdateHistograms();
 
   AudioBuffer* capture_buffer = capture_.capture_audio.get();  // For brevity.
@@ -1163,6 +1170,9 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
     private_submodules_->pre_amplifier->ApplyGain(AudioFrameView<float>(
         capture_buffer->channels_f(), capture_buffer->num_channels(),
         capture_buffer->num_frames()));
+  }
+  if (config_.gain_controller2.enabled) {
+    private_submodules_->gain_controller2->ApplyPreGain(capture_buffer);
   }
 
   capture_input_rms_.Analyze(rtc::ArrayView<const int16_t>(
@@ -1327,7 +1337,7 @@ int AudioProcessingImpl::ProcessCaptureStreamLocked() {
   if (config_.gain_controller2.enabled) {
     private_submodules_->gain_controller2->NotifyAnalogLevel(
         gain_control()->stream_analog_level());
-    private_submodules_->gain_controller2->Process(capture_buffer);
+    private_submodules_->gain_controller2->ApplyDigitalGain(capture_buffer);
   }
 
   if (private_submodules_->capture_post_processor) {

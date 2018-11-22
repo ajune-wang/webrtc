@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9714a3ec_3eaa5bc7",
+        "filename": "p2p/base/regatheringcontroller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-11-22T15:16:46Z",
+      "side": 1,
+      "message": "I\u0027m a bit worried to see two signals connected to OnIceTransportStateChanged. It looks non-obvious. If intended, might want to write a comment somewhere.",
+      "revId": "58fd2909216e0126dfb5f4026ef1ed43750c1c66",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

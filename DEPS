@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '6931f4c0d081f179dae827911989bc74aeb12761',
+  'chromium_revision': 'b9e57bb23ab7a6692c4f9d94ccb31a8612f90204',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': 'd69ae20edf9486cf53e4ee007c89a1518b03abab',
+  'catapult_revision': 'aa21a922d4a8fb32bf9f24a0cfbeec8c2ed1f963',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -42,11 +42,11 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + 'ab495eac8b5b5f46eb6c3620429a93adab3b9b91',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '8a0417bf04f6b8ac55c2240c7f246f987f3d1552',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + 'dcab93e47d877ba77f68b7968c3b900fa955614d',
+    Var('chromium_git') + '/chromium/src/build' + '@' + 'fb7b4dbd27bfd899a45c55a1f2d799c5f8056bc6',
   'src/buildtools':
-    Var('chromium_git') + '/chromium/buildtools.git' + '@' + 'da9b2941cbf6d6d67b694e069e8e8dc06910f66a',
+    Var('chromium_git') + '/chromium/buildtools.git' + '@' + '04161ec8d7c781e4498c699254c69ba0dd959fde',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': Var('chromium_git') + '/external/github.com/gradle/gradle.git' + '@' +
@@ -54,13 +54,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '205368975aa7a17951877b4519f7c60dad1f933c',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + 'c6469bfcecf0ebedfc46309fe15082d467769b51',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '6a892ba0d8d4bebdcfc104c08bafb21d06116f5c',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + 'd5fb7d14170b087b2b6419bd72fc5d8779cf9f71',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '2c4678ac793d680edbd6b25c6417c288a9cf13f7',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '35301cfb8011e1acc13050d5373c714863aada1f',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -107,7 +107,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'a85a4b01ee72af77de3a7245af1ffe81bac26acc',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'd66dad7fc2c3caad80c0117ae0ee625d7367a14a',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -225,7 +225,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'bcd323f441116186be00c1a121f0a6dca302098c',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + 'c2be8cc97dd90d9afb0f2b57a63b4083f17cfae9',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

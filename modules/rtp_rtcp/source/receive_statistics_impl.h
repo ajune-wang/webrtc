@@ -50,17 +50,14 @@ class StreamStatisticianImpl : public StreamStatistician,
   void EnableRetransmitDetection(bool enable);
 
  private:
-  bool IsRetransmitOfOldPacket(const RtpPacketReceived& packet) const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
-  bool InOrderPacketInternal(uint16_t sequence_number) const
+  bool IsRetransmitOfOldPacket(const RtpPacketReceived& packet,
+                               int64_t now_ms) const
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
   RtcpStatistics CalculateRtcpStatistics()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
   void UpdateJitter(const RtpPacketReceived& packet, NtpTime receive_time)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
-  StreamDataCounters UpdateCounters(const RtpPacketReceived& packet,
-                                    bool retransmitted)
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(stream_lock_);
+  StreamDataCounters UpdateCounters(const RtpPacketReceived& packet);
 
   const uint32_t ssrc_;
   Clock* const clock_;

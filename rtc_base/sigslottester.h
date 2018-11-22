@@ -12,8 +12,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SIGSLOTTESTER_H_
-#define RTC_BASE_SIGSLOTTESTER_H_
+#ifndef WEBRTC_RTC_BASE_SIGSLOTTESTER_H_
+#define WEBRTC_RTC_BASE_SIGSLOTTESTER_H_
 
 // To generate sigslottester.h from sigslottester.h.pump, execute:
 // /home/build/google3/third_party/gtest/scripts/pump.py sigslottester.h.pump
@@ -237,4 +237,4 @@ class SigslotTester5 : public sigslot::has_slots<> {
 };
 }  // namespace rtc
 
-#endif  // RTC_BASE_SIGSLOTTESTER_H_
+#endif  // WEBRTC_RTC_BASE_SIGSLOTTESTER_H_

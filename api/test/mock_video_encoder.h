@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_MOCK_VIDEO_ENCODER_H_
-#define API_TEST_MOCK_VIDEO_ENCODER_H_
+#ifndef WEBRTC_API_TEST_MOCK_VIDEO_ENCODER_H_
+#define WEBRTC_API_TEST_MOCK_VIDEO_ENCODER_H_
 
 #include <vector>
 
@@ -54,4 +54,4 @@ class MockVideoEncoder : public VideoEncoder {
 
 }  // namespace webrtc
 
-#endif  // API_TEST_MOCK_VIDEO_ENCODER_H_
+#endif  // WEBRTC_API_TEST_MOCK_VIDEO_ENCODER_H_

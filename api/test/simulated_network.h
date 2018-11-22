@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_SIMULATED_NETWORK_H_
-#define API_TEST_SIMULATED_NETWORK_H_
+#ifndef WEBRTC_API_TEST_SIMULATED_NETWORK_H_
+#define WEBRTC_API_TEST_SIMULATED_NETWORK_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -77,4 +77,4 @@ class NetworkBehaviorInterface {
 
 }  // namespace webrtc
 
-#endif  // API_TEST_SIMULATED_NETWORK_H_
+#endif  // WEBRTC_API_TEST_SIMULATED_NETWORK_H_

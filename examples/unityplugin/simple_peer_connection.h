@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_
-#define EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_
+#ifndef WEBRTC_EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_
+#define WEBRTC_EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_
 
 #include <map>
 #include <memory>
@@ -133,4 +133,4 @@ class SimplePeerConnection : public webrtc::PeerConnectionObserver,
   SimplePeerConnection& operator=(const SimplePeerConnection&) = delete;
 };
 
-#endif  // EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_
+#endif  // WEBRTC_EXAMPLES_UNITYPLUGIN_SIMPLE_PEER_CONNECTION_H_

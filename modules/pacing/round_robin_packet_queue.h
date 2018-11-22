@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
-#define MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
+#ifndef WEBRTC_MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
+#define WEBRTC_MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -135,4 +135,4 @@ class RoundRobinPacketQueue {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_
+#endif  // WEBRTC_MODULES_PACING_ROUND_ROBIN_PACKET_QUEUE_H_

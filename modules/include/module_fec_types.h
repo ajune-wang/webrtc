@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_INCLUDE_MODULE_FEC_TYPES_H_
-#define MODULES_INCLUDE_MODULE_FEC_TYPES_H_
+#ifndef WEBRTC_MODULES_INCLUDE_MODULE_FEC_TYPES_H_
+#define WEBRTC_MODULES_INCLUDE_MODULE_FEC_TYPES_H_
 
 namespace webrtc {
 
@@ -31,4 +31,4 @@ struct FecProtectionParams {
 
 }  // namespace webrtc
 
-#endif  // MODULES_INCLUDE_MODULE_FEC_TYPES_H_
+#endif  // WEBRTC_MODULES_INCLUDE_MODULE_FEC_TYPES_H_

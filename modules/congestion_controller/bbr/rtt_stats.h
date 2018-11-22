@@ -10,8 +10,8 @@
 // A convenience class to store RTT samples and calculate smoothed RTT.
 // From the Quic BBR implementation in Chromium.
 
-#ifndef MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_
-#define MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_
 
 #include <algorithm>
 #include <cstdint>
@@ -86,4 +86,4 @@ class RttStats {
 }  // namespace bbr
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_RTT_STATS_H_

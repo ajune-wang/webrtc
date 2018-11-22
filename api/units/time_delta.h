@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_UNITS_TIME_DELTA_H_
-#define API_UNITS_TIME_DELTA_H_
+#ifndef WEBRTC_API_UNITS_TIME_DELTA_H_
+#define WEBRTC_API_UNITS_TIME_DELTA_H_
 
 #ifdef UNIT_TEST
 #include <ostream>  // no-presubmit-check TODO(webrtc:8982)
@@ -103,4 +103,4 @@ inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
 
 }  // namespace webrtc
 
-#endif  // API_UNITS_TIME_DELTA_H_
+#endif  // WEBRTC_API_UNITS_TIME_DELTA_H_

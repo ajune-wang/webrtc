@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_NACK_MODULE_H_
-#define MODULES_VIDEO_CODING_NACK_MODULE_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_NACK_MODULE_H_
+#define WEBRTC_MODULES_VIDEO_CODING_NACK_MODULE_H_
 
 #include <map>
 #include <set>
@@ -108,4 +108,4 @@ class NackModule : public Module {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_NACK_MODULE_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_NACK_MODULE_H_

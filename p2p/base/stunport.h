@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_STUNPORT_H_
-#define P2P_BASE_STUNPORT_H_
+#ifndef WEBRTC_P2P_BASE_STUNPORT_H_
+#define WEBRTC_P2P_BASE_STUNPORT_H_
 
 #include <map>
 #include <memory>
@@ -298,4 +298,4 @@ class StunPort : public UDPPort {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_STUNPORT_H_
+#endif  // WEBRTC_P2P_BASE_STUNPORT_H_

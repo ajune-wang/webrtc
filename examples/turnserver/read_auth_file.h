@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_
-#define EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_
+#ifndef WEBRTC_EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_
+#define WEBRTC_EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_
 
 #include <istream>
 #include <map>
@@ -21,4 +21,4 @@ std::map<std::string, std::string> ReadAuthFile(std::istream* s);
 
 }  // namespace webrtc_examples
 
-#endif  // EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_
+#endif  // WEBRTC_EXAMPLES_TURNSERVER_READ_AUTH_FILE_H_

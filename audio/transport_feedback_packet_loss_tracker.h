@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
-#define AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
+#ifndef WEBRTC_AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
+#define WEBRTC_AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
 
 #include <map>
 #include <vector>
@@ -139,4 +139,4 @@ class TransportFeedbackPacketLossTracker final {
 
 }  // namespace webrtc
 
-#endif  // AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_
+#endif  // WEBRTC_AUDIO_TRANSPORT_FEEDBACK_PACKET_LOSS_TRACKER_H_

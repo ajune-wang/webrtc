@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_
-#define MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_
+#define WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "test/gmock.h"
@@ -26,4 +26,4 @@ class MockRtcpBandwidthObserver : public RtcpBandwidthObserver {
                void(const ReportBlockList&, int64_t, int64_t));
 };
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTCP_BANDWIDTH_OBSERVER_H_

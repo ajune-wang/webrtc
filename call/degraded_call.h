@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_DEGRADED_CALL_H_
-#define CALL_DEGRADED_CALL_H_
+#ifndef WEBRTC_CALL_DEGRADED_CALL_H_
+#define WEBRTC_CALL_DEGRADED_CALL_H_
 
 #include <memory>
 
@@ -105,4 +105,4 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
 
 }  // namespace webrtc
 
-#endif  // CALL_DEGRADED_CALL_H_
+#endif  // WEBRTC_CALL_DEGRADED_CALL_H_

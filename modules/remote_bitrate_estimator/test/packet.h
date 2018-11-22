@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_
+#ifndef WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_
+#define WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_
 
 #include <list>
 #include <map>
@@ -211,4 +211,4 @@ typedef std::list<Packet*>::const_iterator PacketsConstIt;
 }  // namespace bwe
 }  // namespace testing
 }  // namespace webrtc
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_
+#endif  // WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_H_

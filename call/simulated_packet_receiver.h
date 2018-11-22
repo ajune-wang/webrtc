@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_SIMULATED_PACKET_RECEIVER_H_
-#define CALL_SIMULATED_PACKET_RECEIVER_H_
+#ifndef WEBRTC_CALL_SIMULATED_PACKET_RECEIVER_H_
+#define WEBRTC_CALL_SIMULATED_PACKET_RECEIVER_H_
 
 #include "api/test/simulated_network.h"
 #include "call/packet_receiver.h"
@@ -31,4 +31,4 @@ class SimulatedPacketReceiverInterface : public PacketReceiver, public Module {
 
 }  // namespace webrtc
 
-#endif  // CALL_SIMULATED_PACKET_RECEIVER_H_
+#endif  // WEBRTC_CALL_SIMULATED_PACKET_RECEIVER_H_

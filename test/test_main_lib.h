@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_TEST_MAIN_LIB_H_
-#define TEST_TEST_MAIN_LIB_H_
+#ifndef WEBRTC_TEST_TEST_MAIN_LIB_H_
+#define WEBRTC_TEST_TEST_MAIN_LIB_H_
 
 #include <memory>
 
@@ -35,4 +35,4 @@ class TestMain {
 
 }  // namespace webrtc
 
-#endif  // TEST_TEST_MAIN_LIB_H_
+#endif  // WEBRTC_TEST_TEST_MAIN_LIB_H_

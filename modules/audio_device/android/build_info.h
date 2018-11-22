@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_
-#define MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_
+#ifndef WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_
+#define WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_
 
 #include <jni.h>
 #include <memory>
@@ -82,4 +82,4 @@ class BuildInfo {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_BUILD_INFO_H_

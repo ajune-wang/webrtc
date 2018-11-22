@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_PACKET_BUFFER_H_
-#define MODULES_VIDEO_CODING_PACKET_BUFFER_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_PACKET_BUFFER_H_
+#define WEBRTC_MODULES_VIDEO_CODING_PACKET_BUFFER_H_
 
 #include <memory>
 #include <queue>
@@ -184,4 +184,4 @@ class PacketBuffer {
 }  // namespace video_coding
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_PACKET_BUFFER_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_PACKET_BUFFER_H_

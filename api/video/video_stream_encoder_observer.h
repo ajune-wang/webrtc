@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
-#define API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
+#define WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
 
 #include <string>
 #include <vector>
@@ -96,4 +96,4 @@ class VideoStreamEncoderObserver : public CpuOveruseMetricsObserver {
 };
 
 }  // namespace webrtc
-#endif  // API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_OBSERVER_H_

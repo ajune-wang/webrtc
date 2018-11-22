@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
 
 #include <stdint.h>
 #include <memory>
@@ -84,4 +84,4 @@ class RtpDepacketizer {
                      size_t payload_data_length) = 0;
 };
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_H_

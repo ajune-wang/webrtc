@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYSTEM_ASM_DEFINES_H_
-#define RTC_BASE_SYSTEM_ASM_DEFINES_H_
+#ifndef WEBRTC_RTC_BASE_SYSTEM_ASM_DEFINES_H_
+#define WEBRTC_RTC_BASE_SYSTEM_ASM_DEFINES_H_
 
 // clang-format off
 // clang formatting breaks everything here, e.g. concatenating directives,
@@ -69,4 +69,4 @@ strheq \reg1, \reg2, \num
 
 // clang-format on
 
-#endif  // RTC_BASE_SYSTEM_ASM_DEFINES_H_
+#endif  // WEBRTC_RTC_BASE_SYSTEM_ASM_DEFINES_H_

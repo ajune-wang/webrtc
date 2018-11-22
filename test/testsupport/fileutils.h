@@ -10,8 +10,8 @@
 
 #include <stdio.h>
 
-#ifndef TEST_TESTSUPPORT_FILEUTILS_H_
-#define TEST_TESTSUPPORT_FILEUTILS_H_
+#ifndef WEBRTC_TEST_TESTSUPPORT_FILEUTILS_H_
+#define WEBRTC_TEST_TESTSUPPORT_FILEUTILS_H_
 
 #include <string>
 #include <vector>
@@ -106,4 +106,4 @@ size_t GetFileSize(const std::string& filename);
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_TESTSUPPORT_FILEUTILS_H_
+#endif  // WEBRTC_TEST_TESTSUPPORT_FILEUTILS_H_

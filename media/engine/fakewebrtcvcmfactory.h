@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
-#define MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
+#ifndef WEBRTC_MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
+#define WEBRTC_MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
 
 #include <vector>
 
@@ -39,4 +39,4 @@ class FakeWebRtcVcmFactory : public cricket::WebRtcVcmFactoryInterface {
   std::vector<rtc::scoped_refptr<FakeWebRtcVideoCaptureModule>> modules;
 };
 
-#endif  // MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
+#endif  // WEBRTC_MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_

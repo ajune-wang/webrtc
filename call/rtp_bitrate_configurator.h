@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_BITRATE_CONFIGURATOR_H_
-#define CALL_RTP_BITRATE_CONFIGURATOR_H_
+#ifndef WEBRTC_CALL_RTP_BITRATE_CONFIGURATOR_H_
+#define WEBRTC_CALL_RTP_BITRATE_CONFIGURATOR_H_
 
 #include "api/bitrate_constraints.h"
 #include "api/transport/bitrate_settings.h"
@@ -66,4 +66,4 @@ class RtpBitrateConfigurator {
 };
 }  // namespace webrtc
 
-#endif  // CALL_RTP_BITRATE_CONFIGURATOR_H_
+#endif  // WEBRTC_CALL_RTP_BITRATE_CONFIGURATOR_H_

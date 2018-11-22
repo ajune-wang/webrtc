@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_ASYNCSTUNTCPSOCKET_H_
-#define P2P_BASE_ASYNCSTUNTCPSOCKET_H_
+#ifndef WEBRTC_P2P_BASE_ASYNCSTUNTCPSOCKET_H_
+#define WEBRTC_P2P_BASE_ASYNCSTUNTCPSOCKET_H_
 
 #include "rtc_base/asynctcpsocket.h"
 #include "rtc_base/constructormagic.h"
@@ -45,4 +45,4 @@ class AsyncStunTCPSocket : public rtc::AsyncTCPSocketBase {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_ASYNCSTUNTCPSOCKET_H_
+#endif  // WEBRTC_P2P_BASE_ASYNCSTUNTCPSOCKET_H_

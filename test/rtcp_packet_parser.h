@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef TEST_RTCP_PACKET_PARSER_H_
-#define TEST_RTCP_PACKET_PARSER_H_
+#ifndef WEBRTC_TEST_RTCP_PACKET_PARSER_H_
+#define WEBRTC_TEST_RTCP_PACKET_PARSER_H_
 
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/app.h"
@@ -118,4 +118,4 @@ class RtcpPacketParser {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // TEST_RTCP_PACKET_PARSER_H_
+#endif  // WEBRTC_TEST_RTCP_PACKET_PARSER_H_

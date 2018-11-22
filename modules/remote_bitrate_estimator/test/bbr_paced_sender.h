@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_
+#ifndef WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_
+#define WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_
 
 #include <list>
 #include <memory>
@@ -90,4 +90,4 @@ class BbrPacedSender : public Pacer {
   std::unique_ptr<testing::bwe::CongestionWindow> congestion_window_;
 };
 }  // namespace webrtc
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_
+#endif  // WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BBR_PACED_SENDER_H_

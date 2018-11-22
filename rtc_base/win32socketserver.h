@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_WIN32SOCKETSERVER_H_
-#define RTC_BASE_WIN32SOCKETSERVER_H_
+#ifndef WEBRTC_RTC_BASE_WIN32SOCKETSERVER_H_
+#define WEBRTC_RTC_BASE_WIN32SOCKETSERVER_H_
 
 #if defined(WEBRTC_WIN)
 #include "rtc_base/asyncsocket.h"
@@ -151,4 +151,4 @@ class Win32Thread : public Thread {
 
 #endif  // WEBRTC_WIN
 
-#endif  // RTC_BASE_WIN32SOCKETSERVER_H_
+#endif  // WEBRTC_RTC_BASE_WIN32SOCKETSERVER_H_

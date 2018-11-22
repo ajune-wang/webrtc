@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_
-#define MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_
 
 #include <D3D11.h>
 #include <DXGI1_2.h>
@@ -44,4 +44,4 @@ class DxgiTextureMapping : public DxgiTexture {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_WIN_DXGI_TEXTURE_MAPPING_H_

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_
-#define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -47,4 +47,4 @@ class Psfb : public RtcpPacket {
 
 }  // namespace rtcp
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_PSFB_H_

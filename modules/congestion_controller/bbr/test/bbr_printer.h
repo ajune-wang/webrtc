@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_
-#define MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_
 
 #include <memory>
 
@@ -46,4 +46,4 @@ class BbrDebugFactory : public BbrNetworkControllerFactory {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_TEST_BBR_PRINTER_H_

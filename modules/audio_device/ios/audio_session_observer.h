@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_
-#define MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_
+#ifndef WEBRTC_MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_
+#define WEBRTC_MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_
 
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/thread.h"
@@ -39,4 +39,4 @@ class AudioSessionObserver {
 
 }  // namespace webrtc
 
-#endif  //  MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_
+#endif  //  WEBRTC_MODULES_AUDIO_DEVICE_IOS_AUDIO_SESSION_OBSERVER_H_

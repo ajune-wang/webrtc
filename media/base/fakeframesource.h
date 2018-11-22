@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_FAKEFRAMESOURCE_H_
-#define MEDIA_BASE_FAKEFRAMESOURCE_H_
+#ifndef WEBRTC_MEDIA_BASE_FAKEFRAMESOURCE_H_
+#define WEBRTC_MEDIA_BASE_FAKEFRAMESOURCE_H_
 
 #include "api/video/video_frame.h"
 
@@ -48,4 +48,4 @@ class FakeFrameSource {
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_FAKEFRAMESOURCE_H_
+#endif  // WEBRTC_MEDIA_BASE_FAKEFRAMESOURCE_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
-#define MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
 
 #include <vector>
 
@@ -19,4 +19,4 @@ namespace webrtc {
 void Pcm16BAppendSupportedCodecSpecs(std::vector<AudioCodecSpec>* specs);
 }
 
-#endif  // MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_COMMON_H_

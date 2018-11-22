@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_
-#define MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_
+#define WEBRTC_MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_
 
 #include <vector>
 
@@ -130,4 +130,4 @@ class I420Decoder : public VideoDecoder {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_CODECS_I420_INCLUDE_I420_H_

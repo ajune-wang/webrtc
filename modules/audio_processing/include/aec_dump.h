@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
-#define MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
 
 #include <stdint.h>
 #include <string>
@@ -105,4 +105,4 @@ class AecDump {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_INCLUDE_AEC_DUMP_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
-#define MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
+#define WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
 
 #include <stdint.h>
 #include <map>
@@ -292,4 +292,4 @@ class AcmReceiver {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TRANSPORT_NETWORK_CONTROL_H_
-#define API_TRANSPORT_NETWORK_CONTROL_H_
+#ifndef WEBRTC_API_TRANSPORT_NETWORK_CONTROL_H_
+#define WEBRTC_API_TRANSPORT_NETWORK_CONTROL_H_
 #include <stdint.h>
 #include <memory>
 
@@ -88,4 +88,4 @@ class NetworkControllerFactoryInterface {
 };
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_NETWORK_CONTROL_H_
+#endif  // WEBRTC_API_TRANSPORT_NETWORK_CONTROL_H_

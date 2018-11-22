@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_
 
 #include <map>
 #include <vector>
@@ -78,4 +78,4 @@ class SharedXDisplay : public rtc::RefCountedBase {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SHARED_X_DISPLAY_H_

@@ -11,8 +11,8 @@
 // This file contains structures used for retrieving statistics from an ongoing
 // libjingle session.
 
-#ifndef API_STATSTYPES_H_
-#define API_STATSTYPES_H_
+#ifndef WEBRTC_API_STATSTYPES_H_
+#define WEBRTC_API_STATSTYPES_H_
 
 #include <algorithm>
 #include <list>
@@ -448,4 +448,4 @@ class StatsCollection {
 
 }  // namespace webrtc
 
-#endif  // API_STATSTYPES_H_
+#endif  // WEBRTC_API_STATSTYPES_H_

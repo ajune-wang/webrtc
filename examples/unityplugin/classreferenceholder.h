@@ -13,8 +13,8 @@
 // specific java class into JNI c++ side, so that our c++ code can
 // call those java functions.
 
-#ifndef EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_
-#define EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_
+#ifndef WEBRTC_EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_
+#define WEBRTC_EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_
 
 #include <jni.h>
 #include <map>
@@ -34,4 +34,4 @@ jclass FindClass(JNIEnv* jni, const char* name);
 
 }  // namespace unity_plugin
 
-#endif  // EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_
+#endif  // WEBRTC_EXAMPLES_UNITYPLUGIN_CLASSREFERENCEHOLDER_H_

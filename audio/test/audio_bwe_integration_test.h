@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_
-#define AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_
+#ifndef WEBRTC_AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_
+#define WEBRTC_AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_
 
 #include <memory>
 #include <string>
@@ -54,4 +54,4 @@ class AudioBweTest : public test::EndToEndTest {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_
+#endif  // WEBRTC_AUDIO_TEST_AUDIO_BWE_INTEGRATION_TEST_H_

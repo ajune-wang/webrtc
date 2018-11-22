@@ -11,8 +11,8 @@
 // BBR (Bottleneck Bandwidth and RTT) congestion control algorithm.
 // Based on the Quic BBR implementation in Chromium.
 
-#ifndef MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_
-#define MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_
 
 #include <cstdint>
 #include <memory>
@@ -392,4 +392,4 @@ std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)
 }  // namespace bbr
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BBR_NETWORK_CONTROLLER_H_

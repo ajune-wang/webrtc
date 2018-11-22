@@ -16,8 +16,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_
 
 #include "modules/audio_coding/codecs/isac/main/source/settings.h"
 #include "modules/audio_coding/codecs/isac/main/source/structs.h"
@@ -344,4 +344,5 @@ int16_t WebRtcIsac_EncodeJitterInfo(int32_t jitterIndex, Bitstr* streamData);
  */
 int16_t WebRtcIsac_DecodeJitterInfo(Bitstr* streamData, int32_t* jitterInfo);
 
-#endif /* MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ENTROPY_CODING_H_ \
+        */

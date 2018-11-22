@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_I010_BUFFER_H_
-#define API_VIDEO_I010_BUFFER_H_
+#ifndef WEBRTC_API_VIDEO_I010_BUFFER_H_
+#define WEBRTC_API_VIDEO_I010_BUFFER_H_
 
 #include <memory>
 
@@ -78,4 +78,4 @@ class I010Buffer : public I010BufferInterface {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_I010_BUFFER_H_
+#endif  // WEBRTC_API_VIDEO_I010_BUFFER_H_

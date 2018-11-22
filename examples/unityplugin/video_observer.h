@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_
-#define EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_
+#ifndef WEBRTC_EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_
+#define WEBRTC_EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_
 
 #include <mutex>
 
@@ -32,4 +32,4 @@ class VideoObserver : public rtc::VideoSinkInterface<webrtc::VideoFrame> {
   std::mutex mutex;
 };
 
-#endif  // EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_
+#endif  // WEBRTC_EXAMPLES_UNITYPLUGIN_VIDEO_OBSERVER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_
-#define MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_
+#ifndef WEBRTC_MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_
+#define WEBRTC_MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_
 
 // TODO(deadbeef): Move SCTP code out of media/, and make it not depend on
 // anything in media/.
@@ -138,4 +138,4 @@ class SctpTransportInternalFactory {
 
 }  // namespace cricket
 
-#endif  // MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_
+#endif  // WEBRTC_MEDIA_SCTP_SCTPTRANSPORTINTERNAL_H_

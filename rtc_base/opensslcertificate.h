@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLCERTIFICATE_H_
-#define RTC_BASE_OPENSSLCERTIFICATE_H_
+#ifndef WEBRTC_RTC_BASE_OPENSSLCERTIFICATE_H_
+#define WEBRTC_RTC_BASE_OPENSSLCERTIFICATE_H_
 
 #include <openssl/ossl_typ.h>
 
@@ -75,4 +75,4 @@ class OpenSSLCertificate final : public SSLCertificate {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLCERTIFICATE_H_
+#endif  // WEBRTC_RTC_BASE_OPENSSLCERTIFICATE_H_

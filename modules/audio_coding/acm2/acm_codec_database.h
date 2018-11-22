@@ -13,8 +13,8 @@
  * codecs.
  */
 
-#ifndef MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
-#define MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
 
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/acm2/rent_a_codec.h"
@@ -78,4 +78,4 @@ class ACMCodecDB {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_FIR_FILTER_H_
-#define COMMON_AUDIO_FIR_FILTER_H_
+#ifndef WEBRTC_COMMON_AUDIO_FIR_FILTER_H_
+#define WEBRTC_COMMON_AUDIO_FIR_FILTER_H_
 
 #include <string.h>
 
@@ -27,4 +27,4 @@ class FIRFilter {
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_FIR_FILTER_H_
+#endif  // WEBRTC_COMMON_AUDIO_FIR_FILTER_H_

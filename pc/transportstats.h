@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TRANSPORTSTATS_H_
-#define PC_TRANSPORTSTATS_H_
+#ifndef WEBRTC_PC_TRANSPORTSTATS_H_
+#define WEBRTC_PC_TRANSPORTSTATS_H_
 
 #include <string>
 #include <vector>
@@ -47,4 +47,4 @@ struct TransportStats {
 
 }  // namespace cricket
 
-#endif  // PC_TRANSPORTSTATS_H_
+#endif  // WEBRTC_PC_TRANSPORTSTATS_H_

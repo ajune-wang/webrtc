@@ -12,8 +12,8 @@
  * WebRTC's wrapper to libyuv.
  */
 
-#ifndef COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
-#define COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
+#ifndef WEBRTC_COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
+#define WEBRTC_COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
 
 #include <stdint.h>
 #include <stdio.h>
@@ -138,4 +138,4 @@ int ConvertVideoType(VideoType video_type);
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_
+#endif  // WEBRTC_COMMON_VIDEO_LIBYUV_INCLUDE_WEBRTC_LIBYUV_H_

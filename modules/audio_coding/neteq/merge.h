@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_MERGE_H_
-#define MODULES_AUDIO_CODING_NETEQ_MERGE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_MERGE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_MERGE_H_
 
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 #include "rtc_base/constructormagic.h"
@@ -98,4 +98,4 @@ class Merge {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_MERGE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_MERGE_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLDIGEST_H_
-#define RTC_BASE_OPENSSLDIGEST_H_
+#ifndef WEBRTC_RTC_BASE_OPENSSLDIGEST_H_
+#define WEBRTC_RTC_BASE_OPENSSLDIGEST_H_
 
 #include <openssl/base.h>
 #include <stddef.h>
@@ -46,4 +46,4 @@ class OpenSSLDigest final : public MessageDigest {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLDIGEST_H_
+#endif  // WEBRTC_RTC_BASE_OPENSSLDIGEST_H_

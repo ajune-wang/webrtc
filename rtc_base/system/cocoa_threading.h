@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYSTEM_COCOA_THREADING_H_
-#define RTC_BASE_SYSTEM_COCOA_THREADING_H_
+#ifndef WEBRTC_RTC_BASE_SYSTEM_COCOA_THREADING_H_
+#define WEBRTC_RTC_BASE_SYSTEM_COCOA_THREADING_H_
 
 // If Cocoa is to be used on more than one thread, it must know that the
 // application is multithreaded.  Since it's possible to enter Cocoa code
@@ -21,4 +21,4 @@
 // http://developer.apple.com/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/chapter_4_section_4.html
 void InitCocoaMultiThreading();
 
-#endif  // RTC_BASE_SYSTEM_COCOA_THREADING_H_
+#endif  // WEBRTC_RTC_BASE_SYSTEM_COCOA_THREADING_H_

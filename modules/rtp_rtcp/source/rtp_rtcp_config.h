@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_
 
 // Configuration file for RTP utilities (RTPSender, RTPReceiver ...)
 namespace webrtc {
@@ -20,4 +20,4 @@ enum { RTCP_SEND_BEFORE_KEY_FRAME_MS = 100 };
 enum { RTCP_MAX_REPORT_BLOCKS = 31 };  // RFC 3550 page 37
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_RTCP_CONFIG_H_

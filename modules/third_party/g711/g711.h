@@ -43,8 +43,8 @@ difficult to achieve the precise transcoding procedure laid down in the G.711
 specification by other means.
 */
 
-#ifndef MODULES_THIRD_PARTY_G711_G711_H_
-#define MODULES_THIRD_PARTY_G711_G711_H_
+#ifndef WEBRTC_MODULES_THIRD_PARTY_G711_G711_H_
+#define WEBRTC_MODULES_THIRD_PARTY_G711_G711_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -347,4 +347,4 @@ uint8_t ulaw_to_alaw(uint8_t ulaw);
 }
 #endif
 
-#endif /* MODULES_THIRD_PARTY_G711_G711_H_ */
+#endif /* WEBRTC_MODULES_THIRD_PARTY_G711_G711_H_ */

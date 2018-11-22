@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_STATS_RTCSTATSREPORT_H_
-#define API_STATS_RTCSTATSREPORT_H_
+#ifndef WEBRTC_API_STATS_RTCSTATSREPORT_H_
+#define WEBRTC_API_STATS_RTCSTATSREPORT_H_
 
 #include <map>
 #include <memory>
@@ -102,4 +102,4 @@ class RTC_EXPORT RTCStatsReport : public rtc::RefCountInterface {
 
 }  // namespace webrtc
 
-#endif  // API_STATS_RTCSTATSREPORT_H_
+#endif  // WEBRTC_API_STATS_RTCSTATSREPORT_H_

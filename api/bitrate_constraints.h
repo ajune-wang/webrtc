@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_BITRATE_CONSTRAINTS_H_
-#define API_BITRATE_CONSTRAINTS_H_
+#ifndef WEBRTC_API_BITRATE_CONSTRAINTS_H_
+#define WEBRTC_API_BITRATE_CONSTRAINTS_H_
 
 #include <algorithm>
 
@@ -38,4 +38,4 @@ static T MinPositive(T a, T b) {
   return std::min(a, b);
 }
 }  // namespace webrtc
-#endif  // API_BITRATE_CONSTRAINTS_H_
+#endif  // WEBRTC_API_BITRATE_CONSTRAINTS_H_

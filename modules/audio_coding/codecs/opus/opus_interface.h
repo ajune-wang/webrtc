@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_
-#define MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -434,4 +434,4 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
 }  // extern "C"
 #endif
 
-#endif  // MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_OPUS_OPUS_INTERFACE_H_

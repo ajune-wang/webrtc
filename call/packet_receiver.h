@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_PACKET_RECEIVER_H_
-#define CALL_PACKET_RECEIVER_H_
+#ifndef WEBRTC_CALL_PACKET_RECEIVER_H_
+#define WEBRTC_CALL_PACKET_RECEIVER_H_
 
 #include <algorithm>
 #include <memory>
@@ -38,4 +38,4 @@ class PacketReceiver {
 
 }  // namespace webrtc
 
-#endif  // CALL_PACKET_RECEIVER_H_
+#endif  // WEBRTC_CALL_PACKET_RECEIVER_H_

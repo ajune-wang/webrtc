@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_AUDIO_STATE_H_
-#define AUDIO_AUDIO_STATE_H_
+#ifndef WEBRTC_AUDIO_AUDIO_STATE_H_
+#define WEBRTC_AUDIO_AUDIO_STATE_H_
 
 #include <map>
 #include <memory>
@@ -97,4 +97,4 @@ class AudioState final : public webrtc::AudioState {
 }  // namespace internal
 }  // namespace webrtc
 
-#endif  // AUDIO_AUDIO_STATE_H_
+#endif  // WEBRTC_AUDIO_AUDIO_STATE_H_

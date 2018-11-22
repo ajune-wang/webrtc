@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_VIDEO_RECEIVE_STREAM_H_
-#define CALL_VIDEO_RECEIVE_STREAM_H_
+#ifndef WEBRTC_CALL_VIDEO_RECEIVE_STREAM_H_
+#define WEBRTC_CALL_VIDEO_RECEIVE_STREAM_H_
 
 #include <limits>
 #include <map>
@@ -250,4 +250,4 @@ class VideoReceiveStream {
 
 }  // namespace webrtc
 
-#endif  // CALL_VIDEO_RECEIVE_STREAM_H_
+#endif  // WEBRTC_CALL_VIDEO_RECEIVE_STREAM_H_

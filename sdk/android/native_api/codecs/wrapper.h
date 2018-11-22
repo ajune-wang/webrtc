@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_
-#define SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_
+#ifndef WEBRTC_SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_
+#define WEBRTC_SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_
 
 #include <jni.h>
 #include <memory>
@@ -37,4 +37,4 @@ std::unique_ptr<VideoEncoderFactory> JavaToNativeVideoEncoderFactory(
 
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_
+#endif  // WEBRTC_SDK_ANDROID_NATIVE_API_CODECS_WRAPPER_H_

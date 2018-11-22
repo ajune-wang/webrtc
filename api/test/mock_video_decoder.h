@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_MOCK_VIDEO_DECODER_H_
-#define API_TEST_MOCK_VIDEO_DECODER_H_
+#ifndef WEBRTC_API_TEST_MOCK_VIDEO_DECODER_H_
+#define WEBRTC_API_TEST_MOCK_VIDEO_DECODER_H_
 
 #include "api/video_codecs/video_decoder.h"
 #include "test/gmock.h"
@@ -54,4 +54,4 @@ class MockVideoDecoder : public VideoDecoder {
 
 }  // namespace webrtc
 
-#endif  // API_TEST_MOCK_VIDEO_DECODER_H_
+#endif  // WEBRTC_API_TEST_MOCK_VIDEO_DECODER_H_

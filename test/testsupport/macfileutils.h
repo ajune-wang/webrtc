@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_TESTSUPPORT_MACFILEUTILS_H_
-#define TEST_TESTSUPPORT_MACFILEUTILS_H_
+#ifndef WEBRTC_TEST_TESTSUPPORT_MACFILEUTILS_H_
+#define WEBRTC_TEST_TESTSUPPORT_MACFILEUTILS_H_
 
 #include <string>
 
@@ -21,4 +21,4 @@ void GetNSExecutablePath(std::string* path);
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_TESTSUPPORT_MACFILEUTILS_H_
+#endif  // WEBRTC_TEST_TESTSUPPORT_MACFILEUTILS_H_

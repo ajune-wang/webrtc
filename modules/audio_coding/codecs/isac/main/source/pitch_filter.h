@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_
 
 #include "modules/audio_coding/codecs/isac/main/source/structs.h"
 
@@ -39,4 +39,4 @@ void WebRtcIsac_PitchfilterPre_gains(
     double* lags,
     double* gains);
 
-#endif  // MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_PITCH_FILTER_H_

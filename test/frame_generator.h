@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_FRAME_GENERATOR_H_
-#define TEST_FRAME_GENERATOR_H_
+#ifndef WEBRTC_TEST_FRAME_GENERATOR_H_
+#define WEBRTC_TEST_FRAME_GENERATOR_H_
 
 #include <memory>
 #include <string>
@@ -104,4 +104,4 @@ class FrameGenerator {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_FRAME_GENERATOR_H_
+#endif  // WEBRTC_TEST_FRAME_GENERATOR_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TRACKMEDIAINFOMAP_H_
-#define PC_TRACKMEDIAINFOMAP_H_
+#ifndef WEBRTC_PC_TRACKMEDIAINFOMAP_H_
+#define WEBRTC_PC_TRACKMEDIAINFOMAP_H_
 
 #include <map>
 #include <memory>
@@ -127,4 +127,4 @@ class TrackMediaInfoMap {
 
 }  // namespace webrtc
 
-#endif  // PC_TRACKMEDIAINFOMAP_H_
+#endif  // WEBRTC_PC_TRACKMEDIAINFOMAP_H_

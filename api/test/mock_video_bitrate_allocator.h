@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_
-#define API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_
+#ifndef WEBRTC_API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_
+#define WEBRTC_API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_
 
 #include "api/video/video_bitrate_allocator.h"
 #include "test/gmock.h"
@@ -25,4 +25,4 @@ class MockVideoBitrateAllocator : public webrtc::VideoBitrateAllocator {
 
 }  // namespace webrtc
 
-#endif  // API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_
+#endif  // WEBRTC_API_TEST_MOCK_VIDEO_BITRATE_ALLOCATOR_H_

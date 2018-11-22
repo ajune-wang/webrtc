@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
-#define MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
 
 #include <math.h>
 #include <iterator>
@@ -145,4 +145,4 @@ std::vector<T> ParseList(const std::string& to_parse) {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_

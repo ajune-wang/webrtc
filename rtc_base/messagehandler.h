@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_MESSAGEHANDLER_H_
-#define RTC_BASE_MESSAGEHANDLER_H_
+#ifndef WEBRTC_RTC_BASE_MESSAGEHANDLER_H_
+#define WEBRTC_RTC_BASE_MESSAGEHANDLER_H_
 
 #include <utility>
 
@@ -66,4 +66,4 @@ class FunctorMessageHandler<void, FunctorT> : public MessageHandler {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_MESSAGEHANDLER_H_
+#endif  // WEBRTC_RTC_BASE_MESSAGEHANDLER_H_

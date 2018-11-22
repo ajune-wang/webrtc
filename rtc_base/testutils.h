@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_TESTUTILS_H_
-#define RTC_BASE_TESTUTILS_H_
+#ifndef WEBRTC_RTC_BASE_TESTUTILS_H_
+#define WEBRTC_RTC_BASE_TESTUTILS_H_
 
 // Utilities for testing rtc infrastructure in unittests
 
@@ -139,4 +139,4 @@ class StreamSink : public sigslot::has_slots<> {
 }  // namespace testing
 }  // namespace webrtc
 
-#endif  // RTC_BASE_TESTUTILS_H_
+#endif  // WEBRTC_RTC_BASE_TESTUTILS_H_

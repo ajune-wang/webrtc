@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_GTEST_H_
-#define TEST_GTEST_H_
+#ifndef WEBRTC_TEST_GTEST_H_
+#define WEBRTC_TEST_GTEST_H_
 
 #include "rtc_base/ignore_wundef.h"
 
@@ -25,4 +25,4 @@ RTC_POP_IGNORING_WUNDEF()
 #define GTEST_HAS_DEATH_TEST 0
 #endif
 
-#endif  // TEST_GTEST_H_
+#endif  // WEBRTC_TEST_GTEST_H_

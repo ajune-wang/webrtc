@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
-#define COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
+#ifndef WEBRTC_COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
+#define WEBRTC_COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
 
 #include <stdint.h>
 #include <algorithm>
@@ -211,4 +211,4 @@ void DownmixInterleavedToMono<int16_t>(const int16_t* interleaved,
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_
+#endif  // WEBRTC_COMMON_AUDIO_INCLUDE_AUDIO_UTIL_H_

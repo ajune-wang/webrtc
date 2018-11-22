@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_
-#define COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_
+#ifndef WEBRTC_COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_
+#define WEBRTC_COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -51,4 +51,4 @@ class SpsVuiRewriter : private SpsParser {
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_
+#endif  // WEBRTC_COMMON_VIDEO_H264_SPS_VUI_REWRITER_H_

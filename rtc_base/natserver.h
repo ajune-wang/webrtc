@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_NATSERVER_H_
-#define RTC_BASE_NATSERVER_H_
+#ifndef WEBRTC_RTC_BASE_NATSERVER_H_
+#define WEBRTC_RTC_BASE_NATSERVER_H_
 
 #include <map>
 #include <set>
@@ -126,4 +126,4 @@ class NATServer : public sigslot::has_slots<> {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_NATSERVER_H_
+#endif  // WEBRTC_RTC_BASE_NATSERVER_H_

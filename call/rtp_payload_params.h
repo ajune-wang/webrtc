@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_PAYLOAD_PARAMS_H_
-#define CALL_RTP_PAYLOAD_PARAMS_H_
+#ifndef WEBRTC_CALL_RTP_PAYLOAD_PARAMS_H_
+#define WEBRTC_CALL_RTP_PAYLOAD_PARAMS_H_
 
 #include <map>
 #include <vector>
@@ -62,4 +62,4 @@ class RtpPayloadParams final {
   const bool generic_descriptor_experiment_;
 };
 }  // namespace webrtc
-#endif  // CALL_RTP_PAYLOAD_PARAMS_H_
+#endif  // WEBRTC_CALL_RTP_PAYLOAD_PARAMS_H_

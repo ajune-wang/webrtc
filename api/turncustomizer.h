@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TURNCUSTOMIZER_H_
-#define API_TURNCUSTOMIZER_H_
+#ifndef WEBRTC_API_TURNCUSTOMIZER_H_
+#define WEBRTC_API_TURNCUSTOMIZER_H_
 
 #include <stdlib.h>
 
@@ -42,4 +42,4 @@ class TurnCustomizer {
 
 }  // namespace webrtc
 
-#endif  // API_TURNCUSTOMIZER_H_
+#endif  // WEBRTC_API_TURNCUSTOMIZER_H_

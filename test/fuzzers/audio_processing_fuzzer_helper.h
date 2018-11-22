@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_
-#define TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_
+#ifndef WEBRTC_TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_
+#define WEBRTC_TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_
 
 #include <memory>
 
@@ -22,4 +22,4 @@ void FuzzAudioProcessing(test::FuzzDataHelper* fuzz_data,
 
 }  // namespace webrtc
 
-#endif  // TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_
+#endif  // WEBRTC_TEST_FUZZERS_AUDIO_PROCESSING_FUZZER_HELPER_H_

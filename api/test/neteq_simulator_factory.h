@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_NETEQ_SIMULATOR_FACTORY_H_
-#define API_TEST_NETEQ_SIMULATOR_FACTORY_H_
+#ifndef WEBRTC_API_TEST_NETEQ_SIMULATOR_FACTORY_H_
+#define WEBRTC_API_TEST_NETEQ_SIMULATOR_FACTORY_H_
 
 #include <memory>
 
@@ -34,4 +34,4 @@ class NetEqSimulatorFactory {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TEST_NETEQ_SIMULATOR_FACTORY_H_
+#endif  // WEBRTC_API_TEST_NETEQ_SIMULATOR_FACTORY_H_

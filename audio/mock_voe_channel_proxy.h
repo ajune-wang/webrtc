@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_MOCK_VOE_CHANNEL_PROXY_H_
-#define AUDIO_MOCK_VOE_CHANNEL_PROXY_H_
+#ifndef WEBRTC_AUDIO_MOCK_VOE_CHANNEL_PROXY_H_
+#define WEBRTC_AUDIO_MOCK_VOE_CHANNEL_PROXY_H_
 
 #include <map>
 #include <memory>
@@ -115,4 +115,4 @@ class MockChannelSend : public voe::ChannelSendInterface {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // AUDIO_MOCK_VOE_CHANNEL_PROXY_H_
+#endif  // WEBRTC_AUDIO_MOCK_VOE_CHANNEL_PROXY_H_

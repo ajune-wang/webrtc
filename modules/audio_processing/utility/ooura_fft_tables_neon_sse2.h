@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_
-#define MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_
 
 #include "modules/audio_processing/utility/ooura_fft.h"
 #include "rtc_base/system/arch.h"
@@ -92,4 +92,4 @@ ALIGN16_BEG const float ALIGN16_END cftmdl_wk1r[4] = {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_TABLES_NEON_SSE2_H_

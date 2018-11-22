@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_VIDEO_STREAM_ENCODER_H_
-#define VIDEO_VIDEO_STREAM_ENCODER_H_
+#ifndef WEBRTC_VIDEO_VIDEO_STREAM_ENCODER_H_
+#define WEBRTC_VIDEO_VIDEO_STREAM_ENCODER_H_
 
 #include <atomic>
 #include <map>
@@ -279,4 +279,4 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
 }  // namespace webrtc
 
-#endif  // VIDEO_VIDEO_STREAM_ENCODER_H_
+#endif  // WEBRTC_VIDEO_VIDEO_STREAM_ENCODER_H_

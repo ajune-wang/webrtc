@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_
-#define MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_
 
 #include <memory>
 
@@ -74,4 +74,4 @@ class RTC_EXPORT FakeDesktopCapturer : public DesktopCapturer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_FAKE_DESKTOP_CAPTURER_H_

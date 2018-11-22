@@ -10,8 +10,8 @@
 
 // Types and classes used in media session descriptions.
 
-#ifndef PC_MEDIASESSION_H_
-#define PC_MEDIASESSION_H_
+#ifndef WEBRTC_PC_MEDIASESSION_H_
+#define WEBRTC_PC_MEDIASESSION_H_
 
 #include <algorithm>
 #include <map>
@@ -362,4 +362,4 @@ bool IsRtpProtocol(const std::string& protocol);
 
 }  // namespace cricket
 
-#endif  // PC_MEDIASESSION_H_
+#endif  // WEBRTC_PC_MEDIASESSION_H_

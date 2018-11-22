@@ -12,8 +12,8 @@
  * This header file includes the descriptions of the core VAD calls.
  */
 
-#ifndef COMMON_AUDIO_VAD_VAD_CORE_H_
-#define COMMON_AUDIO_VAD_VAD_CORE_H_
+#ifndef WEBRTC_COMMON_AUDIO_VAD_VAD_CORE_H_
+#define WEBRTC_COMMON_AUDIO_VAD_VAD_CORE_H_
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
@@ -111,4 +111,4 @@ int WebRtcVad_CalcVad8khz(VadInstT* inst,
                           const int16_t* speech_frame,
                           size_t frame_length);
 
-#endif  // COMMON_AUDIO_VAD_VAD_CORE_H_
+#endif  // WEBRTC_COMMON_AUDIO_VAD_VAD_CORE_H_

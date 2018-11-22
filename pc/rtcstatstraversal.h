@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_RTCSTATSTRAVERSAL_H_
-#define PC_RTCSTATSTRAVERSAL_H_
+#ifndef WEBRTC_PC_RTCSTATSTRAVERSAL_H_
+#define WEBRTC_PC_RTCSTATSTRAVERSAL_H_
 
 #include <string>
 #include <vector>
@@ -40,4 +40,4 @@ std::vector<const std::string*> GetStatsReferencedIds(const RTCStats& stats);
 
 }  // namespace webrtc
 
-#endif  // PC_RTCSTATSTRAVERSAL_H_
+#endif  // WEBRTC_PC_RTCSTATSTRAVERSAL_H_

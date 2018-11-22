@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TRANSPORT_BITRATE_SETTINGS_H_
-#define API_TRANSPORT_BITRATE_SETTINGS_H_
+#ifndef WEBRTC_API_TRANSPORT_BITRATE_SETTINGS_H_
+#define WEBRTC_API_TRANSPORT_BITRATE_SETTINGS_H_
 
 #include "absl/types/optional.h"
 
@@ -32,4 +32,4 @@ struct BitrateSettings {
 
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_BITRATE_SETTINGS_H_
+#endif  // WEBRTC_API_TRANSPORT_BITRATE_SETTINGS_H_

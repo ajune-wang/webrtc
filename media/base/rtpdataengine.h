@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_RTPDATAENGINE_H_
-#define MEDIA_BASE_RTPDATAENGINE_H_
+#ifndef WEBRTC_MEDIA_BASE_RTPDATAENGINE_H_
+#define WEBRTC_MEDIA_BASE_RTPDATAENGINE_H_
 
 #include <map>
 #include <memory>
@@ -109,4 +109,4 @@ class RtpDataMediaChannel : public DataMediaChannel {
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_RTPDATAENGINE_H_
+#endif  // WEBRTC_MEDIA_BASE_RTPDATAENGINE_H_

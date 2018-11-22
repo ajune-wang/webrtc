@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_
-#define RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_
+#ifndef WEBRTC_RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_
+#define WEBRTC_RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_
 
 namespace webrtc {
 
@@ -23,4 +23,4 @@ class RttMultExperiment {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_
+#endif  // WEBRTC_RTC_BASE_EXPERIMENTS_RTT_MULT_EXPERIMENT_H_

@@ -8,8 +8,8 @@
 // be found in the AUTHORS file in the root of the source tree.
 //
 
-#ifndef SYSTEM_WRAPPERS_INCLUDE_METRICS_H_
-#define SYSTEM_WRAPPERS_INCLUDE_METRICS_H_
+#ifndef WEBRTC_SYSTEM_WRAPPERS_INCLUDE_METRICS_H_
+#define WEBRTC_SYSTEM_WRAPPERS_INCLUDE_METRICS_H_
 
 #include <map>
 #include <memory>
@@ -312,4 +312,4 @@ int MinSample(const std::string& name);
 }  // namespace metrics
 }  // namespace webrtc
 
-#endif  // SYSTEM_WRAPPERS_INCLUDE_METRICS_H_
+#endif  // WEBRTC_SYSTEM_WRAPPERS_INCLUDE_METRICS_H_

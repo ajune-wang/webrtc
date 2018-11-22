@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_RECEIVE_TIME_CALCULATOR_H_
-#define CALL_RECEIVE_TIME_CALCULATOR_H_
+#ifndef WEBRTC_CALL_RECEIVE_TIME_CALCULATOR_H_
+#define WEBRTC_CALL_RECEIVE_TIME_CALCULATOR_H_
 
 #include <memory>
 
@@ -55,4 +55,4 @@ class ReceiveTimeCalculator {
   ReceiveTimeCalculatorConfig config_;
 };
 }  // namespace webrtc
-#endif  // CALL_RECEIVE_TIME_CALCULATOR_H_
+#endif  // WEBRTC_CALL_RECEIVE_TIME_CALCULATOR_H_

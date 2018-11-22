@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_
-#define MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_
+#ifndef WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_
+#define WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_
 
 #include "modules/video_capture/device_info_impl.h"
 
@@ -43,4 +43,4 @@ class DeviceInfoMF : public DeviceInfoImpl {
 }  // namespace videocapturemodule
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_
+#endif  // WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_DEVICE_INFO_MF_H_

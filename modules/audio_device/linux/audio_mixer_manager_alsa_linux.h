@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_
-#define AUDIO_DEVICE_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_
+#ifndef WEBRTC_AUDIO_DEVICE_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_
+#define WEBRTC_AUDIO_DEVICE_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_
 
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_device/linux/alsasymboltable_linux.h"
@@ -66,4 +66,4 @@ class AudioMixerManagerLinuxALSA {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_MAIN_SOURCE_LINUX_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_MAIN_SOURCE_LINUX_AUDIO_MIXER_MANAGER_ALSA_LINUX_H_

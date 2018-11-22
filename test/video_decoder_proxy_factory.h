@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_VIDEO_DECODER_PROXY_FACTORY_H_
-#define TEST_VIDEO_DECODER_PROXY_FACTORY_H_
+#ifndef WEBRTC_TEST_VIDEO_DECODER_PROXY_FACTORY_H_
+#define WEBRTC_TEST_VIDEO_DECODER_PROXY_FACTORY_H_
 
 #include <memory>
 #include <vector>
@@ -78,4 +78,4 @@ class VideoDecoderProxyFactory final : public VideoDecoderFactory {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_VIDEO_DECODER_PROXY_FACTORY_H_
+#endif  // WEBRTC_TEST_VIDEO_DECODER_PROXY_FACTORY_H_

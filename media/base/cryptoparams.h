@@ -9,9 +9,9 @@
  */
 
 // TODO(bugs.webrtc.org/7504): Remove.
-#ifndef MEDIA_BASE_CRYPTOPARAMS_H_
-#define MEDIA_BASE_CRYPTOPARAMS_H_
+#ifndef WEBRTC_MEDIA_BASE_CRYPTOPARAMS_H_
+#define WEBRTC_MEDIA_BASE_CRYPTOPARAMS_H_
 
 #include "api/cryptoparams.h"
 
-#endif  // MEDIA_BASE_CRYPTOPARAMS_H_
+#endif  // WEBRTC_MEDIA_BASE_CRYPTOPARAMS_H_

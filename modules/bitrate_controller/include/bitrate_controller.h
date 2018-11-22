@@ -12,8 +12,8 @@
  *  and push the result to the encoders via BitrateObserver(s).
  */
 
-#ifndef MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
-#define MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
+#ifndef WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
+#define WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -99,4 +99,4 @@ class BitrateController : public Module, public RtcpBandwidthObserver {
                                     int64_t* rtt) = 0;
 };
 }  // namespace webrtc
-#endif  // MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_
+#endif  // WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_BITRATE_CONTROLLER_H_

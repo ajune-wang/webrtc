@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
-#define MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
+#ifndef WEBRTC_MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
+#define WEBRTC_MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
 
 #include <memory>
 #include <stack>
@@ -114,4 +114,4 @@ class SimulcastEncoderAdapter : public VideoEncoder {
 
 }  // namespace webrtc
 
-#endif  // MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_
+#endif  // WEBRTC_MEDIA_ENGINE_SIMULCAST_ENCODER_ADAPTER_H_

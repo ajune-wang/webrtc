@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
 
 #include <vector>
 
@@ -229,4 +229,4 @@ bool RtpPacket::ReserveExtension() {
 
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_PACKET_H_

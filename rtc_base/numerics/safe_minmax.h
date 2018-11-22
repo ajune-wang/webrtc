@@ -73,8 +73,8 @@
 // result, then everything's fine, and the return type is as requested. But if
 // the requested type is too small, a static_assert is triggered.
 
-#ifndef RTC_BASE_NUMERICS_SAFE_MINMAX_H_
-#define RTC_BASE_NUMERICS_SAFE_MINMAX_H_
+#ifndef WEBRTC_RTC_BASE_NUMERICS_SAFE_MINMAX_H_
+#define WEBRTC_RTC_BASE_NUMERICS_SAFE_MINMAX_H_
 
 #include <limits>
 #include <type_traits>
@@ -332,4 +332,4 @@ R2 SafeClamp(T x, L min, H max) {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_NUMERICS_SAFE_MINMAX_H_
+#endif  // WEBRTC_RTC_BASE_NUMERICS_SAFE_MINMAX_H_

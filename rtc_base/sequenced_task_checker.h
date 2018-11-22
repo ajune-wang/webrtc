@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SEQUENCED_TASK_CHECKER_H_
-#define RTC_BASE_SEQUENCED_TASK_CHECKER_H_
+#ifndef WEBRTC_RTC_BASE_SEQUENCED_TASK_CHECKER_H_
+#define WEBRTC_RTC_BASE_SEQUENCED_TASK_CHECKER_H_
 
 // Apart from debug builds, we also enable the sequence checker in
 // builds with RTC_DCHECK_IS_ON so that trybots and waterfall bots
@@ -67,7 +67,7 @@ class RTC_LOCKABLE SequencedTaskChecker : public SequencedTaskCheckerImpl {};
 #else
 class RTC_LOCKABLE SequencedTaskChecker : public SequencedTaskCheckerDoNothing {
 };
-#endif  // ENABLE_SEQUENCED_TASK_CHECKER_H_
+#endif  // WEBRTC_ENABLE_SEQUENCED_TASK_CHECKER_H_
 
 namespace internal {
 class RTC_SCOPED_LOCKABLE SequencedTaskCheckerScope {
@@ -85,4 +85,4 @@ class RTC_SCOPED_LOCKABLE SequencedTaskCheckerScope {
 #undef ENABLE_SEQUENCED_TASK_CHECKER
 
 }  // namespace rtc
-#endif  // RTC_BASE_SEQUENCED_TASK_CHECKER_H_
+#endif  // WEBRTC_RTC_BASE_SEQUENCED_TASK_CHECKER_H_

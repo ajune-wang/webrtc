@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_
-#define SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_
+#ifndef WEBRTC_SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_
+#define WEBRTC_SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_
 
 #include "api/video_codecs/video_decoder_factory.h"
 #include "media/base/codec.h"
@@ -35,4 +35,4 @@ class ObjCVideoDecoderFactory : public VideoDecoderFactory {
 
 }  // namespace webrtc
 
-#endif  // SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_
+#endif  // WEBRTC_SDK_OBJC_NATIVE_SRC_OBJC_VIDEO_DECODER_FACTORY_H_

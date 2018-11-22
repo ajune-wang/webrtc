@@ -8,12 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SCOPED_REF_PTR_H_
-#define RTC_BASE_SCOPED_REF_PTR_H_
+#ifndef WEBRTC_RTC_BASE_SCOPED_REF_PTR_H_
+#define WEBRTC_RTC_BASE_SCOPED_REF_PTR_H_
 
 // TODO(bugs.webrtc.org/9887): This is a forward header for backwards
 // compatibility. Remove when downstream clients are updated.
 
 #include "api/scoped_refptr.h"
 
-#endif  // RTC_BASE_SCOPED_REF_PTR_H_
+#endif  // WEBRTC_RTC_BASE_SCOPED_REF_PTR_H_

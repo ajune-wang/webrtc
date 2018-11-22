@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_FAKE_VP8_ENCODER_H_
-#define TEST_FAKE_VP8_ENCODER_H_
+#ifndef WEBRTC_TEST_FAKE_VP8_ENCODER_H_
+#define WEBRTC_TEST_FAKE_VP8_ENCODER_H_
 
 #include <memory>
 #include <vector>
@@ -61,4 +61,4 @@ class FakeVP8Encoder : public FakeEncoder, public EncodedImageCallback {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_FAKE_VP8_ENCODER_H_
+#endif  // WEBRTC_TEST_FAKE_VP8_ENCODER_H_

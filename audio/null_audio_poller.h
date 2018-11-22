@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_NULL_AUDIO_POLLER_H_
-#define AUDIO_NULL_AUDIO_POLLER_H_
+#ifndef WEBRTC_AUDIO_NULL_AUDIO_POLLER_H_
+#define WEBRTC_AUDIO_NULL_AUDIO_POLLER_H_
 
 #include <stdint.h>
 
@@ -38,4 +38,4 @@ class NullAudioPoller final : public rtc::MessageHandler {
 }  // namespace internal
 }  // namespace webrtc
 
-#endif  // AUDIO_NULL_AUDIO_POLLER_H_
+#endif  // WEBRTC_AUDIO_NULL_AUDIO_POLLER_H_

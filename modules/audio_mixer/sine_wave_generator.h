@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_
-#define MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_
+#ifndef WEBRTC_MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_
+#define WEBRTC_MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_
 
 #include "api/audio/audio_frame.h"
 #include "rtc_base/checks.h"
@@ -35,4 +35,4 @@ class SineWaveGenerator {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_
+#endif  // WEBRTC_MODULES_AUDIO_MIXER_SINE_WAVE_GENERATOR_H_

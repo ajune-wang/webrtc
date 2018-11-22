@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_WIN32_H_
-#define RTC_BASE_WIN32_H_
+#ifndef WEBRTC_RTC_BASE_WIN32_H_
+#define WEBRTC_RTC_BASE_WIN32_H_
 
 #ifndef WEBRTC_WIN
 #error "Only #include this header in Windows builds"
@@ -89,4 +89,4 @@ inline bool IsCurrentProcessLowIntegrity() {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_WIN32_H_
+#endif  // WEBRTC_RTC_BASE_WIN32_H_

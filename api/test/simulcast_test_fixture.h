@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_SIMULCAST_TEST_FIXTURE_H_
-#define API_TEST_SIMULCAST_TEST_FIXTURE_H_
+#ifndef WEBRTC_API_TEST_SIMULCAST_TEST_FIXTURE_H_
+#define WEBRTC_API_TEST_SIMULCAST_TEST_FIXTURE_H_
 
 namespace webrtc {
 namespace test {
@@ -39,4 +39,4 @@ class SimulcastTestFixture {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TEST_SIMULCAST_TEST_FIXTURE_H_
+#endif  // WEBRTC_API_TEST_SIMULCAST_TEST_FIXTURE_H_

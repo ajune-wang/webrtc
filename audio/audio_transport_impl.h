@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_AUDIO_TRANSPORT_IMPL_H_
-#define AUDIO_AUDIO_TRANSPORT_IMPL_H_
+#ifndef WEBRTC_AUDIO_AUDIO_TRANSPORT_IMPL_H_
+#define WEBRTC_AUDIO_AUDIO_TRANSPORT_IMPL_H_
 
 #include <vector>
 
@@ -93,4 +93,4 @@ class AudioTransportImpl : public AudioTransport {
 };
 }  // namespace webrtc
 
-#endif  // AUDIO_AUDIO_TRANSPORT_IMPL_H_
+#endif  // WEBRTC_AUDIO_AUDIO_TRANSPORT_IMPL_H_

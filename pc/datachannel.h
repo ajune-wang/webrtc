@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_DATACHANNEL_H_
-#define PC_DATACHANNEL_H_
+#ifndef WEBRTC_PC_DATACHANNEL_H_
+#define WEBRTC_PC_DATACHANNEL_H_
 
 #include <deque>
 #include <set>
@@ -316,4 +316,4 @@ END_PROXY_MAP()
 
 }  // namespace webrtc
 
-#endif  // PC_DATACHANNEL_H_
+#endif  // WEBRTC_PC_DATACHANNEL_H_

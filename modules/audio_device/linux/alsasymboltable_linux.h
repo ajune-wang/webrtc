@@ -25,8 +25,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_
-#define AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_
+#ifndef WEBRTC_AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_
+#define WEBRTC_AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_
 
 #include "modules/audio_device/linux/latebindingsymboltable_linux.h"
 
@@ -145,4 +145,4 @@ LATE_BINDING_SYMBOL_TABLE_DECLARE_END(AlsaSymbolTable)
 }  // namespace adm_linux_alsa
 }  // namespace webrtc
 
-#endif  // AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_
+#endif  // WEBRTC_AUDIO_DEVICE_ALSASYMBOLTABLE_LINUX_H_

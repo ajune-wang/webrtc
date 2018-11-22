@@ -17,8 +17,8 @@
 //   webrtc::VideoSendStream
 //   webrtc::VideoReceiveStream
 
-#ifndef MEDIA_ENGINE_FAKEWEBRTCCALL_H_
-#define MEDIA_ENGINE_FAKEWEBRTCCALL_H_
+#ifndef WEBRTC_MEDIA_ENGINE_FAKEWEBRTCCALL_H_
+#define WEBRTC_MEDIA_ENGINE_FAKEWEBRTCCALL_H_
 
 #include <memory>
 #include <string>
@@ -344,4 +344,4 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
 };
 
 }  // namespace cricket
-#endif  // MEDIA_ENGINE_FAKEWEBRTCCALL_H_
+#endif  // WEBRTC_MEDIA_ENGINE_FAKEWEBRTCCALL_H_

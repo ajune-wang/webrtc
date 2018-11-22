@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_MDNS_MESSAGE_H_
-#define P2P_BASE_MDNS_MESSAGE_H_
+#ifndef WEBRTC_P2P_BASE_MDNS_MESSAGE_H_
+#define WEBRTC_P2P_BASE_MDNS_MESSAGE_H_
 
 // This file contains classes to read and write mDNSs message defined in RFC
 // 6762 and RFC 1025 (DNS messages). Note that it is recommended by RFC 6762 to
@@ -204,4 +204,4 @@ class MdnsMessage final {
 
 }  // namespace webrtc
 
-#endif  // P2P_BASE_MDNS_MESSAGE_H_
+#endif  // WEBRTC_P2P_BASE_MDNS_MESSAGE_H_

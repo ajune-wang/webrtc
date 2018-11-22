@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_
-#define MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_
 
 #include "modules/desktop_capture/window_finder.h"
 #include "rtc_base/scoped_ref_ptr.h"
@@ -34,4 +34,4 @@ class WindowFinderMac final : public WindowFinder {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_WINDOW_FINDER_MAC_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_ECHO_CANCELLER3_FACTORY_H_
-#define API_AUDIO_ECHO_CANCELLER3_FACTORY_H_
+#ifndef WEBRTC_API_AUDIO_ECHO_CANCELLER3_FACTORY_H_
+#define WEBRTC_API_AUDIO_ECHO_CANCELLER3_FACTORY_H_
 
 #include <memory>
 
@@ -36,4 +36,4 @@ class RTC_EXPORT EchoCanceller3Factory : public EchoControlFactory {
 };
 }  // namespace webrtc
 
-#endif  // API_AUDIO_ECHO_CANCELLER3_FACTORY_H_
+#endif  // WEBRTC_API_AUDIO_ECHO_CANCELLER3_FACTORY_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_CANDIDATE_H_
-#define API_CANDIDATE_H_
+#ifndef WEBRTC_API_CANDIDATE_H_
+#define WEBRTC_API_CANDIDATE_H_
 
 #include <limits.h>
 #include <stdint.h>
@@ -192,4 +192,4 @@ class RTC_EXPORT Candidate {
 
 }  // namespace cricket
 
-#endif  // API_CANDIDATE_H_
+#endif  // WEBRTC_API_CANDIDATE_H_

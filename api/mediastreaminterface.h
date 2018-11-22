@@ -14,8 +14,8 @@
 // interfaces must be used only with PeerConnection. PeerConnectionManager
 // interface provides the factory methods to create MediaStream and MediaTracks.
 
-#ifndef API_MEDIASTREAMINTERFACE_H_
-#define API_MEDIASTREAMINTERFACE_H_
+#ifndef WEBRTC_API_MEDIASTREAMINTERFACE_H_
+#define WEBRTC_API_MEDIASTREAMINTERFACE_H_
 
 #include <stddef.h>
 
@@ -294,4 +294,4 @@ class MediaStreamInterface : public rtc::RefCountInterface,
 
 }  // namespace webrtc
 
-#endif  // API_MEDIASTREAMINTERFACE_H_
+#endif  // WEBRTC_API_MEDIASTREAMINTERFACE_H_

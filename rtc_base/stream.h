@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_STREAM_H_
-#define RTC_BASE_STREAM_H_
+#ifndef WEBRTC_RTC_BASE_STREAM_H_
+#define WEBRTC_RTC_BASE_STREAM_H_
 
 #include <stdio.h>
 
@@ -365,4 +365,4 @@ class FifoBuffer final : public StreamInterface {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_STREAM_H_
+#endif  // WEBRTC_RTC_BASE_STREAM_H_

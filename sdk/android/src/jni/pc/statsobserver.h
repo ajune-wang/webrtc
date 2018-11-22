@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
-#define SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
 
 #include "api/peerconnectioninterface.h"
 #include "sdk/android/src/jni/jni_helpers.h"
@@ -33,4 +33,4 @@ class StatsObserverJni : public StatsObserver {
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_PC_STATSOBSERVER_H_

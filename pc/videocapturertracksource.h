@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_VIDEOCAPTURERTRACKSOURCE_H_
-#define PC_VIDEOCAPTURERTRACKSOURCE_H_
+#ifndef WEBRTC_PC_VIDEOCAPTURERTRACKSOURCE_H_
+#define WEBRTC_PC_VIDEOCAPTURERTRACKSOURCE_H_
 
 #include <memory>
 
@@ -83,4 +83,4 @@ class VideoCapturerTrackSource : public VideoTrackSource,
 
 }  // namespace webrtc
 
-#endif  // PC_VIDEOCAPTURERTRACKSOURCE_H_
+#endif  // WEBRTC_PC_VIDEOCAPTURERTRACKSOURCE_H_

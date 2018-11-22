@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_
-#define API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_
+#ifndef WEBRTC_API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_
+#define WEBRTC_API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_
 
 #if WEBRTC_USE_BUILTIN_ISAC_FIX && !WEBRTC_USE_BUILTIN_ISAC_FLOAT
 #include "api/audio_codecs/isac/audio_encoder_isac_fix.h"  // nogncheck
@@ -29,4 +29,4 @@ using AudioEncoderIsac = AudioEncoderIsacFloat;
 
 }  // namespace webrtc
 
-#endif  // API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_
+#endif  // WEBRTC_API_AUDIO_CODECS_ISAC_AUDIO_ENCODER_ISAC_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_TESTSUPPORT_FRAME_WRITER_H_
-#define TEST_TESTSUPPORT_FRAME_WRITER_H_
+#ifndef WEBRTC_TEST_TESTSUPPORT_FRAME_WRITER_H_
+#define WEBRTC_TEST_TESTSUPPORT_FRAME_WRITER_H_
 
 #include <stdio.h>
 
@@ -101,4 +101,4 @@ class JpegFrameWriter {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_TESTSUPPORT_FRAME_WRITER_H_
+#endif  // WEBRTC_TEST_TESTSUPPORT_FRAME_WRITER_H_

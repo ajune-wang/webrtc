@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_TESTRELAYSERVER_H_
-#define P2P_BASE_TESTRELAYSERVER_H_
+#ifndef WEBRTC_P2P_BASE_TESTRELAYSERVER_H_
+#define WEBRTC_P2P_BASE_TESTRELAYSERVER_H_
 
 #include <memory>
 
@@ -98,4 +98,4 @@ class TestRelayServer : public sigslot::has_slots<> {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_TESTRELAYSERVER_H_
+#endif  // WEBRTC_P2P_BASE_TESTRELAYSERVER_H_

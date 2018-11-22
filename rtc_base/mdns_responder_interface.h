@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_MDNS_RESPONDER_INTERFACE_H_
-#define RTC_BASE_MDNS_RESPONDER_INTERFACE_H_
+#ifndef WEBRTC_RTC_BASE_MDNS_RESPONDER_INTERFACE_H_
+#define WEBRTC_RTC_BASE_MDNS_RESPONDER_INTERFACE_H_
 
 #include <functional>
 #include <string>
@@ -47,4 +47,4 @@ class MdnsResponderInterface {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_MDNS_RESPONDER_INTERFACE_H_
+#endif  // WEBRTC_RTC_BASE_MDNS_RESPONDER_INTERFACE_H_

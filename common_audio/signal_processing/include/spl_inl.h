@@ -11,8 +11,8 @@
 // This header file includes the inline functions in
 // the fix point signal processing library.
 
-#ifndef COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_
-#define COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_
+#ifndef WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_
+#define WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_
 
 #include "rtc_base/compile_assert_c.h"
 
@@ -150,4 +150,4 @@ static __inline int32_t WebRtc_MulAccumW16(int16_t a, int16_t b, int32_t c) {
 
 #endif  // WEBRTC_ARCH_ARM_V7
 
-#endif  // COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_
+#endif  // WEBRTC_COMMON_AUDIO_SIGNAL_PROCESSING_INCLUDE_SPL_INL_H_

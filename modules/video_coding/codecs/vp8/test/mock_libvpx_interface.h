@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_
-#define MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_
+#define WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_
 
 #include "modules/video_coding/codecs/vp8/libvpx_interface.h"
 #include "test/gmock.h"
@@ -91,4 +91,4 @@ class MockLibvpxVp8Interface : public LibvpxInterface {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_TEST_MOCK_LIBVPX_INTERFACE_H_

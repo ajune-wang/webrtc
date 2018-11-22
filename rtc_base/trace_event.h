@@ -3,8 +3,8 @@
 // found in the LICENSE file under third_party_mods/chromium or at:
 // http://src.chromium.org/svn/trunk/src/LICENSE
 
-#ifndef RTC_BASE_TRACE_EVENT_H_
-#define RTC_BASE_TRACE_EVENT_H_
+#ifndef WEBRTC_RTC_BASE_TRACE_EVENT_H_
+#define WEBRTC_RTC_BASE_TRACE_EVENT_H_
 
 #include <string>
 
@@ -883,4 +883,4 @@ class TraceEndOnScopeClose {
 }  // namespace trace_event_internal
 }  // namespace webrtc
 
-#endif  // RTC_BASE_TRACE_EVENT_H_
+#endif  // WEBRTC_RTC_BASE_TRACE_EVENT_H_

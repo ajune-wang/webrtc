@@ -17,8 +17,8 @@
 // Note P postfix of a function indicates that it should only be called by the
 // processing thread.
 
-#ifndef PC_TEST_FAKEAUDIOCAPTUREMODULE_H_
-#define PC_TEST_FAKEAUDIOCAPTUREMODULE_H_
+#ifndef WEBRTC_PC_TEST_FAKEAUDIOCAPTUREMODULE_H_
+#define WEBRTC_PC_TEST_FAKEAUDIOCAPTUREMODULE_H_
 
 #include <memory>
 
@@ -224,4 +224,4 @@ class FakeAudioCaptureModule : public webrtc::AudioDeviceModule,
   rtc::CriticalSection crit_callback_;
 };
 
-#endif  // PC_TEST_FAKEAUDIOCAPTUREMODULE_H_
+#endif  // WEBRTC_PC_TEST_FAKEAUDIOCAPTUREMODULE_H_

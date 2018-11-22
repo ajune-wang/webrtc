@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_
-#define VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_
+#ifndef WEBRTC_VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_
+#define WEBRTC_VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_
 
 #include <list>
 #include <map>
@@ -215,4 +215,4 @@ class RtpVideoStreamReceiver : public RecoveredPacketReceiver,
 
 }  // namespace webrtc
 
-#endif  // VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_
+#endif  // WEBRTC_VIDEO_RTP_VIDEO_STREAM_RECEIVER_H_

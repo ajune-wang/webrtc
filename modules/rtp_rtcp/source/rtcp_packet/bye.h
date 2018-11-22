@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
-#define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
 
 #include <string>
 #include <vector>
@@ -56,4 +56,4 @@ class Bye : public RtcpPacket {
 
 }  // namespace rtcp
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_BYE_H_

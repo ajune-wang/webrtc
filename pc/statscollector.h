@@ -11,8 +11,8 @@
 // This file contains a class used for gathering statistics from an ongoing
 // libjingle PeerConnection.
 
-#ifndef PC_STATSCOLLECTOR_H_
-#define PC_STATSCOLLECTOR_H_
+#ifndef WEBRTC_PC_STATSCOLLECTOR_H_
+#define WEBRTC_PC_STATSCOLLECTOR_H_
 
 #include <map>
 #include <memory>
@@ -151,4 +151,4 @@ class StatsCollector {
 
 }  // namespace webrtc
 
-#endif  // PC_STATSCOLLECTOR_H_
+#endif  // WEBRTC_PC_STATSCOLLECTOR_H_

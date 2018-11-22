@@ -11,8 +11,8 @@
 // generation script. We are exporting types in strange namespaces in order to
 // be compatible with the generated code targeted for Chromium.
 
-#ifndef SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
-#define SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
 
 #include <jni.h>
 #include <atomic>
@@ -156,4 +156,4 @@ static_assert(sizeof(JniJavaCallContextChecked) ==
               "Stack unwinder cannot work with structs of different sizes.");
 }  // namespace jni_generator
 
-#endif  // SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_JNI_GENERATOR_HELPER_H_

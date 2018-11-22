@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_
-#define MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_
+#define WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_
 
 #include <set>
 #include <string>
@@ -185,4 +185,4 @@ class MockRtpRtcp : public RtpRtcp {
 
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_MOCKS_MOCK_RTP_RTCP_H_

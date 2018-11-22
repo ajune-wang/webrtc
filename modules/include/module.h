@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_INCLUDE_MODULE_H_
-#define MODULES_INCLUDE_MODULE_H_
+#ifndef WEBRTC_MODULES_INCLUDE_MODULE_H_
+#define WEBRTC_MODULES_INCLUDE_MODULE_H_
 
 #include <stdint.h>
 
@@ -60,4 +60,4 @@ class Module {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_INCLUDE_MODULE_H_
+#endif  // WEBRTC_MODULES_INCLUDE_MODULE_H_

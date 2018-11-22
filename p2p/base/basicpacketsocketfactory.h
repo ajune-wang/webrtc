@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_BASICPACKETSOCKETFACTORY_H_
-#define P2P_BASE_BASICPACKETSOCKETFACTORY_H_
+#ifndef WEBRTC_P2P_BASE_BASICPACKETSOCKETFACTORY_H_
+#define WEBRTC_P2P_BASE_BASICPACKETSOCKETFACTORY_H_
 
 #include <string>
 
@@ -63,4 +63,4 @@ class BasicPacketSocketFactory : public PacketSocketFactory {
 
 }  // namespace rtc
 
-#endif  // P2P_BASE_BASICPACKETSOCKETFACTORY_H_
+#endif  // WEBRTC_P2P_BASE_BASICPACKETSOCKETFACTORY_H_

@@ -11,8 +11,8 @@
 // This file contains interfaces for RtpReceivers
 // http://w3c.github.io/webrtc-pc/#rtcrtpreceiver-interface
 
-#ifndef API_RTPRECEIVERINTERFACE_H_
-#define API_RTPRECEIVERINTERFACE_H_
+#ifndef WEBRTC_API_RTPRECEIVERINTERFACE_H_
+#define WEBRTC_API_RTPRECEIVERINTERFACE_H_
 
 #include <string>
 #include <vector>
@@ -163,4 +163,4 @@ END_PROXY_MAP()
 
 }  // namespace webrtc
 
-#endif  // API_RTPRECEIVERINTERFACE_H_
+#endif  // WEBRTC_API_RTPRECEIVERINTERFACE_H_

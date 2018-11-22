@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_SDPUTILS_H_
-#define PC_SDPUTILS_H_
+#ifndef WEBRTC_PC_SDPUTILS_H_
+#define WEBRTC_PC_SDPUTILS_H_
 
 #include <functional>
 #include <memory>
@@ -57,4 +57,4 @@ void SdpContentsForEach(SdpContentMutator fn,
 
 }  // namespace webrtc
 
-#endif  // PC_SDPUTILS_H_
+#endif  // WEBRTC_PC_SDPUTILS_H_

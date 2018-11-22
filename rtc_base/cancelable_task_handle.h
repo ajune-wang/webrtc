@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_CANCELABLE_TASK_HANDLE_H_
-#define RTC_BASE_CANCELABLE_TASK_HANDLE_H_
+#ifndef WEBRTC_RTC_BASE_CANCELABLE_TASK_HANDLE_H_
+#define WEBRTC_RTC_BASE_CANCELABLE_TASK_HANDLE_H_
 
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/task_queue.h"
@@ -62,4 +62,4 @@ class BaseCancelableTask : public QueuedTask {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_CANCELABLE_TASK_HANDLE_H_
+#endif  // WEBRTC_RTC_BASE_CANCELABLE_TASK_HANDLE_H_

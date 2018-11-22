@@ -12,8 +12,8 @@
  *  and push the result to the encoder via VideoEncoderCallback.
  */
 
-#ifndef MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_
-#define MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_
+#ifndef WEBRTC_MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_
+#define WEBRTC_MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_
 
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 
@@ -100,4 +100,4 @@ class BitrateControllerImpl : public BitrateController {
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(BitrateControllerImpl);
 };
 }  // namespace webrtc
-#endif  // MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_
+#endif  // WEBRTC_MODULES_BITRATE_CONTROLLER_BITRATE_CONTROLLER_IMPL_H_

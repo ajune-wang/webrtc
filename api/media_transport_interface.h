@@ -14,8 +14,8 @@
 // enable different media transport implementations, including QUIC-based
 // media transport.
 
-#ifndef API_MEDIA_TRANSPORT_INTERFACE_H_
-#define API_MEDIA_TRANSPORT_INTERFACE_H_
+#ifndef WEBRTC_API_MEDIA_TRANSPORT_INTERFACE_H_
+#define WEBRTC_API_MEDIA_TRANSPORT_INTERFACE_H_
 
 #include <api/transport/network_control.h>
 #include <memory>
@@ -426,4 +426,4 @@ class MediaTransportFactory {
 };
 
 }  // namespace webrtc
-#endif  // API_MEDIA_TRANSPORT_INTERFACE_H_
+#endif  // WEBRTC_API_MEDIA_TRANSPORT_INTERFACE_H_

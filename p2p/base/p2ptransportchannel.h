@@ -17,8 +17,8 @@
 // When all of the available connections become invalid (non-writable), we
 // kick off a process of determining more candidates and more connections.
 //
-#ifndef P2P_BASE_P2PTRANSPORTCHANNEL_H_
-#define P2P_BASE_P2PTRANSPORTCHANNEL_H_
+#ifndef WEBRTC_P2P_BASE_P2PTRANSPORTCHANNEL_H_
+#define WEBRTC_P2P_BASE_P2PTRANSPORTCHANNEL_H_
 
 #include <algorithm>
 #include <map>
@@ -452,4 +452,4 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_P2PTRANSPORTCHANNEL_H_
+#endif  // WEBRTC_P2P_BASE_P2PTRANSPORTCHANNEL_H_

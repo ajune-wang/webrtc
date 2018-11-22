@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_
-#define CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_
+#ifndef WEBRTC_CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_
+#define WEBRTC_CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_
 
 #include "call/rtp_packet_sink_interface.h"
 
@@ -23,4 +23,4 @@ class MockRtpPacketSink : public RtpPacketSinkInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_
+#endif  // WEBRTC_CALL_TEST_MOCK_RTP_PACKET_SINK_INTERFACE_H_

@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_RUN_LOOP_H_
-#define TEST_RUN_LOOP_H_
+#ifndef WEBRTC_TEST_RUN_LOOP_H_
+#define WEBRTC_TEST_RUN_LOOP_H_
 
 #include "test/single_threaded_task_queue.h"
 
@@ -21,4 +21,4 @@ void PressEnterToContinue(SingleThreadedTaskQueueForTesting &task_queue);
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_RUN_LOOP_H_
+#endif  // WEBRTC_TEST_RUN_LOOP_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_RTCPMUXFILTER_H_
-#define PC_RTCPMUXFILTER_H_
+#ifndef WEBRTC_PC_RTCPMUXFILTER_H_
+#define WEBRTC_PC_RTCPMUXFILTER_H_
 
 #include "pc/sessiondescription.h"
 
@@ -75,4 +75,4 @@ class RtcpMuxFilter {
 
 }  // namespace cricket
 
-#endif  // PC_RTCPMUXFILTER_H_
+#endif  // WEBRTC_PC_RTCPMUXFILTER_H_

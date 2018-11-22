@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_
-#define MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_
+#define WEBRTC_MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_
 
 #include "api/video_codecs/video_encoder.h"
 
@@ -30,4 +30,4 @@ class SimulcastUtility {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_UTILITY_SIMULCAST_UTILITY_H_

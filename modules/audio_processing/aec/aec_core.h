@@ -12,8 +12,8 @@
  * Specifies the interface for the AEC core.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_
-#define MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_
 
 #include <stddef.h>
 
@@ -330,4 +330,4 @@ void WebRtcAec_SetSystemDelay(AecCore* self, int delay);
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC_AEC_CORE_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_NUMERICS_MOVING_AVERAGE_H_
-#define RTC_BASE_NUMERICS_MOVING_AVERAGE_H_
+#ifndef WEBRTC_RTC_BASE_NUMERICS_MOVING_AVERAGE_H_
+#define WEBRTC_RTC_BASE_NUMERICS_MOVING_AVERAGE_H_
 
 #include <vector>
 
@@ -60,4 +60,4 @@ class MovingAverage {
 };
 
 }  // namespace rtc
-#endif  // RTC_BASE_NUMERICS_MOVING_AVERAGE_H_
+#endif  // WEBRTC_RTC_BASE_NUMERICS_MOVING_AVERAGE_H_

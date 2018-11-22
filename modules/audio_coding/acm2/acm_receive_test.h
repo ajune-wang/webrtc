@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_
-#define MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_
+#define WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_
 
 #include <stddef.h>  // for size_t
 #include <memory>
@@ -94,4 +94,4 @@ class AcmReceiveTestToggleOutputFreqOldApi : public AcmReceiveTestOldApi {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_ACM2_ACM_RECEIVE_TEST_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_
-#define MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_
 
 #include <vector>
 
@@ -35,4 +35,4 @@ class RttTracker {
 }  // namespace pcc
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_RTT_TRACKER_H_

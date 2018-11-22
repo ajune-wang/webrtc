@@ -10,8 +10,8 @@
 
 // Borrowed from Chromium's src/base/template_util.h.
 
-#ifndef RTC_BASE_TEMPLATE_UTIL_H_
-#define RTC_BASE_TEMPLATE_UTIL_H_
+#ifndef WEBRTC_RTC_BASE_TEMPLATE_UTIL_H_
+#define WEBRTC_RTC_BASE_TEMPLATE_UTIL_H_
 
 #include <stddef.h>  // For size_t.
 
@@ -135,4 +135,4 @@ struct is_class
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_TEMPLATE_UTIL_H_
+#endif  // WEBRTC_RTC_BASE_TEMPLATE_UTIL_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_ARRAY_VIEW_H_
-#define API_ARRAY_VIEW_H_
+#ifndef WEBRTC_API_ARRAY_VIEW_H_
+#define WEBRTC_API_ARRAY_VIEW_H_
 
 #include <algorithm>
 #include <array>
@@ -281,4 +281,4 @@ inline ArrayView<T> MakeArrayView(T* data, size_t size) {
 
 }  // namespace rtc
 
-#endif  // API_ARRAY_VIEW_H_
+#endif  // WEBRTC_API_ARRAY_VIEW_H_

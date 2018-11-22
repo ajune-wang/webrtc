@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_SEND_DELAY_STATS_H_
-#define VIDEO_SEND_DELAY_STATS_H_
+#ifndef WEBRTC_VIDEO_SEND_DELAY_STATS_H_
+#define WEBRTC_VIDEO_SEND_DELAY_STATS_H_
 
 #include <map>
 #include <memory>
@@ -81,4 +81,4 @@ class SendDelayStats : public SendPacketObserver {
 };
 
 }  // namespace webrtc
-#endif  // VIDEO_SEND_DELAY_STATS_H_
+#endif  // WEBRTC_VIDEO_SEND_DELAY_STATS_H_

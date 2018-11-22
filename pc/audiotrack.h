@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_AUDIOTRACK_H_
-#define PC_AUDIOTRACK_H_
+#ifndef WEBRTC_PC_AUDIOTRACK_H_
+#define WEBRTC_PC_AUDIOTRACK_H_
 
 #include <string>
 
@@ -56,4 +56,4 @@ class AudioTrack : public MediaStreamTrack<AudioTrackInterface>,
 
 }  // namespace webrtc
 
-#endif  // PC_AUDIOTRACK_H_
+#endif  // WEBRTC_PC_AUDIOTRACK_H_

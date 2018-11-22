@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_
-#define SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_
+#ifndef WEBRTC_SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_
+#define WEBRTC_SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_
 
 #include <stdint.h>
 
@@ -25,4 +25,4 @@ class CpuInfo {
 
 }  // namespace webrtc
 
-#endif  // SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_
+#endif  // WEBRTC_SYSTEM_WRAPPERS_INCLUDE_CPU_INFO_H_

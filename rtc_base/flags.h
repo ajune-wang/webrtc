@@ -19,8 +19,8 @@
 // The implementation only relies and basic C++ functionality
 // and needs no special library or STL support.
 
-#ifndef RTC_BASE_FLAGS_H_
-#define RTC_BASE_FLAGS_H_
+#ifndef WEBRTC_RTC_BASE_FLAGS_H_
+#define WEBRTC_RTC_BASE_FLAGS_H_
 
 #include "rtc_base/checks.h"
 
@@ -268,4 +268,4 @@ class WindowsCommandLineArguments {
 
 }  // namespace rtc
 
-#endif  // SHARED_COMMANDLINEFLAGS_FLAGS_H_
+#endif  // WEBRTC_SHARED_COMMANDLINEFLAGS_FLAGS_H_

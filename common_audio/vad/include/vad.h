@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_VAD_INCLUDE_VAD_H_
-#define COMMON_AUDIO_VAD_INCLUDE_VAD_H_
+#ifndef WEBRTC_COMMON_AUDIO_VAD_INCLUDE_VAD_H_
+#define WEBRTC_COMMON_AUDIO_VAD_INCLUDE_VAD_H_
 
 #include <memory>
 
@@ -47,4 +47,4 @@ std::unique_ptr<Vad> CreateVad(Vad::Aggressiveness aggressiveness);
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_VAD_INCLUDE_VAD_H_
+#endif  // WEBRTC_COMMON_AUDIO_VAD_INCLUDE_VAD_H_

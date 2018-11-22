@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_
-#define COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_
+#ifndef WEBRTC_COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_
+#define WEBRTC_COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -86,4 +86,4 @@ class BitrateAdjuster {
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_
+#endif  // WEBRTC_COMMON_VIDEO_INCLUDE_BITRATE_ADJUSTER_H_

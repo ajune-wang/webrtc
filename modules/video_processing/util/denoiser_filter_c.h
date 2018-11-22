@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_
-#define MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_
+#ifndef WEBRTC_MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_
+#define WEBRTC_MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_
 
 #include "modules/video_processing/util/denoiser_filter.h"
 
@@ -39,4 +39,4 @@ class DenoiserFilterC : public DenoiserFilter {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_
+#endif  // WEBRTC_MODULES_VIDEO_PROCESSING_UTIL_DENOISER_FILTER_C_H_

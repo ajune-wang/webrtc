@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_
-#define COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_
+#ifndef WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_
+#define WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_
 
 #include <stdint.h>
 
@@ -80,4 +80,4 @@ rtc::scoped_refptr<I010BufferInterface> WrapI010Buffer(
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_
+#endif  // WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_BUFFER_H_

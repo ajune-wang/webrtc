@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SOCKET_UNITTEST_H_
-#define RTC_BASE_SOCKET_UNITTEST_H_
+#ifndef WEBRTC_RTC_BASE_SOCKET_UNITTEST_H_
+#define WEBRTC_RTC_BASE_SOCKET_UNITTEST_H_
 
 #include "rtc_base/gunit.h"
 #include "rtc_base/thread.h"
@@ -99,4 +99,4 @@ bool IsUnspecOrEmptyIP(const IPAddress& address);
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_SOCKET_UNITTEST_H_
+#endif  // WEBRTC_RTC_BASE_SOCKET_UNITTEST_H_

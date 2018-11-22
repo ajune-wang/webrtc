@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_REMIX_RESAMPLE_H_
-#define AUDIO_REMIX_RESAMPLE_H_
+#ifndef WEBRTC_AUDIO_REMIX_RESAMPLE_H_
+#define WEBRTC_AUDIO_REMIX_RESAMPLE_H_
 
 #include "api/audio/audio_frame.h"
 #include "common_audio/resampler/include/push_resampler.h"
@@ -41,4 +41,4 @@ void RemixAndResample(const int16_t* src_data,
 }  // namespace voe
 }  // namespace webrtc
 
-#endif  // AUDIO_REMIX_RESAMPLE_H_
+#endif  // WEBRTC_AUDIO_REMIX_RESAMPLE_H_

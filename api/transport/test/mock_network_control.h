@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_
-#define API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_
+#ifndef WEBRTC_API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_
+#define WEBRTC_API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_
 
 #include "api/transport/include/network_control.h"
 #include "test/gmock.h"
@@ -23,4 +23,4 @@ class MockTargetTransferRateObserver : public TargetTransferRateObserver {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_
+#endif  // WEBRTC_API_TRANSPORT_TEST_MOCK_NETWORK_CONTROL_H_

@@ -12,8 +12,8 @@
 // for TLS TURN connections and the SSLStreamAdapter for DTLS Peer to Peer
 // Connections for SRTP Key negotiation and SCTP encryption.
 
-#ifndef RTC_BASE_SSLCERTIFICATE_H_
-#define RTC_BASE_SSLCERTIFICATE_H_
+#ifndef WEBRTC_RTC_BASE_SSLCERTIFICATE_H_
+#define WEBRTC_RTC_BASE_SSLCERTIFICATE_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -134,4 +134,4 @@ class SSLCertificateVerifier {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_SSLCERTIFICATE_H_
+#endif  // WEBRTC_RTC_BASE_SSLCERTIFICATE_H_

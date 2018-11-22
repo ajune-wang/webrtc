@@ -11,8 +11,8 @@
 // TODO(deadbeef): Move this out of api/; it's an implementation detail and
 // shouldn't be used externally.
 
-#ifndef API_JSEPICECANDIDATE_H_
-#define API_JSEPICECANDIDATE_H_
+#ifndef WEBRTC_API_JSEPICECANDIDATE_H_
+#define WEBRTC_API_JSEPICECANDIDATE_H_
 
 #include <stddef.h>
 #include <string>
@@ -82,4 +82,4 @@ class JsepCandidateCollection : public IceCandidateCollection {
 
 }  // namespace webrtc
 
-#endif  // API_JSEPICECANDIDATE_H_
+#endif  // WEBRTC_API_JSEPICECANDIDATE_H_

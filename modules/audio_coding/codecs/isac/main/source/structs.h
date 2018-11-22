@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_
 
 #include "modules/audio_coding/codecs/isac/bandwidth_info.h"
 #include "modules/audio_coding/codecs/isac/main/source/settings.h"
@@ -445,4 +445,4 @@ typedef struct {
   TransformTables transform_tables;
 } ISACMainStruct;
 
-#endif /* MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_STRUCTS_H_ */

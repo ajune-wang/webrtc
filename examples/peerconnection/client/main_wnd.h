@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_
-#define EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_
+#ifndef WEBRTC_EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_
+#define WEBRTC_EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_
 
 #include <map>
 #include <memory>
@@ -203,4 +203,4 @@ class MainWnd : public MainWindow {
 };
 #endif  // WIN32
 
-#endif  // EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_
+#endif  // WEBRTC_EXAMPLES_PEERCONNECTION_CLIENT_MAIN_WND_H_

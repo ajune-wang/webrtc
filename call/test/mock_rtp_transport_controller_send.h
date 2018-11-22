@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
-#define CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
+#ifndef WEBRTC_CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
+#define WEBRTC_CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
 
 #include <map>
 #include <memory>
@@ -73,4 +73,4 @@ class MockRtpTransportControllerSend
   MOCK_METHOD1(OnTransportOverheadChanged, void(size_t));
 };
 }  // namespace webrtc
-#endif  // CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_
+#endif  // WEBRTC_CALL_TEST_MOCK_RTP_TRANSPORT_CONTROLLER_SEND_H_

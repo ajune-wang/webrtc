@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_
-#define MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_
+#define WEBRTC_MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_
 
 #include <memory>
 #include <string>
@@ -57,4 +57,4 @@ class IvfFileWriter {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_UTILITY_IVF_FILE_WRITER_H_

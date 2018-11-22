@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_FRAME_DUMPING_DECODER_H_
-#define VIDEO_FRAME_DUMPING_DECODER_H_
+#ifndef WEBRTC_VIDEO_FRAME_DUMPING_DECODER_H_
+#define WEBRTC_VIDEO_FRAME_DUMPING_DECODER_H_
 
 #include <memory>
 
@@ -45,4 +45,4 @@ class FrameDumpingDecoder : public VideoDecoder {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_FRAME_DUMPING_DECODER_H_
+#endif  // WEBRTC_VIDEO_FRAME_DUMPING_DECODER_H_

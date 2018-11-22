@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_
-#define CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_
+#ifndef WEBRTC_CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_
+#define WEBRTC_CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_
 
 #include <memory>
 
@@ -69,4 +69,4 @@ class RtpStreamReceiverController
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_
+#endif  // WEBRTC_CALL_RTP_STREAM_RECEIVER_CONTROLLER_H_

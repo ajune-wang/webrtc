@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_CHANNEL_SEND_H_
-#define AUDIO_CHANNEL_SEND_H_
+#ifndef WEBRTC_AUDIO_CHANNEL_SEND_H_
+#define WEBRTC_AUDIO_CHANNEL_SEND_H_
 
 #include <memory>
 #include <string>
@@ -125,4 +125,4 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
 }  // namespace voe
 }  // namespace webrtc
 
-#endif  // AUDIO_CHANNEL_SEND_H_
+#endif  // WEBRTC_AUDIO_CHANNEL_SEND_H_

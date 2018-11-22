@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_
 
 #include <X11/Xlib.h>
 
@@ -51,4 +51,4 @@ DesktopRect DesktopRectFromXAttributes(const T& attributes) {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_LIST_UTILS_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
-#define MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
 
 #include <stdint.h>
 #include <string.h>
@@ -135,4 +135,4 @@ class AudioMultiVector {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_AUDIO_MULTI_VECTOR_H_

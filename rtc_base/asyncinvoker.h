@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCINVOKER_H_
-#define RTC_BASE_ASYNCINVOKER_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCINVOKER_H_
+#define WEBRTC_RTC_BASE_ASYNCINVOKER_H_
 
 #include <atomic>
 #include <memory>
@@ -262,4 +262,4 @@ class GuardedAsyncInvoker : public sigslot::has_slots<> {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_ASYNCINVOKER_H_
+#endif  // WEBRTC_RTC_BASE_ASYNCINVOKER_H_

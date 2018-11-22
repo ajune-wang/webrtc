@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_NETWORK_H_
-#define RTC_BASE_NETWORK_H_
+#ifndef WEBRTC_RTC_BASE_NETWORK_H_
+#define WEBRTC_RTC_BASE_NETWORK_H_
 
 #include <stdint.h>
 
@@ -460,4 +460,4 @@ class Network {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_NETWORK_H_
+#endif  // WEBRTC_RTC_BASE_NETWORK_H_

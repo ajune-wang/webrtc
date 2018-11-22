@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_
 
 // Defines WEBRTC_ARCH_X86_FAMILY, used below.
 #include "rtc_base/system/arch.h"
@@ -95,4 +95,4 @@ struct FftData {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_FFT_DATA_H_

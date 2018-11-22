@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_ASYNCRESOLVERFACTORY_H_
-#define API_ASYNCRESOLVERFACTORY_H_
+#ifndef WEBRTC_API_ASYNCRESOLVERFACTORY_H_
+#define WEBRTC_API_ASYNCRESOLVERFACTORY_H_
 
 #include "rtc_base/asyncresolverinterface.h"
 
@@ -29,4 +29,4 @@ class AsyncResolverFactory {
 
 }  // namespace webrtc
 
-#endif  // API_ASYNCRESOLVERFACTORY_H_
+#endif  // WEBRTC_API_ASYNCRESOLVERFACTORY_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_
-#define API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_
+#ifndef WEBRTC_API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_
+#define WEBRTC_API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_
 
 #include <deque>
 #include <functional>
@@ -70,4 +70,4 @@ class NetworkControllerTester {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_
+#endif  // WEBRTC_API_TRANSPORT_TEST_NETWORK_CONTROL_TESTER_H_

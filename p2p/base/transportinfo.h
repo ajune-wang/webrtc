@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_TRANSPORTINFO_H_
-#define P2P_BASE_TRANSPORTINFO_H_
+#ifndef WEBRTC_P2P_BASE_TRANSPORTINFO_H_
+#define WEBRTC_P2P_BASE_TRANSPORTINFO_H_
 
 #include <string>
 #include <vector>
@@ -39,4 +39,4 @@ typedef std::vector<TransportInfo> TransportInfos;
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_TRANSPORTINFO_H_
+#endif  // WEBRTC_P2P_BASE_TRANSPORTINFO_H_

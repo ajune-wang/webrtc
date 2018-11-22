@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_COPYONWRITEBUFFER_H_
-#define RTC_BASE_COPYONWRITEBUFFER_H_
+#ifndef WEBRTC_RTC_BASE_COPYONWRITEBUFFER_H_
+#define WEBRTC_RTC_BASE_COPYONWRITEBUFFER_H_
 
 #include <stdint.h>
 #include <algorithm>
@@ -243,4 +243,4 @@ class CopyOnWriteBuffer {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_COPYONWRITEBUFFER_H_
+#endif  // WEBRTC_RTC_BASE_COPYONWRITEBUFFER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_
-#define RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_
+#ifndef WEBRTC_RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_
+#define WEBRTC_RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_
 
 #include <string>
 
@@ -21,4 +21,4 @@ std::string ToString(const webrtc::AudioCodecInfo& saf);
 std::string ToString(const webrtc::AudioCodecSpec& acs);
 }  // namespace rtc
 
-#endif  // RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_
+#endif  // WEBRTC_RTC_BASE_STRINGS_AUDIO_FORMAT_TO_STRING_H_

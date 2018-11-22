@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_FLEXFEC_RECEIVE_STREAM_H_
-#define CALL_FLEXFEC_RECEIVE_STREAM_H_
+#ifndef WEBRTC_CALL_FLEXFEC_RECEIVE_STREAM_H_
+#define WEBRTC_CALL_FLEXFEC_RECEIVE_STREAM_H_
 
 #include <stdint.h>
 #include <string>
@@ -82,4 +82,4 @@ class FlexfecReceiveStream : public RtpPacketSinkInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_FLEXFEC_RECEIVE_STREAM_H_
+#endif  // WEBRTC_CALL_FLEXFEC_RECEIVE_STREAM_H_

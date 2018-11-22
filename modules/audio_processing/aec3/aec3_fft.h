@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
 
 #include <array>
 
@@ -71,4 +71,4 @@ class Aec3Fft {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC3_FFT_H_

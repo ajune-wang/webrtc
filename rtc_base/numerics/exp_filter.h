@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_NUMERICS_EXP_FILTER_H_
-#define RTC_BASE_NUMERICS_EXP_FILTER_H_
+#ifndef WEBRTC_RTC_BASE_NUMERICS_EXP_FILTER_H_
+#define WEBRTC_RTC_BASE_NUMERICS_EXP_FILTER_H_
 
 namespace rtc {
 
@@ -45,4 +45,4 @@ class ExpFilter {
 };
 }  // namespace rtc
 
-#endif  // RTC_BASE_NUMERICS_EXP_FILTER_H_
+#endif  // WEBRTC_RTC_BASE_NUMERICS_EXP_FILTER_H_

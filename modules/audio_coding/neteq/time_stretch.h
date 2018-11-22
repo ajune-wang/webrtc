@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
-#define MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
 
 #include <assert.h>
 #include <string.h>  // memset, size_t
@@ -113,4 +113,4 @@ class TimeStretch {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_TIME_STRETCH_H_

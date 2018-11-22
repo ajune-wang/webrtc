@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
 
 #include <stddef.h>
 #include <array>
@@ -390,4 +390,4 @@ class AecState {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_AEC_STATE_H_

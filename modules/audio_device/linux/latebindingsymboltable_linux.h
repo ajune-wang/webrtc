@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_LATEBINDINGSYMBOLTABLE_LINUX_H_
-#define AUDIO_DEVICE_LATEBINDINGSYMBOLTABLE_LINUX_H_
+#ifndef WEBRTC_AUDIO_DEVICE_LATEBINDINGSYMBOLTABLE_LINUX_H_
+#define WEBRTC_AUDIO_DEVICE_LATEBINDINGSYMBOLTABLE_LINUX_H_
 
 #include <assert.h>
 #include <stddef.h>  // for NULL
@@ -164,4 +164,4 @@ class LateBindingSymbolTable {
 }  // namespace adm_linux
 }  // namespace webrtc
 
-#endif  // ADM_LATEBINDINGSYMBOLTABLE_LINUX_H_
+#endif  // WEBRTC_ADM_LATEBINDINGSYMBOLTABLE_LINUX_H_

@@ -9,8 +9,8 @@
  */
 
 // TODO(pthatcher): Rename file to match class name.
-#ifndef MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_
-#define MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_
+#ifndef WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_
+#define WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_
 
 #include <memory>
 
@@ -26,4 +26,4 @@ class WebRtcVideoDeviceCapturerFactory : public VideoDeviceCapturerFactory {
 
 }  // namespace cricket
 
-#endif  // MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_
+#endif  // WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOCAPTURERFACTORY_H_

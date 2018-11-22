@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_TEST_PCMFILE_H_
-#define MODULES_AUDIO_CODING_TEST_PCMFILE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_TEST_PCMFILE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_TEST_PCMFILE_H_
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,4 +73,4 @@ class PCMFile {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_TEST_PCMFILE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_TEST_PCMFILE_H_

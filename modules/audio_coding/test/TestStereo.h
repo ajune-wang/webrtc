@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_
-#define MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_
+#define WEBRTC_MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_
 
 #include <math.h>
 
@@ -100,4 +100,4 @@ class TestStereo {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_TEST_TESTSTEREO_H_

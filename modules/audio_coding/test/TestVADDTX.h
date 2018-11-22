@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_
-#define MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_
+#define WEBRTC_MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_
 
 #include <memory>
 
@@ -105,4 +105,4 @@ class TestOpusDtx final : public TestVadDtx {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_TEST_TESTVADDTX_H_

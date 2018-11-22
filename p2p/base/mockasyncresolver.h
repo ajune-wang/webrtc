@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_MOCKASYNCRESOLVER_H_
-#define P2P_BASE_MOCKASYNCRESOLVER_H_
+#ifndef WEBRTC_P2P_BASE_MOCKASYNCRESOLVER_H_
+#define WEBRTC_P2P_BASE_MOCKASYNCRESOLVER_H_
 
 #include "api/asyncresolverfactory.h"
 #include "rtc_base/asyncresolverinterface.h"
@@ -50,4 +50,4 @@ class MockAsyncResolverFactory : public AsyncResolverFactory {
 
 }  // namespace webrtc
 
-#endif  // P2P_BASE_MOCKASYNCRESOLVER_H_
+#endif  // WEBRTC_P2P_BASE_MOCKASYNCRESOLVER_H_

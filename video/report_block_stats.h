@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_REPORT_BLOCK_STATS_H_
-#define VIDEO_REPORT_BLOCK_STATS_H_
+#ifndef WEBRTC_VIDEO_REPORT_BLOCK_STATS_H_
+#define WEBRTC_VIDEO_REPORT_BLOCK_STATS_H_
 
 #include <map>
 #include <vector>
@@ -57,4 +57,4 @@ class ReportBlockStats {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_REPORT_BLOCK_STATS_H_
+#endif  // WEBRTC_VIDEO_REPORT_BLOCK_STATS_H_

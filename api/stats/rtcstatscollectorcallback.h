@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_STATS_RTCSTATSCOLLECTORCALLBACK_H_
-#define API_STATS_RTCSTATSCOLLECTORCALLBACK_H_
+#ifndef WEBRTC_API_STATS_RTCSTATSCOLLECTORCALLBACK_H_
+#define WEBRTC_API_STATS_RTCSTATSCOLLECTORCALLBACK_H_
 
 #include "api/stats/rtcstatsreport.h"
 #include "rtc_base/refcount.h"
@@ -27,4 +27,4 @@ class RTCStatsCollectorCallback : public virtual rtc::RefCountInterface {
 
 }  // namespace webrtc
 
-#endif  // API_STATS_RTCSTATSCOLLECTORCALLBACK_H_
+#endif  // WEBRTC_API_STATS_RTCSTATSCOLLECTORCALLBACK_H_

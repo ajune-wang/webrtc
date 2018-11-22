@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_
-#define VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_
+#ifndef WEBRTC_VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_
+#define WEBRTC_VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_
 
 #include <map>
 
@@ -61,4 +61,4 @@ class MultiStreamTester {
   test::SingleThreadedTaskQueueForTesting* const task_queue_;
 };
 }  // namespace webrtc
-#endif  // VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_
+#endif  // WEBRTC_VIDEO_END_TO_END_TESTS_MULTI_STREAM_TESTER_H_

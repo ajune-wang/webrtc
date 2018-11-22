@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_OVERUSE_FRAME_DETECTOR_H_
-#define VIDEO_OVERUSE_FRAME_DETECTOR_H_
+#ifndef WEBRTC_VIDEO_OVERUSE_FRAME_DETECTOR_H_
+#define WEBRTC_VIDEO_OVERUSE_FRAME_DETECTOR_H_
 
 #include <list>
 #include <memory>
@@ -151,4 +151,4 @@ class OveruseFrameDetector {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_OVERUSE_FRAME_DETECTOR_H_
+#endif  // WEBRTC_VIDEO_OVERUSE_FRAME_DETECTOR_H_

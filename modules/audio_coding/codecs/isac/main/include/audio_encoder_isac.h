@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_
 
 #include "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h"
 #include "modules/audio_coding/codecs/isac/main/source/isac_float_type.h"
@@ -19,4 +19,4 @@ namespace webrtc {
 using AudioEncoderIsacFloatImpl = AudioEncoderIsacT<IsacFloat>;
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_INCLUDE_AUDIO_ENCODER_ISAC_H_

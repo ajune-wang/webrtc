@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCSOCKET_H_
-#define RTC_BASE_ASYNCSOCKET_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCSOCKET_H_
+#define WEBRTC_RTC_BASE_ASYNCSOCKET_H_
 
 #include "rtc_base/socket.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
@@ -79,4 +79,4 @@ class AsyncSocketAdapter : public AsyncSocket, public sigslot::has_slots<> {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_ASYNCSOCKET_H_
+#endif  // WEBRTC_RTC_BASE_ASYNCSOCKET_H_

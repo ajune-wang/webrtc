@@ -64,8 +64,8 @@
 // 7. Once a candidate has been gathered, the PeerConnection will call the
 // observer function OnIceCandidate. Send these candidates to the remote peer.
 
-#ifndef API_PEERCONNECTIONINTERFACE_H_
-#define API_PEERCONNECTIONINTERFACE_H_
+#ifndef WEBRTC_API_PEERCONNECTIONINTERFACE_H_
+#define WEBRTC_API_PEERCONNECTIONINTERFACE_H_
 
 #include <memory>
 #include <string>
@@ -1431,4 +1431,4 @@ CreateModularPeerConnectionFactory(
 
 }  // namespace webrtc
 
-#endif  // API_PEERCONNECTIONINTERFACE_H_
+#endif  // WEBRTC_API_PEERCONNECTIONINTERFACE_H_

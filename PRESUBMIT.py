@@ -52,6 +52,7 @@ CPPLINT_BLACKLIST = [
 #                         all move-related errors).
 BLACKLIST_LINT_FILTERS = [
   '-build/c++11',
+  '-build/header_guard',
   '-whitespace/operators',
 ]
 
@@ -866,6 +867,67 @@ def CommonChecks(input_api, output_api):
   results.extend(CheckApiDepsFileIsUpToDate(input_api, output_api))
   results.extend(CheckAbslMemoryInclude(
       input_api, output_api, non_third_party_sources))
+  results.extend(CheckIncludeGuards(input_api, output_api))
+  return results
+
+
+def _HeaderGuardFromFileName(filename):
+  return 'WEBRTC_' + re.sub(r'[^a-zA-Z0-9]', '_', filename).upper() + '_'
+
+
+def CheckIncludeGuards(input_api, output_api):
+  """Checks that WebRTC headers use include guards."""
+  # This check is similar to cpplint's build/header_guard but it is tailored
+  # for WebRTC needs in order to always prefix include guards with WEBRTC_.
+  errors = []
+  results = []
+  warnings = []
+  header_filter = lambda x: input_api.FilterSourceFile(x,
+                                                       white_list=[r'.+\.h$'])
+  for f in input_api.AffectedFiles(file_filter=header_filter):
+    expected_guard = _HeaderGuardFromFileName(f.LocalPath())
+    file_content = f.NewContents()
+    ifndef = ''
+    define = ''
+    endif = ''
+    endif_line_number = None
+    for line_number, line in enumerate(file_content):
+      linesplit = line.split()
+      if len(linesplit) >= 2:
+        if not ifndef and linesplit[0] == '#ifndef':
+          ifndef = linesplit[1]
+        if not define and linesplit[0] == '#define':
+          define = linesplit[1]
+      if line.startswith('#endif'):
+        endif = line
+        endif_line_number = line_number
+
+    if not ifndef or not define or ifndef != define or ifndef != expected_guard:
+      errors.append((f.LocalPath(), expected_guard))
+
+    if re.match(r'#endif  // ' + expected_guard, endif):
+      warnings.append((f.LocalPath(), expected_guard, endif_line_number))
+
+  if errors:
+    action_items = '\n'.join(
+        'File: %s [use header guard: %s]' % (f, g) for f, g in errors)
+    results.append(output_api.PresubmitError(
+      'Some source files are not using an include guard'
+      ' (or a wrong one is in place).\n'
+      'More info about header guards can be found at the link: '
+      'https://google.github.io/styleguide/cppguide.html#The__define_Guard\n'
+      'Please fix the following files:\n%s' % action_items))
+
+  if warnings:
+    action_items = '\n'.join(
+        'File: %s (line: %s) [use header guard: %s]'
+        % (f, l, g) for f, g, l in warnings)
+    results.append(output_api.PresubmitPromptWarning(
+      'Some source files are missing the include guard comment next to the '
+      '#endif. Here is how it should look like:\n'
+      '#endif  // <INCLUDE_GUARD>\n'
+      'Please fix the following files:\n%s' % action_items))
+
   return results
 
 

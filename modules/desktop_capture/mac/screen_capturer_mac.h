@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_
-#define MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_
 
 #include <CoreGraphics/CoreGraphics.h>
 
@@ -117,4 +117,4 @@ class ScreenCapturerMac final : public DesktopCapturer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_MAC_SCREEN_CAPTURER_MAC_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_SOURCE_INTERFACE_H_
-#define API_VIDEO_VIDEO_SOURCE_INTERFACE_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_SOURCE_INTERFACE_H_
+#define WEBRTC_API_VIDEO_VIDEO_SOURCE_INTERFACE_H_
 
 #include <limits>
 
@@ -59,4 +59,4 @@ class VideoSourceInterface {
 };
 
 }  // namespace rtc
-#endif  // API_VIDEO_VIDEO_SOURCE_INTERFACE_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_SOURCE_INTERFACE_H_

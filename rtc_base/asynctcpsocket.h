@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCTCPSOCKET_H_
-#define RTC_BASE_ASYNCTCPSOCKET_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCTCPSOCKET_H_
+#define WEBRTC_RTC_BASE_ASYNCTCPSOCKET_H_
 
 #include <stddef.h>
 #include <memory>
@@ -109,4 +109,4 @@ class AsyncTCPSocket : public AsyncTCPSocketBase {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_ASYNCTCPSOCKET_H_
+#endif  // WEBRTC_RTC_BASE_ASYNCTCPSOCKET_H_

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_
-#define MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_
+#ifndef WEBRTC_MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_
+#define WEBRTC_MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_
 
 #include <memory>
 #include <vector>
@@ -55,4 +55,4 @@ class VP8EncoderSimulcastProxy : public VideoEncoder {
 
 }  // namespace webrtc
 
-#endif  // MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_
+#endif  // WEBRTC_MEDIA_ENGINE_VP8_ENCODER_SIMULCAST_PROXY_H_

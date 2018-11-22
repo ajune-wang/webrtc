@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_
 
 #include <array>
 #include <complex>
@@ -48,4 +48,4 @@ class BandAnalysisFft {
 }  // namespace rnn_vad
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_FFT_UTIL_H_

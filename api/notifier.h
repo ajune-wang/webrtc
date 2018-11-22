@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_NOTIFIER_H_
-#define API_NOTIFIER_H_
+#ifndef WEBRTC_API_NOTIFIER_H_
+#define WEBRTC_API_NOTIFIER_H_
 
 #include <list>
 
@@ -57,4 +57,4 @@ class Notifier : public T {
 
 }  // namespace webrtc
 
-#endif  // API_NOTIFIER_H_
+#endif  // WEBRTC_API_NOTIFIER_H_

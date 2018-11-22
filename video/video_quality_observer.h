@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_VIDEO_QUALITY_OBSERVER_H_
-#define VIDEO_VIDEO_QUALITY_OBSERVER_H_
+#ifndef WEBRTC_VIDEO_VIDEO_QUALITY_OBSERVER_H_
+#define WEBRTC_VIDEO_VIDEO_QUALITY_OBSERVER_H_
 
 #include <stdint.h>
 #include <vector>
@@ -80,4 +80,4 @@ class VideoQualityObserver {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_VIDEO_QUALITY_OBSERVER_H_
+#endif  // WEBRTC_VIDEO_VIDEO_QUALITY_OBSERVER_H_

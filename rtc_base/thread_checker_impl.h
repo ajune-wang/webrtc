@@ -10,8 +10,8 @@
 
 // Borrowed from Chromium's src/base/threading/thread_checker_impl.h.
 
-#ifndef RTC_BASE_THREAD_CHECKER_IMPL_H_
-#define RTC_BASE_THREAD_CHECKER_IMPL_H_
+#ifndef WEBRTC_RTC_BASE_THREAD_CHECKER_IMPL_H_
+#define WEBRTC_RTC_BASE_THREAD_CHECKER_IMPL_H_
 
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/platform_thread_types.h"
@@ -45,4 +45,4 @@ class ThreadCheckerImpl {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_THREAD_CHECKER_IMPL_H_
+#endif  // WEBRTC_RTC_BASE_THREAD_CHECKER_IMPL_H_

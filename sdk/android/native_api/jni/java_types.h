@@ -14,8 +14,8 @@
 // workaround for this.
 // http://developer.android.com/training/articles/perf-jni.html#faq_FindClass
 
-#ifndef SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
-#define SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
+#ifndef WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
+#define WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
 
 #include <jni.h>
 #include <map>
@@ -340,4 +340,4 @@ inline std::map<std::string, std::string> JavaToStdMapStrings(JNIEnv* jni,
 
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_
+#endif  // WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JAVA_TYPES_H_

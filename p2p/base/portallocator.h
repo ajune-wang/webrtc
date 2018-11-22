@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_PORTALLOCATOR_H_
-#define P2P_BASE_PORTALLOCATOR_H_
+#ifndef WEBRTC_P2P_BASE_PORTALLOCATOR_H_
+#define WEBRTC_P2P_BASE_PORTALLOCATOR_H_
 
 #include <deque>
 #include <memory>
@@ -626,4 +626,4 @@ class RTC_EXPORT PortAllocator : public sigslot::has_slots<> {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_PORTALLOCATOR_H_
+#endif  // WEBRTC_P2P_BASE_PORTALLOCATOR_H_

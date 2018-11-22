@@ -11,8 +11,8 @@
 // Originally this class is from Chromium.
 // https://cs.chromium.org/chromium/src/base/android/jni_int_wrapper.h.
 
-#ifndef SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_
-#define SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_
+#ifndef WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_
+#define WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_
 
 // Wrapper used to receive int when calling Java from native. The wrapper
 // disallows automatic conversion of anything besides int32_t to a jint.
@@ -56,4 +56,4 @@ inline jint as_jint(const JniIntWrapper& wrapper) {
 
 #endif  // NDEBUG
 
-#endif  // SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_
+#endif  // WEBRTC_SDK_ANDROID_NATIVE_API_JNI_JNI_INT_WRAPPER_H_

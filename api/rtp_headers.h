@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_RTP_HEADERS_H_
-#define API_RTP_HEADERS_H_
+#ifndef WEBRTC_API_RTP_HEADERS_H_
+#define WEBRTC_API_RTP_HEADERS_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -178,4 +178,4 @@ struct RtpKeepAliveConfig final {
 
 }  // namespace webrtc
 
-#endif  // API_RTP_HEADERS_H_
+#endif  // WEBRTC_API_RTP_HEADERS_H_

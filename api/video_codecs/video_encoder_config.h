@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
-#define API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
+#ifndef WEBRTC_API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
+#define WEBRTC_API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
 
 #include <stddef.h>
 #include <string>
@@ -162,4 +162,4 @@ class VideoEncoderConfig {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_
+#endif  // WEBRTC_API_VIDEO_CODECS_VIDEO_ENCODER_CONFIG_H_

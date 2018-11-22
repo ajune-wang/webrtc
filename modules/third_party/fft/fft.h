@@ -27,8 +27,8 @@
  * See the comments in the code for correct usage!
  */
 
-#ifndef MODULES_THIRD_PARTY_FFT_FFT_H_
-#define MODULES_THIRD_PARTY_FFT_FFT_H_
+#ifndef WEBRTC_MODULES_THIRD_PARTY_FFT_FFT_H_
+#define WEBRTC_MODULES_THIRD_PARTY_FFT_FFT_H_
 
 #define FFT_MAXFFTSIZE 2048
 #define FFT_NFACTOR 11
@@ -55,4 +55,4 @@ int WebRtcIsac_Fftns(unsigned int ndim,
                      double scaling,
                      FFTstr* fftstate);
 
-#endif /* MODULES_THIRD_PARTY_FFT_FFT_H_ */
+#endif /* WEBRTC_MODULES_THIRD_PARTY_FFT_FFT_H_ */

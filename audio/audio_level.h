@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_AUDIO_LEVEL_H_
-#define AUDIO_AUDIO_LEVEL_H_
+#ifndef WEBRTC_AUDIO_AUDIO_LEVEL_H_
+#define WEBRTC_AUDIO_AUDIO_LEVEL_H_
 
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/thread_annotations.h"
@@ -54,4 +54,4 @@ class AudioLevel {
 }  // namespace voe
 }  // namespace webrtc
 
-#endif  // AUDIO_AUDIO_LEVEL_H_
+#endif  // WEBRTC_AUDIO_AUDIO_LEVEL_H_

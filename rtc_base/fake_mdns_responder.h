@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_FAKE_MDNS_RESPONDER_H_
-#define RTC_BASE_FAKE_MDNS_RESPONDER_H_
+#ifndef WEBRTC_RTC_BASE_FAKE_MDNS_RESPONDER_H_
+#define WEBRTC_RTC_BASE_FAKE_MDNS_RESPONDER_H_
 
 #include <map>
 #include <memory>
@@ -59,4 +59,4 @@ class FakeMdnsResponder : public MdnsResponderInterface {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_FAKE_MDNS_RESPONDER_H_
+#endif  // WEBRTC_RTC_BASE_FAKE_MDNS_RESPONDER_H_

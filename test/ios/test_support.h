@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_IOS_TEST_SUPPORT_H_
-#define TEST_IOS_TEST_SUPPORT_H_
+#ifndef WEBRTC_TEST_IOS_TEST_SUPPORT_H_
+#define WEBRTC_TEST_IOS_TEST_SUPPORT_H_
 
 namespace rtc {
 namespace test {
@@ -25,4 +25,4 @@ void InitTestSuite(int (*test_suite)(void),
 }  // namespace test
 }  // namespace rtc
 
-#endif  // TEST_IOS_TEST_SUPPORT_H_
+#endif  // WEBRTC_TEST_IOS_TEST_SUPPORT_H_

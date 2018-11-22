@@ -11,9 +11,9 @@
 // Most of the contents of this header have moved to jseptransport.h.
 // TODO(deadbeef): Delete this file when downstream dependents are updated.
 
-#ifndef P2P_BASE_TRANSPORT_H_
-#define P2P_BASE_TRANSPORT_H_
+#ifndef WEBRTC_P2P_BASE_TRANSPORT_H_
+#define WEBRTC_P2P_BASE_TRANSPORT_H_
 
 #include "p2p/base/transport.h"
 
-#endif  // P2P_BASE_TRANSPORT_H_
+#endif  // WEBRTC_P2P_BASE_TRANSPORT_H_

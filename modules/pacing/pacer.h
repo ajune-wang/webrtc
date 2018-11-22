@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_PACER_H_
-#define MODULES_PACING_PACER_H_
+#ifndef WEBRTC_MODULES_PACING_PACER_H_
+#define WEBRTC_MODULES_PACING_PACER_H_
 
 #include "modules/include/module.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -36,4 +36,4 @@ class Pacer : public Module, public RtpPacketSender {
   ~Pacer() override {}
 };
 }  // namespace webrtc
-#endif  // MODULES_PACING_PACER_H_
+#endif  // WEBRTC_MODULES_PACING_PACER_H_

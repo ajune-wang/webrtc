@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_
-#define RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_
+#ifndef WEBRTC_RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_
+#define WEBRTC_RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_
 
 #include <array>
 #include <limits>
@@ -79,4 +79,4 @@ class TestController : public sigslot::has_slots<> {
 
 }  // namespace webrtc
 
-#endif  // RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_
+#endif  // WEBRTC_RTC_TOOLS_NETWORK_TESTER_TEST_CONTROLLER_H_

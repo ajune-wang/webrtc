@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_SIMULATED_NETWORK_H_
-#define CALL_SIMULATED_NETWORK_H_
+#ifndef WEBRTC_CALL_SIMULATED_NETWORK_H_
+#define WEBRTC_CALL_SIMULATED_NETWORK_H_
 
 #include <deque>
 #include <queue>
@@ -78,4 +78,4 @@ class SimulatedNetwork : public NetworkBehaviorInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_SIMULATED_NETWORK_H_
+#endif  // WEBRTC_CALL_SIMULATED_NETWORK_H_

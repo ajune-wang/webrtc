@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_RTPTRANSCEIVERINTERFACE_H_
-#define API_RTPTRANSCEIVERINTERFACE_H_
+#ifndef WEBRTC_API_RTPTRANSCEIVERINTERFACE_H_
+#define WEBRTC_API_RTPTRANSCEIVERINTERFACE_H_
 
 #include <string>
 #include <vector>
@@ -137,4 +137,4 @@ class RtpTransceiverInterface : public rtc::RefCountInterface {
 
 }  // namespace webrtc
 
-#endif  // API_RTPTRANSCEIVERINTERFACE_H_
+#endif  // WEBRTC_API_RTPTRANSCEIVERINTERFACE_H_

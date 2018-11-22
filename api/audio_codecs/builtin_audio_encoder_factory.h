@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_
-#define API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_
+#ifndef WEBRTC_API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_
+#define WEBRTC_API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_
 
 #include "api/audio_codecs/audio_encoder_factory.h"
 #include "rtc_base/scoped_ref_ptr.h"
@@ -21,4 +21,4 @@ rtc::scoped_refptr<AudioEncoderFactory> CreateBuiltinAudioEncoderFactory();
 
 }  // namespace webrtc
 
-#endif  // API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_
+#endif  // WEBRTC_API_AUDIO_CODECS_BUILTIN_AUDIO_ENCODER_FACTORY_H_

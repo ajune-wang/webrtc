@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_
-#define MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_
 
 #include "api/transport/network_control.h"
 #include "modules/congestion_controller/pcc/monitor_interval.h"
@@ -76,4 +76,4 @@ class ModifiedVivaceUtilityFunction : public PccUtilityFunctionInterface {
 }  // namespace pcc
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_PCC_UTILITY_FUNCTION_H_

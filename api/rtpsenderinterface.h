@@ -11,8 +11,8 @@
 // This file contains interfaces for RtpSenders
 // http://w3c.github.io/webrtc-pc/#rtcrtpsender-interface
 
-#ifndef API_RTPSENDERINTERFACE_H_
-#define API_RTPSENDERINTERFACE_H_
+#ifndef WEBRTC_API_RTPSENDERINTERFACE_H_
+#define WEBRTC_API_RTPSENDERINTERFACE_H_
 
 #include <string>
 #include <vector>
@@ -108,4 +108,4 @@ END_PROXY_MAP()
 
 }  // namespace webrtc
 
-#endif  // API_RTPSENDERINTERFACE_H_
+#endif  // WEBRTC_API_RTPSENDERINTERFACE_H_

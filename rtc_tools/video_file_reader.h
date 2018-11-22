@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_TOOLS_VIDEO_FILE_READER_H_
-#define RTC_TOOLS_VIDEO_FILE_READER_H_
+#ifndef WEBRTC_RTC_TOOLS_VIDEO_FILE_READER_H_
+#define WEBRTC_RTC_TOOLS_VIDEO_FILE_READER_H_
 
 #include <cstdio>
 #include <iterator>
@@ -77,4 +77,4 @@ rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const std::string& file_name,
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // RTC_TOOLS_VIDEO_FILE_READER_H_
+#endif  // WEBRTC_RTC_TOOLS_VIDEO_FILE_READER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
-#define MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -106,4 +106,4 @@ class SyncBuffer : public AudioMultiVector {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_SYNC_BUFFER_H_

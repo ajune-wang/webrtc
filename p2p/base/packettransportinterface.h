@@ -12,8 +12,8 @@
 // uses it.
 // TODO(deadbeef): Update chromium and remove this file.
 
-#ifndef P2P_BASE_PACKETTRANSPORTINTERFACE_H_
-#define P2P_BASE_PACKETTRANSPORTINTERFACE_H_
+#ifndef WEBRTC_P2P_BASE_PACKETTRANSPORTINTERFACE_H_
+#define WEBRTC_P2P_BASE_PACKETTRANSPORTINTERFACE_H_
 
 #include "p2p/base/packettransportinternal.h"
 
@@ -21,4 +21,4 @@ namespace rtc {
 typedef PacketTransportInternal PacketTransportInterface;
 }
 
-#endif  // P2P_BASE_PACKETTRANSPORTINTERFACE_H_
+#endif  // WEBRTC_P2P_BASE_PACKETTRANSPORTINTERFACE_H_

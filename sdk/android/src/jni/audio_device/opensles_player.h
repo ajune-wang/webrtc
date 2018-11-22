@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_
-#define SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_
 
 #include <SLES/OpenSLES.h>
 #include <SLES/OpenSLES_Android.h>
@@ -192,4 +192,4 @@ class OpenSLESPlayer : public AudioOutput {
 
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_AUDIO_DEVICE_OPENSLES_PLAYER_H_

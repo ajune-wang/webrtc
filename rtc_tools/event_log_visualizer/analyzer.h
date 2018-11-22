@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_
-#define RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_
+#ifndef WEBRTC_RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_
+#define WEBRTC_RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_
 
 #include <map>
 #include <memory>
@@ -260,4 +260,4 @@ class EventLogAnalyzer {
 
 }  // namespace webrtc
 
-#endif  // RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_
+#endif  // WEBRTC_RTC_TOOLS_EVENT_LOG_VISUALIZER_ANALYZER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_
-#define RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_
+#ifndef WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_
+#define WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_
 
 #include "rtc_base/thread_annotations.h"
 
@@ -63,4 +63,4 @@ class RTC_SCOPED_LOCKABLE WriteLockScoped {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_
+#endif  // WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WRAPPER_H_

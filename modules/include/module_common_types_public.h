@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
-#define MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
+#ifndef WEBRTC_MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
+#define WEBRTC_MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
 
 #include <limits>
 
@@ -108,4 +108,4 @@ inline uint32_t LatestTimestamp(uint32_t timestamp1, uint32_t timestamp2) {
 }
 
 }  // namespace webrtc
-#endif  // MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_
+#endif  // WEBRTC_MODULES_INCLUDE_MODULE_COMMON_TYPES_PUBLIC_H_

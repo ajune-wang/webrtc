@@ -11,8 +11,8 @@
 // This file contain convenience functions and classes for JNI.
 // Before using any of the methods, InitGlobalJniVariables must be called.
 
-#ifndef SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
-#define SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
 
 #include <jni.h>
 #include <string>
@@ -68,4 +68,4 @@ using webrtc::jni::InitGlobalJniVariables;
 
 }  // namespace webrtc_jni
 
-#endif  // SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_JNI_HELPERS_H_

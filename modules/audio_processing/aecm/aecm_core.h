@@ -10,8 +10,8 @@
 
 // Performs echo control (suppression) with fft routines in fixed-point.
 
-#ifndef MODULES_AUDIO_PROCESSING_AECM_AECM_CORE_H_
-#define MODULES_AUDIO_PROCESSING_AECM_AECM_CORE_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AECM_AECM_CORE_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AECM_AECM_CORE_H_
 
 extern "C" {
 #include "common_audio/ring_buffer.h"

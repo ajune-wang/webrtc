@@ -11,8 +11,8 @@
 // Originally these classes are from Chromium.
 // https://cs.chromium.org/chromium/src/base/android/scoped_java_ref.h.
 
-#ifndef SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
-#define SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
+#ifndef WEBRTC_SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
+#define WEBRTC_SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
 
 #include <jni.h>
 #include <utility>
@@ -207,4 +207,4 @@ inline ScopedJavaLocalRef<T> static_java_ref_cast(JNIEnv* env,
 
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_
+#endif  // WEBRTC_SDK_ANDROID_NATIVE_API_JNI_SCOPED_JAVA_REF_H_

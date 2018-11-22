@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_
 
 #include <memory>
 #include <string>
@@ -65,4 +65,4 @@ class WindowCapturerX11 : public DesktopCapturer,
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_WINDOW_CAPTURER_X11_H_

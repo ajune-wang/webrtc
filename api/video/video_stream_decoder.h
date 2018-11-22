@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_STREAM_DECODER_H_
-#define API_VIDEO_VIDEO_STREAM_DECODER_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_STREAM_DECODER_H_
+#define WEBRTC_API_VIDEO_VIDEO_STREAM_DECODER_H_
 
 #include <map>
 #include <memory>
@@ -48,4 +48,4 @@ class VideoStreamDecoder {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_VIDEO_STREAM_DECODER_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_STREAM_DECODER_H_

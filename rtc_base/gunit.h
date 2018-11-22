@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_GUNIT_H_
-#define RTC_BASE_GUNIT_H_
+#ifndef WEBRTC_RTC_BASE_GUNIT_H_
+#define WEBRTC_RTC_BASE_GUNIT_H_
 
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/logging.h"
@@ -165,4 +165,4 @@ testing::AssertionResult AssertStringContains(const char* str_expr,
                                               const std::string& str,
                                               const std::string& substr);
 
-#endif  // RTC_BASE_GUNIT_H_
+#endif  // WEBRTC_RTC_BASE_GUNIT_H_

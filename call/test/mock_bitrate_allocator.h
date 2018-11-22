@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_
-#define CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_
+#ifndef WEBRTC_CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_
+#define WEBRTC_CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_
 
 #include <string>
 
@@ -24,4 +24,4 @@ class MockBitrateAllocator : public BitrateAllocatorInterface {
   MOCK_CONST_METHOD1(GetStartBitrate, int(BitrateAllocatorObserver*));
 };
 }  // namespace webrtc
-#endif  // CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_
+#endif  // WEBRTC_CALL_TEST_MOCK_BITRATE_ALLOCATOR_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYSTEM_UNUSED_H_
-#define RTC_BASE_SYSTEM_UNUSED_H_
+#ifndef WEBRTC_RTC_BASE_SYSTEM_UNUSED_H_
+#define WEBRTC_RTC_BASE_SYSTEM_UNUSED_H_
 
 // Annotate a function indicating the caller must examine the return value.
 // Use like:
@@ -36,4 +36,4 @@
 #define RTC_UNUSED(x) static_cast<void>(x)
 #endif  // RTC_UNUSED
 
-#endif  // RTC_BASE_SYSTEM_UNUSED_H_
+#endif  // WEBRTC_RTC_BASE_SYSTEM_UNUSED_H_

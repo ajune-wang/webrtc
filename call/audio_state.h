@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_AUDIO_STATE_H_
-#define CALL_AUDIO_STATE_H_
+#ifndef WEBRTC_CALL_AUDIO_STATE_H_
+#define WEBRTC_CALL_AUDIO_STATE_H_
 
 #include "api/audio/audio_mixer.h"
 #include "modules/audio_device/include/audio_device.h"
@@ -73,4 +73,4 @@ class AudioState : public rtc::RefCountInterface {
 };
 }  // namespace webrtc
 
-#endif  // CALL_AUDIO_STATE_H_
+#endif  // WEBRTC_CALL_AUDIO_STATE_H_

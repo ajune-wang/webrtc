@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TRANSPORT_NETWORK_TYPES_H_
-#define API_TRANSPORT_NETWORK_TYPES_H_
+#ifndef WEBRTC_API_TRANSPORT_NETWORK_TYPES_H_
+#define WEBRTC_API_TRANSPORT_NETWORK_TYPES_H_
 #include <stdint.h>
 #include <vector>
 
@@ -205,4 +205,4 @@ struct ProcessInterval {
 };
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_NETWORK_TYPES_H_
+#endif  // WEBRTC_API_TRANSPORT_NETWORK_TYPES_H_

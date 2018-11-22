@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_
-#define RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_
+#ifndef WEBRTC_RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_
+#define WEBRTC_RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_
 
 #include <stdint.h>
 #include <initializer_list>
@@ -238,4 +238,4 @@ extern template class FieldTrialOptional<std::string>;
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_
+#endif  // WEBRTC_RTC_BASE_EXPERIMENTS_FIELD_TRIAL_PARSER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
-#define CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
+#ifndef WEBRTC_CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
+#define WEBRTC_CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
 #include <stddef.h>
 #include <stdint.h>
 
@@ -166,4 +166,4 @@ class RtpTransportControllerSendInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_
+#endif  // WEBRTC_CALL_RTP_TRANSPORT_CONTROLLER_SEND_INTERFACE_H_

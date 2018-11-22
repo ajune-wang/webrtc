@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_FRAME_BUFFER_H_
-#define API_VIDEO_VIDEO_FRAME_BUFFER_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_FRAME_BUFFER_H_
+#define WEBRTC_API_VIDEO_VIDEO_FRAME_BUFFER_H_
 
 #include <stdint.h>
 
@@ -174,4 +174,4 @@ class I010BufferInterface : public PlanarYuv16BBuffer {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_VIDEO_FRAME_BUFFER_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_FRAME_BUFFER_H_

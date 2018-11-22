@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_CANCELABLE_PERIODIC_TASK_H_
-#define RTC_BASE_CANCELABLE_PERIODIC_TASK_H_
+#ifndef WEBRTC_RTC_BASE_CANCELABLE_PERIODIC_TASK_H_
+#define WEBRTC_RTC_BASE_CANCELABLE_PERIODIC_TASK_H_
 
 #include <memory>
 #include <type_traits>
@@ -80,4 +80,4 @@ std::unique_ptr<BaseCancelableTask> CreateCancelablePeriodicTask(
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_CANCELABLE_PERIODIC_TASK_H_
+#endif  // WEBRTC_RTC_BASE_CANCELABLE_PERIODIC_TASK_H_

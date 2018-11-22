@@ -11,8 +11,8 @@
 // This file contains platform-specific typedefs and defines.
 // Much of it is derived from Chromium's build/build_config.h.
 
-#ifndef RTC_BASE_SYSTEM_ARCH_H_
-#define RTC_BASE_SYSTEM_ARCH_H_
+#ifndef WEBRTC_RTC_BASE_SYSTEM_ARCH_H_
+#define WEBRTC_RTC_BASE_SYSTEM_ARCH_H_
 
 // Processor architecture detection.  For more info on what's defined, see:
 //   http://msdn.microsoft.com/en-us/library/b0084kay.aspx
@@ -55,4 +55,4 @@
 #error Define either WEBRTC_ARCH_LITTLE_ENDIAN or WEBRTC_ARCH_BIG_ENDIAN
 #endif
 
-#endif  // RTC_BASE_SYSTEM_ARCH_H_
+#endif  // WEBRTC_RTC_BASE_SYSTEM_ARCH_H_

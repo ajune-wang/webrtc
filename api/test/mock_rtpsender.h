@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_MOCK_RTPSENDER_H_
-#define API_TEST_MOCK_RTPSENDER_H_
+#ifndef WEBRTC_API_TEST_MOCK_RTPSENDER_H_
+#define WEBRTC_API_TEST_MOCK_RTPSENDER_H_
 
 #include <string>
 #include <vector>
@@ -35,4 +35,4 @@ class MockRtpSender : public rtc::RefCountedObject<RtpSenderInterface> {
 
 }  // namespace webrtc
 
-#endif  // API_TEST_MOCK_RTPSENDER_H_
+#endif  // WEBRTC_API_TEST_MOCK_RTPSENDER_H_

@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_UNITS_UNIT_BASE_H_
-#define RTC_BASE_UNITS_UNIT_BASE_H_
+#ifndef WEBRTC_RTC_BASE_UNITS_UNIT_BASE_H_
+#define WEBRTC_RTC_BASE_UNITS_UNIT_BASE_H_
 
 #include <stdint.h>
 #include <algorithm>
@@ -301,4 +301,4 @@ inline Unit_T operator*(const int32_t& scalar,
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_UNITS_UNIT_BASE_H_
+#endif  // WEBRTC_RTC_BASE_UNITS_UNIT_BASE_H_

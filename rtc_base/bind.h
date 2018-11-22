@@ -58,8 +58,8 @@
 //   }
 //
 
-#ifndef RTC_BASE_BIND_H_
-#define RTC_BASE_BIND_H_
+#ifndef WEBRTC_RTC_BASE_BIND_H_
+#define WEBRTC_RTC_BASE_BIND_H_
 
 #include <tuple>
 #include <type_traits>
@@ -289,4 +289,4 @@ Functor<FP_T(NONAME), R, Args...> Bind(
 
 #undef NONAME
 
-#endif  // RTC_BASE_BIND_H_
+#endif  // WEBRTC_RTC_BASE_BIND_H_

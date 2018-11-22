@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
-#define MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
+#define WEBRTC_MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
 
 #include <memory>
 #include <string>
@@ -92,4 +92,4 @@ class FlexfecSender {
 
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_INCLUDE_FLEXFEC_SENDER_H_

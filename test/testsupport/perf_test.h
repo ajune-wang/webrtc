@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_TESTSUPPORT_PERF_TEST_H_
-#define TEST_TESTSUPPORT_PERF_TEST_H_
+#ifndef WEBRTC_TEST_TESTSUPPORT_PERF_TEST_H_
+#define WEBRTC_TEST_TESTSUPPORT_PERF_TEST_H_
 
 #include "api/array_view.h"
 
@@ -79,4 +79,4 @@ void ClearPerfResults();
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_TESTSUPPORT_PERF_TEST_H_
+#endif  // WEBRTC_TEST_TESTSUPPORT_PERF_TEST_H_

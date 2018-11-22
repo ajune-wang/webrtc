@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_
 
 #include "api/array_view.h"
 #include "api/audio/echo_canceller3_config.h"
@@ -55,4 +55,4 @@ class SuppressionGainUpperLimiter {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_SUPPRESSION_GAIN_LIMITER_H_

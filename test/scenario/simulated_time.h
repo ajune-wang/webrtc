@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_SCENARIO_SIMULATED_TIME_H_
-#define TEST_SCENARIO_SIMULATED_TIME_H_
+#ifndef WEBRTC_TEST_SCENARIO_SIMULATED_TIME_H_
+#define WEBRTC_TEST_SCENARIO_SIMULATED_TIME_H_
 
 #include <deque>
 #include <map>
@@ -154,4 +154,4 @@ class SimulatedTimeClient : NetworkReceiverInterface {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_SCENARIO_SIMULATED_TIME_H_
+#endif  // WEBRTC_TEST_SCENARIO_SIMULATED_TIME_H_

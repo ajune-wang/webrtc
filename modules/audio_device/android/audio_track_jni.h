@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_
-#define MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_
+#ifndef WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_
+#define WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_
 
 #include <memory>
 
@@ -156,4 +156,4 @@ class AudioTrackJni {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AUDIO_TRACK_JNI_H_

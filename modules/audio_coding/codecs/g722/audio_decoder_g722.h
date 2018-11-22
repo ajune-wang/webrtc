@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_
-#define MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_
 
 #include "api/audio_codecs/audio_decoder.h"
 #include "rtc_base/constructormagic.h"
@@ -76,4 +76,4 @@ class AudioDecoderG722StereoImpl final : public AudioDecoder {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_G722_AUDIO_DECODER_G722_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYSTEM_FALLTHROUGH_H_
-#define RTC_BASE_SYSTEM_FALLTHROUGH_H_
+#ifndef WEBRTC_RTC_BASE_SYSTEM_FALLTHROUGH_H_
+#define WEBRTC_RTC_BASE_SYSTEM_FALLTHROUGH_H_
 
 // Macro to be used for switch-case fallthrough (required for enabling
 // -Wimplicit-fallthrough warning on Clang).
@@ -28,4 +28,4 @@
   } while (0)
 #endif
 
-#endif  // RTC_BASE_SYSTEM_FALLTHROUGH_H_
+#endif  // WEBRTC_RTC_BASE_SYSTEM_FALLTHROUGH_H_

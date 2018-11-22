@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
-#define MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
+#define WEBRTC_MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
 
 #include <stdint.h>
 #include <string>
@@ -72,4 +72,4 @@ class RtpHeaderExtensionMap {
 
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_INCLUDE_RTP_HEADER_EXTENSION_MAP_H_

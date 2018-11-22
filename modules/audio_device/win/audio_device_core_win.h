@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_
-#define AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_
+#ifndef WEBRTC_AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_
+#define WEBRTC_AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_
 
 #if (_MSC_VER >= 1400)  // only include for VS 2005 and higher
 
@@ -319,4 +319,4 @@ class AudioDeviceWindowsCore : public AudioDeviceGeneric {
 
 }  // namespace webrtc
 
-#endif  // AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_
+#endif  // WEBRTC_AUDIO_DEVICE_AUDIO_DEVICE_CORE_WIN_H_

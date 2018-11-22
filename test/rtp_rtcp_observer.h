@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_RTP_RTCP_OBSERVER_H_
-#define TEST_RTP_RTCP_OBSERVER_H_
+#ifndef WEBRTC_TEST_RTP_RTCP_OBSERVER_H_
+#define WEBRTC_TEST_RTP_RTCP_OBSERVER_H_
 
 #include <map>
 #include <memory>
@@ -153,4 +153,4 @@ class PacketTransport : public test::DirectTransport {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_RTP_RTCP_OBSERVER_H_
+#endif  // WEBRTC_TEST_RTP_RTCP_OBSERVER_H_

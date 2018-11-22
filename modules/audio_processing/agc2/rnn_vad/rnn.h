@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
 
 #include <stddef.h>
 #include <sys/types.h>
@@ -114,4 +114,4 @@ class RnnBasedVad {
 }  // namespace rnn_vad
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_RNN_H_

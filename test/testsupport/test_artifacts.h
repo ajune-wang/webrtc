@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_TESTSUPPORT_TEST_ARTIFACTS_H_
-#define TEST_TESTSUPPORT_TEST_ARTIFACTS_H_
+#ifndef WEBRTC_TEST_TESTSUPPORT_TEST_ARTIFACTS_H_
+#define WEBRTC_TEST_TESTSUPPORT_TEST_ARTIFACTS_H_
 
 #include <stdlib.h>
 
@@ -36,4 +36,4 @@ bool WriteToTestArtifactsDir(const char* filename, const std::string& content);
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_TESTSUPPORT_TEST_ARTIFACTS_H_
+#endif  // WEBRTC_TEST_TESTSUPPORT_TEST_ARTIFACTS_H_

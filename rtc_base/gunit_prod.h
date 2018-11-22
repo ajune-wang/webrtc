@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_GUNIT_PROD_H_
-#define RTC_BASE_GUNIT_PROD_H_
+#ifndef WEBRTC_RTC_BASE_GUNIT_PROD_H_
+#define WEBRTC_RTC_BASE_GUNIT_PROD_H_
 
 #if defined(WEBRTC_ANDROID)
 // Android doesn't use gtest at all, so anything that relies on gtest should
@@ -19,4 +19,4 @@
 #include "gtest/gtest_prod.h"
 #endif
 
-#endif  // RTC_BASE_GUNIT_PROD_H_
+#endif  // WEBRTC_RTC_BASE_GUNIT_PROD_H_

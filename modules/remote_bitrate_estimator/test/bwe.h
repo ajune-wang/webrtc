@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_
+#ifndef WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_
+#define WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_
 
 #include <list>
 #include <map>
@@ -190,4 +190,4 @@ BweReceiver* CreateBweReceiver(BandwidthEstimatorType type,
 }  // namespace bwe
 }  // namespace testing
 }  // namespace webrtc
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_
+#endif  // WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_BWE_H_

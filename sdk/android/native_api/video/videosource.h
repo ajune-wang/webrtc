@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_
-#define SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_
+#ifndef WEBRTC_SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_
+#define WEBRTC_SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_
 
 #include <jni.h>
 
@@ -38,4 +38,4 @@ rtc::scoped_refptr<JavaVideoTrackSourceInterface> CreateJavaVideoSource(
 
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_
+#endif  // WEBRTC_SDK_ANDROID_NATIVE_API_VIDEO_VIDEOSOURCE_H_

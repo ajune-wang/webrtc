@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_
-#define MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_
+#ifndef WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_
+#define WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_
 
 #include "modules/video_capture/video_capture_impl.h"
 
@@ -39,4 +39,4 @@ class VideoCaptureMF : public VideoCaptureImpl {
 }  // namespace videocapturemodule
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_
+#endif  // WEBRTC_MODULES_VIDEO_CAPTURE_WINDOWS_VIDEO_CAPTURE_MF_H_

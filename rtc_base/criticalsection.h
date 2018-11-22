@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_CRITICALSECTION_H_
-#define RTC_BASE_CRITICALSECTION_H_
+#ifndef WEBRTC_RTC_BASE_CRITICALSECTION_H_
+#define WEBRTC_RTC_BASE_CRITICALSECTION_H_
 
 #include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
@@ -157,4 +157,4 @@ class RTC_SCOPED_LOCKABLE GlobalLockScope {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_CRITICALSECTION_H_
+#endif  // WEBRTC_RTC_BASE_CRITICALSECTION_H_

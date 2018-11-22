@@ -60,8 +60,8 @@
 //   }
 //
 
-#ifndef API_SCOPED_REFPTR_H_
-#define API_SCOPED_REFPTR_H_
+#ifndef WEBRTC_API_SCOPED_REFPTR_H_
+#define WEBRTC_API_SCOPED_REFPTR_H_
 
 #include <memory>
 #include <utility>
@@ -159,4 +159,4 @@ class scoped_refptr {
 
 }  // namespace rtc
 
-#endif  // API_SCOPED_REFPTR_H_
+#endif  // WEBRTC_API_SCOPED_REFPTR_H_

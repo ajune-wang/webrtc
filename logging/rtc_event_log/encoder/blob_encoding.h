@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_
-#define LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_
+#ifndef WEBRTC_LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_
+#define WEBRTC_LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_
 
 #include <string>
 #include <vector>
@@ -48,4 +48,4 @@ std::vector<absl::string_view> DecodeBlobs(absl::string_view encoded_blobs,
 
 }  // namespace webrtc
 
-#endif  // LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_
+#endif  // WEBRTC_LOGGING_RTC_EVENT_LOG_ENCODER_BLOB_ENCODING_H_

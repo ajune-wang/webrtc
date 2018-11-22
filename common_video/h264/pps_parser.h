@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_VIDEO_H264_PPS_PARSER_H_
-#define COMMON_VIDEO_H264_PPS_PARSER_H_
+#ifndef WEBRTC_COMMON_VIDEO_H264_PPS_PARSER_H_
+#define WEBRTC_COMMON_VIDEO_H264_PPS_PARSER_H_
 
 #include "absl/types/optional.h"
 
@@ -59,4 +59,4 @@ class PpsParser {
 
 }  // namespace webrtc
 
-#endif  // COMMON_VIDEO_H264_PPS_PARSER_H_
+#endif  // WEBRTC_COMMON_VIDEO_H264_PPS_PARSER_H_

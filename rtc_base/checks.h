@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_CHECKS_H_
-#define RTC_BASE_CHECKS_H_
+#ifndef WEBRTC_RTC_BASE_CHECKS_H_
+#define WEBRTC_RTC_BASE_CHECKS_H_
 
 // If you for some reson need to know if DCHECKs are on, test the value of
 // RTC_DCHECK_IS_ON. (Test its value, not if it's defined; it'll always be
@@ -397,4 +397,4 @@ inline T CheckedDivExact(T a, T b) {
 
 #endif  // __cplusplus
 
-#endif  // RTC_BASE_CHECKS_H_
+#endif  // WEBRTC_RTC_BASE_CHECKS_H_

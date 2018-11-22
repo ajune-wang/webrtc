@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_
-#define MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_
+#define WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_
 
 #include <memory>
 
@@ -71,4 +71,4 @@ class LibvpxVp8Decoder : public VideoDecoder {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_CODECS_VP8_LIBVPX_VP8_DECODER_H_

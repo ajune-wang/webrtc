@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_RTCEVENTLOGOUTPUT_H_
-#define API_RTCEVENTLOGOUTPUT_H_
+#ifndef WEBRTC_API_RTCEVENTLOGOUTPUT_H_
+#define WEBRTC_API_RTCEVENTLOGOUTPUT_H_
 
 #include <string>
 
@@ -36,4 +36,4 @@ class RtcEventLogOutput {
 
 }  // namespace webrtc
 
-#endif  // API_RTCEVENTLOGOUTPUT_H_
+#endif  // WEBRTC_API_RTCEVENTLOGOUTPUT_H_

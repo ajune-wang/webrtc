@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_
+#ifndef WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_
+#define WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_
 
 #include <memory>
 #include <string>
@@ -68,4 +68,4 @@ class PacketReceiver : public PacketProcessor {
 }  // namespace bwe
 }  // namespace testing
 }  // namespace webrtc
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_
+#endif  // WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_TEST_PACKET_RECEIVER_H_

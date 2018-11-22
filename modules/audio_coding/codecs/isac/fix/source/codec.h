@@ -16,8 +16,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_
 
 #include "modules/audio_coding/codecs/isac/fix/source/structs.h"
 
@@ -224,4 +224,4 @@ extern FilterMaLoopFix WebRtcIsacfix_FilterMaLoopFix;
 }  // extern "C"
 #endif
 
-#endif /* MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_CODEC_H_ */

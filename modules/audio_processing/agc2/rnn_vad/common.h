@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
 
 namespace webrtc {
 namespace rnn_vad {
@@ -64,4 +64,4 @@ constexpr size_t kFeatureVectorSize = 42;
 }  // namespace rnn_vad
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_COMMON_H_

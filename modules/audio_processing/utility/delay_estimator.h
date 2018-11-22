@@ -11,8 +11,8 @@
 // Performs delay estimation on binary converted spectra.
 // The return value is  0 - OK and -1 - Error, unless otherwise stated.
 
-#ifndef MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_
-#define MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_
 
 #include <stdint.h>
 
@@ -250,4 +250,4 @@ void WebRtc_MeanEstimatorFix(int32_t new_value,
                              int factor,
                              int32_t* mean_value);
 
-#endif  // MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_DELAY_ESTIMATOR_H_

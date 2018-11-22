@@ -45,6 +45,29 @@
       "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1f6a65_9eaee759",
+        "filename": "modules/rtp_rtcp/source/receive_statistics_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T13:55:53Z",
+      "side": 1,
+      "message": "May work now, to release lock before this loop, but might break if we ever add some code to destroy entries pointed to in the map. Or if we do the cleanup to change statisticians_ to an \n\nstd::map\u003cuint32_t, std::unique_ptr\u003cStreamStatisticianImpl\u003e\u003e\n\nI see we do the same thing in ReceiveStatisticsImpl::RtcpReportBlocks, but anyway, consider keeping things simple and holding the lock for all of this function.\n\n(BTW, if it\u0027s a problem to hold the lock for the duration of ReceiveStatisticsImpl::RtcpReportBlocks, this might be a case where reader-writer-lock or read-copy-update is useful. We need to read the mapping for stats and for each incoming packet, but we need to write it only when processing the first packet for a stream).",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 407,
+        "endChar": 77
+      },
+      "revId": "6676a626c32962e99ba36dc7ce9f5e7641a00ac5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

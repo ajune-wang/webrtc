@@ -152,11 +152,20 @@ TEST(AudioProcessingImplTest, AudioParameterChangeTriggersInit) {
   EXPECT_NOERR(mock.ProcessReverseStream(&frame));
 }
 
-TEST(AudioProcessingImplTest, UpdateCapturePreGainRuntimeSetting) {
+class ApmCapturePreGainTest : public testing::Test,
+                              public ::testing::WithParamInterface<bool> {};
+
+TEST_P(ApmCapturePreGainTest, UpdateRuntimeSetting) {
+  const bool use_pre_amplifier_submodule = GetParam();
   std::unique_ptr<AudioProcessing> apm(AudioProcessingBuilder().Create());
   webrtc::AudioProcessing::Config apm_config;
-  apm_config.pre_amplifier.enabled = true;
+  // Either enable the pre-amplifier or the AGC2 sub-module to test the
+  // capture pre-gain runtime setting.
+  apm_config.pre_amplifier.enabled = use_pre_amplifier_submodule;
+  apm_config.gain_controller2.enabled = !use_pre_amplifier_submodule;
+  // Start with 0 dB (no side effect expected).
   apm_config.pre_amplifier.fixed_gain_factor = 1.f;
+  apm_config.gain_controller2.pre_fixed_digital.gain_factor = 1.f;
   apm->ApplyConfig(apm_config);
 
   AudioFrame frame;
@@ -182,6 +191,36 @@ TEST(AudioProcessingImplTest, UpdateCapturePreGainRuntimeSetting) {
   EXPECT_EQ(frame.data()[100], kGainFactor * kAudioLevel)
       << "Frame should be amplified.";
 }
+
+INSTANTIATE_TEST_CASE_P(AudioProcessingImplTest,
+                        ApmCapturePreGainTest,
+                        ::testing::Values(true, false));
+
+// Death tests must be disabled on Android because they misbehave, see
+// base/test/gtest_util.h.
+#if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
+TEST(AudioProcessingImplTest, PreAmplifierAndGainController2MutualExclusive) {
+  // Enabling at the same time the pre-amplifier and AGC2 is not allowed even if
+  // the gain factor is the same.
+  constexpr float kGainFactor = 2.f;
+  webrtc::AudioProcessing::Config apm_config;
+  apm_config.pre_amplifier.enabled = true;
+  apm_config.pre_amplifier.fixed_gain_factor = kGainFactor;
+  apm_config.gain_controller2.enabled = true;
+  apm_config.gain_controller2.pre_fixed_digital.gain_factor = kGainFactor;
+  std::unique_ptr<AudioProcessing> apm(AudioProcessingBuilder().Create());
+  apm->ApplyConfig(apm_config);
+
+  AudioFrame frame;
+  constexpr int16_t kAudioLevel = 10000;
+  constexpr size_t kSampleRateHz = 48000;
+  constexpr size_t kNumChannels = 2;
+  InitializeAudioFrame(kSampleRateHz, kNumChannels, &frame);
+  FillFixedFrame(kAudioLevel, &frame);
+
+  EXPECT_DEATH(apm->ProcessStream(&frame), "");
+}
+#endif
 
 TEST(AudioProcessingImplTest, RenderPreProcessorBeforeEchoDetector) {
   // Make sure that signal changes caused by a render pre-processing sub-module

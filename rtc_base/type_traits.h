@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_TYPE_TRAITS_H_
-#define RTC_BASE_TYPE_TRAITS_H_
+#ifndef WEBRTC_RTC_BASE_TYPE_TRAITS_H_
+#define WEBRTC_RTC_BASE_TYPE_TRAITS_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -137,4 +137,4 @@ static_assert(!IsIntlike<S>::value, "");
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_TYPE_TRAITS_H_
+#endif  // WEBRTC_RTC_BASE_TYPE_TRAITS_H_

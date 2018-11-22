@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_SEND_STATISTICS_PROXY_H_
-#define VIDEO_SEND_STATISTICS_PROXY_H_
+#ifndef WEBRTC_VIDEO_SEND_STATISTICS_PROXY_H_
+#define WEBRTC_VIDEO_SEND_STATISTICS_PROXY_H_
 
 #include <map>
 #include <memory>
@@ -319,4 +319,4 @@ class SendStatisticsProxy : public VideoStreamEncoderObserver,
 };
 
 }  // namespace webrtc
-#endif  // VIDEO_SEND_STATISTICS_PROXY_H_
+#endif  // WEBRTC_VIDEO_SEND_STATISTICS_PROXY_H_

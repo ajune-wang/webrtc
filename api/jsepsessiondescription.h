@@ -11,8 +11,8 @@
 // TODO(deadbeef): Move this out of api/; it's an implementation detail and
 // shouldn't be used externally.
 
-#ifndef API_JSEPSESSIONDESCRIPTION_H_
-#define API_JSEPSESSIONDESCRIPTION_H_
+#ifndef WEBRTC_API_JSEPSESSIONDESCRIPTION_H_
+#define WEBRTC_API_JSEPSESSIONDESCRIPTION_H_
 
 #include <memory>
 #include <string>
@@ -82,4 +82,4 @@ class JsepSessionDescription : public SessionDescriptionInterface {
 
 }  // namespace webrtc
 
-#endif  // API_JSEPSESSIONDESCRIPTION_H_
+#endif  // WEBRTC_API_JSEPSESSIONDESCRIPTION_H_

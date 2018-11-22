@@ -10,8 +10,8 @@
 
 // Fake RTP and RTCP packets to use in unit tests.
 
-#ifndef MEDIA_BASE_FAKERTP_H_
-#define MEDIA_BASE_FAKERTP_H_
+#ifndef WEBRTC_MEDIA_BASE_FAKERTP_H_
+#define WEBRTC_MEDIA_BASE_FAKERTP_H_
 
 #include <cstddef>  // size_t
 #include <vector>
@@ -120,4 +120,4 @@ void CompareHeaderExtensions(const char* packet1,
                              const std::vector<int> encrypted_headers,
                              bool expect_equal);
 
-#endif  // MEDIA_BASE_FAKERTP_H_
+#endif  // WEBRTC_MEDIA_BASE_FAKERTP_H_

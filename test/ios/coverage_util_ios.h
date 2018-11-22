@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_IOS_COVERAGE_UTIL_IOS_H_
-#define TEST_IOS_COVERAGE_UTIL_IOS_H_
+#ifndef WEBRTC_TEST_IOS_COVERAGE_UTIL_IOS_H_
+#define WEBRTC_TEST_IOS_COVERAGE_UTIL_IOS_H_
 
 namespace rtc {
 namespace test {
@@ -21,4 +21,4 @@ void ConfigureCoverageReportPath();
 }  // namespace test
 }  // namespace rtc
 
-#endif  // TEST_IOS_COVERAGE_UTIL_IOS_H_
+#endif  // WEBRTC_TEST_IOS_COVERAGE_UTIL_IOS_H_

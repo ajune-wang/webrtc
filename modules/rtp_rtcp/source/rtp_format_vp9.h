@@ -18,8 +18,8 @@
 // false as long as there are more packets left to fetch.
 //
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -77,4 +77,4 @@ class RtpDepacketizerVp9 : public RtpDepacketizer {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP9_H_

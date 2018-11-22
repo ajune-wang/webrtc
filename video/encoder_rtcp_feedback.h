@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef VIDEO_ENCODER_RTCP_FEEDBACK_H_
-#define VIDEO_ENCODER_RTCP_FEEDBACK_H_
+#ifndef WEBRTC_VIDEO_ENCODER_RTCP_FEEDBACK_H_
+#define WEBRTC_VIDEO_ENCODER_RTCP_FEEDBACK_H_
 
 #include <vector>
 
@@ -40,4 +40,4 @@ class EncoderRtcpFeedback : public RtcpIntraFrameObserver {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_ENCODER_RTCP_FEEDBACK_H_
+#endif  // WEBRTC_VIDEO_ENCODER_RTCP_FEEDBACK_H_

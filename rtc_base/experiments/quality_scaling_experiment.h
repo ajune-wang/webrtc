@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_
-#define RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_
+#ifndef WEBRTC_RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_
+#define WEBRTC_RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_
 
 #include "absl/types/optional.h"
 #include "api/video_codecs/video_encoder.h"
@@ -55,4 +55,4 @@ class QualityScalingExperiment {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_
+#endif  // WEBRTC_RTC_BASE_EXPERIMENTS_QUALITY_SCALING_EXPERIMENT_H_

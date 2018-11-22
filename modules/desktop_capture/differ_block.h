@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_
-#define MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_
 
 #include <stdint.h>
 
@@ -39,4 +39,4 @@ bool BlockDifference(const uint8_t* image1, const uint8_t* image2, int stride);
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_DIFFER_BLOCK_H_

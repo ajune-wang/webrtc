@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_VIDEO_SENDER_H_
-#define CALL_RTP_VIDEO_SENDER_H_
+#ifndef WEBRTC_CALL_RTP_VIDEO_SENDER_H_
+#define WEBRTC_CALL_RTP_VIDEO_SENDER_H_
 
 #include <map>
 #include <memory>
@@ -167,4 +167,4 @@ class RtpVideoSender : public RtpVideoSenderInterface,
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_VIDEO_SENDER_H_
+#endif  // WEBRTC_CALL_RTP_VIDEO_SENDER_H_

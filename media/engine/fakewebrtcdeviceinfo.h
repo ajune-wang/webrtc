@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_
-#define MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_
+#ifndef WEBRTC_MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_
+#define WEBRTC_MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_
 
 #include <string>
 #include <vector>
@@ -113,4 +113,4 @@ class FakeWebRtcDeviceInfo : public webrtc::VideoCaptureModule::DeviceInfo {
   std::vector<Device> devices_;
 };
 
-#endif  // MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_
+#endif  // WEBRTC_MEDIA_ENGINE_FAKEWEBRTCDEVICEINFO_H_

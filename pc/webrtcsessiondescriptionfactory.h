@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_
-#define PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_
+#ifndef WEBRTC_PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_
+#define WEBRTC_PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_
 
 #include <memory>
 #include <queue>
@@ -147,4 +147,4 @@ class WebRtcSessionDescriptionFactory : public rtc::MessageHandler,
 };
 }  // namespace webrtc
 
-#endif  // PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_
+#endif  // WEBRTC_PC_WEBRTCSESSIONDESCRIPTIONFACTORY_H_

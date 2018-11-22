@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_FUZZERS_FUZZ_DATA_HELPER_H_
-#define TEST_FUZZERS_FUZZ_DATA_HELPER_H_
+#ifndef WEBRTC_TEST_FUZZERS_FUZZ_DATA_HELPER_H_
+#define WEBRTC_TEST_FUZZERS_FUZZ_DATA_HELPER_H_
 
 #include <limits>
 
@@ -102,4 +102,4 @@ class FuzzDataHelper {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_FUZZERS_FUZZ_DATA_HELPER_H_
+#endif  // WEBRTC_TEST_FUZZERS_FUZZ_DATA_HELPER_H_

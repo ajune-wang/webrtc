@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_
-#define API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_
+#ifndef WEBRTC_API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_
+#define WEBRTC_API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_
 
 #include "api/array_view.h"
 #include "api/mediatypes.h"
@@ -52,4 +52,4 @@ class FrameEncryptorInterface : public rtc::RefCountInterface {
 
 }  // namespace webrtc
 
-#endif  // API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_
+#endif  // WEBRTC_API_CRYPTO_FRAMEENCRYPTORINTERFACE_H_

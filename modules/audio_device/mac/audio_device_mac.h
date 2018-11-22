@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_AUDIO_DEVICE_MAC_H_
-#define AUDIO_DEVICE_AUDIO_DEVICE_MAC_H_
+#ifndef WEBRTC_AUDIO_DEVICE_AUDIO_DEVICE_MAC_H_
+#define WEBRTC_AUDIO_DEVICE_AUDIO_DEVICE_MAC_H_
 
 #include <memory>
 
@@ -333,4 +333,4 @@ class AudioDeviceMac : public AudioDeviceGeneric {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_MAIN_SOURCE_MAC_AUDIO_DEVICE_MAC_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_MAIN_SOURCE_MAC_AUDIO_DEVICE_MAC_H_

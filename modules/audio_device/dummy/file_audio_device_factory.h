@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
-#define AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
+#ifndef WEBRTC_AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
+#define WEBRTC_AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
 
 #include <stdint.h>
 
@@ -39,4 +39,4 @@ class FileAudioDeviceFactory {
 
 }  // namespace webrtc
 
-#endif  // AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_
+#endif  // WEBRTC_AUDIO_DEVICE_FILE_AUDIO_DEVICE_FACTORY_H_

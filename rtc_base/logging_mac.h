@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_LOGGING_MAC_H_
-#define RTC_BASE_LOGGING_MAC_H_
+#ifndef WEBRTC_RTC_BASE_LOGGING_MAC_H_
+#define WEBRTC_RTC_BASE_LOGGING_MAC_H_
 
 #if !defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
 #error "Only include this header in macOS builds"
@@ -25,4 +25,4 @@ std::string DescriptionFromOSStatus(OSStatus err);
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_LOGGING_MAC_H_
+#endif  // WEBRTC_RTC_BASE_LOGGING_MAC_H_

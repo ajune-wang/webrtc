@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_
-#define MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -68,4 +68,4 @@ class PostDecodeVad {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_POST_DECODE_VAD_H_

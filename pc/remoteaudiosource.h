@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_REMOTEAUDIOSOURCE_H_
-#define PC_REMOTEAUDIOSOURCE_H_
+#ifndef WEBRTC_PC_REMOTEAUDIOSOURCE_H_
+#define WEBRTC_PC_REMOTEAUDIOSOURCE_H_
 
 #include <list>
 #include <string>
@@ -73,4 +73,4 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
 
 }  // namespace webrtc
 
-#endif  // PC_REMOTEAUDIOSOURCE_H_
+#endif  // WEBRTC_PC_REMOTEAUDIOSOURCE_H_

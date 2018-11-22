@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCINVOKER_INL_H_
-#define RTC_BASE_ASYNCINVOKER_INL_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCINVOKER_INL_H_
+#define WEBRTC_RTC_BASE_ASYNCINVOKER_INL_H_
 
 #include "rtc_base/bind.h"
 #include "rtc_base/criticalsection.h"
@@ -58,4 +58,4 @@ class FireAndForgetAsyncClosure : public AsyncClosure {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_ASYNCINVOKER_INL_H_
+#endif  // WEBRTC_RTC_BASE_ASYNCINVOKER_INL_H_

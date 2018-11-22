@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_
-#define API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_
+#define WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_
 
 #include "api/video/video_bitrate_allocator_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -32,4 +32,4 @@ struct VideoStreamEncoderSettings {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_SETTINGS_H_

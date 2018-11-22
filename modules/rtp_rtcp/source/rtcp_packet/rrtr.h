@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
-#define MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -48,4 +48,4 @@ class Rrtr {
 
 }  // namespace rtcp
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTCP_PACKET_RRTR_H_

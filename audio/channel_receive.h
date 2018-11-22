@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_CHANNEL_RECEIVE_H_
-#define AUDIO_CHANNEL_RECEIVE_H_
+#ifndef WEBRTC_AUDIO_CHANNEL_RECEIVE_H_
+#define WEBRTC_AUDIO_CHANNEL_RECEIVE_H_
 
 #include <map>
 #include <memory>
@@ -143,4 +143,4 @@ std::unique_ptr<ChannelReceiveInterface> CreateChannelReceive(
 }  // namespace voe
 }  // namespace webrtc
 
-#endif  // AUDIO_CHANNEL_RECEIVE_H_
+#endif  // WEBRTC_AUDIO_CHANNEL_RECEIVE_H_

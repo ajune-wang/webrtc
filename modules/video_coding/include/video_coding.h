@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
-#define MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
+#define WEBRTC_MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
 
 #if defined(WEBRTC_WIN)
 // This is a workaround on Windows due to the fact that some Windows
@@ -306,4 +306,4 @@ class VideoCodingModule : public Module {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_

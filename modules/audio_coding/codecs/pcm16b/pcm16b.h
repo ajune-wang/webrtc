@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_
-#define MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_
 /*
  * Define the fixpoint numeric formats
  */
@@ -60,4 +60,4 @@ size_t WebRtcPcm16b_Decode(const uint8_t* encoded, size_t len, int16_t* speech);
 }
 #endif
 
-#endif /* MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_PCM16B_PCM16B_H_ */

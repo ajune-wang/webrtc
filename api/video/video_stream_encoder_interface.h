@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_
-#define API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_
+#ifndef WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_
+#define WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_
 
 #include <vector>
 
@@ -102,4 +102,4 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_
+#endif  // WEBRTC_API_VIDEO_VIDEO_STREAM_ENCODER_INTERFACE_H_

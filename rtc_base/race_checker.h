@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_RACE_CHECKER_H_
-#define RTC_BASE_RACE_CHECKER_H_
+#ifndef WEBRTC_RTC_BASE_RACE_CHECKER_H_
+#define WEBRTC_RTC_BASE_RACE_CHECKER_H_
 
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread_types.h"
@@ -75,4 +75,4 @@ class RTC_SCOPED_LOCKABLE RaceCheckerScopeDoNothing {
   rtc::internal::RaceCheckerScopeDoNothing race_checker(x)
 #endif
 
-#endif  // RTC_BASE_RACE_CHECKER_H_
+#endif  // WEBRTC_RTC_BASE_RACE_CHECKER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_
 
 namespace webrtc {
 namespace rnn_vad {
@@ -26,4 +26,4 @@ struct PitchInfo {
 }  // namespace rnn_vad
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_PITCH_INFO_H_

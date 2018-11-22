@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_
-#define RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_
+#ifndef WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_
+#define WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_
 
 #include "rtc_base/synchronization/rw_lock_wrapper.h"
 
@@ -36,4 +36,4 @@ class RWLockWin : public RWLockWrapper {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_
+#endif  // WEBRTC_RTC_BASE_SYNCHRONIZATION_RW_LOCK_WIN_H_

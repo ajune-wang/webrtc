@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_
-#define MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_
+#ifndef WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_
+#define WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_
 
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 #include "test/gmock.h"
@@ -50,4 +50,4 @@ class MockBitrateController : public BitrateController {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_
+#endif  // WEBRTC_MODULES_BITRATE_CONTROLLER_INCLUDE_MOCK_MOCK_BITRATE_CONTROLLER_H_

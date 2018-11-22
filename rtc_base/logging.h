@@ -41,8 +41,8 @@
 //     test before performing expensive or sensitive operations whose sole
 //     purpose is to output logging data at the desired level.
 
-#ifndef RTC_BASE_LOGGING_H_
-#define RTC_BASE_LOGGING_H_
+#ifndef WEBRTC_RTC_BASE_LOGGING_H_
+#define WEBRTC_RTC_BASE_LOGGING_H_
 
 #include <errno.h>
 
@@ -614,4 +614,4 @@ inline const char* AdaptString(const std::string& str) {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_LOGGING_H_
+#endif  // WEBRTC_RTC_BASE_LOGGING_H_

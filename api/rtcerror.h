@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_RTCERROR_H_
-#define API_RTCERROR_H_
+#ifndef WEBRTC_API_RTCERROR_H_
+#define WEBRTC_API_RTCERROR_H_
 
 #ifdef UNIT_TEST
 #include <ostream>
@@ -291,4 +291,4 @@ class RTCErrorOr {
 
 }  // namespace webrtc
 
-#endif  // API_RTCERROR_H_
+#endif  // WEBRTC_API_RTCERROR_H_

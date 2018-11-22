@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_
-#define MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_
+#ifndef WEBRTC_MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_
+#define WEBRTC_MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_
 
 #include <jni.h>
 
@@ -188,4 +188,4 @@ class JVM {
 
 }  // namespace webrtc
 
-#endif  // MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_
+#endif  // WEBRTC_MODULES_UTILITY_INCLUDE_JVM_ANDROID_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_AUDIO_CONVERTER_H_
-#define COMMON_AUDIO_AUDIO_CONVERTER_H_
+#ifndef WEBRTC_COMMON_AUDIO_AUDIO_CONVERTER_H_
+#define WEBRTC_COMMON_AUDIO_AUDIO_CONVERTER_H_
 
 #include <stddef.h>
 #include <memory>
@@ -69,4 +69,4 @@ class AudioConverter {
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_AUDIO_CONVERTER_H_
+#endif  // WEBRTC_COMMON_AUDIO_AUDIO_CONVERTER_H_

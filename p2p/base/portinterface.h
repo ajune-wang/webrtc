@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_PORTINTERFACE_H_
-#define P2P_BASE_PORTINTERFACE_H_
+#ifndef WEBRTC_P2P_BASE_PORTINTERFACE_H_
+#define WEBRTC_P2P_BASE_PORTINTERFACE_H_
 
 #include <string>
 #include <vector>
@@ -142,4 +142,4 @@ class PortInterface {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_PORTINTERFACE_H_
+#endif  // WEBRTC_P2P_BASE_PORTINTERFACE_H_

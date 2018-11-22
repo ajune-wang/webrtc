@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_ORTC_RTPTRANSPORTINTERFACE_H_
-#define API_ORTC_RTPTRANSPORTINTERFACE_H_
+#ifndef WEBRTC_API_ORTC_RTPTRANSPORTINTERFACE_H_
+#define WEBRTC_API_ORTC_RTPTRANSPORTINTERFACE_H_
 
 #include <string>
 
@@ -91,4 +91,4 @@ class RtpTransportInterface {
 
 }  // namespace webrtc
 
-#endif  // API_ORTC_RTPTRANSPORTINTERFACE_H_
+#endif  // WEBRTC_API_ORTC_RTPTRANSPORTINTERFACE_H_

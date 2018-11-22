@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
-#define RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
+#ifndef WEBRTC_RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
+#define WEBRTC_RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
 
 #include <stdint.h>
 
@@ -54,4 +54,4 @@ class SampleCounterWithVariance : public SampleCounter {
 };
 
 }  // namespace rtc
-#endif  // RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_
+#endif  // WEBRTC_RTC_BASE_NUMERICS_SAMPLE_COUNTER_H_

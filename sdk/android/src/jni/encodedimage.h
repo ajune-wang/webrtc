@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_
-#define SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_
 
 #include <jni.h>
 #include "common_types.h"  // NOLINT(build/include)
@@ -33,4 +33,4 @@ ScopedJavaLocalRef<jobjectArray> NativeToJavaFrameTypeArray(
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_ENCODEDIMAGE_H_

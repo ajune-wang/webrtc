@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_
-#define PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_
+#ifndef WEBRTC_PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_
+#define WEBRTC_PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_
 
 #include <memory>
 #include <string>
@@ -241,4 +241,4 @@ class FakeRTCCertificateGenerator
   int generated_failures_ = 0;
 };
 
-#endif  // PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_
+#endif  // WEBRTC_PC_TEST_FAKERTCCERTIFICATEGENERATOR_H_

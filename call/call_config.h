@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef CALL_CALL_CONFIG_H_
-#define CALL_CALL_CONFIG_H_
+#ifndef WEBRTC_CALL_CALL_CONFIG_H_
+#define WEBRTC_CALL_CALL_CONFIG_H_
 
 #include "api/bitrate_constraints.h"
 #include "api/fec_controller.h"
@@ -53,4 +53,4 @@ struct CallConfig {
 
 }  // namespace webrtc
 
-#endif  // CALL_CALL_CONFIG_H_
+#endif  // WEBRTC_CALL_CALL_CONFIG_H_

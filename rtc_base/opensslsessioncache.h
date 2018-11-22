@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_OPENSSLSESSIONCACHE_H_
-#define RTC_BASE_OPENSSLSESSIONCACHE_H_
+#ifndef WEBRTC_RTC_BASE_OPENSSLSESSIONCACHE_H_
+#define WEBRTC_RTC_BASE_OPENSSLSESSIONCACHE_H_
 
 #include <openssl/ossl_typ.h>
 #include <map>
@@ -64,4 +64,4 @@ class OpenSSLSessionCache final {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_OPENSSLSESSIONCACHE_H_
+#endif  // WEBRTC_RTC_BASE_OPENSSLSESSIONCACHE_H_

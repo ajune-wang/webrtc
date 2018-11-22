@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_
-#define MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_
 
 #include <map>
 #include <set>
@@ -72,4 +72,4 @@ class NetEqDelayAnalyzer : public test::NetEqPostInsertPacket,
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_DELAY_ANALYZER_H_

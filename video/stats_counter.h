@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_STATS_COUNTER_H_
-#define VIDEO_STATS_COUNTER_H_
+#ifndef WEBRTC_VIDEO_STATS_COUNTER_H_
+#define WEBRTC_VIDEO_STATS_COUNTER_H_
 
 #include <memory>
 #include <string>
@@ -289,4 +289,4 @@ class RateAccCounter : public StatsCounter {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_STATS_COUNTER_H_
+#endif  // WEBRTC_VIDEO_STATS_COUNTER_H_

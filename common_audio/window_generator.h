@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_WINDOW_GENERATOR_H_
-#define COMMON_AUDIO_WINDOW_GENERATOR_H_
+#ifndef WEBRTC_COMMON_AUDIO_WINDOW_GENERATOR_H_
+#define WEBRTC_COMMON_AUDIO_WINDOW_GENERATOR_H_
 
 #include <stddef.h>
 
@@ -29,4 +29,4 @@ class WindowGenerator {
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_WINDOW_GENERATOR_H_
+#endif  // WEBRTC_COMMON_AUDIO_WINDOW_GENERATOR_H_

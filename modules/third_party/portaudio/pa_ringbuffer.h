@@ -1,5 +1,5 @@
-#ifndef MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_
-#define MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_
+#ifndef WEBRTC_MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_
+#define WEBRTC_MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_
 /*
  * $Id: pa_ringbuffer.h 1421 2009-11-18 16:09:05Z bjornroche $
  * Portable Audio I/O Library
@@ -248,4 +248,4 @@ PaRingBufferSize PaUtil_AdvanceRingBufferReadIndex(
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-#endif /* MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_ */
+#endif /* WEBRTC_MODULES_THIRD_PARTY_PORTAUDIO_PA_RINGBUFFER_H_ */

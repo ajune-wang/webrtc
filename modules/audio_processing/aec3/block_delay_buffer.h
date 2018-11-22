@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
-#define MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
 
 #include <stddef.h>
 #include <vector>
@@ -36,4 +36,4 @@ class BlockDelayBuffer {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AEC3_BLOCK_DELAY_BUFFER_H_

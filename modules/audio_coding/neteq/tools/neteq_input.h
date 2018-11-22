@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_
-#define MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_
 
 #include <algorithm>
 #include <memory>
@@ -105,4 +105,4 @@ class TimeLimitedNetEqInput : public NetEqInput {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_INPUT_H_

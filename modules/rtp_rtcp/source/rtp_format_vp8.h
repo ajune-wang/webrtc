@@ -22,8 +22,8 @@
  * false as long as there are more packets left to fetch.
  */
 
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
 
 #include <stddef.h>
 #include <cstdint>
@@ -79,4 +79,4 @@ class RtpDepacketizerVp8 : public RtpDepacketizer {
              size_t payload_data_length) override;
 };
 }  // namespace webrtc
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_H_

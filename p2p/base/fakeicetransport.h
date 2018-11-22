@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_FAKEICETRANSPORT_H_
-#define P2P_BASE_FAKEICETRANSPORT_H_
+#ifndef WEBRTC_P2P_BASE_FAKEICETRANSPORT_H_
+#define WEBRTC_P2P_BASE_FAKEICETRANSPORT_H_
 
 #include <map>
 #include <string>
@@ -307,4 +307,4 @@ class FakeIceTransport : public IceTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_FAKEICETRANSPORT_H_
+#endif  // WEBRTC_P2P_BASE_FAKEICETRANSPORT_H_

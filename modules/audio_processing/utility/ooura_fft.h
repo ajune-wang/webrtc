@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_
-#define MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_
 
 #include "rtc_base/system/arch.h"
 
@@ -57,4 +57,4 @@ class OouraFft {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_UTILITY_OOURA_FFT_H_

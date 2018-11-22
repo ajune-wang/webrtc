@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_
-#define VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_
+#ifndef WEBRTC_VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_
+#define WEBRTC_VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_
 
 #include "api/video/video_stream_encoder_interface.h"
 #include "test/gmock.h"
@@ -40,4 +40,4 @@ class MockVideoStreamEncoder : public VideoStreamEncoderInterface {
 
 }  // namespace webrtc
 
-#endif  // VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_
+#endif  // WEBRTC_VIDEO_TEST_MOCK_VIDEO_STREAM_ENCODER_H_

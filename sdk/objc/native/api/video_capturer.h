@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_
-#define SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_
+#ifndef WEBRTC_SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_
+#define WEBRTC_SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_
 
 #import "base/RTCVideoCapturer.h"
 
@@ -26,4 +26,4 @@ rtc::scoped_refptr<webrtc::VideoTrackSourceInterface> ObjCToNativeVideoCapturer(
 
 }  // namespace webrtc
 
-#endif  // SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_
+#endif  // WEBRTC_SDK_OBJC_NATIVE_API_VIDEO_CAPTURER_H_

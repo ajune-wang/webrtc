@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
-#define MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
 
 #include "api/audio/audio_frame.h"
 #include "rtc_base/constructormagic.h"
@@ -66,4 +66,4 @@ class VoidAudioSink : public AudioSink {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_

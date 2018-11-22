@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_
 
 #include "modules/audio_coding/codecs/isac/main/source/structs.h"
 
@@ -64,4 +64,5 @@ int WebRtcIsac_DecHistOneStepMulti(
         init_index, /* input: vector of initial cdf table search entries */
     const int N);   /* input: data vector length */
 
-#endif /* MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_ARITH_ROUTINES_H_ \
+        */

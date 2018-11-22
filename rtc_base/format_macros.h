@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_FORMAT_MACROS_H_
-#define RTC_BASE_FORMAT_MACROS_H_
+#ifndef WEBRTC_RTC_BASE_FORMAT_MACROS_H_
+#define WEBRTC_RTC_BASE_FORMAT_MACROS_H_
 
 // This file defines the format macros for some integer types and is derived
 // from Chromium's base/format_macros.h.
@@ -26,7 +26,7 @@
 
 #if defined(WEBRTC_POSIX)
 
-#if (defined(_INTTYPES_H) || defined(_INTTYPES_H_)) && !defined(PRId64)
+#if (defined(_INTTYPES_H) || WEBRTC_defined(_INTTYPES_H_)) && !defined(PRId64)
 #error "inttypes.h has already been included before this header file, but "
 #error "without __STDC_FORMAT_MACROS defined."
 #endif
@@ -93,4 +93,4 @@
 
 #endif
 
-#endif  // RTC_BASE_FORMAT_MACROS_H_
+#endif  // WEBRTC_RTC_BASE_FORMAT_MACROS_H_

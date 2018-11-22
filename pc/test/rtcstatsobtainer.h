@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TEST_RTCSTATSOBTAINER_H_
-#define PC_TEST_RTCSTATSOBTAINER_H_
+#ifndef WEBRTC_PC_TEST_RTCSTATSOBTAINER_H_
+#define WEBRTC_PC_TEST_RTCSTATSOBTAINER_H_
 
 #include "api/stats/rtcstatsreport.h"
 #include "rtc_base/gunit.h"
@@ -50,4 +50,4 @@ class RTCStatsObtainer : public RTCStatsCollectorCallback {
 
 }  // namespace webrtc
 
-#endif  // PC_TEST_RTCSTATSOBTAINER_H_
+#endif  // WEBRTC_PC_TEST_RTCSTATSOBTAINER_H_

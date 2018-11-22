@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_PACKET_ROUTER_H_
-#define MODULES_PACING_PACKET_ROUTER_H_
+#ifndef WEBRTC_MODULES_PACING_PACKET_ROUTER_H_
+#define WEBRTC_MODULES_PACING_PACKET_ROUTER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -125,4 +125,4 @@ class PacketRouter : public PacedSender::PacketSender,
   RTC_DISALLOW_COPY_AND_ASSIGN(PacketRouter);
 };
 }  // namespace webrtc
-#endif  // MODULES_PACING_PACKET_ROUTER_H_
+#endif  // WEBRTC_MODULES_PACING_PACKET_ROUTER_H_

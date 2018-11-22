@@ -13,8 +13,8 @@
  * given below.
  */
 
-#ifndef COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_  // NOLINT
-#define COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_
+#ifndef WEBRTC_COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_  // NOLINT
+#define WEBRTC_COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -84,4 +84,4 @@ int WebRtcVad_ValidRateAndFrameLength(int rate, size_t frame_length);
 }
 #endif
 
-#endif  // COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_  // NOLINT
+#endif  // WEBRTC_COMMON_AUDIO_VAD_INCLUDE_WEBRTC_VAD_H_  // NOLINT

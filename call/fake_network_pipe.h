@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_FAKE_NETWORK_PIPE_H_
-#define CALL_FAKE_NETWORK_PIPE_H_
+#ifndef WEBRTC_CALL_FAKE_NETWORK_PIPE_H_
+#define WEBRTC_CALL_FAKE_NETWORK_PIPE_H_
 
 #include <deque>
 #include <map>
@@ -217,4 +217,4 @@ class FakeNetworkPipe : public webrtc::SimulatedPacketReceiverInterface,
 
 }  // namespace webrtc
 
-#endif  // CALL_FAKE_NETWORK_PIPE_H_
+#endif  // WEBRTC_CALL_FAKE_NETWORK_PIPE_H_

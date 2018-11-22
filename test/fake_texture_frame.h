@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_FAKE_TEXTURE_FRAME_H_
-#define TEST_FAKE_TEXTURE_FRAME_H_
+#ifndef WEBRTC_TEST_FAKE_TEXTURE_FRAME_H_
+#define WEBRTC_TEST_FAKE_TEXTURE_FRAME_H_
 
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
@@ -41,4 +41,4 @@ class FakeNativeBuffer : public VideoFrameBuffer {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  //  TEST_FAKE_TEXTURE_FRAME_H_
+#endif  //  WEBRTC_TEST_FAKE_TEXTURE_FRAME_H_

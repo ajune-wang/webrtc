@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef TEST_RTP_FILE_READER_H_
-#define TEST_RTP_FILE_READER_H_
+#ifndef WEBRTC_TEST_RTP_FILE_READER_H_
+#define WEBRTC_TEST_RTP_FILE_READER_H_
 
 #include <set>
 #include <string>
@@ -43,4 +43,4 @@ class RtpFileReader {
 };
 }  // namespace test
 }  // namespace webrtc
-#endif  // TEST_RTP_FILE_READER_H_
+#endif  // WEBRTC_TEST_RTP_FILE_READER_H_

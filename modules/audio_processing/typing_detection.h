@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
-#define MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
 
 #include "rtc_base/system/rtc_export.h"
 
@@ -89,4 +89,4 @@ class RTC_EXPORT TypingDetection {
 
 }  // namespace webrtc
 
-#endif  // #ifndef MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_
+#endif  // #ifndef WEBRTC_MODULES_AUDIO_PROCESSING_TYPING_DETECTION_H_

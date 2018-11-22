@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_
-#define MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_
+#ifndef WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_
+#define WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_
 
 #include <stdint.h>
 
@@ -57,4 +57,4 @@ class OveruseDetector {
 };
 }  // namespace webrtc
 
-#endif  // MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_
+#endif  // WEBRTC_MODULES_REMOTE_BITRATE_ESTIMATOR_OVERUSE_DETECTOR_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_
-#define MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_
+#ifndef WEBRTC_MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_
+#define WEBRTC_MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_
 
 #include "api/array_view.h"
 
@@ -37,4 +37,4 @@ class GainChangeCalculator {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_
+#endif  // WEBRTC_MODULES_AUDIO_MIXER_GAIN_CHANGE_CALCULATOR_H_

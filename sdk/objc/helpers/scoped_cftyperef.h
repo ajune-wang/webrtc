@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_
-#define SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_
+#ifndef WEBRTC_SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_
+#define WEBRTC_SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_
 
 #include <CoreFoundation/CoreFoundation.h>
 namespace rtc {
@@ -113,4 +113,4 @@ static ScopedCFTypeRef<T> ScopedCF(T cftype) {
 
 }  // namespace rtc
 
-#endif  // SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_
+#endif  // WEBRTC_SDK_OBJC_HELPERS_SCOPED_CFTYPEREF_H_

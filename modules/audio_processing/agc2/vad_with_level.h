@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_
 
 #include "common_audio/resampler/include/push_resampler.h"
 #include "modules/audio_processing/agc2/rnn_vad/features_extraction.h"
@@ -45,4 +45,4 @@ class VadWithLevel {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_VAD_WITH_LEVEL_H_

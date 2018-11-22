@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_
-#define MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_
 
 #include <stddef.h>
 
@@ -78,4 +78,4 @@ class SharedMemoryFactory {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_SHARED_MEMORY_H_

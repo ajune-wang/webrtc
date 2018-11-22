@@ -10,8 +10,8 @@
 
 // Declaration of abstract class VideoCapturer
 
-#ifndef MEDIA_BASE_VIDEOCAPTURER_H_
-#define MEDIA_BASE_VIDEOCAPTURER_H_
+#ifndef WEBRTC_MEDIA_BASE_VIDEOCAPTURER_H_
+#define WEBRTC_MEDIA_BASE_VIDEOCAPTURER_H_
 
 #include <stdint.h>
 
@@ -280,4 +280,4 @@ class RTC_EXPORT VideoCapturer
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_VIDEOCAPTURER_H_
+#endif  // WEBRTC_MEDIA_BASE_VIDEOCAPTURER_H_

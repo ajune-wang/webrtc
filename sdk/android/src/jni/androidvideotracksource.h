@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_
-#define API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_
+#ifndef WEBRTC_API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_
+#define WEBRTC_API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_
 
 #include <jni.h>
 
@@ -73,4 +73,4 @@ class AndroidVideoTrackSource : public rtc::AdaptedVideoTrackSource {
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_
+#endif  // WEBRTC_API_ANDROID_JNI_ANDROIDVIDEOTRACKSOURCE_H_

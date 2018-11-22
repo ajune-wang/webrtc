@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_
 
 #include "api/array_view.h"
 #include "modules/audio_processing/agc2/biquad_filter.h"
@@ -37,4 +37,4 @@ class DownSampler {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_DOWN_SAMPLER_H_

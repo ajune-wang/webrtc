@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
-#define MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
 
 #include "modules/audio_processing/agc2/adaptive_digital_gain_applier.h"
 #include "modules/audio_processing/agc2/adaptive_mode_level_estimator.h"
@@ -41,4 +41,4 @@ class AdaptiveAgc {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_AGC2_ADAPTIVE_AGC_H_

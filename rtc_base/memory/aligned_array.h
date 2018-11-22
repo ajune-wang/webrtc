@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_MEMORY_ALIGNED_ARRAY_H_
-#define RTC_BASE_MEMORY_ALIGNED_ARRAY_H_
+#ifndef WEBRTC_RTC_BASE_MEMORY_ALIGNED_ARRAY_H_
+#define WEBRTC_RTC_BASE_MEMORY_ALIGNED_ARRAY_H_
 
 #include "rtc_base/checks.h"
 #include "rtc_base/memory/aligned_malloc.h"
@@ -75,4 +75,4 @@ class AlignedArray {
 
 }  // namespace webrtc
 
-#endif  // RTC_BASE_MEMORY_ALIGNED_ARRAY_H_
+#endif  // WEBRTC_RTC_BASE_MEMORY_ALIGNED_ARRAY_H_

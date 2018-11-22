@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_
-#define MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_
 
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc_config.h"
@@ -51,4 +51,4 @@ class AudioEncoderIlbcImpl final : public AudioEncoder {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_AUDIO_ENCODER_ILBC_H_

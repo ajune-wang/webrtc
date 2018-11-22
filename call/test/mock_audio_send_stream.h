@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_
-#define CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_
+#ifndef WEBRTC_CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_
+#define WEBRTC_CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_
 
 #include <memory>
 
@@ -42,4 +42,4 @@ class MockAudioSendStream : public AudioSendStream {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_
+#endif  // WEBRTC_CALL_TEST_MOCK_AUDIO_SEND_STREAM_H_

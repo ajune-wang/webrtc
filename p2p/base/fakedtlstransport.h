@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_FAKEDTLSTRANSPORT_H_
-#define P2P_BASE_FAKEDTLSTRANSPORT_H_
+#ifndef WEBRTC_P2P_BASE_FAKEDTLSTRANSPORT_H_
+#define WEBRTC_P2P_BASE_FAKEDTLSTRANSPORT_H_
 
 #include <memory>
 #include <string>
@@ -288,4 +288,4 @@ class FakeDtlsTransport : public DtlsTransportInternal {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_FAKEDTLSTRANSPORT_H_
+#endif  // WEBRTC_P2P_BASE_FAKEDTLSTRANSPORT_H_

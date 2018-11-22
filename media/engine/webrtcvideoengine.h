@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_
-#define MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_
+#ifndef WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_
+#define WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_
 
 #include <map>
 #include <memory>
@@ -546,4 +546,4 @@ class EncoderStreamFactory
 
 }  // namespace cricket
 
-#endif  // MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_
+#endif  // WEBRTC_MEDIA_ENGINE_WEBRTCVIDEOENGINE_H_

@@ -17,8 +17,8 @@
 // Though in the future, we're planning to provide an SDP parsing API, with a
 // structure more friendly than cricket::SessionDescription.
 
-#ifndef API_JSEP_H_
-#define API_JSEP_H_
+#ifndef WEBRTC_API_JSEP_H_
+#define WEBRTC_API_JSEP_H_
 
 #include <stddef.h>
 
@@ -243,4 +243,4 @@ class RTC_EXPORT SetSessionDescriptionObserver : public rtc::RefCountInterface {
 
 }  // namespace webrtc
 
-#endif  // API_JSEP_H_
+#endif  // WEBRTC_API_JSEP_H_

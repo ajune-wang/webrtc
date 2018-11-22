@@ -10,8 +10,8 @@
 
 // This file includes specific signal processing tools used in vad_core.c.
 
-#ifndef COMMON_AUDIO_VAD_VAD_SP_H_
-#define COMMON_AUDIO_VAD_VAD_SP_H_
+#ifndef WEBRTC_COMMON_AUDIO_VAD_VAD_SP_H_
+#define WEBRTC_COMMON_AUDIO_VAD_VAD_SP_H_
 
 #include "common_audio/vad/vad_core.h"
 
@@ -51,4 +51,4 @@ int16_t WebRtcVad_FindMinimum(VadInstT* handle,
                               int16_t feature_value,
                               int channel);
 
-#endif  // COMMON_AUDIO_VAD_VAD_SP_H_
+#endif  // WEBRTC_COMMON_AUDIO_VAD_VAD_SP_H_

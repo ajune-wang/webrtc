@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_
-#define SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_
 
 #include <stdint.h>
 #include <map>
@@ -136,4 +136,4 @@ using webrtc::jni::AndroidNetworkMonitorFactory;
 
 }  // namespace webrtc_jni
 
-#endif  // SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_ANDROIDNETWORKMONITOR_H_

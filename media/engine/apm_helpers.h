@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_APM_HELPERS_H_
-#define MEDIA_ENGINE_APM_HELPERS_H_
+#ifndef WEBRTC_MEDIA_ENGINE_APM_HELPERS_H_
+#define WEBRTC_MEDIA_ENGINE_APM_HELPERS_H_
 
 #include <cstdint>
 
@@ -43,4 +43,4 @@ void SetTypingDetectionStatus(AudioProcessing* apm, bool enable);
 }  // namespace apm_helpers
 }  // namespace webrtc
 
-#endif  // MEDIA_ENGINE_APM_HELPERS_H_
+#endif  // WEBRTC_MEDIA_ENGINE_APM_HELPERS_H_

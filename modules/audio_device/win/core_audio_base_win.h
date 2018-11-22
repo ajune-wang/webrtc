@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_
-#define MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_
+#ifndef WEBRTC_MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_
+#define WEBRTC_MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_
 
 #include <atomic>
 #include <functional>
@@ -196,4 +196,4 @@ class CoreAudioBase : public IAudioSessionEvents {
 }  // namespace webrtc_win
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_WIN_CORE_AUDIO_BASE_WIN_H_

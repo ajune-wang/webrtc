@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_JSEPTRANSPORTCONTROLLER_H_
-#define PC_JSEPTRANSPORTCONTROLLER_H_
+#ifndef WEBRTC_PC_JSEPTRANSPORTCONTROLLER_H_
+#define WEBRTC_PC_JSEPTRANSPORTCONTROLLER_H_
 
 #include <map>
 #include <memory>
@@ -370,4 +370,4 @@ class JsepTransportController : public sigslot::has_slots<> {
 
 }  // namespace webrtc
 
-#endif  // PC_JSEPTRANSPORTCONTROLLER_H_
+#endif  // WEBRTC_PC_JSEPTRANSPORTCONTROLLER_H_

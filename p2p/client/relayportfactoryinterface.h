@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_
-#define P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_
+#ifndef WEBRTC_P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_
+#define WEBRTC_P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_
 
 #include <memory>
 #include <string>
@@ -67,4 +67,4 @@ class RelayPortFactoryInterface {
 
 }  // namespace cricket
 
-#endif  // P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_
+#endif  // WEBRTC_P2P_CLIENT_RELAYPORTFACTORYINTERFACE_H_

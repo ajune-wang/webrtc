@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef VIDEO_VIDEO_SEND_STREAM_H_
-#define VIDEO_VIDEO_SEND_STREAM_H_
+#ifndef WEBRTC_VIDEO_VIDEO_SEND_STREAM_H_
+#define WEBRTC_VIDEO_VIDEO_SEND_STREAM_H_
 
 #include <map>
 #include <memory>
@@ -108,4 +108,4 @@ class VideoSendStream : public webrtc::VideoSendStream {
 }  // namespace internal
 }  // namespace webrtc
 
-#endif  // VIDEO_VIDEO_SEND_STREAM_H_
+#endif  // WEBRTC_VIDEO_VIDEO_SEND_STREAM_H_

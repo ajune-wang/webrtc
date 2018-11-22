@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTCP_DEMUXER_H_
-#define CALL_RTCP_DEMUXER_H_
+#ifndef WEBRTC_CALL_RTCP_DEMUXER_H_
+#define WEBRTC_CALL_RTCP_DEMUXER_H_
 
 #include <map>
 #include <string>
@@ -81,4 +81,4 @@ class RtcpDemuxer : public SsrcBindingObserver {
 
 }  // namespace webrtc
 
-#endif  // CALL_RTCP_DEMUXER_H_
+#endif  // WEBRTC_CALL_RTCP_DEMUXER_H_

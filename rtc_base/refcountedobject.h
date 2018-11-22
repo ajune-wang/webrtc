@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef RTC_BASE_REFCOUNTEDOBJECT_H_
-#define RTC_BASE_REFCOUNTEDOBJECT_H_
+#ifndef WEBRTC_RTC_BASE_REFCOUNTEDOBJECT_H_
+#define WEBRTC_RTC_BASE_REFCOUNTEDOBJECT_H_
 
 #include <utility>
 
@@ -60,4 +60,4 @@ class RefCountedObject : public T {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_REFCOUNTEDOBJECT_H_
+#endif  // WEBRTC_RTC_BASE_REFCOUNTEDOBJECT_H_

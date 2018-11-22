@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
-#define MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
+#ifndef WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
+#define WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
 
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
@@ -29,4 +29,4 @@ int RtpHeaderExtensionSize(rtc::ArrayView<const RtpExtensionSize> extensions,
 
 }  // namespace webrtc
 
-#endif  // MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_
+#endif  // WEBRTC_MODULES_RTP_RTCP_SOURCE_RTP_HEADER_EXTENSION_SIZE_H_

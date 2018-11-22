@@ -12,8 +12,8 @@
  * This file includes feature calculating functionality used in vad_core.c.
  */
 
-#ifndef COMMON_AUDIO_VAD_VAD_FILTERBANK_H_
-#define COMMON_AUDIO_VAD_VAD_FILTERBANK_H_
+#ifndef WEBRTC_COMMON_AUDIO_VAD_VAD_FILTERBANK_H_
+#define WEBRTC_COMMON_AUDIO_VAD_VAD_FILTERBANK_H_
 
 #include "common_audio/vad/vad_core.h"
 
@@ -42,4 +42,4 @@ int16_t WebRtcVad_CalculateFeatures(VadInstT* self,
                                     size_t data_length,
                                     int16_t* features);
 
-#endif  // COMMON_AUDIO_VAD_VAD_FILTERBANK_H_
+#endif  // WEBRTC_COMMON_AUDIO_VAD_VAD_FILTERBANK_H_

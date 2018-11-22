@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCPACKETSOCKET_H_
-#define RTC_BASE_ASYNCPACKETSOCKET_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCPACKETSOCKET_H_
+#define WEBRTC_RTC_BASE_ASYNCPACKETSOCKET_H_
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/deprecation.h"
@@ -144,4 +144,4 @@ void CopySocketInformationToPacketInfo(size_t packet_size_bytes,
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_ASYNCPACKETSOCKET_H_
+#endif  // WEBRTC_RTC_BASE_ASYNCPACKETSOCKET_H_

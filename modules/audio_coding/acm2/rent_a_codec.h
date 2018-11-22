@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_
-#define MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_
 
 #include <stddef.h>
 #include <map>
@@ -140,4 +140,4 @@ struct RentACodec {
 }  // namespace acm2
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_ACM2_RENT_A_CODEC_H_

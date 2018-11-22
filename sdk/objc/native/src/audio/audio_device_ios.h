@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_
-#define SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_
+#ifndef WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_
+#define WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_
 
 #include <memory>
 
@@ -293,4 +293,4 @@ class AudioDeviceIOS : public AudioDeviceGeneric,
 }  // namespace ios_adm
 }  // namespace webrtc
 
-#endif  // SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_
+#endif  // WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_AUDIO_DEVICE_IOS_H_

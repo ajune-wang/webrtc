@@ -10,8 +10,8 @@
 
 // This file contains the implementation of MediaStreamInterface interface.
 
-#ifndef PC_MEDIASTREAM_H_
-#define PC_MEDIASTREAM_H_
+#ifndef WEBRTC_PC_MEDIASTREAM_H_
+#define WEBRTC_PC_MEDIASTREAM_H_
 
 #include <string>
 #include <vector>
@@ -55,4 +55,4 @@ class MediaStream : public Notifier<MediaStreamInterface> {
 
 }  // namespace webrtc
 
-#endif  // PC_MEDIASTREAM_H_
+#endif  // WEBRTC_PC_MEDIASTREAM_H_

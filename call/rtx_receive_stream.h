@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTX_RECEIVE_STREAM_H_
-#define CALL_RTX_RECEIVE_STREAM_H_
+#ifndef WEBRTC_CALL_RTX_RECEIVE_STREAM_H_
+#define WEBRTC_CALL_RTX_RECEIVE_STREAM_H_
 
 #include <map>
 
@@ -47,4 +47,4 @@ class RtxReceiveStream : public RtpPacketSinkInterface {
 
 }  // namespace webrtc
 
-#endif  // CALL_RTX_RECEIVE_STREAM_H_
+#endif  // WEBRTC_CALL_RTX_RECEIVE_STREAM_H_

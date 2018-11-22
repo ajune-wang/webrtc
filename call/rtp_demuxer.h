@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_RTP_DEMUXER_H_
-#define CALL_RTP_DEMUXER_H_
+#ifndef WEBRTC_CALL_RTP_DEMUXER_H_
+#define WEBRTC_CALL_RTP_DEMUXER_H_
 
 #include <map>
 #include <set>
@@ -207,4 +207,4 @@ class RtpDemuxer {
 
 }  // namespace webrtc
 
-#endif  // CALL_RTP_DEMUXER_H_
+#endif  // WEBRTC_CALL_RTP_DEMUXER_H_

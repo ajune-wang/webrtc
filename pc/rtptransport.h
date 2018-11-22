@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_RTPTRANSPORT_H_
-#define PC_RTPTRANSPORT_H_
+#ifndef WEBRTC_PC_RTPTRANSPORT_H_
+#define WEBRTC_PC_RTPTRANSPORT_H_
 
 #include <string>
 
@@ -152,4 +152,4 @@ class RtpTransport : public RtpTransportInternal {
 
 }  // namespace webrtc
 
-#endif  // PC_RTPTRANSPORT_H_
+#endif  // WEBRTC_PC_RTPTRANSPORT_H_

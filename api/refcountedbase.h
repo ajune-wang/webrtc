@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef API_REFCOUNTEDBASE_H_
-#define API_REFCOUNTEDBASE_H_
+#ifndef WEBRTC_API_REFCOUNTEDBASE_H_
+#define WEBRTC_API_REFCOUNTEDBASE_H_
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcount.h"
@@ -40,4 +40,4 @@ class RefCountedBase {
 
 }  // namespace rtc
 
-#endif  // API_REFCOUNTEDBASE_H_
+#endif  // WEBRTC_API_REFCOUNTEDBASE_H_

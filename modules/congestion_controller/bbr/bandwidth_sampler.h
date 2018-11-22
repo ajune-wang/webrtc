@@ -9,8 +9,8 @@
  */
 // Based on the Quic implementation in Chromium.
 
-#ifndef MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_
-#define MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_
 
 #include "absl/types/optional.h"
 #include "api/units/data_rate.h"
@@ -258,4 +258,4 @@ class BandwidthSampler {
 }  // namespace bbr
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_BANDWIDTH_SAMPLER_H_

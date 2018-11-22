@@ -23,8 +23,8 @@
 // ssrc_groups = {{SIM,{10,20,30}, {FEC,{10,11}, {FEC, {20,21}, {FEC {30,31}}}
 // Please see RFC 5576.
 
-#ifndef MEDIA_BASE_STREAMPARAMS_H_
-#define MEDIA_BASE_STREAMPARAMS_H_
+#ifndef WEBRTC_MEDIA_BASE_STREAMPARAMS_H_
+#define WEBRTC_MEDIA_BASE_STREAMPARAMS_H_
 
 #include <stdint.h>
 
@@ -346,4 +346,4 @@ bool IsSimulcastStream(const StreamParams& sp);
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_STREAMPARAMS_H_
+#endif  // WEBRTC_MEDIA_BASE_STREAMPARAMS_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_LOCALAUDIOSOURCE_H_
-#define PC_LOCALAUDIOSOURCE_H_
+#ifndef WEBRTC_PC_LOCALAUDIOSOURCE_H_
+#define WEBRTC_PC_LOCALAUDIOSOURCE_H_
 
 #include "api/mediastreaminterface.h"
 #include "api/notifier.h"
@@ -46,4 +46,4 @@ class LocalAudioSource : public Notifier<AudioSourceInterface> {
 
 }  // namespace webrtc
 
-#endif  // PC_LOCALAUDIOSOURCE_H_
+#endif  // WEBRTC_PC_LOCALAUDIOSOURCE_H_

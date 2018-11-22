@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_AUDIO_AUDIO_FRAME_H_
-#define API_AUDIO_AUDIO_FRAME_H_
+#ifndef WEBRTC_API_AUDIO_AUDIO_FRAME_H_
+#define WEBRTC_API_AUDIO_AUDIO_FRAME_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -129,4 +129,4 @@ class AudioFrame {
 
 }  // namespace webrtc
 
-#endif  // API_AUDIO_AUDIO_FRAME_H_
+#endif  // WEBRTC_API_AUDIO_AUDIO_FRAME_H_

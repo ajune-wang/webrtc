@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_
-#define MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xdamage.h>
@@ -120,4 +120,4 @@ class ScreenCapturerX11 : public DesktopCapturer,
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_LINUX_SCREEN_CAPTURER_X11_H_

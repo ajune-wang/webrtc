@@ -10,8 +10,8 @@
 
 // Borrowed from Chromium's src/base/numerics/safe_conversions.h.
 
-#ifndef RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
-#define RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
+#ifndef WEBRTC_RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
+#define WEBRTC_RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
 
 #include <limits>
 
@@ -73,4 +73,4 @@ inline Dst saturated_cast(Src value) {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_
+#endif  // WEBRTC_RTC_BASE_NUMERICS_SAFE_CONVERSIONS_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_
 
 #include "modules/audio_coding/codecs/isac/main/source/structs.h"
 
@@ -20,4 +20,4 @@ void WebRtcIsac_WeightingFilter(const double* in,
                                 double* whiout,
                                 WeightFiltstr* wfdata);
 
-#endif  // MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_MAIN_SOURCE_FILTER_FUNCTIONS_H_

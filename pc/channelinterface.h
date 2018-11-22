@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_CHANNELINTERFACE_H_
-#define PC_CHANNELINTERFACE_H_
+#ifndef WEBRTC_PC_CHANNELINTERFACE_H_
+#define WEBRTC_PC_CHANNELINTERFACE_H_
 
 #include <string>
 
@@ -65,4 +65,4 @@ class ChannelInterface {
 
 }  // namespace cricket
 
-#endif  // PC_CHANNELINTERFACE_H_
+#endif  // WEBRTC_PC_CHANNELINTERFACE_H_

@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_
-#define MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_
 
 #include "modules/audio_coding/codecs/isac/fix/source/structs.h"
 
@@ -146,4 +146,5 @@ int16_t WebRtcIsacfix_DecHistOneStepMulti(int16_t* data,
                                           const uint16_t* initIndex,
                                           const int16_t lenData);
 
-#endif /* MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_ */
+#endif /* WEBRTC_MODULES_AUDIO_CODING_CODECS_ISAC_FIX_SOURCE_ARITH_ROUTINS_H_ \
+        */

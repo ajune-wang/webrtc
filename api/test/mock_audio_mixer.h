@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_MOCK_AUDIO_MIXER_H_
-#define API_TEST_MOCK_AUDIO_MIXER_H_
+#ifndef WEBRTC_API_TEST_MOCK_AUDIO_MIXER_H_
+#define WEBRTC_API_TEST_MOCK_AUDIO_MIXER_H_
 
 #include "api/audio/audio_mixer.h"
 
@@ -29,4 +29,4 @@ class MockAudioMixer : public AudioMixer {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TEST_MOCK_AUDIO_MIXER_H_
+#endif  // WEBRTC_API_TEST_MOCK_AUDIO_MIXER_H_

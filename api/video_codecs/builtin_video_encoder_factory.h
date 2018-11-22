@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_
-#define API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_
+#ifndef WEBRTC_API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_
+#define WEBRTC_API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_
 
 #include <memory>
 
@@ -25,4 +25,4 @@ CreateBuiltinVideoEncoderFactory();
 
 }  // namespace webrtc
 
-#endif  // API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_
+#endif  // WEBRTC_API_VIDEO_CODECS_BUILTIN_VIDEO_ENCODER_FACTORY_H_

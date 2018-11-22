@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef CALL_BITRATE_ALLOCATOR_H_
-#define CALL_BITRATE_ALLOCATOR_H_
+#ifndef WEBRTC_CALL_BITRATE_ALLOCATOR_H_
+#define WEBRTC_CALL_BITRATE_ALLOCATOR_H_
 
 #include <stdint.h>
 
@@ -256,4 +256,4 @@ class BitrateAllocator : public BitrateAllocatorInterface {
 };
 
 }  // namespace webrtc
-#endif  // CALL_BITRATE_ALLOCATOR_H_
+#endif  // WEBRTC_CALL_BITRATE_ALLOCATOR_H_

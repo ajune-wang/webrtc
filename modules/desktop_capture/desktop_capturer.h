@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
-#define MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
+#ifndef WEBRTC_MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
+#define WEBRTC_MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -156,4 +156,4 @@ class RTC_EXPORT DesktopCapturer {
 
 }  // namespace webrtc
 
-#endif  // MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_
+#endif  // WEBRTC_MODULES_DESKTOP_CAPTURE_DESKTOP_CAPTURER_H_

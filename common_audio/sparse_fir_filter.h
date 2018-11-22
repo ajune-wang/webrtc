@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_AUDIO_SPARSE_FIR_FILTER_H_
-#define COMMON_AUDIO_SPARSE_FIR_FILTER_H_
+#ifndef WEBRTC_COMMON_AUDIO_SPARSE_FIR_FILTER_H_
+#define WEBRTC_COMMON_AUDIO_SPARSE_FIR_FILTER_H_
 
 #include <cstring>
 #include <vector>
@@ -50,4 +50,4 @@ class SparseFIRFilter final {
 
 }  // namespace webrtc
 
-#endif  // COMMON_AUDIO_SPARSE_FIR_FILTER_H_
+#endif  // WEBRTC_COMMON_AUDIO_SPARSE_FIR_FILTER_H_

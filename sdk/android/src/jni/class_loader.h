@@ -10,8 +10,8 @@
 
 // Deprecated: use sdk/android/native_api/jni/class_loader.h instead.
 
-#ifndef SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
-#define SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
+#ifndef WEBRTC_SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
+#define WEBRTC_SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
 
 #include "sdk/android/native_api/jni/class_loader.h"
 
@@ -21,4 +21,4 @@ using ::webrtc::InitClassLoader;
 }  // namespace jni
 }  // namespace webrtc
 
-#endif  // SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_
+#endif  // WEBRTC_SDK_ANDROID_SRC_JNI_CLASS_LOADER_H_

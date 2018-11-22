@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_MEDIASTREAMOBSERVER_H_
-#define PC_MEDIASTREAMOBSERVER_H_
+#ifndef WEBRTC_PC_MEDIASTREAMOBSERVER_H_
+#define WEBRTC_PC_MEDIASTREAMOBSERVER_H_
 
 #include "api/mediastreaminterface.h"
 #include "rtc_base/scoped_ref_ptr.h"
@@ -45,4 +45,4 @@ class MediaStreamObserver : public ObserverInterface {
 
 }  // namespace webrtc
 
-#endif  // PC_MEDIASTREAMOBSERVER_H_
+#endif  // WEBRTC_PC_MEDIASTREAMOBSERVER_H_

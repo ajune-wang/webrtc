@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ASYNCRESOLVERINTERFACE_H_
-#define RTC_BASE_ASYNCRESOLVERINTERFACE_H_
+#ifndef WEBRTC_RTC_BASE_ASYNCRESOLVERINTERFACE_H_
+#define WEBRTC_RTC_BASE_ASYNCRESOLVERINTERFACE_H_
 
 #include "rtc_base/socketaddress.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"

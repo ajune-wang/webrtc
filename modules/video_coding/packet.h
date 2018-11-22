@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_PACKET_H_
-#define MODULES_VIDEO_CODING_PACKET_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_PACKET_H_
+#define WEBRTC_MODULES_VIDEO_CODING_PACKET_H_
 
 #include "modules/include/module_common_types.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
@@ -52,4 +52,4 @@ class VCMPacket {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_VIDEO_CODING_PACKET_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_PACKET_H_

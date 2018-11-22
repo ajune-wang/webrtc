@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
-#define MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
+#ifndef WEBRTC_MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
+#define WEBRTC_MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
 
 #include "modules/audio_processing/agc/agc_manager_direct.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -75,4 +75,4 @@ class GainControlForExperimentalAgc : public GainControl,
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_
+#endif  // WEBRTC_MODULES_AUDIO_PROCESSING_GAIN_CONTROL_FOR_EXPERIMENTAL_AGC_H_

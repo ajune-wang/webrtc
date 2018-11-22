@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_
-#define MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_
 
 #include <stddef.h>
 #include <stdint.h>
@@ -248,4 +248,4 @@ void WebRtcIlbcfix_version(char* version);
 }
 #endif
 
-#endif  // MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_ILBC_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_
-#define MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_
+#define WEBRTC_MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_
 
 #include "absl/types/optional.h"
 #include "modules/audio_coding/audio_network_adaptor/controller.h"
@@ -63,4 +63,4 @@ class FecControllerRplrBased final : public Controller {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_AUDIO_NETWORK_ADAPTOR_FEC_CONTROLLER_RPLR_BASED_H_

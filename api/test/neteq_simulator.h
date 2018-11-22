@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_NETEQ_SIMULATOR_H_
-#define API_TEST_NETEQ_SIMULATOR_H_
+#ifndef WEBRTC_API_TEST_NETEQ_SIMULATOR_H_
+#define WEBRTC_API_TEST_NETEQ_SIMULATOR_H_
 
 #include <stdint.h>
 #include <map>
@@ -75,4 +75,4 @@ class NetEqSimulator {
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // API_TEST_NETEQ_SIMULATOR_H_
+#endif  // WEBRTC_API_TEST_NETEQ_SIMULATOR_H_

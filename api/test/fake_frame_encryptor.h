@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_TEST_FAKE_FRAME_ENCRYPTOR_H_
-#define API_TEST_FAKE_FRAME_ENCRYPTOR_H_
+#ifndef WEBRTC_API_TEST_FAKE_FRAME_ENCRYPTOR_H_
+#define WEBRTC_API_TEST_FAKE_FRAME_ENCRYPTOR_H_
 
 #include "api/crypto/frameencryptorinterface.h"
 #include "rtc_base/refcountedobject.h"
@@ -61,4 +61,4 @@ class FakeFrameEncryptor
 
 }  // namespace webrtc
 
-#endif  // API_TEST_FAKE_FRAME_ENCRYPTOR_H_
+#endif  // WEBRTC_API_TEST_FAKE_FRAME_ENCRYPTOR_H_

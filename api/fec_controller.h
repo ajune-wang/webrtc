@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_FEC_CONTROLLER_H_
-#define API_FEC_CONTROLLER_H_
+#ifndef WEBRTC_API_FEC_CONTROLLER_H_
+#define WEBRTC_API_FEC_CONTROLLER_H_
 
 #include <memory>
 #include <vector>
@@ -88,4 +88,4 @@ class FecControllerFactoryInterface {
 };
 
 }  // namespace webrtc
-#endif  // API_FEC_CONTROLLER_H_
+#endif  // WEBRTC_API_FEC_CONTROLLER_H_

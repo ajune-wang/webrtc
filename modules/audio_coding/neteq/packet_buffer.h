@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
-#define MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
 
 #include "absl/types/optional.h"
 #include "modules/audio_coding/neteq/decoder_database.h"
@@ -149,4 +149,4 @@ class PacketBuffer {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_PACKET_BUFFER_H_

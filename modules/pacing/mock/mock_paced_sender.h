@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_
-#define MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_
+#ifndef WEBRTC_MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_
+#define WEBRTC_MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_
 
 #include <vector>
 
@@ -43,4 +43,4 @@ class MockPacedSender : public PacedSender {
 
 }  // namespace webrtc
 
-#endif  // MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_
+#endif  // WEBRTC_MODULES_PACING_MOCK_MOCK_PACED_SENDER_H_

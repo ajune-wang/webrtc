@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef AUDIO_DEVICE_AUDIO_MIXER_MANAGER_MAC_H_
-#define AUDIO_DEVICE_AUDIO_MIXER_MANAGER_MAC_H_
+#ifndef WEBRTC_AUDIO_DEVICE_AUDIO_MIXER_MANAGER_MAC_H_
+#define WEBRTC_AUDIO_DEVICE_AUDIO_MIXER_MANAGER_MAC_H_
 
 #include "modules/audio_device/include/audio_device.h"
 #include "rtc_base/criticalsection.h"

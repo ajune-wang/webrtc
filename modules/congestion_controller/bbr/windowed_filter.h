@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_
-#define MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_
+#ifndef WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_
+#define WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_
 
 // From the Quic BBR implementation in Chromium
 
@@ -165,4 +165,4 @@ class WindowedFilter {
 }  // namespace bbr
 }  // namespace webrtc
 
-#endif  // MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_
+#endif  // WEBRTC_MODULES_CONGESTION_CONTROLLER_BBR_WINDOWED_FILTER_H_

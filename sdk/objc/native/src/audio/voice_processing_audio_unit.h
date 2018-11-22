@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_
-#define SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_
+#ifndef WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_
+#define WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_
 
 #include <AudioUnit/AudioUnit.h>
 
@@ -136,4 +136,4 @@ class VoiceProcessingAudioUnit {
 }  // namespace ios_adm
 }  // namespace webrtc
 
-#endif  // SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_
+#endif  // WEBRTC_SDK_OBJC_NATIVE_SRC_AUDIO_VOICE_PROCESSING_AUDIO_UNIT_H_

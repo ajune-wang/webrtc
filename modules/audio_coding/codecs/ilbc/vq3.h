@@ -16,8 +16,8 @@
 
 ******************************************************************/
 
-#ifndef MODULES_AUDIO_CODING_CODECS_ILBC_MAIN_SOURCE_VQ3_H_
-#define MODULES_AUDIO_CODING_CODECS_ILBC_MAIN_SOURCE_VQ3_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_MAIN_SOURCE_VQ3_H_
+#define WEBRTC_MODULES_AUDIO_CODING_CODECS_ILBC_MAIN_SOURCE_VQ3_H_
 
 #include <stdint.h>
 

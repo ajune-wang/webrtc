@@ -27,8 +27,8 @@
 
 /*! \file */
 
-#ifndef MODULES_THIRD_PARTY_G722_G722_H_
-#define MODULES_THIRD_PARTY_G722_G722_H_
+#ifndef WEBRTC_MODULES_THIRD_PARTY_G722_G722_H_
+#define WEBRTC_MODULES_THIRD_PARTY_G722_G722_H_
 
 #include <stdint.h>
 
@@ -150,4 +150,4 @@ size_t WebRtc_g722_decode(G722DecoderState* s,
 }
 #endif
 
-#endif /* MODULES_THIRD_PARTY_G722_G722_H_ */
+#endif /* WEBRTC_MODULES_THIRD_PARTY_G722_G722_H_ */

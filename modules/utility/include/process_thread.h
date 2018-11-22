@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_
-#define MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_
+#ifndef WEBRTC_MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_
+#define WEBRTC_MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_
 
 #include <memory>
 
@@ -72,4 +72,4 @@ class ProcessThread {
 
 }  // namespace webrtc
 
-#endif  // MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_
+#endif  // WEBRTC_MODULES_UTILITY_INCLUDE_PROCESS_THREAD_H_

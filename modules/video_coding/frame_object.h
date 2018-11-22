@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_CODING_FRAME_OBJECT_H_
-#define MODULES_VIDEO_CODING_FRAME_OBJECT_H_
+#ifndef WEBRTC_MODULES_VIDEO_CODING_FRAME_OBJECT_H_
+#define WEBRTC_MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 
 #include "absl/types/optional.h"
 #include "api/video/encoded_frame.h"
@@ -64,4 +64,4 @@ class RtpFrameObject : public EncodedFrame {
 }  // namespace video_coding
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_CODING_FRAME_OBJECT_H_
+#endif  // WEBRTC_MODULES_VIDEO_CODING_FRAME_OBJECT_H_

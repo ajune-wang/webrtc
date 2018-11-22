@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_TESTSTUNSERVER_H_
-#define P2P_BASE_TESTSTUNSERVER_H_
+#ifndef WEBRTC_P2P_BASE_TESTSTUNSERVER_H_
+#define WEBRTC_P2P_BASE_TESTSTUNSERVER_H_
 
 #include "p2p/base/stunserver.h"
 #include "rtc_base/socketaddress.h"
@@ -40,4 +40,4 @@ class TestStunServer : StunServer {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_TESTSTUNSERVER_H_
+#endif  // WEBRTC_P2P_BASE_TESTSTUNSERVER_H_

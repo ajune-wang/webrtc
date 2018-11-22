@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
-#define MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
 
 #include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/tick_timer.h"
@@ -190,4 +190,4 @@ class DecisionLogic final {
 };
 
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_DECISION_LOGIC_H_

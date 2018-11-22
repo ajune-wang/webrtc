@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
-#define MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
 
 #include <stdio.h>
 #include <string>
@@ -52,4 +52,4 @@ class ConstantPcmPacketSource : public PacketSource {
 
 }  // namespace test
 }  // namespace webrtc
-#endif  // MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_

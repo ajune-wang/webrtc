@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_TRANSPORTFACTORYINTERFACE_H_
-#define P2P_BASE_TRANSPORTFACTORYINTERFACE_H_
+#ifndef WEBRTC_P2P_BASE_TRANSPORTFACTORYINTERFACE_H_
+#define WEBRTC_P2P_BASE_TRANSPORTFACTORYINTERFACE_H_
 
 #include <memory>
 #include <string>
@@ -39,4 +39,4 @@ class TransportFactoryInterface {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_TRANSPORTFACTORYINTERFACE_H_
+#endif  // WEBRTC_P2P_BASE_TRANSPORTFACTORYINTERFACE_H_

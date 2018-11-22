@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_WEBRTCVOICEENGINE_H_
-#define MEDIA_ENGINE_WEBRTCVOICEENGINE_H_
+#ifndef WEBRTC_MEDIA_ENGINE_WEBRTCVOICEENGINE_H_
+#define WEBRTC_MEDIA_ENGINE_WEBRTCVOICEENGINE_H_
 
 #include <map>
 #include <memory>
@@ -324,4 +324,4 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
 };
 }  // namespace cricket
 
-#endif  // MEDIA_ENGINE_WEBRTCVOICEENGINE_H_
+#endif  // WEBRTC_MEDIA_ENGINE_WEBRTCVOICEENGINE_H_

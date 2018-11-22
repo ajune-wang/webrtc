@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_CODING_TEST_RTPFILE_H_
-#define MODULES_AUDIO_CODING_TEST_RTPFILE_H_
+#ifndef WEBRTC_MODULES_AUDIO_CODING_TEST_RTPFILE_H_
+#define WEBRTC_MODULES_AUDIO_CODING_TEST_RTPFILE_H_
 
 #include <stdio.h>
 #include <queue>
@@ -127,4 +127,4 @@ class RTPFile : public RTPStream {
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_CODING_TEST_RTPFILE_H_
+#endif  // WEBRTC_MODULES_AUDIO_CODING_TEST_RTPFILE_H_

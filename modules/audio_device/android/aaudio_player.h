@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_
-#define MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_
+#ifndef WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_
+#define WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_
 
 #include <aaudio/AAudio.h>
 #include <memory>
@@ -143,4 +143,4 @@ class AAudioPlayer final : public AAudioObserverInterface,
 
 }  // namespace webrtc
 
-#endif  // MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_
+#endif  // WEBRTC_MODULES_AUDIO_DEVICE_ANDROID_AAUDIO_PLAYER_H_

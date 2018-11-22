@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_
-#define MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_
+#ifndef WEBRTC_MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_
+#define WEBRTC_MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_
 
 #include <memory>
 
@@ -81,4 +81,4 @@ class VideoDenoiser {
 
 }  // namespace webrtc
 
-#endif  // MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_
+#endif  // WEBRTC_MODULES_VIDEO_PROCESSING_VIDEO_DENOISER_H_

@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_
-#define EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_
+#ifndef WEBRTC_EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_
+#define WEBRTC_EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_
 
 #include <memory>
 #include <string>
@@ -81,4 +81,4 @@ class ObjCCallClient {
 
 }  // namespace webrtc_examples
 
-#endif  // EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_
+#endif  // WEBRTC_EXAMPLES_OBJCNATIVEAPI_OBJCCALLCLIENT_H_

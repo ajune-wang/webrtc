@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_DTMFSENDER_H_
-#define PC_DTMFSENDER_H_
+#ifndef WEBRTC_PC_DTMFSENDER_H_
+#define WEBRTC_PC_DTMFSENDER_H_
 
 #include <string>
 
@@ -107,4 +107,4 @@ bool GetDtmfCode(char tone, int* code);
 
 }  // namespace webrtc
 
-#endif  // PC_DTMFSENDER_H_
+#endif  // WEBRTC_PC_DTMFSENDER_H_

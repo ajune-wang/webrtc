@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_STUN_H_
-#define P2P_BASE_STUN_H_
+#ifndef WEBRTC_P2P_BASE_STUN_H_
+#define WEBRTC_P2P_BASE_STUN_H_
 
 // This file contains classes for dealing with the STUN protocol, as specified
 // in RFC 5389, and its descendants.
@@ -612,4 +612,4 @@ class IceMessage : public StunMessage {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_STUN_H_
+#endif  // WEBRTC_P2P_BASE_STUN_H_

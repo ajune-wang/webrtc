@@ -8,10 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_
-#define COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_
+#ifndef WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_
+#define WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_
 
 // TODO(nisse): Delete this file, after downstream code is updated.
 #include "api/video/encoded_image.h"
 
-#endif  // COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_
+#endif  // WEBRTC_COMMON_VIDEO_INCLUDE_VIDEO_FRAME_H_

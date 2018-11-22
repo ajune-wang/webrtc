@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_STREAMCOLLECTION_H_
-#define PC_STREAMCOLLECTION_H_
+#ifndef WEBRTC_PC_STREAMCOLLECTION_H_
+#define WEBRTC_PC_STREAMCOLLECTION_H_
 
 #include <string>
 #include <vector>
@@ -99,4 +99,4 @@ class StreamCollection : public StreamCollectionInterface {
 
 }  // namespace webrtc
 
-#endif  // PC_STREAMCOLLECTION_H_
+#endif  // WEBRTC_PC_STREAMCOLLECTION_H_

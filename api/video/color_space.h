@@ -47,7 +47,9 @@ class ColorSpace {
     kSMPTEST428 = 10,
     kSMPTEST431 = 11,
     kSMPTEST432 = 12,
-    kJEDECP22 = 22,  // Identical to EBU3213-E
+    kJEDECP22 = 22  // Identical to EBU3213-E
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kPrimaryIds.
   };
 
   enum class TransferID : uint8_t {
@@ -69,7 +71,9 @@ class ColorSpace {
     kBT2020_12 = 15,
     kSMPTEST2084 = 16,
     kSMPTEST428 = 17,
-    kARIB_STD_B67 = 18,
+    kARIB_STD_B67 = 18
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kTransferIds.
   };
 
   enum class MatrixID : uint8_t {
@@ -89,6 +93,8 @@ class ColorSpace {
     kCDCLS = 13,
     kBT2100_ICTCP = 14,
     kInvalid = 255
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kMatrixIds.
   };
 
   enum class RangeID {
@@ -101,6 +107,8 @@ class ColorSpace {
     kFull = 2,
     // Range is defined by MatrixCoefficients/TransferCharacteristics.
     kDerived = 3
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kRangeIds.
   };
 
   ColorSpace();
@@ -130,13 +138,43 @@ class ColorSpace {
   RangeID range() const;
   const HdrMetadata* hdr_metadata() const;
 
+  bool set_primaries_from_uint8(uint8_t index);
+  bool set_transfer_from_uint8(uint8_t index);
+  bool set_matrix_from_uint8(uint8_t index);
+  bool set_range_from_uint8(uint8_t index);
+  void set_hdr_metadata(const HdrMetadata* hdr_metadata);
+
  private:
+  // Arrays of all possible enum values. Needed when converting from uint8_t to
+  // the enum class.
+  static const ColorSpace::PrimaryID kPrimaryIds[];
+  static const ColorSpace::TransferID kTransferIds[];
+  static const ColorSpace::MatrixID kMatrixIds[];
+  static const ColorSpace::RangeID kRangeIds[];
+
+  // Try to convert |index| into the enum class T. |ids| should be an array
+  // listing all possible enum values. Returns true if conversion was
+  // successful, false otherwise.
+  template <typename T, size_t N>
+  bool set_from_uint8(uint8_t index, const T (&ids)[N], T* out);
+
   PrimaryID primaries_ = PrimaryID::kInvalid;
   TransferID transfer_ = TransferID::kInvalid;
   MatrixID matrix_ = MatrixID::kInvalid;
   RangeID range_ = RangeID::kInvalid;
   absl::optional<HdrMetadata> hdr_metadata_;
 };
+
+template <typename T, size_t N>
+bool ColorSpace::set_from_uint8(uint8_t index, const T (&ids)[N], T* out) {
+  for (T id : ids) {
+    if (index == static_cast<uint8_t>(id)) {
+      *out = id;
+      return true;
+    }
+  }
+  return false;
+}
 
 }  // namespace webrtc
 

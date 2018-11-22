@@ -1140,7 +1140,8 @@ if (rtc_include_tests) {
       "../test:test_support",
       "memory:unittests",
       "third_party/base64",
-      "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/memory:memory",
+      "//third_party/abseil-cpp/absl/meta:type_traits",
     ]
   }
 

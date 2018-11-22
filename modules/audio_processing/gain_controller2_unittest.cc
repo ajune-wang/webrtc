@@ -42,7 +42,7 @@ float RunAgc2WithConstantInput(GainController2* agc2,
   // Give time to the level estimator to converge.
   for (size_t i = 0; i < num_frames + 1; ++i) {
     SetAudioBufferSamples(input_level, &ab);
-    agc2->Process(&ab);
+    agc2->ApplyDigitalGain(&ab);
   }
 
   // Return the last sample from the last processed frame.
@@ -90,14 +90,14 @@ float GainAfterProcessingFile(GainController2* gain_controller) {
                                    capture_input);
 
     test::CopyVectorToAudioBuffer(capture_config, capture_input, &ab);
-    gain_controller->Process(&ab);
+    gain_controller->ApplyDigitalGain(&ab);
   }
 
   // Send in a last frame with values constant 1 (It's low enough to detect high
   // gain, and for ease of computation). The applied gain is the result.
   constexpr float sample_value = 1.f;
   SetAudioBufferSamples(sample_value, &ab);
-  gain_controller->Process(&ab);
+  gain_controller->ApplyDigitalGain(&ab);
   return ab.channels_f()[0][0];
 }
 
@@ -280,6 +280,24 @@ TEST(GainController2, UsageNoSaturationMargin) {
   gain_controller2.ApplyConfig(config);
 
   EXPECT_GT(GainAfterProcessingFile(&gain_controller2), 2.f);
+}
+
+TEST(GainController2, PreProcessPreGainChanges) {
+  GainController2 gain_controller2;
+  gain_controller2.Initialize(AudioProcessing::kSampleRate48kHz);
+
+  AudioProcessing::Config::GainController2 config;
+  config.pre_fixed_digital.gain_factor = 1.f;
+  gain_controller2.ApplyConfig(config);
+
+  constexpr size_t kNumSamples = 480;
+  AudioBuffer ab(kNumSamples, 1, kNumSamples, 1, kNumSamples);
+  SetAudioBufferSamples(100.f, &ab);
+
+  EXPECT_FALSE(gain_controller2.ApplyPreGain(&ab));
+  gain_controller2.HandleCapturePreGainRuntimeSettings(2.f);
+  EXPECT_TRUE(gain_controller2.ApplyPreGain(&ab));
+  EXPECT_FALSE(gain_controller2.ApplyPreGain(&ab));
 }
 
 }  // namespace test

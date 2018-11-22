@@ -32,7 +32,6 @@ struct StreamConfig {
   uint32_t local_ssrc = 0;
   uint32_t remote_ssrc = 0;
   uint32_t rtx_ssrc = 0;
-  std::string rsid;
 
   bool remb = false;
   std::vector<RtpExtension> rtp_extensions;

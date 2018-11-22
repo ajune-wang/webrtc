@@ -16,6 +16,24 @@
       "revId": "cfddbb7e14545e895e8a61a3d3127dad92e319da",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c68325d_675bb2c9",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-22T11:33:08Z",
+      "side": 0,
+      "message": "I\u0027m fairly sure (rtp_header.ssrc !\u003d ssrc_) will be always false when packets arrive on an AudioReceiveStream. It\u0027s not at all clear to me what the use cases are for external applications using the AudioCodingModule interface.",
+      "parentUuid": "94f9e283_d8debf75",
+      "revId": "cfddbb7e14545e895e8a61a3d3127dad92e319da",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

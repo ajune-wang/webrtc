@@ -15,6 +15,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/config/field_trial_default.h"
 #include "api/test/fake_media_transport.h"
 #include "api/test/mock_audio_mixer.h"
 #include "audio/audio_receive_stream.h"
@@ -42,7 +43,7 @@ struct CallHelper {
         new rtc::RefCountedObject<webrtc::test::MockAudioProcessing>();
     audio_state_config.audio_device_module =
         new rtc::RefCountedObject<webrtc::test::MockAudioDeviceModule>();
-    webrtc::Call::Config config(&event_log_);
+    webrtc::Call::Config config(&event_log_, &field_trials_);
     config.audio_state = webrtc::AudioState::Create(audio_state_config);
     call_.reset(webrtc::Call::Create(config));
   }
@@ -51,6 +52,7 @@ struct CallHelper {
 
  private:
   webrtc::RtcEventLogNullImpl event_log_;
+  webrtc::FieldTrialDefaultImplementation field_trials_;
   std::unique_ptr<webrtc::Call> call_;
 };
 }  // namespace

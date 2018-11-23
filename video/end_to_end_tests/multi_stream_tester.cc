@@ -44,7 +44,8 @@ MultiStreamTester::~MultiStreamTester() {}
 
 void MultiStreamTester::RunTest() {
   webrtc::RtcEventLogNullImpl event_log;
-  Call::Config config(&event_log);
+  FieldTrialDefaultImplementation field_trials;
+  Call::Config config(&event_log, &field_trials);
   std::unique_ptr<Call> sender_call;
   std::unique_ptr<Call> receiver_call;
   std::unique_ptr<test::DirectTransport> sender_transport;

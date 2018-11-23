@@ -17,6 +17,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/config/field_trial.h"
 #include "api/transport/network_control.h"
 #include "api/transport/network_types.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -62,6 +63,7 @@ class SendSideCongestionController
       const Clock* clock,
       rtc::TaskQueue* task_queue,
       RtcEventLog* event_log,
+      FieldTrialInterface* field_trials,
       PacedSender* pacer,
       int start_bitrate_bps,
       int min_bitrate_bps,
@@ -165,6 +167,7 @@ class SendSideCongestionController
       RTC_RUN_ON(task_queue_);
 
   const Clock* const clock_;
+  FieldTrialInterface* field_trials_;
   // PacedSender is thread safe and doesn't need protection here.
   PacedSender* const pacer_;
   // TODO(srte): Move all access to feedback adapter to task queue.

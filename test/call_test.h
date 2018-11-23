@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/config/field_trial_default.h"
 #include "api/test/video/function_video_decoder_factory.h"
 #include "api/test/video/function_video_encoder_factory.h"
 #include "api/video/video_bitrate_allocator_factory.h"
@@ -175,6 +176,7 @@ class CallTest : public ::testing::Test {
 
   std::unique_ptr<webrtc::RtcEventLog> send_event_log_;
   std::unique_ptr<webrtc::RtcEventLog> recv_event_log_;
+  std::unique_ptr<FieldTrialInterface> field_trials_;
   std::unique_ptr<Call> sender_call_;
   RtpTransportControllerSend* sender_call_transport_controller_;
   std::unique_ptr<PacketTransport> send_transport_;

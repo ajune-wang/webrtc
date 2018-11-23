@@ -9,6 +9,7 @@
  */
 
 #include "modules/congestion_controller/rtp/include/send_side_congestion_controller.h"
+#include "api/config/field_trial_default.h"
 #include "logging/rtc_event_log/mock/mock_rtc_event_log.h"
 #include "modules/congestion_controller/include/mock/mock_congestion_observer.h"
 #include "modules/congestion_controller/rtp/congestion_controller_unittests_helper.h"
@@ -76,7 +77,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
     EXPECT_CALL(*pacer_, CreateProbeCluster(kInitialBitrateBps * 5));
     task_queue_ = absl::make_unique<rtc::TaskQueue>("SSCC Test");
     controller_.reset(new SendSideCongestionControllerForTest(
-        &clock_, task_queue_.get(), &event_log_, pacer_.get(),
+        &clock_, task_queue_.get(), &event_log_, &field_trials, pacer_.get(),
         kInitialBitrateBps, 0, 5 * kInitialBitrateBps, nullptr));
     controller_->DisablePeriodicTasks();
     controller_->RegisterNetworkObserver(&observer_);
@@ -96,7 +97,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
     pacer_.reset(new NiceMock<MockPacedSender>());
     task_queue_ = absl::make_unique<rtc::TaskQueue>("SSCC Test");
     controller_.reset(new SendSideCongestionControllerForTest(
-        &clock_, task_queue_.get(), &event_log_, pacer_.get(),
+        &clock_, task_queue_.get(), &event_log_, &field_trials, pacer_.get(),
         kInitialBitrateBps, 0, 5 * kInitialBitrateBps, nullptr));
     controller_->DisablePeriodicTasks();
     controller_->RegisterNetworkObserver(&target_bitrate_observer_);
@@ -163,6 +164,7 @@ class SendSideCongestionControllerTest : public ::testing::Test {
   }
 
   SimulatedClock clock_;
+  FieldTrialDefaultImplementation field_trials;
   StrictMock<MockCongestionObserver> observer_;
   TargetBitrateObserver target_bitrate_observer_;
   NiceMock<MockRtcEventLog> event_log_;

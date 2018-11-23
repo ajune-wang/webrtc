@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5981a1b4_5ba65221",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T12:57:11Z",
+      "side": 1,
+      "message": "I assume that it\u0027s generated at the first call.",
+      "parentUuid": "64842450_dfedfc0b",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 72
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "866a68b5_61953ee1",
         "filename": "api/video/color_space.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-23T12:41:56Z",
       "side": 1,
       "message": "Note that value of this expression isn\u0027t well defined when enum_value \u003e\u003d 64. I\u0027m not entirely sure what the status is in the C++ standard. If result is implementation defined, we\u0027re fine, since we will and it with 0 before using the value. \n\nAdd a testcase with enum_value \u003e\u003d 64, and if the ubsan bot complains, you will have to change it to\n\n  (enum_value \u003c 64) \u0026\u0026 ((enum_bitmask \u003e\u003e enum_value) \u0026 1)",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 54
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbaea777_88d25f8b",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T12:57:11Z",
+      "side": 1,
+      "message": "I\u0027ll add a test case for this.",
+      "parentUuid": "866a68b5_61953ee1",
       "range": {
         "startLine": 117,
         "startChar": 26,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e9db846f_1d258972",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T12:57:11Z",
+      "side": 1,
+      "message": "I found this in the Google style guide actually:\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "parentUuid": "83223e43_800fba01",
+      "range": {
+        "startLine": 132,
+        "startChar": 21,
+        "endLine": 132,
+        "endChar": 32
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ca052c0_5ff1524c",
         "filename": "api/video/color_space.h",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-23T12:41:56Z",
       "side": 1,
       "message": "Any reason to have these in the class declaration at all? You could put them in the anonymous namespace in the cc file.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 0
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e36e5d92_b3ddaacd",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T12:57:11Z",
+      "side": 1,
+      "message": "No reason, will move.",
+      "parentUuid": "3ca052c0_5ff1524c",
       "range": {
         "startLine": 148,
         "startChar": 0,

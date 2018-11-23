@@ -16,7 +16,6 @@
 
 #include "absl/strings/match.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
@@ -28,14 +27,13 @@ namespace webrtc {
 namespace test {
 
 namespace {
-// Returns true if the codec should be registered, otherwise false. Changes
-// the number of channels for the Opus codec to always be 1.
-bool ModifyAndUseThisCodec(CodecInst* codec_param) {
-  if (absl::EqualsIgnoreCase(codec_param->plname, "CN") &&
-      codec_param->plfreq == 48000)
+// Returns true if the codec should be registered, otherwise false.
+bool ShouldUseThisCodec(const SdpAudioFormat& format) {
+  if (absl::EqualsIgnoreCase(format.name, "CN") &&
+      format.clockrate_hz == 48000)
     return false;  // Skip 48 kHz comfort noise.
 
-  if (absl::EqualsIgnoreCase(codec_param->plname, "telephone-event"))
+  if (absl::EqualsIgnoreCase(format.name, "telephone-event"))
     return false;  // Skip DTFM.
 
   return true;
@@ -58,57 +56,65 @@ bool ModifyAndUseThisCodec(CodecInst* codec_param) {
 // PCM16b 16 kHz = 94
 // PCM16b 32 kHz = 95
 // G.722 = 94
-bool RemapPltypeAndUseThisCodec(const char* plname,
-                                int plfreq,
-                                size_t channels,
-                                int* pltype) {
-  if (channels != 1)
-    return false;  // Don't use non-mono codecs.
+absl::optional<int> GetPayloadTypeMapping(const SdpAudioFormat& format) {
+  if (format.num_channels != 1)
+    return absl::nullopt;  // Don't use non-mono codecs.
 
   // Re-map pltypes to those used in the NetEq test files.
-  if (absl::EqualsIgnoreCase(plname, "PCMU") && plfreq == 8000) {
-    *pltype = 0;
-  } else if (absl::EqualsIgnoreCase(plname, "PCMA") && plfreq == 8000) {
-    *pltype = 8;
-  } else if (absl::EqualsIgnoreCase(plname, "CN") && plfreq == 8000) {
-    *pltype = 13;
-  } else if (absl::EqualsIgnoreCase(plname, "CN") && plfreq == 16000) {
-    *pltype = 98;
-  } else if (absl::EqualsIgnoreCase(plname, "CN") && plfreq == 32000) {
-    *pltype = 99;
-  } else if (absl::EqualsIgnoreCase(plname, "ILBC")) {
-    *pltype = 102;
-  } else if (absl::EqualsIgnoreCase(plname, "ISAC") && plfreq == 16000) {
-    *pltype = 103;
-  } else if (absl::EqualsIgnoreCase(plname, "ISAC") && plfreq == 32000) {
-    *pltype = 104;
-  } else if (absl::EqualsIgnoreCase(plname, "telephone-event") &&
-             plfreq == 8000) {
-    *pltype = 106;
-  } else if (absl::EqualsIgnoreCase(plname, "telephone-event") &&
-             plfreq == 16000) {
-    *pltype = 114;
-  } else if (absl::EqualsIgnoreCase(plname, "telephone-event") &&
-             plfreq == 32000) {
-    *pltype = 115;
-  } else if (absl::EqualsIgnoreCase(plname, "telephone-event") &&
-             plfreq == 48000) {
-    *pltype = 116;
-  } else if (absl::EqualsIgnoreCase(plname, "red")) {
-    *pltype = 117;
-  } else if (absl::EqualsIgnoreCase(plname, "L16") && plfreq == 8000) {
-    *pltype = 93;
-  } else if (absl::EqualsIgnoreCase(plname, "L16") && plfreq == 16000) {
-    *pltype = 94;
-  } else if (absl::EqualsIgnoreCase(plname, "L16") && plfreq == 32000) {
-    *pltype = 95;
-  } else if (absl::EqualsIgnoreCase(plname, "G722")) {
-    *pltype = 9;
+  int payload_type = -1;
+  if (absl::EqualsIgnoreCase(format.name, "PCMU") &&
+             format.clockrate_hz == 8000) {
+    payload_type = 0;
+  } else if (absl::EqualsIgnoreCase(format.name, "PCMA") &&
+             format.clockrate_hz == 8000) {
+    payload_type = 8;
+  } else if (absl::EqualsIgnoreCase(format.name, "CN") &&
+             format.clockrate_hz == 8000) {
+    payload_type = 13;
+  } else if (absl::EqualsIgnoreCase(format.name, "CN") &&
+             format.clockrate_hz == 16000) {
+    payload_type = 98;
+  } else if (absl::EqualsIgnoreCase(format.name, "CN") &&
+             format.clockrate_hz == 32000) {
+    payload_type = 99;
+  } else if (absl::EqualsIgnoreCase(format.name, "ILBC")) {
+    payload_type = 102;
+  } else if (absl::EqualsIgnoreCase(format.name, "ISAC") &&
+             format.clockrate_hz == 16000) {
+    payload_type = 103;
+  } else if (absl::EqualsIgnoreCase(format.name, "ISAC") &&
+             format.clockrate_hz == 32000) {
+    payload_type = 104;
+  } else if (absl::EqualsIgnoreCase(format.name, "telephone-event") &&
+             format.clockrate_hz == 8000) {
+    payload_type = 106;
+  } else if (absl::EqualsIgnoreCase(format.name, "telephone-event") &&
+             format.clockrate_hz == 16000) {
+    payload_type = 114;
+  } else if (absl::EqualsIgnoreCase(format.name, "telephone-event") &&
+             format.clockrate_hz == 32000) {
+    payload_type = 115;
+  } else if (absl::EqualsIgnoreCase(format.name, "telephone-event") &&
+             format.clockrate_hz == 48000) {
+    payload_type = 116;
+  } else if (absl::EqualsIgnoreCase(format.name, "red")) {
+    payload_type = 117;
+  } else if (absl::EqualsIgnoreCase(format.name, "L16") &&
+             format.clockrate_hz == 8000) {
+    payload_type = 93;
+  } else if (absl::EqualsIgnoreCase(format.name, "L16") &&
+             format.clockrate_hz == 16000) {
+    payload_type = 94;
+  } else if (absl::EqualsIgnoreCase(format.name, "L16") &&
+             format.clockrate_hz == 32000) {
+    payload_type = 95;
+  } else if (absl::EqualsIgnoreCase(format.name, "G722")) {
+    payload_type = 9;
   } else {
     // Don't use any other codecs.
-    return false;
+    return absl::nullopt;
   }
-  return true;
+  return payload_type;
 }
 
 AudioCodingModule::Config MakeAcmConfig(
@@ -129,6 +135,7 @@ AcmReceiveTestOldApi::AcmReceiveTestOldApi(
     NumOutputChannels exptected_output_channels,
     rtc::scoped_refptr<AudioDecoderFactory> decoder_factory)
     : clock_(0),
+      decoder_factory_(decoder_factory),
       acm_(webrtc::AudioCodingModule::Create(
           MakeAcmConfig(&clock_, std::move(decoder_factory)))),
       packet_source_(packet_source),
@@ -139,36 +146,27 @@ AcmReceiveTestOldApi::AcmReceiveTestOldApi(
 AcmReceiveTestOldApi::~AcmReceiveTestOldApi() = default;
 
 void AcmReceiveTestOldApi::RegisterDefaultCodecs() {
-  CodecInst my_codec_param;
-  for (int n = 0; n < acm_->NumberOfCodecs(); n++) {
-    ASSERT_EQ(0, acm_->Codec(n, &my_codec_param)) << "Failed to get codec.";
-    if (ModifyAndUseThisCodec(&my_codec_param)) {
-      ASSERT_EQ(true,
-                acm_->RegisterReceiveCodec(my_codec_param.pltype,
-                                           CodecInstToSdp(my_codec_param)))
-          << "Couldn't register receive codec.\n";
+  std::map<int, SdpAudioFormat> receive_codecs;
+  int payload_type = 1;
+  for (const auto& spec : decoder_factory_->GetSupportedDecoders()) {
+    if (ShouldUseThisCodec(spec.format)) {
+      receive_codecs.emplace(std::make_pair(payload_type, spec.format));
     }
   }
+  acm_->SetReceiveCodecs(receive_codecs);
 }
 
 void AcmReceiveTestOldApi::RegisterNetEqTestCodecs() {
-  CodecInst my_codec_param;
-  for (int n = 0; n < acm_->NumberOfCodecs(); n++) {
-    ASSERT_EQ(0, acm_->Codec(n, &my_codec_param)) << "Failed to get codec.";
-    if (!ModifyAndUseThisCodec(&my_codec_param)) {
-      // Skip this codec.
-      continue;
-    }
-
-    if (RemapPltypeAndUseThisCodec(my_codec_param.plname, my_codec_param.plfreq,
-                                   my_codec_param.channels,
-                                   &my_codec_param.pltype)) {
-      ASSERT_EQ(true,
-                acm_->RegisterReceiveCodec(my_codec_param.pltype,
-                                           CodecInstToSdp(my_codec_param)))
-          << "Couldn't register receive codec.\n";
+  std::map<int, SdpAudioFormat> receive_codecs;
+  for (const auto& spec : decoder_factory_->GetSupportedDecoders()) {
+    if (ShouldUseThisCodec(spec.format)) {
+      auto payload_type = GetPayloadTypeMapping(spec.format);
+      if (payload_type) {
+        receive_codecs.emplace(std::make_pair(*payload_type, spec.format));
+      }
     }
   }
+  acm_->SetReceiveCodecs(receive_codecs);
 }
 
 void AcmReceiveTestOldApi::Run() {

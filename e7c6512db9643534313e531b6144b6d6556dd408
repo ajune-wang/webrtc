@@ -69,6 +69,24 @@
       "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e2216a1_6b349dc8",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-23T09:52:37Z",
+      "side": 1,
+      "message": "Done in PS#6.",
+      "parentUuid": "45f29241_47b202ac",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

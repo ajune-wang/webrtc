@@ -168,8 +168,8 @@ if (is_android) {
     deps = [
       ":base_jni",
       ":libjingle_peerconnection_metrics_default_jni",
+      ":media_jni",
       ":null_audio_jni",
-      ":null_media_jni",
       ":null_video_jni",
       ":peerconnection_jni",
       "../../pc:peerconnection",

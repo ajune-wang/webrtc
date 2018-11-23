@@ -3740,8 +3740,6 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
   EXPECT_THAT(
       caller()->peer_connection_state_history(),
       ElementsAre(PeerConnectionInterface::PeerConnectionState::kConnecting,
-                  PeerConnectionInterface::PeerConnectionState::kNew,
-                  PeerConnectionInterface::PeerConnectionState::kConnecting,
                   PeerConnectionInterface::PeerConnectionState::kConnected));
   EXPECT_THAT(caller()->ice_gathering_state_history(),
               ElementsAre(PeerConnectionInterface::kIceGatheringGathering,

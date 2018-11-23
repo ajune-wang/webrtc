@@ -252,6 +252,7 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
 
  protected:
   void OnConnectionState(PeerConnectionInterface::IceConnectionState state) {
+    RTC_LOG(LS_INFO) << "OnConnectionState: " << static_cast<int>(state);
     if (!signaling_thread_->IsCurrent()) {
       signaled_on_non_signaling_thread_ = true;
     }
@@ -261,6 +262,8 @@ class JsepTransportControllerTest : public JsepTransportController::Observer,
 
   void OnCombinedConnectionState(
       PeerConnectionInterface::PeerConnectionState state) {
+    RTC_LOG(LS_INFO) << "OnCombinedConnectionState: "
+                     << static_cast<int>(state);
     if (!signaling_thread_->IsCurrent()) {
       signaled_on_non_signaling_thread_ = true;
     }
@@ -715,51 +718,6 @@ TEST_F(JsepTransportControllerTest, SignalConnectionStateFailed) {
 }
 
 TEST_F(JsepTransportControllerTest,
-       SignalConnectionStateConnectedNoMediaTransport) {
-  CreateJsepTransportController(JsepTransportController::Config());
-  auto description = CreateSessionDescriptionWithoutBundle();
-  EXPECT_TRUE(transport_controller_
-                  ->SetLocalDescription(SdpType::kOffer, description.get())
-                  .ok());
-
-  auto fake_audio_dtls = static_cast<FakeDtlsTransport*>(
-      transport_controller_->GetDtlsTransport(kAudioMid1));
-  auto fake_video_dtls = static_cast<FakeDtlsTransport*>(
-      transport_controller_->GetDtlsTransport(kVideoMid1));
-
-  // First, have one transport connect, and another fail, to ensure that
-  // the first transport connecting didn't trigger a "connected" state signal.
-  // We should only get a signal when all are connected.
-  fake_audio_dtls->fake_ice_transport()->SetConnectionCount(1);
-  fake_audio_dtls->SetWritable(true);
-  fake_audio_dtls->fake_ice_transport()->SetCandidatesGatheringComplete();
-  // Decrease the number of the connection to trigger the signal.
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(1);
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(0);
-  fake_video_dtls->fake_ice_transport()->SetCandidatesGatheringComplete();
-
-  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                 connection_state_, kTimeout);
-  EXPECT_EQ(1, connection_state_signal_count_);
-  EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kFailed,
-                 combined_connection_state_, kTimeout);
-  EXPECT_EQ(1, combined_connection_state_signal_count_);
-
-  fake_audio_dtls->SetDtlsState(cricket::DTLS_TRANSPORT_CONNECTED);
-  fake_video_dtls->SetDtlsState(cricket::DTLS_TRANSPORT_CONNECTED);
-  // Set the connection count to be 2 and the cricket::FakeIceTransport will set
-  // the transport state to be STATE_CONNECTING.
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(2);
-  fake_video_dtls->SetWritable(true);
-  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionConnected,
-                 connection_state_, kTimeout);
-  EXPECT_EQ(2, connection_state_signal_count_);
-  EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kConnected,
-                 combined_connection_state_, kTimeout);
-  EXPECT_EQ(2, combined_connection_state_signal_count_);
-}
-
-TEST_F(JsepTransportControllerTest,
        SignalConnectionStateConnectedWithMediaTransport) {
   FakeMediaTransportFactory fake_media_transport_factory;
   JsepTransportController::Config config;
@@ -864,33 +822,42 @@ TEST_F(JsepTransportControllerTest, SignalConnectionStateComplete) {
   // First, have one transport connect, and another fail, to ensure that
   // the first transport connecting didn't trigger a "connected" state signal.
   // We should only get a signal when all are connected.
-  fake_audio_dtls->fake_ice_transport()->SetConnectionCount(1);
+  fake_audio_dtls->fake_ice_transport()->SetTransportState(
+      IceTransportState::kCompleted);
   fake_audio_dtls->SetWritable(true);
   fake_audio_dtls->fake_ice_transport()->SetCandidatesGatheringComplete();
-  // Decrease the number of the connection to trigger the signal.
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(1);
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(0);
+
+  EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionChecking,
+                 connection_state_, kTimeout);
+  EXPECT_EQ(1, connection_state_signal_count_);
+  EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kConnecting,
+                 combined_connection_state_, kTimeout);
+  EXPECT_EQ(1, combined_connection_state_signal_count_);
+
+  fake_video_dtls->fake_ice_transport()->SetTransportState(
+      IceTransportState::kFailed);
   fake_video_dtls->fake_ice_transport()->SetCandidatesGatheringComplete();
 
   EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
                  connection_state_, kTimeout);
-  EXPECT_EQ(1, connection_state_signal_count_);
+  EXPECT_EQ(2, connection_state_signal_count_);
   EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kFailed,
                  combined_connection_state_, kTimeout);
-  EXPECT_EQ(1, combined_connection_state_signal_count_);
+  EXPECT_EQ(2, combined_connection_state_signal_count_);
 
   fake_audio_dtls->SetDtlsState(cricket::DTLS_TRANSPORT_CONNECTED);
   fake_video_dtls->SetDtlsState(cricket::DTLS_TRANSPORT_CONNECTED);
   // Set the connection count to be 1 and the cricket::FakeIceTransport will set
   // the transport state to be STATE_COMPLETED.
-  fake_video_dtls->fake_ice_transport()->SetConnectionCount(1);
+  fake_video_dtls->fake_ice_transport()->SetTransportState(
+      IceTransportState::kCompleted);
   fake_video_dtls->SetWritable(true);
   EXPECT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
                  connection_state_, kTimeout);
-  EXPECT_EQ(2, connection_state_signal_count_);
+  EXPECT_EQ(3, connection_state_signal_count_);
   EXPECT_EQ_WAIT(PeerConnectionInterface::PeerConnectionState::kConnected,
                  combined_connection_state_, kTimeout);
-  EXPECT_EQ(2, combined_connection_state_signal_count_);
+  EXPECT_EQ(3, combined_connection_state_signal_count_);
 }
 
 TEST_F(JsepTransportControllerTest, SignalIceGatheringStateGathering) {

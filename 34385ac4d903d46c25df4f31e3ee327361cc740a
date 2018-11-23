@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61195ffb_0c23cce4",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-23T14:53:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e9b1f42_77b0da3a",
+      "range": {
+        "startLine": 84,
+        "startChar": 34,
+        "endLine": 84,
+        "endChar": 36
+      },
+      "revId": "34385ac4d903d46c25df4f31e3ee327361cc740a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f18b77a_0f2e6001",
         "filename": "api/media_transport_interface.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ef521dc0_f5ec72c6",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-23T14:53:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f18b77a_0f2e6001",
+      "range": {
+        "startLine": 98,
+        "startChar": 53,
+        "endLine": 98,
+        "endChar": 55
+      },
+      "revId": "34385ac4d903d46c25df4f31e3ee327361cc740a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2ed020a_8f95e937",
         "filename": "api/media_transport_interface.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-23T14:06:15Z",
       "side": 1,
       "message": "Why is this necessary?",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 39
+      },
+      "revId": "34385ac4d903d46c25df4f31e3ee327361cc740a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244664a1_e3ac3656",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-23T14:53:52Z",
+      "side": 1,
+      "message": "Because otherwise we leave o._buffer pointing inside o.encoded_data_, which is conceptually destroyed by being moved from.",
+      "parentUuid": "d2ed020a_8f95e937",
       "range": {
         "startLine": 100,
         "startChar": 0,

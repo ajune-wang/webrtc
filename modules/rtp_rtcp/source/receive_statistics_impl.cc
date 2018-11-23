@@ -47,11 +47,10 @@ StreamStatisticianImpl::StreamStatisticianImpl(
       last_receive_time_ms_(0),
       last_received_timestamp_(0),
       received_seq_first_(0),
-      received_seq_max_(0),
-      received_seq_wraps_(0),
+      received_seq_max_(-1),
       last_report_inorder_packets_(0),
       last_report_old_packets_(0),
-      last_report_seq_max_(0),
+      last_report_seq_max_(-1),
       rtcp_callback_(rtcp_callback),
       rtp_callback_(rtp_callback) {}
 
@@ -66,54 +65,62 @@ StreamDataCounters StreamStatisticianImpl::UpdateCounters(
     const RtpPacketReceived& packet) {
   rtc::CritScope cs(&stream_lock_);
   RTC_DCHECK_EQ(ssrc_, packet.Ssrc());
-  uint16_t sequence_number = packet.SequenceNumber();
-  bool in_order =
-      // First packet is always in order.
-      last_receive_time_ms_ == 0 ||
-      IsNewerSequenceNumber(sequence_number, received_seq_max_) ||
-      // If we have a restart of the remote side this packet is still in order.
-      !IsNewerSequenceNumber(sequence_number,
-                             received_seq_max_ - max_reordering_threshold_);
   int64_t now_ms = clock_->TimeInMilliseconds();
 
   incoming_bitrate_.Update(packet.size(), now_ms);
   receive_counters_.transmitted.AddPacket(packet);
-  if (!in_order && enable_retransmit_detection_ &&
-      IsRetransmitOfOldPacket(packet, now_ms)) {
-    receive_counters_.retransmitted.AddPacket(packet);
-  }
 
-  if (receive_counters_.transmitted.packets == 1) {
-    received_seq_first_ = packet.SequenceNumber();
+  int64_t sequence_number =
+      seq_unwrapper_.UnwrapWithoutUpdate(packet.SequenceNumber());
+  if (!ReceivedRtpPacket()) {
+    // Is first packet.
+    received_seq_first_ = sequence_number;
+    last_report_seq_max_ = sequence_number - 1;
     receive_counters_.first_packet_time_ms = now_ms;
-  }
-
-  // Count only the new packets received. That is, if packets 1, 2, 3, 5, 4, 6
-  // are received, 4 will be ignored.
-  if (in_order) {
-    // Current time in samples.
-    NtpTime receive_time = clock_->CurrentNtpTime();
-
-    // Wrong if we use RetransmitOfOldPacket.
-    if (receive_counters_.transmitted.packets > 1 &&
-        received_seq_max_ > packet.SequenceNumber()) {
-      // Wrap around detected.
-      received_seq_wraps_++;
+  } else {
+    if (received_seq_out_of_order_) {
+      // Check if |packet| is second packet of stream restart.
+      if (static_cast<uint16_t>(*received_seq_out_of_order_ + 1) ==
+          packet.SequenceNumber()) {
+        // Assume that the other side restarted.
+        received_seq_max_ = sequence_number - 1;
+        last_report_seq_max_ = sequence_number - 1;
+      }
+      received_seq_out_of_order_ = absl::nullopt;
     }
-    // New max.
-    received_seq_max_ = packet.SequenceNumber();
 
-    // If new time stamp and more than one in-order packet received, calculate
-    // new jitter statistics.
-    if (packet.Timestamp() != last_received_timestamp_ &&
-        (receive_counters_.transmitted.packets -
-         receive_counters_.retransmitted.packets) > 1) {
-      UpdateJitter(packet, receive_time);
+    if (std::abs(sequence_number - received_seq_max_) >
+        max_reordering_threshold_) {
+      // Sequence number gap looks too large, consider stream restart.
+      received_seq_out_of_order_ = packet.SequenceNumber();
+      return receive_counters_;
     }
-    last_received_timestamp_ = packet.Timestamp();
-    last_receive_time_ntp_ = receive_time;
-    last_receive_time_ms_ = now_ms;
+
+    if (sequence_number <= received_seq_max_) {
+      if (enable_retransmit_detection_ &&
+          IsRetransmitOfOldPacket(packet, now_ms)) {
+        receive_counters_.retransmitted.AddPacket(packet);
+      }
+      return receive_counters_;
+    }
   }
+  // New max.
+  received_seq_max_ = sequence_number;
+  seq_unwrapper_.UpdateLast(sequence_number);
+
+  // Current time in samples.
+  NtpTime receive_time = clock_->CurrentNtpTime();
+
+  // If new time stamp and more than one in-order packet received, calculate
+  // new jitter statistics.
+  if (packet.Timestamp() != last_received_timestamp_ &&
+      (receive_counters_.transmitted.packets -
+       receive_counters_.retransmitted.packets) > 1) {
+    UpdateJitter(packet, receive_time);
+  }
+  last_received_timestamp_ = packet.Timestamp();
+  last_receive_time_ntp_ = receive_time;
+  last_receive_time_ms_ = now_ms;
   return receive_counters_;
 }
 
@@ -164,8 +171,7 @@ bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
                                            bool reset) {
   {
     rtc::CritScope cs(&stream_lock_);
-    if (received_seq_first_ == 0 &&
-        receive_counters_.transmitted.payload_bytes == 0) {
+    if (!ReceivedRtpPacket()) {
       // We have not received anything.
       return false;
     }
@@ -196,9 +202,7 @@ bool StreamStatisticianImpl::GetActiveStatisticsAndReset(
       // Not active.
       return false;
     }
-    if (received_seq_first_ == 0 &&
-        receive_counters_.transmitted.payload_bytes == 0) {
-      // We have not received anything.
+    if (!ReceivedRtpPacket()) {
       return false;
     }
 
@@ -211,19 +215,9 @@ bool StreamStatisticianImpl::GetActiveStatisticsAndReset(
 
 RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics() {
   RtcpStatistics stats;
-
-  if (last_report_inorder_packets_ == 0) {
-    // First time we send a report.
-    last_report_seq_max_ = received_seq_first_ - 1;
-  }
-
   // Calculate fraction lost.
-  uint16_t exp_since_last = (received_seq_max_ - last_report_seq_max_);
-
-  if (last_report_seq_max_ > received_seq_max_) {
-    // Can we assume that the seq_num can't go decrease over a full RTCP period?
-    exp_since_last = 0;
-  }
+  int64_t exp_since_last = received_seq_max_ - last_report_seq_max_;
+  RTC_DCHECK_GE(exp_since_last, 0);
 
   // Number of received RTP packets since last report, counts all packets but
   // not re-transmissions.
@@ -260,7 +254,7 @@ RtcpStatistics StreamStatisticianImpl::CalculateRtcpStatistics() {
   cumulative_loss_ += missing;
   stats.packets_lost = cumulative_loss_;
   stats.extended_highest_sequence_number =
-      (received_seq_wraps_ << 16) + received_seq_max_;
+      static_cast<uint32_t>(received_seq_max_);
   // Note: internal jitter value is in Q4 and needs to be scaled by 1/16.
   stats.jitter = jitter_q4_ >> 4;
 

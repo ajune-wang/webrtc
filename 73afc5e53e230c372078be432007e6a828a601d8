@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e47bc3f0_edfb17e7",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T13:49:46Z",
+      "side": 1,
+      "message": "These shouldn\u0027t be in the global namespace. https://abseil.io/tips/119",
+      "revId": "73afc5e53e230c372078be432007e6a828a601d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a0c6f22_3875a8f1",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T13:49:46Z",
+      "side": 1,
+      "message": "This manual memory management seems difficult. Can\u0027t you just have a vector\u003cunique_ptr\u003cMockEchoControl\u003e\u003e and a vector\u003cMockEchoControl*\u003e?\n\nAlso, since the number of things is a constant 2, maybe just separate variables instead?",
+      "revId": "73afc5e53e230c372078be432007e6a828a601d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

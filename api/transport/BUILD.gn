@@ -35,6 +35,7 @@ rtc_static_library("network_control") {
   ]
 
   deps = [
+    "../config:field_trial",
     "../units:data_rate",
     "../units:data_size",
     "../units:time_delta",

@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 
+#include "api/config/field_trial.h"
 #include "api/transport/network_control.h"
 #include "call/rtp_bitrate_configurator.h"
 #include "call/rtp_transport_controller_send_interface.h"
@@ -43,6 +44,7 @@ class RtpTransportControllerSend final
   RtpTransportControllerSend(
       Clock* clock,
       RtcEventLog* event_log,
+      FieldTrialInterface* field_trials,
       NetworkControllerFactoryInterface* controller_factory,
       const BitrateConstraints& bitrate_config);
   ~RtpTransportControllerSend() override;

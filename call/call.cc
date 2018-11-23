@@ -403,9 +403,10 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
 
 Call* Call::Create(const Call::Config& config) {
   return new internal::Call(
-      config, absl::make_unique<RtpTransportControllerSend>(
-                  Clock::GetRealTimeClock(), config.event_log,
-                  config.network_controller_factory, config.bitrate_config));
+      config,
+      absl::make_unique<RtpTransportControllerSend>(
+          Clock::GetRealTimeClock(), config.event_log, config.field_trials,
+          config.network_controller_factory, config.bitrate_config));
 }
 
 Call* Call::Create(

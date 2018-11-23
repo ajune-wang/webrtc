@@ -41,6 +41,7 @@ if (rtc_include_tests) {
       "../../api:transport_api",
       "../../api/audio_codecs:builtin_audio_decoder_factory",
       "../../api/audio_codecs:builtin_audio_encoder_factory",
+      "../../api/config:field_trial_default",
       "../../api/test/video:function_video_factory",
       "../../api/units:data_rate",
       "../../api/units:time_delta",
@@ -89,6 +90,7 @@ if (rtc_include_tests) {
       "../../system_wrappers",
       "../../system_wrappers:field_trial",
       "../../video",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
     if (is_android) {

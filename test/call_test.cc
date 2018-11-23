@@ -39,6 +39,7 @@ CallTest::CallTest()
     : clock_(Clock::GetRealTimeClock()),
       send_event_log_(RtcEventLog::CreateNull()),
       recv_event_log_(RtcEventLog::CreateNull()),
+      field_trials_(absl::make_unique<FieldTrialDefaultImplementation>()),
       sender_call_transport_controller_(nullptr),
       audio_send_config_(/*send_transport=*/nullptr,
                          /*media_transport=*/nullptr),
@@ -77,7 +78,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
     num_audio_streams_ = test->GetNumAudioStreams();
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
     RTC_DCHECK(num_video_streams_ > 0 || num_audio_streams_ > 0);
-    Call::Config send_config(send_event_log_.get());
+    Call::Config send_config(send_event_log_.get(), field_trials_.get());
     test->ModifySenderBitrateConfig(&send_config.bitrate_config);
     if (num_audio_streams_ > 0) {
       CreateFakeAudioDevices(test->CreateCapturer(), test->CreateRenderer());
@@ -101,7 +102,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
           sender_call_transport_controller_);
     }
     if (test->ShouldCreateReceivers()) {
-      Call::Config recv_config(recv_event_log_.get());
+      Call::Config recv_config(recv_event_log_.get(), field_trials_.get());
       test->ModifyReceiverBitrateConfig(&recv_config.bitrate_config);
       if (num_audio_streams_ > 0) {
         AudioState::Config audio_state_config;
@@ -187,8 +188,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
 }
 
 void CallTest::CreateCalls() {
-  CreateCalls(Call::Config(send_event_log_.get()),
-              Call::Config(recv_event_log_.get()));
+  CreateCalls(Call::Config(send_event_log_.get(), field_trials_.get()),
+              Call::Config(recv_event_log_.get(), field_trials_.get()));
 }
 
 void CallTest::CreateCalls(const Call::Config& sender_config,
@@ -198,7 +199,7 @@ void CallTest::CreateCalls(const Call::Config& sender_config,
 }
 
 void CallTest::CreateSenderCall() {
-  CreateSenderCall(Call::Config(send_event_log_.get()));
+  CreateSenderCall(Call::Config(send_event_log_.get(), field_trials_.get()));
 }
 
 void CallTest::CreateSenderCall(const Call::Config& config) {
@@ -214,8 +215,8 @@ void CallTest::CreateSenderCall(const Call::Config& config) {
   }
   std::unique_ptr<RtpTransportControllerSend> controller_send =
       absl::make_unique<RtpTransportControllerSend>(
-          Clock::GetRealTimeClock(), config.event_log, injected_factory,
-          config.bitrate_config);
+          Clock::GetRealTimeClock(), config.event_log, config.field_trials,
+          injected_factory, config.bitrate_config);
   sender_call_transport_controller_ = controller_send.get();
   sender_call_.reset(Call::Create(config, std::move(controller_send)));
 }

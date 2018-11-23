@@ -108,12 +108,14 @@ SendSideCongestionController::SendSideCongestionController(
     const Clock* clock,
     rtc::TaskQueue* task_queue,
     RtcEventLog* event_log,
+    FieldTrialInterface* field_trials,
     PacedSender* pacer,
     int start_bitrate_bps,
     int min_bitrate_bps,
     int max_bitrate_bps,
     NetworkControllerFactoryInterface* controller_factory)
     : clock_(clock),
+      field_trials_(field_trials),
       pacer_(pacer),
       transport_feedback_adapter_(clock_),
       controller_factory_with_feedback_(controller_factory),
@@ -133,6 +135,7 @@ SendSideCongestionController::SendSideCongestionController(
       pacer_queue_update_task_(nullptr),
       controller_task_(nullptr),
       task_queue_(task_queue) {
+  initial_config_.field_trials = field_trials_;
   initial_config_.constraints = ConvertConstraints(
       min_bitrate_bps, max_bitrate_bps, start_bitrate_bps, clock_);
   RTC_DCHECK(start_bitrate_bps > 0);

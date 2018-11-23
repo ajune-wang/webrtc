@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 
+#include "api/config/field_trial.h"
 #include "api/media_transport_interface.h"
 #include "api/mediastreaminterface.h"
 #include "api/peerconnectioninterface.h"
@@ -142,6 +143,8 @@ class PeerConnectionFactory : public PeerConnectionFactoryInterface {
   std::unique_ptr<rtc::Thread> owned_network_thread_;
   std::unique_ptr<rtc::Thread> owned_worker_thread_;
   Options options_;
+  std::unique_ptr<FieldTrialInterface> field_trials_;
+
   std::unique_ptr<cricket::ChannelManager> channel_manager_;
   std::unique_ptr<rtc::BasicNetworkManager> default_network_manager_;
   std::unique_ptr<rtc::BasicPacketSocketFactory> default_socket_factory_;

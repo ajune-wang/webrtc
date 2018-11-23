@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/config/field_trial_default.h"
 #include "api/fec_controller.h"
 #include "api/media_transport_interface.h"
 #include "api/mediaconstraintsinterface.h"
@@ -142,6 +143,7 @@ PeerConnectionFactory::PeerConnectionFactory(
       network_thread_(network_thread),
       worker_thread_(worker_thread),
       signaling_thread_(signaling_thread),
+      field_trials_(absl::make_unique<FieldTrialDefaultImplementation>()),
       media_engine_(std::move(media_engine)),
       call_factory_(std::move(call_factory)),
       event_log_factory_(std::move(event_log_factory)),
@@ -466,7 +468,7 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   const int kStartBandwidthBps = 300000;
   const int kMaxBandwidthBps = 2000000;
 
-  webrtc::Call::Config call_config(event_log);
+  webrtc::Call::Config call_config(event_log, field_trials_.get());
   if (!channel_manager_->media_engine() || !call_factory_) {
     return nullptr;
   }

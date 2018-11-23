@@ -216,6 +216,7 @@ rtc_source_set("refcount") {
   sources = [
     "refcount.h",
     "refcountedobject.h",
+    "refcounter.cc",
     "refcounter.h",
   ]
   deps = [

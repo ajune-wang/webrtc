@@ -10,7 +10,8 @@
 #ifndef RTC_BASE_REFCOUNTER_H_
 #define RTC_BASE_REFCOUNTER_H_
 
-#include "rtc_base/atomicops.h"
+#include <atomic>
+
 #include "rtc_base/refcount.h"
 
 namespace webrtc {
@@ -18,18 +19,22 @@ namespace webrtc_impl {
 
 class RefCounter {
  public:
-  explicit RefCounter(int ref_count) : ref_count_(ref_count) {}
+  explicit RefCounter(int ref_count);
   RefCounter() = delete;
 
-  void IncRef() { rtc::AtomicOps::Increment(&ref_count_); }
+  void IncRef() {
+    // TODO(mbonadei): Add comment!
+    std::atomic_fetch_add_explicit(&ref_count_, 1, std::memory_order_relaxed);
+  }
 
-  // TODO(nisse): Switch return type to RefCountReleaseStatus?
-  // Returns true if this was the last reference, and the resource protected by
-  // the reference counter can be deleted.
+  // Returns rtc::RefCountReleaseStatus::kDroppedLastRef if this was the last
+  // reference, and the resource protected by the reference counter can be
+  // deleted, otherwise rtc::RefCountReleaseStatus::kOtherRefsRemained.
   rtc::RefCountReleaseStatus DecRef() {
-    return (rtc::AtomicOps::Decrement(&ref_count_) == 0)
-               ? rtc::RefCountReleaseStatus::kDroppedLastRef
-               : rtc::RefCountReleaseStatus::kOtherRefsRemained;
+    int references = std::atomic_fetch_sub_explicit(&ref_count_, 1,
+                                                    std::memory_order_acq_rel);
+    return references == 0 ? rtc::RefCountReleaseStatus::kDroppedLastRef
+                           : rtc::RefCountReleaseStatus::kOtherRefsRemained;
   }
 
   // Return whether the reference count is one. If the reference count is used
@@ -39,11 +44,12 @@ class RefCounter {
   // needed for the owning thread to act on the resource protected by the
   // reference counter, knowing that it has exclusive access.
   bool HasOneRef() const {
-    return rtc::AtomicOps::AcquireLoad(&ref_count_) == 1;
+    return std::atomic_load_explicit(&ref_count_, std::memory_order_acquire) ==
+           1;
   }
 
  private:
-  volatile int ref_count_;
+  std::atomic<int> ref_count_;
 };
 
 }  // namespace webrtc_impl

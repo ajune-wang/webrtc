@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c88a03b_ec9a283c",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T13:30:02Z",
+      "side": 1,
+      "message": "CamelCase, please.",
+      "revId": "48f1ec7e46567ad9b9ce188a3d4124f93f2e82ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

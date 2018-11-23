@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "96a66867_c03d9ef1",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T13:30:02Z",
+      "side": 1,
+      "message": "Make enum_bitmask constexpr (you\u0027ll also have to make create_enum_bitmask constexpr, but the compiler will remind you). That way, you guarantee that the computation happens at compile time.\n\nIt makes a lot of difference: https://godbolt.org/z/K49BEW",
+      "parentUuid": "5981a1b4_5ba65221",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 72
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "866a68b5_61953ee1",
         "filename": "api/video/color_space.cc",
         "patchSetId": 4
@@ -164,6 +188,23 @@
       "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f32b7ec5_6d455739",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T13:30:02Z",
+      "side": 1,
+      "message": "CamelCase, please.",
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

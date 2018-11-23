@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ce8664a2_be27f471",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-23T09:50:15Z",
+      "side": 1,
+      "message": "Because it defines macros to extend gunit for the WebRTC use case, but it is not gunit itself. I mean, this should not be used as a proxy to use gunit.",
+      "parentUuid": "18654e31_e5a749a9",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0ebf72a0_e29de992",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45f29241_47b202ac",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-23T09:50:15Z",
+      "side": 1,
+      "message": "Yes, I am switching to \"testclient\" because file renaming it more problematic.",
+      "parentUuid": "0ebf72a0_e29de992",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

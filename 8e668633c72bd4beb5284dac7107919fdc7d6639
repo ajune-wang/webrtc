@@ -34,6 +34,24 @@
       "revId": "8e668633c72bd4beb5284dac7107919fdc7d6639",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e6ff9b7_d37d3d01",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-23T09:35:31Z",
+      "side": 0,
+      "message": "The documentation/APIs are a bit poorly named. It\u0027s not only about decoding with errors, it\u0027s also about being able to drop frames.",
+      "parentUuid": "0e820ac3_9315e020",
+      "revId": "8e668633c72bd4beb5284dac7107919fdc7d6639",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

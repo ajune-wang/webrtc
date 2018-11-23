@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc78e5d6_41c191dd",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-23T12:24:33Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 489,
+        "startChar": 7,
+        "endLine": 489,
+        "endChar": 11
+      },
+      "revId": "d1f32d4c1ceb4bcc0ecc2b0a15bbc6918d18a839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8687be6c_55d3f66f",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-23T12:24:33Z",
+      "side": 1,
+      "message": "nit: slightly confusing that this has same name as function input",
+      "range": {
+        "startLine": 421,
+        "startChar": 15,
+        "endLine": 421,
+        "endChar": 24
+      },
+      "revId": "d1f32d4c1ceb4bcc0ecc2b0a15bbc6918d18a839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc6920f_e6133506",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-23T12:24:33Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 421,
+        "startChar": 9,
+        "endLine": 421,
+        "endChar": 14
+      },
+      "revId": "d1f32d4c1ceb4bcc0ecc2b0a15bbc6918d18a839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11af8f38_69b076fc",
+        "filename": "modules/congestion_controller/send_side_congestion_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-11-23T12:24:33Z",
+      "side": 1,
+      "message": "This condition is not in \"goog_cc\". Intentional?",
+      "range": {
+        "startLine": 422,
+        "startChar": 10,
+        "endLine": 422,
+        "endChar": 62
+      },
+      "revId": "d1f32d4c1ceb4bcc0ecc2b0a15bbc6918d18a839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

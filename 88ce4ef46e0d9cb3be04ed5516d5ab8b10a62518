@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bf2099f_c8da3093",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-23T14:48:33Z",
+      "side": 0,
+      "message": "This was actually wrong and it worked because of api/peerconnectioninterface.h.\n\nAnyway, shouldn\u0027t rtc::Thread be allowed here (aka moved to api)? These api functions take it as a parameter.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "88ce4ef46e0d9cb3be04ed5516d5ab8b10a62518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

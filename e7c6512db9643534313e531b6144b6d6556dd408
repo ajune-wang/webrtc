@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18654e31_e5a749a9",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T09:38:03Z",
+      "side": 1,
+      "message": "Is there a good reason to not call this one \"gunit\"?",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ebf72a0_e29de992",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T09:38:03Z",
+      "side": 1,
+      "message": "It\u0027s a bit confusing that the target and the files don\u0027t have the same name.",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

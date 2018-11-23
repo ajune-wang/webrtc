@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8fa1fc31_90e5cb59",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T09:28:27Z",
+      "side": 1,
+      "message": "The existing implementation in vp9_impl.cc can output kInvalid. So I think that kInvalid should be included for now. I have recently landed a CL that removes the use of kInvalid in Chrome so the plan is to remove kInvalid as an enum element.",
+      "parentUuid": "c3afbbcb_7f58f087",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 63
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04b46373_f2a55298",
         "filename": "api/video/color_space.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-22T14:36:30Z",
       "side": 1,
       "message": "I\u0027d prefer moving the kPrimaryIds array to be a local in this function.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 57
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b0888bf_0e03ec00",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T09:28:27Z",
+      "side": 1,
+      "message": "I have no strong opinion, will move inside function.",
+      "parentUuid": "04b46373_f2a55298",
       "range": {
         "startLine": 102,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2fa9caf3_87374377",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T09:28:27Z",
+      "side": 1,
+      "message": "Will think of a better name. How about enum_value or just value?\n\nI don\u0027t think there\u0027s any usage of a setter from enum at the moment. The only reason to not have this in the constructor is, as we discussed, that we want to be able to return false. Do you still think that we should have a setter from enum?",
+      "parentUuid": "327f880d_c9ef2955",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 43
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed1c3c88_0a0e9d8a",
         "filename": "api/video/color_space.h",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-22T14:36:30Z",
       "side": 1,
       "message": "Move to .cc-file?",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 0
+      },
+      "revId": "96636ad2c8514043e6a3f8221c9d2f1dae08f6b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8f22668_f3d25115",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T09:28:27Z",
+      "side": 1,
+      "message": "I have a habit of putting template functions in the header, but you\u0027re right, that\u0027s not needed here. Will move.",
+      "parentUuid": "ed1c3c88_0a0e9d8a",
       "range": {
         "startLine": 168,
         "startChar": 0,

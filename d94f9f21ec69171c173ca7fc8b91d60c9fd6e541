@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "d78af8d8_cbfddc8f",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T14:20:15Z",
+      "side": 1,
+      "message": "Thanks! That was a nice tool!\nSeems like it\u0027s the bookkeeping of the static part that makes it worse. It\u0027s precomputed in both cases.\nFixed!",
+      "parentUuid": "96a66867_c03d9ef1",
+      "range": {
+        "startLine": 67,
+        "startChar": 39,
+        "endLine": 67,
+        "endChar": 72
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "866a68b5_61953ee1",
         "filename": "api/video/color_space.cc",
         "patchSetId": 4
@@ -117,6 +141,30 @@
       "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bcb5e3f_250e962e",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T14:20:15Z",
+      "side": 1,
+      "message": "You\u0027re right, seems to be problematic.\nChanged according to your suggestion.",
+      "parentUuid": "bbaea777_88d25f8b",
+      "range": {
+        "startLine": 117,
+        "startChar": 26,
+        "endLine": 117,
+        "endChar": 54
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +256,24 @@
     },
     {
       "key": {
+        "uuid": "9fc57f98_593ce96b",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T14:20:15Z",
+      "side": 1,
+      "message": "I\u0027m happy to change, however, what about the already existing getters. \nSeems like snake case is also used in video_frame.h and that encoded_frame.h is on the way to move to snake case as well (for consistency with video_frame).",
+      "parentUuid": "f32b7ec5_6d455739",
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3ca052c0_5ff1524c",
         "filename": "api/video/color_space.h",
         "patchSetId": 4
@@ -252,6 +318,30 @@
       "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe00eb9_0bf40c80",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-23T14:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e36e5d92_b3ddaacd",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 0
+      },
+      "revId": "d94f9f21ec69171c173ca7fc8b91d60c9fd6e541",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

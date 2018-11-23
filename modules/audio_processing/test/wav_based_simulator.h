@@ -11,10 +11,12 @@
 #ifndef MODULES_AUDIO_PROCESSING_TEST_WAV_BASED_SIMULATOR_H_
 #define MODULES_AUDIO_PROCESSING_TEST_WAV_BASED_SIMULATOR_H_
 
+#include <memory>
+#include <string>
 #include <vector>
 
+#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/audio_processing_simulator.h"
-
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {

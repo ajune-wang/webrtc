@@ -12,6 +12,7 @@
 
 #include <vector>
 
+#include "rtc_base/checks.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -9,12 +9,20 @@
  */
 
 #include "rtc_base/testclient.h"
+
+#include <sys/socket.h>
+#include <utility>
+
 #include "absl/memory/memory.h"
-#include "rtc_base/gunit.h"
+#include "rtc_base/asyncsocket.h"
+#include "rtc_base/asynctcpsocket.h"
+#include "rtc_base/asyncudpsocket.h"
+#include "rtc_base/logging.h"
 #include "rtc_base/nethelpers.h"
-#include "rtc_base/physicalsocketserver.h"
+#include "rtc_base/socketserver.h"
 #include "rtc_base/testechoserver.h"
 #include "rtc_base/thread.h"
+#include "test/gtest.h"
 
 using namespace rtc;
 

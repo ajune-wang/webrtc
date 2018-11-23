@@ -14,7 +14,6 @@
 #include <intrin.h>
 #else
 #include <emmintrin.h>
-#include <mmintrin.h>
 #endif
 
 namespace webrtc {

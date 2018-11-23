@@ -12,8 +12,9 @@
 #define MODULES_AUDIO_PROCESSING_TEST_TEST_UTILS_H_
 
 #include <math.h>
+#include <stdint.h>
+#include <stdio.h>
 #include <iterator>
-#include <limits>
 #include <memory>
 #include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>

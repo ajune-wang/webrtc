@@ -10,9 +10,11 @@
 
 #include "modules/rtp_rtcp/source/fec_test_helper.h"
 
+#include <string.h>
 #include <memory>
 #include <utility>
 
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"

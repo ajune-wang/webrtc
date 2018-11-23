@@ -8,17 +8,19 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+#include <stdlib.h>
 #include <memory>
 
 #include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/rtp_headers.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
-#include "modules/audio_coding/test/utility.h"
 #include "modules/include/module_common_types.h"
 #include "test/gtest.h"
-#include "test/testsupport/fileutils.h"
 
 namespace webrtc {
 

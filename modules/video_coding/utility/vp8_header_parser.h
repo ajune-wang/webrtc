@@ -18,6 +18,8 @@ namespace webrtc {
 
 namespace vp8 {
 
+struct VP8BitReader;
+
 enum {
   MB_FEATURE_TREE_PROBS = 3,
   NUM_MB_SEGMENTS = 4,

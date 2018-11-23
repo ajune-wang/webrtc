@@ -12,10 +12,12 @@
 
 #include <math.h>
 #include <algorithm>
+#include <cstdint>
 #include <string>
 #include <vector>
 
 #include "api/array_view.h"
+#include "rtc_base/checks.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {

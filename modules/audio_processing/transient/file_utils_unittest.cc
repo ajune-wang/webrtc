@@ -10,7 +10,9 @@
 
 #include "modules/audio_processing/transient/file_utils.h"
 
+#include <stdio.h>
 #include <string.h>
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>

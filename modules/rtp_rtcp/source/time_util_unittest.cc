@@ -11,7 +11,6 @@
 
 #include "rtc_base/fakeclock.h"
 #include "rtc_base/timeutils.h"
-#include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

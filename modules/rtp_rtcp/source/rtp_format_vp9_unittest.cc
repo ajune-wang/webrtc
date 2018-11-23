@@ -8,11 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <cstdint>
 #include <memory>
 #include <vector>
 
+#include "absl/types/variant.h"
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/source/rtp_format_vp9.h"
+#include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

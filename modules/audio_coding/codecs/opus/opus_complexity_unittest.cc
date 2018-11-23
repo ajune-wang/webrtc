@@ -8,9 +8,17 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <string>
+
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "api/audio_codecs/opus/audio_encoder_opus_config.h"
 #include "modules/audio_coding/neteq/tools/audio_loop.h"
-#include "rtc_base/format_macros.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/timeutils.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

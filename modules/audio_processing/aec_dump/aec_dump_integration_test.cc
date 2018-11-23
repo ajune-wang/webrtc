@@ -8,11 +8,18 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <memory>
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/audio/audio_frame.h"
 #include "modules/audio_processing/aec_dump/mock_aec_dump.h"
+#include "modules/audio_processing/include/aec_dump.h"
 #include "modules/audio_processing/include/audio_processing.h"
+#include "modules/audio_processing/include/config.h"
+#include "rtc_base/checks.h"
+#include "test/gmock.h"
+#include "test/gtest.h"
 
 using testing::_;
 using testing::AtLeast;

@@ -10,6 +10,9 @@
 
 #include "test/testsupport/fileutils_override.h"
 
+#include <limits.h>
+#include <stdio.h>
+
 #if defined(WEBRTC_WIN)
 #include <direct.h>
 #include <tchar.h>
@@ -20,12 +23,12 @@
 
 #include "Shlwapi.h"
 #include "WinDef.h"
-
 #include "rtc_base/win32.h"
+
 #define GET_CURRENT_DIR _getcwd
 #else
-#include <dirent.h>
 #include <unistd.h>
+
 #define GET_CURRENT_DIR getcwd
 #endif
 
@@ -40,7 +43,6 @@
 #include "absl/types/optional.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/stringutils.h"
 
 namespace webrtc {
 namespace test {

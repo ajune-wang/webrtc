@@ -11,9 +11,9 @@
 #ifndef MODULES_AUDIO_CODING_TEST_ISACTEST_H_
 #define MODULES_AUDIO_CODING_TEST_ISACTEST_H_
 
-#include <string.h>
-
+#include <stdint.h>
 #include <memory>
+#include <string>
 
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"

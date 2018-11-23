@@ -27,7 +27,10 @@ config("apm_debug_dump") {
 }
 
 rtc_static_library("config") {
-  visibility = [ ":*" ]
+  visibility = [
+    ":*",
+    "./aec_dump:mock_aec_dump_unittests",
+  ]
   sources = [
     "include/config.cc",
     "include/config.h",
@@ -207,6 +210,7 @@ rtc_source_set("audio_frame_view") {
   ]
   deps = [
     "../../api:array_view",
+    "../../rtc_base:checks",
   ]
 }
 
@@ -244,6 +248,7 @@ rtc_source_set("file_audio_generator") {
     "audio_generator/file_audio_generator.h",
   ]
   deps = [
+    ":audio_frame_view",
     ":audio_generator_interface",
     "../../common_audio:common_audio",
     "../../rtc_base:rtc_base_approved",
@@ -402,6 +407,7 @@ if (rtc_include_tests) {
       ":audioproc_test_utils",
       ":config",
       ":file_audio_generator_unittests",
+      ":gain_control_interface",
       ":mocks",
       "../..:webrtc_common",
       "../../api:array_view",
@@ -654,6 +660,7 @@ if (rtc_include_tests) {
       ":audio_processing",
       "../..:webrtc_common",
       "../../common_audio:common_audio",
+      "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../rtc_base/system:file_wrapper",
       "../../system_wrappers",

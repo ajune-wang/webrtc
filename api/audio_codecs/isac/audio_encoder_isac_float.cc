@@ -10,9 +10,15 @@
 
 #include "api/audio_codecs/isac/audio_encoder_isac_float.h"
 
+#include <initializer_list>
+#include <map>
+#include <utility>
+
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "modules/audio_coding/codecs/isac/main/include/audio_encoder_isac.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/string_to_number.h"
 
 namespace webrtc {

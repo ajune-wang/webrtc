@@ -11,19 +11,24 @@
 #ifndef AUDIO_DEVICE_AUDIO_DEVICE_ALSA_LINUX_H_
 #define AUDIO_DEVICE_AUDIO_DEVICE_ALSA_LINUX_H_
 
+#include <stddef.h>
+#include <stdint.h>
+#include <sys/types.h>
 #include <memory>
 
+#include "modules/audio_device/audio_device_buffer.h"
 #include "modules/audio_device/audio_device_generic.h"
+#include "modules/audio_device/include/audio_device.h"
+#include "modules/audio_device/include/audio_device_defines.h"
+#include "modules/audio_device/linux/alsasymboltable_linux.h"
 #include "modules/audio_device/linux/audio_mixer_manager_alsa_linux.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/platform_thread.h"
+#include "rtc_base/thread_annotations.h"
 
 #if defined(WEBRTC_USE_X11)
 #include <X11/Xlib.h>
 #endif
-#include <alsa/asoundlib.h>
-#include <sys/ioctl.h>
-#include <sys/soundcard.h>
 
 typedef webrtc::adm_linux_alsa::AlsaSymbolTable WebRTCAlsaSymbolTable;
 WebRTCAlsaSymbolTable* GetAlsaSymbolTable();

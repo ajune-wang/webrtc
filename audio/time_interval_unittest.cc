@@ -9,6 +9,9 @@
  */
 
 #include "audio/time_interval.h"
+
+#include <stddef.h>
+
 #include "api/units/time_delta.h"
 #include "rtc_base/fakeclock.h"
 #include "test/gtest.h"

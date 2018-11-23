@@ -10,7 +10,7 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 
-#include <limits>
+#include <string.h>
 
 #include "rtc_base/random.h"
 #include "test/gtest.h"

@@ -12,7 +12,11 @@
 
 #include <memory>
 
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

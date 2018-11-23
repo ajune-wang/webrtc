@@ -11,14 +11,18 @@
 #ifndef MODULES_AUDIO_CODING_TEST_TESTREDFEC_H_
 #define MODULES_AUDIO_CODING_TEST_TESTREDFEC_H_
 
+#include <stdint.h>
 #include <memory>
-#include <string>
 
+#include "absl/types/optional.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/audio_codecs/audio_format.h"
 #include "common_audio/vad/include/vad.h"
+#include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/Channel.h"
 #include "modules/audio_coding/test/PCMFile.h"
+#include "rtc_base/scoped_ref_ptr.h"
 
 namespace webrtc {
 

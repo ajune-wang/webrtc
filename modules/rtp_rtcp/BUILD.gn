@@ -287,6 +287,8 @@ rtc_source_set("fec_test_helper") {
     ":rtp_rtcp",
     ":rtp_rtcp_format",
     "..:module_api",
+    "../../:webrtc_common",
+    "../../api:libjingle_peerconnection_api",
     "../../rtc_base:checks",
     "../../rtc_base:rtc_base_approved",
   ]
@@ -329,6 +331,8 @@ if (rtc_include_tests) {
 
     deps = [
       ":rtp_rtcp",
+      "..:module_fec_api",
+      "../../api:array_view",
       "../../test:fileutils",
       "../../test:test_main",
       "../../test:test_support",
@@ -345,6 +349,8 @@ if (rtc_include_tests) {
     deps = [
       ":rtp_rtcp",
       ":rtp_rtcp_format",
+      "..:module_fec_api",
+      "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "../../test:fileutils",
       "../../test:test_support",
@@ -420,7 +426,9 @@ if (rtc_include_tests) {
       ":rtcp_transceiver",
       ":rtp_rtcp",
       ":rtp_rtcp_format",
+      ":rtp_video_header",
       "..:module_api",
+      "..:module_fec_api",
       "../..:webrtc_common",
       "../../api:array_view",
       "../../api:libjingle_peerconnection_api",
@@ -429,6 +437,7 @@ if (rtc_include_tests) {
       "../../api/video:video_bitrate_allocator",
       "../../api/video:video_frame",
       "../../api/video_codecs:video_codecs_api",
+      "../../call:rtp_interfaces",
       "../../call:rtp_receiver",
       "../../common_video:common_video",
       "../../logging:mocks",
@@ -447,6 +456,7 @@ if (rtc_include_tests) {
       "../video_coding:codec_globals_headers",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
+      "//third_party/abseil-cpp/absl/types:variant",
     ]
   }
 }

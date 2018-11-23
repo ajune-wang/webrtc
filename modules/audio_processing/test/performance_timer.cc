@@ -11,7 +11,7 @@
 #include "modules/audio_processing/test/performance_timer.h"
 
 #include <math.h>
-
+#include <cstdint>
 #include <numeric>
 
 #include "rtc_base/checks.h"

@@ -11,6 +11,7 @@
 #ifndef COMMON_AUDIO_WAV_FILE_H_
 #define COMMON_AUDIO_WAV_FILE_H_
 
+#include <stdio.h>
 #ifdef __cplusplus
 
 #include <stdint.h>

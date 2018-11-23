@@ -8,9 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "common_audio/signal_processing/include/spl_inl.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 

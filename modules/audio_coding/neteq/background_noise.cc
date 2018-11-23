@@ -12,11 +12,12 @@
 
 #include <assert.h>
 #include <string.h>  // memcpy
-
 #include <algorithm>  // min, max
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "common_audio/signal_processing/include/spl_inl.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
+#include "modules/audio_coding/neteq/audio_vector.h"
 #include "modules/audio_coding/neteq/cross_correlation.h"
 #include "modules/audio_coding/neteq/post_decode_vad.h"
 

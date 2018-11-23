@@ -9,7 +9,10 @@
  */
 
 #include "rtc_base/ipaddress.h"
-#include "rtc_base/gunit.h"
+
+#include <netdb.h>
+
+#include "test/gtest.h"
 
 namespace rtc {
 

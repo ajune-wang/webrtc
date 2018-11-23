@@ -10,11 +10,16 @@
 
 #include "modules/audio_coding/neteq/tools/rtc_event_log_source.h"
 
-#include <string.h>
-#include <iostream>
+#include <bitset>
+#include <cstdint>
 #include <limits>
+#include <map>
 #include <utility>
 
+#include "absl/memory/memory.h"
+#include "api/rtp_headers.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
+#include "logging/rtc_event_log/rtc_event_log_parser_new.h"
 #include "logging/rtc_event_log/rtc_event_processor.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "rtc_base/checks.h"

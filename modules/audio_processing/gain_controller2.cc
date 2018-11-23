@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/gain_controller2.h"
 
+#include <stddef.h>
+
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/include/audio_frame_view.h"

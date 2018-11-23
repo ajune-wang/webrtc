@@ -11,12 +11,17 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_EXTERNAL_DECODER_TEST_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_EXTERNAL_DECODER_TEST_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 #include <string>
 
+#include "api/array_view.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio_codecs/audio_decoder.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 
 namespace webrtc {
 namespace test {

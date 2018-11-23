@@ -8,19 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_processing/aecm/aecm_core.h"
-
 #include <stddef.h>
-#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+
+#include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "common_audio/signal_processing/include/spl_inl.h"
+#include "modules/audio_processing/aecm/aecm_core.h"
+#include "modules/audio_processing/aecm/aecm_defines.h"
 
 extern "C" {
-#include "common_audio/ring_buffer.h"
 #include "common_audio/signal_processing/include/real_fft.h"
 }
 #include "modules/audio_processing/aecm/echo_control_mobile.h"
 #include "modules/audio_processing/utility/delay_estimator_wrapper.h"
+
 extern "C" {
-#include "system_wrappers/include/cpu_features_wrapper.h"
 }
 
 #include "rtc_base/checks.h"

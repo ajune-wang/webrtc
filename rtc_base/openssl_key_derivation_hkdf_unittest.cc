@@ -10,9 +10,10 @@
 
 #include "rtc_base/openssl_key_derivation_hkdf.h"
 
+#include <cstdint>
 #include <utility>
 
-#include "test/gmock.h"
+#include "test/gtest.h"
 
 namespace rtc {
 namespace {

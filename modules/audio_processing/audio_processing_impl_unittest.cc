@@ -10,8 +10,15 @@
 
 #include "modules/audio_processing/audio_processing_impl.h"
 
+#include <algorithm>
+#include <string>
+#include <utility>
+
+#include "api/array_view.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/test_utils.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/refcount.h"
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "test/gmock.h"

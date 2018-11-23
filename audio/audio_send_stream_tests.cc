@@ -8,9 +8,26 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <stdint.h>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "api/rtp_headers.h"
+#include "api/rtpparameters.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "modules/rtp_rtcp/include/rtp_header_parser.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/sdes.h"
+#include "rtc_base/event.h"
+#include "rtc_base/logging.h"
 #include "test/call_test.h"
+#include "test/constants.h"
 #include "test/gtest.h"
 #include "test/rtcp_packet_parser.h"
+#include "test/rtp_rtcp_observer.h"
 
 namespace webrtc {
 namespace test {

@@ -11,12 +11,13 @@
 #include "modules/audio_processing/agc2/gain_applier.h"
 
 #include <math.h>
-
+#include <stdint.h>
 #include <algorithm>
 #include <limits>
 
+#include "api/array_view.h"
 #include "modules/audio_processing/agc2/vector_float_frame.h"
-#include "rtc_base/gunit.h"
+#include "test/gtest.h"
 
 namespace webrtc {
 TEST(AutomaticGainController2GainApplier, InitialGainIsRespected) {

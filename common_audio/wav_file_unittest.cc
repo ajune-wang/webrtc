@@ -11,6 +11,7 @@
 // MSVC++ requires this to be set before any other includes to get M_PI.
 #define _USE_MATH_DEFINES
 
+#include <string.h>
 #include <cmath>
 #include <limits>
 

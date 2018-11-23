@@ -12,6 +12,7 @@
 
 #include "modules/audio_processing/residual_echo_detector.h"
 #include "rtc_base/refcountedobject.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gtest.h"
 
 namespace webrtc {

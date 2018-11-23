@@ -10,6 +10,7 @@
 
 #include "modules/audio_processing/transient/wpd_tree.h"
 
+#include <string.h>
 #include <memory>
 #include <string>
 

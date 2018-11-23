@@ -8,21 +8,29 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
 #include <algorithm>
+#include <cstdint>
 #include <iterator>
 #include <list>
+#include <map>
 #include <memory>
 #include <set>
 
 #include "api/call/transport.h"
+#include "api/rtp_headers.h"
+#include "call/rtp_packet_sink_interface.h"
 #include "call/rtp_stream_receiver_controller.h"
+#include "call/rtp_stream_receiver_controller_interface.h"
 #include "call/rtx_receive_stream.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "rtc_base/rate_limiter.h"
+#include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -10,12 +10,18 @@
 #ifndef AUDIO_TEST_AUDIO_END_TO_END_TEST_H_
 #define AUDIO_TEST_AUDIO_END_TO_END_TEST_H_
 
+#include <stddef.h>
 #include <memory>
-#include <string>
 #include <vector>
 
 #include "api/test/simulated_network.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "call/call.h"
+#include "modules/audio_device/include/test_audio_device.h"
 #include "test/call_test.h"
+#include "test/rtp_rtcp_observer.h"
+#include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
 namespace test {

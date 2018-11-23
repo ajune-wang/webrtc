@@ -9,8 +9,8 @@
  */
 
 #include <cmath>
-#include <memory>
 
+#include "api/units/time_delta.h"
 #include "common_audio/smoothing_filter.h"
 #include "rtc_base/fakeclock.h"
 #include "test/gtest.h"

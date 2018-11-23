@@ -16,6 +16,7 @@
 
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
+#include "modules/audio_coding/neteq/audio_vector.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 

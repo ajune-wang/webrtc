@@ -10,10 +10,10 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/features_extraction.h"
 
+#include <stddef.h>
 #include <cmath>
 #include <vector>
 
-#include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 // TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
 // #include "test/fpe_observer.h"
 #include "test/gtest.h"

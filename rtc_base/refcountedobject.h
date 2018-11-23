@@ -10,7 +10,7 @@
 #ifndef RTC_BASE_REFCOUNTEDOBJECT_H_
 #define RTC_BASE_REFCOUNTEDOBJECT_H_
 
-#include <utility>
+#include <type_traits>
 
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/refcount.h"

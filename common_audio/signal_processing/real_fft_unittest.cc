@@ -9,6 +9,10 @@
  */
 
 #include "common_audio/signal_processing/include/real_fft.h"
+
+#include <stdlib.h>
+#include <string.h>
+
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "test/gtest.h"
 

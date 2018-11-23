@@ -38,18 +38,25 @@
 
 #include <stdio.h>
 #include <cmath>
+#include <cstdint>
 #include <map>
 #include <memory>
+#include <set>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "common_audio/wav_file.h"
 #include "modules/audio_processing/test/conversational_speech/config.h"
 #include "modules/audio_processing/test/conversational_speech/mock_wavreader_factory.h"
 #include "modules/audio_processing/test/conversational_speech/multiend_call.h"
 #include "modules/audio_processing/test/conversational_speech/simulator.h"
 #include "modules/audio_processing/test/conversational_speech/timing.h"
+#include "modules/audio_processing/test/conversational_speech/wavreader_abstract_factory.h"
 #include "modules/audio_processing/test/conversational_speech/wavreader_factory.h"
+#include "modules/audio_processing/test/conversational_speech/wavreader_interface.h"
 #include "rtc_base/logging.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

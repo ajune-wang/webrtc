@@ -14,6 +14,7 @@
 #include <limits.h>
 #include <stdlib.h>
 
+#include "json/writer.h"
 #include "rtc_base/stringencode.h"
 
 namespace rtc {

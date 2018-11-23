@@ -8,14 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_coding/acm2/acm_receive_test.h"
-
-#include <stdio.h>
-
+#include <stddef.h>
 #include <memory>
+#include <utility>
 
 #include "absl/strings/match.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/rtp_headers.h"
+#include "common_types.h"  // NOLINT(build/include)
+#include "modules/audio_coding/acm2/acm_receive_test.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"

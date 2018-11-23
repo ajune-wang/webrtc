@@ -9,6 +9,9 @@
  */
 
 #include "modules/audio_processing/test/protobuf_utils.h"
+
+#include <cstdint>
+
 #include "rtc_base/system/arch.h"
 
 namespace webrtc {

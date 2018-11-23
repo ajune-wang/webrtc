@@ -13,7 +13,10 @@
 
 #include <memory>
 #include <string>
+
+#include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/EncodeDecodeTest.h"
+#include "modules/audio_coding/test/RTPFile.h"
 
 namespace webrtc {
 

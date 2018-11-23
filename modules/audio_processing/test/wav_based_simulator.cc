@@ -11,8 +11,10 @@
 #include "modules/audio_processing/test/wav_based_simulator.h"
 
 #include <stdio.h>
-#include <iostream>
+#include <utility>
 
+#include "absl/types/optional.h"
+#include "common_audio/wav_file.h"
 #include "modules/audio_processing/test/test_utils.h"
 #include "rtc_base/checks.h"
 

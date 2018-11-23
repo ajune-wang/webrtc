@@ -11,6 +11,7 @@
 #include <map>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 
 namespace webrtc {

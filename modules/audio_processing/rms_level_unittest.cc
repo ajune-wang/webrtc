@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 #include <cmath>
+#include <cstdint>
 #include <memory>
 #include <vector>
 
 #include "api/array_view.h"
 #include "modules/audio_processing/rms_level.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/numerics/mathutils.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
 

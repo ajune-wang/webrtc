@@ -10,21 +10,24 @@
 
 #include "TwoWayCommunication.h"
 
-#include <ctype.h>
-#include <stdio.h>
-#include <string.h>
-
+#include <stdint.h>
 #include <memory>
+#include <string>
 
 #ifdef WIN32
 #include <Windows.h>
 #endif
 
+#include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "modules/audio_coding/neteq/include/neteq.h"
 #include "modules/audio_coding/test/PCMFile.h"
-#include "modules/audio_coding/test/utility.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

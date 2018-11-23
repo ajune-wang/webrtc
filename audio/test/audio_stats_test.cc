@@ -8,9 +8,20 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+#include <stdlib.h>
+#include <cmath>
+
+#include "absl/types/optional.h"
+#include "api/test/simulated_network.h"
 #include "audio/test/audio_end_to_end_test.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "modules/audio_device/include/test_audio_device.h"
+#include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "rtc_base/numerics/safe_compare.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/call_test.h"
 #include "test/gtest.h"
 
 namespace webrtc {

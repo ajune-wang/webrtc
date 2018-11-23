@@ -12,6 +12,8 @@
 
 #include "modules/audio_coding/neteq/expand.h"
 
+#include <cstdint>
+
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_coding/neteq/background_noise.h"
 #include "modules/audio_coding/neteq/random_vector.h"

@@ -8,16 +8,25 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+#include <string.h>
 #include <algorithm>
 #include <list>
 #include <memory>
+#include <utility>
+#include <vector>
 
+#include "modules/include/module_fec_types.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/fec_test_helper.h"
 #include "modules/rtp_rtcp/source/flexfec_header_reader_writer.h"
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
+#include "modules/rtp_rtcp/source/forward_error_correction_internal.h"
 #include "modules/rtp_rtcp/source/ulpfec_header_reader_writer.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/random.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gtest.h"
 
 namespace webrtc {

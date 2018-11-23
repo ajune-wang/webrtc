@@ -10,9 +10,11 @@
 
 #include "modules/audio_processing/agc2/adaptive_mode_level_estimator.h"
 
+#include <cmath>
+
 #include "modules/audio_processing/agc2/agc2_common.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
-#include "rtc_base/gunit.h"
+#include "test/gtest.h"
 
 namespace webrtc {
 namespace {

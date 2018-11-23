@@ -10,20 +10,21 @@
 
 #include "modules/audio_coding/test/iSACTest.h"
 
-#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
 #ifdef _WIN32
 #include <windows.h>
 #elif defined(WEBRTC_LINUX)
-#include <time.h>
 #else
 #include <sys/time.h>
 #include <time.h>
 #endif
 
 #include "absl/strings/match.h"
+#include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/isac/audio_encoder_isac_float.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"

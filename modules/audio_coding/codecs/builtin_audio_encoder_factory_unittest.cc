@@ -8,12 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <vector>
 
+#include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/array_view.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
+#include "api/audio_codecs/audio_format.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/numerics/safe_conversions.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

@@ -11,6 +11,8 @@
 #include "modules/audio_processing/agc2/rnn_vad/lp_residual.h"
 
 #include <array>
+#include <memory>
+#include <utility>
 
 #include "modules/audio_processing/agc2/rnn_vad/common.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"

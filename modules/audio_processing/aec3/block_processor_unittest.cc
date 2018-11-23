@@ -10,8 +10,10 @@
 
 #include "modules/audio_processing/aec3/block_processor.h"
 
+#include <initializer_list>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "modules/audio_processing/aec3/aec3_common.h"

@@ -10,8 +10,9 @@
 
 #include "rtc_base/nethelper.h"
 
+#include <sys/socket.h>
+
 #include "rtc_base/checks.h"
-#include "rtc_base/ipaddress.h"
 
 namespace cricket {
 

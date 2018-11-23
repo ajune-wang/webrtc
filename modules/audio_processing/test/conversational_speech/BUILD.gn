@@ -22,6 +22,8 @@ rtc_executable("conversational_speech_generator") {
   ]
   deps = [
     ":lib",
+    "../../../../api:array_view",
+    "../../../../rtc_base:checks",
     "../../../../rtc_base:rtc_base_approved",
     "../../../../test:fileutils",
     "../../../../test:test_support",

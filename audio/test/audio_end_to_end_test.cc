@@ -8,11 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <algorithm>
-
 #include "audio/test/audio_end_to_end_test.h"
+#include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_format.h"
 #include "call/fake_network_pipe.h"
 #include "call/simulated_network.h"
+#include "call/simulated_packet_receiver.h"
+#include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/sleep.h"
 #include "test/gtest.h"
 

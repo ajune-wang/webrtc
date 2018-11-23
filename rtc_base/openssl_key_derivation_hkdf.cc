@@ -11,15 +11,14 @@
 #include "rtc_base/openssl_key_derivation_hkdf.h"
 
 #include <openssl/digest.h>
-#include <openssl/err.h>
 #include <openssl/hkdf.h>
 #include <openssl/sha.h>
-
 #include <algorithm>
+#include <cstdint>
+#include <type_traits>
 #include <utility>
 
 #include "rtc_base/buffer.h"
-#include "rtc_base/openssl.h"
 
 namespace rtc {
 

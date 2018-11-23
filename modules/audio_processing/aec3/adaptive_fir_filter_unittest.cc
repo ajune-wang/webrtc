@@ -10,29 +10,31 @@
 
 #include "modules/audio_processing/aec3/adaptive_fir_filter.h"
 
-// Defines WEBRTC_ARCH_X86_FAMILY, used below.
-#include "rtc_base/system/arch.h"
-
-#include <math.h>
 #include <algorithm>
+#include <initializer_list>
+#include <memory>
 #include <numeric>
 #include <string>
-#if defined(WEBRTC_ARCH_X86_FAMILY)
-#include <emmintrin.h>
-#endif
 
+#include "absl/types/optional.h"
+#include "api/audio/echo_canceller3_config.h"
 #include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/aec3/aec_state.h"
 #include "modules/audio_processing/aec3/cascaded_biquad_filter.h"
+#include "modules/audio_processing/aec3/delay_estimate.h"
+#include "modules/audio_processing/aec3/echo_path_variability.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 #include "modules/audio_processing/aec3/shadow_filter_update_gain.h"
+#include "modules/audio_processing/aec3/subtractor_output.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/random.h"
 #include "rtc_base/strings/string_builder.h"
+// Defines WEBRTC_ARCH_X86_FAMILY, used below.
+#include "rtc_base/system/arch.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 

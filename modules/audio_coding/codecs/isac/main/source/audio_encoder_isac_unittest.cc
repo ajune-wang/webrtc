@@ -10,6 +10,7 @@
 
 #include <limits>
 
+#include "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h"
 #include "modules/audio_coding/codecs/isac/main/include/audio_encoder_isac.h"
 #include "test/gtest.h"
 

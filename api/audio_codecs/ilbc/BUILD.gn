@@ -30,6 +30,7 @@ rtc_static_library("audio_encoder_ilbc") {
     ":audio_encoder_ilbc_config",
     "..:audio_codecs_api",
     "../../../modules/audio_coding:ilbc",
+    "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base:safe_minmax",
     "//third_party/abseil-cpp/absl/memory",

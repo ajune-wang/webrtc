@@ -11,10 +11,12 @@
 #include "modules/audio_coding/neteq/tools/neteq_packet_source_input.h"
 
 #include <algorithm>
-#include <limits>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
 
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
-#include "rtc_base/checks.h"
+#include "rtc_base/buffer.h"
 
 namespace webrtc {
 namespace test {

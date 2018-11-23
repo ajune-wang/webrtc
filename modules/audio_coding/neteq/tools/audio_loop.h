@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_LOOP_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_LOOP_H_
 
+#include <stddef.h>
+#include <cstdint>
 #include <memory>
 #include <string>
 

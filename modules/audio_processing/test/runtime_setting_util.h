@@ -11,8 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_TEST_RUNTIME_SETTING_UTIL_H_
 #define MODULES_AUDIO_PROCESSING_TEST_RUNTIME_SETTING_UTIL_H_
 
+#include "modules/audio_processing/debug.pb.h"
 #include "modules/audio_processing/include/audio_processing.h"
-#include "modules/audio_processing/test/protobuf_utils.h"
 
 namespace webrtc {
 

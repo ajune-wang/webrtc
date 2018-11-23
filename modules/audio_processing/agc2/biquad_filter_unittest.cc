@@ -10,13 +10,12 @@
 
 #include "modules/audio_processing/agc2/biquad_filter.h"
 
+#include <stddef.h>
 #include <algorithm>
 #include <array>
 #include <cmath>
 
-// TODO(bugs.webrtc.org/8948): Add when the issue is fixed.
-// #include "test/fpe_observer.h"
-#include "rtc_base/gunit.h"
+#include "test/gtest.h"
 
 namespace webrtc {
 namespace test {

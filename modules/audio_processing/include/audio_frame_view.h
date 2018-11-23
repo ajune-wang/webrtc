@@ -11,7 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_INCLUDE_AUDIO_FRAME_VIEW_H_
 #define MODULES_AUDIO_PROCESSING_INCLUDE_AUDIO_FRAME_VIEW_H_
 
+#include <stddef.h>
+
 #include "api/array_view.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

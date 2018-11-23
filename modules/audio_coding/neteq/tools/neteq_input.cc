@@ -10,6 +10,8 @@
 
 #include "modules/audio_coding/neteq/tools/neteq_input.h"
 
+#include <utility>
+
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {

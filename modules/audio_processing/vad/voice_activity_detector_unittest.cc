@@ -10,7 +10,11 @@
 
 #include "modules/audio_processing/vad/voice_activity_detector.h"
 
+#include <stdio.h>
 #include <algorithm>
+#include <cstdint>
+#include <cstdlib>
+#include <string>
 #include <vector>
 
 #include "test/gtest.h"

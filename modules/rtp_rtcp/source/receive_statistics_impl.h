@@ -76,9 +76,13 @@ class StreamStatisticianImpl : public StreamStatistician,
   int64_t last_receive_time_ms_ RTC_GUARDED_BY(&stream_lock_);
   NtpTime last_receive_time_ntp_ RTC_GUARDED_BY(&stream_lock_);
   uint32_t last_received_timestamp_ RTC_GUARDED_BY(&stream_lock_);
-  uint16_t received_seq_first_ RTC_GUARDED_BY(&stream_lock_);
-  uint16_t received_seq_max_ RTC_GUARDED_BY(&stream_lock_);
-  uint16_t received_seq_wraps_ RTC_GUARDED_BY(&stream_lock_);
+  SequenceNumberUnwrapper seq_unwrapper_ RTC_GUARDED_BY(&stream_lock_);
+  int64_t received_seq_first_ RTC_GUARDED_BY(&stream_lock_);
+  int64_t received_seq_max_ RTC_GUARDED_BY(&stream_lock_);
+  // Assume that the other side restarted when there are two sequential packets
+  // with large jump from received_seq_max_
+  absl::optional<uint16_t> received_seq_out_of_order_
+      RTC_GUARDED_BY(&stream_lock_);
 
   // Current counter values.
   StreamDataCounters receive_counters_ RTC_GUARDED_BY(&stream_lock_);
@@ -86,7 +90,7 @@ class StreamStatisticianImpl : public StreamStatistician,
   // Counter values when we sent the last report.
   uint32_t last_report_inorder_packets_ RTC_GUARDED_BY(&stream_lock_);
   uint32_t last_report_old_packets_ RTC_GUARDED_BY(&stream_lock_);
-  uint16_t last_report_seq_max_ RTC_GUARDED_BY(&stream_lock_);
+  int64_t last_report_seq_max_ RTC_GUARDED_BY(&stream_lock_);
   RtcpStatistics last_reported_statistics_ RTC_GUARDED_BY(&stream_lock_);
 
   // stream_lock_ shouldn't be held when calling callbacks.

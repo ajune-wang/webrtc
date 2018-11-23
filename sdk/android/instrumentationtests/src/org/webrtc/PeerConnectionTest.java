@@ -846,8 +846,6 @@ public class PeerConnectionTest {
     // offeringExpectations.expectIceConnectionChange(
     //     IceConnectionState.COMPLETED);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.NEW);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);
@@ -1080,8 +1078,6 @@ public class PeerConnectionTest {
     // TODO(bemasc): uncomment once delivery of ICECompleted is reliable
     // (https://code.google.com/p/webrtc/issues/detail?id=3021).
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.NEW);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);
@@ -1269,8 +1265,6 @@ public class PeerConnectionTest {
     // offeringExpectations.expectIceConnectionChange(
     //     IceConnectionState.COMPLETED);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.NEW);
-    answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);

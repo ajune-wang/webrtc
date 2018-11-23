@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c937187a_3040021f",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-23T14:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e47bc3f0_edfb17e7",
+      "revId": "73afc5e53e230c372078be432007e6a828a601d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a0c6f22_3875a8f1",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "73afc5e53e230c372078be432007e6a828a601d8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eca90f8_b9a77e99",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-11-23T14:40:25Z",
+      "side": 1,
+      "message": "Right, I can move the ownership when Create() is called and in this way I don\u0027t need to deal with raw pointers.",
+      "parentUuid": "5a0c6f22_3875a8f1",
+      "revId": "73afc5e53e230c372078be432007e6a828a601d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

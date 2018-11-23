@@ -12,6 +12,7 @@
 
 #include "modules/video_coding/codecs/vp9/svc_config.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
+#include "rtc_base/checks.h"
 #include "test/gtest.h"
 
 namespace webrtc {

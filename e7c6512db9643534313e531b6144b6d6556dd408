@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7384152b_6dc9cfa3",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-23T11:59:24Z",
+      "side": 1,
+      "message": "OK. Then I must say I don\u0027t love the file names, but that\u0027s not your fault...",
+      "parentUuid": "ce8664a2_be27f471",
+      "revId": "e7c6512db9643534313e531b6144b6d6556dd408",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ebf72a0_e29de992",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 5

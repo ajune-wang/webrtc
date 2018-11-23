@@ -11,7 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_FAKE_DECODE_FROM_FILE_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_FAKE_DECODE_FROM_FILE_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"

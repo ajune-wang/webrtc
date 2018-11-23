@@ -10,9 +10,9 @@
 
 #include "modules/audio_processing/vad/standalone_vad.h"
 
-#include <string.h>
-
+#include <stdio.h>
 #include <memory>
+#include <string>
 
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

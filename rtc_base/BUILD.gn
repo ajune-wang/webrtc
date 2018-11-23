@@ -1038,6 +1038,7 @@ if (rtc_include_tests) {
       ":gunit_helpers",
       ":rtc_base",
       ":rtc_base_tests_utils",
+      "../test:test_support",
       "third_party/sigslot",
     ]
   }
@@ -1085,6 +1086,7 @@ if (rtc_include_tests) {
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
       "../test:test_support",
+      "third_party/sigslot:sigslot",
       "//testing/gtest",
       "//third_party/abseil-cpp/absl/memory",
     ]
@@ -1161,11 +1163,13 @@ if (rtc_include_tests) {
       ":stringutils",
       ":testclient",
       "../api:array_view",
+      "../api/units:time_delta",
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
       "../test:test_support",
       "memory:unittests",
       "third_party/base64",
+      "third_party/sigslot:sigslot",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -1187,6 +1191,7 @@ if (rtc_include_tests) {
       ":rtc_task_queue",
       ":rtc_task_queue_for_test",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/memory:memory",
     ]
   }
 
@@ -1221,6 +1226,7 @@ if (rtc_include_tests) {
       ":rtc_task_queue",
       ":weak_ptr",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/memory:memory",
     ]
   }
 

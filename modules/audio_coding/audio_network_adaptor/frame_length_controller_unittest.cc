@@ -9,7 +9,6 @@
  */
 
 #include <memory>
-#include <utility>
 
 #include "modules/audio_coding/audio_network_adaptor/frame_length_controller.h"
 #include "test/gtest.h"

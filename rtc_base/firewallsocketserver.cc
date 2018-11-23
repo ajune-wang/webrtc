@@ -10,7 +10,12 @@
 
 #include "rtc_base/firewallsocketserver.h"
 
+#include <errno.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <sys/socket.h>
 #include <algorithm>
+#include <string>
 
 #include "rtc_base/asyncsocket.h"
 #include "rtc_base/checks.h"

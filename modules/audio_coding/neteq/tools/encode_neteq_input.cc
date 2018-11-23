@@ -12,6 +12,7 @@
 
 #include <utility>
 
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 

@@ -44,8 +44,12 @@ rtc_source_set("mock_aec_dump_unittests") {
   deps = [
     ":mock_aec_dump",
     "..:api",
+    "..:config",
     "../",
+    "../../../api/audio:audio_frame_api",
+    "../../../rtc_base:checks",
     "../../../rtc_base:rtc_base_approved",
+    "../../../test:test_support",
     "//testing/gtest",
     "//third_party/abseil-cpp/absl/memory",
   ]
@@ -64,7 +68,9 @@ if (rtc_enable_protobuf) {
 
     deps = [
       ":aec_dump",
+      "..:audio_frame_view",
       "../",
+      "../../../api:array_view",
       "../../../api/audio:audio_frame_api",
       "../../../rtc_base:checks",
       "../../../rtc_base:protobuf_utils",
@@ -84,8 +90,10 @@ if (rtc_enable_protobuf) {
     deps = [
       ":aec_dump",
       ":aec_dump_impl",
+      "..:api",
       "..:audioproc_debug_proto",
       "../",
+      "../../../api/audio:audio_frame_api",
       "../../../rtc_base:rtc_task_queue",
       "../../../test:fileutils",
       "../../../test:test_support",

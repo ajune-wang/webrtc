@@ -10,6 +10,8 @@
 
 #include "modules/audio_coding/neteq/tools/fake_decode_from_file.h"
 
+#include <algorithm>
+
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"

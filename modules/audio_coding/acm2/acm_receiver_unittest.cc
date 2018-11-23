@@ -10,21 +10,24 @@
 
 #include "modules/audio_coding/acm2/acm_receiver.h"
 
-#include <algorithm>  // std::min
+#include <assert.h>
 #include <memory>
+#include <utility>
 
+#include "absl/strings/string_view.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
-#include "modules/audio_coding/acm2/rent_a_codec.h"
+#include "common_audio/vad/include/vad.h"
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
-#include "modules/audio_coding/neteq/tools/rtp_generator.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gtest.h"
-#include "test/testsupport/fileutils.h"
 
 namespace webrtc {
 

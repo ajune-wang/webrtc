@@ -15,7 +15,6 @@
 #include <vector>
 
 #include "api/array_view.h"
-#include "modules/audio_processing/aec3/aec3_common.h"
 #include "rtc_base/constructormagic.h"
 
 namespace webrtc {

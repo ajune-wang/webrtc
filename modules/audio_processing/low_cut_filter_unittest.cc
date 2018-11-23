@@ -11,6 +11,7 @@
 
 #include "api/array_view.h"
 #include "modules/audio_processing/audio_buffer.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/low_cut_filter.h"
 #include "modules/audio_processing/test/audio_buffer_tools.h"
 #include "modules/audio_processing/test/bitexactness_tools.h"

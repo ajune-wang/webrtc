@@ -10,14 +10,14 @@
 
 #include "modules/audio_coding/neteq/include/neteq.h"
 
-#include <math.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>  // memset
-
 #include <algorithm>
+#include <cstdint>
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/audio/audio_frame.h"
@@ -25,22 +25,24 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/neteq/tools/audio_loop.h"
+#include "modules/audio_coding/neteq/tools/audio_sink.h"
+#include "modules/audio_coding/neteq/tools/neteq_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_packet_source_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
+#include "modules/audio_coding/neteq/tools/packet.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
+#include "modules/include/module_common_types_public.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+// This must come after test/gtest.h
+#include "rtc_base/flags.h"  // NOLINT(build/include)
 #include "rtc_base/ignore_wundef.h"
 #include "rtc_base/messagedigest.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/protobuf_utils.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/system/arch.h"
-#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
-
-// This must come after test/gtest.h
-#include "rtc_base/flags.h"  // NOLINT(build/include)
 
 #ifdef WEBRTC_NETEQ_UNITTEST_BITEXACT
 RTC_PUSH_IGNORING_WUNDEF()

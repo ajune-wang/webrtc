@@ -9,13 +9,17 @@
  */
 
 #include <assert.h>
+#include <stdint.h>
 #include <stdio.h>
-
+#include <list>
 #include <memory>
-#include <vector>
+#include <string>
 
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 
 // Define command line flags.

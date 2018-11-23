@@ -18,6 +18,9 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_TEST_HELPER_H_
 #define MODULES_RTP_RTCP_SOURCE_RTP_FORMAT_VP8_TEST_HELPER_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/source/rtp_format_vp8.h"
 #include "modules/video_coding/codecs/vp8/include/vp8_globals.h"

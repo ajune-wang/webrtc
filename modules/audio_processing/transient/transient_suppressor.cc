@@ -10,14 +10,12 @@
 
 #include "modules/audio_processing/transient/transient_suppressor.h"
 
-#include <math.h>
 #include <string.h>
+#include <algorithm>
 #include <cmath>
-#include <complex>
-#include <deque>
-#include <set>
+#include <cstddef>
+#include <limits>
 
-#include "common_audio/include/audio_util.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "common_audio/third_party/fft4g/fft4g.h"
 #include "modules/audio_processing/ns/windows_private.h"

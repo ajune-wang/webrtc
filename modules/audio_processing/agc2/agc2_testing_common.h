@@ -12,7 +12,8 @@
 #define MODULES_AUDIO_PROCESSING_AGC2_AGC2_TESTING_COMMON_H_
 
 #include <math.h>
-
+#include <stddef.h>
+#include <stdint.h>
 #include <limits>
 #include <vector>
 

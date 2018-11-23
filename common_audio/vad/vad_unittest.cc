@@ -8,12 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "common_audio/vad/vad_unittest.h"
-
-#include <stdlib.h>
+#include <stdint.h>
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "common_audio/vad/include/webrtc_vad.h"
+#include "common_audio/vad/vad_unittest.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "test/gtest.h"

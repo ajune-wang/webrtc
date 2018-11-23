@@ -13,15 +13,24 @@
  * functions in ForwardErrorCorrection directly.
  */
 
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
-
+#include <cstdint>
 #include <list>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include "modules/include/module_fec_types.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
 #include "modules/rtp_rtcp/source/forward_error_correction.h"
 #include "modules/rtp_rtcp/source/forward_error_correction_internal.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/random.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

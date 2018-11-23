@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/transient/dyadic_decimator.h"
 
+#include <stdint.h>
+
 #include "test/gtest.h"
 
 namespace webrtc {

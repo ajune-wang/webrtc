@@ -11,14 +11,10 @@
 #ifndef MODULES_AUDIO_PROCESSING_AEC_DUMP_WRITE_TO_FILE_TASK_H_
 #define MODULES_AUDIO_PROCESSING_AEC_DUMP_WRITE_TO_FILE_TASK_H_
 
-#include <memory>
-#include <string>
-#include <utility>
+#include <stddef.h>
+#include <stdint.h>
 
-#include "rtc_base/checks.h"
-#include "rtc_base/event.h"
 #include "rtc_base/ignore_wundef.h"
-#include "rtc_base/platform_file.h"
 #include "rtc_base/system/file_wrapper.h"
 #include "rtc_base/task_queue.h"
 

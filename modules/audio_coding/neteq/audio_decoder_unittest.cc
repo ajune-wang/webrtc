@@ -10,18 +10,25 @@
 
 #include <assert.h>
 #include <stdlib.h>
-
+#include <cstdint>
 #include <memory>
-#include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
+#include "api/array_view.h"
+#include "api/audio_codecs/audio_decoder.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/g722/audio_encoder_g722_config.h"
+#include "api/audio_codecs/ilbc/audio_encoder_ilbc_config.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "api/audio_codecs/opus/audio_encoder_opus_config.h"
 #include "modules/audio_coding/codecs/g711/audio_decoder_pcm.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
 #include "modules/audio_coding/codecs/g722/audio_decoder_g722.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
 #include "modules/audio_coding/codecs/ilbc/audio_decoder_ilbc.h"
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
+#include "modules/audio_coding/codecs/isac/audio_encoder_isac_t.h"
 #include "modules/audio_coding/codecs/isac/fix/include/audio_decoder_isacfix.h"
 #include "modules/audio_coding/codecs/isac/fix/include/audio_encoder_isacfix.h"
 #include "modules/audio_coding/codecs/isac/main/include/audio_decoder_isac.h"
@@ -29,7 +36,10 @@
 #include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
 #include "modules/audio_coding/codecs/pcm16b/audio_decoder_pcm16b.h"
 #include "modules/audio_coding/codecs/pcm16b/audio_encoder_pcm16b.h"
+#include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_coding/neteq/tools/resample_input_audio_file.h"
+#include "rtc_base/buffer.h"
+#include "rtc_base/checks.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

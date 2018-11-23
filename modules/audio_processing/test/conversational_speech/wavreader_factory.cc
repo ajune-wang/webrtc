@@ -10,11 +10,11 @@
 
 #include "modules/audio_processing/test/conversational_speech/wavreader_factory.h"
 
+#include <stdint.h>
 #include <cstddef>
 
 #include "api/array_view.h"
 #include "common_audio/wav_file.h"
-#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace test {

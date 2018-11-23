@@ -12,15 +12,16 @@
  * testG722.cpp : Defines the entry point for the console application.
  */
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+/* Runtime statistics */
+#include <time.h>
 
 /* include API */
 #include "modules/audio_coding/codecs/g722/g722_interface.h"
 
-/* Runtime statistics */
-#include <time.h>
 #define CLOCKS_PER_SEC_G722 100000
 
 // Forward declaration

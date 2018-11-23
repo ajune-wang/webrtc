@@ -10,6 +10,8 @@
 
 #include "common_audio/include/audio_util.h"
 
+#include <cstdint>
+
 #include "rtc_base/arraysize.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

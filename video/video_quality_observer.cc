@@ -11,9 +11,10 @@
 #include "video/video_quality_observer.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <string>
 
-#include "rtc_base/checks.h"
+#include "api/array_view.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "system_wrappers/include/metrics.h"

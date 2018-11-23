@@ -8,9 +8,18 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <utility>
+#include <vector>
+
+#include "api/audio_codecs/audio_decoder.h"
+#include "api/audio_codecs/ilbc/audio_encoder_ilbc_config.h"
 #include "modules/audio_coding/codecs/ilbc/audio_decoder_ilbc.h"
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
 #include "modules/audio_coding/codecs/legacy_encoded_audio_frame.h"
+#include "rtc_base/buffer.h"
 #include "test/gtest.h"
 
 namespace webrtc {

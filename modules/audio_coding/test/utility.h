@@ -11,6 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_TEST_UTILITY_H_
 #define MODULES_AUDIO_CODING_TEST_UTILITY_H_
 
+#include <stdint.h>
+#include <stdio.h>
+
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "test/gtest.h"
 

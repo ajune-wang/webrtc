@@ -10,8 +10,9 @@
 
 #include "modules/audio_coding/neteq/tools/packet.h"
 
+#include <assert.h>
 #include <string.h>
-
+#include <cstdint>
 #include <memory>
 
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"

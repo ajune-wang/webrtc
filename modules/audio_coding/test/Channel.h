@@ -11,8 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_TEST_CHANNEL_H_
 #define MODULES_AUDIO_CODING_TEST_CHANNEL_H_
 
+#include <stdint.h>
 #include <stdio.h>
 
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/include/module_common_types.h"
 #include "rtc_base/criticalsection.h"

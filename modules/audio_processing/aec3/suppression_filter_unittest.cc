@@ -11,9 +11,12 @@
 #include "modules/audio_processing/aec3/suppression_filter.h"
 
 #include <math.h>
+#include <stddef.h>
 #include <algorithm>
 #include <numeric>
 
+#include "api/array_view.h"
+#include "rtc_base/checks.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -16,8 +16,10 @@
 #ifndef MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
 #define MODULES_AUDIO_CODING_ACM2_ACM_CODEC_DATABASE_H_
 
+#include <stddef.h>
+
 #include "common_types.h"  // NOLINT(build/include)
-#include "modules/audio_coding/acm2/rent_a_codec.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 
 namespace webrtc {
 

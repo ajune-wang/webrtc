@@ -10,11 +10,14 @@
 
 #include "modules/audio_processing/test/fake_recording_device.h"
 
-#include <algorithm>
+#include <stddef.h>
+#include <stdint.h>
 
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "common_audio/include/audio_util.h"
 #include "modules/audio_processing/agc/gain_map_internal.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"

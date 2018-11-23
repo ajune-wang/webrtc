@@ -13,7 +13,6 @@
 
 #include <memory>
 #include <string>
-#include <utility>
 
 #include "modules/audio_processing/include/audio_generator.h"
 

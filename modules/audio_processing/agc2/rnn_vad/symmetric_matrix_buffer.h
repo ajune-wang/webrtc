@@ -11,9 +11,9 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_SYMMETRIC_MATRIX_BUFFER_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_SYMMETRIC_MATRIX_BUFFER_H_
 
-#include <algorithm>
 #include <array>
 #include <cstring>
+#include <type_traits>
 #include <utility>
 
 #include "api/array_view.h"

@@ -11,10 +11,14 @@
 #include "modules/audio_processing/aec3/subtractor.h"
 
 #include <algorithm>
+#include <initializer_list>
+#include <memory>
 #include <numeric>
 #include <string>
 
+#include "absl/types/optional.h"
 #include "modules/audio_processing/aec3/aec_state.h"
+#include "modules/audio_processing/aec3/delay_estimate.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
 #include "rtc_base/random.h"

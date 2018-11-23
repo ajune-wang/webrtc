@@ -11,10 +11,11 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_CONSTANT_PCM_PACKET_SOURCE_H_
 
+#include <stdint.h>
 #include <stdio.h>
-#include <string>
+#include <memory>
 
-#include "common_types.h"  // NOLINT(build/include)
+#include "modules/audio_coding/neteq/tools/packet.h"
 #include "modules/audio_coding/neteq/tools/packet_source.h"
 #include "rtc_base/constructormagic.h"
 

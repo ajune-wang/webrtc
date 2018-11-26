@@ -183,6 +183,7 @@ void RenderDelayBufferImpl2::Reset() {
 RenderDelayBuffer::BufferingEvent RenderDelayBufferImpl2::Insert(
     const std::vector<std::vector<float>>& block) {
   ++render_call_counter_;
+
   if (delay_) {
     if (!last_call_was_render_) {
       last_call_was_render_ = true;

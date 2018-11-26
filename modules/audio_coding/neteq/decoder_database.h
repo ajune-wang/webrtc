@@ -11,16 +11,21 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_DECODER_DATABASE_H_
 #define MODULES_AUDIO_CODING_NETEQ_DECODER_DATABASE_H_
 
+#include <stdint.h>
 #include <map>
 #include <memory>
 #include <string>
+#include <vector>
 
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_codec_pair_id.h"
+#include "api/audio_codecs/audio_decoder.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/audio_format.h"
-#include "common_types.h"  // NOLINT(build/include)  // NULL
 #include "modules/audio_coding/codecs/cng/webrtc_cng.h"
 #include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/packet.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/scoped_ref_ptr.h"
 

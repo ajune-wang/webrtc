@@ -10,18 +10,29 @@
 
 // Test to verify correct operation when using the decoder-internal PLC.
 
-#include <algorithm>
+#include <stddef.h>
+#include <cstdint>
+#include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "api/array_view.h"
+#include "api/audio_codecs/audio_decoder.h"
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/codecs/pcm16b/audio_encoder_pcm16b.h"
+#include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/tools/audio_checksum.h"
 #include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "modules/audio_coding/neteq/tools/encode_neteq_input.h"
-#include "modules/audio_coding/neteq/tools/fake_decode_from_file.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
+#include "modules/audio_coding/neteq/tools/neteq_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
+#include "rtc_base/buffer.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

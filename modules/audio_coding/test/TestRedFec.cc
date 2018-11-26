@@ -10,11 +10,17 @@
 
 #include "modules/audio_coding/test/TestRedFec.h"
 
-#include <assert.h>
+#include <stddef.h>
+#include <string>
+#include <utility>
 
+#include "absl/memory/memory.h"
+#include "absl/strings/match.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio_codecs/L16/audio_decoder_L16.h"
 #include "api/audio_codecs/L16/audio_encoder_L16.h"
 #include "api/audio_codecs/audio_decoder_factory_template.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_encoder_factory_template.h"
 #include "api/audio_codecs/g711/audio_decoder_g711.h"
 #include "api/audio_codecs/g711/audio_encoder_g711.h"
@@ -24,12 +30,10 @@
 #include "api/audio_codecs/isac/audio_encoder_isac_float.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
-#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/codecs/red/audio_encoder_copy_red.h"
-#include "modules/audio_coding/include/audio_coding_module_typedefs.h"
-#include "modules/audio_coding/test/utility.h"
 #include "rtc_base/strings/string_builder.h"
+#include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {

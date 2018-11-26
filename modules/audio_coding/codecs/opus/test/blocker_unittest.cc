@@ -8,10 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <string.h>
 #include <memory>
 
 #include "modules/audio_coding/codecs/opus/test/blocker.h"
-
 #include "rtc_base/arraysize.h"
 #include "test/gtest.h"
 

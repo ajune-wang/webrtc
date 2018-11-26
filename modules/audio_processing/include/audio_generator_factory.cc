@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/include/audio_generator_factory.h"
 
+#include <utility>
+
 #include "absl/memory/memory.h"
 #include "common_audio/wav_file.h"
 #include "modules/audio_processing/audio_generator/file_audio_generator.h"

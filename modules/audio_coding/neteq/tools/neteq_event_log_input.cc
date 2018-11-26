@@ -13,7 +13,6 @@
 #include <limits>
 
 #include "modules/audio_coding/neteq/tools/rtc_event_log_source.h"
-#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace test {

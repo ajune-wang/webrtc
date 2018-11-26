@@ -11,10 +11,14 @@
 #ifndef MODULES_AUDIO_CODING_TEST_TESTALLCODECS_H_
 #define MODULES_AUDIO_CODING_TEST_TESTALLCODECS_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 
-#include "modules/audio_coding/test/Channel.h"
+#include "common_types.h"  // NOLINT(build/include)
+#include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/PCMFile.h"
+#include "modules/include/module_common_types.h"
 
 namespace webrtc {
 

@@ -10,6 +10,11 @@
 
 #include "p2p/base/teststunserver.h"
 
+#include <sys/socket.h>
+
+#include "rtc_base/asyncsocket.h"
+#include "rtc_base/socketserver.h"
+
 namespace cricket {
 
 TestStunServer* TestStunServer::Create(rtc::Thread* thread,

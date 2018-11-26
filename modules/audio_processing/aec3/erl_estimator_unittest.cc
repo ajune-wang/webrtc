@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/aec3/erl_estimator.h"
 
+#include <algorithm>
+
 #include "test/gtest.h"
 
 namespace webrtc {

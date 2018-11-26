@@ -7,13 +7,17 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include <stddef.h>
 #include <vector>
 
-#include "api/array_view.h"
+#include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_processing/audio_buffer.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/level_estimator_impl.h"
 #include "modules/audio_processing/test/audio_buffer_tools.h"
 #include "modules/audio_processing/test/bitexactness_tools.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/criticalsection.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -10,7 +10,11 @@
 
 #include "modules/rtp_rtcp/source/rtp_format_vp8_test_helper.h"
 
+#include <cstdint>
+
+#include "modules/rtp_rtcp/source/rtp_packet.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
+#include "modules/video_coding/codecs/interface/common_constants.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

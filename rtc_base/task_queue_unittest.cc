@@ -9,20 +9,24 @@
  */
 
 #if defined(WEBRTC_WIN)
+#include <mmsystem.h>
 // clang-format off
 #include <windows.h>  // Must come first.
-#include <mmsystem.h>
 // clang-format on
 #endif
 
+#include <stdint.h>
 #include <memory>
+#include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/event.h"
-#include "rtc_base/gunit.h"
+#include "rtc_base/task_queue.h"
 #include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/timeutils.h"
+#include "test/gtest.h"
 
 using rtc::test::TaskQueueForTest;
 

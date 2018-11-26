@@ -11,13 +11,13 @@
 #ifndef MODULES_AUDIO_CODING_TEST_OPUS_TEST_H_
 #define MODULES_AUDIO_CODING_TEST_OPUS_TEST_H_
 
-#include <math.h>
-
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 
 #include "modules/audio_coding/acm2/acm_resampler.h"
-#include "modules/audio_coding/codecs/opus/opus_interface.h"
-#include "modules/audio_coding/test/Channel.h"
+#include "modules/audio_coding/codecs/opus/opus_inst.h"
+#include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/PCMFile.h"
 #include "modules/audio_coding/test/TestStereo.h"
 

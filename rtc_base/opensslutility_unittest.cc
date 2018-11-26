@@ -8,33 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <string>
-#include <vector>
-
-#if defined(WEBRTC_POSIX)
-#include <unistd.h>
-#endif
-
 #if defined(WEBRTC_WIN)
 // Must be included first before openssl headers.
 #include "rtc_base/win32.h"  // NOLINT
 #endif                       // WEBRTC_WIN
 
 #include <openssl/bio.h>
-#include <openssl/crypto.h>
 #include <openssl/evp.h>
 #include <openssl/ssl.h>
 #include <openssl/x509.h>
-#include <openssl/x509v3.h>
+#include <stddef.h>
 
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/openssl.h"
 #include "rtc_base/opensslutility.h"
-#include "rtc_base/sslroots.h"
-#include "test/gmock.h"
+#include "test/gtest.h"
 
 namespace rtc {
 namespace {

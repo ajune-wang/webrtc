@@ -8,13 +8,24 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+#include <string.h>
 #include <memory>
+#include <utility>
+#include <vector>
 
+#include "absl/types/optional.h"
+#include "api/array_view.h"
 #include "api/audio/audio_frame.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/audio_codecs/audio_decoder.h"
+#include "api/rtp_headers.h"
+#include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/tools/neteq_external_decoder_test.h"
 #include "modules/audio_coding/neteq/tools/rtp_generator.h"
+#include "rtc_base/buffer.h"
 #include "test/gmock.h"
+#include "test/gtest.h"
 
 namespace webrtc {
 namespace test {

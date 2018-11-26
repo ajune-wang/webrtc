@@ -15,11 +15,13 @@
 #include <emmintrin.h>
 #include <math.h>
 #include <string.h>  // memset
+#include <xmmintrin.h>
 
 extern "C" {
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 }
 #include "modules/audio_processing/aec/aec_common.h"
+#include "modules/audio_processing/aec/aec_core.h"
 #include "modules/audio_processing/aec/aec_core_optimized_methods.h"
 #include "modules/audio_processing/utility/ooura_fft.h"
 

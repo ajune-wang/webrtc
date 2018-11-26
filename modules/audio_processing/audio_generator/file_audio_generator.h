@@ -11,9 +11,11 @@
 #ifndef MODULES_AUDIO_PROCESSING_AUDIO_GENERATOR_FILE_AUDIO_GENERATOR_H_
 #define MODULES_AUDIO_PROCESSING_AUDIO_GENERATOR_FILE_AUDIO_GENERATOR_H_
 
+#include <stddef.h>
 #include <memory>
 
 #include "common_audio/wav_file.h"
+#include "modules/audio_processing/include/audio_frame_view.h"
 #include "modules/audio_processing/include/audio_generator.h"
 #include "rtc_base/constructormagic.h"
 

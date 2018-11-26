@@ -93,6 +93,30 @@
       "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5611f482_23ed59ce",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-26T21:55:29Z",
+      "side": 1,
+      "message": "You\u0027re probably referring to https://chromium.googlesource.com/external/webrtc/+/edc6e57a92d2b366871f4c2d2e926748326017b9/webrtc/p2p/base/turnport.cc#578, but that that code was moved to BasicPortAllocatorSession::SanitizeCandidate, which is called after the candidate has been  gathered (OnCandidateReady).",
+      "parentUuid": "c1c124bd_a0072d50",
+      "range": {
+        "startLine": 443,
+        "startChar": 11,
+        "endLine": 443,
+        "endChar": 27
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

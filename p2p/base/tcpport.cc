@@ -288,6 +288,12 @@ void TCPPort::TryCreateServerSocket() {
   socket_->SignalAddressReady.connect(this, &TCPPort::OnAddressReady);
 }
 
+bool TCPPort::MaybeObfuscateAddress(Candidate* c,
+                                    const std::string& type,
+                                    bool is_final) {
+  return ObfuscateAddress(c, type, is_final);
+}
+
 rtc::AsyncPacketSocket* TCPPort::GetIncoming(const rtc::SocketAddress& addr,
                                              bool remove) {
   rtc::AsyncPacketSocket* socket = NULL;

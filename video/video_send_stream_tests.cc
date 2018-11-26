@@ -2392,6 +2392,8 @@ TEST_P(VideoSendStreamTest, EncoderIsProperlyInitializedAndDestroyed) {
       return 0;
     }
 
+    EncoderInfo GetEncoderInfo() const override { return EncoderInfo(); }
+
     void OnVideoStreamsCreated(
         VideoSendStream* send_stream,
         const std::vector<VideoReceiveStream*>& receive_streams) override {

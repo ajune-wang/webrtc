@@ -88,6 +88,7 @@ class FakeWebRtcVideoEncoder : public webrtc::VideoEncoder {
   int32_t Release() override;
   int32_t SetRateAllocation(const webrtc::VideoBitrateAllocation& allocation,
                             uint32_t framerate) override;
+  EncoderInfo GetEncoderInfo() const;
 
   bool WaitForInitEncode();
   webrtc::VideoCodec GetCodecSettings();

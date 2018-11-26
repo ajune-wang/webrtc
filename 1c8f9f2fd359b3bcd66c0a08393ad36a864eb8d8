@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f30c913c_86c28e83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-26T13:59:09Z",
+      "side": 1,
+      "message": "nit: you may want to wrap it with the standard 72-char column limit.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 133
+      },
+      "revId": "1c8f9f2fd359b3bcd66c0a08393ad36a864eb8d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

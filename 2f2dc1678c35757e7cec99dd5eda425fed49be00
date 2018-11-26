@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1618dc68_d7ed7436",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-26T19:22:08Z",
+      "side": 1,
+      "message": "MaybeObfustcateAddress only has in implementation for UDPPorts and TcpPorts, for other port types it is a noop. For every port the status starts with kNotStarted.\n\nWhat am I missing? How does this potentially block other candidates?",
+      "parentUuid": "e37c30e5_079e8a2e",
+      "range": {
+        "startLine": 437,
+        "startChar": 2,
+        "endLine": 437,
+        "endChar": 4
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "694b848b_1d9dcbd9",
         "filename": "p2p/base/port.cc",
         "patchSetId": 5

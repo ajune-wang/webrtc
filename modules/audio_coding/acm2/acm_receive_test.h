@@ -23,7 +23,6 @@
 namespace webrtc {
 class AudioCodingModule;
 class AudioDecoder;
-struct CodecInst;
 
 namespace test {
 class AudioSink;
@@ -61,6 +60,7 @@ class AcmReceiveTestOldApi {
   virtual void AfterGetAudio() {}
 
   SimulatedClock clock_;
+  rtc::scoped_refptr<AudioDecoderFactory> decoder_factory_;
   std::unique_ptr<AudioCodingModule> acm_;
   PacketSource* packet_source_;
   AudioSink* audio_sink_;

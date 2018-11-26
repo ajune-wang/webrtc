@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "modules/audio_coding/test/utility.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
@@ -89,10 +90,10 @@ SenderWithFEC::SenderWithFEC() : expected_loss_rate_(0) {}
 void SenderWithFEC::Setup(AudioCodingModule* acm,
                           RTPStream* rtpStream,
                           std::string in_file_name,
-                          int sample_rate,
-                          int channels,
+                          int payload_type,
+                          SdpAudioFormat format,
                           int expected_loss_rate) {
-  Sender::Setup(acm, rtpStream, in_file_name, sample_rate, channels);
+  Sender::Setup(acm, rtpStream, in_file_name, payload_type, format);
   EXPECT_TRUE(SetFEC(true));
   EXPECT_TRUE(SetPacketLossRate(expected_loss_rate));
 }
@@ -137,7 +138,8 @@ void PacketLossTest::Perform() {
   config.decoder_factory = CreateBuiltinAudioDecoderFactory();
   std::unique_ptr<AudioCodingModule> acm(AudioCodingModule::Create(config));
 
-  int codec_id = acm->Codec("opus", 48000, channels_);
+  const int kOpusPayloadType = 42;
+  const SdpAudioFormat kOpusFormat = SdpAudioFormat("opus", 48000, channels_);
 
   RTPFile rtpFile;
   std::string fileName = webrtc::test::TempFilename(webrtc::test::OutputPath(),
@@ -147,21 +149,15 @@ void PacketLossTest::Perform() {
   rtpFile.Open(fileName.c_str(), "wb+");
   rtpFile.WriteHeader();
 
-  sender_->codeId = codec_id;
-
-  sender_->Setup(acm.get(), &rtpFile, in_file_name_, sample_rate_hz_, channels_,
-                 expected_loss_rate_);
-  if (acm->SendCodec()) {
-    sender_->Run();
-  }
+  sender_->Setup(acm.get(), &rtpFile, in_file_name_, kOpusPayloadType,
+                 kOpusFormat, expected_loss_rate_);
+  sender_->Run();
   sender_->Teardown();
   rtpFile.Close();
 
   // Decode to file
   rtpFile.Open(fileName.c_str(), "rb");
   rtpFile.ReadHeader();
-
-  receiver_->codeId = codec_id;
 
   receiver_->Setup(acm.get(), &rtpFile, "packetLoss_out", channels_,
                    actual_loss_rate_, burst_length_);

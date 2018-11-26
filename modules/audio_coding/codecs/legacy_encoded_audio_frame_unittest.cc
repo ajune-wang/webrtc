@@ -10,7 +10,10 @@
 
 #include "modules/audio_coding/codecs/legacy_encoded_audio_frame.h"
 
-#include "modules/audio_coding/acm2/rent_a_codec.h"
+#include <assert.h>
+#include <memory>
+
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
 

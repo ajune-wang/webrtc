@@ -11,11 +11,14 @@
 #ifndef MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_TEST_UTILS_H_
 #define MODULES_AUDIO_PROCESSING_AGC2_RNN_VAD_TEST_UTILS_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <fstream>
 #include <limits>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
 

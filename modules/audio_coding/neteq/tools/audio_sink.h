@@ -11,6 +11,9 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_AUDIO_SINK_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "api/audio/audio_frame.h"
 #include "rtc_base/constructormagic.h"
 

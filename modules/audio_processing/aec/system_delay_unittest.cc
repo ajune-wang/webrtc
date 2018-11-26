@@ -8,10 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <string.h>
+
 #include "modules/audio_processing/aec/aec_core.h"
 #include "modules/audio_processing/aec/echo_cancellation.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
+
 namespace webrtc {
 namespace {
 

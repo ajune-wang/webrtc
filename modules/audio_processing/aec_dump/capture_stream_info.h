@@ -13,14 +13,13 @@
 
 #include <memory>
 #include <utility>
-#include <vector>
 
 #include "api/audio/audio_frame.h"
 #include "modules/audio_processing/aec_dump/write_to_file_task.h"
 #include "modules/audio_processing/include/aec_dump.h"
+#include "modules/audio_processing/include/audio_frame_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/ignore_wundef.h"
-#include "rtc_base/logging.h"
 
 // Files generated at build-time by the protobuf compiler.
 RTC_PUSH_IGNORING_WUNDEF()

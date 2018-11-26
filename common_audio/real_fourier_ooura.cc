@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
 
 #include "common_audio/third_party/fft4g/fft4g.h"
 #include "rtc_base/checks.h"

@@ -10,6 +10,8 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/rrtr.h"
 
+#include <string.h>
+
 #include "test/gtest.h"
 
 using webrtc::rtcp::Rrtr;

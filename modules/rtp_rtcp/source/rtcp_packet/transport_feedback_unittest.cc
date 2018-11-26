@@ -10,11 +10,14 @@
 
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 
+#include <string.h>
+#include <cstdint>
 #include <limits>
 #include <memory>
 #include <utility>
 
 #include "modules/rtp_rtcp/source/byte_io.h"
+#include "rtc_base/buffer.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

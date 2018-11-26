@@ -43,10 +43,16 @@
  * parameters: average loss rate and average burst length.
  */
 
+#include <assert.h>
 #include <math.h>
-
+#include <stdio.h>
+#include <string.h>
+#include <cstdint>
 #include <memory>
+#include <string>
 
+#include "api/array_view.h"
+#include "modules/include/module_fec_types.h"
 #include "modules/rtp_rtcp/source/forward_error_correction_internal.h"
 #include "modules/rtp_rtcp/test/testFec/average_residual_loss_xor_codes.h"
 #include "test/gtest.h"

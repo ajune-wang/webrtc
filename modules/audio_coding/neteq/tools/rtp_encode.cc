@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
 #include <stdio.h>
 
 #ifdef WIN32
@@ -17,21 +18,25 @@
 #include <netinet/in.h>
 #endif
 
-#include <iostream>
 #include <map>
+#include <memory>
 #include <string>
+#include <utility>
 
-#include "absl/memory/memory.h"
+#include "absl/types/optional.h"
 #include "api/audio/audio_frame.h"
 #include "api/audio_codecs/L16/audio_encoder_L16.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/g711/audio_encoder_g711.h"
 #include "api/audio_codecs/g722/audio_encoder_g722.h"
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc.h"
 #include "api/audio_codecs/isac/audio_encoder_isac.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/numerics/safe_conversions.h"
 

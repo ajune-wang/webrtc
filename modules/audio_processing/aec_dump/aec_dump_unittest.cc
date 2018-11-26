@@ -8,10 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <utility>
+#include <stdint.h>
+#include <stdio.h>
+#include <memory>
+#include <string>
 
+#include "api/audio/audio_frame.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
-
+#include "modules/audio_processing/include/aec_dump.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/task_queue.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

@@ -11,12 +11,16 @@
 #include "modules/audio_coding/neteq/normal.h"
 
 #include <string.h>  // memset, memcpy
-
 #include <algorithm>  // min
+#include <cstdint>
+#include <memory>
 
-#include "api/audio_codecs/audio_decoder.h"
+#include "api/array_view.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
+#include "common_audio/signal_processing/include/spl_inl.h"
+#include "modules/audio_coding/codecs/cng/webrtc_cng.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
+#include "modules/audio_coding/neteq/audio_vector.h"
 #include "modules/audio_coding/neteq/background_noise.h"
 #include "modules/audio_coding/neteq/decoder_database.h"
 #include "modules/audio_coding/neteq/expand.h"

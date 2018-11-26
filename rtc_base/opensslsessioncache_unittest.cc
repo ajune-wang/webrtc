@@ -9,14 +9,9 @@
  */
 
 #include <openssl/ssl.h>
-#include <stdlib.h>
 
-#include <map>
-#include <memory>
-
-#include "rtc_base/gunit.h"
-#include "rtc_base/openssl.h"
 #include "rtc_base/opensslsessioncache.h"
+#include "test/gtest.h"
 
 namespace rtc {
 

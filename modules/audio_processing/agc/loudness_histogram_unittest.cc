@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <cmath>
 #include <memory>
+#include <string>
 
 #include "modules/audio_processing/agc/utility.h"
 #include "test/gtest.h"

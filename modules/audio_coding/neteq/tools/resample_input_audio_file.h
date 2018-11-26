@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_RESAMPLE_INPUT_AUDIO_FILE_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_RESAMPLE_INPUT_AUDIO_FILE_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <string>
 
 #include "common_audio/resampler/include/resampler.h"

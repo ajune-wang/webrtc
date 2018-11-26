@@ -10,8 +10,10 @@
 
 #include "modules/audio_processing/aec3/block_delay_buffer.h"
 
+#include <initializer_list>
 #include <string>
 
+#include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "rtc_base/strings/string_builder.h"

@@ -10,8 +10,6 @@
 
 #include "modules/audio_coding/neteq/tools/constant_pcm_packet_source.h"
 
-#include <algorithm>
-
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "rtc_base/checks.h"

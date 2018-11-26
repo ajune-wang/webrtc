@@ -101,11 +101,19 @@ if (rtc_include_tests) {
     deps = [
       ":audio",
       "../api:simulated_network_api",
+      "../api/audio_codecs:audio_codecs_api",
+      "../call:call_interfaces",
       "../call:fake_network",
       "../call:simulated_network",
+      "../call:simulated_packet_receiver",
+      "../modules/audio_device:audio_device_impl",
       "../system_wrappers:system_wrappers",
+      "../test:single_threaded_task_queue",
       "../test:test_common",
       "../test:test_support",
+      "//third_party/abseil-cpp/absl/memory:memory",
+      "//third_party/abseil-cpp/absl/strings:strings",
+      "//third_party/abseil-cpp/absl/types:optional",
     ]
 
     if (!build_with_chromium && is_clang) {
@@ -132,15 +140,20 @@ if (rtc_include_tests) {
     deps = [
       ":audio",
       ":audio_end_to_end_test",
+      "../api:array_view",
+      "../api:libjingle_peerconnection_api",
       "../api:loopback_media_transport",
       "../api:mock_audio_mixer",
       "../api:mock_frame_decryptor",
       "../api:mock_frame_encryptor",
+      "../api:simulated_network_api",
       "../api/audio:audio_frame_api",
+      "../api/audio:audio_mixer_api",
       "../api/audio_codecs:audio_codecs_api",
       "../api/audio_codecs/opus:audio_decoder_opus",
       "../api/audio_codecs/opus:audio_encoder_opus",
       "../api/units:time_delta",
+      "../call:call_interfaces",
       "../call:mock_bitrate_allocator",
       "../call:mock_call_interfaces",
       "../call:mock_rtp_interfaces",
@@ -149,7 +162,11 @@ if (rtc_include_tests) {
       "../common_audio",
       "../logging:mocks",
       "../logging:rtc_event_log_api",
+      "../modules/audio_device:audio_device_api",
       "../modules/audio_device:mock_audio_device",
+      "../modules/audio_processing:api",
+      "../modules/rtp_rtcp:rtp_rtcp",
+      "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_tests_utils",
 
       # For TestAudioDeviceModule
@@ -193,12 +210,15 @@ if (rtc_include_tests) {
       deps = [
         ":audio_end_to_end_test",
         "../api:simulated_network_api",
+        "../call:call_interfaces",
         "../common_audio",
+        "../modules/audio_device:audio_device_impl",
         "../rtc_base:rtc_base_approved",
         "../system_wrappers",
         "../test:fileutils",
         "../test:test_common",
         "../test:test_main",
+        "../test:test_support",
         "//testing/gtest",
       ]
       if (is_android) {
@@ -264,11 +284,17 @@ if (rtc_include_tests) {
       "test/audio_bwe_integration_test.h",
     ]
     deps = [
+      "../api:libjingle_peerconnection_api",
       "../api:simulated_network_api",
+      "../call:call_interfaces",
       "../call:fake_network",
       "../call:simulated_network",
+      "../call:simulated_packet_receiver",
       "../common_audio",
+      "../modules/audio_device:audio_device_impl",
+      "../rtc_base:checks",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:rtc_task_queue_api",
       "../system_wrappers",
       "../test:field_trial",
       "../test:fileutils",

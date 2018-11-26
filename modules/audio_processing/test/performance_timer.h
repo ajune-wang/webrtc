@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_TEST_PERFORMANCE_TIMER_H_
 #define MODULES_AUDIO_PROCESSING_TEST_PERFORMANCE_TIMER_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <vector>
 
 #include "absl/types/optional.h"

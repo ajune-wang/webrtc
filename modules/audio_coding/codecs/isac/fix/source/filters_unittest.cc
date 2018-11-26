@@ -8,8 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+
 #include "modules/audio_coding/codecs/isac/fix/source/codec.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
 #include "test/gtest.h"
 
 class FiltersTest : public testing::Test {

@@ -11,10 +11,9 @@
 #ifndef COMMON_AUDIO_VAD_INCLUDE_VAD_H_
 #define COMMON_AUDIO_VAD_INCLUDE_VAD_H_
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
-
-#include "common_audio/vad/include/webrtc_vad.h"
-#include "rtc_base/checks.h"
 
 namespace webrtc {
 

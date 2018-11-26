@@ -8,12 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
 #include <algorithm>
-#include <numeric>
+#include <cstdint>
+#include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #include <vector>
 
-#include "modules/audio_coding/codecs/isac/fix/include/audio_encoder_isacfix.h"
-#include "modules/audio_coding/codecs/isac/main/include/audio_encoder_isac.h"
+#include "modules/audio_coding/codecs/isac/bandwidth_info.h"
+#include "modules/audio_coding/codecs/isac/fix/source/isac_fix_type.h"
+#include "modules/audio_coding/codecs/isac/main/source/isac_float_type.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/numerics/safe_conversions.h"

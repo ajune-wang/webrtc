@@ -12,7 +12,11 @@
 
 #include <inttypes.h>
 #include <stdio.h>
+#include <algorithm>
 #include <utility>
+#include <vector>
+
+#include "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h"
 
 namespace webrtc {
 namespace test {

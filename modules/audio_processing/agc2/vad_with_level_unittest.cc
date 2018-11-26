@@ -10,7 +10,10 @@
 
 #include "modules/audio_processing/agc2/vad_with_level.h"
 
-#include "rtc_base/gunit.h"
+#include <stddef.h>
+#include <array>
+
+#include "test/gtest.h"
 
 namespace webrtc {
 namespace test {

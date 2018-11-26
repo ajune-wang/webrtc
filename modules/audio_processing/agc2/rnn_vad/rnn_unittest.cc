@@ -8,16 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <algorithm>
 #include <array>
-#include <vector>
+#include <cstdint>
+#include <memory>
+#include <utility>
 
 #include "modules/audio_processing/agc2/rnn_vad/rnn.h"
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 #include "rtc_base/checks.h"
 #include "test/gtest.h"
 #include "third_party/rnnoise/src/rnn_activations.h"
-#include "third_party/rnnoise/src/rnn_vad_weights.h"
 
 namespace webrtc {
 namespace rnn_vad {

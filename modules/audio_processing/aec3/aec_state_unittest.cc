@@ -10,6 +10,8 @@
 
 #include "modules/audio_processing/aec3/aec_state.h"
 
+#include <algorithm>
+
 #include "modules/audio_processing/aec3/aec3_fft.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"

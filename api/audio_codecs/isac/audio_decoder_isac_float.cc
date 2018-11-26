@@ -13,6 +13,7 @@
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/isac/main/include/audio_decoder_isac.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 

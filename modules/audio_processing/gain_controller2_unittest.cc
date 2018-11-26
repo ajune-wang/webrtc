@@ -8,10 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
 #include <algorithm>
+#include <initializer_list>
+#include <vector>
 
 #include "absl/memory/memory.h"
-#include "api/array_view.h"
+#include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_processing/agc2/agc2_testing_common.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "modules/audio_processing/gain_controller2.h"

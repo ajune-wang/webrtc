@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e37c30e5_079e8a2e",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-26T15:07:31Z",
+      "side": 1,
+      "message": "This looks to me it would block the gathering of a non-host candidate, if the mdns name registration encounters a problem.",
+      "range": {
+        "startLine": 437,
+        "startChar": 2,
+        "endLine": 437,
+        "endChar": 4
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694b848b_1d9dcbd9",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-26T15:07:31Z",
+      "side": 1,
+      "message": "I feel since we still rely on the switching of types to determine the behavior in this method (which is defined for all Port types even though it is only used for host and srflx), instead of relying on MaybeObfuscateAddress being a virtual, it reads cleaner to me if we simply absorb this method in MaybeObfuscateAddress and make it a non-virtual private. In other words, the overloads of MaybeObfuscateAddress duplicates the switching here. I understand this would result in no much difference from the base, modulo a bit cleaner organization.",
+      "range": {
+        "startLine": 443,
+        "startChar": 11,
+        "endLine": 443,
+        "endChar": 27
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

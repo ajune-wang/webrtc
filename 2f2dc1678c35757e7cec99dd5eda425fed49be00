@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "69bd3248_20b91a24",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-26T22:01:12Z",
+      "side": 1,
+      "message": "I meant the following scenario:\n\n0. mDNS is turned on\n1. A host candidate is in the process of name registration from a previous call of AddAddress.\n2. The current AddAddress is called for a srflx/relay candidate.\n3. The previous host candidate is stuck in the name registration, so the registration status is never changed to kComplete.\n4. FinishAddingAddress (which finishes the signaling of a candidate to upper layers) is skipped for the srflx/relay in this AddAddress. We hence lose this candidate.\n\nIn the base patch, FinishAddingAddress is always called for non-host candidate. For host candidates, FinishAddingAddress is asynchronous invoked in the callback below.",
+      "parentUuid": "1618dc68_d7ed7436",
+      "range": {
+        "startLine": 437,
+        "startChar": 2,
+        "endLine": 437,
+        "endChar": 4
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "694b848b_1d9dcbd9",
         "filename": "p2p/base/port.cc",
         "patchSetId": 5

@@ -46,6 +46,30 @@
       "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbe7eb9b_201825d8",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T12:30:56Z",
+      "side": 1,
+      "message": "One could view it as an optional method in the encoder interface, and leave the default implementation as is.\n\nI don\u0027t have an informed opinion.",
+      "parentUuid": "fe373145_2482fb76",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

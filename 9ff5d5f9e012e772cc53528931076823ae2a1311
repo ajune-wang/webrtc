@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "17201175_d43f6bc1",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-26T13:02:09Z",
+      "side": 1,
+      "message": "Nice catch. Added. The exact value will be revised later.",
+      "parentUuid": "be74e155_88bbd5fe",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 46
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "786f146f_1726eda4",
         "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9b5b5485_f50b83c7",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-26T13:02:09Z",
+      "side": 1,
+      "message": "As the frame buffer works currently, we shouldn\u0027t distinguish them. \n\nCurrently frame buffer considers all subframes as a single frame object and passes it to decoder or drops it entirely.\n\nThis is why we need to aggregate references from 3 layers here.",
+      "parentUuid": "786f146f_1726eda4",
+      "range": {
+        "startLine": 455,
+        "startChar": 6,
+        "endLine": 455,
+        "endChar": 23
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45bd1f15_892ff7be",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136fb05a_90437772",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-26T13:02:09Z",
+      "side": 1,
+      "message": "It will require very complex command line to invoke. It\u0027s easier to just check for input fps.",
+      "parentUuid": "45bd1f15_892ff7be",
+      "range": {
+        "startLine": 674,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 9
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -307,15 +307,6 @@ class AudioCodingModule {
   virtual bool RegisterReceiveCodec(int rtp_payload_type,
                                     const SdpAudioFormat& audio_format) = 0;
 
-  // Registers an external decoder. The name is only used to provide information
-  // back to the caller about the decoder. Hence, the name is arbitrary, and may
-  // be empty.
-  virtual int RegisterExternalReceiveCodec(int rtp_payload_type,
-                                           AudioDecoder* external_decoder,
-                                           int sample_rate_hz,
-                                           int num_channels,
-                                           const std::string& name) = 0;
-
   ///////////////////////////////////////////////////////////////////////////
   // int32_t UnregisterReceiveCodec()
   // Unregister the codec currently registered with a specific payload type

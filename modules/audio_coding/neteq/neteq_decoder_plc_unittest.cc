@@ -173,11 +173,6 @@ NetEqNetworkStatistics RunTest(int loss_cadence, std::string* checksum) {
   auto input_file = absl::make_unique<InputAudioFile>(
       webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm"));
   AudioDecoderPlc dec(std::move(input_file), kSampleRateHz);
-  // Masquerading as a PCM16b decoder.
-  NetEqTest::ExternalDecoderInfo dec_info = {
-      &dec, NetEqDecoder::kDecoderPCM16Bswb32kHz, "pcm16b_PLC"};
-  NetEqTest::ExtDecoderMap external_decoders;
-  external_decoders.insert(std::make_pair(kPayloadType, dec_info));
 
   // Output is simply a checksum calculator.
   auto output = absl::make_unique<AudioChecksumWithOutput>(checksum);
@@ -185,8 +180,8 @@ NetEqNetworkStatistics RunTest(int loss_cadence, std::string* checksum) {
   // No callback objects.
   NetEqTest::Callbacks callbacks;
 
-  NetEqTest neteq_test(config, decoders, external_decoders,
-                       std::move(lossy_input), std::move(output), callbacks);
+  NetEqTest neteq_test(config, decoders, std::move(lossy_input),
+                       std::move(output), callbacks);
   EXPECT_LE(kRunTimeMs, neteq_test.Run());
 
   auto lifetime_stats = neteq_test.LifetimeStats();

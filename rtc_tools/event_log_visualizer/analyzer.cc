@@ -1718,12 +1718,9 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
       new test::ResampleInputAudioFile(replacement_file_name,
                                        file_sample_rate_hz));
   replacement_file->set_output_rate_hz(48000);
+  // XXX Use encoder factory?
   std::unique_ptr<AudioDecoder> replacement_decoder(
       new test::FakeDecodeFromFile(std::move(replacement_file), 48000, false));
-  test::NetEqTest::ExtDecoderMap ext_codecs;
-  ext_codecs[kReplacementPt] = {replacement_decoder.get(),
-                                NetEqDecoder::kDecoderArbitrary,
-                                "replacement codec"};
 
   std::unique_ptr<test::NetEqDelayAnalyzer> delay_cb(
       new test::NetEqDelayAnalyzer);
@@ -1735,8 +1732,8 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
   callbacks.post_insert_packet = neteq_stats_getter->delay_analyzer();
   callbacks.get_audio_callback = neteq_stats_getter.get();
 
-  test::NetEqTest test(config, codecs, ext_codecs, std::move(input),
-                       std::move(output), callbacks);
+  test::NetEqTest test(config, codecs, std::move(input), std::move(output),
+                       callbacks);
   test.Run();
   return neteq_stats_getter;
 }

@@ -166,13 +166,6 @@ class DecoderDatabase {
   virtual int RegisterPayload(int rtp_payload_type,
                               const SdpAudioFormat& audio_format);
 
-  // Registers an externally created AudioDecoder object, and associates it
-  // as a decoder of type |codec_type| with |rtp_payload_type|.
-  virtual int InsertExternal(uint8_t rtp_payload_type,
-                             NetEqDecoder codec_type,
-                             const std::string& codec_name,
-                             AudioDecoder* decoder);
-
   // Removes the entry for |rtp_payload_type| from the database.
   // Returns kDecoderNotFound or kOK depending on the outcome of the operation.
   virtual int Remove(uint8_t rtp_payload_type);

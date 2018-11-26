@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <vector>
 
 #include "absl/types/variant.h"
 #include "modules/video_coding/frame_object.h"
@@ -435,10 +436,24 @@ RtpFrameReferenceFinder::FrameDecision RtpFrameReferenceFinder::ManageFrameVp9(
     last_picture_id_ = frame->id.picture_id;
 
   if (codec_header.flexible_mode) {
-    frame->num_references = codec_header.num_ref_pics;
-    for (size_t i = 0; i < frame->num_references; ++i) {
-      frame->references[i] = Subtract<kPicIdLength>(frame->id.picture_id,
-                                                    codec_header.pid_diff[i]);
+    std::vector<RTPVideoHeader*> video_headers = frame->GetAllVideoHeaders();
+    std::set<size_t> references;
+    for (const RTPVideoHeader* header : video_headers) {
+      const RTPVideoHeaderVP9& codec_header =
+          absl::get<RTPVideoHeaderVP9>(header->video_type_header);
+      // Skip repeating headers.
+      if (!codec_header.beginning_of_frame)
+        continue;
+      // Aggregate references from all frames.
+      for (size_t i = 0; i < codec_header.num_ref_pics; ++i) {
+        references.insert(codec_header.pid_diff[i]);
+      }
+    }
+
+    frame->num_references = 0;
+    for (const size_t& ref : references) {
+      frame->references[frame->num_references++] =
+          Subtract<kPicIdLength>(frame->id.picture_id, ref);
     }
 
     UnwrapPictureIds(frame);

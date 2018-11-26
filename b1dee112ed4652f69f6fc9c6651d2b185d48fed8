@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c2c523e2_6a49f17d",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1347,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T13:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d893ea86_c986b65f",
+      "range": {
+        "startLine": 1347,
+        "startChar": 49,
+        "endLine": 1347,
+        "endChar": 59
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e27d3338_42011a3a",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 6
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "137856ce_9062b639",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1355,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T13:04:20Z",
+      "side": 1,
+      "message": "Good point! Thanks!",
+      "parentUuid": "ba135c6d_b64c861b",
+      "range": {
+        "startLine": 1355,
+        "startChar": 22,
+        "endLine": 1355,
+        "endChar": 29
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c70c985_11622b90",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 6
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "I assumed the compiler would do return value optimization.  I added an early return anyway, like you suggest.\nhttps://en.wikipedia.org/wiki/Copy_elision#Return_value_optimization",
       "parentUuid": "7c70c985_11622b90",
+      "range": {
+        "startLine": 1606,
+        "startChar": 23,
+        "endLine": 1606,
+        "endChar": 28
+      },
+      "revId": "b1dee112ed4652f69f6fc9c6651d2b185d48fed8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c108222_f7e01e7e",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1606,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T13:04:20Z",
+      "side": 1,
+      "message": "You are probably right. My feeling was that there was so much going on in the method that that behavior was not guaranteed but reading the referenced page I think you are correct.",
+      "parentUuid": "ebb422ab_edfb59c4",
       "range": {
         "startLine": 1606,
         "startChar": 23,

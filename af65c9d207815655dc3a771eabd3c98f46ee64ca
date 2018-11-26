@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "859f25bd_99de64a5",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "RID should be supported for audio as well as video according to the spec.\nRtpEncodingParameters::rid is the field in the send encodings and that is available to both audio and video senders.",
+      "parentUuid": "bcc83835_7985ef86",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d5fa0a7_02d7fcb6",
         "filename": "pc/sessiondescription.cc",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "572bc787_60068bec",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "it should be.\ni will add a DCHECK",
+      "parentUuid": "f68028d6_c40e26fa",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33b06606_9a4f2ef0",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -64,6 +100,24 @@
       "writtenOn": "2018-11-26T21:33:22Z",
       "side": 1,
       "message": "I\u0027m a little confused between this comment and the API.\n\nThe comment suggests that simulcast is a list of streams where each stream can have a list of alternatives.\n\nBut the API is AddStreams is really adding a single stream with the `streams` parameter as the alternative list?\n\nAm I misunderstanding?",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ae1660_b4585182",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "This is somewhat confusing, because even though simulcast \u003d sending different encoded versions of the same media source, it seems that the interpretation of \u0027different encoded versions\u0027 is not the most intuitive.\nIt is easiest to understand when you interpret \u0027different encoded versions\u0027 as \u0027qualities\u0027 rather than encodings.\nso now think of it this way:\ni can send 3 streams: Hi, Mid, Lo. \nfor Hi i can send one of two alternatives - VP8 or H264 encoded versions of the high quality stream.\n\nNow how does this translate to the Api:\nvar send \u003d new SimulcastStreamAlternativeList();\nsend-\u003eAddStreams({\"1\" /* VP8 */, \"2\" /* H264 */});\nsend-\u003eAddStream(\"3\" /* mid */);\nsend-\u003eAddStream(\"4\" /* lo */);\n\nperhaps renaming it to:\nAddStream()\nAddStreamWithAlternatives()\nwill be more clear?",
+      "parentUuid": "33b06606_9a4f2ef0",
       "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -110,6 +164,48 @@
     },
     {
       "key": {
+        "uuid": "ea39e14f_9e1c7051",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "is there a reason not to allow subclassing? because of no virtual destructor?\nreprhase: is it a rule - either virtual destructor or final?",
+      "parentUuid": "fcb05101_46872e1b",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d03c9426_dde84f67",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "i will rename the methods to:\nAddStream()\nAddStreamWithAlternatives()\nand then i will feel comfortable dropping Alternative from the class name.",
+      "parentUuid": "b38c45e7_8bae42d7",
+      "range": {
+        "startLine": 294,
+        "startChar": 21,
+        "endLine": 294,
+        "endChar": 32
+      },
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0175c113_03888076",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -121,6 +217,24 @@
       "writtenOn": "2018-11-26T21:33:22Z",
       "side": 1,
       "message": "Prefer to just name the full type rather than use a typdef.\n\nSee C++ totw #137.",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f4ca776_47e6218b",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0175c113_03888076",
       "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -167,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "b3692d79_35123a21",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "Yes. this is because paused is not as common as unpaused, so allowing users not to create RidDescription objects is nice.",
+      "parentUuid": "fa108a7c_ee50e3f3",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e2e7c0d_0fad4592",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -178,6 +310,24 @@
       "writtenOn": "2018-11-26T21:33:22Z",
       "side": 1,
       "message": "Can replace these two overloads with just:\n\nvoid AddStreams(std::vector\u003cRidDescription\u003e streams);\n\nThough totw #117 suggests to just use a const reference unless performance is really important.",
+      "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacc9298_97a6e83d",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-26T22:42:59Z",
+      "side": 1,
+      "message": "I\u0027m assuming you mean the \u0026\u0026 and const \u0026 for Rid methods.\ni can keep the const reference one if the move one is bad, but i thought that it makes sense to offer it because this is a vector that is being copied (and i don\u0027t think vector has the same behavior as string wrt intrusive pointer).",
+      "parentUuid": "5e2e7c0d_0fad4592",
       "revId": "af65c9d207815655dc3a771eabd3c98f46ee64ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -22,6 +22,30 @@
       "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe373145_2482fb76",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-26T12:19:08Z",
+      "side": 1,
+      "message": "There are several encoders which did not override any of the deprecated methods, so I did not require them to override GetEncoderInfo() either.\nI can try making it pure virtual and see how many things break.",
+      "parentUuid": "3ba24221_63c50c8f",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

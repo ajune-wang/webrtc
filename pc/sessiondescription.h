@@ -276,6 +276,83 @@ class AudioContentDescription : public MediaContentDescriptionImpl<AudioCodec> {
   virtual const AudioContentDescription* as_audio() const { return this; }
 };
 
+// Describes a list of Simulcast streams and their alternatives.
+// Simulcast streams are specified in order of preference.
+// Each stream can have a list of alternatives (in order of preference).
+// https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
+// Example Usage:
+//   To populate an alternative list that specifies the following:
+//     1. Stream 1 or Stream 2
+//     2. Stream 3
+//     3. Stream 4 or Stream 5
+//   Use the following code:
+//     SimulcastStreamAlternativeList list;
+//     list.AddStreams({"1", "2"});
+//     list.AddStream("3");
+//     list.AddStreams({"4", "5"});
+// To specify paused streams, use the overloads accepting RidDescription
+class SimulcastStreamAlternativeList {
+ public:
+  // Each simulcast stream has a rid as the identifier and a paused flag
+  struct RidDescription {
+    explicit RidDescription(const std::string& id, bool paused = false)
+        : rid{id}, is_paused{paused} {}
+    RidDescription(const RidDescription& other) = default;
+    RidDescription& operator=(const RidDescription& other) = default;
+
+    std::string rid;
+    bool is_paused;
+  };
+
+  typedef std::vector<RidDescription> AlternativeList;
+  typedef std::vector<AlternativeList> StreamList;
+
+  // Use to add a stream when there will be no alternatives
+  void AddStream(const std::string& rid, bool is_paused = false);
+
+  // Use to add a list of alternatives
+  void AddStreams(const std::vector<std::string>& rids);
+  void AddStreams(const std::vector<RidDescription>& streams);
+  void AddStreams(std::vector<RidDescription>&& streams);
+
+  // Read-only access to the contents
+  // Note: This object does not allow removal of streams/alternatives
+  StreamList::const_iterator begin() const { return list_.begin(); }
+  StreamList::const_iterator end() const { return list_.end(); }
+  const AlternativeList& operator[](size_t index) const;
+
+  size_t size() const { return list_.size(); }
+  bool empty() const { return list_.empty(); }
+
+ private:
+  StreamList list_;
+};
+
+// Describes the simulcast options of a video media section.
+// This will list the send and receive streams along with their alternatives.
+// Each simulcast stream has an identifier (rid) and can optionally be paused.
+// The order of the streams (as well as alternates) signifies user preference
+// from first to last (most preferred to least preferred).
+// https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
+class SimulcastDescription {
+ public:
+  const SimulcastStreamAlternativeList& send_streams() const {
+    return send_streams_;
+  }
+
+  SimulcastStreamAlternativeList& send_streams() { return send_streams_; }
+
+  const SimulcastStreamAlternativeList& receive_streams() const {
+    return receive_streams_;
+  }
+
+  SimulcastStreamAlternativeList& receive_streams() { return receive_streams_; }
+
+ private:
+  SimulcastStreamAlternativeList send_streams_;
+  SimulcastStreamAlternativeList receive_streams_;
+};
+
 class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
  public:
   virtual VideoContentDescription* Copy() const {
@@ -284,6 +361,19 @@ class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
   virtual MediaType type() const { return MEDIA_TYPE_VIDEO; }
   virtual VideoContentDescription* as_video() { return this; }
   virtual const VideoContentDescription* as_video() const { return this; }
+
+  // Simulcast functionality
+  virtual bool HasSimulcast() const;
+  virtual SimulcastDescription& simulcast_description() { return simulcast_; }
+  virtual const SimulcastDescription& simulcast_description() const {
+    return simulcast_;
+  }
+  virtual void simulcast_description(const SimulcastDescription& simulcast) {
+    simulcast_ = simulcast;
+  }
+
+ private:
+  SimulcastDescription simulcast_;
 };
 
 class DataContentDescription : public MediaContentDescriptionImpl<DataCodec> {

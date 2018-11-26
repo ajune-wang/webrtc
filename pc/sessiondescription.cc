@@ -28,6 +28,42 @@ ContentInfo* FindContentInfoByName(ContentInfos* contents,
 
 }  // namespace
 
+void SimulcastStreamAlternativeList::AddStream(const std::string& rid,
+                                               bool is_paused) {
+  AlternativeList alternatives{RidDescription(rid, is_paused)};
+  list_.push_back(alternatives);
+}
+
+void SimulcastStreamAlternativeList::AddStreams(
+    const std::vector<std::string>& rids) {
+  AlternativeList alternatives;
+  for (auto iter = rids.begin(); iter != rids.end(); iter++) {
+    alternatives.push_back(RidDescription(*iter));
+  }
+  list_.push_back(alternatives);
+}
+
+void SimulcastStreamAlternativeList::AddStreams(
+    const std::vector<RidDescription>& rids) {
+  list_.push_back(rids);
+}
+
+void SimulcastStreamAlternativeList::AddStreams(
+    std::vector<RidDescription>&& rids) {
+  list_.push_back(rids);
+}
+
+const SimulcastStreamAlternativeList::AlternativeList&
+    SimulcastStreamAlternativeList::operator[](size_t index) const {
+  RTC_DCHECK_LT(index, list_.size());
+  return list_[index];
+}
+
+bool VideoContentDescription::HasSimulcast() const {
+  return !simulcast_.send_streams().empty() ||
+         !simulcast_.receive_streams().empty();
+}
+
 const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
                                          const std::string& name) {
   for (ContentInfos::const_iterator content = contents.begin();

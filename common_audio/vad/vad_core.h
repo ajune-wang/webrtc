@@ -15,6 +15,9 @@
 #ifndef COMMON_AUDIO_VAD_VAD_CORE_H_
 #define COMMON_AUDIO_VAD_VAD_CORE_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 
 enum { kNumChannels = 6 };   // Number of frequency bands (named channels).

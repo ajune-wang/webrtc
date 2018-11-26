@@ -10,10 +10,15 @@
 
 #include "modules/audio_coding/test/TestVADDTX.h"
 
+#include <stdio.h>
+#include <string.h>
 #include <string>
+#include <utility>
 
 #include "absl/strings/match.h"
+#include "api/audio/audio_frame.h"
 #include "api/audio_codecs/audio_decoder_factory_template.h"
+#include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/audio_encoder_factory_template.h"
 #include "api/audio_codecs/ilbc/audio_decoder_ilbc.h"
 #include "api/audio_codecs/ilbc/audio_encoder_ilbc.h"
@@ -23,8 +28,8 @@
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 #include "modules/audio_coding/codecs/cng/audio_encoder_cng.h"
 #include "modules/audio_coding/test/PCMFile.h"
-#include "modules/audio_coding/test/utility.h"
 #include "rtc_base/strings/string_builder.h"
+#include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
 namespace webrtc {

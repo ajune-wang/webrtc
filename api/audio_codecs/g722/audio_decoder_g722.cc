@@ -10,6 +10,7 @@
 
 #include "api/audio_codecs/g722/audio_decoder_g722.h"
 
+#include <stddef.h>
 #include <memory>
 #include <vector>
 

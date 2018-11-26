@@ -11,11 +11,11 @@
 #include "modules/audio_coding/neteq/nack_tracker.h"
 
 #include <stdint.h>
-
 #include <algorithm>
+#include <cstdint>
 #include <memory>
+#include <utility>
 
-#include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -8,14 +8,22 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdio.h>
 #include <iostream>
+#include <map>
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/array_view.h"
 #include "modules/audio_processing/test/conversational_speech/config.h"
 #include "modules/audio_processing/test/conversational_speech/multiend_call.h"
 #include "modules/audio_processing/test/conversational_speech/simulator.h"
 #include "modules/audio_processing/test/conversational_speech/timing.h"
+#include "modules/audio_processing/test/conversational_speech/wavreader_abstract_factory.h"
 #include "modules/audio_processing/test/conversational_speech/wavreader_factory.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "test/testsupport/fileutils.h"
 

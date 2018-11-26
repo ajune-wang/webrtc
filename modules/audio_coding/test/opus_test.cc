@@ -8,17 +8,17 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "modules/audio_coding/test/opus_test.h"
-
+#include <math.h>
 #include <string>
 
+#include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/codecs/opus/opus_interface.h"
-#include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "modules/audio_coding/test/TestStereo.h"
-#include "modules/audio_coding/test/utility.h"
+#include "modules/audio_coding/test/opus_test.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 

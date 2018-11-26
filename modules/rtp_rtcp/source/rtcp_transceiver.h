@@ -11,11 +11,13 @@
 #ifndef MODULES_RTP_RTCP_SOURCE_RTCP_TRANSCEIVER_H_
 #define MODULES_RTP_RTCP_SOURCE_RTCP_TRANSCEIVER_H_
 
+#include <stdint.h>
 #include <functional>
 #include <memory>
-#include <string>
 #include <vector>
 
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_transceiver_config.h"
 #include "modules/rtp_rtcp/source/rtcp_transceiver_impl.h"
 #include "rtc_base/copyonwritebuffer.h"

@@ -9,7 +9,7 @@
  */
 
 #include <fstream>
-#include <iostream>
+#include <string>
 
 #include "rtc_base/checks.h"
 

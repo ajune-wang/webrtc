@@ -12,8 +12,6 @@
 
 #include "modules/audio_coding/neteq/merge.h"
 
-#include <vector>
-
 #include "modules/audio_coding/neteq/background_noise.h"
 #include "modules/audio_coding/neteq/expand.h"
 #include "modules/audio_coding/neteq/random_vector.h"

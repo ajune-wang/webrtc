@@ -10,9 +10,7 @@
 
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 
-#include <stdlib.h>
-
-#include <string>
+#include <cstdint>
 #include <vector>
 
 #include "rtc_base/numerics/safe_conversions.h"

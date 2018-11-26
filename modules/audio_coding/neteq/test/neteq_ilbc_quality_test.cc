@@ -8,14 +8,21 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stddef.h>
+#include <stdint.h>
 #include <memory>
 
+#include "api/array_view.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/ilbc/audio_encoder_ilbc_config.h"
 #include "modules/audio_coding/codecs/ilbc/audio_encoder_ilbc.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/tools/neteq_quality_test.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "test/testsupport/fileutils.h"
+#include "test/gtest.h"
 
 using testing::InitGoogleTest;
 

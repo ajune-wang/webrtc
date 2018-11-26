@@ -8,8 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdint.h>
+#include <stdlib.h>
+
+#include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_coding/codecs/isac/fix/source/codec.h"
-#include "system_wrappers/include/cpu_features_wrapper.h"
+#include "modules/audio_coding/codecs/isac/fix/source/settings.h"
 #include "test/gtest.h"
 
 static const int kSamples = FRAMESAMPLES / 2;

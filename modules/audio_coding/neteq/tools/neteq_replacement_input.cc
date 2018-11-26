@@ -10,7 +10,11 @@
 
 #include "modules/audio_coding/neteq/tools/neteq_replacement_input.h"
 
+#include <cstdint>
+#include <utility>
+
 #include "modules/audio_coding/neteq/tools/fake_decode_from_file.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {

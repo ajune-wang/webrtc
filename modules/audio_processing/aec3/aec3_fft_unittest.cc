@@ -10,6 +10,7 @@
 
 #include "modules/audio_processing/aec3/aec3_fft.h"
 
+#include <stddef.h>
 #include <algorithm>
 
 #include "test/gmock.h"

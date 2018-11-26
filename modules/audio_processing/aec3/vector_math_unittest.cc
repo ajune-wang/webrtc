@@ -11,6 +11,8 @@
 #include "modules/audio_processing/aec3/vector_math.h"
 
 #include <math.h>
+#include <stddef.h>
+#include <array>
 
 #include "rtc_base/system/arch.h"
 #include "system_wrappers/include/cpu_features_wrapper.h"

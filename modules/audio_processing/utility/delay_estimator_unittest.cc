@@ -9,6 +9,9 @@
  */
 
 #include "modules/audio_processing/utility/delay_estimator.h"
+
+#include <string.h>
+
 #include "modules/audio_processing/utility/delay_estimator_internal.h"
 #include "modules/audio_processing/utility/delay_estimator_wrapper.h"
 #include "test/gtest.h"

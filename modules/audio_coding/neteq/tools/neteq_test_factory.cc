@@ -12,20 +12,29 @@
 
 #include <errno.h>
 #include <limits.h>  // For ULONG_MAX returned by strtoul.
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>  // For strtoul.
+#include <string.h>
+#include <cstdint>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <set>
 #include <string>
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "absl/types/optional.h"
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
+#include "modules/audio_coding/neteq/tools/audio_sink.h"
 #include "modules/audio_coding/neteq/tools/fake_decode_from_file.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h"
 #include "modules/audio_coding/neteq/tools/neteq_event_log_input.h"
+#include "modules/audio_coding/neteq/tools/neteq_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_packet_source_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_replacement_input.h"
 #include "modules/audio_coding/neteq/tools/neteq_stats_getter.h"
@@ -34,9 +43,9 @@
 #include "modules/audio_coding/neteq/tools/output_audio_file.h"
 #include "modules/audio_coding/neteq/tools/output_wav_file.h"
 #include "modules/audio_coding/neteq/tools/rtp_file_source.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
-#include "test/testsupport/fileutils.h"
 
 namespace webrtc {
 namespace test {

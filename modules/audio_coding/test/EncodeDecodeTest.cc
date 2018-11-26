@@ -11,15 +11,20 @@
 #include "modules/audio_coding/test/EncodeDecodeTest.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 #include <memory>
 
 #include "absl/strings/match.h"
+#include "absl/types/optional.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
-#include "modules/audio_coding/test/utility.h"
+#include "rtc_base/checks.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

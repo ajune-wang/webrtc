@@ -10,18 +10,25 @@
 
 // Test to verify correct stereo and multi-channel operation.
 
+#include <stddef.h>
+#include <stdint.h>
 #include <algorithm>
 #include <list>
 #include <memory>
+#include <ostream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>
 
+#include "api/array_view.h"
 #include "api/audio/audio_frame.h"
+#include "api/audio_codecs/audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "common_types.h"  // NOLINT(build/include)
+#include "api/rtp_headers.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
 #include "modules/audio_coding/neteq/include/neteq.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_coding/neteq/tools/rtp_generator.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 #include "test/testsupport/fileutils.h"

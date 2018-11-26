@@ -11,8 +11,9 @@
 #include "modules/audio_coding/test/Channel.h"
 
 #include <assert.h>
-#include <iostream>
+#include <string.h>
 
+#include "api/rtp_headers.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/timeutils.h"
 

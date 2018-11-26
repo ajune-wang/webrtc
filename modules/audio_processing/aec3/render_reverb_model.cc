@@ -11,6 +11,7 @@
 #include "modules/audio_processing/aec3/render_reverb_model.h"
 
 #include <algorithm>
+#include <vector>
 
 #include "api/array_view.h"
 #include "rtc_base/checks.h"

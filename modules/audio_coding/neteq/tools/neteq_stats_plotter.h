@@ -11,10 +11,10 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_STATS_PLOTTER_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_NETEQ_STATS_PLOTTER_H_
 
+#include <stdint.h>
 #include <memory>
 #include <string>
 
-#include "modules/audio_coding/neteq/tools/neteq_delay_analyzer.h"
 #include "modules/audio_coding/neteq/tools/neteq_stats_getter.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
 

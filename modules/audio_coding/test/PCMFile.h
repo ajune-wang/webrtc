@@ -11,9 +11,8 @@
 #ifndef MODULES_AUDIO_CODING_TEST_PCMFILE_H_
 #define MODULES_AUDIO_CODING_TEST_PCMFILE_H_
 
+#include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
-
 #include <string>
 
 #include "absl/types/optional.h"

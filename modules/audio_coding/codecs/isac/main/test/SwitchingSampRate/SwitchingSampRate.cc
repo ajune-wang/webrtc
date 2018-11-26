@@ -12,6 +12,9 @@
 // application.
 //
 
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"

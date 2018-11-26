@@ -9,6 +9,7 @@
  */
 
 #include <math.h>
+#include <stdio.h>
 
 #include "audio/remix_resample.h"
 #include "common_audio/resampler/include/push_resampler.h"

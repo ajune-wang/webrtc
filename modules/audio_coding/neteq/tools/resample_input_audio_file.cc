@@ -10,6 +10,7 @@
 
 #include "modules/audio_coding/neteq/tools/resample_input_audio_file.h"
 
+#include <cstdint>
 #include <memory>
 
 #include "rtc_base/checks.h"

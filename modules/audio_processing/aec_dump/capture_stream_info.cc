@@ -10,6 +10,11 @@
 
 #include "modules/audio_processing/aec_dump/capture_stream_info.h"
 
+#include <stddef.h>
+#include <stdint.h>
+
+#include "api/array_view.h"
+
 namespace webrtc {
 CaptureStreamInfo::CaptureStreamInfo(std::unique_ptr<WriteToFileTask> task)
     : task_(std::move(task)) {

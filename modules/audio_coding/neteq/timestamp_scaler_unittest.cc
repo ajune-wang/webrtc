@@ -9,9 +9,16 @@
  */
 
 #include "modules/audio_coding/neteq/timestamp_scaler.h"
+
+#include <stddef.h>
+#include <utility>
+
+#include "absl/types/optional.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "modules/audio_coding/neteq/mock/mock_decoder_database.h"
+#include "modules/audio_coding/neteq/neteq_decoder_enum.h"
 #include "modules/audio_coding/neteq/packet.h"
+#include "rtc_base/scoped_ref_ptr.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 

@@ -9,6 +9,9 @@
  */
 
 #include "common_audio/resampler/include/push_resampler.h"
+
+#include <stdint.h>
+
 #include "rtc_base/checks.h"  // RTC_DCHECK_IS_ON
 #include "test/gtest.h"
 

@@ -70,6 +70,30 @@
       "revId": "88ce4ef46e0d9cb3be04ed5516d5ab8b10a62518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2326422b_ce078332",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-26T17:34:09Z",
+      "side": 0,
+      "message": "Not really. I just sense that Thread is more of an \"icky implementation\" type as opposed to a \"clean API\" type. https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9987 might work, though. :-)",
+      "parentUuid": "12845e37_e6c38606",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "88ce4ef46e0d9cb3be04ed5516d5ab8b10a62518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

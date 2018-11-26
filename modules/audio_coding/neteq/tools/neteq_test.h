@@ -67,14 +67,6 @@ class NetEqTest : public NetEqSimulator {
  public:
   using DecoderMap = std::map<int, std::pair<NetEqDecoder, std::string> >;
 
-  struct ExternalDecoderInfo {
-    AudioDecoder* decoder;
-    NetEqDecoder codec;
-    std::string codec_name;
-  };
-
-  using ExtDecoderMap = std::map<int, ExternalDecoderInfo>;
-
   struct Callbacks {
     NetEqTestErrorCallback* error_callback = nullptr;
     NetEqPostInsertPacket* post_insert_packet = nullptr;
@@ -86,7 +78,6 @@ class NetEqTest : public NetEqSimulator {
   // and callback objects for error reporting.
   NetEqTest(const NetEq::Config& config,
             const DecoderMap& codecs,
-            const ExtDecoderMap& ext_codecs,
             std::unique_ptr<NetEqInput> input,
             std::unique_ptr<AudioSink> output,
             Callbacks callbacks);
@@ -111,7 +102,6 @@ class NetEqTest : public NetEqSimulator {
 
  private:
   void RegisterDecoders(const DecoderMap& codecs);
-  void RegisterExternalDecoders(const ExtDecoderMap& codecs);
   absl::optional<Action> next_action_;
   absl::optional<int> last_packet_time_ms_;
   std::unique_ptr<NetEq> neteq_;

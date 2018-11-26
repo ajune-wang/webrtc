@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ba24221_63c50c8f",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T11:52:47Z",
+      "side": 1,
+      "message": "Is this implementation of the method still needed?",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

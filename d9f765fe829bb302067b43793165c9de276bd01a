@@ -16,6 +16,24 @@
       "revId": "d9f765fe829bb302067b43793165c9de276bd01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0c88530f_ab390051",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-26T14:27:08Z",
+      "side": 1,
+      "message": "That\u0027s what bothers me as well. I saw that gcc is not able to do the same optimization.\n\nAfter a lot more than 10 minutes of thinking I\u0027ve come up with this idea:\nhttps://godbolt.org/z/tKgqMc",
+      "parentUuid": "981146d1_b17c51b8",
+      "revId": "d9f765fe829bb302067b43793165c9de276bd01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -45,6 +45,29 @@
       "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04b4403_02fcc55d",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-26T20:10:11Z",
+      "side": 1,
+      "message": "Should we RTC_DCHECK_GE(references, 1) ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

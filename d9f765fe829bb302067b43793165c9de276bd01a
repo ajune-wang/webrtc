@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "981146d1_b17c51b8",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-26T12:05:43Z",
+      "side": 1,
+      "message": "I would have liked to insist on a constexpr mask, but I can\u0027t (in 10 minutes) find a simple enough way to implement this with the overflow check intact.\n\nSo I guess this is OK. It seems we\u0027re lucky, and the compiler decides to compute this at compile time even though it doesn\u0027t have to.",
+      "revId": "d9f765fe829bb302067b43793165c9de276bd01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -149,7 +149,7 @@ TEST(SvcRateAllocatorTest, MinBitrateToGetQualityLayer) {
 
   const SpatialLayer* layers = codec.spatialLayers;
 
-  EXPECT_LE(codec.VP9()->numberOfSpatialLayers, 2U);
+  EXPECT_LE(codec.VP9()->numberOfSpatialLayers, 3U);
 
   VideoBitrateAllocation allocation =
       allocator.GetAllocation(layers[0].minBitrate * 1000, 30);
@@ -160,6 +160,7 @@ TEST(SvcRateAllocatorTest, MinBitrateToGetQualityLayer) {
       (layers[0].maxBitrate + layers[1].minBitrate) * 1000, 30);
   EXPECT_EQ(allocation.GetSpatialLayerSum(0) / 1000, layers[0].maxBitrate);
   EXPECT_EQ(allocation.GetSpatialLayerSum(1) / 1000, layers[1].minBitrate);
+  EXPECT_EQ(allocation.GetSpatialLayerSum(2) / 1000, layers[2].minBitrate);
 }
 
 }  // namespace webrtc

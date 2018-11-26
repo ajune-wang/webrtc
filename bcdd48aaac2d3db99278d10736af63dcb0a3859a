@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25ecc136_9ed79ac8",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T07:39:47Z",
+      "side": 1,
+      "message": "Is this only needed for when protobuf is enabled? The test code is not requiring protobuf support, right? Or did I get that wrong?",
+      "range": {
+        "startLine": 463,
+        "startChar": 19,
+        "endLine": 463,
+        "endChar": 37
+      },
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e93607_dedcdf88",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T07:39:47Z",
+      "side": 1,
+      "message": "I don\u0027t really see why this class needs to create two MockEchoControl instances if only the second is needed. Could you please explain a bit further.\n\nFurthermore, I agree with the comment from Karl that if only two instances are used herein it is better to use two separate variables rather than an array. I think the code would be shorter and more readable as  Create() would not give the impression that any number of mocks can be created.",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

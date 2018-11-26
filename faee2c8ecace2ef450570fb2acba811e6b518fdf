@@ -118,6 +118,30 @@
       "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf7fdaf3_eeb4f8b1",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T13:08:21Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "85e1be2d_ea0e630e",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

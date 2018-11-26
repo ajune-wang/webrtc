@@ -211,7 +211,6 @@ struct ConfigHelper {
           .Times(1);
     }
     EXPECT_CALL(*channel_send_, ResetSenderCongestionControlObjects()).Times(1);
-    EXPECT_CALL(*channel_send_, RegisterTransport(nullptr)).Times(2);
   }
 
   void SetupMockForSetupSendCodec(bool expect_set_encoder_call) {
@@ -551,5 +550,6 @@ TEST(AudioSendStreamTest, ReconfigureWithFrameEncryptor) {
   EXPECT_CALL(*helper.channel_send(), SetFrameEncryptor(Ne(nullptr))).Times(1);
   send_stream->Reconfigure(new_config);
 }
+
 }  // namespace test
 }  // namespace webrtc

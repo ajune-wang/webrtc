@@ -12,6 +12,7 @@
 #define AUDIO_AUDIO_SEND_STREAM_H_
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "audio/channel_send.h"
@@ -56,6 +57,8 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                   RtcpRttStats* rtcp_rtt_stats,
                   const absl::optional<RtpState>& suspended_rtp_state,
                   std::unique_ptr<voe::ChannelSendInterface> channel_send);
+
+ public:
   ~AudioSendStream() override;
 
   // webrtc::AudioSendStream implementation.

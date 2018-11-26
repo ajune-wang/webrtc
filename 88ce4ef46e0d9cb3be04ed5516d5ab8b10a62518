@@ -22,6 +22,30 @@
       "revId": "88ce4ef46e0d9cb3be04ed5516d5ab8b10a62518",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4ce84a_b3a5a075",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-26T09:39:06Z",
+      "side": 0,
+      "message": "Makes sense. Or maybe we want to expose a cleaner type in the API?\n\nI\u0027m working on a CL that will split rtc_base/thread.h and a bunch of other things out of the main rtc_base build target. Moving it to api/ might make sense after that.",
+      "parentUuid": "9bf2099f_c8da3093",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "88ce4ef46e0d9cb3be04ed5516d5ab8b10a62518",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

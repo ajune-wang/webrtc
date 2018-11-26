@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1cb34a7_593e4e6f",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-26T20:08:41Z",
+      "side": 1,
+      "message": "In theory this also makes all the changes to the resources, performed by the thread that decremented the counter to be visible before the store of the decrement. Should we also add this?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 77
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f62e55d_ce909fd8",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-26T20:08:41Z",
+      "side": 1,
+      "message": "Another possibility is to use std::memory_order_release for the decrement and perform a load with std::memory_order_acquire only if it was the last reference.",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 79
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,6 +10,7 @@
 
 #include "modules/video_coding/frame_object.h"
 
+#include "absl/types/variant.h"
 #include "common_video/h264/h264_common.h"
 #include "modules/video_coding/packet_buffer.h"
 #include "rtc_base/checks.h"
@@ -149,6 +150,19 @@ absl::optional<RTPVideoHeader> RtpFrameObject::GetRtpVideoHeader() const {
   if (!packet)
     return absl::nullopt;
   return packet->video_header;
+}
+
+std::vector<RTPVideoHeader*> RtpFrameObject::GetAllVideoHeaders() const {
+  rtc::CritScope lock(&packet_buffer_->crit_);
+  std::vector<RTPVideoHeader*> headers;
+  for (size_t seq_num = first_seq_num_; seq_num <= last_seq_num_; ++seq_num) {
+    VCMPacket* packet = packet_buffer_->GetPacket(seq_num);
+    if (!packet)
+      continue;
+    RTPVideoHeader* header = (&packet->video_header);
+    headers.push_back(header);
+  }
+  return headers;
 }
 
 absl::optional<RtpGenericFrameDescriptor>

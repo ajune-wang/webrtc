@@ -11,6 +11,8 @@
 #ifndef MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 #define MODULES_VIDEO_CODING_FRAME_OBJECT_H_
 
+#include <vector>
+
 #include "absl/types/optional.h"
 #include "api/video/encoded_frame.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -42,7 +44,10 @@ class RtpFrameObject : public EncodedFrame {
   int64_t ReceivedTime() const override;
   int64_t RenderTime() const override;
   bool delayed_by_retransmission() const override;
+  // Returns first video header.
   absl::optional<RTPVideoHeader> GetRtpVideoHeader() const;
+  // Returns video headers for all packets.
+  std::vector<RTPVideoHeader*> GetAllVideoHeaders() const;
   absl::optional<RtpGenericFrameDescriptor> GetGenericFrameDescriptor() const;
   absl::optional<FrameMarking> GetFrameMarking() const;
 

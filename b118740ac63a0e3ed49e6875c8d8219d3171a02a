@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad031dc_701457a7",
+        "filename": "api/video/color_space.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T08:54:55Z",
+      "side": 1,
+      "message": "You should not get any complaints if you use short-circuiting and, i.e., \u0026\u0026. Like\n\nif ((enum_value \u003c 64) \u0026\u0026 (((enum_bitmask \u003e\u003e enum_value) \u0026 1) {\n\nIt was only the trick to use bitwise and instead (eliminating a branch) that invokes shift with an out of range count.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "b118740ac63a0e3ed49e6875c8d8219d3171a02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0aeaaf12_40f659ea",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T08:54:55Z",
+      "side": 1,
+      "message": "nit: It\u0027s fine to leave a final comma at the end of the list, and I think we usually do that.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "b118740ac63a0e3ed49e6875c8d8219d3171a02a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

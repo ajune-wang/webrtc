@@ -91,5 +91,9 @@ void ConfigurableFrameSizeEncoder::RegisterPostEncodeCallback(
   post_encode_callback_ = std::move(post_encode_callback);
 }
 
+VideoEncoder::EncoderInfo ConfigurableFrameSizeEncoder::GetEncoderInfo() const {
+  return EncoderInfo();
+}
+
 }  // namespace test
 }  // namespace webrtc

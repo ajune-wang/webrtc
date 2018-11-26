@@ -47,6 +47,8 @@ class ConfigurableFrameSizeEncoder : public VideoEncoder {
   void RegisterPostEncodeCallback(
       std::function<void(void)> post_encode_callback);
 
+  EncoderInfo GetEncoderInfo() const override;
+
  private:
   EncodedImageCallback* callback_;
   absl::optional<std::function<void(void)>> post_encode_callback_;

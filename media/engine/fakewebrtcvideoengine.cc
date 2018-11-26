@@ -172,6 +172,11 @@ int32_t FakeWebRtcVideoEncoder::SetRateAllocation(
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+webrtc::VideoEncoder::EncoderInfo FakeWebRtcVideoEncoder::GetEncoderInfo()
+    const {
+  return EncoderInfo();
+}
+
 bool FakeWebRtcVideoEncoder::WaitForInitEncode() {
   return init_encode_event_.Wait(kEventTimeoutMs);
 }

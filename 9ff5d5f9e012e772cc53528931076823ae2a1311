@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be74e155_88bbd5fe",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-26T12:27:59Z",
+      "side": 1,
+      "message": "do we want to cap bitrate for top layer? in vp8 that is capped at 1.25mbps - https://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/simulcast.cc?q\u003dsimulcast.cc\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d40",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 46
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "786f146f_1726eda4",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-26T12:27:59Z",
+      "side": 1,
+      "message": "should not we distinguish spatial layers here?",
+      "range": {
+        "startLine": 455,
+        "startChar": 6,
+        "endLine": 455,
+        "endChar": 23
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45bd1f15_892ff7be",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-11-26T12:27:59Z",
+      "side": 1,
+      "message": "maybe check frame rate on spatial layers and enable flex mode if it differs?",
+      "range": {
+        "startLine": 674,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 9
+      },
+      "revId": "9ff5d5f9e012e772cc53528931076823ae2a1311",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

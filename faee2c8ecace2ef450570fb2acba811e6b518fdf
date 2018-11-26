@@ -94,6 +94,30 @@
       "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85e1be2d_ea0e630e",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-26T12:44:51Z",
+      "side": 1,
+      "message": "There were three instances in webrtc, but several more in chromium and google-internal projects. Likely a bunch of third-party code as well I would assume.\nLet\u0027s postpone that change and have a default implementation for now.",
+      "parentUuid": "8993c946_ae44fa7f",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

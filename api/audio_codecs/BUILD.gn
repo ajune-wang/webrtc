@@ -56,6 +56,7 @@ rtc_static_library("builtin_audio_decoder_factory") {
     "g711:audio_decoder_g711",
     "g722:audio_decoder_g722",
     "isac:audio_decoder_isac",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
   defines = []
   if (rtc_include_ilbc) {
@@ -86,6 +87,7 @@ rtc_static_library("builtin_audio_encoder_factory") {
     "g711:audio_encoder_g711",
     "g722:audio_encoder_g722",
     "isac:audio_encoder_isac",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
   defines = []
   if (rtc_include_ilbc) {

@@ -9,7 +9,7 @@
  */
 
 #include <stdio.h>
-
+#include <stdlib.h>
 #include <memory>
 
 #include "rtc_base/checks.h"

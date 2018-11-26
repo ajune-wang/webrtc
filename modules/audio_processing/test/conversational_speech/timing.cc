@@ -10,9 +10,10 @@
 
 #include "modules/audio_processing/test/conversational_speech/timing.h"
 
+#include <cstdlib>
 #include <fstream>
-#include <iostream>
 
+#include "rtc_base/checks.h"
 #include "rtc_base/stringencode.h"
 
 namespace webrtc {

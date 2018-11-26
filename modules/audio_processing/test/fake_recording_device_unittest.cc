@@ -9,13 +9,14 @@
  */
 
 #include <cmath>
+#include <cstdlib>
 #include <memory>
 #include <string>
 #include <vector>
 
 #include "absl/memory/memory.h"
-#include "api/array_view.h"
 #include "modules/audio_processing/test/fake_recording_device.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 

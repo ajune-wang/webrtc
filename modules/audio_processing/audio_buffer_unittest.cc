@@ -9,6 +9,8 @@
  */
 
 #include "modules/audio_processing/audio_buffer.h"
+
+#include "rtc_base/checks.h"
 #include "test/gtest.h"
 
 namespace webrtc {

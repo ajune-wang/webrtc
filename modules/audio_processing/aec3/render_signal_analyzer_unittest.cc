@@ -11,13 +11,14 @@
 #include "modules/audio_processing/aec3/render_signal_analyzer.h"
 
 #include <math.h>
+#include <stdlib.h>
 #include <array>
+#include <memory>
 #include <vector>
 
 #include "api/array_view.h"
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/aec3_fft.h"
-#include "modules/audio_processing/aec3/fft_data.h"
 #include "modules/audio_processing/aec3/render_delay_buffer.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
 #include "rtc_base/random.h"

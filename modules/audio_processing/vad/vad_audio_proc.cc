@@ -11,7 +11,6 @@
 #include "modules/audio_processing/vad/vad_audio_proc.h"
 
 #include <math.h>
-#include <stdio.h>
 #include <string.h>
 
 #include "common_audio/third_party/fft4g/fft4g.h"
@@ -19,6 +18,7 @@
 #include "modules/audio_processing/vad/pole_zero_filter.h"
 #include "modules/audio_processing/vad/vad_audio_proc_internal.h"
 #include "rtc_base/checks.h"
+
 extern "C" {
 #include "modules/audio_coding/codecs/isac/main/source/filter_functions.h"
 #include "modules/audio_coding/codecs/isac/main/source/isac_vad.h"

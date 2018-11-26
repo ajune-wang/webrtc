@@ -11,6 +11,7 @@
 #ifndef MODULES_AUDIO_CODING_NETEQ_TOOLS_PACKET_SOURCE_H_
 #define MODULES_AUDIO_CODING_NETEQ_TOOLS_PACKET_SOURCE_H_
 
+#include <stdint.h>
 #include <bitset>
 #include <memory>
 

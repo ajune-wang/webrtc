@@ -10,7 +10,10 @@
 
 #include "modules/audio_processing/include/audio_frame_view.h"
 
+#include <stdint.h>
+
 #include "modules/audio_processing/audio_buffer.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "test/gtest.h"
 
 namespace webrtc {

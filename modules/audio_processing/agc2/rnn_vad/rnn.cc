@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cmath>
 
 #include "rtc_base/checks.h"
 #include "third_party/rnnoise/src/rnn_activations.h"

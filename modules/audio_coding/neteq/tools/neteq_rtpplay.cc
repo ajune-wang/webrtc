@@ -8,7 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdlib.h>
 #include <iostream>
+#include <memory>
 #include <string>
 
 #include "modules/audio_coding/neteq/tools/neteq_test.h"

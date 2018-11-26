@@ -14,6 +14,7 @@
 #include <numeric>
 #include <utility>
 
+#include "api/array_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/timeutils.h"

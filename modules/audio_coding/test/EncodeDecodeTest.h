@@ -11,9 +11,12 @@
 #ifndef MODULES_AUDIO_CODING_TEST_ENCODEDECODETEST_H_
 #define MODULES_AUDIO_CODING_TEST_ENCODEDECODETEST_H_
 
+#include <stdint.h>
 #include <stdio.h>
-#include <string.h>
+#include <string>
 
+#include "api/audio/audio_frame.h"
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/test/PCMFile.h"
 #include "modules/audio_coding/test/RTPFile.h"

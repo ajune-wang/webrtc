@@ -8,15 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <string.h>
-
-#include <iostream>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/audio_processing_simulator.h"
@@ -25,6 +26,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/timeutils.h"
 
 namespace webrtc {
 namespace test {

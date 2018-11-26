@@ -10,11 +10,13 @@
 
 #include "modules/audio_processing/aec3/frame_blocker.h"
 
+#include <initializer_list>
 #include <string>
 #include <vector>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/block_framer.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 

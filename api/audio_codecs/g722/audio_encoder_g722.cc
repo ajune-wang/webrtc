@@ -10,12 +10,17 @@
 
 #include "api/audio_codecs/g722/audio_encoder_g722.h"
 
+#include <stddef.h>
+#include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "modules/audio_coding/codecs/g722/audio_encoder_g722.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/string_to_number.h"

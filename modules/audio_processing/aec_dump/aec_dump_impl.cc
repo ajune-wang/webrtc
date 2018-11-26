@@ -8,14 +8,18 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <utility>
-
 #include "modules/audio_processing/aec_dump/aec_dump_impl.h"
 
+#include <stdio.h>
+#include <string>
+#include <utility>
+
 #include "absl/memory/memory.h"
+#include "api/array_view.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/event.h"
+#include "rtc_base/platform_file.h"
 
 namespace webrtc {
 

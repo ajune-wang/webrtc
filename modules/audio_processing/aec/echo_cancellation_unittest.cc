@@ -12,11 +12,7 @@
 
 #include "modules/audio_processing/aec/echo_cancellation.h"
 
-#include <stdlib.h>
-#include <time.h>
-
 #include "modules/audio_processing/aec/aec_core.h"
-#include "rtc_base/checks.h"
 #include "test/gtest.h"
 
 namespace webrtc {

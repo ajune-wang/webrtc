@@ -8,10 +8,21 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <stdio.h>
+#include <memory>
+#include <string>
+#include <vector>
+
+#include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
 #include "audio/test/audio_end_to_end_test.h"
+#include "call/audio_receive_stream.h"
+#include "call/audio_send_stream.h"
+#include "modules/audio_device/include/test_audio_device.h"
 #include "rtc_base/flags.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/call_test.h"
+#include "test/gtest.h"
 #include "test/testsupport/fileutils.h"
 
 WEBRTC_DEFINE_int(sample_rate_hz,

@@ -6,12 +6,15 @@
 // in the file PATENTS.  All contributing project authors may
 // be found in the AUTHORS file in the root of the source tree.
 
+#include <stddef.h>
 #include <array>
+#include <cstdint>
 #include <fstream>
 #include <memory>
 
 #include "common_audio/vad/include/vad.h"
 #include "common_audio/wav_file.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/logging.h"
 

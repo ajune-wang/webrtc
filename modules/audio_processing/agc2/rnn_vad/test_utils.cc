@@ -10,6 +10,9 @@
 
 #include "modules/audio_processing/agc2/rnn_vad/test_utils.h"
 
+#include <cstddef>
+#include <cstdint>
+
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "test/gtest.h"

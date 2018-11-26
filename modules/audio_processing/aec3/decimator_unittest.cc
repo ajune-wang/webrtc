@@ -13,11 +13,13 @@
 #include <math.h>
 #include <algorithm>
 #include <array>
+#include <initializer_list>
 #include <numeric>
 #include <string>
 #include <vector>
 
 #include "modules/audio_processing/aec3/aec3_common.h"
+#include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gtest.h"
 

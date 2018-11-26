@@ -129,6 +129,7 @@ rtc_executable("vad") {
   deps = [
     "../../../..:webrtc_common",
     "../../../../common_audio",
+    "../../../../rtc_base:checks",
     "../../../../rtc_base:rtc_base_approved",
   ]
 }
@@ -141,6 +142,7 @@ rtc_executable("apm_vad") {
     "../..",
     "../../../..:webrtc_common",
     "../../../../common_audio",
+    "../../../../rtc_base:checks",
     "../../../../rtc_base:rtc_base_approved",
     "../../vad",
   ]

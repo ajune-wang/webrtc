@@ -10,11 +10,8 @@
 
 #include "modules/audio_coding/acm2/rent_a_codec.h"
 
-#include <memory>
-#include <utility>
-
-#include "rtc_base/logging.h"
 #include "modules/audio_coding/acm2/acm_codec_database.h"
+#include "rtc_base/checks.h"
 
 namespace webrtc {
 namespace acm2 {

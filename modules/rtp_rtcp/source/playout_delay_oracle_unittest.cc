@@ -10,7 +10,6 @@
 
 #include "modules/rtp_rtcp/source/playout_delay_oracle.h"
 
-#include "rtc_base/logging.h"
 #include "test/gtest.h"
 
 namespace webrtc {

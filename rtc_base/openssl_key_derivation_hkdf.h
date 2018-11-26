@@ -11,6 +11,12 @@
 #ifndef RTC_BASE_OPENSSL_KEY_DERIVATION_HKDF_H_
 #define RTC_BASE_OPENSSL_KEY_DERIVATION_HKDF_H_
 
+#include <stddef.h>
+#include <stdint.h>
+
+#include "absl/types/optional.h"
+#include "api/array_view.h"
+#include "rtc_base/buffer.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/key_derivation.h"
 

@@ -10,9 +10,9 @@
 
 #include "common_audio/ring_buffer.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 #include <algorithm>
 #include <memory>
 

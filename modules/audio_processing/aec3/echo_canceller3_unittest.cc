@@ -10,7 +10,9 @@
 
 #include "modules/audio_processing/aec3/echo_canceller3.h"
 
+#include <algorithm>
 #include <deque>
+#include <initializer_list>
 #include <memory>
 #include <string>
 #include <utility>
@@ -18,7 +20,6 @@
 
 #include "modules/audio_processing/aec3/aec3_common.h"
 #include "modules/audio_processing/aec3/block_processor.h"
-#include "modules/audio_processing/aec3/frame_blocker.h"
 #include "modules/audio_processing/aec3/mock/mock_block_processor.h"
 #include "modules/audio_processing/audio_buffer.h"
 #include "rtc_base/strings/string_builder.h"

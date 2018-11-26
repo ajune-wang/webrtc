@@ -11,6 +11,7 @@
 #ifndef MODULES_AUDIO_CODING_CODECS_OPUS_TEST_LAPPED_TRANSFORM_H_
 #define MODULES_AUDIO_CODING_CODECS_OPUS_TEST_LAPPED_TRANSFORM_H_
 
+#include <stddef.h>
 #include <complex>
 #include <memory>
 

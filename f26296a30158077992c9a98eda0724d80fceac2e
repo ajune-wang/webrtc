@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "846b311d_4c788ff7",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "I have a feeling that we also need to check for config_.pre_amplifier.enabled, or is it guaranteed that private_submodules_-\u003epre_amplifier is destroyed if  config_.pre_amplifier.enabled is set to false?",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01d830cc_bf32f9fb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "I don\u0027t think this works. There is for sure a scenario where pre_amplifier and agc2 fixed gain is used.",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b0add4a_a91877d3",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "Maybe the story about ApplyPreGain and ApplyDigital gain should be made more clear. With these naming, as this indicates that the PreGain is not a digital gain.\nWould ApplyPreGain and ApplyPostGain work?",
+      "range": {
+        "startLine": 1340,
+        "startChar": 43,
+        "endLine": 1340,
+        "endChar": 59
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1c05c5_6458200f",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "I don\u0027t think this way of commenting is ok from the style guide. Please\n-Use // for consistency.\n-Move the comments to the end of the line.",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747d66a6_39593434",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "Note that this gain must not have a soft-limiter, and that the gain applied must be fully linear.",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577582a2_49652137",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "acting-\u003econtrolling \n?",
+      "range": {
+        "startLine": 28,
+        "startChar": 60,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21fe6c1a_31cb0381",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "Please also add that it is guaranteed that this gain application is linear and that any saturation is handled by hard saturation (i.e., not soft saturation).",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ba2872_58741c1f",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "last_applied_config_ -\u003e config_\n?\n\nSince there is no other config stored, I think it is kind of for granted that the stored config_ is the one last applied.\n\n(the exception to the above would be if there is a case where the applied config would not be stored, or whether even earlier configs are stored)",
+      "range": {
+        "startLine": 57,
+        "startChar": 43,
+        "endLine": 57,
+        "endChar": 63
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d49d54_80b89bcd",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "Please change comment to be a proper sentence.",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6806f5_c5955924",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "Please change comment to be a proper sentence.",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ec498ce_fa511964",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "ab\n-\u003e\nbuffer\n\nAccording to https://google.github.io/styleguide/cppguide.html#General_Naming_Rules names should be descriptive and abbreviations avoided.\n\nI think an exception to that rule is when the name significantly increase the size of the code but in this case it won\u0027t.",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ded08cc_7336a78e",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "ab -\u003e buffer\nas above.",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d999fcc8_d311dfe9",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-11-26T08:28:53Z",
+      "side": 1,
+      "message": "ab -\u003e buffer\nas above.",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

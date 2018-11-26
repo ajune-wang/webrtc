@@ -1112,6 +1112,22 @@ TEST_P(VideoAdapterTest, TestAdaptToMax) {
   EXPECT_EQ(360, out_height_);
 }
 
+TEST_P(VideoAdapterTest, TestOnScaleResolutionBy) {
+  OnOutputFormatRequest(640, 360, kDefaultFps);
+
+  adapter_.OnScaleResolutionBy(0.5);
+  EXPECT_FALSE(adapter_.AdaptFrameResolution(640, 360, 0, &cropped_width_,
+                                             &cropped_height_, &out_width_,
+                                             &out_height_));
+
+  adapter_.OnScaleResolutionBy(2);
+  EXPECT_TRUE(adapter_.AdaptFrameResolution(640, 360, 0, &cropped_width_,
+                                            &cropped_height_, &out_width_,
+                                            &out_height_));
+  EXPECT_EQ(320, out_width_);
+  EXPECT_EQ(180, out_height_);
+}
+
 // Test adjusting to 16:9 in landscape, and 9:16 in portrait.
 TEST(VideoAdapterTestMultipleOrientation, TestNormal) {
   VideoAdapter video_adapter;

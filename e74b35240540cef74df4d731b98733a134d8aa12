@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2f41e60_5be51659",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-26T07:50:44Z",
+      "side": 1,
+      "message": "Mention ntp time in commit message; \"system clock\" is ambiguous.",
+      "range": {
+        "startLine": 7,
+        "startChar": 52,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "e74b35240540cef74df4d731b98733a134d8aa12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

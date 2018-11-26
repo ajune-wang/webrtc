@@ -183,6 +183,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     packet.codec = kVideoCodecVP9;
     packet.seqNum = seq_num_start;
     packet.is_last_packet_in_frame = (seq_num_start == seq_num_end);
+    packet.is_first_packet_in_frame = true;
     packet.frameType = keyframe ? kVideoFrameKey : kVideoFrameDelta;
     vp9_header.inter_layer_predicted = inter;
     vp9_header.flexible_mode = true;
@@ -191,6 +192,7 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     vp9_header.spatial_idx = sid;
     vp9_header.tl0_pic_idx = kNoTl0PicIdx;
     vp9_header.num_ref_pics = refs.size();
+    vp9_header.beginning_of_frame = true;
     for (size_t i = 0; i < refs.size(); ++i)
       vp9_header.pid_diff[i] = refs[i];
     ref_packet_buffer_->InsertPacket(&packet);
@@ -198,6 +200,8 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     if (seq_num_start != seq_num_end) {
       packet.seqNum = seq_num_end;
       packet.is_last_packet_in_frame = true;
+      packet.is_first_packet_in_frame = (seq_num_start == seq_num_end);
+      vp9_header.beginning_of_frame = false;
       ref_packet_buffer_->InsertPacket(&packet);
     }
 

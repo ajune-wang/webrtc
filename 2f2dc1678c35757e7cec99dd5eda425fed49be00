@@ -69,6 +69,30 @@
       "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c124bd_a0072d50",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2018-11-26T21:44:29Z",
+      "side": 1,
+      "message": "Agreed - I think we probably want to hoist the LOCAL behavior into a private Port::WrapAddress routine, and then UdpPort and TcpPort can call it from their gathering code.\n\nThe changes to raddr should probably be done separate from WrapAddress, I think they should be done prior to calling AddAddress, as done by TurnPort.",
+      "parentUuid": "694b848b_1d9dcbd9",
+      "range": {
+        "startLine": 443,
+        "startChar": 11,
+        "endLine": 443,
+        "endChar": 27
+      },
+      "revId": "2f2dc1678c35757e7cec99dd5eda425fed49be00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

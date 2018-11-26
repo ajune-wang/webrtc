@@ -70,6 +70,30 @@
       "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8993c946_ae44fa7f",
+        "filename": "api/video_codecs/video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-26T12:33:26Z",
+      "side": 1,
+      "message": "Ack. If there\u0027s not too many places to fix I\u0027m in favor of having it pure virtual. If I find it\u0027s too many then we could do this as a follow-up. I think there are other cleanups we should do anyway, such as actually removing SetRates().",
+      "parentUuid": "cbe7eb9b_201825d8",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 1
+      },
+      "revId": "faee2c8ecace2ef450570fb2acba811e6b518fdf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

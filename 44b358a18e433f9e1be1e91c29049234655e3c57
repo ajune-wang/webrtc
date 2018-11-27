@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e939f7d_f29b7460",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:09:43Z",
+      "side": 1,
+      "message": "Do we want to check here that we don\u0027t already have simuclast set? From the spec:\n\"Each SDP media description MUST contain at most one \"a\u003dsimulcast\" line.\"",
+      "range": {
+        "startLine": 2976,
+        "startChar": 8,
+        "endLine": 2976,
+        "endChar": 21
+      },
+      "revId": "44b358a18e433f9e1be1e91c29049234655e3c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

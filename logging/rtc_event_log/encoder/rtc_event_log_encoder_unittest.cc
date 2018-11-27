@@ -490,6 +490,30 @@ TEST_P(RtcEventLogEncoderTest, RtcEventDtlsTransportState) {
   }
 }
 
+TEST_P(RtcEventLogEncoderTest, RtcEventDtlsWritable) {
+  std::vector<std::unique_ptr<RtcEventDtlsWritable>> events(event_count_);
+  for (size_t i = 0; i < event_count_; ++i) {
+    events[i] = (i == 0 || !force_repeated_fields_) ? gen_.NewDtlsWritable()
+                                                    : events[0]->Copy();
+    history_.push_back(events[i]->Copy());
+  }
+
+  std::string encoded = encoder_->EncodeBatch(history_.begin(), history_.end());
+  ASSERT_TRUE(parsed_log_.ParseString(encoded));
+
+  const auto& dtls_writable = parsed_log_.dtls_writable();
+  if (!new_encoding_) {
+    ASSERT_EQ(dtls_writable.size(), 0u);
+    return;
+  }
+
+  ASSERT_EQ(dtls_writable.size(), event_count_);
+
+  for (size_t i = 0; i < event_count_; ++i) {
+    verifier_.VerifyLoggedDtlsWritable(*events[i], dtls_writable[i]);
+  }
+}
+
 // TODO(eladalon/terelius): Test with multiple events in the batch.
 TEST_P(RtcEventLogEncoderTest, RtcEventIceCandidatePairConfig) {
   std::unique_ptr<RtcEventIceCandidatePairConfig> event =

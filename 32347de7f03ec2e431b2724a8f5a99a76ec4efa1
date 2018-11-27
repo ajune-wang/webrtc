@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fb55a69_3708aea7",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-27T21:13:02Z",
+      "side": 1,
+      "message": "nit: there was also refactoring Ben was doing in WebRTC to wrap one-liners in brackets",
+      "range": {
+        "startLine": 448,
+        "startChar": 4,
+        "endLine": 448,
+        "endChar": 10
+      },
+      "revId": "32347de7f03ec2e431b2724a8f5a99a76ec4efa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b54022de_bca68c27",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-27T21:13:02Z",
+      "side": 1,
+      "message": "nit: I found it common for the name for a method like this being something like \"MdnsObfuscationEnabled\"",
+      "range": {
+        "startLine": 241,
+        "startChar": 7,
+        "endLine": 241,
+        "endChar": 22
+      },
+      "revId": "32347de7f03ec2e431b2724a8f5a99a76ec4efa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa3a4b09_d8086d3f",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-27T15:00:10Z",
+      "side": 1,
+      "message": "I\u0027ve rolled back changes to DefaultVideo*Factory and left changes only to HardwareVideoDecoderFactory and HardwareVideoEncoderFactory. So user of the library can reuse existing HW factories with filtering support.",
+      "parentUuid": "ebf8b55f_52614282",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6545b63_f888065e",
         "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-27T12:01:31Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d06423d_35f99ac1",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-27T15:00:10Z",
+      "side": 1,
+      "message": "Undone.",
+      "parentUuid": "a6545b63_f888065e",
       "range": {
         "startLine": 28,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e918d354_dee0b1c8",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-27T15:00:10Z",
+      "side": 1,
+      "message": "Agree, but instead of using name `filter` with unclear semantic of return value I\u0027ve used different name of predicate.",
+      "parentUuid": "4d1a9076_8bf5aa25",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 71
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16efd021_51d8c975",
         "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-27T12:01:31Z",
       "side": 1,
       "message": "Probably makes sense to just have this in the API as a generic interface instead of copying it.",
+      "range": {
+        "startLine": 157,
+        "startChar": 19,
+        "endLine": 157,
+        "endChar": 28
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "396853c0_e042bb27",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-27T15:00:10Z",
+      "side": 1,
+      "message": "Done. Please check if I\u0027ve added it to proper GN target.",
+      "parentUuid": "16efd021_51d8c975",
       "range": {
         "startLine": 157,
         "startChar": 19,

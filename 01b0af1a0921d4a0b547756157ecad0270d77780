@@ -52,6 +52,24 @@
       "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ad38230_7700851d",
+        "filename": "modules/rtp_rtcp/include/rtcp_statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-27T12:15:37Z",
+      "side": 1,
+      "message": "Please be more explicit, I\u0027m not sure what you suggest.\n\nDoes the code look right as is, or should I delete the constructor completely, or do something else?",
+      "parentUuid": "bfdd20c4_8781a72e",
+      "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -51,7 +51,6 @@ void DefaultNetEqTestErrorCallback::OnGetAudioError() {
 
 NetEqTest::NetEqTest(const NetEq::Config& config,
                      const DecoderMap& codecs,
-                     const ExtDecoderMap& ext_codecs,
                      std::unique_ptr<NetEqInput> input,
                      std::unique_ptr<AudioSink> output,
                      Callbacks callbacks)
@@ -63,7 +62,6 @@ NetEqTest::NetEqTest(const NetEq::Config& config,
   RTC_CHECK(!config.enable_muted_state)
       << "The code does not handle enable_muted_state";
   RegisterDecoders(codecs);
-  RegisterExternalDecoders(ext_codecs);
 }
 
 NetEqTest::~NetEqTest() = default;
@@ -253,17 +251,6 @@ void NetEqTest::RegisterDecoders(const DecoderMap& codecs) {
         neteq_->RegisterPayloadType(c.second.first, c.second.second, c.first),
         NetEq::kOK)
         << "Cannot register " << c.second.second << " to payload type "
-        << c.first;
-  }
-}
-
-void NetEqTest::RegisterExternalDecoders(const ExtDecoderMap& codecs) {
-  for (const auto& c : codecs) {
-    RTC_CHECK_EQ(
-        neteq_->RegisterExternalDecoder(c.second.decoder, c.second.codec,
-                                        c.second.codec_name, c.first),
-        NetEq::kOK)
-        << "Cannot register " << c.second.codec_name << " to payload type "
         << c.first;
   }
 }

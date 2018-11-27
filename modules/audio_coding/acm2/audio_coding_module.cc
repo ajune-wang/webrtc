@@ -93,12 +93,6 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
   bool RegisterReceiveCodec(int rtp_payload_type,
                             const SdpAudioFormat& audio_format) override;
 
-  int RegisterExternalReceiveCodec(int rtp_payload_type,
-                                   AudioDecoder* external_decoder,
-                                   int sample_rate_hz,
-                                   int num_channels,
-                                   const std::string& name) override;
-
   // Get current received codec.
   int ReceiveCodec(CodecInst* current_codec) const override;
 
@@ -761,30 +755,6 @@ bool AudioCodingModuleImpl::RegisterReceiveCodec(
   }
 
   return receiver_.AddCodec(rtp_payload_type, audio_format);
-}
-
-int AudioCodingModuleImpl::RegisterExternalReceiveCodec(
-    int rtp_payload_type,
-    AudioDecoder* external_decoder,
-    int sample_rate_hz,
-    int num_channels,
-    const std::string& name) {
-  rtc::CritScope lock(&acm_crit_sect_);
-  RTC_DCHECK(receiver_initialized_);
-  if (num_channels > 2 || num_channels < 0) {
-    RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " << num_channels;
-    return -1;
-  }
-
-  // Check if the payload-type is valid.
-  if (!acm2::RentACodec::IsPayloadTypeValid(rtp_payload_type)) {
-    RTC_LOG_F(LS_ERROR) << "Invalid payload-type " << rtp_payload_type
-                        << " for external decoder.";
-    return -1;
-  }
-
-  return receiver_.AddCodec(-1 /* external */, rtp_payload_type, num_channels,
-                            sample_rate_hz, external_decoder, name);
 }
 
 // Get current received codec.

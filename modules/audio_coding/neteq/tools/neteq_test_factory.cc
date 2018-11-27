@@ -429,8 +429,7 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
   if (strlen(FLAG_replacement_audio_file) > 0) {
     // Find largest unused payload type.
     int replacement_pt = 127;
-    while (!(codecs.find(replacement_pt) == codecs.end() &&
-             ext_codecs_.find(replacement_pt) == ext_codecs_.end())) {
+    while (codecs.find(replacement_pt) != codecs.end()) {
       --replacement_pt;
       RTC_CHECK_GE(replacement_pt, 0);
     }
@@ -447,6 +446,8 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
         {FLAG_cn_nb, FLAG_cn_wb, FLAG_cn_swb32, FLAG_cn_swb48});
     std::set<uint8_t> forbidden_types = std_set_int32_to_uint8(
         {FLAG_g722, FLAG_red, FLAG_avt, FLAG_avt_16, FLAG_avt_32, FLAG_avt_48});
+#if 0
+    // XXX Use decoder factory instead?
     input.reset(new NetEqReplacementInput(std::move(input), replacement_pt,
                                           cn_types, forbidden_types));
 
@@ -454,10 +455,7 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
         std::unique_ptr<InputAudioFile>(
             new InputAudioFile(FLAG_replacement_audio_file)),
         48000, false));
-    NetEqTest::ExternalDecoderInfo ext_dec_info = {
-        replacement_decoder_.get(), NetEqDecoder::kDecoderArbitrary,
-        "replacement codec"};
-    ext_codecs_[replacement_pt] = ext_dec_info;
+#endif
   }
 
   NetEqTest::Callbacks callbacks;
@@ -474,9 +472,8 @@ std::unique_ptr<NetEqTest> NetEqTestFactory::InitializeTest(
   config.sample_rate_hz = *sample_rate_hz;
   config.max_packets_in_buffer = FLAG_max_nr_packets_in_buffer;
   config.enable_fast_accelerate = FLAG_enable_fast_accelerate;
-  return absl::make_unique<NetEqTest>(config, codecs, ext_codecs_,
-                                      std::move(input), std::move(output),
-                                      callbacks);
+  return absl::make_unique<NetEqTest>(config, codecs, std::move(input),
+                                      std::move(output), callbacks);
 }
 
 }  // namespace test

@@ -67,6 +67,8 @@ class RTC_EXPORT EncodedImage {
         color_space ? absl::make_optional(*color_space) : absl::nullopt;
   }
 
+  size_t size() const { return _length; }
+
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   // NTP time of the capture time in local timebase in milliseconds.

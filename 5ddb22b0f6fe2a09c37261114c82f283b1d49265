@@ -22,6 +22,30 @@
       "revId": "5ddb22b0f6fe2a09c37261114c82f283b1d49265",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf360a98_10002954",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-27T10:45:22Z",
+      "side": 1,
+      "message": "Reverted. Now this CL doesn\u0027t have any receive side changes. Landing it without your approval because ssilkin@ already approved it.",
+      "parentUuid": "1ff6588d_e90c22ea",
+      "range": {
+        "startLine": 439,
+        "startChar": 4,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "5ddb22b0f6fe2a09c37261114c82f283b1d49265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

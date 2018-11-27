@@ -305,6 +305,18 @@ struct RtpExtension {
   static const char kMidUri[];
   static const int kMidDefaultId;
 
+  // Header extension for unique identification of RTP streams.
+  // https://tools.ietf.org/html/draft-ietf-avtext-rid-09
+  // https://tools.ietf.org/html/draft-ietf-mmusic-rid-15
+  static const char kRtpStreamIdUri[];
+  static const int kRtpStreamIdDefaultId;
+
+  // Header extension for identifying the target of a redundancy RTP stream
+  // https://tools.ietf.org/html/draft-ietf-avtext-rid-09
+  // https://tools.ietf.org/html/draft-ietf-mmusic-rid-15
+  static const char kRepairedRtpStreamIdUri[];
+  static const int kRepairedRtpStreamIdDefaultId;
+
   // Encryption of Header Extensions, see RFC 6904 for details:
   // https://tools.ietf.org/html/rfc6904
   static const char kEncryptHeaderExtensionsUri[];

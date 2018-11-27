@@ -276,6 +276,81 @@ class AudioContentDescription : public MediaContentDescriptionImpl<AudioCodec> {
   virtual const AudioContentDescription* as_audio() const { return this; }
 };
 
+// Describes a list of Simulcast layers.
+// Simulcast layers are specified in order of preference.
+// Each layer can have a list of alternatives (in order of preference).
+// https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
+// Example Usage:
+//   To populate an alternative list that specifies the following:
+//     1. Stream 1 or Stream 2
+//     2. Stream 3
+//     3. Stream 4 or Stream 5
+//   Use the following code:
+//     SimulcastStreamAlternativeList list;
+//     list.AddLayerWithAlternatives({"1", "2"});
+//     list.AddLayer("3");
+//     list.AddLayerWithAlternatives({"4", "5"});
+// To specify paused streams, use the overloads accepting RidDescription.
+class SimulcastLayerList final {
+ public:
+  // Each simulcast layer has a rid as the identifier and a paused flag.
+  struct RidDescription final {
+    explicit RidDescription(const std::string& id, bool paused = false);
+
+    RidDescription(const RidDescription& other) = default;
+    RidDescription& operator=(const RidDescription& other) = default;
+
+    std::string rid;
+    bool is_paused;
+  };
+
+  // Use to add a stream when there will be no alternatives.
+  void AddLayer(const std::string& rid, bool is_paused = false);
+
+  // Use to add a list of alternatives
+  void AddLayerWithAlternatives(const std::vector<std::string>& rids);
+  void AddLayerWithAlternatives(const std::vector<RidDescription>& streams);
+
+  // Read-only access to the contents.
+  // Note: This object does not allow removal of streams/alternatives.
+  std::vector<std::vector<RidDescription>>::const_iterator begin() const {
+    return list_.begin();
+  }
+
+  std::vector<std::vector<RidDescription>>::const_iterator end() const {
+    return list_.end();
+  }
+
+  const std::vector<RidDescription>& operator[](size_t index) const;
+
+  size_t size() const { return list_.size(); }
+  bool empty() const { return list_.empty(); }
+
+ private:
+  // TODO(amithi): Validate that rids do not repeat in the list.
+  std::vector<std::vector<RidDescription>> list_;
+};
+
+// Describes the simulcast options of a video media section.
+// This will list the send and receive layers (along with their alternatives).
+// Each simulcast layer has an identifier (rid) and can optionally be paused.
+// The order of the layers (as well as alternates) indicates user preference
+// from first to last (most preferred to least preferred).
+// https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13#section-5.1
+class SimulcastDescription final {
+ public:
+  const SimulcastLayerList& send_layers() const { return send_layers_; }
+  SimulcastLayerList& send_layers() { return send_layers_; }
+
+  const SimulcastLayerList& receive_layers() const { return receive_layers_; }
+  SimulcastLayerList& receive_layers() { return receive_layers_; }
+
+ private:
+  // TODO(amithi): Validate that rids do not repeat in send and receive layers.
+  SimulcastLayerList send_layers_;
+  SimulcastLayerList receive_layers_;
+};
+
 class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
  public:
   virtual VideoContentDescription* Copy() const {
@@ -284,6 +359,20 @@ class VideoContentDescription : public MediaContentDescriptionImpl<VideoCodec> {
   virtual MediaType type() const { return MEDIA_TYPE_VIDEO; }
   virtual VideoContentDescription* as_video() { return this; }
   virtual const VideoContentDescription* as_video() const { return this; }
+
+  // Simulcast functionality
+  virtual bool HasSimulcast() const;
+  virtual SimulcastDescription& simulcast_description() { return simulcast_; }
+  virtual const SimulcastDescription& simulcast_description() const {
+    return simulcast_;
+  }
+  virtual void set_simulcast_description(
+      const SimulcastDescription& simulcast) {
+    simulcast_ = simulcast;
+  }
+
+ private:
+  SimulcastDescription simulcast_;
 };
 
 class DataContentDescription : public MediaContentDescriptionImpl<DataCodec> {

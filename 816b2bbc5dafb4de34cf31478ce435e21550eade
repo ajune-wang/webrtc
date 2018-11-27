@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49b29d37_dc4bae08",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4591,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-27T01:52:52Z",
+      "side": 1,
+      "message": "nit: Could use a comment to explain that this test does not DestroyChannels, which would explicitly destroy the resolver, but rather testing Destroy is asynchronously invoked after the resolution is done.",
+      "range": {
+        "startLine": 4591,
+        "startChar": 2,
+        "endLine": 4591,
+        "endChar": 6
+      },
+      "revId": "816b2bbc5dafb4de34cf31478ce435e21550eade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

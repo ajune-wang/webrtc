@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d119bf9_b7c80aee",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1902,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2018-11-27T17:56:18Z",
+      "side": 0,
+      "message": "The intent here isn\u0027t obvious, add a comment perhaps?",
+      "revId": "25a3a97f591a6b6184b8a17826228830ff246980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

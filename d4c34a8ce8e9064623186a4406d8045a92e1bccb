@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f48005f6_e9ce814a",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2018-11-27T17:56:18Z",
+      "side": 1,
+      "message": "Looks like SanitizeCandidate already does this to raddr, can we simply do this processing there?",
+      "revId": "d4c34a8ce8e9064623186a4406d8045a92e1bccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf819005_46267ad7",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5603
+      },
+      "writtenOn": "2018-11-27T17:56:18Z",
+      "side": 1,
+      "message": "This seems wrong to me. Can we just fix peerconnection?",
+      "revId": "d4c34a8ce8e9064623186a4406d8045a92e1bccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

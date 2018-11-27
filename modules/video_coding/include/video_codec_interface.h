@@ -27,10 +27,21 @@ class RTPFragmentationHeader;  // forward declaration
 // Note: if any pointers are added to this struct, it must be fitted
 // with a copy-constructor. See below.
 struct CodecSpecificInfoVP8 {
+  // Hack alert - it is assumed that CodecSpecificInfo's ctor memsets
+  // everything to zero.
+
   bool nonReference;
   uint8_t temporalIdx;
   bool layerSync;
   int8_t keyIdx;  // Negative value to skip keyIdx.
+
+  enum Buffer : size_t { kLast = 0, kGolden = 1, kArf = 2, kCount };
+
+  // True if and only if the current frame is predicted from the given buffer.
+  bool referencedBuffers[Buffer::kCount];
+
+  // True if and only if the current frame updates the given buffer.
+  bool updatedBuffers[Buffer::kCount];
 };
 
 struct CodecSpecificInfoVP9 {

@@ -11,6 +11,7 @@
 #include <memory>
 #include <set>
 
+#include "absl/types/optional.h"
 #include "call/rtp_payload_params.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "test/field_trial.h"
@@ -300,27 +301,32 @@ class RtpPayloadParamsVp8ToGenericTest : public ::testing::Test {
  public:
   enum LayerSync { kNoSync, kSync };
 
+  enum TemporalLayerIndex { kTL0 = 0, kTL1 = 1, kTL2 = 2 };
+
   RtpPayloadParamsVp8ToGenericTest()
       : generic_descriptor_field_trial_("WebRTC-GenericDescriptor/Enabled/"),
         state_(),
         params_(123, &state_) {}
 
-  void ConvertAndCheck(int temporal_index,
-                       int64_t shared_frame_id,
-                       FrameType frame_type,
+  void ConvertAndCheck(int64_t shared_frame_id,
+                       TemporalLayerIndex temporal_index,
                        LayerSync layer_sync,
+                       const std::vector<bool>& referenced_buffers,
+                       const std::vector<bool>& updated_buffers,
                        const std::set<int64_t>& expected_deps,
-                       uint16_t width = 0,
-                       uint16_t height = 0) {
+                       FrameType frame_type,
+                       uint16_t width,
+                       uint16_t height) {
+    RTC_DCHECK_EQ(referenced_buffers.size(), kNumBuffers);
+    RTC_DCHECK_EQ(updated_buffers.size(), kNumBuffers);
+
     EncodedImage encoded_image;
     encoded_image._frameType = frame_type;
     encoded_image._encodedWidth = width;
     encoded_image._encodedHeight = height;
 
-    CodecSpecificInfo codec_info{};
-    codec_info.codecType = kVideoCodecVP8;
-    codec_info.codecSpecific.VP8.temporalIdx = temporal_index;
-    codec_info.codecSpecific.VP8.layerSync = layer_sync == kSync;
+    CodecSpecificInfo codec_info = GetCodecSpecificInfo(
+        temporal_index, layer_sync, referenced_buffers, updated_buffers);
 
     RTPVideoHeader header =
         params_.GetRtpVideoHeader(encoded_image, &codec_info, shared_frame_id);
@@ -339,28 +345,80 @@ class RtpPayloadParamsVp8ToGenericTest : public ::testing::Test {
     EXPECT_EQ(header.height, height);
   }
 
+  void ConvertAndCheck(int64_t shared_frame_id,
+                       TemporalLayerIndex temporal_index,
+                       LayerSync layer_sync,
+                       absl::optional<size_t> referenced_buffer,
+                       const std::set<int64_t>& expected_deps,
+                       FrameType frame_type = kVideoFrameDelta,
+                       uint16_t width = 0,
+                       uint16_t height = 0) {
+    const bool is_key = !referenced_buffer;
+
+    std::vector<bool> referenced_buffers(kNumBuffers);
+    std::vector<bool> updated_buffers(kNumBuffers);
+
+    for (size_t i = 0; i < kNumBuffers; ++i) {
+      referenced_buffers[i] = referenced_buffer && i == *referenced_buffer;
+      updated_buffers[i] = is_key || i == static_cast<size_t>(temporal_index);
+    }
+
+    return ConvertAndCheck(shared_frame_id, temporal_index, layer_sync,
+                           referenced_buffers, updated_buffers, expected_deps,
+                           frame_type, width, height);
+  }
+
+  void ConvertAndCheckKeyFrame(int64_t shared_frame_id,
+                               uint16_t width = 480,
+                               uint16_t height = 360) {
+    return ConvertAndCheck(shared_frame_id, kTL0, kNoSync, absl::nullopt, {},
+                           kVideoFrameKey, width, height);
+  }
+
+  CodecSpecificInfo GetCodecSpecificInfo(
+      int temporal_index,
+      LayerSync layer_sync,
+      const std::vector<bool>& referenced_buffers,
+      const std::vector<bool>& updated_buffers) {
+    CodecSpecificInfo codec_info;
+    codec_info.codecType = kVideoCodecVP8;
+
+    auto& vp8_info = codec_info.codecSpecific.VP8;
+    vp8_info.temporalIdx = temporal_index;
+    vp8_info.layerSync = layer_sync == kSync;
+
+    RTC_DCHECK_EQ(referenced_buffers.size(), kNumBuffers);
+    RTC_DCHECK_EQ(updated_buffers.size(), kNumBuffers);
+    for (size_t i = 0; i < kNumBuffers; ++i) {
+      vp8_info.referencedBuffers[i] = referenced_buffers[i];
+      vp8_info.updatedBuffers[i] = updated_buffers[i];
+    }
+
+    return codec_info;
+  }
+
  protected:
+  static constexpr size_t kNumBuffers = CodecSpecificInfoVP8::Buffer::kCount;
+
   test::ScopedFieldTrials generic_descriptor_field_trial_;
   RtpPayloadState state_;
   RtpPayloadParams params_;
 };
 
 TEST_F(RtpPayloadParamsVp8ToGenericTest, Keyframe) {
-  ConvertAndCheck(0, 0, kVideoFrameKey, kNoSync, {}, 480, 360);
-  ConvertAndCheck(0, 1, kVideoFrameDelta, kNoSync, {0});
-  ConvertAndCheck(0, 2, kVideoFrameKey, kNoSync, {}, 480, 360);
+  ConvertAndCheckKeyFrame(0);
+  ConvertAndCheck(1, kTL0, kNoSync, 1, {0});
+  ConvertAndCheckKeyFrame(2);
 }
 
 TEST_F(RtpPayloadParamsVp8ToGenericTest, TooHighTemporalIndex) {
-  ConvertAndCheck(0, 0, kVideoFrameKey, kNoSync, {}, 480, 360);
+  ConvertAndCheckKeyFrame(0);
 
   EncodedImage encoded_image;
   encoded_image._frameType = kVideoFrameDelta;
-  CodecSpecificInfo codec_info{};
-  codec_info.codecType = kVideoCodecVP8;
-  codec_info.codecSpecific.VP8.temporalIdx =
-      RtpGenericFrameDescriptor::kMaxTemporalLayers;
-  codec_info.codecSpecific.VP8.layerSync = false;
+  CodecSpecificInfo codec_info =
+      GetCodecSpecificInfo(RtpGenericFrameDescriptor::kMaxTemporalLayers,
+                           kNoSync, {false, false, false}, {true, true, true});
 
   RTPVideoHeader header =
       params_.GetRtpVideoHeader(encoded_image, &codec_info, 1);
@@ -369,27 +427,26 @@ TEST_F(RtpPayloadParamsVp8ToGenericTest, TooHighTemporalIndex) {
 
 TEST_F(RtpPayloadParamsVp8ToGenericTest, LayerSync) {
   // 02120212 pattern
-  ConvertAndCheck(0, 0, kVideoFrameKey, kNoSync, {}, 480, 360);
-  ConvertAndCheck(2, 1, kVideoFrameDelta, kNoSync, {0});
-  ConvertAndCheck(1, 2, kVideoFrameDelta, kNoSync, {0});
-  ConvertAndCheck(2, 3, kVideoFrameDelta, kNoSync, {0, 1, 2});
+  ConvertAndCheckKeyFrame(0);
+  ConvertAndCheck(1, kTL2, kNoSync, 0, {0});
+  ConvertAndCheck(2, kTL1, kNoSync, 0, {0});
+  ConvertAndCheck(3, kTL2, kNoSync, 2, {1});
 
-  ConvertAndCheck(0, 4, kVideoFrameDelta, kNoSync, {0});
-  ConvertAndCheck(2, 5, kVideoFrameDelta, kNoSync, {2, 3, 4});
-  ConvertAndCheck(1, 6, kVideoFrameDelta, kSync, {4});  // layer sync
-  ConvertAndCheck(2, 7, kVideoFrameDelta, kNoSync, {4, 5, 6});
+  ConvertAndCheck(4, kTL0, kNoSync, 0, {0});
+  ConvertAndCheck(5, kTL2, kNoSync, 2, {3});
+  ConvertAndCheck(6, kTL1, kSync, 0, {4});  // layer sync
+  ConvertAndCheck(7, kTL2, kNoSync, 1, {6});
 }
 
 TEST_F(RtpPayloadParamsVp8ToGenericTest, FrameIdGaps) {
   // 0101 pattern
-  ConvertAndCheck(0, 0, kVideoFrameKey, kNoSync, {}, 480, 360);
-  ConvertAndCheck(1, 1, kVideoFrameDelta, kNoSync, {0});
+  ConvertAndCheckKeyFrame(0);
+  ConvertAndCheck(1, kTL1, kNoSync, 0, {0});
 
-  ConvertAndCheck(0, 5, kVideoFrameDelta, kNoSync, {0});
-  ConvertAndCheck(1, 10, kVideoFrameDelta, kNoSync, {1, 5});
+  ConvertAndCheck(5, kTL0, kNoSync, 0, {0});
+  ConvertAndCheck(10, kTL1, kNoSync, 1, {1});
 
-  ConvertAndCheck(0, 15, kVideoFrameDelta, kNoSync, {5});
-  ConvertAndCheck(1, 20, kVideoFrameDelta, kNoSync, {10, 15});
+  ConvertAndCheck(15, kTL0, kNoSync, 0, {5});
+  ConvertAndCheck(20, kTL1, kNoSync, 1, {10});
 }
-
 }  // namespace webrtc

@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "705eb1cb_52e2c6ac",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 1
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-11-27T17:29:25Z",
+      "side": 1,
+      "message": "Writable also reflects whether or not the underlying ICE transport is writable (https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/dtlstransport.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d508). DTLS can also be writable without being connected if DTLS is not active (we didn\u0027t get a certificate) (https://cs.chromium.org/chromium/src/third_party/webrtc/p2p/base/dtlstransport.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d497).",
+      "parentUuid": "cee68426_ec306895",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 29
+      },
+      "revId": "5148aa1ec629a69582d74c2c72e2186ffff3c8ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb5016b5_64132a8f",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1

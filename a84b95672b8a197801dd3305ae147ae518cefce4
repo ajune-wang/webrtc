@@ -1,0 +1,319 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7636d074_d9ebc430",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "(optional) I prefer enclosing boolean operators on the right hand of an assignment with parenthesis.",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "811cfea4_04008b33",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "(optional) I would also enclose this with parenthesis.",
+      "range": {
+        "startLine": 116,
+        "startChar": 24,
+        "endLine": 116,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d4b2e73_e6bd100c",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "I think it will be required since the client could munge the RID to something illegal. Some layer will need to validate it and return an error.",
+      "range": {
+        "startLine": 119,
+        "startChar": 44,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c4718d_061d4347",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "nit: Could do MoveValue()",
+      "range": {
+        "startLine": 207,
+        "startChar": 36,
+        "endLine": 207,
+        "endChar": 41
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a855125_956d4850",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "nit: newline after standard header includes",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e603c6e_2eab47bb",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "absl::string_view\n\nhttps://abseil.io/tips/1",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f19d72_466330c9",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "What do you think about inlining this function into the test cases? The benefit would that the test can be understood without needing to look at the helper methods. The main con would be more typing.",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c6dc9af_479babb2",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "A problem with putting EXPECT* macros inside functions is that the line number doesn\u0027t give any context if the expectation fails.\n\nFor example, it\u0027d be impossible to know when element did not match rid.\n\nI think the best way to improve the failure message is to define an operator\u003d\u003d for your types then teach gtest how to print the types: https://github.com/abseil/googletest/blob/master/googletest/docs/advanced.md#teaching-googletest-how-to-print-your-values\n\nAnother option is to use gmock matchers: https://github.com/abseil/googletest/blob/master/googlemock/docs/CheatSheet.md",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ad690b2_81f675dd",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "nit: prefix with k",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 37
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1ee9e40_dffdbbe0",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "nit: period at end",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b79fbca7_a0804e85",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2769,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "redundant comment",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "516fba4b_a93a89ea",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2771,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "has_simulcast",
+      "range": {
+        "startLine": 2771,
+        "startChar": 7,
+        "endLine": 2771,
+        "endChar": 19
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f62e748_e2784f4d",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2978,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "nit: period at end",
+      "range": {
+        "startLine": 2978,
+        "startChar": 55,
+        "endLine": 2978,
+        "endChar": 63
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d2a8ae_5ce67203",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2989,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "maybe prefix with \"Malformed simulcast line: \" ?",
+      "range": {
+        "startLine": 2989,
+        "startChar": 35,
+        "endLine": 2989,
+        "endChar": 69
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc85529_219ee6f3",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3078,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-11-27T21:48:13Z",
+      "side": 1,
+      "message": "Can also do media_desc-\u003eas_video()",
+      "range": {
+        "startLine": 3078,
+        "startChar": 8,
+        "endLine": 3078,
+        "endChar": 57
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

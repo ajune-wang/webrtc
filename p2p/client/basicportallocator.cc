@@ -527,6 +527,8 @@ Candidate BasicPortAllocatorSession::SanitizeCandidate(
   if (!c.address().hostname().empty() && !c.address().IsUnresolvedIP()) {
     rtc::SocketAddress hostname_only_addr(c.address().hostname(),
                                           c.address().port());
+    // PeerConnection requires an address family set
+    hostname_only_addr.SetResolvedIP(rtc::GetAnyIP(c.address().family()));
     copy.set_address(hostname_only_addr);
   }
   // If adapter enumeration is disabled or host candidates are disabled,

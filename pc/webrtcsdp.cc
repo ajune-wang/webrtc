@@ -1899,7 +1899,8 @@ void BuildCandidate(const std::vector<Candidate>& candidates,
     os << kSdpDelimiterColon << candidate.foundation() << " "
        << candidate.component() << " " << candidate.protocol() << " "
        << candidate.priority() << " "
-       << (candidate.address().ipaddr().IsNil()
+       << (!candidate.address().hostname().empty() ||
+                   candidate.address().ipaddr().IsNil()
                ? candidate.address().hostname()
                : candidate.address().ipaddr().ToString())
        << " " << candidate.address().PortAsString() << " "

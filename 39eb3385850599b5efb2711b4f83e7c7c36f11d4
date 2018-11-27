@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "205dfd9b_b2a6a70d",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T16:33:39Z",
+      "side": 1,
+      "message": "Suggestion: initial_ref_count",
+      "range": {
+        "startLine": 27,
+        "startChar": 26,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "39eb3385850599b5efb2711b4f83e7c7c36f11d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49f3c289_5e62105c",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T16:33:39Z",
+      "side": 1,
+      "message": "\"own the reference exclusively\". And remove the parenthesis---the way DecRef is set up, there is no other way to use this class.",
+      "range": {
+        "startLine": 63,
+        "startChar": 12,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "39eb3385850599b5efb2711b4f83e7c7c36f11d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

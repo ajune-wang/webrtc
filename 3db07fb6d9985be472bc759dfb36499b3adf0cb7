@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9e7a00e_ae264a04",
+        "filename": "modules/rtp_rtcp/include/rtcp_statistics.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T12:49:09Z",
+      "side": 1,
+      "message": "Remove this line. (\u003ddefault just instructs the compiler to generate the same constructor that it would have generated anyway.)",
+      "revId": "3db07fb6d9985be472bc759dfb36499b3adf0cb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebf8b55f_52614282",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-27T12:01:31Z",
+      "side": 1,
+      "message": "I\u0027d rather keep this class as is. It is supposed to be a default option for people that don\u0027t want to customize.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 3
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6545b63_f888065e",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoEncoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-27T12:01:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 87
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1a9076_8bf5aa25",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-27T12:01:31Z",
+      "side": 1,
+      "message": "If we allow custom code for the testing, I don\u0027t really think it makes sense to have a separate white- and blacklist. I think a single \"filter\" is enough and the application can implement any custom white-/blacklist logic inside it.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 71
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16efd021_51d8c975",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-27T12:01:31Z",
+      "side": 1,
+      "message": "Probably makes sense to just have this in the API as a generic interface instead of copying it.",
+      "range": {
+        "startLine": 157,
+        "startChar": 19,
+        "endLine": 157,
+        "endChar": 28
+      },
+      "revId": "6b4d2ca171d122a3ff6a961b2274d9606ecafdf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

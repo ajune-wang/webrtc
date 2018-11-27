@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd1f5b66_e74f68c0",
+        "filename": "modules/audio_coding/neteq/decoder_database.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-27T13:15:53Z",
+      "side": 0,
+      "message": "Deleted constructor and all use of the corresponding member.",
+      "parentUuid": "a2f16b6e_637d6bb1",
+      "revId": "ff0581672e76b309602f6e38ff1c63ac473af615",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e493563c_49dbc003",
         "filename": "modules/audio_coding/neteq/neteq_external_decoder_unittest.cc",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-11-26T17:13:45Z",
       "side": 0,
       "message": "I suspect this one shouldn\u0027t be deleted. It seems to test things other than external decoders.",
+      "revId": "ff0581672e76b309602f6e38ff1c63ac473af615",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70a40ff1_f0653daa",
+        "filename": "modules/audio_coding/neteq/neteq_external_decoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-27T13:15:53Z",
+      "side": 0,
+      "message": "Then needs some reorg to not inherit NetEqExternalDecoderUnitTest.",
+      "parentUuid": "e493563c_49dbc003",
       "revId": "ff0581672e76b309602f6e38ff1c63ac473af615",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

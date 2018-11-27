@@ -22,6 +22,30 @@
       "revId": "c5e8be3c1cc0983bd0e7aebeef9cade3cff1161d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e306698_c68d6510",
+        "filename": "sdk/objc/api/peerconnection/RTCFieldTrials.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-27T11:55:10Z",
+      "side": 0,
+      "message": "This seems to be fixed downstream.",
+      "parentUuid": "13830b95_6fde8b47",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 68
+      },
+      "revId": "c5e8be3c1cc0983bd0e7aebeef9cade3cff1161d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

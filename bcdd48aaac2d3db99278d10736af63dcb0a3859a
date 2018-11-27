@@ -39,6 +39,74 @@
       "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a756f497_f5cea5bf",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T12:45:28Z",
+      "side": 1,
+      "message": "It\u0027s good to avoid `new`:\n\n  mock \u003d absl::make_unique\u003cMockEchoControl\u003e();\n\nOr even better, use default member initializers down on lines 66 and 69:\n\n  size_t num_created_mocks_ \u003d 0;\n  std::array\u003cstd::unique_ptr\u003cMockEchoControl\u003e, 2\u003e mocks_ \u003d {\n      absl::make_unique\u003cMockEchoControl\u003e(),\n      absl::make_unique\u003cMockEchoControl\u003e()};",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "177137c5_41136471",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T12:45:28Z",
+      "side": 1,
+      "message": "Not necessary?",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26443d66_67009438",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T12:45:28Z",
+      "side": 1,
+      "message": "This will return null after the second call to Create(). Is that OK?",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611aaa87_7157d345",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T12:45:28Z",
+      "side": 1,
+      "message": "So, stop me if I misunderstand, but what you want is to be able to call Create() some constant number N of times; each time it returns a fresh MockEchoControl. You also want GetMockEchoControl() to return a pointer to the Nth MockEchoControl.\n\nGiven this, you should only need to store the Nth MockEchoControl in a member variable. All the others can be created on the fly in Create().",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

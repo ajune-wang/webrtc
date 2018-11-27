@@ -278,6 +278,30 @@
     },
     {
       "key": {
+        "uuid": "2eb796c6_8a5dbf26",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:06:03Z",
+      "side": 1,
+      "message": "nevermind this comment. I read wrong.",
+      "parentUuid": "4d0cb0fc_f0f351e4",
+      "range": {
+        "startLine": 205,
+        "startChar": 23,
+        "endLine": 205,
+        "endChar": 32
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41c4718d_061d4347",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2

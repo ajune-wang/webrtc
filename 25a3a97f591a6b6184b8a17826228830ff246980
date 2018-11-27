@@ -16,6 +16,24 @@
       "revId": "25a3a97f591a6b6184b8a17826228830ff246980",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d03f48c_6aa43b9d",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1902,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-27T19:37:10Z",
+      "side": 0,
+      "message": "This change is no longer required.",
+      "parentUuid": "9d119bf9_b7c80aee",
+      "revId": "25a3a97f591a6b6184b8a17826228830ff246980",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

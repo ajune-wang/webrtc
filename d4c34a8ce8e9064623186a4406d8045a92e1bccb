@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a025e99_823c2fbe",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-27T19:37:10Z",
+      "side": 1,
+      "message": "Moved to SanitizeCandidate.",
+      "parentUuid": "f48005f6_e9ce814a",
+      "revId": "d4c34a8ce8e9064623186a4406d8045a92e1bccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf819005_46267ad7",
         "filename": "p2p/client/basicportallocator.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "d4c34a8ce8e9064623186a4406d8045a92e1bccb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84563649_7db33c15",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 7524
+      },
+      "writtenOn": "2018-11-27T19:37:10Z",
+      "side": 1,
+      "message": "Ok, removed this line. This will cause a (harmless) Chrome DCHECK to happen. Will file a chrome bug to address that.",
+      "parentUuid": "bf819005_46267ad7",
+      "revId": "d4c34a8ce8e9064623186a4406d8045a92e1bccb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

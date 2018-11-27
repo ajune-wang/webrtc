@@ -28,22 +28,19 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
   private static final String TAG = "MediaCodecVideoDecoderFactory";
 
   private final @Nullable EglBase.Context sharedContext;
-  private final String[] prefixWhitelist;
-  private final String[] prefixBlacklist;
+  private final @Nullable Predicate<MediaCodecInfo> isCodecAllowed;
 
   /**
-   * MediaCodecVideoDecoderFactory will support codecs whitelisted excluding those blacklisted.
+   * MediaCodecVideoDecoderFactory with support of codecs filtering.
    *
    * @param sharedContext The textures generated will be accessible from this context. May be null,
    *                      this disables texture support.
-   * @param prefixWhitelist List of codec prefixes to be whitelisted.
-   * @param prefixBlacklist List of codec prefixes to be blacklisted.
+   * @param isCodecAllowed optional predicate to test if codec allowed.
    */
   public MediaCodecVideoDecoderFactory(
-      @Nullable EglBase.Context sharedContext, String[] prefixWhitelist, String[] prefixBlacklist) {
+      @Nullable EglBase.Context sharedContext, @Nullable Predicate<MediaCodecInfo> isCodecAllowed) {
     this.sharedContext = sharedContext;
-    this.prefixWhitelist = Arrays.copyOf(prefixWhitelist, prefixWhitelist.length);
-    this.prefixBlacklist = Arrays.copyOf(prefixBlacklist, prefixBlacklist.length);
+    this.isCodecAllowed = isCodecAllowed;
   }
 
   @Nullable
@@ -123,25 +120,14 @@ class MediaCodecVideoDecoderFactory implements VideoDecoderFactory {
         == null) {
       return false;
     }
-    return isWhitelisted(name) && !isBlacklisted(name);
+    return isCodecAllowed(info);
   }
 
-  private boolean isWhitelisted(String name) {
-    for (String prefix : prefixWhitelist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
+  private boolean isCodecAllowed(MediaCodecInfo info) {
+    if (isCodecAllowed == null) {
+      return true;
     }
-    return false;
-  }
-
-  private boolean isBlacklisted(String name) {
-    for (String prefix : prefixBlacklist) {
-      if (name.startsWith(prefix)) {
-        return true;
-      }
-    }
-    return false;
+    return isCodecAllowed.test(info);
   }
 
   private boolean isH264HighProfileSupported(MediaCodecInfo info) {

@@ -42,9 +42,15 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
   @Nullable private final EglBase14.Context sharedContext;
   private final boolean enableIntelVp8Encoder;
   private final boolean enableH264HighProfile;
+  @Nullable private final Predicate<MediaCodecInfo> isCodecBlacklisted;
 
   public HardwareVideoEncoderFactory(
       EglBase.Context sharedContext, boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
+    this(sharedContext, enableIntelVp8Encoder, enableH264HighProfile, null);
+  }
+
+  public HardwareVideoEncoderFactory(EglBase.Context sharedContext, boolean enableIntelVp8Encoder,
+      boolean enableH264HighProfile, @Nullable Predicate<MediaCodecInfo> isCodecBlacklisted) {
     // Texture mode requires EglBase14.
     if (sharedContext instanceof EglBase14.Context) {
       this.sharedContext = (EglBase14.Context) sharedContext;
@@ -54,6 +60,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     }
     this.enableIntelVp8Encoder = enableIntelVp8Encoder;
     this.enableH264HighProfile = enableH264HighProfile;
+    this.isCodecBlacklisted = isCodecBlacklisted;
   }
 
   @Deprecated
@@ -164,7 +171,7 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
         == null) {
       return false;
     }
-    return isHardwareSupportedInCurrentSdk(info, type);
+    return isHardwareSupportedInCurrentSdk(info, type) && !isMediaCodecBlacklisted(info);
   }
 
   // Returns true if the given MediaCodecInfo indicates a hardware module that is supported on the
@@ -212,6 +219,13 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
   }
 
+  private boolean isMediaCodecBlacklisted(MediaCodecInfo info) {
+    if (isCodecBlacklisted == null) {
+      return false;
+    }
+    return isCodecBlacklisted.test(info);
+  }
+
   private int getKeyFrameIntervalSec(VideoCodecType type) {
     switch (type) {
       case VP8: // Fallthrough intended.
@@ -256,4 +270,6 @@ public class HardwareVideoEncoderFactory implements VideoEncoderFactory {
     return enableH264HighProfile && Build.VERSION.SDK_INT > Build.VERSION_CODES.M
         && info.getName().startsWith(EXYNOS_PREFIX);
   }
+
+  public interface Predicate<T> { boolean test(T arg); }
 }

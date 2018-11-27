@@ -10,10 +10,10 @@
 
 package org.webrtc;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /** Helper class that combines HW and SW encoders. */
 public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
@@ -23,8 +23,7 @@ public class DefaultVideoEncoderFactory implements VideoEncoderFactory {
   /** Create encoder factory using default hardware encoder factory. */
   public DefaultVideoEncoderFactory(
       EglBase.Context eglContext, boolean enableIntelVp8Encoder, boolean enableH264HighProfile) {
-    this.hardwareVideoEncoderFactory =
-        new HardwareVideoEncoderFactory(eglContext, enableIntelVp8Encoder, enableH264HighProfile);
+    this(new HardwareVideoEncoderFactory(eglContext, enableIntelVp8Encoder, enableH264HighProfile));
   }
 
   /** Create encoder factory using explicit hardware encoder factory. */

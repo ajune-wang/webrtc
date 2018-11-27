@@ -34,6 +34,24 @@
       "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfdd20c4_8781a72e",
+        "filename": "modules/rtp_rtcp/include/rtcp_statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:16:01Z",
+      "side": 1,
+      "message": "Yes---if you have to mention it at all. The style checker is the only thing that would require it, and it doesn\u0027t seem to have prevented you from having an inlined constructor here, so...",
+      "parentUuid": "387ed6e4_62159c19",
+      "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

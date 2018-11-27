@@ -21,6 +21,7 @@
 #include "logging/rtc_event_log/events/rtc_event_audio_send_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
+#include "logging/rtc_event_log/events/rtc_event_dtls_writable.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
@@ -56,6 +57,10 @@ class EventGenerator {
   std::unique_ptr<RtcEventBweUpdateDelayBased> NewBweUpdateDelayBased();
 
   std::unique_ptr<RtcEventBweUpdateLossBased> NewBweUpdateLossBased();
+
+  std::unique_ptr<RtcEventDtlsTransportState> NewDtlsTransportState();
+
+  std::unique_ptr<RtcEventDtlsWritable> NewDtlsWritable();
 
   std::unique_ptr<RtcEventProbeClusterCreated> NewProbeClusterCreated();
 
@@ -157,6 +162,13 @@ class EventVerifier {
   void VerifyLoggedBweProbeSuccessEvent(
       const RtcEventProbeResultSuccess& original_event,
       const LoggedBweProbeSuccessEvent& logged_event) const;
+
+  void VerifyLoggedDtlsTransportState(
+      const RtcEventDtlsTransportState& original_event,
+      const LoggedDtlsTransportState& logged_event) const;
+
+  void VerifyLoggedDtlsWritable(const RtcEventDtlsWritable& original_event,
+                                const LoggedDtlsWritable& logged_event) const;
 
   void VerifyLoggedIceCandidatePairConfig(
       const RtcEventIceCandidatePairConfig& original_event,

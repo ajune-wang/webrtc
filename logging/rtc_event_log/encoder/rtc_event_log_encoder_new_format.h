@@ -33,6 +33,8 @@ class RtcEventAudioReceiveStreamConfig;
 class RtcEventAudioSendStreamConfig;
 class RtcEventBweUpdateDelayBased;
 class RtcEventBweUpdateLossBased;
+class RtcEventDtlsTransportState;
+class RtcEventDtlsWritable;
 class RtcEventLoggingStarted;
 class RtcEventLoggingStopped;
 class RtcEventProbeClusterCreated;
@@ -81,6 +83,11 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
   void EncodeBweUpdateLossBased(
       rtc::ArrayView<const RtcEventBweUpdateLossBased*> batch,
       rtclog2::EventStream* event_stream);
+  void EncodeDtlsTransportState(
+      rtc::ArrayView<const RtcEventDtlsTransportState*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodeDtlsWritable(rtc::ArrayView<const RtcEventDtlsWritable*> batch,
+                          rtclog2::EventStream* event_stream);
   void EncodeLoggingStarted(rtc::ArrayView<const RtcEventLoggingStarted*> batch,
                             rtclog2::EventStream* event_stream);
   void EncodeLoggingStopped(rtc::ArrayView<const RtcEventLoggingStopped*> batch,

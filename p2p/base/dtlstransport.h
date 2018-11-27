@@ -96,7 +96,8 @@ class DtlsTransport : public DtlsTransportInternal {
   // |crypto_options| are the options used for the DTLS handshake. This affects
   // whether GCM crypto suites are negotiated.
   explicit DtlsTransport(std::unique_ptr<IceTransportInternal> ice_transport,
-                         const webrtc::CryptoOptions& crypto_options);
+                         const webrtc::CryptoOptions& crypto_options,
+                         webrtc::RtcEventLog* event_log);
 
   ~DtlsTransport() override;
 
@@ -239,6 +240,8 @@ class DtlsTransport : public DtlsTransportInternal {
 
   bool receiving_ = false;
   bool writable_ = false;
+
+  webrtc::RtcEventLog* const event_log_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DtlsTransport);
 };

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "580727b1_35a16dfe",
+        "filename": "p2p/client/basicportallocator.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-27T20:30:45Z",
+      "side": 1,
+      "message": "We don\u0027t have to query networks; NetworkManager has the GetMdnsResponder method.",
+      "range": {
+        "startLine": 525,
+        "startChar": 43,
+        "endLine": 525,
+        "endChar": 59
+      },
+      "revId": "2f56c9314ab604d32c2072e12406c136b5e2c9ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b36af3a2_ddeca1c0",
+        "filename": "p2p/client/basicportallocator.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-11-27T20:30:45Z",
+      "side": 1,
+      "message": "There is no MdnsResolver defined in the code, and as mentioned in another comment, the implementation can reduced to check the mDNS responder via the network manager directly. So maybe \"Returns true if there is an mDNS responder attached to the network manager\".",
+      "range": {
+        "startLine": 240,
+        "startChar": 33,
+        "endLine": 240,
+        "endChar": 45
+      },
+      "revId": "2f56c9314ab604d32c2072e12406c136b5e2c9ec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

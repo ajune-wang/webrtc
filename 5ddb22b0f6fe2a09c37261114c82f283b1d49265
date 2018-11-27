@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ff6588d_e90c22ea",
+        "filename": "modules/video_coding/rtp_frame_reference_finder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-27T10:16:24Z",
+      "side": 1,
+      "message": "You should set VCMPacket::is_last_packet_in_frame when RTPVideoHeaderVP9::end_of_frame is true. This way you will get each spatial layer frame as a separate frame from the PacketBuffer.\n\nRevert this.",
+      "range": {
+        "startLine": 439,
+        "startChar": 4,
+        "endLine": 439,
+        "endChar": 77
+      },
+      "revId": "5ddb22b0f6fe2a09c37261114c82f283b1d49265",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

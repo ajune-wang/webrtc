@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "59aa99e1_ebdbdbba",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:12:27Z",
+      "side": 1,
+      "message": "Reads",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4788115c_d16ebec4",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:12:27Z",
+      "side": 1,
+      "message": "\"reads and writes\"? Otherwise, what sort of accesses aren\u0027t normal?",
+      "range": {
+        "startLine": 43,
+        "startChar": 49,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f1cb34a7_593e4e6f",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 5
@@ -13,6 +59,30 @@
       "writtenOn": "2018-11-26T20:08:41Z",
       "side": 1,
       "message": "In theory this also makes all the changes to the resources, performed by the thread that decremented the counter to be visible before the store of the decrement. Should we also add this?",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 77
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "598ad42a_c478e479",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:12:27Z",
+      "side": 1,
+      "message": "Isn\u0027t that implied? The atomic doesn\u0027t know what it\u0027s protecting, so the reordering restrictions must apply to everything.",
+      "parentUuid": "f1cb34a7_593e4e6f",
       "range": {
         "startLine": 45,
         "startChar": 4,
@@ -48,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "f20daf09_f8eeac35",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:12:27Z",
+      "side": 1,
+      "message": "That looks like it\u0027s worse on x86_64, and possibly worth it on arm64: https://godbolt.org/z/DraOPu\n\nI would suggest that we use the combined instruction until benchmarks show that the more complex solution is better. (And the benchmark is likely to say different things on different platforms.)",
+      "parentUuid": "5f62e55d_ce909fd8",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 79
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e04b4403_02fcc55d",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 5
@@ -59,6 +153,30 @@
       "writtenOn": "2018-11-26T20:10:11Z",
       "side": 1,
       "message": "Should we RTC_DCHECK_GE(references, 1) ?",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "439cfd9f_5f91874c",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-27T11:12:27Z",
+      "side": 1,
+      "message": "Yes please.\n\nAlso, consider calling it something like \"previous_ref_count\". fetch_sub() returns the value as it was before the decrement, but that\u0027s not obvious a priori, so naming is important here.",
+      "parentUuid": "e04b4403_02fcc55d",
       "range": {
         "startLine": 55,
         "startChar": 11,

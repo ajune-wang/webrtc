@@ -16,6 +16,24 @@
       "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "387ed6e4_62159c19",
+        "filename": "modules/rtp_rtcp/include/rtcp_statistics.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-27T10:25:58Z",
+      "side": 1,
+      "message": "Done. And an \u003d default constructor, is that the right way?",
+      "parentUuid": "1c1043bc_60f1de3c",
+      "revId": "01b0af1a0921d4a0b547756157ecad0270d77780",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

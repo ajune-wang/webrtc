@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a8720e9_26d6434d",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Are these being used in this CL?",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 40
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56f898da_85ae3426",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit: Should we name these variables something that describes them better? simulcast_layers? same in the other \u003c\u003c overload.",
+      "range": {
+        "startLine": 71,
+        "startChar": 57,
+        "endLine": 71,
+        "endChar": 61
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b12265_aac52638",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit:\"Alternative simulcast layer list is empty\"?",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 51
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cef87d6e_81dc3b21",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "This is the alternatives list right? So should it be \"Alternatives simulcast layer list is malformed.\"?\n\nI guess we could name things \"alternative rids\" as another option if you like that.",
+      "range": {
+        "startLine": 106,
+        "startChar": 25,
+        "endLine": 106,
+        "endChar": 49
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7636d074_d9ebc430",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -48,6 +140,29 @@
     },
     {
       "key": {
+        "uuid": "2cdfd2d0_d6b07a47",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "You could put the bug reference here too.",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2d4b2e73_e6bd100c",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -64,6 +179,98 @@
         "startChar": 44,
         "endLine": 119,
         "endChar": 59
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6f1b00_ece45e34",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Do we always want to serialize send then receive? The examples in the spec show recv being first when responding with an answer. I don\u0027t see any specification what\u0027s required.",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80109d0d_afa5c28f",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Overloading tje \u003c\u003c is awesome 🎉",
+      "range": {
+        "startLine": 145,
+        "startChar": 7,
+        "endLine": 145,
+        "endChar": 34
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4daacb8_c7287bb0",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "We should probably specify that this function doesn\u0027t deserialize a line that includes \"a:simulcast:\" It deserializes everything after this.",
+      "range": {
+        "startLine": 152,
+        "startChar": 3,
+        "endLine": 152,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d0cb0fc_f0f351e4",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "If both layers are errors shouldn\u0027t the return value be an error too?",
+      "range": {
+        "startLine": 205,
+        "startChar": 23,
+        "endLine": 205,
+        "endChar": 32
       },
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -111,6 +318,29 @@
     },
     {
       "key": {
+        "uuid": "816af614_89216164",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "I\u0027m confused how this hides implementation details from callers of webrtcsdp.h? Isn\u0027t it really hiding implementation details from webrtcsdp.h itself?",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e603c6e_2eab47bb",
         "filename": "pc/sdpserializer.h",
         "patchSetId": 2
@@ -127,6 +357,29 @@
         "startChar": 6,
         "endLine": 39,
         "endChar": 24
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abd64fae_924f5c7e",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit: Not that important, but the convention I\u0027ve seen is (expected, value). You could do the same in your parameters here.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 42
       },
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -168,6 +421,29 @@
     },
     {
       "key": {
+        "uuid": "65c5d17f_d8e72a57",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "SimulcastLayerList",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2ad690b2_81f675dd",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 2
@@ -184,6 +460,213 @@
         "startChar": 12,
         "endLine": 163,
         "endChar": 37
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09da5674_1e5e133c",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "You don\u0027t have to do this, but generally with changes that aren\u0027t going to get changed right away we link it to the bug instead of an owner. This way if someone else picks up on it they have context. You could put:\n\n// TODO(bugs.webrtc.org/10055): Validate rid format.",
+      "range": {
+        "startLine": 34,
+        "startChar": 10,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e55362e3_9377fc95",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "If you want (I think) you can do an emplace_back to turn these 2 lines into 1.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a451abbc_e4c52e99",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 31
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc5df78_27f82a80",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Should we specify here that stream 1 is preferred? Same with 4 over 5?\n\nShould we also specify somewhere that 1/2 are preferred over 3 and 3 is preferred over 4/5?",
+      "range": {
+        "startLine": 285,
+        "startChar": 10,
+        "endLine": 285,
+        "endChar": 30
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80754499_acbcdeea",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit: Should we specify what a rid is here? RtpStreamId/RepairedRtpStreamId and how it is the identifier for a layer in the SDP? For someone reading this code w/o looking at the spec they wouldn\u0027t know.",
+      "range": {
+        "startLine": 296,
+        "startChar": 32,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27ee974a_c31e0509",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "I\u0027m curious - why name these variables different? I\u0027ve seen in other parts of the code using .*_in for constructor parameters for a struct. For example - rid_in, is_paused_in.",
+      "range": {
+        "startLine": 298,
+        "startChar": 47,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1de9b34_7e79f82e",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Do you want:\nvoid AddLayer(const std:string\u0026 rid);\nand\nvoid AddLayer(const RidDescription\u0026 stream);\n?\n\nOtherwise the last comment above \"class SimulcastLayerList final {\" woudln\u0027t be true",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7111c4a_2fccb9e9",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit: Should we specify that the alternatives are in order of preference here?",
+      "range": {
+        "startLine": 310,
+        "startChar": 5,
+        "endLine": 310,
+        "endChar": 38
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4de2e5e7_acb5eceb",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "Is there a reason you don\u0027t add this validation helper now and call it when adding a layer?",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 64
       },
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -219,6 +702,29 @@
       "writtenOn": "2018-11-27T21:48:13Z",
       "side": 1,
       "message": "redundant comment",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d364a0_b9c1b238",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2770,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "I think you could make this optional and wouldn\u0027t need the two variables.",
+      "range": {
+        "startLine": 2770,
+        "startChar": 2,
+        "endLine": 2770,
+        "endChar": 32
+      },
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -294,6 +800,29 @@
     },
     {
       "key": {
+        "uuid": "fd86f179_e35c8aea",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "bug here? Also the line needs capitalization and a period.",
+      "range": {
+        "startLine": 3076,
+        "startChar": 12,
+        "endLine": 3076,
+        "endChar": 18
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdc85529_219ee6f3",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -310,6 +839,52 @@
         "startChar": 8,
         "endLine": 3078,
         "endChar": 57
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f713629e_46e5438a",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3919,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "nit: period.",
+      "range": {
+        "startLine": 3919,
+        "startChar": 46,
+        "endLine": 3919,
+        "endChar": 52
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13f8d0ad_ba13b8d5",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-27T22:03:29Z",
+      "side": 1,
+      "message": "This test serializes then deserializes and tests that they are equivalent. The precondition is that you\u0027ve tested deserialization and it works as intended for this test to be \"valid.\"",
+      "range": {
+        "startLine": 3945,
+        "startChar": 2,
+        "endLine": 3945,
+        "endChar": 15
       },
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fbe7ecb_e56dd55f",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-27T15:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59aa99e1_ebdbdbba",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 11
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4788115c_d16ebec4",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d6035e4_ebabb1a4",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-27T15:57:07Z",
+      "side": 1,
+      "message": ":)",
+      "parentUuid": "4788115c_d16ebec4",
+      "range": {
+        "startLine": 43,
+        "startChar": 49,
+        "endLine": 43,
+        "endChar": 64
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "de78dc97_b60f65fc",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-27T15:57:07Z",
+      "side": 1,
+      "message": "Yes, it makes sense to avoid to be too verbose here. It is implied indeed.",
+      "parentUuid": "598ad42a_c478e479",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 77
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f62e55d_ce909fd8",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 5
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "2b6e5c89_373013a0",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-27T15:57:07Z",
+      "side": 1,
+      "message": "Agreed, thanks for looking into that with the compiler explorer.",
+      "parentUuid": "f20daf09_f8eeac35",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 79
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e04b4403_02fcc55d",
         "filename": "rtc_base/refcounter.h",
         "patchSetId": 5
@@ -186,6 +282,30 @@
       "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "122cc037_610ae409",
+        "filename": "rtc_base/refcounter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-27T15:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "439cfd9f_5f91874c",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "5b5b14421cfd6e0b6aa3ca2f8f0a7a5fa5cf3ee3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

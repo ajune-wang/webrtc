@@ -56,8 +56,6 @@ class EncodedFrame : public webrtc::VCMEncodedFrame {
   EncodedFrame() = default;
   virtual ~EncodedFrame() {}
 
-  virtual bool GetBitstream(uint8_t* destination) const = 0;
-
   // When this frame was received.
   virtual int64_t ReceivedTime() const = 0;
 

@@ -228,6 +228,7 @@ if (is_android) {
       "api/org/webrtc/VideoEncoderFactory.java",
       "api/org/webrtc/VideoFrame.java",
       "api/org/webrtc/VideoSink.java",
+      "api/org/webrtc/Predicate.java",
     ]
 
     deps = [

@@ -861,6 +861,7 @@ void ParsedRtcEventLogNew::Clear() {
   bwe_delay_updates_.clear();
   bwe_loss_updates_.clear();
   dtls_transport_states_.clear();
+  dtls_writable_.clear();
   alr_state_events_.clear();
   ice_candidate_pair_configs_.clear();
   ice_candidate_pair_events_.clear();
@@ -1840,6 +1841,7 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
           stream.end_log_events_size() + stream.loss_based_bwe_updates_size() +
           stream.delay_based_bwe_updates_size() +
           stream.dtls_transport_state_events_size() +
+          stream.dtls_writable_size() +
           stream.audio_network_adaptations_size() +
           stream.probe_clusters_size() + stream.probe_success_size() +
           stream.probe_failure_size() + stream.alr_states_size() +
@@ -1871,6 +1873,8 @@ void ParsedRtcEventLogNew::StoreParsedNewFormatEvent(
     StoreBweDelayBasedUpdate(stream.delay_based_bwe_updates(0));
   } else if (stream.dtls_transport_state_events_size() == 1) {
     StoreDtlsTransportState(stream.dtls_transport_state_events(0));
+  } else if (stream.dtls_writable_size() == 1) {
+    StoreDtlsWritable(stream.dtls_writable(0));
   } else if (stream.audio_network_adaptations_size() == 1) {
     StoreAudioNetworkAdaptationEvent(stream.audio_network_adaptations(0));
   } else if (stream.probe_clusters_size() == 1) {
@@ -2330,6 +2334,17 @@ void ParsedRtcEventLogNew::StoreDtlsTransportState(
       GetRuntimeDtlsTransportState(proto.dtls_transport_state());
 
   dtls_transport_states_.push_back(dtls_state);
+}
+
+void ParsedRtcEventLogNew::StoreDtlsWritable(
+    const rtclog2::DtlsWritable& proto) {
+  LoggedDtlsWritable dtls_writable;
+  RTC_CHECK(proto.has_timestamp_ms());
+  dtls_writable.timestamp_us = proto.timestamp_ms() * 1000;
+  RTC_CHECK(proto.has_writable());
+  dtls_writable.writable = proto.writable();
+
+  dtls_writable_.push_back(dtls_writable);
 }
 
 void ParsedRtcEventLogNew::StoreIceCandidatePairConfig(

@@ -444,6 +444,25 @@ TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateDelayBased) {
   }
 }
 
+TEST_P(RtcEventLogEncoderTest, RtcEventDtlsWritable) {
+  std::vector<std::unique_ptr<RtcEventDtlsWritable>> events(event_count_);
+  for (size_t i = 0; i < event_count_; ++i) {
+    events[i] = (i == 0 || !force_repeated_fields_) ? gen_.NewDtlsWritable()
+                                                    : events[0]->Copy();
+    history_.push_back(events[i]->Copy());
+  }
+
+  std::string encoded = encoder_->EncodeBatch(history_.begin(), history_.end());
+  ASSERT_TRUE(parsed_log_.ParseString(encoded));
+
+  const auto& dtls_writable = parsed_log_.dtls_writable();
+  ASSERT_EQ(dtls_writable.size(), event_count_);
+
+  for (size_t i = 0; i < event_count_; ++i) {
+    verifier_.VerifyLoggedDtlsWritable(*events[i], dtls_writable[i]);
+  }
+}
+
 TEST_P(RtcEventLogEncoderTest, RtcEventBweUpdateLossBased) {
   std::vector<std::unique_ptr<RtcEventBweUpdateLossBased>> events(event_count_);
   for (size_t i = 0; i < event_count_; ++i) {

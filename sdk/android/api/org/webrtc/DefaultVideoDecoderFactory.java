@@ -10,10 +10,10 @@
 
 package org.webrtc;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Helper class that combines HW and SW decoders.

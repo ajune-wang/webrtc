@@ -196,6 +196,7 @@ if (is_android) {
       "src/java/org/webrtc/JniHelper.java",
       "src/java/org/webrtc/RefCountDelegate.java",
       "src/java/org/webrtc/WebRtcClassLoader.java",
+      "api/org/webrtc/Predicate.java",
     ]
 
     deps = [

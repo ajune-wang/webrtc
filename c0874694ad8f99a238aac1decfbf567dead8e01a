@@ -88,6 +88,24 @@
       "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a38fa83_6c103503",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-27T08:16:20Z",
+      "side": 1,
+      "message": "+1 to getting some perf numbers on this change before submission.\n\nTo do that, you can modify the following test: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/test/videocodec_test_libvpx.cc?l\u003d205\u0026rcl\u003df1c194decd51a63ba923349da96fcd9cb6dae35a\nand run it on a real device (https://webrtc.org/native-code/ios/) to get some encode_fps numbers.",
+      "parentUuid": "bb915914_439b0d36",
+      "revId": "c0874694ad8f99a238aac1decfbf567dead8e01a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

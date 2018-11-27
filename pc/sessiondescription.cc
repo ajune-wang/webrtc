@@ -28,6 +28,44 @@ ContentInfo* FindContentInfoByName(ContentInfos* contents,
 
 }  // namespace
 
+SimulcastLayerList::RidDescription::RidDescription(const std::string& id,
+                                                   bool paused)
+    : rid{id}, is_paused{paused} {
+  // TODO(amithi): validate rid format
+  RTC_DCHECK(!id.empty());
+}
+
+void SimulcastLayerList::AddLayer(const std::string& rid, bool is_paused) {
+  std::vector<RidDescription> alternatives{RidDescription(rid, is_paused)};
+  list_.push_back(alternatives);
+}
+
+void SimulcastLayerList::AddLayerWithAlternatives(
+    const std::vector<std::string>& rids) {
+  RTC_DCHECK(!rids.empty());
+  std::vector<RidDescription> alternatives;
+  for (const std::string& rid : rids) {
+    alternatives.push_back(RidDescription(rid));
+  }
+  list_.push_back(alternatives);
+}
+
+void SimulcastLayerList::AddLayerWithAlternatives(
+    const std::vector<RidDescription>& rids) {
+  RTC_DCHECK(!rids.empty());
+  list_.push_back(rids);
+}
+
+const std::vector<SimulcastLayerList::RidDescription>& SimulcastLayerList::
+operator[](size_t index) const {
+  RTC_DCHECK_LT(index, list_.size());
+  return list_[index];
+}
+
+bool SimulcastDescription::empty() const {
+  return send_layers_.empty() && receive_layers_.empty();
+}
+
 const ContentInfo* FindContentInfoByName(const ContentInfos& contents,
                                          const std::string& name) {
   for (ContentInfos::const_iterator content = contents.begin();

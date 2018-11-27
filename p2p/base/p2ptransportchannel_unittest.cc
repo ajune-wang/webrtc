@@ -4571,7 +4571,9 @@ TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
   EXPECT_CALL(mock_async_resolver, GetError()).WillOnce(Return(0));
   EXPECT_CALL(mock_async_resolver, GetResolvedAddress(_, _))
       .WillOnce(Return(true));
-  EXPECT_CALL(mock_async_resolver, Destroy(_));
+  bool destroy_called = false;
+  EXPECT_CALL(mock_async_resolver, Destroy(_))
+      .WillOnce(testing::Assign(&destroy_called, true));
   webrtc::MockAsyncResolverFactory mock_async_resolver_factory;
   EXPECT_CALL(mock_async_resolver_factory, Create())
       .WillOnce(Return(&mock_async_resolver));
@@ -4586,6 +4588,7 @@ TEST(P2PTransportChannelResolverTest, HostnameCandidateIsResolved) {
   ASSERT_EQ_WAIT(1u, channel.remote_candidates().size(), kDefaultTimeout);
   const RemoteCandidate& candidate = channel.remote_candidates()[0];
   EXPECT_FALSE(candidate.address().IsUnresolvedIP());
+  WAIT(destroy_called, kShortTimeout);
 }
 
 // Test that if we signal a hostname candidate after the remote endpoint

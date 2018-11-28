@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "a041a8c3_e93295b2",
+        "filename": "api/config/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-28T13:24:56Z",
+      "side": 1,
+      "message": "This is the only method an application is supposed to override, right? Would it make sense to make it look more like a map lookup, to be able to, at some point, replaces this with a std::map?",
+      "range": {
+        "startLine": 18,
+        "startChar": 22,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "88b83d525c248b4f66b7e7a1a9b19c2ef1100a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "520bf8c7_3e546697",
         "filename": "api/config/field_trial.h",
         "patchSetId": 3
@@ -41,6 +64,29 @@
         "startChar": 24,
         "endLine": 19,
         "endChar": 35
+      },
+      "revId": "88b83d525c248b4f66b7e7a1a9b19c2ef1100a06",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "722d71d9_8aa29294",
+        "filename": "api/config/field_trial.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-28T13:24:56Z",
+      "side": 1,
+      "message": "These convenience helpers are only used internally, right? Then they don\u0027t really belong in the interface. Possibly rtc_base/experiments/field_trial_parser.h is a good location for helpers like these.",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 23
       },
       "revId": "88b83d525c248b4f66b7e7a1a9b19c2ef1100a06",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

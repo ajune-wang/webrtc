@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d329e7a_16f3eef2",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T10:23:48Z",
+      "side": 1,
+      "message": "nit: Just move this to base_java. It is a very small interface anyway.",
+      "range": {
+        "startLine": 231,
+        "startChar": 6,
+        "endLine": 231,
+        "endChar": 38
+      },
+      "revId": "468cf08569dcaed72929b1deaabde3b4f997f1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9313e776_1122580c",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T10:23:48Z",
+      "side": 1,
+      "message": "nit: You can just swap return false and return true in the method body instead.",
+      "range": {
+        "startLine": 34,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "468cf08569dcaed72929b1deaabde3b4f997f1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04f278b3_ef695daa",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T10:23:48Z",
+      "side": 1,
+      "message": "nit: Please add documentation that this gets combined with the default predicate that only allows HW codecs",
+      "range": {
+        "startLine": 57,
+        "startChar": 34,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "468cf08569dcaed72929b1deaabde3b4f997f1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "392c05e2_e33ba00c",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T10:23:48Z",
+      "side": 1,
+      "message": "nit: Please add a literal comment:\ni.e. /* codecAllowedPredicate\u003d */ null",
+      "range": {
+        "startLine": 49,
+        "startChar": 70,
+        "endLine": 49,
+        "endChar": 74
+      },
+      "revId": "468cf08569dcaed72929b1deaabde3b4f997f1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e44af840_b06ca0f3",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T10:23:48Z",
+      "side": 1,
+      "message": "nit: Can you add javadoc here. Should be mostly copy-paste from HWDecoderFactory",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 36
+      },
+      "revId": "468cf08569dcaed72929b1deaabde3b4f997f1ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a13f23e1_a203a244",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-11-28T08:40:06Z",
+      "side": 1,
+      "message": "I\u0027d call it \"Win64 UWP\", Win10 is implied. But I don\u0027t insist.\nIt should at least be consistent with the tryjob in (not) having the \"64\".",
+      "range": {
+        "startLine": 92,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 22
+      },
+      "revId": "0e87b13bea20fd3c3f2b1ea6c13a08a0fc83ba09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "769f3271_3de3195f",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-11-28T08:40:06Z",
+      "side": 1,
+      "message": "Probably not asan? And not sure if \u0027win_fastlink\u0027 is relevant. And re-check that Clang is actually wanted, not MSVC.",
+      "range": {
+        "startLine": 350,
+        "startChar": 12,
+        "endLine": 350,
+        "endChar": 18
+      },
+      "revId": "0e87b13bea20fd3c3f2b1ea6c13a08a0fc83ba09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

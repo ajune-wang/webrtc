@@ -156,6 +156,30 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac297969_b9b5175b",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:31:26Z",
+      "side": 1,
+      "message": "Does Abseil have umbrella targets? If no, there\u0027s only one choice, so problem solved. If yes, and we use them, things ought to break when we translate our GN files---right, Mirko?",
+      "parentUuid": "422b6b23_992ff606",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

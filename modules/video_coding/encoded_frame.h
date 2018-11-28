@@ -72,7 +72,7 @@ class VCMEncodedFrame : protected EncodedImage {
    *   Set frame length
    */
   void SetLength(size_t length) {
-    RTC_DCHECK(length <= _size);
+    RTC_DCHECK(length <= alloc());
     _length = length;
   }
   /**

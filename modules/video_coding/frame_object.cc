@@ -178,10 +178,9 @@ void RtpFrameObject::AllocateBitstreamBuffer(size_t frame_size) {
   size_t new_size = frame_size + (codec_type_ == kVideoCodecH264
                                       ? EncodedImage::kBufferPaddingBytesH264
                                       : 0);
-  if (_size < new_size) {
+  if (alloc() < new_size) {
     delete[] _buffer;
-    _buffer = new uint8_t[new_size];
-    _size = new_size;
+    set_buffer(new uint8_t[new_size], new_size);
   }
 
   _length = frame_size;

@@ -38,7 +38,7 @@ class RTC_EXPORT EncodedImage {
 
   EncodedImage();
   EncodedImage(const EncodedImage&);
-  EncodedImage(uint8_t* buffer, size_t length, size_t size);
+  EncodedImage(uint8_t* buffer, size_t length, size_t alloc);
 
   // TODO(nisse): Change style to timestamp(), set_timestamp(), for consistency
   // with the VideoFrame class.
@@ -66,7 +66,7 @@ class RTC_EXPORT EncodedImage {
     color_space_ =
         color_space ? absl::make_optional(*color_space) : absl::nullopt;
   }
-
+  size_t alloc() const { return alloc_; }
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   // NTP time of the capture time in local timebase in milliseconds.
@@ -75,7 +75,6 @@ class RTC_EXPORT EncodedImage {
   FrameType _frameType = kVideoFrameDelta;
   uint8_t* _buffer;
   size_t _length;
-  size_t _size;
   VideoRotation rotation_ = kVideoRotation_0;
   VideoContentType content_type_ = VideoContentType::UNSPECIFIED;
   bool _completeFrame = false;
@@ -98,7 +97,13 @@ class RTC_EXPORT EncodedImage {
     int64_t receive_finish_ms = 0;
   } timing_;
 
+  void set_buffer(uint8_t* buffer, size_t alloc) {
+    _buffer = buffer;
+    alloc_ = alloc;
+  }
+
  private:
+  size_t alloc_;  // Allocated size of _buffer.
   uint32_t timestamp_rtp_ = 0;
   absl::optional<int> spatial_index_;
   absl::optional<webrtc::ColorSpace> color_space_;

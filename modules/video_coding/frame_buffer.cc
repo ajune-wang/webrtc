@@ -101,12 +101,12 @@ VCMFrameBufferEnum VCMFrameBuffer::InsertPacket(
       Length() + packet.sizeBytes +
       (packet.insertStartCode ? kH264StartCodeLengthBytes : 0) +
       EncodedImage::GetBufferPaddingBytes(packet.codec);
-  if (requiredSizeBytes >= _size) {
+  if (requiredSizeBytes >= alloc()) {
     const uint8_t* prevBuffer = _buffer;
     const uint32_t increments =
         requiredSizeBytes / kBufferIncStepSizeBytes +
         (requiredSizeBytes % kBufferIncStepSizeBytes > 0);
-    const uint32_t newSize = _size + increments * kBufferIncStepSizeBytes;
+    const uint32_t newSize = alloc() + increments * kBufferIncStepSizeBytes;
     if (newSize > kMaxJBFrameSizeBytes) {
       RTC_LOG(LS_ERROR) << "Failed to insert packet due to frame being too "
                            "big.";

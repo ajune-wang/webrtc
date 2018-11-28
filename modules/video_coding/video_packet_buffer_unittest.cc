@@ -652,7 +652,7 @@ TEST_P(TestPacketBufferH264Parameterized, GetBitstreamBufferPadding) {
   ASSERT_EQ(1UL, frames_from_callback_.size());
   EXPECT_EQ(frames_from_callback_[seq_num]->EncodedImage()._length,
             sizeof(data_data));
-  EXPECT_EQ(frames_from_callback_[seq_num]->EncodedImage()._size,
+  EXPECT_EQ(frames_from_callback_[seq_num]->EncodedImage().alloc(),
             sizeof(data_data) + EncodedImage::kBufferPaddingBytesH264);
   EXPECT_TRUE(frames_from_callback_[seq_num]->GetBitstream(result.get()));
   EXPECT_EQ(memcmp(result.get(), data, sizeof(data_data)), 0);

@@ -312,6 +312,30 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad494dfb_e843688a",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-11-28T10:18:56Z",
+      "side": 1,
+      "message": "Done.\nThanks Karl for straightening that out.\nI\u0027ve opened https://bugs.chromium.org/p/gn/issues/detail?id\u003d30\nI\u0027m not sure we should double that with a lint check.",
+      "parentUuid": "def92b84_57be6df8",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

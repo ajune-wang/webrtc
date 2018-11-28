@@ -132,6 +132,30 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "422b6b23_992ff606",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-11-28T09:27:19Z",
+      "side": 1,
+      "message": "* Nope, \"git cl format\" doesn\u0027t fix that.\n* NB: it was introduced by gn_check_autofix.py\n* What is the rule here? Don\u0027t we want to be as specific as possible (like types:optional), so that if abseil add new targets in absl/memory we won\u0027t pull the unused stuff.",
+      "parentUuid": "5ac9ac5f_fcac1b04",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

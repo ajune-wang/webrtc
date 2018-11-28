@@ -42,6 +42,12 @@ BOOL CALLBACK WindowsEnumerationHandler(HWND hwnd, LPARAM param) {
     return TRUE;
   }
 
+  // Skip windows of zero visible area, except IconicWindows
+  RECT bounds;
+  if (GetClientRect(hwnd, &bounds) && !IsIconic(hwnd) && IsRectEmpty(&bounds)) {
+    return TRUE;
+  }
+
   // Skip the Program Manager window and the Start button.
   const size_t kClassLength = 256;
   WCHAR class_name[kClassLength];

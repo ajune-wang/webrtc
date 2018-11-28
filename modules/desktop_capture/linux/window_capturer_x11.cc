@@ -13,6 +13,7 @@
 #include <X11/Xutil.h>
 #include <X11/extensions/Xcomposite.h>
 #include <X11/extensions/Xrender.h>
+#include <string.h>
 
 #include <memory>
 #include <string>

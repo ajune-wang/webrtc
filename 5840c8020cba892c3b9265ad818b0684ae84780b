@@ -22,6 +22,30 @@
       "revId": "5840c8020cba892c3b9265ad818b0684ae84780b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dbe36ac_8e6f9e17",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-28T12:43:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e2f4514_80fe310a",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 28
+      },
+      "revId": "5840c8020cba892c3b9265ad818b0684ae84780b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -111,6 +111,16 @@
       'Linux Trusty': 'perf_release_bot_x64',
       'Mac 10.11': 'perf_release_bot_x64',
       'Win7': 'perf_release_bot_x86',
+
+      'Perf Android32 (J Nexus4)': 'none',
+      'Perf Android32 (K Nexus5)': 'none',
+      'Perf Android32 (L Nexus5)': 'none',
+      'Perf Android32 (L Nexus6)': 'none',
+      'Perf Android32 (L Nexus7.2)': 'none',
+      'Perf Android64 (L Nexus9)': 'none',
+      'Perf Linux Trusty': 'perf_release_bot_x64',
+      'Perf Mac 10.11': 'perf_release_bot_x64',
+      'Perf Win7': 'perf_release_bot_x86',
     },
     'client.webrtc.fyi': {
       # Mac

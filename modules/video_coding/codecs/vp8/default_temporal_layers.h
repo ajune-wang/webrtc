@@ -69,11 +69,15 @@ class DefaultTemporalLayers : public Vp8TemporalLayers {
   struct PendingFrame {
     PendingFrame();
     PendingFrame(bool expired,
+                 uint8_t referenced_buffer_mask,
                  uint8_t updated_buffers_mask,
                  const FrameConfig& frame_config);
     // Flag indicating if this frame has expired, ie it belongs to a previous
     // iteration of the temporal pattern.
     bool expired = false;
+    // Bitmask of Vp8BufferReference flags, indicating which buffers this frame
+    // references (i.e. is predicted from).
+    uint8_t referenced_buffer_mask = 0;
     // Bitmask of Vp8BufferReference flags, indicating which buffers this frame
     // updates.
     uint8_t updated_buffer_mask = 0;

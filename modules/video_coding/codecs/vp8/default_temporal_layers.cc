@@ -63,6 +63,7 @@ Vp8TemporalLayers::FrameConfig::FrameConfig(
 DefaultTemporalLayers::PendingFrame::PendingFrame() = default;
 DefaultTemporalLayers::PendingFrame::PendingFrame(
     bool expired,
+    uint8_t referenced_buffer_mask,
     uint8_t updated_buffers_mask,
     const FrameConfig& frame_config)
     : expired(expired),
@@ -479,9 +480,10 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
   }
 
   PendingFrame& frame = pending_frame->second;
+  FrameConfig& frame_config = frame.frame_config;
   if (is_keyframe && checker_) {
     // Signal key-frame so checker resets state.
-    RTC_DCHECK(checker_->CheckTemporalConfig(true, frame.frame_config));
+    RTC_DCHECK(checker_->CheckTemporalConfig(true, frame_config));
   }
 
   if (num_layers_ == 1) {
@@ -507,9 +509,33 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
       }
     } else {
       // Delta frame, update codec specifics with temporal id and sync flag.
-      vp8_info->temporalIdx = frame.frame_config.packetizer_temporal_idx;
-      vp8_info->layerSync = frame.frame_config.layer_sync;
+      vp8_info->temporalIdx = frame_config.packetizer_temporal_idx;
+      vp8_info->layerSync = frame_config.layer_sync;
     }
+  }
+
+  if (is_keyframe) {
+    constexpr size_t kNumBuffers = CodecSpecificInfoVP8::Buffer::kCount;
+    std::fill(vp8_info->referencedBuffers,
+              vp8_info->referencedBuffers + kNumBuffers, false);
+    std::fill(vp8_info->updatedBuffers, vp8_info->updatedBuffers + kNumBuffers,
+              true);
+  } else {
+    constexpr auto kReference = Vp8TemporalLayers::BufferFlags::kReference;
+    constexpr auto kUpdate = Vp8TemporalLayers::BufferFlags::kUpdate;
+
+    vp8_info->referencedBuffers[VP8Buffer::kLast] =
+        frame_config.last_buffer_flags & kReference;
+    vp8_info->referencedBuffers[VP8Buffer::kGolden] =
+        frame_config.golden_buffer_flags & kReference;
+    vp8_info->referencedBuffers[VP8Buffer::kArf] =
+        frame_config.arf_buffer_flags & kReference;
+    vp8_info->updatedBuffers[VP8Buffer::kLast] =
+        frame_config.last_buffer_flags & kUpdate;
+    vp8_info->updatedBuffers[VP8Buffer::kGolden] =
+        frame_config.golden_buffer_flags & kUpdate;
+    vp8_info->updatedBuffers[VP8Buffer::kArf] =
+        frame_config.arf_buffer_flags & kUpdate;
   }
 
   if (!frame.expired) {

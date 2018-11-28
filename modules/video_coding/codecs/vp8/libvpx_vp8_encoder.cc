@@ -831,6 +831,7 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
 
   int qp = 0;
   vpx_codec_control(&encoders_[encoder_idx], VP8E_GET_LAST_QUANTIZER_64, &qp);
+  // TODO: !!! All OnEncodeDone impls.
   temporal_layers_[stream_idx]->OnEncodeDone(
       timestamp, encoded_images_[encoder_idx]._length,
       (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, vp8Info);

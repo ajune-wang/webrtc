@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e2f4514_80fe310a",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-28T12:26:11Z",
+      "side": 1,
+      "message": "nit: Please also add a literal comment here.",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 28
+      },
+      "revId": "5840c8020cba892c3b9265ad818b0684ae84780b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

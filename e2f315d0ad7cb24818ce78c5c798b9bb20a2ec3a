@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "20e4e410_2a916797",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoDecoderFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-28T10:05:09Z",
+      "side": 1,
+      "message": "Completely agree with this. Done.",
+      "parentUuid": "a3cd8e28_b44cd60c",
+      "range": {
+        "startLine": 60,
+        "startChar": 42,
+        "endLine": 60,
+        "endChar": 60
+      },
+      "revId": "e2f315d0ad7cb24818ce78c5c798b9bb20a2ec3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3cea2869_ecc8e5da",
         "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-28T09:40:38Z",
       "side": 1,
       "message": "Please use an allow list here as well.",
+      "range": {
+        "startLine": 53,
+        "startChar": 73,
+        "endLine": 53,
+        "endChar": 91
+      },
+      "revId": "e2f315d0ad7cb24818ce78c5c798b9bb20a2ec3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac5d8cf5_e66be965",
+        "filename": "sdk/android/api/org/webrtc/HardwareVideoEncoderFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-28T10:05:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3cea2869_ecc8e5da",
       "range": {
         "startLine": 53,
         "startChar": 73,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6e941243_f289ced2",
+        "filename": "sdk/android/api/org/webrtc/Predicate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-28T10:05:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0d4fcefb_1e38bdf9",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "e2f315d0ad7cb24818ce78c5c798b9bb20a2ec3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a03b6797_4163a0f5",
         "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-28T09:40:38Z",
       "side": 1,
       "message": "nit: It is a bit messy when there is a method and a field with the same name. Can you change this to codecAllowedPredicate",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "e2f315d0ad7cb24818ce78c5c798b9bb20a2ec3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79cd6a18_2525e13e",
+        "filename": "sdk/android/src/java/org/webrtc/MediaCodecVideoDecoderFactory.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6305
+      },
+      "writtenOn": "2018-11-28T10:05:09Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a03b6797_4163a0f5",
       "range": {
         "startLine": 31,
         "startChar": 52,

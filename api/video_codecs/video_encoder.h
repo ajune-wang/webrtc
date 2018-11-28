@@ -120,6 +120,8 @@ class RTC_EXPORT VideoEncoder {
   // Struct containing metadata about the encoder implementing this interface.
   struct EncoderInfo {
     EncoderInfo();
+    EncoderInfo(const EncoderInfo&);
+
     ~EncoderInfo();
 
     // Any encoder implementation wishing to use the WebRTC provided
@@ -145,6 +147,14 @@ class RTC_EXPORT VideoEncoder {
     // frames if it suspect encoder misbehavior. Misbehavior is common,
     // especially in hardware codecs. Disable media opt at your own risk.
     bool has_trusted_rate_controller;
+
+    // If this field is true, the encoder uses hardware support.
+    bool is_hardware_accelerated;
+
+    // If this field is true, the encoder uses internal camera sources, meaning
+    // that it does not require/expect frames to be delivered via
+    // webrtc::VideoEncoder::Encode.
+    bool has_internal_source;
   };
 
   static VideoCodecVP8 GetDefaultVp8Settings();

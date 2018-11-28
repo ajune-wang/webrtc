@@ -278,6 +278,10 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
             encoder_impl_info.supports_native_handle;
         encoder_info_.has_trusted_rate_controller =
             encoder_impl_info.has_trusted_rate_controller;
+        encoder_info_.is_hardware_accelerated =
+            encoder_impl_info.is_hardware_accelerated;
+        encoder_info_.has_internal_source =
+            encoder_impl_info.has_internal_source;
       } else {
         encoder_info_.implementation_name += ", ";
         encoder_info_.implementation_name +=
@@ -290,6 +294,14 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
         // Trusted rate controller only if all encoders have it.
         encoder_info_.has_trusted_rate_controller &=
             encoder_impl_info.has_trusted_rate_controller;
+
+        // Uses hardware support only if all encoders use it.
+        encoder_info_.is_hardware_accelerated &=
+            encoder_impl_info.is_hardware_accelerated;
+
+        // Has internal source only if all encoders have it.
+        encoder_info_.has_internal_source &=
+            encoder_impl_info.has_internal_source;
       }
     }
   }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "45426e40_165f8e95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-11-28T09:48:18Z",
+      "side": 1,
+      "message": "That\u0027s a bit convoluted. Basically there is:\n* A first past invoking the tool from https://include-what-you-use.org to collect diagnostic.\n* A hand-made script incrementally applying the suggested modification and trying to build linux_dbg and android_rel.\n* Manual fixes, that I have sent as patchsets here.\n\nWhat can be done is downloading the diff and checking it only touches #include lines and some comments.",
+      "parentUuid": "6b253052_e42f2d39",
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "898f7149_3b47d28c",
         "filename": "api/DEPS",
         "patchSetId": 12
@@ -219,6 +237,30 @@
       "side": 1,
       "message": "Ah, OK. The question was just about what name to use, not which target to declare a dependency on.\n\nI prefer \"//path/to/dir\" over \"//path/to/dir:dir\", because it\u0027s shorter and no less precise. I don\u0027t care all that much, though, precisely because the two behave exactly the same.",
       "parentUuid": "c1ae2a20_a395ba7f",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f9298e4_9b88a335",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-11-28T09:48:18Z",
+      "side": 1,
+      "message": "It is less precise in the face of future changes :)",
+      "parentUuid": "4dd37f7b_69ed47ea",
       "range": {
         "startLine": 1224,
         "startChar": 43,

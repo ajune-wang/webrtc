@@ -180,6 +180,30 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1ae2a20_a395ba7f",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-28T09:36:51Z",
+      "side": 1,
+      "message": "I thought it was part of the GN style guide, but it isn\u0027t actually: https://gn.googlesource.com/gn/+/master/docs/style_guide.md.\n\nIf you ask me, I also prefer the fully qualified path that explicitly includes the target label.\n\nkwiberg@: Abseil doesn\u0027t have umbrella targets, so this should be safe.\n\nMmmh, why are we following this convention then? :-)",
+      "parentUuid": "ac297969_b9b5175b",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

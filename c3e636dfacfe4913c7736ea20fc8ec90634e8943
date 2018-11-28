@@ -204,6 +204,30 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dd37f7b_69ed47ea",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:44:07Z",
+      "side": 1,
+      "message": "Ah, OK. The question was just about what name to use, not which target to declare a dependency on.\n\nI prefer \"//path/to/dir\" over \"//path/to/dir:dir\", because it\u0027s shorter and no less precise. I don\u0027t care all that much, though, precisely because the two behave exactly the same.",
+      "parentUuid": "c1ae2a20_a395ba7f",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

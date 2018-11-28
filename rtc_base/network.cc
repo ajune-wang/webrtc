@@ -481,7 +481,7 @@ BasicNetworkManager::~BasicNetworkManager() {}
 
 void BasicNetworkManager::OnNetworksChanged() {
   RTC_LOG(LS_INFO) << "Network change was observed";
-  UpdateNetworksOnce();
+  SignalNetworksChanged();
 }
 
 #if defined(__native_client__)

@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6b253052_e42f2d39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:26:16Z",
+      "side": 1,
+      "message": "Was this CL made entirely by a sequence of tool invocations, with no human hands editing things manually? If so, please list the complete sequence here---the CL is too large to review manually in a meaningful way, but the sequence of commands that produces it *can* be reviewed.",
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "898f7149_3b47d28c",
         "filename": "api/DEPS",
         "patchSetId": 12
@@ -36,6 +53,30 @@
       "writtenOn": "2018-11-27T18:41:25Z",
       "side": 1,
       "message": "I think this code should not be part of this CL,",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55085642_5790aa45",
+        "filename": "audio/time_interval_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:26:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "86cb06b1_f340a337",
       "range": {
         "startLine": 1,
         "startChar": 0,

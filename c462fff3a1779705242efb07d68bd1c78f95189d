@@ -71,6 +71,30 @@
       "revId": "c462fff3a1779705242efb07d68bd1c78f95189d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "661fc123_8cc1cebe",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2018-11-28T17:07:25Z",
+      "side": 1,
+      "message": "Oh I see! Your comment was attached to patchset 2 so it didn\u0027t show the removal.",
+      "parentUuid": "f0f8f978_3bf47b5b",
+      "range": {
+        "startLine": 105,
+        "startChar": 23,
+        "endLine": 105,
+        "endChar": 33
+      },
+      "revId": "c462fff3a1779705242efb07d68bd1c78f95189d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

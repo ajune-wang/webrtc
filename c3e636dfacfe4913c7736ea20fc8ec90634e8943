@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "8cfa36a0_c4e43c44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:55:56Z",
+      "side": 1,
+      "message": "OK. I\u0027ll download the diff and poke at it with grep...",
+      "parentUuid": "45426e40_165f8e95",
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "898f7149_3b47d28c",
         "filename": "api/DEPS",
         "patchSetId": 12
@@ -261,6 +279,30 @@
       "side": 1,
       "message": "It is less precise in the face of future changes :)",
       "parentUuid": "4dd37f7b_69ed47ea",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "def92b84_57be6df8",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-28T09:55:56Z",
+      "side": 1,
+      "message": "No, it\u0027s not. \"//path/to/dir\" means exactly \"//path/to/dir:dir\". https://chromium.googlesource.com/chromium/src/+/eca97f87e275a7c9c5b7f13a65ff8635f0821d46/tools/gn/docs/language.md#labels",
+      "parentUuid": "6f9298e4_9b88a335",
       "range": {
         "startLine": 1224,
         "startChar": 43,

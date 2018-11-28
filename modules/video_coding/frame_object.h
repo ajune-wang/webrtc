@@ -41,6 +41,7 @@ class RtpFrameObject : public EncodedFrame {
   bool GetBitstream(uint8_t* destination) const override;
   int64_t ReceivedTime() const override;
   int64_t RenderTime() const override;
+  void SetSize(size_t size);
   bool delayed_by_retransmission() const override;
   absl::optional<RTPVideoHeader> GetRtpVideoHeader() const;
   absl::optional<RtpGenericFrameDescriptor> GetGenericFrameDescriptor() const;

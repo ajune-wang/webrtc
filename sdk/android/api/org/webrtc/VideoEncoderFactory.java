@@ -22,4 +22,11 @@ public interface VideoEncoderFactory {
    * result will be cached.
    */
   @CalledByNative VideoCodecInfo[] getSupportedCodecs();
+
+  /**
+   * Creates new compisite factory which will use provided factory as fallback
+   */
+  default VideoEncoderFactory withFallbackTo(VideoEncoderFactory fallback) {
+    return new CompositeVideoEncoderFactory(this, fallback);
+  }
 }

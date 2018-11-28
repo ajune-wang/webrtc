@@ -231,6 +231,12 @@ if (is_android) {
       "api/org/webrtc/VideoEncoderFactory.java",
       "api/org/webrtc/VideoFrame.java",
       "api/org/webrtc/VideoSink.java",
+      "api/org/webrtc/VideoDecoderFallback.java",
+      "api/org/webrtc/VideoEncoderFallback.java",
+      "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
+      "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
+      "src/java/org/webrtc/CompositeVideoDecoderFactory.java",
+      "src/java/org/webrtc/CompositeVideoEncoderFactory.java",
     ]
 
     deps = [
@@ -252,8 +258,6 @@ if (is_android) {
       "api/org/webrtc/SurfaceTextureHelper.java",
       "api/org/webrtc/TextureBufferImpl.java",
       "api/org/webrtc/VideoCapturer.java",
-      "api/org/webrtc/VideoDecoderFallback.java",
-      "api/org/webrtc/VideoEncoderFallback.java",
       "api/org/webrtc/VideoFrameDrawer.java",
       "api/org/webrtc/YuvConverter.java",
       "api/org/webrtc/YuvHelper.java",
@@ -266,8 +270,6 @@ if (is_android) {
       "src/java/org/webrtc/VideoDecoderWrapper.java",
       "src/java/org/webrtc/VideoEncoderWrapper.java",
       "src/java/org/webrtc/WrappedNativeI420Buffer.java",
-      "src/java/org/webrtc/WrappedNativeVideoDecoder.java",
-      "src/java/org/webrtc/WrappedNativeVideoEncoder.java",
     ]
 
     deps = [

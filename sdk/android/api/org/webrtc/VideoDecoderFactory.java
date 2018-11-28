@@ -38,4 +38,11 @@ public interface VideoDecoderFactory {
   default VideoCodecInfo[] getSupportedCodecs() {
     return new VideoCodecInfo[0];
   }
+
+  /**
+   * Creates new compisite factory which will use provided factory as fallback
+   */
+  default VideoDecoderFactory withFallbackTo(VideoDecoderFactory fallback) {
+    return new CompositeVideoDecoderFactory(this, fallback);
+  }
 }

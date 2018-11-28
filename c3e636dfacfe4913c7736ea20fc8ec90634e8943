@@ -45,6 +45,52 @@
       "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ce4fea1_3ebd38be",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-28T08:41:06Z",
+      "side": 1,
+      "message": "Please add a comment here. Something like:\n\n# TODO(http://crbug.com/908819): Add this dependency when Chromium android templates stop\n# to consider *_module dependencies to have a special meaning.\n\nAlso add it to the file where the #include is commented out.",
+      "range": {
+        "startLine": 566,
+        "startChar": 6,
+        "endLine": 566,
+        "endChar": 60
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac9ac5f_fcac1b04",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 12
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-28T08:41:06Z",
+      "side": 1,
+      "message": "This is not needed, it should be: \"//third_party/abseil-cpp/absl/memory\" (also in other places).\n\nDoes \"git cl format\" fix that? I don\u0027t remember.",
+      "range": {
+        "startLine": 1224,
+        "startChar": 43,
+        "endLine": 1224,
+        "endChar": 50
+      },
+      "revId": "c3e636dfacfe4913c7736ea20fc8ec90634e8943",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

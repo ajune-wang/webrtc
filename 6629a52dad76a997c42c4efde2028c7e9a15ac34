@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b26f733_ec3154d9",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-11-29T10:49:02Z",
+      "side": 1,
+      "message": "It\u0027s not listed in the console, which is good.\nBut I think the only way to get to the status is by typing the URL directly.\nhttps://ci.chromium.org/p/webrtc/builders/luci.webrtc.ci/Win64%20UWP\nWhich is acceptable, I suppose.",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 305,
+        "endChar": 28
+      },
+      "revId": "6629a52dad76a997c42c4efde2028c7e9a15ac34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

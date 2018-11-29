@@ -10,8 +10,9 @@
 
 #include "modules/audio_coding/test/TestRedFec.h"
 
-#include <assert.h>
+#include <utility>
 
+#include "absl/strings/match.h"
 #include "api/audio_codecs/L16/audio_decoder_L16.h"
 #include "api/audio_codecs/L16/audio_encoder_L16.h"
 #include "api/audio_codecs/audio_decoder_factory_template.h"
@@ -173,6 +174,7 @@ void TestRedFec::RegisterSendCodec(
   auto encoder = encoder_factory_->MakeAudioEncoder(payload_type, codec_format,
                                                     absl::nullopt);
   EXPECT_NE(encoder, nullptr);
+  std::map<int, SdpAudioFormat> receive_codecs = {{payload_type, codec_format}};
   if (!absl::EqualsIgnoreCase(codec_format.name, "opus")) {
     if (vad_mode.has_value()) {
       AudioEncoderCngConfig config;
@@ -181,22 +183,22 @@ void TestRedFec::RegisterSendCodec(
       config.payload_type = cn_payload_type;
       config.vad_mode = vad_mode.value();
       encoder = CreateComfortNoiseEncoder(std::move(config));
-      EXPECT_EQ(true,
-                other_acm->RegisterReceiveCodec(
-                    cn_payload_type, {"CN", codec_format.clockrate_hz, 1}));
+      receive_codecs.emplace(
+          std::make_pair(cn_payload_type,
+                         SdpAudioFormat("CN", codec_format.clockrate_hz, 1)));
     }
     if (use_red) {
       AudioEncoderCopyRed::Config config;
       config.payload_type = red_payload_type;
       config.speech_encoder = std::move(encoder);
       encoder = absl::make_unique<AudioEncoderCopyRed>(std::move(config));
-      EXPECT_EQ(true,
-                other_acm->RegisterReceiveCodec(
-                    red_payload_type, {"red", codec_format.clockrate_hz, 1}));
+      receive_codecs.emplace(
+          std::make_pair(red_payload_type,
+                         SdpAudioFormat("red", codec_format.clockrate_hz, 1)));
     }
   }
   acm->SetEncoder(std::move(encoder));
-  EXPECT_EQ(true, other_acm->RegisterReceiveCodec(payload_type, codec_format));
+  other_acm->SetReceiveCodecs(receive_codecs);
 }
 
 void TestRedFec::Run() {

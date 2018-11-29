@@ -23,13 +23,6 @@ namespace {
 
 const size_t kSampleRateHz = 16000;
 
-AudioEncoderG722Config CreateConfig(const CodecInst& codec_inst) {
-  AudioEncoderG722Config config;
-  config.num_channels = rtc::dchecked_cast<int>(codec_inst.channels);
-  config.frame_size_ms = codec_inst.pacsize / 16;
-  return config;
-}
-
 }  // namespace
 
 AudioEncoderG722Impl::AudioEncoderG722Impl(const AudioEncoderG722Config& config,
@@ -51,9 +44,6 @@ AudioEncoderG722Impl::AudioEncoderG722Impl(const AudioEncoderG722Config& config,
   }
   Reset();
 }
-
-AudioEncoderG722Impl::AudioEncoderG722Impl(const CodecInst& codec_inst)
-    : AudioEncoderG722Impl(CreateConfig(codec_inst), codec_inst.pltype) {}
 
 AudioEncoderG722Impl::~AudioEncoderG722Impl() = default;
 

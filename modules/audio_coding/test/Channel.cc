@@ -287,13 +287,14 @@ void Channel::ResetStats() {
   _channelCritSect.Leave();
 }
 
-int16_t Channel::Stats(CodecInst& codecInst,
+int16_t Channel::Stats(int payload_type,
+                       const SdpAudioFormat& format,
                        ACMTestPayloadStats& payloadStats) {
   _channelCritSect.Enter();
   int n;
   payloadStats.payloadType = -1;
   for (n = 0; n < MAX_NUM_PAYLOADS; n++) {
-    if (_payloadStats[n].payloadType == codecInst.pltype) {
+    if (_payloadStats[n].payloadType == payload_type) {
       memcpy(&payloadStats, &_payloadStats[n], sizeof(ACMTestPayloadStats));
       break;
     }
@@ -309,7 +310,7 @@ int16_t Channel::Stats(CodecInst& codecInst,
     }
     payloadStats.frameSizeStats[n].usageLenSec =
         (double)payloadStats.frameSizeStats[n].totalEncodedSamples /
-        (double)codecInst.plfreq;
+        (double)format.clockrate_hz;
 
     payloadStats.frameSizeStats[n].rateBitPerSec =
         payloadStats.frameSizeStats[n].totalPayloadLenByte * 8 /
@@ -363,14 +364,15 @@ void Channel::Stats(uint8_t* payloadType, uint32_t* payloadLenByte) {
   _channelCritSect.Leave();
 }
 
-void Channel::PrintStats(CodecInst& codecInst) {
+void Channel::PrintStats(int payload_type,
+                         const SdpAudioFormat& format) {
   ACMTestPayloadStats payloadStats;
-  Stats(codecInst, payloadStats);
-  printf("%s %d kHz\n", codecInst.plname, codecInst.plfreq / 1000);
+  Stats(payload_type, format, payloadStats);
+  printf("%s %d kHz\n", format.name.c_str(), format.clockrate_hz / 1000);
   printf("=====================================================\n");
   if (payloadStats.payloadType == -1) {
     printf("No Packets are sent with payload-type %d (%s)\n\n",
-           codecInst.pltype, codecInst.plname);
+           payload_type, format.name.c_str());
     return;
   }
   for (int k = 0; k < MAX_NUM_FRAMESIZES; k++) {
@@ -385,7 +387,7 @@ void Channel::PrintStats(CodecInst& codecInst) {
            payloadStats.frameSizeStats[k].maxPayloadLen);
     printf("Maximum Instantaneous Rate.... %.0f bits/sec\n",
            ((double)payloadStats.frameSizeStats[k].maxPayloadLen * 8.0 *
-            (double)codecInst.plfreq) /
+            (double)format.clockrate_hz) /
                (double)payloadStats.frameSizeStats[k].frameSizeSample);
     printf("Number of Packets............. %u\n",
            (unsigned int)payloadStats.frameSizeStats[k].numPackets);

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caddeefd_c8f51831",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 0,
+      "message": "Removing this check would cause slow decoders to not drop temporal and/or spatial layers even when they can\u0027t keep up. Now that you return all higher layer frames at the same time I don\u0027t see why this check would cause a problem.\n\nI would expect TestFrameBuffer2.DropTemporalLayerSlowDecoder and TestFrameBuffer2.DropSpatialLayerSlowDecoder to fail if you remove this check.",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 19
+      },
+      "revId": "a725988ebf7154f8cfab00b476020f58c5e2ec00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

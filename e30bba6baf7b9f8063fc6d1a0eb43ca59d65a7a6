@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d700d14_a6ac2e98",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 1,
+      "message": "This comment should be just before \"frames_to_decode_.clear()\" right? Don\u0027t forget to update it as well.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 40
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "830ef100_6f7efe88",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 1,
+      "message": "Frames are ordered by frame id first and spatial id second, so all you need to do to find the next frame in the superframe is to \"++frame_it\" and then check that it has the expected spatial_layer. Now you can also use a std::vector\u003cFrameMap::iterator\u003e to keep track of which frames to decode instead of a std::vector\u003cVideoLayerFrameId\u003e.",
+      "range": {
+        "startLine": 141,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1415b00_b519b04d",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 1,
+      "message": "I don\u0027t think this is strictly necessary to check. Nice to have a:\n\n  // Check if the next frame has some undecoded references other than\n  // the previous frame in the same superframe.\n  RTC_DCHECK_EQ(next_frame_it-\u003esecond.frame-\u003einter_layer_predicted ? 1 : 0,\n                next_frame_it-\u003esecond.num_missing_decodable)\n\nthough.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d190c2_492b30e5",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 1,
+      "message": "Someone could input a higher layer frame with some other timestamp, and we don\u0027t want to crash on bad input so we have to take care of that as well.",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 66
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3b179a0_d984a087",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-29T14:18:54Z",
+      "side": 1,
+      "message": "Could this have a \"const std::vector\u003cEncodedFrame*\u003e\u0026 frames\" parameter instead?",
+      "range": {
+        "startLine": 656,
+        "startChar": 4,
+        "endLine": 656,
+        "endChar": 38
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

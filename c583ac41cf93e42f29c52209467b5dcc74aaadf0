@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "b2ca518d_77bc75f6",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T15:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc84a1f7_75c8ce47",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 12
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1849a340_0a5af4fb",
         "filename": "call/video_send_stream.cc",
         "patchSetId": 6
@@ -68,6 +92,30 @@
       "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18a83e3_2836211d",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T15:23:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1849a340_0a5af4fb",
+      "range": {
+        "startLine": 86,
+        "startChar": 67,
+        "endLine": 86,
+        "endChar": 71
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "e72d358e_70db6fed",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T15:23:04Z",
+      "side": 1,
+      "message": "Where this constructor is called, frames are passed by-value, and using std::move. Now, current EncodedImage classes don\u0027t really support efficient move, but maybe they should.",
+      "parentUuid": "08fffe69_6a704658",
+      "range": {
+        "startLine": 122,
+        "startChar": 6,
+        "endLine": 122,
+        "endChar": 37
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d70676f7_1fa203c4",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 6
@@ -105,6 +177,30 @@
       "writtenOn": "2018-11-29T12:57:03Z",
       "side": 1,
       "message": "Planned for this CL?",
+      "range": {
+        "startLine": 425,
+        "startChar": 2,
+        "endLine": 425,
+        "endChar": 29
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bca32164_8760ca20",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T15:23:04Z",
+      "side": 1,
+      "message": "Should probably add it in this cl, but not sure there will be any test coverage.\n\nIntention for this cl is to do the minimal work needed to get frames through the pipeline, with one basic test for it.",
+      "parentUuid": "d70676f7_1fa203c4",
       "range": {
         "startLine": 425,
         "startChar": 2,

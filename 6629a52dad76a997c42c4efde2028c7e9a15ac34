@@ -22,6 +22,30 @@
       "revId": "6629a52dad76a997c42c4efde2028c7e9a15ac34",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3fe5ef8_ef809c5a",
+        "filename": "luci-milo.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5025
+      },
+      "writtenOn": "2018-11-29T11:02:33Z",
+      "side": 1,
+      "message": "Yeah, I just need to be able to give them a link to go to. I will probably add a couple more bots, and in that case I\u0027ll put them in an unlisted waterfall.",
+      "parentUuid": "5b26f733_ec3154d9",
+      "range": {
+        "startLine": 305,
+        "startChar": 4,
+        "endLine": 305,
+        "endChar": 28
+      },
+      "revId": "6629a52dad76a997c42c4efde2028c7e9a15ac34",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

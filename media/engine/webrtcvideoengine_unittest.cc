@@ -323,6 +323,18 @@ TEST_F(WebRtcVideoEngineTest, SupportsVideoRotationHeaderExtension) {
   FAIL() << "Video Rotation extension not in header-extension list.";
 }
 
+TEST_F(WebRtcVideoEngineTest, SupportsColorSpaceHeaderExtension) {
+  RtpCapabilities capabilities = engine_.GetCapabilities();
+  ASSERT_FALSE(capabilities.header_extensions.empty());
+  for (const RtpExtension& extension : capabilities.header_extensions) {
+    if (extension.uri == RtpExtension::kColorSpaceUri) {
+      EXPECT_EQ(RtpExtension::kColorSpaceDefaultId, extension.id);
+      return;
+    }
+  }
+  FAIL() << "Color space extension not in header-extension list.";
+}
+
 class WebRtcVideoEngineTestWithGenericDescriptor
     : public WebRtcVideoEngineTest {
  public:

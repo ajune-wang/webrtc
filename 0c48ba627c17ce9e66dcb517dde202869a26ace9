@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59e20fb0_a459732c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2018-11-29T14:38:57Z",
+      "side": 1,
+      "message": "+1. I won\u0027t mind if we disable this feature in all modes. It increases frame encoding time on T0 by 10% and gives just +0.1dB gain.",
+      "range": {
+        "startLine": 797,
+        "startChar": 4,
+        "endLine": 797,
+        "endChar": 65
+      },
+      "revId": "0c48ba627c17ce9e66dcb517dde202869a26ace9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "985418c6_9630409d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2018-11-29T14:38:57Z",
+      "side": 1,
+      "message": "Different references could be used in flexible and non-flexible mode. This doesn\u0027t sound right.",
+      "range": {
+        "startLine": 1132,
+        "startChar": 48,
+        "endLine": 1132,
+        "endChar": 68
+      },
+      "revId": "0c48ba627c17ce9e66dcb517dde202869a26ace9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

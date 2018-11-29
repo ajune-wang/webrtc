@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82929913_9f567143",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T13:55:19Z",
+      "side": 1,
+      "message": "ValueSize is one of two sizes. I realized that there will be parsing problems if this condition is not fulfilled with equality.",
+      "range": {
+        "startLine": 528,
+        "startChar": 25,
+        "endLine": 528,
+        "endChar": 27
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "584ba7d4_157284d6",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T13:55:19Z",
+      "side": 1,
+      "message": "Is this function always called on the same thread or do I need a guard around last_color_space_?",
+      "range": {
+        "startLine": 544,
+        "startChar": 4,
+        "endLine": 544,
+        "endChar": 21
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

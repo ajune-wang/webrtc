@@ -116,6 +116,19 @@ class NullVideoDecoder : public webrtc::VideoDecoder {
   const char* ImplementationName() const override { return "NullVideoDecoder"; }
 };
 
+class EncodedFrameForMediaTransport : public video_coding::EncodedFrame {
+ public:
+  explicit EncodedFrameForMediaTransport(
+      MediaTransportEncodedVideoFrame frame) {
+  }
+  int64_t ReceivedTime() const override {
+    return 0;
+  }
+  int64_t RenderTime() const override {
+    return 0;
+  }
+};
+
 // TODO(https://bugs.webrtc.org/9974): Consider removing this workaround.
 // Maximum time between frames before resetting the FrameBuffer to avoid RTP
 // timestamps wraparound to affect FrameBuffer.
@@ -185,6 +198,9 @@ VideoReceiveStream::VideoReceiveStream(
 
   process_thread_->RegisterModule(&rtp_stream_sync_, RTC_FROM_HERE);
 
+  if (config_.media_transport) {
+    config_.media_transport->SetReceiveVideoSink(this);
+  } else {
   // Register with RtpStreamReceiverController.
   media_receiver_ = receiver_controller->CreateReceiver(
       config_.rtp.remote_ssrc, &rtp_video_stream_receiver_);
@@ -198,13 +214,16 @@ VideoReceiveStream::VideoReceiveStream(
     rtp_receive_statistics_->EnableRetransmitDetection(config.rtp.remote_ssrc,
                                                        true);
   }
+  }
 }
 
 VideoReceiveStream::~VideoReceiveStream() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_sequence_checker_);
   RTC_LOG(LS_INFO) << "~VideoReceiveStream: " << config_.ToString();
   Stop();
-
+  if (config_.media_transport) {
+    config_.media_transport->SetReceiveVideoSink(nullptr);
+  }
   process_thread_->DeRegisterModule(&rtp_stream_sync_);
 }
 
@@ -396,6 +415,15 @@ void VideoReceiveStream::OnCompleteFrame(
   int64_t last_continuous_pid = frame_buffer_->InsertFrame(std::move(frame));
   if (last_continuous_pid != -1)
     rtp_video_stream_receiver_.FrameContinuous(last_continuous_pid);
+}
+
+void VideoReceiveStream::OnData(uint64_t channel_id,
+                                MediaTransportEncodedVideoFrame frame) {
+  OnCompleteFrame(absl::make_unique<EncodedFrameForMediaTransport>(std::move(frame)));
+}
+
+void VideoReceiveStream::OnKeyFrameRequested(uint64_t channel_id) {
+  // TODO(nisse): XXX wire up
 }
 
 void VideoReceiveStream::OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) {

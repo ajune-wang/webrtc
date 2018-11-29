@@ -20,6 +20,7 @@
 #include "absl/types/optional.h"
 
 #include "api/crypto/framedecryptorinterface.h"
+#include "api/video/color_space.h"
 #include "api/video_codecs/video_codec.h"
 #include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
@@ -211,6 +212,7 @@ class RtpVideoStreamReceiver : public RecoveredPacketReceiver,
   rtc::scoped_refptr<FrameDecryptorInterface> frame_decryptor_;
   // Set to true on the first successsfully decrypted frame.
   bool has_received_decrypted_frame_ = false;
+  absl::optional<ColorSpace> last_color_space_;
 };
 
 }  // namespace webrtc

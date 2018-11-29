@@ -140,6 +140,10 @@ const int RtpExtension::kGenericFrameDescriptorDefaultId = 11;
 const char RtpExtension::kEncryptHeaderExtensionsUri[] =
     "urn:ietf:params:rtp-hdrext:encrypt";
 
+const char RtpExtension::kColorSpaceUri[] =
+    "http://www.webrtc.org/experiments/rtp-hdrext/color-space";
+const int RtpExtension::kColorSpaceDefaultId = 12;
+
 constexpr int RtpExtension::kMinId;
 constexpr int RtpExtension::kMaxId;
 constexpr int RtpExtension::kMaxValueSize;
@@ -162,7 +166,8 @@ bool RtpExtension::IsSupportedForVideo(const std::string& uri) {
          uri == webrtc::RtpExtension::kVideoTimingUri ||
          uri == webrtc::RtpExtension::kMidUri ||
          uri == webrtc::RtpExtension::kFrameMarkingUri ||
-         uri == webrtc::RtpExtension::kGenericFrameDescriptorUri;
+         uri == webrtc::RtpExtension::kGenericFrameDescriptorUri ||
+         uri == webrtc::RtpExtension::kColorSpaceUri;
 }
 
 bool RtpExtension::IsEncryptionSupported(const std::string& uri) {

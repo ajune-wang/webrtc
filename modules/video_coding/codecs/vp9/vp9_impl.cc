@@ -1274,6 +1274,8 @@ VideoEncoder::EncoderInfo VP9EncoderImpl::GetEncoderInfo() const {
   info.implementation_name = "libvpx";
   info.scaling_settings = VideoEncoder::ScalingSettings::kOff;
   info.has_trusted_rate_controller = trusted_rate_controller_;
+  info.is_hardware_accelerated = false;
+  info.has_internal_source = false;
   return info;
 }
 

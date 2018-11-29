@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5b41ee37_a2dd3330",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-11-29T22:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a67a1772_51942ec5",
+      "range": {
+        "startLine": 502,
+        "startChar": 2,
+        "endLine": 502,
+        "endChar": 21
+      },
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8643901c_446b1dad",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 7
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "f9a670b1_559ff191",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-11-29T22:15:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1d8d4914_8537838a",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5649485_b9f377de",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -89,6 +131,24 @@
       "side": 1,
       "message": "I don\u0027t think people are more likely to forget the timestamp than they are to forget any other field.",
       "parentUuid": "f5649485_b9f377de",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "350157fb_31a9716c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-11-29T22:15:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7da1076_a1577c0c",
       "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

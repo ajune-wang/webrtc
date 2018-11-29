@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eeea2cc_8e5ee55b",
+        "filename": "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-11-29T21:31:27Z",
+      "side": 1,
+      "message": "The timestamp in RtcEvent might be sufficient. I think it is time since the log was started (https://cs.chromium.org/chromium/src/third_party/webrtc/logging/rtc_event_log/rtc_event_log.proto?q\u003drtc_event_log.proto\u0026dr\u0026l\u003d22).",
+      "revId": "7547c07f99643bb035c882d2b242a0d15fe65d12",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1d8d4914_8537838a",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-29T12:34:13Z",
+      "side": 1,
+      "message": "It is somewhat arbitrary. As a basis, I used the expected number of events per second, but rare events needs to be given extra weight (since they would otherwise not be tested at all). Similarly complex events are given some extra weight sinse there is more to test. But I think this is mostly up to the programmer.",
+      "parentUuid": "8643901c_446b1dad",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5649485_b9f377de",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
         "patchSetId": 7
@@ -56,6 +74,24 @@
       "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7da1076_a1577c0c",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-11-29T12:34:13Z",
+      "side": 1,
+      "message": "I don\u0027t think people are more likely to forget the timestamp than they are to forget any other field.",
+      "parentUuid": "f5649485_b9f377de",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

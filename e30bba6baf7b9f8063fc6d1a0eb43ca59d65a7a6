@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8580bf7_23566e13",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-29T17:08:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d700d14_a6ac2e98",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 40
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "830ef100_6f7efe88",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c197514e_5ee27ae8",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-29T17:08:40Z",
+      "side": 1,
+      "message": "Can\u0027t use iterators in a vector, because we need to advance decodability for each one of the frames, which invalidates iterators.\n\nDone the part about using ++iterator instead of searching for a frame in a map.",
+      "parentUuid": "830ef100_6f7efe88",
+      "range": {
+        "startLine": 141,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1415b00_b519b04d",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2018-11-29T14:18:54Z",
       "side": 1,
       "message": "I don\u0027t think this is strictly necessary to check. Nice to have a:\n\n  // Check if the next frame has some undecoded references other than\n  // the previous frame in the same superframe.\n  RTC_DCHECK_EQ(next_frame_it-\u003esecond.frame-\u003einter_layer_predicted ? 1 : 0,\n                next_frame_it-\u003esecond.num_missing_decodable)\n\nthough.",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7284febb_4c252649",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-29T17:08:40Z",
+      "side": 1,
+      "message": "No, if some previous frames were undecodeded we may have a superframe with only last layer undecodable. It happens if we enable the last layer because the BW suddenly allows that. Then we may lose some packets of a first decododable frame in SL\u003d2. Then, we will trigger your suggested DCHECK or silently pass undecodable frame to decoder.",
+      "parentUuid": "a1415b00_b519b04d",
       "range": {
         "startLine": 148,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "b575301f_acfc361b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-29T17:08:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18d190c2_492b30e5",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 66
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3b179a0_d984a087",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 5
@@ -114,6 +210,30 @@
       "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67faf541_e1dc417e",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-29T17:08:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3b179a0_d984a087",
+      "range": {
+        "startLine": 656,
+        "startChar": 4,
+        "endLine": 656,
+        "endChar": 38
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

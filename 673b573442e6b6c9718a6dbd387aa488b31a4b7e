@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c82d15_632f6ff7",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T10:30:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure internal source encoders would actually work with this class. Should probably\nalways be false.\n\n+emircan@ to comment",
+      "range": {
+        "startLine": 126,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 48
+      },
+      "revId": "673b573442e6b6c9718a6dbd387aa488b31a4b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

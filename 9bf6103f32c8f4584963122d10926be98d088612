@@ -96,6 +96,23 @@
     },
     {
       "key": {
+        "uuid": "83e89b8d_6e5c781e",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T10:30:42Z",
+      "side": 1,
+      "message": "Should this be \"all of\" or \"any of\"?\nFor instance, if we\u0027re having issues with down-scaling due to pipelinening delay in hw codecs, I guess only of them being hw should still mean we need higher encoder usage thresholds?",
+      "revId": "9bf6103f32c8f4584963122d10926be98d088612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0131f655_aa6a5a93",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 2

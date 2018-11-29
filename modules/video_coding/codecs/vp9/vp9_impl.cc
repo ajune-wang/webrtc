@@ -723,7 +723,6 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
       }
     }
     first_active_spatial_layer_id = layer_id.spatial_layer_id;
-    vpx_codec_control(encoder_, VP9E_SET_SVC_LAYER_ID, &layer_id);
   }
 
   RTC_DCHECK_EQ(input_image.width(), raw_->d_w);
@@ -782,9 +781,9 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
     flags = VPX_EFLAG_FORCE_KF;
   }
 
-  if (external_ref_control_) {
+  if (external_ref_control_ || is_flexible_mode_) {
     vpx_svc_ref_frame_config_t ref_config =
-        SetReferences(force_key_frame_, first_active_spatial_layer_id);
+        SetReferences(force_key_frame_, &first_active_spatial_layer_id);
 
     if (VideoCodecMode::kScreensharing == codec_.mode) {
       for (uint8_t sl_idx = 0; sl_idx < num_active_spatial_layers_; ++sl_idx) {
@@ -793,8 +792,18 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
       }
     }
 
+    // Disable all features which allow encoder to spontaneously select
+    // additional references.
+    vpx_codec_control(encoder_, VP9E_SET_SVC_GF_TEMPORAL_REF, 0);
+
     vpx_codec_control(encoder_, VP9E_SET_SVC_REF_FRAME_CONFIG, &ref_config);
   }
+
+  // Set first encoded layer after references are selected, because during that
+  // process we may decide to enable additional spatial layers.
+  vpx_svc_layer_id_t first_active_layer_id = {0};
+  first_active_layer_id.spatial_layer_id = first_active_spatial_layer_id;
+  vpx_codec_control(encoder_, VP9E_SET_SVC_LAYER_ID, &first_active_layer_id);
 
   first_frame_in_picture_ = true;
 
@@ -905,8 +914,6 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     vp9_info->gof_idx = kNoGofIdx;
     FillReferenceIndices(pkt, pics_since_key_, vp9_info->inter_layer_predicted,
                          vp9_info);
-    // TODO(webrtc:9794): Add fake reference to empty reference list to
-    // workaround the frame buffer issue on receiver.
   } else {
     vp9_info->gof_idx =
         static_cast<uint8_t>(pics_since_key_ % gof_.num_frames_in_gof);
@@ -1079,7 +1086,7 @@ void VP9EncoderImpl::UpdateReferenceBuffers(const vpx_codec_cx_pkt& pkt,
 
 vpx_svc_ref_frame_config_t VP9EncoderImpl::SetReferences(
     bool is_key_pic,
-    size_t first_active_spatial_layer_id) {
+    size_t* first_active_spatial_layer_id) {
   // kRefBufIdx, kUpdBufIdx need to be updated to support longer GOFs.
   RTC_DCHECK_LE(gof_.num_frames_in_gof, 4);
 
@@ -1101,7 +1108,8 @@ vpx_svc_ref_frame_config_t VP9EncoderImpl::SetReferences(
   // for temporal references plus 1 buffer for spatial reference. 7 buffers
   // in total.
 
-  for (size_t sl_idx = 0; sl_idx < num_active_spatial_layers_; ++sl_idx) {
+  for (size_t sl_idx = *first_active_spatial_layer_id;
+       sl_idx < num_active_spatial_layers_; ++sl_idx) {
     const size_t gof_idx = pics_since_key_ % gof_.num_frames_in_gof;
 
     if (!is_key_pic) {
@@ -1117,12 +1125,22 @@ vpx_svc_ref_frame_config_t VP9EncoderImpl::SetReferences(
       const size_t curr_pic_num = pics_since_key_ + 1;
       RTC_DCHECK_LT(ref_buf_[buf_idx].pic_num, curr_pic_num);
       const size_t pid_diff = curr_pic_num - ref_buf_[buf_idx].pic_num;
+      // Incorrect spatial layer may be in the buffer due to a key-frame.
+      const bool same_spatial_layer =
+          ref_buf_[buf_idx].spatial_layer_id == sl_idx;
+      const bool correct_pid =
+          pid_diff == gof_.pid_diff[gof_idx][0] || is_flexible_mode_;
 
       // Below code assumes single temporal referecence.
       RTC_DCHECK_EQ(gof_.num_ref_pics[gof_idx], 1);
-      if (pid_diff == gof_.pid_diff[gof_idx][0]) {
+      if (same_spatial_layer && correct_pid) {
         ref_config.lst_fb_idx[sl_idx] = buf_idx;
         ref_config.reference_last[sl_idx] = 1;
+      } else if (sl_idx == *first_active_spatial_layer_id && sl_idx > 0) {
+        // No available temporal reference for this frame and no lower spatial
+        // layers in this subframe. We have to force lower spatial layers.
+        *first_active_spatial_layer_id = 0;
+        return SetReferences(is_key_pic, first_active_spatial_layer_id);
       } else {
         // This reference doesn't match with one specified by GOF. This can
         // only happen if spatial layer is enabled dynamically without key
@@ -1131,14 +1149,15 @@ vpx_svc_ref_frame_config_t VP9EncoderImpl::SetReferences(
       }
     }
 
-    if (is_inter_layer_pred_allowed && sl_idx > first_active_spatial_layer_id) {
+    if (is_inter_layer_pred_allowed &&
+        sl_idx > *first_active_spatial_layer_id) {
       // Set up spatial reference.
       RTC_DCHECK(last_updated_buf_idx);
       ref_config.gld_fb_idx[sl_idx] = *last_updated_buf_idx;
       ref_config.reference_golden[sl_idx] = 1;
     } else {
       RTC_DCHECK(ref_config.reference_last[sl_idx] != 0 ||
-                 sl_idx == first_active_spatial_layer_id ||
+                 sl_idx == *first_active_spatial_layer_id ||
                  inter_layer_pred_ == InterLayerPredMode::kOff);
     }
 

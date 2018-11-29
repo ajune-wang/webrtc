@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a1e5558_6b83fab8",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "Not sure of the exact way to do it, but I think it should be possible to express this with matchers. Maybe this?\n\nEXPECT_THAT(capabilities.header_extensions, Contains(RtpExtension(RtpExtension::kColorSpaceUri, RtpExtension::kColorSpaceDefaultId)));",
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8121e7eb_05d2fd77",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "\"optionally\" ?",
+      "range": {
+        "startLine": 439,
+        "startChar": 61,
+        "endLine": 439,
+        "endChar": 74
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82929913_9f567143",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
         "patchSetId": 3
@@ -25,6 +65,92 @@
     },
     {
       "key": {
+        "uuid": "79199020_0bddd2ab",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "RTC_DCHECK_EQ(data.size(), ValueSize(color_space))",
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d36e6e_020febde",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "for readability maybe\n\u0026video_header-\u003ecolor_space.value()",
+      "range": {
+        "startLine": 397,
+        "startChar": 20,
+        "endLine": 397,
+        "endChar": 47
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6095c204_748e0ed5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "I think this needs to be extended to also handle the case where the color space information is updated on a non-base-layer-frame. In that case we need to populate this data on every frame until a base-layer frame has been produced.",
+      "range": {
+        "startLine": 398,
+        "startChar": 29,
+        "endLine": 398,
+        "endChar": 43
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96949b19_2cfb5700",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "\u0026 .value()",
+      "range": {
+        "startLine": 76,
+        "startChar": 22,
+        "endLine": 76,
+        "endChar": 24
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "584ba7d4_157284d6",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 3
@@ -45,6 +171,30 @@
       "revId": "58fb972fc39457428de48d327481e01588d07381",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "104117e5_5ccd3360",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T14:33:18Z",
+      "side": 1,
+      "message": "Seems to be protected by worker_task_checker_",
+      "parentUuid": "584ba7d4_157284d6",
+      "range": {
+        "startLine": 544,
+        "startChar": 4,
+        "endLine": 544,
+        "endChar": 21
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

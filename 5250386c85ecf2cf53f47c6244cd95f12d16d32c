@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "301a9c39_2b514b25",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T12:41:23Z",
+      "side": 1,
+      "message": "Oh, god yes! :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 77
+      },
+      "revId": "5250386c85ecf2cf53f47c6244cd95f12d16d32c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

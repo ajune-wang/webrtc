@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a734d48_052857d0",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "Maybe a comment to explain to future readers that instantiating RtcEvents will read this clock?",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 626,
+        "endChar": 53
+      },
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4859b9e_9261d054",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "nit: const?",
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "823ccb1a_28109ef0",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "Do you think it would make sense to eliminate the somewhat significant code repetition in this file with helper functions and/or templates?",
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d4329bd_c495f876",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "nit: I think that from the parser\u0027s view, we don\u0027t parse the most important, but rather, all that\u0027s available in the log? (Also, I am not sure what \"important\" means in the context of logging. If someone is sending an RTCP message, they presumably think it to be important? If someone is debugging code, presumably it\u0027s important to one\u0027s employer?)",
+      "range": {
+        "startLine": 963,
+        "startChar": 20,
+        "endLine": 963,
+        "endChar": 29
+      },
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46b3c778_9b76cd7d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "const-ref? Here and elsewhere?",
+      "range": {
+        "startLine": 210,
+        "startChar": 32,
+        "endLine": 211,
+        "endChar": 70
+      },
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

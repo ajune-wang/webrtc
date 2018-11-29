@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d65348b7_a45f0143",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "I think this is more likely to confuse readers, who\u0027d expect this only in the case of a reference or a pointer, than to help them follow whether |direction| is changed inside the loop or not. IMHO, better to remove.",
+      "range": {
+        "startLine": 624,
+        "startChar": 7,
+        "endLine": 624,
+        "endChar": 12
+      },
+      "revId": "e6f8bdeeff536ecb0b3b72849cd10877fc851cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9af86ca9_61432661",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T20:05:43Z",
+      "side": 1,
+      "message": "You should modify this, then. :-)",
+      "range": {
+        "startLine": 313,
+        "startChar": 10,
+        "endLine": 313,
+        "endChar": 26
+      },
+      "revId": "e6f8bdeeff536ecb0b3b72849cd10877fc851cd3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

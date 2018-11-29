@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a67a1772_51942ec5",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T09:25:56Z",
+      "side": 1,
+      "message": "nit: const",
+      "range": {
+        "startLine": 502,
+        "startChar": 2,
+        "endLine": 502,
+        "endChar": 21
+      },
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8643901c_446b1dad",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T09:25:56Z",
+      "side": 1,
+      "message": "Perhaps Björn could suggest a comment here that would explain the nature of the seemingly arbitrary values assigned by this test, so that future developers could follow the same rationale in picking new values? If so, then for the other test(s?), too.",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5649485_b9f377de",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-29T09:25:56Z",
+      "side": 1,
+      "message": "Björn, in a separate discussion we\u0027d recently had, I suggested, for other reasons, to introduce a templatized Verify\u003c\u003e(). If so, that function could first check timestamp_ms(), then call a private VerifyInternal\u003c\u003e() that would check the state specific to the two types (using the code we already have in this file). This, I think, would have the nice side-effect that it would become much harder to forget to check timestamp_ms(), as well as any other common state, should such common state ever be added.",
+      "revId": "cbbfdb7ebd2984b5a54082f6b1d8fb10bcea7e04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

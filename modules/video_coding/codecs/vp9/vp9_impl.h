@@ -72,7 +72,7 @@ class VP9EncoderImpl : public VP9Encoder {
                               const size_t pic_num);
   vpx_svc_ref_frame_config_t SetReferences(
       bool is_key_pic,
-      size_t first_active_spatial_layer_id);
+      size_t* first_active_spatial_layer_id);
 
   bool ExplicitlyConfiguredSpatialLayers() const;
   bool SetSvcRates(const VideoBitrateAllocation& bitrate_allocation);

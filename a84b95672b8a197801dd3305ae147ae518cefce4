@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e4b54608_6a2a9dcc",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "no, they are not.",
+      "parentUuid": "1a8720e9_26d6434d",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 40
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56f898da_85ae3426",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -365,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "4296ad2c_37e593a0",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "it doesn\u0027t hide details from webrtcsdp because it is aware of the class. it might \"hide\" the exact implementation, but that is not the point of the comment.\nIt does hide details from callers of webrtcsdp because those callers are not aware that there are (public) methods to deserialize parts of the SDP. the callers only see two methods:\nSerialize(JSEP) -\u003e SDP\nDeserialize(SDP) -\u003e JSEP",
+      "parentUuid": "816af614_89216164",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e603c6e_2eab47bb",
         "filename": "pc/sdpserializer.h",
         "patchSetId": 2
@@ -514,6 +562,30 @@
     },
     {
       "key": {
+        "uuid": "9247c81a_4233efb6",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "In general i will adopt this convention, but in this case, this is a placeholder for me for work that i still need to do on the feature.",
+      "parentUuid": "09da5674_1e5e133c",
+      "range": {
+        "startLine": 34,
+        "startChar": 10,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e55362e3_9377fc95",
         "filename": "pc/sessiondescription.cc",
         "patchSetId": 2
@@ -525,6 +597,30 @@
       "writtenOn": "2018-11-27T22:03:29Z",
       "side": 1,
       "message": "If you want (I think) you can do an emplace_back to turn these 2 lines into 1.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40aff18f_92a9930d",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "they can already be a 1 liner, i\u0027m just not used to the syntax.\nlist_.push_back({RidDescription(rid, is_paused)});\ni don\u0027t like the syntax for emplace_back:\nlist_.emplace_back(rid, is_paused);\nwhile it is shorter, it seems less natural that i am passing arguments intended for the constructor. also, i believe that with c++11 and the \u0026\u0026 stuff, it is now redundant.",
+      "parentUuid": "e55362e3_9377fc95",
       "range": {
         "startLine": 40,
         "startChar": 8,
@@ -560,6 +656,30 @@
     },
     {
       "key": {
+        "uuid": "0b139bee_a9db185c",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a451abbc_e4c52e99",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 31
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbc5df78_27f82a80",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -583,6 +703,30 @@
     },
     {
       "key": {
+        "uuid": "df7d2d15_329a6892",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "that is mentioned in the documentation above:\n// Simulcast layers are specified in order of preference.\n// Each layer can have a list of alternatives (in order of preference).",
+      "parentUuid": "fbc5df78_27f82a80",
+      "range": {
+        "startLine": 285,
+        "startChar": 10,
+        "endLine": 285,
+        "endChar": 30
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80754499_acbcdeea",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -594,6 +738,30 @@
       "writtenOn": "2018-11-27T22:03:29Z",
       "side": 1,
       "message": "nit: Should we specify what a rid is here? RtpStreamId/RepairedRtpStreamId and how it is the identifier for a layer in the SDP? For someone reading this code w/o looking at the spec they wouldn\u0027t know.",
+      "range": {
+        "startLine": 296,
+        "startChar": 32,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "979f8119_e58d8f48",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "in a few weeks there will be a RidDescription class that will explain it. is it ok to add a \"See RidDescription class\" for now even though the class doesn\u0027t exists?\nNote: i renamed the current RidDescription class to SimulcastLayer because that matches what it is exactly, and rid descriptions should be something else.",
+      "parentUuid": "80754499_acbcdeea",
       "range": {
         "startLine": 296,
         "startChar": 32,
@@ -629,6 +797,30 @@
     },
     {
       "key": {
+        "uuid": "f802ad14_cddd930b",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "i can use the _in suffix, i can also use the correct name + this-\u003e which i haven\u0027t seen in the code:\nthis-\u003erid \u003d rid;\nthis-\u003eis_paused \u003d is_paused;",
+      "parentUuid": "27ee974a_c31e0509",
+      "range": {
+        "startLine": 298,
+        "startChar": 47,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1de9b34_7e79f82e",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -649,6 +841,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6996ea68_78b8cc8d",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "i have decided against the default value for is_paused and against the methods that accept string + bool in favor of methods that accept SimulcastLayer.\nThis makes it more clear, and the syntactic sugar is only used by the unit tests anyway (and i am paying the iron price).",
+      "parentUuid": "e1de9b34_7e79f82e",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -675,6 +891,30 @@
     },
     {
       "key": {
+        "uuid": "19559fa7_4f91f457",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7111c4a_2fccb9e9",
+      "range": {
+        "startLine": 310,
+        "startChar": 5,
+        "endLine": 310,
+        "endChar": 38
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4de2e5e7_acb5eceb",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -698,6 +938,30 @@
     },
     {
       "key": {
+        "uuid": "4028b2fe_74bea4a6",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "i am contemplating the best way to achieve this. i need to validate:\n1. rid format\n2. rids don\u0027t duplicate in a list\n3. rids don\u0027t duplicate in a description\n4. rids match streams\n\nuntil i add the code that can call it i am holding off on the implementation.\nthis could be a DCHECK in AddLayer*, but it could also be something softer in SDP parsing.\n\nBTW, this is something that i really miss from C# - LINQ. this would be so easy:\nrids.Select(x \u003d\u003e x.rid).Distinct().Count() !\u003d rids.Count()",
+      "parentUuid": "4de2e5e7_acb5eceb",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ee9e40_dffdbbe0",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -715,6 +979,24 @@
     },
     {
       "key": {
+        "uuid": "362bd67c_1c5dc5a3",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "Ok, but it is not an actual sentence, it\u0027s just a noun (+ adjective). \n:).",
+      "parentUuid": "b1ee9e40_dffdbbe0",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b79fbca7_a0804e85",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -729,6 +1011,24 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b2b7925_43171241",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2769,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b79fbca7_a0804e85",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -755,6 +1055,30 @@
     },
     {
       "key": {
+        "uuid": "b570154c_b0ee2192",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2770,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "this was already fixed in patch 3. basically added an empty() method to simulcast so that i can tell if it needs to be set.\ni might need to use a similar boolean to check if it was reported more than once, because then all of it needs to be discarded (+ future lines).",
+      "parentUuid": "a0d364a0_b9c1b238",
+      "range": {
+        "startLine": 2770,
+        "startChar": 2,
+        "endLine": 2770,
+        "endChar": 32
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "516fba4b_a93a89ea",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -778,6 +1102,30 @@
     },
     {
       "key": {
+        "uuid": "2146bd34_b63fefd7",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2771,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "was removed",
+      "parentUuid": "516fba4b_a93a89ea",
+      "range": {
+        "startLine": 2771,
+        "startChar": 7,
+        "endLine": 2771,
+        "endChar": 19
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f62e748_e2784f4d",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -798,6 +1146,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8e3edf2_b3e6056b",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2978,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "was removed to allow all sections",
+      "parentUuid": "5f62e748_e2784f4d",
+      "range": {
+        "startLine": 2978,
+        "startChar": 55,
+        "endLine": 2978,
+        "endChar": 63
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -847,6 +1219,30 @@
     },
     {
       "key": {
+        "uuid": "bc478671_a77b49ef",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "this is a placeholder and will be done as part of the current project. if it remains in the code, i will add a bug.\nThere is no specific bug for the little \"TODOs\" using the general bug for this change doesn\u0027t really add value.\nIn a world with branches, i would only merge the work after all TODOs have been taken care of. perhaps i need to find a better way to accomplish this.",
+      "parentUuid": "fd86f179_e35c8aea",
+      "range": {
+        "startLine": 3076,
+        "startChar": 12,
+        "endLine": 3076,
+        "endChar": 18
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bdc85529_219ee6f3",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -867,6 +1263,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5190e56_02b0bf6a",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3078,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "was removed",
+      "parentUuid": "bdc85529_219ee6f3",
+      "range": {
+        "startLine": 3078,
+        "startChar": 8,
+        "endLine": 3078,
+        "endChar": 57
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -893,6 +1313,30 @@
     },
     {
       "key": {
+        "uuid": "6f2e1ce3_414cc4cf",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3919,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f713629e_46e5438a",
+      "range": {
+        "startLine": 3919,
+        "startChar": 46,
+        "endLine": 3919,
+        "endChar": 52
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13f8d0ad_ba13b8d5",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 2
@@ -913,6 +1357,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26a6cb06_1dee383d",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "correct, serialization and deserialization are more thoroughly tested in a separate class (there is a comment above this test method). so the test assumes that those are working (or breaking a different test). this is also why the equality check is so \"shallow\" (just counting the number of streams).",
+      "parentUuid": "13f8d0ad_ba13b8d5",
+      "range": {
+        "startLine": 3945,
+        "startChar": 2,
+        "endLine": 3945,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

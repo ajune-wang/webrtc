@@ -22,6 +22,30 @@
       "revId": "44b358a18e433f9e1be1e91c29049234655e3c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9455370b_471193d0",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-29T00:56:30Z",
+      "side": 1,
+      "message": "i see what you mean. yes, i will add this validation + a unit test.",
+      "parentUuid": "2e939f7d_f29b7460",
+      "range": {
+        "startLine": 2976,
+        "startChar": 8,
+        "endLine": 2976,
+        "endChar": 21
+      },
+      "revId": "44b358a18e433f9e1be1e91c29049234655e3c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

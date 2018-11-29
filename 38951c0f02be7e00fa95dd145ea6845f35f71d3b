@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d848b46c_04db40ff",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T16:26:28Z",
+      "side": 1,
+      "message": "I\u0027m still a bit confused about optionals in ternary expressions, but I think this should be either absl::make_optional (without explicit template argument) or absl::optional\u003cColorSpace\u003e.",
+      "range": {
+        "startLine": 160,
+        "startChar": 33,
+        "endLine": 160,
+        "endChar": 58
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00693848_04e1a2d7",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T16:26:28Z",
+      "side": 1,
+      "message": "Floating point is not really involved. Maybe \"fractional\" or \"non-integral\" instead?\n\nThe static factor, is that a single one that could be mentioned explicitly in this comment, or something different for each field? Might alos make sense to say if numbers are signed or unsigned (and if signed, how negative numbers are represented, unless there\u0027s some standard conventions that apply in this context).",
+      "range": {
+        "startLine": 440,
+        "startChar": 13,
+        "endLine": 440,
+        "endChar": 18
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e65212a1_421d5e1f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-29T16:26:28Z",
+      "side": 1,
+      "message": "Maybe |previous_color_space|? Or can we get by with a single local variable? Might be worth an extra copy to make the code simpler.",
+      "range": {
+        "startLine": 373,
+        "startChar": 29,
+        "endLine": 373,
+        "endChar": 53
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

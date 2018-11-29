@@ -455,5 +455,118 @@ TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
   EXPECT_GT(min_estimate / max_estimate, 0.95);
 }
 
+TEST_F(GoogCcNetworkControllerTest,
+       LossBasedEstimatorUpdatesTargetRateBasedOnLinkCapacity) {
+  // Same as UpdatesTargetRateBasedOnLinkCapacity test above but with
+  // LossBasedControl enabled and a bit of packet loss.
+  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
+  Scenario s("googcc_unit/target_capacity", false);
+  SimulatedTimeClientConfig config;
+  config.transport.cc =
+      TransportControllerConfig::CongestionController::kGoogCcFeedback;
+  config.transport.rates.min_rate = DataRate::kbps(10);
+  config.transport.rates.max_rate = DataRate::kbps(1500);
+  config.transport.rates.start_rate = DataRate::kbps(300);
+  NetworkNodeConfig net_conf;
+  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = DataRate::kbps(500);
+    c->simulation.delay = TimeDelta::ms(100);
+    c->simulation.loss_rate = 0.01;
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.delay = TimeDelta::ms(100);
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  StatesPrinter* truth = s.CreatePrinter(
+      "send.truth.txt", TimeDelta::PlusInfinity(), {send_net->ConfigPrinter()});
+  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
+      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+
+  truth->PrintRow();
+  s.RunFor(TimeDelta::seconds(25));
+  truth->PrintRow();
+  EXPECT_NEAR(client->target_rate_kbps(), 450, 100);
+
+  send_net->UpdateConfig([](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = DataRate::kbps(800);
+    c->simulation.delay = TimeDelta::ms(100);
+  });
+
+  truth->PrintRow();
+  s.RunFor(TimeDelta::seconds(20));
+  truth->PrintRow();
+  EXPECT_NEAR(client->target_rate_kbps(), 750, 150);
+
+  send_net->UpdateConfig([](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = DataRate::kbps(100);
+    c->simulation.delay = TimeDelta::ms(200);
+  });
+  ret_net->UpdateConfig(
+      [](NetworkNodeConfig* c) { c->simulation.delay = TimeDelta::ms(200); });
+
+  truth->PrintRow();
+  s.RunFor(TimeDelta::seconds(30));
+  truth->PrintRow();
+  EXPECT_NEAR(client->target_rate_kbps(), 90, 20);
+}
+
+TEST_F(GoogCcNetworkControllerTest,
+       LossBasedEstimatorDoesNotCollapseOnHighLoss) {
+  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
+  Scenario s("googcc_unit/high_loss_channel", false);
+  SimulatedTimeClientConfig config;
+  config.transport.cc =
+      TransportControllerConfig::CongestionController::kGoogCcFeedback;
+  config.transport.rates.min_rate = DataRate::kbps(10);
+  config.transport.rates.max_rate = DataRate::kbps(1500);
+  config.transport.rates.start_rate = DataRate::kbps(300);
+  NetworkNodeConfig net_conf;
+  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = DataRate::kbps(2000);
+    c->simulation.delay = TimeDelta::ms(200);
+    c->simulation.loss_rate = 0.1;
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.delay = TimeDelta::ms(200);
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
+      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+
+  s.RunFor(TimeDelta::seconds(120));
+  // Without LossBasedControl, bandwidth drops to ~10 kbps.
+  EXPECT_GT(client->target_rate_kbps(), 100);
+}
+
+TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {
+  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
+  Scenario s("googcc_unit/moderate_loss_channel", false);
+  SimulatedTimeClientConfig config;
+  config.transport.cc =
+      TransportControllerConfig::CongestionController::kGoogCcFeedback;
+  config.transport.rates.min_rate = DataRate::kbps(10);
+  config.transport.rates.max_rate = DataRate::kbps(5000);
+  config.transport.rates.start_rate = DataRate::kbps(300);
+  NetworkNodeConfig net_conf;
+  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = DataRate::kbps(5000);
+    c->simulation.delay = TimeDelta::ms(100);
+    c->simulation.loss_rate = 0.02;
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+    c->simulation.delay = TimeDelta::ms(100);
+    c->update_frequency = TimeDelta::ms(5);
+  });
+  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
+      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+
+  s.RunFor(TimeDelta::seconds(60));
+  // Without LossBasedControl, bitrate reaches above 4 mbps.
+  EXPECT_NEAR(client->target_rate_kbps(), 2000, 500);
+}
+
 }  // namespace test
 }  // namespace webrtc

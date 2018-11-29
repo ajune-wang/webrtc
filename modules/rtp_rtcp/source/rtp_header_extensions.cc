@@ -436,10 +436,11 @@ bool FrameMarkingExtension::Write(rtc::ArrayView<uint8_t> data,
 
 // Color space including HDR metadata as an optional field.
 //
-// RTP header extension to carry HDR metadata.
-// Float values are upscaled by a static factor and transmitted as integers.
+// RTP header extension to carry color space information and optionally HDR
+// metadata. Float values are upscaled by a static factor and transmitted as
+// integers.
 //
-// Data layout with HDR metadata
+// Data layout of color space with HDR metadata
 //    0                   1                   2                   3
 //    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -460,7 +461,7 @@ bool FrameMarkingExtension::Write(rtc::ArrayView<uint8_t> data,
 //   |     max_content_light_level    | max_frame_average_light_level  |
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
-// Data layout without HDR metadata
+// Data layout of color space without HDR metadata
 //    0                   1                   2                   3
 //    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
 //   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -524,7 +525,7 @@ bool ColorSpaceExtension::Parse(rtc::ArrayView<const uint8_t> data,
 
 bool ColorSpaceExtension::Write(rtc::ArrayView<uint8_t> data,
                                 const ColorSpace& color_space) {
-  RTC_DCHECK(data.size() >= ValueSize(color_space));
+  RTC_DCHECK_EQ(data.size(), ValueSize(color_space));
   size_t offset = 0;
   // Write color space information.
   data.data()[offset++] = static_cast<uint8_t>(color_space.primaries());

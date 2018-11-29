@@ -538,7 +538,13 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       &webrtc_rtp_header.video_header().video_timing);
   packet.GetExtension<PlayoutDelayLimits>(
       &webrtc_rtp_header.video_header().playout_delay);
-
+  webrtc_rtp_header.video_header().color_space =
+      packet.GetExtension<ColorSpaceExtension>();
+  if (webrtc_rtp_header.video_header().color_space) {
+    last_color_space_ = webrtc_rtp_header.video_header().color_space;
+  } else if (last_color_space_) {
+    webrtc_rtp_header.video_header().color_space = last_color_space_;
+  }
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor_wire;
   generic_descriptor_wire.emplace();
   if (packet.GetExtension<RtpGenericFrameDescriptorExtension>(

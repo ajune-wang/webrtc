@@ -46,6 +46,8 @@ using cricket::LOCAL_PORT_TYPE;
 using cricket::RELAY_PORT_TYPE;
 using cricket::SessionDescription;
 using cricket::MediaProtocolType;
+using cricket::SimulcastDescription;
+using cricket::SimulcastLayer;
 using cricket::StreamParams;
 using cricket::STUN_PORT_TYPE;
 using cricket::TransportDescription;
@@ -1300,6 +1302,13 @@ class WebRtcSdpTest : public testing::Test {
     }
   }
 
+  void CompareSimulcastDescription(const SimulcastDescription& simulcast1,
+                                   const SimulcastDescription& simulcast2) {
+    EXPECT_EQ(simulcast1.send_layers().size(), simulcast2.send_layers().size());
+    EXPECT_EQ(simulcast1.receive_layers().size(),
+              simulcast2.receive_layers().size());
+  }
+
   void CompareDataContentDescription(const DataContentDescription* dcd1,
                                      const DataContentDescription* dcd2) {
     EXPECT_EQ(dcd1->use_sctpmap(), dcd2->use_sctpmap());
@@ -1346,6 +1355,10 @@ class WebRtcSdpTest : public testing::Test {
         const DataContentDescription* dcd2 = c2.media_description()->as_data();
         CompareDataContentDescription(dcd1, dcd2);
       }
+
+      CompareSimulcastDescription(
+          c1.media_description()->simulcast_description(),
+          c2.media_description()->simulcast_description());
     }
 
     // group
@@ -3903,4 +3916,34 @@ TEST_F(WebRtcSdpTest, DeserializeEmptySessionName) {
   std::string sdp = kSdpString;
   Replace("s=-\r\n", "s= \r\n", &sdp);
   EXPECT_TRUE(SdpDeserialize(sdp, &jsep_desc));
+}
+
+// Simulcast malformed input test for invalid format.
+TEST_F(WebRtcSdpTest, DeserializeSimulcastNegative_EmptyAttribute) {
+  ExpectParseFailureWithNewLines("a=ssrc:3 label:video_track_id_1\r\n",
+                                 "a=simulcast:\r\n", "a=simulcast:");
+}
+
+// Simulcast serialization integration test.
+// This test will serialize and deserialize the description and compare.
+// More detailed tests for parsing simulcast can be found in
+// unit tests for SdpSerializer.
+TEST_F(WebRtcSdpTest, SerializeSimulcast_ComplexSerialization) {
+  MakeUnifiedPlanDescription();
+  auto description = jdesc_.description();
+  auto media = description->GetContentDescriptionByName(kVideoContentName3);
+  SimulcastDescription& simulcast = media->simulcast_description();
+  simulcast.send_layers().AddLayerWithAlternatives(
+      {SimulcastLayer("2", false), SimulcastLayer("1", true)});
+  simulcast.send_layers().AddLayerWithAlternatives(
+      {SimulcastLayer("4", false), SimulcastLayer("3", false)});
+
+  simulcast.receive_layers().AddLayerWithAlternatives(
+      {SimulcastLayer("6", false), SimulcastLayer("7", false)});
+  simulcast.receive_layers().AddLayer(SimulcastLayer("8", true));
+  simulcast.receive_layers().AddLayerWithAlternatives(
+      {SimulcastLayer("9", false), SimulcastLayer("10", true),
+       SimulcastLayer("11", false)});
+
+  TestSerialize(jdesc_);
 }

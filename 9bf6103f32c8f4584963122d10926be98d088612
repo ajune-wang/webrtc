@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f4b4906_1d383e08",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-29T10:00:40Z",
+      "side": 1,
+      "message": "Similar to the comment above, you could mention what happens if this field is true: we use different thresholds for the CPU adaptation.",
+      "range": {
+        "startLine": 151,
+        "startChar": 42,
+        "endLine": 151,
+        "endChar": 64
+      },
+      "revId": "9bf6103f32c8f4584963122d10926be98d088612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ee5d5d_7f1436f6",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-29T10:00:40Z",
+      "side": 1,
+      "message": "Let\u0027s add a comment that internal source encoders are deprecated, and that support for them will be phased out. (sometime...)",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 6
+      },
+      "revId": "9bf6103f32c8f4584963122d10926be98d088612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0131f655_aa6a5a93",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-29T10:00:40Z",
+      "side": 1,
+      "message": "I know it\u0027s optional, but I would add {} here :)",
+      "range": {
+        "startLine": 1030,
+        "startChar": 65,
+        "endLine": 1030,
+        "endChar": 66
+      },
+      "revId": "9bf6103f32c8f4584963122d10926be98d088612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2e4ed0_833b4920",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-29T10:00:40Z",
+      "side": 1,
+      "message": "and here",
+      "range": {
+        "startLine": 1051,
+        "startChar": 65,
+        "endLine": 1051,
+        "endChar": 66
+      },
+      "revId": "9bf6103f32c8f4584963122d10926be98d088612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

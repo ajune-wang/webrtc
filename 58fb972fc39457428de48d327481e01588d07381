@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c135c5fa_bbdcb96e",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Yes, that\u0027s nicer. I\u0027ve updated the other tests as well.",
+      "parentUuid": "3a1e5558_6b83fab8",
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8121e7eb_05d2fd77",
         "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "58fb972fc39457428de48d327481e01588d07381",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e195faad_dbbf2471",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8121e7eb_05d2fd77",
+      "range": {
+        "startLine": 439,
+        "startChar": 61,
+        "endLine": 439,
+        "endChar": 74
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "212a7089_44102454",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79199020_0bddd2ab",
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d36e6e_020febde",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -105,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "fdc6352d_7a786fe0",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Not sure if one should care about this or not, \nbut the good thing with the current writing is that you could change color_space to a unique_pointer if needed without having to change anything else.",
+      "parentUuid": "e3d36e6e_020febde",
+      "range": {
+        "startLine": 397,
+        "startChar": 20,
+        "endLine": 397,
+        "endChar": 47
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6095c204_748e0ed5",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -116,6 +200,30 @@
       "writtenOn": "2018-11-29T14:33:18Z",
       "side": 1,
       "message": "I think this needs to be extended to also handle the case where the color space information is updated on a non-base-layer-frame. In that case we need to populate this data on every frame until a base-layer frame has been produced.",
+      "range": {
+        "startLine": 398,
+        "startChar": 29,
+        "endLine": 398,
+        "endChar": 43
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24e2ba7b_ffafb8a5",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Good catch, will look into that.",
+      "parentUuid": "6095c204_748e0ed5",
       "range": {
         "startLine": 398,
         "startChar": 29,
@@ -186,6 +294,30 @@
       "side": 1,
       "message": "Seems to be protected by worker_task_checker_",
       "parentUuid": "584ba7d4_157284d6",
+      "range": {
+        "startLine": 544,
+        "startChar": 4,
+        "endLine": 544,
+        "endChar": 21
+      },
+      "revId": "58fb972fc39457428de48d327481e01588d07381",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10ddbe43_af50cb1d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-29T15:37:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "104117e5_5ccd3360",
       "range": {
         "startLine": 544,
         "startChar": 4,

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "374a64ee_c07ba243",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "You can leave this in here if you\u0027d like, but generally I would suggest breaking apart CLs if you can. It helps:\n-Reduce the complexity and size of CLs which is easier to review\n-More easily submit smaller changes\n\nEven when you have multiple changes that are dependent on one another you can break it apart and chain the CLs in review. It usually helps the review process go faster. But of course rules can be broken and sometimes it makes sense to have a larger CL.",
+      "parentUuid": "e4b54608_6a2a9dcc",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 40
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56f898da_85ae3426",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -413,6 +437,30 @@
     },
     {
       "key": {
+        "uuid": "a438d8f5_33e36b47",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "I see. I was confusing \"exact implementation\" with what you mean by implementation details (that there is a serialization specifically for simulcast).",
+      "parentUuid": "4296ad2c_37e593a0",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e603c6e_2eab47bb",
         "filename": "pc/sdpserializer.h",
         "patchSetId": 2
@@ -586,6 +634,30 @@
     },
     {
       "key": {
+        "uuid": "cef7f481_77a1b2af",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "As we said offline, I think it\u0027s more important for something that might not be addressed in follow up CLs right away.",
+      "parentUuid": "9247c81a_4233efb6",
+      "range": {
+        "startLine": 34,
+        "startChar": 10,
+        "endLine": 34,
+        "endChar": 16
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e55362e3_9377fc95",
         "filename": "pc/sessiondescription.cc",
         "patchSetId": 2
@@ -621,6 +693,30 @@
       "side": 1,
       "message": "they can already be a 1 liner, i\u0027m just not used to the syntax.\nlist_.push_back({RidDescription(rid, is_paused)});\ni don\u0027t like the syntax for emplace_back:\nlist_.emplace_back(rid, is_paused);\nwhile it is shorter, it seems less natural that i am passing arguments intended for the constructor. also, i believe that with c++11 and the \u0026\u0026 stuff, it is now redundant.",
       "parentUuid": "e55362e3_9377fc95",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56148536_5abd0955",
+        "filename": "pc/sessiondescription.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "40aff18f_92a9930d",
       "range": {
         "startLine": 40,
         "startChar": 8,
@@ -727,6 +823,30 @@
     },
     {
       "key": {
+        "uuid": "cd2e9337_118ecb87",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "Yeah that\u0027s fine. What I was envisioning was explicitly describing exactly the preference of these Streams, and then seeing how that is translated to code. It might describing in too great of detail (that\u0027s why I phrased it as a question).",
+      "parentUuid": "df7d2d15_329a6892",
+      "range": {
+        "startLine": 285,
+        "startChar": 10,
+        "endLine": 285,
+        "endChar": 30
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80754499_acbcdeea",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -771,6 +891,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a566adb_99d3b8e9",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "I don\u0027t mind leaving it for now. You could write a TODO for later if you\u0027d like.",
+      "parentUuid": "979f8119_e58d8f48",
+      "range": {
+        "startLine": 296,
+        "startChar": 32,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -821,6 +965,30 @@
     },
     {
       "key": {
+        "uuid": "9583d6cc_1ef724b1",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "I usually lean towards being consistent with the codebase. I\u0027ll let you make the call though if you feel strongly about using this-\u003e.",
+      "parentUuid": "f802ad14_cddd930b",
+      "range": {
+        "startLine": 298,
+        "startChar": 47,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e1de9b34_7e79f82e",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -856,6 +1024,30 @@
       "side": 1,
       "message": "i have decided against the default value for is_paused and against the methods that accept string + bool in favor of methods that accept SimulcastLayer.\nThis makes it more clear, and the syntactic sugar is only used by the unit tests anyway (and i am paying the iron price).",
       "parentUuid": "e1de9b34_7e79f82e",
+      "range": {
+        "startLine": 308,
+        "startChar": 0,
+        "endLine": 308,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7117edd5_18f7e3bc",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "sgtm.",
+      "parentUuid": "6996ea68_78b8cc8d",
       "range": {
         "startLine": 308,
         "startChar": 0,
@@ -962,6 +1154,30 @@
     },
     {
       "key": {
+        "uuid": "5e4944f5_da6f457c",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "That\u0027s a nifty feature. I\u0027ve never programmed C# (gasp), so I haven\u0027t been exposed this beautiful world ;).\n\nSounds good on adding it later. Steve has mentioned that SessionDescription structures like this should be more \"dummy containers\" and then we actually enforce things like not have duplication in other code like the parser/serializer.",
+      "parentUuid": "4028b2fe_74bea4a6",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1ee9e40_dffdbbe0",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -991,6 +1207,24 @@
       "side": 1,
       "message": "Ok, but it is not an actual sentence, it\u0027s just a noun (+ adjective). \n:).",
       "parentUuid": "b1ee9e40_dffdbbe0",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dd1d71c_26a4ad9a",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me what to do with short comments like this. For cases like this consistency is what the style guide says:\n\"Shorter comments, such as comments at the end of a line of code, can sometimes be less formal, but you should be consistent with your style.\"\nhttps://google.github.io/styleguide/cppguide.html#Punctuation,_Spelling_and_Grammar",
+      "parentUuid": "362bd67c_1c5dc5a3",
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -1243,6 +1477,30 @@
     },
     {
       "key": {
+        "uuid": "c22dbaea_37b5defb",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "I think TODOs with your username are fine if it will be done as part of the work.",
+      "parentUuid": "bc478671_a77b49ef",
+      "range": {
+        "startLine": 3076,
+        "startChar": 12,
+        "endLine": 3076,
+        "endChar": 18
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdc85529_219ee6f3",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -1372,6 +1630,30 @@
       "side": 1,
       "message": "correct, serialization and deserialization are more thoroughly tested in a separate class (there is a comment above this test method). so the test assumes that those are working (or breaking a different test). this is also why the equality check is so \"shallow\" (just counting the number of streams).",
       "parentUuid": "13f8d0ad_ba13b8d5",
+      "range": {
+        "startLine": 3945,
+        "startChar": 2,
+        "endLine": 3945,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "453bf00d_225b9754",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-29T21:01:11Z",
+      "side": 1,
+      "message": "I think you\u0027re right that it\u0027s probably fine to leave it as is, although it does potentially leave an untested place for a bug if we didn\u0027t deserialize the \"a\u003dsimulcast:\" line correctly, because this is an added functionality that webrtcsdp.cc does.",
+      "parentUuid": "26a6cb06_1dee383d",
       "range": {
         "startLine": 3945,
         "startChar": 2,

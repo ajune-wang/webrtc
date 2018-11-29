@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d37dba6f_d325d672",
+        "filename": "call/call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T12:57:03Z",
+      "side": 1,
+      "message": "nit: Little bit of shame to take this lock only for a dcheck. Would it be easy to for instance dcheck a lambda that takes the lock and returns equality?\nIf it\u0027s messy please ignore this comment :)",
+      "range": {
+        "startLine": 758,
+        "startChar": 19,
+        "endLine": 758,
+        "endChar": 23
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d70676f7_1fa203c4",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-11-29T12:57:03Z",
+      "side": 1,
+      "message": "Planned for this CL?",
+      "range": {
+        "startLine": 425,
+        "startChar": 2,
+        "endLine": 425,
+        "endChar": 29
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

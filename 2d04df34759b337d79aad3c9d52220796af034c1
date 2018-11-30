@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "243f80a4_fdf09207",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T14:19:33Z",
+      "side": 1,
+      "message": "Ah, I see now, this check replaces the \"if (next_frame_it_ !\u003d frames_.end())\" check in the old code. You are correct.",
+      "parentUuid": "158d59eb_d4802ef0",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64521de9_94141c2c",
         "filename": "modules/video_coding/frame_buffer2.h",
         "patchSetId": 12

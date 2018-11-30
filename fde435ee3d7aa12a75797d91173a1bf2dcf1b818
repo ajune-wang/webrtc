@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "24cbf5ce_e0ed39c5",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1d19089_9609c394",
+      "range": {
+        "startLine": 141,
+        "startChar": 41,
+        "endLine": 142,
+        "endChar": 0
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a49bedda_27f059d9",
         "filename": "call/rtp_payload_params_unittest.cc",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-30T10:00:46Z",
       "side": 1,
       "message": "no need to convert color_space to optional before compare",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a89ad5c_9507985c",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "Not needed perhaps, but I think it\u0027s better to be explicit.",
+      "parentUuid": "a49bedda_27f059d9",
       "range": {
         "startLine": 135,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "df9d2225_944b5f50",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "you\u0027re right, thanks for spotting this. Updated.\n\nPerhaps the layout of ID and length should not be part of the definition of each header extension since this will depend on if it\u0027s one- or two-byte header extension.",
+      "parentUuid": "aa369a3c_380253d6",
+      "range": {
+        "startLine": 468,
+        "startChar": 6,
+        "endLine": 468,
+        "endChar": 38
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cabc0c2f_4601f246",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-30T10:00:46Z",
       "side": 1,
       "message": "what are the reasons to prefer last packet e.g. over first packet?",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "540f6923_5c0423be",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "In this particular case there\u0027s no other reason than to be consistent. When decoding it\u0027s convenient to have all extra stuff in the same packet.",
+      "parentUuid": "cabc0c2f_4601f246",
       "range": {
         "startLine": 65,
         "startChar": 6,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d2ba1a81_697e6780",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "Yes, Erik had a similar comment. You also have a good point below that it could happen that we change from having explicit color space to not having explicit color space in which case we should stop to propagate it, or rather we should stop to add it to the received packets.\n\nI will rewrite this code taking that into consideration.",
+      "parentUuid": "2865e610_b775d597",
+      "range": {
+        "startLine": 393,
+        "startChar": 39,
+        "endLine": 393,
+        "endChar": 52
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "add63a0d_27f5f2ed",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 5
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fb63788b_6cdcf696",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "add63a0d_27f5f2ed",
+      "range": {
+        "startLine": 395,
+        "startChar": 36,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95c7774a_c5b6bb74",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 5
@@ -151,6 +295,30 @@
       "writtenOn": "2018-11-30T10:00:46Z",
       "side": 1,
       "message": "it is possible to rely on caller to always set last_color_space on key frames?\n\nIs it possible that caller decided to switch from video stream where color_space should be set to stream where it can\u0027t be set?",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 43
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a2f94a2_7eb8e4d3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "yes, see answer above.",
+      "parentUuid": "95c7774a_c5b6bb74",
       "range": {
         "startLine": 398,
         "startChar": 15,

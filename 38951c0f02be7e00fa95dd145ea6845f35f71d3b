@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7e1999df_ede62d2e",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "I\u0027m referring to the float in the underlying structure that\u0027s transmitted. I have updated the comment to make this clear.\n\nThe static factor is different depending on the expected range. All these numbers are positive by their nature.",
+      "parentUuid": "00693848_04e1a2d7",
+      "range": {
+        "startLine": 440,
+        "startChar": 13,
+        "endLine": 440,
+        "endChar": 18
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e65212a1_421d5e1f",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 4
@@ -83,6 +107,30 @@
       "writtenOn": "2018-11-29T16:26:28Z",
       "side": 1,
       "message": "Maybe |previous_color_space|? Or can we get by with a single local variable? Might be worth an extra copy to make the code simpler.",
+      "range": {
+        "startLine": 373,
+        "startChar": 29,
+        "endLine": 373,
+        "endChar": 53
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec469bdc_949da57f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T11:51:15Z",
+      "side": 1,
+      "message": "I will take this into account when rewriting the code to handle the different layers correctly.",
+      "parentUuid": "e65212a1_421d5e1f",
       "range": {
         "startLine": 373,
         "startChar": 29,

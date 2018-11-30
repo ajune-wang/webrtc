@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8aeebc18_270f615d",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "Sure. it shares the header of the method above",
+      "parentUuid": "1efc082c_7b67194d",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f6a05a7_1529478e",
         "filename": "pc/simulcastdescription.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f58fd5_96b40594",
+        "filename": "pc/simulcastdescription.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f6a05a7_1529478e",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cb5b1f46_4e18bc78",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "i did that originally, but Steve recommended against it. His logic (which i accept) is that c++ constness is different than Java/C# as entire objects can be marked constant as a way of forcing immutability.",
+      "parentUuid": "e8e7e150_98f13953",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8e7915b_34ba0e18",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 5
@@ -91,6 +163,30 @@
       "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7c944de_9164d89e",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "a\u003drid:1\na\u003drid:2\na\u003dsimulcast send 3,4\nis an example of the rids in simulcast not matching the rids in the sdp.",
+      "parentUuid": "e8e7915b_34ba0e18",
+      "range": {
+        "startLine": 3079,
+        "startChar": 20,
+        "endLine": 3079,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0bfb3a47_322e53b9",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3941,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b29ea8d3_5f7b6ec6",
+      "range": {
+        "startLine": 3941,
+        "startChar": 3,
+        "endLine": 3941,
+        "endChar": 28
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36a46ea3_205efc87",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 5
@@ -137,6 +257,30 @@
       "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39a5ae5b_9dd955f0",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T19:28:48Z",
+      "side": 1,
+      "message": "The second line specifies what we expect to see in the line that failed.\nSo basically the test looks at the error.line and checks that it contains this text.\nThe goal is that it verifies that the failure happened because of the line we changed/injected.\n\nThe test has 2 well-formed simulcast lines (which should cause the error)\na\u003dsimulcast:send 1\na\u003dsimulcast:recv 2",
+      "parentUuid": "36a46ea3_205efc87",
+      "range": {
+        "startLine": 3945,
+        "startChar": 33,
+        "endLine": 3945,
+        "endChar": 47
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

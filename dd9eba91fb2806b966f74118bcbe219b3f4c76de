@@ -22,6 +22,30 @@
       "revId": "dd9eba91fb2806b966f74118bcbe219b3f4c76de",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4953f4a_29d98a8d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-11-30T09:27:01Z",
+      "side": 1,
+      "message": "Disappointing, since this type would otherwise be trivially copyable: https://godbolt.org/z/oQ9_EE\nI\u0027m seriously starting to doubt the net usefulness of these style checks. What\u0027s the binary size effect of de-inlining this?\n\n(Note: This doesn\u0027t block this CL.)",
+      "parentUuid": "5e339ce7_a176c96e",
+      "range": {
+        "startLine": 271,
+        "startChar": 2,
+        "endLine": 271,
+        "endChar": 40
+      },
+      "revId": "dd9eba91fb2806b966f74118bcbe219b3f4c76de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

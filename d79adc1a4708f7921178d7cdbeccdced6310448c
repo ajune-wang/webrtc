@@ -69,6 +69,24 @@
       "revId": "d79adc1a4708f7921178d7cdbeccdced6310448c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3bb59e4_9aa75eaa",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-30T14:58:30Z",
+      "side": 1,
+      "message": "Heh, I spent some time printing stuff and the callee state looks good:\n\npc-\u003eSignalingState(): kStable\npc-\u003eIceConnectionState(): kIceConnectionConnected\n{ media_type: audio,\n  mid: 0,\n  direction: kRecvOnly,\n  current_direction: kRecvOnly }\n{ media_type: video,\n  mid: 1,\n  direction: kRecvOnly,\n  current_direction: kRecvOnly }\n{ media_type: audio,\n  mid: 2,\n  direction: kRecvOnly,\n  current_direction: kRecvOnly }\n{ media_type: video,\n  mid: 3,\n  direction: kRecvOnly,\n  current_direction: kRecvOnly }\n\nIt was only after all this I discovered a typo! You are looking at \"caller_report\", not \"callee_report\" here! Fixing the typo, the test passes in both Plan B and Unified Plan :)",
+      "parentUuid": "b868da55_5f05aec3",
+      "revId": "d79adc1a4708f7921178d7cdbeccdced6310448c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

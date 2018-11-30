@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a0d1184_c08ae94d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T15:18:16Z",
+      "side": 0,
+      "message": "Intentional. Otherwise generic frame descriptor would behave differently than the other case.\nWithout this change, the superframe wouldn\u0027t be split to separate frames for spatial layers.",
+      "parentUuid": "3402059e_0b768221",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 58
+      },
+      "revId": "3c19f2884c9e82ce638952da965f3a54bb182086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbdbe97_675423cb",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "3c19f2884c9e82ce638952da965f3a54bb182086",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85290b7_85139254",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T15:18:16Z",
+      "side": 0,
+      "message": "same.",
+      "parentUuid": "9cbdbe97_675423cb",
+      "range": {
+        "startLine": 553,
+        "startChar": 8,
+        "endLine": 553,
+        "endChar": 58
+      },
+      "revId": "3c19f2884c9e82ce638952da965f3a54bb182086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

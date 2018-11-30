@@ -246,7 +246,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
     std::map<uint32_t, RtpState> suspended_ssrcs,
     std::map<uint32_t, RtpPayloadState> suspended_payload_states,
     VideoEncoderConfig::ContentType content_type,
-    std::unique_ptr<FecController> fec_controller)
+    std::unique_ptr<FecController> fec_controller,
+    MediaTransportInterface* media_transport)
     : has_alr_probing_(config->periodic_alr_bandwidth_probing ||
                        GetAlrSettings(content_type)),
       pacing_config_(PacingConfig()),
@@ -281,7 +282,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
           event_log,
           std::move(fec_controller),
           CreateFrameEncryptionConfig(config_))),
-      weak_ptr_factory_(this) {
+      weak_ptr_factory_(this),
+      media_transport_(media_transport) {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStreamInternal: " << config_->ToString();
   weak_ptr_ = weak_ptr_factory_.GetWeakPtr();
@@ -599,9 +601,18 @@ EncodedImageCallback::Result VideoSendStreamImpl::OnEncodedImage(
       check_encoder_activity_task_->UpdateEncoderActivity();
   }
 
-  EncodedImageCallback::Result result = rtp_video_sender_->OnEncodedImage(
-      encoded_image, codec_specific_info, fragmentation);
-
+  EncodedImageCallback::Result result(EncodedImageCallback::Result::OK);
+  if (media_transport_) {
+    media_transport_->SendVideoFrame(
+        config_->rtp.ssrcs[0],
+        webrtc::MediaTransportEncodedVideoFrame(
+            /*frame_id=*/0,
+            /*referenced_frame_ids=*/{}, codec_specific_info->codecType,
+            encoded_image));
+  } else {
+    result = rtp_video_sender_->OnEncodedImage(
+        encoded_image, codec_specific_info, fragmentation);
+  }
   // Check if there's a throttled VideoBitrateAllocation that we should try
   // sending.
   rtc::WeakPtr<VideoSendStreamImpl> send_stream = weak_ptr_;

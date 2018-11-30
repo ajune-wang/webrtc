@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35fa160b_fb97c5e6",
+        "filename": "modules/video_coding/encoded_frame.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "Just add set_size at the end and don\u0027t reorder the other functions.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8206df70_e8269a7b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "different",
+      "range": {
+        "startLine": 163,
+        "startChar": 55,
+        "endLine": 163,
+        "endChar": 63
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9581bf_5166090d",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "std::move",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ecb778_9ad653d6",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "Replace this check with an RTC_CHECK(!frames_out.empty())",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64521de9_94141c2c",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "Please add a comment that says something like:\nThe cleaner solution would be to have the NextFrame function return a vector of frames, but until the decoding pipeline can support decoding multiple frames at the same time we combine all frames to one frame and return it, see bugs.webrtc.org/10064",
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97d10370_146c286d",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "Please add unittests to test the new frame combining logic.",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 18
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42d75e8a_d8181ac1",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "This test should be obsolete now, right?",
+      "range": {
+        "startLine": 390,
+        "startChar": 25,
+        "endLine": 390,
+        "endChar": 56
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

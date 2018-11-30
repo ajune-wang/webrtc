@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2cb6c0b0_4fb75d92",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "For std::map and std::set iterators are only invalidated if the element is removed, so you should be able to use a vector of iterators.",
+      "parentUuid": "c197514e_5ee27ae8",
+      "range": {
+        "startLine": 141,
+        "startChar": 10,
+        "endLine": 144,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1415b00_b519b04d",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 5
@@ -140,6 +164,30 @@
       "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87eff199_ef5107d9",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T12:10:23Z",
+      "side": 1,
+      "message": "Ah, you are right.",
+      "parentUuid": "7284febb_4c252649",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 11
+      },
+      "revId": "e30bba6baf7b9f8063fc6d1a0eb43ca59d65a7a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

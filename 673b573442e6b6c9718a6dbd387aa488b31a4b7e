@@ -46,6 +46,30 @@
       "revId": "673b573442e6b6c9718a6dbd387aa488b31a4b7e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3721572d_a5bd79cf",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-11-30T12:23:13Z",
+      "side": 1,
+      "message": "Rationale: MultiplexEncoderFactory is only instantiated in Chromium behind a feature flag. It wraps Chromium HW codecs, which are not internal source. Looking at the code for MultiplexEncoderAdapter::Encode, it seems that the adapter won\u0027t support internal_source encoders anyway.",
+      "parentUuid": "350e3a25_e675e4df",
+      "range": {
+        "startLine": 126,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 48
+      },
+      "revId": "673b573442e6b6c9718a6dbd387aa488b31a4b7e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

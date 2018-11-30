@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1efc082c_7b67194d",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "Could you put this function on a new line and add a header?",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6a05a7_1529478e",
+        "filename": "pc/simulcastdescription.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "nit: capitalize.",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e7e150_98f13953",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "How about making these const, so they can only be modified with construction?",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e7915b_34ba0e18",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "nit: bugs.webrtc.org/10073, and also capitalize \"verify\".\n\nAlso what do you mean by \"rids in simulcast match rids in the sdp\" here?",
+      "range": {
+        "startLine": 3079,
+        "startChar": 20,
+        "endLine": 3079,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b29ea8d3_5f7b6ec6",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3941,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "nit: Could you add a full sentence above the test?",
+      "range": {
+        "startLine": 3941,
+        "startChar": 3,
+        "endLine": 3941,
+        "endChar": 28
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36a46ea3_205efc87",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "I think this test should have a valid a\u003dsimulcast line. The second \"a\u003dsimulcast:\" line is malformed, and we don\u0027t know if the parsing failure happened because of that.",
+      "range": {
+        "startLine": 3945,
+        "startChar": 33,
+        "endLine": 3945,
+        "endChar": 47
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

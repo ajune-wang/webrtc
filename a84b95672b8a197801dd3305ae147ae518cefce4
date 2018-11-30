@@ -473,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "aac613fc_57dfdc8f",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "Sounds good. I think the eitf spec is under specified here.",
+      "parentUuid": "fa37a929_ab8168b0",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80109d0d_afa5c28f",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -531,6 +555,30 @@
       "side": 1,
       "message": "addressed in class header",
       "parentUuid": "c4daacb8_c7287bb0",
+      "range": {
+        "startLine": 152,
+        "startChar": 3,
+        "endLine": 152,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "119af404_89dabadc",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "Thanks for pointing this out to me. My fault!",
+      "parentUuid": "3389d160_d569b5be",
       "range": {
         "startLine": 152,
         "startChar": 3,
@@ -849,6 +897,30 @@
       "side": 1,
       "message": "Correct, but this isn\u0027t the same case. ExpectEqual should use expected, value format, but str is not the value that we are comparing, it is a different argument that is used in a method that generates the expected result.\nthis would be the same if it were TestFunc(testArg1, testArg2, ..., testArgN, expected)",
       "parentUuid": "abd64fae_924f5c7e",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c095358_e6bd7ffc",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-11-30T19:05:02Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "02d62d89_122aeb1b",
       "range": {
         "startLine": 30,
         "startChar": 6,

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bcf1fb0e_167cfec2",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T16:42:00Z",
+      "side": 0,
+      "message": "The terminology used for the the generic frame descriptor is like this:\npicture \u003d\u003d super frame\nframe \u003d\u003d frame\nsubframe \u003d\u003d does not exist in VP9, but is equivalent to H264 slices and AV1 tile groups   \n\nTLDR; subframe does not mean what you think it means.\n\nThese changes should be reverted.",
+      "parentUuid": "7a0d1184_c08ae94d",
+      "range": {
+        "startLine": 549,
+        "startChar": 8,
+        "endLine": 549,
+        "endChar": 58
+      },
+      "revId": "3c19f2884c9e82ce638952da965f3a54bb182086",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cbdbe97_675423cb",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 15

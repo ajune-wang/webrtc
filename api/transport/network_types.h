@@ -202,6 +202,7 @@ struct NetworkControlUpdate {
 // Process control
 struct ProcessInterval {
   Timestamp at_time = Timestamp::PlusInfinity();
+  DataSize pacer_queue = DataSize::Zero();
 };
 }  // namespace webrtc
 

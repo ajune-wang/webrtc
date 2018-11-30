@@ -13,6 +13,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <atomic>
 #include <memory>
 
 #include "absl/types/optional.h"
@@ -117,6 +118,7 @@ class PacedSender : public Pacer {
   virtual int64_t QueueInMs() const;
 
   virtual size_t QueueSizePackets() const;
+  virtual int64_t QueueSizeBytes() const;
 
   // Returns the time when the first packet was sent, or -1 if no packet is
   // sent.
@@ -216,6 +218,7 @@ class PacedSender : public Pacer {
 
   int64_t queue_time_limit RTC_GUARDED_BY(critsect_);
   bool account_for_audio_ RTC_GUARDED_BY(critsect_);
+  std::atomic<int32_t> queue_size_bytes_;
 };
 }  // namespace webrtc
 #endif  // MODULES_PACING_PACED_SENDER_H_

@@ -254,6 +254,10 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     }
     initial_config_.reset();
   }
+  if (congestion_window_pushback_controller_) {
+    congestion_window_pushback_controller_->UpdatePacingQueue(
+        msg.pacer_queue.bytes());
+  }
 
   bandwidth_estimation_->UpdateEstimate(msg.at_time);
   absl::optional<int64_t> start_time_ms =

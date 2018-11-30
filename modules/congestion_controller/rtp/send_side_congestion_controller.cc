@@ -417,6 +417,7 @@ void SendSideCongestionController::UpdateControllerWithTimeInterval() {
   if (controller_) {
     ProcessInterval msg;
     msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+    msg.pacer_queue = DataSize::bytes(pacer_->QueueSizeBytes());
     control_handler_->PostUpdates(controller_->OnProcessInterval(msg));
   }
 }

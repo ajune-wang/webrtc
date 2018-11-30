@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/include/module.h"
@@ -135,9 +136,11 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // FEC/ULP/RED overhead (when FEC is enabled).
   virtual size_t MaxRtpPacketSize() const = 0;
 
-  // Sets codec name and payload type. Returns -1 on failure else 0.
-  virtual int32_t RegisterSendPayload(const CodecInst& voice_codec) = 0;
-
+  virtual void RegisterAudioSendPayload(absl::string_view payload_name,
+                                        int8_t payload_type,
+                                        uint32_t frequency,
+                                        size_t channels,
+                                        uint32_t rate) = 0;
   virtual void RegisterVideoSendPayload(int payload_type,
                                         const char* payload_name) = 0;
 

@@ -46,6 +46,30 @@
       "revId": "b3fae255135027f563f8be40cf95c981ddf84882",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d727190_2ee02282",
+        "filename": "tools_webrtc/mb/mb_config.pyl",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-11-30T14:45:59Z",
+      "side": 1,
+      "message": "It makes sense for sanitizers, here it can help to understand at first glance that is_clang\u003dfalse is not used, on the other hand it could be used in the future, so avoiding it in the name is future proof. :)",
+      "parentUuid": "be9c1ac5_5d86e7e6",
+      "range": {
+        "startLine": 239,
+        "startChar": 7,
+        "endLine": 239,
+        "endChar": 27
+      },
+      "revId": "b3fae255135027f563f8be40cf95c981ddf84882",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -979,6 +979,36 @@ bool ParsedRtcEventLogNew::ParseStream(
                     &outgoing_remb_, &outgoing_nack_);
   }
 
+  // Store first and last timestamp, ignoring configurations and other events
+  // that might happen before or after the call.
+  // TODO(terelius): Figure out if we actually need to support this in the
+  // parser.
+
+  first_timestamp_ = std::numeric_limits<int64_t>::max();
+  last_timestamp_ = std::numeric_limits<int64_t>::min();
+
+  for (const auto& audio_stream : audio_playout_events()) {
+    // Audio playout events are grouped by SSRC.
+    StoreFirstAndLastTimestamp(audio_stream.second);
+  }
+  StoreFirstAndLastTimestamp(audio_network_adaptation_events());
+  StoreFirstAndLastTimestamp(bwe_probe_cluster_created_events());
+  StoreFirstAndLastTimestamp(bwe_probe_failure_events());
+  StoreFirstAndLastTimestamp(bwe_probe_success_events());
+  StoreFirstAndLastTimestamp(bwe_delay_updates());
+  StoreFirstAndLastTimestamp(bwe_loss_updates());
+  StoreFirstAndLastTimestamp(alr_state_events());
+  StoreFirstAndLastTimestamp(ice_candidate_pair_configs());
+  StoreFirstAndLastTimestamp(ice_candidate_pair_events());
+  for (const auto& rtp_stream : incoming_rtp_packets_by_ssrc()) {
+    StoreFirstAndLastTimestamp(rtp_stream.incoming_packets);
+  }
+  for (const auto& rtp_stream : outgoing_rtp_packets_by_ssrc()) {
+    StoreFirstAndLastTimestamp(rtp_stream.outgoing_packets);
+  }
+  StoreFirstAndLastTimestamp(incoming_rtcp_packets());
+  StoreFirstAndLastTimestamp(outgoing_rtcp_packets());
+
   return success;
 }
 
@@ -1066,18 +1096,6 @@ bool ParsedRtcEventLogNew::ParseStreamInternal(
 
 void ParsedRtcEventLogNew::StoreParsedLegacyEvent(const rtclog::Event& event) {
   RTC_CHECK(event.has_type());
-  if (event.type() != rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT &&
-      event.type() != rtclog::Event::VIDEO_SENDER_CONFIG_EVENT &&
-      event.type() != rtclog::Event::AUDIO_RECEIVER_CONFIG_EVENT &&
-      event.type() != rtclog::Event::AUDIO_SENDER_CONFIG_EVENT &&
-      event.type() != rtclog::Event::LOG_START &&
-      event.type() != rtclog::Event::LOG_END) {
-    RTC_CHECK(event.has_timestamp_us());
-    int64_t timestamp = event.timestamp_us();
-    first_timestamp_ = std::min(first_timestamp_, timestamp);
-    last_timestamp_ = std::max(last_timestamp_, timestamp);
-  }
-
   switch (event.type()) {
     case rtclog::Event::VIDEO_RECEIVER_CONFIG_EVENT: {
       rtclog::StreamConfig config = GetVideoReceiveConfig(event);

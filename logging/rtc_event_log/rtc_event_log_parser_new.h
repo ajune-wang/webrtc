@@ -10,6 +10,7 @@
 #ifndef LOGGING_RTC_EVENT_LOG_RTC_EVENT_LOG_PARSER_NEW_H_
 #define LOGGING_RTC_EVENT_LOG_RTC_EVENT_LOG_PARSER_NEW_H_
 
+#include <algorithm>
 #include <iterator>
 #include <map>
 #include <set>
@@ -856,6 +857,14 @@ class ParsedRtcEventLogNew {
       std::istream& stream);  // no-presubmit-check TODO(webrtc:8982)
 
   void StoreParsedLegacyEvent(const rtclog::Event& event);
+
+  template <typename T>
+  void StoreFirstAndLastTimestamp(const std::vector<T>& v) {
+    if (v.empty())
+      return;
+    first_timestamp_ = std::min(first_timestamp_, v.front().log_time_us());
+    last_timestamp_ = std::max(last_timestamp_, v.back().log_time_us());
+  }
 
   // Reads the arrival timestamp (in microseconds) from a rtclog::Event.
   int64_t GetTimestamp(const rtclog::Event& event) const;

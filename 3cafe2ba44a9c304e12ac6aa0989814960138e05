@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22016ac2_f7a1ec81",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-30T10:17:09Z",
+      "side": 1,
+      "message": "I don\u0027t want to add this stuff to video_api. It should contain as little as possible to avoid increasing binary size for clients that don\u0027t need video.\n\nThis of course means the withFallback method cannot live in VideoDecoderFactory/VideoEncoderFactory.",
+      "range": {
+        "startLine": 234,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 62
+      },
+      "revId": "3cafe2ba44a9c304e12ac6aa0989814960138e05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1345c6ff_53419b60",
+        "filename": "sdk/android/api/org/webrtc/DefaultVideoDecoderFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-11-30T10:17:09Z",
+      "side": 0,
+      "message": "I see the behavior has changed here slightly. We might now get two VideoDecoderFallbacks within each other. I guess the exactly replicate the old behavior, we need to two methods one that \"combines\" and one that \"falls back\".",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 71
+      },
+      "revId": "cf9da5dcfee047b61a874cf6302b18895d00d380",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

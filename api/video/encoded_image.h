@@ -68,6 +68,7 @@ class RTC_EXPORT EncodedImage {
   }
 
   size_t size() const { return _length; }
+  void set_size(size_t new_size) { _length = new_size; }
   size_t capacity() const { return _size; }
 
   uint32_t _encodedWidth = 0;

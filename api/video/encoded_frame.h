@@ -79,6 +79,7 @@ class EncodedFrame : public webrtc::VCMEncodedFrame {
   size_t num_references = 0;
   int64_t references[kMaxFrameReferences];
   bool inter_layer_predicted = false;
+  bool is_last_spatial_layer = false;
 };
 
 }  // namespace video_coding

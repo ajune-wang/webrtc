@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c9669f74_197a2e28",
+        "filename": "modules/video_coding/encoded_frame.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "It\u0027s \u0027git cl format\u0027 doing this.",
+      "parentUuid": "35fa160b_fb97c5e6",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8206df70_e8269a7b",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4705169_4d373709",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8206df70_e8269a7b",
+      "range": {
+        "startLine": 163,
+        "startChar": 55,
+        "endLine": 163,
+        "endChar": 63
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d281016d_05914c21",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f9581bf_5166090d",
+      "range": {
+        "startLine": 178,
+        "startChar": 28,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1ecb778_9ad653d6",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 12
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "158d59eb_d4802ef0",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "No, there may be case when we get out of the loop with empty frames_to_decode_, which will leave frames_out also empty (see the code below).",
+      "parentUuid": "d1ecb778_9ad653d6",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 30
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64521de9_94141c2c",
         "filename": "modules/video_coding/frame_buffer2.h",
         "patchSetId": 12
@@ -108,6 +204,24 @@
       "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd6799e1_f68ad287",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64521de9_94141c2c",
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "1a501635_128732f5",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97d10370_146c286d",
+      "range": {
+        "startLine": 128,
+        "startChar": 2,
+        "endLine": 128,
+        "endChar": 18
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42d75e8a_d8181ac1",
         "filename": "modules/video_coding/frame_buffer2_unittest.cc",
         "patchSetId": 12
@@ -154,6 +292,30 @@
       "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c30b81_8f017741",
+        "filename": "modules/video_coding/frame_buffer2_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-11-30T13:25:13Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "42d75e8a_d8181ac1",
+      "range": {
+        "startLine": 390,
+        "startChar": 25,
+        "endLine": 390,
+        "endChar": 56
+      },
+      "revId": "2d04df34759b337d79aad3c9d52220796af034c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

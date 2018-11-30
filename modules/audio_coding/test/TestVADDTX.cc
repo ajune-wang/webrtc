@@ -94,8 +94,9 @@ bool TestVadDtx::RegisterCodec(const SdpAudioFormat& codec_format,
   channel_->SetIsStereo(encoder->NumChannels() > 1);
   acm_send_->SetEncoder(std::move(encoder));
 
-  EXPECT_EQ(true,
-            acm_receive_->RegisterReceiveCodec(payload_type, codec_format));
+  std::map<int, SdpAudioFormat> receive_codecs = {{payload_type, codec_format}};
+  acm_receive_->SetReceiveCodecs(receive_codecs);
+
   return added_comfort_noise;
 }
 

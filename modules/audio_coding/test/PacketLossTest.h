@@ -24,6 +24,7 @@ class ReceiverWithPacketLoss : public Receiver {
              RTPStream* rtpStream,
              std::string out_file_name,
              int channels,
+             int file_num,
              int loss_rate,
              int burst_length);
   bool IncomingPacket() override;
@@ -43,8 +44,8 @@ class SenderWithFEC : public Sender {
   void Setup(AudioCodingModule* acm,
              RTPStream* rtpStream,
              std::string in_file_name,
-             int sample_rate,
-             int channels,
+             int payload_type,
+             SdpAudioFormat format,
              int expected_loss_rate);
   bool SetPacketLossRate(int expected_loss_rate);
   bool SetFEC(bool enable_fec);

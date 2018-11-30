@@ -20,6 +20,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
@@ -221,7 +222,9 @@ rtcp::SenderReport EventGenerator::NewSenderReport() {
   rtcp::SenderReport sender_report;
   sender_report.SetSenderSsrc(prng_.Rand<uint32_t>());
   sender_report.SetNtp(NtpTime(prng_.Rand<uint32_t>(), prng_.Rand<uint32_t>()));
+  sender_report.SetRtpTimestamp(prng_.Rand<uint32_t>());
   sender_report.SetPacketCount(prng_.Rand<uint32_t>());
+  sender_report.SetOctetCount(prng_.Rand<uint32_t>());
   sender_report.AddReportBlock(NewReportBlock());
   return sender_report;
 }
@@ -233,10 +236,47 @@ rtcp::ReceiverReport EventGenerator::NewReceiverReport() {
   return receiver_report;
 }
 
+rtcp::Nack EventGenerator::NewNack() {
+  rtcp::Nack nack;
+  uint16_t base_seq_no = prng_.Rand<uint16_t>();
+  std::vector<uint16_t> nack_list;
+  nack_list.push_back(base_seq_no);
+  for (uint16_t i = 1u; i < 10u; i++) {
+    if (prng_.Rand<bool>())
+      nack_list.push_back(base_seq_no + i);
+  }
+  nack.SetPacketIds(nack_list);
+  return nack;
+}
+
+rtcp::TransportFeedback EventGenerator::NewTransportFeedback() {
+  rtcp::TransportFeedback transport_feedback;
+  uint16_t base_seq_no = prng_.Rand<uint16_t>();
+  int64_t base_time_us = prng_.Rand<uint32_t>();
+  transport_feedback.SetBase(base_seq_no, base_time_us);
+  int64_t time_us = base_time_us;
+  for (uint16_t i = 1u; i < 10u; i++) {
+    time_us += prng_.Rand(0, 100000);
+    if (prng_.Rand<bool>()) {
+      transport_feedback.AddReceivedPacket(base_seq_no + i, time_us);
+    }
+  }
+  return transport_feedback;
+}
+
+rtcp::Remb EventGenerator::NewRemb() {
+  rtcp::Remb remb;
+  // The remb bitrate is transported as a 16-bit mantissa and an 8-bit exponent.
+  uint64_t bitrate_bps = prng_.Rand(0, (1 << 16) - 1) << prng_.Rand(7);
+  std::vector<uint32_t> ssrcs{prng_.Rand<uint32_t>(), prng_.Rand<uint32_t>()};
+  remb.SetSsrcs(ssrcs);
+  remb.SetBitrateBps(bitrate_bps);
+  return remb;
+}
+
 std::unique_ptr<RtcEventRtcpPacketIncoming>
 EventGenerator::NewRtcpPacketIncoming() {
-  // TODO(terelius): Test the other RTCP types too.
-  switch (prng_.Rand(0, 1)) {
+  switch (prng_.Rand(0, 4)) {
     case 0: {
       rtcp::SenderReport sender_report = NewSenderReport();
       rtc::Buffer buffer = sender_report.Build();
@@ -245,6 +285,21 @@ EventGenerator::NewRtcpPacketIncoming() {
     case 1: {
       rtcp::ReceiverReport receiver_report = NewReceiverReport();
       rtc::Buffer buffer = receiver_report.Build();
+      return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
+    }
+    case 2: {
+      rtcp::Nack nack = NewNack();
+      rtc::Buffer buffer = nack.Build();
+      return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
+    }
+    case 3: {
+      rtcp::Remb remb = NewRemb();
+      rtc::Buffer buffer = remb.Build();
+      return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
+    }
+    case 4: {
+      rtcp::TransportFeedback transport_feedback = NewTransportFeedback();
+      rtc::Buffer buffer = transport_feedback.Build();
       return absl::make_unique<RtcEventRtcpPacketIncoming>(buffer);
     }
     default:
@@ -256,8 +311,7 @@ EventGenerator::NewRtcpPacketIncoming() {
 
 std::unique_ptr<RtcEventRtcpPacketOutgoing>
 EventGenerator::NewRtcpPacketOutgoing() {
-  // TODO(terelius): Test the other RTCP types too.
-  switch (prng_.Rand(0, 1)) {
+  switch (prng_.Rand(0, 4)) {
     case 0: {
       rtcp::SenderReport sender_report = NewSenderReport();
       rtc::Buffer buffer = sender_report.Build();
@@ -266,6 +320,21 @@ EventGenerator::NewRtcpPacketOutgoing() {
     case 1: {
       rtcp::ReceiverReport receiver_report = NewReceiverReport();
       rtc::Buffer buffer = receiver_report.Build();
+      return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
+    }
+    case 2: {
+      rtcp::Nack nack = NewNack();
+      rtc::Buffer buffer = nack.Build();
+      return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
+    }
+    case 3: {
+      rtcp::Remb remb = NewRemb();
+      rtc::Buffer buffer = remb.Build();
+      return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
+    }
+    case 4: {
+      rtcp::TransportFeedback transport_feedback = NewTransportFeedback();
+      rtc::Buffer buffer = transport_feedback.Build();
       return absl::make_unique<RtcEventRtcpPacketOutgoing>(buffer);
     }
     default:
@@ -739,6 +808,92 @@ void EventVerifier::VerifyLoggedRtcpPacketOutgoing(
       memcmp(original_event.packet().data(), logged_event.rtcp.raw_data.data(),
              original_event.packet().size()),
       0);
+}
+
+void EventVerifier::VerifyReportBlock(rtcp::ReportBlock original_report_block,
+                                      rtcp::ReportBlock logged_report_block) {
+  EXPECT_EQ(original_report_block.source_ssrc(),
+            logged_report_block.source_ssrc());
+  EXPECT_EQ(original_report_block.fraction_lost(),
+            logged_report_block.fraction_lost());
+  EXPECT_EQ(original_report_block.cumulative_lost_signed(),
+            logged_report_block.cumulative_lost_signed());
+  EXPECT_EQ(original_report_block.extended_high_seq_num(),
+            logged_report_block.extended_high_seq_num());
+  EXPECT_EQ(original_report_block.jitter(), logged_report_block.jitter());
+  EXPECT_EQ(original_report_block.last_sr(), logged_report_block.last_sr());
+  EXPECT_EQ(original_report_block.delay_since_last_sr(),
+            logged_report_block.delay_since_last_sr());
+}
+
+void EventVerifier::VerifyLoggedSenderReport(
+    int64_t log_time_us,
+    rtcp::SenderReport original_sr,
+    LoggedRtcpPacketSenderReport logged_sr) {
+  EXPECT_EQ(log_time_us, logged_sr.log_time_us());
+  EXPECT_EQ(original_sr.sender_ssrc(), logged_sr.sr.sender_ssrc());
+  EXPECT_EQ(original_sr.ntp(), logged_sr.sr.ntp());
+  EXPECT_EQ(original_sr.rtp_timestamp(), logged_sr.sr.rtp_timestamp());
+  EXPECT_EQ(original_sr.sender_packet_count(),
+            logged_sr.sr.sender_packet_count());
+  EXPECT_EQ(original_sr.sender_octet_count(),
+            logged_sr.sr.sender_octet_count());
+  ASSERT_EQ(original_sr.report_blocks().size(),
+            logged_sr.sr.report_blocks().size());
+  for (size_t i = 0; i < original_sr.report_blocks().size(); i++) {
+    VerifyReportBlock(original_sr.report_blocks()[i],
+                      logged_sr.sr.report_blocks()[i]);
+  }
+}
+
+void EventVerifier::VerifyLoggedReceiverReport(
+    int64_t log_time_us,
+    rtcp::ReceiverReport original_rr,
+    LoggedRtcpPacketReceiverReport logged_rr) {
+  EXPECT_EQ(log_time_us, logged_rr.log_time_us());
+  EXPECT_EQ(original_rr.sender_ssrc(), logged_rr.rr.sender_ssrc());
+  ASSERT_EQ(original_rr.report_blocks().size(),
+            logged_rr.rr.report_blocks().size());
+  for (size_t i = 0; i < original_rr.report_blocks().size(); i++) {
+    VerifyReportBlock(original_rr.report_blocks()[i],
+                      logged_rr.rr.report_blocks()[i]);
+  }
+}
+
+void EventVerifier::VerifyLoggedNack(int64_t log_time_us,
+                                     rtcp::Nack original_nack,
+                                     LoggedRtcpPacketNack logged_nack) {
+  EXPECT_EQ(log_time_us, logged_nack.log_time_us());
+  EXPECT_EQ(original_nack.packet_ids(), logged_nack.nack.packet_ids());
+}
+
+void EventVerifier::VerifyLoggedTransportFeedback(
+    int64_t log_time_us,
+    rtcp::TransportFeedback original_transport_feedback,
+    LoggedRtcpPacketTransportFeedback logged_transport_feedback) {
+  EXPECT_EQ(log_time_us, logged_transport_feedback.log_time_us());
+  ASSERT_EQ(
+      original_transport_feedback.GetReceivedPackets().size(),
+      logged_transport_feedback.transport_feedback.GetReceivedPackets().size());
+  for (size_t i = 0;
+       i < original_transport_feedback.GetReceivedPackets().size(); i++) {
+    EXPECT_EQ(
+        original_transport_feedback.GetReceivedPackets()[i].sequence_number(),
+        logged_transport_feedback.transport_feedback.GetReceivedPackets()[i]
+            .sequence_number());
+    EXPECT_EQ(
+        original_transport_feedback.GetReceivedPackets()[i].delta_us(),
+        logged_transport_feedback.transport_feedback.GetReceivedPackets()[i]
+            .delta_us());
+  }
+}
+
+void EventVerifier::VerifyLoggedRemb(int64_t log_time_us,
+                                     rtcp::Remb original_remb,
+                                     LoggedRtcpPacketRemb logged_remb) {
+  EXPECT_EQ(log_time_us, logged_remb.log_time_us());
+  EXPECT_EQ(original_remb.ssrcs(), logged_remb.remb.ssrcs());
+  EXPECT_EQ(original_remb.bitrate_bps(), logged_remb.remb.bitrate_bps());
 }
 
 void EventVerifier::VerifyLoggedStartEvent(

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5c8fd8c6_9cc42c32",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-11-30T13:56:54Z",
+      "side": 1,
+      "message": "I would prefer a comment, but it\u0027s up to you.",
+      "parentUuid": "08af22e3_1c3a3e90",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 626,
+        "endChar": 53
+      },
+      "revId": "9db34b04614f0f3400a67e42f513d6c09b89f851",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4859b9e_9261d054",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
         "patchSetId": 2

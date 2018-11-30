@@ -766,6 +766,7 @@ TEST_F(TestVp9ImplFrameDropping, DifferentFrameratePerSpatialLayer) {
 
   codec_settings_.VP9()->numberOfSpatialLayers = num_spatial_layers;
   codec_settings_.VP9()->frameDroppingOn = false;
+  codec_settings_.VP9()->flexibleMode = true;
 
   VideoBitrateAllocation bitrate_allocation;
   for (uint8_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {

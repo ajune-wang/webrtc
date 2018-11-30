@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "2447fc82_4c8c2778",
+        "filename": "api/rtpparameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "this was added because the rtp extension is required for simulcast. it is however, the extension for rid, and not simulcast, so it makes more sense to include it in the rid CL.\ni will remove it from this one.",
+      "parentUuid": "374a64ee_c07ba243",
+      "range": {
+        "startLine": 311,
+        "startChar": 0,
+        "endLine": 312,
+        "endChar": 40
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56f898da_85ae3426",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bc3da4_4146e82a",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "renamed to:\n\u003ctype\u003e \u003cname\u003e\nSimulcastLayer simulcast_layer\nstd::vector\u003cSimulcastLayer\u003e layer_alternatives\nSimulcastLayerList simulcast_layers",
+      "parentUuid": "56f898da_85ae3426",
+      "range": {
+        "startLine": 71,
+        "startChar": 57,
+        "endLine": 71,
+        "endChar": 61
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "761550be_50d6a2e3",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72b12265_aac52638",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 51
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cef87d6e_81dc3b21",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -142,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "84e39ac6_e2b58a9d",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cef87d6e_81dc3b21",
+      "range": {
+        "startLine": 106,
+        "startChar": 25,
+        "endLine": 106,
+        "endChar": 49
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7636d074_d9ebc430",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -153,6 +249,30 @@
       "writtenOn": "2018-11-27T21:48:13Z",
       "side": 1,
       "message": "(optional) I prefer enclosing boolean operators on the right hand of an assignment with parenthesis.",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f25f52_c3d4a578",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "i think that in this case parenthesis are redundant. somewhat like\nint a \u003d b + c;\nvs\nint a \u003d (b + c);",
+      "parentUuid": "7636d074_d9ebc430",
       "range": {
         "startLine": 115,
         "startChar": 20,
@@ -188,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "dd8c7b46_00da95b6",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "parenthesis here are also redundant and would encase the entire rhs.\nin general, i would avoid (statement) altogether whenever possible.",
+      "parentUuid": "811cfea4_04008b33",
+      "range": {
+        "startLine": 116,
+        "startChar": 24,
+        "endLine": 116,
+        "endChar": 64
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cdfd2d0_d6b07a47",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -208,6 +352,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6077338c_d83ec8f3",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cdfd2d0_d6b07a47",
+      "range": {
+        "startLine": 118,
+        "startChar": 14,
+        "endLine": 118,
+        "endChar": 20
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -234,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "276e008d_73234afc",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "while my stance on munging is that it might generate \"undefined\" or undesired behavior,\nthis was written at a time when i thought rids cannot be specified by users.\ni will change the comment",
+      "parentUuid": "2d4b2e73_e6bd100c",
+      "range": {
+        "startLine": 119,
+        "startChar": 44,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d6f1b00_ece45e34",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 2
@@ -254,6 +446,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa37a929_ab8168b0",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "it shouldn\u0027t matter (at least according to the spec), we allow parsing of both options (send before receive and vice-versa), but which one to write first can be an arbitrary choice.",
+      "parentUuid": "8d6f1b00_ece45e34",
+      "range": {
+        "startLine": 138,
+        "startChar": 7,
+        "endLine": 138,
+        "endChar": 28
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -300,6 +516,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3389d160_d569b5be",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "addressed in class header",
+      "parentUuid": "c4daacb8_c7287bb0",
+      "range": {
+        "startLine": 152,
+        "startChar": 3,
+        "endLine": 152,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -373,6 +613,30 @@
     },
     {
       "key": {
+        "uuid": "3a74de8f_1a601edf",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "41c4718d_061d4347",
+      "range": {
+        "startLine": 207,
+        "startChar": 36,
+        "endLine": 207,
+        "endChar": 41
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a855125_956d4850",
         "filename": "pc/sdpserializer.h",
         "patchSetId": 2
@@ -387,6 +651,24 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a82413_a2fefa3c",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a855125_956d4850",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -461,6 +743,30 @@
     },
     {
       "key": {
+        "uuid": "eca03126_92f52b9e",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "to rephrase my comment, webrtcsdp.h is a facade for SDP serialization.\nadding public methods there destroys the facade and can confuse users.",
+      "parentUuid": "a438d8f5_33e36b47",
+      "range": {
+        "startLine": 30,
+        "startChar": 38,
+        "endLine": 30,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e603c6e_2eab47bb",
         "filename": "pc/sdpserializer.h",
         "patchSetId": 2
@@ -481,6 +787,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91085409_fcce0539",
+        "filename": "pc/sdpserializer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e603c6e_2eab47bb",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -507,6 +837,30 @@
     },
     {
       "key": {
+        "uuid": "02d62d89_122aeb1b",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Correct, but this isn\u0027t the same case. ExpectEqual should use expected, value format, but str is not the value that we are comparing, it is a different argument that is used in a method that generates the expected result.\nthis would be the same if it were TestFunc(testArg1, testArg2, ..., testArgN, expected)",
+      "parentUuid": "abd64fae_924f5c7e",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 42
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34f19d72_466330c9",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 2
@@ -524,6 +878,24 @@
     },
     {
       "key": {
+        "uuid": "471ff296_1ae5079f",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "i think that in general, there is huge benefit to consolidating the boilerplate code of setup, running and comparison into a method called from the tests. \nthe code in the TEST() method then just becomes, setting test arguments and the expected value.\ni think this separation actually increases my understanding of the tests because i understand where to focus - each test case defines the \u0027terms\u0027 and \u0027expectations\u0027. and there is one (sometimes much more complex) method i need to understand about how a test should run.\nthis approach is very similar to the parameterized tests in gtest, when the parameters are actually complex objects that need to be set up.",
+      "parentUuid": "34f19d72_466330c9",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c6dc9af_479babb2",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 2
@@ -538,6 +910,24 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76e6eb8_e197e95f",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "(IMHO)\nequality should be determined by the test - my test might not care about things like casing, order, etc, and should define their own equality logic. \nA class should define equality only if it makes sense for clients to determine if two objects are equal *and* if a good (and consistent) definition of equality can be made.\nin this case, i\u0027m not certain that two definitions should or should not be equal if some of the streams are marked as paused, or if the order of alternatives is reversed. I recon that strict equality is a reasonable definition though.\n\nI also believe that EXPECT_EQ(exp_complex_obj, act_complex_obj) has drawbacks. for example, it doesn\u0027t tell you how the objects are not equal (perhaps it\u0027s in send streams, perhaps it\u0027s just a paused state in one of the streams).\nbreaking it down like this will add that information - ex. that two rids aren\u0027t equal.\nYou do lose the information about the line that called this in the test case, but that line doesn\u0027t add much value (on top of the test name).\n\ni like the idea of printing types and will add that to my arsenal.\n\ni will keep this as is.",
+      "parentUuid": "2c6dc9af_479babb2",
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -564,6 +954,30 @@
     },
     {
       "key": {
+        "uuid": "cb28bd1b_7eae26a2",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65c5d17f_d8e72a57",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 56
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ad690b2_81f675dd",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 2
@@ -584,6 +998,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "277e5508_1e31158b",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ad690b2_81f675dd",
+      "range": {
+        "startLine": 163,
+        "startChar": 12,
+        "endLine": 163,
+        "endChar": 37
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -918,6 +1356,30 @@
     },
     {
       "key": {
+        "uuid": "62d65af0_047ecd80",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "added link to rid spec instead.",
+      "parentUuid": "979f8119_e58d8f48",
+      "range": {
+        "startLine": 296,
+        "startChar": 32,
+        "endLine": 296,
+        "endChar": 35
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27ee974a_c31e0509",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 2
@@ -986,6 +1448,30 @@
       "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f1ea13_5b46ebf1",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "also possible when using initializer list:\nctor(param1, param2) : param1{param1}, param2{param2}",
+      "parentUuid": "f802ad14_cddd930b",
+      "range": {
+        "startLine": 298,
+        "startChar": 47,
+        "endLine": 298,
+        "endChar": 62
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1430,6 +1916,30 @@
     },
     {
       "key": {
+        "uuid": "1aed6645_a66d0838",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2989,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8d2a8ae_5ce67203",
+      "range": {
+        "startLine": 2989,
+        "startChar": 35,
+        "endLine": 2989,
+        "endChar": 69
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd86f179_e35c8aea",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 2
@@ -1488,6 +1998,30 @@
       "writtenOn": "2018-11-29T21:01:11Z",
       "side": 1,
       "message": "I think TODOs with your username are fine if it will be done as part of the work.",
+      "parentUuid": "bc478671_a77b49ef",
+      "range": {
+        "startLine": 3076,
+        "startChar": 12,
+        "endLine": 3076,
+        "endChar": 18
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "903094f5_bacf2040",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "bc478671_a77b49ef",
       "range": {
         "startLine": 3076,
@@ -1654,6 +2188,30 @@
       "side": 1,
       "message": "I think you\u0027re right that it\u0027s probably fine to leave it as is, although it does potentially leave an untested place for a bug if we didn\u0027t deserialize the \"a\u003dsimulcast:\" line correctly, because this is an added functionality that webrtcsdp.cc does.",
       "parentUuid": "26a6cb06_1dee383d",
+      "range": {
+        "startLine": 3945,
+        "startChar": 2,
+        "endLine": 3945,
+        "endChar": 15
+      },
+      "revId": "a84b95672b8a197801dd3305ae147ae518cefce4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f8276a1_0b9be078",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "Will add test for deserialization that adds a simulcast line and checks it",
+      "parentUuid": "453bf00d_225b9754",
       "range": {
         "startLine": 3945,
         "startChar": 2,

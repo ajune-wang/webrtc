@@ -46,6 +46,30 @@
       "revId": "44b358a18e433f9e1be1e91c29049234655e3c57",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16e7a96c_03b4418e",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2976,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-11-30T01:00:18Z",
+      "side": 1,
+      "message": "I went with the route of ParseFailed when multiple a\u003dsimulcast lines are specified.",
+      "parentUuid": "9455370b_471193d0",
+      "range": {
+        "startLine": 2976,
+        "startChar": 8,
+        "endLine": 2976,
+        "endChar": 21
+      },
+      "revId": "44b358a18e433f9e1be1e91c29049234655e3c57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

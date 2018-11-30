@@ -68,6 +68,30 @@
       "revId": "4793e5a032740d070c9d51f23194becadf6f4d5a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93cec7bc_7a973c6d",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6810
+      },
+      "writtenOn": "2018-11-30T18:56:41Z",
+      "side": 1,
+      "message": "Confused on which type to go with.\nH264 encoder parameter iTemporalLayerNum is int. VP9 has a parameter num_temporal_layers_ as uint8.",
+      "parentUuid": "d2701606_5d10c35b",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 104,
+        "endChar": 5
+      },
+      "revId": "4793e5a032740d070c9d51f23194becadf6f4d5a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

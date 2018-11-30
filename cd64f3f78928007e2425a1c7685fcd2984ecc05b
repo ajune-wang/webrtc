@@ -46,6 +46,29 @@
       "revId": "cd64f3f78928007e2425a1c7685fcd2984ecc05b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f63a996_3ff791fc",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-11-30T14:59:11Z",
+      "side": 1,
+      "message": "Nit: use // instead of /*",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 4
+      },
+      "revId": "cd64f3f78928007e2425a1c7685fcd2984ecc05b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

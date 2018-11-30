@@ -140,6 +140,30 @@
       "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b212a62c_9e3997f3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T14:38:09Z",
+      "side": 1,
+      "message": "Variable not needed after restructure.",
+      "parentUuid": "ec469bdc_949da57f",
+      "range": {
+        "startLine": 373,
+        "startChar": 29,
+        "endLine": 373,
+        "endChar": 53
+      },
+      "revId": "38951c0f02be7e00fa95dd145ea6845f35f71d3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

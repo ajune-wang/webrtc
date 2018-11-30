@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "c969b5ae_3832753d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T14:38:09Z",
+      "side": 1,
+      "message": "Should be fixed now.",
+      "parentUuid": "d2ba1a81_697e6780",
+      "range": {
+        "startLine": 393,
+        "startChar": 39,
+        "endLine": 393,
+        "endChar": 52
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add63a0d_27f5f2ed",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 5
@@ -328,6 +352,30 @@
       "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9dcc91b_ca58cbad",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-11-30T14:38:09Z",
+      "side": 1,
+      "message": "Should be fixed now.",
+      "parentUuid": "9a2f94a2_7eb8e4d3",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 43
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

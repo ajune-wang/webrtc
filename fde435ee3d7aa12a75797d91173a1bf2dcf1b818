@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1d19089_9609c394",
+        "filename": "api/rtpparameters.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "may be put new values before this special constant, for consistency",
+      "range": {
+        "startLine": 141,
+        "startChar": 41,
+        "endLine": 142,
+        "endChar": 0
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a49bedda_27f059d9",
+        "filename": "call/rtp_payload_params_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "no need to convert color_space to optional before compare",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 44
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa369a3c_380253d6",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "it seems this version would normally fit into one-byte header version of the header extension (with L\u003d3)",
+      "range": {
+        "startLine": 468,
+        "startChar": 6,
+        "endLine": 468,
+        "endChar": 38
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cabc0c2f_4601f246",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "what are the reasons to prefer last packet e.g. over first packet?",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2865e610_b775d597",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "How important is to communicate new value reliably?\nif change happen on temporal layer 2 frame that is lost, is it bad?",
+      "range": {
+        "startLine": 393,
+        "startChar": 39,
+        "endLine": 393,
+        "endChar": 52
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add63a0d_27f5f2ed",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "can you write !\u003d instead?\nIf color space miss that operator may be reasonable to add it there next to operator\u003d\u003d:\nfriend bool operator!\u003d(const ColorSpace\u0026 lhs, const ColorSpace\u0026 rhs) {\n  return !(lhs \u003d\u003d rhs);\n}",
+      "range": {
+        "startLine": 395,
+        "startChar": 36,
+        "endLine": 395,
+        "endChar": 38
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95c7774a_c5b6bb74",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-11-30T10:00:46Z",
+      "side": 1,
+      "message": "it is possible to rely on caller to always set last_color_space on key frames?\n\nIs it possible that caller decided to switch from video stream where color_space should be set to stream where it can\u0027t be set?",
+      "range": {
+        "startLine": 398,
+        "startChar": 15,
+        "endLine": 398,
+        "endChar": 43
+      },
+      "revId": "fde435ee3d7aa12a75797d91173a1bf2dcf1b818",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

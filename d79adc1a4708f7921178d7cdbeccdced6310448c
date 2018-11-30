@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d3c788f5_61c8b231",
+        "filename": "api/stats/rtcstatsreport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-30T12:31:51Z",
+      "side": 1,
+      "message": "nit: Considering the other method is simply called Get(), consider calling this GetAndCastTo() or GetAs()",
+      "revId": "d79adc1a4708f7921178d7cdbeccdced6310448c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dcbc6bd_4860a1ea",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 2
@@ -13,6 +30,24 @@
       "writtenOn": "2018-11-28T23:56:52Z",
       "side": 1,
       "message": "This is failing since it says there are no inbound stream stats.",
+      "revId": "d79adc1a4708f7921178d7cdbeccdced6310448c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca214a1_ed175cbe",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2694,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-11-30T12:31:51Z",
+      "side": 1,
+      "message": "Could it be that there are no RTP packets flowing because ice candidates have not been exchanged? I think I\u0027ve experienced something like that in JS. But I see you have ExpectNewFrames above...",
+      "parentUuid": "9dcbc6bd_4860a1ea",
       "revId": "d79adc1a4708f7921178d7cdbeccdced6310448c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

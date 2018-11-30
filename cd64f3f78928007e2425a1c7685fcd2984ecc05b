@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73409aa6_e433f515",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-11-30T14:49:31Z",
+      "side": 1,
+      "message": "Would make sense with DCHECK (or even CHECK) that new_size \u003c\u003d _size. (This would be less confusing once the TODO item in line 81 below is fixed).",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "cd64f3f78928007e2425a1c7685fcd2984ecc05b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

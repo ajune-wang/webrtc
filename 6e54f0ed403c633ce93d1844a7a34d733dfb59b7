@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2f3bd19_3149b2e8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "Which events are these? What delineates the call and defines \"before\" and \"after\"?",
+      "range": {
+        "startLine": 982,
+        "startChar": 65,
+        "endLine": 983,
+        "endChar": 47
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54017d09_74f122fc",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "nit: Would be nice if \"this\" were replaced by something more explicit.",
+      "range": {
+        "startLine": 984,
+        "startChar": 63,
+        "endLine": 984,
+        "endChar": 67
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ac3605_d3311410",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "Clear() has already done this for you. Doing it again could be seen as being more explicit, or it could be seen as a potential for later introduction of errors. For your attention, and up to you what to do.",
+      "range": {
+        "startLine": 986,
+        "startChar": 0,
+        "endLine": 988,
+        "endChar": 56
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc18f65_98997aa8",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "For aesthetic reasons, please consider overloading StoreFirstAndLastTimestamp() with a version that accepts a vector\u003cT\u003e.",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1008,
+        "endChar": 3
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbda31e2_87f69a7d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "Not necessary if you take my other suggestion.",
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9e73c1_acaf5a18",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "nit: Please consider naming the type TimestampedEvent or something similar. I don\u0027t know whether I\u0027d prefer T or TimestampedEvent, actually. Would love to hear your thoughts, if you have any.",
+      "range": {
+        "startLine": 861,
+        "startChar": 21,
+        "endLine": 861,
+        "endChar": 22
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2cae186_2a126a74",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-02T18:37:40Z",
+      "side": 1,
+      "message": "Could you move the implementation to the .cc file? At least on Linux, the compiler does not complain.",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 867,
+        "endChar": 3
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

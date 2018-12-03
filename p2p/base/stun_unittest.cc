@@ -1561,4 +1561,11 @@ TEST_F(StunTest, CopyAttribute) {
   }
 }
 
+TEST_F(StunTest, ReduceTransactionIdIsHostOrderIndependent) {
+  std::string transaction_id = "abcdefghijkl";
+  uint32_t reduced_transaction_id =
+      StunMessage::ReduceTransactionId(transaction_id);
+  EXPECT_EQ(reduced_transaction_id, 1835954016u);
+}
+
 }  // namespace cricket

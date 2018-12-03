@@ -203,6 +203,8 @@ class StunMessage {
   // This is used for testing.
   void SetStunMagicCookie(uint32_t val);
 
+  static uint32_t ReduceTransactionId(const std::string& transaction_id);
+
  protected:
   // Verifies that the given attribute is allowed for this message.
   virtual StunAttributeValueType GetAttributeValueType(int type) const;

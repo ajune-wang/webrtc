@@ -26,25 +26,6 @@
 using rtc::ByteBufferReader;
 using rtc::ByteBufferWriter;
 
-namespace {
-
-uint32_t ReduceTransactionId(const std::string& transaction_id) {
-  RTC_DCHECK(transaction_id.length() == cricket::kStunTransactionIdLength ||
-             transaction_id.length() ==
-                 cricket::kStunLegacyTransactionIdLength);
-  uint32_t transaction_id_as_ints[4];
-  memcpy(transaction_id_as_ints, transaction_id.c_str(),
-         transaction_id.length());
-
-  uint32_t result = 0;
-  for (size_t i = 0; i < transaction_id.length() / 4; ++i) {
-    result ^= transaction_id_as_ints[i];
-  }
-  return result;
-}
-
-}  // namespace
-
 namespace cricket {
 
 const char STUN_ERROR_REASON_TRY_ALTERNATE_SERVER[] = "Try Alternate Server";
@@ -433,6 +414,22 @@ StunMessage* StunMessage::CreateNew() const {
 
 void StunMessage::SetStunMagicCookie(uint32_t val) {
   stun_magic_cookie_ = val;
+}
+
+/*static*/
+uint32_t StunMessage::ReduceTransactionId(const std::string& transaction_id) {
+  RTC_DCHECK(transaction_id.length() == cricket::kStunTransactionIdLength ||
+             transaction_id.length() ==
+                 cricket::kStunLegacyTransactionIdLength);
+  uint32_t transaction_id_as_ints[4];
+  memcpy(transaction_id_as_ints, transaction_id.c_str(),
+         transaction_id.length());
+
+  uint32_t result = 0;
+  for (size_t i = 0; i < transaction_id.length() / 4; ++i) {
+    result ^= transaction_id_as_ints[i];
+  }
+  return result;
 }
 
 StunAttributeValueType StunMessage::GetAttributeValueType(int type) const {

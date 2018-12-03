@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "5bf84c60_ff2524ae",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T11:28:46Z",
+      "side": 1,
+      "message": "\u003e\u003eexternal_ref_control_ is set to field trial value only.\nprobably this should be changed. we have to set refs externally for HFR screencast.",
+      "parentUuid": "9825adc5_6c24c93c",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 72
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60d7b382_0ba2219c",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 20

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5bc0f3e_fd7ed42b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T12:41:37Z",
+      "side": 1,
+      "message": "you can just compare against spatialLayers[0].",
+      "range": {
+        "startLine": 478,
+        "startChar": 38,
+        "endLine": 478,
+        "endChar": 48
+      },
+      "revId": "a6c64d9798edd71218a2f34e64d847a1710463b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78468191_2e88c361",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T12:41:37Z",
+      "side": 1,
+      "message": "use different_framerates_used_ instead?",
+      "range": {
+        "startLine": 744,
+        "startChar": 6,
+        "endLine": 744,
+        "endChar": 51
+      },
+      "revId": "a6c64d9798edd71218a2f34e64d847a1710463b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb20d81_5ad5fb78",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-03T14:11:53Z",
+      "side": 1,
+      "message": "I think there was one call site that grew the size and copied the old contents; in that case leaving _length unchanged makes sense.\n\nAnd I think ArrayView would be confusing, since the callee retains saves the pointer. Passing a raw pointer at least signals that this is old code possibly using now discouraged conventions.",
+      "parentUuid": "654fe15f_10c0e459",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

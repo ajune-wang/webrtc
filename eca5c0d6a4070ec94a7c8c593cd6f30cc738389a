@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c9e2bd5_b52c1e83",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "it is generally better to avoid negation in function name:\nmake it IsBaseLayer()\nthen when using write if (!IsBaseLayer(...))\n\nIn this case it doesn\u0027t matter much since you always negate. But if someone would need opposite, then if (!IsNonBaseLayer()) whould be noticable harder to read than if (IsBaseLayer())",
+      "range": {
+        "startLine": 129,
+        "startChar": 5,
+        "endLine": 129,
+        "endChar": 19
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e0e0704_5ee276cc",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "not sure how this variable is helpful: may be just return where you set it",
+      "range": {
+        "startLine": 130,
+        "startChar": 2,
+        "endLine": 130,
+        "endChar": 30
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a40ef846_9c1e1011",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "you assume video_header is never nullptr,\nmay be pass it by const reference then (const RTPVideoHeader\u0026)",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 24
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b63dd82_8e155912",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "it can be good idea to explain why.\n\nbtw, what defintion of \u0027base layer\u0027 do you use?\nwould that work for simulcast over same ssrc (i.e. vp9 with multiple spatial layers but without inter-layer dependencies).\nDoes it matter for your use case?",
+      "range": {
+        "startLine": 418,
+        "startChar": 69,
+        "endLine": 419,
+        "endChar": 72
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc6b3bf5_829c22cb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "probably remove (): condition looks simple enough",
+      "range": {
+        "startLine": 426,
+        "startChar": 10,
+        "endLine": 426,
+        "endChar": 40
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d0d8009_e86fe21b",
+        "filename": "modules/rtp_rtcp/source/rtp_video_header.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "may be move one line up to keep fields based on extensions together, while video_type_header a bit separate.",
+      "range": {
+        "startLine": 68,
+        "startChar": 41,
+        "endLine": 69,
+        "endChar": 0
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19a874e5_32451641",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-03T12:28:26Z",
+      "side": 1,
+      "message": "this code makes me unsure it is good idea to forbid passing \"const optional\u003cT\u003e\u0026\":\nhere you need to convert optional\u003cT\u003e to T* and then inside Setter it is converted back from T* to optional\u003cT\u003e\n\nanyway, just side node unrelated to main subject of this CL.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

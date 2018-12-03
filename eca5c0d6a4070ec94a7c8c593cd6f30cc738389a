@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "ceb26050_2341b725",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-03T13:53:56Z",
+      "side": 1,
+      "message": "This should work for svc as well. What we need is to append this data until we we have a frame with guaranteed delivery, as the color space is a sticky state. TL0 frames should have guaranteed delivery regardless of single stream, pure simulcast, k-svc or svc, right?",
+      "parentUuid": "3f1b36fb_354c5a60",
+      "range": {
+        "startLine": 418,
+        "startChar": 69,
+        "endLine": 419,
+        "endChar": 72
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc6b3bf5_829c22cb",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 8

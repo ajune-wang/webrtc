@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3249d66a_d732081c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-03T13:06:06Z",
+      "side": 1,
+      "message": "Yes, you are right. In the new code it actually checks the inter-layer prediction mode.",
+      "parentUuid": "3b5b7c1a_7fb0ab04",
+      "range": {
+        "startLine": 771,
+        "startChar": 7,
+        "endLine": 771,
+        "endChar": 24
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82fe6e1e_46ee74d9",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 21

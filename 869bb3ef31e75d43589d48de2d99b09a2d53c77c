@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eaf9c90_a1c9ffca",
+        "filename": "modules/audio_coding/test/EncodeDecodeTest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-03T13:38:30Z",
+      "side": 1,
+      "message": "No-op cast.",
+      "range": {
+        "startLine": 135,
+        "startChar": 9,
+        "endLine": 135,
+        "endChar": 25
+      },
+      "revId": "869bb3ef31e75d43589d48de2d99b09a2d53c77c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

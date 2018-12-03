@@ -16,6 +16,24 @@
       "revId": "082b53f2c08b6c45f054c958ca34d8463652bc3b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e0447a_8ca30769",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T22:34:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ac8d112_4eb70354",
+      "revId": "082b53f2c08b6c45f054c958ca34d8463652bc3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -328,6 +328,30 @@
       "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "327cf0a8_b0e9429d",
+        "filename": "modules/video_coding/frame_object.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-03T13:38:21Z",
+      "side": 1,
+      "message": "For conversion in this direction, what one would really want is a method optional::get(), but we\u0027re not going to get that anytime soon. Is there any other way to make this more convenient? Is it possible to define some out-of-class conversion operator optional\u003cT\u003e --\u003e T* ? Or a convenience function, if one could only come up with a usable name for it.",
+      "parentUuid": "d64b1e19_17ea469a",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 31
+      },
+      "revId": "eca5c0d6a4070ec94a7c8c593cd6f30cc738389a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

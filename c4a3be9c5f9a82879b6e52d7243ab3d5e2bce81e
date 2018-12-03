@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d5b944d_db374e88",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T12:13:38Z",
+      "side": 1,
+      "message": "Introduction of new layers should be delayed no matter of flexible mode on/off.",
+      "range": {
+        "startLine": 771,
+        "startChar": 7,
+        "endLine": 771,
+        "endChar": 24
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82fe6e1e_46ee74d9",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T12:13:38Z",
+      "side": 1,
+      "message": "would be nice to call this only if allocation was changed. can recent allocation be stored in absl::optional and reset after it was applied?",
+      "range": {
+        "startLine": 778,
+        "startChar": 2,
+        "endLine": 778,
+        "endChar": 50
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e8bf1e_fed1e56c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T12:13:38Z",
+      "side": 1,
+      "message": "SS should be updated on T0 frame when number of layers is changed (in either direction).",
+      "range": {
+        "startLine": 902,
+        "startChar": 12,
+        "endLine": 902,
+        "endChar": 29
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

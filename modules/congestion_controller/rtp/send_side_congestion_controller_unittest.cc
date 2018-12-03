@@ -303,15 +303,17 @@ TEST_F(SendSideCongestionControllerTest, OldFeedback) {
     controller_->OnTransportFeedback(feedback);
   }
 
-  // If the bitrate is reset to -1, the new starting bitrate will be
-  // the minimum default bitrate kMinBitrateBps.
-  EXPECT_CALL(
-      observer_,
-      OnNetworkChanged(congestion_controller::GetMinBitrateBps(), _, _, _));
-  EXPECT_CALL(
-      *pacer_,
-      SetPacingRates(
-          congestion_controller::GetMinBitrateBps() * kDefaultPacingRate, _));
+  task_queue_->PostTask([&] {
+    // If the bitrate is reset to -1, the new starting bitrate will be
+    // the minimum default bitrate kMinBitrateBps.
+    EXPECT_CALL(
+        observer_,
+        OnNetworkChanged(congestion_controller::GetMinBitrateBps(), _, _, _));
+    EXPECT_CALL(
+        *pacer_,
+        SetPacingRates(
+            congestion_controller::GetMinBitrateBps() * kDefaultPacingRate, _));
+  });
   route.local_network_id = 2;
   controller_->OnNetworkRouteChanged(route, -1, -1, -1);
 }

@@ -70,6 +70,29 @@
       "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "615783d5_19957898",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-03T15:49:10Z",
+      "side": 1,
+      "message": "nit: const?",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 10
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

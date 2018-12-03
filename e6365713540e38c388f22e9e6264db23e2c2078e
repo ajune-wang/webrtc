@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8036b54_b7683021",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-12-03T11:46:45Z",
+      "side": 1,
+      "message": "Maybe use an ArrayView instead?",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

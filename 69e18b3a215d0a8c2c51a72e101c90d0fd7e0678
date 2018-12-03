@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "15c523a3_9c538041",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-03T18:49:25Z",
+      "side": 1,
+      "message": "Was already done in patchset 6",
+      "parentUuid": "6203a2b8_57694a40",
+      "range": {
+        "startLine": 3079,
+        "startChar": 20,
+        "endLine": 3079,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b29ea8d3_5f7b6ec6",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 5

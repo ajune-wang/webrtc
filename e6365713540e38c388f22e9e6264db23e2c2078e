@@ -22,6 +22,30 @@
       "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "654fe15f_10c0e459",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-03T13:54:19Z",
+      "side": 1,
+      "message": "What about length? Does it really make sense to retain its old value here?",
+      "parentUuid": "f8036b54_b7683021",
+      "range": {
+        "startLine": 104,
+        "startChar": 18,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "d8cf38d5_e9bf2372",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-03T19:43:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5744666b_7936fdba",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1008,
+        "endChar": 3
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbda31e2_87f69a7d",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -260,6 +284,30 @@
       "side": 1,
       "message": "T is a common name for the template parameter. I prefer to keep it.",
       "parentUuid": "9d9e73c1_acaf5a18",
+      "range": {
+        "startLine": 861,
+        "startChar": 21,
+        "endLine": 861,
+        "endChar": 22
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cff4347_bc342aa5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-03T19:43:58Z",
+      "side": 1,
+      "message": "IMHO, using T is often done out of laziness. It\u0027s often a missed opportunity to write more self-documenting code. (This is a philosophical discussion. It\u0027s up to you what you feel like doing this time. I often use T when something else could be used, too.)",
+      "parentUuid": "968956ba_a4b027ff",
       "range": {
         "startLine": 861,
         "startChar": 21,

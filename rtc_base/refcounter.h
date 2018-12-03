@@ -10,40 +10,75 @@
 #ifndef RTC_BASE_REFCOUNTER_H_
 #define RTC_BASE_REFCOUNTER_H_
 
-#include "rtc_base/atomicops.h"
+#include <atomic>
+
+#include "rtc_base/checks.h"
 #include "rtc_base/refcount.h"
 
 namespace webrtc {
 namespace webrtc_impl {
 
+// Utility class to perform resource reference counting.
+// It uses atomic operations and memory synchronization ordering to implement
+// the operations that access the counter (read the documentation inside these
+// methods to understand the memory model of this class).
 class RefCounter {
  public:
-  explicit RefCounter(int ref_count) : ref_count_(ref_count) {}
+  explicit RefCounter(int ref_count) : ref_count_(ref_count);
   RefCounter() = delete;
 
-  void IncRef() { rtc::AtomicOps::Increment(&ref_count_); }
+  void IncRef() {
+    // The caller used to own at least one reference to the resource being
+    // tracked and now it owns one more.
+    // Reads and writes to the resource can be safely reordered past this
+    // increment in either direction.
+    std::atomic_fetch_add_explicit(&ref_count_, 1, std::memory_order_relaxed);
+  }
 
-  // TODO(nisse): Switch return type to RefCountReleaseStatus?
-  // Returns true if this was the last reference, and the resource protected by
-  // the reference counter can be deleted.
+  // Returns rtc::RefCountReleaseStatus::kDroppedLastRef if this was the last
+  // reference, and the resource protected by the reference counter can be
+  // deleted, otherwise rtc::RefCountReleaseStatus::kOtherRefsRemained.
   rtc::RefCountReleaseStatus DecRef() {
-    return (rtc::AtomicOps::Decrement(&ref_count_) == 0)
+    // The caller used to own at least one reference to the resource being
+    // tracked and now it owns one less.
+    // The acquire-release memory order prevents reads and writes to the
+    // tracked resource from:
+    // - being reordered after the decrement, which would be illegal because
+    //   at least one reference must be held in order to access the resource.
+    // - being reordered before the decrement, which would be illegal because
+    //   the resource should not be destroyed while someone may still be using
+    //   it.
+    int previous_ref_count = std::atomic_fetch_sub_explicit(
+        &ref_count_, 1, std::memory_order_acq_rel);
+    RTC_DCHECK_GE(previous_ref_count, 1);
+    // std::atomic_fetch_sub_explicit returns the value immediately preceding
+    // the effects of the decrement, so if it returns 1 it means that the
+    // counter it now equal to 0.
+    return previous_ref_count == 1
                ? rtc::RefCountReleaseStatus::kDroppedLastRef
                : rtc::RefCountReleaseStatus::kOtherRefsRemained;
   }
 
-  // Return whether the reference count is one. If the reference count is used
-  // in the conventional way, a reference count of 1 implies that the current
-  // thread owns the reference and no other thread shares it. This call performs
-  // the test for a reference count of one, and performs the memory barrier
-  // needed for the owning thread to act on the resource protected by the
-  // reference counter, knowing that it has exclusive access.
+  // Return true if the reference count is one, which means that the current
+  // thread owns the reference (if the reference count is used in the
+  // conventional way).
   bool HasOneRef() const {
-    return rtc::AtomicOps::AcquireLoad(&ref_count_) == 1;
+    // The caller owns at least one reference to the tracked resource; if the
+    // comparison is successful, we are assured that as of the atomic
+    // instruction and until the caller creates a new reference, the caller
+    // is the sole owner of the tracked resource.
+    // The acquire memory ordering prevents accesses made after the comparison
+    // from being reordered before the load which would be illegal because
+    // those accesses may assume that the caller is the sole owner of the
+    // resource, but does not prevent accesses to the tracked resource from
+    // being reordered after the comparison which is legal because the caller
+    // still owns a reference to the object.
+    return std::atomic_load_explicit(&ref_count_, std::memory_order_acquire) ==
+           1;
   }
 
  private:
-  volatile int ref_count_;
+  std::atomic<int> ref_count_;
 };
 
 }  // namespace webrtc_impl

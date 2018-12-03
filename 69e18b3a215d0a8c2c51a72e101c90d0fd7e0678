@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "6391de41_41ab2a62",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-03T18:22:58Z",
+      "side": 1,
+      "message": "Sounds good. My fault for not seeing that conversation.",
+      "parentUuid": "cb5b1f46_4e18bc78",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8e7915b_34ba0e18",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 5
@@ -187,6 +211,30 @@
       "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6203a2b8_57694a40",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-03T18:22:58Z",
+      "side": 1,
+      "message": "I see, makes sense. In that case how about \"Verify that the rids in the \"a\u003dsimulcast\" line match the rids in the \"a\u003drid\" lines in the SDP.\"?",
+      "parentUuid": "a7c944de_9164d89e",
+      "range": {
+        "startLine": 3079,
+        "startChar": 20,
+        "endLine": 3079,
+        "endChar": 41
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "The second line specifies what we expect to see in the line that failed.\nSo basically the test looks at the error.line and checks that it contains this text.\nThe goal is that it verifies that the failure happened because of the line we changed/injected.\n\nThe test has 2 well-formed simulcast lines (which should cause the error)\na\u003dsimulcast:send 1\na\u003dsimulcast:recv 2",
       "parentUuid": "36a46ea3_205efc87",
+      "range": {
+        "startLine": 3945,
+        "startChar": 33,
+        "endLine": 3945,
+        "endChar": 47
+      },
+      "revId": "69e18b3a215d0a8c2c51a72e101c90d0fd7e0678",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7dc9573b_10f40e0a",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-03T18:22:58Z",
+      "side": 1,
+      "message": "I should have looked at the function arguments. Thanks for clarifying, looks good.",
+      "parentUuid": "39a5ae5b_9dd955f0",
       "range": {
         "startLine": 3945,
         "startChar": 33,

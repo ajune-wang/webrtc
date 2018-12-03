@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "9825adc5_6c24c93c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-03T11:20:40Z",
+      "side": 1,
+      "message": "Nope, external_ref_control_ is set to field trial value only. Since flexible mode is in testing and doesn\u0027t work without external reference control at all, I decided not to tie this to the field trial flag.",
+      "parentUuid": "c3233b08_7b117ba4",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 72
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60d7b382_0ba2219c",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 20

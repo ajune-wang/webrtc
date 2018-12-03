@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "c3233b08_7b117ba4",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T11:11:01Z",
+      "side": 1,
+      "message": "what i meant is that external_ref_control_\u003dtrue should be enough condition to enable bypass mode.",
+      "parentUuid": "916332cb_91402085",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 72
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "60d7b382_0ba2219c",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 20
@@ -187,6 +211,30 @@
       "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd6c93f_4b1caec0",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T11:11:01Z",
+      "side": 1,
+      "message": "sgtm.",
+      "parentUuid": "62599d91_3fc79fb8",
+      "range": {
+        "startLine": 1130,
+        "startChar": 25,
+        "endLine": 1130,
+        "endChar": 43
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

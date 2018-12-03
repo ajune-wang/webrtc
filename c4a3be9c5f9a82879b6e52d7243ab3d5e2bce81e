@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0fd00a3_e82bde6d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-03T12:52:31Z",
+      "side": 1,
+      "message": "No, in non-flexible mode SetSvcRates() generates KF. So it has to be called with the new allocation immediately.",
+      "parentUuid": "7d5b944d_db374e88",
+      "range": {
+        "startLine": 771,
+        "startChar": 7,
+        "endLine": 771,
+        "endChar": 24
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "82fe6e1e_46ee74d9",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 21
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b7aeb300_ad05240a",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-03T12:52:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82fe6e1e_46ee74d9",
+      "range": {
+        "startLine": 778,
+        "startChar": 2,
+        "endLine": 778,
+        "endChar": 50
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31e8bf1e_fed1e56c",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 21
@@ -68,6 +116,30 @@
       "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b71a17c_4ccd15e4",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-03T12:52:31Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "31e8bf1e_fed1e56c",
+      "range": {
+        "startLine": 902,
+        "startChar": 12,
+        "endLine": 902,
+        "endChar": 29
+      },
+      "revId": "c4a3be9c5f9a82879b6e52d7243ab3d5e2bce81e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

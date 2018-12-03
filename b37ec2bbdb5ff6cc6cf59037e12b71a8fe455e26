@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "705e3ce3_ce3f4812",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-03T19:33:17Z",
+      "side": 1,
+      "message": "Yes. two reasons.\n1. inheriting classes can override (for example, audio might want to ignore simulcast explicitly, or log that it is not supported).\n2. to enable mocking when testing.",
+      "parentUuid": "a2b22e9d_5b512f6a",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 208,
+        "endChar": 9
+      },
+      "revId": "b37ec2bbdb5ff6cc6cf59037e12b71a8fe455e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd8e70d1_f50799a5",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "539af274_13c99bea",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2975,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-03T19:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd8e70d1_f50799a5",
+      "range": {
+        "startLine": 2975,
+        "startChar": 21,
+        "endLine": 2975,
+        "endChar": 27
+      },
+      "revId": "b37ec2bbdb5ff6cc6cf59037e12b71a8fe455e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "958faf36_7d76dd11",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "b37ec2bbdb5ff6cc6cf59037e12b71a8fe455e26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b95b41_86720b0d",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2987,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-03T19:33:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "958faf36_7d76dd11",
+      "range": {
+        "startLine": 2987,
+        "startChar": 41,
+        "endLine": 2987,
+        "endChar": 57
+      },
+      "revId": "b37ec2bbdb5ff6cc6cf59037e12b71a8fe455e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

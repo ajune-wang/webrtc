@@ -220,6 +220,7 @@ rtc_source_set("refcount") {
   ]
   deps = [
     ":atomicops",
+    ":checks",
     ":macromagic",
   ]
 }

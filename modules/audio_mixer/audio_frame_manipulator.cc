@@ -9,6 +9,7 @@
  */
 
 #include "modules/audio_mixer/audio_frame_manipulator.h"
+
 #include "audio/utility/audio_frame_operations.h"
 #include "rtc_base/checks.h"
 
@@ -55,11 +56,19 @@ void Ramp(float start_gain, float target_gain, AudioFrame* audio_frame) {
 
 void RemixFrame(size_t target_number_of_channels, AudioFrame* frame) {
   RTC_DCHECK_GE(target_number_of_channels, 1);
-  RTC_DCHECK_LE(target_number_of_channels, 2);
-  if (frame->num_channels_ == 1 && target_number_of_channels == 2) {
-    AudioFrameOperations::MonoToStereo(frame);
-  } else if (frame->num_channels_ == 2 && target_number_of_channels == 1) {
-    AudioFrameOperations::StereoToMono(frame);
+  if (frame->num_channels_ == target_number_of_channels) {
+    return;
   }
+  int return_code = 0;
+  if (frame->num_channels_ > target_number_of_channels) {
+    return_code =
+        AudioFrameOperations::DownmixChannels(target_number_of_channels, frame);
+  } else if (frame->num_channels_ < target_number_of_channels) {
+    return_code =
+        AudioFrameOperations::UpmixChannels(target_number_of_channels, frame);
+  }
+  RTC_DCHECK_EQ(return_code, 0)
+      << "Wrong number of channels, " << frame->num_channels_ << " vs "
+      << target_number_of_channels;
 }
 }  // namespace webrtc

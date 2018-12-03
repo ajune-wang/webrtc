@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d9c2ae6_f0c795a5",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T10:19:19Z",
+      "side": 1,
+      "message": "different frame rates is screencast feature. maybe check here that screencast is enabled?",
+      "range": {
+        "startLine": 483,
+        "startChar": 6,
+        "endLine": 483,
+        "endChar": 32
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a92b4e_b50c7145",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T10:19:19Z",
+      "side": 1,
+      "message": "is this check needed?",
+      "range": {
+        "startLine": 484,
+        "startChar": 6,
+        "endLine": 484,
+        "endChar": 50
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b4f84e4_72a1ec65",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T10:19:19Z",
+      "side": 1,
+      "message": "should bypass mode always be enabled if external_ref_control_ is true?",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 72
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d7b382_0ba2219c",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T10:19:19Z",
+      "side": 1,
+      "message": "would it be enough to only look at external_ref_control_[] to obtain updated buffers?",
+      "range": {
+        "startLine": 1130,
+        "startChar": 25,
+        "endLine": 1130,
+        "endChar": 43
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188c8eac_f7520ef1",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-03T10:19:19Z",
+      "side": 1,
+      "message": "we probably should not refer to gof_ in SetReference() since it can handle flexible temporal prediction now but gof_ assumes that temporal prediciton is fixed.",
+      "range": {
+        "startLine": 1171,
+        "startChar": 45,
+        "endLine": 1171,
+        "endChar": 49
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

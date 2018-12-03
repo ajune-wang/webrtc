@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ead40d76_7c27a844",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 983,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "By \"call\", I mean two or more clients or servers that are connected. Depending on application, it is possible to create the streams and start logging before a connections has been established.\n\nI updated the comment.",
+      "parentUuid": "d2f3bd19_3149b2e8",
+      "range": {
+        "startLine": 982,
+        "startChar": 65,
+        "endLine": 983,
+        "endChar": 47
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54017d09_74f122fc",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3274071_7488012f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54017d09_74f122fc",
+      "range": {
+        "startLine": 984,
+        "startChar": 63,
+        "endLine": 984,
+        "endChar": 67
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "93d3cd9c_7b352f73",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "Yeah, I thought about it. I did it this way to make the code below more clear.",
+      "parentUuid": "40ac3605_d3311410",
+      "range": {
+        "startLine": 986,
+        "startChar": 0,
+        "endLine": 988,
+        "endChar": 56
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdc18f65_98997aa8",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5744666b_7936fdba",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "StoreFirstAndLastTimestamp() does accept a vector\u003cT\u003e. Your suggestion would require accepting vector\u003cvector\u003cT\u003e\u003e and map\u003cuint32_t, vector\u003cT\u003e\u003e, etc. I think it is clearer as-is.",
+      "parentUuid": "cdc18f65_98997aa8",
+      "range": {
+        "startLine": 1003,
+        "startChar": 0,
+        "endLine": 1008,
+        "endChar": 3
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbda31e2_87f69a7d",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -108,6 +204,24 @@
       "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d0bb364_7cab5904",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbda31e2_87f69a7d",
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "968956ba_a4b027ff",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "T is a common name for the template parameter. I prefer to keep it.",
+      "parentUuid": "9d9e73c1_acaf5a18",
+      "range": {
+        "startLine": 861,
+        "startChar": 21,
+        "endLine": 861,
+        "endChar": 22
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2cae186_2a126a74",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
         "patchSetId": 1
@@ -154,6 +292,30 @@
       "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80d903f7_29870e12",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-03T18:30:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2cae186_2a126a74",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 867,
+        "endChar": 3
+      },
+      "revId": "6e54f0ed403c633ce93d1844a7a34d733dfb59b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

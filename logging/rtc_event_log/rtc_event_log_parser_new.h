@@ -857,6 +857,9 @@ class ParsedRtcEventLogNew {
 
   void StoreParsedLegacyEvent(const rtclog::Event& event);
 
+  template <typename T>
+  void StoreFirstAndLastTimestamp(const std::vector<T>& v);
+
   // Reads the arrival timestamp (in microseconds) from a rtclog::Event.
   int64_t GetTimestamp(const rtclog::Event& event) const;
 

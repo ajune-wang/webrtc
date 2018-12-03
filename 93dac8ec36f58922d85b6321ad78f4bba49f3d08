@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce153170_14127ed2",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-03T11:47:53Z",
+      "side": 0,
+      "message": "Also remove from native-api.md.",
+      "range": {
+        "startLine": 87,
+        "startChar": 3,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "93dac8ec36f58922d85b6321ad78f4bba49f3d08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "71737044_a2d12b2e",
         "filename": "modules/video_coding/codecs/i420/i420.cc",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2018-12-03T11:06:19Z",
       "side": 0,
       "message": "Isn\u0027t this test backwards, and very broken?",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 41
+      },
+      "revId": "93dac8ec36f58922d85b6321ad78f4bba49f3d08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "037ea72b_16d5339a",
+        "filename": "modules/video_coding/codecs/i420/i420.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-03T11:47:53Z",
+      "side": 0,
+      "message": "Yeah, this doesn\u0027t look right.",
+      "parentUuid": "71737044_a2d12b2e",
       "range": {
         "startLine": 103,
         "startChar": 2,

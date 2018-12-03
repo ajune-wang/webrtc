@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8126641_a00dbfb9",
+        "filename": "modules/video_coding/codecs/i420/i420.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-03T10:28:45Z",
+      "side": 0,
+      "message": "This looked wrong.\n\nAnd why is i420.cc built only on iOS? I see no dependencies on video_coding:webrtc_i420.\n\nI\u0027ve made another cl to just delete this code. See https://webrtc-review.googlesource.com/c/src/+/112596",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "93dac8ec36f58922d85b6321ad78f4bba49f3d08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -93,6 +93,53 @@
       "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86ba1c79_ebed81c8",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-04T08:04:43Z",
+      "side": 1,
+      "message": "\u003e nit: const?\n\nNo, it\u0027s re-assigned on line 127, below. (I find this allocation logic a bit odd, trying to use the unencoded size, but this cl is not the place to change that).",
+      "parentUuid": "615783d5_19957898",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 10
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d698fdf0_96cbd325",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-04T08:04:43Z",
+      "side": 1,
+      "message": "This one can be const, though. Adding.",
+      "range": {
+        "startLine": 303,
+        "startChar": 4,
+        "endLine": 303,
+        "endChar": 10
+      },
+      "revId": "e6365713540e38c388f22e9e6264db23e2c2078e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

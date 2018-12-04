@@ -358,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "ffd6828b_1e7d1e8d",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-04T10:14:43Z",
+      "side": 1,
+      "message": "Marco replied that old API is deprecated and is moving away, so I switched to use the update slot only.",
+      "parentUuid": "ddd6c93f_4b1caec0",
+      "range": {
+        "startLine": 1130,
+        "startChar": 25,
+        "endLine": 1130,
+        "endChar": 43
+      },
+      "revId": "2086e1bace41874d76b647ad899c6c6ac6dba617",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "188c8eac_f7520ef1",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 20

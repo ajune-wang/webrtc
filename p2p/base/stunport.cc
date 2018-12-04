@@ -16,11 +16,11 @@
 #include "p2p/base/p2pconstants.h"
 #include "p2p/base/portallocator.h"
 #include "p2p/base/stun.h"
+#include "rtc_base/asyncresolver.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/helpers.h"
 #include "rtc_base/ipaddress.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/nethelpers.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace cricket {

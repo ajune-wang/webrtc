@@ -401,6 +401,8 @@ TEST_F(TestVp9Impl, EnableDisableSpatialLayers) {
       std::vector<EncodedImage> encoded_frame;
       std::vector<CodecSpecificInfo> codec_specific_info;
       ASSERT_TRUE(WaitForEncodedFrames(&encoded_frame, &codec_specific_info));
+      EXPECT_EQ(codec_specific_info[0].codecSpecific.VP9.ss_data_available,
+                frame_num == 0);
     }
   }
 
@@ -418,6 +420,8 @@ TEST_F(TestVp9Impl, EnableDisableSpatialLayers) {
       std::vector<EncodedImage> encoded_frame;
       std::vector<CodecSpecificInfo> codec_specific_info;
       ASSERT_TRUE(WaitForEncodedFrames(&encoded_frame, &codec_specific_info));
+      EXPECT_EQ(codec_specific_info[0].codecSpecific.VP9.ss_data_available,
+                frame_num == 0);
     }
   }
 }
@@ -579,6 +583,180 @@ TEST_F(TestVp9Impl,
       }
     }
   }
+}
+
+TEST_F(TestVp9Impl, EnablingNewLayerIsDelayedInScreenshareAndAddsSsInfo) {
+  const size_t num_spatial_layers = 3;
+  // Chosen by hand, the 2nd frame is dropped with configured per-layer max
+  // framerate.
+  const size_t num_frames_to_encode_before_drop = 1;
+  // Chosen by hand, exactly 5 frames are dropped for input fps=30 and max
+  // framerate = 5.
+  const size_t num_dropped_frames = 5;
+
+  codec_settings_.maxFramerate = 30;
+  ConfigureSvc(num_spatial_layers);
+  codec_settings_.spatialLayers[0].maxFramerate = 5.0;
+  // use 30 for the SL 1 instead of 5, so even if SL 0 frame is dropped due to
+  // framerate capping we would still get back at least a middle layer. It
+  // simplifies the test.
+  codec_settings_.spatialLayers[1].maxFramerate = 30.0;
+  codec_settings_.spatialLayers[2].maxFramerate = 30.0;
+  codec_settings_.VP9()->frameDroppingOn = false;
+  codec_settings_.mode = VideoCodecMode::kScreensharing;
+  codec_settings_.VP9()->interLayerPred = InterLayerPredMode::kOn;
+  codec_settings_.VP9()->flexibleMode = true;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
+                                 0 /* max payload size (unused) */));
+
+  // Enable all but the last layer.
+  VideoBitrateAllocation bitrate_allocation;
+  for (size_t sl_idx = 0; sl_idx < num_spatial_layers - 1; ++sl_idx) {
+    bitrate_allocation.SetBitrate(
+        sl_idx, 0, codec_settings_.spatialLayers[sl_idx].targetBitrate * 1000);
+  }
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->SetRateAllocation(bitrate_allocation,
+                                        codec_settings_.maxFramerate));
+
+  // Encode enough frames to force drop due to framerate capping.
+  for (size_t frame_num = 0; frame_num < num_frames_to_encode_before_drop;
+       ++frame_num) {
+    SetWaitForEncodedFramesThreshold(num_spatial_layers - 1);
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+    std::vector<EncodedImage> encoded_frames;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+  }
+
+  // enable the last layer.
+  bitrate_allocation.SetBitrate(
+      num_spatial_layers - 1, 0,
+      codec_settings_.spatialLayers[num_spatial_layers - 1].targetBitrate *
+          1000);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->SetRateAllocation(bitrate_allocation,
+                                        codec_settings_.maxFramerate));
+
+  for (size_t frame_num = 0; frame_num < num_dropped_frames; ++frame_num) {
+    SetWaitForEncodedFramesThreshold(1);
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+    // First layer is dropped due to frame rate cap. The last layer should not
+    // be enabled yet.
+    std::vector<EncodedImage> encoded_frames;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+  }
+
+  SetWaitForEncodedFramesThreshold(2);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+  // Now all 3 layers should be encoded.
+  std::vector<EncodedImage> encoded_frames;
+  std::vector<CodecSpecificInfo> codec_specific_info;
+  ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+  EXPECT_EQ(encoded_frames.size(), 3u);
+  // Scalability structure has to be triggered.
+  EXPECT_TRUE(codec_specific_info[0].codecSpecific.VP9.ss_data_available);
+}
+
+TEST_F(TestVp9Impl, RemovingLayerIsNotDelayedInScreenshareAndAddsSsInfo) {
+  const size_t num_spatial_layers = 3;
+  // Chosen by hand, the 2nd frame is dropped with configured per-layer max
+  // framerate.
+  const size_t num_frames_to_encode_before_drop = 1;
+  // Chosen by hand, exactly 5 frames are dropped for input fps=30 and max
+  // framerate = 5.
+  const size_t num_dropped_frames = 5;
+
+  codec_settings_.maxFramerate = 30;
+  ConfigureSvc(num_spatial_layers);
+  codec_settings_.spatialLayers[0].maxFramerate = 5.0;
+  // use 30 for the SL 1 instead of 5, so even if SL 0 frame is dropped due to
+  // framerate capping we would still get back at least a middle layer. It
+  // simplifies the test.
+  codec_settings_.spatialLayers[1].maxFramerate = 30.0;
+  codec_settings_.spatialLayers[2].maxFramerate = 30.0;
+  codec_settings_.VP9()->frameDroppingOn = false;
+  codec_settings_.mode = VideoCodecMode::kScreensharing;
+  codec_settings_.VP9()->interLayerPred = InterLayerPredMode::kOn;
+  codec_settings_.VP9()->flexibleMode = true;
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->InitEncode(&codec_settings_, 1 /* number of cores */,
+                                 0 /* max payload size (unused) */));
+
+  // All layers are enabled from the start.
+  VideoBitrateAllocation bitrate_allocation;
+  for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
+    bitrate_allocation.SetBitrate(
+        sl_idx, 0, codec_settings_.spatialLayers[sl_idx].targetBitrate * 1000);
+  }
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->SetRateAllocation(bitrate_allocation,
+                                        codec_settings_.maxFramerate));
+
+  // Encode enough frames to force drop due to framerate capping.
+  for (size_t frame_num = 0; frame_num < num_frames_to_encode_before_drop;
+       ++frame_num) {
+    SetWaitForEncodedFramesThreshold(num_spatial_layers);
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+    std::vector<EncodedImage> encoded_frames;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+  }
+
+  // Now the first layer should not have frames in it.
+  for (size_t frame_num = 0; frame_num < num_dropped_frames - 2; ++frame_num) {
+    SetWaitForEncodedFramesThreshold(2);
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+    // First layer is dropped due to frame rate cap. The last layer should not
+    // be enabled yet.
+    std::vector<EncodedImage> encoded_frames;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+    // First layer is skipped.
+    EXPECT_EQ(encoded_frames[0].SpatialIndex().value_or(-1), 1);
+  }
+
+  // Disable the last layer.
+  bitrate_allocation.SetBitrate(num_spatial_layers - 1, 0, 0);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->SetRateAllocation(bitrate_allocation,
+                                        codec_settings_.maxFramerate));
+
+  // Still expected to drop first layer. Last layer has to be disable also.
+  for (size_t frame_num = num_dropped_frames - 2;
+       frame_num < num_dropped_frames; ++frame_num) {
+    // Expect back one frame.
+    SetWaitForEncodedFramesThreshold(1);
+    EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+              encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+    // First layer is dropped due to frame rate cap. The last layer should not
+    // be enabled yet.
+    std::vector<EncodedImage> encoded_frames;
+    std::vector<CodecSpecificInfo> codec_specific_info;
+    ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+    // First layer is skipped.
+    EXPECT_EQ(encoded_frames[0].SpatialIndex().value_or(-1), 1);
+    // No SS data on non-base spatial layer.
+    EXPECT_FALSE(codec_specific_info[0].codecSpecific.VP9.ss_data_available);
+  }
+
+  SetWaitForEncodedFramesThreshold(2);
+  EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,
+            encoder_->Encode(*NextInputFrame(), nullptr, nullptr));
+  std::vector<EncodedImage> encoded_frames;
+  std::vector<CodecSpecificInfo> codec_specific_info;
+  ASSERT_TRUE(WaitForEncodedFrames(&encoded_frames, &codec_specific_info));
+  // First layer is not skipped now.
+  EXPECT_EQ(encoded_frames[0].SpatialIndex().value_or(-1), 0);
+  // SS data should be present.
+  EXPECT_TRUE(codec_specific_info[0].codecSpecific.VP9.ss_data_available);
 }
 
 TEST_F(TestVp9Impl,
@@ -766,6 +944,7 @@ TEST_F(TestVp9ImplFrameDropping, DifferentFrameratePerSpatialLayer) {
 
   codec_settings_.VP9()->numberOfSpatialLayers = num_spatial_layers;
   codec_settings_.VP9()->frameDroppingOn = false;
+  codec_settings_.VP9()->flexibleMode = true;
 
   VideoBitrateAllocation bitrate_allocation;
   for (uint8_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {

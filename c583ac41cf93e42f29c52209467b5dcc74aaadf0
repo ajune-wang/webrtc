@@ -210,6 +210,30 @@
       "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9741a523_a1808552",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-04T11:48:48Z",
+      "side": 1,
+      "message": "On second though, not sure this method (part of the MediaTransportVideoSinkInterface) makes sense at all. It\u0027s the *sender* that needs to respond to key frame requests, right?\n\nMaybe it\u0027s time to split up the MediaTransportInterface in separate interfaces for the various roles (which might still be implemented by the same object, if so desired). \n\nHere, we should add a MediaTransport alternative in VideoReceiveStream::RequestKeyFrame.",
+      "parentUuid": "bca32164_8760ca20",
+      "range": {
+        "startLine": 425,
+        "startChar": 2,
+        "endLine": 425,
+        "endChar": 29
+      },
+      "revId": "c583ac41cf93e42f29c52209467b5dcc74aaadf0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

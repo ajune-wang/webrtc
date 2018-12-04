@@ -511,7 +511,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     }
 
     VideoEncoder::EncoderInfo GetEncoderInfo() const override {
-      EncoderInfo info;
+      EncoderInfo info = FakeEncoder::GetEncoderInfo();
       rtc::CritScope lock(&local_crit_sect_);
       if (quality_scaling_) {
         info.scaling_settings =
@@ -3198,7 +3198,7 @@ TEST_F(VideoStreamEncoderTest,
   CpuOveruseOptions hardware_options;
   hardware_options.low_encode_usage_threshold_percent = 150;
   hardware_options.high_encode_usage_threshold_percent = 200;
-  encoder_factory_.SetIsHardwareAccelerated(true);
+  fake_encoder_.SetIsHardwareAccelerated(true);
 
   video_stream_encoder_->OnBitrateUpdated(kTargetBitrateBps, 0, 0);
   video_source_.IncomingCapturedFrame(

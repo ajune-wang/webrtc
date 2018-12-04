@@ -802,11 +802,14 @@ CallReceiveStatistics ChannelReceive::GetRTCPStatistics() const {
 void ChannelReceive::SetNACKStatus(bool enable, int max_packets) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   // None of these functions can fail.
-  rtp_receive_statistics_->SetMaxReorderingThreshold(max_packets);
-  if (enable)
+  if (enable) {
+    rtp_receive_statistics_->SetMaxReorderingThreshold(max_packets);
     audio_coding_->EnableNack(max_packets);
-  else
+  } else {
+    rtp_receive_statistics_->SetMaxReorderingThreshold(
+        kDefaultMaxReorderingThreshold);
     audio_coding_->DisableNack();
+  }
 }
 
 // Called when we are missing one or more packets.

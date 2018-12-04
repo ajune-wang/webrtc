@@ -55,8 +55,7 @@ int I420Encoder::InitEncode(const VideoCodec* codecSettings,
   // Allocating encoded memory.
   if (_encodedImage._buffer != NULL) {
     delete[] _encodedImage._buffer;
-    _encodedImage._buffer = NULL;
-    _encodedImage._size = 0;
+    _encodedImage.set_buffer(NULL, 0);
   }
   const size_t newSize = CalcBufferSize(VideoType::kI420, codecSettings->width,
                                         codecSettings->height) +
@@ -65,8 +64,7 @@ int I420Encoder::InitEncode(const VideoCodec* codecSettings,
   if (newBuffer == NULL) {
     return WEBRTC_VIDEO_CODEC_MEMORY;
   }
-  _encodedImage._size = newSize;
-  _encodedImage._buffer = newBuffer;
+  _encodedImage.set_buffer(newBuffer, newSize);
 
   // If no memory allocation, no point to init.
   _inited = true;
@@ -100,12 +98,10 @@ int I420Encoder::Encode(const VideoFrame& inputImage,
   size_t req_length = CalcBufferSize(VideoType::kI420, inputImage.width(),
                                      inputImage.height()) +
                       kI420HeaderSize;
-  if (_encodedImage._size > req_length) {
+  if (_encodedImage.capacity() < req_length) {
     // Reallocate buffer.
     delete[] _encodedImage._buffer;
-
-    _encodedImage._buffer = new uint8_t[req_length];
-    _encodedImage._size = req_length;
+    _encodedImage.set_buffer(new uint8_t[req_length], req_length);
   }
 
   uint8_t* buffer = _encodedImage._buffer;

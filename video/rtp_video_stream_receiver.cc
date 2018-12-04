@@ -529,6 +529,7 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       VideoSendTiming::kInvalid;
   webrtc_rtp_header.video_header().is_last_packet_in_frame =
       webrtc_rtp_header.header.markerBit;
+  webrtc_rtp_header.video_header().frame_marking.temporal_id = kNoTemporalIdx;
 
   packet.GetExtension<VideoOrientation>(
       &webrtc_rtp_header.video_header().rotation);
@@ -538,6 +539,8 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
       &webrtc_rtp_header.video_header().video_timing);
   packet.GetExtension<PlayoutDelayLimits>(
       &webrtc_rtp_header.video_header().playout_delay);
+  packet.GetExtension<FrameMarkingExtension>(
+      &webrtc_rtp_header.video_header().frame_marking);
 
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor_wire;
   generic_descriptor_wire.emplace();

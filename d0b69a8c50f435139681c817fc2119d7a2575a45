@@ -22,6 +22,30 @@
       "revId": "d0b69a8c50f435139681c817fc2119d7a2575a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f99acd91_7d1097dd",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-04T13:55:19Z",
+      "side": 0,
+      "message": "Makes sense. Trying it now in a new patch set.",
+      "parentUuid": "b2609e88_df7c97bc",
+      "range": {
+        "startLine": 903,
+        "startChar": 4,
+        "endLine": 903,
+        "endChar": 40
+      },
+      "revId": "d0b69a8c50f435139681c817fc2119d7a2575a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

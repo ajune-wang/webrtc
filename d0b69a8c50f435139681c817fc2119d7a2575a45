@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2609e88_df7c97bc",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-12-04T13:46:14Z",
+      "side": 0,
+      "message": "I am wondering if this should be removed if should only be used by thread.cc.",
+      "range": {
+        "startLine": 903,
+        "startChar": 4,
+        "endLine": 903,
+        "endChar": 40
+      },
+      "revId": "d0b69a8c50f435139681c817fc2119d7a2575a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

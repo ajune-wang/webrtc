@@ -529,12 +529,14 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   if (audio_frame.samples_per_channel_ == 0) {
     assert(false);
     RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, payload length is zero";
+    fprintf(stderr, "a\n");
     return -1;
   }
 
   if (audio_frame.sample_rate_hz_ > 48000) {
     assert(false);
     RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, input frequency not valid";
+    fprintf(stderr, "b\n");
     return -1;
   }
 
@@ -543,16 +545,19 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
       audio_frame.samples_per_channel_) {
     RTC_LOG(LS_ERROR)
         << "Cannot Add 10 ms audio, input frequency and length doesn't match";
+    fprintf(stderr, "c\n");
     return -1;
   }
 
   if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2) {
     RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
+    fprintf(stderr, "d\n");
     return -1;
   }
 
   // Do we have a codec registered?
   if (!HaveValidEncoder("Add10MsData")) {
+    fprintf(stderr, "e\n");
     return -1;
   }
 
@@ -562,6 +567,7 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   // place if both primary and secondary encoders are mono and input is in
   // stereo).
   if (PreprocessToAddData(audio_frame, &ptr_frame) < 0) {
+    fprintf(stderr, "f\n");
     return -1;
   }
 
@@ -573,9 +579,11 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   if (!same_num_channels) {
     if (ptr_frame->num_channels_ == 1) {
       if (UpMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0)
+    fprintf(stderr, "g\n");
         return -1;
     } else {
       if (DownMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0)
+    fprintf(stderr, "h\n");
         return -1;
     }
   }

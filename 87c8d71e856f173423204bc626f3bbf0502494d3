@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afd8ca66_d11ebe3a",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-04T10:40:20Z",
+      "side": 1,
+      "message": "the change affects normal video as well. it makes sense to verify both, normal video and screenshare.",
+      "range": {
+        "startLine": 584,
+        "startChar": 45,
+        "endLine": 584,
+        "endChar": 58
+      },
+      "revId": "87c8d71e856f173423204bc626f3bbf0502494d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1641003c_01dc59eb",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-04T10:40:20Z",
+      "side": 1,
+      "message": "is this true? as far as i remember SetReferences() accounts for temporal layering. probably it is not ready for temporal layering + different frame rates.",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 499,
+        "endChar": 25
+      },
+      "revId": "87c8d71e856f173423204bc626f3bbf0502494d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2f06dcd_1c632165",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-04T10:40:20Z",
+      "side": 1,
+      "message": "this can be rewritten:\n\nif (num_temporal_layers_ \u003d\u003d 1) {\n..\n} else if (num_temporal_layers_ \u003d\u003d 2) {\n..\n} else if (num_temporal_layers_ \u003d\u003d 3) {\n..\n}\n\nif (external_ref_control_) {\n  config_-\u003etemporal_layering_mode \u003d VP9E_TEMPORAL_LAYERING_MODE_BYPASS;\n}",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 538,
+        "endChar": 3
+      },
+      "revId": "87c8d71e856f173423204bc626f3bbf0502494d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

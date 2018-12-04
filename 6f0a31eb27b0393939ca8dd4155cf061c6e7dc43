@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b271f0c_436e99cf",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1818,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-12-04T19:03:05Z",
+      "side": 1,
+      "message": "LOG_AND_RETURN_ERROR requires this (the macro inserts RTCErrorType::NONE).",
+      "revId": "6f0a31eb27b0393939ca8dd4155cf061c6e7dc43",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

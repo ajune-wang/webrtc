@@ -20,8 +20,8 @@
 #include <set>
 #include <vector>
 
+#include "rtc_base/asyncresolver.h"
 #include "rtc_base/criticalsection.h"
-#include "rtc_base/nethelpers.h"
 #include "rtc_base/socketserver.h"
 
 #if defined(WEBRTC_POSIX)

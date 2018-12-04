@@ -11,7 +11,6 @@
 #ifndef RTC_BASE_SOCKETSERVER_H_
 #define RTC_BASE_SOCKETSERVER_H_
 
-#include <memory>
 #include "rtc_base/socketfactory.h"
 
 namespace rtc {
@@ -31,7 +30,6 @@ class SocketServer : public SocketFactory {
  public:
   static const int kForever = -1;
 
-  static std::unique_ptr<SocketServer> CreateDefault();
   // When the socket server is installed into a Thread, this function is
   // called to allow the socket server to use the thread's message queue for
   // any messaging that it might need to perform.

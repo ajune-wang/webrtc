@@ -722,6 +722,203 @@ rtc_source_set("rtc_json") {
   }
 }
 
+rtc_source_set("nethelpers") {
+  sources = [
+    "nethelpers.cc",
+    "nethelpers.h",
+  ]
+  if (is_android) {
+    deps = [
+      ":ifaddrs_android",
+    ]
+  }
+  if (is_win) {
+    deps = [
+      ":win32",
+    ]
+  }
+}
+
+rtc_source_set("asyncresolverinterface") {
+  sources = [
+    "asyncresolverinterface.cc",
+    "asyncresolverinterface.h",
+  ]
+  deps = [
+    ":socketaddress",
+    "third_party/sigslot",
+  ]
+}
+
+rtc_source_set("ipaddress") {
+  sources = [
+    "ipaddress.cc",
+    "ipaddress.h",
+  ]
+  deps = [
+    ":nethelpers",
+    ":rtc_base_approved",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
+}
+
+rtc_source_set("socketaddress") {
+  sources = [
+    "socketaddress.cc",
+    "socketaddress.h",
+  ]
+  deps = [
+    ":checks",
+    ":ipaddress",
+    ":nethelpers",
+    ":rtc_base_approved",
+    ":safe_conversions",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
+}
+
+rtc_source_set("nullsocketserver") {
+  sources = [
+    "nullsocketserver.cc",
+    "nullsocketserver.h",
+  ]
+  deps = [
+    ":asyncsocket",
+    ":checks",
+    ":rtc_event",
+    ":socket",
+    ":socketserver",
+  ]
+}
+
+rtc_source_set("socketserver") {
+  sources = [
+    "socketserver.h",
+  ]
+  deps = [
+    ":socketfactory",
+  ]
+}
+
+# TODO(kwiberg): Split this up into smaller targets. This is
+# nontrivial, because everything in this target is tied together in
+# several different dependency cycles.
+rtc_source_set("threading") {
+  sources = [
+    "asyncresolver.cc",
+    "asyncresolver.h",
+    "defaultsocketserver.cc",
+    "defaultsocketserver.h",
+    "messagehandler.cc",
+    "messagehandler.h",
+    "messagequeue.cc",
+    "messagequeue.h",
+    "networkmonitor.cc",
+    "networkmonitor.h",
+    "physicalsocketserver.cc",
+    "physicalsocketserver.h",
+    "signalthread.cc",
+    "signalthread.h",
+    "thread.cc",
+    "thread.h",
+  ]
+  deps = [
+    ":asyncresolverinterface",
+    ":checks",
+    ":criticalsection",
+    ":ipaddress",
+    ":logging",
+    ":macromagic",
+    ":network_constants",
+    ":nullsocketserver",
+    ":rtc_base_approved",
+    ":socketaddress",
+    ":socketserver",
+    ":timeutils",
+    "third_party/sigslot",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+  if (is_ios || is_mac) {
+    deps += [ "system:cocoa_threading" ]
+  }
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
+}
+
+rtc_source_set("socketfactory") {
+  sources = [
+    "socketfactory.h",
+  ]
+  deps = [
+    ":asyncsocket",
+    ":socket",
+  ]
+}
+
+rtc_source_set("asyncsocket") {
+  sources = [
+    "asyncsocket.cc",
+    "asyncsocket.h",
+  ]
+  deps = [
+    ":checks",
+    ":socket",
+    ":socketaddress",
+    "third_party/sigslot",
+  ]
+}
+
+rtc_source_set("socket") {
+  sources = [
+    "socket.cc",
+    "socket.h",
+  ]
+  deps = [
+    ":macromagic",
+    ":socketaddress",
+    "network:sent_packet",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
+}
+
+rtc_source_set("network_constants") {
+  sources = [
+    "network_constants.h",
+  ]
+}
+
+if (is_android) {
+  rtc_source_set("ifaddrs_android") {
+    sources = [
+      "ifaddrs-android.cc",
+      "ifaddrs-android.h",
+    ]
+  }
+}
+
+if (is_win) {
+  rtc_source_set("win32") {
+    sources = [
+      "win32.cc",
+      "win32.h",
+    ]
+    deps = [
+      ":checks",
+      ":logging",
+      ":macromagic",
+      ":rtc_base_approved",
+      ":stringutils",
+    ]
+  }
+}
+
 rtc_static_library("rtc_base") {
   visibility = [ "*" ]
   cflags = []
@@ -732,8 +929,15 @@ rtc_static_library("rtc_base") {
     ":checks",
 
     # For deprecation of rtc::PacketTime, in asyncpacketsocket.h.
+    ":asyncsocket",
     ":deprecation",
+    ":ipaddress",
+    ":nethelpers",
+    ":socket",
+    ":socketaddress",
+    ":socketfactory",
     ":stringutils",
+    ":threading",
     "..:webrtc_common",
     "../api:array_view",
     "network:sent_packet",
@@ -756,10 +960,6 @@ rtc_static_library("rtc_base") {
     "asyncinvoker.h",
     "asyncpacketsocket.cc",
     "asyncpacketsocket.h",
-    "asyncresolverinterface.cc",
-    "asyncresolverinterface.h",
-    "asyncsocket.cc",
-    "asyncsocket.h",
     "asynctcpsocket.cc",
     "asynctcpsocket.h",
     "asyncudpsocket.cc",
@@ -778,30 +978,17 @@ rtc_static_library("rtc_base") {
     "helpers.h",
     "httpcommon.cc",
     "httpcommon.h",
-    "ipaddress.cc",
-    "ipaddress.h",
     "keep_ref_until_done.h",
     "key_derivation.cc",
     "key_derivation.h",
     "mdns_responder_interface.h",
     "messagedigest.cc",
     "messagedigest.h",
-    "messagehandler.cc",
-    "messagehandler.h",
-    "messagequeue.cc",
-    "messagequeue.h",
     "nethelper.cc",
     "nethelper.h",
-    "nethelpers.cc",
-    "nethelpers.h",
     "network.cc",
     "network.h",
-    "network_constants.h",
-    "networkmonitor.cc",
-    "networkmonitor.h",
     "networkroute.h",
-    "nullsocketserver.cc",
-    "nullsocketserver.h",
     "openssl.h",
     "openssl_key_derivation_hkdf.cc",
     "openssl_key_derivation_hkdf.h",
@@ -819,27 +1006,17 @@ rtc_static_library("rtc_base") {
     "opensslstreamadapter.h",
     "opensslutility.cc",
     "opensslutility.h",
-    "physicalsocketserver.cc",
-    "physicalsocketserver.h",
     "proxyinfo.cc",
     "proxyinfo.h",
     "rtccertificate.cc",
     "rtccertificate.h",
     "rtccertificategenerator.cc",
     "rtccertificategenerator.h",
-    "signalthread.cc",
-    "signalthread.h",
     "sigslotrepeater.h",
-    "socket.cc",
-    "socket.h",
     "socketadapters.cc",
     "socketadapters.h",
-    "socketaddress.cc",
-    "socketaddress.h",
     "socketaddresspair.cc",
     "socketaddresspair.h",
-    "socketfactory.h",
-    "socketserver.h",
     "ssladapter.cc",
     "ssladapter.h",
     "sslcertificate.cc",
@@ -852,8 +1029,6 @@ rtc_static_library("rtc_base") {
     "sslstreamadapter.h",
     "stream.cc",
     "stream.h",
-    "thread.cc",
-    "thread.h",
   ]
 
   if (build_with_chromium) {
@@ -871,11 +1046,13 @@ rtc_static_library("rtc_base") {
 
     if (is_win) {
       sources += [ "win32socketinit.h" ]
+      deps += [ ":win32" ]
       if (current_os != "winuwp") {
         sources += [
           "win32socketserver.cc",
           "win32socketserver.h",
         ]
+        deps += [ ":socketserver" ]
       }
     }
   }  # !build_with_chromium
@@ -887,11 +1064,7 @@ rtc_static_library("rtc_base") {
   }
 
   if (is_android) {
-    sources += [
-      "ifaddrs-android.cc",
-      "ifaddrs-android.h",
-    ]
-
+    deps += [ ":ifaddrs_android" ]
     libs += [
       "log",
       "GLESv2",
@@ -900,7 +1073,6 @@ rtc_static_library("rtc_base") {
 
   if (is_ios || is_mac) {
     sources += [ "macifaddrs_converter.cc" ]
-    deps += [ "system:cocoa_threading" ]
   }
 
   if (rtc_use_x11) {
@@ -930,8 +1102,6 @@ rtc_static_library("rtc_base") {
 
   if (is_win) {
     sources += [
-      "win32.cc",
-      "win32.h",
       "win32window.cc",
       "win32window.h",
     ]
@@ -977,6 +1147,7 @@ rtc_source_set("gunit_helpers") {
     ":rtc_base",
     ":rtc_base_tests_utils",
     ":stringutils",
+    ":threading",
     "../test:test_support",
   ]
 }
@@ -993,6 +1164,7 @@ rtc_source_set("testclient") {
     ":macromagic",
     ":rtc_base",
     ":rtc_base_tests_utils",
+    ":threading",
     ":timeutils",
     "//third_party/abseil-cpp/absl/memory",
   ]
@@ -1037,8 +1209,15 @@ rtc_source_set("rtc_base_tests_utils") {
     "virtualsocketserver.h",
   ]
   deps = [
+    ":asyncsocket",
     ":checks",
+    ":ipaddress",
     ":rtc_base",
+    ":socket",
+    ":socketaddress",
+    ":socketfactory",
+    ":socketserver",
+    ":threading",
     "../api/units:time_delta",
     "third_party/sigslot",
     "//third_party/abseil-cpp/absl/memory",
@@ -1109,12 +1288,20 @@ if (rtc_include_tests) {
       "socketaddress_unittest.cc",
     ]
     deps = [
+      ":asyncsocket",
       ":checks",
       ":gunit_helpers",
+      ":ipaddress",
+      ":nethelpers",
+      ":nullsocketserver",
       ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":socket",
+      ":socketaddress",
+      ":socketserver",
       ":testclient",
+      ":threading",
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
       "../test:test_support",
@@ -1177,12 +1364,12 @@ if (rtc_include_tests) {
       "virtualsocket_unittest.cc",
       "zero_memory_unittest.cc",
     ]
-    if (is_win) {
-      sources += [ "win/windows_version_unittest.cc" ]
-    }
     deps = [
+      ":asyncsocket",
       ":checks",
       ":gunit_helpers",
+      ":ipaddress",
+      ":nullsocketserver",
       ":rate_limiter",
       ":rtc_base",
       ":rtc_base_approved",
@@ -1192,8 +1379,12 @@ if (rtc_include_tests) {
       ":safe_compare",
       ":safe_minmax",
       ":sanitizer",
+      ":socket",
+      ":socketaddress",
+      ":socketserver",
       ":stringutils",
       ":testclient",
+      ":threading",
       "../api:array_view",
       "../api/units:time_delta",
       "../system_wrappers:system_wrappers",
@@ -1204,6 +1395,10 @@ if (rtc_include_tests) {
       "third_party/sigslot:sigslot",
       "//third_party/abseil-cpp/absl/memory",
     ]
+    if (is_win) {
+      sources += [ "win/windows_version_unittest.cc" ]
+      deps += [ ":win32" ]
+    }
   }
 
   rtc_source_set("rtc_task_queue_unittests") {
@@ -1320,12 +1515,6 @@ if (rtc_include_tests) {
       "testclient_unittest.cc",
       "thread_unittest.cc",
     ]
-    if (is_win) {
-      sources += [
-        "win32_unittest.cc",
-        "win32window_unittest.cc",
-      ]
-    }
     if (is_posix || is_fuchsia) {
       sources += [
         "openssl_key_derivation_hkdf_unittest.cc",
@@ -1338,12 +1527,20 @@ if (rtc_include_tests) {
       ]
     }
     deps = [
+      ":asyncsocket",
       ":checks",
       ":gunit_helpers",
+      ":ipaddress",
+      ":nethelpers",
+      ":nullsocketserver",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":socketaddress",
+      ":socketfactory",
+      ":socketserver",
       ":stringutils",
       ":testclient",
+      ":threading",
       "../api:array_view",
       "../test:fileutils",
       "../test:test_support",
@@ -1354,6 +1551,13 @@ if (rtc_include_tests) {
     public_deps = [
       ":rtc_base",
     ]
+    if (is_win) {
+      sources += [
+        "win32_unittest.cc",
+        "win32window_unittest.cc",
+      ]
+      deps += [ ":win32" ]
+    }
     if (build_with_chromium) {
       include_dirs = [ "../../boringssl/src/include" ]
     }

@@ -3385,10 +3385,12 @@ void PeerConnection::Close() {
   webrtc_session_desc_factory_.reset();
   transport_controller_.reset();
 
+  RTC_LOG(LS_WARNING) << "Blocking invoke call to network thread.";
   network_thread()->Invoke<void>(
       RTC_FROM_HERE, rtc::Bind(&cricket::PortAllocator::DiscardCandidatePool,
                                port_allocator_.get()));
 
+  RTC_LOG(LS_WARNING) << "Blocking invoke call to worker thread.";
   worker_thread()->Invoke<void>(RTC_FROM_HERE, [this] {
     call_.reset();
     // The event log must outlive call (and any other object that uses it).

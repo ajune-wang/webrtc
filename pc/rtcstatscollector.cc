@@ -828,13 +828,16 @@ void RTCStatsCollector::ClearCachedStatsReport() {
 }
 
 void RTCStatsCollector::WaitForPendingRequest() {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
+  RTC_CHECK(signaling_thread_->IsCurrent());
   if (num_pending_partial_reports_) {
+    RTC_LOG(LS_WARNING)
+        << "Blocking signaling thread until stats collection is done.";
     rtc::Thread::Current()->ProcessMessages(0);
     while (num_pending_partial_reports_) {
       rtc::Thread::Current()->SleepMs(1);
       rtc::Thread::Current()->ProcessMessages(0);
     }
+    RTC_LOG(LS_WARNING) << "Stats collection done.";
   }
 }
 

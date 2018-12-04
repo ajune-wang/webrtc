@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d2ced307_cdef97d0",
+        "filename": "modules/video_coding/codecs/vp9/test/vp9_impl_unittest.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-04T13:45:08Z",
+      "side": 1,
+      "message": "This will complicate thit test a lot, Instead I\u0027ve added the new test for delayed SS structure.\n\nIdea is to always disable the layer immediately, since we can do it and it\u0027s a good thing to do.",
+      "parentUuid": "58156961_4a8e0065",
+      "range": {
+        "startLine": 404,
+        "startChar": 6,
+        "endLine": 405,
+        "endChar": 32
+      },
+      "revId": "5d15ae31d9cf816071ae572ec72d7e5faa1c8e36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4de70505_f5139431",
         "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
         "patchSetId": 27

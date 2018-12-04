@@ -62,6 +62,7 @@ const size_t kGenericHeaderLength = 1;
 const uint8_t kPayloadData[] = {47, 11, 32, 93, 89};
 const int64_t kDefaultExpectedRetransmissionTimeMs = 125;
 const int kGenericDescriptorId = 10;
+const int kFrameMarkingExtensionId = 15;
 
 using ::testing::_;
 using ::testing::ElementsAre;
@@ -1915,6 +1916,36 @@ TEST_P(RtpSenderVideoTest, DeltaFrameHasCVOWhenNonZero) {
   EXPECT_TRUE(
       transport_.last_sent_packet().GetExtension<VideoOrientation>(&rotation));
   EXPECT_EQ(kVideoRotation_90, rotation);
+}
+
+TEST_P(RtpSenderVideoTest, CheckH264FrameMarking) {
+  uint8_t kFrame[kMaxPacketLength];
+  EXPECT_EQ(0, rtp_sender_->RegisterRtpHeaderExtension(
+                   kRtpExtensionFrameMarking, kFrameMarkingExtensionId));
+
+  RTPVideoHeader hdr;
+  hdr.codec = kVideoCodecH264;
+  hdr.frame_marking.temporal_id = kNoTemporalIdx;
+  hdr.frame_marking.tl0_pic_idx = 99;
+  hdr.frame_marking.base_layer_sync = true;
+  rtp_sender_video_->SendVideo(kVideoCodecH264, kVideoFrameDelta, kPayload,
+                               kTimestamp, 0, kFrame, sizeof(kFrame), nullptr,
+                               &hdr, kDefaultExpectedRetransmissionTimeMs);
+
+  FrameMarking fm;
+  EXPECT_FALSE(
+      transport_.last_sent_packet().GetExtension<FrameMarkingExtension>(&fm));
+
+  hdr.frame_marking.temporal_id = 0;
+  rtp_sender_video_->SendVideo(kVideoCodecH264, kVideoFrameDelta, kPayload,
+                               kTimestamp, 0, kFrame, sizeof(kFrame), nullptr,
+                               &hdr, kDefaultExpectedRetransmissionTimeMs);
+
+  EXPECT_TRUE(
+      transport_.last_sent_packet().GetExtension<FrameMarkingExtension>(&fm));
+  EXPECT_EQ(hdr.frame_marking.temporal_id, fm.temporal_id);
+  EXPECT_EQ(hdr.frame_marking.tl0_pic_idx, fm.tl0_pic_idx);
+  EXPECT_EQ(hdr.frame_marking.base_layer_sync, fm.base_layer_sync);
 }
 
 // Make sure rotation is parsed correctly when the Camera (C) and Flip (F) bits

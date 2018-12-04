@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bcbeb9e3_829cfe0e",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-04T08:52:05Z",
+      "side": 1,
+      "message": "Wouldn\u0027t you want to use the enum values here, in that case?",
+      "range": {
+        "startLine": 353,
+        "startChar": 9,
+        "endLine": 353,
+        "endChar": 10
+      },
+      "revId": "ad845873b656eab1cf46d455363cd286b0a44047",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

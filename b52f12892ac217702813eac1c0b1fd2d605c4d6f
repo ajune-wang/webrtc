@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83516ccc_beeb0a3c",
+        "filename": "modules/video_coding/session_info.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-12-05T09:43:54Z",
+      "side": 1,
+      "message": "I think you\u0027ll notice that this code never runs. We\u0027re in the process of deleting this whole file eventually once we\u0027ve managed to get all downstream projects to update.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 67
+      },
+      "revId": "b52f12892ac217702813eac1c0b1fd2d605c4d6f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

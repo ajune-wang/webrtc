@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fb3916c1_b865e493",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T12:04:04Z",
+      "side": 1,
+      "message": "This is checking how *Chromium* compiles with these WebRTC changes. Things can be different there.",
+      "parentUuid": "36e2a668_8bf7d5ce",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

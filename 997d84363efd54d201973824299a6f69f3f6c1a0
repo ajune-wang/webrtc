@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "752fd7ec_d2a92469",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-05T10:29:25Z",
+      "side": 1,
+      "message": "If the calling thread is the signalling thread, this still applies. No other task is going to execute on the signalling thread while the function call is in progress.",
+      "parentUuid": "dd7ff4b1_784a6a65",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67e91eeb_b758cec4",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-05T09:26:01Z",
       "side": 1,
       "message": "nit: Remove empty line?",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1418fea_35950278",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-05T10:29:25Z",
+      "side": 1,
+      "message": "when cleaning up :-)",
+      "parentUuid": "67e91eeb_b758cec4",
       "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

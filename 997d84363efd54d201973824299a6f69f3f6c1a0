@@ -54,6 +54,23 @@
     },
     {
       "key": {
+        "uuid": "3c8c9efc_74326fc6",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-05T12:30:49Z",
+      "side": 1,
+      "message": "This caveat seems scary. Allowing subclasses to impose additional restrictions means that you can\u0027t safely treat them as an instance of the base class, but since this is just a comment, the compiler doesn\u0027t know that. All restrictions should apply to the base class too, so that subclasses don\u0027t have to add restrictions.",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67e91eeb_b758cec4",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

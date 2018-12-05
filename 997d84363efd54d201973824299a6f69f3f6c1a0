@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8bd8b921_74a5f46b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-05T13:51:18Z",
+      "side": 1,
+      "message": "This means that if all we know about an object is that it\u0027s an instance of PeerConnectionInterface, we don\u0027t know that it\u0027s safe to call its methods from any thread other than the signaling thread.\n\nIt would be best to document this (that it may only be called from the signaling thread) as part of the contract for PeerConnectionInterface, and then document that the subclass in api/peerconnectionproxy lifts these restrictions. A subclass can safely be made strictly *more* capable, because then it still upholds the base class contract.",
+      "parentUuid": "36ca450a_77a2e9ff",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67e91eeb_b758cec4",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

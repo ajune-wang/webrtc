@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5819c43d_6ce179ef",
+        "filename": "logging/rtc_event_log/rtc_event_log_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-05T16:03:39Z",
+      "side": 1,
+      "message": "Please move the creation of the task queue into RtcEventLogImpl, at which point, we would no longer have to hold it by unique_ptr.\nI\u0027m OK with this being a follow-up CL.",
+      "range": {
+        "startLine": 375,
+        "startChar": 6,
+        "endLine": 375,
+        "endChar": 56
+      },
+      "revId": "03f8c24550e4d9b9d6077b7c622457e266f01588",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

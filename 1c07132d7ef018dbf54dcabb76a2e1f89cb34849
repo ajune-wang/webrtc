@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "36e2a668_8bf7d5ce",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T11:49:35Z",
+      "side": 1,
+      "message": "I\u0027m puzzled as it compiles fine locally.. and it even compiled fine before this was reverted. And it looks like there were no changes to //rtc_base/logging.h in the meantime.",
+      "parentUuid": "3c6a51eb_ec97cbc4",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

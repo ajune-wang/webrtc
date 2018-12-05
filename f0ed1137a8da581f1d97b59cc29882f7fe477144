@@ -22,6 +22,30 @@
       "revId": "f0ed1137a8da581f1d97b59cc29882f7fe477144",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127a95eb_53802882",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-12-05T12:24:58Z",
+      "side": 1,
+      "message": "Actually pending_encoder_creation_ flag can be removed now that we have pending_encoder_, PTAL.",
+      "parentUuid": "d24ae9d3_518baee2",
+      "range": {
+        "startLine": 506,
+        "startChar": 2,
+        "endLine": 506,
+        "endChar": 3
+      },
+      "revId": "f0ed1137a8da581f1d97b59cc29882f7fe477144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

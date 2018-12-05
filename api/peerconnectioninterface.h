@@ -159,6 +159,22 @@ class StatsObserver : public rtc::RefCountInterface {
 
 enum class SdpSemantics { kPlanB, kUnifiedPlan };
 
+// The PeerConnectionInterface class.
+//
+// Threading considerations:
+// An implementation of PeerConnectionInterface guarantees that nothing
+// happens on the calling thread while one calls a function in the interface.
+// However, things may happen on other threads, and the function may interact
+// with these other threads, so nothing can be said about the state of
+// the overall system between two calls to interface functions.
+//
+// In particular, if one function starts an activity on another thread,
+// that activity may or may not have completed by the time the next function
+// is called.
+//
+// Some implementations may impose other restrictions (such as requiring that
+// some functions are only called on specific threads).
+
 class PeerConnectionInterface : public rtc::RefCountInterface {
  public:
   // See https://w3c.github.io/webrtc-pc/#dom-rtcsignalingstate

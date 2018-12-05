@@ -105,7 +105,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                                    size_t max_data_payload_length);
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
 
-  void ConfigureQualityScaler();
+  void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
@@ -202,6 +202,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   rtc::ThreadChecker thread_checker_;
 
   VideoEncoderConfig encoder_config_ RTC_GUARDED_BY(&encoder_queue_);
+  std::unique_ptr<VideoEncoder> pending_encoder_ RTC_GUARDED_BY(&encoder_queue_)
+      RTC_PT_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoEncoder> encoder_ RTC_GUARDED_BY(&encoder_queue_)
       RTC_PT_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<VideoBitrateAllocator> rate_allocator_

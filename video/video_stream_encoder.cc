@@ -439,8 +439,9 @@ void VideoStreamEncoder::SetSource(
     }
     degradation_preference_ = degradation_preference;
 
-    if (encoder_)
-      ConfigureQualityScaler();
+    if (encoder_) {
+      ConfigureQualityScaler(encoder_->GetEncoderInfo());
+    }
 
     if (!IsFramerateScalingEnabled(degradation_preference) &&
         max_framerate_ != -1) {
@@ -496,17 +497,27 @@ void VideoStreamEncoder::ConfigureEncoderOnTaskQueue(
   encoder_config_ = std::move(config);
   pending_encoder_reconfiguration_ = true;
 
+  if (pending_encoder_creation_) {
+    pending_encoder_ = settings_.encoder_factory->CreateVideoEncoder(
+        encoder_config_.video_format);
+    // TODO(nisse): What to do if creating the encoder fails? Crash,
+    // or just discard incoming frames?
+    RTC_CHECK(pending_encoder_);
+  }
+
   // Reconfigure the encoder now if the encoder has an internal source or
   // if the frame resolution is known. Otherwise, the reconfiguration is
   // deferred until the next frame to minimize the number of reconfigurations.
   // The codec configuration depends on incoming video frame size.
   if (last_frame_info_) {
     ReconfigureEncoder();
-  } else if (settings_.encoder_factory
-                 ->QueryVideoEncoder(encoder_config_.video_format)
-                 .has_internal_source) {
-    last_frame_info_ = VideoFrameInfo(176, 144, false);
-    ReconfigureEncoder();
+  } else {
+    VideoEncoder* encoder =
+        pending_encoder_ ? pending_encoder_.get() : encoder_.get();
+    if (encoder->GetEncoderInfo().has_internal_source) {
+      last_frame_info_ = VideoFrameInfo(176, 144, false);
+      ReconfigureEncoder();
+    }
   }
 }
 
@@ -583,29 +594,26 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   }
   source_proxy_->SetMaxFramerate(max_framerate);
 
+  VideoEncoder::EncoderInfo encoder_info;
   // Keep the same encoder, as long as the video_format is unchanged.
   if (pending_encoder_creation_) {
     pending_encoder_creation_ = false;
     if (encoder_) {
       video_sender_.RegisterExternalEncoder(nullptr, false);
     }
+    encoder_ = std::move(pending_encoder_);
 
-    encoder_ = settings_.encoder_factory->CreateVideoEncoder(
-        encoder_config_.video_format);
-    // TODO(nisse): What to do if creating the encoder fails? Crash,
-    // or just discard incoming frames?
-    RTC_CHECK(encoder_);
-
-    const webrtc::VideoEncoderFactory::CodecInfo info =
-        settings_.encoder_factory->QueryVideoEncoder(
-            encoder_config_.video_format);
+    encoder_info = encoder_->GetEncoderInfo();
 
     overuse_detector_->StopCheckForOveruse();
     overuse_detector_->StartCheckForOveruse(
-        GetCpuOveruseOptions(settings_, info.is_hardware_accelerated), this);
+        GetCpuOveruseOptions(settings_, encoder_info.is_hardware_accelerated),
+        this);
 
     video_sender_.RegisterExternalEncoder(encoder_.get(),
-                                          info.has_internal_source);
+                                          encoder_info.has_internal_source);
+  } else {
+    encoder_info = encoder_->GetEncoderInfo();
   }
   // RegisterSendCodec implies an unconditional call to
   // encoder_->InitEncode().
@@ -636,12 +644,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       max_framerate_, source_proxy_->GetActiveSinkWants().max_framerate_fps);
   overuse_detector_->OnTargetFramerateUpdated(target_framerate);
 
-  ConfigureQualityScaler();
+  ConfigureQualityScaler(encoder_info);
 }
 
-void VideoStreamEncoder::ConfigureQualityScaler() {
+void VideoStreamEncoder::ConfigureQualityScaler(
+    const VideoEncoder::EncoderInfo& encoder_info) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
-  const auto scaling_settings = encoder_->GetEncoderInfo().scaling_settings;
+  const auto scaling_settings = encoder_info.scaling_settings;
   const bool quality_scaling_allowed =
       IsResolutionScalingEnabled(degradation_preference_) &&
       scaling_settings.thresholds;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d24ae9d3_518baee2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-05T10:30:16Z",
+      "side": 1,
+      "message": "Could we set pending_encoder_creation_ \u003d false here, and then check if (pending_encoder_) on line 599? Or does that change the semantics?",
+      "range": {
+        "startLine": 506,
+        "startChar": 2,
+        "endLine": 506,
+        "endChar": 3
+      },
+      "revId": "f0ed1137a8da581f1d97b59cc29882f7fe477144",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

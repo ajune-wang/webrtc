@@ -164,4 +164,28 @@ TEST(SvcRateAllocatorTest, MinBitrateToGetQualityLayer) {
   EXPECT_EQ(allocation.GetSpatialLayerSum(1) / 1000, layers[1].minBitrate);
 }
 
+TEST(SvcRateAllocatorTest, DeativateLayers) {
+  for (int deactivated_idx = 2; deactivated_idx >= 0; --deactivated_idx) {
+    VideoCodec codec = Configure(1280, 720, 3, 1, false);
+    EXPECT_LE(codec.VP9()->numberOfSpatialLayers, 3U);
+
+    codec.spatialLayers[deactivated_idx].active = false;
+
+    SvcRateAllocator allocator = SvcRateAllocator(codec);
+
+    VideoBitrateAllocation allocation =
+        allocator.GetAllocation(10 * 1000 * 1000, 30);
+
+    // Ensure layers spatial_idx < deactivated_idx are activated.
+    for (int spatial_idx = 0; spatial_idx < deactivated_idx; ++spatial_idx) {
+      EXPECT_GT(allocation.GetSpatialLayerSum(spatial_idx), 0UL);
+    }
+
+    // Ensure layers spatial_idx >= deactivated_idx are deactivated.
+    for (int spatial_idx = deactivated_idx; spatial_idx < 3; ++spatial_idx) {
+      EXPECT_EQ(allocation.GetSpatialLayerSum(spatial_idx), 0UL);
+    }
+  }
+}
+
 }  // namespace webrtc

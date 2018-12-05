@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "3b54aaf6_a6dacac9",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T12:33:58Z",
+      "side": 1,
+      "message": "Ok, so it needs to be changed to rtc::RTC_LOG(rtc::LS_VERBOSE) and then those errors are fixed, but the include error is still presented as the include to the folder with the generated stubs is missing:\n\n-I../.. -Igen -I../../third_party/webrtc_overrides -I../../third_party/webrtc -I../../third_party/abseil-cpp -I../../third_party/libyuv/include\n\nit should include -Igen/third_party/webrtc as well.",
+      "parentUuid": "f2718e39_8701061e",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

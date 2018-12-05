@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "d9573c87_63a6f4ee",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T12:44:36Z",
+      "side": 1,
+      "message": "And gn desc out/Release //third_party/webrtc/modules/desktop_capture:desktop_capture confirms that.",
+      "parentUuid": "3b54aaf6_a6dacac9",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

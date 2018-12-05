@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e95f9a57_3032855f",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-05T23:03:57Z",
+      "side": 1,
+      "message": "This applies to all the PeerConnection-ish API objects (RtpSenderInterface, RtpReceiverInterface, MediaStreamTrackInterface, etc.) I think it could work here since the PeerConnectionInterface is really the entrypoint to all those instances.",
+      "parentUuid": "a16f6640_5319856e",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd7ff4b1_784a6a65",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Is this the same as saying that all methods are asynchronous?\nSaying \"nothing happens\" sounds like a pretty big promise :)",
       "parentUuid": "752fd7ec_d2a92469",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69d731b4_0be38393",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-05T23:03:57Z",
+      "side": 1,
+      "message": "Another phrasing is that the PeerConnectionInterface methods block the calling thread though the work could happen on other threads. So really it\u0027s closer to synchronous than asynchronous.",
+      "parentUuid": "810d8456_98c53ec5",
       "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "+1 to Karl\u0027s suggestion",
       "parentUuid": "8bd8b921_74a5f46b",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1724ad_3a2b75a3",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-05T23:03:57Z",
+      "side": 1,
+      "message": "I think in an ideal world that would make sense, but in practice no one outside of webrtc internal is going to have a PeerConnectionInterface that isn\u0027t a PeerConnectionProxy. So clients should be able to rely on the proxy behavior.",
+      "parentUuid": "8e437441_8de1119b",
       "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

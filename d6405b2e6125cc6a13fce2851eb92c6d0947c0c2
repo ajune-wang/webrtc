@@ -116,6 +116,30 @@
       "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73e3addd_70d3670e",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-12-05T15:08:25Z",
+      "side": 1,
+      "message": "I don\u0027t think we should introduce any duplicate symbols with this change. We\u0027re only adding two new temporary functions and making the old functions forward to them. The inline is just because the the workaround instructions in rtc_base/deprecation.h said so.",
+      "parentUuid": "cdad8ff1_7e971367",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

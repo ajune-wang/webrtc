@@ -69,6 +69,53 @@
       "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdad8ff1_7e971367",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-12-05T14:32:55Z",
+      "side": 1,
+      "message": "Should it be \u0027static inline\u0027? I\u0027m worried we could get duplicate symbols, but I guess if this builds everywhere everything is fine.",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eafb820c_f59cd073",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-12-05T14:32:55Z",
+      "side": 1,
+      "message": "I see, and this is the workaround.",
+      "parentUuid": "27a244b1_31ac2beb",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

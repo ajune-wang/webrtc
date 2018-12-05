@@ -241,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "55158232_d2816f0d",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T14:05:04Z",
+      "side": 1,
+      "message": "Now that I understand this, I think it\u0027s OK to add target_gen_dir, with a lengthy comment.\n\n      # Just like the root WebRTC directory is added to include path, the\n      # corresponding directory tree with generated files needs to be added too.\n      # Note: this path does not change depending on the current target, e.g.\n      # it is always \"//gen/third_party/webrtc\" when building with Chromium.\n      # See also: http://cs.chromium.org/?q\u003d%5C\"default_include_dirs\n      # https://gn.googlesource.com/gn/+/master/docs/reference.md#target_gen_dir\n      target_gen_dir,",
+      "parentUuid": "1a7499c0_7bb7c042",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

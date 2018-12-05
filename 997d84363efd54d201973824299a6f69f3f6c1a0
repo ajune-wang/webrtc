@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "dd7ff4b1_784a6a65",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-05T09:28:57Z",
+      "side": 1,
+      "message": "Hang on, this wouldn\u0027t be true if the \"calling thread\" is the e.g. the signaling thread... Can you clarify?",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67e91eeb_b758cec4",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

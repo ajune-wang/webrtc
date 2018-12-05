@@ -50,11 +50,25 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocation(
 VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
     uint32_t total_bitrate_bps) const {
   size_t num_spatial_layers = codec_.VP9().numberOfSpatialLayers;
-  RTC_CHECK(num_spatial_layers > 0);
+  RTC_CHECK_GT(num_spatial_layers, 0);
   size_t num_temporal_layers = codec_.VP9().numberOfTemporalLayers;
-  RTC_CHECK(num_temporal_layers > 0);
+  RTC_CHECK_GT(num_temporal_layers, 0);
 
+  VideoBitrateAllocation bitrate_allocation;
   std::vector<size_t> spatial_layer_bitrate_bps;
+
+  for (size_t spatial_idx = 0; spatial_idx < num_spatial_layers;
+       ++spatial_idx) {
+    if (!codec_.spatialLayers[spatial_idx].active) {
+      num_spatial_layers = spatial_idx;
+      break;
+    }
+  }
+
+  if (num_spatial_layers == 0) {
+    // All layers are deactivated.
+    return bitrate_allocation;
+  }
 
   // Distribute total bitrate across spatial layers. If there is not enough
   // bitrate to provide all layers with at least minimum required bitrate
@@ -70,8 +84,6 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
       break;
     }
   }
-
-  VideoBitrateAllocation bitrate_allocation;
 
   for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
     std::vector<size_t> temporal_layer_bitrate_bps =

@@ -22,6 +22,30 @@
       "revId": "6353fbc23720a5047fcb554646b9747dc10061d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d2937e5_af02dd56",
+        "filename": "sdk/objc/native/src/objc_video_encoder_factory.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2018-12-05T10:05:28Z",
+      "side": 0,
+      "message": "By following the code from ObjCVideoEncoderFactory::CreateVideoEncoder, VP8/VP9 encoders are wrapped by RTCWrappedNativeVideoEncoder. ObjCVideoEncoder seems to be used only for HW encoders and does not wrap VP8/VP9 encoders so the right GetEncoderInfo() will be called.",
+      "parentUuid": "19bb6878_d9c347b6",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 36
+      },
+      "revId": "6353fbc23720a5047fcb554646b9747dc10061d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

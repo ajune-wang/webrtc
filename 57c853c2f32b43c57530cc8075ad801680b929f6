@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4d7e029_ced92322",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Is injectable clock essential here, or could you use rtc::TimeMillis()?\n\nAnd preferably, move reading of clock a up the call chain.",
+      "range": {
+        "startLine": 41,
+        "startChar": 30,
+        "endLine": 41,
+        "endChar": 57
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1049c4b4_ec53104d",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Can you be a bit more explicit (file/class name) of what the \"legacy SendSideCongestionController\" is, and what tests are affected?",
+      "range": {
+        "startLine": 139,
+        "startChar": 48,
+        "endLine": 141,
+        "endChar": 9
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895f3522_338318b5",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Unclear to me precisely what this refers to.",
+      "range": {
+        "startLine": 195,
+        "startChar": 22,
+        "endLine": 195,
+        "endChar": 31
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee4cc5d_b5f75156",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Do you need a namespace? Could you make it a private class inside RtpTransportControllerSend instead? Could also consider forward declaration in this header.",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c080f78e_69364960",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Can you use CancelablePeriodicTask (in rtc_base) ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 19
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9515b9a9_49d3fd5b",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Needs a comment. I take it it\u0027s not a synchronous stop, i.e., the task may run after Stop() returns?",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca11d250_8274f316",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "It\u0027s common in our code to implement a bunch of different interfaces like this. Would it be possible to have a member for each interface? Each member class would then implement the interface and own related state, and be registered as observer. Which should work fine as long as the callbacks for the different interfaces don\u0027t need to interact with eachother\u0027s state.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 0
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa57c943_73920877",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "I\u0027m hoping it has its own internal locks?",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 55
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f00bc900_e187a537",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "RTC_PT_GUARDED_BY? (the pointer itself is const and needs no guard).",
+      "range": {
+        "startLine": 174,
+        "startChar": 6,
+        "endLine": 174,
+        "endChar": 20
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26f712b0_b9e5bfb2",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "RTC_PT_GUARDED_BY",
+      "range": {
+        "startLine": 176,
+        "startChar": 35,
+        "endLine": 176,
+        "endChar": 49
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59781eb3_7660e976",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "Is the intention to guard pointer variables only? Do the objects pointed to also need to be guarded, or do they have internal locks?",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 34
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f39e100d_5e519265",
+        "filename": "call/rtp_transport_controller_send.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-05T12:56:11Z",
+      "side": 1,
+      "message": "RTC_PT_GUARDED_BY ?",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 34
+      },
+      "revId": "57c853c2f32b43c57530cc8075ad801680b929f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

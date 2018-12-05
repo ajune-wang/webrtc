@@ -501,7 +501,9 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
   // TODO(benwright@webrtc.org) - Allocate enough to always encrypt inline.
   rtc::Buffer encrypted_video_payload;
   if (frame_encryptor_ != nullptr) {
-    if (generic_descriptor_raw.empty()) {
+    auto generic_descriptor =
+        first_packet->GetExtension<RtpGenericFrameDescriptorExtension>();
+    if (!generic_descriptor.has_value()) {
       return false;
     }
 
@@ -513,7 +515,7 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
     size_t bytes_written = 0;
     if (frame_encryptor_->Encrypt(
             cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(),
-            /*additional_data=*/nullptr,
+            generic_descriptor->GetByteRepresentation(),
             rtc::MakeArrayView(payload_data, payload_size),
             encrypted_video_payload, &bytes_written) != 0) {
       return false;

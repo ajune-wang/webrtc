@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "7ee8ba65_1f6eaad9",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T13:49:44Z",
+      "side": 1,
+      "message": "Seems like that\u0027s exactly what this code achieved\n\n      # Allow the generated files to be found.\n      target_gen_dir,\n\nhttps://webrtc-review.googlesource.com/c/src/+/111081/10/BUILD.gn#137\n\nBut I was really confused because I thought it meant \"current target\" but really it is \"subdirectory of the gen dir that corresponds to the current directory\".",
+      "parentUuid": "e42c9aa1_96bfeb84",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

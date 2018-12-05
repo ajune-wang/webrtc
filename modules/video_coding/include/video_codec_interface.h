@@ -13,6 +13,8 @@
 
 #include <vector>
 
+#include "absl/container/inlined_vector.h"
+#include "absl/types/optional.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_decoder.h"
 #include "api/video_codecs/video_encoder.h"
@@ -71,17 +73,41 @@ union CodecSpecificInfoUnion {
   CodecSpecificInfoH264 H264;
 };
 
+struct FrameEncodingInfo {
+  FrameEncodingInfo();
+  ~FrameEncodingInfo();
+
+  struct Buffer {
+    enum class Usage { kReferenced, kUpdated, kReferencedAndUpdated };
+
+    int id;
+    Usage usage;
+  };
+
+  struct OperatingPoint {
+    enum class Indication { kDiscardable, kSwitch, kRequired };
+
+    int id;
+    Indication indication;
+  };
+
+  int temporal_id = 0;
+  int spatial_id = 0;
+  absl::InlinedVector<Buffer, 8> buffers;
+  absl::InlinedVector<OperatingPoint, 8> operating_points;
+};
+
 // Note: if any pointers are added to this struct or its sub-structs, it
 // must be fitted with a copy-constructor. This is because it is copied
 // in the copy-constructor of VCMEncodedFrame.
 struct CodecSpecificInfo {
-  CodecSpecificInfo() : codecType(kVideoCodecGeneric), codec_name(nullptr) {
-    memset(&codecSpecific, 0, sizeof(codecSpecific));
-  }
+  CodecSpecificInfo();
+  ~CodecSpecificInfo();
   VideoCodecType codecType;
   // |codec_name| is deprecated, use name provided by VideoEncoder instead.
   const char* codec_name;
   CodecSpecificInfoUnion codecSpecific;
+  absl::optional<FrameEncodingInfo> frame_encoding_info;
 };
 
 }  // namespace webrtc

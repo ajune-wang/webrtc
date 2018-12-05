@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "1a7cf2cf_0f5f2f9e",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T12:51:14Z",
+      "side": 1,
+      "message": "I might see the cause.. Looking at:\n\ngn desc out/Release //third_party/webrtc/modules/desktop_capture:pipewire_stubs it says:\n\ninclude_dirs\n  //out/Release/gen/third_party/webrtc/modules/desktop_capture/\n  //\n  //out/Release/gen/\n  //third_party/webrtc_overrides/\n  //third_party/webrtc/\n  //third_party/abseil-cpp/\n\nbut the first one should be //out/Release/gen/third_party/webrtc so probably we can\u0027t use target_gen_dir in that template. It probable needs to be something else and not the target one, but some general webrtc one.",
+      "parentUuid": "d9573c87_63a6f4ee",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

@@ -111,22 +111,22 @@ static void RtpFragmentize(EncodedImage* encoded_image,
       required_size += layerInfo.pNalLengthInByte[nal];
     }
   }
-  if (encoded_image->_size < required_size) {
+  if (encoded_image->capacity() < required_size) {
     // Increase buffer size. Allocate enough to hold an unencoded image, this
     // should be more than enough to hold any encoded data of future frames of
     // the same size (avoiding possible future reallocation due to variations in
     // required size).
-    encoded_image->_size = CalcBufferSize(
-        VideoType::kI420, frame_buffer.width(), frame_buffer.height());
-    if (encoded_image->_size < required_size) {
+    size_t new_size = CalcBufferSize(VideoType::kI420, frame_buffer.width(),
+                                     frame_buffer.height());
+    if (new_size < required_size) {
       // Encoded data > unencoded data. Allocate required bytes.
       RTC_LOG(LS_WARNING)
           << "Encoding produced more bytes than the original image "
-          << "data! Original bytes: " << encoded_image->_size
+          << "data! Original bytes: " << new_size
           << ", encoded bytes: " << required_size << ".";
-      encoded_image->_size = required_size;
+      new_size = required_size;
     }
-    encoded_image->_buffer = new uint8_t[encoded_image->_size];
+    encoded_image->set_buffer(new uint8_t[new_size], new_size);
     encoded_image_buffer->reset(encoded_image->_buffer);
   }
 
@@ -299,10 +299,11 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     openh264_encoder->SetOption(ENCODER_OPTION_DATAFORMAT, &video_format);
 
     // Initialize encoded image. Default buffer size: size of unencoded data.
-    encoded_images_[i]._size =
+
+    const size_t new_size =
         CalcBufferSize(VideoType::kI420, codec_.simulcastStream[idx].width,
                        codec_.simulcastStream[idx].height);
-    encoded_images_[i]._buffer = new uint8_t[encoded_images_[i]._size];
+    encoded_images_[i].set_buffer(new uint8_t[new_size], new_size);
     encoded_image_buffers_[i].reset(encoded_images_[i]._buffer);
     encoded_images_[i]._completeFrame = true;
     encoded_images_[i]._encodedWidth = codec_.simulcastStream[idx].width;

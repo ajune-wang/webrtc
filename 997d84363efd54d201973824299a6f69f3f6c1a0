@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a16f6640_5319856e",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-12-05T11:50:40Z",
+      "side": 1,
+      "message": "This applies to other interfaces as well - should it instead go in a global .md file? \"DESIGN.md\"? Or just move it to the top of this .h if it is considered \"root\" enough.",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd7ff4b1_784a6a65",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

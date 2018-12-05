@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "561837b6_32c5b1d2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-12-05T10:22:36Z",
+      "side": 1,
+      "message": "Sorry, due to some \"funny\" design decisions this wont work on the sender side (it will return an empty array). We plan on changing that in the next version of the descriptor, and then you would be able to do what you are trying to do now.",
+      "range": {
+        "startLine": 518,
+        "startChar": 12,
+        "endLine": 518,
+        "endChar": 53
+      },
+      "revId": "e6a3e1cef3b2a22b583b1be7b23a8f852ae1d94d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

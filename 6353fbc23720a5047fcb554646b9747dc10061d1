@@ -46,6 +46,30 @@
       "revId": "6353fbc23720a5047fcb554646b9747dc10061d1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "196b4fcb_4ee1bdec",
+        "filename": "sdk/objc/native/src/objc_video_encoder_factory.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-05T10:16:10Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "3d2937e5_af02dd56",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 36
+      },
+      "revId": "6353fbc23720a5047fcb554646b9747dc10061d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

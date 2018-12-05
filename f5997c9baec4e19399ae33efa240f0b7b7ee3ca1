@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "72269bad_a09c93f0",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-05T16:36:44Z",
+      "side": 0,
+      "message": "Yes.",
+      "parentUuid": "86d2b2db_6ab508bb",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 70
+      },
+      "revId": "f5997c9baec4e19399ae33efa240f0b7b7ee3ca1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aaa053f5_8cf0643d",
         "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "f5997c9baec4e19399ae33efa240f0b7b7ee3ca1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d38c77d3_f4d6d557",
+        "filename": "modules/congestion_controller/rtp/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-05T16:36:44Z",
+      "side": 0,
+      "message": "Yes, but the corresponding interface on RtpTransportControllerSend is modified to do the equivalent thing.",
+      "parentUuid": "aaa053f5_8cf0643d",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 74
+      },
+      "revId": "f5997c9baec4e19399ae33efa240f0b7b7ee3ca1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

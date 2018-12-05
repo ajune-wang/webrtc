@@ -22,6 +22,29 @@
       "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e386be_f7065fad",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-12-05T13:53:15Z",
+      "side": 1,
+      "message": "Why can\u0027t we just mark these as RTC_DEPRECATED with no other changes?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

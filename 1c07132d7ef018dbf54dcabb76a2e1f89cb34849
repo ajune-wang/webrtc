@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3c6a51eb_ec97cbc4",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T11:30:30Z",
+      "side": 1,
+      "message": "According to the error, you might need `rtc::LS_VERBOSE`?\n\nNot sure if the subsequent #include error is caused by this or is another error you need to deal with.",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2
@@ -46,6 +69,30 @@
       "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2539c94d_a1728c09",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T11:30:30Z",
+      "side": 1,
+      "message": "Yeah, I guess that makes sense.",
+      "parentUuid": "959ba29f_66e5d8bd",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 18
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

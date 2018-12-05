@@ -97,7 +97,7 @@ class MediaTransportEncodedAudioFrame final {
       // Opaque payload type. In RTP codepath payload type is stored in RTP
       // header. In other implementations it should be simply passed through the
       // wire -- it's needed for decoder.
-      uint8_t payload_type,
+      int payload_type,
 
       // Vector with opaque encoded data.
       std::vector<uint8_t> encoded_data);
@@ -116,7 +116,7 @@ class MediaTransportEncodedAudioFrame final {
   int samples_per_channel() const { return samples_per_channel_; }
   int sequence_number() const { return sequence_number_; }
 
-  uint8_t payload_type() const { return payload_type_; }
+  int payload_type() const { return payload_type_; }
   FrameType frame_type() const { return frame_type_; }
 
   rtc::ArrayView<const uint8_t> encoded_data() const { return encoded_data_; }
@@ -132,9 +132,7 @@ class MediaTransportEncodedAudioFrame final {
 
   FrameType frame_type_;
 
-  // TODO(sukhanov): Consider enumerating allowed encodings and store enum
-  // instead of uint payload_type.
-  uint8_t payload_type_;
+  int payload_type_;
 
   std::vector<uint8_t> encoded_data_;
 };
@@ -165,7 +163,7 @@ class MediaTransportEncodedVideoFrame final {
  public:
   MediaTransportEncodedVideoFrame(int64_t frame_id,
                                   std::vector<int64_t> referenced_frame_ids,
-                                  VideoCodecType codec_type,
+                                  int payload_type,
                                   const webrtc::EncodedImage& encoded_image);
   ~MediaTransportEncodedVideoFrame();
   MediaTransportEncodedVideoFrame(const MediaTransportEncodedVideoFrame&);
@@ -175,7 +173,7 @@ class MediaTransportEncodedVideoFrame final {
       MediaTransportEncodedVideoFrame&& other);
   MediaTransportEncodedVideoFrame(MediaTransportEncodedVideoFrame&&);
 
-  VideoCodecType codec_type() const { return codec_type_; }
+  int payload_type() const { return payload_type_; }
   const webrtc::EncodedImage& encoded_image() const { return encoded_image_; }
 
   int64_t frame_id() const { return frame_id_; }
@@ -190,7 +188,7 @@ class MediaTransportEncodedVideoFrame final {
  private:
   MediaTransportEncodedVideoFrame();
 
-  VideoCodecType codec_type_;
+  int payload_type_;
 
   // The buffer is not owned by the encoded image. On the sender it means that
   // it will need to make a copy using the Retain() method, if it wants to
@@ -226,9 +224,6 @@ class MediaTransportVideoSinkInterface {
   // Called when new encoded video frame is received.
   virtual void OnData(uint64_t channel_id,
                       MediaTransportEncodedVideoFrame frame) = 0;
-
-  // Called when the request for keyframe is received.
-  virtual void OnKeyFrameRequested(uint64_t channel_id) = 0;
 };
 
 // State of the media transport.  Media transport begins in the pending state.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19bb6878_d9c347b6",
+        "filename": "sdk/objc/native/src/objc_video_encoder_factory.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-05T08:40:13Z",
+      "side": 0,
+      "message": "How is this handled now? Is ObjCVideoEncoder only used for the native encoders or does it return\ntrue also for wrapped vp8/vp9 codecs?",
+      "range": {
+        "startLine": 140,
+        "startChar": 13,
+        "endLine": 140,
+        "endChar": 36
+      },
+      "revId": "6353fbc23720a5047fcb554646b9747dc10061d1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

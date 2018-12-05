@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "e42c9aa1_96bfeb84",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-05T13:43:31Z",
+      "side": 1,
+      "message": "Yes, this is likely a mistake:\n\n  include_dirs \u003d [ target_gen_dir ]\n\nBut still, I\u0027ve come to the conclusion that there\u0027s no way to fix this in the template itself. There is no way to implement this \"something else\" because how do you arrive at \"third_party/webrtc\" when having just \"third_party/webrtc/modules/desktop_capture\"?\n\nThe problem is that WebRTC\u0027s includes are all \"broken\" because they don\u0027t start with \"third_party/webrtc\". This is fixed by adding \"third_party/webrtc\" to include_dirs everywhere. But then something also needs to add \"gen/third_party/webrtc\" in the same manner. I\u0027m struggling to find where exactly this is / should be.",
+      "parentUuid": "1a7cf2cf_0f5f2f9e",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

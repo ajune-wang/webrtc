@@ -22,6 +22,30 @@
       "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "959ba29f_66e5d8bd",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T11:28:15Z",
+      "side": 1,
+      "message": "And may I ask you why you are against it? Without it people running on distributions that have Wayland enabled by default don\u0027t have a way to share a screen in WebRTC.",
+      "parentUuid": "70b12825_f6cb8be7",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 18
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

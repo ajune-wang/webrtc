@@ -45,6 +45,30 @@
       "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27a244b1_31ac2beb",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2018-12-05T14:29:38Z",
+      "side": 1,
+      "message": "Because we\u0027re using them from `webrtcmediaengine.cc`, and webrtc does not compile if we\u0027re using the functions that are marked as deprecated.\n\nThat is also why I opted to not mark the classes WebRtcVideoEncoder etc as deprecated, because it makes too much of our code not compile so it\u0027s impractical to work around.",
+      "parentUuid": "39e386be_f7065fad",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

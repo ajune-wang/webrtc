@@ -77,6 +77,7 @@ std::vector<SpatialLayer> ConfigureSvcNormalVideo(size_t input_width,
     spatial_layer.height = input_height >> (num_spatial_layers - sl_idx - 1);
     spatial_layer.maxFramerate = max_framerate_fps;
     spatial_layer.numberOfTemporalLayers = num_temporal_layers;
+    spatial_layer.active = true;
 
     // minBitrate and maxBitrate formulas were derived from
     // subjective-quality data to determing bit rates below which video

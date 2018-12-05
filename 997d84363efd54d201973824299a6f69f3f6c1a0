@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67e91eeb_b758cec4",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-05T09:26:01Z",
+      "side": 1,
+      "message": "nit: Remove empty line?",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

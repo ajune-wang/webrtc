@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "36ca450a_77a2e9ff",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-05T12:53:00Z",
+      "side": 1,
+      "message": "But it\u0027s true - the two subclasses of api/peerconnecctioninterface.h are api/peerconnectionproxy (which can be called on any thread, but dispatches) and pc/peerconnection - which can only be invoked on the signalling thread.",
+      "parentUuid": "3c8c9efc_74326fc6",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "67e91eeb_b758cec4",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

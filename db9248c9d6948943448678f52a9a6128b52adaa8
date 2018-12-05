@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d26c652_85f88481",
+        "filename": "p2p/base/stun.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-05T10:15:43Z",
+      "side": 1,
+      "message": "Do you normally annotate static method definitions, or is this a left over from editing?",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 8
+      },
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

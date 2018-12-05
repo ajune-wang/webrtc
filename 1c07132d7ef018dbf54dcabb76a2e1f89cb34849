@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "f2718e39_8701061e",
+        "filename": "modules/desktop_capture/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-05T12:08:10Z",
+      "side": 1,
+      "message": "*FACEPALM* how obvious from the name :). Let me build Chromium here locally.",
+      "parentUuid": "fb3916c1_b865e493",
+      "range": {
+        "startLine": 191,
+        "startChar": 28,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "1c07132d7ef018dbf54dcabb76a2e1f89cb34849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "70b12825_f6cb8be7",
         "filename": "webrtc.gni",
         "patchSetId": 2

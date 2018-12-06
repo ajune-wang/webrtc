@@ -113,7 +113,8 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
                                     packet_router)),
       complete_frame_callback_(complete_frame_callback),
       keyframe_request_sender_(keyframe_request_sender),
-      has_received_frame_(false) {
+      has_received_frame_(false),
+      receive_stats_proxy_(receive_stats_proxy) {
   constexpr bool remb_candidate = true;
   packet_router_->AddReceiveRtpModule(rtp_rtcp_.get(), remb_candidate);
 
@@ -390,6 +391,9 @@ void RtpVideoStreamReceiver::OnReceivedFrame(
   bool key_frame_requested = false;
   if (!has_received_frame_) {
     has_received_frame_ = true;
+    if (receive_stats_proxy_ != nullptr) {
+      receive_stats_proxy_->OnFirstFrameReceived();
+    }
     if (frame->FrameType() != kVideoFrameKey) {
       key_frame_requested = true;
       keyframe_request_sender_->RequestKeyFrame();

@@ -17,10 +17,8 @@
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/base/mediaengine.h"
 #include "modules/audio_device/include/audio_device.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "modules/utility/include/jvm_android.h"
-// We don't depend on the audio processing module implementation.
-// The user may pass in a nullptr.
-#include "modules/audio_processing/include/audio_processing.h"  // nogncheck
 #include "rtc_base/event_tracer.h"
 #include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"

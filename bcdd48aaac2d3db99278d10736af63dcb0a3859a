@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "c2c5a7bc_44b36e2e",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-06T16:22:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0e93607_dedcdf88",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a756f497_f5cea5bf",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -53,6 +71,24 @@
       "writtenOn": "2018-11-27T12:45:28Z",
       "side": 1,
       "message": "It\u0027s good to avoid `new`:\n\n  mock \u003d absl::make_unique\u003cMockEchoControl\u003e();\n\nOr even better, use default member initializers down on lines 66 and 69:\n\n  size_t num_created_mocks_ \u003d 0;\n  std::array\u003cstd::unique_ptr\u003cMockEchoControl\u003e, 2\u003e mocks_ \u003d {\n      absl::make_unique\u003cMockEchoControl\u003e(),\n      absl::make_unique\u003cMockEchoControl\u003e()};",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca5585a0_f7f29a86",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-06T16:22:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a756f497_f5cea5bf",
       "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "7d904913_5d6a9e42",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-06T16:22:46Z",
+      "side": 1,
+      "message": "I forgot to add override.",
+      "parentUuid": "177137c5_41136471",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26443d66_67009438",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -93,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "1a321cef_2afa0a52",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-06T16:22:46Z",
+      "side": 1,
+      "message": "Yes. That\u0027s why I added the second line of comment.\nThe way this class should be used is (i) instance, (ii) get a pointer to the MockEchoControl instance that will be injected into APM, (iii) move the factory into APM builder, which takes ownership of it to create MockEchoControl objects that will be owned by APM.\n\nAlternative: add a test only method to get the pointer to the echo controller directly from APM.\n\nI prefer the way I chose.",
+      "parentUuid": "26443d66_67009438",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "611aaa87_7157d345",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 2
@@ -107,6 +179,24 @@
       "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacc411e_356735fd",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-06T16:22:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611aaa87_7157d345",
+      "revId": "bcdd48aaac2d3db99278d10736af63dcb0a3859a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

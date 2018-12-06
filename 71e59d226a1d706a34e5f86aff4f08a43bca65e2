@@ -22,6 +22,30 @@
       "revId": "71e59d226a1d706a34e5f86aff4f08a43bca65e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e766d2ca_96806474",
+        "filename": "media/engine/vp8_encoder_simulcast_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-12-06T12:39:53Z",
+      "side": 1,
+      "message": "Maybe easier, but as discussed, I\u0027m not sure if it will break anything using it.\nI\u0027ll quickly update other projects using it and remove this anyway.",
+      "parentUuid": "bb64e73a_466f791f",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "71e59d226a1d706a34e5f86aff4f08a43bca65e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

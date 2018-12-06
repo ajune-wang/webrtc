@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "197ce517_478b5d66",
+        "filename": "api/statstypes.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T12:25:08Z",
+      "side": 1,
+      "message": "Maybe strike \"Delay\" here and in related names.",
+      "range": {
+        "startLine": 239,
+        "startChar": 46,
+        "endLine": 239,
+        "endChar": 51
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "317f6212_800cca05",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T12:25:08Z",
+      "side": 1,
+      "message": "Consider using absl::optional, instead of magic value -1.",
+      "range": {
+        "startLine": 562,
+        "startChar": 2,
+        "endLine": 562,
+        "endChar": 9
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccaadb02_2e886d27",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T12:25:08Z",
+      "side": 1,
+      "message": "Is this the right point to measure? I think we measure some other timings based on reception of first rtp packet (on a particular stream).",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 5
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

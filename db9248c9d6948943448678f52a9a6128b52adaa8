@@ -22,6 +22,30 @@
       "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bffdebb8_a3b7a411",
+        "filename": "p2p/base/stun.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-12-06T04:37:01Z",
+      "side": 1,
+      "message": "Old habit. Looks like other methods use \"// static\" in cc files (https://cs.chromium.org/search/?q\u003df:webrtc+f:%22.cc%22+%22//+static%22\u0026sq\u003dpackage:chromium\u0026type\u003dcs). I will gladly change to that style or delete if you prefer.",
+      "parentUuid": "3d26c652_85f88481",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 8
+      },
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

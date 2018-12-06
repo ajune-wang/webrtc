@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9b5be4a6_e3e3e79e",
+        "filename": "api/statstypes.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-06T21:11:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "197ce517_478b5d66",
+      "range": {
+        "startLine": 239,
+        "startChar": 46,
+        "endLine": 239,
+        "endChar": 51
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "317f6212_800cca05",
         "filename": "media/base/mediachannel.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-06T12:25:08Z",
       "side": 1,
       "message": "Consider using absl::optional, instead of magic value -1.",
+      "range": {
+        "startLine": 562,
+        "startChar": 2,
+        "endLine": 562,
+        "endChar": 9
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ec6b66e_28d3d32c",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-06T21:11:15Z",
+      "side": 1,
+      "message": "Ack. Since this doesn\u0027t seem to be done in other non aggregate delay based metrics like intraframe_delay_max_ms and capture_start_ntp_time_ms I wonder if it is better to file a bug and fix this file in isolation from using magic numbers to maintain code consistency.",
+      "parentUuid": "317f6212_800cca05",
       "range": {
         "startLine": 562,
         "startChar": 2,
@@ -68,6 +116,30 @@
       "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f278dacd_6ab3d57a",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-06T21:11:15Z",
+      "side": 1,
+      "message": "In this particular case we are only concerned about the timing from a full frame being received to the time of processing. The goal here is to measure this delay on a frame level not a per packet level. Widely for users of full frame encryption this makes the most sense.",
+      "parentUuid": "ccaadb02_2e886d27",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 5
+      },
+      "revId": "385b4fa194eaa9b2b83c803513f94c3be96732cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

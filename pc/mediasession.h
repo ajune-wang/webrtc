@@ -40,13 +40,19 @@ struct SenderOptions {
   int num_sim_layers;
 };
 
+enum class MediaDescriptionState {
+  kActive,
+  kRecycled,
+  kRejected,
+};
+
 // Options for an individual media description/"m=" section.
 struct MediaDescriptionOptions {
   MediaDescriptionOptions(MediaType type,
                           const std::string& mid,
                           webrtc::RtpTransceiverDirection direction,
-                          bool stopped)
-      : type(type), mid(mid), direction(direction), stopped(stopped) {}
+                          MediaDescriptionState state)
+      : type(type), mid(mid), direction(direction), state(state) {}
 
   // TODO(deadbeef): When we don't support Plan B, there will only be one
   // sender per media description and this can be simplified.
@@ -63,7 +69,7 @@ struct MediaDescriptionOptions {
   MediaType type;
   std::string mid;
   webrtc::RtpTransceiverDirection direction;
-  bool stopped;
+  MediaDescriptionState state;
   TransportOptions transport_options;
   // Note: There's no equivalent "RtpReceiverOptions" because only send
   // stream information goes in the local descriptions.

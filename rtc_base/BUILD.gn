@@ -482,6 +482,19 @@ if (is_mac && !build_with_chromium) {
   }
 }
 
+rtc_source_set("task_queue_global_factory") {
+  visibility = [ "*" ]
+  sources = [
+    "task_queue_global_factory.cc",
+    "task_queue_global_factory.h",
+  ]
+  deps = [
+    ":checks",
+    "../api/task_queue",
+    "../api/task_queue:task_queue_default_factory",
+  ]
+}
+
 rtc_source_set("rtc_task_queue") {
   visibility = [ "*" ]
   deps = []
@@ -515,6 +528,7 @@ rtc_source_set("rtc_task_queue_api") {
   deps = [
     ":macromagic",
     ":ptr_util",
+    "../../api/task_queue",
     "system:rtc_export",
     "//third_party/abseil-cpp/absl/memory",
   ]
@@ -560,6 +574,7 @@ if (rtc_enable_libevent) {
       ":rtc_task_queue_api",
       ":safe_conversions",
       ":timeutils",
+      "../api/task_queue",
       "system:unused",
     ]
     if (rtc_build_libevent) {

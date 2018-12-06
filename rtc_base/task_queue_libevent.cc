@@ -22,6 +22,7 @@
 #include <type_traits>
 #include <utility>
 
+#include "api/task_queue/task_queue_base.h"
 #include "base/third_party/libevent/event.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/criticalsection.h"
@@ -119,7 +120,7 @@ ThreadPriority TaskQueuePriorityToThreadPriority(Priority priority) {
 }
 }  // namespace
 
-class TaskQueue::Impl : public RefCountInterface {
+class TaskQueue::Impl : public RefCountInterface, public webrtc::TaskQueueBase {
  public:
   explicit Impl(const char* queue_name,
                 TaskQueue* queue,
@@ -132,12 +133,13 @@ class TaskQueue::Impl : public RefCountInterface {
   // Used for DCHECKing the current queue.
   bool IsCurrent() const;
 
-  void PostTask(std::unique_ptr<QueuedTask> task);
+  void PostTask(std::unique_ptr<QueuedTask> task) override;
   void PostTaskAndReply(std::unique_ptr<QueuedTask> task,
                         std::unique_ptr<QueuedTask> reply,
                         TaskQueue::Impl* reply_queue);
 
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds);
+  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                       uint32_t milliseconds) override;
 
  private:
   static void ThreadMain(void* context);

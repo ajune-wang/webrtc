@@ -746,6 +746,7 @@ if (is_android) {
       "../../media:rtc_data",
       "../../media:rtc_media_base",
       "../../modules/audio_device:audio_device",
+      "../../modules/audio_processing:api",
       "../../modules/utility:utility",
       "../../pc:peerconnection",
       "../../rtc_base:checks",

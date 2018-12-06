@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3517e62b_c383047d",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-12-06T12:54:09Z",
+      "side": 1,
+      "message": "Maybe that\u0027s better. I just don\u0027t like that it would be capitalized here and camel case for the chroma siting enum.",
+      "parentUuid": "ffb298c1_d204fdd6",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "d3f7f875094c3c32cf45aacb42c021b22e20aad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae382099_01b6e376",
         "filename": "api/video/color_space.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-06T12:46:31Z",
       "side": 1,
       "message": "Seems name is from the (draft?) spec. But consider writing out Horizontal and Vertical.\n\nThe word(?) \"Siting\" is also puzzling. I think it deserves a brief explanation in a comment.",
+      "range": {
+        "startLine": 111,
+        "startChar": 13,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "d3f7f875094c3c32cf45aacb42c021b22e20aad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c37a41c_a21b1606",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-12-06T12:54:09Z",
+      "side": 1,
+      "message": "Will write it out. I\u0027ll see if I can explain in a simple way, I haven\u0027t understood the meaning completely myself.",
+      "parentUuid": "ae382099_01b6e376",
       "range": {
         "startLine": 111,
         "startChar": 13,

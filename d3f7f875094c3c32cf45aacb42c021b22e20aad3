@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffb298c1_d204fdd6",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T12:46:31Z",
+      "side": 1,
+      "message": "Maybe better to keep all caps, for consistency with the other enum values.",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "d3f7f875094c3c32cf45aacb42c021b22e20aad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae382099_01b6e376",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T12:46:31Z",
+      "side": 1,
+      "message": "Seems name is from the (draft?) spec. But consider writing out Horizontal and Vertical.\n\nThe word(?) \"Siting\" is also puzzling. I think it deserves a brief explanation in a comment.",
+      "range": {
+        "startLine": 111,
+        "startChar": 13,
+        "endLine": 111,
+        "endChar": 29
+      },
+      "revId": "d3f7f875094c3c32cf45aacb42c021b22e20aad3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

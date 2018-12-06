@@ -63,17 +63,27 @@ ColorSpace::ColorSpace(PrimaryID primaries,
                        TransferID transfer,
                        MatrixID matrix,
                        RangeID range)
-    : ColorSpace(primaries, transfer, matrix, range, nullptr) {}
+    : ColorSpace(primaries,
+                 transfer,
+                 matrix,
+                 range,
+                 ChromaSitingHorz::kUnspecified,
+                 ChromaSitingVert::kUnspecified,
+                 nullptr) {}
 
 ColorSpace::ColorSpace(PrimaryID primaries,
                        TransferID transfer,
                        MatrixID matrix,
                        RangeID range,
+                       ChromaSitingHorz siting_horz,
+                       ChromaSitingVert siting_vert,
                        const HdrMetadata* hdr_metadata)
     : primaries_(primaries),
       transfer_(transfer),
       matrix_(matrix),
       range_(range),
+      chroma_siting_horz_(siting_horz),
+      chroma_siting_vert_(siting_vert),
       hdr_metadata_(hdr_metadata ? absl::make_optional(*hdr_metadata)
                                  : absl::nullopt) {}
 
@@ -93,13 +103,21 @@ ColorSpace::RangeID ColorSpace::range() const {
   return range_;
 }
 
+ColorSpace::ChromaSitingHorz ColorSpace::chroma_siting_horz() const {
+  return chroma_siting_horz_;
+}
+
+ColorSpace::ChromaSitingVert ColorSpace::chroma_siting_vert() const {
+  return chroma_siting_vert_;
+}
+
 const HdrMetadata* ColorSpace::hdr_metadata() const {
   return hdr_metadata_ ? &*hdr_metadata_ : nullptr;
 }
 
 bool ColorSpace::set_primaries_from_uint8(uint8_t enum_value) {
   constexpr PrimaryID kPrimaryIds[] = {
-      PrimaryID::kBT709,      PrimaryID::kUNSPECIFIED, PrimaryID::kBT470M,
+      PrimaryID::kBT709,      PrimaryID::kUnspecified, PrimaryID::kBT470M,
       PrimaryID::kBT470BG,    PrimaryID::kSMPTE170M,   PrimaryID::kSMPTE240M,
       PrimaryID::kFILM,       PrimaryID::kBT2020,      PrimaryID::kSMPTEST428,
       PrimaryID::kSMPTEST431, PrimaryID::kSMPTEST432,  PrimaryID::kJEDECP22};
@@ -110,7 +128,7 @@ bool ColorSpace::set_primaries_from_uint8(uint8_t enum_value) {
 
 bool ColorSpace::set_transfer_from_uint8(uint8_t enum_value) {
   constexpr TransferID kTransferIds[] = {
-      TransferID::kBT709,       TransferID::kUNSPECIFIED,
+      TransferID::kBT709,       TransferID::kUnspecified,
       TransferID::kGAMMA22,     TransferID::kGAMMA28,
       TransferID::kSMPTE170M,   TransferID::kSMPTE240M,
       TransferID::kLINEAR,      TransferID::kLOG,
@@ -126,7 +144,7 @@ bool ColorSpace::set_transfer_from_uint8(uint8_t enum_value) {
 
 bool ColorSpace::set_matrix_from_uint8(uint8_t enum_value) {
   constexpr MatrixID kMatrixIds[] = {
-      MatrixID::kRGB,       MatrixID::kBT709,       MatrixID::kUNSPECIFIED,
+      MatrixID::kRGB,       MatrixID::kBT709,       MatrixID::kUnspecified,
       MatrixID::kFCC,       MatrixID::kBT470BG,     MatrixID::kSMPTE170M,
       MatrixID::kSMPTE240M, MatrixID::kYCOCG,       MatrixID::kBT2020_NCL,
       MatrixID::kBT2020_CL, MatrixID::kSMPTE2085,   MatrixID::kCDNCLS,
@@ -142,6 +160,24 @@ bool ColorSpace::set_range_from_uint8(uint8_t enum_value) {
   constexpr uint64_t enum_bitmask = CreateEnumBitmask(kRangeIds);
 
   return SetFromUint8(enum_value, enum_bitmask, &range_);
+}
+
+bool ColorSpace::set_chroma_siting_horz_from_uint8(uint8_t enum_value) {
+  constexpr ChromaSitingHorz kChromaSitingHorzs[] = {
+      ChromaSitingHorz::kUnspecified, ChromaSitingHorz::kLeftCollocated,
+      ChromaSitingHorz::kHalf};
+  constexpr uint64_t enum_bitmask = CreateEnumBitmask(kChromaSitingHorzs);
+
+  return SetFromUint8(enum_value, enum_bitmask, &chroma_siting_horz_);
+}
+
+bool ColorSpace::set_chroma_siting_vert_from_uint8(uint8_t enum_value) {
+  constexpr ChromaSitingVert kChromaSitingVerts[] = {
+      ChromaSitingVert::kUnspecified, ChromaSitingVert::kTopCollocated,
+      ChromaSitingVert::kHalf};
+  constexpr uint64_t enum_bitmask = CreateEnumBitmask(kChromaSitingVerts);
+
+  return SetFromUint8(enum_value, enum_bitmask, &chroma_siting_vert_);
 }
 
 void ColorSpace::set_hdr_metadata(const HdrMetadata* hdr_metadata) {

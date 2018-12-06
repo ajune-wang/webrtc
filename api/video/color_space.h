@@ -36,7 +36,7 @@ class ColorSpace {
   enum class PrimaryID : uint8_t {
     // The indices are equal to the values specified in T-REC H.273 Table 2.
     kBT709 = 1,
-    kUNSPECIFIED = 2,
+    kUnspecified = 2,
     kBT470M = 4,
     kBT470BG = 5,
     kSMPTE170M = 6,  // Identical to BT601
@@ -54,7 +54,7 @@ class ColorSpace {
   enum class TransferID : uint8_t {
     // The indices are equal to the values specified in T-REC H.273 Table 3.
     kBT709 = 1,
-    kUNSPECIFIED = 2,
+    kUnspecified = 2,
     kGAMMA22 = 4,
     kGAMMA28 = 5,
     kSMPTE170M = 6,
@@ -78,7 +78,7 @@ class ColorSpace {
     // The indices are equal to the values specified in T-REC H.273 Table 4.
     kRGB = 0,
     kBT709 = 1,
-    kUNSPECIFIED = 2,
+    kUnspecified = 2,
     kFCC = 4,
     kBT470BG = 5,
     kSMPTE170M = 6,
@@ -108,6 +108,28 @@ class ColorSpace {
     // corresponding change to kRangeIds.
   };
 
+  enum class ChromaSitingHorz {
+    // The indices are equal to the values specified at
+    // https://www.webmproject.org/docs/container/#colour for the element
+    // ChromaSitingHorz.
+    kUnspecified = 0,
+    kLeftCollocated = 1,
+    kHalf = 2,
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kChromaSitingHorzs.
+  };
+
+  enum class ChromaSitingVert {
+    // The indices are equal to the values specified at
+    // https://www.webmproject.org/docs/container/#colour for the element
+    // ChromaSitingVert.
+    kUnspecified = 0,
+    kTopCollocated = 1,
+    kHalf = 2,
+    // When adding/removing entries here, please make sure to do the
+    // corresponding change to kChromaSitingVerts.
+  };
+
   ColorSpace();
   ColorSpace(const ColorSpace& other);
   ColorSpace(ColorSpace&& other);
@@ -115,15 +137,19 @@ class ColorSpace {
   ColorSpace(PrimaryID primaries,
              TransferID transfer,
              MatrixID matrix,
-             RangeID full_range);
+             RangeID range);
   ColorSpace(PrimaryID primaries,
              TransferID transfer,
              MatrixID matrix,
              RangeID range,
+             ChromaSitingHorz siting_horz,
+             ChromaSitingVert siting_vert,
              const HdrMetadata* hdr_metadata);
   friend bool operator==(const ColorSpace& lhs, const ColorSpace& rhs) {
     return lhs.primaries_ == rhs.primaries_ && lhs.transfer_ == rhs.transfer_ &&
            lhs.matrix_ == rhs.matrix_ && lhs.range_ == rhs.range_ &&
+           lhs.chroma_siting_horz_ == rhs.chroma_siting_horz_ &&
+           lhs.chroma_siting_vert_ == rhs.chroma_siting_vert_ &&
            lhs.hdr_metadata_ == rhs.hdr_metadata_;
   }
   friend bool operator!=(const ColorSpace& lhs, const ColorSpace& rhs) {
@@ -134,19 +160,25 @@ class ColorSpace {
   TransferID transfer() const;
   MatrixID matrix() const;
   RangeID range() const;
+  ChromaSitingHorz chroma_siting_horz() const;
+  ChromaSitingVert chroma_siting_vert() const;
   const HdrMetadata* hdr_metadata() const;
 
   bool set_primaries_from_uint8(uint8_t enum_value);
   bool set_transfer_from_uint8(uint8_t enum_value);
   bool set_matrix_from_uint8(uint8_t enum_value);
   bool set_range_from_uint8(uint8_t enum_value);
+  bool set_chroma_siting_horz_from_uint8(uint8_t enum_value);
+  bool set_chroma_siting_vert_from_uint8(uint8_t enum_value);
   void set_hdr_metadata(const HdrMetadata* hdr_metadata);
 
  private:
-  PrimaryID primaries_ = PrimaryID::kUNSPECIFIED;
-  TransferID transfer_ = TransferID::kUNSPECIFIED;
-  MatrixID matrix_ = MatrixID::kUNSPECIFIED;
+  PrimaryID primaries_ = PrimaryID::kUnspecified;
+  TransferID transfer_ = TransferID::kUnspecified;
+  MatrixID matrix_ = MatrixID::kUnspecified;
   RangeID range_ = RangeID::kInvalid;
+  ChromaSitingHorz chroma_siting_horz_ = ChromaSitingHorz::kUnspecified;
+  ChromaSitingVert chroma_siting_vert_ = ChromaSitingVert::kUnspecified;
   absl::optional<HdrMetadata> hdr_metadata_;
 };
 

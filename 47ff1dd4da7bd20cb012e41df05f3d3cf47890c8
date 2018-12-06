@@ -22,6 +22,30 @@
       "revId": "47ff1dd4da7bd20cb012e41df05f3d3cf47890c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5119b915_1cecdc90",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-06T10:52:00Z",
+      "side": 1,
+      "message": "That\u0027s correct, we will deactivate target layer and all higher ones (just as description says).\nDeactivation of middle layer(s) will require additional changes and testing. In particular, I\u0027m not sure libvpx VP9 encoder supports this.",
+      "parentUuid": "ec79dd8d_edd4fe66",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 5
+      },
+      "revId": "47ff1dd4da7bd20cb012e41df05f3d3cf47890c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

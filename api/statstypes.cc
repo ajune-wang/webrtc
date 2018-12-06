@@ -648,6 +648,8 @@ const char* StatsReport::Value::display_name() const {
       return "googTypingNoiseState";
     case kStatsValueNameWritable:
       return "googWritable";
+    case kStatsValueNameFirstFrameReceivedToDecodedMs:
+      return "googFirstFrameReceivedToDecodedMs";
   }
 
   return nullptr;

@@ -236,6 +236,7 @@ class StatsReport {
     kStatsValueNameTransportType,
     kStatsValueNameTypingNoiseState,
     kStatsValueNameWritable,
+    kStatsValueNameFirstFrameReceivedToDecodedMs,
   };
 
   class IdBase : public rtc::RefCountInterface {

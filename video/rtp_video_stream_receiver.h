@@ -224,6 +224,8 @@ class RtpVideoStreamReceiver : public RecoveredPacketReceiver,
   std::unique_ptr<BufferedFrameDecryptor> buffered_frame_decryptor_
       RTC_PT_GUARDED_BY(network_tc_);
   absl::optional<ColorSpace> last_color_space_;
+  // Used to record the first frame arrival time.
+  ReceiveStatisticsProxy* receive_stats_proxy_ = nullptr;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dff07185_079a0eb7",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T18:02:47Z",
+      "side": 1,
+      "message": "This line should be unnecessary.",
+      "revId": "6723a6ea1f2cdea5570e98b124c88a857abd4eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48394158_0888b7b9",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T18:02:47Z",
+      "side": 1,
+      "message": "This is pessimistic. Before the factory \"creates\" the last mock, this will return a valid pointer; after it has created it, this method will return null. The only problem is that the non-null pointer will keep pointing to the mock even after it dies.",
+      "revId": "6723a6ea1f2cdea5570e98b124c88a857abd4eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "b68b004f_6aa84d53",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T03:36:34Z",
+      "side": 1,
+      "message": "Wait, so if I call a PeerConnectionInterface method Foo(), do the effects of that call happen (1) all before Foo() returns, (2) all after Foo() returns, or (3) both before and after? In my comments this far, I\u0027ve been assuming (2), since that\u0027s how I read Harald\u0027s proposed text.\n\n(2) would conventionally be labeled something like \"nonblocking asynchronous\", and (3) \"(possibly blocking) asynchronous\". (1) would be simply \"synchronous\", and from the perspective of the caller cannot be distinguished from a normal function call that just does all the work on the caller\u0027s thread.",
+      "parentUuid": "69d731b4_0be38393",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c8c9efc_74326fc6",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1
@@ -191,6 +209,24 @@
       "side": 1,
       "message": "I think in an ideal world that would make sense, but in practice no one outside of webrtc internal is going to have a PeerConnectionInterface that isn\u0027t a PeerConnectionProxy. So clients should be able to rely on the proxy behavior.",
       "parentUuid": "8e437441_8de1119b",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0760c494_772da742",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T03:36:34Z",
+      "side": 1,
+      "message": "Mmmm. In that case, I\u0027d say there should be two interfaces, identical in every way except that the internal one requires the callee to be on the signal thread, and the public one has no such restriction. PeerConnectionProxy would be the only instance of the public interface.\n\nI would contend that using a single C++ abstract base class for these two conceptually separate things is hazardous, because now you have two things that must not be conflated and we\u0027re actively telling the compiler \"no, no, you don\u0027t have to help me keep this straight, I\u0027ve got it\". Even if we only expose one of them to our users, we still have the problem in our own tree. Also, such things have a tendency to not stay 100% hidden from users, as evidenced by lines 175-176 in this CL. :-)\n\n(Side note: Once two such interfaces have been de-duplicated, it isn\u0027t uncommon to find that having them 100% identical wasn\u0027t the optimal choice after all. And one of them is internal and easy to change. So there may be other benefits besides increased type safety.)",
+      "parentUuid": "0f1724ad_3a2b75a3",
       "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb64e73a_466f791f",
+        "filename": "media/engine/vp8_encoder_simulcast_proxy.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-06T09:17:09Z",
+      "side": 1,
+      "message": "Possible to use RTC_DEPRECATED macro here, or would that break builds and defeat the purpose of this cl?",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "71e59d226a1d706a34e5f86aff4f08a43bca65e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

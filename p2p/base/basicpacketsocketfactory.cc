@@ -14,6 +14,7 @@
 #include <string>
 
 #include "p2p/base/asyncstuntcpsocket.h"
+#include "rtc_base/asyncresolver.h"
 #include "rtc_base/asynctcpsocket.h"
 #include "rtc_base/asyncudpsocket.h"
 #include "rtc_base/checks.h"

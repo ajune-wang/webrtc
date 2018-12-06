@@ -8,14 +8,17 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "p2p/base/basicasyncresolverfactory.h"
+#ifndef RTC_BASE_DEFAULTSOCKETSERVER_H_
+#define RTC_BASE_DEFAULTSOCKETSERVER_H_
 
-#include "rtc_base/asyncresolver.h"
+#include <memory>
 
-namespace webrtc {
+#include "rtc_base/socketserver.h"
 
-rtc::AsyncResolverInterface* BasicAsyncResolverFactory::Create() {
-  return new rtc::AsyncResolver();
-}
+namespace rtc {
 
-}  // namespace webrtc
+std::unique_ptr<SocketServer> CreateDefaultSocketServer();
+
+}  // namespace rtc
+
+#endif  // RTC_BASE_DEFAULTSOCKETSERVER_H_

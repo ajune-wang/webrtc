@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "897f60ab_10bcfae2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-06T09:05:52Z",
+      "side": 1,
+      "message": "This is no longer the case, right?",
+      "range": {
+        "startLine": 11,
+        "startChar": 157,
+        "endLine": 11,
+        "endChar": 172
+      },
+      "revId": "440b64489f1aee21ac7f832d7bc7f4711ce8322d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

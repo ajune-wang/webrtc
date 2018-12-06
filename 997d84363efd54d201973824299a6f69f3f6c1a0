@@ -144,6 +144,24 @@
     },
     {
       "key": {
+        "uuid": "90a42da8_3c3695ba",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T10:46:25Z",
+      "side": 1,
+      "message": "Aha, now I get it. So the calls are synchronous (because they don\u0027t return until the job is done), but someone else---we don\u0027t really care who---is doing things to the object behind our back.\n\nI would describe it like this:\n\n  The methods in PeerConnectionInterface are synchronous, but callers must assume that other threads are concurrently mutating the object.\n\nMaybe with a second sentence that gives an example; something like\n\n  For example, `x.SetFoo(x.GetFoo() + 1)` is not a reliable way to increment foo by 1, since some other thread might change the value of foo between these two calls.",
+      "parentUuid": "395e2fc9_a66f8855",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c8c9efc_74326fc6",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "98b24eac_36527918",
+        "filename": "api/create_peerconnection_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T09:32:19Z",
+      "side": 1,
+      "message": "Yes please.",
+      "parentUuid": "7444317d_3c8591aa",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39e386be_f7065fad",
         "filename": "media/engine/convert_legacy_video_factory.h",
         "patchSetId": 1
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "I don\u0027t think we should introduce any duplicate symbols with this change. We\u0027re only adding two new temporary functions and making the old functions forward to them. The inline is just because the the workaround instructions in rtc_base/deprecation.h said so.",
       "parentUuid": "cdad8ff1_7e971367",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 32
+      },
+      "revId": "d6405b2e6125cc6a13fce2851eb92c6d0947c0c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dbc8e86_56219f90",
+        "filename": "media/engine/convert_legacy_video_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2018-12-06T09:32:19Z",
+      "side": 1,
+      "message": "tl;dr: `inline`: yes, `static inline`: no\n\n`inline` makes it OK that the function definition is duplicated in several translation units; the linker will de-duplicate.\n\n`static inline` would give the function internal linkage; essentially, this means that each translation unit gets its own private copy of the function. On the one hand, this allows the compiler to not emit a definition if all call sites are inlined. On the other hand, it also means that if all call sites are not inlined, multiple translation units could end up carrying definitions; this is mostly harmless because of the internal linkage, but hurts binary size.\n\nIn C++, the preferred way to give things internal linkage is to put them in an unnamed namespace. The effect is the same as you get with `static`.\n\nGiving definitions in headers internal linkage (whether with `static` or an unnamed namespace) is forbidden by the style guide [https://google.github.io/styleguide/cppguide.html#Unnamed_Namespaces_and_Static_Variables], because \"mostly harmless\" still leaves too many cracks for bugs to slither through.",
+      "parentUuid": "73e3addd_70d3670e",
       "range": {
         "startLine": 48,
         "startChar": 26,

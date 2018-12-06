@@ -11,11 +11,9 @@
 #ifndef SDK_ANDROID_SRC_JNI_PC_AUDIO_H_
 #define SDK_ANDROID_SRC_JNI_PC_AUDIO_H_
 
-// Adding 'nogncheck' to disable the gn include headers check.
-// We don't want this target depend on audio related targets
-#include "api/audio_codecs/audio_decoder_factory.h"             // nogncheck
-#include "api/audio_codecs/audio_encoder_factory.h"             // nogncheck
-#include "modules/audio_processing/include/audio_processing.h"  // nogncheck
+#include "api/audio_codecs/audio_decoder_factory.h"
+#include "api/audio_codecs/audio_encoder_factory.h"
+#include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/scoped_ref_ptr.h"
 
 namespace webrtc {

@@ -18,6 +18,7 @@
 #include <unordered_map>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "api/cryptoparams.h"
@@ -289,20 +290,15 @@ static void GenerateSsrcs(const StreamParamsVec& params_vec,
 }
 
 // Finds all StreamParams of all media types and attach them to stream_params.
-static void GetCurrentStreamParams(const SessionDescription* sdesc,
-                                   StreamParamsVec* stream_params) {
-  RTC_DCHECK(stream_params);
-  if (!sdesc) {
-    return;
-  }
-  for (const ContentInfo& content : sdesc->contents()) {
-    if (!content.media_description()) {
-      continue;
-    }
-    for (const StreamParams& params : content.media_description()->streams()) {
-      stream_params->push_back(params);
+static StreamParamsVec GetCurrentStreamParams(
+    const std::vector<const ContentInfo*>& active_local_contents) {
+  StreamParamsVec stream_params;
+  for (const ContentInfo* content : active_local_contents) {
+    for (const StreamParams& params : content->media_description()->streams()) {
+      stream_params.push_back(params);
     }
   }
+  return stream_params;
 }
 
 // Filters the data codecs for the data channel type.
@@ -1262,20 +1258,46 @@ void MediaSessionDescriptionFactory::set_audio_codecs(
   ComputeAudioCodecsIntersectionAndUnion();
 }
 
+static std::vector<const ContentInfo*> GetActiveContents(
+    const SessionDescription& description,
+    const MediaSessionOptions& session_options) {
+  std::vector<const ContentInfo*> active_contents;
+  for (size_t i = 0; i < description.contents().size(); ++i) {
+    RTC_DCHECK_LT(i, session_options.media_description_options.size());
+    const MediaDescriptionOptions& media_options =
+        session_options.media_description_options[i];
+    if (media_options.state == MediaDescriptionState::kActive) {
+      active_contents.push_back(&description.contents()[i]);
+    }
+  }
+  return active_contents;
+}
+
 SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
     const MediaSessionOptions& session_options,
     const SessionDescription* current_description) const {
-  std::unique_ptr<SessionDescription> offer(new SessionDescription());
+  // Must have options for each existing section.
+  if (current_description) {
+    RTC_DCHECK_LE(current_description->contents().size(),
+                  session_options.media_description_options.size());
+  }
 
   IceCredentialsIterator ice_credentials(
       session_options.pooled_ice_credentials);
-  StreamParamsVec current_streams;
-  GetCurrentStreamParams(current_description, &current_streams);
+
+  std::vector<const ContentInfo*> current_active_contents;
+  if (current_description) {
+    current_active_contents =
+        GetActiveContents(*current_description, session_options);
+  }
+
+  StreamParamsVec current_streams =
+      GetCurrentStreamParams(current_active_contents);
 
   AudioCodecs offer_audio_codecs;
   VideoCodecs offer_video_codecs;
   DataCodecs offer_data_codecs;
-  GetCodecsForOffer(current_description, &offer_audio_codecs,
+  GetCodecsForOffer(current_active_contents, &offer_audio_codecs,
                     &offer_video_codecs, &offer_data_codecs);
 
   if (!session_options.vad_enabled) {
@@ -1287,14 +1309,10 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
 
   RtpHeaderExtensions audio_rtp_extensions;
   RtpHeaderExtensions video_rtp_extensions;
-  GetRtpHdrExtsToOffer(session_options, current_description,
+  GetRtpHdrExtsToOffer(current_active_contents, session_options.is_unified_plan,
                        &audio_rtp_extensions, &video_rtp_extensions);
 
-  // Must have options for each existing section.
-  if (current_description) {
-    RTC_DCHECK(current_description->contents().size() <=
-               session_options.media_description_options.size());
-  }
+  auto offer = absl::make_unique<SessionDescription>();
 
   // Iterate through the media description options, matching with existing media
   // descriptions in |current_description|.
@@ -1306,7 +1324,8 @@ SessionDescription* MediaSessionDescriptionFactory::CreateOffer(
         msection_index < current_description->contents().size()) {
       current_content = &current_description->contents()[msection_index];
       // Media type must match unless this media section is being recycled.
-      RTC_DCHECK(current_content->rejected ||
+      RTC_DCHECK(media_description_options.state ==
+                     MediaDescriptionState::kRecycled ||
                  IsMediaContentOfType(current_content,
                                       media_description_options.type));
     }
@@ -1391,25 +1410,21 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
     return nullptr;
   }
 
+  // Must have options for exactly as many sections as in the offer.
+  RTC_DCHECK(offer->contents().size() ==
+             session_options.media_description_options.size());
+
   IceCredentialsIterator ice_credentials(
       session_options.pooled_ice_credentials);
 
-  // The answer contains the intersection of the codecs in the offer with the
-  // codecs we support. As indicated by XEP-0167, we retain the same payload ids
-  // from the offer in the answer.
-  std::unique_ptr<SessionDescription> answer(new SessionDescription());
+  std::vector<const ContentInfo*> current_active_contents;
+  if (current_description) {
+    current_active_contents =
+        GetActiveContents(*current_description, session_options);
+  }
 
-  StreamParamsVec current_streams;
-  GetCurrentStreamParams(current_description, &current_streams);
-
-  // If the offer supports BUNDLE, and we want to use it too, create a BUNDLE
-  // group in the answer with the appropriate content names.
-  const ContentGroup* offer_bundle = offer->GetGroupByName(GROUP_TYPE_BUNDLE);
-  ContentGroup answer_bundle(GROUP_TYPE_BUNDLE);
-  // Transport info shared by the bundle group.
-  std::unique_ptr<TransportInfo> bundle_transport;
-
-  answer->set_extmap_allow_mixed(offer->extmap_allow_mixed());
+  StreamParamsVec current_streams =
+      GetCurrentStreamParams(current_active_contents);
 
   // Get list of all possible codecs that respects existing payload type
   // mappings and uses a single payload type space.
@@ -1420,7 +1435,7 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
   AudioCodecs answer_audio_codecs;
   VideoCodecs answer_video_codecs;
   DataCodecs answer_data_codecs;
-  GetCodecsForAnswer(current_description, offer, &answer_audio_codecs,
+  GetCodecsForAnswer(current_active_contents, *offer, &answer_audio_codecs,
                      &answer_video_codecs, &answer_data_codecs);
 
   if (!session_options.vad_enabled) {
@@ -1430,9 +1445,17 @@ SessionDescription* MediaSessionDescriptionFactory::CreateAnswer(
   FilterDataCodecs(&answer_data_codecs,
                    session_options.data_channel_type == DCT_SCTP);
 
-  // Must have options for exactly as many sections as in the offer.
-  RTC_DCHECK(offer->contents().size() ==
-             session_options.media_description_options.size());
+  auto answer = absl::make_unique<SessionDescription>();
+
+  // If the offer supports BUNDLE, and we want to use it too, create a BUNDLE
+  // group in the answer with the appropriate content names.
+  const ContentGroup* offer_bundle = offer->GetGroupByName(GROUP_TYPE_BUNDLE);
+  ContentGroup answer_bundle(GROUP_TYPE_BUNDLE);
+  // Transport info shared by the bundle group.
+  std::unique_ptr<TransportInfo> bundle_transport;
+
+  answer->set_extmap_allow_mixed(offer->extmap_allow_mixed());
+
   // Iterate through the media description options, matching with existing
   // media descriptions in |current_description|.
   size_t msection_index = 0;
@@ -1589,24 +1612,24 @@ const AudioCodecs& MediaSessionDescriptionFactory::GetAudioCodecsForAnswer(
   return audio_sendrecv_codecs_;
 }
 
-void MergeCodecsFromDescription(const SessionDescription* description,
-                                AudioCodecs* audio_codecs,
-                                VideoCodecs* video_codecs,
-                                DataCodecs* data_codecs,
-                                UsedPayloadTypes* used_pltypes) {
-  RTC_DCHECK(description);
-  for (const ContentInfo& content : description->contents()) {
-    if (IsMediaContentOfType(&content, MEDIA_TYPE_AUDIO)) {
+void MergeCodecsFromDescription(
+    const std::vector<const ContentInfo*>& current_active_contents,
+    AudioCodecs* audio_codecs,
+    VideoCodecs* video_codecs,
+    DataCodecs* data_codecs,
+    UsedPayloadTypes* used_pltypes) {
+  for (const ContentInfo* content : current_active_contents) {
+    if (IsMediaContentOfType(content, MEDIA_TYPE_AUDIO)) {
       const AudioContentDescription* audio =
-          content.media_description()->as_audio();
+          content->media_description()->as_audio();
       MergeCodecs<AudioCodec>(audio->codecs(), audio_codecs, used_pltypes);
-    } else if (IsMediaContentOfType(&content, MEDIA_TYPE_VIDEO)) {
+    } else if (IsMediaContentOfType(content, MEDIA_TYPE_VIDEO)) {
       const VideoContentDescription* video =
-          content.media_description()->as_video();
+          content->media_description()->as_video();
       MergeCodecs<VideoCodec>(video->codecs(), video_codecs, used_pltypes);
-    } else if (IsMediaContentOfType(&content, MEDIA_TYPE_DATA)) {
+    } else if (IsMediaContentOfType(content, MEDIA_TYPE_DATA)) {
       const DataContentDescription* data =
-          content.media_description()->as_data();
+          content->media_description()->as_data();
       MergeCodecs<DataCodec>(data->codecs(), data_codecs, used_pltypes);
     }
   }
@@ -1619,24 +1642,18 @@ void MergeCodecsFromDescription(const SessionDescription* description,
 // 3. For each individual media description (m= section), filter codecs based
 //    on the directional attribute (happens in another method).
 void MediaSessionDescriptionFactory::GetCodecsForOffer(
-    const SessionDescription* current_description,
+    const std::vector<const ContentInfo*>& current_active_contents,
     AudioCodecs* audio_codecs,
     VideoCodecs* video_codecs,
     DataCodecs* data_codecs) const {
-  UsedPayloadTypes used_pltypes;
-  audio_codecs->clear();
-  video_codecs->clear();
-  data_codecs->clear();
-
   // First - get all codecs from the current description if the media type
   // is used. Add them to |used_pltypes| so the payload type is not reused if a
   // new media type is added.
-  if (current_description) {
-    MergeCodecsFromDescription(current_description, audio_codecs, video_codecs,
-                               data_codecs, &used_pltypes);
-  }
+  UsedPayloadTypes used_pltypes;
+  MergeCodecsFromDescription(current_active_contents, audio_codecs,
+                             video_codecs, data_codecs, &used_pltypes);
 
-  // Add our codecs that are not in |current_description|.
+  // Add our codecs that are not in the current description.
   MergeCodecs<AudioCodec>(all_audio_codecs_, audio_codecs, &used_pltypes);
   MergeCodecs<VideoCodec>(video_codecs_, video_codecs, &used_pltypes);
   MergeCodecs<DataCodec>(data_codecs_, data_codecs, &used_pltypes);
@@ -1650,29 +1667,23 @@ void MediaSessionDescriptionFactory::GetCodecsForOffer(
 // 4. For each individual media description (m= section), filter codecs based
 //    on the directional attribute (happens in another method).
 void MediaSessionDescriptionFactory::GetCodecsForAnswer(
-    const SessionDescription* current_description,
-    const SessionDescription* remote_offer,
+    const std::vector<const ContentInfo*>& current_active_contents,
+    const SessionDescription& remote_offer,
     AudioCodecs* audio_codecs,
     VideoCodecs* video_codecs,
     DataCodecs* data_codecs) const {
-  UsedPayloadTypes used_pltypes;
-  audio_codecs->clear();
-  video_codecs->clear();
-  data_codecs->clear();
-
   // First - get all codecs from the current description if the media type
   // is used. Add them to |used_pltypes| so the payload type is not reused if a
   // new media type is added.
-  if (current_description) {
-    MergeCodecsFromDescription(current_description, audio_codecs, video_codecs,
-                               data_codecs, &used_pltypes);
-  }
+  UsedPayloadTypes used_pltypes;
+  MergeCodecsFromDescription(current_active_contents, audio_codecs,
+                             video_codecs, data_codecs, &used_pltypes);
 
   // Second - filter out codecs that we don't support at all and should ignore.
   AudioCodecs filtered_offered_audio_codecs;
   VideoCodecs filtered_offered_video_codecs;
   DataCodecs filtered_offered_data_codecs;
-  for (const ContentInfo& content : remote_offer->contents()) {
+  for (const ContentInfo& content : remote_offer.contents()) {
     if (IsMediaContentOfType(&content, MEDIA_TYPE_AUDIO)) {
       const AudioContentDescription* audio =
           content.media_description()->as_audio();
@@ -1712,7 +1723,7 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
     }
   }
 
-  // Add codecs that are not in |current_description| but were in
+  // Add codecs that are not in the current description but were in
   // |remote_offer|.
   MergeCodecs<AudioCodec>(filtered_offered_audio_codecs, audio_codecs,
                           &used_pltypes);
@@ -1722,9 +1733,10 @@ void MediaSessionDescriptionFactory::GetCodecsForAnswer(
                          &used_pltypes);
 }
 
+// TODO(steveanton): Replace |is_unified_plan| flag with a member variable.
 void MediaSessionDescriptionFactory::GetRtpHdrExtsToOffer(
-    const MediaSessionOptions& session_options,
-    const SessionDescription* current_description,
+    const std::vector<const ContentInfo*>& current_active_contents,
+    bool is_unified_plan,
     RtpHeaderExtensions* offer_audio_extensions,
     RtpHeaderExtensions* offer_video_extensions) const {
   // All header extensions allocated from the same range to avoid potential
@@ -1732,43 +1744,40 @@ void MediaSessionDescriptionFactory::GetRtpHdrExtsToOffer(
   UsedRtpHeaderExtensionIds used_ids;
   RtpHeaderExtensions all_regular_extensions;
   RtpHeaderExtensions all_encrypted_extensions;
-  offer_audio_extensions->clear();
-  offer_video_extensions->clear();
 
   // First - get all extensions from the current description if the media type
   // is used.
   // Add them to |used_ids| so the local ids are not reused if a new media
   // type is added.
-  if (current_description) {
-    for (const ContentInfo& content : current_description->contents()) {
-      if (IsMediaContentOfType(&content, MEDIA_TYPE_AUDIO)) {
-        const AudioContentDescription* audio =
-            content.media_description()->as_audio();
-        MergeRtpHdrExts(audio->rtp_header_extensions(), offer_audio_extensions,
-                        &all_regular_extensions, &all_encrypted_extensions,
-                        &used_ids);
-      } else if (IsMediaContentOfType(&content, MEDIA_TYPE_VIDEO)) {
-        const VideoContentDescription* video =
-            content.media_description()->as_video();
-        MergeRtpHdrExts(video->rtp_header_extensions(), offer_video_extensions,
-                        &all_regular_extensions, &all_encrypted_extensions,
-                        &used_ids);
-      }
+  for (const ContentInfo* content : current_active_contents) {
+    if (IsMediaContentOfType(content, MEDIA_TYPE_AUDIO)) {
+      const AudioContentDescription* audio =
+          content->media_description()->as_audio();
+      MergeRtpHdrExts(audio->rtp_header_extensions(), offer_audio_extensions,
+                      &all_regular_extensions, &all_encrypted_extensions,
+                      &used_ids);
+    } else if (IsMediaContentOfType(content, MEDIA_TYPE_VIDEO)) {
+      const VideoContentDescription* video =
+          content->media_description()->as_video();
+      MergeRtpHdrExts(video->rtp_header_extensions(), offer_video_extensions,
+                      &all_regular_extensions, &all_encrypted_extensions,
+                      &used_ids);
     }
   }
 
-  // Add our default RTP header extensions that are not in
-  // |current_description|.
-  MergeRtpHdrExts(audio_rtp_header_extensions(session_options.is_unified_plan),
+  // Add our default RTP header extensions that are not in the current
+  // description.
+  MergeRtpHdrExts(audio_rtp_header_extensions(is_unified_plan),
                   offer_audio_extensions, &all_regular_extensions,
                   &all_encrypted_extensions, &used_ids);
-  MergeRtpHdrExts(video_rtp_header_extensions(session_options.is_unified_plan),
+  MergeRtpHdrExts(video_rtp_header_extensions(is_unified_plan),
                   offer_video_extensions, &all_regular_extensions,
                   &all_encrypted_extensions, &used_ids);
 
   // TODO(jbauch): Support adding encrypted header extensions to existing
   // sessions.
-  if (enable_encrypted_rtp_header_extensions_ && !current_description) {
+  if (enable_encrypted_rtp_header_extensions_ &&
+      !current_active_contents.empty()) {
     AddEncryptedVersionsOfHdrExts(offer_audio_extensions,
                                   &all_encrypted_extensions, &used_ids);
     AddEncryptedVersionsOfHdrExts(offer_video_extensions,
@@ -1858,8 +1867,10 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
       GetAudioCodecsForOffer(media_description_options.direction);
 
   AudioCodecs filtered_codecs;
-  // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  // Add the codecs from current content if it exists and is active (not
+  // recycled or rejected).
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -1903,8 +1914,10 @@ bool MediaSessionDescriptionFactory::AddAudioContentForOffer(
 
   audio->set_direction(media_description_options.direction);
 
+  bool rejected =
+      (media_description_options.state == MediaDescriptionState::kRejected);
   desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                   media_description_options.stopped, audio.release());
+                   rejected, audio.release());
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
                          current_description, desc, ice_credentials)) {
@@ -1934,8 +1947,10 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
                                         &crypto_suites);
 
   VideoCodecs filtered_codecs;
-  // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  // Add the codecs from current content if it exists and is active (not
+  // recycled or rejected).
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();
@@ -1973,8 +1988,10 @@ bool MediaSessionDescriptionFactory::AddVideoContentForOffer(
 
   video->set_direction(media_description_options.direction);
 
-  desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                   media_description_options.stopped, video.release());
+  desc->AddContent(
+      media_description_options.mid, MediaProtocolType::kRtp,
+      (media_description_options.state == MediaDescriptionState::kRejected),
+      video.release());
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
                          current_description, desc, ice_credentials)) {
@@ -2040,8 +2057,10 @@ bool MediaSessionDescriptionFactory::AddDataContentForOffer(
   } else {
     data->set_bandwidth(kDataMaxBandwidth);
     SetMediaProtocol(secure_transport, data.get());
-    desc->AddContent(media_description_options.mid, MediaProtocolType::kRtp,
-                     media_description_options.stopped, data.release());
+    desc->AddContent(
+        media_description_options.mid, MediaProtocolType::kRtp,
+        (media_description_options.state == MediaDescriptionState::kRejected),
+        data.release());
   }
   if (!AddTransportOffer(media_description_options.mid,
                          media_description_options.transport_options,
@@ -2097,8 +2116,10 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
       GetAudioCodecsForAnswer(offer_rtd, answer_rtd);
 
   AudioCodecs filtered_codecs;
-  // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  // Add the codecs from current content if it exists and is active (not
+  // recycled or rejected).
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_AUDIO));
     const AudioContentDescription* acd =
         current_content->media_description()->as_audio();
@@ -2139,10 +2160,11 @@ bool MediaSessionDescriptionFactory::AddAudioContentForAnswer(
 
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : audio_transport->secure();
-  bool rejected = media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_AUDIO,
-                                            audio_answer->protocol(), secure);
+  bool rejected =
+      (media_description_options.state == MediaDescriptionState::kRejected) ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_AUDIO, audio_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(audio_transport.get()), answer)) {
     return false;
@@ -2183,8 +2205,10 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
   }
 
   VideoCodecs filtered_codecs;
-  // Add the codecs from current content if it exists and is not being recycled.
-  if (current_content && !current_content->rejected) {
+  // Add the codecs from current content if it exists and is active (not
+  // recycled or rejected).
+  if (current_content &&
+      media_description_options.state == MediaDescriptionState::kActive) {
     RTC_CHECK(IsMediaContentOfType(current_content, MEDIA_TYPE_VIDEO));
     const VideoContentDescription* vcd =
         current_content->media_description()->as_video();
@@ -2225,10 +2249,11 @@ bool MediaSessionDescriptionFactory::AddVideoContentForAnswer(
   }
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : video_transport->secure();
-  bool rejected = media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_VIDEO,
-                                            video_answer->protocol(), secure);
+  bool rejected =
+      media_description_options.state == MediaDescriptionState::kRejected ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_VIDEO, video_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(video_transport.get()), answer)) {
     return false;
@@ -2290,11 +2315,12 @@ bool MediaSessionDescriptionFactory::AddDataContentForAnswer(
   bool secure = bundle_transport ? bundle_transport->description.secure()
                                  : data_transport->secure();
 
-  bool rejected = session_options.data_channel_type == DCT_NONE ||
-                  media_description_options.stopped ||
-                  offer_content->rejected ||
-                  !IsMediaProtocolSupported(MEDIA_TYPE_DATA,
-                                            data_answer->protocol(), secure);
+  bool rejected =
+      session_options.data_channel_type == DCT_NONE ||
+      media_description_options.state == MediaDescriptionState::kRejected ||
+      offer_content->rejected ||
+      !IsMediaProtocolSupported(MEDIA_TYPE_DATA, data_answer->protocol(),
+                                secure);
   if (!AddTransportAnswer(media_description_options.mid,
                           *(data_transport.get()), answer)) {
     return false;

@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "395e2fc9_a66f8855",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-06T09:22:11Z",
+      "side": 1,
+      "message": "The proxy queues a task on the signaling thread to invoke the method, and blocks (does nothing) until that method has invoked. In order to wait for the task to execute, you have to wait for all tasks previously queued to execute too because its a queue. So any call to this interface means \"do things I may not know about, and then do what I asked you to and return the result\".\n\nYou could say that all calls are synchronous or that all calls are asynchronous, depending on your mood :)\n\nP.S. this makes the order of events different on the caller thread and the signaling thread, per-spec \"setLocalDescription(); addTrack();\" should have the same effect as \"addTrack(); setLocalDescription();\" because the spec is clear about when to do something \"now\" and when to \"queue a task\" to do something. Our implementation always does \"setLocalDescription(); addTrack();\" (due to a synchronous SLD-implementation, if it was asynchronously implemented which sounds closer to the spec we would get a flaky order due to the additional threads).",
+      "parentUuid": "b68b004f_6aa84d53",
+      "revId": "997d84363efd54d201973824299a6f69f3f6c1a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c8c9efc_74326fc6",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 1

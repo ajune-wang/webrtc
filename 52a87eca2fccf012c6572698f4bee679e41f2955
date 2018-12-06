@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d45b76_50a747ba",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-06T15:10:41Z",
+      "side": 1,
+      "message": "Hmm, do we really need two different enum types, just to have different names for the \u003d 1 value?\n\nI don\u0027t have all the context, but even if names in the spec are different, I think it would be nicer  to use the same type in the source code.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 4
+      },
+      "revId": "52a87eca2fccf012c6572698f4bee679e41f2955",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "7fe8e24d_01b19a5d",
+        "filename": "p2p/base/stun.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-12-07T18:12:36Z",
+      "side": 1,
+      "message": "It looks like most of the code doesn\u0027t have these annotations so I will remove it.",
+      "parentUuid": "02c53dff_36ab891b",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 8
+      },
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "97fc2818_03c027cb",
         "filename": "p2p/base/stun.h",
         "patchSetId": 2
@@ -108,6 +132,24 @@
       "writtenOn": "2018-12-07T17:36:22Z",
       "side": 1,
       "message": "This method is only used internally for the implementation in stun.cc and we don\u0027t have to change it to public and maintain a new API we don\u0027t see an immediate public use.",
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfcce6c5_a89d1faf",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2018-12-07T18:12:36Z",
+      "side": 1,
+      "message": "I moved this here so that the test could call it. Is there somewhere else testable you would rather have it?",
+      "parentUuid": "97fc2818_03c027cb",
       "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

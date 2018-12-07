@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9eac61b0_77047260",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 3945,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-07T10:41:41Z",
+      "side": 1,
+      "message": "Just a grammar nit, I think: The name of this function is \"Get\", which implies that it performs no action - but the argument is \"recyclable\", while the state is \"recycled\".\nI\u0027m assuming that \"recyclable\u003dtrue\" means that the decision to try to recycle has already been taken - should it be called either \"wish_to_recycle\" or \"must_recycle\"?\n\nI\u0027m not sure where the code path goes if recyclable\u003dtrue but the state turns out to be \"rejected\".",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e57cd7b0_8633b26a",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 4069,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-07T10:41:41Z",
+      "side": 1,
+      "message": "Seems that the last argument to GetMediaDescriptionOptions could be computed as \"mline_index \u003c session_options-\u003emedia_description_options.size()\", which would save 3 lines and an inline comment, but I\u0027m not sure if it\u0027s actually clearer.",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4a3e39f_b4982e44",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-07T08:43:13Z",
+      "side": 1,
+      "message": "personally prefer default initialization over using nullptr, i.e. just\nrtc::ArrayView\u003cconst uint8_t\u003e additional_data;\n\nstd::span that ArrayView modeled after doesn\u0027t have constructor that takes nullptr_t\nBoth ArrayView and std::span have well defined default constructor to create an empty view/span",
+      "range": {
+        "startLine": 517,
+        "startChar": 50,
+        "endLine": 517,
+        "endChar": 59
+      },
+      "revId": "8aa99a5e753b58592455d6aa46235dc5228c3e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75ba6f3d_b27fb12a",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-07T08:43:13Z",
+      "side": 1,
+      "message": "I guess some other word meant here, I\u0027m not sure which one",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 74,
+        "endChar": 59
+      },
+      "revId": "8aa99a5e753b58592455d6aa46235dc5228c3e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

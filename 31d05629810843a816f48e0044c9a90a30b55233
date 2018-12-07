@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "258952b9_78214f65",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-07T10:31:11Z",
+      "side": 1,
+      "message": "There are more than just two states so some of the points will fall outside the rendered graph, right? I\u0027d prefer calling SetSuggestedYAxis(...) which will adapt the axis limits to the data.",
+      "range": {
+        "startLine": 1992,
+        "startChar": 8,
+        "endLine": 1992,
+        "endChar": 16
+      },
+      "revId": "31d05629810843a816f48e0044c9a90a30b55233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4954ac5_b884edd7",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2007,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-07T10:31:11Z",
+      "side": 1,
+      "message": "SetYAxis probably works here, but I don\u0027t think there is any reason not to use SetSuggestedYAxis().",
+      "range": {
+        "startLine": 2007,
+        "startChar": 8,
+        "endLine": 2007,
+        "endChar": 16
+      },
+      "revId": "31d05629810843a816f48e0044c9a90a30b55233",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

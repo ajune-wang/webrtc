@@ -14,6 +14,7 @@
 
 #include "rtc_base/logging.h"
 #include "rtc_base/system/fallthrough.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -69,12 +70,19 @@ BufferedFrameDecryptor::FrameDecision BufferedFrameDecryptor::DecryptFrame(
   // Place the decrypted frame inline into the existing frame.
   rtc::ArrayView<uint8_t> inline_decrypted_bitstream(frame->MutableBuffer(),
                                                      max_plaintext_byte_size);
+
+  // Only enable authenticating the header if the field trial is enabled.
+  rtc::ArrayView<const uint8_t> additional_data;
+  if (field_trial::IsEnabled("WebRTC-GenericDescriptorAuth")) {
+    additional_data = descriptor->GetByteRepresentation();
+  }
+
   // Attempt to decrypt the video frame.
   size_t bytes_written = 0;
-  if (frame_decryptor_->Decrypt(
-          cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{},
-          descriptor->GetByteRepresentation(), encrypted_frame_bitstream,
-          inline_decrypted_bitstream, &bytes_written) != 0) {
+  if (frame_decryptor_->Decrypt(cricket::MEDIA_TYPE_VIDEO, /*csrcs=*/{},
+                                additional_data, encrypted_frame_bitstream,
+                                inline_decrypted_bitstream,
+                                &bytes_written) != 0) {
     // Only stash frames if we have never decrypted a frame before.
     return first_frame_decrypted_ ? FrameDecision::kDrop
                                   : FrameDecision::kStash;

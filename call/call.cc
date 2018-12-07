@@ -255,6 +255,8 @@ class Call final : public webrtc::Call,
   //  If |media_transport| is not null, it registers the rate observer for the
   //  media transport.
   void RegisterRateObserver() RTC_LOCKS_EXCLUDED(target_observer_crit_);
+  void UseLegacyRtpRateCallback() override
+      RTC_LOCKS_EXCLUDED(target_observer_crit_);
 
   Clock* const clock_;
 
@@ -507,6 +509,14 @@ void Call::RegisterRateObserver() {
   } else {
     transport_send_ptr_->RegisterTargetTransferRateObserver(this);
   }
+}
+
+void Call::UseLegacyRtpRateCallback() {
+  rtc::CritScope lock(&target_observer_crit_);
+  RTC_CHECK(!is_target_rate_observer_registered_);
+  RTC_CHECK(!media_transport_);
+  is_target_rate_observer_registered_ = true;
+  transport_send_ptr_->RegisterTargetTransferRateObserver(this);
 }
 
 void Call::MediaTransportChange(MediaTransportInterface* media_transport) {

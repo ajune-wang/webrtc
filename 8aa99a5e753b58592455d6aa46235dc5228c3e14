@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c55e61b3_045421bb",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-07T08:49:10Z",
+      "side": 1,
+      "message": "I have updated both to just default initialize.",
+      "parentUuid": "a4a3e39f_b4982e44",
+      "range": {
+        "startLine": 517,
+        "startChar": 50,
+        "endLine": 517,
+        "endChar": 59
+      },
+      "revId": "8aa99a5e753b58592455d6aa46235dc5228c3e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75ba6f3d_b27fb12a",
         "filename": "video/buffered_frame_decryptor.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8aa99a5e753b58592455d6aa46235dc5228c3e14",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3647d4d4_8039635d",
+        "filename": "video/buffered_frame_decryptor.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-07T08:49:10Z",
+      "side": 1,
+      "message": "Good catch fixed.",
+      "parentUuid": "75ba6f3d_b27fb12a",
+      "range": {
+        "startLine": 74,
+        "startChar": 50,
+        "endLine": 74,
+        "endChar": 59
+      },
+      "revId": "8aa99a5e753b58592455d6aa46235dc5228c3e14",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

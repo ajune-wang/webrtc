@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "845e084a_920e3e79",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-07T08:58:11Z",
+      "side": 1,
+      "message": "Expand \"horz\" and \"vert\".",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 45
+      },
+      "revId": "da8d8fb05afac05d0f42bff08d851b2da87d82aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acaa7a39_fce14a6e",
+        "filename": "api/video/color_space.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-07T08:58:11Z",
+      "side": 1,
+      "message": "Please use separate setters, for consistency with the two getters. You can move the magic with bitmasks and the like to a shared helper function, not visible in the header.",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 65
+      },
+      "revId": "da8d8fb05afac05d0f42bff08d851b2da87d82aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fdeb8763_68421ecd",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-07T17:21:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01969bef_03b88483",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e72590c5_6bbe6d1b",
         "filename": "call/call.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55791e59_cb7f2b13",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-07T17:21:19Z",
+      "side": 1,
+      "message": "I was wondering. I would imagine downstream client may have this issue not only in tests.",
+      "parentUuid": "e72590c5_6bbe6d1b",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bf4d1094_0304152e",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-07T17:21:19Z",
+      "side": 1,
+      "message": "it\u0027s an equivalent check. we can. this will never be used if media transport is used. Added.",
+      "parentUuid": "ecfdb371_42038024",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5f559cf_6efbb092",
         "filename": "call/call.h",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5c7d9fa2_3752dece",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-07T17:21:19Z",
+      "side": 1,
+      "message": "the answer is: probably not.\n\nWhen we remove this method in the future, we will require media transport instead (in the constructor of call object), and we should subscribe to the media transport rate observer in the constructor (and not when the first stream is created).\n\nThis is important especially when data channel is used. We might not have any video/audio streams, but BWE callbacks can already be coming in from media transport because of DataChannel.",
+      "parentUuid": "c5f559cf_6efbb092",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9948732a_80401902",
         "filename": "call/call.h",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2018-12-07T17:10:55Z",
       "side": 1,
       "message": "s/UseLegacyRtpRateCallback/TestOnly_RegisterRtpRateObserver/ ?",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fabf7ae8_3c121ca3",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-07T17:21:19Z",
+      "side": 1,
+      "message": "See the other comment, I am not 100% certain that downstream client is not depending on this behavior in non-test code. I think \u0027Legacy\u0027 gives enough hint that it shouldn\u0027t be used unless you know what you are doing :)",
+      "parentUuid": "9948732a_80401902",
       "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

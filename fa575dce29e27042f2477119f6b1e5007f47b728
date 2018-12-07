@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "80663196_50775677",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-07T12:42:08Z",
+      "side": 1,
+      "message": "nit: How about more concisely?\n\nif (!desc)\n  return nullptr;\nconst ContentInfos\u0026 contents \u003d sdesc-\u003edescription()-\u003econtents();\nreturn i \u003c contents.size() ? \u0026contents[i] : nullptr;",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9eac61b0_77047260",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 13
@@ -30,6 +47,23 @@
       "writtenOn": "2018-12-07T10:41:41Z",
       "side": 1,
       "message": "Seems that the last argument to GetMediaDescriptionOptions could be computed as \"mline_index \u003c session_options-\u003emedia_description_options.size()\", which would save 3 lines and an inline comment, but I\u0027m not sure if it\u0027s actually clearer.",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f03b2436_e3533d1a",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-07T12:42:08Z",
+      "side": 1,
+      "message": "What would happen to a callee setting the offer now? Would it create dummy transceivers associated with a rejected m\u003d section or would it be as if they didn\u0027t exist in the first place?",
       "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

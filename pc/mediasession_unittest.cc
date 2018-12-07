@@ -2020,6 +2020,116 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   EXPECT_THAT(updated_vcd->codecs(), ElementsAreArray(kUpdatedVideoCodecOffer));
 }
 
+// Test that a reoffer does not reuse audio codecs from a previous media section
+// that is being recycled.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       ReOfferDoesNotReUseRecycledAudioCodecs) {
+  f1_.set_video_codecs({});
+  f2_.set_video_codecs({});
+  std::unique_ptr<SessionDescription> offer, answer, reoffer;
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_AUDIO, "a0", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    offer.reset(f1_.CreateOffer(opts, nullptr));
+    answer.reset(f2_.CreateAnswer(offer.get(), opts, nullptr));
+  }
+
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_AUDIO, "a1", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    reoffer.reset(f2_.CreateOffer(opts, answer.get()));
+  }
+
+  const AudioContentDescription* acd =
+      GetFirstAudioContentDescription(reoffer.get());
+  EXPECT_THAT(acd->codecs(), ElementsAreArray(kAudioCodecs2));
+}
+
+// Test that a reoffer does not reuse video codecs from a previous media section
+// that is being recycled.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       ReOfferDoesNotReUseRecycledVideoCodecs) {
+  f1_.set_audio_codecs({}, {});
+  f2_.set_audio_codecs({}, {});
+  std::unique_ptr<SessionDescription> offer, answer, reoffer;
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_VIDEO, "v0", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    offer.reset(f1_.CreateOffer(opts, nullptr));
+    answer.reset(f2_.CreateAnswer(offer.get(), opts, nullptr));
+  }
+
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_VIDEO, "v1", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    reoffer.reset(f2_.CreateOffer(opts, answer.get()));
+  }
+
+  const VideoContentDescription* vcd =
+      GetFirstVideoContentDescription(reoffer.get());
+  EXPECT_THAT(vcd->codecs(), ElementsAreArray(kVideoCodecs2));
+}
+
+// Test that a reanswer does not reuse audio codecs from a previous media
+// section that is being recycled.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       ReAnswerDoesNotReUseRecycledAudioCodecs) {
+  f1_.set_video_codecs({});
+  f2_.set_video_codecs({});
+  std::unique_ptr<SessionDescription> offer, answer, reoffer, reanswer;
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_AUDIO, "a0", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    offer.reset(f2_.CreateOffer(opts, nullptr));
+    answer.reset(f1_.CreateAnswer(offer.get(), opts, nullptr));
+  }
+
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_AUDIO, "a1", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    reoffer.reset(f1_.CreateOffer(opts, answer.get()));
+    reanswer.reset(f2_.CreateAnswer(reoffer.get(), opts, offer.get()));
+  }
+
+  const AudioContentDescription* acd =
+      GetFirstAudioContentDescription(reanswer.get());
+  EXPECT_THAT(acd->codecs(), ElementsAreArray(kAudioCodecsAnswer));
+}
+
+// Test that a reanswer does not reuse video codecs from a previous media
+// section that is being recycled.
+TEST_F(MediaSessionDescriptionFactoryTest,
+       ReAnswerDoesNotReUseRecycledVideoCodecs) {
+  f1_.set_audio_codecs({}, {});
+  f2_.set_audio_codecs({}, {});
+  std::unique_ptr<SessionDescription> offer, answer, reoffer, reanswer;
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_VIDEO, "v0", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    offer.reset(f2_.CreateOffer(opts, nullptr));
+    answer.reset(f1_.CreateAnswer(offer.get(), opts, nullptr));
+  }
+
+  {
+    MediaSessionOptions opts;
+    AddMediaSection(MEDIA_TYPE_VIDEO, "v1", RtpTransceiverDirection::kSendRecv,
+                    kActive, &opts);
+    reoffer.reset(f1_.CreateOffer(opts, answer.get()));
+    reanswer.reset(f2_.CreateAnswer(reoffer.get(), opts, offer.get()));
+  }
+
+  const VideoContentDescription* vcd =
+      GetFirstVideoContentDescription(reanswer.get());
+  EXPECT_THAT(vcd->codecs(), ElementsAreArray(kVideoCodecsAnswer));
+}
+
 // Create an updated offer after creating an answer to the original offer and
 // verify that the codecs that were part of the original answer are not changed
 // in the updated offer. In this test Rtx is enabled.

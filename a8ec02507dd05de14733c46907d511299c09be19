@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "427f546b_87d89557",
+        "filename": "api/statstypes.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-07T10:01:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7063eafe_39de6168",
+      "range": {
+        "startLine": 651,
+        "startChar": 9,
+        "endLine": 651,
+        "endChar": 53
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ea308a5_ccbc994a",
         "filename": "api/statstypes.h",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-07T09:09:39Z",
       "side": 1,
       "message": "Nit: Maybe put it in alphabetical order?",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 48
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfefa7ca_59bf5c9a",
+        "filename": "api/statstypes.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2018-12-07T10:01:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ea308a5_ccbc994a",
       "range": {
         "startLine": 239,
         "startChar": 4,

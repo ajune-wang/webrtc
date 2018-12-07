@@ -19,18 +19,42 @@
 #include "rtc_base/strings/string_builder.h"
 
 namespace webrtc {
+namespace {
+
+constexpr float kInitialFixedDigitalGain = 1.f;
+constexpr bool kHardClipSamples = true;
+constexpr bool kDoNotHardClipSamples = false;
+
+}  // namespace
 
 int GainController2::instance_count_ = 0;
 
 GainController2::GainController2()
     : data_dumper_(
           new ApmDataDumper(rtc::AtomicOps::Increment(&instance_count_))),
-      gain_applier_(/*hard_clip_samples=*/false,
-                    /*initial_gain_factor=*/0.f),
-      adaptive_agc_(new AdaptiveAgc(data_dumper_.get())),
-      limiter_(static_cast<size_t>(48000), data_dumper_.get(), "Agc2") {}
+      pre_fixed_digital_gain_applier_(kHardClipSamples,
+                                      kInitialFixedDigitalGain),
+      fixed_digital_gain_applier_(kDoNotHardClipSamples,
+                                  kInitialFixedDigitalGain),
+      adaptive_digital_controller_(new AdaptiveAgc(data_dumper_.get())),
+      limiter_(static_cast<size_t>(48000), data_dumper_.get(), "Agc2"),
+      fixed_pregain_has_changed_(false) {}
 
 GainController2::~GainController2() = default;
+
+void GainController2::HandleCapturePreGainRuntimeSettings(float gain_factor) {
+  fixed_pregain_has_changed_ =
+      pre_fixed_digital_gain_applier_.GetGainFactor() != gain_factor;
+  config_.pre_fixed_digital.gain_factor = gain_factor;
+  RTC_DCHECK(Validate(config_))
+      << " the invalid config was " << ToString(config_);
+  pre_fixed_digital_gain_applier_.SetGainFactor(gain_factor);
+  RTC_DCHECK_EQ(pre_fixed_digital_gain_applier_.GetGainFactor(),
+                config_.pre_fixed_digital.gain_factor);
+  // Reset the limiter to quickly react on abrupt level changes caused by
+  // large changes of the fixed gain.
+  limiter_.Reset();
+}
 
 void GainController2::Initialize(int sample_rate_hz) {
   RTC_DCHECK(sample_rate_hz == AudioProcessing::kSampleRate8kHz ||
@@ -42,20 +66,36 @@ void GainController2::Initialize(int sample_rate_hz) {
   data_dumper_->DumpRaw("sample_rate_hz", sample_rate_hz);
 }
 
-void GainController2::Process(AudioBuffer* audio) {
+bool GainController2::ApplyPreGain(AudioBuffer* audio) {
+  if (!config_.enabled) {
+    return false;
+  }
+  const bool pregain_has_changed = fixed_pregain_has_changed_;
+  fixed_pregain_has_changed_ = false;
+  AudioFrameView<float> float_frame(audio->channels_f(), audio->num_channels(),
+                                    audio->num_frames());
+  pre_fixed_digital_gain_applier_.ApplyGain(float_frame);
+  return pregain_has_changed;
+}
+
+void GainController2::ApplyPostGain(AudioBuffer* audio) {
+  if (!config_.enabled) {
+    return;
+  }
   AudioFrameView<float> float_frame(audio->channels_f(), audio->num_channels(),
                                     audio->num_frames());
   // Apply fixed gain first, then the adaptive one.
-  gain_applier_.ApplyGain(float_frame);
+  fixed_digital_gain_applier_.ApplyGain(float_frame);
   if (config_.adaptive_digital.enabled) {
-    adaptive_agc_->Process(float_frame, limiter_.LastAudioLevel());
+    adaptive_digital_controller_->Process(float_frame,
+                                          limiter_.LastAudioLevel());
   }
   limiter_.Process(float_frame);
 }
 
 void GainController2::NotifyAnalogLevel(int level) {
   if (analog_level_ != level && config_.adaptive_digital.enabled) {
-    adaptive_agc_->Reset();
+    adaptive_digital_controller_->Reset();
   }
   analog_level_ = level;
 }
@@ -64,15 +104,18 @@ void GainController2::ApplyConfig(
     const AudioProcessing::Config::GainController2& config) {
   RTC_DCHECK(Validate(config))
       << " the invalid config was " << ToString(config);
-
   config_ = config;
-  if (config.fixed_digital.gain_db != config_.fixed_digital.gain_db) {
-    // Reset the limiter to quickly react on abrupt level changes caused by
-    // large changes of the fixed gain.
-    limiter_.Reset();
-  }
-  gain_applier_.SetGainFactor(DbToRatio(config_.fixed_digital.gain_db));
-  adaptive_agc_.reset(new AdaptiveAgc(data_dumper_.get(), config_));
+  // Pre-processing.
+  pre_fixed_digital_gain_applier_.SetGainFactor(
+      config_.pre_fixed_digital.gain_factor);
+  // Post-processing.
+  fixed_digital_gain_applier_.SetGainFactor(
+      DbToRatio(config_.fixed_digital.gain_db));
+  adaptive_digital_controller_.reset(
+      new AdaptiveAgc(data_dumper_.get(), config_));
+  // Reset the limiter to quickly react on abrupt level changes caused by
+  // large changes of the fixed gain.
+  limiter_.Reset();
 }
 
 bool GainController2::Validate(
@@ -101,6 +144,8 @@ std::string GainController2::ToString(
   // clang formatting doesn't respect custom nested style.
   ss << "{"
      << "enabled: " << (config.enabled ? "true" : "false") << ", "
+     << "pre_fixed_digital: {"
+      << "gain_factor: " << config.pre_fixed_digital.gain_factor << "}, "
      << "fixed_digital: {gain_db: " << config.fixed_digital.gain_db << "}, "
      << "adaptive_digital: {"
       << "enabled: "

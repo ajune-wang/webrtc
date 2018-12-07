@@ -24,11 +24,11 @@ namespace webrtc {
 namespace test {
 namespace {
 
-void SetAudioBufferSamples(float value, AudioBuffer* ab) {
-  // Sets all the samples in |ab| to |value|.
-  for (size_t k = 0; k < ab->num_channels(); ++k) {
-    std::fill(ab->channels_f()[k], ab->channels_f()[k] + ab->num_frames(),
-              value);
+void SetAudioBufferSamples(float value, AudioBuffer* buffer) {
+  // Sets all the samples in |buffer| to |value|.
+  for (size_t k = 0; k < buffer->num_channels(); ++k) {
+    std::fill(buffer->channels_f()[k],
+              buffer->channels_f()[k] + buffer->num_frames(), value);
   }
 }
 
@@ -37,21 +37,22 @@ float RunAgc2WithConstantInput(GainController2* agc2,
                                size_t num_frames,
                                int sample_rate) {
   const int num_samples = rtc::CheckedDivExact(sample_rate, 100);
-  AudioBuffer ab(num_samples, 1, num_samples, 1, num_samples);
+  AudioBuffer buffer(num_samples, 1, num_samples, 1, num_samples);
 
   // Give time to the level estimator to converge.
   for (size_t i = 0; i < num_frames + 1; ++i) {
-    SetAudioBufferSamples(input_level, &ab);
-    agc2->Process(&ab);
+    SetAudioBufferSamples(input_level, &buffer);
+    agc2->ApplyPostGain(&buffer);
   }
 
   // Return the last sample from the last processed frame.
-  return ab.channels_f()[0][num_samples - 1];
+  return buffer.channels_f()[0][num_samples - 1];
 }
 
 AudioProcessing::Config::GainController2 CreateAgc2FixedDigitalModeConfig(
     float fixed_gain_db) {
   AudioProcessing::Config::GainController2 config;
+  config.enabled = true;
   config.adaptive_digital.enabled = false;
   config.fixed_digital.gain_db = fixed_gain_db;
   // TODO(alessiob): Check why ASSERT_TRUE() below does not compile.
@@ -73,9 +74,9 @@ float GainAfterProcessingFile(GainController2* gain_controller) {
   constexpr size_t kStereo = 2u;
   const StreamConfig capture_config(AudioProcessing::kSampleRate48kHz, kStereo,
                                     false);
-  AudioBuffer ab(capture_config.num_frames(), capture_config.num_channels(),
-                 capture_config.num_frames(), capture_config.num_channels(),
-                 capture_config.num_frames());
+  AudioBuffer buffer(capture_config.num_frames(), capture_config.num_channels(),
+                     capture_config.num_frames(), capture_config.num_channels(),
+                     capture_config.num_frames());
   test::InputAudioFile capture_file(
       test::GetApmCaptureTestVectorFileName(AudioProcessing::kSampleRate48kHz));
   std::vector<float> capture_input(capture_config.num_frames() *
@@ -89,16 +90,16 @@ float GainAfterProcessingFile(GainController2* gain_controller) {
                                    capture_config.num_channels(), &capture_file,
                                    capture_input);
 
-    test::CopyVectorToAudioBuffer(capture_config, capture_input, &ab);
-    gain_controller->Process(&ab);
+    test::CopyVectorToAudioBuffer(capture_config, capture_input, &buffer);
+    gain_controller->ApplyPostGain(&buffer);
   }
 
   // Send in a last frame with values constant 1 (It's low enough to detect high
   // gain, and for ease of computation). The applied gain is the result.
   constexpr float sample_value = 1.f;
-  SetAudioBufferSamples(sample_value, &ab);
-  gain_controller->Process(&ab);
-  return ab.channels_f()[0][0];
+  SetAudioBufferSamples(sample_value, &buffer);
+  gain_controller->ApplyPostGain(&buffer);
+  return buffer.channels_f()[0][0];
 }
 
 }  // namespace
@@ -109,6 +110,7 @@ TEST(GainController2, CreateApplyConfig) {
 
   // Check that the default config is valid.
   AudioProcessing::Config::GainController2 config;
+  config.enabled = true;
   EXPECT_TRUE(GainController2::Validate(config));
   gain_controller2->ApplyConfig(config);
 
@@ -260,6 +262,7 @@ TEST(GainController2, UsageSaturationMargin) {
   // Check that samples are not amplified as much when extra margin is
   // high. They should not be amplified at all, but only after convergence. GC2
   // starts with a gain, and it takes time until it's down to 0 dB.
+  config.enabled = true;
   config.fixed_digital.gain_db = 0.f;
   config.adaptive_digital.enabled = true;
   config.adaptive_digital.extra_saturation_margin_db = 50.f;
@@ -274,12 +277,32 @@ TEST(GainController2, UsageNoSaturationMargin) {
 
   AudioProcessing::Config::GainController2 config;
   // Check that some gain is applied if there is no margin.
+  config.enabled = true;
   config.fixed_digital.gain_db = 0.f;
   config.adaptive_digital.enabled = true;
   config.adaptive_digital.extra_saturation_margin_db = 0.f;
   gain_controller2.ApplyConfig(config);
 
   EXPECT_GT(GainAfterProcessingFile(&gain_controller2), 2.f);
+}
+
+TEST(GainController2, PreProcessPreGainChanges) {
+  GainController2 gain_controller2;
+  gain_controller2.Initialize(AudioProcessing::kSampleRate48kHz);
+
+  AudioProcessing::Config::GainController2 config;
+  config.enabled = true;
+  config.pre_fixed_digital.gain_factor = 1.f;
+  gain_controller2.ApplyConfig(config);
+
+  constexpr size_t kNumSamples = 480;
+  AudioBuffer buffer(kNumSamples, 1, kNumSamples, 1, kNumSamples);
+  SetAudioBufferSamples(100.f, &buffer);
+
+  EXPECT_FALSE(gain_controller2.ApplyPreGain(&buffer));
+  gain_controller2.HandleCapturePreGainRuntimeSettings(2.f);
+  EXPECT_TRUE(gain_controller2.ApplyPreGain(&buffer));
+  EXPECT_FALSE(gain_controller2.ApplyPreGain(&buffer));
 }
 
 }  // namespace test

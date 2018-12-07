@@ -122,6 +122,13 @@ class Call {
 
   virtual void OnSentPacket(const rtc::SentPacket& sent_packet) = 0;
 
+  // Call object subscribes target rate observer to the right transport
+  // once the first stream is created. If the downstream project needs those
+  // callbacks even though it doesn't create a stream, it can call this method.
+  // This method will be removed once media transport is the only way of
+  // sending/receiving data. Thread-safe.
+  virtual void UseLegacyRtpRateCallback() {}
+
   virtual ~Call() {}
 };
 

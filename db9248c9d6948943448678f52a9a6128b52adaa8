@@ -70,6 +70,47 @@
       "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02c53dff_36ab891b",
+        "filename": "p2p/base/stun.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-07T17:36:22Z",
+      "side": 1,
+      "message": "As mentioned in the other comment, this method could stay in the anonymous namespace. Or am I missing any intended use?",
+      "parentUuid": "2516295a_39ff8b71",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 8
+      },
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97fc2818_03c027cb",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-07T17:36:22Z",
+      "side": 1,
+      "message": "This method is only used internally for the implementation in stun.cc and we don\u0027t have to change it to public and maintain a new API we don\u0027t see an immediate public use.",
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

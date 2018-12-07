@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "918ae221_1a365667",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T08:34:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dff07185_079a0eb7",
+      "revId": "6723a6ea1f2cdea5570e98b124c88a857abd4eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48394158_0888b7b9",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "6723a6ea1f2cdea5570e98b124c88a857abd4eb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e0a7154_e417630f",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T08:34:39Z",
+      "side": 1,
+      "message": "TL;DR I removed the comment since I don\u0027t think the api encourages any misuse.\n\n---\n\nI don\u0027t see any risk for misuse since I only see these cases:\n\n(i) a test method instances and owns MockEchoControlFactory\n  (i.a) Create() is used for a local variable (owned by the test method)\n  (i.a) the MockEchoControl instance returned by Create() is moved\n(ii) a test method instances and moves MockEchoControlFactory\n\nCalling GetMockEchoControl() is safe in case (i.a).\n\nIn case (i.b), the MockEchoControl unique pointer is available as a local variable before it\u0027s moved and therefore it\u0027s possible to get the pointer (so same chances of pointing to a deleted object).\n\nCase (ii) always returns a valid pointer since GetMockEchoControl() can only be called before the object is moved; the pointer becomes invalid when the object is deleted, but if that happens a segfault is likely to happen and the test fails.",
+      "parentUuid": "48394158_0888b7b9",
+      "revId": "6723a6ea1f2cdea5570e98b124c88a857abd4eb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -701,6 +701,11 @@ void ReceiveStatisticsProxy::DataCountersUpdated(
     total_byte_tracker_.AddSamples(total_bytes - last_total_bytes);
 }
 
+void ReceiveStatisticsProxy::OnFirstFrameReceived() {
+  rtc::CritScope lock(&crit_);
+  first_frame_received_time_ms_ = clock_->TimeInMilliseconds();
+}
+
 void ReceiveStatisticsProxy::OnDecodedFrame(absl::optional<uint8_t> qp,
                                             int width,
                                             int height,
@@ -749,8 +754,13 @@ void ReceiveStatisticsProxy::OnDecodedFrame(absl::optional<uint8_t> qp,
         interframe_delay_ms);
     content_specific_stats->flow_duration_ms += interframe_delay_ms;
   }
-  if (stats_.frames_decoded == 1)
+  if (stats_.frames_decoded == 1) {
     first_decoded_frame_time_ms_.emplace(now);
+    if (first_frame_received_time_ms_.has_value()) {
+      stats_.first_frame_received_to_decoded_delay_ms =
+          now - *first_frame_received_time_ms_;
+    }
+  }
   last_decoded_frame_time_ms_.emplace(now);
 }
 

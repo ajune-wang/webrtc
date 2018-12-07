@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cded9ea_ef425a34",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-07T08:58:57Z",
+      "side": 1,
+      "message": "timing_frame_info collects lot\u0027s of timestamp for a frame, including \u0027receive\u0027 time and \u0027decode_start\u0027 time.\nCan that be enough?",
+      "range": {
+        "startLine": 562,
+        "startChar": 10,
+        "endLine": 562,
+        "endChar": 50
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "7063eafe_39de6168",
+        "filename": "api/statstypes.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-07T09:09:39Z",
+      "side": 1,
+      "message": "Nit: Put this case above in alphabetical order.",
+      "range": {
+        "startLine": 651,
+        "startChar": 9,
+        "endLine": 651,
+        "endChar": 53
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ea308a5_ccbc994a",
+        "filename": "api/statstypes.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-07T09:09:39Z",
+      "side": 1,
+      "message": "Nit: Maybe put it in alphabetical order?",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 48
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cded9ea_ef425a34",
         "filename": "media/base/mediachannel.h",
         "patchSetId": 6
@@ -22,6 +68,30 @@
       "revId": "a8ec02507dd05de14733c46907d511299c09be19",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "634c1c46_68ffe2e0",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-07T09:09:39Z",
+      "side": 1,
+      "message": "Yes, It should be enough.  However, you may need to check that it\u0027s calculated for all frames on receive side (now it may be stored only for frames with a send-side RTP extension). Ask philipel@, he wanted to add this. Also, the last packet receive time is used as a \u0027receive\u0027 timestamp. Make sure it\u0027s written down before the FrameEncryptor.",
+      "parentUuid": "3cded9ea_ef425a34",
+      "range": {
+        "startLine": 562,
+        "startChar": 10,
+        "endLine": 562,
+        "endChar": 50
+      },
+      "revId": "a8ec02507dd05de14733c46907d511299c09be19",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

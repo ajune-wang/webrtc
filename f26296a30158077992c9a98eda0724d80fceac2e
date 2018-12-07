@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "42b65021_923b9400",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "That\u0027s done everywhere, see https://cs.chromium.org/search/?q\u003d%22-%3Epre_amplifier%22+f:audio_processing_impl.cc\u0026sq\u003dpackage:chromium\u0026type\u003dcs\n\nHence, for consistency, I only check the unique pointer.",
+      "parentUuid": "846b311d_4c788ff7",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01d830cc_bf32f9fb",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f697010f_01bc7a24",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01d830cc_bf32f9fb",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "c7ebded0_b3448420",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1340,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b0add4a_a91877d3",
+      "range": {
+        "startLine": 1340,
+        "startChar": 43,
+        "endLine": 1340,
+        "endChar": 59
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a1c05c5_6458200f",
         "filename": "modules/audio_processing/gain_controller2.cc",
         "patchSetId": 5
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "2f6e2bb8_1bf22bf7",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "This is ok, https://google.github.io/styleguide/cppguide.html#Function_Argument_Comments says: \"As a last resort, use comments to clarify argument meanings at the call site.\"\n\nI\u0027ll go with one of the alternatives suggested in the style guide, namely defining constants.",
+      "parentUuid": "8a1c05c5_6458200f",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "747d66a6_39593434",
         "filename": "modules/audio_processing/gain_controller2.cc",
         "patchSetId": 5
@@ -96,6 +180,24 @@
       "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e78b1627_60a3095d",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "This is ApplyPostGain, which is *after* AEC.\nHence, this is the right place for the limiter (end of the AGC2 pipeline).",
+      "parentUuid": "747d66a6_39593434",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "0270284d_e7f192a3",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "577582a2_49652137",
+      "range": {
+        "startLine": 28,
+        "startChar": 60,
+        "endLine": 28,
+        "endChar": 66
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21fe6c1a_31cb0381",
         "filename": "modules/audio_processing/gain_controller2.h",
         "patchSetId": 5
@@ -136,6 +262,24 @@
       "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba935d64_82ed5977",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21fe6c1a_31cb0381",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "aab0771d_ff835a56",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ba2872_58741c1f",
+      "range": {
+        "startLine": 57,
+        "startChar": 43,
+        "endLine": 57,
+        "endChar": 63
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15d49d54_80b89bcd",
         "filename": "modules/audio_processing/gain_controller2.h",
         "patchSetId": 5
@@ -185,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "e6c1ab42_0f4a8320",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15d49d54_80b89bcd",
+      "range": {
+        "startLine": 58,
+        "startChar": 3,
+        "endLine": 58,
+        "endChar": 32
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e6806f5_c5955924",
         "filename": "modules/audio_processing/gain_controller2.h",
         "patchSetId": 5
@@ -199,6 +391,24 @@
       "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46ed5add_f521156d",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e6806f5_c5955924",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "def6053e_25981785",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec498ce_fa511964",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ded08cc_7336a78e",
         "filename": "modules/audio_processing/gain_controller2_unittest.cc",
         "patchSetId": 5
@@ -242,6 +476,24 @@
     },
     {
       "key": {
+        "uuid": "5977a028_dbce6931",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ded08cc_7336a78e",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d999fcc8_d311dfe9",
         "filename": "modules/audio_processing/gain_controller2_unittest.cc",
         "patchSetId": 5
@@ -256,6 +508,24 @@
       "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36b5343_924e2c0b",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T10:00:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d999fcc8_d311dfe9",
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

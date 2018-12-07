@@ -153,6 +153,24 @@
       "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e32a1bf_159823c6",
+        "filename": "p2p/base/stun.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-07T18:38:35Z",
+      "side": 1,
+      "message": "If it is only the test code that need to \"access\" it, it would be preferable to not make it public just for testing. To test in that case, we could test via the behavior. E.g, SetTransactionId, and reduced_transaction_id.",
+      "parentUuid": "dfcce6c5_a89d1faf",
+      "revId": "db9248c9d6948943448678f52a9a6128b52adaa8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

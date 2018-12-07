@@ -32,6 +32,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -511,9 +512,15 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
     encrypted_video_payload.SetSize(max_ciphertext_size);
 
     size_t bytes_written = 0;
+
+    // Only enable header authentication if the field trial is enabled.
+    rtc::ArrayView<const uint8_t> additional_data;
+    if (field_trial::IsEnabled("WebRTC-GenericDescriptorAuth")) {
+      additional_data = generic_descriptor_raw;
+    }
+
     if (frame_encryptor_->Encrypt(
-            cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(),
-            generic_descriptor_raw,
+            cricket::MEDIA_TYPE_VIDEO, first_packet->Ssrc(), additional_data,
             rtc::MakeArrayView(payload_data, payload_size),
             encrypted_video_payload, &bytes_written) != 0) {
       return false;

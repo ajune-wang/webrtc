@@ -40,6 +40,10 @@ namespace webrtc {
 namespace {
 const char kVp8TrustedRateControllerFieldTrial[] =
     "WebRTC-LibvpxVp8TrustedRateController";
+#if defined(WEBRTC_IOS)
+const char kVP8IosMaxNumberOfThreadFieldTrial[] =
+    "WebRTC-VP8IosMaxNumberOfThread";
+#endif
 
 // QP is obtained from VP8-bitstream for HW, so the QP corresponds to the
 // bitstream range of [0, 127] and not the user-level range of [0,63].
@@ -565,6 +569,19 @@ int LibvpxVp8Encoder::NumberOfThreads(int width, int height, int cpus) {
   }
   return 1;
 #else
+#if defined(WEBRTC_IOS)
+  std::string max_thread_field_trial =
+      field_trial::FindFullName(kVP8IosMaxNumberOfThreadFieldTrial);
+  int max_thread_number = 0;
+  if (sscanf(max_thread_field_trial.c_str(), "%d", &max_thread_number) == 1 &&
+      max_thread_number > 0) {
+    if (width * height < 320 * 180) {
+      return 1;  // Use single thread for small screens
+    }
+    // thread number must be less than or equal to the number of CPUs.
+    return std::min(cpus, max_thread_number);
+  }
+#endif  // defined(WEBRTC_IOS)
   if (width * height >= 1920 * 1080 && cpus > 8) {
     return 8;  // 8 threads for 1080p on high perf machines.
   } else if (width * height > 1280 * 960 && cpus >= 6) {

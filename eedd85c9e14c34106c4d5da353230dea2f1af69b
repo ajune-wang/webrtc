@@ -174,6 +174,24 @@
       "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93063c6f_3aa5e9c0",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T18:31:43Z",
+      "side": 1,
+      "message": "Sounds good, but I think it\u0027s important to understand how the new code will be used -- and I hope that it will not be used in production.",
+      "parentUuid": "fabf7ae8_3c121ca3",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

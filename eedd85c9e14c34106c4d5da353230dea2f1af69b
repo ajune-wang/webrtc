@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01969bef_03b88483",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:10:55Z",
+      "side": 1,
+      "message": "RTC_LOCKS_EXCLUDED(target_observer_crit_)",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e72590c5_6bbe6d1b",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:10:55Z",
+      "side": 1,
+      "message": "Do you want to have TestOnly_ prefix?",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecfdb371_42038024",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:10:55Z",
+      "side": 1,
+      "message": "Can we CHECK fail if media transport is available? Or it\u0027s too early here?",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5f559cf_6efbb092",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:10:55Z",
+      "side": 1,
+      "message": "When we remove this method in the future we will have tests failing again?",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9948732a_80401902",
+        "filename": "call/call.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:10:55Z",
+      "side": 1,
+      "message": "s/UseLegacyRtpRateCallback/TestOnly_RegisterRtpRateObserver/ ?",
+      "revId": "eedd85c9e14c34106c4d5da353230dea2f1af69b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

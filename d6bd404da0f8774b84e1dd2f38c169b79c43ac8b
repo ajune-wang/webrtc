@@ -22,6 +22,30 @@
       "revId": "d6bd404da0f8774b84e1dd2f38c169b79c43ac8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e076ea_a3dcd265",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-07T16:11:55Z",
+      "side": 1,
+      "message": "I missed padding part. Fixed it. We will pad up to min bitrate required to enable the last active layer (assuming all layers above that are deactivated as well).",
+      "parentUuid": "26013ff5_d5b11021",
+      "range": {
+        "startLine": 3144,
+        "startChar": 49,
+        "endLine": 3144,
+        "endChar": 55
+      },
+      "revId": "d6bd404da0f8774b84e1dd2f38c169b79c43ac8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

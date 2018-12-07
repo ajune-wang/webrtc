@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26013ff5_d5b11021",
+        "filename": "media/engine/webrtcvideoengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-07T09:55:22Z",
+      "side": 1,
+      "message": "So this is left as active even if it isn\u0027t actually encoded?\nCan this have side effects? Quick search seems to indicate it\u0027s used for instance in CalculateMaxPadBitrateBps (in video_send_stream_impl.cc), do we really want to pad up to hd if we\u0027re not sending it? Or is that only for real simulcast?",
+      "range": {
+        "startLine": 3144,
+        "startChar": 49,
+        "endLine": 3144,
+        "endChar": 55
+      },
+      "revId": "d6bd404da0f8774b84e1dd2f38c169b79c43ac8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

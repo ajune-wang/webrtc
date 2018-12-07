@@ -149,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "5c4e13de_e0b9b375",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9e315849_eaec726e",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4fbd33_dad050fe",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 7
@@ -184,6 +208,30 @@
       "side": 1,
       "message": "It still needs to add streams to a stopped transceiver in case it had ever been used to send.",
       "parentUuid": "4b4fbd33_dad050fe",
+      "range": {
+        "startLine": 4021,
+        "startChar": 12,
+        "endLine": 4021,
+        "endChar": 52
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6c27f98_3bc21079",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4021,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "I think in the above \"if\" you could also call GetMediaDescriptionOptionsForTransceiver(), but I\u0027ll leave it up to you.",
+      "parentUuid": "f9960d60_176acc92",
       "range": {
         "startLine": 4021,
         "startChar": 12,
@@ -355,6 +403,24 @@
       "side": 1,
       "message": "So I tried to add a test and I think I\u0027m hitting a BUNDLE bug... maybe we can save that for a follow-up CL.",
       "parentUuid": "ee20f97f_cc7d1623",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef057a4_07551923",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "Should we file a bug for that just so it\u0027s documented?",
+      "parentUuid": "36e853a0_c4087e0b",
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

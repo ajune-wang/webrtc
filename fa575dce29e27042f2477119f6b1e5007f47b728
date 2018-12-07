@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "517662ae_c950014f",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "Should this be called pending_offer?\nedit: probably not worth breaking down streams.",
+      "range": {
+        "startLine": 1406,
+        "startChar": 30,
+        "endLine": 1406,
+        "endChar": 35
+      },
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfc67b4d_80d06e95",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1920,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "nit: You don\u0027t need to create a variable, like you did below.",
+      "range": {
+        "startLine": 1920,
+        "startChar": 19,
+        "endLine": 1920,
+        "endChar": 27
+      },
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "384c3014_3f0118d8",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "super nit: You put parenthesis around this in other places. I don\u0027t have a preference either way, but it\u0027s nice to be consistent.",
+      "range": {
+        "startLine": 2320,
+        "startChar": 6,
+        "endLine": 2320,
+        "endChar": 73
+      },
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa1a212d_959efae3",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "As discussed offline, a clarification comment here would be nice for what would be expected otherwise.",
+      "range": {
+        "startLine": 2044,
+        "startChar": 29,
+        "endLine": 2044,
+        "endChar": 59
+      },
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80663196_50775677",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 13
@@ -30,6 +122,29 @@
       "writtenOn": "2018-12-07T10:41:41Z",
       "side": 1,
       "message": "Just a grammar nit, I think: The name of this function is \"Get\", which implies that it performs no action - but the argument is \"recyclable\", while the state is \"recycled\".\nI\u0027m assuming that \"recyclable\u003dtrue\" means that the decision to try to recycle has already been taken - should it be called either \"wish_to_recycle\" or \"must_recycle\"?\n\nI\u0027m not sure where the code path goes if recyclable\u003dtrue but the state turns out to be \"rejected\".",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4795e78_db1ad151",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 4004,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-07T21:05:50Z",
+      "side": 1,
+      "message": "nit: Change this to |recyclable| as done below.",
+      "range": {
+        "startLine": 4004,
+        "startChar": 9,
+        "endLine": 4004,
+        "endChar": 26
+      },
       "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

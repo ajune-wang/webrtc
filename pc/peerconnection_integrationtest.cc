@@ -3694,9 +3694,11 @@ class ReplaceFirstCandidateAddressDropOthers final
     replaced_candidate_ = true;
     cricket::Candidate new_candidate(candidate->candidate());
     new_candidate.set_address(new_address_);
+    rtc::SocketAddress resolved_addr(new_address_);
+    resolved_addr.SetResolvedIP(candidate->candidate().address().ipaddr());
+    resolved_addr.SetPort(candidate->candidate().address().port());
     EXPECT_CALL(*mock_async_resolver_, GetResolvedAddress(_, _))
-        .WillOnce(DoAll(SetArgPointee<1>(candidate->candidate().address()),
-                        Return(true)));
+        .WillOnce(DoAll(SetArgPointee<1>(resolved_addr), Return(true)));
     EXPECT_CALL(*mock_async_resolver_, Destroy(_));
     return webrtc::CreateIceCandidate(
         candidate->sdp_mid(), candidate->sdp_mline_index(), new_candidate);

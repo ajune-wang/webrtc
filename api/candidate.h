@@ -166,6 +166,9 @@ class RTC_EXPORT Candidate {
   bool operator==(const Candidate& o) const;
   bool operator!=(const Candidate& o) const;
 
+  Candidate ToSanitizedCopy(bool use_hostname_address,
+                            bool filter_related_address) const;
+
  private:
   std::string ToStringInternal(bool sensitive) const;
 

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7bce22d_fd3d751c",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T16:07:06Z",
+      "side": 1,
+      "message": "Thanks Per.\n\nTL;DR: I fear that what I\u0027ve done is the best trade off. I do agree that your version of MockEchoControlFactory reads much better, but it requires code adaptations that are too complex.\n\n--- detailed explanation\n\nLet\u0027s start by having a look at how I\u0027m currently using MockEchoControlFactory:\n\nauto echo_control_factory \u003d absl::make_unique\u003cMockEchoControlFactory\u003e();\nMockEchoControl* echo_control_mock \u003d\n   echo_control_factory-\u003eGetMockEchoControl();\nstd::unique_ptr\u003cAudioProcessing\u003e apm(\n    AudioProcessingBuilder()\n        .SetEchoControlFactory(std::move(echo_control_factory))\n        .Create());\n\nAs you can see, the factory is injected into AudioProcessingBuilder (via SetEchoControlFactory) and MockEchoControlFactory::Create() is called by the AudioProcessing instance created by AudioProcessingBuilder (because the echo controller factory is moved into the AudioProcessing instance, see https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_impl.cc?rcl\u003d18f0c3c038fc45be6951301a3c2726e6810565d3\u0026l\u003d306).\n\nNow let\u0027s see how the usage would change if I switch to your version of MockEchoControlFactory:\n\nauto echo_control_factory \u003d absl::make_unique\u003cMockEchoControlFactory\u003e();\nconst MockEchoControlFactory* const echo_control_factory_ptr \u003d\n    echo_control_factory.get();\nstd::unique_ptr\u003cAudioProcessing\u003e apm(\n    AudioProcessingBuilder()\n        .SetEchoControlFactory(std::move(echo_control_factory))\n        .Create());\nwebrtc::AudioProcessing::Config apm_config;\n...\napm-\u003eApplyConfig(apm_config);\n\nMockEchoControl* echo_control_mock \u003d\n      echo_control_factory_ptr-\u003eGetMockEchoControl();\n\nSo far it looks fine: I added a raw pointer to MockEchoControlFactory, which is alive as long as AudioProcessingImpl lives (great), and I used that to get a pointer to the latest instance of MockEchoControl created by the factor.\n\nProblem: that\u0027s not the latest :(\n\nAs soon as I call apm-\u003eProcessStream(\u0026frame), AudioProcessingImpl::Initialize() is called and a new EchoControl instance is created. Therefore, the pointer retrieved with GetMockEchoControl() is likely to point to a deleted object and, if not deleted, it also generates gmock warnings because as soon as I set expectations, those are polluted by the first call to ProcessStream() - i.e., uninteresting mock function call.\n\nSolution: call Initialize() after ApplyConfig() :)\n\nUnfortunately, it\u0027s not a nice solution :(\n\nWe should call int AudioProcessingImpl::Initialize(const ProcessingConfig\u0026 processing_config) and not AudioProcessingImpl::Initialize(), but that requires to create ProcessingConfig boilerplate in the test code.\n\nThat\u0027s why I still prefer my latest patch set. Also consider that MockEchoControlFactory is only available for this unit test file, so we\u0027re not sharing a mock for tests elsewhere.",
+      "parentUuid": "7d36b509_a33b959a",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "847550ef_167fe5e8",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d615d35_51b7a0c5",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-07T16:07:06Z",
+      "side": 1,
+      "message": "Nope, the counter stops at 2 not at 1.",
+      "parentUuid": "847550ef_167fe5e8",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

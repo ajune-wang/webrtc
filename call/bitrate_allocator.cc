@@ -229,8 +229,13 @@ void BitrateAllocator::UpdateAllocationLimits() {
     total_requested_padding_bitrate += stream_padding;
     uint32_t max_bitrate_bps = config.max_bitrate_bps;
     if (config.media_ratio > 0) {
+      // Quantize media ratio to 10% levels in order to not trigger
+      // OnAllocationLimitsChanged() calls on every minute change in protection
+      // overhead.
+      double quantized_media_ratio =
+          std::ceil(config.media_ratio * 10.0) / 10.0;
       max_bitrate_bps =
-          static_cast<uint32_t>(max_bitrate_bps / config.media_ratio);
+          static_cast<uint32_t>(max_bitrate_bps / quantized_media_ratio);
     }
     total_requested_max_bitrate += max_bitrate_bps;
     if (config.allocated_bitrate_bps > 0 && config.has_packet_feedback)

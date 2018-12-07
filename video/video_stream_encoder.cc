@@ -591,21 +591,16 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   source_proxy_->SetMaxFramerate(max_framerate);
 
   // Keep the same encoder, as long as the video_format is unchanged.
+  bool encoder_updated = false;
   if (pending_encoder_) {
     if (encoder_) {
       video_sender_.RegisterExternalEncoder(nullptr, false);
     }
     encoder_ = std::move(pending_encoder_);
+    encoder_updated = true;
 
-    const VideoEncoder::EncoderInfo& encoder_info = encoder_->GetEncoderInfo();
-
-    overuse_detector_->StopCheckForOveruse();
-    overuse_detector_->StartCheckForOveruse(
-        GetCpuOveruseOptions(settings_, encoder_info.is_hardware_accelerated),
-        this);
-
-    video_sender_.RegisterExternalEncoder(encoder_.get(),
-                                          encoder_info.has_internal_source);
+    video_sender_.RegisterExternalEncoder(
+        encoder_.get(), encoder_->GetEncoderInfo().has_internal_source);
   }
   // RegisterSendCodec implies an unconditional call to
   // encoder_->InitEncode().
@@ -615,6 +610,16 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   if (!success) {
     RTC_LOG(LS_ERROR) << "Failed to configure encoder.";
     rate_allocator_.reset();
+  }
+
+  // encoder_->GetEncoderInfo().is_hardware_accelerated should only be polled
+  // after a call to encoder_->InitEncode().
+  if (encoder_updated) {
+    overuse_detector_->StopCheckForOveruse();
+    overuse_detector_->StartCheckForOveruse(
+        GetCpuOveruseOptions(
+            settings_, encoder_->GetEncoderInfo().is_hardware_accelerated),
+        this);
   }
 
   video_sender_.UpdateChannelParameters(rate_allocator_.get(),

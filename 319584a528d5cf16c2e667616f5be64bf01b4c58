@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0575dd2_4219946b",
+        "filename": "call/call.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-07T17:41:27Z",
+      "side": 1,
+      "message": "Is there a separate changelist when this method will called?",
+      "revId": "319584a528d5cf16c2e667616f5be64bf01b4c58",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

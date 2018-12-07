@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c1245c20_554a8a66",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1310,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f64d205d_ca8a914f",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5457ce9_037d643d",
         "filename": "pc/mediasession.cc",
         "patchSetId": 7
@@ -60,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "891afd22_2d18fbca",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5457ce9_037d643d",
+      "range": {
+        "startLine": 1862,
+        "startChar": 54,
+        "endLine": 1862,
+        "endChar": 80
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01fd1141_a4c785c0",
         "filename": "pc/mediasession.h",
         "patchSetId": 7
@@ -71,6 +113,30 @@
       "writtenOn": "2018-11-20T20:47:30Z",
       "side": 1,
       "message": "All of the mediasession_unittest.cc test kActive/kRejected, but there aren\u0027t any tests for kRecycled. It looks like it\u0027s treated exactly the same in mediasession.cc as kRejected, the difference being that PeerConnection handles them differently. Should this be tested?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e315849_eaec726e",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "They aren\u0027t treated exactly the same, otherwise this change wouldn\u0027t have been needed.\n\nI\u0027ll look into adding a few tests for kRecycled.",
+      "parentUuid": "01fd1141_a4c785c0",
       "range": {
         "startLine": 45,
         "startChar": 0,
@@ -106,6 +172,30 @@
     },
     {
       "key": {
+        "uuid": "f9960d60_176acc92",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4021,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "It still needs to add streams to a stopped transceiver in case it had ever been used to send.",
+      "parentUuid": "4b4fbd33_dad050fe",
+      "range": {
+        "startLine": 4021,
+        "startChar": 12,
+        "endLine": 4021,
+        "endChar": 52
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52ad1583_a0b5c762",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 7
@@ -129,6 +219,30 @@
     },
     {
       "key": {
+        "uuid": "b7efbb76_2254aee2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4184,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "Renamed to |recyclable|",
+      "parentUuid": "52ad1583_a0b5c762",
+      "range": {
+        "startLine": 4184,
+        "startChar": 14,
+        "endLine": 4184,
+        "endChar": 44
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad4bf3f1_273015e8",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -149,6 +263,30 @@
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "497cad5e_edc8cc1c",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad4bf3f1_273015e8",
+      "range": {
+        "startLine": 916,
+        "startChar": 49,
+        "endLine": 916,
+        "endChar": 26
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -205,6 +343,24 @@
     },
     {
       "key": {
+        "uuid": "36e853a0_c4087e0b",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "So I tried to add a test and I think I\u0027m hitting a BUNDLE bug... maybe we can save that for a follow-up CL.",
+      "parentUuid": "ee20f97f_cc7d1623",
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8a59f64_539b3aab",
         "filename": "pc/peerconnection_jsep_unittest.cc",
         "patchSetId": 7
@@ -225,6 +381,30 @@
       "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef862ad_a5627155",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-07T02:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d8a59f64_539b3aab",
+      "range": {
+        "startLine": 953,
+        "startChar": 34,
+        "endLine": 953,
+        "endChar": 45
+      },
+      "revId": "b98026d7d0b0e528d75661cdcf52a84e1bc48727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

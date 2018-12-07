@@ -40,13 +40,22 @@ struct SenderOptions {
   int num_sim_layers;
 };
 
+enum class MediaDescriptionState {
+  // The media section is either new or continuing a non-rejected section.
+  kActive,
+  // The media section is new and recycling a previously-used section.
+  kRecycled,
+  // The media section is being rejected.
+  kRejected,
+};
+
 // Options for an individual media description/"m=" section.
 struct MediaDescriptionOptions {
   MediaDescriptionOptions(MediaType type,
                           const std::string& mid,
                           webrtc::RtpTransceiverDirection direction,
-                          bool stopped)
-      : type(type), mid(mid), direction(direction), stopped(stopped) {}
+                          MediaDescriptionState state)
+      : type(type), mid(mid), direction(direction), state(state) {}
 
   // TODO(deadbeef): When we don't support Plan B, there will only be one
   // sender per media description and this can be simplified.
@@ -63,7 +72,7 @@ struct MediaDescriptionOptions {
   MediaType type;
   std::string mid;
   webrtc::RtpTransceiverDirection direction;
-  bool stopped;
+  MediaDescriptionState state;
   TransportOptions transport_options;
   // Note: There's no equivalent "RtpReceiverOptions" because only send
   // stream information goes in the local descriptions.
@@ -173,19 +182,22 @@ class MediaSessionDescriptionFactory {
   const AudioCodecs& GetAudioCodecsForAnswer(
       const webrtc::RtpTransceiverDirection& offer,
       const webrtc::RtpTransceiverDirection& answer) const;
-  void GetCodecsForOffer(const SessionDescription* current_description,
-                         AudioCodecs* audio_codecs,
-                         VideoCodecs* video_codecs,
-                         DataCodecs* data_codecs) const;
-  void GetCodecsForAnswer(const SessionDescription* current_description,
-                          const SessionDescription* remote_offer,
-                          AudioCodecs* audio_codecs,
-                          VideoCodecs* video_codecs,
-                          DataCodecs* data_codecs) const;
-  void GetRtpHdrExtsToOffer(const MediaSessionOptions& session_options,
-                            const SessionDescription* current_description,
-                            RtpHeaderExtensions* audio_extensions,
-                            RtpHeaderExtensions* video_extensions) const;
+  void GetCodecsForOffer(
+      const std::vector<const ContentInfo*>& current_active_contents,
+      AudioCodecs* audio_codecs,
+      VideoCodecs* video_codecs,
+      DataCodecs* data_codecs) const;
+  void GetCodecsForAnswer(
+      const std::vector<const ContentInfo*>& current_active_contents,
+      const SessionDescription& remote_offer,
+      AudioCodecs* audio_codecs,
+      VideoCodecs* video_codecs,
+      DataCodecs* data_codecs) const;
+  void GetRtpHdrExtsToOffer(
+      const std::vector<const ContentInfo*>& current_active_contents,
+      bool is_unified_plan,
+      RtpHeaderExtensions* audio_extensions,
+      RtpHeaderExtensions* video_extensions) const;
   bool AddTransportOffer(const std::string& content_name,
                          const TransportOptions& transport_options,
                          const SessionDescription* current_desc,

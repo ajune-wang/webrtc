@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d36b509_a33b959a",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-12-07T13:55:56Z",
+      "side": 1,
+      "message": "I think this class is more complex than it needs to be and furthermore is slightly misleading.\n\nWhat I think is strange is that it behaves as\n1) Before Create has been called GetMockEchoControl will return a pointer to object A, which at that point is owned by the mock.\n\n2) After the first call to Create, GetMockEchoControl will return a pointer to object A, which at that point is owned by the mock but is a different object from the object B that was returned by Create()\n\n3) After the second call to Create, GetMockEchoControl will return a pointer to object C, which at that point is not owned by the mock but is the object that that was returned by the second Create().\n\n-At the third call to Create, the code will crash.\n\n\n\n\nWhat about instead writing this as\nclass MockEchoControlFactory : public EchoControlFactory {\npublic:\n  MockEchoControlFactory() \u003d default;\n  MockEchoControl* GetMockEchoControl() const { CHECK(mock_!\u003dnullptr); return mock_; } \n  std::unique_ptr\u003cEchoControl\u003e Create(int sample_rate_hz) override {\n   auto p \u003d absl::make_unique\u003cMockEchoControl\u003e();    \n   mock_ \u003d p.get();\n   return p;\n  }\n\n  private:\n  MockEchoControl* mock_ \u003d nullptr;\n};\n\nIn that way GetMockEchoControl will always return a pointer to the last MockControl object Created.",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847550ef_167fe5e8",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-12-07T13:55:56Z",
+      "side": 1,
+      "message": "Nit: If only 2 mocks can be created, why not use a bool? The counter can only obtain the two values 0 or 1 anyway.",
+      "range": {
+        "startLine": 55,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

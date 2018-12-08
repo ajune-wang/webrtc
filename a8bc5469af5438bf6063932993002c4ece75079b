@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00ec42e_ae7332ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2018-12-08T09:23:39Z",
+      "side": 1,
+      "message": "Please add here Bug:none, or webrtc:xxxx if you have any tracking issue.",
+      "revId": "a8bc5469af5438bf6063932993002c4ece75079b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

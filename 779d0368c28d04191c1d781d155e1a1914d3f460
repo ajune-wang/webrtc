@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61e16e3b_a7a96a46",
+        "filename": "video/replay.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2018-12-10T12:29:47Z",
+      "side": 1,
+      "message": "Where do these json files come from? I don\u0027t like that parsing of certain json files has been implemented in a public tool when there is no way of creating them.",
+      "range": {
+        "startLine": 259,
+        "startChar": 42,
+        "endLine": 259,
+        "endChar": 48
+      },
+      "revId": "779d0368c28d04191c1d781d155e1a1914d3f460",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

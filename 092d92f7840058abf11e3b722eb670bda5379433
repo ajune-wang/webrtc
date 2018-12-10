@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "bc232220_096c13a8",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T10:18:57Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_EQ",
+      "range": {
+        "startLine": 257,
+        "startChar": 2,
+        "endLine": 257,
+        "endChar": 12
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53bc95a2_27529fba",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T10:18:57Z",
+      "side": 1,
+      "message": "This assumes all layers are dependent?\nShouldn\u0027t the loop just go to num_spatial_layers - 2 then?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "968ec2f9_051104ce",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 11

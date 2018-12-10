@@ -269,22 +269,45 @@ TEST_F(ProbeControllerTest, TestAllocatedBitrateCap) {
   auto probes = probe_controller_->SetBitrates(
       kMinBitrateBps, 10 * kMbpsMultiplier, kMaxBitrateBps, NowMs());
 
-  // Configure ALR for periodic probing.
   probe_controller_->EnablePeriodicAlrProbing(true);
-  int64_t alr_start_time = clock_.TimeInMilliseconds();
-  probe_controller_->SetAlrStartTimeMs(alr_start_time);
-
   int64_t estimated_bitrate_bps = kMaxBitrateBps / 10;
   probes =
       probe_controller_->SetEstimatedBitrate(estimated_bitrate_bps, NowMs());
+
+  // Advance time so state changes to kProbingCompleted.
+  clock_.AdvanceTimeMilliseconds(1001);
+  probes = probe_controller_->Process(NowMs());
 
   // Set a max allocated bitrate below the current estimate.
   int64_t max_allocated_bps = estimated_bitrate_bps - 1 * kMbpsMultiplier;
   probes =
       probe_controller_->OnMaxTotalAllocatedBitrate(max_allocated_bps, NowMs());
-  EXPECT_TRUE(probes.empty());  // No probe since lower than current max.
+  EXPECT_TRUE(probes.empty());  // No probe since lower than current bwe.
+
+  // New allocation limit, 40% larger.
+  // This will set the limit but not trigger a new probe.
+  max_allocated_bps = static_cast<int64_t>(max_allocated_bps * 1.4);
+  probes =
+      probe_controller_->OnMaxTotalAllocatedBitrate(max_allocated_bps, NowMs());
+  EXPECT_TRUE(probes.empty());
+  clock_.AdvanceTimeMilliseconds(1000);
+  probes = probe_controller_->Process(NowMs());
+
+  // New limit, 50% larger. This will set the limit and trigger a new probe.
+  max_allocated_bps = static_cast<int64_t>(max_allocated_bps * 1.5);
+  probes =
+      probe_controller_->OnMaxTotalAllocatedBitrate(max_allocated_bps, NowMs());
+  ASSERT_EQ(probes.size(), 1u);
+  EXPECT_EQ(probes[0].target_data_rate.bps(), max_allocated_bps);
+  clock_.AdvanceTimeMilliseconds(1000);
+  probes = probe_controller_->Process(NowMs());
 
   // Probes such as ALR capped at 2x the max allocation limit.
+  estimated_bitrate_bps = max_allocated_bps + 1 * kMbpsMultiplier;
+  probes =
+      probe_controller_->SetEstimatedBitrate(estimated_bitrate_bps, NowMs());
+  int64_t alr_start_time = clock_.TimeInMilliseconds();
+  probe_controller_->SetAlrStartTimeMs(alr_start_time);
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes[0].target_data_rate.bps(), 2 * max_allocated_bps);

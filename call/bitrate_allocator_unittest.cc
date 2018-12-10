@@ -886,4 +886,62 @@ TEST_F(BitrateAllocatorTest, PriorityRateThreeObserversTwoAllocatedToMax) {
   allocator_->RemoveObserver(&observer_high);
 }
 
+TEST_F(BitrateAllocatorTestNoEnforceMin, QuantizesMediaRatio) {
+  const uint32_t kMinBitrateBps = 100000;
+  const uint32_t kMaxBitrateBps = 400000;
+
+  // Expect OnAllocationLimitsChanged with |min_send_bitrate_bps| = 0 since
+  // AddObserver is called with |enforce_min_bitrate| = false.
+  TestBitrateObserver bitrate_observer;
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(0, 0, kMaxBitrateBps));
+  AddObserver(&bitrate_observer, kMinBitrateBps, kMaxBitrateBps, 0, false, "",
+              kDefaultBitratePriority);
+  EXPECT_EQ(300000, allocator_->GetStartBitrate(&bitrate_observer));
+
+  // High BWE.
+  allocator_->OnNetworkChanged(150000, 0, 0, kDefaultProbingIntervalMs);
+  EXPECT_EQ(150000u, bitrate_observer.last_bitrate_bps_);
+
+  // Add loss and use a part of the bitrate for protection.
+  double protection_ratio = 0.4;
+  uint32_t max_bitrate_with_protection_bps =
+      static_cast<uint32_t>(kMaxBitrateBps / (1 - protection_ratio));
+  uint8_t fraction_loss = protection_ratio * 256;
+  bitrate_observer.SetBitrateProtectionRatio(protection_ratio);
+  EXPECT_CALL(limit_observer_,
+              OnAllocationLimitsChanged(0, 0, max_bitrate_with_protection_bps));
+  allocator_->OnNetworkChanged(200000, 0, fraction_loss,
+                               kDefaultProbingIntervalMs);
+
+  {
+    // Decrease protection ratio by 5%, this should not trigger a new max, as it
+    // will be rounded up to the nearest 10%.
+    protection_ratio = 0.35;
+    fraction_loss = protection_ratio * 256;
+    bitrate_observer.SetBitrateProtectionRatio(protection_ratio);
+    EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(
+                                     0, 0, max_bitrate_with_protection_bps))
+        .Times(0);
+    allocator_->OnNetworkChanged(200000, 0, fraction_loss,
+                                 kDefaultProbingIntervalMs);
+  }
+
+  {
+    // Decrease protection ratio by another 5%, this time it should trigger a
+    // new max.
+    protection_ratio = 0.3;
+    max_bitrate_with_protection_bps =
+        static_cast<uint32_t>(kMaxBitrateBps / (1 - protection_ratio));
+    fraction_loss = protection_ratio * 256;
+    bitrate_observer.SetBitrateProtectionRatio(protection_ratio);
+    EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(
+                                     0, 0, max_bitrate_with_protection_bps));
+    allocator_->OnNetworkChanged(200000, 0, fraction_loss,
+                                 kDefaultProbingIntervalMs);
+  }
+
+  EXPECT_CALL(limit_observer_, OnAllocationLimitsChanged(0, 0, 0));
+  allocator_->RemoveObserver(&bitrate_observer);
+}
+
 }  // namespace webrtc

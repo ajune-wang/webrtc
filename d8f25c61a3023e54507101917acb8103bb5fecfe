@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bd6bc310_5da4cedc",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "Interesting - do you mean that if I (the client) have two threads that call methods on a single PeerConnection (or other) object, things are likely to go pear-shaped? If so, that should clearly be documented!\n\nAlternative text: \"The design of the API assumes that all methods on an object, including creation and deletion, are carried out from a single thread\". I thought this was not so....",
+      "parentUuid": "662b6c79_a56c2b63",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87e2ec92_bea31344",
         "filename": "api/DESIGN.md",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-10T14:47:18Z",
       "side": 1,
       "message": "Same here, the notion of \u0027thread\u0027 is being phased out and instead we\u0027re using sequenced task queues (or runners in chromium).  In particular, the API functions are not designed to be called from any thread or task queue.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184b5c28_9b742299",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "The notion of \"thread\" is useful shorthand for \"concurrency-preventing mechanism\" - if we don\u0027t have another single word to use, I suggest we add a sentence \"The term \"thread\" is used here for any concurrency-preventing mechanism, including threads, Chromium task runners and sequenced task queues.\"",
+      "parentUuid": "87e2ec92_bea31344",
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ce90ff0c_4f08bc1a",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "and I think it sometimes should (thread-hopping is higher overhead than locking). Perhaps say \"can do\" instead of \"will do\"?",
+      "parentUuid": "e781b8c5_1a5673f2",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3f869050_ad411e85",
         "filename": "api/DESIGN.md",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "84312693_a2348a91",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "It\u0027s the ones that aren\u0027t (such as AddTrack) that give us the most headaches...",
+      "parentUuid": "3f869050_ad411e85",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9591b13e_3a3d02b7",
         "filename": "api/DESIGN.md",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2018-12-10T14:47:18Z",
       "side": 1,
       "message": "I would also clarify that the callback will be made in the same execution context as the initiating action was made.\n\nE.g. for javascript, this means the same worker, for C++ same sequential task queue.\n\nThis is an important part of the design since it allows for many optimizations that both the interface implementation and its client can assume a certain concurrency model.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fea11026_16a7ee93",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "If that\u0027s a guarantee, we should definitely note it.\nDo we have that guarantee for event callbacks, or only for result callbacks? There\u0027s code up in Chrome-land that seems to assume that we can\u0027t trust webrtc about which thread it\u0027s called back on.",
+      "parentUuid": "9591b13e_3a3d02b7",
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -127,6 +217,24 @@
     },
     {
       "key": {
+        "uuid": "31b6c424_0fc9b827",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "Oh yes, the caller will have to worry. \"predetermined\" doesn\u0027t mean \"easy to predict\".\n(I had to abandon multi-character dispatching of DTMF in webrtc because I couldn\u0027t give any guarantees on how many characters had been sent while the callbacks were being scheduled.)",
+      "parentUuid": "cafdba8b_9cbb7dc8",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f97701b4_32eb04e2",
         "filename": "api/DESIGN.md",
         "patchSetId": 2
@@ -138,6 +246,24 @@
       "writtenOn": "2018-12-10T14:47:18Z",
       "side": 1,
       "message": "I think we should have the discussion around the proxy implementation separately. I can provide some background as the co-author of it.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b80bb064_e3d5e9e8",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-10T15:42:04Z",
+      "side": 1,
+      "message": "Only reason for including this text here is to document the current implementation. Whether we want to change it later is a separable discussion.",
+      "parentUuid": "f97701b4_32eb04e2",
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

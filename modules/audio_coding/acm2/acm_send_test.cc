@@ -49,7 +49,7 @@ AcmSendTestOldApi::AcmSendTestOldApi(InputAudioFile* audio_source,
       timestamp_(0),
       sequence_number_(0) {
   input_frame_.sample_rate_hz_ = source_rate_hz_;
-  input_frame_.num_channels_ = 1;
+  input_frame_.num_channels_ = 2;
   input_frame_.samples_per_channel_ = input_block_size_samples_;
   assert(input_block_size_samples_ * input_frame_.num_channels_ <=
          AudioFrame::kMaxDataSizeSamples);
@@ -84,6 +84,8 @@ bool AcmSendTestOldApi::RegisterCodec(const char* payload_name,
 void AcmSendTestOldApi::RegisterExternalCodec(
     std::unique_ptr<AudioEncoder> external_speech_encoder) {
   input_frame_.num_channels_ = external_speech_encoder->NumChannels();
+  // input_block_size_samples_ = source_rate_hz_ * kBlockSizeMs / 1000 *
+  //                             input_frame_.num_channels_;
   acm_->SetEncoder(std::move(external_speech_encoder));
   assert(input_block_size_samples_ * input_frame_.num_channels_ <=
          AudioFrame::kMaxDataSizeSamples);
@@ -101,13 +103,14 @@ std::unique_ptr<Packet> AcmSendTestOldApi::NextPacket() {
   // Insert audio and process until one packet is produced.
   while (clock_.TimeInMilliseconds() < test_duration_ms_) {
     clock_.AdvanceTimeMilliseconds(kBlockSizeMs);
-    RTC_CHECK(audio_source_->Read(input_block_size_samples_,
-                                  input_frame_.mutable_data()));
-    if (input_frame_.num_channels_ > 1) {
-      InputAudioFile::DuplicateInterleaved(
-          input_frame_.data(), input_block_size_samples_,
-          input_frame_.num_channels_, input_frame_.mutable_data());
-    }
+    RTC_CHECK(audio_source_->Read(
+        input_block_size_samples_ * input_frame_.num_channels_,
+        input_frame_.mutable_data()));
+    // if (input_frame_.num_channels_ > 1) {
+    //   InputAudioFile::DuplicateInterleaved(
+    //       input_frame_.data(), input_block_size_samples_,
+    //       input_frame_.num_channels_, input_frame_.mutable_data());
+    // }
     data_to_send_ = false;
     RTC_CHECK_GE(acm_->Add10MsData(input_frame_), 0);
     input_frame_.timestamp_ += static_cast<uint32_t>(input_block_size_samples_);

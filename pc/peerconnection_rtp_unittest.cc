@@ -1112,9 +1112,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   init.direction = RtpTransceiverDirection::kInactive;
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO, init);
 
-  caller->observer()->clear_negotiation_needed();
   ASSERT_TRUE(caller->AddAudioTrack("a"));
-  EXPECT_TRUE(caller->observer()->negotiation_needed());
 
   EXPECT_EQ(RtpTransceiverDirection::kSendOnly, transceiver->direction());
 }
@@ -1129,9 +1127,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   init.direction = RtpTransceiverDirection::kRecvOnly;
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO, init);
 
-  caller->observer()->clear_negotiation_needed();
   ASSERT_TRUE(caller->AddAudioTrack("a"));
-  EXPECT_TRUE(caller->observer()->negotiation_needed());
 
   EXPECT_EQ(RtpTransceiverDirection::kSendRecv, transceiver->direction());
 }
@@ -1155,10 +1151,8 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, AddTrackErrorIfClosed) {
   auto audio_track = caller->CreateAudioTrack("a");
   caller->pc()->Close();
 
-  caller->observer()->clear_negotiation_needed();
   auto result = caller->pc()->AddTrack(audio_track, std::vector<std::string>());
   EXPECT_EQ(RTCErrorType::INVALID_STATE, result.error().type());
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 TEST_F(PeerConnectionRtpTestUnifiedPlan, AddTrackErrorIfTrackAlreadyHasSender) {
@@ -1167,10 +1161,8 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, AddTrackErrorIfTrackAlreadyHasSender) {
   auto audio_track = caller->CreateAudioTrack("a");
   ASSERT_TRUE(caller->AddTrack(audio_track));
 
-  caller->observer()->clear_negotiation_needed();
   auto result = caller->pc()->AddTrack(audio_track, std::vector<std::string>());
   EXPECT_EQ(RTCErrorType::INVALID_PARAMETER, result.error().type());
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 // Unified Plan RemoveTrack tests.
@@ -1197,12 +1189,9 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto transceiver =
       caller->AddTransceiver(caller->CreateAudioTrack("a"), init);
 
-  caller->observer()->clear_negotiation_needed();
   ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender()));
-  EXPECT_TRUE(caller->observer()->negotiation_needed());
 
   EXPECT_EQ(RtpTransceiverDirection::kRecvOnly, transceiver->direction());
-  EXPECT_TRUE(caller->observer()->renegotiation_needed_);
 }
 
 // Test that calling RemoveTrack on a sender where the transceiver is configured
@@ -1216,9 +1205,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto transceiver =
       caller->AddTransceiver(caller->CreateAudioTrack("a"), init);
 
-  caller->observer()->clear_negotiation_needed();
   ASSERT_TRUE(caller->pc()->RemoveTrack(transceiver->sender()));
-  EXPECT_TRUE(caller->observer()->negotiation_needed());
 
   EXPECT_EQ(RtpTransceiverDirection::kInactive, transceiver->direction());
 }
@@ -1232,9 +1219,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, RemoveTrackWithNullSenderTrackIsNoOp) {
   auto transceiver = caller->pc()->GetTransceivers()[0];
   ASSERT_TRUE(sender->SetTrack(nullptr));
 
-  caller->observer()->clear_negotiation_needed();
   ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 
   EXPECT_EQ(RtpTransceiverDirection::kSendRecv, transceiver->direction());
 }
@@ -1247,9 +1232,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan, RemoveTrackErrorIfClosed) {
   auto sender = caller->AddAudioTrack("a");
   caller->pc()->Close();
 
-  caller->observer()->clear_negotiation_needed();
   EXPECT_FALSE(caller->pc()->RemoveTrack(sender));
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 TEST_F(PeerConnectionRtpTestUnifiedPlan,
@@ -1259,9 +1242,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto sender = caller->AddAudioTrack("a");
   ASSERT_TRUE(caller->pc()->RemoveTrack(sender));
 
-  caller->observer()->clear_negotiation_needed();
   EXPECT_TRUE(caller->pc()->RemoveTrack(sender));
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 // Test that setting offers that add/remove/add a track repeatedly without
@@ -1369,9 +1350,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
 
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
 
-  caller->observer()->clear_negotiation_needed();
   transceiver->SetDirection(RtpTransceiverDirection::kInactive);
-  EXPECT_TRUE(caller->observer()->negotiation_needed());
 }
 
 // Test that OnRenegotiationNeeded is not fired if SetDirection is called on an
@@ -1382,9 +1361,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
 
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
 
-  caller->observer()->clear_negotiation_needed();
   transceiver->SetDirection(transceiver->direction());
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 // Test that OnRenegotiationNeeded is not fired if SetDirection is called on a
@@ -1396,9 +1373,7 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   auto transceiver = caller->AddTransceiver(cricket::MEDIA_TYPE_AUDIO);
   transceiver->Stop();
 
-  caller->observer()->clear_negotiation_needed();
   transceiver->SetDirection(RtpTransceiverDirection::kInactive);
-  EXPECT_FALSE(caller->observer()->negotiation_needed());
 }
 
 // Test that AddTransceiver fails if trying to use simulcast using

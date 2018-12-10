@@ -490,6 +490,7 @@ class PeerConnection : public PeerConnectionInternal,
       std::vector<rtc::scoped_refptr<MediaStreamInterface>>* removed_streams);
 
   void OnNegotiationNeeded();
+  void MaybeFireRenegotiationNeeded();
 
   bool IsClosed() const {
     return signaling_state_ == PeerConnectionInterface::kClosed;
@@ -1046,6 +1047,8 @@ class PeerConnection : public PeerConnectionInternal,
   std::string session_error_desc_;
 
   std::string session_id_;
+
+  bool renegotiation_needed_ = true;
 
   std::unique_ptr<JsepTransportController> transport_controller_;
   std::unique_ptr<cricket::SctpTransportInternalFactory> sctp_factory_;

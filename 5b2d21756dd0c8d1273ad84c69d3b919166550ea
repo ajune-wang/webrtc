@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86974de5_8f072774",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-10T18:10:31Z",
+      "side": 1,
+      "message": "not named get_all_layers() because this isn\u0027t a simple getter, this method requires traversing all the layers and flattening them into a new vector.",
+      "range": {
+        "startLine": 75,
+        "startChar": 30,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "2306f36b_e3b35276",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Also worth putting direction here?",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b402c0fa_9f9b98cf",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Do we need this constructor? Do we ever want to generate a RidDescription without a rid and direction value?",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7d95cfd_d5a0bd47",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "This can be confusing. What do you think of including some explanation text, similar to what is in the spec?\n\"It is, for example, valid to indicate \"recv\" restrictions on a \"sendonly\" stream; those restrictions would apply if, at a future point in time, the stream were changed to \"sendrecv\" or \"recvonly\".\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8ca19d1a_a1a03e32",
         "filename": "media/base/riddescription.h",
         "patchSetId": 1
@@ -30,6 +99,30 @@
       "writtenOn": "2018-12-10T21:22:44Z",
       "side": 1,
       "message": "are these codec payload types?",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7c3712_be00de98",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "What do you think of calling this payload_types instead of formats? To me it seems more clear.",
+      "parentUuid": "8ca19d1a_a1a03e32",
       "range": {
         "startLine": 65,
         "startChar": 14,
@@ -92,6 +185,121 @@
         "startChar": 38,
         "endLine": 33,
         "endChar": 45
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "106f8dac_8a65e5f5",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "It could be nice to clarify in this comment as well what happens in the case of alternatives, which can be confusing. As far as I know, StreamParams will include all rids (including alternatives), and then after negotiation StreamParams will only include the rids being used for each layer. Correct?\n\nSide note: Does this mean the first SLD(StreamParams) call will setup all alternative layers as well?",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 73
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dacd382_0de3f3c1",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "track/source/StreamParam object? I like to not use streams in comments when I can avoid it.",
+      "range": {
+        "startLine": 189,
+        "startChar": 12,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32ca6671_db529369",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Will this ever be true when the StreamParams object does *not* represent simulcast?",
+      "range": {
+        "startLine": 191,
+        "startChar": 7,
+        "endLine": 191,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904d1ced_130529a1",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "nit: Since you\u0027re parsing, should this be \"...found in a\u003drid line.\"?",
+      "range": {
+        "startLine": 142,
+        "startChar": 45,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1401c0f7_3e8fb181",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Capitalization \u0026 period.",
+      "range": {
+        "startLine": 166,
+        "startChar": 7,
+        "endLine": 166,
+        "endChar": 53
       },
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -184,6 +392,29 @@
     },
     {
       "key": {
+        "uuid": "6271e9a1_9aae8633",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "nit: The spec uses \"RID\" instead of \"Rid\" or \"rid\". Our code tries to use ID instead of Id/id. What do you think of using this syntax for RIDs as well (in comments and logs)?",
+      "range": {
+        "startLine": 358,
+        "startChar": 33,
+        "endLine": 358,
+        "endChar": 36
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "523ed291_5d351484",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -195,6 +426,29 @@
       "writtenOn": "2018-12-10T21:22:44Z",
       "side": 1,
       "message": "Can we use the existing gmock matchers instead?\n\nhttps://github.com/abseil/googletest/blob/master/googlemock/docs/CheatSheet.md#container-matchers",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6725a8a5_d3da379f",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Capitalize",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 9
+      },
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -252,6 +506,52 @@
     },
     {
       "key": {
+        "uuid": "ab03857b_34998737",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "recv",
+      "range": {
+        "startLine": 472,
+        "startChar": 32,
+        "endLine": 472,
+        "endChar": 39
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c640df_74ad4eca",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "How about also:\n\"1 recv ;;\"\n\"1 recv pt\u003d1;;maxwidth\u003d720\"\n?",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 14
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bfa6096f_c31f8378",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -269,6 +569,29 @@
     },
     {
       "key": {
+        "uuid": "ec041603_a282667a",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Should we change this to send_streams_?",
+      "range": {
+        "startLine": 241,
+        "startChar": 18,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86974de5_8f072774",
         "filename": "pc/simulcastdescription.h",
         "patchSetId": 1
@@ -280,6 +603,30 @@
       "writtenOn": "2018-12-10T18:10:31Z",
       "side": 1,
       "message": "not named get_all_layers() because this isn\u0027t a simple getter, this method requires traversing all the layers and flattening them into a new vector.",
+      "range": {
+        "startLine": 75,
+        "startChar": 30,
+        "endLine": 75,
+        "endChar": 42
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af3bb72_1d536c4b",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86974de5_8f072774",
       "range": {
         "startLine": 75,
         "startChar": 30,
@@ -342,6 +689,98 @@
         "startChar": 22,
         "endLine": 2452,
         "endChar": 32
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f4de57b_e9a20e14",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3235,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Right now we allow multiple a\u003drid lines w/o simulcast. Do we want to allow this?",
+      "range": {
+        "startLine": 3235,
+        "startChar": 4,
+        "endLine": 3235,
+        "endChar": 20
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713f7b9b_deb40f5a",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "nit: Since this just compares IDs maybe CompareRidDescriptionIds() would be a better name?",
+      "range": {
+        "startLine": 1429,
+        "startChar": 7,
+        "endLine": 1429,
+        "endChar": 29
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "761f3a32_f22d25a1",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4168,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "period. Here and below.",
+      "range": {
+        "startLine": 4168,
+        "startChar": 21,
+        "endLine": 4168,
+        "endChar": 4
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65614e1f_5ca7636b",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4289,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-10T22:55:51Z",
+      "side": 1,
+      "message": "Do you want to add anything special to these rids, like payload type or restrictions?",
+      "range": {
+        "startLine": 4289,
+        "startChar": 22,
+        "endLine": 4289,
+        "endChar": 36
       },
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

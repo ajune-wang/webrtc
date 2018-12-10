@@ -2,6 +2,273 @@
   "comments": [
     {
       "key": {
+        "uuid": "24d6595b_5109fd41",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "enum class?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ca19d1a_a1a03e32",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "are these codec payload types?",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b1d9d47_679aabe1",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Not sure how this got so far away from ToString, but maybe move SsrcsToString and RidsToString down to right above the ToString method?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f3b628_843dac60",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "could also do:\n\nconst char* delimiter \u003d \"\";\nfor (const RidDescription\u0026 rid : rids) {\n  sb \u003c\u003c delimiter \u003c\u003c rid.rid;\n  delimiter \u003d \",\";\n}",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4e783c_261dba14",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "10, 20, 30 ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 38,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ab093a_c80d2047",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "nit: according to the RTCError documentation, RTCError::OK() is preferred for readability",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06440549_77973dd8",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "How about:\n\nconst char* delimiter \u003d kDelimiterEqual;\nfor (const auto\u0026 format : formats) {\n  builder \u003c\u003c delimiter \u003c\u003c format;\n  delimeter \u003d kDelimiterComma;\n}",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55098013_f98a24b7",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Unnecessary?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b312b70_edb29486",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Use for - range loop?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5070c66c_93b99c26",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "What do you think about adding an overload of rtc::tokenize that takes (and returns?) an absl::string_view ?\n\nActually, maybe we should switch to abls::StrSplit (https://abseil.io/docs/cpp/guides/strings#abslstrsplit-for-splitting-strings). Though that would be a bigger change and should probably be left as a TODO.",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523ed291_5d351484",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Can we use the existing gmock matchers instead?\n\nhttps://github.com/abseil/googletest/blob/master/googlemock/docs/CheatSheet.md#container-matchers",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7c77136_ab21b02b",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Maybe most this to just above the sequence of RidDescription tests?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e53a130_22bdb17d",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Maybe explicitly set \u003d \"\"",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c02747_3c729f30",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Can do\n\nrid_description.formats \u003d {104, 103};",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa6096f_c31f8378",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "Why not just return an absl::optional ?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86974de5_8f072774",
         "filename": "pc/simulcastdescription.h",
         "patchSetId": 1
@@ -22,6 +289,63 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50c486fe_39457299",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "This seems to be an uncommon pattern (git grep \u0027() \u003d\u0027). What do you think about using a setter instead?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7ec07bb_b4aa670d",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "for range?",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4d34c7_e92b8b19",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2452,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T21:22:44Z",
+      "side": 1,
+      "message": "\u0026send_layer",
+      "range": {
+        "startLine": 2452,
+        "startChar": 22,
+        "endLine": 2452,
+        "endChar": 32
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

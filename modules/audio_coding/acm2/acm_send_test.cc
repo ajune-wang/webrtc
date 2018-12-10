@@ -14,10 +14,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
-#include "modules/audio_coding/codecs/audio_format_conversion.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/neteq/tools/input_audio_file.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
@@ -27,6 +28,26 @@
 
 namespace webrtc {
 namespace test {
+namespace {
+SdpAudioFormat CodecDefaults(absl::string_view payload_name,
+                             int clockrate_hz,
+                             size_t num_channels) {
+  if (absl::EqualsIgnoreCase(payload_name, "g722")) {
+    RTC_CHECK_EQ(16000, clockrate_hz);
+    RTC_CHECK(num_channels == 1 || num_channels == 2);
+    return {"g722", 8000, num_channels};
+  } else if (absl::EqualsIgnoreCase(payload_name, "opus")) {
+    RTC_CHECK_EQ(48000, clockrate_hz);
+    RTC_CHECK(num_channels == 1 || num_channels == 2);
+    return num_channels == 1
+               ? SdpAudioFormat("opus", 48000, 2)
+               : SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}});
+  } else {
+    return {payload_name, clockrate_hz, num_channels};
+  }
+}
+
+}  // namespace {
 
 AcmSendTestOldApi::AcmSendTestOldApi(InputAudioFile* audio_source,
                                      int source_rate_hz,
@@ -63,15 +84,10 @@ bool AcmSendTestOldApi::RegisterCodec(const char* payload_name,
                                       int channels,
                                       int payload_type,
                                       int frame_size_samples) {
-  CodecInst codec;
-  RTC_CHECK_EQ(0, AudioCodingModule::Codec(payload_name, &codec,
-                                           sampling_freq_hz, channels));
-  codec.pltype = payload_type;
-  codec.pacsize = frame_size_samples;
-  auto factory = CreateBuiltinAudioEncoderFactory();
-  SdpAudioFormat format = CodecInstToSdp(codec);
+  auto format = CodecDefaults(payload_name, sampling_freq_hz, channels);
   format.parameters["ptime"] = rtc::ToString(rtc::CheckedDivExact(
       frame_size_samples, rtc::CheckedDivExact(sampling_freq_hz, 1000)));
+  auto factory = CreateBuiltinAudioEncoderFactory();
   acm_->SetEncoder(
       factory->MakeAudioEncoder(payload_type, format, absl::nullopt));
   codec_registered_ = true;

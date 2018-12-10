@@ -278,24 +278,6 @@ void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {
   UpdateAllocationLimits();
 }
 
-int BitrateAllocator::GetStartBitrate(
-    BitrateAllocatorObserver* observer) const {
-  RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  const auto& it = FindObserverConfig(observer);
-  if (it == bitrate_observer_configs_.end()) {
-    // This observer hasn't been added yet, just give it its fair share.
-    return last_non_zero_bitrate_bps_ /
-           static_cast<int>((bitrate_observer_configs_.size() + 1));
-  } else if (it->allocated_bitrate_bps == -1) {
-    // This observer hasn't received an allocation yet, so do the same.
-    return last_non_zero_bitrate_bps_ /
-           static_cast<int>(bitrate_observer_configs_.size());
-  } else {
-    // This observer already has an allocation.
-    return it->allocated_bitrate_bps;
-  }
-}
-
 void BitrateAllocator::SetBitrateAllocationStrategy(
     std::unique_ptr<rtc::BitrateAllocationStrategy>
         bitrate_allocation_strategy) {

@@ -63,18 +63,6 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
   // remote side does not support the rotation extension.
   virtual void SetSink(EncoderSink* sink, bool rotation_applied) = 0;
 
-  // Sets an initial bitrate, later overriden by OnBitrateUpdated. Mainly
-  // affects the resolution of the initial key frame: If incoming frames are
-  // larger than reasonable for the start bitrate, and scaling is enabled,
-  // VideoStreamEncoder asks the source to scale down and drops a few initial
-  // frames.
-  // TODO(nisse): This is a poor interface, and mixes bandwidth estimation and
-  // codec configuration in an undesired way. For the actual send bandwidth, we
-  // should always be somewhat conservative, but we may nevertheless want to let
-  // the application configure a more optimistic quality for the initial
-  // resolution. Should be replaced by a construction time setting.
-  virtual void SetStartBitrate(int start_bitrate_bps) = 0;
-
   // Request a key frame. Used for signalling from the remote receiver.
   virtual void SendKeyFrame() = 0;
 

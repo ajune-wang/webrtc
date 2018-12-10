@@ -71,7 +71,6 @@ class BitrateAllocatorInterface {
   virtual void AddObserver(BitrateAllocatorObserver* observer,
                            MediaStreamAllocationConfig config) = 0;
   virtual void RemoveObserver(BitrateAllocatorObserver* observer) = 0;
-  virtual int GetStartBitrate(BitrateAllocatorObserver* observer) const = 0;
 
  protected:
   virtual ~BitrateAllocatorInterface() = default;
@@ -116,10 +115,6 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // Removes a previously added observer, but will not trigger a new bitrate
   // allocation.
   void RemoveObserver(BitrateAllocatorObserver* observer) override;
-
-  // Returns initial bitrate allocated for |observer|. If |observer| is not in
-  // the list of added observers, a best guess is returned.
-  int GetStartBitrate(BitrateAllocatorObserver* observer) const override;
 
   // Sets external allocation strategy. If strategy is not set default WebRTC
   // allocation mechanism will be used. The strategy may be changed during call.

@@ -320,7 +320,6 @@ class VideoStreamEncoderTest : public ::testing::Test {
     video_stream_encoder_->SetSink(&sink_, false /* rotation_applied */);
     video_stream_encoder_->SetSource(
         &video_source_, webrtc::DegradationPreference::MAINTAIN_FRAMERATE);
-    video_stream_encoder_->SetStartBitrate(kTargetBitrateBps);
     video_stream_encoder_->ConfigureEncoder(std::move(video_encoder_config),
                                             kMaxPayloadLength);
     video_stream_encoder_->WaitUntilTaskQueueIsIdle();

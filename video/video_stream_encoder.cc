@@ -41,6 +41,11 @@ namespace {
 const int64_t kFrameLogIntervalMs = 60000;
 const int kMinFramerateFps = 2;
 
+// TODO(nisse): This is of questionable value. Consider if we can
+// delete it, and rely exclusively on the value from OnBitrateUpdated,
+// possibly dropping initial frames until bitrate is available.
+const int kDefaultStartBitrateBps = 300000;
+
 // Time to keep a single cached pending frame in paused state.
 const int64_t kPendingFrameTimeoutMs = 1000;
 
@@ -367,7 +372,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       pending_encoder_creation_(false),
       crop_width_(0),
       crop_height_(0),
-      encoder_start_bitrate_bps_(0),
+      encoder_start_bitrate_bps_(kDefaultStartBitrateBps),
       max_data_payload_length_(0),
       last_observed_bitrate_bps_(0),
       encoder_paused_and_dropped_frame_(false),
@@ -457,13 +462,6 @@ void VideoStreamEncoder::SetSink(EncoderSink* sink, bool rotation_applied) {
   encoder_queue_.PostTask([this, sink] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     sink_ = sink;
-  });
-}
-
-void VideoStreamEncoder::SetStartBitrate(int start_bitrate_bps) {
-  encoder_queue_.PostTask([this, start_bitrate_bps] {
-    RTC_DCHECK_RUN_ON(&encoder_queue_);
-    encoder_start_bitrate_bps_ = start_bitrate_bps;
   });
 }
 

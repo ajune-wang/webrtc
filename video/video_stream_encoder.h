@@ -59,9 +59,6 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   void SetSink(EncoderSink* sink, bool rotation_applied) override;
 
-  // TODO(perkj): Can we remove VideoCodec.startBitrate ?
-  void SetStartBitrate(int start_bitrate_bps) override;
-
   void SetBitrateAllocationObserver(
       VideoBitrateAllocationObserver* bitrate_observer) override;
 

@@ -336,9 +336,6 @@ VideoSendStreamImpl::VideoSendStreamImpl(
   RTC_DCHECK_GE(config_->rtp.payload_type, 0);
   RTC_DCHECK_LE(config_->rtp.payload_type, 127);
 
-  video_stream_encoder_->SetStartBitrate(
-      bitrate_allocator_->GetStartBitrate(this));
-
   // Only request rotation at the source when we positively know that the remote
   // side doesn't support the rotation extension. This allows us to prepare the
   // encoder in the expectation that rotation is supported - which is the common

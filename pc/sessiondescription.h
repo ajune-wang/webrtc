@@ -154,6 +154,21 @@ class MediaContentDescription {
     sp.AddFidSsrc(ssrc, fid_ssrc);
     streams_.push_back(sp);
   }
+
+  // In Unified Plan (ex. Simulcast scenario) the receive stream might need
+  // to be specified in the media section description to allow specifying
+  // restrictions and identifying it within the session (see also RID).
+  const StreamParams& receive_stream() const {
+    RTC_DCHECK(has_receive_stream());
+    return receive_stream_.value();
+  }
+
+  bool has_receive_stream() const { return receive_stream_.has_value(); }
+
+  void set_receive_stream(const StreamParams& receive_stream) {
+    receive_stream_ = receive_stream;
+  }
+
   // Sets the CNAME of all StreamParams if it have not been set.
   void SetCnameIfEmpty(const std::string& cname) {
     for (cricket::StreamParamsVec::iterator it = streams_.begin();
@@ -224,6 +239,7 @@ class MediaContentDescription {
   std::vector<webrtc::RtpExtension> rtp_header_extensions_;
   bool rtp_header_extensions_set_ = false;
   StreamParamsVec streams_;
+  absl::optional<StreamParams> receive_stream_;
   bool conference_mode_ = false;
   webrtc::RtpTransceiverDirection direction_ =
       webrtc::RtpTransceiverDirection::kSendRecv;

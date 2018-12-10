@@ -861,7 +861,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
         pc_->AddTrack(CreateVideoTrack(track_label), stream_ids);
     ASSERT_EQ(RTCErrorType::NONE, sender_or_error.error().type());
     EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-    observer_.renegotiation_needed_ = false;
   }
 
   void AddVideoStream(const std::string& label) {
@@ -870,7 +869,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
     stream->AddTrack(CreateVideoTrack(label + "v0"));
     ASSERT_TRUE(pc_->AddStream(stream));
     EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-    observer_.renegotiation_needed_ = false;
   }
 
   rtc::scoped_refptr<AudioTrackInterface> CreateAudioTrack(
@@ -884,7 +882,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
         pc_->AddTrack(CreateAudioTrack(track_label), stream_ids);
     ASSERT_EQ(RTCErrorType::NONE, sender_or_error.error().type());
     EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-    observer_.renegotiation_needed_ = false;
   }
 
   void AddAudioStream(const std::string& label) {
@@ -893,7 +890,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
     stream->AddTrack(CreateAudioTrack(label + "a0"));
     ASSERT_TRUE(pc_->AddStream(stream));
     EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-    observer_.renegotiation_needed_ = false;
   }
 
   void AddAudioVideoStream(const std::string& stream_id,
@@ -906,7 +902,6 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
     stream->AddTrack(CreateVideoTrack(video_track_label));
     ASSERT_TRUE(pc_->AddStream(stream));
     EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-    observer_.renegotiation_needed_ = false;
   }
 
   rtc::scoped_refptr<RtpReceiverInterface> GetFirstReceiverOfType(
@@ -2236,7 +2231,7 @@ TEST_P(PeerConnectionInterfaceTest, SctpDuplicatedLabelAllowed) {
   EXPECT_NE(dup_channel, nullptr);
 }
 
-// This test verifies that OnRenegotiationNeeded is fired for every new RTP
+// This test verifies that OnRenegotiationNeeded is fired when we create a
 // DataChannel.
 TEST_P(PeerConnectionInterfaceTest, RenegotiationNeededForNewRtpDataChannel) {
   RTCConfiguration rtc_config;
@@ -2246,11 +2241,6 @@ TEST_P(PeerConnectionInterfaceTest, RenegotiationNeededForNewRtpDataChannel) {
 
   rtc::scoped_refptr<DataChannelInterface> dc1 =
       pc_->CreateDataChannel("test1", NULL);
-  EXPECT_TRUE(observer_.renegotiation_needed_);
-  observer_.renegotiation_needed_ = false;
-
-  rtc::scoped_refptr<DataChannelInterface> dc2 =
-      pc_->CreateDataChannel("test2", NULL);
   EXPECT_TRUE(observer_.renegotiation_needed_);
 }
 
@@ -3919,42 +3909,6 @@ TEST_P(PeerConnectionInterfaceTest, CreateOfferWithRtpMux) {
   EXPECT_NE(nullptr, GetFirstAudioContent(offer->description()));
   EXPECT_NE(nullptr, GetFirstVideoContent(offer->description()));
   EXPECT_FALSE(offer->description()->HasGroup(cricket::GROUP_TYPE_BUNDLE));
-}
-
-// This test ensures OnRenegotiationNeeded is called when we add track with
-// MediaStream -> AddTrack in the same way it is called when we add track with
-// PeerConnection -> AddTrack.
-// The test can be removed once addStream is rewritten in terms of addTrack
-// https://bugs.chromium.org/p/webrtc/issues/detail?id=7815
-// Don't run under Unified Plan since the stream API is not available.
-TEST_F(PeerConnectionInterfaceTestPlanB,
-       MediaStreamAddTrackRemoveTrackRenegotiate) {
-  CreatePeerConnectionWithoutDtls();
-  rtc::scoped_refptr<MediaStreamInterface> stream(
-      pc_factory_->CreateLocalMediaStream(kStreamId1));
-  pc_->AddStream(stream);
-  rtc::scoped_refptr<AudioTrackInterface> audio_track(
-      pc_factory_->CreateAudioTrack("audio_track", nullptr));
-  rtc::scoped_refptr<VideoTrackInterface> video_track(
-      pc_factory_->CreateVideoTrack(
-          "video_track", pc_factory_->CreateVideoSource(
-                             std::unique_ptr<cricket::VideoCapturer>(
-                                 new cricket::FakeVideoCapturer()))));
-  stream->AddTrack(audio_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
-
-  stream->AddTrack(video_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
-
-  stream->RemoveTrack(audio_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
-
-  stream->RemoveTrack(video_track);
-  EXPECT_TRUE_WAIT(observer_.renegotiation_needed_, kTimeout);
-  observer_.renegotiation_needed_ = false;
 }
 
 // Tests that an error is returned if a description is applied that has fewer

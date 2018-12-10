@@ -961,7 +961,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
     EXPECT_EQ(checksum_ref, checksum_string);
 
     // Delete the output file.
-    remove(output_file_name.c_str());
+    // remove(output_file_name.c_str());
   }
 };
 
@@ -1105,7 +1105,7 @@ TEST_F(AcmReceiverBitExactnessOldApi, 48kHzOutputExternalDecoder) {
 class AcmSenderBitExactnessOldApi : public ::testing::Test,
                                     public test::PacketSource {
  protected:
-  static const int kTestDurationMs = 1000;
+  static const int kTestDurationMs = 4000;
 
   AcmSenderBitExactnessOldApi()
       : frame_size_rtp_timestamps_(0),
@@ -1118,12 +1118,12 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
   // Sets up the test::AcmSendTest object. Returns true on success, otherwise
   // false.
   bool SetUpSender() {
-    const std::string input_file_name =
-        webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm");
+    const std::string input_file_name = webrtc::test::ResourcePath(
+        "audio_coding/short_stereo_48k_speech_track", "wav");
     // Note that |audio_source_| will loop forever. The test duration is set
     // explicitly by |kTestDurationMs|.
     audio_source_.reset(new test::InputAudioFile(input_file_name));
-    static const int kSourceRateHz = 32000;
+    static const int kSourceRateHz = 48000;
     send_test_.reset(new test::AcmSendTestOldApi(
         audio_source_.get(), kSourceRateHz, kTestDurationMs));
     return send_test_.get() != NULL;
@@ -1169,7 +1169,7 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
             ->test_case_name() +
         "_" + ::testing::UnitTest::GetInstance()->current_test_info()->name() +
         "_output.wav";
-    const int kOutputFreqHz = 8000;
+    const int kOutputFreqHz = 48000;
     test::OutputWavFile output_file(output_file_name, kOutputFreqHz);
     // Have the output audio sent both to file and to the checksum calculator.
     test::AudioSinkFork output(&audio_checksum, &output_file);
@@ -1196,7 +1196,7 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
     EXPECT_EQ(expected_packets, packet_count_);
 
     // Delete the output file.
-    remove(output_file_name.c_str());
+    // remove(output_file_name.c_str());
   }
 
   // Helper: result must be one the "|"-separated checksums.
@@ -1831,7 +1831,7 @@ class AcmSwitchingOutputFrequencyOldApi : public ::testing::Test,
     receive_test.Run();
 
     // Delete output file.
-    remove(output_file_name.c_str());
+    // remove(output_file_name.c_str());
   }
 
   // Inherited from test::PacketSource.

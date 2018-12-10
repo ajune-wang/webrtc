@@ -25,7 +25,7 @@ class OutputWavFile : public AudioSink {
   // Creates an OutputWavFile, opening a file named |file_name| for writing.
   // The output file is a PCM encoded wav file.
   OutputWavFile(const std::string& file_name, int sample_rate_hz)
-      : wav_writer_(file_name, sample_rate_hz, 1) {}
+      : wav_writer_(file_name, sample_rate_hz, 2) {}
 
   bool WriteArray(const int16_t* audio, size_t num_samples) override {
     wav_writer_.WriteSamples(audio, num_samples);

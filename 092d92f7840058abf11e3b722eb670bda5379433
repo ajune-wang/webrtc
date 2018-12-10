@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "76599e99_fbcb6a79",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-10T12:08:45Z",
+      "side": 1,
+      "message": "Oh, sorry. I thought that this comment is on normal video, not on screen sharing part.\n\n\u003e\u003eThis assumes all layers are dependent? Shouldn\u0027t the loop just go to num_spatial_layers - 2 then?\nBitrate threshold values are always specified in non-cumulative way.",
+      "parentUuid": "0df0c42e_d308eb84",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "968ec2f9_051104ce",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 11

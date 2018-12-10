@@ -368,6 +368,24 @@
       "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1756063_35805bd4",
+        "filename": "pc/peerconnection_jsep_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-10T22:25:44Z",
+      "side": 1,
+      "message": "Ack. I\u0027ll do it in a follow-up CL.",
+      "parentUuid": "9fd5efe7_32ac6d3b",
+      "revId": "fa575dce29e27042f2477119f6b1e5007f47b728",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

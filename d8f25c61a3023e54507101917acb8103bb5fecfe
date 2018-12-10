@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "662b6c79_a56c2b63",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "This can be misunderstood to mean free threaded. I would say that the design is closer to a single threaded environment. In practice, it would be running in a sequenced task environment whereby all calls made to the interface, are made from the same sequenced (guaranteed not to conflict with other calls) runtime context.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87e2ec92_bea31344",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "Same here, the notion of \u0027thread\u0027 is being phased out and instead we\u0027re using sequenced task queues (or runners in chromium).  In particular, the API functions are not designed to be called from any thread or task queue.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e781b8c5_1a5673f2",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "I think this is an implementation detail. The implementation could choose to execute work asynchronously on the same thread as the call is made on.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f869050_ad411e85",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "I would even say that \"In general, the functions are designed to be used ...\"",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9591b13e_3a3d02b7",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "I would also clarify that the callback will be made in the same execution context as the initiating action was made.\n\nE.g. for javascript, this means the same worker, for C++ same sequential task queue.\n\nThis is an important part of the design since it allows for many optimizations that both the interface implementation and its client can assume a certain concurrency model.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f37ce4_1b445dc4",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "\"even functions\"",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cafdba8b_9cbb7dc8",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a part of the interface design. If callbacks happen in a predetermined way, in the same execution context as the call was made, the caller doesn\u0027t have to worry about these details.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f97701b4_32eb04e2",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2018-12-10T14:47:18Z",
+      "side": 1,
+      "message": "I think we should have the discussion around the proxy implementation separately. I can provide some background as the co-author of it.",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

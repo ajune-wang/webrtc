@@ -22,6 +22,19 @@
 // StreamParams would then contain ssrc = {10,11,20,21,30,31} and
 // ssrc_groups = {{SIM,{10,20,30}, {FEC,{10,11}, {FEC, {20,21}, {FEC {30,31}}}
 // Please see RFC 5576.
+// A spec-compliant way to achieve this is to use RIDs and Simulcast attribute
+// instead of the ssrc-group. In this method, the StreamParam object will
+// have multiple RidDescriptions, each corresponding to a simulcast layer
+// and the media section will have a simulcast attribute that indicates
+// that these layers are for the same source. This also removes the extra
+// lines for redundancy streams, as the same RIDs appear in the redundancy
+// packets.
+// As an example, let the simulcast layers have RID 10, 20, 30.
+// StreamParams would contain rid = { 1, 2, 3 }.
+// MediaSection would contain SimulcastDescription specifying these rids.
+// a=simulcast:send 10;20;30
+// See https://tools.ietf.org/html/draft-ietf-mmusic-sdp-simulcast-13
+// and https://tools.ietf.org/html/draft-ietf-mmusic-rid-15.
 
 #ifndef MEDIA_BASE_STREAMPARAMS_H_
 #define MEDIA_BASE_STREAMPARAMS_H_
@@ -32,6 +45,7 @@
 #include <string>
 #include <vector>
 
+#include "media/base/riddescription.h"
 #include "rtc_base/constructormagic.h"
 
 namespace cricket {
@@ -80,11 +94,7 @@ struct StreamParams {
     return stream;
   }
 
-  bool operator==(const StreamParams& other) const {
-    return (groupid == other.groupid && id == other.id &&
-            ssrcs == other.ssrcs && ssrc_groups == other.ssrc_groups &&
-            cname == other.cname && stream_ids_ == other.stream_ids_);
-  }
+  bool operator==(const StreamParams& other) const;
   bool operator!=(const StreamParams& other) const { return !(*this == other); }
 
   uint32_t first_ssrc() const {
@@ -172,6 +182,16 @@ struct StreamParams {
   std::vector<SsrcGroup> ssrc_groups;  // e.g. FID, FEC, SIM
   std::string cname;                   // RTCP CNAME
 
+  // RID functionality according to
+  // https://tools.ietf.org/html/draft-ietf-mmusic-rid-15
+  // Each stream can be represented by a RID identifier and can also have
+  // restrictions (such as max-width, max-height, etc.)
+  // If the stream has multiple layers (ex. Simulcast), each layer will be
+  // represented by a RID.
+  bool has_rids() const { return !rids_.empty(); }
+  const std::vector<RidDescription>& rids() const { return rids_; }
+  std::vector<RidDescription>& rids() { return rids_; }
+
  private:
   bool AddSecondarySsrc(const std::string& semantics,
                         uint32_t primary_ssrc,
@@ -184,6 +204,8 @@ struct StreamParams {
   // with. In Plan B this should always be size of 1, while in Unified Plan this
   // could be none or multiple stream IDs.
   std::vector<std::string> stream_ids_;
+
+  std::vector<RidDescription> rids_;
 };
 
 // A Stream can be selected by either groupid+id or ssrc.

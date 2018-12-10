@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e9869b8_14d7649d",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T11:53:43Z",
+      "side": 1,
+      "message": "This looks much nicer, thanks :)",
+      "range": {
+        "startLine": 232,
+        "startChar": 1,
+        "endLine": 238,
+        "endChar": 65
+      },
+      "revId": "9d8ac072902dd7b00838d42d69c0c1f072251bae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6c28d713_868d87a2",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T11:53:43Z",
+      "side": 1,
+      "message": "Ah, it\u0027s enum class. Then never mind.",
+      "parentUuid": "2ba030c8_a77daee5",
+      "range": {
+        "startLine": 257,
+        "startChar": 2,
+        "endLine": 257,
+        "endChar": 12
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53bc95a2_27529fba",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 11
@@ -93,6 +117,30 @@
       "revId": "092d92f7840058abf11e3b722eb670bda5379433",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df0c42e_d308eb84",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T11:53:43Z",
+      "side": 1,
+      "message": "I\u0027m not seeing it?",
+      "parentUuid": "d0d2e5cc_f979c581",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

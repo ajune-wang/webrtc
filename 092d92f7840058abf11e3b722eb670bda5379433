@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2ba030c8_a77daee5",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-10T10:46:38Z",
+      "side": 1,
+      "message": "_EQ it doesn\u0027t work with enums. As I can see people use CHECK(\u003d\u003d) for this: https://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_decoder_software_fallback_wrapper.cc?rcl\u003d4348ce240aaec218fb57d0e2b8701a7539166426\u0026l\u003d98",
+      "parentUuid": "bc232220_096c13a8",
+      "range": {
+        "startLine": 257,
+        "startChar": 2,
+        "endLine": 257,
+        "endChar": 12
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53bc95a2_27529fba",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "092d92f7840058abf11e3b722eb670bda5379433",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d2e5cc_f979c581",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2018-12-10T10:46:38Z",
+      "side": 1,
+      "message": "I changed this part early this morning. Please check the latest patch.",
+      "parentUuid": "53bc95a2_27529fba",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

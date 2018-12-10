@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "865c313d_bfc15e7e",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-10T12:36:58Z",
+      "side": 1,
+      "message": "What I mean is, if we have three layers and want to find start bitrate for layer 2,\nthat would be layer0.max + layer1.max + layer2.min ?\nIt looks like we take layer0.max + layer1.max + layer2.max + layer2.min here?",
+      "parentUuid": "76599e99_fbcb6a79",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 77
+      },
+      "revId": "092d92f7840058abf11e3b722eb670bda5379433",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "968ec2f9_051104ce",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 11

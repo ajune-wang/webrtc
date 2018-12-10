@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "389a90d3_15b3d066",
+        "filename": "call/video_receive_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-10T09:39:54Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 51,
+        "startChar": 40,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "e08609c465bddf220996fd7b66bcd6063cf70d41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54ec798d_845c3154",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-10T09:39:54Z",
+      "side": 1,
+      "message": "Strike delay in this name too.\n\nAnd I\u0027d prefer optional, but I won\u0027t insist on it. This seems to be one of three members where -1 means \"unknown\".\n\nThen we have several values initialized to zero; I have no idea if that\u0027s a reasonable default value, or if that also means \"unknown\".",
+      "range": {
+        "startLine": 81,
+        "startChar": 12,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "e08609c465bddf220996fd7b66bcd6063cf70d41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e1163f_0b9595ce",
+        "filename": "media/base/mediachannel.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-10T09:39:54Z",
+      "side": 1,
+      "message": "And here.",
+      "range": {
+        "startLine": 562,
+        "startChar": 42,
+        "endLine": 562,
+        "endChar": 47
+      },
+      "revId": "e08609c465bddf220996fd7b66bcd6063cf70d41",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

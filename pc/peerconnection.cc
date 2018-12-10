@@ -1149,7 +1149,7 @@ bool PeerConnection::AddStream(MediaStreamInterface* local_stream) {
   }
 
   stats_->AddStream(local_stream);
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
   return true;
 }
 
@@ -1178,7 +1178,7 @@ void PeerConnection::RemoveStream(MediaStreamInterface* local_stream) {
   if (IsClosed()) {
     return;
   }
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
@@ -1206,7 +1206,7 @@ RTCErrorOr<rtc::scoped_refptr<RtpSenderInterface>> PeerConnection::AddTrack(
       (IsUnifiedPlan() ? AddTrackUnifiedPlan(track, stream_ids)
                        : AddTrackPlanB(track, stream_ids));
   if (sender_or_error.ok()) {
-    Observer()->OnRenegotiationNeeded();
+    MaybeFireRenegotiationNeeded();
     stats_->AddTrack(track);
   }
   return sender_or_error;
@@ -1352,7 +1352,7 @@ RTCError PeerConnection::RemoveTrackNew(
           "Couldn't find sender " + sender->id() + " to remove.");
     }
   }
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
   return RTCError::OK();
 }
 
@@ -1464,7 +1464,7 @@ PeerConnection::AddTransceiver(
   transceiver->internal()->set_direction(init.direction);
 
   if (fire_callback) {
-    Observer()->OnRenegotiationNeeded();
+    MaybeFireRenegotiationNeeded();
   }
 
   return rtc::scoped_refptr<RtpTransceiverInterface>(transceiver);
@@ -1541,7 +1541,7 @@ PeerConnection::CreateAndAddTransceiver(
 void PeerConnection::OnNegotiationNeeded() {
   RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_DCHECK(!IsClosed());
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
@@ -1776,7 +1776,7 @@ rtc::scoped_refptr<DataChannelInterface> PeerConnection::CreateDataChannel(
   // Trigger the onRenegotiationNeeded event for every new RTP DataChannel, or
   // the first SCTP DataChannel.
   if (data_channel_type() == cricket::DCT_RTP || first_datachannel) {
-    Observer()->OnRenegotiationNeeded();
+    MaybeFireRenegotiationNeeded();
   }
   NoteUsageEvent(UsageEvent::DATA_ADDED);
   return DataChannelProxy::Create(signaling_thread(), channel.get());
@@ -3714,6 +3714,8 @@ void PeerConnection::ChangeSignalingState(
       ice_gathering_state_ = kIceGatheringComplete;
       Observer()->OnIceGatheringChange(ice_gathering_state_);
     }
+  } else if (signaling_state == kStable) {
+    renegotiation_needed_ = true;
   }
   Observer()->OnSignalingChange(signaling_state_);
 }
@@ -3724,7 +3726,7 @@ void PeerConnection::OnAudioTrackAdded(AudioTrackInterface* track,
     return;
   }
   AddAudioTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 void PeerConnection::OnAudioTrackRemoved(AudioTrackInterface* track,
@@ -3733,7 +3735,7 @@ void PeerConnection::OnAudioTrackRemoved(AudioTrackInterface* track,
     return;
   }
   RemoveAudioTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 void PeerConnection::OnVideoTrackAdded(VideoTrackInterface* track,
@@ -3742,7 +3744,7 @@ void PeerConnection::OnVideoTrackAdded(VideoTrackInterface* track,
     return;
   }
   AddVideoTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 void PeerConnection::OnVideoTrackRemoved(VideoTrackInterface* track,
@@ -3751,7 +3753,7 @@ void PeerConnection::OnVideoTrackRemoved(VideoTrackInterface* track,
     return;
   }
   RemoveVideoTrack(track, stream);
-  Observer()->OnRenegotiationNeeded();
+  MaybeFireRenegotiationNeeded();
 }
 
 void PeerConnection::PostSetSessionDescriptionSuccess(
@@ -6626,6 +6628,24 @@ void PeerConnection::ClearStatsCache() {
 void PeerConnection::RequestUsagePatternReportForTesting() {
   signaling_thread()->Post(RTC_FROM_HERE, this, MSG_REPORT_USAGE_PATTERN,
                            nullptr);
+}
+
+void PeerConnection::MaybeFireRenegotiationNeeded() {
+  if (IsClosed() || (signaling_state() != kStable))
+    return;
+
+  // TODO(jonasolsson): Implement the full steps described in
+  // http://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed.
+  //
+  // For now we implicitly assume that we won't need to fire onnegotiationneeded
+  // more than once.
+
+  if (!renegotiation_needed_)
+    return;
+
+  renegotiation_needed_ = false;
+
+  Observer()->OnRenegotiationNeeded();
 }
 
 }  // namespace webrtc

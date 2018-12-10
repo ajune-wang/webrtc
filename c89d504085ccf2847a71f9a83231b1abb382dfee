@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c8657fd_d0b1d7e7",
+        "filename": "api/candidate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2018-12-10T21:20:01Z",
+      "side": 1,
+      "message": "typo here; marked to fix before landing.",
+      "range": {
+        "startLine": 176,
+        "startChar": 46,
+        "endLine": 176,
+        "endChar": 55
+      },
+      "revId": "c89d504085ccf2847a71f9a83231b1abb382dfee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

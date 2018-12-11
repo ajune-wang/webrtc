@@ -22,6 +22,30 @@
       "revId": "861798010d338c3f5758a62a2370f7687cd1a13d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c16ce1c_0c43115a",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T14:30:47Z",
+      "side": 1,
+      "message": "Can probably do without. Reverted.",
+      "parentUuid": "5082e14b_74db8c23",
+      "range": {
+        "startLine": 158,
+        "startChar": 7,
+        "endLine": 158,
+        "endChar": 72
+      },
+      "revId": "861798010d338c3f5758a62a2370f7687cd1a13d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fa347a8_4ed29e55",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-11T14:42:50Z",
+      "side": 1,
+      "message": "I think this can be just separate dicts  instead of magically detecting regex",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "55311843213f6a14acf237326c1ca92ab1b98429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "088050f4_55d21113",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-11T14:42:50Z",
+      "side": 1,
+      "message": "This will be a wrong logging message for the newly added empty list",
+      "range": {
+        "startLine": 210,
+        "startChar": 22,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "55311843213f6a14acf237326c1ca92ab1b98429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

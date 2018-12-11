@@ -1435,6 +1435,8 @@ include_rules = [
   "+absl/meta/type_traits.h",
   "+absl/strings/ascii.h",
   "+absl/strings/match.h",
+  "+absl/strings/str_cat.h",
+  "+absl/strings/str_split.h",
   "+absl/strings/string_view.h",
   "+absl/types/optional.h",
   "+absl/types/variant.h",

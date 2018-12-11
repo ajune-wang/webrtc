@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "14b75548_999f7f74",
+        "filename": "test/rtp_dump_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T15:15:19Z",
+      "side": 1,
+      "message": "How about ParseRtpDumpHeader to make it more clear that you aren\u0027t parsing an RTP packet header?",
+      "range": {
+        "startLine": 76,
+        "startChar": 20,
+        "endLine": 76,
+        "endChar": 31
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf3b2841_6db95df7",
+        "filename": "test/rtp_dump_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T15:15:19Z",
+      "side": 1,
+      "message": "Since the code below just checks for the presence of 3 32-bit number and 2 16-bit numbers, could we just change kRtpDumpHeaderByteSize to 80 + 3*4 + 2*2, and skip the code below?",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e68b136_15ac5138",
         "filename": "test/rtp_dump_parser.cc",
         "patchSetId": 2
@@ -48,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "6ab685a2_cfbcc0b4",
+        "filename": "test/rtp_dump_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T15:15:19Z",
+      "side": 1,
+      "message": "As mentioned above, I\u0027d prefer removing this code. However, if you do want this, then I think there should be a return false.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 11
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ba417714_29421212",
         "filename": "test/rtp_dump_parser.h",
         "patchSetId": 2
@@ -64,6 +133,52 @@
         "startChar": 27,
         "endLine": 44,
         "endChar": 37
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef317dd5_67c79fa4",
+        "filename": "test/rtp_dump_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T15:15:19Z",
+      "side": 1,
+      "message": "nit: 2",
+      "range": {
+        "startLine": 46,
+        "startChar": 35,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665397db_525fa407",
+        "filename": "test/rtp_dump_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T15:15:19Z",
+      "side": 1,
+      "message": "Is this correct? Looking at rtp_file_writer.cc\nstatic const char kFirstLine[] \u003d \"#!rtpplay1.0 0.0.0.0/0\\n\"\n\nIn general, those zeroes should be an adress and a port, so rtp_file_reader.cc relies on reading until the first newline which is at most 80 characters.",
+      "range": {
+        "startLine": 49,
+        "startChar": 51,
+        "endLine": 49,
+        "endChar": 53
       },
       "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

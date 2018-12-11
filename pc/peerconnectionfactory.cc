@@ -34,8 +34,6 @@
 // TODO(zhihuang): This wouldn't be necessary if the interface and
 // implementation of the media engine were in separate build targets.
 #include "media/engine/webrtcmediaengine.h"             // nogncheck
-#include "media/engine/webrtcvideodecoderfactory.h"     // nogncheck
-#include "media/engine/webrtcvideoencoderfactory.h"     // nogncheck
 #include "modules/audio_device/include/audio_device.h"  // nogncheck
 #include "modules/congestion_controller/bbr/bbr_factory.h"
 #include "p2p/base/basicpacketsocketfactory.h"

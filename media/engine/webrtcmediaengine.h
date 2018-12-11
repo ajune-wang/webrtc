@@ -27,10 +27,6 @@ class VideoDecoderFactory;
 class VideoEncoderFactory;
 class VideoBitrateAllocatorFactory;
 }  // namespace webrtc
-namespace cricket {
-class WebRtcVideoDecoderFactory;
-class WebRtcVideoEncoderFactory;
-}  // namespace cricket
 
 namespace cricket {
 
@@ -42,51 +38,6 @@ class WebRtcMediaEngineFactory {
   //
   // TODO(deadbeef): Change these to return an std::unique_ptr<>, to indicate
   // that the caller owns the returned object.
-#if defined(USE_BUILTIN_SW_CODECS)
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory);
-
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory,
-      rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-      rtc::scoped_refptr<webrtc::AudioProcessing> apm);
-
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory,
-      std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
-          video_bitrate_allocator_factory);
-
-  static MediaEngineInterface* Create(
-      webrtc::AudioDeviceModule* adm,
-      const rtc::scoped_refptr<webrtc::AudioEncoderFactory>&
-          audio_encoder_factory,
-      const rtc::scoped_refptr<webrtc::AudioDecoderFactory>&
-          audio_decoder_factory,
-      WebRtcVideoEncoderFactory* video_encoder_factory,
-      WebRtcVideoDecoderFactory* video_decoder_factory,
-      std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
-          video_bitrate_allocator_factory,
-      rtc::scoped_refptr<webrtc::AudioMixer> audio_mixer,
-      rtc::scoped_refptr<webrtc::AudioProcessing> apm);
-#endif
 
   // Create a MediaEngineInterface with optional video codec factories. These
   // video factories represents all video codecs, i.e. no extra internal video

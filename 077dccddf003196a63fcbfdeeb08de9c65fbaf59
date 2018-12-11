@@ -16,6 +16,24 @@
       "revId": "077dccddf003196a63fcbfdeeb08de9c65fbaf59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "623cb2a7_37f5bd62",
+        "filename": "test/audio_decoder_proxy_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-11T14:13:34Z",
+      "side": 1,
+      "message": "Compiler says:\n\nIn file included from ../../modules/audio_coding/neteq/neteq_impl_unittest.cc:31:\n../../test/audio_decoder_proxy_factory.h:79:24: error: \u0027DecodeInternal\u0027 is a protected member of \u0027webrtc::AudioDecoder\u0027\n      return decoder_-\u003eDecodeInternal(encoded, encoded_len, sample_rate_hz,\n                       ^\n../../api/audio_codecs/audio_decoder.h:182:15: note: can only access this member on an object of type \u0027webrtc::test::AudioDecoderProxyFactory::DecoderProxy\u0027\n  virtual int DecodeInternal(const uint8_t* encoded,\n              ^\n1 error generated.\n\nI don\u0027t know the fine details, but maybe I\u0027d need to be a direct subclass of the class implementing DecodeInternal?",
+      "parentUuid": "f131cb06_205489d5",
+      "revId": "077dccddf003196a63fcbfdeeb08de9c65fbaf59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

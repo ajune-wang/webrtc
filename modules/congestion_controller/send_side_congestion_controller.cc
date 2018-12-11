@@ -154,6 +154,7 @@ SendSideCongestionController::SendSideCongestionController(
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       transport_overhead_bytes_per_packet_(0),
+      alr_limited_backoff_(false),
       pacer_pushback_experiment_(IsPacerPushbackExperimentEnabled()),
       congestion_window_pushback_controller_(
           MaybeCreateCongestionWindowPushbackController()) {
@@ -183,6 +184,11 @@ void SendSideCongestionController::EnableCongestionWindowPushback(
   congestion_window_pushback_controller_ =
       absl::make_unique<CongestionWindowPushbackController>(
           min_pushback_target_bitrate_bps);
+}
+
+void SendSideCongestionController::EnableAlrLimitedBackoff(bool enable) {
+  rtc::CritScope cs(&bwe_lock_);
+  alr_limited_backoff_ = enable;
 }
 
 void SendSideCongestionController::RegisterPacketFeedbackObserver(
@@ -418,6 +424,18 @@ void SendSideCongestionController::OnTransportFeedback(
 
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(
       feedback_vector);
+
+  // If in ALR, set the backoff rate to the last reported estimate rather than
+  // a fraction of the current acked rate, as that is a poor estimate for the
+  // current link capacity. If this happens, also immediately ask for a probe.
+  bool alr_backoff;
+  DataRate backoff_rate = DataRate::Zero();
+  {
+    rtc::CritScope lock(&network_state_lock_);
+    backoff_rate =
+        DataRate::bps(static_cast<int64_t>(last_reported_bitrate_bps_));
+  }
+
   DelayBasedBwe::Result result;
   {
     rtc::CritScope cs(&bwe_lock_);
@@ -427,8 +445,15 @@ void SendSideCongestionController::OnTransportFeedback(
         probe_bitrate_estimator_->HandleProbeAndEstimateBitrate(packet);
       }
     }
+
+    alr_backoff = currently_in_alr && alr_limited_backoff_;
+    auto ack_rate = acknowledged_bitrate_estimator_->bitrate();
+    if (!alr_backoff || (ack_rate.value_or(DataRate::Zero()) > backoff_rate)) {
+      backoff_rate = *ack_rate;
+    }
+
     result = delay_based_bwe_->IncomingPacketFeedbackVector(
-        feedback_vector, acknowledged_bitrate_estimator_->bitrate(),
+        feedback_vector, backoff_rate,
         probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate(),
         Timestamp::ms(clock_->TimeInMilliseconds()));
   }
@@ -441,6 +466,10 @@ void SendSideCongestionController::OnTransportFeedback(
     rtc::CritScope cs(&probe_lock_);
     probe_controller_->SetAlrStartTimeMs(
         pacer_->GetApplicationLimitedRegionStartTime());
+    SendProbes(probe_controller_->RequestProbe(clock_->TimeInMilliseconds()));
+  } else if (alr_backoff && result.updated &&
+             result.target_bitrate <= backoff_rate) {
+    rtc::CritScope cs(&probe_lock_);
     SendProbes(probe_controller_->RequestProbe(clock_->TimeInMilliseconds()));
   }
   if (in_cwnd_experiment_) {

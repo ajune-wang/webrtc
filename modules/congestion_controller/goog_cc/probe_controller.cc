@@ -151,7 +151,11 @@ std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
       max_total_allocated_bitrate != max_total_allocated_bitrate_ &&
       estimated_bitrate_bps_ != 0 &&
       (max_bitrate_bps_ <= 0 || estimated_bitrate_bps_ < max_bitrate_bps_) &&
-      estimated_bitrate_bps_ < max_total_allocated_bitrate) {
+      estimated_bitrate_bps_ < max_total_allocated_bitrate &&
+      // Only send probe if max has increased significantly ( > 50% ) or if we
+      // are currently in ALR.
+      (alr_start_time_ms_.has_value() ||
+       max_total_allocated_bitrate >= max_total_allocated_bitrate_ * 1.5)) {
     max_total_allocated_bitrate_ = max_total_allocated_bitrate;
     return InitiateProbing(at_time_ms, {max_total_allocated_bitrate}, false);
   }

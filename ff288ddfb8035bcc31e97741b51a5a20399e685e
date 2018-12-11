@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ac00690_17058b53",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T16:11:36Z",
+      "side": 1,
+      "message": "Those are not aware of the alr state or last estimate, so that would then mean plumbing a new optional\u003cDataRate\u003e last_estimate down that path, and only have it set if in the trial?\nThen add a new field to the Result struct?",
+      "parentUuid": "2c011c9f_b7ae221d",
+      "range": {
+        "startLine": 510,
+        "startChar": 1,
+        "endLine": 517,
+        "endChar": 0
+      },
+      "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e01a0383_c740188b",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9566c798_62f25075",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T16:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e01a0383_c740188b",
+      "range": {
+        "startLine": 536,
+        "startChar": 5,
+        "endLine": 538,
+        "endChar": 50
+      },
+      "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

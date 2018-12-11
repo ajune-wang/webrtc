@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2ec7bc7_dd1066c7",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-12-11T15:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fa347a8_4ed29e55",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 26
+      },
+      "revId": "55311843213f6a14acf237326c1ca92ab1b98429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "088050f4_55d21113",
         "filename": "tools_webrtc/libs/generate_licenses.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-11T14:42:50Z",
       "side": 1,
       "message": "This will be a wrong logging message for the newly added empty list",
+      "range": {
+        "startLine": 210,
+        "startChar": 22,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "55311843213f6a14acf237326c1ca92ab1b98429",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7acc8f73_b795db0d",
+        "filename": "tools_webrtc/libs/generate_licenses.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2018-12-11T15:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "088050f4_55d21113",
       "range": {
         "startLine": 210,
         "startChar": 22,

@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "f097b0bc_9f753b41",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4812,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T22:31:51Z",
+      "side": 1,
+      "message": "assigned",
+      "range": {
+        "startLine": 4812,
+        "startChar": 15,
+        "endLine": 4812,
+        "endChar": 23
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9ac81711_24cd83cd",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e9ff3d3b_6ee36a24",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2018-12-11T15:26:56Z",
+      "side": 1,
+      "message": "After offline discussions I\u0027m convinced you are correct.\n\nHowever, the behavior of this class is not that explicit, and should be documented in comments.\n\nPlease try to restrict the class to do one thing, which is to provide a pointer to the MockEchoControl object that will be returned at the next create. I don\u0027t think the checks for the number of mocks created are needed for the test and I don\u0027t think they add any extra test safety.\nAlso, renaming the Getter to reflect that it actually does not return a pointer the current mock object used in APM, but rather a pointer to the next one that will be used by APM (the a pointer to the one that will next be returned by create) will simplify reading the code.",
+      "parentUuid": "d7bce22d_fd3d751c",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "ff7c2e2b75f3d826e3e468984ac380f608f4db09",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "847550ef_167fe5e8",
         "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
         "patchSetId": 5

@@ -116,6 +116,8 @@ class SendSideCongestionController
   void EnableCongestionWindowPushback(int64_t accepted_queue_ms,
                                       uint32_t min_pushback_target_bitrate_bps);
 
+  void EnableAlrLimitedBackoff(bool enable);
+
  private:
   void MaybeTriggerOnNetworkChanged();
 
@@ -160,6 +162,7 @@ class SendSideCongestionController
   bool was_in_alr_;
   const bool send_side_bwe_with_overhead_;
   size_t transport_overhead_bytes_per_packet_ RTC_GUARDED_BY(bwe_lock_);
+  bool alr_limited_backoff_ RTC_GUARDED_BY(bwe_lock_);
 
   rtc::RaceChecker worker_race_;
 

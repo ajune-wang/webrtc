@@ -138,6 +138,8 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           field_trial::IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
       fall_back_to_probe_rate_(
           field_trial::IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
+      alr_limited_backoff_enabled_(
+          field_trial::IsEnabled("WebRTC-Bwe-AlrLimitedBackoff")),
       probe_controller_(new ProbeController()),
       congestion_window_pushback_controller_(
           MaybeInitalizeCongestionWindowPushbackController()),
@@ -500,9 +502,21 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   bandwidth_estimation_->SetAcknowledgedRate(acknowledged_bitrate,
                                              report.feedback_time);
   bandwidth_estimation_->IncomingPacketFeedbackVector(report);
+
+  // If in ALR (and in ALR limited backoff experiment), back off relative to
+  // the current estimate instead of the current acked rate and immediately
+  // request a new probe if backoff is triggered.
+  absl::optional<DataRate> backoff_bitrate = acknowledged_bitrate;
+  const bool alr_backoff =
+      alr_limited_backoff_enabled_ && alr_start_time.has_value();
+  if (alr_backoff && backoff_bitrate.value_or(DataRate::Zero()).bps_or(0) <
+                         last_estimated_bitrate_bps_) {
+    backoff_bitrate = DataRate::bps(last_estimated_bitrate_bps_);
+  }
+
   DelayBasedBwe::Result result;
   result = delay_based_bwe_->IncomingPacketFeedbackVector(
-      received_feedback_vector, acknowledged_bitrate, probe_bitrate,
+      received_feedback_vector, backoff_bitrate, probe_bitrate,
       report.feedback_time);
 
   NetworkControlUpdate update;
@@ -518,8 +532,18 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged(&update, report.feedback_time);
   }
+
   if (result.recovered_from_overuse) {
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
+    auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
+    update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
+                                        probes.begin(), probes.end());
+  }
+
+  // If recovered from overuse, or if we just backed off during ALR, request a
+  // new probe.
+  if (alr_backoff && result.updated &&
+      result.target_bitrate < backoff_bitrate) {
     auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
     update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                         probes.begin(), probes.end());

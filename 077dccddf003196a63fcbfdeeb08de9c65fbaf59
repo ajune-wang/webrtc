@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f131cb06_205489d5",
+        "filename": "test/audio_decoder_proxy_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-12-11T14:03:00Z",
+      "side": 1,
+      "message": "Come to think of it, can\u0027t this just call DecodeInternal directly? I mean, you\u0027re both AudioDecoders, right? So you should have visibility.",
+      "revId": "077dccddf003196a63fcbfdeeb08de9c65fbaf59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

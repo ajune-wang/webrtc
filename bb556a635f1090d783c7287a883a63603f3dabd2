@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b69fe843_04f51f58",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T13:17:06Z",
+      "side": 1,
+      "message": "That would certainly simplify the code.\nLet\u0027s see how well an x2 factor works.",
+      "parentUuid": "11446cdb_d8c53bd9",
+      "range": {
+        "startLine": 233,
+        "startChar": 37,
+        "endLine": 234,
+        "endChar": 18
+      },
+      "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bfab562_91483cda",
         "filename": "call/bitrate_allocator.cc",
         "patchSetId": 4
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "95a451c7_e7277f6c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T13:17:06Z",
+      "side": 1,
+      "message": "Obsolete code.",
+      "parentUuid": "67f9a3d8_2322ed0d",
+      "range": {
+        "startLine": 236,
+        "startChar": 19,
+        "endLine": 236,
+        "endChar": 22
+      },
+      "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39a9e470_8dd96542",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T13:17:06Z",
+      "side": 1,
+      "message": "Obsolete code.",
+      "parentUuid": "5bfab562_91483cda",
+      "range": {
+        "startLine": 236,
+        "startChar": 29,
+        "endLine": 236,
+        "endChar": 34
+      },
+      "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cbc42e4_71a8e803",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3d7021c1_6fa79d96",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T13:17:06Z",
+      "side": 1,
+      "message": "But we could also be in ALR, in which case we ignore the increase.",
+      "parentUuid": "4cbc42e4_71a8e803",
+      "range": {
+        "startLine": 151,
+        "startChar": 6,
+        "endLine": 151,
+        "endChar": 66
+      },
+      "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b35d0ef3_330f89a0",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db973458_e37ccd8c",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-11T13:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b35d0ef3_330f89a0",
+      "range": {
+        "startLine": 159,
+        "startChar": 17,
+        "endLine": 159,
+        "endChar": 45
+      },
+      "revId": "bb556a635f1090d783c7287a883a63603f3dabd2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

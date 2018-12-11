@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ffa3924_3af0f68a",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "Can drop the RidDirection prefix since enum class already namespaces them.",
+      "range": {
+        "startLine": 20,
+        "startChar": 27,
+        "endLine": 20,
+        "endChar": 39
+      },
+      "revId": "9584a09b8ee262f20b2a3d9b2da2783ef913d4b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa2f9d1c_72ab2667",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "nit (optional): A style I like is to manually destructure the pair as local variables:\n\nconst std::string\u0026 key \u003d pair.first;\nconst std::string\u0026 value \u003d pair.second;\n\nOnce we get C++17 structured bindings this will be more convenient (https://en.cppreference.com/w/cpp/language/structured_binding).\n\nIn this case, I think it\u0027s fine to leave as first and second since the key and value don\u0027t really have a better description. This can be more valuable when the key and value have descriptive names.",
+      "revId": "9584a09b8ee262f20b2a3d9b2da2783ef913d4b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

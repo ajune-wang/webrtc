@@ -284,6 +284,24 @@
     },
     {
       "key": {
+        "uuid": "897c5c27_0c8d79e4",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t realize it was used in SsrcGroup. Since it\u0027s used in two places the top of the file might be best.\n\nI can try digging up the c-style thread, but I don\u0027t believe it\u0027s the case that the anonymous namespace is preferred over static. I think you\u0027re free to do whichever is more readable. In my opinion, if a function is only used once in a file defining it as static right above the use is more readable.\n\nIn this case I think it\u0027s also readable to keep the ToString helpers next to each other. I would vote to move back RemoveFirst though.",
+      "parentUuid": "a8a86862_c733121d",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0f3b628_843dac60",
         "filename": "media/base/streamparams.cc",
         "patchSetId": 1
@@ -858,6 +876,24 @@
     },
     {
       "key": {
+        "uuid": "84245dcc_12bf0f68",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "It\u0027s possible to define composite matchers, e.g.:\n\nMatcher\u003cRidDescription\u003e RidDescriptionEq(const RidDescription\u0026 expected) {            \n  return AllOf(                                                                       \n      Field(\"rid\", \u0026RidDescription::rid, expected.rid),                               \n      Field(\"direction\", \u0026RidDescription::direction, expected.direction),             \n      Field(\"payload_types\", \u0026RidDescription::payload_types,                          \n            ElementsAreArray(expected.payload_types)),                                \n      Field(\"restrictions\", \u0026RidDescription::restrictions,                            \n            ContainerEq(expected.restrictions)));                                     \n}\n\nA benefit is that the error messages are better since they can pinpoint exactly which field is incorrect, even if there is e.g. a list of RidDescriptions. I won\u0027t insist upon it here but I think it would improve the test failure messages if we used gmock matchers rather than functions that do EXPECT_*.",
+      "parentUuid": "6f395b01_9c308698",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6725a8a5_d3da379f",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -934,6 +970,24 @@
       "side": 1,
       "message": "Sure. to me it\u0027s less readable, because at the top of the file there is \u0027shared\u0027 code. and below that there are test cases. now that it moved, there is some shared code in the middle of the file.",
       "parentUuid": "f7c77136_ab21b02b",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7a9a1d_d5206d9c",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "Ack. I could go either way here.",
+      "parentUuid": "b9104b49_641b70cd",
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -1133,6 +1187,24 @@
       "side": 1,
       "message": "seems less natural to me because we are exposing the fact that it is only relevant for some scenarios. you could argue that has_receive_stream() exposes that as well, but i would say \"not to the same degree\", as in, it allows a user to validate that the receive stream has some value that can be used. my preferred implementation would not use an optional to store this value. instead the value will always be there, and it might be \u0027empty\u0027.\nbut i may be wrong.",
       "parentUuid": "bfa6096f_c31f8378",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a78ca4f9_05f2670c",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T21:31:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8934838_517005d4",
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

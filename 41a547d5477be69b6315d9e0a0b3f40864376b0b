@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d5f4ce2_c774fa56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-11T13:00:30Z",
+      "side": 1,
+      "message": "The relation between the CL description, and the code changes, is not immediately apparent. Please consider revising the description.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "41a547d5477be69b6315d9e0a0b3f40864376b0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bc703f7_71f6cae5",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2018-12-11T13:00:30Z",
+      "side": 1,
+      "message": "Please consider rewording. The word \"cache\" is not used elsewhere in this file. Do you perhaps mean something along the lines of \"parse ahead of time\"?",
+      "range": {
+        "startLine": 945,
+        "startChar": 5,
+        "endLine": 945,
+        "endChar": 10
+      },
+      "revId": "41a547d5477be69b6315d9e0a0b3f40864376b0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

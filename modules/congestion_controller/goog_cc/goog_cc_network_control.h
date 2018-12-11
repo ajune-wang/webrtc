@@ -110,6 +110,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
   absl::optional<DataSize> current_data_window_;
 
+  const bool alr_limited_backoff_enabled_;
+
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(GoogCcNetworkController);
 };
 

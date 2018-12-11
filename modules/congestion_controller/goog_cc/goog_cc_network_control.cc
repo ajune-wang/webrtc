@@ -125,6 +125,10 @@ int64_t GetBpsOrDefault(const absl::optional<DataRate>& rate,
   }
 }
 
+bool AlrLimitedBackoffExperimentEnabled() {
+  return field_trial::IsEnabled("WebRTC-AlrLimitedBackoff");
+}
+
 }  // namespace
 
 GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
@@ -156,7 +160,8 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           DataRate::Zero())),
       max_total_allocated_bitrate_(DataRate::Zero()),
       in_cwnd_experiment_(CwndExperimentEnabled()),
-      accepted_queue_ms_(kDefaultAcceptedQueueMs) {
+      accepted_queue_ms_(kDefaultAcceptedQueueMs),
+      alr_limited_backoff_enabled_(AlrLimitedBackoffExperimentEnabled()) {
   RTC_DCHECK(config.constraints.at_time.IsFinite());
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
@@ -497,9 +502,21 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   absl::optional<DataRate> probe_bitrate =
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate();
 
+  // If in ALR (and in ALR limited backoff experiment), back off relative to
+  // the current estimate instead of the current acked rate and immediately
+  // request a new probe if backoff is triggered.
+  absl::optional<DataRate> backoff_bitrate;
+  const bool alr_backoff =
+      alr_limited_backoff_enabled_ && alr_start_time.has_value();
+  if (alr_backoff) {
+    backoff_bitrate = DataRate::bps(last_estimated_bitrate_bps_);
+  } else {
+    backoff_bitrate = acknowledged_bitrate;
+  }
+
   DelayBasedBwe::Result result;
   result = delay_based_bwe_->IncomingPacketFeedbackVector(
-      received_feedback_vector, acknowledged_bitrate, probe_bitrate,
+      received_feedback_vector, backoff_bitrate, probe_bitrate,
       report.feedback_time);
 
   NetworkControlUpdate update;
@@ -515,8 +532,12 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged(&update, report.feedback_time);
   }
-  if (result.recovered_from_overuse) {
-    probe_controller_->SetAlrStartTimeMs(alr_start_time);
+  if (result.recovered_from_overuse ||
+      (alr_backoff && result.updated &&
+       result.target_bitrate < backoff_bitrate)) {
+    if (result.recovered_from_overuse) {
+      probe_controller_->SetAlrStartTimeMs(alr_start_time);
+    }
     auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
     update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                         probes.begin(), probes.end());

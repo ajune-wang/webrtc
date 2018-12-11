@@ -11,6 +11,7 @@
 #include "media/base/streamparams.h"
 
 #include <stdint.h>
+#include <algorithm>
 #include <list>
 
 #include "api/array_view.h"
@@ -22,6 +23,42 @@ namespace {
 // adding.
 void AddStream(std::vector<StreamParams>* streams, const StreamParams& stream) {
   streams->push_back(stream);
+}
+
+std::string SsrcsToString(const std::vector<uint32_t>& ssrcs) {
+  char buf[1024];
+  rtc::SimpleStringBuilder sb(buf);
+  sb << "ssrcs:[";
+  for (std::vector<uint32_t>::const_iterator it = ssrcs.begin();
+       it != ssrcs.end(); ++it) {
+    if (it != ssrcs.begin()) {
+      sb << ",";
+    }
+    sb << *it;
+  }
+  sb << "]";
+  return sb.str();
+}
+
+std::string RidsToString(const std::vector<RidDescription>& rids) {
+  char buf[1024];
+  rtc::SimpleStringBuilder sb(buf);
+  sb << "rids:[";
+  const char* delimiter = "";
+  for (const RidDescription& rid : rids) {
+    sb << delimiter << rid.rid;
+    delimiter = ",";
+  }
+  sb << "]";
+  return sb.str();
+}
+
+void RemoveFirst(std::list<uint32_t>* ssrcs, uint32_t value) {
+  std::list<uint32_t>::iterator it =
+      std::find(ssrcs->begin(), ssrcs->end(), value);
+  if (it != ssrcs->end()) {
+    ssrcs->erase(it);
+  }
 }
 }  // namespace
 
@@ -87,21 +124,6 @@ bool MediaStreams::RemoveDataStream(const StreamSelector& selector) {
   return RemoveStream(&data_, selector);
 }
 
-static std::string SsrcsToString(const std::vector<uint32_t>& ssrcs) {
-  char buf[1024];
-  rtc::SimpleStringBuilder sb(buf);
-  sb << "ssrcs:[";
-  for (std::vector<uint32_t>::const_iterator it = ssrcs.begin();
-       it != ssrcs.end(); ++it) {
-    if (it != ssrcs.begin()) {
-      sb << ",";
-    }
-    sb << *it;
-  }
-  sb << "]";
-  return sb.str();
-}
-
 SsrcGroup::SsrcGroup(const std::string& usage,
                      const std::vector<uint32_t>& ssrcs)
     : semantics(usage), ssrcs(ssrcs) {}
@@ -132,6 +154,15 @@ StreamParams::StreamParams(StreamParams&&) = default;
 StreamParams::~StreamParams() = default;
 StreamParams& StreamParams::operator=(const StreamParams&) = default;
 StreamParams& StreamParams::operator=(StreamParams&&) = default;
+
+bool StreamParams::operator==(const StreamParams& other) const {
+  return (groupid == other.groupid && id == other.id && ssrcs == other.ssrcs &&
+          ssrc_groups == other.ssrc_groups && cname == other.cname &&
+          stream_ids_ == other.stream_ids_ &&
+          // RIDs are not required to be in the same order for equality.
+          rids_.size() == other.rids_.size() &&
+          std::is_permutation(rids_.begin(), rids_.end(), other.rids_.begin()));
+}
 
 std::string StreamParams::ToString() const {
   char buf[2 * 1024];
@@ -165,6 +196,9 @@ std::string StreamParams::ToString() const {
     sb << *it;
   }
   sb << ";";
+  if (!rids_.empty()) {
+    sb << RidsToString(rids_) << ";";
+  }
   sb << "}";
   return sb.str();
 }
@@ -267,15 +301,12 @@ bool IsOneSsrcStream(const StreamParams& sp) {
   return false;
 }
 
-static void RemoveFirst(std::list<uint32_t>* ssrcs, uint32_t value) {
-  std::list<uint32_t>::iterator it =
-      std::find(ssrcs->begin(), ssrcs->end(), value);
-  if (it != ssrcs->end()) {
-    ssrcs->erase(it);
-  }
-}
-
 bool IsSimulcastStream(const StreamParams& sp) {
+  // Check for spec-compliant Simulcast using rids.
+  if (sp.rids().size() > 1) {
+    return true;
+  }
+
   const SsrcGroup* const sg = sp.get_ssrc_group(kSimSsrcGroupSemantics);
   if (sg == NULL || sg->ssrcs.size() < 2) {
     return false;

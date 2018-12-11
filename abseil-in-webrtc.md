@@ -20,6 +20,7 @@ adds the first use.
   `absl::is_trivially_copy_assignable`, and
   `absl::is_trivially_destructible` from `absl/meta/type_traits.h`.
 * `absl::variant` and related stuff from `absl/types/variant.h`.
+* `absl::StrSplit` from `absl/strings/str_split.h`.
 
 ## **Disallowed**
 

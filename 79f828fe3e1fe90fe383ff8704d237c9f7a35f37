@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26efa6fe_f54263e2",
+        "filename": "test/rtp_dump_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:28:48Z",
+      "side": 1,
+      "message": "We don\u0027t usually use type prefixes or suffixes. packet_length should be fine, the fact that it\u0027s optional is declared in the type.",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e68b136_15ac5138",
+        "filename": "test/rtp_dump_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:28:48Z",
+      "side": 1,
+      "message": "Seems like this is a complex way to say:\nif((read_offset_ +\u003d 4) \u003e\u003d rtp_dump_buffer_.size())\n  RTC_LOG(LS_ERROR) \u003c\u003c\"header buffer is too short to contain start_sec\".",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba417714_29421212",
+        "filename": "test/rtp_dump_parser.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:28:48Z",
+      "side": 1,
+      "message": "Is there any particular reason to not use ByteBufferReader here?",
+      "range": {
+        "startLine": 44,
+        "startChar": 27,
+        "endLine": 44,
+        "endChar": 37
+      },
+      "revId": "79f828fe3e1fe90fe383ff8704d237c9f7a35f37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

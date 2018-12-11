@@ -16,7 +16,6 @@
 @synthesize width = _width;
 @synthesize height = _height;
 @synthesize startBitrate = _startBitrate;
-@synthesize maxBitrate = _maxBitrate;
 @synthesize minBitrate = _minBitrate;
 @synthesize targetBitrate = _targetBitrate;
 @synthesize maxFramerate = _maxFramerate;

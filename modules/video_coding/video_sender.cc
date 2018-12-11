@@ -126,11 +126,10 @@ int32_t VideoSender::RegisterSendCodec(const VideoCodec* sendCodec,
     encoder_has_internal_source_ = _encoder->InternalSource();
   }
 
-  RTC_LOG(LS_VERBOSE) << " max bitrate " << sendCodec->maxBitrate
-                      << " start bitrate " << sendCodec->startBitrate
+  RTC_LOG(LS_VERBOSE) << " start bitrate " << sendCodec->startBitrate
                       << " max frame rate " << sendCodec->maxFramerate
                       << " max payload size " << maxPayloadSize;
-  _mediaOpt.SetEncodingData(sendCodec->maxBitrate * 1000,
+  _mediaOpt.SetEncodingData(/* max_bit_rate= */ 0,  // TODO(nisse): Delete.
                             sendCodec->startBitrate * 1000,
                             sendCodec->maxFramerate);
   return VCM_OK;

@@ -401,7 +401,6 @@ class TestSimulcastEncoderAdapterFake : public ::testing::Test,
     EXPECT_EQ(ref.width, target.width);
     EXPECT_EQ(ref.height, target.height);
     EXPECT_EQ(ref.startBitrate, target.startBitrate);
-    EXPECT_EQ(ref.maxBitrate, target.maxBitrate);
     EXPECT_EQ(ref.minBitrate, target.minBitrate);
     EXPECT_EQ(ref.maxFramerate, target.maxFramerate);
     EXPECT_EQ(ref.VP8().complexity, target.VP8().complexity);
@@ -425,7 +424,6 @@ class TestSimulcastEncoderAdapterFake : public ::testing::Test,
         kTestTemporalLayerProfile[stream_index];
     ref_codec->width = codec_.simulcastStream[stream_index].width;
     ref_codec->height = codec_.simulcastStream[stream_index].height;
-    ref_codec->maxBitrate = codec_.simulcastStream[stream_index].maxBitrate;
     ref_codec->minBitrate = codec_.simulcastStream[stream_index].minBitrate;
     ref_codec->qpMax = codec_.simulcastStream[stream_index].qpMax;
   }
@@ -677,7 +675,6 @@ TEST_F(TestSimulcastEncoderAdapterFake, ReinitDoesNotReorderEncoderSettings) {
     EXPECT_EQ(codec_before.width, codec_after.width);
     EXPECT_EQ(codec_before.height, codec_after.height);
     EXPECT_EQ(codec_before.startBitrate, codec_after.startBitrate);
-    EXPECT_EQ(codec_before.maxBitrate, codec_after.maxBitrate);
     EXPECT_EQ(codec_before.minBitrate, codec_after.minBitrate);
     EXPECT_EQ(codec_before.targetBitrate, codec_after.targetBitrate);
     EXPECT_EQ(codec_before.maxFramerate, codec_after.maxFramerate);

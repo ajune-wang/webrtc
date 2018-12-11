@@ -350,6 +350,24 @@
     },
     {
       "key": {
+        "uuid": "b863aad8_a8af638c",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T22:10:24Z",
+      "side": 1,
+      "message": "you are right, static vs. anonymous was not from google guidelines\nhttps://google.github.io/styleguide/cppguide.html#Unnamed_Namespaces_and_Static_Variables\nit was from a stack-overflow question.\nhttps://stackoverflow.com/questions/154469/unnamed-anonymous-namespaces-vs-static-functions\n\neither way, there is nothing preventing me from declaring the anonymous namespace next to the method that calls it either, so i have moved the RemoveFirst method back to where it\u0027s called (and put it in an anonymous ns)",
+      "parentUuid": "897c5c27_0c8d79e4",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0f3b628_843dac60",
         "filename": "media/base/streamparams.cc",
         "patchSetId": 1
@@ -1008,6 +1026,24 @@
       "side": 1,
       "message": "It\u0027s possible to define composite matchers, e.g.:\n\nMatcher\u003cRidDescription\u003e RidDescriptionEq(const RidDescription\u0026 expected) {            \n  return AllOf(                                                                       \n      Field(\"rid\", \u0026RidDescription::rid, expected.rid),                               \n      Field(\"direction\", \u0026RidDescription::direction, expected.direction),             \n      Field(\"payload_types\", \u0026RidDescription::payload_types,                          \n            ElementsAreArray(expected.payload_types)),                                \n      Field(\"restrictions\", \u0026RidDescription::restrictions,                            \n            ContainerEq(expected.restrictions)));                                     \n}\n\nA benefit is that the error messages are better since they can pinpoint exactly which field is incorrect, even if there is e.g. a list of RidDescriptions. I won\u0027t insist upon it here but I think it would improve the test failure messages if we used gmock matchers rather than functions that do EXPECT_*.",
       "parentUuid": "6f395b01_9c308698",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93d09d23_8888cd57",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T22:10:24Z",
+      "side": 1,
+      "message": "I will use Matchers from now on (this is a bit different than what i thought i needed).\nwill keep current as is.",
+      "parentUuid": "84245dcc_12bf0f68",
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

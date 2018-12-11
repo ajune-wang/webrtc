@@ -39,6 +39,9 @@ declare_args() {
   # Setting this to true will make RTC_EXPORT (see rtc_base/system/rtc_export.h)
   # expand to code that will manage symbols visibility.
   rtc_enable_symbol_export = false
+  if (build_with_chromium) {
+    rtc_enable_symbol_export = is_component_build
+  }
 
   # Setting this to true will define WEBRTC_EXCLUDE_FIELD_TRIAL_DEFAULT which
   # will tell the pre-processor to remove the default definition of symbols

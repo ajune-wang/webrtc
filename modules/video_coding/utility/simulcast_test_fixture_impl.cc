@@ -219,7 +219,6 @@ void SimulcastTestFixtureImpl::DefaultSettings(
   settings->plType = 120;
   settings->startBitrate = 300;
   settings->minBitrate = 30;
-  settings->maxBitrate = 0;
   settings->maxFramerate = 30;
   settings->width = kDefaultWidth;
   settings->height = kDefaultHeight;
@@ -577,7 +576,6 @@ void SimulcastTestFixtureImpl::SwitchingToOneStream(int width, int height) {
   } else {
     temporal_layer_profile = kNoTemporalLayerProfile;
   }
-  settings_.maxBitrate = 100;
   settings_.startBitrate = 100;
   settings_.width = width;
   settings_.height = height;

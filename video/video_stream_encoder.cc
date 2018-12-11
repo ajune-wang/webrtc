@@ -551,9 +551,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   // Set min_bitrate_bps, max_bitrate_bps, and max padding bit rate for VP9.
   if (encoder_config_.codec_type == kVideoCodecVP9) {
-    // Lower max bitrate to the level codec actually can produce.
-    streams[0].max_bitrate_bps = std::min<int>(
-        streams[0].max_bitrate_bps, SvcRateAllocator::GetMaxBitrateBps(codec));
     streams[0].min_bitrate_bps = codec.spatialLayers[0].minBitrate * 1000;
     // target_bitrate_bps specifies the maximum padding bitrate.
     streams[0].target_bitrate_bps =
@@ -562,7 +559,6 @@ void VideoStreamEncoder::ReconfigureEncoder() {
 
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);
-  codec.startBitrate = std::min(codec.startBitrate, codec.maxBitrate);
   codec.expect_encode_from_texture = last_frame_info_->is_texture;
   max_framerate_ = codec.maxFramerate;
 

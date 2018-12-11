@@ -88,10 +88,6 @@ int VerifyCodec(const webrtc::VideoCodec* inst) {
   if (inst->maxFramerate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
-  // allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
   if (inst->width <= 1 || inst->height <= 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
@@ -442,10 +438,6 @@ int SimulcastEncoderAdapter::SetRateAllocation(
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
-  if (codec_.maxBitrate > 0 && bitrate.get_sum_kbps() > codec_.maxBitrate) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
-
   if (bitrate.get_sum_bps() > 0) {
     // Make sure the bitrate fits the configured min bitrates. 0 is a special
     // value that means paused, though, so leave it alone.
@@ -514,7 +506,6 @@ void SimulcastEncoderAdapter::PopulateStreamCodec(
   stream_codec->numberOfSimulcastStreams = 0;
   stream_codec->width = inst.simulcastStream[stream_index].width;
   stream_codec->height = inst.simulcastStream[stream_index].height;
-  stream_codec->maxBitrate = inst.simulcastStream[stream_index].maxBitrate;
   stream_codec->minBitrate = inst.simulcastStream[stream_index].minBitrate;
   stream_codec->qpMax = inst.simulcastStream[stream_index].qpMax;
   // Settings that are based on stream/resolution.

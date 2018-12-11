@@ -106,10 +106,7 @@ if (is_android) {
 
   rtc_static_library("libjingle_peerconnection_jni") {
     visibility = [ "*" ]
-    allow_poison = [
-      "audio_codecs",  # TODO(bugs.webrtc.org/8396): Remove.
-      "software_video_codecs",  # TODO(bugs.webrtc.org/7925): Remove.
-    ]
+    allow_poison = [ "audio_codecs" ]  # TODO(bugs.webrtc.org/8396): Remove.
     public_deps = [  # no-presubmit-check TODO(webrtc:8603)
       ":audio_jni",
       ":base_jni",

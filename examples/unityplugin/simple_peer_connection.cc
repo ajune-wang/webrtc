@@ -21,8 +21,6 @@
 #include "media/engine/internalencoderfactory.h"
 #include "media/engine/multiplexcodecfactory.h"
 #include "media/engine/webrtcvideocapturerfactory.h"
-#include "media/engine/webrtcvideodecoderfactory.h"
-#include "media/engine/webrtcvideoencoderfactory.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "modules/video_capture/video_capture_factory.h"

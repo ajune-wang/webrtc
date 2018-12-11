@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1f27da2_e2b3e8ce",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-11T13:32:23Z",
+      "side": 1,
+      "message": "I think this should be refactored (in some other cl) to 1. Use VideoFrame::Builder, and 2. change the FrameGenerator to return VideoFrameBuffer, not VideoFrame (since it doesn\u0027t seem to take responsibility for filling out any useful frame metadata anyway). Then the setter method for color space wouldn\u0027t be needed.",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 5
+      },
+      "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51623d5d_1007567f",
+        "filename": "video/end_to_end_tests/codec_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-11T13:32:23Z",
+      "side": 1,
+      "message": "Does it work to write \u0026CreateTestHdrMetadata() here, or would that temporary object get too short life time?",
+      "range": {
+        "startLine": 54,
+        "startChar": 26,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

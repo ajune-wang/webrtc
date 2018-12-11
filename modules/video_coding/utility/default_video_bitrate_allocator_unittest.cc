@@ -30,7 +30,6 @@ class DefaultVideoBitrateAllocatorTest : public ::testing::Test {
   void SetUp() override {
     codec_.codecType = kVideoCodecVP8;
     codec_.minBitrate = kMinBitrateBps / 1000;
-    codec_.maxBitrate = kMaxBitrateBps / 1000;
     codec_.maxFramerate = kMaxFramerate;
     allocator_.reset(new DefaultVideoBitrateAllocator(codec_));
   }

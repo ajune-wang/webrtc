@@ -229,8 +229,6 @@ int LibvpxVp8Encoder::SetRateAllocation(const VideoBitrateAllocation& bitrate,
   }
 
   // At this point, bitrate allocation should already match codec settings.
-  if (codec_.maxBitrate > 0)
-    RTC_DCHECK_LE(bitrate.get_sum_kbps(), codec_.maxBitrate);
   RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.minBitrate);
   if (codec_.numberOfSimulcastStreams > 0)
     RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.simulcastStream[0].minBitrate);
@@ -310,10 +308,6 @@ int LibvpxVp8Encoder::InitEncode(const VideoCodec* inst,
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (inst->maxFramerate < 1) {
-    return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
-  }
-  // allow zero to represent an unspecified maxBitRate
-  if (inst->maxBitrate > 0 && inst->startBitrate > inst->maxBitrate) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
   if (inst->width <= 1 || inst->height <= 1) {

@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64387a11_aa2918bc",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/h264_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Add packetization-mode 0 as well?",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d355678a_f9127540",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/h264_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Ulpfec will not be used for H.264, even though it\u0027s configured. So might as well set it to -1 here.",
+      "range": {
+        "startLine": 59,
+        "startChar": 9,
+        "endLine": 59,
+        "endChar": 36
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804fd163_6a5f4f0d",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp8_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Pick non-zero SSRC for rtx_ssrc, otherwise there is a risk that it\u0027s disabled.\n\n(0 is a valid SSRC in the spec, but not in our implementation.)",
+      "range": {
+        "startLine": 62,
+        "startChar": 22,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89a78e0e_0576e00c",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp8_fec_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Would be nice to add a config for flexfec-03 as well.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc88f195_c3113161",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp8_fec_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Should we remove VP9 from the VP8 config?",
+      "range": {
+        "startLine": 11,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb1ca9c9_1bff0432",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp8_fec_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "Should this not be set, since this is a \"fec\" configuration?",
+      "range": {
+        "startLine": 72,
+        "startChar": 33,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19b18505_59131df2",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp9_fec_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2018-12-11T10:28:53Z",
+      "side": 1,
+      "message": "I think this is a cc, not a json file?\n\nIs the idea that the json files above should become their own cc\u0027s later on?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "fa96c3ac437e55f2dacfbda0f92f9ef02b566e20",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -410,7 +410,6 @@ class TestVideoSenderWithVp8 : public TestVideoSender {
     codec_ = MakeVp8VideoCodec(width, height, 3);
     codec_.minBitrate = 10;
     codec_.startBitrate = codec_bitrate_kbps_;
-    codec_.maxBitrate = codec_bitrate_kbps_;
 
     rate_allocator_.reset(new SimulcastRateAllocator(codec_));
 

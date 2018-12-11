@@ -2475,13 +2475,6 @@ TEST_P(VideoSendStreamTest, EncoderSetupPropagatesCommonEncoderConfigValues) {
     int32_t InitEncode(const VideoCodec* config,
                        int32_t number_of_cores,
                        size_t max_payload_size) override {
-      if (num_initializations_ == 0) {
-        // Verify default values.
-        EXPECT_EQ(kFirstMaxBitrateBps / 1000, config->maxBitrate);
-      } else {
-        // Verify that changed values are propagated.
-        EXPECT_EQ(kSecondMaxBitrateBps / 1000, config->maxBitrate);
-      }
       ++num_initializations_;
       init_encode_event_.Set();
       return FakeEncoder::InitEncode(config, number_of_cores, max_payload_size);
@@ -2847,25 +2840,19 @@ TEST_P(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
                        int32_t numberOfCores,
                        size_t maxPayloadSize) override {
       EXPECT_GE(codecSettings->startBitrate, codecSettings->minBitrate);
-      EXPECT_LE(codecSettings->startBitrate, codecSettings->maxBitrate);
       if (num_initializations_ == 0) {
         EXPECT_EQ(static_cast<unsigned int>(kMinBitrateKbps),
                   codecSettings->minBitrate);
         EXPECT_EQ(static_cast<unsigned int>(kStartBitrateKbps),
                   codecSettings->startBitrate);
-        EXPECT_EQ(static_cast<unsigned int>(kMaxBitrateKbps),
-                  codecSettings->maxBitrate);
         observation_complete_.Set();
       } else if (num_initializations_ == 1) {
-        EXPECT_EQ(static_cast<unsigned int>(kLowerMaxBitrateKbps),
-                  codecSettings->maxBitrate);
         // The start bitrate should be kept (-1) and capped to the max bitrate.
         // Since this is not an end-to-end call no receiver should have been
         // returning a REMB that could lower this estimate.
-        EXPECT_EQ(codecSettings->startBitrate, codecSettings->maxBitrate);
+        EXPECT_EQ(codecSettings->startBitrate,
+                  static_cast<unsigned int>(kLowerMaxBitrateKbps));
       } else if (num_initializations_ == 2) {
-        EXPECT_EQ(static_cast<unsigned int>(kIncreasedMaxBitrateKbps),
-                  codecSettings->maxBitrate);
         // The start bitrate will be whatever the rate BitRateController
         // has currently configured but in the span of the set max and min
         // bitrate.

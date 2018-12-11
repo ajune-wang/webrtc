@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5817b82_b98fe8f0",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4788,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "do not",
+      "range": {
+        "startLine": 4788,
+        "startChar": 41,
+        "endLine": 4788,
+        "endChar": 44
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ac81711_24cd83cd",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4849,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "EXPECT_EQ for these",
+      "range": {
+        "startLine": 4849,
+        "startChar": 2,
+        "endLine": 4849,
+        "endChar": 11
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee3f93b_e1c43b05",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4861,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "configured",
+      "range": {
+        "startLine": 4861,
+        "startChar": 45,
+        "endLine": 4861,
+        "endChar": 54
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afb3a34a_84660ee8",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4866,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "FAIL()",
+      "range": {
+        "startLine": 4866,
+        "startChar": 6,
+        "endLine": 4866,
+        "endChar": 20
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19349d11_b59de686",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "How about adding a new method |sanitized_local_candidate()| and for remote_candidate? That\u0027ll remove this state where stats_ will briefly have non-sanitized candidates.",
+      "range": {
+        "startLine": 1825,
+        "startChar": 27,
+        "endLine": 1825,
+        "endChar": 42
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a82c6a9a_af986f40",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "Why doesn\u0027t ToSanitizedCopy calculate these?",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5b7e1c_fac36c2a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3699,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T22:16:53Z",
+      "side": 1,
+      "message": "These should be set before the MockAsyncResolverFactory is std::move\u0027d",
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -13,34 +13,24 @@
 #include <set>
 #include <string>
 
+#include "common_types.h"  // NOLINT(build/include)
+#include "test/rtp_packet.h"
+
 namespace webrtc {
 namespace test {
-
-struct RtpPacket {
-  // Accommodate for 50 ms packets of 32 kHz PCM16 samples (3200 bytes) plus
-  // some overhead.
-  static const size_t kMaxPacketBufferSize = 3500;
-  uint8_t data[kMaxPacketBufferSize];
-  size_t length;
-  // The length the packet had on wire. Will be different from |length| when
-  // reading a header-only RTP dump.
-  size_t original_length;
-
-  uint32_t time_ms;
-};
 
 class RtpFileReader {
  public:
   enum FileFormat { kPcap, kRtpDump, kLengthPacketInterleaved };
-
-  virtual ~RtpFileReader() {}
+  virtual ~RtpFileReader() = default;
   static RtpFileReader* Create(FileFormat format, const std::string& filename);
   static RtpFileReader* Create(FileFormat format,
                                const std::string& filename,
                                const std::set<uint32_t>& ssrc_filter);
-
   virtual bool NextPacket(RtpPacket* packet) = 0;
 };
+
 }  // namespace test
 }  // namespace webrtc
+
 #endif  // TEST_RTP_FILE_READER_H_

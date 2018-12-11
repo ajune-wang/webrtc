@@ -34,6 +34,24 @@
       "revId": "077dccddf003196a63fcbfdeeb08de9c65fbaf59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbe91904_7c03831e",
+        "filename": "test/audio_decoder_proxy_factory.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-12-11T14:50:26Z",
+      "side": 1,
+      "message": "cppreference says:\nA protected member of a class Base can only be accessed\n\n1) by the members and friends of Base\n2) by the members and friends (until C++17) of any class derived from Base, but only when operating on an object of a type that is derived from Base (including this)\n\nSo, today I learned something new! :) Seems we can\u0027t access protected things from the base class directly, only through a type that\u0027s derived from the base class. I guess that makes sense.",
+      "parentUuid": "623cb2a7_37f5bd62",
+      "revId": "077dccddf003196a63fcbfdeeb08de9c65fbaf59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

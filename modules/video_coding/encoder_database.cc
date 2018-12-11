@@ -57,30 +57,11 @@ bool VCMEncoderDataBase::SetSendCodec(const VideoCodec* send_codec,
     reset_required = true;
   }
 
-  VideoCodec new_send_codec;
-  memcpy(&new_send_codec, send_codec, sizeof(new_send_codec));
-
-  if (new_send_codec.maxBitrate == 0) {
-    // max is one bit per pixel
-    new_send_codec.maxBitrate = (static_cast<int>(send_codec->height) *
-                                 static_cast<int>(send_codec->width) *
-                                 static_cast<int>(send_codec->maxFramerate)) /
-                                1000;
-    if (send_codec->startBitrate > new_send_codec.maxBitrate) {
-      // But if the user tries to set a higher start bit rate we will
-      // increase the max accordingly.
-      new_send_codec.maxBitrate = send_codec->startBitrate;
-    }
-  }
-
-  if (new_send_codec.startBitrate > new_send_codec.maxBitrate)
-    new_send_codec.startBitrate = new_send_codec.maxBitrate;
-
   if (!reset_required) {
-    reset_required = RequiresEncoderReset(new_send_codec);
+    reset_required = RequiresEncoderReset(*send_codec);
   }
 
-  memcpy(&send_codec_, &new_send_codec, sizeof(send_codec_));
+  memcpy(&send_codec_, send_codec, sizeof(send_codec_));
 
   if (!reset_required) {
     return true;
@@ -129,7 +110,6 @@ bool VCMEncoderDataBase::RequiresEncoderReset(
   if (new_send_codec.codecType != send_codec_.codecType ||
       new_send_codec.width != send_codec_.width ||
       new_send_codec.height != send_codec_.height ||
-      new_send_codec.maxBitrate != send_codec_.maxBitrate ||
       new_send_codec.minBitrate != send_codec_.minBitrate ||
       new_send_codec.qpMax != send_codec_.qpMax ||
       new_send_codec.numberOfSimulcastStreams !=

@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "1c799ff1_d2c02228",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "I highlighted the wrong thing here. What I meant was adding a 3. (a Restriction Identifier serves 3 purposes), with the third being a direction. I think it\u0027s fine what you added too.",
+      "parentUuid": "259cd442_6ab5ba69",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b402c0fa_9f9b98cf",
         "filename": "media/base/riddescription.h",
         "patchSetId": 1
@@ -119,6 +143,30 @@
       "side": 1,
       "message": "unfortunately we do, because of RTCErrorOr which requires the type to be default constructible.\nit is also useful when using in map, although not always necessary (only for map[] operator).\ni did remove all current usages and replaced them with the other ctor.",
       "parentUuid": "b402c0fa_9f9b98cf",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6a0e966_895121b4",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70d862bb_fa920b50",
       "range": {
         "startLine": 42,
         "startChar": 2,
@@ -431,6 +479,30 @@
     },
     {
       "key": {
+        "uuid": "6b96b692_8d9c90c2",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "As discussed offline, looks good!",
+      "parentUuid": "1373510c_4acfaee3",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 73
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dacd382_0de3f3c1",
         "filename": "media/base/streamparams.h",
         "patchSetId": 1
@@ -525,6 +597,30 @@
     },
     {
       "key": {
+        "uuid": "0d408644_c0fde024",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "247d72d4_bd2c5148",
+      "range": {
+        "startLine": 191,
+        "startChar": 7,
+        "endLine": 191,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "904d1ced_130529a1",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 1
@@ -560,6 +656,30 @@
       "side": 1,
       "message": "this class does not know about a\u003drid line. the method that is called by the client is DeserializeRidDescription, so the error message seems appropriate.\nin webrtcsdp class, the a\u003drid line should be added to the message.\nError messages sometimes leak implementation details, because their goal is to help understand what went wrong.",
       "parentUuid": "904d1ced_130529a1",
+      "range": {
+        "startLine": 142,
+        "startChar": 45,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46dfa0f7_17be0010",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7e1c155_94a3ab1a",
       "range": {
         "startLine": 142,
         "startChar": 45,
@@ -1158,6 +1278,30 @@
     },
     {
       "key": {
+        "uuid": "55477da3_fba3914a",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "af4c226c_ba202c4d",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 14
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfa6096f_c31f8378",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -1246,6 +1390,30 @@
       "side": 1,
       "message": "sure! but i am reluctant to change the interface to go along with it so it will stream remain:\nAddLegacyStream(..)\nstreams()\nmutable_streams()\nbut the field will be send_streams_",
       "parentUuid": "ec041603_a282667a",
+      "range": {
+        "startLine": 241,
+        "startChar": 18,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b9eb96c_acad3864",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "That\u0027s why I didn\u0027t ask for the interface change as well :p",
+      "parentUuid": "342ad224_54e61b22",
       "range": {
         "startLine": 241,
         "startChar": 18,
@@ -1469,6 +1637,30 @@
     },
     {
       "key": {
+        "uuid": "66e898e0_704a6ac2",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3235,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "81b0c15f_c637b439",
+      "range": {
+        "startLine": 3235,
+        "startChar": 4,
+        "endLine": 3235,
+        "endChar": 20
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "713f7b9b_deb40f5a",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 1
@@ -1598,6 +1790,30 @@
       "side": 1,
       "message": "Nope, i have tests that cover that scenario in sdpserializer_unittest.\nI added the minimum required to trigger the validation for the interaction between rids and simulcast, which is the code that is being exercised in these tests.",
       "parentUuid": "65614e1f_5ca7636b",
+      "range": {
+        "startLine": 4289,
+        "startChar": 22,
+        "endLine": 4289,
+        "endChar": 36
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a815f46_221fafce",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4289,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3daa38c_1a2c5d53",
       "range": {
         "startLine": 4289,
         "startChar": 22,

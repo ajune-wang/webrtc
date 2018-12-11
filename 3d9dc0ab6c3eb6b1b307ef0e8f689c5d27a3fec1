@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0066ffae_f253f140",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-11T21:55:04Z",
+      "side": 1,
+      "message": "payload type?",
+      "range": {
+        "startLine": 168,
+        "startChar": 49,
+        "endLine": 168,
+        "endChar": 55
+      },
+      "revId": "3d9dc0ab6c3eb6b1b307ef0e8f689c5d27a3fec1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

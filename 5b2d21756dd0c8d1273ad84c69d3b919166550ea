@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "81ed9e1a_80a810fb",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Yes. I just read about enum classes, and that is what i thought an enum is... didn\u0027t realize there were two different constructs.\nwill fix.",
+      "parentUuid": "24d6595b_5109fd41",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2306f36b_e3b35276",
         "filename": "media/base/riddescription.h",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "259cd442_6ab5ba69",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "directions are not restrictions, they describe how the restrictions apply. i will add that to the doc:\n\n//      These restrictions are added according to the direction specified.\n//      The direction field identifies the direction of the RTP stream packets\n//      to which the restrictions apply. The direction is independent of the\n//      transceiver direction and can be one of {send, recv}.",
+      "parentUuid": "2306f36b_e3b35276",
+      "range": {
+        "startLine": 32,
+        "startChar": 31,
+        "endLine": 32,
+        "endChar": 62
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "70d862bb_fa920b50",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "unfortunately we do, because of RTCErrorOr which requires the type to be default constructible.\nit is also useful when using in map, although not always necessary (only for map[] operator).\ni did remove all current usages and replaced them with the other ctor.",
+      "parentUuid": "b402c0fa_9f9b98cf",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7d95cfd_d5a0bd47",
         "filename": "media/base/riddescription.h",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7ef4025_01b1a334",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7d95cfd_d5a0bd47",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 64
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -135,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "2f621164_b417157e",
+        "filename": "media/base/riddescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Will rename",
+      "parentUuid": "8ca19d1a_a1a03e32",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b1d9d47_679aabe1",
         "filename": "media/base/streamparams.cc",
         "patchSetId": 1
@@ -152,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "a8a86862_c733121d",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Because SsrcsToString is also used in SsrcGroup::ToString().\nso i can put SsrcsToString() above that method and RidsToString() above the other method, but that won\u0027t make sense.\ni can also declare both methods at the top and arbitrarily move them somewhere. don\u0027t like that one either.\nrecommendation is to stop using static and use anonymous namespace instead. i\u0027ll move both of these (and the 3rd static method) into the anonymous namespace at the top of the class.",
+      "parentUuid": "7b1d9d47_679aabe1",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0f3b628_843dac60",
         "filename": "media/base/streamparams.cc",
         "patchSetId": 1
@@ -166,6 +298,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae17de85_7820b203",
+        "filename": "media/base/streamparams.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "i like it.",
+      "parentUuid": "c0f3b628_843dac60",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -192,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "b1026ba8_68bb2775",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d4e783c_261dba14",
+      "range": {
+        "startLine": 33,
+        "startChar": 38,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "106f8dac_8a65e5f5",
         "filename": "media/base/streamparams.h",
         "patchSetId": 1
@@ -212,6 +386,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1373510c_4acfaee3",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Here are a several statements that should help clarify your (very valid) questions. it is left as an exercise to the reader to figure out which statement clarifies which question.\n1. Alternative layers are not in the public interface. for now we kind-of ignore them since there is no way for the user to specify them, and having the platform generate an exhaustive list of alternatives is somewhat... exhausting :)\n2. in general, negotiation can still leave a list of alternatives. for example, in the \u0027boasting scenario\u0027: \"i can also accept this layer in 7 different formats!\". but eventually only one of the layers will be sent, so when this class is used outside the context of SDP (to indicate parameters to the senders) the alternatives will be removed.\n3. it is possible that we will choose not get rid of alternatives during negotiation in our implementation, but we shouldn\u0027t rely that another implementation will do so as well.\n4. alternatives do not exists at this level, this is quite confusing, because if they don\u0027t exist, then the stream params contains \"redundant\" layers. but they are different, as in they are encoded differently. however in the context of simulcast, we identify these streams as alternatives to each other and will therefore only choose 1.\n\ni will add some wording here about alternatives to try and capture some of these points.",
+      "parentUuid": "106f8dac_8a65e5f5",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 73
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -238,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "dc1618f9_e46b4cd3",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "layer",
+      "parentUuid": "7dacd382_0de3f3c1",
+      "range": {
+        "startLine": 189,
+        "startChar": 12,
+        "endLine": 189,
+        "endChar": 18
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32ca6671_db529369",
         "filename": "media/base/streamparams.h",
         "patchSetId": 1
@@ -258,6 +480,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "247d72d4_bd2c5148",
+        "filename": "media/base/streamparams.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "it can, because rids also replace ssrcs, but the spec also mentions that if there is only one rid, it should be removed.\nso both, \"yes\" and \"no\" are valid answers to your question.\n\nIn practice, as a user of webrtc, i shouldn\u0027t have to know the spec (especially the parts of it that are not final). So users should still be able to specify rids (if they choose to do so).\nThis should also hold for components in our system - any single component should not have to know the entire spec. i can choose to specify a rid in my parameters, and it should propagate through the components until it reaches the component that knows that a single rid should not be negotiated or sent in the SDP. this is where the rid should be ignored.",
+      "parentUuid": "32ca6671_db529369",
+      "range": {
+        "startLine": 191,
+        "startChar": 7,
+        "endLine": 191,
+        "endChar": 17
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -284,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "c7e1c155_94a3ab1a",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "this class does not know about a\u003drid line. the method that is called by the client is DeserializeRidDescription, so the error message seems appropriate.\nin webrtcsdp class, the a\u003drid line should be added to the message.\nError messages sometimes leak implementation details, because their goal is to help understand what went wrong.",
+      "parentUuid": "904d1ced_130529a1",
+      "range": {
+        "startLine": 142,
+        "startChar": 45,
+        "endLine": 142,
+        "endChar": 60
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1401c0f7_3e8fb181",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 1
@@ -307,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "8fcecd66_87c983b3",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1401c0f7_3e8fb181",
+      "range": {
+        "startLine": 166,
+        "startChar": 7,
+        "endLine": 166,
+        "endChar": 53
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54ab093a_c80d2047",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 1
@@ -321,6 +615,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5b3bb3c_4b380fba",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ab093a_c80d2047",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -341,6 +653,24 @@
     },
     {
       "key": {
+        "uuid": "721b5327_fb8991a0",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "I redid this method to make it simpler and use for range loop style.",
+      "parentUuid": "06440549_77973dd8",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55098013_f98a24b7",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 1
@@ -355,6 +685,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d577e94_702ce452",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "I redid this method to make it simpler and use for range loop style.",
+      "parentUuid": "55098013_f98a24b7",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -375,6 +723,24 @@
     },
     {
       "key": {
+        "uuid": "7749269e_b43d60d3",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "I redid this method to make it simpler and use for range loop style.",
+      "parentUuid": "4b312b70_edb29486",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5070c66c_93b99c26",
         "filename": "pc/sdpserializer.cc",
         "patchSetId": 1
@@ -389,6 +755,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f958252_60d303e7",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "I can add an overload (i actually coded it) for tokenize().\nhowever, my use case will require to copy the tokens (or some of them). so i am reverting that change. instead, i will just use absl::StrSplit() directly in this codepath. \nthe long term goal should be to get rid of methods in stringencode.h altogether.",
+      "parentUuid": "5070c66c_93b99c26",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -415,6 +799,30 @@
     },
     {
       "key": {
+        "uuid": "6571072a_4955d995",
+        "filename": "pc/sdpserializer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "i tried to do that (in the design doc as well). i will change where appropriate.",
+      "parentUuid": "6271e9a1_9aae8633",
+      "range": {
+        "startLine": 358,
+        "startChar": 33,
+        "endLine": 358,
+        "endChar": 36
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "523ed291_5d351484",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -429,6 +837,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f395b01_9c308698",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "the existing ones? no. because i am not defining operator\u003d\u003d on these types (because it doesn\u0027t make sense outside of testing, at least for now). take a look at StreamParams operator\u003d\u003d for an example of why it won\u0027t make sense.\ni can write a custom matcher (which is what this is method is):\nMATCHER_P(SimulcastEqual, expected) { body of this method }\nand then use it:\nEXPECT_THAT(value, SimulcastEqual(expected));\nwhich doesn\u0027t look as good (imho) as:\nExpectEqual(expected, value);\n\nAnother reason why this is better than a matcher is that it will tell you which part of the object is not equal (the rid doesn\u0027t match vs. the objects are not equal). regardless of pretty-printing the output (which is a different cool feature).\nMatchers are more appropriate for simpler tasks like validating simple types or matching arguments in a mock:\nmock.Setup(Foo(MatcherForArgument)).Returns(bar)\nmock.Setup(Foo(AnotherMatcher)).Returns(a_higher_bar)",
+      "parentUuid": "523ed291_5d351484",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -455,6 +881,30 @@
     },
     {
       "key": {
+        "uuid": "d38b0943_a869adf2",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6725a8a5_d3da379f",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7c77136_ab21b02b",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -469,6 +919,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9104b49_641b70cd",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Sure. to me it\u0027s less readable, because at the top of the file there is \u0027shared\u0027 code. and below that there are test cases. now that it moved, there is some shared code in the middle of the file.",
+      "parentUuid": "f7c77136_ab21b02b",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -489,6 +957,24 @@
     },
     {
       "key": {
+        "uuid": "b8a0e90b_a0e3160a",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e53a130_22bdb17d",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c02747_3c729f30",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -503,6 +989,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eca1fd1c_42bbf9aa",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done. Also changed cases where there is only one value. formats \u003d {101} for clarity.",
+      "parentUuid": "d0c02747_3c729f30",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -529,6 +1033,30 @@
     },
     {
       "key": {
+        "uuid": "5a3fc6a7_151f618f",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab03857b_34998737",
+      "range": {
+        "startLine": 472,
+        "startChar": 32,
+        "endLine": 472,
+        "endChar": 39
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1c640df_74ad4eca",
         "filename": "pc/sdpserializer_unittest.cc",
         "patchSetId": 1
@@ -552,6 +1080,30 @@
     },
     {
       "key": {
+        "uuid": "af4c226c_ba202c4d",
+        "filename": "pc/sdpserializer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "added \"1 recv ;;\"\n\"1 recv pt\u003d1;;maxwidth\u003d720\" will work because tokenization is removing empty tokens.\nthis is less restrictive and makes the code easier and clearer while not throwing a fit if there is an extra space (or semicolon, which is less likely...).",
+      "parentUuid": "c1c640df_74ad4eca",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 14
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfa6096f_c31f8378",
         "filename": "pc/sessiondescription.h",
         "patchSetId": 1
@@ -566,6 +1118,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8934838_517005d4",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "seems less natural to me because we are exposing the fact that it is only relevant for some scenarios. you could argue that has_receive_stream() exposes that as well, but i would say \"not to the same degree\", as in, it allows a user to validate that the receive stream has some value that can be used. my preferred implementation would not use an optional to store this value. instead the value will always be there, and it might be \u0027empty\u0027.\nbut i may be wrong.",
+      "parentUuid": "bfa6096f_c31f8378",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -589,6 +1159,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "342ad224_54e61b22",
+        "filename": "pc/sessiondescription.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "sure! but i am reluctant to change the interface to go along with it so it will stream remain:\nAddLegacyStream(..)\nstreams()\nmutable_streams()\nbut the field will be send_streams_",
+      "parentUuid": "ec041603_a282667a",
+      "range": {
+        "startLine": 241,
+        "startChar": 18,
+        "endLine": 241,
+        "endChar": 26
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -656,6 +1250,24 @@
     },
     {
       "key": {
+        "uuid": "dc5237af_7d80cc2a",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "i don\u0027t like this syntax either. \ni was using it because is saw it in the codebase... i guess it\u0027s not as uncommon as you think  :)\ni will change to use a setter.",
+      "parentUuid": "50c486fe_39457299",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7ec07bb_b4aa670d",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 1
@@ -670,6 +1282,24 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de491b3e_df11a44c",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7ec07bb_b4aa670d",
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -696,6 +1326,30 @@
     },
     {
       "key": {
+        "uuid": "dc4fd1d7_67d377ac",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2452,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f4d34c7_e92b8b19",
+      "range": {
+        "startLine": 2452,
+        "startChar": 22,
+        "endLine": 2452,
+        "endChar": 32
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f4de57b_e9a20e14",
         "filename": "pc/webrtcsdp.cc",
         "patchSetId": 1
@@ -716,6 +1370,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81b0c15f_c637b439",
+        "filename": "pc/webrtcsdp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3235,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Rids exist outside of simulcast. i wouldn\u0027t restrict this unnecessarily. if there is no simulcast, then we should consider it a scenario we are not \u0027aware\u0027 of and ignore the rid lines.\nthat would be consistent with forward compatibility.",
+      "parentUuid": "8f4de57b_e9a20e14",
+      "range": {
+        "startLine": 3235,
+        "startChar": 4,
+        "endLine": 3235,
+        "endChar": 20
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -742,6 +1420,30 @@
     },
     {
       "key": {
+        "uuid": "70a3498d_29062580",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "713f7b9b_deb40f5a",
+      "range": {
+        "startLine": 1429,
+        "startChar": 7,
+        "endLine": 1429,
+        "endChar": 29
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "761f3a32_f22d25a1",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 1
@@ -765,6 +1467,30 @@
     },
     {
       "key": {
+        "uuid": "5e382629_0913ceff",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4168,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "761f3a32_f22d25a1",
+      "range": {
+        "startLine": 4168,
+        "startChar": 21,
+        "endLine": 4168,
+        "endChar": 4
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65614e1f_5ca7636b",
         "filename": "pc/webrtcsdp_unittest.cc",
         "patchSetId": 1
@@ -785,6 +1511,30 @@
       "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3daa38c_1a2c5d53",
+        "filename": "pc/webrtcsdp_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4289,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-11T01:46:57Z",
+      "side": 1,
+      "message": "Nope, i have tests that cover that scenario in sdpserializer_unittest.\nI added the minimum required to trigger the validation for the interaction between rids and simulcast, which is the code that is being exercised in these tests.",
+      "parentUuid": "65614e1f_5ca7636b",
+      "range": {
+        "startLine": 4289,
+        "startChar": 22,
+        "endLine": 4289,
+        "endChar": 36
+      },
+      "revId": "5b2d21756dd0c8d1273ad84c69d3b919166550ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -160,10 +160,10 @@ class MediaSessionDescriptionFactory {
     enable_encrypted_rtp_header_extensions_ = enable;
   }
 
-  SessionDescription* CreateOffer(
+  std::unique_ptr<SessionDescription> CreateOffer(
       const MediaSessionOptions& options,
       const SessionDescription* current_description) const;
-  SessionDescription* CreateAnswer(
+  std::unique_ptr<SessionDescription> CreateAnswer(
       const SessionDescription* offer,
       const MediaSessionOptions& options,
       const SessionDescription* current_description) const;

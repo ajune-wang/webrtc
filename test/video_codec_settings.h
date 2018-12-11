@@ -33,7 +33,6 @@ static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
   settings->height = kTestHeight;
 
   settings->startBitrate = kTestStartBitrateKbps;
-  settings->maxBitrate = 0;
   settings->minBitrate = kTestMinBitrateKbps;
   settings->targetBitrate = 0;
 
@@ -64,7 +63,6 @@ static void CodecSettings(VideoCodecType codec_type, VideoCodec* settings) {
       // Bitrate needed for this size and framerate.
       settings->startBitrate =
           3 * kTestWidth * kTestHeight * 8 * kTestFrameRate / 1000 / 2;
-      settings->maxBitrate = settings->startBitrate;
       return;
     default:
       return;

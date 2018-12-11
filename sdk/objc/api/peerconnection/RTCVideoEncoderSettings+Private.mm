@@ -23,7 +23,6 @@
       self.width = videoCodec->width;
       self.height = videoCodec->height;
       self.startBitrate = videoCodec->startBitrate;
-      self.maxBitrate = videoCodec->maxBitrate;
       self.minBitrate = videoCodec->minBitrate;
       self.targetBitrate = videoCodec->targetBitrate;
       self.maxFramerate = videoCodec->maxFramerate;
@@ -40,10 +39,8 @@
   videoCodec.width = self.width;
   videoCodec.height = self.height;
   videoCodec.startBitrate = self.startBitrate;
-  videoCodec.maxBitrate = self.maxBitrate;
   videoCodec.minBitrate = self.minBitrate;
   videoCodec.targetBitrate = self.targetBitrate;
-  videoCodec.maxBitrate = self.maxBitrate;
   videoCodec.qpMax = self.qpMax;
   videoCodec.mode = (webrtc::VideoCodecMode)self.mode;
 

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef4b04db_8bc3c1ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T13:04:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5f4ce2_c774fa56",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "41a547d5477be69b6315d9e0a0b3f40864376b0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bc703f7_71f6cae5",
         "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "41a547d5477be69b6315d9e0a0b3f40864376b0b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc1e0937_cc432d07",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-11T13:04:59Z",
+      "side": 1,
+      "message": "I think \"cache\" is appropriate here.",
+      "parentUuid": "8bc703f7_71f6cae5",
+      "range": {
+        "startLine": 945,
+        "startChar": 5,
+        "endLine": 945,
+        "endChar": 10
+      },
+      "revId": "41a547d5477be69b6315d9e0a0b3f40864376b0b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

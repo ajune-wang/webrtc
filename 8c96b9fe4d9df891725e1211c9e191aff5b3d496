@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b73e945_1ce21b07",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4648,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T18:20:30Z",
+      "side": 1,
+      "message": "nit: capitalize",
+      "range": {
+        "startLine": 4648,
+        "startChar": 63,
+        "endLine": 4648,
+        "endChar": 64
+      },
+      "revId": "8c96b9fe4d9df891725e1211c9e191aff5b3d496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4f07e17_3247d1a7",
+        "filename": "pc/rtpsenderreceiver_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-11T18:20:30Z",
+      "side": 1,
+      "message": "may want to pick a valid payload type \u003c256 to avoid confusing the error",
+      "range": {
+        "startLine": 811,
+        "startChar": 45,
+        "endLine": 811,
+        "endChar": 49
+      },
+      "revId": "8c96b9fe4d9df891725e1211c9e191aff5b3d496",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c011c9f_b7ae221d",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:10:34Z",
+      "side": 1,
+      "message": "This logic should be moved to delay_based_bwe/aimd_rate_control, basically, check the trial when backing off (there are other checks there, it\u0027s good to keep this together to avoid confusion)",
+      "range": {
+        "startLine": 510,
+        "startChar": 1,
+        "endLine": 517,
+        "endChar": 0
+      },
+      "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e01a0383_c740188b",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:10:34Z",
+      "side": 1,
+      "message": "Add a separate if scope for the new condition, it\u0027s ok if you have to repeat some code since  the cases have different implications semantically.\n\nWhen moving the trial to delay_based_bwe you will have to make sure hat you can trigger on this. I suggest trying to add a new field to the result struct for that.",
+      "range": {
+        "startLine": 536,
+        "startChar": 5,
+        "endLine": 538,
+        "endChar": 50
+      },
+      "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc603ee8_47cfdc80",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-11T13:10:34Z",
+      "side": 1,
+      "message": "not that send_side_congestion_controller is currently not used in WebRTC, only exposed to downstream projects.",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 30
+      },
+      "revId": "ff288ddfb8035bcc31e97741b51a5a20399e685e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

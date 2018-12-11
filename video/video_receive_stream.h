@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 
+#include "api/media_transport_interface.h"
 #include "call/rtp_packet_sink_interface.h"
 #include "call/syncable.h"
 #include "call/video_receive_stream.h"
@@ -47,7 +48,8 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
                            public KeyFrameRequestSender,
                            public video_coding::OnCompleteFrameCallback,
                            public Syncable,
-                           public CallStatsObserver {
+                           public CallStatsObserver,
+                           public MediaTransportVideoSinkInterface {
  public:
   VideoReceiveStream(RtpStreamReceiverControllerInterface* receiver_controller,
                      int num_cpu_cores,
@@ -85,6 +87,11 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // Implements video_coding::OnCompleteFrameCallback.
   void OnCompleteFrame(
       std::unique_ptr<video_coding::EncodedFrame> frame) override;
+
+  // Implements MediaTransportVideoSinkInterface, converts the received frame to
+  // OnCompleteFrameCallback
+  void OnData(uint64_t channel_id,
+              MediaTransportEncodedVideoFrame frame) override;
 
   // Implements CallStatsObserver::OnRttUpdate
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;

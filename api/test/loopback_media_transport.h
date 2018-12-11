@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 #include "api/media_transport_interface.h"
 #include "rtc_base/asyncinvoker.h"
@@ -99,6 +100,12 @@ class MediaTransportPair {
 
     void SetReceiveVideoSink(MediaTransportVideoSinkInterface* sink) override;
 
+    void AddTargetTransferRateObserver(
+        TargetTransferRateObserver* observer) override;
+
+    void RemoveTargetTransferRateObserver(
+        TargetTransferRateObserver* observer) override;
+
     void SetMediaTransportStateCallback(
         MediaTransportStateCallback* callback) override;
 
@@ -146,6 +153,9 @@ class MediaTransportPair {
 
     MediaTransportStateCallback* state_callback_ RTC_GUARDED_BY(sink_lock_) =
         nullptr;
+
+    std::vector<TargetTransferRateObserver*> target_transfer_rate_observers_
+        RTC_GUARDED_BY(sink_lock_);
 
     MediaTransportState state_ RTC_GUARDED_BY(thread_) =
         MediaTransportState::kPending;

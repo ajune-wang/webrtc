@@ -754,6 +754,11 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
   TRACE_EVENT0("webrtc", "Call::CreateVideoSendStream");
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
 
+  {
+    rtc::CritScope lock(&target_observer_crit_);
+    RTC_DCHECK(media_transport_ == config.media_transport);
+  }
+
   RegisterRateObserver();
 
   video_send_delay_stats_->AddSsrcs(config);

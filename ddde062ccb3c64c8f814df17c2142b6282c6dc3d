@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "61f88112_37f1d8e2",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "Unnecessary diff?",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fd999a_5e5b3340",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "Can you refactor/remove this to avoid duplication with SetAssociatedRemoteStreams?",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7e7d7e_cb586007",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "nit: newline after",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b991c0_feaebac2",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "Can you make a few changes:\n\n1) Introduce a caller to avoid one PeerConnection offering to itself.\n2) Avoid the string SDP and instead munge the generated offer/answer (to change MSIDs).",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "502301da_255cd717",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 3
@@ -16,6 +84,46 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eb1fb2f_d97f6cb3",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "ASSERT_EQ",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 524,
+        "endChar": 11
+      },
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f4bf42_1235decb",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T17:42:39Z",
+      "side": 1,
+      "message": "If you want to be fancy you can do:\n\nEXPECT_THAT(transceiver-\u003ereceiver()-\u003estreams(), ElementsAre(Property(\u0026MediaStreamInterface::id, \"2\"));",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

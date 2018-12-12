@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "82b8c9a4_1366f67a",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-12T15:50:58Z",
+      "side": 1,
+      "message": "Lets keep this vague for now, but I have some thoughts on reducing the role of the control handler further, then we can make the name more accurate as well.",
+      "parentUuid": "8fd8d466_f25e30af",
+      "range": {
+        "startLine": 61,
+        "startChar": 61,
+        "endLine": 61,
+        "endChar": 72
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5be18538_2eb3b027",
         "filename": "modules/congestion_controller/rtp/control_handler.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "74c289bc_9cf706a7",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-12T15:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5be18538_2eb3b027",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6169e5e_67475b8e",
         "filename": "modules/congestion_controller/rtp/control_handler.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3785430c_2035b3aa",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-12T15:50:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d6169e5e_67475b8e",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 59
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

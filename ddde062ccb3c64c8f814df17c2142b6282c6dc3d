@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "20c98458_fcbae678",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2658,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-12T23:34:28Z",
+      "side": 1,
+      "message": "This is another bug this change fixes, where we didn\u0027t process removed streams. Good work!",
+      "range": {
+        "startLine": 2658,
+        "startChar": 6,
+        "endLine": 2658,
+        "endChar": 32
+      },
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49fd999a_5e5b3340",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -30,6 +53,24 @@
       "writtenOn": "2018-12-12T17:42:39Z",
       "side": 1,
       "message": "Can you refactor/remove this to avoid duplication with SetAssociatedRemoteStreams?",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "776357ed_8ff8bef3",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-12T23:34:28Z",
+      "side": 1,
+      "message": "ProcessRemovalOfRemoteTrack is called when the transceiver is no longer receiving (receiver track removed). SetAssociatedRemoteStreams is called when the transceiver is receiving. I guess you could have a separate function - ProcessRemovedStreams() that goes through the list of removed streams:\nif (stream-\u003eGetAudioTracks().empty() \u0026\u0026 stream-\u003eGetVideoTracks().empty()) {\n  remote_streams_-\u003eRemoveStream(stream);\n  removed_streams-\u003epush_back(stream);\n  // Also removes stream from list of removed streams.\n}\n\nIs this what you had in mind steve?",
+      "parentUuid": "49fd999a_5e5b3340",
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -64,6 +105,24 @@
       "writtenOn": "2018-12-12T17:42:39Z",
       "side": 1,
       "message": "Can you make a few changes:\n\n1) Introduce a caller to avoid one PeerConnection offering to itself.\n2) Avoid the string SDP and instead munge the generated offer/answer (to change MSIDs).",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577a2275_efce77dc",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-12T23:34:28Z",
+      "side": 1,
+      "message": "+1 to this. Just need to change the stream_ids_ in the StreamParams object. Should simplify the test.",
+      "parentUuid": "b6b991c0_feaebac2",
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -107,6 +166,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da431c2_ede8a113",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-12T23:34:28Z",
+      "side": 1,
+      "message": "sgtm.",
+      "parentUuid": "502301da_255cd717",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

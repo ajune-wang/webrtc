@@ -46,6 +46,30 @@
       "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d995c9b8_e442b9ae",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-12T13:25:05Z",
+      "side": 0,
+      "message": "https://cs.chromium.org/chromium/src/build/config/BUILDCONFIG.gn?rcl\u003daa221f1b03c3bd2d01957f12f2922cf73a0a6cda\u0026l\u003d134 and a note in \nhttps://cs.chromium.org/chromium/src/chrome/browser/BUILD.gn?rcl\u003daa221f1b03c3bd2d01957f12f2922cf73a0a6cda\u0026l\u003d3401",
+      "parentUuid": "2b2885eb_eb070b48",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

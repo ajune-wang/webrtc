@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dd4ec0e0_8ff5ed7b",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4788,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5817b82_b98fe8f0",
+      "range": {
+        "startLine": 4788,
+        "startChar": 41,
+        "endLine": 4788,
+        "endChar": 44
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f097b0bc_9f753b41",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20a061ab_8ca8356f",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4812,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f097b0bc_9f753b41",
+      "range": {
+        "startLine": 4812,
+        "startChar": 15,
+        "endLine": 4812,
+        "endChar": 23
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b05ae2f4_b7921404",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4849,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ac81711_24cd83cd",
+      "range": {
+        "startLine": 4849,
+        "startChar": 2,
+        "endLine": 4849,
+        "endChar": 11
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ee3f93b_e1c43b05",
         "filename": "p2p/base/p2ptransportchannel_unittest.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44e22d70_833d29bb",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4861,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ee3f93b_e1c43b05",
+      "range": {
+        "startLine": 4861,
+        "startChar": 45,
+        "endLine": 4861,
+        "endChar": 54
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "46a239e2_d3570dd8",
+        "filename": "p2p/base/p2ptransportchannel_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4866,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb3a34a_84660ee8",
+      "range": {
+        "startLine": 4866,
+        "startChar": 6,
+        "endLine": 4866,
+        "endChar": 20
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19349d11_b59de686",
         "filename": "p2p/base/port.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43ff9eea_d758a5b2",
+        "filename": "p2p/base/port.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1825,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Did something along the similar track but separated the sanitation logic to a separate method. PTAL.",
+      "parentUuid": "19349d11_b59de686",
+      "range": {
+        "startLine": 1825,
+        "startChar": 27,
+        "endLine": 1825,
+        "endChar": 42
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "3abc0956_a3624b6f",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "Before the mDNS feature, there are also port allocator flags and candidate filters that enable sanitizing the related address of STUN/TURN that happens elsewhere (see SanitizeCandidate in basicportallocator.cc).",
+      "parentUuid": "a82c6a9a_af986f40",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa5b7e1c_fac36c2a",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 3
@@ -177,6 +345,24 @@
       "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46f391b9_7eef134f",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3699,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2018-12-12T19:50:10Z",
+      "side": 1,
+      "message": "The Create() happens only when P2PTransportChannel adds a remote hostname candidate after we start to connect (and caller_async_resolver_factory is the raw pointer for reference, open to suggestion if there is an alternative way to make it less confusing with the unique_ptr caller_resolver_factory that is moved), but agreed moving it forward makes it less error-prone. Done.",
+      "parentUuid": "fa5b7e1c_fac36c2a",
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

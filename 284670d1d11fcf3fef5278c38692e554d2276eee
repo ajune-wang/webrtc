@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba3b32c2_f3976ca7",
+        "filename": "sdk/android/api/org/webrtc/EglRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-12-12T16:11:19Z",
+      "side": 1,
+      "message": "We could also put this call before drawer.release(). I don\u0027t think it makes a difference.",
+      "range": {
+        "startLine": 282,
+        "startChar": 8,
+        "endLine": 282,
+        "endChar": 27
+      },
+      "revId": "284670d1d11fcf3fef5278c38692e554d2276eee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

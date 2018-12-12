@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fd8d466_f25e30af",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-12T15:31:37Z",
+      "side": 1,
+      "message": "nit: name is a bit non-descriptive. MaybeEmergencyReducedTargetRate()?",
+      "range": {
+        "startLine": 61,
+        "startChar": 61,
+        "endLine": 61,
+        "endChar": 72
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be18538_2eb3b027",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-12T15:31:37Z",
+      "side": 1,
+      "message": "uber nit: \"pause_encoding\". This is an action applied by this function, not a state.",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6169e5e_67475b8e",
+        "filename": "modules/congestion_controller/rtp/control_handler.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-12T15:31:37Z",
+      "side": 1,
+      "message": "This logic changes the log line; it will pop a lot more often. Before it was only when going to or from 0.",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 59
+      },
+      "revId": "58308f1874f8eb417dcda414dacc6fb4b8387be7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

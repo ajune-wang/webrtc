@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b508845_10130dfc",
+        "filename": "sdk/android/native_unittests/audio_device/audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2018-12-12T11:42:43Z",
+      "side": 1,
+      "message": "I would like to simply put a 75 literal here in order to protect against similar problems in the future. The number that comes out of audio_device-\u003ePlayoutDelay() is the ground truth and I rather have to update the test manually if we update the constant/logic for the audio code.",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 750,
+        "endChar": 59
+      },
+      "revId": "bfeef3c02313329f18f06fa41bef616a2254b050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

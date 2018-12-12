@@ -94,6 +94,30 @@
       "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f67ba0c_1b3faf3a",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-12T14:09:00Z",
+      "side": 0,
+      "message": "OK, created https://webrtc-review.googlesource.com/c/src/+/114163, but now it\u0027s again in the wait for votes stage..",
+      "parentUuid": "a981cc7d_1d806268",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

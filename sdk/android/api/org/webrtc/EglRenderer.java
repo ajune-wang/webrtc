@@ -278,6 +278,8 @@ public class EglRenderer implements VideoSink {
           drawer.release();
           drawer = null;
         }
+        // Detach our shader program.
+        GLES20.glUseProgram(/* program= */ 0);
         frameDrawer.release();
         bitmapTextureFramebuffer.release();
         if (eglBase != null) {

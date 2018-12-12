@@ -1280,6 +1280,7 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
     channel_->OnReadyToSend(true);
     EXPECT_TRUE(channel_.get() != NULL);
     network_interface_.SetDestination(channel_.get());
+    network_interface_.SetCall(call_.get());
     channel_->SetInterface(&network_interface_, /*media_transport=*/nullptr);
     cricket::VideoRecvParameters parameters;
     parameters.codecs = engine_.codecs();

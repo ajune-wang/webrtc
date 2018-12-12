@@ -3461,6 +3461,16 @@ void PeerConnection::OnMessage(rtc::Message* msg) {
   }
 }
 
+void PeerConnection::OnRtcpPacket(rtc::CopyOnWriteBuffer* packet,
+                                  int64_t receive_time_us) {
+  rtc::CopyOnWriteBuffer packet_copy = *packet;
+  invoker_.AsyncInvoke<void>(
+      RTC_FROM_HERE, worker_thread(), [this, packet_copy, receive_time_us] {
+        call_->Receiver()->DeliverPacket(MediaType::ANY, packet_copy,
+                                         receive_time_us);
+      });
+}
+
 cricket::VoiceMediaChannel* PeerConnection::voice_media_channel() const {
   RTC_DCHECK(!IsUnifiedPlan());
   auto* voice_channel = static_cast<cricket::VoiceChannel*>(
@@ -5828,7 +5838,11 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
   voice_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
   voice_channel->SetRtpTransport(rtp_transport);
-
+  if (rtcp_transports_.find(rtp_transport) == rtcp_transports_.end()) {
+    rtp_transport->SignalRtcpPacketReceived.connect(
+        this, &PeerConnection::OnRtcpPacket);
+    rtcp_transports_.insert(rtp_transport);
+  }
   return voice_channel;
 }
 
@@ -5850,7 +5864,11 @@ cricket::VideoChannel* PeerConnection::CreateVideoChannel(
   video_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
   video_channel->SetRtpTransport(rtp_transport);
-
+  if (rtcp_transports_.find(rtp_transport) == rtcp_transports_.end()) {
+    rtp_transport->SignalRtcpPacketReceived.connect(
+        this, &PeerConnection::OnRtcpPacket);
+    rtcp_transports_.insert(rtp_transport);
+  }
   return video_channel;
 }
 
@@ -5897,6 +5915,11 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
       rtp_data_channel_->SignalSentPacket.connect(
           this, &PeerConnection::OnSentPacket_w);
       rtp_data_channel_->SetRtpTransport(rtp_transport);
+      if (rtcp_transports_.find(rtp_transport) == rtcp_transports_.end()) {
+        rtp_transport->SignalRtcpPacketReceived.connect(
+            this, &PeerConnection::OnRtcpPacket);
+        rtcp_transports_.insert(rtp_transport);
+      }
       return true;
   }
 

@@ -15,6 +15,7 @@
 #include <set>
 #include <vector>
 
+#include "call/call.h"
 #include "media/base/mediachannel.h"
 #include "media/base/rtputils.h"
 #include "rtc_base/byteorder.h"
@@ -40,6 +41,7 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
         dscp_(rtc::DSCP_NO_CHANGE) {}
 
   void SetDestination(MediaChannel* dest) { dest_ = dest; }
+  void SetCall(webrtc::Call* call) { call_ = call; }
 
   // Conference mode is a mode where instead of simply forwarding the packets,
   // the transport will send multiple copies of the packet with the specified
@@ -171,7 +173,8 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
       if (msg->message_id == ST_RTP) {
         dest_->OnPacketReceived(&msg_data->data(), rtc::TimeMicros());
       } else {
-        dest_->OnRtcpReceived(&msg_data->data(), rtc::TimeMicros());
+        call_->Receiver()->DeliverPacket(webrtc::MediaType::ANY,
+                                         msg_data->data(), rtc::TimeMicros());
       }
     }
     delete msg_data;
@@ -204,6 +207,7 @@ class FakeNetworkInterface : public MediaChannel::NetworkInterface,
 
   rtc::Thread* thread_;
   MediaChannel* dest_;
+  webrtc::Call* call_;
   bool conf_;
   // The ssrcs used in sending out packets in conference mode.
   std::vector<uint32_t> conf_sent_ssrcs_;

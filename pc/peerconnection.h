@@ -298,6 +298,7 @@ class PeerConnection : public PeerConnectionInternal,
   // Implements MessageHandler.
   void OnMessage(rtc::Message* msg) override;
 
+  void OnRtcpPacket(rtc::CopyOnWriteBuffer* packet, int64_t receive_time_us);
   // Plan B helpers for getting the voice/video media channels for the single
   // audio/video transceiver, if it exists.
   cricket::VoiceMediaChannel* voice_media_channel() const;
@@ -1027,6 +1028,7 @@ class PeerConnection : public PeerConnectionInternal,
   bool remote_peer_supports_msid_ = false;
 
   std::unique_ptr<Call> call_;
+  rtc::AsyncInvoker invoker_;
   std::unique_ptr<StatsCollector> stats_;  // A pointer is passed to senders_
   rtc::scoped_refptr<RTCStatsCollector> stats_collector_;
 
@@ -1048,6 +1050,7 @@ class PeerConnection : public PeerConnectionInternal,
   std::string session_id_;
 
   std::unique_ptr<JsepTransportController> transport_controller_;
+  std::set<RtpTransportInternal*> rtcp_transports_;
   std::unique_ptr<cricket::SctpTransportInternalFactory> sctp_factory_;
   // |rtp_data_channel_| is used if in RTP data channel mode, |sctp_transport_|
   // when using SCTP.

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "502301da_255cd717",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-12T15:25:53Z",
+      "side": 1,
+      "message": "Note: I didn\u0027t bother making the OnTrack event fire again when the streams changed because a) I\u0027m lazy, b) Chromium does not use the PeerConnectionObserver for its \"ontrack\" and c) unlike the web version of RTCPeerConnection, the PeerConnectionObserver has events for streams being added or removed, so sneaking in streams being added as an \"ontrack\" event makes less sense in the native layer.",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

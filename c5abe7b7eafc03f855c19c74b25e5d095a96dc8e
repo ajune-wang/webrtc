@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2366f2cc_3c298939",
+        "filename": "test/frame_generator_capturer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-12-12T10:17:40Z",
+      "side": 1,
+      "message": "I agree, that seems better. I have added a todo in frame_generator.h",
+      "parentUuid": "b1f27da2_e2b3e8ce",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 5
+      },
+      "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51623d5d_1007567f",
         "filename": "video/end_to_end_tests/codec_tests.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c572ec0a_dccb1c9b",
+        "filename": "video/end_to_end_tests/codec_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-12-12T10:17:40Z",
+      "side": 1,
+      "message": "It does not work, \"cannot take the address of an rvalue\". I found a clever trick by first casting the return value to const\u0026, but that seems hard to read:\n\u0026(const HdrMetadata\u0026) CreateTestHdrMetadata()",
+      "parentUuid": "51623d5d_1007567f",
+      "range": {
+        "startLine": 54,
+        "startChar": 26,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

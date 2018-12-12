@@ -22,6 +22,30 @@
       "revId": "0f92b320144d76346b5435cf55783a5293dba3fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a98df3a_f9aecb69",
+        "filename": "sdk/android/src/jni/pc/rtpparameters.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2018-12-12T10:56:36Z",
+      "side": 1,
+      "message": "Actually, there is an overload for absl::optional\u003cint32_t\u003e that does exactly this, so it accidentally compiled (and leaves an opportunity for shorter code).",
+      "parentUuid": "4edae9b3_7b6fbc76",
+      "range": {
+        "startLine": 29,
+        "startChar": 37,
+        "endLine": 29,
+        "endChar": 64
+      },
+      "revId": "0f92b320144d76346b5435cf55783a5293dba3fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

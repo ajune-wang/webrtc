@@ -70,6 +70,30 @@
       "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a981cc7d_1d806268",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-12-12T13:27:55Z",
+      "side": 0,
+      "message": "Thanks for the quick investigation! Feel free to reland, it is probably a good idea to write a comment on top of is_desktop_linux and why we are using it.",
+      "parentUuid": "d995c9b8_e442b9ae",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

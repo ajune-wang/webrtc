@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab16dc93_d6540d5a",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3668,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T22:21:56Z",
+      "side": 1,
+      "message": "I don\u0027t think you need these now that the expectations are set up before std::move clears the unique_ptrs.",
+      "revId": "ed16d829b05ea1e122b0ad7ce27ccf0942803ed0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

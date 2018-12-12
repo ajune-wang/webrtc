@@ -331,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "0c23da15_eae3a412",
+        "filename": "p2p/base/portallocator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T22:21:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3abc0956_a3624b6f",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 56
+      },
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa5b7e1c_fac36c2a",
         "filename": "pc/peerconnection_integrationtest.cc",
         "patchSetId": 3
@@ -360,6 +384,24 @@
       "side": 1,
       "message": "The Create() happens only when P2PTransportChannel adds a remote hostname candidate after we start to connect (and caller_async_resolver_factory is the raw pointer for reference, open to suggestion if there is an alternative way to make it less confusing with the unique_ptr caller_resolver_factory that is moved), but agreed moving it forward makes it less error-prone. Done.",
       "parentUuid": "fa5b7e1c_fac36c2a",
+      "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf39162f_26a4ecc3",
+        "filename": "pc/peerconnection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3699,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-12T22:21:56Z",
+      "side": 1,
+      "message": "Yeah, with mocks you are expected to set the expectations before using the mock object at all. It can be a bit counter intuitive since the code reads backwards.",
+      "parentUuid": "46f391b9_7eef134f",
       "revId": "2918c209eba47eac6fc45dc9c506966c5c430b27",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

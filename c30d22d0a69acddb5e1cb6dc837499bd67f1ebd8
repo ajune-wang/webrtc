@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01efd33d_83d44158",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-12-12T15:02:38Z",
+      "side": 1,
+      "message": "I don\u0027t think this is right. Don\u0027t we either want to ensure that it DCHECKs _or_ that it behaves well even when fed too much data? Usually, DCHECKs are for internal consistency.\n\nThere\u0027s only one other set of tests[1] in WebRTC that checks against !RTC_DCHECK_IS_ON, and that falls back to a death test instead. If we _have_ to go down this belt-and-suspenders route, I think we should test both cases - that the DCHECKs hit with a death test and that it behaves well otherwise with a normal test.\n\n[1] ./rtc_base/strings/string_builder_unittest.cc:60",
+      "revId": "c30d22d0a69acddb5e1cb6dc837499bd67f1ebd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77a2516e_b5d7f0c0",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2018-12-12T15:02:38Z",
+      "side": 1,
+      "message": "Can we statically assert that these don\u0027t ever become larger than AudioFrame::kMaxDataSizeSamples?",
+      "revId": "c30d22d0a69acddb5e1cb6dc837499bd67f1ebd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

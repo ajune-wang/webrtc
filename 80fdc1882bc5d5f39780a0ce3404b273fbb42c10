@@ -16,6 +16,24 @@
       "revId": "80fdc1882bc5d5f39780a0ce3404b273fbb42c10",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "542ee4ff_f13ca291",
+        "filename": "sdk/android/native_unittests/audio_device/audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2018-12-12T12:23:14Z",
+      "side": 1,
+      "message": "A lot of things worked together to let this slip by. The test in modules/ compared kHighLatencyModeDelayEstimateInMilliseconds to the delay estimate from audio_manager, which returns the full delay estimate, not divided by two. In sdk/android/ we don\u0027t have an audio_manager, so we compared with PlayoutDelay from the audio device instead, where the returned value should be divided by two. \n\nThe tests were put in after the /2 had disappeared, so it wasn\u0027t caught.",
+      "parentUuid": "e6640289_30ab15b5",
+      "revId": "80fdc1882bc5d5f39780a0ce3404b273fbb42c10",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

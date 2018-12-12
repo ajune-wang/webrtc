@@ -22,6 +22,30 @@
       "revId": "bfeef3c02313329f18f06fa41bef616a2254b050",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79237a69_e2185ce0",
+        "filename": "sdk/android/native_unittests/audio_device/audio_device_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2018-12-12T12:08:36Z",
+      "side": 1,
+      "message": "sgtm",
+      "parentUuid": "2b508845_10130dfc",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 750,
+        "endChar": 59
+      },
+      "revId": "bfeef3c02313329f18f06fa41bef616a2254b050",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

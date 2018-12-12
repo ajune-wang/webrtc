@@ -22,6 +22,30 @@
       "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2885eb_eb070b48",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7996
+      },
+      "writtenOn": "2018-12-12T13:22:42Z",
+      "side": 0,
+      "message": "I think that was is_desktop_linux, that was supposed to exclude the ChromeOS, let me find it..",
+      "parentUuid": "849a21c5_fda96a28",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

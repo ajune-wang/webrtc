@@ -22,6 +22,30 @@
       "revId": "53118c57aeea9c5731902fe5f72b98d163ca1da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2798e5e3_7228f342",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5828
+      },
+      "writtenOn": "2018-12-12T15:02:56Z",
+      "side": 1,
+      "message": "Oh, I see, thanks for the info. What if I try enabling this for fuzzing builds only? i.e. `is_component_build \u0026\u0026 use_fuzzing_engine`. Would you expect a ton of runtime errors (false positives, I suppose?) in that case?",
+      "parentUuid": "cc0b7767_4f2e83ef",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "53118c57aeea9c5731902fe5f72b98d163ca1da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

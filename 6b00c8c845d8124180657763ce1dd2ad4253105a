@@ -22,6 +22,30 @@
       "revId": "6b00c8c845d8124180657763ce1dd2ad4253105a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1ce9d91_35caf445",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-12-12T15:36:38Z",
+      "side": 1,
+      "message": "Agreed offline to address this in a follow-up.",
+      "parentUuid": "6d039a40_ec841aec",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "6b00c8c845d8124180657763ce1dd2ad4253105a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

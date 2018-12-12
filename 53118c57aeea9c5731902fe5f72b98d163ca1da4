@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc0b7767_4f2e83ef",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-12-12T08:40:39Z",
+      "side": 1,
+      "message": "Unfortunately, we are not ready to this this yet. In Q3 I worked on symbol exports but I haven\u0027t had time to finish the component build support. When that will happen, this line will be added to the Chromium .gn file.\n\nIn order to finish the work, I have to remove all the Chromium direct deps on WebRTC and only depend on one WebRTC component (because in WebRTC we only have static libraries, so the component will live in Chromium). Something like this: https://chromium-review.googlesource.com/c/chromium/src/+/1188479 (old CL, I have a cleaner version on my workstation). Without this, Chromium will link WebRTC sublibraries more than once, and this caused problems with some globals (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d9419).\n\nI have been able to build the browser with the WebRTC component but I still have to fix some pnacl related problems when I build \"all\". I am not sure I can get to this before the end of the quarter.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "53118c57aeea9c5731902fe5f72b98d163ca1da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

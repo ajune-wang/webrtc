@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "849a21c5_fda96a28",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2018-12-12T13:13:54Z",
+      "side": 0,
+      "message": "Ok, so target_os \u003d \"chromeos\" sets is_linux \u003d true (https://cs.chromium.org/chromium/src/build/config/BUILDCONFIG.gn?l\u003d327-338\u0026rcl\u003dd5bf20624a99401dcb6c9e6aee9244334008222b).\n\nI think we cannot default to just (is_linux \u0026\u0026 use_sysroot) but we have to exclude chromeos.",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 44
+      },
+      "revId": "1d8307d706e06ba1c9bba1573f300e7bf79fefa1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -69,6 +69,41 @@ using ::testing::Values;
 
 const uint32_t kDefaultTimeout = 10000u;
 
+const char* kOfferAudioTrackWitoutMsid =
+    "v=0\r\n"
+    "o=- 5511237691691746 2 IN IP4 127.0.0.1\r\n"
+    "s=-\r\n"
+    "t=0 0\r\n"
+    "a=group:BUNDLE 0\r\n"
+    "a=ice-options:trickle\r\n"
+    "a=ice-lite\r\n"
+    "a=msid-semantic:WMS *\r\n"
+    "m=audio 9 UDP/TLS/RTP/SAVPF 111 103 9 102 0 8 105 13 110 113 126\r\n"
+    "c=IN IP6 ::\r\n"
+    "a=rtcp:9 IN IP6 ::\r\n"
+    "a=rtcp-mux\r\n"
+    "a=mid:0\r\n"
+    "a=sendrecv\r\n"
+    "a=ice-ufrag:z0i8R3C9C4hPRWls\r\n"
+    "a=ice-pwd:O7bPpOFAqasqoidV4yxnFVbc\r\n"
+    "a=ice-lite\r\n"
+    "a=fingerprint:sha-256 "
+    "B7:9C:0D:C9:D1:42:57:97:82:4D:F9:B7:93:75:49:C3:42:21:5A:DD:9C:B5:ED:53:"
+    "53:F0:B4:C8:AE:88:7A:E7\r\n"
+    "a=setup:actpass\r\n"
+    "a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\n"
+    "a=extmap:9 urn:ietf:params:rtp-hdrext:sdes:mid\r\n"
+    "a=rtpmap:103 ISAC/16000\r\n"
+    "a=rtpmap:9 G722/8000\r\n"
+    "a=rtpmap:102 ILBC/8000\r\n"
+    "a=rtpmap:0 PCMU/8000\r\n"
+    "a=rtpmap:8 PCMA/8000\r\n"
+    "a=rtpmap:105 CN/16000\r\n"
+    "a=rtpmap:13 CN/8000\r\n"
+    "a=rtpmap:110 telephone-event/48000\r\n"
+    "a=rtpmap:113 telephone-event/16000\r\n"
+    "a=rtpmap:126 telephone-event/8000\r\n";
+
 template <typename MethodFunctor>
 class OnSuccessObserver : public rtc::RefCountedObject<
                               webrtc::SetRemoteDescriptionObserverInterface> {
@@ -474,6 +509,34 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
   ASSERT_TRUE(callee->SetLocalDescription(callee->CreateAnswer()));
   EXPECT_EQ(1u, callee->observer()->add_track_events_.size());
   EXPECT_EQ(1u, callee->observer()->remove_track_events_.size());
+}
+
+TEST_F(PeerConnectionRtpTestUnifiedPlan, ChangeMsidWhileReceiving) {
+  auto callee = CreatePeerConnection();
+
+  std::string offer_audio_track_with_msid1 =
+      std::string(kOfferAudioTrackWitoutMsid) +
+      "a=msid:1 1\r\n"
+      "a=ssrc:10 cname:1\r\n"
+      "a=ssrc:10 msid:1 1\r\n";
+  ASSERT_TRUE(callee->SetRemoteDescription(
+      CreateSessionDescription(SdpType::kOffer, offer_audio_track_with_msid1)));
+  EXPECT_EQ(1u, callee->observer()->on_track_transceivers_.size());
+  auto transceiver = callee->observer()->on_track_transceivers_[0];
+  ASSERT_EQ(1u, transceiver->receiver()->streams().size());
+  EXPECT_EQ("1", transceiver->receiver()->streams()[0]->id());
+
+  ASSERT_TRUE(callee->SetLocalDescription(callee->CreateAnswer()));
+
+  std::string offer_audio_track_with_msid2 =
+      std::string(kOfferAudioTrackWitoutMsid) +
+      "a=msid:2 2\r\n"
+      "a=ssrc:10 cname:2\r\n"
+      "a=ssrc:10 msid:2 2\r\n";
+  ASSERT_TRUE(callee->SetRemoteDescription(
+      CreateSessionDescription(SdpType::kOffer, offer_audio_track_with_msid2)));
+  ASSERT_EQ(1u, transceiver->receiver()->streams().size());
+  EXPECT_EQ("2", transceiver->receiver()->streams()[0]->id());
 }
 
 // These tests examine the state of the peer connection as a result of

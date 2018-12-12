@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/str_replace.h"
 #include "absl/types/optional.h"
 #include "api/audio/audio_mixer.h"
 #include "api/audio_codecs/audio_decoder_factory.h"
@@ -82,7 +83,6 @@
 #include "rtc_base/rtccertificategenerator.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/socketaddress.h"
-#include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/virtualsocketserver.h"
@@ -2047,8 +2047,7 @@ TEST_P(PeerConnectionInterfaceTest, TestReceiveOnlyDataChannel) {
   std::string receive_label = "answer_channel";
   std::string sdp;
   EXPECT_TRUE(pc_->local_description()->ToString(&sdp));
-  rtc::replace_substrs(offer_label.c_str(), offer_label.length(),
-                       receive_label.c_str(), receive_label.length(), &sdp);
+  absl::StrReplaceAll({{offer_label, receive_label}}, &sdp);
   CreateAnswerAsRemoteDescription(sdp);
 
   // Verify that a new incoming data channel has been created and that
@@ -2902,8 +2901,7 @@ TEST_P(PeerConnectionInterfaceTest, RecvonlyDescriptionDoesntCreateStream) {
   CreatePeerConnection(config);
 
   std::string recvonly_offer = GetSdpStringWithStream1();
-  rtc::replace_substrs(kSendrecv, strlen(kSendrecv), kRecvonly,
-                       strlen(kRecvonly), &recvonly_offer);
+  absl::StrReplaceAll({{kSendrecv, kRecvonly}}, &recvonly_offer);
   CreateAndSetRemoteOffer(recvonly_offer);
 
   EXPECT_EQ(0u, observer_.remote_streams()->count());

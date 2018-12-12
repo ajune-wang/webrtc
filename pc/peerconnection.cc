@@ -584,17 +584,6 @@ std::string GetSetDescriptionErrorMessage(cricket::ContentSource source,
   return oss.Release();
 }
 
-std::string GetStreamIdsString(rtc::ArrayView<const std::string> stream_ids) {
-  std::string output = "streams=[";
-  const char* separator = "";
-  for (const auto& stream_id : stream_ids) {
-    output.append(separator).append(stream_id);
-    separator = ", ";
-  }
-  output.append("]");
-  return output;
-}
-
 absl::optional<int> RTCConfigurationToIceConfigOptionalInt(
     int rtc_configuration_parameter) {
   if (rtc_configuration_parameter ==
@@ -2443,50 +2432,22 @@ RTCError PeerConnection::ApplyRemoteDescription(
       const MediaContentDescription* media_desc = content->media_description();
       RtpTransceiverDirection local_direction =
           RtpTransceiverDirectionReversed(media_desc->direction());
+      // Roughly the same as steps 2.2.8.6 of section 4.4.1.6 "Set the
+      // RTCSessionDescription: Set the associated remote streams given
+      // transceiver.[[Receiver]], msids, addList, and removeList".
+      // https://w3c.github.io/webrtc-pc/#set-the-rtcsessiondescription
+      SetAssociatedRemoteStreams(transceiver->internal()->receiver_internal(),
+                                 media_desc, &added_streams, &removed_streams);
       // From the WebRTC specification, steps 2.2.8.5/6 of section 4.4.1.6 "Set
       // the RTCSessionDescription: If direction is sendrecv or recvonly, and
       // transceiver's current direction is neither sendrecv nor recvonly,
       // process the addition of a remote track for the media description.
-      std::vector<std::string> stream_ids;
-      if (!media_desc->streams().empty()) {
-        // The remote description has signaled the stream IDs.
-        stream_ids = media_desc->streams()[0].stream_ids();
-      }
       if (RtpTransceiverDirectionHasRecv(local_direction) &&
           (!transceiver->fired_direction() ||
            !RtpTransceiverDirectionHasRecv(*transceiver->fired_direction()))) {
         RTC_LOG(LS_INFO) << "Processing the addition of a new track for MID="
-                         << content->name << " (added to "
-                         << GetStreamIdsString(stream_ids) << ").";
+                         << content->name;
 
-        std::vector<rtc::scoped_refptr<MediaStreamInterface>> media_streams;
-        for (const std::string& stream_id : stream_ids) {
-          rtc::scoped_refptr<MediaStreamInterface> stream =
-              remote_streams_->find(stream_id);
-          if (!stream) {
-            stream = MediaStreamProxy::Create(rtc::Thread::Current(),
-                                              MediaStream::Create(stream_id));
-            remote_streams_->AddStream(stream);
-            added_streams.push_back(stream);
-          }
-          media_streams.push_back(stream);
-        }
-        // Special case: "a=msid" missing, use random stream ID.
-        if (media_streams.empty() &&
-            !(remote_description()->description()->msid_signaling() &
-              cricket::kMsidSignalingMediaSection)) {
-          if (!missing_msid_default_stream_) {
-            missing_msid_default_stream_ = MediaStreamProxy::Create(
-                rtc::Thread::Current(),
-                MediaStream::Create(rtc::CreateRandomUuid()));
-            added_streams.push_back(missing_msid_default_stream_);
-          }
-          media_streams.push_back(missing_msid_default_stream_);
-        }
-        // This will add the remote track to the streams.
-        // TODO(hbos): When we remove remote_streams(), use set_stream_ids()
-        // instead. https://crbug.com/webrtc/9480
-        transceiver->internal()->receiver_internal()->SetStreams(media_streams);
         now_receiving_transceivers.push_back(transceiver);
       }
       // 2.2.8.1.7: If direction is "sendonly" or "inactive", and transceiver's
@@ -2628,6 +2589,58 @@ RTCError PeerConnection::ApplyRemoteDescription(
   }
 
   return RTCError::OK();
+}
+
+void PeerConnection::SetAssociatedRemoteStreams(
+    rtc::scoped_refptr<RtpReceiverInternal> receiver,
+    const MediaContentDescription* media_desc,
+    std::vector<rtc::scoped_refptr<MediaStreamInterface>>* added_streams,
+    std::vector<rtc::scoped_refptr<MediaStreamInterface>>* removed_streams) {
+  std::vector<std::string> stream_ids;
+  if (!media_desc->streams().empty()) {
+    // The remote description has signaled the stream IDs.
+    stream_ids = media_desc->streams()[0].stream_ids();
+  }
+  std::vector<rtc::scoped_refptr<MediaStreamInterface>> media_streams;
+  for (const std::string& stream_id : stream_ids) {
+    rtc::scoped_refptr<MediaStreamInterface> stream =
+        remote_streams_->find(stream_id);
+    if (!stream) {
+      stream = MediaStreamProxy::Create(rtc::Thread::Current(),
+                                        MediaStream::Create(stream_id));
+      remote_streams_->AddStream(stream);
+      added_streams->push_back(stream);
+    }
+    media_streams.push_back(stream);
+  }
+  // Special case: "a=msid" missing, use random stream ID.
+  if (media_streams.empty() &&
+      !(remote_description()->description()->msid_signaling() &
+        cricket::kMsidSignalingMediaSection)) {
+    if (!missing_msid_default_stream_) {
+      missing_msid_default_stream_ = MediaStreamProxy::Create(
+          rtc::Thread::Current(), MediaStream::Create(rtc::CreateRandomUuid()));
+      added_streams->push_back(missing_msid_default_stream_);
+    }
+    media_streams.push_back(missing_msid_default_stream_);
+  }
+  // SetStreams() will add/remove the receiver's track to/from the streams. This
+  // differs from the spec - the spec uses an "addList" and "removeList" to
+  // update the stream-track relationships in a later step. We do this earlier,
+  // changing the order of things, but the end-result is the same.
+  // TODO(hbos): When we remove remote_streams(), use set_stream_ids()
+  // instead. https://crbug.com/webrtc/9480
+  receiver->SetStreams(media_streams);
+  // Remove any streams that no longer have tracks.
+  // TODO(https://crbug.com/webrtc/9480): When we use stream IDs instead
+  // of streams, see if the stream was removed by checking if this was the
+  // last receiver with that stream ID.
+  for (auto stream : media_streams) {
+    if (stream->GetAudioTracks().empty() && stream->GetVideoTracks().empty()) {
+      remote_streams_->RemoveStream(stream);
+      removed_streams->push_back(stream);
+    }
+  }
 }
 
 void PeerConnection::ProcessRemovalOfRemoteTrack(

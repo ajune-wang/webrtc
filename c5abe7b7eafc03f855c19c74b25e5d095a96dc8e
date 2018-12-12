@@ -93,6 +93,30 @@
       "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa8bbc3_8a6dc764",
+        "filename": "video/end_to_end_tests/codec_tests.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-12T12:35:19Z",
+      "side": 1,
+      "message": "Leave it as is then, with the local variable.",
+      "parentUuid": "c572ec0a_dccb1c9b",
+      "range": {
+        "startLine": 54,
+        "startChar": 26,
+        "endLine": 54,
+        "endChar": 39
+      },
+      "revId": "c5abe7b7eafc03f855c19c74b25e5d095a96dc8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

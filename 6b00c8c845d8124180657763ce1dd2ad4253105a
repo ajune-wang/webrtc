@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d039a40_ec841aec",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2018-12-12T13:56:24Z",
+      "side": 1,
+      "message": "nit: Please make this javadoc and while you are at it, change the rest of the comments here as well.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "6b00c8c845d8124180657763ce1dd2ad4253105a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -189,7 +189,6 @@ if (is_linux) {
         extra_header = "linux/pipewire_stub_header.fragment"
         logging_function = "RTC_LOG(LS_VERBOSE)"
         logging_include = "rtc_base/logging.h"
-        output_name = "linux/pipewire_stubs"
         path_from_source = "modules/desktop_capture/linux"
         sigs = [ "linux/pipewire.sigs" ]
       }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea5353ae_ce6f899c",
+        "filename": "api/video/test/utilities.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-13T12:36:25Z",
+      "side": 1,
+      "message": "May be avoid nested namespace\nhttps://abseil.io/tips/130#best-practices\n\nspecially that functions here are already clearly marked as \u0027Test\u0027 and target protected with testonly flag",
+      "revId": "c28415d9af37fcd429eabc0b075a085227c67974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

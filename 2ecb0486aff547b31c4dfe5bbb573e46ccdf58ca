@@ -16,6 +16,24 @@
       "revId": "2ecb0486aff547b31c4dfe5bbb573e46ccdf58ca",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a219057_03a8c5cd",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:38:33Z",
+      "side": 1,
+      "message": "done.\n\nIt is more text though, not sure if it increases readability.",
+      "parentUuid": "d8f67d0d_0a137f52",
+      "revId": "2ecb0486aff547b31c4dfe5bbb573e46ccdf58ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

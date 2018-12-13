@@ -138,6 +138,8 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           field_trial::IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
       fall_back_to_probe_rate_(
           field_trial::IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
+      alr_limited_backoff_enabled_(
+          field_trial::IsEnabled("WebRTC-Bwe-AlrLimitedBackoff")),
       probe_controller_(new ProbeController()),
       congestion_window_pushback_controller_(
           MaybeInitalizeCongestionWindowPushbackController()),
@@ -500,9 +502,11 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   bandwidth_estimation_->SetAcknowledgedRate(acknowledged_bitrate,
                                              report.feedback_time);
   bandwidth_estimation_->IncomingPacketFeedbackVector(report);
+
   DelayBasedBwe::Result result;
   result = delay_based_bwe_->IncomingPacketFeedbackVector(
       received_feedback_vector, acknowledged_bitrate, probe_bitrate,
+      alr_limited_backoff_enabled_ && alr_start_time.has_value(),
       report.feedback_time);
 
   NetworkControlUpdate update;
@@ -518,8 +522,14 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     // Update the estimate in the ProbeController, in case we want to probe.
     MaybeTriggerOnNetworkChanged(&update, report.feedback_time);
   }
+
   if (result.recovered_from_overuse) {
     probe_controller_->SetAlrStartTimeMs(alr_start_time);
+    auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
+    update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
+                                        probes.begin(), probes.end());
+  } else if (result.alr_backoff) {
+    // If we just backed off during ALR, request a new probe.
     auto probes = probe_controller_->RequestProbe(report.feedback_time.ms());
     update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                         probes.begin(), probes.end());

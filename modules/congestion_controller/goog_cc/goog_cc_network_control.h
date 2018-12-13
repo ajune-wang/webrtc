@@ -73,6 +73,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   FieldTrialFlag safe_reset_acknowledged_rate_;
   const bool use_stable_bandwidth_estimate_;
   const bool fall_back_to_probe_rate_;
+  const bool alr_limited_backoff_enabled_;
 
   const std::unique_ptr<ProbeController> probe_controller_;
   const std::unique_ptr<CongestionWindowPushbackController>

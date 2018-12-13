@@ -154,6 +154,7 @@ SendSideCongestionController::SendSideCongestionController(
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       transport_overhead_bytes_per_packet_(0),
+      alr_limited_backoff_(false),
       pacer_pushback_experiment_(IsPacerPushbackExperimentEnabled()),
       congestion_window_pushback_controller_(
           MaybeCreateCongestionWindowPushbackController()) {
@@ -183,6 +184,11 @@ void SendSideCongestionController::EnableCongestionWindowPushback(
   congestion_window_pushback_controller_ =
       absl::make_unique<CongestionWindowPushbackController>(
           min_pushback_target_bitrate_bps);
+}
+
+void SendSideCongestionController::EnableAlrLimitedBackoff(bool enable) {
+  rtc::CritScope cs(&bwe_lock_);
+  alr_limited_backoff_ = enable;
 }
 
 void SendSideCongestionController::RegisterPacketFeedbackObserver(
@@ -430,6 +436,7 @@ void SendSideCongestionController::OnTransportFeedback(
     result = delay_based_bwe_->IncomingPacketFeedbackVector(
         feedback_vector, acknowledged_bitrate_estimator_->bitrate(),
         probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate(),
+        currently_in_alr && alr_limited_backoff_,
         Timestamp::ms(clock_->TimeInMilliseconds()));
   }
   if (result.updated) {
@@ -441,6 +448,9 @@ void SendSideCongestionController::OnTransportFeedback(
     rtc::CritScope cs(&probe_lock_);
     probe_controller_->SetAlrStartTimeMs(
         pacer_->GetApplicationLimitedRegionStartTime());
+    SendProbes(probe_controller_->RequestProbe(clock_->TimeInMilliseconds()));
+  } else if (result.alr_backoff) {
+    rtc::CritScope cs(&probe_lock_);
     SendProbes(probe_controller_->RequestProbe(clock_->TimeInMilliseconds()));
   }
   if (in_cwnd_experiment_) {

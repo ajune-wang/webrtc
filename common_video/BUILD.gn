@@ -115,4 +115,15 @@ if (rtc_include_tests) {
       deps += [ ":common_video_unittests_bundle_data" ]
     }
   }
+
+  rtc_source_set("test_utilities") {
+    testonly = true
+    sources = [
+      "test/utilities.cc",
+      "test/utilities.h",
+    ]
+    deps = [
+      "../api/video:video_frame",
+    ]
+  }
 }

@@ -281,7 +281,7 @@ int32_t H264EncoderImpl::InitEncode(const VideoCodec* inst,
     }
 
     // Codec_settings uses kbits/second; encoder uses bits/second.
-    configurations_[i].max_bps = codec_.maxBitrate * 1000;
+    configurations_[i].max_bps = 0;  // TODO(nisse): Ok?
     configurations_[i].target_bps = codec_.startBitrate * 1000;
 
     // Create encoder parameters based on the layer configuration.
@@ -357,8 +357,6 @@ int32_t H264EncoderImpl::SetRateAllocation(
   }
 
   // At this point, bitrate allocation should already match codec settings.
-  if (codec_.maxBitrate > 0)
-    RTC_DCHECK_LE(bitrate.get_sum_kbps(), codec_.maxBitrate);
   RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.minBitrate);
   if (codec_.numberOfSimulcastStreams > 0)
     RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.simulcastStream[0].minBitrate);

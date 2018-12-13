@@ -16,6 +16,24 @@
       "revId": "c28415d9af37fcd429eabc0b075a085227c67974",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cea0d0b_af76de7c",
+        "filename": "api/video/test/utilities.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2018-12-13T12:48:15Z",
+      "side": 1,
+      "message": "Will remove the test namespace if I proceed with this CL.",
+      "parentUuid": "ea5353ae_ce6f899c",
+      "revId": "c28415d9af37fcd429eabc0b075a085227c67974",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

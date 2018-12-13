@@ -70,6 +70,30 @@
       "revId": "53118c57aeea9c5731902fe5f72b98d163ca1da4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68410cd5_1f584b6a",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5828
+      },
+      "writtenOn": "2018-12-13T18:37:19Z",
+      "side": 1,
+      "message": "Sounds great, thanks Mirko!",
+      "parentUuid": "c4201e0c_75b4aa67",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 49
+      },
+      "revId": "53118c57aeea9c5731902fe5f72b98d163ca1da4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

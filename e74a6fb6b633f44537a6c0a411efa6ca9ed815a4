@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c546508d_18c47334",
+        "filename": "common_video/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2018-12-13T16:01:10Z",
+      "side": 1,
+      "message": "may be create new BUILD.gn file inside test, so that it would be easier to find what BUILD targets the utilities are in.\n\nIf test would grow (likely it would), it would be non-trivial to create BUILD.gn file in there later",
+      "revId": "e74a6fb6b633f44537a6c0a411efa6ca9ed815a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

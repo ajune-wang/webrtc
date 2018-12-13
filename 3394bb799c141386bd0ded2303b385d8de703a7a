@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4efe6a7_bb299e23",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-13T19:36:29Z",
+      "side": 1,
+      "message": "This usage defeats the purpose of unique_ptr because it is no longer unique if you give it away.\nIs IntrusivePointer (reference counted) more suitable for this scenario?\n\nauto buffer \u003d queue.Front();\nqueue.push(buffer);\n\nnow you have 2 unique pointers to the same data in the queue.\n\nPacketQueue being a private class somewhat mitigates the risk here, but if it\u0027s possible to do away with it altogether (by changing the signature or the pointer type) it would be more self-contained.\nlooking at the usages, it looks like every call to Front() is followed by a call to Pop() at the end of the code block.\na reasonable solution could be to change Pop() to return a unique_ptr.\ndeque will also allow to push to front.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 10
+      },
+      "revId": "3394bb799c141386bd0ded2303b385d8de703a7a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

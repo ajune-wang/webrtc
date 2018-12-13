@@ -808,6 +808,7 @@ if (rtc_include_tests) {
       "../../api/video:encoded_image",
       "../../api/video:video_frame",
       "../../api/video:video_frame_i420",
+      "../../api/video/test:rtc_api_video_unittests",
       "../../api/video_codecs:rtc_software_fallback_wrappers",
       "../../api/video_codecs:video_codecs_api",
       "../../common_video",

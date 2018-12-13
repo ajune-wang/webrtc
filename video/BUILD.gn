@@ -497,6 +497,7 @@ if (rtc_include_tests) {
       "../api/video:encoded_image",
       "../api/video:video_frame",
       "../api/video:video_frame_i420",
+      "../api/video/test:rtc_api_video_unittests",
       "../api/video_codecs:create_vp8_temporal_layers",
       "../api/video_codecs:video_codecs_api",
       "../call:call_interfaces",

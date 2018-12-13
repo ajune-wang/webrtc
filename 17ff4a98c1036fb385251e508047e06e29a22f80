@@ -22,6 +22,30 @@
       "revId": "17ff4a98c1036fb385251e508047e06e29a22f80",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3832597c_afd9e500",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-13T23:01:38Z",
+      "side": 1,
+      "message": "Ack. Would need a Front() method to avoid that. But I think in this case it\u0027s no big deal.",
+      "parentUuid": "5b2bb826_df99f308",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "17ff4a98c1036fb385251e508047e06e29a22f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

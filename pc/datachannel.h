@@ -12,6 +12,7 @@
 #define PC_DATACHANNEL_H_
 
 #include <deque>
+#include <memory>
 #include <set>
 #include <string>
 
@@ -211,11 +212,8 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
  private:
   // A packet queue which tracks the total queued bytes. Queued packets are
   // owned by this class.
-  class PacketQueue {
+  class PacketQueue final {
    public:
-    PacketQueue();
-    ~PacketQueue();
-
     size_t byte_count() const { return byte_count_; }
 
     bool Empty() const;
@@ -224,15 +222,15 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
 
     void Pop();
 
-    void Push(DataBuffer* packet);
+    void Push(std::unique_ptr<DataBuffer> packet);
 
     void Clear();
 
     void Swap(PacketQueue* other);
 
    private:
-    std::deque<DataBuffer*> packets_;
-    size_t byte_count_;
+    std::deque<std::unique_ptr<DataBuffer>> packets_;
+    size_t byte_count_ = 0;
   };
 
   // The OPEN(_ACK) signaling state.

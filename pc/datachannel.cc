@@ -12,7 +12,9 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 
+#include "absl/memory/memory.h"
 #include "media/sctp/sctptransportinternal.h"
 #include "pc/sctputils.h"
 #include "rtc_base/checks.h"
@@ -63,18 +65,12 @@ bool SctpSidAllocator::IsSidAvailable(int sid) const {
   return used_sids_.find(sid) == used_sids_.end();
 }
 
-DataChannel::PacketQueue::PacketQueue() : byte_count_(0) {}
-
-DataChannel::PacketQueue::~PacketQueue() {
-  Clear();
-}
-
 bool DataChannel::PacketQueue::Empty() const {
   return packets_.empty();
 }
 
 DataBuffer* DataChannel::PacketQueue::Front() {
-  return packets_.front();
+  return packets_.front().get();
 }
 
 void DataChannel::PacketQueue::Pop() {
@@ -86,16 +82,13 @@ void DataChannel::PacketQueue::Pop() {
   packets_.pop_front();
 }
 
-void DataChannel::PacketQueue::Push(DataBuffer* packet) {
+void DataChannel::PacketQueue::Push(std::unique_ptr<DataBuffer> packet) {
   byte_count_ += packet->size();
-  packets_.push_back(packet);
+  packets_.push_back(std::move(packet));
 }
 
 void DataChannel::PacketQueue::Clear() {
-  while (!packets_.empty()) {
-    delete packets_.front();
-    packets_.pop_front();
-  }
+  packets_.clear();
   byte_count_ = 0;
 }
 
@@ -393,7 +386,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
   }
 
   bool binary = (params.type == cricket::DMT_BINARY);
-  std::unique_ptr<DataBuffer> buffer(new DataBuffer(payload, binary));
+  auto buffer = absl::make_unique<DataBuffer>(payload, binary);
   if (state_ == kOpen && observer_) {
     ++messages_received_;
     bytes_received_ += buffer->size();
@@ -410,7 +403,7 @@ void DataChannel::OnDataReceived(const cricket::ReceiveDataParams& params,
 
       return;
     }
-    queued_received_data_.Push(buffer.release());
+    queued_received_data_.Push(std::move(buffer));
   }
 }
 
@@ -541,7 +534,7 @@ void DataChannel::DeliverQueuedReceivedData() {
   }
 
   while (!queued_received_data_.Empty()) {
-    std::unique_ptr<DataBuffer> buffer(queued_received_data_.Front());
+    DataBuffer* buffer = queued_received_data_.Front();
     ++messages_received_;
     bytes_received_ += buffer->size();
     observer_->OnMessage(*buffer);
@@ -564,7 +557,6 @@ void DataChannel::SendQueuedDataMessages() {
       break;
     }
     queued_send_data_.Pop();
-    delete buffer;
   }
 
   if (observer_ && buffered_amount() < start_buffered_amount) {
@@ -628,7 +620,7 @@ bool DataChannel::QueueSendDataMessage(const DataBuffer& buffer) {
     RTC_LOG(LS_ERROR) << "Can't buffer any more data for the data channel.";
     return false;
   }
-  queued_send_data_.Push(new DataBuffer(buffer));
+  queued_send_data_.Push(absl::make_unique<DataBuffer>(buffer));
 
   // The buffer can have length zero, in which case there is no change.
   if (observer_ && buffered_amount() > start_buffered_amount) {
@@ -642,14 +634,14 @@ void DataChannel::SendQueuedControlMessages() {
   control_packets.Swap(&queued_control_data_);
 
   while (!control_packets.Empty()) {
-    std::unique_ptr<DataBuffer> buf(control_packets.Front());
+    DataBuffer* buf = control_packets.Front();
     SendControlMessage(buf->data);
     control_packets.Pop();
   }
 }
 
 void DataChannel::QueueControlMessage(const rtc::CopyOnWriteBuffer& buffer) {
-  queued_control_data_.Push(new DataBuffer(buffer, true));
+  queued_control_data_.Push(absl::make_unique<DataBuffer>(buffer, true));
 }
 
 bool DataChannel::SendControlMessage(const rtc::CopyOnWriteBuffer& buffer) {

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8f67d0d_0a137f52",
+        "filename": "media/engine/webrtcvoiceengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-13T17:27:48Z",
+      "side": 1,
+      "message": "nit. \n\nconstexpr int ipv4_overhead \u003d \nconstexpr int udp_overhead \u003d \nconstexpr int rtp_packetization_overhead \u003d \n\nconst int overhead_per_packet \u003d ipv4_overhead + udp_overhead +\n   (config_.media_transport ? config_.media_transport-\u003eGetAudioPacketOverhead() : rtp_packetization_overhead);",
+      "revId": "2ecb0486aff547b31c4dfe5bbb573e46ccdf58ca",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

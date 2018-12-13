@@ -63,13 +63,6 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   static absl::optional<int> GetNewComplexity(
       const AudioEncoderOpusConfig& config);
 
-  // Returns OPUS_AUTO if the the current bitrate is above wideband threshold.
-  // Returns empty if it is below, but bandwidth coincides with the desired one.
-  // Otherwise returns the desired bandwidth.
-  static absl::optional<int> GetNewBandwidth(
-      const AudioEncoderOpusConfig& config,
-      OpusEncInst* inst);
-
   using AudioNetworkAdaptorCreator =
       std::function<std::unique_ptr<AudioNetworkAdaptor>(const std::string&,
                                                          RtcEventLog*)>;
@@ -185,8 +178,6 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   const int payload_type_;
   const bool send_side_bwe_with_overhead_;
   const bool use_link_capacity_for_adaptation_;
-  const bool adjust_bandwidth_;
-  bool bitrate_changed_;
   float packet_loss_rate_;
   const float min_packet_loss_rate_;
   const std::unique_ptr<NewPacketLossRateOptimizer> new_packet_loss_optimizer_;

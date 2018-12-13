@@ -403,28 +403,6 @@ absl::optional<int> AudioEncoderOpusImpl::GetNewComplexity(
   }
 }
 
-absl::optional<int> AudioEncoderOpusImpl::GetNewBandwidth(
-    const AudioEncoderOpusConfig& config,
-    OpusEncInst* inst) {
-  constexpr int kMinWidebandBitrate = 8000;
-  constexpr int kMaxNarrowbandBitrate = 9000;
-  constexpr int kAutomaticThreshold = 11000;
-  RTC_DCHECK(config.IsOk());
-  const int bitrate = GetBitrateBps(config);
-  if (bitrate > kAutomaticThreshold) {
-    return absl::optional<int>(OPUS_AUTO);
-  }
-  const int bandwidth = WebRtcOpus_GetBandwidth(inst);
-  RTC_DCHECK_GE(bandwidth, 0);
-  if (bitrate > kMaxNarrowbandBitrate && bandwidth < OPUS_BANDWIDTH_WIDEBAND) {
-    return absl::optional<int>(OPUS_BANDWIDTH_WIDEBAND);
-  } else if (bitrate < kMinWidebandBitrate &&
-             bandwidth > OPUS_BANDWIDTH_NARROWBAND) {
-    return absl::optional<int>(OPUS_BANDWIDTH_NARROWBAND);
-  }
-  return absl::optional<int>();
-}
-
 class AudioEncoderOpusImpl::PacketLossFractionSmoother {
  public:
   explicit PacketLossFractionSmoother()
@@ -473,9 +451,6 @@ AudioEncoderOpusImpl::AudioEncoderOpusImpl(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       use_link_capacity_for_adaptation_(webrtc::field_trial::IsEnabled(
           "WebRTC-Audio-LinkCapacityAdaptation")),
-      adjust_bandwidth_(
-          webrtc::field_trial::IsEnabled("WebRTC-AdjustOpusBandwidth")),
-      bitrate_changed_(true),
       packet_loss_rate_(0.0),
       min_packet_loss_rate_(GetMinPacketLossRate()),
       new_packet_loss_optimizer_(GetNewPacketLossRateOptimizer()),
@@ -725,14 +700,6 @@ AudioEncoder::EncodedInfo AudioEncoderOpusImpl::EncodeImpl(
   // Will use new packet size for next encoding.
   config_.frame_size_ms = next_frame_length_ms_;
 
-  if (adjust_bandwidth_ && bitrate_changed_) {
-    const auto bandwidth = GetNewBandwidth(config_, inst_);
-    if (bandwidth) {
-      RTC_CHECK_EQ(0, WebRtcOpus_SetBandwidth(inst_, *bandwidth));
-    }
-    bitrate_changed_ = false;
-  }
-
   info.encoded_timestamp = first_timestamp_in_buffer_;
   info.payload_type = payload_type_;
   info.send_even_if_empty = true;  // Allows Opus to send empty packets.
@@ -796,7 +763,6 @@ bool AudioEncoderOpusImpl::RecreateEncoderInstance(
   // window.
   complexity_ = GetNewComplexity(config).value_or(config.complexity);
   RTC_CHECK_EQ(0, WebRtcOpus_SetComplexity(inst_, complexity_));
-  bitrate_changed_ = true;
   if (config.dtx_enabled) {
     RTC_CHECK_EQ(0, WebRtcOpus_EnableDtx(inst_));
   } else {
@@ -857,7 +823,6 @@ void AudioEncoderOpusImpl::SetTargetBitrate(int bits_per_second) {
     complexity_ = *new_complexity;
     RTC_CHECK_EQ(0, WebRtcOpus_SetComplexity(inst_, complexity_));
   }
-  bitrate_changed_ = true;
 }
 
 void AudioEncoderOpusImpl::ApplyAudioNetworkAdaptor() {

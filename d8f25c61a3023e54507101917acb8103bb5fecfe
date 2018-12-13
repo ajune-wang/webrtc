@@ -327,6 +327,24 @@
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6a7a04_dcb66c32",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T16:30:50Z",
+      "side": 1,
+      "message": "If you want to document the current state, then you can say the following:\n- Invoking methods on the signaling thread gives well-defined behavior.\n- Invoking methods on any other thread is undefined behavior. (Proxy implementation handles it, PC implementation does not, other implementation: who knows.)\n\nWhether we are talking about current or future codebase, we cannot get away with assuming it is safe to invoke the interface\u0027s methods on a thread other than the signaling thread - this is not what the PC implementation does (and it shouldn\u0027t). Chromium is forced to update to use proxy references regardless, or rely on knowledge about what type of PC implementation was created without being explicit about the exact type.\n\nOne might put some documentation at the PeerConnectionFactory to say that it returns a proxy version of the object when you create a PC. That would be a right place to put that.",
+      "parentUuid": "43df2ad2_016018a9",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

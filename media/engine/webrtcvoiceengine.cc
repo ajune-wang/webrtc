@@ -1008,6 +1008,15 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
         constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
 
+        // Above overhead is hardcoded for RTP. If media_transport is used, we
+        // should use its overhead instead.
+        int overhead_per_packet = kOverheadPerPacket;
+        if (config_.media_transport) {
+          // Note that this code assumes Ipv4, which not always is true.
+          overhead_per_packet =  // Ipv4(20B) + UDP(8B) + Audio Packet Overhead
+              20 + 8 + config_.media_transport->GetAudioPacketOverhead();
+        }
+
         int min_overhead_bps =
             kOverheadPerPacket * 8 * 1000 / max_packet_size_ms;
 

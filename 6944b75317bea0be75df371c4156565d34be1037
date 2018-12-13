@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "281e458d_2ce8cd94",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3718,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T11:23:43Z",
+      "side": 1,
+      "message": "This won\u0027t fire the event when you exit the stable state. Instead, the event will happen at the next thing to be done to the connection, which is the wrong time.\n(It may have been wrong before too.)",
+      "revId": "6944b75317bea0be75df371c4156565d34be1037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b8f574_8e00da63",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 6646,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T11:23:43Z",
+      "side": 1,
+      "message": "The way you\u0027re using renegotiation_needed_, it should be called renegotiation_event_allowed_.\nBut I think you need a different pattern; this will fire negotiationneeded at the first out of a series of changes, while the spec says you fire it at the last (because of queueing).",
+      "revId": "6944b75317bea0be75df371c4156565d34be1037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619f21f3_3eab5263",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T11:23:43Z",
+      "side": 1,
+      "message": "Add method comment. What does it do?",
+      "revId": "6944b75317bea0be75df371c4156565d34be1037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3d22485_694f9573",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T11:23:43Z",
+      "side": 1,
+      "message": "If this is intended to reflect the [[NegotiationNeeded]] internal slot from the spec, call it negotation_needed for consistency. If it\u0027s not, add a comment about why it\u0027s different.",
+      "revId": "6944b75317bea0be75df371c4156565d34be1037",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

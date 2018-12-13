@@ -103,7 +103,7 @@ void OpusTest::SetMaxPlaybackRate(WebRtcOpusEncInst* encoder,
                                   int32_t set) {
   opus_int32 bandwidth;
   EXPECT_EQ(0, WebRtcOpus_SetMaxPlaybackRate(opus_encoder_, set));
-  opus_encoder_ctl(opus_encoder_->encoder, OPUS_GET_MAX_BANDWIDTH(&bandwidth));
+  EXPECT_EQ(0, WebRtcOpus_GetMaxPlaybackRate(opus_encoder_, &bandwidth));
   EXPECT_EQ(expect, bandwidth);
 }
 
@@ -354,13 +354,13 @@ TEST(OpusTest, OpusCreateFail) {
   // Test to see that an invalid pointer is caught.
   EXPECT_EQ(-1, WebRtcOpus_EncoderCreate(NULL, 1, 0));
   // Invalid channel number.
-  EXPECT_EQ(-1, WebRtcOpus_EncoderCreate(&opus_encoder, 3, 0));
+  EXPECT_EQ(-1, WebRtcOpus_EncoderCreate(&opus_encoder, 257, 0));
   // Invalid applciation mode.
   EXPECT_EQ(-1, WebRtcOpus_EncoderCreate(&opus_encoder, 1, 2));
 
   EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(NULL, 1));
   // Invalid channel number.
-  EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(&opus_decoder, 3));
+  EXPECT_EQ(-1, WebRtcOpus_DecoderCreate(&opus_decoder, 257));
 }
 
 // Test failing Free.
@@ -399,7 +399,8 @@ TEST_P(OpusTest, OpusEncodeDecode) {
 
   // Check application mode.
   opus_int32 app;
-  opus_encoder_ctl(opus_encoder_->encoder, OPUS_GET_APPLICATION(&app));
+  opus_multistream_encoder_ctl(opus_encoder_->encoder,
+                               OPUS_GET_APPLICATION(&app));
   EXPECT_EQ(application_ == 0 ? OPUS_APPLICATION_VOIP : OPUS_APPLICATION_AUDIO,
             app);
 
@@ -568,17 +569,17 @@ TEST_P(OpusTest, OpusEnableDisableDtx) {
   opus_int32 dtx;
 
   // DTX is off by default.
-  opus_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
+  opus_multistream_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
   EXPECT_EQ(0, dtx);
 
   // Test to enable DTX.
   EXPECT_EQ(0, WebRtcOpus_EnableDtx(opus_encoder_));
-  opus_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
+  opus_multistream_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
   EXPECT_EQ(1, dtx);
 
   // Test to disable DTX.
   EXPECT_EQ(0, WebRtcOpus_DisableDtx(opus_encoder_));
-  opus_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
+  opus_multistream_encoder_ctl(opus_encoder_->encoder, OPUS_GET_DTX(&dtx));
   EXPECT_EQ(0, dtx);
 
   // Free memory.

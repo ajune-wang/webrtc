@@ -1005,11 +1005,21 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         const int max_packet_size_ms =
             WEBRTC_OPUS_SUPPORT_120MS_PTIME ? 120 : 60;
 
-        // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
-        constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
+        constexpr int kIpV4Overhead = 20;
+        constexpr int kUdpOverhead = 8;
+
+        constexpr int kSrtpOverhead = 10;
+        constexpr int kRtpOverhead = 12;
+        constexpr int kRtpPacketizationOverhead = kSrtpOverhead + kRtpOverhead;
+
+        const int overhead_per_packet =
+            kIpV4Overhead + kUdpOverhead +
+            (config_.media_transport
+                 ? config_.media_transport->GetAudioPacketOverhead()
+                 : kRtpPacketizationOverhead);
 
         int min_overhead_bps =
-            kOverheadPerPacket * 8 * 1000 / max_packet_size_ms;
+            overhead_per_packet * 8 * 1000 / max_packet_size_ms;
 
         // We assume that |config_.max_bitrate_bps| before the next line is
         // a hard limit on the payload bitrate, so we add min_overhead_bps to

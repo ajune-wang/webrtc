@@ -200,6 +200,30 @@
     },
     {
       "key": {
+        "uuid": "8b36bbf8_a8376683",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T15:04:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0f37ce4_1b445dc4",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cafdba8b_9cbb7dc8",
         "filename": "api/DESIGN.md",
         "patchSetId": 2
@@ -282,6 +306,24 @@
       "side": 1,
       "message": "The \"current implementation\" refers to two separate beasts. The actual peer connection implementation, which is NOT callable from \"any thread\" - and I think it would be a mistake to document this as a requirement of any implementation - and the proxy object, which in my opinion should not be viewed as an implementation of the interface but rather a helper class that allows using the PC from threads other than the one it was *designed for*. The fact that peerconnection.cc synchronously does things on the signaling thread is not an implementation detail, its by-design - just like the spec is clear about when to \"run the following steps\" (i.e. do this now) or when to \"run in parallel\" (i.e. do something in the background, which only ever becomes visible by a subsequent \"queue a task that runs the following steps\"). The fact that the signaling thread is NOT the same thread as the JavaScript thread is an observable bug; \"to be used in a multithreaded environment\" should NOT be viewed as a feature of peer connections properly implemented.\n\nI think the way forward is:\n- Document the interface to describe what an actual implementation should do. That is, all method calls and all callbacks should occur on the same task queue.\n- Document the threading hazards in the PROXY, explaining how these functionalities are an add-on, not an implementation of the interface per-se.\n- With regards to PeerConnection-getters (FooInterfaces being exposed such as RtpTransceiverInterface by GetTransceivers(), or possibly RtpReceiverInterface by ontrack-callbacks) returning interfaces that are implemented as FooProxies: Again, this is a workaround to allow PROXY to work, not a requirement by the interface. We could have isolated this PROXY logic to the PeerConnectionProxy but that would have required more work, documenting this as a bug is better than making this implementation detail part of the interface.\n\nWe should strive towards:\n- Making PeerConnection as similar to the spec as possible, meaning what refers to as the \"main thread\" is the same thing as the spec is referring to - the JavaScript thread. Once we\u0027ve gotten rid of the additional threading layers we can...\n- Remove the PROXY object, meaning we no longer need FooInterfaces, we can just have Foos (unless we want to implement MOCK/FAKE stuff).",
       "parentUuid": "b80bb064_e3d5e9e8",
+      "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43df2ad2_016018a9",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-13T15:04:38Z",
+      "side": 1,
+      "message": "The current implementation of the WebRTC C++ library consists of a bunch of classes, some of which have the 3-element inheritance hierarchy where \"proxy\" and \"implementation\" are subclasses\nof the interface class. I want to document the present state, which is a good basis for discussing what the future state should be, but mixing up the discussion of what the present state is with what the future state should be will get us neither documentation of the present nor a direction for the future.",
+      "parentUuid": "dfc193b1_99d7f87a",
       "revId": "d8f25c61a3023e54507101917acb8103bb5fecfe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

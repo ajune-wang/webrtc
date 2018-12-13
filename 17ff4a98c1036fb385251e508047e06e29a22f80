@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b2bb826_df99f308",
+        "filename": "pc/datachannel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-13T22:32:54Z",
+      "side": 1,
+      "message": "Careful here. you are adding a side-effect to push_front. This means that you are actually changing the byte_count_ in that method where you are \"examining\" the front and then pushing it back to the front of the deque.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "17ff4a98c1036fb385251e508047e06e29a22f80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fadd56c4_eae7415e",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "0 is probably not valid.",
+      "range": {
+        "startLine": 200,
+        "startChar": 62,
+        "endLine": 200,
+        "endChar": 65
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce379e44_ee682611",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "you can DCHECK in destructor that this list is empty.",
+      "range": {
+        "startLine": 220,
+        "startChar": 2,
+        "endLine": 220,
+        "endChar": 33
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db725369_69f2d844",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "since this is a DCHECK, should the CritScope lock be part of the dcheck? We don\u0027t need a lock if we are not going to CHECK (in production).",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 15
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6e0d274_09a7e006",
+        "filename": "call/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "should we DCHECK that both are not set at the same time? (or do we expect rtcp_send_transport to still be present while media transport is used?).\n\nSo far we assumed that RTP codepath coexists and is present while media_transport is used, but if it is possible to check RTP \u003d null, that would be even better.",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 41
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eea95249_5f599a55",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "ditto: can we check that send_transport is null?",
+      "range": {
+        "startLine": 72,
+        "startChar": 71,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02fd08f3_8468aad9",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "if media transport is used, should we either replace this, or remove this code? if not, can we add a todo?",
+      "range": {
+        "startLine": 1338,
+        "startChar": 2,
+        "endLine": 1341,
+        "endChar": 5
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb4d233_db939c5d",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "you should probably subscribe to media_transport and get those events as well.",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41969d40_997df909",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "what are those observers used for? do they decide any mission-critical things? (fps/bitrate/etc.?). If yes, do we need to implement them for media transport?",
+      "range": {
+        "startLine": 278,
+        "startChar": 9,
+        "endLine": 281,
+        "endChar": 44
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b93cd651_e9b3bb3d",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "+philipel@ I\u0027d like to resolve this :-) and I think this is a perfect time to do so. We can discuss this next week.",
+      "range": {
+        "startLine": 609,
+        "startChar": 21,
+        "endLine": 610,
+        "endChar": 28
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b9d3931_60769774",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "how does it work with simulcast or temporal/spatial layers?",
+      "range": {
+        "startLine": 612,
+        "startChar": 17,
+        "endLine": 612,
+        "endChar": 42
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57c4d7a_1183b724",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "this is what we did before, and works fine for basic codec scenarios, though we probably should take these parameters from EncodedFrame.\n\nDo we have access to encoded frame here? Can we get it? (EncodedFrame already contains frame_id and reference frame ids)\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video/encoded_frame.h?l\u003d80\u0026rcl\u003df7f13e0742a999c991ea3d2871dd99a042736c28",
+      "range": {
+        "startLine": 617,
+        "startChar": 6,
+        "endLine": 617,
+        "endChar": 51
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0da7b06_7fafa9dc",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-13T17:57:35Z",
+      "side": 1,
+      "message": "should we DCHECK that there is only one there?",
+      "range": {
+        "startLine": 620,
+        "startChar": 26,
+        "endLine": 620,
+        "endChar": 30
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

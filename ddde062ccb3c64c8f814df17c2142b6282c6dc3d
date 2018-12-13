@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aefaabb5_57da9af1",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "Oops, accidentally moved GetStreamIdsString after removing it and changing my mind, order restored.",
+      "parentUuid": "61f88112_37f1d8e2",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20c98458_fcbae678",
         "filename": "pc/peerconnection.cc",
         "patchSetId": 3
@@ -77,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "6c7451cb_bdeef225",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2680,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "I get the streams before SetAssociatedRemoteStreams() and ProcessRemovalOfRemoteTrack(), and do that logic on those streams after the calls. That way only looping through the streams once.",
+      "parentUuid": "776357ed_8ff8bef3",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c7e7d7e_cb586007",
         "filename": "pc/peerconnection.h",
         "patchSetId": 3
@@ -91,6 +127,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5f1ddd2_3afd537a",
+        "filename": "pc/peerconnection.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c7e7d7e_cb586007",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -126,6 +180,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e924f5a6_74c9b703",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "577a2275_efce77dc",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -187,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "48a14f60_9da738bd",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb1fb2f_d97f6cb3",
+      "range": {
+        "startLine": 524,
+        "startChar": 2,
+        "endLine": 524,
+        "endChar": 11
+      },
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6f4bf42_1235decb",
         "filename": "pc/peerconnection_rtp_unittest.cc",
         "patchSetId": 3
@@ -198,6 +294,24 @@
       "writtenOn": "2018-12-12T17:42:39Z",
       "side": 1,
       "message": "If you want to be fancy you can do:\n\nEXPECT_THAT(transceiver-\u003ereceiver()-\u003estreams(), ElementsAre(Property(\u0026MediaStreamInterface::id, \"2\"));",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3719c0_2e468619",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-13T17:25:07Z",
+      "side": 1,
+      "message": "Oooh fancy.\nIt barfs. I think it\u0027s because its a scoped_refptr\u003c\u003e to MediaStreamInterface, not MediaStreamInterface. Know how to get around that? I didn\u0027t change the code now.",
+      "parentUuid": "c6f4bf42_1235decb",
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

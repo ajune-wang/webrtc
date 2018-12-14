@@ -11,6 +11,7 @@
 #include "api/test/loopback_media_transport.h"
 
 #include "absl/memory/memory.h"
+#include "rtc_base/timeutils.h"
 
 namespace webrtc {
 
@@ -49,6 +50,16 @@ class WrapperMediaTransport : public MediaTransportInterface {
 
   void SetReceiveVideoSink(MediaTransportVideoSinkInterface* sink) override {
     wrapped_->SetReceiveVideoSink(sink);
+  }
+
+  void AddTargetTransferRateObserver(
+      TargetTransferRateObserver* observer) override {
+    wrapped_->AddTargetTransferRateObserver(observer);
+  }
+
+  void RemoveTargetTransferRateObserver(
+      TargetTransferRateObserver* observer) override {
+    wrapped_->RemoveTargetTransferRateObserver(observer);
   }
 
   void SetMediaTransportStateCallback(
@@ -98,6 +109,7 @@ MediaTransportPair::LoopbackMediaTransport::~LoopbackMediaTransport() {
   RTC_CHECK(audio_sink_ == nullptr);
   RTC_CHECK(video_sink_ == nullptr);
   RTC_CHECK(data_sink_ == nullptr);
+  RTC_CHECK(target_transfer_rate_observers_.empty());
 }
 
 RTCError MediaTransportPair::LoopbackMediaTransport::SendAudioFrame(
@@ -163,6 +175,50 @@ void MediaTransportPair::LoopbackMediaTransport::SetReceiveVideoSink(
     RTC_CHECK(video_sink_ == nullptr);
   }
   video_sink_ = sink;
+}
+
+void MediaTransportPair::LoopbackMediaTransport::AddTargetTransferRateObserver(
+    TargetTransferRateObserver* observer) {
+  {
+    RTC_CHECK(observer);
+
+    rtc::CritScope cs(&sink_lock_);
+    RTC_CHECK(std::find(target_transfer_rate_observers_.begin(),
+                        target_transfer_rate_observers_.end(),
+                        observer) == target_transfer_rate_observers_.end());
+    target_transfer_rate_observers_.push_back(observer);
+  }
+  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this] {
+    RTC_DCHECK_RUN_ON(thread_);
+    const DataRate kBitrate = DataRate::kbps(300);
+    const Timestamp now = Timestamp::us(rtc::TimeMicros());
+
+    TargetTransferRate transfer_rate;
+    transfer_rate.at_time = now;
+    transfer_rate.target_rate = kBitrate;
+    transfer_rate.network_estimate.at_time = now;
+    transfer_rate.network_estimate.round_trip_time = TimeDelta::ms(20);
+    transfer_rate.network_estimate.bwe_period = TimeDelta::ms(0);
+    transfer_rate.network_estimate.bandwidth = kBitrate;
+
+    rtc::CritScope cs(&sink_lock_);
+
+    for (auto* o : target_transfer_rate_observers_) {
+      o->OnTargetTransferRate(transfer_rate);
+    }
+  });
+}
+
+void MediaTransportPair::LoopbackMediaTransport::
+    RemoveTargetTransferRateObserver(TargetTransferRateObserver* observer) {
+  rtc::CritScope cs(&sink_lock_);
+  auto it = std::find(target_transfer_rate_observers_.begin(),
+                      target_transfer_rate_observers_.end(), observer);
+  if (it == target_transfer_rate_observers_.end()) {
+    RTC_LOG(LS_WARNING) << "Attempt to remove an unknown observer";
+    return;
+  }
+  target_transfer_rate_observers_.erase(it);
 }
 
 void MediaTransportPair::LoopbackMediaTransport::SetMediaTransportStateCallback(

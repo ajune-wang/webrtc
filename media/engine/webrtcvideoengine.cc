@@ -1076,7 +1076,7 @@ bool WebRtcVideoChannel::AddSendStream(const StreamParams& sp) {
   for (uint32_t used_ssrc : sp.ssrcs)
     send_ssrcs_.insert(used_ssrc);
 
-  webrtc::VideoSendStream::Config config(this);
+  webrtc::VideoSendStream::Config config(this, media_transport());
   config.suspend_below_min_bitrate = video_config_.suspend_below_min_bitrate;
   config.periodic_alr_bandwidth_probing =
       video_config_.periodic_alr_bandwidth_probing;
@@ -1200,7 +1200,7 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
   for (uint32_t used_ssrc : sp.ssrcs)
     receive_ssrcs_.insert(used_ssrc);
 
-  webrtc::VideoReceiveStream::Config config(this);
+  webrtc::VideoReceiveStream::Config config(this, media_transport());
   webrtc::FlexfecReceiveStream::Config flexfec_config(this);
   ConfigureReceiverRtp(&config, &flexfec_config, sp);
 
@@ -1480,9 +1480,6 @@ void WebRtcVideoChannel::OnNetworkRouteChanged(
 void WebRtcVideoChannel::SetInterface(
     NetworkInterface* iface,
     webrtc::MediaTransportInterface* media_transport) {
-  // TODO(sukhanov): Video is not currently supported with media transport.
-  RTC_CHECK(media_transport == nullptr);
-
   MediaChannel::SetInterface(iface, media_transport);
   // Set the RTP recv/send buffer to a bigger size.
 

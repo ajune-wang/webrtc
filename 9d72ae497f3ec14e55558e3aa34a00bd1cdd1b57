@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85338e72_7d1ac851",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-14T14:38:19Z",
+      "side": 1,
+      "message": "Are we bypassing this check? Should we?",
+      "range": {
+        "startLine": 503,
+        "startChar": 2,
+        "endLine": 503,
+        "endChar": 41
+      },
+      "revId": "9d72ae497f3ec14e55558e3aa34a00bd1cdd1b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2594c8ae_5dbd37d5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-14T14:38:19Z",
+      "side": 1,
+      "message": "Please update comment.",
+      "range": {
+        "startLine": 529,
+        "startChar": 35,
+        "endLine": 529,
+        "endChar": 49
+      },
+      "revId": "9d72ae497f3ec14e55558e3aa34a00bd1cdd1b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c01ce5_5565db57",
+        "filename": "pc/channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2018-12-14T14:38:19Z",
+      "side": 1,
+      "message": "The CL would bypass this \"RTCP muxing\". Is this an issue?",
+      "range": {
+        "startLine": 245,
+        "startChar": 62,
+        "endLine": 246,
+        "endChar": 28
+      },
+      "revId": "9d72ae497f3ec14e55558e3aa34a00bd1cdd1b57",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

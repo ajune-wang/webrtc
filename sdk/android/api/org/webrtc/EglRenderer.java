@@ -75,7 +75,7 @@ public class EglRenderer implements VideoSink {
         }
         eglBase.makeCurrent();
         // Necessary for YUV frames with odd width.
-        GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 1);
+        gles.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 1);
       }
     }
   }
@@ -108,6 +108,7 @@ public class EglRenderer implements VideoSink {
   // |renderThreadHandler| is a handler for communicating with |renderThread|, and is synchronized
   // on |handlerLock|.
   private final Object handlerLock = new Object();
+  private final GLES20 gles = new GLES20();
   @Nullable private Handler renderThreadHandler;
 
   private final ArrayList<FrameListenerAndParams> frameListeners = new ArrayList<>();
@@ -156,7 +157,7 @@ public class EglRenderer implements VideoSink {
 
   // Used for bitmap capturing.
   private final GlTextureFrameBuffer bitmapTextureFramebuffer =
-      new GlTextureFrameBuffer(GLES20.GL_RGBA);
+      new GlTextureFrameBuffer(gles.GL_RGBA);
 
   private final Runnable logStatisticsRunnable = new Runnable() {
     @Override
@@ -275,7 +276,7 @@ public class EglRenderer implements VideoSink {
       // Release EGL and GL resources on render thread.
       renderThreadHandler.postAtFrontOfQueue(() -> {
         // Detach current shader program.
-        GLES20.glUseProgram(/* program= */ 0);
+        gles.glUseProgram(/* program= */ 0);
         if (drawer != null) {
           drawer.release();
           drawer = null;
@@ -534,8 +535,8 @@ public class EglRenderer implements VideoSink {
   private void clearSurfaceOnRenderThread(float r, float g, float b, float a) {
     if (eglBase != null && eglBase.hasSurface()) {
       logD("clearSurface");
-      GLES20.glClearColor(r, g, b, a);
-      GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+      gles.glClearColor(r, g, b, a);
+      gles.glClear(gles.GL_COLOR_BUFFER_BIT);
       eglBase.swapBuffers();
     }
   }
@@ -627,8 +628,8 @@ public class EglRenderer implements VideoSink {
     drawMatrix.preTranslate(-0.5f, -0.5f);
 
     if (shouldRenderFrame) {
-      GLES20.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
-      GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+      gles.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
+      gles.glClear(gles.GL_COLOR_BUFFER_BIT);
       frameDrawer.drawFrame(frame, drawer, drawMatrix, 0 /* viewportX */, 0 /* viewportY */,
           eglBase.surfaceWidth(), eglBase.surfaceHeight());
 
@@ -680,21 +681,21 @@ public class EglRenderer implements VideoSink {
 
       bitmapTextureFramebuffer.setSize(scaledWidth, scaledHeight);
 
-      GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, bitmapTextureFramebuffer.getFrameBufferId());
-      GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0,
-          GLES20.GL_TEXTURE_2D, bitmapTextureFramebuffer.getTextureId(), 0);
+      gles.glBindFramebuffer(gles.GL_FRAMEBUFFER, bitmapTextureFramebuffer.getFrameBufferId());
+      gles.glFramebufferTexture2D(gles.GL_FRAMEBUFFER, gles.GL_COLOR_ATTACHMENT0,
+          gles.GL_TEXTURE_2D, bitmapTextureFramebuffer.getTextureId(), 0);
 
-      GLES20.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
-      GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+      gles.glClearColor(0 /* red */, 0 /* green */, 0 /* blue */, 0 /* alpha */);
+      gles.glClear(gles.GL_COLOR_BUFFER_BIT);
       frameDrawer.drawFrame(frame, listenerAndParams.drawer, drawMatrix, 0 /* viewportX */,
           0 /* viewportY */, scaledWidth, scaledHeight);
 
       final ByteBuffer bitmapBuffer = ByteBuffer.allocateDirect(scaledWidth * scaledHeight * 4);
-      GLES20.glViewport(0, 0, scaledWidth, scaledHeight);
-      GLES20.glReadPixels(
-          0, 0, scaledWidth, scaledHeight, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, bitmapBuffer);
+      gles.glViewport(0, 0, scaledWidth, scaledHeight);
+      gles.glReadPixels(
+          0, 0, scaledWidth, scaledHeight, gles.GL_RGBA, gles.GL_UNSIGNED_BYTE, bitmapBuffer);
 
-      GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0);
+      gles.glBindFramebuffer(gles.GL_FRAMEBUFFER, 0);
       GlUtil.checkNoGLES2Error("EglRenderer.notifyCallbacks");
 
       final Bitmap bitmap = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);

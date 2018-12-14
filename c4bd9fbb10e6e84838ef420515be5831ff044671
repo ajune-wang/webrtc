@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8869d39f_731b51f2",
+        "filename": "media/engine/fakewebrtccall.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T14:39:13Z",
+      "side": 1,
+      "message": "Why is it video here?",
+      "range": {
+        "startLine": 605,
+        "startChar": 16,
+        "endLine": 605,
+        "endChar": 41
+      },
+      "revId": "c4bd9fbb10e6e84838ef420515be5831ff044671",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

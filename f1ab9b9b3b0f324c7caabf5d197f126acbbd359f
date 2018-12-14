@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e32a9f95_a236f23f",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T14:39:13Z",
+      "side": 0,
+      "message": "In principle, MediaType is needed for unbundled. If we have separate RTP sessions for audio and video, they might use the same ssrcs for different streams. Would it be difficult to keep passing media_type, for the time being?\n\nAlso, could you merge this method with DeliverRtcpPacket?",
+      "range": {
+        "startLine": 1228,
+        "startChar": 49,
+        "endLine": 1228,
+        "endChar": 58
+      },
+      "revId": "f1ab9b9b3b0f324c7caabf5d197f126acbbd359f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

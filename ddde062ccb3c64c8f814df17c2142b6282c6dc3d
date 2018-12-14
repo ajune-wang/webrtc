@@ -315,6 +315,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3caa5f_3ce08b61",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-14T02:17:06Z",
+      "side": 1,
+      "message": "I think the best approach would be to teach gmock about scoped_refptr, but it looks like that might not be very feasible, so I guess we should just leave it as is.",
+      "parentUuid": "8d3719c0_2e468619",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

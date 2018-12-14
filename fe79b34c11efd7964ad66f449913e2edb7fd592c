@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc99b317_747cb796",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2646,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-14T02:17:06Z",
+      "side": 0,
+      "message": "Hmm, my call for refactoring may have been too ambitious. It looks like this is also called from ApplyLocalDescription. Is this still safe, or should it be left as-is?",
+      "revId": "fe79b34c11efd7964ad66f449913e2edb7fd592c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

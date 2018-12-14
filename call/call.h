@@ -91,10 +91,14 @@ class Call {
   virtual void DestroyFlexfecReceiveStream(
       FlexfecReceiveStream* receive_stream) = 0;
 
-  // All received RTP and RTCP packets for the call should be inserted to this
+  // All received RTP packets for the call should be inserted to this
   // PacketReceiver. The PacketReceiver pointer is valid as long as the
   // Call instance exists.
   virtual PacketReceiver* Receiver() = 0;
+  // All received RTCP packets for the call should be inserted to this
+  // RtcpPacketReceiver. The RtcpPacketReceiver pointer is valid as long as the
+  // Call instance exists.
+  virtual RtcpPacketReceiver* RtcpReceiver() = 0;
 
   // This is used to access the transport controller send instance owned by
   // Call. The send transport controller is currently owned by Call for legacy

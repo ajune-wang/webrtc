@@ -21,6 +21,7 @@
 #include "api/crypto/cryptooptions.h"
 #include "api/media_transport_interface.h"
 #include "api/peerconnectioninterface.h"
+#include "call/packet_receiver.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/sctp/sctptransportinternal.h"
 #include "p2p/base/dtlstransport.h"
@@ -82,6 +83,7 @@ class JsepTransportController : public sigslot::has_slots<> {
     Observer* transport_observer = nullptr;
     bool active_reset_srtp_params = false;
     RtcEventLog* event_log = nullptr;
+    RtcpPacketReceiver* rtcp_receiver = nullptr;
 
     // Optional media transport factory (experimental). If provided it will be
     // used to create media_transport and will be used to send / receive
@@ -95,6 +97,7 @@ class JsepTransportController : public sigslot::has_slots<> {
   // All the transport related methods are called on the |network_thread|.
   JsepTransportController(rtc::Thread* signaling_thread,
                           rtc::Thread* network_thread,
+                          rtc::Thread* worker_thread,
                           cricket::PortAllocator* port_allocator,
                           AsyncResolverFactory* async_resolver_factory,
                           Config config);
@@ -330,10 +333,13 @@ class JsepTransportController : public sigslot::has_slots<> {
 
   void UpdateAggregateStates_n();
 
+  void OnRtcpPacket_n(rtc::CopyOnWriteBuffer* packet, int64_t receive_time_us);
+
   void OnDtlsHandshakeError(rtc::SSLHandshakeError error);
 
   rtc::Thread* const signaling_thread_ = nullptr;
   rtc::Thread* const network_thread_ = nullptr;
+  rtc::Thread* const worker_thread_ = nullptr;
   cricket::PortAllocator* const port_allocator_ = nullptr;
   AsyncResolverFactory* const async_resolver_factory_ = nullptr;
 

@@ -233,14 +233,9 @@ class BaseChannel : public ChannelInterface,
                   rtc::CopyOnWriteBuffer* packet,
                   const rtc::PacketOptions& options);
 
-  void OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                            int64_t packet_time_us);
-
-  void OnPacketReceived(bool rtcp,
-                        const rtc::CopyOnWriteBuffer& packet,
+  void OnPacketReceived(const rtc::CopyOnWriteBuffer& packet,
                         int64_t packet_time_us);
-  void ProcessPacket(bool rtcp,
-                     const rtc::CopyOnWriteBuffer& packet,
+  void ProcessPacket(const rtc::CopyOnWriteBuffer& packet,
                      int64_t packet_time_us);
 
   void EnableMedia_w();

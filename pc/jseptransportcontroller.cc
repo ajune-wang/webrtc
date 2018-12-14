@@ -76,11 +76,13 @@ namespace webrtc {
 JsepTransportController::JsepTransportController(
     rtc::Thread* signaling_thread,
     rtc::Thread* network_thread,
+    rtc::Thread* worker_thread,
     cricket::PortAllocator* port_allocator,
     AsyncResolverFactory* async_resolver_factory,
     Config config)
     : signaling_thread_(signaling_thread),
       network_thread_(network_thread),
+      worker_thread_(worker_thread),
       port_allocator_(port_allocator),
       async_resolver_factory_(async_resolver_factory),
       config_(config) {
@@ -1077,6 +1079,8 @@ RTCError JsepTransportController::MaybeCreateJsepTransport(
       this, &JsepTransportController::UpdateAggregateStates_n);
   jsep_transport->SignalMediaTransportStateChanged.connect(
       this, &JsepTransportController::OnMediaTransportStateChanged_n);
+  jsep_transport->rtp_transport()->SignalRtcpPacketReceived.connect(
+      this, &JsepTransportController::OnRtcpPacket_n);
   SetTransportForMid(content_info.name, jsep_transport.get());
 
   jsep_transports_by_name_[content_info.name] = std::move(jsep_transport);
@@ -1470,6 +1474,15 @@ void JsepTransportController::UpdateAggregateStates_n() {
                                  SignalIceGatheringState(new_gathering_state);
                                });
   }
+}
+
+void JsepTransportController::OnRtcpPacket_n(rtc::CopyOnWriteBuffer* packet,
+                                             int64_t receive_time_us) {
+  rtc::CopyOnWriteBuffer packet_copy = *packet;
+  invoker_.AsyncInvoke<void>(
+      RTC_FROM_HERE, worker_thread_, [this, packet_copy, receive_time_us] {
+        config_.rtcp_receiver->DeliverRtcpPacket(packet_copy, receive_time_us);
+      });
 }
 
 void JsepTransportController::OnDtlsHandshakeError(

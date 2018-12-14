@@ -36,6 +36,14 @@ class PacketReceiver {
   virtual ~PacketReceiver() {}
 };
 
+class RtcpPacketReceiver {
+ public:
+  virtual void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                                 int64_t packet_time_us) = 0;
+
+ protected:
+  virtual ~RtcpPacketReceiver() {}
+};
 }  // namespace webrtc
 
 #endif  // CALL_PACKET_RECEIVER_H_

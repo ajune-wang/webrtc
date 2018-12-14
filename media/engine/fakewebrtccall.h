@@ -241,7 +241,9 @@ class FakeFlexfecReceiveStream final : public webrtc::FlexfecReceiveStream {
   webrtc::FlexfecReceiveStream::Config config_;
 };
 
-class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
+class FakeCall final : public webrtc::Call,
+                       public webrtc::PacketReceiver,
+                       public webrtc::RtcpPacketReceiver {
  public:
   FakeCall();
   ~FakeCall() override;
@@ -302,10 +304,13 @@ class FakeCall final : public webrtc::Call, public webrtc::PacketReceiver {
       webrtc::FlexfecReceiveStream* receive_stream) override;
 
   webrtc::PacketReceiver* Receiver() override;
+  webrtc::RtcpPacketReceiver* RtcpReceiver() override;
 
   DeliveryStatus DeliverPacket(webrtc::MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) override;
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                         int64_t packet_time_us) override;
 
   webrtc::RtpTransportControllerSendInterface* GetTransportControllerSend()
       override {

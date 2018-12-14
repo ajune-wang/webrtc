@@ -40,7 +40,10 @@
 
 namespace webrtc {
 
-class DegradedCall : public Call, private Transport, private PacketReceiver {
+class DegradedCall : public Call,
+                     private Transport,
+                     private PacketReceiver,
+                     private RtcpPacketReceiver {
  public:
   explicit DegradedCall(
       std::unique_ptr<Call> call,
@@ -76,6 +79,7 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
       FlexfecReceiveStream* receive_stream) override;
 
   PacketReceiver* Receiver() override;
+  RtcpPacketReceiver* RtcpReceiver() override;
 
   RtpTransportControllerSendInterface* GetTransportControllerSend() override;
 
@@ -102,6 +106,9 @@ class DegradedCall : public Call, private Transport, private PacketReceiver {
   DeliveryStatus DeliverPacket(MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) override;
+  // Implements RtcpPacketReceiver.
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                         int64_t packet_time_us) override;
 
  private:
   Clock* const clock_;

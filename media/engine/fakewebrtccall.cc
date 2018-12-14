@@ -568,6 +568,10 @@ webrtc::PacketReceiver* FakeCall::Receiver() {
   return this;
 }
 
+webrtc::RtcpPacketReceiver* FakeCall::RtcpReceiver() {
+  return this;
+}
+
 FakeCall::DeliveryStatus FakeCall::DeliverPacket(webrtc::MediaType media_type,
                                                  rtc::CopyOnWriteBuffer packet,
                                                  int64_t packet_time_us) {
@@ -594,6 +598,11 @@ FakeCall::DeliveryStatus FakeCall::DeliverPacket(webrtc::MediaType media_type,
     }
   }
   return DELIVERY_UNKNOWN_SSRC;
+}
+
+void FakeCall::DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                                 int64_t packet_time_us) {
+  DeliverPacket(webrtc::MediaType::VIDEO, packet, packet_time_us);
 }
 
 void FakeCall::SetStats(const webrtc::Call::Stats& stats) {

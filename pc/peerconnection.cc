@@ -969,6 +969,7 @@ bool PeerConnection::Initialize(
                               ? *configuration.crypto_options
                               : options.crypto_options;
   config.transport_observer = this;
+  config.rtcp_receiver = call_->RtcpReceiver();
   config.event_log = event_log_.get();
 #if defined(ENABLE_EXTERNAL_AUTH)
   config.enable_external_auth = true;
@@ -989,8 +990,8 @@ bool PeerConnection::Initialize(
   }
 
   transport_controller_.reset(new JsepTransportController(
-      signaling_thread(), network_thread(), port_allocator_.get(),
-      async_resolver_factory_.get(), config));
+      signaling_thread(), network_thread(), worker_thread(),
+      port_allocator_.get(), async_resolver_factory_.get(), config));
   transport_controller_->SignalIceConnectionState.connect(
       this, &PeerConnection::OnTransportControllerConnectionState);
   transport_controller_->SignalStandardizedIceConnectionState.connect(

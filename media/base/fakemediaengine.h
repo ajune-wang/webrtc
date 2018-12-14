@@ -60,7 +60,6 @@ class RtpHelper : public Base {
   bool sending() const { return sending_; }
   bool playout() const { return playout_; }
   const std::list<std::string>& rtp_packets() const { return rtp_packets_; }
-  const std::list<std::string>& rtcp_packets() const { return rtcp_packets_; }
 
   bool SendRtp(const void* data,
                size_t len,
@@ -87,17 +86,7 @@ class RtpHelper : public Base {
     }
     return success;
   }
-  bool CheckRtcp(const void* data, size_t len) {
-    bool success = !rtcp_packets_.empty();
-    if (success) {
-      std::string packet = rtcp_packets_.front();
-      rtcp_packets_.pop_front();
-      success = (packet == std::string(static_cast<const char*>(data), len));
-    }
-    return success;
-  }
   bool CheckNoRtp() { return rtp_packets_.empty(); }
-  bool CheckNoRtcp() { return rtcp_packets_.empty(); }
   void set_fail_set_send_codecs(bool fail) { fail_set_send_codecs_ = fail; }
   void set_fail_set_recv_codecs(bool fail) { fail_set_recv_codecs_ = fail; }
   virtual bool AddSendStream(const StreamParams& sp) {
@@ -272,10 +261,6 @@ class RtpHelper : public Base {
                                 int64_t packet_time_us) {
     rtp_packets_.push_back(std::string(packet->data<char>(), packet->size()));
   }
-  virtual void OnRtcpReceived(rtc::CopyOnWriteBuffer* packet,
-                              int64_t packet_time_us) {
-    rtcp_packets_.push_back(std::string(packet->data<char>(), packet->size()));
-  }
   virtual void OnReadyToSend(bool ready) { ready_to_send_ = ready; }
 
   virtual void OnNetworkRouteChanged(const std::string& transport_name,
@@ -293,7 +278,6 @@ class RtpHelper : public Base {
   std::vector<RtpExtension> recv_extensions_;
   std::vector<RtpExtension> send_extensions_;
   std::list<std::string> rtp_packets_;
-  std::list<std::string> rtcp_packets_;
   std::vector<StreamParams> send_streams_;
   std::vector<StreamParams> receive_streams_;
   RtcpParameters send_rtcp_parameters_;

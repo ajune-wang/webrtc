@@ -450,12 +450,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   bool CheckRtp2() {
     return media_channel2_->CheckRtp(rtp_packet_.data(), rtp_packet_.size());
   }
-  bool CheckRtcp1() {
-    return media_channel1_->CheckRtcp(rtcp_packet_.data(), rtcp_packet_.size());
-  }
-  bool CheckRtcp2() {
-    return media_channel2_->CheckRtcp(rtcp_packet_.data(), rtcp_packet_.size());
-  }
   // Methods to check custom data.
   bool CheckCustomRtp1(uint32_t ssrc, int sequence_number, int pl_type = -1) {
     rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
@@ -464,14 +458,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   bool CheckCustomRtp2(uint32_t ssrc, int sequence_number, int pl_type = -1) {
     rtc::Buffer data = CreateRtpData(ssrc, sequence_number, pl_type);
     return media_channel2_->CheckRtp(data.data(), data.size());
-  }
-  bool CheckCustomRtcp1(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
-    return media_channel1_->CheckRtcp(data.data(), data.size());
-  }
-  bool CheckCustomRtcp2(uint32_t ssrc) {
-    rtc::Buffer data = CreateRtcpData(ssrc);
-    return media_channel2_->CheckRtcp(data.data(), data.size());
   }
   rtc::Buffer CreateRtpData(uint32_t ssrc, int sequence_number, int pl_type) {
     rtc::Buffer data(rtp_packet_.data(), rtp_packet_.size());
@@ -492,8 +478,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
 
   bool CheckNoRtp1() { return media_channel1_->CheckNoRtp(); }
   bool CheckNoRtp2() { return media_channel2_->CheckNoRtp(); }
-  bool CheckNoRtcp1() { return media_channel1_->CheckNoRtcp(); }
-  bool CheckNoRtcp2() { return media_channel2_->CheckNoRtcp(); }
 
   void CreateContent(int flags,
                      const cricket::AudioCodec& audio_codec,
@@ -570,7 +554,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(media_channel1_->codecs().empty());
     EXPECT_TRUE(media_channel1_->recv_streams().empty());
     EXPECT_TRUE(media_channel1_->rtp_packets().empty());
-    EXPECT_TRUE(media_channel1_->rtcp_packets().empty());
   }
 
   // Test that SetLocalContent and SetRemoteContent properly configure
@@ -1017,10 +1000,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     SendRtcp1();
     SendRtcp2();
     WaitForThreads();
-    EXPECT_TRUE(CheckRtcp1());
-    EXPECT_TRUE(CheckRtcp2());
-    EXPECT_TRUE(CheckNoRtcp1());
-    EXPECT_TRUE(CheckNoRtcp2());
   }
 
   void SendDtlsSrtpToDtlsSrtp(int flags1, int flags2) {
@@ -1043,10 +1022,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckRtp2());
     EXPECT_TRUE(CheckNoRtp1());
     EXPECT_TRUE(CheckNoRtp2());
-    EXPECT_TRUE(CheckRtcp1());
-    EXPECT_TRUE(CheckRtcp2());
-    EXPECT_TRUE(CheckNoRtcp1());
-    EXPECT_TRUE(CheckNoRtcp2());
   }
 
   // Test that we can send and receive early media when a provisional answer is
@@ -1065,14 +1040,12 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     SendCustomRtcp1(kSsrc1);
     SendCustomRtp1(kSsrc1, ++sequence_number1_1);
     WaitForThreads();
-    EXPECT_TRUE(CheckCustomRtcp2(kSsrc1));
     EXPECT_TRUE(CheckCustomRtp2(kSsrc1, sequence_number1_1));
 
     // Send packets from callee and verify that it is received.
     SendCustomRtcp2(kSsrc2);
     SendCustomRtp2(kSsrc2, ++sequence_number2_2);
     WaitForThreads();
-    EXPECT_TRUE(CheckCustomRtcp1(kSsrc2));
     EXPECT_TRUE(CheckCustomRtp1(kSsrc2, sequence_number2_2));
 
     // Complete call setup and ensure everything is still OK.
@@ -1084,9 +1057,7 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     SendCustomRtcp2(kSsrc2);
     SendCustomRtp2(kSsrc2, ++sequence_number2_2);
     WaitForThreads();
-    EXPECT_TRUE(CheckCustomRtcp2(kSsrc1));
     EXPECT_TRUE(CheckCustomRtp2(kSsrc1, sequence_number1_1));
-    EXPECT_TRUE(CheckCustomRtcp1(kSsrc2));
     EXPECT_TRUE(CheckCustomRtp1(kSsrc2, sequence_number2_2));
   }
 
@@ -1107,10 +1078,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(CheckRtp2());
     EXPECT_TRUE(CheckNoRtp1());
     EXPECT_TRUE(CheckNoRtp2());
-    EXPECT_TRUE(CheckRtcp1());
-    EXPECT_TRUE(CheckRtcp2());
-    EXPECT_TRUE(CheckNoRtcp1());
-    EXPECT_TRUE(CheckNoRtcp2());
   }
 
   // Test that the mediachannel retains its sending state after the transport
@@ -1222,17 +1189,10 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     SendCustomRtcp1(kSsrc1);
     SendCustomRtcp2(kSsrc2);
     WaitForThreads();
-    EXPECT_TRUE(CheckCustomRtcp1(kSsrc2));
-    EXPECT_TRUE(CheckNoRtcp1());
-    EXPECT_TRUE(CheckCustomRtcp2(kSsrc1));
-    EXPECT_TRUE(CheckNoRtcp2());
 
     SendCustomRtcp1(kSsrc2);
     SendCustomRtcp2(kSsrc1);
     WaitForThreads();
-    // Bundle filter shouldn't filter out any RTCP.
-    EXPECT_TRUE(CheckCustomRtcp1(kSsrc1));
-    EXPECT_TRUE(CheckCustomRtcp2(kSsrc2));
   }
 
   void TestSetContentFailure() {
@@ -1349,27 +1309,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     EXPECT_TRUE(media_channel1_->HasSendStream(1));
     EXPECT_FALSE(media_channel1_->HasRecvStream(2));
     EXPECT_TRUE(media_channel1_->HasRecvStream(3));
-  }
-
-  void TestFlushRtcp() {
-    CreateChannels(0, 0);
-    EXPECT_TRUE(SendInitiate());
-    EXPECT_TRUE(SendAccept());
-    EXPECT_NE(nullptr, channel1_->rtcp_packet_transport());
-    EXPECT_NE(nullptr, channel2_->rtcp_packet_transport());
-
-    // Send RTCP1 from a different thread.
-    ScopedCallThread send_rtcp([this] { SendRtcp1(); });
-    // The sending message is only posted.  channel2_ should be empty.
-    EXPECT_TRUE(CheckNoRtcp2());
-    rtc::Thread* wait_for[] = {send_rtcp.thread()};
-    WaitForThreads(wait_for);  // Ensure rtcp was posted
-
-    // When channel1_ is deleted, the RTCP packet should be sent out to
-    // channel2_.
-    channel1_.reset();
-    WaitForThreads();
-    EXPECT_TRUE(CheckRtcp2());
   }
 
   void TestOnTransportReadyToSend() {
@@ -1761,10 +1700,6 @@ TEST_F(VoiceChannelSingleThreadTest, TestReceivePrAnswer) {
   Base::TestReceivePrAnswer();
 }
 
-TEST_F(VoiceChannelSingleThreadTest, TestFlushRtcp) {
-  Base::TestFlushRtcp();
-}
-
 TEST_F(VoiceChannelSingleThreadTest, TestOnTransportReadyToSend) {
   Base::TestOnTransportReadyToSend();
 }
@@ -1914,10 +1849,6 @@ TEST_F(VoiceChannelDoubleThreadTest, TestReceivePrAnswer) {
   Base::TestReceivePrAnswer();
 }
 
-TEST_F(VoiceChannelDoubleThreadTest, TestFlushRtcp) {
-  Base::TestFlushRtcp();
-}
-
 TEST_F(VoiceChannelDoubleThreadTest, TestOnTransportReadyToSend) {
   Base::TestOnTransportReadyToSend();
 }
@@ -2065,10 +1996,6 @@ TEST_F(VideoChannelSingleThreadTest, TestReceivePrAnswer) {
   Base::TestReceivePrAnswer();
 }
 
-TEST_F(VideoChannelSingleThreadTest, TestFlushRtcp) {
-  Base::TestFlushRtcp();
-}
-
 TEST_F(VideoChannelSingleThreadTest, SendBundleToBundle) {
   Base::SendBundleToBundle(kVideoPts, arraysize(kVideoPts), false, false);
 }
@@ -2214,10 +2141,6 @@ TEST_F(VideoChannelDoubleThreadTest, TestSendPrAnswer) {
 
 TEST_F(VideoChannelDoubleThreadTest, TestReceivePrAnswer) {
   Base::TestReceivePrAnswer();
-}
-
-TEST_F(VideoChannelDoubleThreadTest, TestFlushRtcp) {
-  Base::TestFlushRtcp();
 }
 
 TEST_F(VideoChannelDoubleThreadTest, SendBundleToBundle) {

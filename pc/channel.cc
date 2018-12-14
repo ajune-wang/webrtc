@@ -140,8 +140,6 @@ bool BaseChannel::ConnectToRtpTransport() {
   }
   rtp_transport_->SignalReadyToSend.connect(
       this, &BaseChannel::OnTransportReadyToSend);
-  rtp_transport_->SignalRtcpPacketReceived.connect(
-      this, &BaseChannel::OnRtcpPacketReceived);
 
   // If media transport is used, it's responsible for providing network
   // route changed callbacks.
@@ -469,7 +467,7 @@ void BaseChannel::OnRtpPacket(const webrtc::RtpPacketReceived& parsed_packet) {
     timestamp_us = parsed_packet.arrival_time_ms() * 1000;
   }
 
-  OnPacketReceived(/*rtcp=*/false, parsed_packet.Buffer(), timestamp_us);
+  OnPacketReceived(parsed_packet.Buffer(), timestamp_us);
 }
 
 void BaseChannel::UpdateRtpHeaderExtensionMap(
@@ -495,15 +493,9 @@ bool BaseChannel::RegisterRtpDemuxerSink() {
   });
 }
 
-void BaseChannel::OnRtcpPacketReceived(rtc::CopyOnWriteBuffer* packet,
-                                       int64_t packet_time_us) {
-  OnPacketReceived(/*rtcp=*/true, *packet, packet_time_us);
-}
-
-void BaseChannel::OnPacketReceived(bool rtcp,
-                                   const rtc::CopyOnWriteBuffer& packet,
+void BaseChannel::OnPacketReceived(const rtc::CopyOnWriteBuffer& packet,
                                    int64_t packet_time_us) {
-  if (!has_received_packet_ && !rtcp) {
+  if (!has_received_packet_) {
     has_received_packet_ = true;
     signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
   }
@@ -520,30 +512,24 @@ void BaseChannel::OnPacketReceived(bool rtcp,
     //    before sending  media, to prevent weird failure modes, so it's fine
     //    for us to just eat packets here. This is all sidestepped if RTCP mux
     //    is used anyway.
-    RTC_LOG(LS_WARNING)
-        << "Can't process incoming " << RtpRtcpStringLiteral(rtcp)
-        << " packet when SRTP is inactive and crypto is required";
+    RTC_LOG(LS_WARNING) << "Can't process incoming rtp packet when SRTP"
+                           "is inactive and crypto is required";
     return;
   }
 
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, worker_thread_,
-      Bind(&BaseChannel::ProcessPacket, this, rtcp, packet, packet_time_us));
+      Bind(&BaseChannel::ProcessPacket, this, packet, packet_time_us));
 }
 
-void BaseChannel::ProcessPacket(bool rtcp,
-                                const rtc::CopyOnWriteBuffer& packet,
+void BaseChannel::ProcessPacket(const rtc::CopyOnWriteBuffer& packet,
                                 int64_t packet_time_us) {
   RTC_DCHECK(worker_thread_->IsCurrent());
 
   // Need to copy variable because OnRtcpReceived/OnPacketReceived
   // requires non-const pointer to buffer. This doesn't memcpy the actual data.
   rtc::CopyOnWriteBuffer data(packet);
-  if (rtcp) {
-    media_channel_->OnRtcpReceived(&data, packet_time_us);
-  } else {
-    media_channel_->OnPacketReceived(&data, packet_time_us);
-  }
+  media_channel_->OnPacketReceived(&data, packet_time_us);
 }
 
 void BaseChannel::EnableMedia_w() {

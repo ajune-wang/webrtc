@@ -151,6 +151,7 @@ namespace internal {
 
 class Call final : public webrtc::Call,
                    public PacketReceiver,
+                   public RtcpPacketReceiver,
                    public RecoveredPacketReceiver,
                    public TargetTransferRateObserver,
                    public BitrateAllocator::LimitObserver {
@@ -161,6 +162,7 @@ class Call final : public webrtc::Call,
 
   // Implements webrtc::Call.
   PacketReceiver* Receiver() override;
+  RtcpPacketReceiver* RtcpReceiver() override;
 
   webrtc::AudioSendStream* CreateAudioSendStream(
       const webrtc::AudioSendStream::Config& config) override;
@@ -198,6 +200,9 @@ class Call final : public webrtc::Call,
   DeliveryStatus DeliverPacket(MediaType media_type,
                                rtc::CopyOnWriteBuffer packet,
                                int64_t packet_time_us) override;
+  // Implements RtcpPacketReceiver.
+  void DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                         int64_t packet_time_us) override;
 
   // Implements RecoveredPacketReceiver.
   void OnRecoveredPacket(const uint8_t* packet, size_t length) override;
@@ -234,9 +239,7 @@ class Call final : public webrtc::Call,
   void MediaTransportChange(MediaTransportInterface* media_transport) override;
 
  private:
-  DeliveryStatus DeliverRtcp(MediaType media_type,
-                             const uint8_t* packet,
-                             size_t length);
+  DeliveryStatus DeliverRtcp(const uint8_t* packet, size_t length);
   DeliveryStatus DeliverRtp(MediaType media_type,
                             rtc::CopyOnWriteBuffer packet,
                             int64_t packet_time_us);
@@ -610,6 +613,11 @@ void Call::UpdateReceiveHistograms() {
 }
 
 PacketReceiver* Call::Receiver() {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  return this;
+}
+
+RtcpPacketReceiver* Call::RtcpReceiver() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
   return this;
 }
@@ -1225,8 +1233,7 @@ void Call::ConfigureSync(const std::string& sync_group) {
   }
 }
 
-PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
-                                                 const uint8_t* packet,
+PacketReceiver::DeliveryStatus Call::DeliverRtcp(const uint8_t* packet,
                                                  size_t length) {
   TRACE_EVENT0("webrtc", "Call::DeliverRtcp");
   // TODO(pbos): Make sure it's a valid packet.
@@ -1238,35 +1245,28 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
     received_rtcp_bytes_per_second_counter_.Add(static_cast<int>(length));
   }
   bool rtcp_delivered = false;
-  if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
+  {
     ReadLockScoped read_lock(*receive_crit_);
     for (VideoReceiveStream* stream : video_receive_streams_) {
       if (stream->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    ReadLockScoped read_lock(*receive_crit_);
     for (AudioReceiveStream* stream : audio_receive_streams_) {
       if (stream->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
   }
-  if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
+  {
     ReadLockScoped read_lock(*send_crit_);
     for (VideoSendStream* stream : video_send_streams_) {
       if (stream->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
-  }
-  if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
-    ReadLockScoped read_lock(*send_crit_);
     for (auto& kv : audio_send_ssrcs_) {
       if (kv.second->DeliverRtcp(packet, length))
         rtcp_delivered = true;
     }
   }
-
   if (rtcp_delivered) {
     event_log_->Log(absl::make_unique<RtcEventRtcpPacketIncoming>(
         rtc::MakeArrayView(packet, length)));
@@ -1361,9 +1361,18 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     int64_t packet_time_us) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
   if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size()))
-    return DeliverRtcp(media_type, packet.cdata(), packet.size());
+    return DeliverRtcp(packet.cdata(), packet.size());
 
   return DeliverRtp(media_type, std::move(packet), packet_time_us);
+}
+
+void Call::DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                             int64_t packet_time_us) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
+  // TODO(srte): Use the packet time for more accurate timing.
+  auto status = DeliverRtcp(packet.cdata(), packet.size());
+  if (status != DELIVERY_OK)
+    RTC_LOG(LS_WARNING) << "Failed to deliver RTCP packet";
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {

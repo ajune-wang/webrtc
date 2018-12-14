@@ -137,6 +137,13 @@ PacketReceiver* DegradedCall::Receiver() {
   return call_->Receiver();
 }
 
+RtcpPacketReceiver* DegradedCall::RtcpReceiver() {
+  if (receive_config_) {
+    return this;
+  }
+  return call_->RtcpReceiver();
+}
+
 RtpTransportControllerSendInterface*
 DegradedCall::GetTransportControllerSend() {
   return call_->GetTransportControllerSend();
@@ -213,6 +220,11 @@ PacketReceiver::DeliveryStatus DegradedCall::DeliverPacket(
   // than anticipated at very low packet rates.
   receive_pipe_->Process();
   return status;
+}
+
+void DegradedCall::DeliverRtcpPacket(rtc::CopyOnWriteBuffer packet,
+                                     int64_t packet_time_us) {
+  DeliverPacket(MediaType::ANY, packet, packet_time_us);
 }
 
 void DegradedCall::MediaTransportChange(

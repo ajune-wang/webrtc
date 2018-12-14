@@ -34,6 +34,8 @@
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/strings/string_builder.h"
+#include "test/fake_decoder.h"
+#include "test/fake_encoder.h"
 #include "test/run_loop.h"
 #include "test/testsupport/fileutils.h"
 #include "test/video_renderer.h"
@@ -169,6 +171,8 @@ std::unique_ptr<VideoDecoder> VideoQualityTest::CreateVideoDecoder(
   if (format.name == "multiplex") {
     decoder = absl::make_unique<MultiplexDecoderAdapter>(
         &internal_decoder_factory_, SdpVideoFormat(cricket::kVp9CodecName));
+  } else if (format.name == "FakeCodec") {
+    decoder = absl::make_unique<test::FakeDecoder>();
   } else {
     decoder = internal_decoder_factory_.CreateVideoDecoder(format);
   }
@@ -193,6 +197,9 @@ std::unique_ptr<VideoEncoder> VideoQualityTest::CreateVideoEncoder(
   } else if (format.name == "multiplex") {
     encoder = absl::make_unique<MultiplexEncoderAdapter>(
         &internal_encoder_factory_, SdpVideoFormat(cricket::kVp9CodecName));
+  } else if (format.name == "FakeCodec") {
+    encoder = absl::make_unique<test::FakeEncoder>(Clock::GetRealTimeClock(),
+                                                   10000000);
   } else {
     encoder = internal_encoder_factory_.CreateVideoEncoder(format);
   }
@@ -555,6 +562,8 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       payload_type = kPayloadTypeVP9;
     } else if (params_.video[video_idx].codec == "multiplex") {
       payload_type = kPayloadTypeVP9;
+    } else if (params_.video[video_idx].codec == "FakeCodec") {
+      payload_type = kFakeVideoSendPayloadType;
     } else {
       RTC_NOTREACHED() << "Codec not supported!";
       return;

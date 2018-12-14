@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8c13e4f_d6faadbd",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "Can you suggest a more reasonable value? It\u0027s not clear to me what it is used for. Non-zero target_rate was important to get tests working.",
+      "parentUuid": "fadd56c4_eae7415e",
+      "range": {
+        "startLine": 200,
+        "startChar": 62,
+        "endLine": 200,
+        "endChar": 65
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ce379e44_ee682611",
         "filename": "api/test/loopback_media_transport.cc",
         "patchSetId": 16
@@ -45,6 +69,30 @@
       "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "291158f4_8f30552d",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce379e44_ee682611",
+      "range": {
+        "startLine": 220,
+        "startChar": 2,
+        "endLine": 220,
+        "endChar": 33
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "40bf6e81_6a7cd65c",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "Added an accessor method taking the lock, and used from the DCHECKs.",
+      "parentUuid": "db725369_69f2d844",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 15
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c6e0d274_09a7e006",
         "filename": "call/video_receive_stream.cc",
         "patchSetId": 16
@@ -82,6 +154,30 @@
       "writtenOn": "2018-12-13T17:57:35Z",
       "side": 1,
       "message": "should we DCHECK that both are not set at the same time? (or do we expect rtcp_send_transport to still be present while media transport is used?).\n\nSo far we assumed that RTP codepath coexists and is present while media_transport is used, but if it is possible to check RTP \u003d null, that would be even better.",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 41
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccc86058_5cdbc718",
+        "filename": "call/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "I don\u0027t think we can do that yet.",
+      "parentUuid": "c6e0d274_09a7e006",
       "range": {
         "startLine": 73,
         "startChar": 39,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "f61e286c_734a4d1a",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "I\u0027m afraid it\u0027s unclear to me what stats we should populate for MediaTransport, both short-term and long term.",
+      "parentUuid": "02fd08f3_8468aad9",
+      "range": {
+        "startLine": 1338,
+        "startChar": 2,
+        "endLine": 1341,
+        "endChar": 5
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fb4d233_db939c5d",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 16
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "63878bce_98883655",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "Exactly what should we subscribe to? I think AddTargetTransferRateObserver should be send-side only.",
+      "parentUuid": "8fb4d233_db939c5d",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41969d40_997df909",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16
@@ -174,6 +318,30 @@
       "writtenOn": "2018-12-13T17:57:35Z",
       "side": 1,
       "message": "what are those observers used for? do they decide any mission-critical things? (fps/bitrate/etc.?). If yes, do we need to implement them for media transport?",
+      "range": {
+        "startLine": 278,
+        "startChar": 9,
+        "endLine": 281,
+        "endChar": 44
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6546b87_0ca4555b",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "That\u0027s also a bit unclear to me. I think most of them are either for stats or rtcp signalling.\n\nI don\u0027t think we need anything for this cl.",
+      "parentUuid": "41969d40_997df909",
       "range": {
         "startLine": 278,
         "startChar": 9,
@@ -232,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "20471728_a5d464d8",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "For RTP, and the standard packetization, I think frame_ids are expected to be continuous on each ssrc. So for simulcast, we\u0027d need one counter per layer. For the new frame descriptor, I\u0027m not sure what an id means.",
+      "parentUuid": "6b9d3931_60769774",
+      "range": {
+        "startLine": 612,
+        "startChar": 17,
+        "endLine": 612,
+        "endChar": 42
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d57c4d7a_1183b724",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16
@@ -255,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "58ac1ca3_009c37b9",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "EncodedFrame is not used on the send side. I think we should strive to provide this info earlier, possibly lettinf VideoStreamEncoder be responsible.",
+      "parentUuid": "d57c4d7a_1183b724",
+      "range": {
+        "startLine": 617,
+        "startChar": 6,
+        "endLine": 617,
+        "endChar": 51
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a0da7b06_7fafa9dc",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16
@@ -266,6 +482,30 @@
       "writtenOn": "2018-12-13T17:57:35Z",
       "side": 1,
       "message": "should we DCHECK that there is only one there?",
+      "range": {
+        "startLine": 620,
+        "startChar": 26,
+        "endLine": 620,
+        "endChar": 30
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a18322_edf38c8f",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-14T15:11:29Z",
+      "side": 1,
+      "message": "We could do that in the constructor. But this should change anyway when we get to demuxing inside media transport.",
+      "parentUuid": "a0da7b06_7fafa9dc",
       "range": {
         "startLine": 620,
         "startChar": 26,

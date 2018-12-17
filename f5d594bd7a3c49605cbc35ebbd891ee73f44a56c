@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d69e49cb_de468719",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-17T13:16:29Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 357,
+        "startChar": 18,
+        "endLine": 357,
+        "endChar": 31
+      },
+      "revId": "f5d594bd7a3c49605cbc35ebbd891ee73f44a56c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

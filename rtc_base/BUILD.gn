@@ -1157,6 +1157,8 @@ rtc_source_set("rtc_base_tests_utils") {
     "proxyserver.h",
     "sigslottester.h",
     "sigslottester.h.pump",
+    "socket_server_adapters.cc",
+    "socket_server_adapters.h",
     "socketstream.cc",
     "socketstream.h",
     "testbase64.h",

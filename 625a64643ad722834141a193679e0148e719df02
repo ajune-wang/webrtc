@@ -16,6 +16,24 @@
       "revId": "625a64643ad722834141a193679e0148e719df02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fb2118a_7bd42521",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2018-12-17T18:23:02Z",
+      "side": 1,
+      "message": "It actually broke with removing checks.h from common_types.h. Somewhere, someone includes it...",
+      "parentUuid": "db3ad8a5_1db9f569",
+      "revId": "625a64643ad722834141a193679e0148e719df02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

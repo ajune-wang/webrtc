@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "40351e16_77e9a45f",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-12-17T13:26:33Z",
+      "side": 1,
+      "message": "Found I unused. Thought, that I checked them all. Also found 2 unused in new lib.",
+      "parentUuid": "fb320d97_db4785d5",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 5
+      },
+      "revId": "f5d594bd7a3c49605cbc35ebbd891ee73f44a56c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d69e49cb_de468719",
         "filename": "pc/BUILD.gn",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "f5d594bd7a3c49605cbc35ebbd891ee73f44a56c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a789385_d6fa3b1c",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2018-12-17T13:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d69e49cb_de468719",
+      "range": {
+        "startLine": 357,
+        "startChar": 18,
+        "endLine": 357,
+        "endChar": 31
+      },
+      "revId": "f5d594bd7a3c49605cbc35ebbd891ee73f44a56c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

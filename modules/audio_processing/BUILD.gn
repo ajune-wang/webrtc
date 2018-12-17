@@ -422,6 +422,7 @@ if (rtc_include_tests) {
       "../../system_wrappers:cpu_features_api",
       "../../test:fileutils",
       "../../test:test_support",
+      "../../test:test_support_test_artifacts",
       "../audio_coding:neteq_input_audio_tools",
       "aec:aec_core",
       "aec:aec_unittests",

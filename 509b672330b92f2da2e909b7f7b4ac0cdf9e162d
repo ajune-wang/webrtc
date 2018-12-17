@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c61881ac_664e7de5",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-17T17:48:40Z",
+      "side": 1,
+      "message": "I\u0027ve seen 3000 in real life :)",
+      "parentUuid": "c8c13e4f_d6faadbd",
+      "range": {
+        "startLine": 200,
+        "startChar": 62,
+        "endLine": 200,
+        "endChar": 65
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce379e44_ee682611",
         "filename": "api/test/loopback_media_transport.cc",
         "patchSetId": 16
@@ -140,6 +164,30 @@
       "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ca6dbb_6b56f307",
+        "filename": "call/call.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-17T17:48:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40bf6e81_6a7cd65c",
+      "range": {
+        "startLine": 759,
+        "startChar": 4,
+        "endLine": 759,
+        "endChar": 15
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -260,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "7c233584_ff49d4c8",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-17T17:48:40Z",
+      "side": 1,
+      "message": "Can we add a todo / bug to webrtc?",
+      "parentUuid": "f61e286c_734a4d1a",
+      "range": {
+        "startLine": 1338,
+        "startChar": 2,
+        "endLine": 1341,
+        "endChar": 5
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fb4d233_db939c5d",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 16
@@ -295,6 +367,30 @@
       "side": 1,
       "message": "Exactly what should we subscribe to? I think AddTargetTransferRateObserver should be send-side only.",
       "parentUuid": "8fb4d233_db939c5d",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb3f5c81_756b7979",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-17T17:48:40Z",
+      "side": 1,
+      "message": "Rtt should be the same for both, so subscribing to AddTargetTransferRateObserver to get the Rtt sounds reasonable. Not sure why video receive needs it (but I can imagine for nacks or jitter buffer size), but if it needs it, AddTargetTransferRateObserver is the way to get it.",
+      "parentUuid": "63878bce_98883655",
       "range": {
         "startLine": 445,
         "startChar": 25,

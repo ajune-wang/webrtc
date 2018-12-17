@@ -450,7 +450,8 @@ class PeerConnection : public PeerConnectionInternal,
                        size_t mline_index,
                        const cricket::ContentInfo& content,
                        const cricket::ContentInfo* old_local_content,
-                       const cricket::ContentInfo* old_remote_content);
+                       const cricket::ContentInfo* old_remote_content,
+                       std::set<std::string>* used_mids);
 
   // Returns the RtpTransceiver, if found, that is associated to the given MID.
   rtc::scoped_refptr<RtpTransceiverProxyWithInternal<RtpTransceiver>>

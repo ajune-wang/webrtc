@@ -384,7 +384,8 @@ bool MediaSectionsInSameOrder(const SessionDescription& current_desc,
       // valid for the MID and media type to change.
       continue;
     }
-    if (new_desc.contents()[i].name != current_desc.contents()[i].name) {
+    if (!new_desc.contents()[i].name.empty() &&
+        new_desc.contents()[i].name != current_desc.contents()[i].name) {
       return false;
     }
     const MediaContentDescription* new_desc_mdesc =
@@ -453,7 +454,8 @@ void NoteAddIceCandidateResult(int result) {
 RTCError VerifyCrypto(const SessionDescription* desc, bool dtls_enabled) {
   const cricket::ContentGroup* bundle =
       desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
-  for (const cricket::ContentInfo& content_info : desc->contents()) {
+  for (size_t i = 0; i < desc->contents().size(); ++i) {
+    const cricket::ContentInfo& content_info = desc->contents()[i];
     if (content_info.rejected) {
       continue;
     }
@@ -473,13 +475,13 @@ RTCError VerifyCrypto(const SessionDescription* desc, bool dtls_enabled) {
     // If the content isn't rejected or bundled into another m= section, crypto
     // must be present.
     const MediaContentDescription* media = content_info.media_description();
-    const TransportInfo* tinfo = desc->GetTransportInfoByName(mid);
-    if (!media || !tinfo) {
+    const TransportInfo& tinfo = desc->transport_infos()[i];
+    if (!media) {
       // Something is not right.
       LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_PARAMETER, kInvalidSdp);
     }
     if (dtls_enabled) {
-      if (!tinfo->description.identity_fingerprint) {
+      if (!tinfo.description.identity_fingerprint) {
         RTC_LOG(LS_WARNING)
             << "Session description must have DTLS fingerprint if "
                "DTLS enabled.";
@@ -503,7 +505,8 @@ RTCError VerifyCrypto(const SessionDescription* desc, bool dtls_enabled) {
 bool VerifyIceUfragPwdPresent(const SessionDescription* desc) {
   const cricket::ContentGroup* bundle =
       desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
-  for (const cricket::ContentInfo& content_info : desc->contents()) {
+  for (size_t i = 0; i < desc->contents().size(); ++i) {
+    const cricket::ContentInfo& content_info = desc->contents()[i];
     if (content_info.rejected) {
       continue;
     }
@@ -518,14 +521,9 @@ bool VerifyIceUfragPwdPresent(const SessionDescription* desc) {
 
     // If the content isn't rejected or bundled into another m= section,
     // ice-ufrag and ice-pwd must be present.
-    const TransportInfo* tinfo = desc->GetTransportInfoByName(mid);
-    if (!tinfo) {
-      // Something is not right.
-      RTC_LOG(LS_ERROR) << kInvalidSdp;
-      return false;
-    }
-    if (tinfo->description.ice_ufrag.empty() ||
-        tinfo->description.ice_pwd.empty()) {
+    const TransportInfo& tinfo = desc->transport_infos()[i];
+    if (tinfo.description.ice_ufrag.empty() ||
+        tinfo.description.ice_pwd.empty()) {
       RTC_LOG(LS_ERROR) << "Session description must have ice ufrag and pwd.";
       return false;
     }
@@ -646,6 +644,25 @@ DataMessageType ToWebrtcDataMessageType(cricket::DataMessageType type) {
       RTC_NOTREACHED();
   }
   return DataMessageType::kControl;
+}
+
+// Find a new MID that is not already in |used_mids|, then add it to |used_mids|
+// and return a reference to it.
+// Generated MIDs should be no more than 3 bytes long to take up less space in
+// the RTP packet.
+const std::string& AllocateMid(std::set<std::string>* used_mids) {
+  RTC_DCHECK(used_mids);
+  // We're boring: just generate MIDs 0, 1, 2, ...
+  size_t i = 0;
+  std::set<std::string>::iterator it;
+  bool inserted;
+  do {
+    std::string mid = rtc::ToString(i++);
+    auto insert_result = used_mids->insert(mid);
+    it = insert_result.first;
+    inserted = insert_result.second;
+  } while (!inserted);
+  return *it;
 }
 
 }  // namespace
@@ -2688,10 +2705,15 @@ RTCError PeerConnection::UpdateTransceiversAndDataChannels(
   }
 
   const ContentInfos& new_contents = new_session.description()->contents();
+
+  // Update the set of seen MIDs before allocating new MIDs.
+  for (const ContentInfo& new_content : new_contents) {
+    seen_mids_.insert(new_content.name);
+  }
+
   for (size_t i = 0; i < new_contents.size(); ++i) {
     const cricket::ContentInfo& new_content = new_contents[i];
     cricket::MediaType media_type = new_content.media_description()->type();
-    seen_mids_.insert(new_content.name);
     if (media_type == cricket::MEDIA_TYPE_AUDIO ||
         media_type == cricket::MEDIA_TYPE_VIDEO) {
       const cricket::ContentInfo* old_local_content = nullptr;
@@ -2706,9 +2728,9 @@ RTCError PeerConnection::UpdateTransceiversAndDataChannels(
         old_remote_content =
             &old_remote_description->description()->contents()[i];
       }
-      auto transceiver_or_error =
-          AssociateTransceiver(source, new_session.GetType(), i, new_content,
-                               old_local_content, old_remote_content);
+      auto transceiver_or_error = AssociateTransceiver(
+          source, new_session.GetType(), i, new_content, old_local_content,
+          old_remote_content, &seen_mids_);
       if (!transceiver_or_error.ok()) {
         return transceiver_or_error.MoveError();
       }
@@ -2754,15 +2776,15 @@ RTCError PeerConnection::UpdateTransceiverChannel(
   } else {
     if (!channel) {
       if (transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
-        channel = CreateVoiceChannel(content.name);
+        channel = CreateVoiceChannel(*transceiver->mid());
       } else {
         RTC_DCHECK_EQ(cricket::MEDIA_TYPE_VIDEO, transceiver->media_type());
-        channel = CreateVideoChannel(content.name);
+        channel = CreateVideoChannel(*transceiver->mid());
       }
       if (!channel) {
         LOG_AND_RETURN_ERROR(
             RTCErrorType::INTERNAL_ERROR,
-            "Failed to create channel for mid=" + content.name);
+            "Failed to create channel for mid=" + *transceiver->mid());
       }
       transceiver->internal()->SetChannel(channel);
     }
@@ -2804,7 +2826,8 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
                                      size_t mline_index,
                                      const ContentInfo& content,
                                      const ContentInfo* old_local_content,
-                                     const ContentInfo* old_remote_content) {
+                                     const ContentInfo* old_remote_content,
+                                     std::set<std::string>* used_mids) {
   RTC_DCHECK(IsUnifiedPlan());
   // If this is an offer then the m= section might be recycled. If the m=
   // section is being recycled (defined as: rejected in the current local or
@@ -2828,6 +2851,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
   }
   const MediaContentDescription* media_desc = content.media_description();
   auto transceiver = GetAssociatedTransceiver(content.name);
+  std::string mid = content.name;
   if (source == cricket::CS_LOCAL) {
     // Find the RtpTransceiver that corresponds to this m= section, using the
     // mapping between transceivers and m= section indices established when
@@ -2841,6 +2865,15 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     }
   } else {
     RTC_DCHECK_EQ(source, cricket::CS_REMOTE);
+    // If the m= section does not include a MID, generate a value for the
+    // RtpTransceiver mid property using the same strategy as CreateOffer/
+    // CreateAnswer.
+    if (content.name.empty()) {
+      mid = AllocateMid(used_mids);
+      RTC_LOG(LS_INFO) << "Generating new MID=" << mid
+                       << " for the m= section at i=" << mline_index
+                       << " since it did not have an a=mid line.";
+    }
     // If the m= section is sendrecv or recvonly, and there are RtpTransceivers
     // of the same type...
     if (!transceiver &&
@@ -2852,7 +2885,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     if (!transceiver) {
       RTC_LOG(LS_INFO) << "Adding "
                        << cricket::MediaTypeToString(media_desc->type())
-                       << " transceiver for MID=" << content.name
+                       << " transceiver for MID=" << mid
                        << " at i=" << mline_index
                        << " in response to the remote description.";
       std::string sender_id = rtc::CreateRandomUuid();
@@ -2880,7 +2913,7 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
   // setting the value of the RtpTransceiver's mid property to the MID of the m=
   // section, and establish a mapping between the transceiver and the index of
   // the m= section.
-  transceiver->internal()->set_mid(content.name);
+  transceiver->internal()->set_mid(mid);
   transceiver->internal()->set_mline_index(mline_index);
   return std::move(transceiver);
 }
@@ -3916,25 +3949,6 @@ void PeerConnection::GetOptionsForPlanBOffer(
   AddRtpSenderOptions(GetSendersInternal(), audio_media_description_options,
                       video_media_description_options,
                       offer_answer_options.num_simulcast_layers);
-}
-
-// Find a new MID that is not already in |used_mids|, then add it to |used_mids|
-// and return a reference to it.
-// Generated MIDs should be no more than 3 bytes long to take up less space in
-// the RTP packet.
-static const std::string& AllocateMid(std::set<std::string>* used_mids) {
-  RTC_DCHECK(used_mids);
-  // We're boring: just generate MIDs 0, 1, 2, ...
-  size_t i = 0;
-  std::set<std::string>::iterator it;
-  bool inserted;
-  do {
-    std::string mid = rtc::ToString(i++);
-    auto insert_result = used_mids->insert(mid);
-    it = insert_result.first;
-    inserted = insert_result.second;
-  } while (!inserted);
-  return *it;
 }
 
 static cricket::MediaDescriptionOptions

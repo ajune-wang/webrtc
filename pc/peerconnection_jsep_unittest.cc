@@ -1571,6 +1571,157 @@ TEST_F(PeerConnectionJsepTest, AnswerBeforeOfferFails) {
   EXPECT_EQ(RTCErrorType::INVALID_STATE, error.type());
 }
 
+static void RemoveMidByIndex(SessionDescriptionInterface* session_description,
+                             size_t mline_index) {
+  cricket::ContentInfos& contents =
+      session_description->description()->contents();
+  RTC_DCHECK_LT(mline_index, contents.size());
+  const cricket::ContentGroup* bundle_group =
+      session_description->description()->GetGroupByName(
+          cricket::GROUP_TYPE_BUNDLE);
+  if (bundle_group) {
+    cricket::ContentGroup mutated_bundle_group(*bundle_group);
+    mutated_bundle_group.RemoveContentName(contents[mline_index].name);
+    session_description->description()->RemoveGroupByName(
+        cricket::GROUP_TYPE_BUNDLE);
+    if (!mutated_bundle_group.content_names().empty()) {
+      session_description->description()->AddGroup(mutated_bundle_group);
+    }
+  }
+  contents[mline_index].name = "";
+}
+
+// Test that a new audio RtpTransceiver created from an m= section with no a=mid
+// line has its mid() property generated. Also test that the answer uses the
+// generated MID.
+TEST_F(PeerConnectionJsepTest,
+       NewAudioTransceiverHasMidForMediaSectionWithNoMid) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("audio");
+  auto callee = CreatePeerConnection();
+
+  auto offer = caller->CreateOffer();
+  RemoveMidByIndex(offer.get(), 0);
+
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+
+  auto audio_transceiver = callee->pc()->GetTransceivers()[0];
+  ASSERT_TRUE(audio_transceiver->mid());
+  EXPECT_NE("", *audio_transceiver->mid());
+
+  auto answer = callee->CreateAnswer();
+  EXPECT_EQ(*audio_transceiver->mid(),
+            answer->description()->contents()[0].name);
+}
+
+// Test that the mid() property of an existing audio RtpTransceiver changes when
+// setting a remote answer with no a=mid line.
+TEST_F(PeerConnectionJsepTest,
+       ExistingAudioTransceiverHasMidChangedForAnswerWithNoMid) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("audio");
+  auto callee = CreatePeerConnection();
+  callee->AddAudioTrack("audio");
+
+  ASSERT_TRUE(callee->SetRemoteDescription(caller->CreateOfferAndSetAsLocal()));
+
+  auto answer = callee->CreateAnswer();
+  std::string first_mid = answer->description()->contents()[0].name;
+  RemoveMidByIndex(answer.get(), 0);
+
+  ASSERT_TRUE(caller->SetRemoteDescription(std::move(answer)));
+
+  auto audio_transceiver = caller->pc()->GetTransceivers()[0];
+  ASSERT_TRUE(audio_transceiver->mid());
+  EXPECT_NE("", *audio_transceiver->mid());
+  EXPECT_NE(first_mid, *audio_transceiver->mid());
+}
+
+// Test that re-offering an m= section with no a=mid changes the
+// RtpTransceiver's mid() property.
+TEST_F(PeerConnectionJsepTest, ReOfferWithNoMidOnRemoteOfferChangesMid) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("audio");
+  auto callee = CreatePeerConnection();
+
+  auto offer = caller->CreateOffer();
+  RemoveMidByIndex(offer.get(), 0);
+
+  ASSERT_TRUE(
+      caller->SetLocalDescription(CloneSessionDescription(offer.get())));
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+
+  std::string first_mid = *callee->pc()->GetTransceivers()[0]->mid();
+
+  ASSERT_TRUE(
+      caller->SetRemoteDescription(callee->CreateAnswerAndSetAsLocal()));
+
+  auto reoffer = caller->CreateOffer();
+  RemoveMidByIndex(reoffer.get(), 0);
+
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(reoffer)));
+
+  auto audio_transceiver = callee->pc()->GetTransceivers()[0];
+  ASSERT_TRUE(audio_transceiver->mid());
+
+  std::string second_mid = *audio_transceiver->mid();
+  EXPECT_NE("", second_mid);
+  EXPECT_NE(first_mid, second_mid);
+}
+
+// Test that the MIDs generated for two m= sections that each have no a=mid
+// lines are non-empty and distinct.
+TEST_F(PeerConnectionJsepTest,
+       DistinctMidsGeneratedForTwoMediaSectionsWithNoMids) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("audio");
+  caller->AddVideoTrack("video");
+  auto callee = CreatePeerConnection();
+
+  auto offer = caller->CreateOffer();
+  RemoveMidByIndex(offer.get(), 0);
+  RemoveMidByIndex(offer.get(), 1);
+
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+
+  auto audio_transceiver = callee->pc()->GetTransceivers()[0];
+  ASSERT_TRUE(audio_transceiver->mid());
+  EXPECT_NE("", *audio_transceiver->mid());
+
+  auto video_transceiver = callee->pc()->GetTransceivers()[1];
+  ASSERT_TRUE(video_transceiver->mid());
+  EXPECT_NE("", *video_transceiver->mid());
+
+  EXPECT_NE(*audio_transceiver->mid(), *video_transceiver->mid());
+}
+
+// Test that the MID generated for an m= section with no a=mid line does not
+// conflict with the MID of a later m= section with an a=mid line.
+TEST_F(PeerConnectionJsepTest, MixMidAndNoMidDoesNotGenerateConflictingMid) {
+  auto caller = CreatePeerConnection();
+  caller->AddAudioTrack("audio");
+  caller->AddVideoTrack("video");
+  auto callee = CreatePeerConnection();
+
+  auto offer = caller->CreateOffer();
+  RemoveMidByIndex(offer.get(), 1);
+  std::string video_mid = offer->description()->contents()[0].name;
+  offer->description()->contents()[0].name = "";
+  offer->description()->contents()[1].name = video_mid;
+
+  ASSERT_TRUE(callee->SetRemoteDescription(std::move(offer)));
+
+  auto audio_transceiver = callee->pc()->GetTransceivers()[0];
+  ASSERT_TRUE(audio_transceiver->mid());
+  EXPECT_NE("", *audio_transceiver->mid());
+
+  auto video_transceiver = callee->pc()->GetTransceivers()[1];
+  ASSERT_TRUE(video_transceiver->mid());
+  EXPECT_EQ(video_mid, *video_transceiver->mid());
+
+  EXPECT_NE(*video_transceiver->mid(), *audio_transceiver->mid());
+}
+
 // Test that a Unified Plan PeerConnection fails to set a Plan B offer if it has
 // two video tracks.
 TEST_F(PeerConnectionJsepTest, TwoVideoPlanBToUnifiedPlanFails) {

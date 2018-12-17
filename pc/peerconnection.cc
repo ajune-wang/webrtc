@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/match.h"
 #include "api/jsepicecandidate.h"
 #include "api/jsepsessiondescription.h"
 #include "api/mediastreamproxy.h"
@@ -49,7 +50,6 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/stringutils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
@@ -2225,7 +2225,7 @@ RTCError PeerConnection::ApplyLocalDescription(
   if (data_content) {
     const cricket::DataContentDescription* data_desc =
         data_content->media_description()->as_data();
-    if (rtc::starts_with(data_desc->protocol().data(),
+    if (absl::StartsWith(data_desc->protocol().data(),
                          cricket::kMediaProtocolRtpPrefix)) {
       UpdateLocalRtpDataChannels(data_desc->streams());
     }
@@ -2625,7 +2625,7 @@ RTCError PeerConnection::ApplyRemoteDescription(
 
     // Update the DataChannels with the information from the remote peer.
     if (data_desc) {
-      if (rtc::starts_with(data_desc->protocol().data(),
+      if (absl::StartsWith(data_desc->protocol().data(),
                            cricket::kMediaProtocolRtpPrefix)) {
         UpdateRemoteRtpDataChannels(GetActiveStreams(data_desc));
       }

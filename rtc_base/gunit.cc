@@ -12,13 +12,13 @@
 
 #include <string>
 
-#include "rtc_base/stringutils.h"
+#include "absl/strings/match.h"
 
 ::testing::AssertionResult AssertStartsWith(const char* str_expr,
                                             const char* prefix_expr,
                                             const std::string& str,
                                             const std::string& prefix) {
-  if (rtc::starts_with(str.c_str(), prefix.c_str())) {
+  if (absl::StartsWith(str.c_str(), prefix.c_str())) {
     return ::testing::AssertionSuccess();
   } else {
     return ::testing::AssertionFailure()

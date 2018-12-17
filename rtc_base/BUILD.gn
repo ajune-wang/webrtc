@@ -1108,8 +1108,8 @@ rtc_source_set("gunit_helpers") {
     ":logging",
     ":rtc_base",
     ":rtc_base_tests_utils",
-    ":stringutils",
     "../test:test_support",
+    "//third_party/abseil-cpp/absl/strings",
   ]
 }
 

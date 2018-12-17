@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3fe74bbe_91163bba",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-17T15:38:01Z",
+      "side": 1,
+      "message": "Looking closer, it seems it cannot currently be zero if the state has changed to overusing. Removing check.",
+      "parentUuid": "449259ab_15bab191",
+      "range": {
+        "startLine": 240,
+        "startChar": 18,
+        "endLine": 240,
+        "endChar": 31
+      },
+      "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3f18de6_86528d74",
         "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28c30437_ea86146e",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-17T15:38:01Z",
+      "side": 1,
+      "message": "I was just not sure how that flag was supposed to be interpreted. I currently don\u0027t see a way where it would be the case. In any case, the alr flag should not hurt.\nRemoving check.",
+      "parentUuid": "c3f18de6_86528d74",
+      "range": {
+        "startLine": 244,
+        "startChar": 10,
+        "endLine": 244,
+        "endChar": 24
+      },
+      "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1bc23736_67a362a3",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-17T15:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "833b0ab2_e3a72bfd",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83bf9da4_d1dc04b7",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f418f705_e741a812",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-17T15:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83bf9da4_d1dc04b7",
+      "range": {
+        "startLine": 509,
+        "startChar": 6,
+        "endLine": 509,
+        "endChar": 64
+      },
+      "revId": "2d8591c242e8407448e6e53331803f96b1b05e39",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

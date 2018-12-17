@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fb320d97_db4785d5",
+        "filename": "pc/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2018-12-17T13:17:34Z",
+      "side": 1,
+      "message": "I would bet that at least one of these deps is not needed now. But I don\u0027t see anything being removed.",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 354,
+        "endChar": 5
+      },
+      "revId": "f5d594bd7a3c49605cbc35ebbd891ee73f44a56c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d69e49cb_de468719",
         "filename": "pc/BUILD.gn",
         "patchSetId": 1

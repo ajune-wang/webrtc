@@ -72,13 +72,15 @@ DelayBasedBwe::Result::Result()
     : updated(false),
       probe(false),
       target_bitrate(DataRate::Zero()),
-      recovered_from_overuse(false) {}
+      recovered_from_overuse(false),
+      backoff_in_alr(false) {}
 
 DelayBasedBwe::Result::Result(bool probe, DataRate target_bitrate)
     : updated(true),
       probe(probe),
       target_bitrate(target_bitrate),
-      recovered_from_overuse(false) {}
+      recovered_from_overuse(false),
+      backoff_in_alr(false) {}
 
 DelayBasedBwe::Result::~Result() {}
 
@@ -96,7 +98,9 @@ DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log)
       trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
       consecutive_delayed_feedbacks_(0),
       prev_bitrate_(DataRate::Zero()),
-      prev_state_(BandwidthUsage::kBwNormal) {
+      prev_state_(BandwidthUsage::kBwNormal),
+      alr_limited_backoff_enabled_(
+          field_trial::IsEnabled("WebRTC-Bwe-AlrLimitedBackoff")) {
   RTC_LOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
       << trendline_window_size_;
@@ -111,6 +115,7 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
     const std::vector<PacketFeedback>& packet_feedback_vector,
     absl::optional<DataRate> acked_bitrate,
     absl::optional<DataRate> probe_bitrate,
+    bool in_alr,
     Timestamp at_time) {
   RTC_DCHECK(std::is_sorted(packet_feedback_vector.begin(),
                             packet_feedback_vector.end(),
@@ -156,7 +161,7 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   } else {
     consecutive_delayed_feedbacks_ = 0;
     return MaybeUpdateEstimate(acked_bitrate, probe_bitrate,
-                               recovered_from_overuse, at_time);
+                               recovered_from_overuse, in_alr, at_time);
   }
   return Result();
 }
@@ -228,13 +233,19 @@ DelayBasedBwe::Result DelayBasedBwe::MaybeUpdateEstimate(
     absl::optional<DataRate> acked_bitrate,
     absl::optional<DataRate> probe_bitrate,
     bool recovered_from_overuse,
+    bool in_alr,
     Timestamp at_time) {
   Result result;
 
   // Currently overusing the bandwidth.
   if (delay_detector_->State() == BandwidthUsage::kBwOverusing) {
-    if (acked_bitrate &&
-        rate_control_.TimeToReduceFurther(at_time, *acked_bitrate)) {
+    if (in_alr && alr_limited_backoff_enabled_ &&
+        rate_control_.TimeToReduceFurther(at_time, prev_bitrate_)) {
+      result.updated =
+          UpdateEstimate(at_time, prev_bitrate_, &result.target_bitrate);
+      result.backoff_in_alr = true;
+    } else if (acked_bitrate &&
+               rate_control_.TimeToReduceFurther(at_time, *acked_bitrate)) {
       result.updated =
           UpdateEstimate(at_time, acked_bitrate, &result.target_bitrate);
     } else if (!acked_bitrate && rate_control_.ValidEstimate() &&
@@ -321,4 +332,9 @@ void DelayBasedBwe::SetMinBitrate(DataRate min_bitrate) {
 TimeDelta DelayBasedBwe::GetExpectedBwePeriod() const {
   return rate_control_.GetExpectedBandwidthPeriod();
 }
+
+void DelayBasedBwe::EnableAlrLimitedBackoffExperiment(bool enabled) {
+  alr_limited_backoff_enabled_ = enabled;
+}
+
 }  // namespace webrtc

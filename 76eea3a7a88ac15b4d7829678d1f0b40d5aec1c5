@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca5f110c_d8762bcd",
+        "filename": "rtc_base/socket_server_adapters.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-17T11:21:20Z",
+      "side": 1,
+      "message": "This const string and kSslServerSocket are duplicated, also in socketadapters.cc. Not sure if it\u0027s worth the effort to move definition to somewhere where it\u0027s visible from both AsyncSSLSocket and AsyncSSLServerSocket.",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "76eea3a7a88ac15b4d7829678d1f0b40d5aec1c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

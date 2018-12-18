@@ -380,7 +380,9 @@ WEBRTC_RTCSTATS_IMPL(RTCMediaStreamTrackStats, RTCStats, "track",
                      &concealed_samples,
                      &concealment_events,
                      &jitter_buffer_flushes,
-                     &delayed_packet_outage_samples);
+                     &delayed_packet_outage_samples,
+                     &num_freezes,
+                     &mean_freeze_duration_ms);
 // clang-format on
 
 RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(const std::string& id,
@@ -418,7 +420,9 @@ RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(std::string&& id,
       concealed_samples("concealedSamples"),
       concealment_events("concealmentEvents"),
       jitter_buffer_flushes("jitterBufferFlushes"),
-      delayed_packet_outage_samples("delayedPacketOutageSamples") {
+      delayed_packet_outage_samples("delayedPacketOutageSamples"),
+      num_freezes("numFreezes"),
+      mean_freeze_duration_ms("meanFreezeDurationMs") {
   RTC_DCHECK(kind == RTCMediaStreamTrackKind::kAudio ||
              kind == RTCMediaStreamTrackKind::kVideo);
 }
@@ -452,7 +456,9 @@ RTCMediaStreamTrackStats::RTCMediaStreamTrackStats(
       concealed_samples(other.concealed_samples),
       concealment_events(other.concealment_events),
       jitter_buffer_flushes(other.jitter_buffer_flushes),
-      delayed_packet_outage_samples(other.delayed_packet_outage_samples) {}
+      delayed_packet_outage_samples(other.delayed_packet_outage_samples),
+      num_freezes(other.num_freezes),
+      mean_freeze_duration_ms(other.mean_freeze_duration_ms) {}
 
 RTCMediaStreamTrackStats::~RTCMediaStreamTrackStats() {}
 

@@ -223,4 +223,12 @@ void VideoQualityObserver::OnDecodedFrame(absl::optional<uint8_t> qp,
 void VideoQualityObserver::OnStreamInactive() {
   is_paused_ = true;
 }
+
+absl::optional<uint32_t> VideoQualityObserver::GetMeanFreezeDurationMs() {
+  return freezes_durations_.Avg(kMinRequiredSamples);
+}
+
+uint32_t VideoQualityObserver::GetNumFreezes() {
+  return freezes_durations_.NumSamples();
+}
 }  // namespace webrtc

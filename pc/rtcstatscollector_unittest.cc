@@ -1551,6 +1551,8 @@ TEST_F(RTCStatsCollectorTest,
   video_receiver_info_ssrc3.frames_received = 1000;
   video_receiver_info_ssrc3.frames_decoded = 995;
   video_receiver_info_ssrc3.frames_rendered = 990;
+  video_receiver_info_ssrc3.num_freezes = 2;
+  video_receiver_info_ssrc3.mean_freeze_duration_ms = 40;
 
   stats_->CreateMockRtpSendersReceiversAndChannels(
       {}, {}, {},
@@ -1590,6 +1592,8 @@ TEST_F(RTCStatsCollectorTest,
   expected_remote_video_track_ssrc3.frames_received = 1000;
   expected_remote_video_track_ssrc3.frames_decoded = 995;
   expected_remote_video_track_ssrc3.frames_dropped = 1000 - 990;
+  expected_remote_video_track_ssrc3.num_freezes = 2;
+  expected_remote_video_track_ssrc3.mean_freeze_duration_ms = 40;
   ASSERT_TRUE(report->Get(expected_remote_video_track_ssrc3.id()));
   EXPECT_EQ(expected_remote_video_track_ssrc3,
             report->Get(expected_remote_video_track_ssrc3.id())

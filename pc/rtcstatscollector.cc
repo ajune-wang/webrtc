@@ -521,6 +521,11 @@ ProduceMediaStreamTrackStatsFromVideoReceiverInfo(
                 video_receiver_info.frames_rendered);
   video_track_stats->frames_dropped = video_receiver_info.frames_received -
                                       video_receiver_info.frames_rendered;
+  video_track_stats->num_freezes = video_receiver_info.num_freezes;
+  if (video_receiver_info.mean_freeze_duration_ms) {
+    video_track_stats->mean_freeze_duration_ms =
+        *video_receiver_info.mean_freeze_duration_ms;
+  }
   return video_track_stats;
 }
 

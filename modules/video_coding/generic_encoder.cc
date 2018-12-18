@@ -10,6 +10,7 @@
 
 #include "modules/video_coding/generic_encoder.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <vector>
@@ -28,6 +29,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/timeutils.h"
 #include "rtc_base/trace_event.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -47,7 +49,9 @@ VCMGenericEncoder::VCMGenericEncoder(
       vcm_encoded_frame_callback_(encoded_frame_callback),
       internal_source_(internal_source),
       streams_or_svc_num_(0),
-      codec_type_(VideoCodecType::kVideoCodecGeneric) {}
+      codec_type_(VideoCodecType::kVideoCodecGeneric),
+      in_encoder_rate_adjustment_experiment_(
+          field_trial::IsEnabled("WebRTC-EncodeRateAdjustment")) {}
 
 VCMGenericEncoder::~VCMGenericEncoder() {}
 
@@ -105,27 +109,34 @@ int32_t VCMGenericEncoder::Encode(const VideoFrame& frame,
 
 void VCMGenericEncoder::SetEncoderParameters(const EncoderParameters& params) {
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
-  bool rates_have_changed;
+  EncoderParameters prev_params;
+  VideoBitrateAllocation new_allocation;
   {
     rtc::CritScope lock(&params_lock_);
-    rates_have_changed =
-        params.target_bitrate != encoder_params_.target_bitrate ||
-        params.input_frame_rate != encoder_params_.input_frame_rate;
+    prev_params = encoder_params_;
     encoder_params_ = params;
+    if (in_encoder_rate_adjustment_experiment_) {
+      new_allocation = GetAdjustedAllocation(params.target_bitrate);
+      encoder_params_.target_bitrate = new_allocation;
+    } else {
+      new_allocation = params.target_bitrate;
+    }
   }
-  if (rates_have_changed) {
-    int res = encoder_->SetRateAllocation(params.target_bitrate,
-                                          params.input_frame_rate);
+
+  if (new_allocation != prev_params.target_bitrate ||
+      params.input_frame_rate != prev_params.input_frame_rate) {
+    int res =
+        encoder_->SetRateAllocation(new_allocation, params.input_frame_rate);
     if (res != 0) {
       RTC_LOG(LS_WARNING) << "Error set encoder rate (total bitrate bps = "
-                          << params.target_bitrate.get_sum_bps()
+                          << new_allocation.get_sum_bps()
                           << ", framerate = " << params.input_frame_rate
                           << "): " << res;
     }
     vcm_encoded_frame_callback_->OnFrameRateChanged(params.input_frame_rate);
     for (size_t i = 0; i < streams_or_svc_num_; ++i) {
       vcm_encoded_frame_callback_->OnTargetBitrateChanged(
-          params.target_bitrate.GetSpatialLayerSum(i) / 8, i);
+          new_allocation.GetSpatialLayerSum(i) / 8, i);
     }
   }
 }
@@ -149,6 +160,32 @@ int32_t VCMGenericEncoder::RequestFrame(
   return encoder_->Encode(
       VideoFrame(I420Buffer::Create(1, 1), kVideoRotation_0, 0), NULL,
       &frame_types);
+}
+
+VideoBitrateAllocation VCMGenericEncoder::GetAdjustedAllocation(
+    const VideoBitrateAllocation& new_allocation) {
+  VideoBitrateAllocation adjusted_allocation;
+  for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
+    // If no stable utilization factor is available, default to a conservative
+    // 15% overuse.
+    double utilizaton_factor =
+        vcm_encoded_frame_callback_->GetEncoderBitrateUtilizationFactor(si)
+            .value_or(1.15);
+    // Don't increase bitrate above target.
+    utilizaton_factor = std::min(1.0, utilizaton_factor);
+    // Don't correct rate down more than 50%, as this is likely an error.
+    utilizaton_factor = std::max(2.0, utilizaton_factor);
+    for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
+      if (!new_allocation.HasBitrate(si, ti)) {
+        continue;
+      }
+      adjusted_allocation.SetBitrate(
+          si, ti,
+          static_cast<uint32_t>(new_allocation.GetBitrate(si, ti) /
+                                utilizaton_factor));
+    }
+  }
+  return adjusted_allocation;
 }
 
 bool VCMGenericEncoder::InternalSource() const {
@@ -194,11 +231,24 @@ VCMEncodedFrameCallback::~VCMEncodedFrameCallback() {}
 void VCMEncodedFrameCallback::OnTargetBitrateChanged(
     size_t bitrate_bytes_per_second,
     size_t simulcast_svc_idx) {
-  rtc::CritScope crit(&timing_params_lock_);
-  if (timing_frames_info_.size() < simulcast_svc_idx + 1)
-    timing_frames_info_.resize(simulcast_svc_idx + 1);
-  timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec =
-      bitrate_bytes_per_second;
+  size_t framerate;
+  {
+    rtc::CritScope crit(&timing_params_lock_);
+    if (timing_frames_info_.size() < simulcast_svc_idx + 1)
+      timing_frames_info_.resize(simulcast_svc_idx + 1);
+    timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec =
+        bitrate_bytes_per_second;
+    framerate = framerate_;
+  }
+  {
+    rtc::CritScope crit(&overshoot_detectors_lock_);
+    if (overshoot_detectors_.size() < simulcast_svc_idx + 1) {
+      overshoot_detectors_.resize(simulcast_svc_idx + 1);
+    }
+    overshoot_detectors_[simulcast_svc_idx].SetTargetRate(
+        DataRate::bps(bitrate_bytes_per_second * 8), framerate,
+        rtc::TimeMillis());
+  }
 }
 
 void VCMEncodedFrameCallback::OnFrameRateChanged(size_t framerate) {
@@ -376,6 +426,17 @@ void VCMEncodedFrameCallback::FillTimingInfo(size_t simulcast_svc_idx,
   }
 }
 
+absl::optional<double>
+VCMEncodedFrameCallback::GetEncoderBitrateUtilizationFactor(
+    size_t spatial_idx) {
+  rtc::CritScope crit(&overshoot_detectors_lock_);
+  if (spatial_idx >= overshoot_detectors_.size()) {
+    return absl::nullopt;
+  }
+  return overshoot_detectors_[spatial_idx].GetUtilizationFactor(
+      rtc::TimeMillis());
+}
+
 EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
     const EncodedImage& encoded_image,
     const CodecSpecificInfo* codec_specific,
@@ -386,6 +447,13 @@ EncodedImageCallback::Result VCMEncodedFrameCallback::OnEncodedImage(
   EncodedImage image_copy(encoded_image);
 
   FillTimingInfo(spatial_idx, &image_copy);
+  {
+    rtc::CritScope crit(&overshoot_detectors_lock_);
+    if (spatial_idx < overshoot_detectors_.size()) {
+      overshoot_detectors_[spatial_idx].OnEncodedFrame(encoded_image.size(),
+                                                       rtc::TimeMillis());
+    }
+  }
 
   // Piggyback ALR experiment group id and simulcast id into the content type.
   uint8_t experiment_id =

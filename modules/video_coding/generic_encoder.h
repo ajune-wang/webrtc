@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "api/units/data_rate.h"
+#include "common_video/include/encoder_overshoot_detector.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "rtc_base/criticalsection.h"
@@ -88,6 +89,8 @@ class VCMEncodedFrameCallback : public EncodedImageCallback {
     stalled_encoder_logged_messages_ = 0;
   }
 
+  absl::optional<double> GetEncoderBitrateUtilizationFactor(size_t spatial_idx);
+
  private:
   // For non-internal-source encoders, returns encode started time and fixes
   // capture timestamp for the frame, if corrupted by the encoder.
@@ -135,6 +138,10 @@ class VCMEncodedFrameCallback : public EncodedImageCallback {
   // screenshare ([1]). 0 means no group specified. Positive values are
   // experiment group numbers incremented by 1.
   uint8_t experiment_groups_[2];
+
+  rtc::CriticalSection overshoot_detectors_lock_;
+  std::vector<EncoderOvershootDetector> overshoot_detectors_
+      RTC_GUARDED_BY(overshoot_detectors_lock_);
 };
 
 class VCMGenericEncoder {
@@ -161,6 +168,9 @@ class VCMGenericEncoder {
   VideoEncoder::EncoderInfo GetEncoderInfo() const;
 
  private:
+  VideoBitrateAllocation GetAdjustedAllocation(
+      const VideoBitrateAllocation& new_allocation);
+
   rtc::RaceChecker race_checker_;
 
   VideoEncoder* const encoder_ RTC_GUARDED_BY(race_checker_);
@@ -170,6 +180,7 @@ class VCMGenericEncoder {
   EncoderParameters encoder_params_ RTC_GUARDED_BY(params_lock_);
   size_t streams_or_svc_num_ RTC_GUARDED_BY(race_checker_);
   VideoCodecType codec_type_ RTC_GUARDED_BY(race_checker_);
+  const bool in_encoder_rate_adjustment_experiment_;
 };
 
 }  // namespace webrtc

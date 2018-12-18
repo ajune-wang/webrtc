@@ -146,8 +146,9 @@ std::vector<ProbeClusterConfig> ProbeController::SetBitrates(
 
 std::vector<ProbeClusterConfig> ProbeController::OnMaxTotalAllocatedBitrate(
     int64_t max_total_allocated_bitrate,
-    int64_t at_time_ms) {
-  if (state_ == State::kProbingComplete &&
+    int64_t at_time_ms,
+    bool send_probe) {
+  if (send_probe && state_ == State::kProbingComplete &&
       max_total_allocated_bitrate != max_total_allocated_bitrate_ &&
       estimated_bitrate_bps_ != 0 &&
       (max_bitrate_bps_ <= 0 || estimated_bitrate_bps_ < max_bitrate_bps_) &&

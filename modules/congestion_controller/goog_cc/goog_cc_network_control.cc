@@ -249,7 +249,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
         initial_config_->stream_based_config.max_total_allocated_bitrate;
     if (total_bitrate) {
       auto probes = probe_controller_->OnMaxTotalAllocatedBitrate(
-          total_bitrate->bps(), msg.at_time.ms());
+          total_bitrate->bps(), msg.at_time.ms(), true);
       update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                           probes.begin(), probes.end());
 
@@ -326,7 +326,8 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
       *msg.max_total_allocated_bitrate != max_total_allocated_bitrate_) {
     update.probe_cluster_configs =
         probe_controller_->OnMaxTotalAllocatedBitrate(
-            msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
+            msg.max_total_allocated_bitrate->bps(), msg.at_time.ms(),
+            msg.probe_at_max_total);
     max_total_allocated_bitrate_ = *msg.max_total_allocated_bitrate;
   }
   bool pacing_changed = false;

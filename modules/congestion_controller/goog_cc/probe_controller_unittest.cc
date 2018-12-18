@@ -280,8 +280,8 @@ TEST_F(ProbeControllerTest, TestAllocatedBitrateCap) {
 
   // Set a max allocated bitrate below the current estimate.
   int64_t max_allocated_bps = estimated_bitrate_bps - 1 * kMbpsMultiplier;
-  probes =
-      probe_controller_->OnMaxTotalAllocatedBitrate(max_allocated_bps, NowMs());
+  probes = probe_controller_->OnMaxTotalAllocatedBitrate(max_allocated_bps,
+                                                         NowMs(), true);
   EXPECT_TRUE(probes.empty());  // No probe since lower than current max.
 
   // Probes such as ALR capped at 2x the max allocation limit.
@@ -291,7 +291,7 @@ TEST_F(ProbeControllerTest, TestAllocatedBitrateCap) {
 
   // Remove allocation limit.
   EXPECT_TRUE(
-      probe_controller_->OnMaxTotalAllocatedBitrate(0, NowMs()).empty());
+      probe_controller_->OnMaxTotalAllocatedBitrate(0, NowMs(), true).empty());
   clock_.AdvanceTimeMilliseconds(5000);
   probes = probe_controller_->Process(NowMs());
   EXPECT_EQ(probes[0].target_data_rate.bps(), estimated_bitrate_bps * 2);

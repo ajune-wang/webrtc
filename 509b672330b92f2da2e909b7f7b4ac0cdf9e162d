@@ -499,6 +499,30 @@
     },
     {
       "key": {
+        "uuid": "02f029dd_b0e02d8d",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-18T15:21:28Z",
+      "side": 1,
+      "message": "\u003e While I agree that TargetTransferRateObserver is mainly used for the sender,\n\nAs I see it, TargetTransferRate is signaling from the congestion controller, and for a receive-only call, that call makes no sense.\n\nJust discussed RTT signalling with Sebastian, and it seems it\u0027s a bit of a mess, but we think it ought to be handled separately for send and receive. The current situation, where CallStats produces two values \"max\" and \"avg\", where max only is used by receive streams, and avg only is used (in a quastionable way) on the send side.\n\n\u003e  If we think it\u0027s not, we can add another callback \u0027onrttchanged\u0027 in media transport interface - in which case please add it an I\u0027ll make sure downstream implementation implements it.\n\nOk, I\u0027ll try to do that tomorrow, with a note that when we split into send/receive interfaces, it would belong to the receive side.\n\n\u003e We actually don\u0027t report \u0027avg_rtt\u0027 or \u0027max_rtt\u0027 in target transfer rate, so maybe we need to add a callback (though we would need to define what \u0027avg\u0027 is, and what \u0027max\u0027 is (over what time?)) - it looks like it looks at 1.5 second of connection\n\nI\u0027d guess the current filtering in CallStats is a bit arbitrary, and not necessarily right for the things the rtt measurement is ultimately used for.",
+      "parentUuid": "09f74cc7_60f465ef",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41969d40_997df909",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16

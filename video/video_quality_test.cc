@@ -36,6 +36,7 @@
 #include "rtc_base/strings/string_builder.h"
 #include "test/run_loop.h"
 #include "test/testsupport/fileutils.h"
+#include "test/vcm_capturer.h"
 #include "test/video_renderer.h"
 #include "video/frame_dumping_decoder.h"
 #ifdef WEBRTC_WIN
@@ -823,9 +824,9 @@ void VideoQualityTest::DestroyThumbnailStreams() {
   }
   thumbnail_send_streams_.clear();
   thumbnail_receive_streams_.clear();
-  for (std::unique_ptr<test::TestVideoCapturer>& video_caputurer :
+  for (std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>& video_capturer :
        thumbnail_capturers_) {
-    video_caputurer.reset();
+    video_capturer.reset();
   }
 }
 

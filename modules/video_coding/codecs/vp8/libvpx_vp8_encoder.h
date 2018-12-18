@@ -73,7 +73,9 @@ class LibvpxVp8Encoder : public VideoEncoder {
                              int encoder_idx,
                              uint32_t timestamp);
 
-  int GetEncodedPartitions(const VideoFrame& input_image);
+  int GetEncodedPartitions(const VideoFrame& input_image,
+                           const std::array<Vp8TemporalLayers::FrameConfig,
+                                            kMaxSimulcastStreams>& tl_config);
 
   // Set the stream state for stream |stream_idx|.
   void SetStreamState(bool send_stream, int stream_idx);

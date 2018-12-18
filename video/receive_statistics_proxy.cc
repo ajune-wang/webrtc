@@ -582,8 +582,11 @@ VideoReceiveStream::Stats ReceiveStatisticsProxy::GetStats() const {
       static_cast<int>(total_byte_tracker_.ComputeRate() * 8);
   stats_.interframe_delay_max_ms =
       interframe_delay_max_moving_.Max(now_ms).value_or(-1);
-  stats_.timing_frame_info = timing_frame_info_counter_.Max(now_ms);
+  stats_.num_freezes = video_quality_observer_->GetNumFreezes();
+  stats_.mean_freeze_duration_ms =
+      video_quality_observer_->GetMeanFreezeDurationMs();
   stats_.content_type = last_content_type_;
+  stats_.timing_frame_info = timing_frame_info_counter_.Max(now_ms);
   return stats_;
 }
 

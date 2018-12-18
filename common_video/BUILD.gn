@@ -13,6 +13,7 @@ rtc_static_library("common_video") {
 
   sources = [
     "bitrate_adjuster.cc",
+    "encoder_overshoot_detector.cc",
     "h264/h264_bitstream_parser.cc",
     "h264/h264_bitstream_parser.h",
     "h264/h264_common.cc",
@@ -26,6 +27,7 @@ rtc_static_library("common_video") {
     "h264/sps_vui_rewriter.h",
     "i420_buffer_pool.cc",
     "include/bitrate_adjuster.h",
+    "include/encoder_overshoot_detector.h",
     "include/i420_buffer_pool.h",
     "include/incoming_video_stream.h",
     "include/video_frame.h",
@@ -40,6 +42,7 @@ rtc_static_library("common_video") {
 
   deps = [
     "..:webrtc_common",
+    "../api/units:data_rate",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",
     "../api/video:video_bitrate_allocator",
@@ -74,6 +77,7 @@ if (rtc_include_tests) {
 
     sources = [
       "bitrate_adjuster_unittest.cc",
+      "encoder_overshoot_detector_unittest.cc",
       "h264/h264_bitstream_parser_unittest.cc",
       "h264/pps_parser_unittest.cc",
       "h264/profile_level_id_unittest.cc",

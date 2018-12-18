@@ -238,12 +238,13 @@ void DEPRECATED_SendSideCongestionController::SetBweBitrates(
 void DEPRECATED_SendSideCongestionController::SetAllocatedSendBitrateLimits(
     int64_t min_send_bitrate_bps,
     int64_t max_padding_bitrate_bps,
-    int64_t max_total_bitrate_bps) {
+    int64_t max_total_bitrate_bps,
+    bool probe_at_max_total) {
   pacer_->SetSendBitrateLimits(min_send_bitrate_bps, max_padding_bitrate_bps);
 
   rtc::CritScope cs(&probe_lock_);
   SendProbes(probe_controller_->OnMaxTotalAllocatedBitrate(
-      max_total_bitrate_bps, clock_->TimeInMilliseconds()));
+      max_total_bitrate_bps, clock_->TimeInMilliseconds(), probe_at_max_total));
 }
 
 // TODO(holmer): Split this up and use SetBweBitrates in combination with

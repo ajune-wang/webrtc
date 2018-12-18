@@ -41,9 +41,12 @@ class ProbeController {
 
   // The total bitrate, as opposed to the max bitrate, is the sum of the
   // configured bitrates for all active streams.
+  // Iff |send_probe| is true, a probe cluster config _may_ be returned,
+  // depending on internal conditions.
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig>
   OnMaxTotalAllocatedBitrate(int64_t max_total_allocated_bitrate,
-                             int64_t at_time_ms);
+                             int64_t at_time_ms,
+                             bool send_probe);
 
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> OnNetworkAvailability(
       NetworkAvailability msg);

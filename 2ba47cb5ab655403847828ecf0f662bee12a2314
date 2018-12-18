@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9dee6c73_ca9b72b9",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-12-18T16:14:32Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5513d791_e30aba44",
+      "range": {
+        "startLine": 1876,
+        "startChar": 30,
+        "endLine": 1876,
+        "endChar": 59
+      },
+      "revId": "2ba47cb5ab655403847828ecf0f662bee12a2314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4acea29a_de52349a",
         "filename": "modules/audio_processing/audio_processing_unittest.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2ba47cb5ab655403847828ecf0f662bee12a2314",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8a69ec3_a8bff8a0",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-12-18T16:14:32Z",
+      "side": 1,
+      "message": "Thanks for the offline discussion! I\u0027ll keep the EXPECT_NEAR, since a tiny change in rms_dbfs_average is either relatively large or exactly 0.",
+      "parentUuid": "4acea29a_de52349a",
+      "range": {
+        "startLine": 1990,
+        "startChar": 6,
+        "endLine": 1990,
+        "endChar": 17
+      },
+      "revId": "2ba47cb5ab655403847828ecf0f662bee12a2314",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

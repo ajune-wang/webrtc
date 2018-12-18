@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76be133b_3338cc24",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-18T13:59:56Z",
+      "side": 1,
+      "message": "nit: network",
+      "range": {
+        "startLine": 101,
+        "startChar": 55,
+        "endLine": 101,
+        "endChar": 63
+      },
+      "revId": "92c7bba7f376ce7d5804e03b038faec1ac2841a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

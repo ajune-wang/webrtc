@@ -89,6 +89,9 @@ class VideoReceiveStream {
     int width = 0;
     int height = 0;
 
+    absl::optional<uint32_t> mean_freeze_duration_ms;
+    absl::optional<uint32_t> num_freezes;
+
     VideoContentType content_type = VideoContentType::UNSPECIFIED;
 
     int sync_offset_ms = std::numeric_limits<int>::max();

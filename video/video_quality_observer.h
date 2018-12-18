@@ -39,6 +39,9 @@ class VideoQualityObserver {
 
   void OnStreamInactive();
 
+  absl::optional<uint32_t> GetMeanFreezeDurationMs();
+  absl::optional<uint32_t> GetNumFreezes();
+
  private:
   void UpdateHistograms();
 

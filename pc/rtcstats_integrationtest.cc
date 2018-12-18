@@ -557,6 +557,10 @@ class RTCStatsReportVerifier {
             media_stream_track.frames_decoded);
         verifier.TestMemberIsNonNegative<uint32_t>(
             media_stream_track.frames_dropped);
+        verifier.TestMemberIsNonNegative<uint32_t>(
+            media_stream_track.mean_freeze_duration_ms);
+        verifier.TestMemberIsNonNegative<uint32_t>(
+            media_stream_track.num_freezes);
       } else {
         verifier.TestMemberIsNonNegative<uint32_t>(
             media_stream_track.frames_sent);
@@ -565,6 +569,9 @@ class RTCStatsReportVerifier {
         verifier.TestMemberIsUndefined(media_stream_track.frames_received);
         verifier.TestMemberIsUndefined(media_stream_track.frames_decoded);
         verifier.TestMemberIsUndefined(media_stream_track.frames_dropped);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.mean_freeze_duration_ms);
+        verifier.TestMemberIsUndefined(media_stream_track.num_freezes);
       }
       verifier.TestMemberIsUndefined(media_stream_track.frames_corrupted);
       verifier.TestMemberIsUndefined(media_stream_track.partial_frames_lost);
@@ -590,6 +597,9 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(media_stream_track.frames_corrupted);
       verifier.TestMemberIsUndefined(media_stream_track.partial_frames_lost);
       verifier.TestMemberIsUndefined(media_stream_track.full_frames_lost);
+      verifier.TestMemberIsUndefined(
+          media_stream_track.mean_freeze_duration_ms);
+      verifier.TestMemberIsUndefined(media_stream_track.num_freezes);
       // Audio-only members
       verifier.TestMemberIsNonNegative<double>(media_stream_track.audio_level);
       verifier.TestMemberIsNonNegative<double>(

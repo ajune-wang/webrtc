@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6daedd18_9ae612dd",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_bwe.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-18T09:42:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17b54841_305195c0",
+      "range": {
+        "startLine": 336,
+        "startChar": 20,
+        "endLine": 336,
+        "endChar": 53
+      },
+      "revId": "c6af4069554546cd555589c33ff8953e9ffc1949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e35f1886_974800bc",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2018-12-17T15:48:42Z",
       "side": 1,
       "message": "Note that this name is a bit confusing, as it doesn\u0027t always request a probe. (Just make sure that you are confident that the conditions for sending a probe are fulfilled)",
+      "revId": "c6af4069554546cd555589c33ff8953e9ffc1949",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37e389a3_ce3f026c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-18T09:42:38Z",
+      "side": 1,
+      "message": "Ack.\nSince we were in alr before the backoff, either we are in alr after as well, or we should hit the \"alr_ended_recently\" condition. So we should be good to go.",
+      "parentUuid": "e35f1886_974800bc",
       "revId": "c6af4069554546cd555589c33ff8953e9ffc1949",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

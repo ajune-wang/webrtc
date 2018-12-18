@@ -59,7 +59,7 @@ std::string EncodedFramePath() {
 namespace webrtc {
 
 namespace {
-static const int kFullStackTestDurationSecs = 45;
+static const int kFullStackTestDurationSecs = 5;
 const char kPacerPushBackExperiment[] =
     "WebRTC-PacerPushbackExperiment/Enabled/";
 const char kVp8TrustedRateControllerFieldTrial[] =

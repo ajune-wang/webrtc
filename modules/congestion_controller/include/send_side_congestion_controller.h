@@ -116,6 +116,8 @@ class SendSideCongestionController
   void EnableCongestionWindowPushback(int64_t accepted_queue_ms,
                                       uint32_t min_pushback_target_bitrate_bps);
 
+  void SetAlrLimitedBackoffExperiment(bool enable);
+
  private:
   void MaybeTriggerOnNetworkChanged();
 

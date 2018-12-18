@@ -475,6 +475,30 @@
     },
     {
       "key": {
+        "uuid": "09f74cc7_60f465ef",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7029
+      },
+      "writtenOn": "2018-12-18T15:13:06Z",
+      "side": 1,
+      "message": "Leaving it without RTT makes the integration incomplete, and at least in the audio case it was providing subpar quality. So we definitely need this implemented - TODO is fine, but we need to address it (and it\u0027s not much code).\n\nWhile I agree that TargetTransferRateObserver is mainly used for the sender, the callers rtt should \u003d callee\u0027s rtt, and for the purposes of getting current RTT, using that targetrateobserver should be ok. If we think it\u0027s not, we can add another callback \u0027onrttchanged\u0027 in media transport interface - in which case please add it an I\u0027ll make sure downstream implementation implements it.\n\nWe actually don\u0027t report \u0027avg_rtt\u0027 or \u0027max_rtt\u0027 in target transfer rate, so maybe we need to add a callback (though we would need to define what \u0027avg\u0027 is, and what \u0027max\u0027 is (over what time?)) - it looks like it looks at 1.5 second of connection\n static constexpr const int64_t kRttTimeoutMs \u003d 1500;",
+      "parentUuid": "50ab201a_484f149a",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41969d40_997df909",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16

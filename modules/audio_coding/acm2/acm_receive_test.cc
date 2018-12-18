@@ -171,6 +171,20 @@ void AcmReceiveTestOldApi::RegisterNetEqTestCodecs() {
   }
 }
 
+void AcmReceiveTestOldApi::SetUpTestExternalDecoder(
+    uint8_t decoder_pltype,
+    AudioDecoder* external_audio_decoder,
+    int sample_rate_hz,
+    int num_channels,
+    const std::string& name) {
+  RTC_CHECK_EQ(acm_->UnregisterReceiveCodec(decoder_pltype), 0);
+  // sample_rate_hz is ignored by the Register function.
+  RTC_CHECK_EQ(
+      acm_->RegisterExternalReceiveCodec(decoder_pltype, external_audio_decoder,
+                                         sample_rate_hz, num_channels, name),
+      0);
+}
+
 void AcmReceiveTestOldApi::Run() {
   for (std::unique_ptr<Packet> packet(packet_source_->NextPacket()); packet;
        packet = packet_source_->NextPacket()) {

@@ -164,6 +164,11 @@ int CalculateBitrate(int max_playback_rate_hz,
 }
 
 int GetChannelCount(const SdpAudioFormat& format) {
+  const auto channels = GetFormatParameter<int>(format, "channels");
+  if (channels) {
+    return *channels;
+  }
+
   const auto param = GetFormatParameter(format, "stereo");
   if (param == "1") {
     return 2;

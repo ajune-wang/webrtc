@@ -546,7 +546,9 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
     return -1;
   }
 
-  if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2) {
+  if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2 &&
+      audio_frame.num_channels_ != 4 && audio_frame.num_channels_ != 6 &&
+      audio_frame.num_channels_ != 8) {
     RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
     return -1;
   }
@@ -771,10 +773,10 @@ int AudioCodingModuleImpl::RegisterExternalReceiveCodec(
     const std::string& name) {
   rtc::CritScope lock(&acm_crit_sect_);
   RTC_DCHECK(receiver_initialized_);
-  if (num_channels > 2 || num_channels < 0) {
-    RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " << num_channels;
-    return -1;
-  }
+  // if (num_channels <= 0) {
+  //   RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " <<
+  //   num_channels; return -1;
+  // }
 
   // Check if the payload-type is valid.
   if (!acm2::RentACodec::IsPayloadTypeValid(rtp_payload_type)) {

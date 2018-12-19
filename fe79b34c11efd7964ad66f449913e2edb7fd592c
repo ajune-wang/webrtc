@@ -16,6 +16,24 @@
       "revId": "fe79b34c11efd7964ad66f449913e2edb7fd592c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e42256_38887c19",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2646,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-19T10:54:18Z",
+      "side": 0,
+      "message": "Out of fear of breaking weird munging cases, I\u0027m performing these steps in both places, but I put them in a helper method. Let\u0027s avoid unnecessary risk so that this can be merged to M72.",
+      "parentUuid": "dc99b317_747cb796",
+      "revId": "fe79b34c11efd7964ad66f449913e2edb7fd592c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

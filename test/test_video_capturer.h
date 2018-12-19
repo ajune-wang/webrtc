@@ -14,8 +14,6 @@
 
 #include <memory>
 
-#include "absl/types/optional.h"
-#include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_source_interface.h"
 #include "media/base/videoadapter.h"
@@ -36,13 +34,29 @@ class TestVideoCapturer : public rtc::VideoSourceInterface<VideoFrame> {
 
   void AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,
                        const rtc::VideoSinkWants& wants) override;
+  void RemoveSink(rtc::VideoSinkInterface<VideoFrame>* sink) override;
 
  protected:
-  absl::optional<VideoFrame> AdaptFrame(const VideoFrame& frame);
+  void AdaptFrame(const VideoFrame& frame);
   rtc::VideoSinkWants GetSinkWants();
 
  private:
+  struct SinkPair {
+    SinkPair(rtc::VideoSinkInterface<webrtc::VideoFrame>* sink,
+             rtc::VideoSinkWants wants)
+        : sink(sink), wants(wants) {}
+    rtc::VideoSinkInterface<webrtc::VideoFrame>* sink;
+    rtc::VideoSinkWants wants;
+  };
+
+  void OnFrame(const VideoFrame& frame);
+
+  void UpdateSinkWants() RTC_EXCLUSIVE_LOCKS_REQUIRED(sink_lock_);
+
   const std::unique_ptr<cricket::VideoAdapter> video_adapter_;
+  rtc::CriticalSection sink_lock_;
+  std::vector<SinkPair> sinks_ RTC_GUARDED_BY(sink_lock_);
+  rtc::VideoSinkWants current_wants_ RTC_GUARDED_BY(sink_lock_);
 };
 }  // namespace test
 }  // namespace webrtc

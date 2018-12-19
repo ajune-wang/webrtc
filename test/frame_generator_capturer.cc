@@ -186,11 +186,7 @@ void FrameGeneratorCapturer::InsertFrame() {
       first_frame_capture_time_ = frame->ntp_time_ms();
     }
 
-    if (sink_) {
-      absl::optional<VideoFrame> out_frame = AdaptFrame(*frame);
-      if (out_frame)
-        sink_->OnFrame(*out_frame);
-    }
+    AdaptFrame(*frame);
   }
 }
 
@@ -236,31 +232,24 @@ void FrameGeneratorCapturer::SetSinkWantsObserver(SinkWantsObserver* observer) {
 void FrameGeneratorCapturer::AddOrUpdateSink(
     rtc::VideoSinkInterface<VideoFrame>* sink,
     const rtc::VideoSinkWants& wants) {
-  rtc::CritScope cs(&lock_);
-  RTC_CHECK(!sink_ || sink_ == sink);
-  sink_ = sink;
-  if (sink_wants_observer_)
-    sink_wants_observer_->OnSinkWantsChanged(sink, wants);
-
   // Handle framerate within this class, just pass on resolution for possible
   // adaptation.
   rtc::VideoSinkWants resolution_wants = wants;
   resolution_wants.max_framerate_fps = std::numeric_limits<int>::max();
-  TestVideoCapturer::AddOrUpdateSink(sink, resolution_wants);
 
+  TestVideoCapturer::AddOrUpdateSink(sink, resolution_wants);
+  rtc::CritScope cs(&lock_);
+  if (sink_wants_observer_) {
+    // Tests need to observe unmodified sink wants.
+    sink_wants_observer_->OnSinkWantsChanged(sink, wants);
+  }
   // Ignore any requests for framerate higher than initially configured.
+  // TODO(nisse): Only takes latest added sink into account.
   if (wants.max_framerate_fps < target_capture_fps_) {
     wanted_fps_.emplace(wants.max_framerate_fps);
   } else {
     wanted_fps_.reset();
   }
-}
-
-void FrameGeneratorCapturer::RemoveSink(
-    rtc::VideoSinkInterface<VideoFrame>* sink) {
-  rtc::CritScope cs(&lock_);
-  RTC_CHECK(sink_ == sink);
-  sink_ = nullptr;
 }
 
 void FrameGeneratorCapturer::ForceFrame() {

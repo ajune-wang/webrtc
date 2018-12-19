@@ -23,6 +23,7 @@
 #import "helpers/RTCDispatcher+Private.h"
 
 const int64_t kNanosecondsPerSecond = 1000000000;
+const uint32_t kMaxFatalErrorRetries = 10;
 
 @interface RTCCameraVideoCapturer ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 @property(nonatomic, readonly) dispatch_queue_t frameQueue;
@@ -38,6 +39,7 @@ const int64_t kNanosecondsPerSecond = 1000000000;
   AVCaptureSession *_captureSession;
   FourCharCode _preferredOutputPixelFormat;
   FourCharCode _outputPixelFormat;
+  uint32_t _fatalErrorRetries;
   RTCVideoRotation _rotation;
 #if TARGET_OS_IPHONE
   UIDeviceOrientation _orientation;
@@ -152,6 +154,7 @@ const int64_t kNanosecondsPerSecond = 1000000000;
                            fps:(NSInteger)fps
              completionHandler:(nullable void (^)(NSError *))completionHandler {
   _willBeRunning = YES;
+  _fatalErrorRetries = 0;
   [RTCDispatcher
       dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                     block:^{
@@ -357,10 +360,12 @@ const int64_t kNanosecondsPerSecond = 1000000000;
   [RTCDispatcher
       dispatchAsyncOnType:RTCDispatcherTypeCaptureSession
                     block:^{
-                      if (!self.hasRetriedOnFatalError) {
+                      if (!self.hasRetriedOnFatalError &&
+                          _fatalErrorRetries < kMaxFatalErrorRetries) {
                         RTCLogWarning(@"Attempting to recover from fatal capture error.");
                         [self handleNonFatalError];
                         self.hasRetriedOnFatalError = YES;
+                        _fatalErrorRetries++;
                       } else {
                         RTCLogError(@"Previous fatal error recovery failed.");
                       }

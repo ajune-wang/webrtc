@@ -95,7 +95,10 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
 
-  void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
+  void StoreEncoderProperties(int sample_rate_hz,
+                              size_t num_channels,
+                              int min_frame_length_ms,
+                              int max_frame_length_ms);
 
   // These are all static to make it less likely that (the old) config_ is
   // accessed unintentionally.
@@ -108,21 +111,56 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   static void ReconfigureANA(AudioSendStream* stream, const Config& new_config);
   static void ReconfigureCNG(AudioSendStream* stream, const Config& new_config);
   static void ReconfigureBitrateObserver(AudioSendStream* stream,
-                                         const Config& new_config);
+                                         const Config& new_config,
+                                         int new_transport_overhead_per_packet);
 
   void ConfigureBitrateObserver(int min_bitrate_bps,
                                 int max_bitrate_bps,
                                 double bitrate_priority,
-                                bool has_packet_feedback);
+                                bool has_packet_feedback,
+                                int transport_overhead_per_packet);
   void RemoveBitrateObserver();
 
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
+
+  // Field trial WebRTC-SendSideBwe-WithOverhead.
+  //
+  // Adds hardcoded overhead bitrate to both min_bitrate_bps and
+  // max_bitrate_bps, based on 50 byte overhead (ipv4, no TURN) and opus
+  // maximum frame size 60ms or 120ms.
+  const bool send_side_bwe_with_overhead_;
+
+  // Field trial WebRTC-SendSideBwe-WithOverheadOptionMin.
+  //
+  // Modification of WebRTC-SendSideBwe-WithOverhead to add minimum overhead
+  // to both min_bitrate_bps and max_bitrate_bps. The overhead is calculated
+  // based on current transport and packetization overhead and maximum
+  // supported encoder frame size, which makes it more accurate than legacy
+  // calculation in WebRTC-SendSideBwe-WithOverhead.
+  //
+  // Requires WebRTC-SendSideBwe-WithOverhead, otherwise false.
+  const bool send_side_bwe_with_overhead_option_min_;
+
+  // Field trial WebRTC-SendSideBwe-WithOverheadOptionMinMax.
+  //
+  // Modification of WebRTC-SendSideBwe-WithOverhead to add minimum overhead
+  // to min_bitrate_bps and maximum overhead to max_bitrate_bps. The overhead
+  // is calculated based on current transport and packetization overhead and
+  // minimum / maximum supported encoder frame size.
+  //
+  // Requires WebRTC-SendSideBwe-WithOverhead, otherwise false.
+  const bool send_side_bwe_with_overhead_option_min_max_;
 
   rtc::ThreadChecker worker_thread_checker_;
   rtc::ThreadChecker pacer_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
   rtc::TaskQueue* worker_queue_;
+
   webrtc::AudioSendStream::Config config_;
+
+  // Most recent transport packet overhead.
+  int transport_overhead_per_packet_ = 0;
+
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   const std::unique_ptr<voe::ChannelSendInterface> channel_send_;
   RtcEventLog* const event_log_;
@@ -130,6 +168,11 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   int encoder_sample_rate_hz_ = 0;
   size_t encoder_num_channels_ = 0;
   bool sending_ = false;
+
+  // Minimum and maximum frame length supported by the encoder.
+  // Used to estimate overhead bitrate.
+  int encoder_min_frame_length_ms_ = 0;
+  int encoder_max_frame_length_ms_ = 0;
 
   BitrateAllocatorInterface* const bitrate_allocator_;
   RtpTransportControllerSendInterface* const rtp_transport_;

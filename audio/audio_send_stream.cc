@@ -129,7 +129,14 @@ AudioSendStream::AudioSendStream(
     RtcpRttStats* rtcp_rtt_stats,
     const absl::optional<RtpState>& suspended_rtp_state,
     std::unique_ptr<voe::ChannelSendInterface> channel_send)
-    : worker_queue_(worker_queue),
+    : send_side_bwe_with_overhead_(
+          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+      send_side_bwe_with_overhead_option_min_(
+          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverheadMin")),
+      send_side_bwe_with_overhead_option_min_max_(
+          webrtc::field_trial::IsEnabled(
+              "WebRTC-SendSideBwe-WithOverheadMinMax")),
+      worker_queue_(worker_queue),
       config_(Config(/*send_transport=*/nullptr,
                      /*media_transport=*/nullptr)),
       audio_state_(audio_state),
@@ -286,7 +293,8 @@ void AudioSendStream::ConfigureStream(
   }
 
   if (stream->sending_) {
-    ReconfigureBitrateObserver(stream, new_config);
+    ReconfigureBitrateObserver(stream, new_config,
+                               stream->transport_overhead_per_packet_);
   }
   stream->config_ = new_config;
 }
@@ -310,7 +318,8 @@ void AudioSendStream::Start() {
     rtp_rtcp_module_->SetAsPartOfAllocation(true);
     ConfigureBitrateObserver(config_.min_bitrate_bps, config_.max_bitrate_bps,
                              config_.bitrate_priority,
-                             has_transport_sequence_number);
+                             has_transport_sequence_number,
+                             transport_overhead_per_packet_);
   } else {
     rtp_rtcp_module_->SetAsPartOfAllocation(false);
   }
@@ -429,10 +438,9 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
   RTC_DCHECK_GE(update.target_bitrate.bps<int>(), config_.min_bitrate_bps);
   // The bitrate allocator might allocate an higher than max configured bitrate
   // if there is room, to allow for, as example, extra FEC. Ignore that for now.
-  const DataRate max_bitrate = DataRate::bps(config_.max_bitrate_bps);
-  if (update.target_bitrate > max_bitrate)
-    update.target_bitrate = max_bitrate;
 
+  // Encoder will limit rate based on AudioSendStream config settings
+  // (see calls to encoder SetMin/MaxAudioBitrate).
   channel_send_->OnBitrateAllocation(update);
 
   // The amount of audio protection is not exposed by the encoder, hence
@@ -477,6 +485,13 @@ void AudioSendStream::OnPacketFeedbackVector(
 void AudioSendStream::SetTransportOverhead(int transport_overhead_per_packet) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   channel_send_->SetTransportOverhead(transport_overhead_per_packet);
+
+  if (send_side_bwe_with_overhead_) {
+    // When overhead changes, we need to reconfigure bitrate observer with
+    // adjusted minimum and maximum bitrate taking into account new overhead.
+    ReconfigureBitrateObserver(this, this->config_,
+                               transport_overhead_per_packet);
+  }
 }
 
 RtpState AudioSendStream::GetRtpState() const {
@@ -502,10 +517,18 @@ const internal::AudioState* AudioSendStream::audio_state() const {
 }
 
 void AudioSendStream::StoreEncoderProperties(int sample_rate_hz,
-                                             size_t num_channels) {
+                                             size_t num_channels,
+                                             int min_frame_length_ms,
+                                             int max_frame_length_ms) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  RTC_DCHECK_GT(min_frame_length_ms, 0);
+  RTC_DCHECK_GT(max_frame_length_ms, 0);
+
   encoder_sample_rate_hz_ = sample_rate_hz;
   encoder_num_channels_ = num_channels;
+  encoder_min_frame_length_ms_ = min_frame_length_ms;
+  encoder_max_frame_length_ms_ = max_frame_length_ms;
+
   if (sending_) {
     // Update AudioState's information about the stream.
     audio_state()->AddSendingStream(this, sample_rate_hz, num_channels);
@@ -568,7 +591,9 @@ bool AudioSendStream::SetupSendCodec(AudioSendStream* stream,
   }
 
   stream->StoreEncoderProperties(encoder->SampleRateHz(),
-                                 encoder->NumChannels());
+                                 encoder->NumChannels(),
+                                 encoder->Min10MsFramesInAPacket() * 10,
+                                 encoder->Max10MsFramesInAPacket() * 10);
   stream->channel_send_->SetEncoder(new_config.send_codec_spec->payload_type,
                                     std::move(encoder));
   return true;
@@ -618,6 +643,24 @@ bool AudioSendStream::ReconfigureSendCodec(AudioSendStream* stream,
           old_config.send_codec_spec->target_bitrate_bps) {
     CallEncoder(stream->channel_send_, [&](AudioEncoder* encoder) {
       encoder->OnReceivedTargetAudioBitrate(*new_target_bitrate_bps);
+    });
+  }
+
+  // Set minimum encoder bitrate based on configuration.
+  if (new_config.min_bitrate_bps != -1) {
+    CallEncoder(stream->channel_send_, [&](AudioEncoder* encoder) {
+      bool result = encoder->SetMinEncoderBitrate(new_config.min_bitrate_bps);
+      RTC_DCHECK(result) << new_config.min_bitrate_bps
+                         << " is outside of encoder supported bitrate range";
+    });
+  }
+
+  // Set maximum encoder bitrate based on configuration.
+  if (new_config.max_bitrate_bps != -1) {
+    CallEncoder(stream->channel_send_, [&](AudioEncoder* encoder) {
+      bool result = encoder->SetMaxEncoderBitrate(new_config.max_bitrate_bps);
+      RTC_DCHECK(result) << new_config.max_bitrate_bps
+                         << " is outside of encoder supported bitrate range";
     });
   }
 
@@ -696,16 +739,19 @@ void AudioSendStream::ReconfigureCNG(AudioSendStream* stream,
 
 void AudioSendStream::ReconfigureBitrateObserver(
     AudioSendStream* stream,
-    const webrtc::AudioSendStream::Config& new_config) {
+    const webrtc::AudioSendStream::Config& new_config,
+    int transport_overhead_per_packet) {
   // Since the Config's default is for both of these to be -1, this test will
   // allow us to configure the bitrate observer if the new config has bitrate
   // limits set, but would only have us call RemoveBitrateObserver if we were
   // previously configured with bitrate limits.
+
   int new_transport_seq_num_id =
       FindExtensionIds(new_config.rtp.extensions).transport_sequence_number;
   if (stream->config_.min_bitrate_bps == new_config.min_bitrate_bps &&
       stream->config_.max_bitrate_bps == new_config.max_bitrate_bps &&
       stream->config_.bitrate_priority == new_config.bitrate_priority &&
+      stream->transport_overhead_per_packet_ == transport_overhead_per_packet &&
       (FindExtensionIds(stream->config_.rtp.extensions)
                .transport_sequence_number == new_transport_seq_num_id ||
        !webrtc::field_trial::IsEnabled("WebRTC-Audio-SendSideBwe"))) {
@@ -720,7 +766,8 @@ void AudioSendStream::ReconfigureBitrateObserver(
     stream->rtp_transport_->packet_sender()->SetAccountForAudioPackets(true);
     stream->ConfigureBitrateObserver(
         new_config.min_bitrate_bps, new_config.max_bitrate_bps,
-        new_config.bitrate_priority, has_transport_sequence_number);
+        new_config.bitrate_priority, has_transport_sequence_number,
+        transport_overhead_per_packet);
     stream->rtp_rtcp_module_->SetAsPartOfAllocation(true);
   } else {
     stream->rtp_transport_->packet_sender()->SetAccountForAudioPackets(false);
@@ -729,10 +776,12 @@ void AudioSendStream::ReconfigureBitrateObserver(
   }
 }
 
-void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
-                                               int max_bitrate_bps,
-                                               double bitrate_priority,
-                                               bool has_packet_feedback) {
+void AudioSendStream::ConfigureBitrateObserver(
+    int min_bitrate_bps,
+    int max_bitrate_bps,
+    double bitrate_priority,
+    bool has_packet_feedback,
+    int transport_overhead_per_packet) {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK_GE(max_bitrate_bps, min_bitrate_bps);
   rtc::Event thread_sync_event;
@@ -742,6 +791,73 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
     config_.min_bitrate_bps = min_bitrate_bps;
     config_.max_bitrate_bps = max_bitrate_bps;
     config_.bitrate_priority = bitrate_priority;
+    transport_overhead_per_packet_ = transport_overhead_per_packet;
+
+    // Encoder should already be configured.
+    RTC_DCHECK_GT(encoder_min_frame_length_ms_, 0);
+    RTC_DCHECK_GT(encoder_max_frame_length_ms_, 0);
+    RTC_DCHECK_LE(encoder_min_frame_length_ms_, encoder_max_frame_length_ms_);
+
+    const int min_overhead_bps =
+        transport_overhead_per_packet * 8 * 1000 / encoder_max_frame_length_ms_;
+
+    const int max_overhead_bps =
+        transport_overhead_per_packet * 8 * 1000 / encoder_min_frame_length_ms_;
+
+    // We do not really know what audio frame size encoder will choose in
+    // advance, but we need to add overhead estimates to min_bitrate_bps and
+    // max_bitrate_bps so that bitrate allocator could work with range that
+    // encoder can support.
+    //
+    // Below are different field trials how to account for this overhead.
+    //
+    // TODO(sukhanov): Another option is to use current encoder frame size, but
+    // it is prone to circular dependencies, so this option is not currently
+    // implemented. We can consider it in the future if we find solution
+    // for circular dependency. Initial experiments showed that using current
+    // frame size created exceesive oscillations in final bitrate.
+
+    if (send_side_bwe_with_overhead_ &&
+        send_side_bwe_with_overhead_option_min_max_) {
+      // Field trial SendSideBweWithOverheadOptionMinMax.
+      //
+      // This options gives bitrate allocator the range which which
+      // encoder can work sure at both min amd max limits, but not as
+      // accurate as option B.
+      min_bitrate_bps += min_overhead_bps;
+      min_bitrate_bps += max_overhead_bps;
+    } else if (send_side_bwe_with_overhead_ &&
+               send_side_bwe_with_overhead_option_min_) {
+      // Field trial SendSideBweWithOverheadOptionMin.
+      //
+      // This option is closer to closer to legacy solution compared to
+      // SendSideBweWithOverheadOptionMinMax, but it still fixes overhead
+      // calculation and guarantees that we can reach minimum bitrate, but can
+      // result in underutilizing available bandwidth at maximum bitrate.
+      min_bitrate_bps += min_overhead_bps;
+      max_bitrate_bps += min_overhead_bps;
+    } else if (send_side_bwe_with_overhead_) {
+      // Initial implementation of SendSideBweWithOverhead field trial.
+      ///
+      // Hardcoded 50 bytes overhead (for ipv4) and use 60 or 120 maximum
+      // frame size (depending on OPUS settings). Unfortunately this approach
+      // uderestimates overhead for ipv6 and TURN and does not work with
+      // other encoders that have different maximum frame size. It can
+      // result in underutilizing available bandwidth at max_bitrate_bps
+      // or not reaching bandwidth at min_bitrate_bps.
+
+      const int max_packet_size_ms = WEBRTC_OPUS_SUPPORT_120MS_PTIME ? 120 : 60;
+
+      // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
+      constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
+
+      int min_legacy_overhead_bps =
+          kOverheadPerPacket * 8 * 1000 / max_packet_size_ms;
+
+      min_bitrate_bps += min_legacy_overhead_bps;
+      max_bitrate_bps += min_legacy_overhead_bps;
+    }
+
     // This either updates the current observer or adds a new observer.
     bitrate_allocator_->AddObserver(
         this, MediaStreamAllocationConfig{

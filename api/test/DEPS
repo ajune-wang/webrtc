@@ -11,4 +11,7 @@ specific_include_rules = {
     "+rtc_base/thread.h",
     "+rtc_base/thread_checker.h",
   ],
+  "network_behavior_manager\.h": [
+    "+rtc_base/socketaddress.h",
+  ]
 }

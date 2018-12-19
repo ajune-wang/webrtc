@@ -301,13 +301,7 @@ class UnitTest(unittest.TestCase):
 
     self.assertEqual(files, ['../../.vpython', '../../testing/test_env.py',
                              'base_unittests'])
-    self.assertEqual(command, [
-        '../../build/android/test_wrapper/logdog_wrapper.py',
-        '--target', 'base_unittests',
-        '--logdog-bin-cmd', '../../bin/logdog_butler',
-        '--logcat-output-file', '${ISOLATED_OUTDIR}/logcats',
-        '--store-tombstones',
-    ])
+    self.assertEqual(command, ['base_unittests'])
 
   def test_gen_swarming_android_junit_test(self):
     test_files = {
@@ -335,13 +329,7 @@ class UnitTest(unittest.TestCase):
 
     self.assertEqual(files, ['../../.vpython', '../../testing/test_env.py',
                              'base_unittests'])
-    self.assertEqual(command, [
-        '../../build/android/test_wrapper/logdog_wrapper.py',
-        '--target', 'base_unittests',
-        '--logdog-bin-cmd', '../../bin/logdog_butler',
-        '--logcat-output-file', '${ISOLATED_OUTDIR}/logcats',
-        '--store-tombstones',
-    ])
+    self.assertEqual(command, ['base_unittests'])
 
   def test_gen_timeout(self):
     test_files = {

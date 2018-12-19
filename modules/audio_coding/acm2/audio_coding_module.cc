@@ -473,7 +473,9 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
     return -1;
   }
 
-  if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2) {
+  if (audio_frame.num_channels_ != 1 && audio_frame.num_channels_ != 2 &&
+      audio_frame.num_channels_ != 4 && audio_frame.num_channels_ != 6 &&
+      audio_frame.num_channels_ != 8) {
     RTC_LOG(LS_ERROR) << "Cannot Add 10 ms audio, invalid number of channels.";
     return -1;
   }
@@ -681,6 +683,32 @@ absl::optional<std::pair<int, SdpAudioFormat>>
   return receiver_.LastDecoder();
 }
 
+// int AudioCodingModuleImpl::RegisterExternalReceiveCodec(
+//     int rtp_payload_type,
+//     AudioDecoder* external_decoder,
+//     int sample_rate_hz,
+//     int num_channels,
+//     const std::string& name) {
+//   rtc::CritScope lock(&acm_crit_sect_);
+//   RTC_DCHECK(receiver_initialized_);
+//   // if (num_channels <= 0) {
+//   //   RTC_LOG_F(LS_ERROR) << "Unsupported number of channels: " <<
+//   num_channels;
+//   //   return -1;
+//   // }
+
+//   // Check if the payload-type is valid.
+//   if (!acm2::RentACodec::IsPayloadTypeValid(rtp_payload_type)) {
+//     RTC_LOG_F(LS_ERROR) << "Invalid payload-type " << rtp_payload_type
+//                         << " for external decoder.";
+//     return -1;
+//   }
+
+//   return receiver_.AddCodec(-1 /* external */, rtp_payload_type,
+//   num_channels,
+//                             sample_rate_hz, external_decoder, name);
+// }
+
 // Incoming packet from network parsed and ready for decode.
 int AudioCodingModuleImpl::IncomingPacket(const uint8_t* incoming_payload,
                                           const size_t payload_length,
@@ -784,6 +812,10 @@ bool AudioCodingModuleImpl::HaveValidEncoder(const char* caller_name) const {
   }
   return true;
 }
+
+// int AudioCodingModuleImpl::UnregisterReceiveCodec(uint8_t payload_type) {
+//   return receiver_.RemoveCodec(payload_type);
+// }
 
 int AudioCodingModuleImpl::EnableNack(size_t max_nack_list_size) {
   return receiver_.EnableNack(max_nack_list_size);

@@ -18,9 +18,11 @@ namespace test {
 InputAudioFile::InputAudioFile(const std::string file_name, bool loop_at_end)
     : loop_at_end_(loop_at_end) {
   fp_ = fopen(file_name.c_str(), "rb");
+  RTC_CHECK(fp_);
 }
 
 InputAudioFile::~InputAudioFile() {
+  RTC_CHECK(fp_);
   fclose(fp_);
 }
 

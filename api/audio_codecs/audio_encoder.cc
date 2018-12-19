@@ -104,6 +104,14 @@ void AudioEncoder::OnReceivedOverhead(size_t overhead_bytes_per_packet) {}
 void AudioEncoder::SetReceiverFrameLengthRange(int min_frame_length_ms,
                                                int max_frame_length_ms) {}
 
+bool AudioEncoder::SetMinEncoderBitrate(int min_audio_bitrate) {
+  return true;
+}
+
+bool AudioEncoder::SetMaxEncoderBitrate(int max_audio_bitrate) {
+  return true;
+}
+
 ANAStats AudioEncoder::GetANAStats() const {
   return ANAStats();
 }

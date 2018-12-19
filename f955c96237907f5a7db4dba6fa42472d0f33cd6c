@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72fc4079_eb6e2a19",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-19T11:31:27Z",
+      "side": 1,
+      "message": "Can that happen?",
+      "range": {
+        "startLine": 58,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00219f73_59b18bd1",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-19T11:31:27Z",
+      "side": 1,
+      "message": "A heads up that these are really expensive. I remember having problems where these were slower than the encoder causing long queues and stuff. Not sure if it\u0027s needed to optimize right away though.",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 92,
+        "endChar": 61
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2feb6d8_3d990a3f",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-19T11:31:27Z",
+      "side": 1,
+      "message": "CapturedFrameCaptureMs?\nOr can we rename this and DecodedFrameCaptureMs to something more descriptive that indicates it\u0027s the delta since the first frame?",
+      "range": {
+        "startLine": 111,
+        "startChar": 30,
+        "endLine": 111,
+        "endChar": 51
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83aab293_7ad79356",
+        "filename": "test/scenario/quality_stats_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2018-12-19T11:31:27Z",
+      "side": 1,
+      "message": "We only support sw vp8 for now, or it\u0027s only the defaults?",
+      "range": {
+        "startLine": 18,
+        "startChar": 60,
+        "endLine": 18,
+        "endChar": 74
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

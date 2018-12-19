@@ -33,21 +33,12 @@ struct MediaConfig {
     // to VideoSendStream::Config::suspend_below_min_bitrate.
     bool suspend_below_min_bitrate = false;
 
-    // Set to true if the renderer has an algorithm of frame selection.
-    // If the value is true, then WebRTC will hand over a frame as soon as
+    // Set to false if the renderer has an algorithm of frame selection.
+    // If the value is false, then WebRTC will hand over a frame as soon as
     // possible without delay, and rendering smoothness is completely the duty
     // of the renderer;
-    // If the value is false, then WebRTC is responsible to delay frame release
+    // If the value is true, then WebRTC is responsible to delay frame release
     // in order to increase rendering smoothness.
-    //
-    // This flag comes from PeerConnection's RtcConfiguration, but is
-    // currently only set by the command line flag
-    // 'disable-rtc-smoothness-algorithm'.
-    // WebRtcVideoChannel::AddRecvStream copies it to the created
-    // WebRtcVideoReceiveStream, where it is returned by the
-    // SmoothsRenderedFrames method. This method is used by the
-    // VideoReceiveStream, where the value is passed on to the
-    // IncomingVideoStream constructor.
     bool enable_prerenderer_smoothing = true;
 
     // Enables periodic bandwidth probing in application-limited region.

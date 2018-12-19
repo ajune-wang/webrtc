@@ -201,9 +201,9 @@ class VideoReceiveStream {
     // Only valid if 'renderer' is set.
     int render_delay_ms = 10;
 
-    // If set, pass frames on to the renderer as soon as they are
+    // If false, pass frames on to the renderer as soon as they are
     // available.
-    bool disable_prerenderer_smoothing = false;
+    bool enable_prerenderer_smoothing = true;
 
     // Identifier for an A/V synchronization group. Empty string to disable.
     // TODO(pbos): Synchronize streams in a sync group, not just video streams

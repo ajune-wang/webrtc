@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93cfc0d5_1c002b7e",
+        "filename": "api/test/builtin_network_behavior_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-19T11:38:43Z",
+      "side": 1,
+      "message": "You can make this class private inside the BuiltInNetworkBehaviorManagerImpl class.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 27
+      },
+      "revId": "4b5d5d0748204729d05a33d37afd7e01c7ca003c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "805cb034_1b730efb",
+        "filename": "api/test/builtin_network_behavior_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-19T11:38:43Z",
+      "side": 1,
+      "message": "Do you really need this setter method? If settings can be construction-time only, then there\u0027s no reason to have both BuiltInNetworkBehaviorManager and BuiltInNetworkBehaviorManagerImpl.",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "4b5d5d0748204729d05a33d37afd7e01c7ca003c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

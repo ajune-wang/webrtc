@@ -10,6 +10,7 @@
 
 #include <string>
 
+#include "absl/memory/memory.h"
 #include "call/rtp_video_sender.h"
 #include "call/test/mock_bitrate_allocator.h"
 #include "call/test/mock_rtp_transport_controller_send.h"
@@ -124,7 +125,8 @@ class VideoSendStreamImplTest : public ::testing::Test {
         &event_log_, &config_, initial_encoder_max_bitrate,
         initial_encoder_bitrate_priority, suspended_ssrcs,
         suspended_payload_states, content_type,
-        absl::make_unique<FecControllerDefault>(&clock_));
+        absl::make_unique<FecControllerDefault>(&clock_),
+        /*media_transport=*/nullptr);
   }
 
  protected:

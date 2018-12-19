@@ -267,6 +267,19 @@ class MediaTransportStateCallback {
   virtual void OnStateChanged(MediaTransportState state) = 0;
 };
 
+// Callback for Rtt measurements on the receive side.
+// TODO(nisse): Related interfaces: CallStatsObserver and RtcpRttStats. It's
+// somewhat unclear what type of measurement is needed. It's used to configure
+// NACK generation and playout buffer. Either raw measurement values or recent
+// maximum would make sense for this use. Need consolidation of RTT signalling.
+class MediaTransportRttObserver {
+ public:
+  virtual ~MediaTransportRttObserver() = default;
+
+  // Invoked when a new RTT measurement is available.
+  virtual void OnRttUpdated(int64_t rtt_ms) = 0;
+};
+
 // Supported types of application data messages.
 enum class DataMessageType {
   // Application data buffer with the binary bit unset.
@@ -372,12 +385,16 @@ class MediaTransportInterface {
   // A newly registered observer will be called back with the latest recorded
   // target rate, if available.
   virtual void AddTargetTransferRateObserver(
-      webrtc::TargetTransferRateObserver* observer);
+      TargetTransferRateObserver* observer);
 
   // Removes an existing |observer| from observers. If observer was never
   // registered, an error is logged and method does nothing.
   virtual void RemoveTargetTransferRateObserver(
-      webrtc::TargetTransferRateObserver* observer);
+      TargetTransferRateObserver* observer);
+
+  // Intended for receive side.
+  virtual void AddRttObserver(MediaTransportRttObserver* observer);
+  virtual void RemoveRttObserver(MediaTransportRttObserver* observer);
 
   // Returns the last known target transfer rate as reported to the above
   // observers.

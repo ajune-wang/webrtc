@@ -90,6 +90,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   int SampleRateHz() const override;
   size_t NumChannels() const override;
   size_t Num10MsFramesInNextPacket() const override;
+  size_t Min10MsFramesInAPacket() const override;
   size_t Max10MsFramesInAPacket() const override;
   int GetTargetBitrate() const override;
 
@@ -119,6 +120,10 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   void OnReceivedOverhead(size_t overhead_bytes_per_packet) override;
   void SetReceiverFrameLengthRange(int min_frame_length_ms,
                                    int max_frame_length_ms) override;
+
+  bool SetMinEncoderBitrate(int min_encoder_bitrate) override;
+  bool SetMaxEncoderBitrate(int max_encoder_bitrate) override;
+
   ANAStats GetANAStats() const override;
   rtc::ArrayView<const int> supported_frame_lengths_ms() const {
     return config_.supported_frame_lengths_ms;
@@ -167,7 +172,15 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
 
   // TODO(minyue): remove "override" when we can deprecate
   // |AudioEncoder::SetTargetBitrate|.
-  void SetTargetBitrate(int target_bps) override;
+  //
+  // Limits bitrate within allowed encoder limits and limits set by
+  // SetMinAudioBitrate and SetMaxAudioBitrate.
+  //
+  // NOTE: The bitrate is target encoder bitrate, excluding all overhead.
+  // When used with ANA and SendSideBweWithOverhead, the overhead should be
+  // subtracted before calling SetTargetBitrate. The actual bitrate would
+  // be higher because of overhead.
+  void SetTargetBitrate(int target_encoder_bitrate) override;
 
   void ApplyAudioNetworkAdaptor();
   std::unique_ptr<AudioNetworkAdaptor> DefaultAudioNetworkAdaptorCreator(
@@ -199,6 +212,12 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   absl::optional<int64_t> bitrate_smoother_last_update_time_;
   absl::optional<int64_t> link_capacity_allocation_bps_;
   int consecutive_dtx_frames_;
+
+  // Minimum and maximum encoder bitrate without any overheads, can be changed
+  // by SetMinEncoderBitrate/SetMaxEncoderBitrate, but must stay within
+  // supported encoder range.
+  int min_encoder_bitrate_ = AudioEncoderOpusConfig::kMinBitrateBps;
+  int max_encoder_bitrate_ = AudioEncoderOpusConfig::kMaxBitrateBps;
 
   friend struct AudioEncoderOpus;
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioEncoderOpusImpl);

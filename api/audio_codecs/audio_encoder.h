@@ -131,8 +131,13 @@ class AudioEncoder {
   virtual size_t Num10MsFramesInNextPacket() const = 0;
 
   // Returns the maximum value that can be returned by
-  // Num10MsFramesInNextPacket().
+  // Num10MsFramesInNextPacket(), i.e. maximum packet size in 10ms frames.
   virtual size_t Max10MsFramesInAPacket() const = 0;
+
+  // Returns the minimum value that can be returned by
+  // Num10MsFramesInNextPacket(), i.e. minimum packet size in 10ms frames.
+  // TODO(sukhanov): Propagate to other encoders and remove default.
+  virtual size_t Min10MsFramesInAPacket() const { return 1; }
 
   // Returns the current target bitrate in bits/s. The value -1 means that the
   // codec adapts the target automatically, and a current target cannot be
@@ -237,6 +242,22 @@ class AudioEncoder {
   // length range that receivers can accept.
   virtual void SetReceiverFrameLengthRange(int min_frame_length_ms,
                                            int max_frame_length_ms);
+
+  // Setters for minimum and maximum encoder bitrate to restrict bitrate
+  // calculated by adaptation code or after overhead adjustments.
+  //
+  // NOTE: Bitrate range is applied to calculated encoder bitrate and it does
+  // not  include any overheads (as opposed to target bitrate received in
+  // OnReceivedTargetAudioBitrate and other uplink bitraterate notifications,
+  // which include overheads).
+  //
+  // Returns false if bitrate is outside of encoder supported range.
+  //
+  // TODO(sukhanov): Implement in all encoders and remove default impl.
+  // TODO(sukhanov): Consider adding getters minimum and maximum encoder
+  // bitrate ranges.
+  virtual bool SetMinEncoderBitrate(int min_encoder_bitrate);
+  virtual bool SetMaxEncoderBitrate(int max_encoder_bitrate);
 
   // Get statistics related to audio network adaptation.
   virtual ANAStats GetANAStats() const;

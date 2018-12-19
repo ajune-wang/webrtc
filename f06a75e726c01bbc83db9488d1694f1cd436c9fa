@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d59f89f8_7efc445a",
+        "filename": "media/sctp/sctptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2018-12-19T20:29:59Z",
+      "side": 1,
+      "message": "I don\u0027t know this file, but I wonder if a DCHECK is what you want here (which is the case when result cannot be nullptr).",
+      "range": {
+        "startLine": 548,
+        "startChar": 6,
+        "endLine": 550,
+        "endChar": 7
+      },
+      "revId": "f06a75e726c01bbc83db9488d1694f1cd436c9fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

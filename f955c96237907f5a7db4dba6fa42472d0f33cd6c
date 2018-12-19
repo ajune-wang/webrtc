@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "540393cd_53a60c94",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-19T12:16:01Z",
+      "side": 1,
+      "message": "I figure that it would happen if we never manage to deliver the first frame and trigger a keyframe request.\n\nBut you are right that this is unlikely. Updated the comment to reflect that.",
+      "parentUuid": "72fc4079_eb6e2a19",
+      "range": {
+        "startLine": 58,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 0
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00219f73_59b18bd1",
         "filename": "test/scenario/quality_stats.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "68698048_d64d1c10",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-19T12:16:01Z",
+      "side": 1,
+      "message": "Good point, I changed to only use PSNR for now, to save CPU. Note that they are processed on a separate TaskQueue, so it shouldn\u0027t affect the underlying behavior too much.",
+      "parentUuid": "00219f73_59b18bd1",
+      "range": {
+        "startLine": 91,
+        "startChar": 30,
+        "endLine": 92,
+        "endChar": 61
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b2feb6d8_3d990a3f",
         "filename": "test/scenario/quality_stats.cc",
         "patchSetId": 3
@@ -68,6 +116,30 @@
       "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d271536_ecbd7703",
+        "filename": "test/scenario/quality_stats.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-19T12:16:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2feb6d8_3d990a3f",
+      "range": {
+        "startLine": 111,
+        "startChar": 30,
+        "endLine": 111,
+        "endChar": 51
+      },
+      "revId": "f955c96237907f5a7db4dba6fa42472d0f33cd6c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

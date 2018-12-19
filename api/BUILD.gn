@@ -312,12 +312,27 @@ rtc_source_set("bitrate_allocation") {
 rtc_source_set("simulated_network_api") {
   visibility = [ "*" ]
   sources = [
+    "test/network_behavior_manager.h",
     "test/simulated_network.h",
   ]
   deps = [
     "../rtc_base:criticalsection",
     "../rtc_base:rtc_base",
     "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_source_set("builtin_network_behavior_manager") {
+  visibility = [ "*" ]
+  sources = [
+    "test/builtin_network_behavior_manager.cc",
+    "test/builtin_network_behavior_manager.h",
+  ]
+  deps = [
+    ":simulated_network_api",
+    "../call:simulated_network",
+    "../rtc_base:criticalsection",
+    "//third_party/abseil-cpp/absl/memory:memory",
   ]
 }
 

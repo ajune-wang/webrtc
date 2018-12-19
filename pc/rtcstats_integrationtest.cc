@@ -37,7 +37,6 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/refcountedobject.h"
 #include "rtc_base/scoped_ref_ptr.h"
-#include "rtc_base/stringutils.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/trace_event.h"
 #include "rtc_base/virtualsocketserver.h"

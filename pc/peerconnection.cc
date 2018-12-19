@@ -49,7 +49,6 @@
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/stringencode.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/stringutils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"

@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6461daa5_f39edf95",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "129f4768_cce9e242",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80676ed9_1fec70ff",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -133,6 +151,30 @@
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbd4c29e_10a2bf43",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d106ee79_679c4d98",
+      "range": {
+        "startLine": 30,
+        "startChar": 29,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -183,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "e2b6d692_d31223e1",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Ack. Maybe an RTCCertificate?",
+      "parentUuid": "ce74548c_f91e48a1",
+      "range": {
+        "startLine": 31,
+        "startChar": 29,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba175fed_f83fcb2b",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -218,6 +284,24 @@
     },
     {
       "key": {
+        "uuid": "f13cec22_0b67e733",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4c03d1cd_e9c862ba",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b19f5923_d0c915be",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -247,6 +331,24 @@
       "side": 1,
       "message": "That\u0027s yet another name for the PIMPL (pointer to implementation) pattern. I don\u0027t like to use that when I don\u0027t have to.\nI\u0027m trying to stick with the style of other PeerConnection interfaces here.",
       "parentUuid": "b19f5923_d0c915be",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "993c68a5_14bf2a86",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "I think my explanation was not clear. I was just suggesting to rename the DtlsTransportObserverInterface to DtlsTransportInterface::Delegate and replace RegisterObserver/UnregisterObserver with SetDelegate",
+      "parentUuid": "7464f1d7_5fd0e3c4",
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -335,6 +437,24 @@
     },
     {
       "key": {
+        "uuid": "f53f61a3_e4fcca18",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6aa91b3_1fc31544",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9aa12e38_a6ba2721",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 4
@@ -399,6 +519,24 @@
       "side": 1,
       "message": "Not clear what it would check against. That RegisterObserver and UnregisterObserver are called from the same thread?",
       "parentUuid": "04dc5e66_8db1ad7b",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f1ebee3_333d7c9c",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "It looks like DispatchStateChange assumes that observer_ is only touched on the thread_owning_internal_ thread. Shouldn\u0027t RegisterObserver/UnregisterObserver enforce that?",
+      "parentUuid": "186dbaaf_2fd1e83d",
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -534,6 +672,30 @@
     },
     {
       "key": {
+        "uuid": "a77595e5_7535f898",
+        "filename": "pc/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "absl::WrapUnique is the same, it just lets you drop class name (e.g., \u003crtc::SSLIdentity\u003e).",
+      "parentUuid": "f666bd28_fc81a259",
+      "range": {
+        "startLine": 62,
+        "startChar": 45,
+        "endLine": 62,
+        "endChar": 78
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2138cdd4_c792a94a",
         "filename": "pc/dtlstransport_unittest.cc",
         "patchSetId": 4
@@ -548,6 +710,24 @@
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12700787_966f5dc3",
+        "filename": "pc/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T18:58:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2138cdd4_c792a94a",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

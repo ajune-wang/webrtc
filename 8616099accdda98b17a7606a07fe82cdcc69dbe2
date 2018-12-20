@@ -46,6 +46,53 @@
       "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d867c8_e4f4f239",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-12-20T14:33:25Z",
+      "side": 1,
+      "message": "I was just checking if this is correct, if you\u0027re confident that it is then we can keep it as is, since the problem is just my understanding and not the code itself. Perhaps a comment could be helpful for the uninitiated.",
+      "parentUuid": "25e63f3f_be6d8bf8",
+      "range": {
+        "startLine": 464,
+        "startChar": 8,
+        "endLine": 464,
+        "endChar": 25
+      },
+      "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "968a9df0_4c6b679d",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-12-20T14:33:25Z",
+      "side": 1,
+      "message": "I wonder if this is really necessary. In this part of the control flow we already know that we want to use replacement audio, so can\u0027t we just always return a FakeDecodeFromFile? That would also simplify other parts of the CL.",
+      "range": {
+        "startLine": 466,
+        "startChar": 0,
+        "endLine": 468,
+        "endChar": 57
+      },
+      "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

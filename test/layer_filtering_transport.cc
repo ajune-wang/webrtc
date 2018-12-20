@@ -126,10 +126,8 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
         non_ref_for_inter_layer_pred = vp9_header.non_ref_for_inter_layer_pred;
         end_of_frame = vp9_header.end_of_frame;
         if (vp9_header.ss_data_available) {
-          RTC_DCHECK(vp9_header.temporal_idx == kNoTemporalIdx ||
-                     vp9_header.temporal_idx == 0);
-          RTC_DCHECK(vp9_header.spatial_idx == kNoSpatialIdx ||
-                     vp9_header.spatial_idx == 0);
+          RTC_DCHECK_EQ(vp9_header.temporal_idx, 0);
+          RTC_DCHECK_EQ(vp9_header.spatial_idx, 0);
           num_active_spatial_layers_ = vp9_header.num_spatial_layers;
         }
       }

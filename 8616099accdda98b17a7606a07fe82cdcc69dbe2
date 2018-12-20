@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d71a3e21_218865ac",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-12-20T13:14:50Z",
+      "side": 1,
+      "message": "This makes my brain hurt a bit. We are creating a lambda that captures a reference to decoder_factory, but then we store that lambda wrapped in an object inside decoder_factory. I guess it will end up getting a reference to its own wrapping object when it runs? Will the code actually work or will there be some sort of infinite recursion where the lambda keeps calling MakeAudioDecoder on its own wrapping object?",
+      "range": {
+        "startLine": 464,
+        "startChar": 8,
+        "endLine": 464,
+        "endChar": 25
+      },
+      "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

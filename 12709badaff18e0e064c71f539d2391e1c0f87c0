@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0edb347f_5546a741",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-20T14:22:42Z",
+      "side": 1,
+      "message": "The observer, which is invoked on the signaling thread, needs to carry any and all possible state information for it to be safely carried over the the blink thread without possible discrepancies. (The blink thread can\u0027t check \"what are your remote certificates?\" as part of the callback because by the time we get an answer another operation could have been executed in-between.)\n\nThe best way to achieve this is to let the observer inspect the state of the transport through getters on the transport. That way we don\u0027t have to update the argument list every time we want to surface other pieces of information.\n\nI suggest OnStateChange() only has a single argument: a pointer to the DtlsTransportInterface in question. The observer can inspect any and all of the transport\u0027s states before carrying this information back to the main thread.\n\nAlso: why void*? what is remoteCertificates? And shouldn\u0027t it be remote_certificates?",
+      "revId": "12709badaff18e0e064c71f539d2391e1c0f87c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38f92a0d_d4f51303",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-20T14:22:42Z",
+      "side": 1,
+      "message": "I don\u0027t like this. What if you want to use the DtlsTransport in a native app? What if we some day stop with the threading mess and make the main thread and signaling thread the same thread? With enough Onion Souping and thread cleanup, we would like the blink implementation to be an empty skeleton that just calls the getters of this interface.\n\nThe \"information is only available through an observer\" design only makes sense in this limited view of what blink wants to do in an async callback context. But even in this context, it is better for the observer to be able to inspect the DtlsTransport\u0027s state in the observer callback (on the signaling thread) before it jumps back to the main thread. If we cannot do that, then OnStateChange() arguments have to be modified every time we decide to surface some other piece of information, breaking downstream projects. The problem gets even bigger if we think about \"synchronous\" APIs.\n\nPer-object callbacks are also dangerous because what if multiple objects are updated as part of the same steps, but surfaced through different callbacks? There could be code running in-between the callbacks. This was previously the case with setRemoteDescription() and all the related state changes, which lead to rare and racy bugs where some of the effects were surfaced but not all (yet) when some code was executed.\n\nWe have examples of the alternative I\u0027m proposing. For example, when transceiver state information is updated we don\u0027t have a function with arguments representing all of the states of every sender, receiver and transceiver. We have a callback saying \"a session description has been applied\". The chromium logic is to 1) copy relevant state information, 2) jump to the main thread and 3) update the blink correspondents. This way of updating it makes it possible to use the same state update logic for both \"synchronous\" and \"asynchronous\" APIs. If we only had a callback, we would not be able to create a transceiver on addTransceiver(), since we wouldn\u0027t know about the callback until after addTransceiver() has already returned.\n\nIn the transport case, how do we update transport states if we only have a callback? There are \"synchronous\" APIs that effect the transports. RTCPeerConnection.close() is an example of this. I would prefer to avoid special logic in blink land e.g. to close the state before the callback says its closed, it\u0027s better to just say \"update this object to match the lower layer\", and reuse that logic for both sync and async APIs.\n\nBesides, we probably want to update the transports at the same time that we\u0027re updating the transceivers, so being able to inspect the state of the transports at the same time is a Good Thing.",
+      "revId": "12709badaff18e0e064c71f539d2391e1c0f87c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

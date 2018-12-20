@@ -351,6 +351,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "308cd113_fa2693a8",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T00:11:20Z",
+      "side": 1,
+      "message": "I found out it\u0027s possible to get around this by doing:\n\nEXPECT_THAT(transceiver-\u003ereceiver()-\u003estreams(), ElementsAre(Pointee(Property(\"id\", \u0026MediaStreamInterface::id, \"2\")));\n\nWould still be nice if gmock supported smart pointers as LHS of Property.",
+      "parentUuid": "1411248f_ad6a1de8",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

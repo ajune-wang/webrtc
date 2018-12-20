@@ -2838,4 +2838,41 @@ TEST(ApmStatistics, ReportOutputRmsDbfs) {
   EXPECT_EQ(apm->ProcessStream(&frame), 0);
   EXPECT_FALSE(apm->GetStatistics(false).output_rms_dbfs);
 }
+
+TEST(ApmStatistics, ReportHasVoice) {
+  ProcessingConfig processing_config = {
+      {{32000, 1}, {32000, 1}, {32000, 1}, {32000, 1}}};
+  AudioProcessing::Config config;
+
+  // Set up an audioframe.
+  AudioFrame frame;
+  frame.num_channels_ = 1;
+  SetFrameSampleRate(&frame, AudioProcessing::NativeRate::kSampleRate48kHz);
+
+  // Fill the audio frame with a sawtooth pattern.
+  int16_t* ptr = frame.mutable_data();
+  for (size_t i = 0; i < frame.kMaxDataSizeSamples; i++) {
+    ptr[i] = 10000 * ((i % 3) - 1);
+  }
+
+  std::unique_ptr<AudioProcessing> apm(AudioProcessingBuilder().Create());
+  apm->Initialize(processing_config);
+
+  // If not enabled, no metric should be reported.
+  EXPECT_EQ(apm->ProcessStream(&frame), 0);
+  EXPECT_FALSE(apm->GetStatistics(false).voice_detected);
+
+  // If enabled, metrics should be reported.
+  config.voice_detection.enabled = true;
+  apm->ApplyConfig(config);
+  EXPECT_EQ(apm->ProcessStream(&frame), 0);
+  auto stats = apm->GetStatistics(false);
+  EXPECT_TRUE(stats.voice_detected);
+
+  // If re-disabled, the value is again not reported.
+  config.voice_detection.enabled = false;
+  apm->ApplyConfig(config);
+  EXPECT_EQ(apm->ProcessStream(&frame), 0);
+  EXPECT_FALSE(apm->GetStatistics(false).voice_detected);
+}
 }  // namespace webrtc

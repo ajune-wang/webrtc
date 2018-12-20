@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a90b2c6_9a635bee",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f29312ad_c92aed7a",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "822b356b_39978932",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-18T19:11:11Z",
       "side": 1,
       "message": "Describe what thread these callbacks are called on?",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df51a6e7_59db55f6",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "See https://webrtc-review.googlesource.com/c/src/+/113147 for the discussion. It\u0027s not documented on any of the other interfaces, and we\u0027re likely to want to change it.\n(I believe the current callbacks will invoke on the signalling thread.)",
+      "parentUuid": "822b356b_39978932",
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -76,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "d106ee79_679c4d98",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "The callback is used when setting an observer so that the observer is informed on what the current state is (in a thread-safe, non-blocking manner). This should not cause a JS-level event. Will document.",
+      "parentUuid": "80676ed9_1fec70ff",
+      "range": {
+        "startLine": 30,
+        "startChar": 29,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "27de35bb_d207fae5",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -87,6 +147,30 @@
       "writtenOn": "2018-12-18T19:11:11Z",
       "side": 1,
       "message": "What is the use of void* ?",
+      "range": {
+        "startLine": 31,
+        "startChar": 29,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce74548c_f91e48a1",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "A marker saying that I haven\u0027t figured out what the right type to use for representing a remote certificate is yet.",
+      "parentUuid": "27de35bb_d207fae5",
       "range": {
         "startLine": 31,
         "startChar": 29,
@@ -116,6 +200,24 @@
     },
     {
       "key": {
+        "uuid": "4c03d1cd_e9c862ba",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Because it\u0027s refcounted. Only the decrement-refcount function should be allowed to touch it.",
+      "parentUuid": "ba175fed_f83fcb2b",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b19f5923_d0c915be",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 4
@@ -130,6 +232,24 @@
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7464f1d7_5fd0e3c4",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "That\u0027s yet another name for the PIMPL (pointer to implementation) pattern. I don\u0027t like to use that when I don\u0027t have to.\nI\u0027m trying to stick with the style of other PeerConnection interfaces here.",
+      "parentUuid": "b19f5923_d0c915be",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +276,30 @@
     },
     {
       "key": {
+        "uuid": "0b02a369_fbc676a8",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4a934b2_ae1260a0",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a734307b_9a9f5224",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 4
@@ -167,6 +311,24 @@
       "writtenOn": "2018-12-18T19:11:11Z",
       "side": 1,
       "message": "Maybe DCHECK in the destructor that observer_ is null",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6aa91b3_1fc31544",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Don\u0027t see a reason why - there\u0027s no obligation on the caller to deallocate the observer, just an obligation not to delete the observer until the DtlsTransport has gone away.",
+      "parentUuid": "a734307b_9a9f5224",
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -190,6 +352,24 @@
     },
     {
       "key": {
+        "uuid": "610f7615_8fe90038",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Yep. Deleted.",
+      "parentUuid": "9aa12e38_a6ba2721",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04dc5e66_8db1ad7b",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 4
@@ -201,6 +381,24 @@
       "writtenOn": "2018-12-18T19:11:11Z",
       "side": 1,
       "message": "thread checker for RegisterObserver and UnregisterObserver?",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "186dbaaf_2fd1e83d",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Not clear what it would check against. That RegisterObserver and UnregisterObserver are called from the same thread?",
+      "parentUuid": "04dc5e66_8db1ad7b",
       "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -230,6 +428,30 @@
     },
     {
       "key": {
+        "uuid": "059aa274_08b655de",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b5da9ad_c09c68c3",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1178cfce_b462e7b8",
         "filename": "pc/dtlstransport_unittest.cc",
         "patchSetId": 4
@@ -247,6 +469,24 @@
     },
     {
       "key": {
+        "uuid": "fe9596da_9bf2d6bf",
+        "filename": "pc/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "1178cfce_b462e7b8",
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22665faf_4c953f64",
         "filename": "pc/dtlstransport_unittest.cc",
         "patchSetId": 4
@@ -258,6 +498,30 @@
       "writtenOn": "2018-12-18T19:11:11Z",
       "side": 1,
       "message": "absl::WrapUnique",
+      "range": {
+        "startLine": 62,
+        "startChar": 45,
+        "endLine": 62,
+        "endChar": 78
+      },
+      "revId": "4c0052458bf56b942dc3471531cc20d21cdb463e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f666bd28_fc81a259",
+        "filename": "pc/dtlstransport_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-20T10:05:53Z",
+      "side": 1,
+      "message": "Instead of std::unique_ptr? Why?\n(I copied this utility function from elsewhere)\n\nThe documentation of WrapUnique says:\n\n// The purpose of WrapUnique is to automatically deduce the pointer type. If you\n// wish to make the type explicit, for readability reasons or because you prefer\n// to use a base-class pointer rather than a derived one, just use\n// `std::unique_ptr` directly.",
+      "parentUuid": "22665faf_4c953f64",
       "range": {
         "startLine": 62,
         "startChar": 45,

@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "409f3639_0a4aa20c",
+        "filename": "api/audio_codecs/audio_encoder.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: two spaces",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 10
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a6947ba_3cbca0b0",
+        "filename": "api/audio_codecs/audio_encoder.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "should be RTCError instead?",
+      "range": {
+        "startLine": 254,
+        "startChar": 13,
+        "endLine": 254,
+        "endChar": 18
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "533ce2df_c74156f5",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "the way I think about it, it should be no business of encoder to limit it.\n\nEncoder should be asked to produce a given bitrate, and if this needs to be capped, it should be capped above encoder (but then the thing above it would need to know what p-time is used, and what overheads are used -- but I think that\u0027s fine).\n\nEssentially, the way it\u0027s proposed right now, is that every encoder needs to implement the capping logic, which feels wrong.",
+      "range": {
+        "startLine": 445,
+        "startChar": 2,
+        "endLine": 446,
+        "endChar": 51
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75f8e852_2be47505",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "consider extracting method out of it., you are doing same thing in lines 580 (except posting on a queue)",
+      "range": {
+        "startLine": 664,
+        "startChar": 1,
+        "endLine": 682,
+        "endChar": 3
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c94a6e14_31ee0731",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: churn",
+      "range": {
+        "startLine": 764,
+        "startChar": 47,
+        "endLine": 765,
+        "endChar": 0
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a7f6cc_0349f29a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: define kilo? or maybe better: use DataRate()::FromKbps()::bps()",
+      "range": {
+        "startLine": 819,
+        "startChar": 44,
+        "endLine": 819,
+        "endChar": 48
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb024bee_8e5bbf9f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: define kBitsInByte?",
+      "range": {
+        "startLine": 819,
+        "startChar": 40,
+        "endLine": 819,
+        "endChar": 41
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ed29902_3e90f961",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: extra /",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 9
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d5d4d2_a2802643",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: use the same constants you suggested to me in https://webrtc-review.googlesource.com/c/src/+/114262",
+      "range": {
+        "startLine": 866,
+        "startChar": 30,
+        "endLine": 867,
+        "endChar": 58
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa56b075_96808fbb",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "ditto: data rate https://cs.chromium.org/chromium/src/third_party/webrtc/api/units/data_rate.h?l\u003d41\u0026rcl\u003d7f57788ab7e2f9ee03086ab3c4a14c1ad18b49e6",
+      "range": {
+        "startLine": 870,
+        "startChar": 10,
+        "endLine": 870,
+        "endChar": 39
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4761c7_2ee3fe26",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "i thought we discussed that encoder doesn\u0027t need to know it? BitrateAllocator should know it and account for it.",
+      "range": {
+        "startLine": 115,
+        "startChar": 45,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "894ac702_76358f55",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "is it conflicting with WebRTC-SendSideBwe-WithOverheadOptionMin, or can they both be set to true?\n\nWould it make sense to have WebRTC-SendSideBwe-WithOverheadOptionMax instead of WebRTC-SendSideBwe-WithOverheadOptionMinMax?",
+      "range": {
+        "startLine": 151,
+        "startChar": 33,
+        "endLine": 151,
+        "endChar": 45
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f96c52f_b5b99114",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: churn",
+      "range": {
+        "startLine": 157,
+        "startChar": 32,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a99a14f_09e7bf94",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-20T22:53:25Z",
+      "side": 1,
+      "message": "nit: maybe optional, instead of overloading semantics of \"0\"?",
+      "range": {
+        "startLine": 174,
+        "startChar": 2,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

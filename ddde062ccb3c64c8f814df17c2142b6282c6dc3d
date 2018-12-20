@@ -387,6 +387,24 @@
       "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "505f03b9_e2e7d235",
+        "filename": "pc/peerconnection_rtp_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-20T16:01:00Z",
+      "side": 1,
+      "message": "Yeah, I have a CL out to fix Pointee not working with scoped_refptr: https://webrtc-review.googlesource.com/c/src/+/115100",
+      "parentUuid": "71fb3087_0572beab",
+      "revId": "ddde062ccb3c64c8f814df17c2142b6282c6dc3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

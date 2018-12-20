@@ -22,6 +22,7 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/system/fallthrough.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -262,6 +263,7 @@ DefaultTemporalLayers::DefaultTemporalLayers(int number_of_temporal_layers)
       temporal_ids_(GetTemporalIds(num_layers_)),
       temporal_pattern_(GetTemporalPattern(num_layers_)),
       kf_buffers_(FindKfBuffers(temporal_pattern_)),
+      generic_frame_info_(GetFrameInfos(num_layers_)),
       pattern_idx_(kUninitializedPatternIndex),
       checker_(TemporalLayersChecker::CreateTemporalLayersChecker(
           Vp8TemporalLayersType::kFixedPattern,
@@ -467,7 +469,7 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
                                          size_t size_bytes,
                                          bool is_keyframe,
                                          int qp,
-                                         CodecSpecificInfoVP8* vp8_info) {
+                                         CodecSpecificInfo* info) {
   RTC_DCHECK_GT(num_layers_, 0);
 
   auto pending_frame = pending_frames_.find(rtp_timestamp);
@@ -485,14 +487,15 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
   }
 
   if (num_layers_ == 1) {
-    vp8_info->temporalIdx = kNoTemporalIdx;
-    vp8_info->layerSync = false;
+    info->codecSpecific.VP8.temporalIdx = kNoTemporalIdx;
+    info->codecSpecific.VP8.layerSync = false;
   } else {
     if (is_keyframe) {
       // Restart the temporal pattern on keyframes.
       pattern_idx_ = 0;
-      vp8_info->temporalIdx = 0;
-      vp8_info->layerSync = true;  // Keyframes are always sync frames.
+      info->codecSpecific.VP8.temporalIdx = 0;
+      info->codecSpecific.VP8.layerSync =
+          true;  // Keyframes are always sync frames.
 
       for (Vp8BufferReference buffer : kAllBuffers) {
         if (kf_buffers_.find(buffer) != kf_buffers_.end()) {
@@ -507,10 +510,29 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
       }
     } else {
       // Delta frame, update codec specifics with temporal id and sync flag.
-      vp8_info->temporalIdx = frame.frame_config.packetizer_temporal_idx;
-      vp8_info->layerSync = frame.frame_config.layer_sync;
+      info->codecSpecific.VP8.temporalIdx =
+          frame.frame_config.packetizer_temporal_idx;
+      info->codecSpecific.VP8.layerSync = frame.frame_config.layer_sync;
     }
   }
+
+  if (is_keyframe) {
+    auto& structure = info->template_structure.emplace();
+    structure.num_operating_points = num_layers_;
+
+    structure.templates.resize(generic_frame_info_.size());
+    for (size_t i = 0; i < generic_frame_info_.size(); ++i) {
+      TemplateStructure::Template t;
+      t.generic_frame_info = generic_frame_info_[i];
+      t.repeatable = true;
+      structure.templates[i] = t;
+    }
+
+    structure.templates[0].repeatable = false;
+  }
+
+  info->generic_frame_info.emplace(
+      generic_frame_info_[GetFrameInfoIndex(is_keyframe)]);
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {
@@ -519,6 +541,170 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
       }
     }
   }
+}
+
+int DefaultTemporalLayers::GetFrameInfoIndex(bool is_keyframe) const {
+  if (is_keyframe)
+    return 0;
+
+  switch (num_layers_) {
+    case 1: {
+      return 1;
+    }
+    case 2: {
+      if (temporal_pattern_.size() == 4) {
+        switch (pattern_idx_) {
+          case 0:
+            return 3;
+          case 1:
+            return 1;
+          case 2:
+            return 3;
+          case 3:
+            return 2;
+          default:
+            RTC_NOTREACHED();
+        }
+      } else {
+        switch (pattern_idx_) {
+          case 0:
+            return 3;
+          case 1:
+            return 1;
+          case 2:
+            return 3;
+          case 3:
+            return 1;
+          case 4:
+            return 3;
+          case 5:
+            return 1;
+          case 6:
+            return 3;
+          case 7:
+            return 2;
+          default:
+            RTC_NOTREACHED();
+        }
+      }
+    }
+    case 3: {
+      if (temporal_pattern_.size() == 4) {
+        switch (pattern_idx_) {
+          case 0:
+            return 4;
+          case 1:
+            return 1;
+          case 2:
+            return 3;
+          case 3:
+            return 1;
+          default:
+            RTC_NOTREACHED();
+        }
+      } else {
+        switch (pattern_idx_) {
+          case 0:
+            return 4;
+          case 1:
+            return 1;
+          case 2:
+            return 2;
+          case 3:
+            return 1;
+          case 4:
+            return 4;
+          case 5:
+            return 1;
+          case 6:
+            return 3;
+          case 7:
+            return 1;
+          default:
+            RTC_NOTREACHED();
+        }
+      }
+    }
+    default:
+      RTC_NOTREACHED();
+  }
+}
+
+std::vector<GenericFrameInfo> DefaultTemporalLayers::GetFrameInfos(
+    int num_layers) const {
+  using Indication = GenericFrameInfo::OperatingPointIndication;
+  std::vector<GenericFrameInfo> res;
+
+  // Keyframes.
+  GenericFrameInfo frame_info;
+  frame_info.operating_points.resize(3, Indication::kSwitch);
+  res.push_back(frame_info);
+
+  RTC_CHECK_LT(num_layers, 4);
+  RTC_CHECK_GT(num_layers, 0);
+  switch (num_layers) {
+    case 3: {
+      frame_info.temporal_id = 2;
+      frame_info.frame_diffs.push_back(1);
+      frame_info.operating_points[0] = Indication::kNotPresent;
+      frame_info.operating_points[1] = Indication::kNotPresent;
+      frame_info.operating_points[2] = Indication::kDiscardable;
+      res.push_back(frame_info);
+
+      RTC_FALLTHROUGH();
+    }
+    case 2: {
+      frame_info.temporal_id = 1;
+      frame_info.frame_diffs.clear();
+      frame_info.frame_diffs.push_back(1 << (num_layers - 2));
+      frame_info.operating_points[0] = Indication::kNotPresent;
+      frame_info.operating_points[1] = Indication::kSwitch;
+      frame_info.operating_points[2] = Indication::kRequired;
+      res.push_back(frame_info);
+
+      frame_info.frame_diffs.push_back(1 << (num_layers - 1));
+      frame_info.operating_points[1] = Indication::kDiscardable;
+      res.push_back(frame_info);
+
+      RTC_FALLTHROUGH();
+    }
+    case 1: {
+      frame_info.temporal_id = 0;
+      frame_info.frame_diffs.clear();
+      frame_info.frame_diffs.push_back(1 << (num_layers - 1));
+      frame_info.operating_points[0] = Indication::kSwitch;
+      frame_info.operating_points[1] = Indication::kRequired;
+      frame_info.operating_points[2] = Indication::kRequired;
+      res.push_back(frame_info);
+
+      break;
+    }
+    default:
+      RTC_NOTREACHED();
+  }
+
+  // When creating the templates we always populate the operating point
+  // indications for all layers, and then remove the higher layers here. This is
+  // easier than having to check the number of temporal layers for every
+  // template.
+  for (auto& gfi : res)
+    gfi.operating_points.resize(num_layers);
+
+  return res;
+}
+
+std::vector<TemplateStructure::Template> DefaultTemporalLayers::GetTemplates()
+    const {
+  std::vector<TemplateStructure::Template> res;
+
+  for (const GenericFrameInfo& gfi : generic_frame_info_) {
+    res.emplace_back();
+    res.back().generic_frame_info = gfi;
+    // The keyframe is not frequently repeated.
+    res.back().repeatable = gfi.frame_diffs.empty() ? false : true;
+  }
+
+  return res;
 }
 
 // Returns list of temporal dependencies for each frame in the temporal pattern.

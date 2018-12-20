@@ -14,6 +14,8 @@
 #include <memory>
 #include <vector>
 
+#include "modules/video_coding/include/video_codec_interface.h"
+
 namespace webrtc {
 
 // Some notes on the prerequisites of the TemporalLayers interface.
@@ -187,7 +189,9 @@ class Vp8TemporalLayers {
                             size_t size_bytes,
                             bool is_keyframe,
                             int qp,
-                            CodecSpecificInfoVP8* vp8_info) = 0;
+                            CodecSpecificInfo* info) = 0;
+
+  virtual std::vector<TemplateStructure::Template> GetTemplates() const = 0;
 };
 
 }  // namespace webrtc

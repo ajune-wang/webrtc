@@ -48,7 +48,9 @@ class DefaultTemporalLayers : public Vp8TemporalLayers {
                     size_t size_bytes,
                     bool is_keyframe,
                     int qp,
-                    CodecSpecificInfoVP8* vp8_info) override;
+                    CodecSpecificInfo* info) override;
+
+  std::vector<TemplateStructure::Template> GetTemplates() const override;
 
  private:
   static constexpr size_t kKeyframeBuffer = std::numeric_limits<size_t>::max();
@@ -57,12 +59,15 @@ class DefaultTemporalLayers : public Vp8TemporalLayers {
   bool IsSyncFrame(const FrameConfig& config) const;
   void ValidateReferences(BufferFlags* flags, Vp8BufferReference ref) const;
   void UpdateSearchOrder(FrameConfig* config);
+  int GetFrameInfoIndex(bool is_keyframe) const;
 
   const size_t num_layers_;
   const std::vector<unsigned int> temporal_ids_;
   const std::vector<Vp8TemporalLayers::FrameConfig> temporal_pattern_;
   // Set of buffers that are never updated except by keyframes.
   const std::set<Vp8BufferReference> kf_buffers_;
+  std::vector<GenericFrameInfo> GetFrameInfos(int num_layers) const;
+  const std::vector<GenericFrameInfo> generic_frame_info_;
 
   uint8_t pattern_idx_;
   // Updated cumulative bitrates, per temporal layer.

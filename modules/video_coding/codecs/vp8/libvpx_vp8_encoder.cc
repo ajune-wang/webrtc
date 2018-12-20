@@ -298,6 +298,8 @@ void LibvpxVp8Encoder::SetupTemporalLayers(const VideoCodec& codec) {
     } else {
       type = Vp8TemporalLayersType::kFixedPattern;
     }
+    printf("Temporal layer type: %s\n",
+           type == Vp8TemporalLayersType::kFixedPattern ? "fixed" : "dynamic");
     temporal_layers_.emplace_back(
         CreateVp8TemporalLayers(type, num_temporal_layers));
   }
@@ -738,7 +740,7 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     }
   }
   vpx_enc_frame_flags_t flags[kMaxSimulcastStreams];
-  Vp8TemporalLayers::FrameConfig tl_configs[kMaxSimulcastStreams];
+  std::array<Vp8TemporalLayers::FrameConfig, kMaxSimulcastStreams> tl_configs;
   for (size_t i = 0; i < encoders_.size(); ++i) {
     tl_configs[i] = temporal_layers_[i]->UpdateLayerConfig(frame.timestamp());
     if (tl_configs[i].drop_frame) {
@@ -820,7 +822,7 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     if (error)
       return WEBRTC_VIDEO_CODEC_ERROR;
     // Examines frame timestamps only.
-    error = GetEncodedPartitions(frame);
+    error = GetEncodedPartitions(frame, tl_configs);
   }
   // TODO(sprang): Shouldn't we use the frame timestamp instead?
   timestamp_ += duration;
@@ -834,18 +836,35 @@ void LibvpxVp8Encoder::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
                                              uint32_t timestamp) {
   assert(codec_specific != NULL);
   codec_specific->codecType = kVideoCodecVP8;
-  CodecSpecificInfoVP8* vp8Info = &(codec_specific->codecSpecific.VP8);
-  vp8Info->keyIdx = kNoKeyIdx;  // TODO(hlundin) populate this
-  vp8Info->nonReference = (pkt.data.frame.flags & VPX_FRAME_IS_DROPPABLE) != 0;
+  codec_specific->codecSpecific.VP8.keyIdx =
+      kNoKeyIdx;  // TODO(hlundin) populate this
+  codec_specific->codecSpecific.VP8.nonReference =
+      (pkt.data.frame.flags & VPX_FRAME_IS_DROPPABLE) != 0;
 
   int qp = 0;
   vpx_codec_control(&encoders_[encoder_idx], VP8E_GET_LAST_QUANTIZER_64, &qp);
   temporal_layers_[stream_idx]->OnEncodeDone(
       timestamp, encoded_images_[encoder_idx]._length,
-      (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, vp8Info);
+      (pkt.data.frame.flags & VPX_FRAME_IS_KEY) != 0, qp, codec_specific);
+
+  if (codec_specific->template_structure) {
+    std::vector<TemplateStructure::Template>& templates =
+        codec_specific->template_structure->templates;
+    for (size_t j = 0; j < templates.size(); ++j) {
+      printf("%lu --- REP:%s %s\n", j, templates[j].repeatable ? "Y" : "N",
+             templates[j].generic_frame_info.ToString().c_str());
+    }
+  }
+
+  if (codec_specific->generic_frame_info) {
+    printf("%s\n", codec_specific->generic_frame_info->ToString().c_str());
+  }
 }
 
-int LibvpxVp8Encoder::GetEncodedPartitions(const VideoFrame& input_image) {
+int LibvpxVp8Encoder::GetEncodedPartitions(
+    const VideoFrame& input_image,
+    const std::array<Vp8TemporalLayers::FrameConfig, kMaxSimulcastStreams>&
+        tl_config) {
   int stream_idx = static_cast<int>(encoders_.size()) - 1;
   int result = WEBRTC_VIDEO_CODEC_OK;
   for (size_t encoder_idx = 0; encoder_idx < encoders_.size();

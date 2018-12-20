@@ -17,6 +17,7 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/system/fallthrough.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -43,6 +44,7 @@ ScreenshareLayers::ScreenshareLayers(int num_temporal_layers, Clock* clock)
       number_of_temporal_layers_(
           std::min(kMaxNumTemporalLayers, num_temporal_layers)),
       active_layer_(-1),
+      frames_since_last_tl0_frame_(0),
       last_timestamp_(-1),
       last_sync_timestamp_(-1),
       last_emitted_tl0_timestamp_(-1),
@@ -50,6 +52,7 @@ ScreenshareLayers::ScreenshareLayers(int num_temporal_layers, Clock* clock)
       min_qp_(-1),
       max_qp_(-1),
       max_debt_bytes_(0),
+      generic_frame_info_(GetFrameInfos(number_of_temporal_layers_)),
       encode_framerate_(1000.0f, 1000.0f),  // 1 second window, second scale.
       bitrate_updated_(false),
       checker_(TemporalLayersChecker::CreateTemporalLayersChecker(
@@ -259,7 +262,7 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
                                      size_t size_bytes,
                                      bool is_keyframe,
                                      int qp,
-                                     CodecSpecificInfoVP8* vp8_info) {
+                                     CodecSpecificInfo* info) {
   if (size_bytes == 0) {
     layers_[active_layer_].state = TemporalLayer::State::kDropped;
     ++stats_.num_overshoots_;
@@ -277,27 +280,59 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
     }
   }
 
+  int temporal_id = 0;
   if (number_of_temporal_layers_ == 1) {
-    vp8_info->temporalIdx = kNoTemporalIdx;
-    vp8_info->layerSync = false;
+    info->codecSpecific.VP8.layerSync = false;
   } else {
     int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
     if (frame_config) {
-      vp8_info->temporalIdx = frame_config->packetizer_temporal_idx;
-      vp8_info->layerSync = frame_config->layer_sync;
+      temporal_id = frame_config->packetizer_temporal_idx;
+      info->codecSpecific.VP8.layerSync = frame_config->layer_sync;
     } else {
       // Frame requested to be dropped, but was not. Fall back to base-layer.
-      vp8_info->temporalIdx = 0;
-      vp8_info->layerSync = false;
+      info->codecSpecific.VP8.layerSync = false;
     }
     if (is_keyframe) {
-      vp8_info->temporalIdx = 0;
+      auto& structure = info->template_structure.emplace();
+      structure.num_operating_points = number_of_temporal_layers_;
+
+      structure.templates.resize(generic_frame_info_.size());
+      for (size_t i = 0; i < generic_frame_info_.size(); ++i) {
+        TemplateStructure::Template t;
+        t.generic_frame_info = generic_frame_info_[i];
+        t.repeatable = true;
+        structure.templates[i] = t;
+      }
+
       last_sync_timestamp_ = unwrapped_timestamp;
-      vp8_info->layerSync = true;
+      info->codecSpecific.VP8.layerSync = true;
       layers_[0].state = TemporalLayer::State::kKeyFrame;
       layers_[1].state = TemporalLayer::State::kKeyFrame;
       active_layer_ = 1;
     }
+  }
+
+  info->codecSpecific.VP8.temporalIdx =
+      (number_of_temporal_layers_ == 0) ? kNoTemporalIdx : temporal_id;
+
+  using Indication = GenericFrameInfo::OperatingPointIndication;
+  info->generic_frame_info.emplace();
+  info->generic_frame_info->temporal_id = temporal_id;
+  frames_since_last_tl0_frame_++;
+  if (temporal_id == 0) {
+    info->generic_frame_info->operating_points.push_back(Indication::kSwitch);
+    info->generic_frame_info->operating_points.push_back(Indication::kSwitch);
+    if (!is_keyframe)
+      info->generic_frame_info->frame_diffs.push_back(
+          frames_since_last_tl0_frame_);
+    frames_since_last_tl0_frame_ = 0;
+  } else {
+    info->generic_frame_info->frame_diffs.push_back(1);
+    info->generic_frame_info->operating_points.push_back(
+        Indication::kNotPresent);
+    info->generic_frame_info->operating_points.push_back(
+        (frames_since_last_tl0_frame_ == 1) ? Indication::kSwitch
+                                            : Indication::kRequired);
   }
 
   encode_framerate_.Update(1, clock_->TimeInMilliseconds());
@@ -325,6 +360,68 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
     stats_.tl1_target_bitrate_sum_ += layers_[1].target_rate_kbps_;
     stats_.tl1_qp_sum_ += qp;
   }
+}
+
+std::vector<GenericFrameInfo> ScreenshareLayers::GetFrameInfos(
+    int num_layers) const {
+  using Indication = GenericFrameInfo::OperatingPointIndication;
+  std::vector<GenericFrameInfo> res;
+
+  // Keyframes.
+  GenericFrameInfo frame_info;
+  frame_info.operating_points.resize(2, Indication::kSwitch);
+  res.push_back(frame_info);
+
+  RTC_CHECK_LT(num_layers, 3);
+  RTC_CHECK_GT(num_layers, 0);
+  switch (num_layers) {
+    case 2: {
+      frame_info.temporal_id = 1;
+      frame_info.frame_diffs.push_back(1);
+      frame_info.operating_points[0] = Indication::kNotPresent;
+      res.push_back(frame_info);
+
+      frame_info.operating_points[1] = Indication::kRequired;
+      res.push_back(frame_info);
+
+      RTC_FALLTHROUGH();
+    }
+    case 1: {
+      frame_info.temporal_id = 0;
+      frame_info.frame_diffs.clear();
+      frame_info.frame_diffs.push_back(1);
+      frame_info.operating_points[0] = Indication::kSwitch;
+      frame_info.operating_points[1] = Indication::kSwitch;
+      res.push_back(frame_info);
+
+      break;
+    }
+    default:
+      RTC_NOTREACHED();
+  }
+
+  // When creating the templates we always populate the operating point
+  // indications for all layers, and then remove the higher layers here. This is
+  // easier than having to check the number of temporal layers for every
+  // template.
+  for (auto& gfi : res)
+    gfi.operating_points.resize(number_of_temporal_layers_);
+
+  return res;
+}
+
+std::vector<TemplateStructure::Template> ScreenshareLayers::GetTemplates()
+    const {
+  std::vector<TemplateStructure::Template> res;
+
+  for (const GenericFrameInfo& gfi : generic_frame_info_) {
+    res.emplace_back();
+    res.back().generic_frame_info = gfi;
+    // The keyframe is not frequently repeated.
+    res.back().repeatable = gfi.frame_diffs.empty() ? false : true;
+  }
+
+  return res;
 }
 
 bool ScreenshareLayers::TimeToSync(int64_t timestamp) const {

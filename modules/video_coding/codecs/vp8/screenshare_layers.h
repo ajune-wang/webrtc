@@ -53,18 +53,24 @@ class ScreenshareLayers : public Vp8TemporalLayers {
                     size_t size_bytes,
                     bool is_keyframe,
                     int qp,
-                    CodecSpecificInfoVP8* vp8_info) override;
+                    CodecSpecificInfo* info) override;
+
+  std::vector<GenericFrameInfo> GetFrameInfos(int num_layers) const;
+
+  std::vector<TemplateStructure::Template> GetTemplates() const override;
 
  private:
   enum class TemporalLayerState : int { kDrop, kTl0, kTl1, kTl1Sync };
 
   bool TimeToSync(int64_t timestamp) const;
   uint32_t GetCodecTargetBitrateKbps() const;
+  int GetFrameInfoIndex(bool is_keyframe) const;
 
   Clock* const clock_;
 
   int number_of_temporal_layers_;
   int active_layer_;
+  int frames_since_last_tl0_frame_;
   int64_t last_timestamp_;
   int64_t last_sync_timestamp_;
   int64_t last_emitted_tl0_timestamp_;
@@ -75,6 +81,7 @@ class ScreenshareLayers : public Vp8TemporalLayers {
   uint32_t max_debt_bytes_;
 
   std::map<uint32_t, Vp8TemporalLayers::FrameConfig> pending_frame_configs_;
+  const std::vector<GenericFrameInfo> generic_frame_info_;
 
   // Configured max framerate.
   absl::optional<uint32_t> target_framerate_;

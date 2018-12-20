@@ -1517,6 +1517,7 @@ if (rtc_include_tests) {
     "//resources/audio_coding/music_stereo_48kHz.pcm",
     "//resources/audio_coding/speech_mono_16kHz.pcm",
     "//resources/audio_coding/speech_mono_32_48kHz.pcm",
+    "//resources/audio_coding/speech_4_channels_48k_one_second.wav",
   ]
 
   if (is_ios) {

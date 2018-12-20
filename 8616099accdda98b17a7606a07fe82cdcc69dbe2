@@ -22,6 +22,30 @@
       "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25e63f3f_be6d8bf8",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-20T13:27:15Z",
+      "side": 1,
+      "message": "As I understand it, the reference on the right hand side should be capture-by-copy, and right-hand side should be fully evaluated prior to the assignment to the left hand side. So no more recursive than, e.g., x \u003d foo(x). I\u0027ve not read up on all the fine details of C++ lambdas, though.\n\nI could write it as\n\nbuiltin_factory \u003d CreateBuiltinAudioDecoderFactory();\n\nif (...) { decoder_factory \u003d ...[builtin_factory](...){} ... }\nelse { decoder_factory \u003d builtin_factory; } \n\nbut I\u0027m not sure that\u0027s an improvement. What do you suggest?",
+      "parentUuid": "d71a3e21_218865ac",
+      "range": {
+        "startLine": 464,
+        "startChar": 8,
+        "endLine": 464,
+        "endChar": 25
+      },
+      "revId": "8616099accdda98b17a7606a07fe82cdcc69dbe2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

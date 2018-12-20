@@ -22,6 +22,30 @@
       "revId": "f06a75e726c01bbc83db9488d1694f1cd436c9fa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b06bbf6_8393fcbb",
+        "filename": "media/sctp/sctptransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2018-12-20T14:07:08Z",
+      "side": 1,
+      "message": "Good question! I\u0027ve checked and this parameter is optional. BTW other occurrences in the body were already guarded.",
+      "parentUuid": "d59f89f8_7efc445a",
+      "range": {
+        "startLine": 548,
+        "startChar": 6,
+        "endLine": 550,
+        "endChar": 7
+      },
+      "revId": "f06a75e726c01bbc83db9488d1694f1cd436c9fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

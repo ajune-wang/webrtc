@@ -106,9 +106,14 @@ std::unique_ptr<Packet> AcmSendTestOldApi::NextPacket() {
   // Insert audio and process until one packet is produced.
   while (clock_.TimeInMilliseconds() < test_duration_ms_) {
     clock_.AdvanceTimeMilliseconds(kBlockSizeMs);
-    RTC_CHECK(audio_source_->Read(input_block_size_samples_,
-                                  input_frame_.mutable_data()));
-    if (input_frame_.num_channels_ > 1) {
+    RTC_CHECK(audio_source_->Read(
+        input_block_size_samples_ *
+            (input_frame_.num_channels_ != 2 ? input_frame_.num_channels_ : 1),
+        input_frame_.mutable_data()));
+
+    // TODO(aleloi): change the test file to contain interleaved 32khz data.
+
+    if (input_frame_.num_channels_ == 2) {
       InputAudioFile::DuplicateInterleaved(
           input_frame_.data(), input_block_size_samples_,
           input_frame_.num_channels_, input_frame_.mutable_data());

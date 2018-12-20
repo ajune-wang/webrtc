@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bdd361a_892e7762",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-20T09:13:40Z",
+      "side": 1,
+      "message": "Mention that it\u0027s also renamed.",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "52e956291a71a6c494e6e36458ea272eebd45379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226eba0b_66e81994",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-20T09:13:40Z",
+      "side": 1,
+      "message": "DCHECKing a value and then acting on it is a pattern I\u0027m not that fond of. Maybe it\u0027s reasonable in this case, but consider replacing the DCHECK with either a CHECK (and then delete the if below) or a LOG/DLOG.",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 17
+      },
+      "revId": "52e956291a71a6c494e6e36458ea272eebd45379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "135333f7_1b3c30e4",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-20T09:13:40Z",
+      "side": 1,
+      "message": "Consider deleting this local variable.",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 11
+      },
+      "revId": "52e956291a71a6c494e6e36458ea272eebd45379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6320ff_3aaf8550",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2018-12-20T09:13:40Z",
+      "side": 1,
+      "message": "Is this return value (and fromt he function below) used?",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 13
+      },
+      "revId": "52e956291a71a6c494e6e36458ea272eebd45379",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

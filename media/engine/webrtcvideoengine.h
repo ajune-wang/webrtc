@@ -29,8 +29,6 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "media/base/mediaengine.h"
-#include "media/engine/webrtcvideodecoderfactory.h"
-#include "media/engine/webrtcvideoencoderfactory.h"
 #include "rtc_base/asyncinvoker.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/networkroute.h"
@@ -81,15 +79,6 @@ class DefaultUnsignalledSsrcHandler : public UnsignalledSsrcHandler {
 // WebRtcVideoEngine is used for the new native WebRTC Video API (webrtc:1667).
 class WebRtcVideoEngine : public VideoEngineInterface {
  public:
-#if defined(USE_BUILTIN_SW_CODECS)
-  // Internal SW video codecs will be added on top of the external codecs.
-  RTC_DEPRECATED WebRtcVideoEngine(
-      std::unique_ptr<WebRtcVideoEncoderFactory> external_video_encoder_factory,
-      std::unique_ptr<WebRtcVideoDecoderFactory> external_video_decoder_factory,
-      std::unique_ptr<webrtc::VideoBitrateAllocatorFactory>
-          video_bitrate_allocator_factory);
-#endif
-
   // These video codec factories represents all video codecs, i.e. both software
   // and external hardware codecs.
   WebRtcVideoEngine(

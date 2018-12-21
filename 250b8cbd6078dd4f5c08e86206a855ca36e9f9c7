@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d3a3698_028060fe",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "min_increase_interval?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b307a09_d4b075a4",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Generally, I think making all these just members makes the code harder to understand, as one cannot easily see if a variable is a member state or a config.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 65
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86d09faf_2dd221c3",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Did not understand this until searching for other uses of the variable. A comment like \"Offset the next increase time by RTT\" would help. Or why not just check on \nlast_increase_update_ + increase_interval_ + last_rtt_ in OnTImeUpdate?",
+      "range": {
+        "startLine": 116,
+        "startChar": 5,
+        "endLine": 116,
+        "endChar": 50
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c0c6a02_9e20cd9c",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Think a comment here that this is until we start getting ack feedback. Obvious to us, but not to anyone else.",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 76
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f4411ec_fde02175",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "This function took me a long time to understand. Think better variable names would help.",
+      "range": {
+        "startLine": 177,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 72
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c22eb9e1_170005b4",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Should this be a config? And is it really \"expected_bandwidth_overshoot_during_increase\"",
+      "range": {
+        "startLine": 178,
+        "startChar": 2,
+        "endLine": 178,
+        "endChar": 33
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5162d96c_34164269",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Puzzling that a rate increase is calculated from a backoff fraction. Is this \"bandwidth_cycle_max_min_ratio\"?",
+      "range": {
+        "startLine": 179,
+        "startChar": 1,
+        "endLine": 179,
+        "endChar": 79
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "344f729e_2cab049f",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "state",
+      "range": {
+        "startLine": 47,
+        "startChar": 23,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9328e1_750316d6",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "Name: we have been asked not to name thing like \"new\". Judging from CL description, \"timer_driven_delay_based_bwe\" would make sense.",
+      "range": {
+        "startLine": 148,
+        "startChar": 6,
+        "endLine": 148,
+        "endChar": 37
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fee71392_763285c6",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "name, see above.",
+      "range": {
+        "startLine": 153,
+        "startChar": 6,
+        "endLine": 153,
+        "endChar": 29
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c20e6e9_98b64383",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "nit: recovered_from_overuse",
+      "range": {
+        "startLine": 526,
+        "startChar": 7,
+        "endLine": 526,
+        "endChar": 16
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b9813ad_4447db09",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2018-12-21T11:41:24Z",
+      "side": 1,
+      "message": "This code path never sets backoff_in_alr. Intentional?",
+      "range": {
+        "startLine": 528,
+        "startChar": 1,
+        "endLine": 528,
+        "endChar": 32
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

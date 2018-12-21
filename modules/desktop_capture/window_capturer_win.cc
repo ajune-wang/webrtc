@@ -41,6 +41,10 @@ BOOL CALLBACK WindowsEnumerationHandler(HWND hwnd, LPARAM param) {
       (owner && !(exstyle & WS_EX_APPWINDOW))) {
     return TRUE;
   }
+  // Skip unresponsive windows.
+  if (!SendMessageTimeout(hwnd, WM_NULL, 0, 0, SMTO_ABORTIFHUNG, 5, nullptr)) {
+    return TRUE;
+  }
 
   // Skip the Program Manager window and the Start button.
   const size_t kClassLength = 256;

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f517398_2b1f8f57",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "I like classes, and I like read-only objects. If I have to make accessors as the price for making it read-only, I can.\n\nI could make it DtlsTransportStateInformation. DtlsTransportState is already in use.",
+      "parentUuid": "d7de5ae6_4aca4926",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77d3bd26_cb38cf40",
         "filename": "api/dtlstransportinterface.h",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-21T14:49:08Z",
       "side": 1,
       "message": "I don\u0027t think you need to be explicit about it, but if you do you should probably make the copy-assignment explicit too. Maybe be explicit about the move-constructor and move-assignment too then?",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70863885_fc1bcbe3",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "I\u0027d rather take out this line and just leave the comment. There\u0027s too much boilerplate in the world; the point is to show that it\u0027s copyable by design not by accident; \"don\u0027t break this\".",
+      "parentUuid": "77d3bd26_cb38cf40",
       "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "73cf2b24_3673acb7",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "See DESIGN.md.",
+      "parentUuid": "8284362c_48536269",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "220b68c6_7d4276aa",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2018-12-21T14:49:08Z",
       "side": 1,
       "message": "Wouldn\u0027t it be easier to make this a single-threaded class and let chromium worry about which thread it invokes this on? Now you\u0027re making a class that is doing both \"proxy work\" and simple signaling thread-work. In chromium it will still be implicit the fact that thread magic occurs, if we want that we might as well use proxy.",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b8e5f5_179bc7cc",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "I put this as \"for convenience\". I\u0027ll see what the code looks like when Chrome gets done.\nFor native users, it seems natural to be able to install the observer from the same thread that they install all the other observers from.",
+      "parentUuid": "220b68c6_7d4276aa",
       "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5d5963ec_c28fe977",
+        "filename": "pc/dtlstransport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "Yes, it should. Changed.",
+      "parentUuid": "e6c8d6de_752d5340",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be9f3226_97a070d7",
         "filename": "pc/dtlstransport.h",
         "patchSetId": 7
@@ -101,6 +191,24 @@
       "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7a08e6_4dab4de7",
+        "filename": "pc/dtlstransport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T15:47:58Z",
+      "side": 1,
+      "message": "There\u0027s a reference inside jseptransport where jseptransport calls clear() before letting go of that reference; that\u0027s the only somewhat-thread-unsafe part of destroying this object.\nI added an RTC_DCHECK inside the destructor to make sure this continues to be true.",
+      "parentUuid": "be9f3226_97a070d7",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

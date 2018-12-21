@@ -131,8 +131,15 @@ class AudioEncoder {
   virtual size_t Num10MsFramesInNextPacket() const = 0;
 
   // Returns the maximum value that can be returned by
-  // Num10MsFramesInNextPacket().
+  // Num10MsFramesInNextPacket(), i.e. maximum packet size in 10ms frames.
   virtual size_t Max10MsFramesInAPacket() const = 0;
+
+  // Returns the minimum value that can be returned by
+  // Num10MsFramesInNextPacket(), i.e. minimum packet size in 10ms frames.
+  // TODO(sukhanov): Propagate to other encoders and remove default.
+  // TODO(sukhanov): Alternatively consider returning all supported frame sizes,
+  // we will probably have to do it anyway if we want to ANA out of encoders.
+  virtual size_t Min10MsFramesInAPacket() const;
 
   // Returns the current target bitrate in bits/s. The value -1 means that the
   // codec adapts the target automatically, and a current target cannot be

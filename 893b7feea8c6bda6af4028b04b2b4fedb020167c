@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "4bae7b9d_00d408bb",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T23:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a7bb18_1cdc3de3",
+      "range": {
+        "startLine": 441,
+        "startChar": 76,
+        "endLine": 442,
+        "endChar": 9
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05ee7992_e591b5ac",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T23:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fd6ea7f_ba21e35e",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 22
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cce3044_7b8c7201",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 12
@@ -68,6 +116,30 @@
       "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eed2b5cd_954e5ac2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T23:56:18Z",
+      "side": 1,
+      "message": "Yes we use it (+ overhead) to limit maximum bandwidth allocated to this stream by bitrate_allocator.",
+      "parentUuid": "5cce3044_7b8c7201",
+      "range": {
+        "startLine": 443,
+        "startChar": 28,
+        "endLine": 444,
+        "endChar": 15
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -114,6 +186,54 @@
       "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b086a0_f045ec1f",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T23:56:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0417943a_7d091477",
+      "range": {
+        "startLine": 805,
+        "startChar": 39,
+        "endLine": 805,
+        "endChar": 68
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd1c5419_a40cef32",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T23:56:18Z",
+      "side": 1,
+      "message": "I did not find it in webrtc codebase.",
+      "parentUuid": "7f001936_f9faeef2",
+      "range": {
+        "startLine": 805,
+        "startChar": 71,
+        "endLine": 805,
+        "endChar": 72
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a164b2f8_dabc8574",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d3a3698_028060fe",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b307a09_d4b075a4",
         "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33156815_06e9c15f",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Moved to separate struct!",
+      "parentUuid": "7b307a09_d4b075a4",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 65
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e8964fab_eaa7d6c6",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86d09faf_2dd221c3",
+      "range": {
+        "startLine": 116,
+        "startChar": 5,
+        "endLine": 116,
+        "endChar": 50
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c0c6a02_9e20cd9c",
         "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70b32510_5e9a00a5",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c0c6a02_9e20cd9c",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 76
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a606a5e7_aaa28f27",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "The plan is to remove this in the future and replace it with a stable bandwidth estimate.",
+      "parentUuid": "8f4411ec_fde02175",
+      "range": {
+        "startLine": 177,
+        "startChar": 1,
+        "endLine": 177,
+        "endChar": 72
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c22eb9e1_170005b4",
         "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "18c6dec2_4c62f975",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Since I consider this legacy code, I don\u0027t think we\u0027ll want to spend time tuning this. Rather, we should work to replace the usages of this value.",
+      "parentUuid": "c22eb9e1_170005b4",
+      "range": {
+        "startLine": 178,
+        "startChar": 2,
+        "endLine": 178,
+        "endChar": 33
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5162d96c_34164269",
         "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc42394_5cfbb432",
+        "filename": "modules/congestion_controller/goog_cc/delay_based_rate_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5162d96c_34164269",
+      "range": {
+        "startLine": 179,
+        "startChar": 1,
+        "endLine": 179,
+        "endChar": 79
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "421a52db_4f4c9cfe",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c20e6e9_98b64383",
+      "range": {
+        "startLine": 526,
+        "startChar": 7,
+        "endLine": 526,
+        "endChar": 16
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b9813ad_4447db09",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 3
@@ -266,6 +458,30 @@
       "writtenOn": "2018-12-21T11:41:24Z",
       "side": 1,
       "message": "This code path never sets backoff_in_alr. Intentional?",
+      "range": {
+        "startLine": 528,
+        "startChar": 1,
+        "endLine": 528,
+        "endChar": 32
+      },
+      "revId": "250b8cbd6078dd4f5c08e86206a855ca36e9f9c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "343e179f_d93240c9",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2018-12-21T13:17:01Z",
+      "side": 1,
+      "message": "Yes, backoff_in_alr is only set in an experiment that we will not want to test in conjunction with this in any of our current planning. We can add it when we feel ready to finalize either experiment.",
+      "parentUuid": "7b9813ad_4447db09",
       "range": {
         "startLine": 528,
         "startChar": 1,

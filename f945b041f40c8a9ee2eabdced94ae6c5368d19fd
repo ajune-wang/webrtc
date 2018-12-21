@@ -22,6 +22,30 @@
       "revId": "f945b041f40c8a9ee2eabdced94ae6c5368d19fd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b13ffaf5_188e8913",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2850,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2018-12-21T15:30:52Z",
+      "side": 1,
+      "message": "Yes, probably. It still runs fine because I think APM reinitializes automatically when receiving a differently-configured frame, but let\u0027s not waste CPU cycles if we can.\n\nAll the ApmStatistics.* tests do this, so I\u0027ll update them.",
+      "parentUuid": "79aa2a4f_82e8088c",
+      "range": {
+        "startLine": 2850,
+        "startChar": 58,
+        "endLine": 2850,
+        "endChar": 74
+      },
+      "revId": "f945b041f40c8a9ee2eabdced94ae6c5368d19fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

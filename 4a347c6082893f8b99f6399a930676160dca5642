@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1f4888c_d3164399",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T11:31:17Z",
+      "side": 1,
+      "message": "nit: This doesn\u0027t align with everything else. Can you make it fit or put the comments above the enum values?\n\"not verifying\" sounds like it might not even have tried, should it say \"failed to verify\"?",
+      "revId": "4a347c6082893f8b99f6399a930676160dca5642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0adc46d_879f15d6",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T11:31:17Z",
+      "side": 1,
+      "message": "If you want the information only to be accessible on a particular thread then you can put the accessors directly on the DtlsTransportInterface and just DCHECK usage. If on the other hand you want this to be information passed between threads, i.e. a snapshot of the state, then you should simply pass the ownership of it - not restrict its thread access.\n\nblink::RTCDtlsTransport-getters such as its attributes should not do thread jumps if we want to be spec-compliant (and not have changes surfaced midst javascript task execution), so allowing that to own its latest snapshot of the Info I think is the best solution. This is how the spec is written for the updating of state information in general, i.e. \"queue a task that updates the foo internal slot\".\n\nCan we make this a non-virtual snapshot? The transport interface needs to be virtual, but the state information itself is just data. Making it non-virtual allows us to copy it, moving it allows the blink object to use this object directly as its cache instead of introducing yet another layer for holding all the state information.\n\nIf we don\u0027t make this a passable state info then we\u0027d likely end up having to create a new class that does that in the content layer, just like TransceiverStateSurfacer deals with \"RtpTransceiverState\" which are copies of all the information inspected on the transceiver using the transciever\u0027s getters.\nhttps://cs.chromium.org/chromium/src/content/renderer/media/webrtc/rtc_rtp_transceiver.h?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d55\nThis class could do it for us, and is still usable by means of getting things in native land or in callbacks.",
+      "revId": "4a347c6082893f8b99f6399a930676160dca5642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32dd8435_ea7cb1de",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T11:31:17Z",
+      "side": 1,
+      "message": "See previous comment: I think we should pass ownership of the state information considering we intend to jump threads with it. I suggest to make this DtlsTransportInformation (we can pass with std::move) if it\u0027s non-virtual, or std::unique_ptr\u003cDtlsTransportInformation\u003e if its virtual.",
+      "revId": "4a347c6082893f8b99f6399a930676160dca5642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1719e97_3f0c3ba3",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T11:31:17Z",
+      "side": 1,
+      "message": "See other comments: I think this should either return a copy whose ownership is passed or return a const\u0026 that can be copied.",
+      "revId": "4a347c6082893f8b99f6399a930676160dca5642",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

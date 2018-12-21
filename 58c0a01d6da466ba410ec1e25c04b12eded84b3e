@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af7cca7c_fd9845e8",
+        "filename": "api/audio_codecs/audio_encoder.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "409f3639_0a4aa20c",
+      "range": {
+        "startLine": 250,
+        "startChar": 8,
+        "endLine": 250,
+        "endChar": 10
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a6947ba_3cbca0b0",
         "filename": "api/audio_codecs/audio_encoder.h",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1bc53bb_10855431",
+        "filename": "api/audio_codecs/audio_encoder.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "I hope these APIs will be eventually deprecated when we move ANA out of encoders. Using bool to be consistent with other methods.",
+      "parentUuid": "9a6947ba_3cbca0b0",
+      "range": {
+        "startLine": 254,
+        "startChar": 13,
+        "endLine": 254,
+        "endChar": 18
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c4cbc2e9_aba225e9",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Agreed, we discussed that ANA should be outside of encoder. Remove comment, because it\u0027s confusing.",
+      "parentUuid": "533ce2df_c74156f5",
+      "range": {
+        "startLine": 445,
+        "startChar": 2,
+        "endLine": 446,
+        "endChar": 51
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75f8e852_2be47505",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 11
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2160baa8_0a508ecd",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Removed completely. I think this CL is cleaner without SetMin/Max rate on encoder. We should get back to it when we remove ANA out of encoder.",
+      "parentUuid": "75f8e852_2be47505",
+      "range": {
+        "startLine": 664,
+        "startChar": 1,
+        "endLine": 682,
+        "endChar": 3
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c94a6e14_31ee0731",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 11
@@ -114,6 +210,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b7d4188_aa180442",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c94a6e14_31ee0731",
+      "range": {
+        "startLine": 764,
+        "startChar": 47,
+        "endLine": 765,
+        "endChar": 0
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "85831c30_607b6953",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a7f6cc_0349f29a",
+      "range": {
+        "startLine": 819,
+        "startChar": 44,
+        "endLine": 819,
+        "endChar": 48
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed29902_3e90f961",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 11
@@ -183,6 +327,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a332cc_74b96e09",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ed29902_3e90f961",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 9
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "5e607284_d91c636e",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d5d4d2_a2802643",
+      "range": {
+        "startLine": 866,
+        "startChar": 30,
+        "endLine": 867,
+        "endChar": 58
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa56b075_96808fbb",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 11
@@ -229,6 +421,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f888fd6_5364dd00",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Not sure if it will be better readability or overkill.",
+      "parentUuid": "aa56b075_96808fbb",
+      "range": {
+        "startLine": 870,
+        "startChar": 10,
+        "endLine": 870,
+        "endChar": 39
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "d8173b33_0464f0ab",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "This overhead is needed to calculate min/max bitrate that we send to observer. But you are right, today encoder knows about overhead and it\u0027s a separate workitem to move ANA out.",
+      "parentUuid": "6f4761c7_2ee3fe26",
+      "range": {
+        "startLine": 115,
+        "startChar": 45,
+        "endLine": 115,
+        "endChar": 78
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "894ac702_76358f55",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 11
@@ -275,6 +515,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d13ae61d_c921eb60",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "I decided to remove OptionMin, because OptionMinMax is the only one which makes sense and I am keeping legacy functionality too.",
+      "parentUuid": "894ac702_76358f55",
+      "range": {
+        "startLine": 151,
+        "startChar": 33,
+        "endLine": 151,
+        "endChar": 45
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "adba4563_8e7d42e9",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f96c52f_b5b99114",
+      "range": {
+        "startLine": 157,
+        "startChar": 32,
+        "endLine": 158,
+        "endChar": 0
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a99a14f_09e7bf94",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 11
@@ -321,6 +609,30 @@
       "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e83d2e9_fdedd24d",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2018-12-21T05:53:54Z",
+      "side": 1,
+      "message": "But we still need to check for !\u003d 0 before diviidng. Made code in .cc file safer and not crashing on \u003d\u003d 0 in addition to DCHECK",
+      "parentUuid": "0a99a14f_09e7bf94",
+      "range": {
+        "startLine": 174,
+        "startChar": 2,
+        "endLine": 174,
+        "endChar": 5
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

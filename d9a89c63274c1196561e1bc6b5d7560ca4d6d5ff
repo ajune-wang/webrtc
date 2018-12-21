@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7de5ae6_4aca4926",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "Either make it a struct with public fields, \"state\", or make it a class with accessors, \"state()\".\n\nnit: Is DtlsTransportState a better name than \"Information\"? You get \"transport_state.state\" but the name matches with the RtpTransceiverState classes and friends.",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d3bd26_cb38cf40",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to be explicit about it, but if you do you should probably make the copy-assignment explicit too. Maybe be explicit about the move-constructor and move-assignment too then?",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8284362c_48536269",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "What does \"This can be called from the client thread.\" mean? For all implementations (except the proxy), what would be true is \"Must be called from the signaling thread.\" And \"the thread that is used for callbacks\" would also be \"the signaling thread\". Is signaling thread what you mean by \"client thread\"? Should we be consistent and say \"signaling thread\" in both places, or \"client thread\" in both places?",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "220b68c6_7d4276aa",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be easier to make this a single-threaded class and let chromium worry about which thread it invokes this on? Now you\u0027re making a class that is doing both \"proxy work\" and simple signaling thread-work. In chromium it will still be implicit the fact that thread magic occurs, if we want that we might as well use proxy.",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6c8d6de_752d5340",
+        "filename": "pc/dtlstransport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "Should this be signaling_thread_? Since this is a specific implementation, with heavy ties to the other implementations which use the signaling thread explicitly, I think this one should be equally explicit. If they were different threads we would be in trouble.",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be9f3226_97a070d7",
+        "filename": "pc/dtlstransport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2018-12-21T14:49:08Z",
+      "side": 1,
+      "message": "DtlsTransport is now reference counted and if we don\u0027t use proxy could be destroyed on any thread. I suspect it\u0027s not safe to delete cricket::DtlsTransportInternal on the wrong thread. Do we need to post a task in the destructor that passes it to the right thread before deleting?\n\nThough in-flight tasks are cancelled when the AsyncInvoker is destroyed, so I\u0027m not sure what the best way is to do this in webrtc land. The proxy uses rtc::MessageHandler to do synchronous method calls.",
+      "revId": "d9a89c63274c1196561e1bc6b5d7560ca4d6d5ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

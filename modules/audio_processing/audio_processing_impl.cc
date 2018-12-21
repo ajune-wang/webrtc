@@ -830,15 +830,23 @@ int AudioProcessingImpl::ProcessStream(const float* const* src,
     reinitialization_required = UpdateActiveSubmoduleStates();
   }
 
-  processing_config.input_stream() = input_config;
-  processing_config.output_stream() = output_config;
-
-  {
-    // Do conditional reinitialization.
-    rtc::CritScope cs_render(&crit_render_);
-    RETURN_ON_ERR(
-        MaybeInitializeCapture(processing_config, reinitialization_required));
+  if (processing_config.input_stream() != input_config) {
+    processing_config.input_stream() = input_config;
+    reinitialization_required = true;
   }
+
+  if (processing_config.output_stream() != output_config) {
+    processing_config.output_stream() = output_config;
+    reinitialization_required = true;
+  }
+
+  if (reinitialization_required) {
+    // Reinitialize.
+    rtc::CritScope cs_render(&crit_render_);
+    rtc::CritScope cs_capture(&crit_capture_);
+    RETURN_ON_ERR(InitializeLocked(processing_config));
+  }
+
   rtc::CritScope cs_capture(&crit_capture_);
   RTC_DCHECK_EQ(processing_config.input_stream().num_frames(),
                 formats_.api_format.input_stream().num_frames());

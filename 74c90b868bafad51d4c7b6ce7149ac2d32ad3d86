@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "08d30c91_f9b95475",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T23:17:30Z",
+      "side": 1,
+      "message": "No. The client can do that if it wants to (just use a lambda with an extra arg).",
+      "parentUuid": "3238844f_87989e77",
+      "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be15a4af_97674895",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-12-21T16:56:19Z",
       "side": 1,
       "message": "I would argue that even this method can be signaling thread-only. Any time you\u0027d create a transport you\u0027d need to know its state, so you\u0027re already messing about with the signaling thread. The intended recipient, blink::RTCDtlsTransport, lives on another thread though, but if you have to jump back and forth between signaling thread and main thread there is a risk of race.\n\nWhat if the state is updated before the main thread has had a chance to register its observer?\n\nsetRemoteDescrition could create the webrtc::DtlsTransport, we jump to the main thread and before we\u0027ve created the blink::RTCDtlsTransport (or after we\u0027ve created it but before we\u0027ve had a chance to do RegisterObserver) the transport is updated. Maybe as a result of another setRemoteDescription, or as a result of network events. Maybe everything closed, who knows?\n\nI\u0027m suspecting that the observer needs to exist as soon as the DtlsTransport is created on the signaling thread, and be responsible for delegating the callbacks up to the main thread. If this exists from the transports\u0027 creation, we are ensured that by the time the callback jumps to the main thread there already exists a blink version of the transport (since all PostTasks from one thread to another are sequential). But if we have to sync between the threads in both directions before callbacks work, there is a risk of a race of things happening on the signaling thread in-between.\n\nSince it seems that the observer needs to exists from-creation, i.e. before the main thread has created the blink-transport, I suspect the observer should just be a middle-man. We could use the same middle-man for all transports, and let the middle-man inform the resulting blink::RTCDtlsTransport by consulting the blink::RTCPeerConnection about existing transports.\n\nThe bottom line: I think invoking RegisterObserver() from the main thread is a mistake, simplify the design here by saying that DtlsTransport is entirely signaling thread-only.",
+      "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8763c7be_6ca11316",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2018-12-21T23:17:30Z",
+      "side": 1,
+      "message": "No. The observer can\u0027t exist from creation, since creation is an unobservable event.\nThe observer has to make sure it has the right state from init (which my initial design with the state_change_occured\u003dfalse accomplished).\n\nThe argument is sufficient to make the RegisterObserver signaling-thread-only, since that makes RegisterObserver(); Information() and Information(); RegisterObserver() equivalent (no thread jumps).\n\nBut you can\u0027t add observation to an unobservable event. One of them has to go first.",
+      "parentUuid": "be15a4af_97674895",
       "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

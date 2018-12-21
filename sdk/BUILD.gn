@@ -1036,6 +1036,7 @@ if (is_ios || is_mac) {
             "objc/unittests/RTCCallbackLogger_xctest.m",
             "objc/unittests/RTCFileVideoCapturer_xctest.mm",
             "objc/unittests/RTCH264ProfileLevelId_xctest.m",
+            "objc/unittests/RTCNV12TextureCache_xctest.m",
             "objc/unittests/RTCPeerConnectionFactory_xctest.m",
             "objc/unittests/frame_buffer_helpers.h",
             "objc/unittests/frame_buffer_helpers.mm",

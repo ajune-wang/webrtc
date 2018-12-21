@@ -313,6 +313,9 @@ int32_t RTPSender::RegisterPayload(absl::string_view payload_name,
                                            frequency, channels, rate, &payload);
   } else {
     payload = video_->CreateVideoPayload(payload_name, payload_number);
+    // Backward compatibility for older receivers without temporal layer logic.
+    if (payload->typeSpecific.video_payload().videoCodecType == kVideoCodecH264)
+      SetSelectiveRetransmissions(kRetransmitAllPackets);
   }
   if (payload) {
     payload_type_map_[payload_number] = payload;

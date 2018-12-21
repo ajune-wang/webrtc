@@ -96,6 +96,8 @@ int VCMSessionInfo::TemporalId() const {
     return absl::get<RTPVideoHeaderVP9>(
                packets_.front().video_header.video_type_header)
         .temporal_idx;
+  } else if (packets_.front().video_header.codec == kVideoCodecH264) {
+    return packets_.front().video_header.frame_marking.temporal_id;
   } else {
     return kNoTemporalIdx;
   }
@@ -112,6 +114,8 @@ bool VCMSessionInfo::LayerSync() const {
     return absl::get<RTPVideoHeaderVP9>(
                packets_.front().video_header.video_type_header)
         .temporal_up_switch;
+  } else if (packets_.front().video_header.codec == kVideoCodecH264) {
+    return packets_.front().video_header.frame_marking.base_layer_sync;
   } else {
     return false;
   }
@@ -128,6 +132,8 @@ int VCMSessionInfo::Tl0PicId() const {
     return absl::get<RTPVideoHeaderVP9>(
                packets_.front().video_header.video_type_header)
         .tl0_pic_idx;
+  } else if (packets_.front().video_header.codec == kVideoCodecH264) {
+    return packets_.front().video_header.frame_marking.tl0_pic_idx;
   } else {
     return kNoTl0PicIdx;
   }

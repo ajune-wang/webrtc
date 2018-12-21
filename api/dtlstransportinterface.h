@@ -11,18 +11,60 @@
 #ifndef API_DTLSTRANSPORTINTERFACE_H_
 #define API_DTLSTRANSPORTINTERFACE_H_
 
+#include "api/rtcerror.h"
 #include "rtc_base/refcount.h"
 
 namespace webrtc {
 
+// States of a DTLS transport, corresponding to the JS API specification.
+// http://w3c.github.io/webrtc-pc/#dom-rtcdtlstransportstate
+enum class DtlsTransportState {
+  kNew,         // Has not started negotiating yet.
+  kConnecting,  // In the process of negotiating a secure connection.
+  kConnected,   // Completed negotiation and verified fingerprints.
+  kClosed,      // Intentionally closed.
+  kFailed  // Failure due to an error or not verifying a remote fingerprint.
+};
+
+// This object gives snapshot information about the changeable state of a
+// DTLSTransport.
+class DtlsTransportInformation {
+ public:
+  explicit DtlsTransportInformation(DtlsTransportState current_state)
+      : state(current_state) {}
+  // This class is movable and copyable.
+  DtlsTransportInformation(const DtlsTransportInformation&) = default;
+  const DtlsTransportState state;
+  // TODO(hta): Add remote certificate access
+};
+
+class DtlsTransportObserverInterface {
+ public:
+  // This callback carries information about the state of the transport.
+  // The argument is a pass-by-value snapshot of the state.
+  virtual void OnStateChange(DtlsTransportInformation info) = 0;
+  // This callback is called when an error occurs, causing the transport
+  // to go to the kFailed state.
+  virtual void OnError(RTCError error) = 0;
+
+ protected:
+  virtual ~DtlsTransportObserverInterface() = default;
+};
+
 // A DTLS transport, as represented to the outside world.
 // Its role is to report state changes and errors, and make sure information
 // about remote certificates is available.
+// Synchronous access to data is limited to the information() function,
+// which has restrictions on access.
 class DtlsTransportInterface : public rtc::RefCountInterface {
  public:
-  // TODO(hta): Need a notifier interface to transmit state changes and
-  // error events. The generic NotifierInterface of mediasteraminterface.h
-  // may be suitable, or may be copyable.
+  // Access to status information. This can only be called from the thread
+  // that is used for callbacks from the implementation, and returns a
+  // snapshot of the current state.
+  virtual DtlsTransportInformation Information() = 0;
+  // Observer management. This can be called from the client thread.
+  virtual void RegisterObserver(DtlsTransportObserverInterface* observer) = 0;
+  virtual void UnregisterObserver() = 0;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79aa2a4f_82e8088c",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2850,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2018-12-21T15:02:55Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be 32kHz, since that\u0027s what is used to initialize APM with? (line 2844)",
+      "range": {
+        "startLine": 2850,
+        "startChar": 58,
+        "endLine": 2850,
+        "endChar": 74
+      },
+      "revId": "f945b041f40c8a9ee2eabdced94ae6c5368d19fd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

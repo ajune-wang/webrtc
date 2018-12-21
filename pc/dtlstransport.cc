@@ -14,10 +14,85 @@
 
 namespace webrtc {
 
+namespace {
+
+DtlsTransportState TranslateState(cricket::DtlsTransportState internal_state) {
+  switch (internal_state) {
+    case cricket::DTLS_TRANSPORT_NEW:
+      return DtlsTransportState::kNew;
+      break;
+    case cricket::DTLS_TRANSPORT_CONNECTING:
+      return DtlsTransportState::kConnecting;
+      break;
+    case cricket::DTLS_TRANSPORT_CONNECTED:
+      return DtlsTransportState::kConnected;
+      break;
+    case cricket::DTLS_TRANSPORT_CLOSED:
+      return DtlsTransportState::kClosed;
+      break;
+    case cricket::DTLS_TRANSPORT_FAILED:
+      return DtlsTransportState::kFailed;
+      break;
+  }
+}
+
+}  // namespace
+
+// Implementation of DtlsTransportInterface
 DtlsTransport::DtlsTransport(
     std::unique_ptr<cricket::DtlsTransportInternal> internal)
-    : internal_dtls_transport_(std::move(internal)) {
+    : thread_owning_internal_(rtc::Thread::Current()),
+      internal_dtls_transport_(std::move(internal)) {
   RTC_DCHECK(internal_dtls_transport_.get());
+  internal_dtls_transport_->SignalDtlsState.connect(
+      this, &DtlsTransport::OnInternalDtlsState);
+}
+
+DtlsTransportInformation* DtlsTransport::information() {
+  RTC_DCHECK(thread_owning_internal_->IsCurrent());
+  return this;
+}
+
+void DtlsTransport::RegisterObserver(DtlsTransportObserverInterface* observer) {
+  RTC_DCHECK(observer);
+  if (!thread_owning_internal_->IsCurrent()) {
+    invoker_.AsyncInvoke<void>(
+        RTC_FROM_HERE, thread_owning_internal_,
+        Bind(&DtlsTransport::RegisterObserver, this, observer));
+    return;
+  }
+  observer_ = observer;
+}
+
+void DtlsTransport::UnregisterObserver() {
+  if (!thread_owning_internal_->IsCurrent()) {
+    invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_owning_internal_,
+                               Bind(&DtlsTransport::UnregisterObserver, this));
+    return;
+  }
+  observer_ = nullptr;
+}
+
+// Implementation of DtlsTransportInformation
+DtlsTransportState DtlsTransport::State() const {
+  RTC_DCHECK(thread_owning_internal_->IsCurrent());
+  if (internal()) {
+    return TranslateState(internal()->dtls_state());
+  } else {
+    return DtlsTransportState::kClosed;
+  }
+}
+
+// Internal functions
+
+void DtlsTransport::OnInternalDtlsState(
+    cricket::DtlsTransportInternal* transport,
+    cricket::DtlsTransportState state) {
+  RTC_DCHECK(transport == internal());
+  RTC_DCHECK(thread_owning_internal_->IsCurrent());
+  if (observer_) {
+    observer_->OnStateChange(this);
+  }
 }
 
 }  // namespace webrtc

@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f4a7bb18_1cdc3de3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "s/for for/for now/ ?",
+      "range": {
+        "startLine": 441,
+        "startChar": 76,
+        "endLine": 442,
+        "endChar": 9
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fd6ea7f_ba21e35e",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "worst",
+      "range": {
+        "startLine": 442,
+        "startChar": 17,
+        "endLine": 442,
+        "endChar": 22
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cce3044_7b8c7201",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "so do we still use config.max_bitrate anywhere?\nin particular, I think downstream client uses https://cs.chromium.org/chromium/src/third_party/webrtc/api/rtpparameters.h?l\u003d440\u0026rcl\u003dd0def19069b855d0bc8401877cfee89190cd9ecb",
+      "range": {
+        "startLine": 443,
+        "startChar": 28,
+        "endLine": 444,
+        "endChar": 15
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f001936_f9faeef2",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "nit: kBitsInByte?",
+      "range": {
+        "startLine": 805,
+        "startChar": 71,
+        "endLine": 805,
+        "endChar": 72
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0417943a_7d091477",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "nit: transport_overhead_per_packet_bytes",
+      "range": {
+        "startLine": 805,
+        "startChar": 39,
+        "endLine": 805,
+        "endChar": 68
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f930546_6582f98e",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-21T15:25:12Z",
+      "side": 1,
+      "message": "kOverheadPerPacketBytes",
+      "range": {
+        "startLine": 832,
+        "startChar": 12,
+        "endLine": 832,
+        "endChar": 30
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

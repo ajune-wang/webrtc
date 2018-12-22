@@ -28,6 +28,7 @@
 #include "modules/rtp_rtcp/mocks/mock_rtcp_rtt_stats.h"
 #include "modules/rtp_rtcp/mocks/mock_rtp_rtcp.h"
 #include "rtc_base/task_queue.h"
+#include "test/field_trial.h"
 #include "test/gtest.h"
 #include "test/mock_audio_encoder.h"
 #include "test/mock_audio_encoder_factory.h"
@@ -70,6 +71,10 @@ const AudioCodecSpec kCodecSpecs[] = {
     {kOpusFormat, {48000, 1, 32000, 6000, 510000}},
     {kG722Format, {16000, 1, 64000}}};
 
+// Minimum and maximum audio frame sizes, in ms.
+const int kMinAudioFrameSizeMs = 20;
+const int kMaxAudioFrameSizeMs = 60;
+
 class MockLimitObserver : public BitrateAllocator::LimitObserver {
  public:
   MOCK_METHOD5(OnAllocationLimitsChanged,
@@ -93,6 +98,10 @@ std::unique_ptr<MockAudioEncoder> SetupAudioEncoderMock(
           .WillByDefault(Return(spec.info.num_channels));
       ON_CALL(*encoder.get(), RtpTimestampRateHz())
           .WillByDefault(Return(spec.format.clockrate_hz));
+      ON_CALL(*encoder.get(), Min10MsFramesInAPacket())
+          .WillByDefault(Return(kMinAudioFrameSizeMs / 10));
+      ON_CALL(*encoder.get(), Max10MsFramesInAPacket())
+          .WillByDefault(Return(kMaxAudioFrameSizeMs / 10));
       return encoder;
     }
   }
@@ -458,6 +467,27 @@ TEST(AudioSendStreamTest, SendCodecCanApplyVad) {
 }
 
 TEST(AudioSendStreamTest, DoesNotPassHigherBitrateThanMaxBitrate) {
+  ConfigHelper helper(false, true);
+  auto send_stream = helper.CreateAudioSendStream();
+  EXPECT_CALL(*helper.channel_send(),
+              OnBitrateAllocation(
+                  Field(&BitrateAllocationUpdate::target_bitrate,
+                        Eq(DataRate::bps(helper.config().max_bitrate_bps)))));
+  BitrateAllocationUpdate update;
+  update.target_bitrate = DataRate::bps(helper.config().max_bitrate_bps + 5000);
+  update.packet_loss_ratio = 0;
+  update.round_trip_time = TimeDelta::ms(50);
+  update.bwe_period = TimeDelta::ms(6000);
+  send_stream->OnBitrateUpdated(update);
+}
+
+// TODO(sukhanov): Need better test that will verify bitrate allocator limits
+// with overhead.
+TEST(AudioSendStreamTestSendSideBweWithOverhead,
+     DoesNotPassHigherBitrateThanMaxBitrate) {
+  ScopedFieldTrials field_trials(
+      "WebRTC-Audio-SendSideBwe/Enabled/WebRTC-SendSideBwe-WithOverhead/"
+      "Enabled/");
   ConfigHelper helper(false, true);
   auto send_stream = helper.CreateAudioSendStream();
   EXPECT_CALL(*helper.channel_send(),

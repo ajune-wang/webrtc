@@ -90,6 +90,7 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
   int SampleRateHz() const override;
   size_t NumChannels() const override;
   size_t Num10MsFramesInNextPacket() const override;
+  size_t Min10MsFramesInAPacket() const override;
   size_t Max10MsFramesInAPacket() const override;
   int GetTargetBitrate() const override;
 
@@ -167,7 +168,12 @@ class AudioEncoderOpusImpl final : public AudioEncoder {
 
   // TODO(minyue): remove "override" when we can deprecate
   // |AudioEncoder::SetTargetBitrate|.
-  void SetTargetBitrate(int target_bps) override;
+  //
+  // NOTE: The bitrate is target encoder bitrate, excluding all overhead.
+  // When used with ANA and SendSideBweWithOverhead, the overhead should be
+  // subtracted before calling SetTargetBitrate. The actual bitrate would
+  // be higher because of overhead.
+  void SetTargetBitrate(int target_encoder_bitrate) override;
 
   void ApplyAudioNetworkAdaptor();
   std::unique_ptr<AudioNetworkAdaptor> DefaultAudioNetworkAdaptorCreator(

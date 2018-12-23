@@ -104,6 +104,11 @@ void AudioEncoder::OnReceivedOverhead(size_t overhead_bytes_per_packet) {}
 void AudioEncoder::SetReceiverFrameLengthRange(int min_frame_length_ms,
                                                int max_frame_length_ms) {}
 
+// TODO(sukhanov): Propagate to other encoders and remove default.
+size_t AudioEncoder::Min10MsFramesInAPacket() const {
+  return 1;
+}
+
 ANAStats AudioEncoder::GetANAStats() const {
   return ANAStats();
 }

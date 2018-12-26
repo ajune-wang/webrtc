@@ -12,7 +12,7 @@
 
 #include "modules/audio_coding/codecs/opus/test/blocker.h"
 
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "test/gtest.h"
 
 namespace {

@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/base/fakevideocapturer.h"
+#include "media/base/fake_video_capturer.h"
 
 #include <string.h>
 #include <cstdint>
@@ -16,10 +16,10 @@
 #include "absl/memory/memory.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame_buffer.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/scoped_ref_ptr.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/time_utils.h"
 
 namespace cricket {
 

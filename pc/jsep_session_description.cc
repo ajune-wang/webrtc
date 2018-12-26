@@ -8,15 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/jsepsessiondescription.h"
+#include "api/jsep_session_description.h"
 
 #include <memory>
 
 #include "absl/memory/memory.h"
 #include "p2p/base/port.h"
-#include "pc/mediasession.h"
-#include "pc/webrtcsdp.h"
-#include "rtc_base/arraysize.h"
+#include "pc/media_session.h"
+#include "pc/web_rtc_sdp.h"
+#include "rtc_base/array_size.h"
 
 using cricket::SessionDescription;
 

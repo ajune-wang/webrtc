@@ -18,7 +18,7 @@
 #include <unistd.h>
 #endif
 
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 
 const char kAudioLabel[] = "audio_label";
 const char kVideoLabel[] = "video_label";

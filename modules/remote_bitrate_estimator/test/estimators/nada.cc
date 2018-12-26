@@ -23,7 +23,7 @@
 
 #include "modules/remote_bitrate_estimator/test/estimators/nada.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 
 namespace webrtc {
 namespace testing {

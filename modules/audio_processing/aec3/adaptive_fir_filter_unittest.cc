@@ -29,7 +29,7 @@
 #include "modules/audio_processing/aec3/shadow_filter_update_gain.h"
 #include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/echo_canceller_test_tools.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/random.h"
 #include "rtc_base/strings/string_builder.h"

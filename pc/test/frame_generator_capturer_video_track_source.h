@@ -8,12 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef PC_TEST_FRAMEGENERATORCAPTURERVIDEOTRACKSOURCE_H_
-#define PC_TEST_FRAMEGENERATORCAPTURERVIDEOTRACKSOURCE_H_
+#ifndef PC_TEST_FRAME_GENERATOR_CAPTURER_VIDEO_TRACK_SOURCE_H_
+#define PC_TEST_FRAME_GENERATOR_CAPTURER_VIDEO_TRACK_SOURCE_H_
 
 #include <memory>
 
-#include "pc/videotracksource.h"
+#include "pc/video_track_source.h"
 #include "test/frame_generator_capturer.h"
 
 namespace webrtc {
@@ -67,4 +67,4 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
 
 }  // namespace webrtc
 
-#endif  // PC_TEST_FRAMEGENERATORCAPTURERVIDEOTRACKSOURCE_H_
+#endif  // PC_TEST_FRAME_GENERATOR_CAPTURER_VIDEO_TRACK_SOURCE_H_

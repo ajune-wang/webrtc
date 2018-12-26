@@ -29,10 +29,10 @@
 #include "modules/audio_processing/include/audio_processing_statistics.h"
 #include "modules/audio_processing/include/config.h"
 #include "modules/audio_processing/include/gain_control.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/deprecation.h"
 #include "rtc_base/platform_file.h"
-#include "rtc_base/refcount.h"
+#include "rtc_base/ref_count.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/system/rtc_export.h"
 

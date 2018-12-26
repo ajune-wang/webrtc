@@ -14,7 +14,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/logsinks.h"
+#include "rtc_base/log_sinks.h"
 
 class CallbackLogSink : public rtc::LogSink {
  public:

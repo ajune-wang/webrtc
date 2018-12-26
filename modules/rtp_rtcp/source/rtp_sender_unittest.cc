@@ -29,7 +29,7 @@
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/field_trial.h"

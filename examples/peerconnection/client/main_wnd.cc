@@ -14,7 +14,7 @@
 
 #include "api/video/i420_buffer.h"
 #include "examples/peerconnection/client/defaults.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "third_party/libyuv/include/libyuv/convert_argb.h"

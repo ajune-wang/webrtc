@@ -9,7 +9,7 @@
  */
 
 #include "modules/audio_device/win/core_audio_utility_win.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/win/windows_version.h"
 #include "test/gtest.h"

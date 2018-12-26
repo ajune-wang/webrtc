@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_WEBRTCVIDEOCAPTURER_H_
-#define MEDIA_ENGINE_WEBRTCVIDEOCAPTURER_H_
+#ifndef MEDIA_ENGINE_WEB_RTC_VIDEO_CAPTURER_H_
+#define MEDIA_ENGINE_WEB_RTC_VIDEO_CAPTURER_H_
 
 #include <stdint.h>
 #include <memory>
@@ -19,8 +19,8 @@
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
 #include "media/base/device.h"
-#include "media/base/videocapturer.h"
-#include "media/base/videocommon.h"
+#include "media/base/video_capturer.h"
+#include "media/base/video_common.h"
 #include "modules/video_capture/video_capture.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/thread.h"
@@ -84,4 +84,4 @@ class WebRtcVideoCapturer : public VideoCapturer,
 
 }  // namespace cricket
 
-#endif  // MEDIA_ENGINE_WEBRTCVIDEOCAPTURER_H_
+#endif  // MEDIA_ENGINE_WEB_RTC_VIDEO_CAPTURER_H_

@@ -8,9 +8,9 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/rtcerror.h"
+#include "api/rtc_error.h"
 
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 
 namespace {
 

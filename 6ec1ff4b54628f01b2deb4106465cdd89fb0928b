@@ -252,6 +252,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b19dfb75_48fae8bd",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2018-12-27T14:26:01Z",
+      "side": 1,
+      "message": "I treat the current solution as a stop-gap: for example it also skips TURN overhead, when present.\n\nThere are 2 methods: SetTransportOverhead, which is purely transport (IPvX + UDP + Turn) and the \u0027on overhead callback\u0027 (http://google3/third_party/webrtc/files/stable/webrtc/audio/channel_send.cc?l\u003d192\u0026rcl\u003d226534926) which is only about RTP overhead (and is used in the line you pointed to).\n\nIdeally, we should use these two in here, and not rely on hardcoded overheads, but my understanding is that it would be a much larger change.",
+      "parentUuid": "a20eb04d_7931a4e6",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

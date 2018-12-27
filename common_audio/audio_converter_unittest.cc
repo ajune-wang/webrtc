@@ -16,7 +16,7 @@
 #include "common_audio/audio_converter.h"
 #include "common_audio/channel_buffer.h"
 #include "common_audio/resampler/push_sinc_resampler.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/format_macros.h"
 #include "test/gtest.h"
 

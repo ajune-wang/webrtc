@@ -18,7 +18,7 @@
 #include "modules/desktop_capture/desktop_frame.h"
 #include "modules/desktop_capture/mouse_cursor.h"
 #include "modules/desktop_capture/shared_desktop_frame.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "test/gtest.h"
 
 namespace webrtc {

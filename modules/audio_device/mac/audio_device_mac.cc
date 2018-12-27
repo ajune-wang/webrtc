@@ -12,7 +12,7 @@
 #include "absl/memory/memory.h"
 #include "modules/audio_device/audio_device_config.h"
 #include "modules/third_party/portaudio/pa_ringbuffer.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/system/arch.h"

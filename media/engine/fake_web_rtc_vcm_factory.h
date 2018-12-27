@@ -8,14 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
-#define MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
+#ifndef MEDIA_ENGINE_FAKE_WEB_RTC_VCM_FACTORY_H_
+#define MEDIA_ENGINE_FAKE_WEB_RTC_VCM_FACTORY_H_
 
 #include <vector>
 
-#include "media/engine/fakewebrtcdeviceinfo.h"
-#include "media/engine/fakewebrtcvideocapturemodule.h"
-#include "media/engine/webrtcvideocapturer.h"
+#include "media/engine/fake_web_rtc_device_info.h"
+#include "media/engine/fake_web_rtc_video_capture_module.h"
+#include "media/engine/web_rtc_video_capturer.h"
 
 // Factory class to allow the fakes above to be injected into
 // WebRtcVideoCapturer.
@@ -39,4 +39,4 @@ class FakeWebRtcVcmFactory : public cricket::WebRtcVcmFactoryInterface {
   std::vector<rtc::scoped_refptr<FakeWebRtcVideoCaptureModule>> modules;
 };
 
-#endif  // MEDIA_ENGINE_FAKEWEBRTCVCMFACTORY_H_
+#endif  // MEDIA_ENGINE_FAKE_WEB_RTC_VCM_FACTORY_H_

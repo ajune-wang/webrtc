@@ -10,11 +10,11 @@
 
 #include <vector>
 
-#include "p2p/base/icecredentialsiterator.h"
+#include "p2p/base/ice_credentials_iterator.h"
 #include "test/gtest.h"
 
-using cricket::IceParameters;
 using cricket::IceCredentialsIterator;
+using cricket::IceParameters;
 
 TEST(IceCredentialsIteratorTest, GetEmpty) {
   std::vector<IceParameters> empty;

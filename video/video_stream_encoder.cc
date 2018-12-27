@@ -15,6 +15,7 @@
 #include <numeric>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocator_factory.h"

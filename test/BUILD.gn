@@ -399,6 +399,7 @@ if (is_ios) {
     sources = [
       "testsupport/ios_file_utils.h",
       "testsupport/ios_file_utils.mm",
+      "testsupport/iosfileutils.h",
     ]
     deps = [
       "..:webrtc_common",
@@ -418,6 +419,7 @@ if (is_mac) {
     sources = [
       "testsupport/mac_file_utils.h",
       "testsupport/mac_file_utils.mm",
+      "testsupport/macfileutils.h",
     ]
     deps = [
       "../rtc_base:checks",
@@ -431,6 +433,7 @@ rtc_source_set("fileutils") {
   sources = [
     "testsupport/file_utils.cc",
     "testsupport/file_utils.h",
+    "testsupport/fileutils.h",
   ]
   deps = [
     ":fileutils_override_api",
@@ -458,6 +461,7 @@ rtc_source_set("fileutils_override_api") {
   testonly = true
   sources = [
     "testsupport/file_utils_override.h",
+    "testsupport/fileutils_override.h",
   ]
 }
 

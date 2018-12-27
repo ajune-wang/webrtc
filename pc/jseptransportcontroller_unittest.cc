@@ -11,6 +11,7 @@
 #include <map>
 #include <memory>
 
+#include "absl/memory/memory.h"
 #include "api/media_transport_interface.h"
 #include "api/test/fake_media_transport.h"
 #include "p2p/base/fakedtlstransport.h"

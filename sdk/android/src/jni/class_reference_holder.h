@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef SDK_ANDROID_SRC_JNI_CLASSREFERENCEHOLDER_H_
-#define SDK_ANDROID_SRC_JNI_CLASSREFERENCEHOLDER_H_
+#ifndef SDK_ANDROID_SRC_JNI_CLASS_REFERENCE_HOLDER_H_
+#define SDK_ANDROID_SRC_JNI_CLASS_REFERENCE_HOLDER_H_
 
 // TODO(magjed): Update external clients to call webrtc::jni::InitClassLoader
 // immediately instead.
@@ -33,9 +33,9 @@ inline void FreeGlobalClassReferenceHolder() {}
 // TODO(magjed): Remove once external clients are updated.
 namespace webrtc_jni {
 
-using webrtc::jni::LoadGlobalClassReferenceHolder;
 using webrtc::jni::FreeGlobalClassReferenceHolder;
+using webrtc::jni::LoadGlobalClassReferenceHolder;
 
 }  // namespace webrtc_jni
 
-#endif  // SDK_ANDROID_SRC_JNI_CLASSREFERENCEHOLDER_H_
+#endif  // SDK_ANDROID_SRC_JNI_CLASS_REFERENCE_HOLDER_H_

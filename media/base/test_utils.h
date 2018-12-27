@@ -8,16 +8,16 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_TESTUTILS_H_
-#define MEDIA_BASE_TESTUTILS_H_
+#ifndef MEDIA_BASE_TEST_UTILS_H_
+#define MEDIA_BASE_TEST_UTILS_H_
 
 #include <string>
 #include <vector>
 
-#include "media/base/mediachannel.h"
-#include "media/base/videocapturer.h"
-#include "media/base/videocommon.h"
-#include "rtc_base/arraysize.h"
+#include "media/base/media_channel.h"
+#include "media/base/video_capturer.h"
+#include "media/base/video_common.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace webrtc {
@@ -93,4 +93,4 @@ cricket::StreamParams CreatePrimaryWithFecFrStreamParams(
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_TESTUTILS_H_
+#endif  // MEDIA_BASE_TEST_UTILS_H_

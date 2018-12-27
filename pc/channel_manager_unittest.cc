@@ -11,17 +11,17 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
-#include "api/rtcerror.h"
+#include "api/rtc_error.h"
 #include "api/test/fake_media_transport.h"
-#include "media/base/fakemediaengine.h"
-#include "media/base/testutils.h"
-#include "media/engine/fakewebrtccall.h"
-#include "p2p/base/dtlstransportinternal.h"
-#include "p2p/base/fakedtlstransport.h"
-#include "p2p/base/p2pconstants.h"
-#include "p2p/base/packettransportinternal.h"
-#include "pc/channelmanager.h"
-#include "pc/dtlssrtptransport.h"
+#include "media/base/fake_media_engine.h"
+#include "media/base/test_utils.h"
+#include "media/engine/fake_web_rtc_call.h"
+#include "p2p/base/dtls_transport_internal.h"
+#include "p2p/base/fake_dtls_transport.h"
+#include "p2p/base/p2p_constants.h"
+#include "p2p/base/packet_transport_internal.h"
+#include "pc/channel_manager.h"
+#include "pc/dtls_srtp_transport.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/thread.h"
 #include "test/gtest.h"
@@ -33,11 +33,14 @@ const bool kDefaultSrtpRequired = true;
 namespace cricket {
 
 static const AudioCodec kAudioCodecs[] = {
-    AudioCodec(97, "voice", 1, 2, 3), AudioCodec(111, "OPUS", 48000, 32000, 2),
+    AudioCodec(97, "voice", 1, 2, 3),
+    AudioCodec(111, "OPUS", 48000, 32000, 2),
 };
 
 static const VideoCodec kVideoCodecs[] = {
-    VideoCodec(99, "H264"), VideoCodec(100, "VP8"), VideoCodec(96, "rtx"),
+    VideoCodec(99, "H264"),
+    VideoCodec(100, "VP8"),
+    VideoCodec(96, "rtx"),
 };
 
 class ChannelManagerTest : public testing::Test {

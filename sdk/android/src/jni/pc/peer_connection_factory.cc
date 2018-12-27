@@ -8,14 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/pc/peerconnectionfactory.h"
+#include "sdk/android/src/jni/pc/peer_connection_factory.h"
 
 #include <memory>
 #include <utility>
 
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
-#include "media/base/mediaengine.h"
+#include "media/base/media_engine.h"
 #include "modules/audio_device/include/audio_device.h"
 #include "modules/utility/include/jvm_android.h"
 // We don't depend on the audio processing module implementation.
@@ -26,14 +26,14 @@
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnectionFactory_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
-#include "sdk/android/src/jni/logging/logsink.h"
-#include "sdk/android/src/jni/pc/androidnetworkmonitor.h"
+#include "sdk/android/src/jni/logging/log_sink.h"
+#include "sdk/android/src/jni/pc/android_network_monitor.h"
 #include "sdk/android/src/jni/pc/audio.h"
-#include "sdk/android/src/jni/pc/icecandidate.h"
+#include "sdk/android/src/jni/pc/ice_candidate.h"
 #include "sdk/android/src/jni/pc/media.h"
-#include "sdk/android/src/jni/pc/ownedfactoryandthreads.h"
-#include "sdk/android/src/jni/pc/peerconnection.h"
-#include "sdk/android/src/jni/pc/sslcertificateverifierwrapper.h"
+#include "sdk/android/src/jni/pc/owned_factory_and_threads.h"
+#include "sdk/android/src/jni/pc/peer_connection.h"
+#include "sdk/android/src/jni/pc/ssl_certificate_verifier_wrapper.h"
 #include "sdk/android/src/jni/pc/video.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -308,16 +308,14 @@ static jlong JNI_PeerConnectionFactory_CreatePeerConnectionFactory(
       std::move(fec_controller_factory), std::move(media_transport_factory));
 }
 
-static void JNI_PeerConnectionFactory_FreeFactory(JNIEnv*,
-                                                  jlong j_p) {
+static void JNI_PeerConnectionFactory_FreeFactory(JNIEnv*, jlong j_p) {
   delete reinterpret_cast<OwnedFactoryAndThreads*>(j_p);
   field_trial::InitFieldTrialsFromString(nullptr);
   GetStaticObjects().field_trials_init_string = nullptr;
 }
 
-static void JNI_PeerConnectionFactory_InvokeThreadsCallbacks(
-    JNIEnv*,
-    jlong j_p) {
+static void JNI_PeerConnectionFactory_InvokeThreadsCallbacks(JNIEnv*,
+                                                             jlong j_p) {
   OwnedFactoryAndThreads* factory =
       reinterpret_cast<OwnedFactoryAndThreads*>(j_p);
   factory->InvokeJavaCallbacksOnFactoryThreads();

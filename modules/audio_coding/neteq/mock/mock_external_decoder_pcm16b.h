@@ -13,7 +13,7 @@
 
 #include "api/audio_codecs/audio_decoder.h"
 #include "modules/audio_coding/codecs/pcm16b/pcm16b.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructor_magic.h"
 #include "test/gmock.h"
 
 namespace webrtc {

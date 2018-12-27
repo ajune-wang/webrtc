@@ -14,13 +14,13 @@
 #include "api/video/i420_buffer.h"
 #include "api/video/video_frame.h"
 #include "api/video/video_rotation.h"
-#include "media/base/fakevideorenderer.h"
-#include "media/base/videobroadcaster.h"
+#include "media/base/fake_video_renderer.h"
+#include "media/base/video_broadcaster.h"
 #include "test/gtest.h"
 
+using cricket::FakeVideoRenderer;
 using rtc::VideoBroadcaster;
 using rtc::VideoSinkWants;
-using cricket::FakeVideoRenderer;
 
 TEST(VideoBroadcasterTest, frame_wanted) {
   VideoBroadcaster broadcaster;

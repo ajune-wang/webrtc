@@ -104,18 +104,18 @@ void VerifyFrameDataBounds(const AudioFrame& frame,
 }
 
 TEST_F(AudioFrameOperationsTest, MonoToStereoFailsWithBadParameters) {
-  EXPECT_EQ(-1, AudioFrameOperations::MonoToStereo(&frame_));
+  EXPECT_EQ(-1, AudioFrameOperations::UpmixChannels(2, &frame_));
 
   frame_.samples_per_channel_ = AudioFrame::kMaxDataSizeSamples;
   frame_.num_channels_ = 1;
-  EXPECT_EQ(-1, AudioFrameOperations::MonoToStereo(&frame_));
+  EXPECT_EQ(-1, AudioFrameOperations::UpmixChannels(2, &frame_));
 }
 
 TEST_F(AudioFrameOperationsTest, MonoToStereoSucceeds) {
   frame_.num_channels_ = 1;
   SetFrameData(1, &frame_);
 
-  EXPECT_EQ(0, AudioFrameOperations::MonoToStereo(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::UpmixChannels(2, &frame_));
 
   AudioFrame stereo_frame;
   stereo_frame.samples_per_channel_ = 320;
@@ -127,36 +127,18 @@ TEST_F(AudioFrameOperationsTest, MonoToStereoSucceeds) {
 TEST_F(AudioFrameOperationsTest, MonoToStereoMuted) {
   frame_.num_channels_ = 1;
   ASSERT_TRUE(frame_.muted());
-  EXPECT_EQ(0, AudioFrameOperations::MonoToStereo(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::UpmixChannels(2, &frame_));
   EXPECT_TRUE(frame_.muted());
-}
-
-TEST_F(AudioFrameOperationsTest, MonoToStereoBufferSucceeds) {
-  AudioFrame target_frame;
-  frame_.num_channels_ = 1;
-  SetFrameData(4, &frame_);
-
-  target_frame.num_channels_ = 2;
-  target_frame.samples_per_channel_ = frame_.samples_per_channel_;
-
-  AudioFrameOperations::MonoToStereo(frame_.data(), frame_.samples_per_channel_,
-                                     target_frame.mutable_data());
-
-  AudioFrame stereo_frame;
-  stereo_frame.samples_per_channel_ = 320;
-  stereo_frame.num_channels_ = 2;
-  SetFrameData(4, 4, &stereo_frame);
-  VerifyFramesAreEqual(stereo_frame, target_frame);
 }
 
 TEST_F(AudioFrameOperationsTest, StereoToMonoFailsWithBadParameters) {
   frame_.num_channels_ = 1;
-  EXPECT_EQ(-1, AudioFrameOperations::StereoToMono(&frame_));
+  EXPECT_EQ(-1, AudioFrameOperations::DownmixChannels(1, &frame_));
 }
 
 TEST_F(AudioFrameOperationsTest, StereoToMonoSucceeds) {
   SetFrameData(4, 2, &frame_);
-  EXPECT_EQ(0, AudioFrameOperations::StereoToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
 
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;
@@ -167,7 +149,7 @@ TEST_F(AudioFrameOperationsTest, StereoToMonoSucceeds) {
 
 TEST_F(AudioFrameOperationsTest, StereoToMonoMuted) {
   ASSERT_TRUE(frame_.muted());
-  EXPECT_EQ(0, AudioFrameOperations::StereoToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
   EXPECT_TRUE(frame_.muted());
 }
 
@@ -178,8 +160,9 @@ TEST_F(AudioFrameOperationsTest, StereoToMonoBufferSucceeds) {
   target_frame.num_channels_ = 1;
   target_frame.samples_per_channel_ = frame_.samples_per_channel_;
 
-  AudioFrameOperations::StereoToMono(frame_.data(), frame_.samples_per_channel_,
-                                     target_frame.mutable_data());
+  AudioFrameOperations::DownmixChannels(frame_.data(), 2,
+                                        frame_.samples_per_channel_, 1,
+                                        target_frame.mutable_data());
 
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;
@@ -190,7 +173,7 @@ TEST_F(AudioFrameOperationsTest, StereoToMonoBufferSucceeds) {
 
 TEST_F(AudioFrameOperationsTest, StereoToMonoDoesNotWrapAround) {
   SetFrameData(-32768, -32768, &frame_);
-  EXPECT_EQ(0, AudioFrameOperations::StereoToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
 
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;
@@ -199,18 +182,11 @@ TEST_F(AudioFrameOperationsTest, StereoToMonoDoesNotWrapAround) {
   VerifyFramesAreEqual(mono_frame, frame_);
 }
 
-TEST_F(AudioFrameOperationsTest, QuadToMonoFailsWithBadParameters) {
-  frame_.num_channels_ = 1;
-  EXPECT_EQ(-1, AudioFrameOperations::QuadToMono(&frame_));
-  frame_.num_channels_ = 2;
-  EXPECT_EQ(-1, AudioFrameOperations::QuadToMono(&frame_));
-}
-
 TEST_F(AudioFrameOperationsTest, QuadToMonoSucceeds) {
   frame_.num_channels_ = 4;
   SetFrameData(4, 2, 6, 8, &frame_);
 
-  EXPECT_EQ(0, AudioFrameOperations::QuadToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
 
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;
@@ -222,7 +198,7 @@ TEST_F(AudioFrameOperationsTest, QuadToMonoSucceeds) {
 TEST_F(AudioFrameOperationsTest, QuadToMonoMuted) {
   frame_.num_channels_ = 4;
   ASSERT_TRUE(frame_.muted());
-  EXPECT_EQ(0, AudioFrameOperations::QuadToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
   EXPECT_TRUE(frame_.muted());
 }
 
@@ -234,8 +210,9 @@ TEST_F(AudioFrameOperationsTest, QuadToMonoBufferSucceeds) {
   target_frame.num_channels_ = 1;
   target_frame.samples_per_channel_ = frame_.samples_per_channel_;
 
-  AudioFrameOperations::QuadToMono(frame_.data(), frame_.samples_per_channel_,
-                                   target_frame.mutable_data());
+  AudioFrameOperations::DownmixChannels(frame_.data(), 4,
+                                        frame_.samples_per_channel_, 1,
+                                        target_frame.mutable_data());
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;
   mono_frame.num_channels_ = 1;
@@ -246,7 +223,7 @@ TEST_F(AudioFrameOperationsTest, QuadToMonoBufferSucceeds) {
 TEST_F(AudioFrameOperationsTest, QuadToMonoDoesNotWrapAround) {
   frame_.num_channels_ = 4;
   SetFrameData(-32768, -32768, -32768, -32768, &frame_);
-  EXPECT_EQ(0, AudioFrameOperations::QuadToMono(&frame_));
+  EXPECT_EQ(0, AudioFrameOperations::DownmixChannels(1, &frame_));
 
   AudioFrame mono_frame;
   mono_frame.samples_per_channel_ = 320;

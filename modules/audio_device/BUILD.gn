@@ -201,6 +201,7 @@ rtc_source_set("audio_device_module_from_input_and_output") {
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base_approved",
       "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
   }
@@ -509,6 +510,7 @@ if (!build_with_chromium && is_android) {
     ]
     deps = [
       "../../rtc_base:base_java",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/android_deps:android_support_annotations_java",
     ]
   }

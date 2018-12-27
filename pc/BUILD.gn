@@ -297,6 +297,7 @@ if (rtc_include_tests) {
       "../system_wrappers:metrics",
       "../test:test_support",
       "//third_party/abseil-cpp/absl/memory",
+      "//third_party/abseil-cpp/absl/memory",
     ]
 
     if (rtc_build_libsrtp) {
@@ -432,6 +433,7 @@ if (rtc_include_tests) {
       "../rtc_base/third_party/sigslot",
       "../test:test_support",
       "../test:video_test_common",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]

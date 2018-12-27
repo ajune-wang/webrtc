@@ -12,10 +12,10 @@
 #define RTC_BASE_ASYNCINVOKER_INL_H_
 
 #include "rtc_base/bind.h"
-#include "rtc_base/criticalsection.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
-#include "rtc_base/messagehandler.h"
-#include "rtc_base/refcountedobject.h"
+#include "rtc_base/message_handler.h"
+#include "rtc_base/ref_counted_object.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"

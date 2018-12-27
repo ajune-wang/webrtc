@@ -11,8 +11,8 @@
 #include <memory>
 #include <utility>
 
-#include "media/engine/webrtcvideocapturer.h"
-#include "media/engine/webrtcvideocapturerfactory.h"
+#include "media/engine/web_rtc_video_capturer.h"
+#include "media/engine/web_rtc_video_device_capturer_factory.h"
 
 namespace cricket {
 

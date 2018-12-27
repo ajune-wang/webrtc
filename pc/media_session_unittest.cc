@@ -15,18 +15,18 @@
 
 #include "absl/memory/memory.h"
 #include "media/base/codec.h"
-#include "media/base/testutils.h"
-#include "p2p/base/p2pconstants.h"
-#include "p2p/base/transportdescription.h"
-#include "p2p/base/transportinfo.h"
-#include "pc/mediasession.h"
-#include "pc/rtpmediautils.h"
-#include "pc/srtpfilter.h"
+#include "media/base/test_utils.h"
+#include "p2p/base/p2p_constants.h"
+#include "p2p/base/transport_description.h"
+#include "p2p/base/transport_info.h"
+#include "pc/media_session.h"
+#include "pc/rtp_media_utils.h"
+#include "pc/srtp_filter.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/fakesslidentity.h"
+#include "rtc_base/fake_ssl_identity.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/messagedigest.h"
-#include "rtc_base/ssladapter.h"
+#include "rtc_base/message_digest.h"
+#include "rtc_base/ssl_adapter.h"
 #include "rtc_base/strings/string_builder.h"
 #include "test/gmock.h"
 
@@ -36,12 +36,31 @@
 
 typedef std::vector<cricket::Candidate> Candidates;
 
+using cricket::AudioCodec;
+using cricket::AudioContentDescription;
+using cricket::ContentInfo;
+using cricket::CryptoParamsVec;
+using cricket::DataCodec;
+using cricket::DataContentDescription;
+using cricket::GetFirstAudioContent;
+using cricket::GetFirstAudioContentDescription;
+using cricket::GetFirstDataContent;
+using cricket::GetFirstDataContentDescription;
+using cricket::GetFirstVideoContent;
+using cricket::GetFirstVideoContentDescription;
+using cricket::kAutoBandwidth;
+using cricket::MEDIA_TYPE_AUDIO;
+using cricket::MEDIA_TYPE_DATA;
+using cricket::MEDIA_TYPE_VIDEO;
 using cricket::MediaContentDescription;
-using cricket::MediaSessionDescriptionFactory;
 using cricket::MediaDescriptionOptions;
+using cricket::MediaProtocolType;
+using cricket::MediaSessionDescriptionFactory;
 using cricket::MediaSessionOptions;
 using cricket::MediaType;
-using cricket::MediaProtocolType;
+using cricket::SEC_DISABLED;
+using cricket::SEC_ENABLED;
+using cricket::SEC_REQUIRED;
 using cricket::SessionDescription;
 using cricket::SsrcGroup;
 using cricket::StreamParams;
@@ -49,31 +68,12 @@ using cricket::StreamParamsVec;
 using cricket::TransportDescription;
 using cricket::TransportDescriptionFactory;
 using cricket::TransportInfo;
-using cricket::ContentInfo;
-using cricket::CryptoParamsVec;
-using cricket::AudioContentDescription;
-using cricket::VideoContentDescription;
-using cricket::DataContentDescription;
-using cricket::GetFirstAudioContent;
-using cricket::GetFirstVideoContent;
-using cricket::GetFirstDataContent;
-using cricket::GetFirstAudioContentDescription;
-using cricket::GetFirstVideoContentDescription;
-using cricket::GetFirstDataContentDescription;
-using cricket::kAutoBandwidth;
-using cricket::AudioCodec;
 using cricket::VideoCodec;
-using cricket::DataCodec;
-using cricket::MEDIA_TYPE_AUDIO;
-using cricket::MEDIA_TYPE_VIDEO;
-using cricket::MEDIA_TYPE_DATA;
-using cricket::SEC_DISABLED;
-using cricket::SEC_ENABLED;
-using cricket::SEC_REQUIRED;
-using rtc::CS_AES_CM_128_HMAC_SHA1_32;
-using rtc::CS_AES_CM_128_HMAC_SHA1_80;
+using cricket::VideoContentDescription;
 using rtc::CS_AEAD_AES_128_GCM;
 using rtc::CS_AEAD_AES_256_GCM;
+using rtc::CS_AES_CM_128_HMAC_SHA1_32;
+using rtc::CS_AES_CM_128_HMAC_SHA1_80;
 using testing::ElementsAreArray;
 using webrtc::RtpExtension;
 using webrtc::RtpTransceiverDirection;
@@ -2003,14 +2003,17 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   // TODO(wu): |updated_offer| should not include the codec
   // (i.e. |kAudioCodecs2[0]|) the other side doesn't support.
   const AudioCodec kUpdatedAudioCodecOffer[] = {
-      kAudioCodecsAnswer[0], kAudioCodecsAnswer[1], kAudioCodecs2[0],
+      kAudioCodecsAnswer[0],
+      kAudioCodecsAnswer[1],
+      kAudioCodecs2[0],
   };
 
   // The expected video codecs are the common video codecs from the first
   // offer/answer exchange plus the video codecs only |f2_| offer, sorted in
   // preference order.
   const VideoCodec kUpdatedVideoCodecOffer[] = {
-      kVideoCodecsAnswer[0], kVideoCodecs2[1],
+      kVideoCodecsAnswer[0],
+      kVideoCodecs2[1],
   };
 
   const AudioContentDescription* updated_acd =
@@ -2631,14 +2634,16 @@ TEST_F(MediaSessionDescriptionFactoryTest,
   // Since the default local extension id |f2_| uses has already been used by
   // |f1_| for another extensions, it is changed to 13.
   const RtpExtension kUpdatedAudioRtpExtensions[] = {
-      kAudioRtpExtensionAnswer[0], RtpExtension(kAudioRtpExtension2[1].uri, 13),
+      kAudioRtpExtensionAnswer[0],
+      RtpExtension(kAudioRtpExtension2[1].uri, 13),
       kAudioRtpExtension2[2],
   };
 
   // Since the default local extension id |f2_| uses has already been used by
   // |f1_| for another extensions, is is changed to 12.
   const RtpExtension kUpdatedVideoRtpExtensions[] = {
-      kVideoRtpExtensionAnswer[0], RtpExtension(kVideoRtpExtension2[1].uri, 12),
+      kVideoRtpExtensionAnswer[0],
+      RtpExtension(kVideoRtpExtension2[1].uri, 12),
       kVideoRtpExtension2[2],
   };
 
@@ -2668,7 +2673,8 @@ TEST_F(MediaSessionDescriptionFactoryTest, RtpExtensionIdReused) {
   // Since the audio extensions used ID 3 for "both_audio_and_video", so should
   // the video extensions.
   const RtpExtension kExpectedVideoRtpExtension[] = {
-      kVideoRtpExtension3[0], kAudioRtpExtension3[1],
+      kVideoRtpExtension3[0],
+      kAudioRtpExtension3[1],
   };
 
   EXPECT_EQ(

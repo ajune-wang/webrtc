@@ -18,7 +18,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/random.h"
 #include "test/gtest.h"

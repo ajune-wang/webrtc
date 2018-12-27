@@ -8,12 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/pc/rtpsender.h"
+#include "sdk/android/src/jni/pc/rtp_sender.h"
 
 #include "sdk/android/generated_peerconnection_jni/jni/RtpSender_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
-#include "sdk/android/src/jni/pc/rtpparameters.h"
+#include "sdk/android/src/jni/pc/rtp_parameters.h"
 
 namespace webrtc {
 namespace jni {
@@ -35,8 +35,7 @@ static jboolean JNI_RtpSender_SetTrack(JNIEnv* jni,
       ->SetTrack(reinterpret_cast<MediaStreamTrackInterface*>(j_track_pointer));
 }
 
-jlong JNI_RtpSender_GetTrack(JNIEnv* jni,
-                             jlong j_rtp_sender_pointer) {
+jlong JNI_RtpSender_GetTrack(JNIEnv* jni, jlong j_rtp_sender_pointer) {
   // MediaStreamTrack will have shared ownership by the MediaStreamTrack Java
   // object.
   return jlongFromPointer(
@@ -45,8 +44,7 @@ jlong JNI_RtpSender_GetTrack(JNIEnv* jni,
           .release());
 }
 
-jlong JNI_RtpSender_GetDtmfSender(JNIEnv* jni,
-                                  jlong j_rtp_sender_pointer) {
+jlong JNI_RtpSender_GetDtmfSender(JNIEnv* jni, jlong j_rtp_sender_pointer) {
   return jlongFromPointer(
       reinterpret_cast<RtpSenderInterface*>(j_rtp_sender_pointer)
           ->GetDtmfSender()

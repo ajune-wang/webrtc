@@ -12,7 +12,7 @@
 
 #include <SLES/OpenSLES.h>
 
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 
 namespace webrtc {

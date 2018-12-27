@@ -13,8 +13,8 @@
 #include <limits>
 
 #include "rtc_base/random.h"
-#include "rtc_base/timestampaligner.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/time_utils.h"
+#include "rtc_base/timestamp_aligner.h"
 #include "test/gtest.h"
 
 namespace rtc {
@@ -43,8 +43,8 @@ double MeanTimeDifference(int nsamples, int window_size) {
 class TimestampAlignerForTest : public TimestampAligner {
   // Make internal methods accessible to testing.
  public:
-  using TimestampAligner::UpdateOffset;
   using TimestampAligner::ClipTimestamp;
+  using TimestampAligner::UpdateOffset;
 };
 
 void TestTimestampFilter(double rel_freq_error) {

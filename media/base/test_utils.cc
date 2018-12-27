@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/base/testutils.h"
+#include "media/base/test_utils.h"
 
 #include <cstdint>
 
 #include "api/video/video_frame.h"
 #include "api/video/video_source_interface.h"
-#include "media/base/videocapturer.h"
+#include "media/base/video_capturer.h"
 
 namespace cricket {
 

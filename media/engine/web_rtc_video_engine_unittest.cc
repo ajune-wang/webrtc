@@ -15,7 +15,7 @@
 #include <vector>
 
 #include "absl/strings/match.h"
-#include "api/rtpparameters.h"
+#include "api/rtp_parameters.h"
 #include "api/test/mock_video_bitrate_allocator.h"
 #include "api/test/mock_video_bitrate_allocator_factory.h"
 #include "api/test/mock_video_decoder_factory.h"
@@ -32,30 +32,30 @@
 #include "call/flexfec_receive_stream.h"
 #include "common_video/h264/profile_level_id.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
-#include "media/base/fakenetworkinterface.h"
-#include "media/base/fakevideocapturer.h"
-#include "media/base/fakevideorenderer.h"
-#include "media/base/mediaconstants.h"
-#include "media/base/rtputils.h"
-#include "media/base/testutils.h"
+#include "media/base/fake_network_interface.h"
+#include "media/base/fake_video_capturer.h"
+#include "media/base/fake_video_renderer.h"
+#include "media/base/media_constants.h"
+#include "media/base/rtp_utils.h"
+#include "media/base/test_utils.h"
 #include "media/engine/constants.h"
-#include "media/engine/fakewebrtccall.h"
-#include "media/engine/fakewebrtcvideoengine.h"
+#include "media/engine/fake_web_rtc_call.h"
+#include "media/engine/fake_web_rtc_video_engine.h"
 #include "media/engine/simulcast.h"
-#include "media/engine/webrtcvideoengine.h"
-#include "media/engine/webrtcvoiceengine.h"
+#include "media/engine/web_rtc_video_engine.h"
+#include "media/engine/web_rtc_voice_engine.h"
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
-#include "rtc_base/arraysize.h"
-#include "rtc_base/fakeclock.h"
+#include "rtc_base/array_size.h"
+#include "rtc_base/fake_clock.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 
 using cricket::FakeVideoCapturerWithTaskQueue;
+using testing::Field;
 using webrtc::BitrateConstraints;
 using webrtc::RtpExtension;
-using testing::Field;
 
 namespace {
 static const int kDefaultQpMax = 56;
@@ -510,9 +510,9 @@ TEST_F(WebRtcVideoEngineTest, UseFactoryForVp8WhenSupported) {
 // TODO(deadbeef): This test should be updated if/when we start
 // adding RTX codecs for unrecognized codec names.
 TEST_F(WebRtcVideoEngineTest, RtxCodecAddedForH264Codec) {
-  using webrtc::H264::ProfileLevelIdToString;
-  using webrtc::H264::ProfileLevelId;
   using webrtc::H264::kLevel1;
+  using webrtc::H264::ProfileLevelId;
+  using webrtc::H264::ProfileLevelIdToString;
   webrtc::SdpVideoFormat h264_constrained_baseline("H264");
   h264_constrained_baseline.parameters[kH264FmtpProfileLevelId] =
       *ProfileLevelIdToString(
@@ -1818,10 +1818,10 @@ TEST_F(WebRtcVideoChannelBaseTest, SimulateConference) {
 
 // Tests that we can add and remove capturers and frames are sent out properly
 TEST_F(WebRtcVideoChannelBaseTest, DISABLED_AddRemoveCapturer) {
-  using cricket::VideoCodec;
-  using cricket::VideoOptions;
-  using cricket::VideoFormat;
   using cricket::FOURCC_I420;
+  using cricket::VideoCodec;
+  using cricket::VideoFormat;
+  using cricket::VideoOptions;
 
   VideoCodec codec = DefaultCodec();
   const int time_between_send_ms = VideoFormat::FpsToInterval(kFramerate);

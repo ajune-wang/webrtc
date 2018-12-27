@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_FAKENETWORK_H_
-#define RTC_BASE_FAKENETWORK_H_
+#ifndef RTC_BASE_FAKE_NETWORK_H_
+#define RTC_BASE_FAKE_NETWORK_H_
 
 #include <memory>
 #include <string>
@@ -19,10 +19,10 @@
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fake_mdns_responder.h"
-#include "rtc_base/messagehandler.h"
+#include "rtc_base/message_handler.h"
 #include "rtc_base/network.h"
-#include "rtc_base/socketaddress.h"
-#include "rtc_base/stringencode.h"
+#include "rtc_base/socket_address.h"
+#include "rtc_base/string_encode.h"
 #include "rtc_base/thread.h"
 
 namespace rtc {
@@ -89,8 +89,8 @@ class FakeNetworkManager : public NetworkManagerBase, public MessageHandler {
     }
   }
 
-  using NetworkManagerBase::set_enumeration_permission;
   using NetworkManagerBase::set_default_local_addresses;
+  using NetworkManagerBase::set_enumeration_permission;
 
   // rtc::NetworkManager override.
   webrtc::MdnsResponderInterface* GetMdnsResponder() const override {
@@ -139,4 +139,4 @@ class FakeNetworkManager : public NetworkManagerBase, public MessageHandler {
 
 }  // namespace rtc
 
-#endif  // RTC_BASE_FAKENETWORK_H_
+#endif  // RTC_BASE_FAKE_NETWORK_H_

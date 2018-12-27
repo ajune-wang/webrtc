@@ -10,7 +10,7 @@
 
 #include "common_video/h264/h264_common.h"
 #include "components/video_codec/nalu_rewriter.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/gunit.h"
 
 #import <XCTest/XCTest.h>

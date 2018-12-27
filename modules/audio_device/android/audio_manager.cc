@@ -14,7 +14,7 @@
 
 #include "modules/audio_device/android/audio_common.h"
 #include "modules/utility/include/helpers_android.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_thread.h"

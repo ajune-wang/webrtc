@@ -34,7 +34,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.h"
 #include "modules/rtp_rtcp/source/rtcp_receiver.h"
 #include "modules/rtp_rtcp/source/time_util.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/random.h"
 #include "system_wrappers/include/ntp_time.h"
 #include "test/gmock.h"

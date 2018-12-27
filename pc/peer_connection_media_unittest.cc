@@ -14,22 +14,22 @@
 
 #include <tuple>
 
-#include "api/call/callfactoryinterface.h"
+#include "api/call/call_factory_interface.h"
 #include "api/test/fake_media_transport.h"
 #include "logging/rtc_event_log/rtc_event_log_factory.h"
-#include "media/base/fakemediaengine.h"
-#include "p2p/base/fakeportallocator.h"
-#include "pc/mediasession.h"
-#include "pc/peerconnectionwrapper.h"
-#include "pc/rtpmediautils.h"
-#include "pc/sdputils.h"
+#include "media/base/fake_media_engine.h"
+#include "p2p/base/fake_port_allocator.h"
+#include "pc/media_session.h"
+#include "pc/peer_connection_wrapper.h"
+#include "pc/rtp_media_utils.h"
+#include "pc/sdp_utils.h"
 #ifdef WEBRTC_ANDROID
-#include "pc/test/androidtestinitializer.h"
+#include "pc/test/android_test_initializer.h"
 #endif
 #include "absl/memory/memory.h"
-#include "pc/test/fakertccertificategenerator.h"
+#include "pc/test/fake_rtc_certificate_generator.h"
 #include "rtc_base/gunit.h"
-#include "rtc_base/virtualsocketserver.h"
+#include "rtc_base/virtual_socket_server.h"
 #include "test/gmock.h"
 
 namespace webrtc {
@@ -39,8 +39,8 @@ using RTCConfiguration = PeerConnectionInterface::RTCConfiguration;
 using RTCOfferAnswerOptions = PeerConnectionInterface::RTCOfferAnswerOptions;
 using ::testing::Bool;
 using ::testing::Combine;
-using ::testing::Values;
 using ::testing::ElementsAre;
+using ::testing::Values;
 
 class PeerConnectionWrapperForMediaTest : public PeerConnectionWrapper {
  public:
@@ -308,9 +308,9 @@ TEST_F(PeerConnectionMediaTestPlanB, SimulcastOffer) {
   RTCOfferAnswerOptions options;
   options.num_simulcast_layers = 3;
   auto offer = caller->CreateOffer(options);
-  auto* description = cricket::GetFirstMediaContent(
-      offer->description(),
-      cricket::MEDIA_TYPE_VIDEO)->media_description();
+  auto* description = cricket::GetFirstMediaContent(offer->description(),
+                                                    cricket::MEDIA_TYPE_VIDEO)
+                          ->media_description();
   ASSERT_EQ(1u, description->streams().size());
   ASSERT_TRUE(description->streams()[0].get_ssrc_group("SIM"));
   EXPECT_EQ(3u, description->streams()[0].get_ssrc_group("SIM")->ssrcs.size());
@@ -335,9 +335,9 @@ TEST_F(PeerConnectionMediaTestPlanB, SimulcastAnswer) {
   RTCOfferAnswerOptions options;
   options.num_simulcast_layers = 3;
   auto answer = callee->CreateAnswer(options);
-  auto* description = cricket::GetFirstMediaContent(
-      answer->description(),
-      cricket::MEDIA_TYPE_VIDEO)->media_description();
+  auto* description = cricket::GetFirstMediaContent(answer->description(),
+                                                    cricket::MEDIA_TYPE_VIDEO)
+                          ->media_description();
   ASSERT_EQ(1u, description->streams().size());
   ASSERT_TRUE(description->streams()[0].get_ssrc_group("SIM"));
   EXPECT_EQ(3u, description->streams()[0].get_ssrc_group("SIM")->ssrcs.size());

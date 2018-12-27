@@ -276,6 +276,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3265f4d_66eda0e5",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-12-27T15:51:02Z",
+      "side": 1,
+      "message": "I see, and I think that\u0027s fine for now if we document it. It seems a bit odd though to have the default value include RTP, but the value set via SetTransportOverhead does not?",
+      "parentUuid": "b19dfb75_48fae8bd",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

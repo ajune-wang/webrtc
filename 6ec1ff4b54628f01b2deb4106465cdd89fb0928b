@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c039307a_6964657d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "audio_send_stream",
+      "range": {
+        "startLine": 11,
+        "startChar": 57,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc2a2d31_f461bf25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "audio_send_stream",
+      "range": {
+        "startLine": 14,
+        "startChar": 74,
+        "endLine": 14,
+        "endChar": 92
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "295d19df_6ff1f613",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "Remove this-\u003e",
+      "range": {
+        "startLine": 508,
+        "startChar": 35,
+        "endLine": 508,
+        "endChar": 41
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3db5b274_9bf02343",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "excessive",
+      "range": {
+        "startLine": 808,
+        "startChar": 32,
+        "endLine": 808,
+        "endChar": 41
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6fef224_af1680cf",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "-which",
+      "range": {
+        "startLine": 812,
+        "startChar": 60,
+        "endLine": 812,
+        "endChar": 65
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09d5e9aa_f5fb46e4",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "option",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 812,
+        "endChar": 19
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db946852_3b042e56",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure I understand this sentence.",
+      "range": {
+        "startLine": 813,
+        "startChar": 6,
+        "endLine": 813,
+        "endChar": 56
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f0dde3_a8b35d20",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "AFAICT this doesn\u0027t contain RTP overhead. We should get that overhead from the transport in a similar way as is done in channel_send.cc here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/channel_send.cc?type\u003dcs\u0026g\u003d0\u0026l\u003d1184",
+      "range": {
+        "startLine": 814,
+        "startChar": 33,
+        "endLine": 814,
+        "endChar": 69
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14e7421e_bd7ff7fe",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "underestimates",
+      "range": {
+        "startLine": 825,
+        "startChar": 35,
+        "endLine": 825,
+        "endChar": 48
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd5f5a4_cbb7eaa1",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "I think this should be larger when we\u0027re using the transport-wide-seqnum header extension. IIRC it adds another 4 bytes",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 46
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a20eb04d_7931a4e6",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6549
+      },
+      "writtenOn": "2018-12-27T13:03:29Z",
+      "side": 1,
+      "message": "We add RTP overhead here, but AudioSendStream::SetTransportOverhead doesn\u0027t seem to include RTP overhead. What is correct?\n\nIt however seems to be accounted for in https://cs.chromium.org/chromium/src/third_party/webrtc/audio/channel_send.cc?type\u003dcs\u0026g\u003d0\u0026l\u003d1166 which is also called from AudioSendStream::SetTransportOverhead...",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

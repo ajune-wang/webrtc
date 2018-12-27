@@ -13,12 +13,12 @@
 #include <utility>
 #include <vector>
 
-#include "api/test/fakeconstraints.h"
-#include "media/base/fakevideocapturer.h"
-#include "media/base/fakevideorenderer.h"
-#include "media/base/mediachannel.h"
-#include "pc/videocapturertracksource.h"
-#include "rtc_base/arraysize.h"
+#include "api/test/fake_constraints.h"
+#include "media/base/fake_video_capturer.h"
+#include "media/base/fake_video_renderer.h"
+#include "media/base/media_channel.h"
+#include "pc/video_capturer_track_source.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/task_queue.h"

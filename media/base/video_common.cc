@@ -8,10 +8,10 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "media/base/videocommon.h"
+#include "media/base/video_common.h"
 
 #include "api/array_view.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace cricket {

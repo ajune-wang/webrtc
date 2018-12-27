@@ -15,12 +15,12 @@
 #include <vector>
 
 #include "common_types.h"  // NOLINT(build/include)
-#include "media/base/testutils.h"
-#include "media/base/videocommon.h"
-#include "media/engine/fakewebrtcdeviceinfo.h"
-#include "media/engine/fakewebrtcvcmfactory.h"
-#include "media/engine/fakewebrtcvideocapturemodule.h"
-#include "media/engine/webrtcvideocapturer.h"
+#include "media/base/test_utils.h"
+#include "media/base/video_common.h"
+#include "media/engine/fake_web_rtc_device_info.h"
+#include "media/engine/fake_web_rtc_vcm_factory.h"
+#include "media/engine/fake_web_rtc_video_capture_module.h"
+#include "media/engine/web_rtc_video_capturer.h"
 // TODO(http://crbug.com/908819): Add this when Chromium android templates
 // stop to consider *_module to have a special meaning. See media/BUILD.gn
 // #include "modules/video_capture/video_capture_defines.h"

@@ -8,14 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "pc/videotracksource.h"
+#include "pc/video_track_source.h"
 
 #include "rtc_base/checks.h"
 
 namespace webrtc {
 
-VideoTrackSource::VideoTrackSource(
-    bool remote)
+VideoTrackSource::VideoTrackSource(bool remote)
     : state_(kInitializing), remote_(remote) {
   worker_thread_checker_.DetachFromThread();
 }

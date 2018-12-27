@@ -8,13 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/android/src/jni/nativecapturerobserver.h"
+#include "sdk/android/src/jni/native_capturer_observer.h"
 
-#include "api/videosourceproxy.h"
+#include "api/video_track_source_proxy.h"
 #include "rtc_base/logging.h"
 #include "sdk/android/generated_video_jni/jni/NativeCapturerObserver_jni.h"
 #include "sdk/android/native_api/jni/java_types.h"
-#include "sdk/android/src/jni/androidvideotracksource.h"
+#include "sdk/android/src/jni/android_video_track_source.h"
 
 namespace webrtc {
 namespace jni {
@@ -49,10 +49,9 @@ static void JNI_NativeCapturerObserver_OnFrameCaptured(
                           j_video_frame_buffer);
 }
 
-static void JNI_NativeCapturerObserver_CapturerStarted(
-    JNIEnv* jni,
-    jlong j_source,
-    jboolean j_success) {
+static void JNI_NativeCapturerObserver_CapturerStarted(JNIEnv* jni,
+                                                       jlong j_source,
+                                                       jboolean j_success) {
   RTC_LOG(LS_INFO) << "NativeCapturerObserver_nativeCapturerStarted";
   AndroidVideoTrackSource* source =
       reinterpret_cast<AndroidVideoTrackSource*>(j_source);
@@ -60,9 +59,8 @@ static void JNI_NativeCapturerObserver_CapturerStarted(
                              : AndroidVideoTrackSource::SourceState::kEnded);
 }
 
-static void JNI_NativeCapturerObserver_CapturerStopped(
-    JNIEnv* jni,
-    jlong j_source) {
+static void JNI_NativeCapturerObserver_CapturerStopped(JNIEnv* jni,
+                                                       jlong j_source) {
   RTC_LOG(LS_INFO) << "NativeCapturerObserver_nativeCapturerStopped";
   AndroidVideoTrackSource* source =
       reinterpret_cast<AndroidVideoTrackSource*>(j_source);

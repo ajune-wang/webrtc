@@ -8,12 +8,12 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/mediaconstraintsinterface.h"
+#include "api/media_constraints_interface.h"
 
 #include "absl/types/optional.h"
-#include "api/peerconnectioninterface.h"
-#include "media/base/mediaconfig.h"
-#include "rtc_base/stringencode.h"
+#include "api/peer_connection_interface.h"
+#include "media/base/media_config.h"
+#include "rtc_base/string_encode.h"
 
 namespace {
 
@@ -303,8 +303,8 @@ bool CopyConstraintsIntoOfferAnswerOptions(
 
   int layers;
   if (FindConstraint(constraints,
-                     MediaConstraintsInterface::kNumSimulcastLayers,
-                     &layers, &mandatory_constraints_satisfied)) {
+                     MediaConstraintsInterface::kNumSimulcastLayers, &layers,
+                     &mandatory_constraints_satisfied)) {
     offer_answer_options->num_simulcast_layers = layers;
   }
 

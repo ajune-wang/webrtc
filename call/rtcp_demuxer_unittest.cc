@@ -16,7 +16,7 @@
 #include "api/rtp_headers.h"
 #include "call/rtcp_packet_sink_interface.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/bye.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/buffer.h"
 #include "rtc_base/checks.h"
 #include "test/gmock.h"

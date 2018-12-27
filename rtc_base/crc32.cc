@@ -10,7 +10,7 @@
 
 #include "rtc_base/crc32.h"
 
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 
 namespace rtc {
 

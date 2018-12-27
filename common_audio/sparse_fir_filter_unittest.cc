@@ -14,7 +14,7 @@
 
 #include "common_audio/fir_filter.h"
 #include "common_audio/fir_filter_factory.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "test/gtest.h"
 
 namespace webrtc {

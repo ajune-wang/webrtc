@@ -12,9 +12,9 @@
 #include <memory>
 #include <vector>
 
-#include "pc/datachannel.h"
-#include "pc/sctputils.h"
-#include "pc/test/fakedatachannelprovider.h"
+#include "pc/data_channel.h"
+#include "pc/sctp_utils.h"
+#include "pc/test/fake_data_channel_provider.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "test/gtest.h"
@@ -224,8 +224,10 @@ TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesSent) {
   AddObserver();
   SetChannelReady();
   std::vector<webrtc::DataBuffer> buffers({
-      webrtc::DataBuffer("message 1"), webrtc::DataBuffer("msg 2"),
-      webrtc::DataBuffer("message three"), webrtc::DataBuffer("quadra message"),
+      webrtc::DataBuffer("message 1"),
+      webrtc::DataBuffer("msg 2"),
+      webrtc::DataBuffer("message three"),
+      webrtc::DataBuffer("quadra message"),
       webrtc::DataBuffer("fifthmsg"),
       webrtc::DataBuffer("message of the beast"),
   });
@@ -446,8 +448,10 @@ TEST_F(SctpDataChannelTest, NoMsgSentIfNegotiatedAndNotFromOpenMsg) {
 TEST_F(SctpDataChannelTest, VerifyMessagesAndBytesReceived) {
   AddObserver();
   std::vector<webrtc::DataBuffer> buffers({
-      webrtc::DataBuffer("message 1"), webrtc::DataBuffer("msg 2"),
-      webrtc::DataBuffer("message three"), webrtc::DataBuffer("quadra message"),
+      webrtc::DataBuffer("message 1"),
+      webrtc::DataBuffer("msg 2"),
+      webrtc::DataBuffer("message three"),
+      webrtc::DataBuffer("quadra message"),
       webrtc::DataBuffer("fifthmsg"),
       webrtc::DataBuffer("message of the beast"),
   });

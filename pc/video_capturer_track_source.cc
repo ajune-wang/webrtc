@@ -8,15 +8,15 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "pc/videocapturertracksource.h"
+#include "pc/video_capturer_track_source.h"
 
 #include <cstdlib>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include "api/mediaconstraintsinterface.h"
-#include "rtc_base/arraysize.h"
+#include "api/media_constraints_interface.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 
 using cricket::CaptureState;

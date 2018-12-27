@@ -12,10 +12,10 @@
 #include <cstdint>
 #include <memory>
 
-#include "rtc_base/arraysize.h"
-#include "rtc_base/filerotatingstream.h"
+#include "rtc_base/array_size.h"
+#include "rtc_base/file_rotating_stream.h"
 #include "test/gtest.h"
-#include "test/testsupport/fileutils.h"
+#include "test/testsupport/file_utils.h"
 
 namespace rtc {
 

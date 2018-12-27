@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef MEDIA_BASE_VIDEOCAPTURERFACTORY_H_
-#define MEDIA_BASE_VIDEOCAPTURERFACTORY_H_
+#ifndef MEDIA_BASE_VIDEO_DEVICE_CAPTURER_FACTORY_H_
+#define MEDIA_BASE_VIDEO_DEVICE_CAPTURER_FACTORY_H_
 
 #include <memory>
 
@@ -29,4 +29,4 @@ class VideoDeviceCapturerFactory {
 
 }  // namespace cricket
 
-#endif  // MEDIA_BASE_VIDEOCAPTURERFACTORY_H_
+#endif  // MEDIA_BASE_VIDEO_DEVICE_CAPTURER_FACTORY_H_

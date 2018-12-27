@@ -15,8 +15,8 @@
 #include <utility>
 
 #include "api/media_transport_interface.h"
-#include "rtc_base/asyncinvoker.h"
-#include "rtc_base/criticalsection.h"
+#include "rtc_base/async_invoker.h"
+#include "rtc_base/critical_section.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/thread_checker.h"
 

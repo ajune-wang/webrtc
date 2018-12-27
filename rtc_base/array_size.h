@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_ARRAYSIZE_H_
-#define RTC_BASE_ARRAYSIZE_H_
+#ifndef RTC_BASE_ARRAY_SIZE_H_
+#define RTC_BASE_ARRAY_SIZE_H_
 
 #include <stddef.h>
 
@@ -29,4 +29,4 @@ char (&ArraySizeHelper(T (&array)[N]))[N];
 
 #define arraysize(array) (sizeof(ArraySizeHelper(array)))
 
-#endif  // RTC_BASE_ARRAYSIZE_H_
+#endif  // RTC_BASE_ARRAY_SIZE_H_

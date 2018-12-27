@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef P2P_BASE_TURNPORT_H_
-#define P2P_BASE_TURNPORT_H_
+#ifndef P2P_BASE_TURN_PORT_H_
+#define P2P_BASE_TURN_PORT_H_
 
 #include <stdio.h>
 #include <list>
@@ -21,10 +21,10 @@
 
 #include "absl/memory/memory.h"
 #include "p2p/base/port.h"
-#include "p2p/client/basicportallocator.h"
-#include "rtc_base/asyncinvoker.h"
-#include "rtc_base/asyncpacketsocket.h"
-#include "rtc_base/sslcertificate.h"
+#include "p2p/client/basic_port_allocator.h"
+#include "rtc_base/async_invoker.h"
+#include "rtc_base/async_packet_socket.h"
+#include "rtc_base/ssl_certificate.h"
 
 namespace webrtc {
 class TurnCustomizer;
@@ -187,7 +187,6 @@ class TurnPort : public Port {
   void OnSocketConnect(rtc::AsyncPacketSocket* socket);
   void OnSocketClose(rtc::AsyncPacketSocket* socket, int error);
 
-
   const std::string& hash() const { return hash_; }
   const std::string& nonce() const { return nonce_; }
 
@@ -195,9 +194,7 @@ class TurnPort : public Port {
 
   void OnAllocateMismatch();
 
-  rtc::AsyncPacketSocket* socket() const {
-    return socket_;
-  }
+  rtc::AsyncPacketSocket* socket() const { return socket_; }
 
   // For testing only.
   rtc::AsyncInvoker* invoker() { return &invoker_; }
@@ -205,9 +202,9 @@ class TurnPort : public Port {
   // Signal with resolved server address.
   // Parameters are port, server address and resolved server address.
   // This signal will be sent only if server address is resolved successfully.
-  sigslot::signal3<TurnPort*,
-                   const rtc::SocketAddress&,
-                   const rtc::SocketAddress&> SignalResolvedServerAddress;
+  sigslot::
+      signal3<TurnPort*, const rtc::SocketAddress&, const rtc::SocketAddress&>
+          SignalResolvedServerAddress;
 
   // Signal when TurnPort is closed,
   // e.g remote socket closed (TCP)
@@ -263,8 +260,7 @@ class TurnPort : public Port {
 
   // NOTE: This method needs to be accessible for StacPort
   // return true if entry was created (i.e channel_number consumed).
-  bool CreateOrRefreshEntry(const rtc::SocketAddress& addr,
-                            int channel_number);
+  bool CreateOrRefreshEntry(const rtc::SocketAddress& addr, int channel_number);
 
   rtc::DiffServCodePoint StunDscpValue() const override;
 
@@ -324,8 +320,7 @@ class TurnPort : public Port {
 
   bool ScheduleRefresh(uint32_t lifetime);
   void SendRequest(StunRequest* request, int delay);
-  int Send(const void* data, size_t size,
-           const rtc::PacketOptions& options);
+  int Send(const void* data, size_t size, const rtc::PacketOptions& options);
   void UpdateHash();
   bool UpdateNonce(StunMessage* response);
   void ResetNonce();
@@ -349,7 +344,8 @@ class TurnPort : public Port {
 
   void TurnCustomizerMaybeModifyOutgoingStunMessage(StunMessage* message);
   bool TurnCustomizerAllowChannelData(const void* data,
-                                      size_t size, bool payload);
+                                      size_t size,
+                                      bool payload);
 
   ProtocolAddress server_address_;
   TlsCertPolicy tls_cert_policy_ = TlsCertPolicy::TLS_CERT_POLICY_SECURE;
@@ -366,9 +362,9 @@ class TurnPort : public Port {
   rtc::DiffServCodePoint stun_dscp_value_;
 
   StunRequestManager request_manager_;
-  std::string realm_;       // From 401/438 response message.
-  std::string nonce_;       // From 401/438 response message.
-  std::string hash_;        // Digest of username:realm:password
+  std::string realm_;  // From 401/438 response message.
+  std::string nonce_;  // From 401/438 response message.
+  std::string hash_;   // Digest of username:realm:password
 
   int next_channel_number_;
   EntryList entries_;
@@ -385,7 +381,7 @@ class TurnPort : public Port {
 
   // Optional TurnCustomizer that can modify outgoing messages. Once set, this
   // must outlive the TurnPort's lifetime.
-  webrtc::TurnCustomizer *turn_customizer_ = nullptr;
+  webrtc::TurnCustomizer* turn_customizer_ = nullptr;
 
   friend class TurnEntry;
   friend class TurnAllocateRequest;
@@ -396,4 +392,4 @@ class TurnPort : public Port {
 
 }  // namespace cricket
 
-#endif  // P2P_BASE_TURNPORT_H_
+#endif  // P2P_BASE_TURN_PORT_H_

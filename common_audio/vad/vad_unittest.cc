@@ -14,7 +14,7 @@
 
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "common_audio/vad/include/webrtc_vad.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "test/gtest.h"
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e74c8ef3_fed56e3f",
+        "filename": "modules/audio_mixer/audio_mixer_impl_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-12-28T10:25:50Z",
+      "side": 1,
+      "message": "Thanks! I think I\u0027ve made the last version as you suggested.",
+      "parentUuid": "01efd33d_83d44158",
+      "revId": "c30d22d0a69acddb5e1cb6dc837499bd67f1ebd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "77a2516e_b5d7f0c0",
         "filename": "modules/audio_mixer/frame_combiner.cc",
         "patchSetId": 14
@@ -33,6 +51,24 @@
       "revId": "c30d22d0a69acddb5e1cb6dc837499bd67f1ebd8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b435f461_eb1cb35a",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2018-12-28T10:25:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77a2516e_b5d7f0c0",
+      "revId": "c30d22d0a69acddb5e1cb6dc837499bd67f1ebd8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

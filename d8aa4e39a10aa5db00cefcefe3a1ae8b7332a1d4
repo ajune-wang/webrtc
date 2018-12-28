@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba1beaa9_8cd9bd0e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T18:38:10Z",
+      "side": 1,
+      "message": "Specify lifetime requirements.",
+      "revId": "d8aa4e39a10aa5db00cefcefe3a1ae8b7332a1d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

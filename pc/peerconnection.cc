@@ -58,8 +58,9 @@
 using cricket::ContentInfo;
 using cricket::ContentInfos;
 using cricket::MediaContentDescription;
-using cricket::SessionDescription;
 using cricket::MediaProtocolType;
+using cricket::SessionDescription;
+using cricket::SimulcastLayerList;
 using cricket::TransportInfo;
 
 using cricket::LOCAL_PORT_TYPE;
@@ -170,6 +171,7 @@ bool IsValidOfferToReceiveMedia(int value) {
 }
 
 // Add options to |[audio/video]_media_description_options| from |senders|.
+// This should only be called in Plan-B semantics.
 void AddRtpSenderOptions(
     const std::vector<rtc::scoped_refptr<
         RtpSenderProxyWithInternal<RtpSenderInternal>>>& senders,
@@ -186,8 +188,8 @@ void AddRtpSenderOptions(
       RTC_DCHECK(sender->media_type() == cricket::MEDIA_TYPE_VIDEO);
       if (video_media_description_options) {
         video_media_description_options->AddVideoSender(
-            sender->id(), sender->internal()->stream_ids(),
-            num_sim_layers);
+            sender->id(), sender->internal()->stream_ids(), {},
+            SimulcastLayerList(), num_sim_layers);
       }
     }
   }

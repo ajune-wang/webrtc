@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1493768_ce81ae5b",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "Return bool and then use RTC_DCHECK(ValidateSimulcastLayers()) instead? That way all the code gets compiled out in a release build.",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9c7929_ae5a4337",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "RTC_DCHECK_EQ",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fb58640_f1b8c312",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "Maybe more clear like this?\n\nif (sender.rids.size() \u003e 1) {\n  result.set_rids(sender.rids);\n}\nreturn result;",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2552eb28_96d4fbdc",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1879,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "FYI, Pointwise also checks that the sizes are equal.",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07824715_0f82ca70",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1890,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "ASSERT_TRUE?",
+      "range": {
+        "startLine": 1890,
+        "startChar": 2,
+        "endLine": 1890,
+        "endChar": 13
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3ffc523_ed179f03",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "nit: could use an initializer\n\nstd::vector\u003cRidDescription\u003e rid_descriptions{\n  RidDescription(\"f\", RidDirection::kSend),\n  ...\n};",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab25efae_fa417ff0",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "nit: newline after",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2416c83d_e1be509a",
+        "filename": "pc/unique_id_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "I guess this should also do an RTC_CHECK that the size of known_ids is \u003c max uint32",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b01022d_8fef5d5f",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2018-12-28T23:00:22Z",
+      "side": 1,
+      "message": "\u003d 0?",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -27,6 +27,7 @@
 #include "api/array_view.h"
 #include "api/rtcerror.h"
 #include "api/video/encoded_image.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/deprecation.h"
 #include "rtc_base/networkroute.h"
@@ -53,6 +54,10 @@ struct MediaTransportSettings final {
   // TODO(bugs.webrtc.org/9944): This should become zero buffer in the distant
   // future.
   absl::optional<std::string> pre_shared_key;
+
+  // If present, provides the event log that media transport should use.
+  // Media transport does not own it.
+  RtcEventLog* event_log = nullptr;
 };
 
 // Represents encoded audio frame in any encoding (type of encoding is opaque).

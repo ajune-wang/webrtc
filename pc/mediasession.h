@@ -35,9 +35,14 @@ class ChannelManager;
 const char kDefaultRtcpCname[] = "DefaultRtcpCname";
 
 // Options for an RtpSender contained with an media description/"m=" section.
+// Note: Spec-compliant Simulcast and legacy simulcast are mutually exclusive.
 struct SenderOptions {
   std::string track_id;
   std::vector<std::string> stream_ids;
+  // Use RIDs and Simulcast Layers to indicate spec-compliant Simulcast.
+  std::vector<RidDescription> rids;
+  SimulcastLayerList simulcast_layers;
+  // Use |num_sim_layers| to indicate legacy simulcast.
   int num_sim_layers;
 };
 
@@ -55,6 +60,8 @@ struct MediaDescriptionOptions {
                       const std::vector<std::string>& stream_ids);
   void AddVideoSender(const std::string& track_id,
                       const std::vector<std::string>& stream_ids,
+                      const std::vector<RidDescription>& rids,
+                      const SimulcastLayerList& simulcast_layers,
                       int num_sim_layers);
 
   // Internally just uses sender_options.
@@ -69,11 +76,15 @@ struct MediaDescriptionOptions {
   // Note: There's no equivalent "RtpReceiverOptions" because only send
   // stream information goes in the local descriptions.
   std::vector<SenderOptions> sender_options;
+  std::vector<RidDescription> receive_rids;
+  SimulcastLayerList receive_simulcast_layers;
 
  private:
   // Doesn't DCHECK on |type|.
   void AddSenderInternal(const std::string& track_id,
                          const std::vector<std::string>& stream_ids,
+                         const std::vector<RidDescription>& rids,
+                         const SimulcastLayerList& simulcast_layers,
                          int num_sim_layers);
 };
 

@@ -107,6 +107,144 @@
     },
     {
       "key": {
+        "uuid": "d76368c4_009aacd0",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be any?",
+      "range": {
+        "startLine": 488,
+        "startChar": 11,
+        "endLine": 488,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0544d3a_16264b0b",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Are you planning on always populating this this?",
+      "range": {
+        "startLine": 505,
+        "startChar": 14,
+        "endLine": 505,
+        "endChar": 58
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63dd84a7_9c9cb414",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Why not just pass media_description_options.sender_options to AddStreamParams instead of creating the variable?",
+      "range": {
+        "startLine": 793,
+        "startChar": 36,
+        "endLine": 793,
+        "endChar": 50
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9fb86c0_ccf760bd",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Comment for receive_rids and recieve_simulcast_layers? It could explain that this is part of a spec-compliant simulcast and that they should always exist in this case.",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 42
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3d3a7f5_83bccb82",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "What do you think of renaming this to AttachSenderToMediaDescriptionOptions?",
+      "range": {
+        "startLine": 314,
+        "startChar": 12,
+        "endLine": 314,
+        "endChar": 38
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41fb0c61_cd72222b",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "send_rid_descriptions?",
+      "range": {
+        "startLine": 1862,
+        "startChar": 39,
+        "endLine": 1862,
+        "endChar": 55
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2552eb28_96d4fbdc",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -139,6 +277,29 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c5a7830_461b020c",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Why is this always the case?",
+      "range": {
+        "startLine": 1885,
+        "startChar": 2,
+        "endLine": 1885,
+        "endChar": 48
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -189,6 +350,75 @@
     },
     {
       "key": {
+        "uuid": "6a1c3e3a_06a4a97a",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1902,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "This should probably be called AddMediaDescriptionOptions. These names threw me off at first, because I thought they were modifying the MediaDescription itself.",
+      "range": {
+        "startLine": 1902,
+        "startChar": 2,
+        "endLine": 1902,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ae86721_ba48bb11",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "send_rid_descriptions/send_simulcast_layers?",
+      "range": {
+        "startLine": 1911,
+        "startChar": 2,
+        "endLine": 1911,
+        "endChar": 18
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac633fc_a667fc6e",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Go FSU Seminoles!!!\n\nFSU--\u003eSFU",
+      "range": {
+        "startLine": 1954,
+        "startChar": 25,
+        "endLine": 1954,
+        "endChar": 28
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d3ffc523_ed179f03",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -221,6 +451,29 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b9650e8_14b93f00",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "DCHECK(!IsUnifiedPlan())?",
+      "range": {
+        "startLine": 174,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 49
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -326,6 +579,98 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba343c09_ac3a2d16",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Should this fail with an RTC_CHECK as well if there are no numbers to generate?",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe89fd89_97b1c299",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Why did you CreateUniqueNumberGenerator and UniqueNumberGenerator if they aren\u0027t being used anywhere?",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "521428dd_6c68ed90",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "ASSERT_EQ?",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd52c29a_330b3e59",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2018-12-29T00:55:56Z",
+      "side": 1,
+      "message": "Does this test the RandomIdGenerator well? Since the space of randomly generated numbers is 2^32, it\u0027s likely that a collision won\u0027t occur.",
+      "range": {
+        "startLine": 51,
+        "startChar": 34,
+        "endLine": 51,
+        "endChar": 62
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

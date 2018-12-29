@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b554551d_bd2c0792",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "i wanted to but i was afraid that i would get a \"method not used\" in release build.\nwill try it out.",
+      "parentUuid": "f1493768_ce81ae5b",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f9c7929_ae5a4337",
         "filename": "pc/mediasession.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e3dc97_ee91f6f1",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f9c7929_ae5a4337",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f99f9ff8_38cee9ab",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "yes, there was a lot of logic below the if statement originally which i later removed.\nit makes sense now to inverse the logic.",
+      "parentUuid": "5fb58640_f1b8c312",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2552eb28_96d4fbdc",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8533ecc2_5f7eb8a0",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1879,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2552eb28_96d4fbdc",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "2480692a_7c792e55",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1890,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "HasSimulcast() means that vectors are not empty. they are always accessible, so it\u0027s ok not to ASSERT.",
+      "parentUuid": "07824715_0f82ca70",
+      "range": {
+        "startLine": 1890,
+        "startChar": 2,
+        "endLine": 1890,
+        "endChar": 13
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3ffc523_ed179f03",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -107,6 +203,24 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63cdfa2e_493edf7d",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1973,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "i like it!",
+      "parentUuid": "d3ffc523_ed179f03",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "ffe90077_c816a171",
+        "filename": "pc/simulcastdescription.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab25efae_fa417ff0",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2416c83d_e1be509a",
         "filename": "pc/unique_id_generator.cc",
         "patchSetId": 4
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "51ddcdb2_c46a57cc",
+        "filename": "pc/unique_id_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "i can add, but it\u0027s highly unlikely to hit, not because max uint32 is a large number, but because random sampling will be very slow (quadratic) as we reach that number.",
+      "parentUuid": "2416c83d_e1be509a",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b01022d_8fef5d5f",
         "filename": "pc/unique_id_generator.h",
         "patchSetId": 4
@@ -158,6 +308,24 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7650ee83_74f1862b",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2018-12-29T00:06:39Z",
+      "side": 1,
+      "message": "discussed F2F, i am in favor of initializing everything in the ctor initialization list.",
+      "parentUuid": "5b01022d_8fef5d5f",
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

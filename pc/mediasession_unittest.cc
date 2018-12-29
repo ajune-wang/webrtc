@@ -36,45 +36,58 @@
 
 typedef std::vector<cricket::Candidate> Candidates;
 
+using cricket::AudioCodec;
+using cricket::AudioContentDescription;
+using cricket::ContentInfo;
+using cricket::CryptoParamsVec;
+using cricket::DataCodec;
+using cricket::DataContentDescription;
+using cricket::GetFirstAudioContent;
+using cricket::GetFirstAudioContentDescription;
+using cricket::GetFirstDataContent;
+using cricket::GetFirstDataContentDescription;
+using cricket::GetFirstVideoContent;
+using cricket::GetFirstVideoContentDescription;
+using cricket::kAutoBandwidth;
+using cricket::MEDIA_TYPE_AUDIO;
+using cricket::MEDIA_TYPE_DATA;
+using cricket::MEDIA_TYPE_VIDEO;
 using cricket::MediaContentDescription;
-using cricket::MediaSessionDescriptionFactory;
 using cricket::MediaDescriptionOptions;
+using cricket::MediaProtocolType;
+using cricket::MediaSessionDescriptionFactory;
 using cricket::MediaSessionOptions;
 using cricket::MediaType;
-using cricket::MediaProtocolType;
+using cricket::RidDescription;
+using cricket::RidDirection;
+using cricket::SEC_DISABLED;
+using cricket::SEC_ENABLED;
+using cricket::SEC_REQUIRED;
 using cricket::SessionDescription;
+using cricket::SimulcastDescription;
+using cricket::SimulcastLayer;
+using cricket::SimulcastLayerList;
 using cricket::SsrcGroup;
 using cricket::StreamParams;
 using cricket::StreamParamsVec;
 using cricket::TransportDescription;
 using cricket::TransportDescriptionFactory;
 using cricket::TransportInfo;
-using cricket::ContentInfo;
-using cricket::CryptoParamsVec;
-using cricket::AudioContentDescription;
-using cricket::VideoContentDescription;
-using cricket::DataContentDescription;
-using cricket::GetFirstAudioContent;
-using cricket::GetFirstVideoContent;
-using cricket::GetFirstDataContent;
-using cricket::GetFirstAudioContentDescription;
-using cricket::GetFirstVideoContentDescription;
-using cricket::GetFirstDataContentDescription;
-using cricket::kAutoBandwidth;
-using cricket::AudioCodec;
 using cricket::VideoCodec;
-using cricket::DataCodec;
-using cricket::MEDIA_TYPE_AUDIO;
-using cricket::MEDIA_TYPE_VIDEO;
-using cricket::MEDIA_TYPE_DATA;
-using cricket::SEC_DISABLED;
-using cricket::SEC_ENABLED;
-using cricket::SEC_REQUIRED;
-using rtc::CS_AES_CM_128_HMAC_SHA1_32;
-using rtc::CS_AES_CM_128_HMAC_SHA1_80;
+using cricket::VideoContentDescription;
 using rtc::CS_AEAD_AES_128_GCM;
 using rtc::CS_AEAD_AES_256_GCM;
+using rtc::CS_AES_CM_128_HMAC_SHA1_32;
+using rtc::CS_AES_CM_128_HMAC_SHA1_80;
+using testing::Each;
 using testing::ElementsAreArray;
+using testing::Eq;
+using testing::Field;
+using testing::IsEmpty;
+using testing::IsFalse;
+using testing::Ne;
+using testing::Pointwise;
+using testing::SizeIs;
 using webrtc::RtpExtension;
 using webrtc::RtpTransceiverDirection;
 
@@ -303,6 +316,8 @@ static void AttachSenderToMediaSection(
     MediaType type,
     const std::string& track_id,
     const std::vector<std::string>& stream_ids,
+    const std::vector<RidDescription>& rids,
+    const SimulcastLayerList& simulcast_layers,
     int num_sim_layer,
     MediaSessionOptions* session_options) {
   auto it = FindFirstMediaDescriptionByMid(mid, session_options);
@@ -311,7 +326,8 @@ static void AttachSenderToMediaSection(
       it->AddAudioSender(track_id, stream_ids);
       break;
     case MEDIA_TYPE_VIDEO:
-      it->AddVideoSender(track_id, stream_ids, num_sim_layer);
+      it->AddVideoSender(track_id, stream_ids, rids, simulcast_layers,
+                         num_sim_layer);
       break;
     case MEDIA_TYPE_DATA:
       RTC_CHECK(stream_ids.size() == 1U);
@@ -320,6 +336,18 @@ static void AttachSenderToMediaSection(
     default:
       RTC_NOTREACHED();
   }
+}
+
+static void AttachSenderToMediaSection(
+    const std::string& mid,
+    MediaType type,
+    const std::string& track_id,
+    const std::vector<std::string>& stream_ids,
+    int num_sim_layer,
+    MediaSessionOptions* session_options) {
+  AttachSenderToMediaSection(mid, type, track_id, stream_ids, {},
+                             SimulcastLayerList(), num_sim_layer,
+                             session_options);
 }
 
 static void DetachSenderFromMediaSection(const std::string& mid,
@@ -1820,6 +1848,184 @@ TEST_F(MediaSessionDescriptionFactoryTest, TestCreateSimulcastVideoOffer) {
       video_streams[0].get_ssrc_group(cricket::kSimSsrcGroupSemantics);
   ASSERT_TRUE(sim_ssrc_group != NULL);
   EXPECT_EQ(static_cast<size_t>(num_sim_layers), sim_ssrc_group->ssrcs.size());
+}
+
+MATCHER(RidDescriptionEquals, "Verifies that two RidDescriptions are equal.") {
+  const RidDescription& rid1 = ::testing::get<0>(arg);
+  const RidDescription& rid2 = ::testing::get<1>(arg);
+  return rid1.rid == rid2.rid && rid1.direction == rid2.direction;
+}
+
+static void CheckSimulcastInSessionDescription(
+    const SessionDescription* description,
+    const std::string& content_name,
+    const std::vector<RidDescription>& rid_descriptions,
+    const SimulcastLayerList& send_layers,
+    const RidDescription& receive_rid,
+    const SimulcastLayer& receive_layer) {
+  ASSERT_NE(description, nullptr);
+  const ContentInfo* content = description->GetContentByName(content_name);
+  ASSERT_NE(content, nullptr);
+  const MediaContentDescription* cd = content->media_description();
+  ASSERT_NE(cd, nullptr);
+  const StreamParamsVec& streams = cd->streams();
+  ASSERT_THAT(streams, SizeIs(1));
+  const StreamParams& stream = streams[0];
+  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  EXPECT_TRUE(stream.has_rids());
+  const std::vector<RidDescription> rids = stream.rids();
+
+  EXPECT_THAT(rids, Pointwise(RidDescriptionEquals(), rid_descriptions));
+
+  ASSERT_TRUE(cd->has_receive_stream());
+  const StreamParams& receive_stream = cd->receive_stream();
+  EXPECT_THAT(receive_stream.ssrcs, IsEmpty());
+  EXPECT_TRUE(receive_stream.has_rids());
+  ASSERT_THAT(receive_stream.rids(), SizeIs(1));
+
+  EXPECT_EQ(receive_rid.rid, receive_stream.rids()[0].rid);
+  EXPECT_EQ(receive_rid.direction, receive_stream.rids()[0].direction);
+
+  EXPECT_TRUE(cd->HasSimulcast());
+  const SimulcastDescription& simulcast = cd->simulcast_description();
+  EXPECT_THAT(simulcast.send_layers(), SizeIs(send_layers.size()));
+  EXPECT_THAT(simulcast.send_layers(), Pointwise(Eq(), send_layers));
+
+  ASSERT_THAT(simulcast.receive_layers().GetAllLayers(), SizeIs(1));
+  EXPECT_EQ(receive_layer, simulcast.receive_layers().GetAllLayers()[0]);
+}
+
+// Create an offer with spec-compliant simulcast video stream.
+TEST_F(MediaSessionDescriptionFactoryTest, TestCreateCompliantSimulcastOffer) {
+  MediaSessionOptions opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &opts);
+  RidDescription receive_rid("1", RidDirection::kReceive);
+  SimulcastLayer receive_layer(receive_rid.rid, false);
+  opts.media_description_options[0].receive_rids = {receive_rid};
+  opts.media_description_options[0].receive_simulcast_layers.AddLayer(
+      receive_layer);
+  std::vector<RidDescription> rid_descriptions;
+  rid_descriptions.push_back(RidDescription("f", RidDirection::kSend));
+  rid_descriptions.push_back(RidDescription("h", RidDirection::kSend));
+  rid_descriptions.push_back(RidDescription("q", RidDirection::kSend));
+  SimulcastLayerList simulcast_layers;
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[0].rid, false));
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[1].rid, true));
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[2].rid, false));
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, rid_descriptions,
+                             simulcast_layers, 0, &opts);
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, nullptr);
+
+  CheckSimulcastInSessionDescription(offer.get(), "video", rid_descriptions,
+                                     simulcast_layers, receive_rid,
+                                     receive_layer);
+}
+
+// Create an offer that signals RIDs (not SSRCs) without Simulcast.
+// In this scenario, RIDs do not need to be negotiated (there is only one).
+TEST_F(MediaSessionDescriptionFactoryTest, TestOfferWithRidsNoSimulcast) {
+  MediaSessionOptions opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &opts);
+  RidDescription rid("f", RidDirection::kSend);
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, {rid}, SimulcastLayerList(), 0,
+                             &opts);
+  std::unique_ptr<SessionDescription> offer = f1_.CreateOffer(opts, nullptr);
+
+  ASSERT_NE(offer.get(), nullptr);
+  const ContentInfo* content = offer->GetContentByName("video");
+  ASSERT_NE(content, nullptr);
+  const MediaContentDescription* cd = content->media_description();
+  ASSERT_NE(cd, nullptr);
+  EXPECT_FALSE(cd->has_receive_stream());
+  const StreamParamsVec& streams = cd->streams();
+  ASSERT_THAT(streams, SizeIs(1));
+  const StreamParams& stream = streams[0];
+  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  EXPECT_FALSE(stream.has_rids());
+  EXPECT_FALSE(cd->HasSimulcast());
+}
+
+// Create an answer with spec-compliant simulcast video stream.
+// In this scenario, the FSU is the caller requesting that we send Simulcast.
+TEST_F(MediaSessionDescriptionFactoryTest, TestCreateCompliantSimulcastAnswer) {
+  MediaSessionOptions offer_opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &offer_opts);
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, 1, &offer_opts);
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOffer(offer_opts, nullptr);
+
+  MediaSessionOptions answer_opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &answer_opts);
+
+  RidDescription receive_rid("1", RidDirection::kReceive);
+  SimulcastLayer receive_layer(receive_rid.rid, false);
+  answer_opts.media_description_options[0].receive_rids = {receive_rid};
+  answer_opts.media_description_options[0].receive_simulcast_layers.AddLayer(
+      receive_layer);
+  std::vector<RidDescription> rid_descriptions{
+      RidDescription("f", RidDirection::kSend),
+      RidDescription("h", RidDirection::kSend),
+      RidDescription("q", RidDirection::kSend),
+  };
+  SimulcastLayerList simulcast_layers;
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[0].rid, false));
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[1].rid, true));
+  simulcast_layers.AddLayer(SimulcastLayer(rid_descriptions[2].rid, false));
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, rid_descriptions,
+                             simulcast_layers, 0, &answer_opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), answer_opts, nullptr);
+
+  CheckSimulcastInSessionDescription(answer.get(), "video", rid_descriptions,
+                                     simulcast_layers, receive_rid,
+                                     receive_layer);
+}
+
+// Create an answer that signals RIDs (not SSRCs) without Simulcast.
+// In this scenario, RIDs do not need to be negotiated (there is only one).
+// Note that RID Direction is not the same as the transceiver direction.
+TEST_F(MediaSessionDescriptionFactoryTest, TestAnswerWithRidsNoSimulcast) {
+  MediaSessionOptions offer_opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &offer_opts);
+  RidDescription rid_offer("f", RidDirection::kSend);
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, {rid_offer}, SimulcastLayerList(),
+                             0, &offer_opts);
+  std::unique_ptr<SessionDescription> offer =
+      f1_.CreateOffer(offer_opts, nullptr);
+
+  MediaSessionOptions answer_opts;
+  AddMediaSection(MEDIA_TYPE_VIDEO, "video", RtpTransceiverDirection::kSendRecv,
+                  kActive, &answer_opts);
+
+  RidDescription rid_answer("f", RidDirection::kReceive);
+  AttachSenderToMediaSection("video", MEDIA_TYPE_VIDEO, kVideoTrack1,
+                             {kMediaStream1}, {rid_answer},
+                             SimulcastLayerList(), 0, &answer_opts);
+  std::unique_ptr<SessionDescription> answer =
+      f2_.CreateAnswer(offer.get(), answer_opts, nullptr);
+
+  ASSERT_NE(answer.get(), nullptr);
+  const ContentInfo* content = offer->GetContentByName("video");
+  ASSERT_NE(content, nullptr);
+  const MediaContentDescription* cd = content->media_description();
+  ASSERT_NE(cd, nullptr);
+  EXPECT_FALSE(cd->has_receive_stream());
+  const StreamParamsVec& streams = cd->streams();
+  ASSERT_THAT(streams, SizeIs(1));
+  const StreamParams& stream = streams[0];
+  ASSERT_THAT(stream.ssrcs, IsEmpty());
+  EXPECT_FALSE(stream.has_rids());
+  EXPECT_FALSE(cd->HasSimulcast());
 }
 
 // Create an audio and video answer to a standard video offer with:

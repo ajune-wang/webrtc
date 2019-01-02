@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "68f993a4_c2da0642",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "it\u0027s because the if is inverted to exit the function if the condition is met (reducing nesting).\nin this case, if all_of the streams don\u0027t have rids, we can exit the function.\nso if any_of the streams have a rid, we should continue doing work.",
+      "parentUuid": "d76368c4_009aacd0",
+      "range": {
+        "startLine": 488,
+        "startChar": 11,
+        "endLine": 488,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0544d3a_16264b0b",
         "filename": "pc/mediasession.cc",
         "patchSetId": 4
@@ -141,6 +165,30 @@
       "writtenOn": "2018-12-29T00:55:56Z",
       "side": 1,
       "message": "Are you planning on always populating this this?",
+      "range": {
+        "startLine": 505,
+        "startChar": 14,
+        "endLine": 505,
+        "endChar": 58
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9dbb395f_09389ce0",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "for now yes, until i am ready to accept that we won\u0027t support it at all.",
+      "parentUuid": "f0544d3a_16264b0b",
       "range": {
         "startLine": 505,
         "startChar": 14,
@@ -176,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "46165683_0621e174",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "it was natural for me to add this as \u0027backwards\u0027 compatibility. i didn\u0027t notice there was only one reference. fixed.",
+      "parentUuid": "63dd84a7_9c9cb414",
+      "range": {
+        "startLine": 793,
+        "startChar": 36,
+        "endLine": 793,
+        "endChar": 50
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9fb86c0_ccf760bd",
         "filename": "pc/mediasession.h",
         "patchSetId": 4
@@ -196,6 +268,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9050443_023526c2",
+        "filename": "pc/mediasession.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "// |receive_rids| and |receive_simulcast_layers| are used with spec-compliant\n  // simulcast. When Simulcast is used, they should both not be empty.\n  // All RIDs in |receive_simulcast_layers| must appear in receive_rids as well.\n  // |receive_rids| could also be used outside of simulcast. It is possible to\n  // add restrictions on the incoming stream during negotiation outside the \n  // simulcast scenario. This is currently not fully supported, as meaningful\n  // restrictions are not handled by this library.",
+      "parentUuid": "b9fb86c0_ccf760bd",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 42
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -222,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "a5405a87_0c06cd56",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "sure.",
+      "parentUuid": "c3d3a7f5_83bccb82",
+      "range": {
+        "startLine": 314,
+        "startChar": 12,
+        "endLine": 314,
+        "endChar": 38
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41fb0c61_cd72222b",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -242,6 +362,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70d5a2fd_09173c1c",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1862,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "send_rids",
+      "parentUuid": "41fb0c61_cd72222b",
+      "range": {
+        "startLine": 1862,
+        "startChar": 39,
+        "endLine": 1862,
+        "endChar": 55
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -300,6 +444,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce32b941_ec031544",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "because we don\u0027t support receiving more than one stream and there is no way to communicate alternatives in the API",
+      "parentUuid": "8c5a7830_461b020c",
+      "range": {
+        "startLine": 1885,
+        "startChar": 2,
+        "endLine": 1885,
+        "endChar": 48
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -373,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "f887d9c5_7ae62ef4",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1902,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "i will rename, but i think it\u0027s good to look at these as the abstractions that they are supposed to serve. this does add a media section to the session, it\u0027s just that this is a description of how everything should \u0027appear\u0027. this description is later converted to the jsep objects.",
+      "parentUuid": "6a1c3e3a_06a4a97a",
+      "range": {
+        "startLine": 1902,
+        "startChar": 2,
+        "endLine": 1902,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ae86721_ba48bb11",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -396,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "aaa11dc3_a35c73c3",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "send_rids",
+      "parentUuid": "5ae86721_ba48bb11",
+      "range": {
+        "startLine": 1911,
+        "startChar": 2,
+        "endLine": 1911,
+        "endChar": 18
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cac633fc_a667fc6e",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -416,6 +632,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f5b6704_b723196b",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "d\u0027oh!",
+      "parentUuid": "cac633fc_a667fc6e",
+      "range": {
+        "startLine": 1954,
+        "startChar": 25,
+        "endLine": 1954,
+        "endChar": 28
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -474,6 +714,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d88025_ccb488c6",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "can\u0027t be done, because this is not a member of PeerConnection. it\u0027s a helper inside an anonymous namespace.\ni\u0027ll rename to AddPlanBRtpSenderOptions",
+      "parentUuid": "6b9650e8_14b93f00",
+      "range": {
+        "startLine": 174,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 49
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -605,6 +869,30 @@
     },
     {
       "key": {
+        "uuid": "f4894c21_891e817a",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "it currently does:\nRTC_CHECK_LT(known_ids_.size(), std::numeric_limits\u003cuint32_t\u003e::max());",
+      "parentUuid": "ba343c09_ac3a2d16",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe89fd89_97b1c299",
         "filename": "pc/unique_id_generator.h",
         "patchSetId": 4
@@ -625,6 +913,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "731ebc08_aac6a164",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "UniqueNumberGenerator is used in the implementation of the string generator.\nThe string generator is supposed to be used for RIDs (and MIDs).\nwe decided that we will move that logic to peer connection.",
+      "parentUuid": "fe89fd89_97b1c299",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -651,6 +963,30 @@
     },
     {
       "key": {
+        "uuid": "539743c2_1af75d56",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "i don\u0027t think it should assert, the code after can still continue to check uniqueness of elements.",
+      "parentUuid": "521428dd_6c68ed90",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd52c29a_330b3e59",
         "filename": "pc/unique_id_generator_unittest.cc",
         "patchSetId": 4
@@ -671,6 +1007,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5099cb8d_dafb9136",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T18:15:11Z",
+      "side": 1,
+      "message": "the tests marked as TYPED_TEST will test all the types referenced by test_types including the random generator.\nthe test is for the required behavior that if you initialize a generator with \u0027known\u0027 elements, then those elements will never be generated by the object.\nthe fact that the implementation of the random-generator class makes this unlikely should be irrelevant. \ni added a Seed(0) to this test to make the generator work harder.",
+      "parentUuid": "cd52c29a_330b3e59",
+      "range": {
+        "startLine": 51,
+        "startChar": 34,
+        "endLine": 51,
+        "endChar": 62
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

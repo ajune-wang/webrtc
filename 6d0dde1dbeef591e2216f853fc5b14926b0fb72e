@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "fc178207_21724f4f",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "68f993a4_c2da0642",
+      "range": {
+        "startLine": 488,
+        "startChar": 11,
+        "endLine": 488,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0544d3a_16264b0b",
         "filename": "pc/mediasession.cc",
         "patchSetId": 4
@@ -189,6 +213,30 @@
       "side": 1,
       "message": "for now yes, until i am ready to accept that we won\u0027t support it at all.",
       "parentUuid": "f0544d3a_16264b0b",
+      "range": {
+        "startLine": 505,
+        "startChar": 14,
+        "endLine": 505,
+        "endChar": 58
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "801d41bb_8af9265c",
+        "filename": "pc/mediasession.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9dbb395f_09389ce0",
       "range": {
         "startLine": 505,
         "startChar": 14,
@@ -471,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "291d10bd_f734b451",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Ack. Sounds good on mediasession.cc requiring this, until we decide further on support.",
+      "parentUuid": "ce32b941_ec031544",
+      "range": {
+        "startLine": 1885,
+        "startChar": 2,
+        "endLine": 1885,
+        "endChar": 48
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07824715_0f82ca70",
         "filename": "pc/mediasession_unittest.cc",
         "patchSetId": 4
@@ -553,6 +625,30 @@
       "side": 1,
       "message": "i will rename, but i think it\u0027s good to look at these as the abstractions that they are supposed to serve. this does add a media section to the session, it\u0027s just that this is a description of how everything should \u0027appear\u0027. this description is later converted to the jsep objects.",
       "parentUuid": "6a1c3e3a_06a4a97a",
+      "range": {
+        "startLine": 1902,
+        "startChar": 2,
+        "endLine": 1902,
+        "endChar": 17
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6a71484_41d08257",
+        "filename": "pc/mediasession_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1902,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Yeah that\u0027s a very valid point.",
+      "parentUuid": "f887d9c5_7ae62ef4",
       "range": {
         "startLine": 1902,
         "startChar": 2,
@@ -741,6 +837,30 @@
     },
     {
       "key": {
+        "uuid": "b1d1b148_88942656",
+        "filename": "pc/peerconnection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "sounds good",
+      "parentUuid": "85d88025_ccb488c6",
+      "range": {
+        "startLine": 174,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 49
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab25efae_fa417ff0",
         "filename": "pc/simulcastdescription.h",
         "patchSetId": 4
@@ -893,6 +1013,30 @@
     },
     {
       "key": {
+        "uuid": "f0f1c043_e6147488",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Nice, I see the change now.",
+      "parentUuid": "f4894c21_891e817a",
+      "range": {
+        "startLine": 71,
+        "startChar": 11,
+        "endLine": 71,
+        "endChar": 21
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe89fd89_97b1c299",
         "filename": "pc/unique_id_generator.h",
         "patchSetId": 4
@@ -937,6 +1081,30 @@
       "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7ba0c65_df4330cc",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Do you mean that the generation will be done in PeerConnection for rids/mids and UniqueStringGenerator won\u0027t be used? If the UniqueString/Number generators are not going to be used I would remove them (since they aren\u0027t used here either).",
+      "parentUuid": "731ebc08_aac6a164",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -987,6 +1155,30 @@
     },
     {
       "key": {
+        "uuid": "6af741e0_cece81af",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "539743c2_1af75d56",
+      "range": {
+        "startLine": 45,
+        "startChar": 2,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd52c29a_330b3e59",
         "filename": "pc/unique_id_generator_unittest.cc",
         "patchSetId": 4
@@ -1022,6 +1214,30 @@
       "side": 1,
       "message": "the tests marked as TYPED_TEST will test all the types referenced by test_types including the random generator.\nthe test is for the required behavior that if you initialize a generator with \u0027known\u0027 elements, then those elements will never be generated by the object.\nthe fact that the implementation of the random-generator class makes this unlikely should be irrelevant. \ni added a Seed(0) to this test to make the generator work harder.",
       "parentUuid": "cd52c29a_330b3e59",
+      "range": {
+        "startLine": 51,
+        "startChar": 34,
+        "endLine": 51,
+        "endChar": 62
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "563453f1_0b924879",
+        "filename": "pc/unique_id_generator_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-02T19:20:12Z",
+      "side": 1,
+      "message": "I should have clarified better, I assumed that\u0027s how TYPED_TEST worked. It seems hard to test the case of not reusing known values for randomly generated numbers. I think this is sufficient.",
+      "parentUuid": "5099cb8d_dafb9136",
       "range": {
         "startLine": 51,
         "startChar": 34,

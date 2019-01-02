@@ -642,6 +642,17 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
   BWE_TEST_LOGGING_PLOT(1, "Target_bitrate_kbps", at_time.ms(),
                         estimated_bitrate_bps / 1000);
 
+  DataRate target_rate = last_target_rate_;
+  if (congestion_window_pushback_controller_) {
+    int64_t pushback_rate =
+        congestion_window_pushback_controller_->UpdateTargetBitrate(
+            target_rate.bps());
+    pushback_rate = std::max<int64_t>(bandwidth_estimation_->GetMinBitrate(),
+                                      pushback_rate);
+    target_rate = DataRate::bps(pushback_rate);
+  }
+  pushback_target_rate_ = target_rate;
+
   if ((estimated_bitrate_bps != last_estimated_bitrate_bps_) ||
       (fraction_loss != last_estimated_fraction_loss_) ||
       (rtt_ms != last_estimated_rtt_ms_)) {
@@ -660,19 +671,6 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
         delay_based_bwe_
             ? delay_based_bwe_->GetExpectedBwePeriod()
             : delay_based_controller_->GetExpectedBandwidthPeriod();
-
-    // Set the target rate to the full estimated bandwidth since the estimation
-    // for legacy reasons includes target rate constraints.
-    DataRate target_rate = last_target_rate_;
-    if (congestion_window_pushback_controller_) {
-      int64_t pushback_rate =
-          congestion_window_pushback_controller_->UpdateTargetBitrate(
-              target_rate.bps());
-      pushback_rate = std::max<int64_t>(bandwidth_estimation_->GetMinBitrate(),
-                                        pushback_rate);
-      target_rate = DataRate::bps(pushback_rate);
-    }
-    pushback_target_rate_ = target_rate;
 
     TargetTransferRate target_rate_msg;
     target_rate_msg.at_time = at_time;

@@ -1108,6 +1108,30 @@
     },
     {
       "key": {
+        "uuid": "a799fabd_558986e4",
+        "filename": "pc/unique_id_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-02T20:31:21Z",
+      "side": 1,
+      "message": "UniqueStringGenerator will be used in PeerConnection to generate RIDs.\ni would also like for it to be used when MIDs are generated. i\u0027ll make that change now.",
+      "parentUuid": "f7ba0c65_df4330cc",
+      "range": {
+        "startLine": 83,
+        "startChar": 6,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "6d0dde1dbeef591e2216f853fc5b14926b0fb72e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "521428dd_6c68ed90",
         "filename": "pc/unique_id_generator_unittest.cc",
         "patchSetId": 4

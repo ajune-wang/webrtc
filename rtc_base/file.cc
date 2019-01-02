@@ -22,6 +22,7 @@ File::~File() {
 
 // static
 File File::Open(const std::string& path) {
+  printf("open: %s\n", path.c_str());
   return File(OpenPlatformFile(path));
 }
 

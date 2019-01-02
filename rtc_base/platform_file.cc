@@ -48,8 +48,12 @@ bool RemoveFile(const std::string& path) {
 }
 
 PlatformFile OpenPlatformFile(const std::string& path) {
-  return ::CreateFile(ToUtf16(path).c_str(), GENERIC_READ | GENERIC_WRITE, 0,
-                      nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  PlatformFile file = ::CreateFile(ToUtf16(path).c_str(), GENERIC_READ | GENERIC_WRITE, 0,
+                                   nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+  if (file == kInvalidPlatformFileValue) {
+    RTC_LOG_ERR(LS_ERROR) << "Failed to open " << path;
+  }
+  return file;
 }
 
 PlatformFile OpenPlatformFileReadOnly(const std::string& path) {

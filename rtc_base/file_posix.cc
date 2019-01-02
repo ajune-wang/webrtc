@@ -42,7 +42,8 @@ size_t File::Read(uint8_t* buffer, size_t length) {
     do {
       read = ::read(file_, buffer + total_read, length - total_read);
     } while (read == -1 && errno == EINTR);
-    if (read == -1)
+    printf("read = %lu\n", read);
+    if (read <= 0)  // Error or EOF
       break;
     total_read += read;
   } while (total_read < length);
@@ -72,7 +73,7 @@ size_t File::ReadAt(uint8_t* buffer, size_t length, size_t offset) {
       read = ::pread(file_, buffer + total_read, length - total_read,
                      offset + total_read);
     } while (read == -1 && errno == EINTR);
-    if (read == -1)
+    if (read <= 0)  // Error or EOF
       break;
     total_read += read;
   } while (total_read < length);

@@ -748,6 +748,7 @@ if (is_android) {
       ":generated_peerconnection_jni",
       ":logging_jni",
       ":native_api_jni",
+      ":stacktrace_jni",
       "../..:webrtc_common",
       "../../api:libjingle_peerconnection_api",
       "../../api/video_codecs:video_codecs_api",
@@ -1169,6 +1170,18 @@ if (is_android) {
       "../../rtc_base:rtc_base_approved",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
+    ]
+  }
+
+  rtc_static_library("stacktrace_jni") {
+    visibility = [ "*" ]
+    sources = [
+      "src/jni/stacktrace/stacktrace.cc",
+      "src/jni/stacktrace/stacktrace.h",
+    ]
+
+    deps = [
+      "../../rtc_base:rtc_base",
     ]
   }
 

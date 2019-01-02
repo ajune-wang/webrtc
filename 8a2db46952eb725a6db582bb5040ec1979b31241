@@ -22,6 +22,30 @@
       "revId": "8a2db46952eb725a6db582bb5040ec1979b31241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b235577_1f329ab5",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T15:18:15Z",
+      "side": 1,
+      "message": "If that\u0027s desired, then we should do it probably before changing visibility (otherwise people could start using it (in this case me :) ), and you would have to do more changes once you decide to move it to a different target.\n\nLet me know, I\u0027d like to check it in sooner rather than later :)",
+      "parentUuid": "8cce5904_bbc302a1",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "8a2db46952eb725a6db582bb5040ec1979b31241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

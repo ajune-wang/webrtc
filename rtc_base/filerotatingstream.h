@@ -158,13 +158,29 @@ class CallSessionFileRotatingStream : public FileRotatingStream {
  private:
   static size_t GetRotatingLogSize(size_t max_total_log_size);
   static size_t GetNumRotatingLogFiles(size_t max_total_log_size);
-  static const char* kLogPrefix;
   static const size_t kRotatingLogFileDefaultSize;
 
   const size_t max_total_log_size_;
   size_t num_rotations_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(CallSessionFileRotatingStream);
+};
+
+class FileRotatingStreamReader {
+ public:
+  FileRotatingStreamReader(const std::string& dir_path,
+                           const std::string& file_prefix);
+  ~FileRotatingStreamReader();
+  size_t GetSize();
+  size_t ReadData(void* buffer, size_t size);
+
+ private:
+  std::vector<std::string> file_names_;
+};
+
+class CallSessionFileRotatingStreamReader : public FileRotatingStreamReader {
+ public:
+  CallSessionFileRotatingStreamReader(const std::string& dir_path);
 };
 
 }  // namespace rtc

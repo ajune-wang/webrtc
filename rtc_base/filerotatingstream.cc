@@ -27,6 +27,7 @@
 #include "absl/strings/match.h"
 #include "absl/types/optional.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/file.h"
 #include "rtc_base/logging.h"
 
 // Note: We use fprintf for logging in the write paths of this stream to avoid
@@ -35,6 +36,8 @@
 namespace rtc {
 
 namespace {
+
+const char* kCallSessionLogPrefix = "webrtc_log";
 
 std::string AddTrailingPathDelimiterIfNeeded(std::string directory);
 
@@ -458,7 +461,7 @@ std::string FileRotatingStream::GetFilePath(size_t index,
 
 CallSessionFileRotatingStream::CallSessionFileRotatingStream(
     const std::string& dir_path)
-    : FileRotatingStream(dir_path, kLogPrefix),
+    : FileRotatingStream(dir_path, kCallSessionLogPrefix),
       max_total_log_size_(0),
       num_rotations_(0) {}
 
@@ -466,7 +469,7 @@ CallSessionFileRotatingStream::CallSessionFileRotatingStream(
     const std::string& dir_path,
     size_t max_total_log_size)
     : FileRotatingStream(dir_path,
-                         kLogPrefix,
+                         kCallSessionLogPrefix,
                          max_total_log_size / 2,
                          GetNumRotatingLogFiles(max_total_log_size) + 1),
       max_total_log_size_(max_total_log_size),
@@ -474,7 +477,6 @@ CallSessionFileRotatingStream::CallSessionFileRotatingStream(
   RTC_DCHECK_GE(max_total_log_size, 4);
 }
 
-const char* CallSessionFileRotatingStream::kLogPrefix = "webrtc_log";
 const size_t CallSessionFileRotatingStream::kRotatingLogFileDefaultSize =
     1024 * 1024;
 
@@ -507,5 +509,39 @@ size_t CallSessionFileRotatingStream::GetNumRotatingLogFiles(
   return std::max((size_t)2,
                   (max_total_log_size / 2) / kRotatingLogFileDefaultSize);
 }
+
+FileRotatingStreamReader::FileRotatingStreamReader(
+    const std::string& dir_path,
+    const std::string& file_prefix) {
+  file_names_ = GetFilesWithPrefix(AddTrailingPathDelimiterIfNeeded(dir_path),
+                                   file_prefix);
+  std::sort(file_names_.begin(), file_names_.end());
+}
+
+FileRotatingStreamReader::~FileRotatingStreamReader() = default;
+
+size_t FileRotatingStreamReader::GetSize() {
+  size_t total_size = 0;
+  for (auto file_name : file_names_) {
+    total_size += GetFileSize(file_name).value_or(0);
+  }
+  return total_size;
+}
+
+size_t FileRotatingStreamReader::ReadData(void* buffer, size_t size) {
+  size_t done = 0;
+  for (int i = file_names_.size(); i > 0 && done < size;) {
+    File f = File::Open(file_names_[--i]);
+    if (!f.IsOpen()) {
+      break;
+    }
+    done += f.Read(static_cast<uint8_t*>(buffer) + done, size - done);
+  }
+  return done;
+}
+
+CallSessionFileRotatingStreamReader::CallSessionFileRotatingStreamReader(
+    const std::string& dir_path)
+    : FileRotatingStreamReader(dir_path, kCallSessionLogPrefix) {}
 
 }  // namespace rtc

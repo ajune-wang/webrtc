@@ -23,31 +23,26 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "test/scenario/column_printer.h"
+#include "test/scenario/network/network.h"
 #include "test/scenario/scenario_config.h"
 
 namespace webrtc {
 namespace test {
 
-class NetworkReceiverInterface {
- public:
-  virtual void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                             uint64_t receiver,
-                             Timestamp at_time) = 0;
-  virtual ~NetworkReceiverInterface() = default;
-};
 class NullReceiver : public NetworkReceiverInterface {
  public:
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+  explicit NullReceiver(std::string id);
+
+ protected:
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
 };
 class ActionReceiver : public NetworkReceiverInterface {
  public:
-  explicit ActionReceiver(std::function<void()> action);
+  ActionReceiver(std::string id, std::function<void()> action);
   virtual ~ActionReceiver() = default;
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+
+ protected:
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
 
  private:
   std::function<void()> action_;
@@ -60,12 +55,9 @@ class NetworkNode : public NetworkReceiverInterface {
   ~NetworkNode() override;
   RTC_DISALLOW_COPY_AND_ASSIGN(NetworkNode);
 
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
   // Creates a route  for the given receiver_id over all the given nodes to the
   // given receiver.
-  static void Route(int64_t receiver_id,
+  static void Route(std::string receiver_id,
                     std::vector<NetworkNode*> nodes,
                     NetworkReceiverInterface* receiver);
 
@@ -74,25 +66,28 @@ class NetworkNode : public NetworkReceiverInterface {
   friend class AudioStreamPair;
   friend class VideoStreamPair;
 
-  NetworkNode(NetworkNodeConfig config,
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
+
+  NetworkNode(std::string id,
+              NetworkNodeConfig config,
               std::unique_ptr<NetworkBehaviorInterface> simulation);
-  static void ClearRoute(int64_t receiver_id, std::vector<NetworkNode*> nodes);
+  static void ClearRoute(std::string receiver_id,
+                         std::vector<NetworkNode*> nodes);
   void Process(Timestamp at_time);
 
  private:
   struct StoredPacket {
-    rtc::CopyOnWriteBuffer packet_data;
-    uint64_t receiver_id;
+    std::unique_ptr<EmulatedIpPacket> packet;
     uint64_t id;
     bool removed;
   };
-  void SetRoute(uint64_t receiver, NetworkReceiverInterface* node);
-  void ClearRoute(uint64_t receiver_id);
+  void SetRoute(std::string receiver, NetworkReceiverInterface* node);
+  void ClearRoute(std::string receiver_id);
   rtc::CriticalSection crit_sect_;
   size_t packet_overhead_ RTC_GUARDED_BY(crit_sect_);
   const std::unique_ptr<NetworkBehaviorInterface> behavior_
       RTC_GUARDED_BY(crit_sect_);
-  std::map<uint64_t, NetworkReceiverInterface*> routing_
+  std::map<std::string, NetworkReceiverInterface*> routing_
       RTC_GUARDED_BY(crit_sect_);
   std::deque<StoredPacket> packets_ RTC_GUARDED_BY(crit_sect_);
 
@@ -109,10 +104,12 @@ class SimulationNode : public NetworkNode {
  private:
   friend class Scenario;
 
-  SimulationNode(NetworkNodeConfig config,
+  SimulationNode(std::string id,
+                 NetworkNodeConfig config,
                  std::unique_ptr<NetworkBehaviorInterface> behavior,
                  SimulatedNetwork* simulation);
-  static std::unique_ptr<SimulationNode> Create(NetworkNodeConfig config);
+  static std::unique_ptr<SimulationNode> Create(std::string id,
+                                                NetworkNodeConfig config);
   SimulatedNetwork* const simulated_network_;
   NetworkNodeConfig config_;
 };
@@ -128,7 +125,7 @@ class NetworkNodeTransport : public Transport {
   bool SendRtcp(const uint8_t* packet, size_t length) override;
 
   void Connect(NetworkNode* send_node,
-               uint64_t receiver_id,
+               std::string receiver_id,
                DataSize packet_overhead);
 
   DataSize packet_overhead() {
@@ -141,7 +138,7 @@ class NetworkNodeTransport : public Transport {
   const Clock* const sender_clock_;
   Call* const sender_call_;
   NetworkNode* send_net_ RTC_GUARDED_BY(crit_sect_) = nullptr;
-  uint64_t receiver_id_ RTC_GUARDED_BY(crit_sect_) = 0;
+  std::string receiver_id_ RTC_GUARDED_BY(crit_sect_) = 0;
   DataSize packet_overhead_ RTC_GUARDED_BY(crit_sect_) = DataSize::Zero();
 };
 
@@ -156,12 +153,12 @@ class CrossTrafficSource {
  private:
   friend class Scenario;
   CrossTrafficSource(NetworkReceiverInterface* target,
-                     uint64_t receiver_id,
+                     std::string receiver_id,
                      CrossTrafficConfig config);
   void Process(Timestamp at_time, TimeDelta delta);
 
   NetworkReceiverInterface* const target_;
-  const uint64_t receiver_id_;
+  const std::string receiver_id_;
   CrossTrafficConfig config_;
   webrtc::Random random_;
 

@@ -192,6 +192,7 @@ class Scenario {
   std::vector<std::unique_ptr<PendingActivity>> pending_activities_;
   std::vector<std::unique_ptr<StatesPrinter>> printers_;
 
+  int64_t next_network_node_id = 0;
   int64_t next_route_id_ = 40000;
   rtc::scoped_refptr<AudioDecoderFactory> audio_decoder_factory_;
   rtc::scoped_refptr<AudioEncoderFactory> audio_encoder_factory_;

@@ -47,7 +47,6 @@ class OwnedFactoryAndThreads {
     return network_monitor_factory_;
   }
   void clear_network_monitor_factory() { network_monitor_factory_ = nullptr; }
-  void InvokeJavaCallbacksOnFactoryThreads();
 
  private:
   const std::unique_ptr<rtc::Thread> network_thread_;

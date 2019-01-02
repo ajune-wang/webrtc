@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd63ed0a_63c0ca66",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T18:47:15Z",
+      "side": 1,
+      "message": "is there a way to add \"tooltips\" / hover text with description? i.e. failure reason would be nice to see :)\n\nsrte@ are there any other tools to look into event logs from GoogCC?",
+      "range": {
+        "startLine": 974,
+        "startChar": 51,
+        "endLine": 975,
+        "endChar": 52
+      },
+      "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

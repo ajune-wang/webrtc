@@ -2,6 +2,92 @@
   "comments": [
     {
       "key": {
+        "uuid": "effaf7e4_5f86c3e9",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T15:13:22Z",
+      "side": 1,
+      "message": "Are we expecting to call it with every ACK?\nThere are two sources of this signal to me:\n1) OnTargetBitrate notification \n2) Whenever we get an ACK, we get an updated rtt.\n\nSo is the expectation to call this callback with every ack, if available?",
+      "range": {
+        "startLine": 280,
+        "startChar": 15,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83e14a9b_572e4393",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T15:13:22Z",
+      "side": 1,
+      "message": "This is not related to your change, but a general direction: what worries me is that we are pushing logic for managing list of observers down to the implementation. \nThis leads to\n1) Duplicated code (along implementations)\n2) non-tested code (because this type of code is often considered \u0027trivial\u0027, it\u0027s frequently not tested).\n\nP.S. Please document \u0027Before media transport is destructed\n  // the observer must be unregistered (by calling\n  // RemoveTargetTransferRateObserver).\u0027 if it is the case.",
+      "range": {
+        "startLine": 396,
+        "startChar": 15,
+        "endLine": 396,
+        "endChar": 29
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24cbeea1_d63cad6c",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T15:13:22Z",
+      "side": 1,
+      "message": "what\u0027s the style guide for \u0027auto*\u0027? \u0027*\u0027 itself is redundant, so I would just omit it, or used the full type.",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 14
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a08ee8_56221a66",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-02T15:13:22Z",
+      "side": 1,
+      "message": "Please document why can\u0027t we just use EncodedImage, and who becomes the owner of the buffer.\n\nI can see allocation, but I don\u0027t see deallocation of memory during destruction.",
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6d08b2c4_c099ff9d",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 20

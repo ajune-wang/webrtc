@@ -43,6 +43,9 @@ size_t File::Read(uint8_t* buffer, size_t length) {
                     static_cast<DWORD>(length - total_read), &read, nullptr)) {
       break;
     }
+    if (read == 0) {
+      break;
+    }
     total_read += read;
   } while (total_read < length);
   return total_read;
@@ -90,7 +93,9 @@ size_t File::ReadAt(uint8_t* buffer, size_t length, size_t offset) {
                     &overlapped)) {
       break;
     }
-
+    if (read == 0) {
+      break;
+    }
     total_read += read;
   } while (total_read < length);
   return total_read;

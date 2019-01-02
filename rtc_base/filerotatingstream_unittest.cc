@@ -92,6 +92,13 @@ class MAYBE_FileRotatingStreamTest : public ::testing::Test {
     EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
     EXPECT_EQ(SR_EOS, stream->ReadAll(buffer.get(), 1, nullptr, nullptr));
     EXPECT_EQ(stream_size, read);
+
+    // Test also with the FileRotatingStreamReader class.
+    FileRotatingStreamReader reader(dir_path, file_prefix);
+    EXPECT_EQ(reader.GetSize(), expected_length);
+    memset(buffer.get(), 0, expected_length);
+    EXPECT_EQ(expected_length, reader.ReadData(buffer.get(), expected_length));
+    EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
   }
 
   void VerifyFileContents(const char* expected_contents,
@@ -305,6 +312,23 @@ class MAYBE_CallSessionFileRotatingStreamTest : public ::testing::Test {
     EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
     EXPECT_EQ(SR_EOS, stream->ReadAll(buffer.get(), 1, nullptr, nullptr));
     EXPECT_EQ(stream_size, read);
+
+    // Test also with the CallSessionFileRotatingStreamReader class.
+    CallSessionFileRotatingStreamReader reader(dir_path);
+    EXPECT_EQ(reader.GetSize(), expected_length);
+    memset(buffer.get(), 0, expected_length);
+    size_t read_length = reader.ReadData(buffer.get(), expected_length);
+    if (read_length != expected_length) {
+      printf("read length: %u, expected: %u\n",
+             static_cast<unsigned>(read_length),
+             static_cast<unsigned>(expected_length));
+      for (size_t i = 0; i < read_length || i < expected_length; i++) {
+        printf("%x %x\n", i < read_length ? buffer[i] : -1,
+               i < expected_length ? expected_contents[i] : -1);
+      }
+    }
+    EXPECT_EQ(expected_length, read_length);
+    EXPECT_EQ(0, memcmp(expected_contents, buffer.get(), expected_length));
   }
 
   std::unique_ptr<CallSessionFileRotatingStream> stream_;

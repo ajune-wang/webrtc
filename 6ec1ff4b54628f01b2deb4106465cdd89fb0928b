@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "02d566e7_633944f5",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-02T13:59:23Z",
+      "side": 1,
+      "message": "As this key applies to audio only, propose an audio key, e.g. \"WebRTC-Audio-ActualPacketOverheads\"",
+      "range": {
+        "startLine": 136,
+        "startChar": 14,
+        "endLine": 136,
+        "endChar": 59
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "295d19df_6ff1f613",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -320,6 +343,52 @@
         "startChar": 0,
         "endLine": 165,
         "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "994d029a_4027001f",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-02T13:59:23Z",
+      "side": 1,
+      "message": "target_encode_rate_bps",
+      "range": {
+        "startLine": 839,
+        "startChar": 48,
+        "endLine": 839,
+        "endChar": 70
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73aac35e_c57fd60e",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-02T13:59:23Z",
+      "side": 1,
+      "message": "Convention to append the unit [bps]: target_encode_rate_bps.\n\n(\"bps\" is used widely in WebRTC even if it does not distinguish well between bytes and bits per sec).",
+      "range": {
+        "startLine": 176,
+        "startChar": 28,
+        "endLine": 176,
+        "endChar": 50
       },
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

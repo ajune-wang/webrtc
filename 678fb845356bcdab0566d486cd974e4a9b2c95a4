@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd2abdc7_4304f058",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to be a string, it might make sense to change it to a pointer to the endpoint object though.",
+      "range": {
+        "startLine": 105,
+        "startChar": 11,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b32171_1898b72e",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "Would it be possible to explicitly set the fields instead? That makes it easier to find where the values comes from.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4faf063f_9729a3f4",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "Would it make sense to encode these as part of the data buffer, roughly as they would appear in a real IP packet? Or would that be overly complex?",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bb54c69_9f049b39",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "why does this need to be changed from uint64 to a string?",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fedb0f9_1d245234",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "Note that per out code style guidelines, an interface is not allowed to have implementations. Since the implementation here is quite limited, I think it makes perfect sense to move it to the inheriting classes.",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede47919_4edba03a",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me how it should be part of this interface to provide an ID, could that be handled in the implementations where it makes sense?",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb915806_a7f9a7b9",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "Why not just copy EmulatedIpPacket here? (or provide a const EmulatedIpPacket\u0026) are the rtc::SocketAddress instances expensive to copy? Maybe those could be replaced by something lighter?",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d276bb12_c44ec4cb",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-02T17:01:40Z",
+      "side": 1,
+      "message": "Why do we need this level of indirection?",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

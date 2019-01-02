@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cce5904_bbc302a1",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-02T08:52:27Z",
+      "side": 1,
+      "message": "I guess this change means we should also move rtc event logs to the api/ directory? Perhaps that can be done separately though. terelius, WDYT?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "8a2db46952eb725a6db582bb5040ec1979b31241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -10,10 +10,15 @@
 #include "test/scenario/scenario.h"
 
 #include <algorithm>
+#include <memory>
+#include <string>
 
+#include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "rtc_base/flags.h"
+#include "rtc_base/socketaddress.h"
+#include "test/scenario/network/network.h"
 #include "test/testsupport/fileutils.h"
 
 WEBRTC_DEFINE_bool(scenario_logs, false, "Save logs from scenario framework.");
@@ -57,7 +62,8 @@ Scenario::Scenario() : Scenario("", true) {}
 Scenario::Scenario(std::string file_name) : Scenario(file_name, true) {}
 
 Scenario::Scenario(std::string file_name, bool real_time)
-    : real_time_mode_(real_time),
+    : null_receiver_("null_receiver"),
+      real_time_mode_(real_time),
       sim_clock_(100000 * kMicrosPerSec),
       clock_(real_time ? Clock::GetRealTimeClock() : &sim_clock_),
       audio_decoder_factory_(CreateBuiltinAudioDecoderFactory()),
@@ -163,7 +169,7 @@ void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
                            std::vector<NetworkNode*> over_nodes,
                            DataSize overhead) {
-  uint64_t route_id = next_route_id_++;
+  std::string route_id = std::to_string(next_route_id_++);
   clients.second->route_overhead_.insert({route_id, overhead});
   NetworkNode::Route(route_id, over_nodes, clients.second);
   clients.first->transport_.Connect(over_nodes.front(), route_id, overhead);
@@ -175,8 +181,8 @@ SimulatedTimeClient* Scenario::CreateSimulatedTimeClient(
     std::vector<PacketStreamConfig> stream_configs,
     std::vector<NetworkNode*> send_link,
     std::vector<NetworkNode*> return_link) {
-  uint64_t send_id = next_route_id_++;
-  uint64_t return_id = next_route_id_++;
+  std::string send_id = std::to_string(next_route_id_++);
+  std::string return_id = std::to_string(next_route_id_++);
   SimulatedTimeClient* client = new SimulatedTimeClient(
       GetFullPathOrEmpty(name), config, stream_configs, send_link, return_link,
       send_id, return_id, Now());
@@ -203,7 +209,8 @@ SimulationNode* Scenario::CreateSimulationNode(
 
 SimulationNode* Scenario::CreateSimulationNode(NetworkNodeConfig config) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kSimulation);
-  auto network_node = SimulationNode::Create(config);
+  auto network_node =
+      SimulationNode::Create(std::to_string(next_network_node_id++), config);
   SimulationNode* sim_node = network_node.get();
   network_nodes_.emplace_back(std::move(network_node));
   Every(config.update_frequency,
@@ -215,7 +222,8 @@ NetworkNode* Scenario::CreateNetworkNode(
     NetworkNodeConfig config,
     std::unique_ptr<NetworkBehaviorInterface> behavior) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kCustom);
-  network_nodes_.emplace_back(new NetworkNode(config, std::move(behavior)));
+  network_nodes_.emplace_back(new NetworkNode(
+      std::to_string(next_network_node_id++), config, std::move(behavior)));
   NetworkNode* network_node = network_nodes_.back().get();
   Every(config.update_frequency,
         [this, network_node] { network_node->Process(Now()); });
@@ -225,21 +233,23 @@ NetworkNode* Scenario::CreateNetworkNode(
 void Scenario::TriggerPacketBurst(std::vector<NetworkNode*> over_nodes,
                                   size_t num_packets,
                                   size_t packet_size) {
-  int64_t route_id = next_route_id_++;
+  std::string route_id = std::to_string(next_route_id_++);
   NetworkNode::Route(route_id, over_nodes, &null_receiver_);
   for (size_t i = 0; i < num_packets; ++i)
-    over_nodes[0]->DeliverPacket(rtc::CopyOnWriteBuffer(packet_size), route_id,
-                                 Now());
+    over_nodes[0]->DeliverPacket(absl::make_unique<EmulatedIpPacket>(
+        rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/, route_id,
+        rtc::CopyOnWriteBuffer(packet_size), Now()));
 }
 
 void Scenario::NetworkDelayedAction(std::vector<NetworkNode*> over_nodes,
                                     size_t packet_size,
                                     std::function<void()> action) {
-  int64_t route_id = next_route_id_++;
-  action_receivers_.emplace_back(new ActionReceiver(action));
+  std::string route_id = std::to_string(next_route_id_++);
+  action_receivers_.emplace_back(new ActionReceiver(route_id, action));
   NetworkNode::Route(route_id, over_nodes, action_receivers_.back().get());
-  over_nodes[0]->DeliverPacket(rtc::CopyOnWriteBuffer(packet_size), route_id,
-                               Now());
+  over_nodes[0]->DeliverPacket(absl::make_unique<EmulatedIpPacket>(
+      rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/, route_id,
+      rtc::CopyOnWriteBuffer(packet_size), Now()));
 }
 
 CrossTrafficSource* Scenario::CreateCrossTraffic(
@@ -253,7 +263,7 @@ CrossTrafficSource* Scenario::CreateCrossTraffic(
 CrossTrafficSource* Scenario::CreateCrossTraffic(
     std::vector<NetworkNode*> over_nodes,
     CrossTrafficConfig config) {
-  int64_t route_id = next_route_id_++;
+  std::string route_id = std::to_string(next_route_id_++);
   cross_traffic_sources_.emplace_back(
       new CrossTrafficSource(over_nodes.front(), route_id, config));
   CrossTrafficSource* node = cross_traffic_sources_.back().get();

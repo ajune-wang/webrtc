@@ -20,6 +20,7 @@
 #include "modules/rtp_rtcp/include/rtp_header_parser.h"
 #include "rtc_base/constructormagic.h"
 #include "test/scenario/column_printer.h"
+#include "test/scenario/network/network.h"
 #include "test/scenario/network_node.h"
 #include "test/scenario/scenario_config.h"
 
@@ -71,9 +72,8 @@ class CallClient : public NetworkReceiverInterface {
     return DataRate::bps(GetStats().send_bandwidth_bps);
   }
 
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+ protected:
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
 
  private:
   friend class Scenario;
@@ -100,9 +100,9 @@ class CallClient : public NetworkReceiverInterface {
   RtpHeaderParser* const header_parser_;
 
   std::unique_ptr<FecControllerFactoryInterface> fec_controller_factory_;
-  // Stores the configured overhead per known incomming route. This is used to
-  // subtract the overhead before processing.
-  std::map<uint64_t, DataSize> route_overhead_;
+  // Stores the configured overhead per known destination endpoint. This is used
+  // to subtract the overhead before processing.
+  std::map<std::string, DataSize> route_overhead_;
   int next_video_ssrc_index_ = 0;
   int next_rtx_ssrc_index_ = 0;
   int next_audio_ssrc_index_ = 0;

@@ -71,6 +71,75 @@
     },
     {
       "key": {
+        "uuid": "7736b522_41755849",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "Apparently, \"WebRTC-SendSideBwe-WithOverhead\" is used in other places.\n\nDo we plan to use \"WebRTC-SendSideBwe-WithOverheadOptionMinMax\" as a replacement of \"WebRTC-SendSideBwe-WithOverhead\" or an addition.\n\nIf the former, other places have to be treated, if the later, it may be better to use \u0026-logic on enabling it. Even better, I would like to create something like\n\nsend_side_bwe_with_overhead_legacy_(\n          send_side_bwe_with_overhead_ \u0026\u0026 !webrtc::field_trial::IsEnabled(\"WebRTC-SendSideBwe-WithOverheadOptionMinMax\")),",
+      "range": {
+        "startLine": 136,
+        "startChar": 34,
+        "endLine": 136,
+        "endChar": 58
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b37813d_94663734",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "it is not clear to me what the next step is.",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 73
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7158acaf_1f5b24c3",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "I think the comment belongs to line 458 and should be moved there.",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 80
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "295d19df_6ff1f613",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -232,6 +301,29 @@
     },
     {
       "key": {
+        "uuid": "fb4494e0_fae632fc",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "why do we need this? for comparability?",
+      "range": {
+        "startLine": 822,
+        "startChar": 3,
+        "endLine": 825,
+        "endChar": 75
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fdd5f5a4_cbb7eaa1",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 22
@@ -350,6 +442,75 @@
     },
     {
       "key": {
+        "uuid": "87f6ca8a_48d8cda2",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "120 although this is just a test",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05fe50b3_c7643fb1",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "this clearly changed the logic, but it looks a fixing of the old code.",
+      "range": {
+        "startLine": 503,
+        "startChar": 29,
+        "endLine": 503,
+        "endChar": 51
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc120a3d_e4364e56",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "for better efficiency, use index here. Then supported_frame_lengths_ms should better be ordered when created.",
+      "range": {
+        "startLine": 504,
+        "startChar": 15,
+        "endLine": 504,
+        "endChar": 26
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "994d029a_4027001f",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
         "patchSetId": 22
@@ -361,6 +522,29 @@
       "writtenOn": "2019-01-02T13:59:23Z",
       "side": 1,
       "message": "target_encode_rate_bps",
+      "range": {
+        "startLine": 839,
+        "startChar": 48,
+        "endLine": 839,
+        "endChar": 70
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3834bc11_b7fb4d99",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-02T15:37:39Z",
+      "side": 1,
+      "message": "This is an encoder function, so \"encoder\" in the name may not give more value, and the unit should better be kept. So I would suggest\"target_bitrate_bps\" or \"target_bps\" as in the base class:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/audio_codecs/audio_encoder.h?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d188\n\nBTW, this function is supposed to be deprecated.",
       "range": {
         "startLine": 839,
         "startChar": 48,

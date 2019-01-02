@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8126cfc9_54755336",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "Will fix it.",
+      "parentUuid": "bd2abdc7_4304f058",
+      "range": {
+        "startLine": 105,
+        "startChar": 11,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "12b32171_1898b72e",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-02T17:01:40Z",
       "side": 1,
       "message": "Would it be possible to explicitly set the fields instead? That makes it easier to find where the values comes from.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2633e8f7_c578232a",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "I want to show by API, that all fields are required and force user not to miss any of them on compile time, rather than in runtime, otherwise, I think, it will cost more time spend on debugging missing arguments in emulation level.",
+      "parentUuid": "12b32171_1898b72e",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6b7072fe_740d3b59",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "I think it will be overkill. It will also take time on encode and decode, which will come to overhead for emulation. Also I don\u0027t see benefit from it",
+      "parentUuid": "4faf063f_9729a3f4",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bb54c69_9f049b39",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2019-01-02T17:01:40Z",
       "side": 1,
       "message": "why does this need to be changed from uint64 to a string?",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b38155_51c2dc37",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "You right, probably I need to split endpoint id and string id, that is used for logging purpose. I think it will make sense to rename NetworkReceiverInterface::GetId into GetLabel and keep endpoint id as int. It can be uint64 too, but we needn\u0027t so many values for it... But there is no a big difference, I think.",
+      "parentUuid": "9bb54c69_9f049b39",
       "range": {
         "startLine": 40,
         "startChar": 14,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f5aadf82_bdf4c10e",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "Probably I can remove separation on public and protected method, but the idea is to make it possible in future to add common debugability features for all network nodes.\n\nWhat do you think?",
+      "parentUuid": "5fedb0f9_1d245234",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ede47919_4edba03a",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -128,6 +248,24 @@
       "writtenOn": "2019-01-02T17:01:40Z",
       "side": 1,
       "message": "It\u0027s not obvious to me how it should be part of this interface to provide an ID, could that be handled in the implementations where it makes sense?",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c770b47_3a85f541",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "I want to put it into interface to make it possible to have common logging and debugging mechanism for all network nodes. Also with this it makes easier to debug network emulation level itself.",
+      "parentUuid": "ede47919_4edba03a",
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -171,6 +309,48 @@
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b89075ce_3c3f0081",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d276bb12_c44ec4cb",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6770065_cf97155e",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-02T23:58:49Z",
+      "side": 1,
+      "message": "I think it makes clearer, that this mode is an owner of the packet from this point and is fully responsible for its future, so it can freely modify it, if it is required and won\u0027t be afraid of any inconsistency. \n\nrtc::SocketAddress doesn\u0027t look so heavy to be copied, but I think it\u0027s better to move it, because client should do anything with a packet after passing it into emulation.",
+      "parentUuid": "eb915806_a7f9a7b9",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

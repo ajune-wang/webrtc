@@ -22,7 +22,7 @@
 #include "api/rtp_headers.h"
 #include "modules/audio_coding/neteq/defines.h"
 #include "modules/audio_coding/neteq/neteq_decoder_enum.h"
-#include "rtc_base/constructormagic.h"
+#include "rtc_base/constructor_magic.h"
 #include "rtc_base/scoped_ref_ptr.h"
 
 namespace webrtc {

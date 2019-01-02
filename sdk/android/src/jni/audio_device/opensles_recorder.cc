@@ -15,11 +15,11 @@
 #include "absl/memory/memory.h"
 #include "api/array_view.h"
 #include "modules/audio_device/fine_audio_buffer.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/platform_thread.h"
-#include "rtc_base/timeutils.h"
+#include "rtc_base/time_utils.h"
 #include "sdk/android/src/jni/audio_device/audio_common.h"
 
 #define TAG "OpenSLESRecorder"

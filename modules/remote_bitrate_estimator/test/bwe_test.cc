@@ -18,7 +18,7 @@
 #include "modules/remote_bitrate_estimator/test/metric_recorder.h"
 #include "modules/remote_bitrate_estimator/test/packet_receiver.h"
 #include "modules/remote_bitrate_estimator/test/packet_sender.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "test/testsupport/perf_test.h"

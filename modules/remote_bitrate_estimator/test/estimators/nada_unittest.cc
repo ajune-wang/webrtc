@@ -16,7 +16,7 @@
 #include <memory>
 
 #include "modules/remote_bitrate_estimator/test/packet.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "test/gtest.h"
 
 namespace webrtc {

@@ -13,7 +13,7 @@
 #include "modules/audio_device/android/audio_manager.h"
 #include "modules/audio_device/android/build_info.h"
 #include "modules/audio_device/android/ensure_initialized.h"
-#include "rtc_base/arraysize.h"
+#include "rtc_base/array_size.h"
 #include "rtc_base/format_macros.h"
 #include "test/gtest.h"
 

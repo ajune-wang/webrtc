@@ -50,16 +50,16 @@ class PacketStream {
 class SimulatedFeedback : NetworkReceiverInterface {
  public:
   SimulatedFeedback(SimulatedTimeClientConfig config,
-                    uint64_t return_receiver_id,
+                    std::string return_receiver_id,
                     NetworkNode* return_node);
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+
+ protected:
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
 
  private:
   friend class SimulatedTimeClient;
   const SimulatedTimeClientConfig config_;
-  const uint64_t return_receiver_id_;
+  const std::string return_receiver_id_;
   NetworkNode* return_node_;
   Timestamp last_feedback_time_ = Timestamp::MinusInfinity();
   int32_t next_feedback_seq_num_ = 1;
@@ -89,7 +89,7 @@ class SimulatedSender {
     int64_t size;
   };
 
-  SimulatedSender(NetworkNode* send_node, uint64_t send_receiver_id);
+  SimulatedSender(NetworkNode* send_node, std::string send_receiver_id);
   SimulatedSender(const SimulatedSender&) = delete;
   ~SimulatedSender();
   TransportPacketsFeedback PullFeedbackReport(SimpleFeedbackReportPacket report,
@@ -100,7 +100,7 @@ class SimulatedSender {
  private:
   friend class SimulatedTimeClient;
   NetworkNode* send_node_;
-  uint64_t send_receiver_id_;
+  std::string send_receiver_id_;
   PacerConfig pacer_config_;
   DataSize max_in_flight_ = DataSize::Infinity();
 
@@ -126,8 +126,8 @@ class SimulatedTimeClient : NetworkReceiverInterface {
                       std::vector<PacketStreamConfig> stream_configs,
                       std::vector<NetworkNode*> send_link,
                       std::vector<NetworkNode*> return_link,
-                      uint64_t send_receiver_id,
-                      uint64_t return_receiver_id,
+                      std::string send_receiver_id,
+                      std::string return_receiver_id,
                       Timestamp at_time);
   SimulatedTimeClient(const SimulatedTimeClient&) = delete;
   ~SimulatedTimeClient();
@@ -141,9 +141,8 @@ class SimulatedTimeClient : NetworkReceiverInterface {
   DataRate link_capacity() const;
   DataRate padding_rate() const;
 
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+ protected:
+  void DeliverPacketInternal(std::unique_ptr<EmulatedIpPacket> packet) override;
 
  private:
   friend class Scenario;

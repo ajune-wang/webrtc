@@ -13,10 +13,13 @@
 #include <string.h>
 #include <algorithm>
 #include <cstdint>
+#include <memory>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/socketaddress.h"
 
 namespace webrtc {
 namespace test {
@@ -111,7 +114,7 @@ rtc::CopyOnWriteBuffer FeedbackToBuffer(
 }
 
 SimulatedSender::SimulatedSender(NetworkNode* send_node,
-                                 uint64_t send_receiver_id)
+                                 std::string send_receiver_id)
     : send_node_(send_node), send_receiver_id_(send_receiver_id) {}
 
 SimulatedSender::~SimulatedSender() {}
@@ -202,23 +205,23 @@ void SimulatedSender::Update(NetworkControlUpdate update) {
 }
 
 SimulatedFeedback::SimulatedFeedback(SimulatedTimeClientConfig config,
-                                     uint64_t return_receiver_id,
+                                     std::string return_receiver_id,
                                      NetworkNode* return_node)
-    : config_(config),
+    : NetworkReceiverInterface(return_receiver_id),
+      config_(config),
       return_receiver_id_(return_receiver_id),
       return_node_(return_node) {}
 
 // Polls receiver side for a feedback report and sends it to the stream sender
 // via return_node_,
-void SimulatedFeedback::DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                                      uint64_t receiver,
-                                      Timestamp at_time) {
+void SimulatedFeedback::DeliverPacketInternal(
+    std::unique_ptr<EmulatedIpPacket> packet) {
   int64_t sequence_number;
-  memcpy(&sequence_number, packet.cdata(), sizeof(sequence_number));
-  receive_times_.insert({sequence_number, at_time});
+  memcpy(&sequence_number, packet->data.cdata(), sizeof(sequence_number));
+  receive_times_.insert({sequence_number, packet->sent_time});
   if (last_feedback_time_.IsInfinite())
-    last_feedback_time_ = at_time;
-  if (at_time >= last_feedback_time_ + config_.feedback.interval) {
+    last_feedback_time_ = packet->sent_time;
+  if (packet->sent_time >= last_feedback_time_ + config_.feedback.interval) {
     SimpleFeedbackReportPacket report;
     for (; next_feedback_seq_num_ <= sequence_number;
          ++next_feedback_seq_num_) {
@@ -231,15 +234,17 @@ void SimulatedFeedback::DeliverPacket(rtc::CopyOnWriteBuffer packet,
       }
       if (report.receive_times.size() >=
           RawFeedbackReportPacket::MAX_FEEDBACKS) {
-        return_node_->DeliverPacket(FeedbackToBuffer(report),
-                                    return_receiver_id_, at_time);
+        return_node_->DeliverPacket(absl::make_unique<EmulatedIpPacket>(
+            packet->to, packet->from, return_receiver_id_,
+            FeedbackToBuffer(report), packet->sent_time));
         report = SimpleFeedbackReportPacket();
       }
     }
     if (!report.receive_times.empty())
-      return_node_->DeliverPacket(FeedbackToBuffer(report), return_receiver_id_,
-                                  at_time);
-    last_feedback_time_ = at_time;
+      return_node_->DeliverPacket(absl::make_unique<EmulatedIpPacket>(
+          packet->to, packet->from, return_receiver_id_,
+          FeedbackToBuffer(report), packet->sent_time));
+    last_feedback_time_ = packet->sent_time;
   }
 }
 
@@ -249,10 +254,11 @@ SimulatedTimeClient::SimulatedTimeClient(
     std::vector<PacketStreamConfig> stream_configs,
     std::vector<NetworkNode*> send_link,
     std::vector<NetworkNode*> return_link,
-    uint64_t send_receiver_id,
-    uint64_t return_receiver_id,
+    std::string send_receiver_id,
+    std::string return_receiver_id,
     Timestamp at_time)
-    : network_controller_factory_(log_filename, config.transport),
+    : NetworkReceiverInterface("simulated_time_client"),
+      network_controller_factory_(log_filename, config.transport),
       send_link_(send_link),
       return_link_(return_link),
       sender_(send_link.front(), send_receiver_id),
@@ -283,11 +289,10 @@ SimulatedTimeClient::SimulatedTimeClient(
 
 // Pulls feedback reports from sender side based on the recieved feedback
 // packet. Updates congestion controller with the resulting report.
-void SimulatedTimeClient::DeliverPacket(rtc::CopyOnWriteBuffer raw_buffer,
-                                        uint64_t receiver,
-                                        Timestamp at_time) {
-  auto report =
-      sender_.PullFeedbackReport(FeedbackFromBuffer(raw_buffer), at_time);
+void SimulatedTimeClient::DeliverPacketInternal(
+    std::unique_ptr<EmulatedIpPacket> packet) {
+  auto report = sender_.PullFeedbackReport(FeedbackFromBuffer(packet->data),
+                                           packet->sent_time);
   for (PacketResult& feedback : report.packet_feedbacks) {
     if (packet_log_)
       fprintf(packet_log_, "%" PRId64 " %" PRId64 " %.3lf %.3lf %.3lf\n",
@@ -295,7 +300,7 @@ void SimulatedTimeClient::DeliverPacket(rtc::CopyOnWriteBuffer raw_buffer,
               feedback.sent_packet.size.bytes(),
               feedback.sent_packet.send_time.seconds<double>(),
               feedback.receive_time.seconds<double>(),
-              at_time.seconds<double>());
+              packet->sent_time.seconds<double>());
   }
   Update(congestion_controller_->OnTransportPacketsFeedback(report));
 }
@@ -329,8 +334,9 @@ void SimulatedTimeClient::CongestionProcess(Timestamp at_time) {
 void SimulatedTimeClient::PacerProcess(Timestamp at_time) {
   ProcessFrames(at_time);
   for (auto to_send : sender_.PaceAndPullSendPackets(at_time)) {
-    sender_.send_node_->DeliverPacket(to_send.data, sender_.send_receiver_id_,
-                                      at_time);
+    sender_.send_node_->DeliverPacket(absl::make_unique<EmulatedIpPacket>(
+        rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/,
+        sender_.send_receiver_id_, to_send.data, at_time));
     Update(congestion_controller_->OnSentPacket(to_send.send_info));
   }
 }

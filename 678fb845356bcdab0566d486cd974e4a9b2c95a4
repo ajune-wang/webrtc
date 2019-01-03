@@ -603,6 +603,30 @@
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e20b355_d7a1e3d6",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T13:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f0cc7b0_3d119493",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95dff5cb_dad1cc1f",
+        "filename": "test/scenario/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T13:14:15Z",
+      "side": 1,
+      "message": "I want to have extra folder to keep it together and make it simpler to move after.",
+      "parentUuid": "78d46aa6_3661977a",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "730f4152_563de21e",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-03T12:10:35Z",
       "side": 1,
       "message": "I know I wrote uint64_t before, but I think it makes most sense to keep this int64_t (to avoid changing too much code) Making it int is fine, but that\u0027s probably better to do as a separate CL.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 10
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f8c966_35e991a4",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T13:14:15Z",
+      "side": 1,
+      "message": "Looks like in some places int64 was used for receiver id and in some places uint64 was used. I think its better to make it consistent here. What do you think?",
+      "parentUuid": "730f4152_563de21e",
       "range": {
         "startLine": 40,
         "startChar": 2,
@@ -68,6 +116,30 @@
       "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42adb147_90a79290",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T13:14:15Z",
+      "side": 1,
+      "message": "As I told we needn\u0027t addresses for scenario framework, but I want to keep them right now, because they will be required for proper functioning on the next step.",
+      "parentUuid": "99626be0_7d33952c",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

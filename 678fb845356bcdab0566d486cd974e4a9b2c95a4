@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e866309b_b2beb219",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8126cfc9_54755336",
+      "range": {
+        "startLine": 105,
+        "startChar": 11,
+        "endLine": 105,
+        "endChar": 22
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "12b32171_1898b72e",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Currently it\u0027s not provided by the API, right? I don\u0027t think it\u0027s appropriate to expose the route/endpoint id in the API. All arguments aren\u0027t strictly required for the code to function properly, so the risk is that dummy values are used.\n\nIn C++ there is no good way to both make the code easy to read (using named arguments/fields, etc) and protect against incorrect usage (using required arguments/fields. Gnerally you need to read a lot of code to write a correct implementation either way, so I think it\u0027s better to focus on readability first and type-enforcing correct usage second.",
       "parentUuid": "2633e8f7_c578232a",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b455dc79_2d38f611",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "Right now addresses are not required for scenario framework to function properly, but they will be required for final one to operate properly, so it is why I want to keep them from beginning. The rest (endpoint, data and time) are all required and can\u0027t be omitted. So as I see all of them are actually required for correct functioning.",
+      "parentUuid": "44317b08_d7048b76",
       "range": {
         "startLine": 31,
         "startChar": 2,
@@ -214,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "f9fbfd1c_7a959414",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6b38155_51c2dc37",
+      "range": {
+        "startLine": 40,
+        "startChar": 14,
+        "endLine": 40,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fedb0f9_1d245234",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -285,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "0268bff3_e4cd38d9",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97488f23_7290afd9",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ede47919_4edba03a",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -335,6 +431,24 @@
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fadda928_28e91e9c",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9617e53c_f343bb9f",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -432,6 +546,30 @@
       "side": 1,
       "message": "For test code it\u0027s often practical to not have to bother with ownership details. And it\u0027s also less code to not have to deal with unique pointers.",
       "parentUuid": "d6770065_cf97155e",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb176564_15493d0f",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T11:23:16Z",
+      "side": 1,
+      "message": "It\u0027s not fully test code, because it is part of public framework, so it is part of production code of WebRTC as product for other clients. Also it makes contract much cleaner for users, so I think it\u0027s important. Also inside emulated node you usually want to put packet somewhere to operate with it, which will cause more copies, and framework shouldn\u0027t introduce extra delays because of API.",
+      "parentUuid": "244af84c_2d9ef7e2",
       "range": {
         "startLine": 52,
         "startChar": 21,

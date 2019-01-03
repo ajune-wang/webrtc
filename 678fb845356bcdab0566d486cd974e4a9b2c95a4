@@ -579,6 +579,30 @@
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f0cc7b0_3d119493",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T12:10:35Z",
+      "side": 1,
+      "message": "Maybe you could make the struct move-only if you want to avoid allowing use after deliver? That way we at least have the option to process it on the stack rather than the heap. And it makes it easy to enable other usage modes if we need to in the future.",
+      "parentUuid": "eb176564_15493d0f",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

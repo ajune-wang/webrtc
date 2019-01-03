@@ -490,13 +490,6 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
         *options.audio_jitter_buffer_min_delay_ms;
   }
 
-  if (options.typing_detection) {
-    RTC_LOG(LS_INFO) << "Typing detection is enabled? "
-                     << *options.typing_detection;
-    webrtc::apm_helpers::SetTypingDetectionStatus(apm(),
-                                                  *options.typing_detection);
-  }
-
   webrtc::Config config;
 
   if (options.delay_agnostic_aec)
@@ -535,6 +528,12 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 
   if (options.residual_echo_detector) {
     apm_config.residual_echo_detector.enabled = *options.residual_echo_detector;
+  }
+
+  if (options.typing_detection) {
+    RTC_LOG(LS_INFO) << "Typing detection is enabled? "
+                     << *options.typing_detection;
+    apm_config.voice_detection.enabled = *options.typing_detection;
   }
 
   apm()->SetExtraOptions(config);

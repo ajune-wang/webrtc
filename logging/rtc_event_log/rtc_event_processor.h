@@ -27,6 +27,7 @@ namespace webrtc {
 // in the merge-sort algorithm but without copying the elements or modifying the
 // lists.
 
+namespace event_processor_impl {
 // Interface to allow "merging" lists of different types. ProcessNext()
 // processes the next unprocesses element in the list. IsEmpty() checks if all
 // elements have been processed. GetNextTime returns the timestamp of the next
@@ -44,11 +45,6 @@ class ProcessableEventListInterface {
 template <typename T>
 class ProcessableEventList : public ProcessableEventListInterface {
  public:
-  // N.B. |f| is not owned by ProcessableEventList. The caller must ensure that
-  // the function object or lambda outlives ProcessableEventList and
-  // RtcEventProcessor. The same thing applies to the iterators (begin, end);
-  // the vector must outlive ProcessableEventList and must not be modified until
-  // processing has finished.
   ProcessableEventList(typename std::vector<T>::const_iterator begin,
                        typename std::vector<T>::const_iterator end,
                        rtc::FunctionView<void(const T&)> f)
@@ -72,6 +68,7 @@ class ProcessableEventList : public ProcessableEventListInterface {
   typename std::vector<T>::const_iterator end_;
   rtc::FunctionView<void(const T&)> f_;
 };
+}  // namespace event_processor_impl
 
 // Helper class used to "merge" two or more lists of ordered RtcEventLog events
 // so that they can be treated as a single ordered list. Since the individual
@@ -81,57 +78,49 @@ class ProcessableEventList : public ProcessableEventListInterface {
 // Usage example:
 // ParsedRtcEventLogNew log;
 // auto incoming_handler = [] (LoggedRtcpPacketIncoming elem) { ... };
-// auto incoming_rtcp =
-//     absl::make_unique<ProcessableEventList<LoggedRtcpPacketIncoming>>(
-//         log.incoming_rtcp_packets().begin(),
-//         log.incoming_rtcp_packets().end(),
-//         incoming_handler);
 // auto outgoing_handler = [] (LoggedRtcpPacketOutgoing elem) { ... };
-// auto outgoing_rtcp =
-//     absl::make_unique<ProcessableEventList<LoggedRtcpPacketOutgoing>>(
-//         log.outgoing_rtcp_packets().begin(),
-//         log.outgoing_rtcp_packets().end(),
-//         outgoing_handler);
 //
 // RtcEventProcessor processor;
-// processor.AddEvents(std::move(incoming_rtcp));
-// processor.AddEvents(std::move(outgoing_rtcp));
+// processor.AddEvents(log.incoming_rtcp_packets().begin(),
+//                     log.incoming_rtcp_packets().end(),
+//                     incoming_handler);
+// processor.AddEvents(log.outgoing_rtcp_packets().begin(),
+//                     log.outgoing_rtcp_packets().end(),
+//                     outgoing_handler);
 // processor.ProcessEventsInOrder();
 class RtcEventProcessor {
  public:
+  RtcEventProcessor();
+  ~RtcEventProcessor();
   // The elements of each list is processed in the index order. To process all
   // elements in all lists in timestamp order, each lists need to be sorted in
-  // timestamp order prior to insertion. Otherwise,
-  void AddEvents(std::unique_ptr<ProcessableEventListInterface> events) {
-    if (!events->IsEmpty()) {
-      event_lists_.push_back(std::move(events));
-      std::push_heap(event_lists_.begin(), event_lists_.end(), Cmp);
-    }
+  // timestamp order prior to insertion.
+  // N.B. |handler| is not owned by RtcEventProcessor. The caller must ensure
+  // that the function object or lambda outlives RtcEventProcessor. The same
+  // thing applies to the iterators (begin, end); the vector must outlive
+  // RtcEventProcessor and must not be modified until processing has finished.
+  template <typename Iterator>
+  void AddEvents(Iterator begin,
+                 Iterator end,
+                 rtc::FunctionView<void(const typename std::iterator_traits<
+                                        Iterator>::value_type&)> handler) {
+    using ValueType = typename std::iterator_traits<Iterator>::value_type;
+    if (begin == end)
+      return;
+    event_lists_.emplace_back(
+        new event_processor_impl::ProcessableEventList<ValueType>(begin, end,
+                                                                  handler));
+    std::push_heap(event_lists_.begin(), event_lists_.end(), Cmp);
   }
 
-  void ProcessEventsInOrder() {
-    // |event_lists_| is a min-heap of lists ordered by the timestamp of the
-    // first element in the list. We therefore process the first element of the
-    // first list, then reinsert the remainder of that list into the heap
-    // if the list still contains unprocessed elements.
-    while (!event_lists_.empty()) {
-      event_lists_.front()->ProcessNext();
-      std::pop_heap(event_lists_.begin(), event_lists_.end(), Cmp);
-      if (event_lists_.back()->IsEmpty()) {
-        event_lists_.pop_back();
-      } else {
-        std::push_heap(event_lists_.begin(), event_lists_.end(), Cmp);
-      }
-    }
-  }
+  void ProcessEventsInOrder();
 
  private:
-  using ListPtrType = std::unique_ptr<ProcessableEventListInterface>;
+  using ListPtrType =
+      std::unique_ptr<event_processor_impl::ProcessableEventListInterface>;
   std::vector<ListPtrType> event_lists_;
   // Comparison function to make |event_lists_| into a min heap.
-  static bool Cmp(const ListPtrType& a, const ListPtrType& b) {
-    return a->GetNextTime() > b->GetNextTime();
-  }
+  static bool Cmp(const ListPtrType& a, const ListPtrType& b);
 };
 
 }  // namespace webrtc

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0fd9f054_4fff0a7b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-03T22:57:03Z",
+      "side": 1,
+      "message": "Given that it\u0027s documentation at the interface level, I\u0027d suggest stating the expectation explicitly for now. Calling it every ack. If we decide to change it, we can change the implementation.",
+      "parentUuid": "30f7b23e_aa360324",
+      "range": {
+        "startLine": 280,
+        "startChar": 15,
+        "endLine": 280,
+        "endChar": 27
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83e14a9b_572e4393",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 20
@@ -93,6 +117,30 @@
       "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151ca59d_fd1984b4",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-03T22:57:03Z",
+      "side": 1,
+      "message": "I think eventually we should deal do something about it. Ack for now.",
+      "parentUuid": "bc47983a_7f33ecbc",
+      "range": {
+        "startLine": 396,
+        "startChar": 15,
+        "endLine": 396,
+        "endChar": 29
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "2df7ff71_4c214d9d",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-03T22:57:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7f042008_a1c009f0",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 14
+      },
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2a08ee8_56221a66",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 20
@@ -175,6 +247,24 @@
       "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f677bec0_4e15b754",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-03T22:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bbb5507_3b9cb53a",
+      "revId": "44a838691cd45e539b1018335891e77a791c1fbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

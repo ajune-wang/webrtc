@@ -600,6 +600,7 @@ void RtpTransportControllerSend::UpdateControllerWithTimeInterval() {
   RTC_DCHECK(controller_);
   ProcessInterval msg;
   msg.at_time = Timestamp::ms(clock_->TimeInMilliseconds());
+  msg.pacer_queue = DataSize::bytes(pacer_.QueueSizeBytes());
   PostUpdates(controller_->OnProcessInterval(msg));
 }
 

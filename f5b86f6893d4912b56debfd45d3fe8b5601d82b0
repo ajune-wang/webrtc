@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3eff0f96_73ac96d4",
+        "filename": "test/scenario/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T14:00:57Z",
+      "side": 1,
+      "message": "Then I suggest adding a build file there (as it\u0027s a bit cumbersome to add build files to a folder later on), also consider if the code, or parts of the code, in network_node should belong there,",
+      "parentUuid": "95dff5cb_dad1cc1f",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "730f4152_563de21e",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 5
@@ -93,6 +117,30 @@
       "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc0fb51_f7098abf",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T14:00:57Z",
+      "side": 1,
+      "message": "Ah, ok, that makes sense.",
+      "parentUuid": "89f8c966_35e991a4",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 10
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +227,30 @@
       "side": 1,
       "message": "It makes sense. SGTM",
       "parentUuid": "f32f5a01_40b177fe",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7068fa7_320645db",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T14:00:57Z",
+      "side": 1,
+      "message": "Having different constructors/create methods makes it even less obvious what and where a value is set.\n\nWhen debugging it\u0027s common to want to see where a particular struct field is set. this can be done by searching for usages (and looking specifically for assignments). With creation methods, all usages of those would have to be found as well. \n\nThe thing is, requiring a field to be set doesn\u0027t mean that it must be set to something meaningful. In practice, people often set them to dummy values such as done here. In that situation it\u0027s easier to detect this if fields are always accessed by name, and never implicitly by order.",
+      "parentUuid": "ec4f2d6b_21fe8c1b",
       "range": {
         "startLine": 236,
         "startChar": 8,

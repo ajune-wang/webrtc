@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85e7a68f_610f381f",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T14:00:57Z",
+      "side": 1,
+      "message": "Given that the class is movable only, we don\u0027t need to wrap it in a unique_ptr anymore, right?",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 62
+      },
+      "revId": "0fe5632b1d12d6f1a72d2d5f152f73368240527b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

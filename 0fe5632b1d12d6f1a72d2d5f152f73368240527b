@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "45e88e3a_cebb4fff",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-03T14:07:24Z",
+      "side": 1,
+      "message": "Nit: Is it possible to have something like packet-\u003esize()/packet-\u003ecdata() and abstract away the CopyOnWriteBuffer? Since we are moving to another abstraction layer I think it makes sense to keep code compact and readable (I generally don\u0027t like when an object reaches through another object in order to access yet another object).\n\nIf we really don\u0027t care, maybe taking a reference to the CopyOnWriteBuffer and call its methods without passing through the EmulatedIpPacket is a bit more readable (but I prefer the previous solution).",
+      "range": {
+        "startLine": 171,
+        "startChar": 16,
+        "endLine": 171,
+        "endChar": 35
+      },
+      "revId": "0fe5632b1d12d6f1a72d2d5f152f73368240527b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85e7a68f_610f381f",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 6

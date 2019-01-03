@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "44317b08_d7048b76",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T09:04:06Z",
+      "side": 1,
+      "message": "Currently it\u0027s not provided by the API, right? I don\u0027t think it\u0027s appropriate to expose the route/endpoint id in the API. All arguments aren\u0027t strictly required for the code to function properly, so the risk is that dummy values are used.\n\nIn C++ there is no good way to both make the code easy to read (using named arguments/fields, etc) and protect against incorrect usage (using required arguments/fields. Gnerally you need to read a lot of code to write a correct implementation either way, so I think it\u0027s better to focus on readability first and type-enforcing correct usage second.",
+      "parentUuid": "2633e8f7_c578232a",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4faf063f_9729a3f4",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -237,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "97488f23_7290afd9",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T09:04:06Z",
+      "side": 1,
+      "message": "I think it\u0027s better to design for what we have now, we can always change the design in the future if/when it\u0027s needed. Generally, it\u0027s good to avoid sharing code in base classes as it makes it harder to follow the code.\n\nNote that debugability is really hard. It\u0027s often very specific to the current debug session. We do not want to pay the overhead cost (in indirection, cpu time, memory usage) of debugging features that aren\u0027t used. Often, the only one who knows how to use the added debug features are the person who wrote them. We have a few of those, adding to maintenance overhead but hard to remove for someone who doesn\u0027t know the motivation behind them. \n\nMany times it\u0027s perfectly reasonable to just add some trace prints and counters in the local workspace specific to the problem being debugged, and then just not commit them.",
+      "parentUuid": "f5aadf82_bdf4c10e",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 30
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ede47919_4edba03a",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3
@@ -266,6 +314,24 @@
       "side": 1,
       "message": "I want to put it into interface to make it possible to have common logging and debugging mechanism for all network nodes. Also with this it makes easier to debug network emulation level itself.",
       "parentUuid": "ede47919_4edba03a",
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9617e53c_f343bb9f",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T09:04:06Z",
+      "side": 1,
+      "message": "Could this debug functionality be added as a separate CL? To keep this clean and also to include the full context of how it\u0027s going to be used?\n\nAs I mentioned above, debugging features are hard, everyone has their own way to debug, (I use visual debuggers a lot, some people use printfs, others like to build more advanced debug tooling or are proficient using gdb directly allowing them to script things)",
+      "parentUuid": "9c770b47_3a85f541",
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -351,6 +417,30 @@
       "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "244af84c_2d9ef7e2",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-03T09:04:06Z",
+      "side": 1,
+      "message": "For test code it\u0027s often practical to not have to bother with ownership details. And it\u0027s also less code to not have to deal with unique pointers.",
+      "parentUuid": "d6770065_cf97155e",
+      "range": {
+        "startLine": 52,
+        "startChar": 21,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

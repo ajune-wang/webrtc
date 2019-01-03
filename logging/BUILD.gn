@@ -44,6 +44,8 @@ rtc_source_set("rtc_event_log_api") {
     "../rtc_base:rtc_task_queue",
     "//third_party/abseil-cpp/absl/memory",
   ]
+
+  visibility = [ "*" ]
 }
 
 rtc_source_set("rtc_stream_config") {

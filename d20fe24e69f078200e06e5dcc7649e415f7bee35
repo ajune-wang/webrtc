@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09dacbfe_f80964de",
+        "filename": "logging/rtc_event_log/rtc_event_processor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-03T14:14:13Z",
+      "side": 1,
+      "message": "Did you also want to add a tie breaker based on insertion order?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "d20fe24e69f078200e06e5dcc7649e415f7bee35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d678f88_11d2b97a",
+        "filename": "logging/rtc_event_log/rtc_event_processor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-03T14:14:13Z",
+      "side": 1,
+      "message": "My mistake, but could you change this to \"list needs\".",
+      "range": {
+        "startLine": 96,
+        "startChar": 52,
+        "endLine": 96,
+        "endChar": 62
+      },
+      "revId": "d20fe24e69f078200e06e5dcc7649e415f7bee35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d99db920_d959431e",
+        "filename": "logging/rtc_event_log/rtc_event_processor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-03T14:14:13Z",
+      "side": 1,
+      "message": "make_unique / wrap_unique for clarity?",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 11
+      },
+      "revId": "d20fe24e69f078200e06e5dcc7649e415f7bee35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

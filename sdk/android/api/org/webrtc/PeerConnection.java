@@ -222,6 +222,24 @@ public class PeerConnection {
           + "] [" + tlsAlpnProtocols + "] [" + tlsEllipticCurves + "]";
     }
 
+    @Override
+    public boolean equals(@Nullable Object obj) {
+      if (obj == null) {
+        return false;
+      }
+      if (obj == this) {
+        return true;
+      }
+      if (!(obj instanceof IceServer)) {
+        return false;
+      }
+      IceServer other = (IceServer) obj;
+      return (uri.equals(other.uri) && urls.equals(other.urls) && username.equals(other.username)
+          && password.equals(other.password) && tlsCertPolicy.equals(other.tlsCertPolicy)
+          && hostname.equals(other.hostname) && tlsAlpnProtocols.equals(other.tlsAlpnProtocols)
+          && tlsEllipticCurves.equals(other.tlsEllipticCurves));
+    }
+
     public static Builder builder(String uri) {
       return new Builder(Collections.singletonList(uri));
     }

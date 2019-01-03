@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3bdec48_47331b98",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-03T11:08:00Z",
+      "side": 1,
+      "message": "Is this really loss based, necessarily? I think it is technically the minimum of delay and loss based (with a few further constraints). last_raw_target_rate may be a better name?",
+      "range": {
+        "startLine": 100,
+        "startChar": 16,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "dbab561f8249c6c633c0f8179345101edf41a649",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

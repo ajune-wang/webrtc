@@ -28,6 +28,7 @@
 #include "logging/rtc_event_log/encoder/delta_encoding.h"
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_common.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "logging/rtc_event_log/rtc_event_processor.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor.h"
 #include "modules/congestion_controller/rtp/transport_feedback_adapter.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
@@ -47,6 +48,53 @@ using webrtc_event_logging::ToUnsigned;
 namespace webrtc {
 
 namespace {
+constexpr size_t kIpv4Overhead = 20;
+constexpr size_t kIpv6Overhead = 40;
+constexpr size_t kUdpOverhead = 8;
+constexpr size_t kSrtpOverhead = 10;
+constexpr size_t kStunOverhead = 4;
+constexpr uint16_t kDefaultOverhead =
+    kUdpOverhead + kSrtpOverhead + kIpv4Overhead;
+
+struct LoggedMediaStreamInfo {
+  LoggedMediaStreamInfo() = default;
+  LoggedMediaStreamInfo(LoggedMediaType media_type, bool rtx)
+      : media_type(media_type), rtx(rtx) {}
+  LoggedMediaType media_type = LoggedMediaType::kUnknown;
+  bool rtx = false;
+};
+
+template <typename Iterable>
+void AddStreamInfos(std::map<uint32_t, LoggedMediaStreamInfo>* streams,
+                    const Iterable configs,
+                    LoggedMediaType media_type) {
+  for (auto& conf : configs) {
+    (*streams)[conf.config.local_ssrc] =
+        LoggedMediaStreamInfo(media_type, false);
+    (*streams)[conf.config.rtx_ssrc] = LoggedMediaStreamInfo(media_type, true);
+  }
+}
+struct OverheadChangeEvent {
+  int64_t timestamp_us;
+  uint16_t overhead;
+};
+std::vector<OverheadChangeEvent> GetOverheadChangingEvents(
+    const std::vector<LoggedRouteChangeEvent>& route_changes,
+    PacketDirection direction) {
+  if (route_changes.empty())
+    return {};
+  std::vector<OverheadChangeEvent> overheads;
+  for (auto& event : route_changes) {
+    uint16_t new_overhead = direction == PacketDirection::kIncomingPacket
+                                ? event.return_overhead
+                                : event.send_overhead;
+    if (overheads.empty() || new_overhead != overheads.back().overhead) {
+      overheads.push_back({event.timestamp_us, new_overhead});
+    }
+  }
+  return overheads;
+}
+
 // Conversion functions for legacy wire format.
 RtcpMode GetRuntimeRtcpMode(rtclog::VideoReceiveConfig::RtcpMode rtcp_mode) {
   switch (rtcp_mode) {
@@ -1767,6 +1815,121 @@ ParsedRtcEventLog::MediaType ParsedRtcEventLog::GetMediaType(
   }
   return MediaType::ANY;
 }
+
+std::vector<LoggedRouteChangeEvent> ParsedRtcEventLog::GetRouteChanges() {
+  std::vector<LoggedRouteChangeEvent> route_changes;
+  for (auto& candidate : ice_candidate_pair_configs()) {
+    if (candidate.type == IceCandidatePairConfigType::kSelected) {
+      LoggedRouteChangeEvent route;
+      route.route_id = candidate.candidate_pair_id;
+      route.timestamp_us = candidate.log_time_us();
+
+      route.send_overhead = kUdpOverhead + kSrtpOverhead + kIpv4Overhead;
+      if (candidate.remote_address_family ==
+          IceCandidatePairAddressFamily::kIpv6)
+        route.send_overhead += kIpv6Overhead - kIpv4Overhead;
+      if (candidate.remote_candidate_type != IceCandidateType::kLocal)
+        route.send_overhead += kStunOverhead;
+      route.return_overhead = kUdpOverhead + kSrtpOverhead + kIpv4Overhead;
+      if (candidate.remote_address_family ==
+          IceCandidatePairAddressFamily::kIpv6)
+        route.return_overhead += kIpv6Overhead - kIpv4Overhead;
+      if (candidate.remote_candidate_type != IceCandidateType::kLocal)
+        route.return_overhead += kStunOverhead;
+      route_changes.push_back(route);
+    }
+  }
+  return route_changes;
+}
+
+std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
+    PacketDirection direction) {
+  std::map<uint32_t, LoggedMediaStreamInfo> streams;
+  if (direction == PacketDirection::kIncomingPacket) {
+    AddStreamInfos(&streams, audio_recv_configs(), LoggedMediaType::kAudio);
+    AddStreamInfos(&streams, video_recv_configs(), LoggedMediaType::kVideo);
+  } else if (direction == PacketDirection::kOutgoingPacket) {
+    AddStreamInfos(&streams, audio_send_configs(), LoggedMediaType::kAudio);
+    AddStreamInfos(&streams, video_send_configs(), LoggedMediaType::kVideo);
+  }
+
+  SimulatedClock clock(10000);
+  TransportFeedbackAdapter feedback_adapter(&clock);
+  std::vector<OverheadChangeEvent> overheads =
+      GetOverheadChangingEvents(GetRouteChanges(), direction);
+  auto overhead_iter = overheads.begin();
+  std::vector<LoggedPacketInfo> packets;
+  std::map<int64_t, size_t> packet_indices;
+  uint16_t current_overhead = kDefaultOverhead;
+  int64_t last_log_time_ms = 0;
+
+  auto advance_clock = [&](int64_t log_time_ms) {
+    if (overhead_iter != overheads.end() &&
+        log_time_ms * 1000 >= overhead_iter->timestamp_us) {
+      current_overhead = overhead_iter->overhead;
+      ++overhead_iter;
+    }
+    RTC_CHECK_GE(log_time_ms, last_log_time_ms);
+    clock.AdvanceTimeMilliseconds(log_time_ms - last_log_time_ms);
+    last_log_time_ms = log_time_ms;
+  };
+
+  auto rtp_handler = [&](const LoggedRtpPacket& rtp) {
+    advance_clock(rtp.log_time_ms());
+    LoggedPacketInfo logged(rtp, streams[rtp.header.ssrc].media_type,
+                            streams[rtp.header.ssrc].rtx);
+    logged.overhead = current_overhead;
+    if (rtp.header.extension.hasTransportSequenceNumber) {
+      logged.feedback_send_or_recv_time = INFINITY;
+      rtc::SentPacket sent_packet;
+      sent_packet.send_time_ms = rtp.log_time_ms();
+      sent_packet.info.packet_size_bytes = rtp.total_length;
+      sent_packet.info.included_in_feedback = true;
+      sent_packet.packet_id = rtp.header.extension.transportSequenceNumber;
+      feedback_adapter.AddPacket(rtp.header.ssrc, sent_packet.packet_id,
+                                 rtp.total_length, PacedPacketInfo());
+      auto sent_packet_msg = feedback_adapter.ProcessSentPacket(sent_packet);
+      RTC_CHECK(sent_packet_msg);
+      packet_indices[sent_packet_msg->sequence_number] = packets.size();
+    }
+    packets.push_back(logged);
+  };
+
+  auto feedback_handler =
+      [&](const LoggedRtcpPacketTransportFeedback& feedback) {
+        advance_clock(feedback.log_time_ms());
+        auto feedback_msg = feedback_adapter.ProcessTransportFeedback(
+            feedback.transport_feedback);
+        if (!feedback_msg.has_value())
+          return;
+        double feedback_time = feedback_msg->feedback_time.seconds<double>();
+        auto& last_fb = feedback_msg->packet_feedbacks.back();
+        Timestamp last_recv_time = last_fb.receive_time;
+        for (auto& fb : feedback_msg->packet_feedbacks) {
+          if (packet_indices.find(fb.sent_packet.sequence_number) ==
+              packet_indices.end()) {
+            RTC_LOG(LS_ERROR) << "Received feedback for unknown packet: "
+                              << fb.sent_packet.sequence_number;
+            continue;
+          }
+          LoggedPacketInfo* sent =
+              &packets[packet_indices[fb.sent_packet.sequence_number]];
+          sent->report_recv_time = fb.receive_time.seconds<double>();
+          sent->feedback_send_or_recv_time = feedback_time;
+          sent->feedback_hold_duration =
+              (last_recv_time - fb.receive_time).seconds<float>();
+          sent->last_in_feedback = (&fb == &last_fb);
+        }
+      };
+
+  RtcEventProcessor process;
+  for (const auto& rtp_packets : rtp_packets_by_ssrc(direction)) {
+    process.AddEvents(rtp_packets.packet_view, rtp_handler);
+  }
+  process.AddEvents(outgoing_transport_feedback_, feedback_handler);
+  process.ProcessEventsInOrder();
+  return packets;
+}  // namespace webrtc
 
 const std::vector<MatchedSendArrivalTimes> GetNetworkTrace(
     const ParsedRtcEventLog& parsed_log) {

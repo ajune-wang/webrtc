@@ -437,5 +437,39 @@ struct LoggedVideoSendConfig {
   int64_t timestamp_us;
   rtclog::StreamConfig config;
 };
+
+struct LoggedRouteChangeEvent {
+  uint32_t route_id;
+  int64_t timestamp_us;
+  uint16_t send_overhead;
+  uint16_t return_overhead;
+};
+
+enum class LoggedMediaType : uint8_t { kUnknown, kAudio, kVideo };
+
+struct LoggedPacketInfo {
+  LoggedPacketInfo(const LoggedRtpPacket& rtp,
+                   LoggedMediaType media_type,
+                   bool rtx);
+  LoggedPacketInfo(const LoggedPacketInfo&);
+  ~LoggedPacketInfo();
+  uint32_t ssrc;
+  uint16_t stream_seq_no;
+  uint16_t size;
+  uint16_t overhead = 0;
+  uint8_t payload_type;
+  LoggedMediaType media_type = LoggedMediaType::kUnknown;
+  bool rtx = false;
+  bool frame_marker = false;
+  bool included_in_feedback;
+  bool last_in_feedback = false;
+  uint16_t transport_seq_no = 0;
+  double capture_time;
+  double send_or_recv_time;
+  double report_recv_time = nan("");
+  double feedback_send_or_recv_time = nan("");
+  float feedback_hold_duration = nan("");
+};
+
 }  // namespace webrtc
 #endif  // LOGGING_RTC_EVENT_LOG_LOGGED_EVENTS_H_

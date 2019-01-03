@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f7e4259_0f689554",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-03T11:31:30Z",
+      "side": 1,
+      "message": "nit: This is a weird place to for this comment unless you explicitly declare the move and copy operators. Move to above class?",
+      "revId": "07c0335fab16fdb2203b11081278c09ec08a50c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bf0423_ca221edb",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-03T11:31:30Z",
+      "side": 1,
+      "message": "This comment is no longer valid. I think you can move all the comments about signaling thread to the top of the interface and simply say that this is a signaling thread-only class.",
+      "revId": "07c0335fab16fdb2203b11081278c09ec08a50c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10c4bd0c_6afcb721",
+        "filename": "pc/dtlstransport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-03T11:31:30Z",
+      "side": 1,
+      "message": "Add a comment saying must be constructed on the signaling thread.",
+      "revId": "07c0335fab16fdb2203b11081278c09ec08a50c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

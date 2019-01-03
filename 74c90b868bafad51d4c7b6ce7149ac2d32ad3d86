@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3578fff7_e71977dc",
+        "filename": "api/dtlstransportinterface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-03T11:31:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "08d30c91_f9b95475",
+      "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be15a4af_97674895",
         "filename": "pc/dtlstransport.cc",
         "patchSetId": 8
@@ -69,6 +87,24 @@
       "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb29c24b_71c8f8d3",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-03T11:31:30Z",
+      "side": 1,
+      "message": "I think making RegisterObserver signaling thread-only is the best approach, it avoids delays and this issue (https://photos.app.goo.gl/HEKaHmNRNek6raBD6) and the SLD callback needs to surface the transport infos as part of the transceiver (incl. sender \u0026 receiver) state info anyway, we already have the place on the signaling thread where we are happy to call RegisterObserver, and it avoids pitfalls and doing \"proxy\" work as part of the implementation.\n\nI\u0027m happy.",
+      "parentUuid": "8763c7be_6ca11316",
+      "revId": "74c90b868bafad51d4c7b6ce7149ac2d32ad3d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

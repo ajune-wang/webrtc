@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42f8615b_05021a27",
+        "filename": "call/video_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-03T08:48:14Z",
+      "side": 1,
+      "message": "Should these be kept? And if so, should I change back from \"nullptr\" to \"null\"? It was changed to \"nullptr\" for consistency with the formatting of pre_encode_callback, but that\u0027s now deleted.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 79
+      },
+      "revId": "cf0c35c40d0d7988fc0e62ac1b0609d0fa86a7fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -547,6 +547,30 @@
     },
     {
       "key": {
+        "uuid": "f7193ebd_2d6d45ce",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-03T08:48:14Z",
+      "side": 1,
+      "message": "\u003e Leaving it without RTT makes the integration incomplete, and at least in the audio case it was providing subpar quality. \n\nAs far as I see, it\u0027s not currently wired up for audio receive. If that\u0027s needed, it should be a different cl, though.",
+      "parentUuid": "abbc706d_5d315e32",
+      "range": {
+        "startLine": 445,
+        "startChar": 25,
+        "endLine": 445,
+        "endChar": 36
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41969d40_997df909",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16
@@ -759,6 +783,30 @@
     },
     {
       "key": {
+        "uuid": "73407301_4dffcf9f",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-03T08:48:14Z",
+      "side": 1,
+      "message": "Added TODO,",
+      "parentUuid": "440bd933_e820602a",
+      "range": {
+        "startLine": 617,
+        "startChar": 6,
+        "endLine": 617,
+        "endChar": 51
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a0da7b06_7fafa9dc",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 16
@@ -818,6 +866,30 @@
       "side": 1,
       "message": "Can you add a todo?",
       "parentUuid": "50a18322_edf38c8f",
+      "range": {
+        "startLine": 620,
+        "startChar": 26,
+        "endLine": 620,
+        "endChar": 30
+      },
+      "revId": "509b672330b92f2da2e909b7f7b4ac0cdf9e162d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd6c5592_45b2cc58",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-03T08:48:14Z",
+      "side": 1,
+      "message": "I\u0027ve added a DCHECK in constructor.",
+      "parentUuid": "b0c5262d_6e180752",
       "range": {
         "startLine": 620,
         "startChar": 26,

@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'adf0af4da16f5f12e77b889d0a7d5f96ab684a75',
+  'chromium_revision': '6e6659f6b96dc20415e403be065a927a1c7668c2',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -48,7 +48,7 @@ deps = {
   'src/base':
     Var('chromium_git') + '/chromium/src/base' + '@' + 'ba97a254ffb7324e11943ada68abb4dd189b9864',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '55d85b95d213cb38a3294b04beb54f317145d0cf',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '349a70c1f711f060418ce0429c0ea1d25cf56400',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + '7d88270de197ebe8b439ab5eb57a4a2a0bb810e0',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -58,13 +58,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + 'a454af7546a563b7b4979b26fa690e1a0a6223fe',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + 'fb488846196dd39ba992fae167e510b6e6e95ae4',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + 'a88e960b3c0d16621e6c548d52e241ae9ca669bd',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '6cb913366310985b230cdb6726adb6cd6a788477',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '24df77145ceb098969dac93db1709ee6671bcc92',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '92bc5a848a1a552ab9c0a8c765474d759042d4ce',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',

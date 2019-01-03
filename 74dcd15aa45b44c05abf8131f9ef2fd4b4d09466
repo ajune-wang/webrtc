@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "321459f8_44f886b3",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "how does this work in the multistream mode? \n1. if encoder is created as 1/2 channels, can one force other number of channels?\n2. if encoder is created as n channels, can one force 1/2 channels?",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 77
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e557821e_1cfc4c09",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "This is a helper function, can we move it up and remove \"WebRtcOpus\" as suffix.",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 40
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec6236c5_ff4b2a57",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "use // for comments unless you find that style guide says otherwise.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 32
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c530b77e_24e58ed5",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "is this still true with multistream encoder? I would think so, since encoded_bytes \u003d\u003d 1 || encoded_bytes \u003d\u003d 2 basically means that there is no payload generated, therefore leaving alone a table-of-contents (TOC). \n\nFor multistream case, if none of the streams generates payload, the combined packet should have a TOC only, but is the TOC still 1 or 2 bytes only.\n\nIt would also be interesting to understand how decoder behaves when some but not all streams runs into DTX.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 56
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ffc56f_18097cd8",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "is it possible to add a test for the failing case?",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 37
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3c380e1_82eb7d62",
+        "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-03T11:35:43Z",
+      "side": 1,
+      "message": "I think the test should cover more of multistream. Try simply add one or more values here, e.g. Values(1, 8).",
+      "range": {
+        "startLine": 791,
+        "startChar": 0,
+        "endLine": 791,
+        "endChar": 61
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -164,6 +164,30 @@
       "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ec4f2d6b_21fe8c1b",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-03T13:45:25Z",
+      "side": 1,
+      "message": "It makes sense. SGTM",
+      "parentUuid": "f32f5a01_40b177fe",
+      "range": {
+        "startLine": 236,
+        "startChar": 8,
+        "endLine": 236,
+        "endChar": 28
+      },
+      "revId": "f5b86f6893d4912b56debfd45d3fe8b5601d82b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

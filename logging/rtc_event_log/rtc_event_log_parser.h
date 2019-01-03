@@ -105,6 +105,9 @@ class PacketIterator {
   T& operator*() { return *reinterpret_cast<T*>(ptr_); }
   const T& operator*() const { return *reinterpret_cast<const T*>(ptr_); }
 
+  T* operator->() { return reinterpret_cast<T*>(ptr_); }
+  const T* operator->() const { return reinterpret_cast<const T*>(ptr_); }
+
  private:
   PacketIterator(typename std::conditional<std::is_const<T>::value,
                                            const void*,

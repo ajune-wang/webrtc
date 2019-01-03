@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a32f878d_40534469",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-03T12:53:38Z",
+      "side": 0,
+      "message": "Is it sufficient to include this in the logged events?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "c7dbd5ac08da0c2341d76d68c890212d6bbe1acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d82cf126_971f50fd",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser_new.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-03T12:53:38Z",
+      "side": 0,
+      "message": "This should still be in the parser, I think.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 25
+      },
+      "revId": "c7dbd5ac08da0c2341d76d68c890212d6bbe1acf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

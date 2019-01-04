@@ -83,13 +83,13 @@ TEST(PccNetworkControllerTest, UpdatesTargetSendRate) {
   config.transport.rates.max_rate = DataRate::kbps(1500);
   config.transport.rates.start_rate = DataRate::kbps(300);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(500);
     c->simulation.delay = TimeDelta::ms(100);
     c->simulation.loss_rate = 0.0;
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });

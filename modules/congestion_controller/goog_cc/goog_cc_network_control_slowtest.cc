@@ -22,7 +22,7 @@ TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
 
   ScopedFieldTrials trial("WebRTC-Bwe-SafeResetOnRouteChange/Enabled/");
   Scenario s("googcc_unit/safe_reset_low", true);
-  auto* send_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
+  auto* send_net = s.CreateBuiltInEmulatedNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kLinkCapacity;
     c->simulation.delay = TimeDelta::ms(10);
   });
@@ -31,9 +31,9 @@ TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {send_net}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateBuiltInEmulatedNode(NetworkNodeConfig())});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
@@ -51,7 +51,7 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
 
   ScopedFieldTrials trial("WebRTC-Bwe-SafeResetOnRouteChange/Enabled/");
   Scenario s("googcc_unit/safe_reset_high_cut", true);
-  auto send_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kLinkCapacity;
     c->simulation.delay = TimeDelta::ms(50);
   });
@@ -60,9 +60,9 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {send_net}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateBuiltInEmulatedNode(NetworkNodeConfig())});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
@@ -83,11 +83,11 @@ TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
   const DataRate kStartRate = DataRate::kbps(300);
 
   Scenario s("googcc_unit/safe_reset_high_detect", true);
-  auto* initial_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
+  auto* initial_net = s.CreateBuiltInEmulatedNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kInitialLinkCapacity;
     c->simulation.delay = TimeDelta::ms(50);
   });
-  auto* new_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
+  auto* new_net = s.CreateBuiltInEmulatedNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kNewLinkCapacity;
     c->simulation.delay = TimeDelta::ms(50);
   });
@@ -96,9 +96,9 @@ TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {initial_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {initial_net}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateBuiltInEmulatedNode(NetworkNodeConfig())});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(1000));

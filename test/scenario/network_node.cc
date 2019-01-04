@@ -36,113 +36,43 @@ void ActionReceiver::OnPacketReceived(EmulatedIpPacket packet) {
   action_();
 }
 
-NetworkNode::~NetworkNode() = default;
-
-NetworkNode::NetworkNode(NetworkNodeConfig config,
-                         std::unique_ptr<NetworkBehaviorInterface> behavior)
-    : packet_overhead_(config.packet_overhead.bytes()),
-      behavior_(std::move(behavior)) {}
-
-void NetworkNode::SetRoute(uint64_t receiver,
-                           EmulatedNetworkReceiverInterface* node) {
-  rtc::CritScope crit(&crit_sect_);
-  routing_[receiver] = node;
-}
-
-void NetworkNode::ClearRoute(uint64_t receiver_id) {
-  rtc::CritScope crit(&crit_sect_);
-  auto it = routing_.find(receiver_id);
-  routing_.erase(it);
-}
-
-void NetworkNode::OnPacketReceived(EmulatedIpPacket packet) {
-  rtc::CritScope crit(&crit_sect_);
-  if (routing_.find(packet.dest_endpoint_id) == routing_.end())
-    return;
-  uint64_t packet_id = next_packet_id_++;
-  if (behavior_->EnqueuePacket(
-          PacketInFlightInfo(packet.data.size() + packet_overhead_,
-                             packet.arrival_time.us(), packet_id))) {
-    packets_.emplace_back(StoredPacket{std::move(packet), packet_id, false});
-  }
-}
-
-void NetworkNode::Process(Timestamp at_time) {
-  std::vector<PacketDeliveryInfo> delivery_infos;
-  {
-    rtc::CritScope crit(&crit_sect_);
-    absl::optional<int64_t> delivery_us = behavior_->NextDeliveryTimeUs();
-    if (delivery_us && *delivery_us > at_time.us())
-      return;
-
-    delivery_infos = behavior_->DequeueDeliverablePackets(at_time.us());
-  }
-  for (PacketDeliveryInfo& delivery_info : delivery_infos) {
-    StoredPacket* packet = nullptr;
-    EmulatedNetworkReceiverInterface* receiver = nullptr;
-    {
-      rtc::CritScope crit(&crit_sect_);
-      for (StoredPacket& stored_packet : packets_) {
-        if (stored_packet.id == delivery_info.packet_id) {
-          packet = &stored_packet;
-          break;
-        }
-      }
-      RTC_CHECK(packet);
-      RTC_DCHECK(!packet->removed);
-      receiver = routing_[packet->packet.dest_endpoint_id];
-      packet->removed = true;
-    }
-    // We don't want to keep the lock here. Otherwise we would get a deadlock if
-    // the receiver tries to push a new packet.
-    packet->packet.arrival_time = Timestamp::us(delivery_info.receive_time_us);
-    receiver->OnPacketReceived(std::move(packet->packet));
-    {
-      rtc::CritScope crit(&crit_sect_);
-      while (!packets_.empty() && packets_.front().removed) {
-        packets_.pop_front();
-      }
-    }
-  }
-}
-
-void NetworkNode::Route(uint64_t receiver_id,
-                        std::vector<NetworkNode*> nodes,
-                        EmulatedNetworkReceiverInterface* receiver) {
+void NetworkNodeHelper::Route(uint64_t receiver_id,
+                              std::vector<NetworkNode*> nodes,
+                              EmulatedNetworkReceiverInterface* receiver) {
   RTC_CHECK(!nodes.empty());
   for (size_t i = 0; i + 1 < nodes.size(); ++i)
-    nodes[i]->SetRoute(receiver_id, nodes[i + 1]);
-  nodes.back()->SetRoute(receiver_id, receiver);
+    nodes[i]->SetReceiver(receiver_id, nodes[i + 1]);
+  nodes.back()->SetReceiver(receiver_id, receiver);
 }
 
-void NetworkNode::ClearRoute(uint64_t receiver_id,
-                             std::vector<NetworkNode*> nodes) {
+void NetworkNodeHelper::ClearRoute(uint64_t receiver_id,
+                                   std::vector<NetworkNode*> nodes) {
   for (NetworkNode* node : nodes)
-    node->ClearRoute(receiver_id);
+    node->RemoveReceiver(receiver_id);
 }
 
-std::unique_ptr<SimulationNode> SimulationNode::Create(
+std::unique_ptr<BuiltInEmulatedNode> BuiltInEmulatedNode::Create(
     NetworkNodeConfig config) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kSimulation);
   SimulatedNetwork::Config sim_config = CreateSimulationConfig(config);
   auto network = absl::make_unique<SimulatedNetwork>(sim_config);
   SimulatedNetwork* simulation_ptr = network.get();
-  return std::unique_ptr<SimulationNode>(
-      new SimulationNode(config, std::move(network), simulation_ptr));
+  return std::unique_ptr<BuiltInEmulatedNode>(
+      new BuiltInEmulatedNode(config, std::move(network), simulation_ptr));
 }
 
-void SimulationNode::UpdateConfig(
+void BuiltInEmulatedNode::UpdateConfig(
     std::function<void(NetworkNodeConfig*)> modifier) {
   modifier(&config_);
   SimulatedNetwork::Config sim_config = CreateSimulationConfig(config_);
   simulated_network_->SetConfig(sim_config);
 }
 
-void SimulationNode::PauseTransmissionUntil(Timestamp until) {
+void BuiltInEmulatedNode::PauseTransmissionUntil(Timestamp until) {
   simulated_network_->PauseTransmissionUntil(until.us());
 }
 
-ColumnPrinter SimulationNode::ConfigPrinter() const {
+ColumnPrinter BuiltInEmulatedNode::ConfigPrinter() const {
   return ColumnPrinter::Lambda("propagation_delay capacity loss_rate",
                                [this](rtc::SimpleStringBuilder& sb) {
                                  sb.AppendFormat(
@@ -153,11 +83,11 @@ ColumnPrinter SimulationNode::ConfigPrinter() const {
                                });
 }
 
-SimulationNode::SimulationNode(
+BuiltInEmulatedNode::BuiltInEmulatedNode(
     NetworkNodeConfig config,
     std::unique_ptr<NetworkBehaviorInterface> behavior,
     SimulatedNetwork* simulation)
-    : NetworkNode(config, std::move(behavior)),
+    : EmulatedNetworkNode(std::move(behavior)),
       simulated_network_(simulation),
       config_(config) {}
 

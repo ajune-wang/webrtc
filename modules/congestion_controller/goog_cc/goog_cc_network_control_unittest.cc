@@ -37,13 +37,13 @@ void UpdatesTargetRateBasedOnLinkCapacity(std::string test_name = "") {
   config.transport.rates.max_rate = DataRate::kbps(1500);
   config.transport.rates.start_rate = DataRate::kbps(300);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(500);
     c->simulation.delay = TimeDelta::ms(100);
     c->simulation.loss_rate = 0.0;
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
@@ -271,12 +271,12 @@ TEST_F(GoogCcNetworkControllerTest,
 
   Scenario s("googcc_unit/padding_limited", false);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([=](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([=](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(1000);
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
@@ -314,12 +314,12 @@ TEST_F(GoogCcNetworkControllerTest, LimitsToMinRateIfRttIsHighInTrial) {
   const TimeDelta kBufferBloatDuration = TimeDelta::seconds(10);
   Scenario s("googcc_unit/limit_trial", false);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([=](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([=](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kLinkCapacity;
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
@@ -357,8 +357,8 @@ TEST_F(GoogCcNetworkControllerTest, DefaultEstimateVariesInSteadyState) {
   net_conf.simulation.bandwidth = DataRate::kbps(500);
   net_conf.simulation.delay = TimeDelta::ms(100);
   net_conf.update_frequency = TimeDelta::ms(5);
-  auto send_net = s.CreateSimulationNode(net_conf);
-  auto ret_net = s.CreateSimulationNode(net_conf);
+  auto send_net = s.CreateBuiltInEmulatedNode(net_conf);
+  auto ret_net = s.CreateBuiltInEmulatedNode(net_conf);
   SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
       "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
   // Run for a while to allow the estimate to stabilize.
@@ -385,8 +385,8 @@ TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
   net_conf.simulation.bandwidth = DataRate::kbps(500);
   net_conf.simulation.delay = TimeDelta::ms(100);
   net_conf.update_frequency = TimeDelta::ms(5);
-  auto send_net = s.CreateSimulationNode(net_conf);
-  auto ret_net = s.CreateSimulationNode(net_conf);
+  auto send_net = s.CreateBuiltInEmulatedNode(net_conf);
+  auto ret_net = s.CreateBuiltInEmulatedNode(net_conf);
   SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
       "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
   // Run for a while to allow the estimate to stabilize.
@@ -426,13 +426,13 @@ TEST_F(GoogCcNetworkControllerTest,
   config.transport.rates.max_rate = DataRate::kbps(1500);
   config.transport.rates.start_rate = DataRate::kbps(300);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(2000);
     c->simulation.delay = TimeDelta::ms(200);
     c->simulation.loss_rate = 0.1;
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(200);
     c->update_frequency = TimeDelta::ms(5);
   });
@@ -454,13 +454,13 @@ TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {
   config.transport.rates.max_rate = DataRate::kbps(5000);
   config.transport.rates.start_rate = DataRate::kbps(300);
   NetworkNodeConfig net_conf;
-  auto send_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto send_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.bandwidth = DataRate::kbps(5000);
     c->simulation.delay = TimeDelta::ms(100);
     c->simulation.loss_rate = 0.02;
     c->update_frequency = TimeDelta::ms(5);
   });
-  auto ret_net = s.CreateSimulationNode([](NetworkNodeConfig* c) {
+  auto ret_net = s.CreateBuiltInEmulatedNode([](NetworkNodeConfig* c) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });

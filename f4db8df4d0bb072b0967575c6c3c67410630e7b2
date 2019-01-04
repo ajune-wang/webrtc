@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6fe86337_63482e06",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T11:12:57Z",
+      "side": 1,
+      "message": "Deliver_time will confuse with the time, when packet should be delivered. So I renamed everything a bit to make it more clear.",
+      "parentUuid": "9b075ca6_4cd536f0",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "f4db8df4d0bb072b0967575c6c3c67410630e7b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24a93d7b_51170b9c",
         "filename": "test/scenario/simulated_time.cc",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "f4db8df4d0bb072b0967575c6c3c67410630e7b2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f49493_94127879",
+        "filename": "test/scenario/simulated_time.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T11:12:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a93d7b_51170b9c",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "f4db8df4d0bb072b0967575c6c3c67410630e7b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

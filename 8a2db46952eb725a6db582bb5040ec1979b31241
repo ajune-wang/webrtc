@@ -70,6 +70,30 @@
       "revId": "8a2db46952eb725a6db582bb5040ec1979b31241",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f980fa69_44df23cb",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-04T14:56:50Z",
+      "side": 1,
+      "message": "Bjorn: did you have a chance to think about the right solution? Are you planning on moving these to API? (you mentioned yesterday that it may not be that easy, but it seems to only use public deps anyway).",
+      "parentUuid": "1f3703af_58120f65",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 54
+      },
+      "revId": "8a2db46952eb725a6db582bb5040ec1979b31241",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

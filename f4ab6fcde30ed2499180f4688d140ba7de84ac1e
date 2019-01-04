@@ -22,6 +22,29 @@
       "revId": "f4ab6fcde30ed2499180f4688d140ba7de84ac1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5b55b9f_96b9cee0",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-04T16:03:48Z",
+      "side": 1,
+      "message": "Maybe now that we have changed the name of the class, this method should be CreateRouter (which matches with ClearRoute below).",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "f4ab6fcde30ed2499180f4688d140ba7de84ac1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

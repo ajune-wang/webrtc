@@ -45,6 +45,29 @@
       "revId": "f4ab6fcde30ed2499180f4688d140ba7de84ac1e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2126376_341e34f2",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T16:07:38Z",
+      "side": 1,
+      "message": "The fact that this is built in is not really relevant to it\u0027s functionality. The fact that it simulates the behavior of some parts of a network link is more relevant. I suggest not renaming this in this CL. If you want to change it\u0027s name in a separate Cl, something like SimulatedLinkEmulationNode might be reasonable.",
+      "range": {
+        "startLine": 66,
+        "startChar": 6,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "f4ab6fcde30ed2499180f4688d140ba7de84ac1e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

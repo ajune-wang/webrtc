@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df95408b_be616b37",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-01-04T08:17:22Z",
+      "side": 1,
+      "message": "for levels \u003c 2.2 this is not going to work. What do we do in those cases? I suggest using the same sample rate as for level 3.0 as that\u0027s the most conservative.",
+      "range": {
+        "startLine": 373,
+        "startChar": 48,
+        "endLine": 373,
+        "endChar": 61
+      },
+      "revId": "93bbda4c93193843c736a007d715dc0566e54762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70ac0854_462fc619",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-01-04T08:17:22Z",
+      "side": 1,
+      "message": "instead of silently ignoring the framerate from the client, can we log an error when setting framerate \u003e _maxAllowedFrameRate? Maybe even return WEBRTC_VIDEO_CODEC_ERROR.",
+      "range": {
+        "startLine": 378,
+        "startChar": 26,
+        "endLine": 378,
+        "endChar": 34
+      },
+      "revId": "93bbda4c93193843c736a007d715dc0566e54762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58116da5_801aaf47",
+        "filename": "sdk/objc/components/video_codec/RTCVideoEncoderH264.mm",
+        "patchSetId": 5
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-01-04T08:17:22Z",
+      "side": 1,
+      "message": "Also log an error here.",
+      "range": {
+        "startLine": 514,
+        "startChar": 2,
+        "endLine": 514,
+        "endChar": 11
+      },
+      "revId": "93bbda4c93193843c736a007d715dc0566e54762",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

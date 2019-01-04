@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cab317d_2c986e01",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T09:56:23Z",
+      "side": 1,
+      "message": "We don\u0027t need the memory includes any more, right?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "515132528dafb84963244576325bbbf13fa9cde2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

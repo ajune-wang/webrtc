@@ -66,8 +66,8 @@ class Scenario {
   RTC_DISALLOW_COPY_AND_ASSIGN(Scenario);
   ~Scenario();
 
-  SimulationNode* CreateSimulationNode(NetworkNodeConfig config);
-  SimulationNode* CreateSimulationNode(
+  BuiltInEmulatedNode* CreateBuiltInEmulatedNode(NetworkNodeConfig config);
+  BuiltInEmulatedNode* CreateBuiltInEmulatedNode(
       std::function<void(NetworkNodeConfig*)> config_modifier);
   NetworkNode* CreateNetworkNode(
       NetworkNodeConfig config,

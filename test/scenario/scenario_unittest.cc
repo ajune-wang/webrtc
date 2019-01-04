@@ -19,8 +19,8 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   auto* alice = s.CreateClient("alice", call_client_config);
   auto* bob = s.CreateClient("bob", call_client_config);
   NetworkNodeConfig network_config;
-  auto alice_net = s.CreateSimulationNode(network_config);
-  auto bob_net = s.CreateSimulationNode(network_config);
+  auto alice_net = s.CreateBuiltInEmulatedNode(network_config);
+  auto bob_net = s.CreateBuiltInEmulatedNode(network_config);
   auto route = s.CreateRoutes(alice, {alice_net}, bob, {bob_net});
 
   VideoStreamConfig video_stream_config;

@@ -140,6 +140,30 @@
       "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "165876d3_a0646690",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T16:27:33Z",
+      "side": 1,
+      "message": "Can\u0027t we keep it together with NetworkNode until then? Just make the ClearRoutes public to avoid the friends? That way you don\u0027t have to change the call sites, making this CL smaller.",
+      "parentUuid": "094bd281_587c0c70",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

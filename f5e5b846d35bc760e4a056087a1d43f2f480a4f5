@@ -22,6 +22,53 @@
       "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0476e660_fd2afc6e",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-04T10:26:34Z",
+      "side": 1,
+      "message": "We\u0027ve thought about it, but currently there is no meta information per point.",
+      "parentUuid": "dd63ed0a_63c0ca66",
+      "range": {
+        "startLine": 974,
+        "startChar": 51,
+        "endLine": 975,
+        "endChar": 52
+      },
+      "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6941b8d4_ed8f1a1e",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-04T10:26:34Z",
+      "side": 1,
+      "message": "Please use AppendTimeSeriesIfNotEmpty instead.",
+      "range": {
+        "startLine": 1009,
+        "startChar": 8,
+        "endLine": 1009,
+        "endChar": 24
+      },
+      "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

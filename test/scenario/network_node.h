@@ -44,51 +44,26 @@ class ActionReceiver : public EmulatedNetworkReceiverInterface {
   std::function<void()> action_;
 };
 
-// NetworkNode represents one link in a simulated network. It is created by a
-// scenario and can be used when setting up audio and video stream sessions.
-class NetworkNode : public EmulatedNetworkReceiverInterface {
+// Helper class to control routing.
+class NetworkNodeRouteHelper {
  public:
-  ~NetworkNode() override;
-  RTC_DISALLOW_COPY_AND_ASSIGN(NetworkNode);
-
-  void OnPacketReceived(EmulatedIpPacket packet) override;
-  // Creates a route  for the given receiver_id over all the given nodes to the
+  // Creates a route for the given receiver_id over all the given nodes to the
   // given receiver.
-  static void Route(uint64_t receiver_id,
-                    std::vector<NetworkNode*> nodes,
-                    EmulatedNetworkReceiverInterface* receiver);
+  static void CreateRoute(uint64_t receiver_id,
+                          std::vector<NetworkNode*> nodes,
+                          EmulatedNetworkReceiverInterface* receiver);
 
  protected:
   friend class Scenario;
   friend class AudioStreamPair;
   friend class VideoStreamPair;
 
-  NetworkNode(NetworkNodeConfig config,
-              std::unique_ptr<NetworkBehaviorInterface> simulation);
   static void ClearRoute(uint64_t receiver_id, std::vector<NetworkNode*> nodes);
-  void Process(Timestamp at_time);
-
- private:
-  struct StoredPacket {
-    EmulatedIpPacket packet;
-    uint64_t id;
-    bool removed;
-  };
-  void SetRoute(uint64_t receiver, EmulatedNetworkReceiverInterface* node);
-  void ClearRoute(uint64_t receiver_id);
-  rtc::CriticalSection crit_sect_;
-  size_t packet_overhead_ RTC_GUARDED_BY(crit_sect_);
-  const std::unique_ptr<NetworkBehaviorInterface> behavior_
-      RTC_GUARDED_BY(crit_sect_);
-  std::map<uint64_t, EmulatedNetworkReceiverInterface*> routing_
-      RTC_GUARDED_BY(crit_sect_);
-  std::deque<StoredPacket> packets_ RTC_GUARDED_BY(crit_sect_);
-
-  uint64_t next_packet_id_ RTC_GUARDED_BY(crit_sect_) = 1;
 };
-// SimulationNode is a NetworkNode that expose an interface for changing run
-// time behavior of the underlying simulation.
-class SimulationNode : public NetworkNode {
+
+// SimulationNode is a NetworkNode that expose an interface for changing
+// run time behavior of the underlying simulation.
+class SimulationNode : public EmulatedNetworkNode {
  public:
   void UpdateConfig(std::function<void(NetworkNodeConfig*)> modifier);
   void PauseTransmissionUntil(Timestamp until);
@@ -101,6 +76,7 @@ class SimulationNode : public NetworkNode {
                  std::unique_ptr<NetworkBehaviorInterface> behavior,
                  SimulatedNetwork* simulation);
   static std::unique_ptr<SimulationNode> Create(NetworkNodeConfig config);
+
   SimulatedNetwork* const simulated_network_;
   NetworkNodeConfig config_;
 };

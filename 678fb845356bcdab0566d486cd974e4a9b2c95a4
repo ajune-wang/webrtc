@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "f29535d5_50d71d5e",
+        "filename": "test/scenario/network/network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T09:21:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b455dc79_2d38f611",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "678fb845356bcdab0566d486cd974e4a9b2c95a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4faf063f_9729a3f4",
         "filename": "test/scenario/network/network.h",
         "patchSetId": 3

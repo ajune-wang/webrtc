@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "53cd304d_2d3ce712",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T16:34:51Z",
+      "side": 1,
+      "message": "In such case maybe let\u0027s keep it for now and I\u0027ll clean it up, when whole network layer will be landed. I\u0027ll put todo to remove it.",
+      "parentUuid": "270b55d0_bee17ef2",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 47
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15aa1ccb_a8bdc1b2",
         "filename": "test/scenario/network_node.h",
         "patchSetId": 4
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "Can\u0027t we keep it together with NetworkNode until then? Just make the ClearRoutes public to avoid the friends? That way you don\u0027t have to change the call sites, making this CL smaller.",
       "parentUuid": "094bd281_587c0c70",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bddc4727_752d92bd",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T16:34:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "165876d3_a0646690",
       "range": {
         "startLine": 52,
         "startChar": 14,

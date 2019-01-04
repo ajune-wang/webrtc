@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "41eabd8b_4bf89280",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T16:25:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb7e469d_c267c5b5",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 69
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8d361ef_9c781b18",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c26f37db_7a51cc74",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T16:25:25Z",
+      "side": 1,
+      "message": "I want to have a simple transparent note, that just passing packets through for testing purpose of network layer. It\u0027s easier to debug on it, when there is no extra layer of logic.",
+      "parentUuid": "c8d361ef_9c781b18",
+      "range": {
+        "startLine": 85,
+        "startChar": 6,
+        "endLine": 85,
+        "endChar": 47
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15aa1ccb_a8bdc1b2",
         "filename": "test/scenario/network_node.h",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "094bd281_587c0c70",
+        "filename": "test/scenario/network_node.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-04T16:25:25Z",
+      "side": 1,
+      "message": "I want to remove it next CL with introduction of NetworkEmulationManager. It is why I don\u0027t want to move this staff to much.",
+      "parentUuid": "15aa1ccb_a8bdc1b2",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "2e8fb74367b642355190cb00856fd5487db9cf9c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

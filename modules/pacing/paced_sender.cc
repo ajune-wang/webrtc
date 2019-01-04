@@ -70,7 +70,8 @@ PacedSender::PacedSender(const Clock* clock,
       packet_counter_(0),
       pacing_factor_(kDefaultPaceMultiplier),
       queue_time_limit(kMaxQueueLengthMs),
-      account_for_audio_(false) {
+      account_for_audio_(false),
+      queue_size_bytes_(0) {
   if (!drain_large_queues_) {
     RTC_LOG(LS_WARNING) << "Pacer queues will not be drained,"
                            "pushback experiment must be enabled.";
@@ -206,6 +207,7 @@ void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
   packets_.Push(RoundRobinPacketQueue::Packet(
       priority, ssrc, sequence_number, capture_time_ms, now_ms, bytes,
       retransmission, packet_counter_++));
+  queue_size_bytes_.fetch_add(bytes, std::memory_order_relaxed);
 }
 
 void PacedSender::SetAccountForAudioPackets(bool account_for_audio) {
@@ -230,6 +232,10 @@ absl::optional<int64_t> PacedSender::GetApplicationLimitedRegionStartTime() {
 size_t PacedSender::QueueSizePackets() const {
   rtc::CritScope cs(&critsect_);
   return packets_.SizeInPackets();
+}
+
+int64_t PacedSender::QueueSizeBytes() const {
+  return queue_size_bytes_.load(std::memory_order_relaxed);
 }
 
 int64_t PacedSender::FirstSentPacketTimeMs() const {
@@ -353,6 +359,7 @@ void PacedSender::Process() {
     critsect_.Enter();
     if (success) {
       bytes_sent += packet->bytes;
+      queue_size_bytes_.fetch_sub(packet->bytes, std::memory_order_relaxed);
       // Send succeeded, remove it from the queue.
       OnPacketSent(std::move(packet));
       if (is_probing && bytes_sent > recommended_probe_size)

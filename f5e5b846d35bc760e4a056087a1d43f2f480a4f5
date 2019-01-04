@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "131c4212_3d2e9bb2",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 975,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-04T14:54:38Z",
+      "side": 1,
+      "message": "thanks.\n:( it would be nice to show failure reason for failure event, or cluster id / probe info for the probe created events.",
+      "parentUuid": "0476e660_fd2afc6e",
+      "range": {
+        "startLine": 974,
+        "startChar": 51,
+        "endLine": 975,
+        "endChar": 52
+      },
+      "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6941b8d4_ed8f1a1e",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 2
@@ -69,6 +93,30 @@
       "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2b5d703_ffccba04",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-04T14:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6941b8d4_ed8f1a1e",
+      "range": {
+        "startLine": 1009,
+        "startChar": 8,
+        "endLine": 1009,
+        "endChar": 24
+      },
+      "revId": "f5e5b846d35bc760e4a056087a1d43f2f480a4f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

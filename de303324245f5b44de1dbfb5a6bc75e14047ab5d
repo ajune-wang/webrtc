@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b164d87_36ecb0bb",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T09:34:06Z",
+      "side": 1,
+      "message": "I think this should be guarded by crotsect_ since it reflects the contents of packets_ and for consistency, unless we know that there\u0027s a performance issue. (but then, maybe there\u0027s more members here that should be made atomic?",
+      "revId": "de303324245f5b44de1dbfb5a6bc75e14047ab5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

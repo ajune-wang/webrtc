@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b075ca6_4cd536f0",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T10:25:48Z",
+      "side": 1,
+      "message": "This is the delivery_time, right?",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "f4db8df4d0bb072b0967575c6c3c67410630e7b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a93d7b_51170b9c",
+        "filename": "test/scenario/simulated_time.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-04T10:25:48Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "f4db8df4d0bb072b0967575c6c3c67410630e7b2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -466,7 +466,11 @@ class ParsedRtcEventLog {
   int64_t first_timestamp() const { return first_timestamp_; }
   int64_t last_timestamp() const { return last_timestamp_; }
 
+  std::vector<LoggedPacketInfo> GetPacketInfos(PacketDirection direction) const;
+
  private:
+  std::vector<LoggedRouteChangeEvent> GetRouteChanges() const;
+
   bool ParseStreamInternal(
       std::istream& stream);  // no-presubmit-check TODO(webrtc:8982)
 

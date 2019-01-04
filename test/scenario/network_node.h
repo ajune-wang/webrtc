@@ -23,31 +23,22 @@
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/copyonwritebuffer.h"
 #include "test/scenario/column_printer.h"
+#include "test/scenario/network/network_emulation.h"
 #include "test/scenario/scenario_config.h"
 
 namespace webrtc {
 namespace test {
 
-class NetworkReceiverInterface {
- public:
-  virtual void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                             uint64_t receiver,
-                             Timestamp at_time) = 0;
-  virtual ~NetworkReceiverInterface() = default;
-};
 class NullReceiver : public NetworkReceiverInterface {
  public:
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+  void DeliverPacket(EmulatedIpPacket packet) override;
 };
 class ActionReceiver : public NetworkReceiverInterface {
  public:
   explicit ActionReceiver(std::function<void()> action);
   virtual ~ActionReceiver() = default;
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+
+  void DeliverPacket(EmulatedIpPacket packet) override;
 
  private:
   std::function<void()> action_;
@@ -60,12 +51,10 @@ class NetworkNode : public NetworkReceiverInterface {
   ~NetworkNode() override;
   RTC_DISALLOW_COPY_AND_ASSIGN(NetworkNode);
 
-  void DeliverPacket(rtc::CopyOnWriteBuffer packet,
-                     uint64_t receiver,
-                     Timestamp at_time) override;
+  void DeliverPacket(EmulatedIpPacket packet) override;
   // Creates a route  for the given receiver_id over all the given nodes to the
   // given receiver.
-  static void Route(int64_t receiver_id,
+  static void Route(uint64_t receiver_id,
                     std::vector<NetworkNode*> nodes,
                     NetworkReceiverInterface* receiver);
 
@@ -76,13 +65,12 @@ class NetworkNode : public NetworkReceiverInterface {
 
   NetworkNode(NetworkNodeConfig config,
               std::unique_ptr<NetworkBehaviorInterface> simulation);
-  static void ClearRoute(int64_t receiver_id, std::vector<NetworkNode*> nodes);
+  static void ClearRoute(uint64_t receiver_id, std::vector<NetworkNode*> nodes);
   void Process(Timestamp at_time);
 
  private:
   struct StoredPacket {
-    rtc::CopyOnWriteBuffer packet_data;
-    uint64_t receiver_id;
+    EmulatedIpPacket packet;
     uint64_t id;
     bool removed;
   };

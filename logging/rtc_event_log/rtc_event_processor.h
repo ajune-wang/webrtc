@@ -17,6 +17,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/function_view.h"
 

@@ -22,6 +22,30 @@
       "revId": "be05995da9b3ac096077f11bcd882f2586d673e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6584ca65_50abfd7b",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-07T19:14:25Z",
+      "side": 1,
+      "message": "I think we can avoid duplicating text logs by relying on the ANA creation log: \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/audio_send_stream.cc?type\u003dcs\u0026q\u003d%22Audio+network+adaptor%22\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d651",
+      "parentUuid": "f77fcf4d_5803ec89",
+      "range": {
+        "startLine": 1217,
+        "startChar": 0,
+        "endLine": 1217,
+        "endChar": 52
+      },
+      "revId": "be05995da9b3ac096077f11bcd882f2586d673e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

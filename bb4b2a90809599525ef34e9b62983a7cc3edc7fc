@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e5f4eae_b5664ea1",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-07T13:48:59Z",
+      "side": 1,
+      "message": "Why not do the opposite, split it if such a case comes up? that way you don\u0027t have to do anything in the future unless you need it (while this variant would require extra cleanup work in the future, something that has a clear risk of not being done)\n\nIf you do want to keep this because of pass-through nodes (which to me doesn\u0027t make much sense, as it should be equivalent to just skipping it) I suggest adding that one as well in this CL, that makes it easier for people reading this code to understand the motivation for this class.\n\nAn option would be to add something to the NetworkBehaviorInterface so it makes NetworkNode behave as a pass-through node. Currently it can indicate that a packet should be dropped immediately, maybe it could return an enum {kDrop, kPassTrough} instead?",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "bb4b2a90809599525ef34e9b62983a7cc3edc7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8929306f_5b65a009",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-07T13:48:59Z",
+      "side": 1,
+      "message": "\"A NetworkNode that wraps an implementation of EmulatedNetworkNode to control the behavior.\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 76
+      },
+      "revId": "bb4b2a90809599525ef34e9b62983a7cc3edc7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

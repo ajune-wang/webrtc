@@ -690,6 +690,8 @@ rtc_static_library("rtc_numerics") {
     "numerics/moving_median_filter.h",
     "numerics/percentile_filter.h",
     "numerics/sequence_number_util.h",
+    "numerics/stats_counter.cc",
+    "numerics/stats_counter.h",
   ]
   deps = [
     ":checks",
@@ -1403,6 +1405,7 @@ if (rtc_include_tests) {
       "numerics/moving_median_filter_unittest.cc",
       "numerics/percentile_filter_unittest.cc",
       "numerics/sequence_number_util_unittest.cc",
+      "numerics/stats_counter_unittest.cc",
     ]
     deps = [
       ":rtc_base_approved",

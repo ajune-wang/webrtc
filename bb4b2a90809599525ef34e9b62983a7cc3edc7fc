@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8fdd1e4a_807430d2",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-07T14:03:44Z",
+      "side": 1,
+      "message": "I added implementation of transparent node. You can\u0027t connect peers directly without node, if you need just to pass data, because connection will be synchronous in such case and the node will add async delivery.",
+      "parentUuid": "8e5f4eae_b5664ea1",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 66,
+        "endChar": 34
+      },
+      "revId": "bb4b2a90809599525ef34e9b62983a7cc3edc7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8929306f_5b65a009",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "bb4b2a90809599525ef34e9b62983a7cc3edc7fc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c14117_2e4b2f90",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-07T14:03:44Z",
+      "side": 1,
+      "message": "You mean NetworkBehaviorInterface, not EmulatedNetworkNode, right?",
+      "parentUuid": "8929306f_5b65a009",
+      "range": {
+        "startLine": 93,
+        "startChar": 3,
+        "endLine": 93,
+        "endChar": 76
+      },
+      "revId": "bb4b2a90809599525ef34e9b62983a7cc3edc7fc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

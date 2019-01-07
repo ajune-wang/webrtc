@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9df3267c_6907186a",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-07T09:47:41Z",
+      "side": 1,
+      "message": "FYI for reviewers.\nI compared this CL against https://webrtc-review.googlesource.com/c/src/+/113040\nThe only difference is `is_linux` -\u003e `is_desktop_linux` here.\nSeems good.",
+      "range": {
+        "startLine": 115,
+        "startChar": 24,
+        "endLine": 115,
+        "endChar": 31
+      },
+      "revId": "bcf36450dfde11ba043c465decd914c33d6ff9a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f77fcf4d_5803ec89",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-07T15:26:37Z",
+      "side": 1,
+      "message": "nit: Log a warning if ana_config is ignored due to receive-side bwe?",
+      "range": {
+        "startLine": 1217,
+        "startChar": 0,
+        "endLine": 1217,
+        "endChar": 52
+      },
+      "revId": "be05995da9b3ac096077f11bcd882f2586d673e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

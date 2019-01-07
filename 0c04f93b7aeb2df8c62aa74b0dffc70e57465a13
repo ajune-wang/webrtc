@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71fe4ae1_1cb8472d",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-07T12:59:27Z",
+      "side": 1,
+      "message": "Can you document what these metrics are doing in either the standard (https://github.com/w3c/webrtc-stats/issues) or if you want to avoid the standard, get it into the provisional stats doc (https://github.com/henbos/webrtc-provisional-stats/issues, it\u0027s  in a hello world-like state but we can add experimental stuff there)?\n\nAs a user of the API I don\u0027t know what these metrics are doing. I would like all metrics, even non-standard ones, to be documented, and if the metric isn\u0027t in the standard doc there should be a link here to the definition of the stat.",
+      "revId": "0c04f93b7aeb2df8c62aa74b0dffc70e57465a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "936ce8e1_0bb1f3c8",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-07T12:59:27Z",
+      "side": 1,
+      "message": "All other metrics in this API use seconds for time. Can you remove \"Ms\" from the name and report this value as a double in seconds? You can convert from ms to seconds in rtcstatscollector.cc if you want to leave the lower layers unmodified.",
+      "revId": "0c04f93b7aeb2df8c62aa74b0dffc70e57465a13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

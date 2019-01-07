@@ -46,6 +46,30 @@
       "revId": "54d2e7d65f8536358b04bdfae22b7deccb3d588f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca18fbf6_91571a4e",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-07T15:19:04Z",
+      "side": 1,
+      "message": "How often is that? More often than the value is updated? What is the value used for ultimately? Polling so often that locking overhead is a problem doesn\u0027t sound right; then it might be better to, e.g., configure some thresholds and generate callbacks when thresholds are crossed.",
+      "parentUuid": "5ba3cb70_6ce2990a",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 1
+      },
+      "revId": "54d2e7d65f8536358b04bdfae22b7deccb3d588f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

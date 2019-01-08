@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d80dcd0c_2bfa61e3",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2019-01-08T18:55:56Z",
+      "side": 1,
+      "message": "What\u0027s the rationale behind 5ms? I think you ought to err on the side of a longer timeout, since if the system is under heavy load, an application might take longer than this to respond (whereas the converse failure mode, lots of unresponsive windows causing the enumeration to take a long time) seems less likely.\n\nAlso, please use a named constant instead of 5, perhaps with a comment explaining why you chose that value.",
+      "revId": "f1a213e7c423c92aff12d6d0f3aaf1231cb7e4a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

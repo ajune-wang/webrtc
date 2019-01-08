@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5c64d8d6_f0121d94",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T15:36:28Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "3ba17ff4_f4c33bf4",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acb18d19_eb7b52f0",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 3
@@ -69,6 +93,30 @@
       "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69024b2e_3cda825d",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T15:36:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "acb18d19_eb7b52f0",
+      "range": {
+        "startLine": 107,
+        "startChar": 30,
+        "endLine": 107,
+        "endChar": 36
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "f3f81acd_1967609f",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T15:36:28Z",
+      "side": 1,
+      "message": "I think that would be nice. However, I don\u0027t think the delay manager is aware of when the last played out packet was (timestamp_). Leaving as is.",
+      "parentUuid": "eeae830f_f9d08222",
+      "range": {
+        "startLine": 762,
+        "startChar": 9,
+        "endLine": 762,
+        "endChar": 31
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c48c5096_4791ba18",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 3
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "1a655b8a_7160983c",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T15:36:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c48c5096_4791ba18",
+      "range": {
+        "startLine": 765,
+        "startChar": 0,
+        "endLine": 766,
+        "endChar": 54
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d20485_e15e93d8",
         "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
         "patchSetId": 3
@@ -138,6 +234,30 @@
       "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5853f6f0_623c1665",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T15:36:28Z",
+      "side": 1,
+      "message": "Done. Not really sure what I\u0027m doing but it seems to work.",
+      "parentUuid": "e3d20485_e15e93d8",
+      "range": {
+        "startLine": 1508,
+        "startChar": 1,
+        "endLine": 1509,
+        "endChar": 0
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

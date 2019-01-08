@@ -22,6 +22,122 @@
       "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ba17ff4_f4c33bf4",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-08T14:04:10Z",
+      "side": 1,
+      "message": "I suggest enable_rtx_handling, since this solution to deal with reordering caused by RTX rather than routing.",
+      "parentUuid": "10916750_8f86a710",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acb18d19_eb7b52f0",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-08T14:04:10Z",
+      "side": 1,
+      "message": "it is ugly that we add these addition member variables rather than keep only a config. But this is not related to this CL. I can clean it up as a follow-up cl.",
+      "range": {
+        "startLine": 107,
+        "startChar": 30,
+        "endLine": 107,
+        "endChar": 36
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeae830f_f9d08222",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-08T14:04:10Z",
+      "side": 1,
+      "message": "it feels a bit weird to me that this (except the condition on new_codec_) was not placed inside delay_manager_. If that is the case, use_reordered_packets_ (or enable_rtx_handling, as I suggested) will only be needed there.\n\nBut if you feel such a change is prone to error, I am fine with this too.",
+      "range": {
+        "startLine": 762,
+        "startChar": 9,
+        "endLine": 762,
+        "endChar": 31
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c48c5096_4791ba18",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-08T14:04:10Z",
+      "side": 1,
+      "message": "update the comment",
+      "range": {
+        "startLine": 765,
+        "startChar": 0,
+        "endLine": 766,
+        "endChar": 54
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3d20485_e15e93d8",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-08T14:04:10Z",
+      "side": 1,
+      "message": "is it possible to add a unittest here, and/or in delay_manager_unittests",
+      "range": {
+        "startLine": 1508,
+        "startChar": 1,
+        "endLine": 1509,
+        "endChar": 0
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

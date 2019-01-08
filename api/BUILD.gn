@@ -349,7 +349,8 @@ rtc_source_set("refcountedbase") {
     "refcountedbase.h",
   ]
   deps = [
-    "../rtc_base:rtc_base_approved",
+    "../rtc_base:macromagic",
+    "../rtc_base:refcount",
   ]
 }
 

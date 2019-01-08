@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33acd1ba_53fff8f1",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-08T16:41:39Z",
+      "side": 1,
+      "message": "nit: This would also work if you want to avoid doing the same reset() line twice:\n\nbool was_not_closed \u003d internal()-\u003edtls_state() !\u003d cricket::DTLS_TRANSPORT_CLOSED;\ninternal_dtls_transport_.reset();\nif (was_not_closed \u0026\u0026 observer_) {\n  observer_-\u003eOnStateChange(Information());\n}",
+      "revId": "b7f0667b812b0fbd13947fc2f04d35c907acef87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

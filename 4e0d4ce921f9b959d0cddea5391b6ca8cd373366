@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdda0fc7_f141f3ec",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-08T08:06:51Z",
+      "side": 1,
+      "message": "I think we can switch these to RTC_DCHECK. What do you think?",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10916750_8f86a710",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-08T11:43:47Z",
+      "side": 1,
+      "message": "I think the naming of the flag could be improved, suggestions are welcome :)",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

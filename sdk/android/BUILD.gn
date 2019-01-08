@@ -68,6 +68,7 @@ if (is_android) {
       ":native_api_codecs",
       ":native_api_jni",
       ":native_api_peerconnection",
+      ":native_api_stacktrace",
       ":native_api_video",
     ]
   }
@@ -942,6 +943,19 @@ if (is_android) {
     ]
   }
 
+  # API for printing native stacktraces.
+  rtc_static_library("native_api_stacktrace") {
+    visibility = [ "*" ]
+    sources = [
+      "native_api/stacktrace/stacktrace.cc",
+      "native_api/stacktrace/stacktrace.h",
+    ]
+
+    deps = [
+      "../../rtc_base:rtc_base",
+    ]
+  }
+
   # API for creating C++ wrapper implementations of api/mediastreaminterface.h
   # video interfaces from their Java equivalents.
   rtc_static_library("native_api_video") {
@@ -1469,6 +1483,7 @@ if (is_android) {
       "native_unittests/codecs/wrapper_unittest.cc",
       "native_unittests/java_types_unittest.cc",
       "native_unittests/peerconnection/peerconnectionfactory_unittest.cc",
+      "native_unittests/stacktrace/stacktrace_unittest.cc",
       "native_unittests/test_jni_onload.cc",
       "native_unittests/video/videosource_unittest.cc",
     ]
@@ -1494,6 +1509,7 @@ if (is_android) {
       ":native_api_codecs",
       ":native_api_jni",
       ":native_api_peerconnection",
+      ":native_api_stacktrace",
       ":native_api_video",
       ":opensles_audio_device_module",
       ":video_jni",

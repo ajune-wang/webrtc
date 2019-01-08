@@ -11,7 +11,9 @@
 #include <memory>
 
 #include "api/audio/audio_frame.h"
-#include "modules/audio_coding/neteq/tools/neteq_external_decoder_test.h"
+#include "api/audio_codecs/audio_decoder.h"
+#include "common_types.h"  // NOLINT(build/include)
+
 #include "modules/audio_coding/neteq/tools/rtp_generator.h"
 #include "test/gmock.h"
 
@@ -117,6 +119,7 @@ class MockAudioDecoder final : public AudioDecoder {
   bool fec_enabled_;
 };
 
+#if 0
 class NetEqNetworkStatsTest : public NetEqExternalDecoderTest {
  public:
   static const int kPayloadSizeByte = 30;
@@ -325,6 +328,7 @@ TEST(NetEqNetworkStatsTest, NoiseExpansionTest) {
   test.NoiseExpansionTest();
   EXPECT_CALL(decoder, Die()).Times(1);
 }
+#endif
 
 }  // namespace test
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "034cf266_7ce126da",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T10:44:15Z",
+      "side": 1,
+      "message": "What is the difference in behavior of this, compared to using a behavior as below?\n1. Always return true on EnqueuePacket, and stores the packet in a queue\n2. Always return nullopt from NextDeliveryTimeUs\n3. Always return all enqueued packets on DequeueDeliverablePackets",
+      "revId": "e6ea874defd04b3f8ab70b3912f1d1693824044a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

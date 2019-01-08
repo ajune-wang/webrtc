@@ -28,9 +28,11 @@ std::string NetEq::Config::ToString() const {
   ss << "sample_rate_hz=" << sample_rate_hz << ", enable_post_decode_vad="
      << (enable_post_decode_vad ? "true" : "false")
      << ", max_packets_in_buffer=" << max_packets_in_buffer
-     << ", enable_fast_accelerate="
-     << (enable_fast_accelerate ? " true" : "false")
-     << ", enable_muted_state=" << (enable_muted_state ? " true" : "false");
+     << ", min_delay_ms=" << min_delay_ms << ", enable_fast_accelerate="
+     << (enable_fast_accelerate ? "true" : "false")
+     << ", enable_muted_state=" << (enable_muted_state ? "true" : "false")
+     << ", use_reordered_packets="
+     << (use_reordered_packets ? "true" : "false");
   return ss.str();
 }
 

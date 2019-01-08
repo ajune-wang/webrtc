@@ -16,6 +16,24 @@
       "revId": "e6ea874defd04b3f8ab70b3912f1d1693824044a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f23d92_92c2ff13",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-08T12:36:50Z",
+      "side": 1,
+      "message": "Yep, it\u0027s the same. Classes are merged.",
+      "parentUuid": "034cf266_7ce126da",
+      "revId": "e6ea874defd04b3f8ab70b3912f1d1693824044a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

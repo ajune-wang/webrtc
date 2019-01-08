@@ -77,7 +77,14 @@ void DtlsTransport::UnregisterObserver() {
 // Internal functions
 void DtlsTransport::Clear() {
   RTC_DCHECK(signaling_thread_->IsCurrent());
-  internal_dtls_transport_.reset();
+  if (internal()->dtls_state() != cricket::DTLS_TRANSPORT_CLOSED) {
+    internal_dtls_transport_.reset();
+    if (observer_) {
+      observer_->OnStateChange(Information());
+    }
+  } else {
+    internal_dtls_transport_.reset();
+  }
 }
 
 void DtlsTransport::OnInternalDtlsState(

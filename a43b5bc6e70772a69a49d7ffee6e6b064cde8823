@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7afd7068_442f2d63",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-01-08T13:35:31Z",
+      "side": 1,
+      "message": "options.typing_detection is nullopt to begin with, I expect?",
+      "revId": "a43b5bc6e70772a69a49d7ffee6e6b064cde8823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

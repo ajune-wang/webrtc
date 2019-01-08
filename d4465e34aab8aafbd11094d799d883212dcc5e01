@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47d2f2f3_49c3d49e",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T18:24:45Z",
+      "side": 1,
+      "message": "nit: just remove this line.",
+      "range": {
+        "startLine": 591,
+        "startChar": 2,
+        "endLine": 591,
+        "endChar": 18
+      },
+      "revId": "d4465e34aab8aafbd11094d799d883212dcc5e01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

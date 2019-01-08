@@ -64,6 +64,7 @@ NetEqImpl::Dependencies::Dependencies(
       delay_peak_detector(new DelayPeakDetector(tick_timer.get())),
       delay_manager(new DelayManager(config.max_packets_in_buffer,
                                      config.min_delay_ms,
+                                     config.use_reordered_packets,
                                      delay_peak_detector.get(),
                                      tick_timer.get())),
       dtmf_buffer(new DtmfBuffer(config.sample_rate_hz)),
@@ -112,7 +113,8 @@ NetEqImpl::NetEqImpl(const NetEq::Config& config,
       speech_expand_uma_logger_("WebRTC.Audio.SpeechExpandRatePercent",
                                 10,  // Report once every 10 s.
                                 tick_timer_.get()),
-      no_time_stretching_(config.for_test_no_time_stretching) {
+      no_time_stretching_(config.for_test_no_time_stretching),
+      use_reordered_packets_(config.use_reordered_packets) {
   RTC_LOG(LS_INFO) << "NetEq config: " << config.ToString();
   int fs = config.sample_rate_hz;
   if (fs != 8000 && fs != 16000 && fs != 32000 && fs != 48000) {
@@ -757,7 +759,9 @@ int NetEqImpl::InsertPacketInternal(const RTPHeader& rtp_header,
     }
 
     // Update statistics.
-    if ((int32_t)(main_timestamp - timestamp_) >= 0 && !new_codec_) {
+    if ((use_reordered_packets_ ||
+         (int32_t)(main_timestamp - timestamp_) >= 0) &&
+        !new_codec_) {
       // Only update statistics if incoming packet is not older than last played
       // out packet, and if new codec flag is not set.
       delay_manager_->Update(main_sequence_number, main_timestamp, fs_hz_);

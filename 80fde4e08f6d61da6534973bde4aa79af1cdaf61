@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b20a576_709defb6",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T09:34:59Z",
+      "side": 1,
+      "message": "I think the name is a bit unclear. It\u0027s not really \"Transparent\", it just passes on the input directly.",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 17
+      },
+      "revId": "80fde4e08f6d61da6534973bde4aa79af1cdaf61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0b442b9_e4d3e9ba",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T09:34:59Z",
+      "side": 1,
+      "message": "I see no implementation, forgot to upload?",
+      "range": {
+        "startLine": 133,
+        "startChar": 7,
+        "endLine": 133,
+        "endChar": 23
+      },
+      "revId": "80fde4e08f6d61da6534973bde4aa79af1cdaf61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

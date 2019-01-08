@@ -16,6 +16,24 @@
       "revId": "f1a213e7c423c92aff12d6d0f3aaf1231cb7e4a2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a455b47b_6522dbbd",
+        "filename": "modules/desktop_capture/window_capturer_win.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-01-08T23:23:14Z",
+      "side": 1,
+      "message": "Done. Extend the timer to 50ms to be more reliable.\n\nI suppose we don\u0027t need a longer timer here, also don\u0027t want to delay the enumeration a lot in the worst case. If a window fails to respond within the timer, the worst case is it won\u0027t be shown in the picker for one sec before we enumerate again. Besides, if the system is that busy, user won\u0027t be able to do any operation normally too. :)",
+      "parentUuid": "d80dcd0c_2bfa61e3",
+      "revId": "f1a213e7c423c92aff12d6d0f3aaf1231cb7e4a2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

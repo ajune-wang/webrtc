@@ -49,7 +49,7 @@ specific_include_rules = {
   "array_view\.h": [
     "+rtc_base/type_traits.h",
   ],
-
+  
   # Needed because AudioEncoderOpus is in the wrong place for
   # backwards compatibilty reasons. See
   # https://bugs.chromium.org/p/webrtc/issues/detail?id=7847

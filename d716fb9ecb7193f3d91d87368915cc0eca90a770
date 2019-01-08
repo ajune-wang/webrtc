@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80da6421_d3e94e4c",
+        "filename": "media/base/mediaconfig.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-08T15:42:37Z",
+      "side": 0,
+      "message": "Maybe this is out of date, but I think it\u0027s helpful with a comment on where the setting originates.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "d716fb9ecb7193f3d91d87368915cc0eca90a770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

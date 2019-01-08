@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "532a4edd_70b98719",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-08T15:42:37Z",
+      "side": 1,
+      "message": "Maybe rename to something with \"buffering\" in it? |enable_prerenderer_buffering|, |enable_playout_buffer|, ... ?",
+      "range": {
+        "startLine": 206,
+        "startChar": 9,
+        "endLine": 206,
+        "endChar": 37
+      },
+      "revId": "e94d2e331a22ad3c2ff91f4ecb2dea77b0b78e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ddc797_bc440b61",
+        "filename": "media/base/mediaconfig.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-08T15:42:37Z",
+      "side": 1,
+      "message": "Can this be rephrased in terms of responsibility for the playout buffering?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 75
+      },
+      "revId": "e94d2e331a22ad3c2ff91f4ecb2dea77b0b78e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90320050_cdb5cfee",
+        "filename": "media/engine/webrtcvideoengine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-08T15:42:37Z",
+      "side": 1,
+      "message": "Naming consistency is nice here, though. So perhaps stick to this name for now, and consider renaming in MediaConfig and higher up at some later time.",
+      "range": {
+        "startLine": 1204,
+        "startChar": 0,
+        "endLine": 1205,
+        "endChar": 49
+      },
+      "revId": "e94d2e331a22ad3c2ff91f4ecb2dea77b0b78e85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

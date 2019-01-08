@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36db5d2f_b91fc341",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T14:38:39Z",
+      "side": 1,
+      "message": "The behavior of the node itself is determined by a concrete implementation of NetworkBehaviorInterface that is provided on construction.",
+      "range": {
+        "startLine": 66,
+        "startChar": 61,
+        "endLine": 68,
+        "endChar": 32
+      },
+      "revId": "db9bb44891e487a6e56ecc621ff8987254b2feb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1085e267_19fe9ad4",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-08T14:38:39Z",
+      "side": 1,
+      "message": "The specified |packet_overhead| is added to the size of each packet in the information provided to |network_behavior|.",
+      "range": {
+        "startLine": 71,
+        "startChar": 47,
+        "endLine": 72,
+        "endChar": 49
+      },
+      "revId": "db9bb44891e487a6e56ecc621ff8987254b2feb8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

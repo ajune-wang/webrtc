@@ -22,6 +22,30 @@
       "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6d2991_0821a7e3",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-08T09:58:53Z",
+      "side": 1,
+      "message": "I\u0027m not strongly against DCHECK, but I\u0027m worrying that it will behave unexpectedly, if it will hit lines, protected by CHECK in production code. So I don\u0027t know. What do you think?",
+      "parentUuid": "cdda0fc7_f141f3ec",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

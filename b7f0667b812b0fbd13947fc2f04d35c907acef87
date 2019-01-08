@@ -16,6 +16,24 @@
       "revId": "b7f0667b812b0fbd13947fc2f04d35c907acef87",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9d99c9b_b0d74ed1",
+        "filename": "pc/dtlstransport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-08T17:26:17Z",
+      "side": 1,
+      "message": "yep, I thought a branch was equally clear. I think the internal transport needs to go away before the OnStateChange call, because otherwise Information() won\u0027t return the correct state.\n\nClear() can only be called once, adding a DCHECK to verify that this is true.",
+      "parentUuid": "33acd1ba_53fff8f1",
+      "revId": "b7f0667b812b0fbd13947fc2f04d35c907acef87",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

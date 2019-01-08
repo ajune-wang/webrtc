@@ -269,8 +269,8 @@ SimulatedTimeClient::SimulatedTimeClient(
   congestion_controller_ = network_controller_factory_.Create(initial_config);
   for (auto& stream_config : stream_configs)
     packet_streams_.emplace_back(new PacketStream(stream_config));
-  NetworkNode::Route(send_receiver_id, send_link, &feedback_);
-  NetworkNode::Route(return_receiver_id, return_link, this);
+  NetworkNode::CreateRoute(send_receiver_id, send_link, &feedback_);
+  NetworkNode::CreateRoute(return_receiver_id, return_link, this);
 
   CongestionProcess(at_time);
   network_controller_factory_.LogCongestionControllerStats(at_time);

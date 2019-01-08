@@ -16,6 +16,24 @@
       "revId": "a43b5bc6e70772a69a49d7ffee6e6b064cde8823",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59bee8a4_85f29b2b",
+        "filename": "media/engine/webrtcvoiceengine_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2862,
+      "author": {
+        "id": 6641
+      },
+      "writtenOn": "2019-01-08T13:59:46Z",
+      "side": 1,
+      "message": "Yes, that\u0027s right. I expect typing detection to be unchanged, instead of set to its default setting, when options.typing_detection is nullopt.",
+      "parentUuid": "7afd7068_442f2d63",
+      "revId": "a43b5bc6e70772a69a49d7ffee6e6b064cde8823",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

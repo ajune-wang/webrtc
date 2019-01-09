@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf1d0595_e8be46cd",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t account for wrap around. You could unwrap the capture times for each stream, or maybe the conversion to seconds isn\u0027t that useful?",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9de5a6_3e475388",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "But see my comment about wrap around; maybe it would be better to just store the raw RTP timestamp as an uint32?",
+      "range": {
+        "startLine": 471,
+        "startChar": 30,
+        "endLine": 471,
+        "endChar": 39
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54680ef8_d13608a0",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "to seconds?\n\n(I know Timestamp isn\u0027t necessarily seconds, but I think it makes the purpose of the conversion clearer.)",
+      "range": {
+        "startLine": 471,
+        "startChar": 58,
+        "endLine": 471,
+        "endChar": 72
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11235359_3a1c4bd1",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "nit: incoming",
+      "range": {
+        "startLine": 473,
+        "startChar": 66,
+        "endLine": 473,
+        "endChar": 75
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc4d1492_b35de2a4",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "nit: incoming",
+      "range": {
+        "startLine": 476,
+        "startChar": 57,
+        "endLine": 476,
+        "endChar": 66
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b7df029_a61fe906",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "nit: incoming",
+      "range": {
+        "startLine": 481,
+        "startChar": 5,
+        "endLine": 481,
+        "endChar": 14
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fc60e26_c4577bdf",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "Delay betweeen receiving an RTP packet and sending feedback. ?",
+      "range": {
+        "startLine": 484,
+        "startChar": 5,
+        "endLine": 485,
+        "endChar": 33
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e6642c6_8377586d",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T18:53:33Z",
+      "side": 1,
+      "message": "Remove condition since the code is the same in both branches?",
+      "range": {
+        "startLine": 1908,
+        "startChar": 0,
+        "endLine": 1908,
+        "endChar": 58
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

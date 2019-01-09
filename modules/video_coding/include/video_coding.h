@@ -178,8 +178,9 @@ class VideoCodingModule : public Module {
   // Return value      : VCM_OK, on success;
   //                     < 0, on error.
   enum ReceiverRobustness { kNone, kHardNack };
-  virtual int SetReceiverRobustnessMode(ReceiverRobustness robustnessMode,
-                                        VCMDecodeErrorMode errorMode) = 0;
+  virtual int SetReceiverRobustnessMode(
+      ReceiverRobustness robustnessMode,
+      VCMDecodeErrorMode errorMode = kNoErrors) = 0;
 
   // Sets the maximum number of sequence numbers that we are allowed to NACK
   // and the oldest sequence number that we will consider to NACK. If a

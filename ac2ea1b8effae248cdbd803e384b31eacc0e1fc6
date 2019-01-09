@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcc71162_87570c9a",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:13:30Z",
+      "side": 1,
+      "message": "Made it bool for now, because for void FunctorMessageHandler in rtc::Thread will try to copy functor instead of moving it. I hope to make a CL that will add ability to use void movable only functors before landing this one.",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "ac2ea1b8effae248cdbd803e384b31eacc0e1fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

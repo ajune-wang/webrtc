@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8274b9e5_cc325386",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-09T13:35:24Z",
+      "side": 1,
+      "message": "Moved to peak detector, PTAL.",
+      "parentUuid": "d50158c6_7fae79cc",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 73
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b73a743c_7184c409",
         "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
         "patchSetId": 5
@@ -69,6 +93,30 @@
       "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73b29a6_c37afdfb",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-09T13:35:24Z",
+      "side": 1,
+      "message": "Yeah, I missed that. Done. Also added test in DelayPeakDetector.",
+      "parentUuid": "b73a743c_7184c409",
+      "range": {
+        "startLine": 119,
+        "startChar": 25,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +188,30 @@
       "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92818c17_4d90f258",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-09T13:35:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "88aebf2a_5afadf51",
+      "range": {
+        "startLine": 1304,
+        "startChar": 22,
+        "endLine": 1304,
+        "endChar": 39
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -55,6 +55,8 @@ class FakeEncoder : public VideoEncoder {
   int GetConfiguredInputFramerate() const;
   EncoderInfo GetEncoderInfo() const override;
 
+  void SetIsHardwareAccelerated(bool is_hardware_accelerated);
+
   static const char* kImplementationName;
 
  protected:
@@ -90,6 +92,8 @@ class FakeEncoder : public VideoEncoder {
   bool pending_keyframe_ RTC_GUARDED_BY(crit_sect_);
   uint32_t counter_ RTC_GUARDED_BY(crit_sect_);
   rtc::CriticalSection crit_sect_;
+
+  bool is_hardware_accelerated_;
 
   uint8_t encoded_buffer_[100000];
   bool used_layers_[kMaxSimulcastStreams];

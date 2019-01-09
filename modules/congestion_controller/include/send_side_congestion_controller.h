@@ -121,7 +121,7 @@ class DEPRECATED_SendSideCongestionController
 
   void SetAlrLimitedBackoffExperiment(bool enable);
 
-  void SetMaxProbingBitrate(int64_t max_probing_bitrate_bps);
+  void SetMaxProbingBitrate(int64_t max_probing_bitrate_bps) override;
 
  private:
   void MaybeTriggerOnNetworkChanged();

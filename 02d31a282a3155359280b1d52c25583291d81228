@@ -93,6 +93,30 @@
       "revId": "02d31a282a3155359280b1d52c25583291d81228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4f4df83_848c8ddb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-09T17:02:30Z",
+      "side": 1,
+      "message": "Great, thanks!",
+      "parentUuid": "8f3913de_84bb891a",
+      "range": {
+        "startLine": 615,
+        "startChar": 8,
+        "endLine": 615,
+        "endChar": 28
+      },
+      "revId": "02d31a282a3155359280b1d52c25583291d81228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

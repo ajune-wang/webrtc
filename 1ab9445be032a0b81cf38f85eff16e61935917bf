@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be086ff7_b6e58e19",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T12:16:43Z",
+      "side": 0,
+      "message": "I think it is now possible to remove also this: https://cs.chromium.org/chromium/src/third_party/webrtc/api/BUILD.gn?l\u003d49\u0026rcl\u003d31d8b52075adf5d13719cf12a72579e373456a54.",
+      "range": {
+        "startLine": 288,
+        "startChar": 4,
+        "endLine": 288,
+        "endChar": 67
+      },
+      "revId": "1ab9445be032a0b81cf38f85eff16e61935917bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

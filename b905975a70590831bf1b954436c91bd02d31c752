@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4114b8cd_82dfdfb6",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-09T16:18:11Z",
+      "side": 1,
+      "message": "Of the two classes in this target, AudioDecoderProxyFactory is a test-only hack, while FunctionAudioDecoderFactory is more generally useful. So I don\u0027t think this is the ideal naming and organization, but good enough for now.",
+      "range": {
+        "startLine": 827,
+        "startChar": 1,
+        "endLine": 840,
+        "endChar": 1
+      },
+      "revId": "b905975a70590831bf1b954436c91bd02d31c752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f477d7_f0fae9de",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-09T16:18:11Z",
+      "side": 1,
+      "message": "Is this (non-public) dependency really needed?",
+      "range": {
+        "startLine": 854,
+        "startChar": 0,
+        "endLine": 854,
+        "endChar": 35
+      },
+      "revId": "b905975a70590831bf1b954436c91bd02d31c752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

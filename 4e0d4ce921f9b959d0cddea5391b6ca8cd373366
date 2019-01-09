@@ -46,6 +46,155 @@
       "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa463de9_ae1ae90a",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "DCHECK should be your default choice; after all, the presence of DCHECK(x) in the code says that x is always true, so there shouldn\u0027t be a great need to actually test it except when you\u0027re bug hunting. Use CHECK only when you\u0027re willing to pay extra to get a clean crash right away in case the code is buggy.",
+      "parentUuid": "5f6d2991_0821a7e3",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b212e195_c72beafc",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "Is\n\n  static_cast\u003csize_t\u003e(int_part) \u003d\u003d int_part\n  0 \u003c\u003d int_part \u003c\u003d samples_.size()\n  0 \u003c\u003d fract_part \u003c 1\n  int_part + fract_part \u003d\u003d raw_rank\n\nalways the case here? Consider documenting it with DCHECK in that case---this sort of documentation can be very helpful when reading code.\n\nAlso, consider changing the type of int_part to size_t, since integer types have much simpler behavior.",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71548d2e_70bcd6ac",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem like this class needs to be virtual?",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d19833a1_d214c302",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "Probably better to call it something like Empty or IsEmpty.",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de1451cc_8708bb0c",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "Why is the interval not symmetric?",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8adaa51_525c0a7d",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "These don\u0027t fail if you have no values---or at least, that\u0027s not how you should document it. Just state that the caller may not call them if the object is empty.",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90335287_3bec53a6",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "No need to say this; it\u0027s the default for C++ classes.",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3394afad_97f2af20",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:24:44Z",
+      "side": 1,
+      "message": "It looks like you\u0027re not testing any cases where frac_part in BasicSamplesStatsCounter::GetPercentile is nonzero?",
+      "revId": "4e0d4ce921f9b959d0cddea5391b6ca8cd373366",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -96,6 +96,23 @@
     },
     {
       "key": {
+        "uuid": "942629a1_c18fdeec",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "Do we really want that?\nBind() and SendTo() won\u0027t work with null clock and endpoint_provider!",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0af835d2_c6742ac9",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3
@@ -610,6 +627,98 @@
       "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34bb9b9e_af72917e",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "+1 Removing it will encourage to use the TellDontAsk principle.",
+      "parentUuid": "7e7fac9f_35f1a475",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 1
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29aa0333_71ffed7a",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "If we cannot change it, it\u0027s best to pass it in the constructor rather than via a setter.",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "304173fe_8384d27e",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "I think this class deserves its own header and cc file!",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e59a266_063d41f0",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "I find it slightly confusing to have a SendPacket method on a class implementing a ReceiverInterface. Does it mean \"EmulateSentPacket\"?",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f525f50_e502c240",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:04:21Z",
+      "side": 1,
+      "message": "Do we need the 2 options: explicit port vs automatic?",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad566bea_d7aee50c",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T10:22:39Z",
+      "side": 1,
+      "message": "How about marker_bit? Also, please note that the meaning of this bit is payload specific and typically does not indicate the end of a frame but the end of a picture/super frame. This is different from a frame if spatial layers are used.",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "27be393cd236d86bcf342946715e75b4df52412f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d0957f_c5c80f7e",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T10:22:39Z",
+      "side": 1,
+      "message": "How about has_transport_seq_no? That would make it more similar to optional\u003c\u003e and api/rtp_headers.h",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "27be393cd236d86bcf342946715e75b4df52412f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06469409_b8566634",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T10:22:39Z",
+      "side": 1,
+      "message": "I don\u0027t think this is correct. For send streams, local_ssrc is the SSRC of the stream, but for receive streams, I think the local SSRC is the SSRC of the RTCP feedback sender.",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "27be393cd236d86bcf342946715e75b4df52412f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b25ae87_f7eff019",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T10:22:39Z",
+      "side": 1,
+      "message": "There stream might not use RTX, for example if it is audio. Although heuristic, you could probably check if rtx_ssrc is non-zero.",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "27be393cd236d86bcf342946715e75b4df52412f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d180eb_870fde4f",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T10:22:39Z",
+      "side": 1,
+      "message": "Remove?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 14
+      },
+      "revId": "27be393cd236d86bcf342946715e75b4df52412f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -554,6 +554,30 @@
     },
     {
       "key": {
+        "uuid": "85333544_3f42b24b",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T15:17:49Z",
+      "side": 1,
+      "message": "Is there anything that prohibits using a network thread for the scenario framework as well?",
+      "parentUuid": "46b4e220_b6b96fef",
+      "range": {
+        "startLine": 218,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 24
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e8a073f_c79c8f22",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 3

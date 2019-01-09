@@ -16,11 +16,10 @@
 namespace webrtc {
 namespace test {
 
-TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
+TEST(GoogCcNetworkControllerTest, MaintainsLowRateOnRouteChange) {
   const DataRate kLinkCapacity = DataRate::kbps(200);
   const DataRate kStartRate = DataRate::kbps(300);
 
-  ScopedFieldTrials trial("WebRTC-Bwe-SafeResetOnRouteChange/Enabled/");
   Scenario s("googcc_unit/safe_reset_low", true);
   auto* send_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kLinkCapacity;
@@ -45,11 +44,10 @@ TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
   EXPECT_NEAR(client->send_bandwidth().kbps(), kLinkCapacity.kbps(), 50);
 }
 
-TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
+TEST(GoogCcNetworkControllerTest, CutsHighRateOnRouteChange) {
   const DataRate kLinkCapacity = DataRate::kbps(1000);
   const DataRate kStartRate = DataRate::kbps(300);
 
-  ScopedFieldTrials trial("WebRTC-Bwe-SafeResetOnRouteChange/Enabled/");
   Scenario s("googcc_unit/safe_reset_high_cut", true);
   auto send_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
     c->simulation.bandwidth = kLinkCapacity;
@@ -76,7 +74,7 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
 
 TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
   ScopedFieldTrials trial(
-      "WebRTC-Bwe-SafeResetOnRouteChange/Enabled,ack/"
+      "WebRTC-Bwe-SafeResetOnRouteChange/ack/"
       "WebRTC-Bwe-ProbeRateFallback/Enabled/");
   const DataRate kInitialLinkCapacity = DataRate::kbps(200);
   const DataRate kNewLinkCapacity = DataRate::kbps(800);

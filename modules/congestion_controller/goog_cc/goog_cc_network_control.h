@@ -70,7 +70,6 @@ class GoogCcNetworkController : public NetworkControllerInterface {
 
   RtcEventLog* const event_log_;
   const bool packet_feedback_only_;
-  FieldTrialFlag safe_reset_on_route_change_;
   FieldTrialFlag safe_reset_acknowledged_rate_;
   const bool use_stable_bandwidth_estimate_;
   const bool fall_back_to_probe_rate_;

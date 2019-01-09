@@ -22,6 +22,30 @@
       "revId": "121c7ca81f10ec2d89449ff65a5259189b9e9e8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d40b40_8dab1d85",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-09T09:23:18Z",
+      "side": 1,
+      "message": "It definitely is - the check here suffices. If unset, it will trickle down to a zero being added to the bytes_in_flight deep in the congestion_window_pushback. However, checking at this place is really only be able to test that the extra locking when querying the pacing buffer is not problematic. Once that is established, this check should be deleted. And logically, the feature belongs in congestion_window_pushback so prefer to keep it there.",
+      "parentUuid": "6fedacd3_5a38fa10",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 80
+      },
+      "revId": "121c7ca81f10ec2d89449ff65a5259189b9e9e8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d50158c6_7fae79cc",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-09T10:03:41Z",
+      "side": 1,
+      "message": "Maybe. In that case we need to pass the reordered bool into the peak detector and return immediately if that is the case. Do you think that\u0027s better?",
+      "parentUuid": "185eec50_4f29a20f",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 73
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b73a743c_7184c409",
         "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2019-01-09T09:54:10Z",
       "side": 1,
       "message": "I think the test should be failing if enable_rtx_handling \u003d false, is that the case?",
+      "range": {
+        "startLine": 1304,
+        "startChar": 22,
+        "endLine": 1304,
+        "endChar": 39
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98b3f7ff_4fee8c56",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-09T10:03:41Z",
+      "side": 1,
+      "message": "Yes that is the case. Should I add another test for that?",
+      "parentUuid": "3c85b230_be2eb459",
       "range": {
         "startLine": 1304,
         "startChar": 22,

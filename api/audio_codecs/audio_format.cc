@@ -17,6 +17,8 @@ namespace webrtc {
 SdpAudioFormat::SdpAudioFormat(const SdpAudioFormat&) = default;
 SdpAudioFormat::SdpAudioFormat(SdpAudioFormat&&) = default;
 
+SdpAudioFormat::SdpAudioFormat() : clockrate_hz(0), num_channels(0) {}
+
 SdpAudioFormat::SdpAudioFormat(absl::string_view name,
                                int clockrate_hz,
                                size_t num_channels)

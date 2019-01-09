@@ -1734,8 +1734,7 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
 
   test::NetEqTest::DecoderMap codecs;
 
-  codecs[kReplacementPt] = {NetEqDecoder::kDecoderPCM16Bswb48kHz,
-                            "replacement codec"};
+  codecs[kReplacementPt] = SdpAudioFormat("l16", 48000, 1);
 
   std::unique_ptr<test::NetEqDelayAnalyzer> delay_cb(
       new test::NetEqDelayAnalyzer);

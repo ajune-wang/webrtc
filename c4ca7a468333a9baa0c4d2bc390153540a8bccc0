@@ -113,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "bcd0e5df_4088a686",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-09T14:29:59Z",
+      "side": 1,
+      "message": "My bad. I had read too quickly!",
+      "parentUuid": "942629a1_c18fdeec",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0af835d2_c6742ac9",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3

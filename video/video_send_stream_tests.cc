@@ -1252,7 +1252,8 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
           last_sequence_number_(0),
           suspended_frame_count_(0),
           low_remb_bps_(0),
-          high_remb_bps_(0) {}
+          high_remb_bps_(0),
+          frame_generator_capturer_(nullptr) {}
 
    private:
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
@@ -1283,7 +1284,9 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
       } else if (test_state_ == kWaitingForStats) {
         VideoSendStream::Stats stats = stream_->GetStats();
         if (stats.suspended == false) {
-          // Stats flipped to false. Test is complete.
+          // Stats flipped to false. Test is complete. Stop capturer so that
+          // we don't get any frames during destruction.
+          frame_generator_capturer_->Stop();
           observation_complete_.Set();
         }
         SendRtcpFeedback(0);  // REMB is only sent if value is > 0.
@@ -1310,8 +1313,10 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
 
     void OnFrameGeneratorCapturerCreated(
         test::FrameGeneratorCapturer* frame_generator_capturer) override {
+      rtc::CritScope lock(&crit_);
       frame_generator_capturer->AddOrUpdateSink(&capture_observer_,
                                                 rtc::VideoSinkWants());
+      frame_generator_capturer_ = frame_generator_capturer;
     }
 
     void ModifyVideoConfigs(
@@ -1372,6 +1377,8 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
     int suspended_frame_count_ RTC_GUARDED_BY(crit_);
     int low_remb_bps_ RTC_GUARDED_BY(crit_);
     int high_remb_bps_ RTC_GUARDED_BY(crit_);
+    test::FrameGeneratorCapturer* frame_generator_capturer_
+        RTC_GUARDED_BY(crit_);
   } test;
 
   RunBaseTest(&test);

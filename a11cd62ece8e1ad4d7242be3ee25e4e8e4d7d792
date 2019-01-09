@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c143a1e3_5715fa05",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T14:56:38Z",
+      "side": 1,
+      "message": "The meaning of these are not clear. Please add comments.\n\nAnother thought; how about separating send_or_recv_time into\nsend_time \u003d (direction \u003d\u003d kOutgoing) ? log_time : kUndefined\nrecv_time \u003d (direction \u003d\u003d kOutgoing) ? fb.receive_time : log_time\nWe could then omit the report_recv_time field.\n\nIf we\u0027re not too concerned with memory usage we could do the same with feedback_send_or_recv_time. Currently only one of the two would be set, but the RFC proposal includes a send time field in the RTCP packet.",
+      "range": {
+        "startLine": 471,
+        "startChar": 0,
+        "endLine": 475,
+        "endChar": 64
+      },
+      "revId": "a11cd62ece8e1ad4d7242be3ee25e4e8e4d7d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fa09f03_8fc74161",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1912,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-09T14:56:38Z",
+      "side": 1,
+      "message": "CHECK that packet_feedbacks isn\u0027t empty?",
+      "range": {
+        "startLine": 1912,
+        "startChar": 25,
+        "endLine": 1912,
+        "endChar": 48
+      },
+      "revId": "a11cd62ece8e1ad4d7242be3ee25e4e8e4d7d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

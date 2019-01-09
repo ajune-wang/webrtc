@@ -25,6 +25,8 @@ namespace webrtc {
 struct RTC_EXPORT SdpAudioFormat {
   using Parameters = std::map<std::string, std::string>;
 
+  // Default constructor needed, to enable use as a std::map value.
+  SdpAudioFormat();
   SdpAudioFormat(const SdpAudioFormat&);
   SdpAudioFormat(SdpAudioFormat&&);
   SdpAudioFormat(absl::string_view name, int clockrate_hz, size_t num_channels);

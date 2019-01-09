@@ -22,6 +22,76 @@
       "revId": "ac2ea1b8effae248cdbd803e384b31eacc0e1fc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd662219_24a7070c",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T17:28:05Z",
+      "side": 1,
+      "message": "Yes, please do, seems like it should be a one-line change.",
+      "parentUuid": "fcc71162_87570c9a",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "ac2ea1b8effae248cdbd803e384b31eacc0e1fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0cf2e19_8e3f38e0",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T17:28:05Z",
+      "side": 1,
+      "message": "Move this in to the function just before it\u0027s used. This makes it easier to follow the code path.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "ac2ea1b8effae248cdbd803e384b31eacc0e1fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8059cc6c_10321771",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T17:28:05Z",
+      "side": 1,
+      "message": "Should be moved to constructor, maybe you can add the dependency that blocks this to this CL so we can figure out how to make this possible?",
+      "range": {
+        "startLine": 229,
+        "startChar": 19,
+        "endLine": 229,
+        "endChar": 35
+      },
+      "revId": "ac2ea1b8effae248cdbd803e384b31eacc0e1fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

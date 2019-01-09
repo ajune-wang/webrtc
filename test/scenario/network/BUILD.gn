@@ -8,15 +8,34 @@
 
 import("../../../webrtc.gni")
 
-rtc_source_set("emulated_network") {
+rtc_source_set("repeated_activity") {
   sources = [
-    "network_emulation.cc",
-    "network_emulation.h",
+    "repeated_activity.cc",
+    "repeated_activity.h",
   ]
   deps = [
+    "../../../api/units:time_delta",
+    "../../../api/units:timestamp",
+  ]
+}
+
+rtc_source_set("emulated_network") {
+  sources = [
+    "fake_network_socket.cc",
+    "fake_network_socket.h",
+    "network_emulation.cc",
+    "network_emulation.h",
+    "network_emulation_manager.cc",
+    "network_emulation_manager.h",
+  ]
+  deps = [
+    ":repeated_activity",
     "../../../api:simulated_network_api",
+    "../../../api/units:time_delta",
     "../../../api/units:timestamp",
     "../../../rtc_base:rtc_base",
+    "../../../rtc_base:rtc_task_queue_api",
+    "../../../system_wrappers:system_wrappers",
     "//third_party/abseil-cpp/absl/memory:memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]

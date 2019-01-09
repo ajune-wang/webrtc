@@ -96,6 +96,7 @@ if (rtc_include_tests) {
       "../../system_wrappers:field_trial",
       "../../video",
       "network:emulated_network",
+      "network:repeated_activity",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]

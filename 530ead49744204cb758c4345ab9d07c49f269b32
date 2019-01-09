@@ -16,6 +16,24 @@
       "revId": "530ead49744204cb758c4345ab9d07c49f269b32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1ae1080_c662ba7a",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-09T07:41:49Z",
+      "side": 1,
+      "message": "I don\u0027t think a receive streams needs any rate limiter (if created, like in ChannelSend, it is passed via RtpRtcpImpl to RtpSender).\n\nSo I think the block setting nack_window_ms, and the constants should be deleted.",
+      "parentUuid": "f0b437af_a74f5584",
+      "revId": "530ead49744204cb758c4345ab9d07c49f269b32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

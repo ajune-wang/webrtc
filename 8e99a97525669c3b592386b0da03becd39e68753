@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ececd3ee_da6c525e",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 7710
+      },
+      "writtenOn": "2019-01-09T16:11:10Z",
+      "side": 1,
+      "message": "Are you planning to add a description to the standard for this stat as well?",
+      "range": {
+        "startLine": 314,
+        "startChar": 38,
+        "endLine": 314,
+        "endChar": 67
+      },
+      "revId": "8e99a97525669c3b592386b0da03becd39e68753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bfff1b2_ac632780",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7710
+      },
+      "writtenOn": "2019-01-09T16:11:10Z",
+      "side": 1,
+      "message": "nit: Please use a capital and end with a . (even though the other comments don\u0027t do this)",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 6
+      },
+      "revId": "8e99a97525669c3b592386b0da03becd39e68753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

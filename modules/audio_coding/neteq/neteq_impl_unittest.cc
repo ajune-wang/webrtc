@@ -179,7 +179,7 @@ class NetEqImplTest : public ::testing::Test {
     }
   }
 
-  void TestDtmfPacket(NetEqDecoder decoder_type) {
+  void TestDtmfPacket(int sample_rate_hz) {
     const size_t kPayloadLength = 4;
     const uint8_t kPayloadType = 110;
     const uint32_t kReceiveTime = 17;
@@ -196,7 +196,8 @@ class NetEqImplTest : public ::testing::Test {
     rtp_header.ssrc = 0x87654321;
 
     EXPECT_EQ(NetEq::kOK, neteq_->RegisterPayloadType(
-        decoder_type, "telephone-event", kPayloadType));
+                              kPayloadType, SdpAudioFormat("telephone-event",
+                                                           sample_rate_hz, 1)));
 
     // Insert first packet.
     EXPECT_EQ(NetEq::kOK,
@@ -261,16 +262,6 @@ TEST(NetEq, CreateAndDestroy) {
   NetEq::Config config;
   NetEq* neteq = NetEq::Create(config, CreateBuiltinAudioDecoderFactory());
   delete neteq;
-}
-
-TEST_F(NetEqImplTest, RegisterPayloadTypeNetEqDecoder) {
-  CreateInstance();
-  uint8_t rtp_payload_type = 0;
-  NetEqDecoder codec_type = NetEqDecoder::kDecoderPCMu;
-  const std::string kCodecName = "Robert\'); DROP TABLE Students;";
-  EXPECT_CALL(*mock_decoder_database_,
-              RegisterPayload(rtp_payload_type, codec_type, kCodecName));
-  neteq_->RegisterPayloadType(codec_type, kCodecName, rtp_payload_type);
 }
 
 TEST_F(NetEqImplTest, RegisterPayloadType) {
@@ -412,7 +403,7 @@ TEST_F(NetEqImplTest, InsertPacketsUntilBufferIsFull) {
   rtp_header.ssrc = 0x87654321;
 
   EXPECT_EQ(NetEq::kOK, neteq_->RegisterPayloadType(
-                            NetEqDecoder::kDecoderPCM16B, "", kPayloadType));
+                            kPayloadType, SdpAudioFormat("l16", 8000, 1)));
 
   // Insert packets. The buffer should not flush.
   for (size_t i = 1; i <= config_.max_packets_in_buffer; ++i) {
@@ -434,19 +425,19 @@ TEST_F(NetEqImplTest, InsertPacketsUntilBufferIsFull) {
 }
 
 TEST_F(NetEqImplTest, TestDtmfPacketAVT) {
-  TestDtmfPacket(NetEqDecoder::kDecoderAVT);
+  TestDtmfPacket(8000);
 }
 
 TEST_F(NetEqImplTest, TestDtmfPacketAVT16kHz) {
-  TestDtmfPacket(NetEqDecoder::kDecoderAVT16kHz);
+  TestDtmfPacket(16000);
 }
 
 TEST_F(NetEqImplTest, TestDtmfPacketAVT32kHz) {
-  TestDtmfPacket(NetEqDecoder::kDecoderAVT32kHz);
+  TestDtmfPacket(32000);
 }
 
 TEST_F(NetEqImplTest, TestDtmfPacketAVT48kHz) {
-  TestDtmfPacket(NetEqDecoder::kDecoderAVT48kHz);
+  TestDtmfPacket(48000);
 }
 
 // This test verifies that timestamps propagate from the incoming packets
@@ -672,7 +663,7 @@ TEST_F(NetEqImplTest, FirstPacketUnknown) {
 
   // Register the payload type.
   EXPECT_EQ(NetEq::kOK, neteq_->RegisterPayloadType(
-                            NetEqDecoder::kDecoderPCM16B, "", kPayloadType));
+                            kPayloadType, SdpAudioFormat("l16", 8000, 1)));
 
   // Insert 10 packets.
   for (size_t i = 0; i < 10; ++i) {
@@ -955,7 +946,7 @@ TEST_F(NetEqImplTest, FloodBufferAndGetNetworkStats) {
   rtp_header.ssrc = 0x87654321;
 
   EXPECT_EQ(NetEq::kOK, neteq_->RegisterPayloadType(
-                            NetEqDecoder::kDecoderPCM16B, "", kPayloadType));
+                            kPayloadType, SdpAudioFormat("l16", 8000, 1)));
 
   // Insert packets until the buffer flushes.
   for (size_t i = 0; i <= config_.max_packets_in_buffer; ++i) {

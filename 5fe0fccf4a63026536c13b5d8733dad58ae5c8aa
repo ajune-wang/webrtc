@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ea51d6c_3aab2ebc",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-09T20:25:31Z",
+      "side": 1,
+      "message": "One more thing that you might want to check is when do we start sending frames.\n\nFor audio, we actually start sending frames _before_ the state changes to writable. For audio, it\u0027s not bad, because we can simply ignore frames. But for video, we won\u0027t be able to decode them.\n\nEssentially, it looks like whichever code sends packets, it looks at dtls status, but not at media transport.\n\n2 solutions:\n1) Media transport either needs to request a key frame when connection becomes writable,\n2) or better, encoders \u0026 webrtc should wait with sending frames until media transport becomes writable.\n\nCan we add a test for this scenario?",
+      "revId": "5fe0fccf4a63026536c13b5d8733dad58ae5c8aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,7 @@
 #include "rtc_base/copyonwritebuffer.h"
 #include "rtc_base/socketaddress.h"
 #include "rtc_base/thread.h"
+#include "test/scenario/network/fake_network_socket.h"
 
 namespace webrtc {
 namespace test {
@@ -107,6 +108,63 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
   std::deque<StoredPacket> packets_ RTC_GUARDED_BY(lock_);
 
   uint64_t next_packet_id_ RTC_GUARDED_BY(lock_) = 1;
+};
+
+// Represents single network interface on the device.
+class EndpointNode : public EmulatedNetworkReceiverInterface {
+ public:
+  EndpointNode(uint64_t id, rtc::IPAddress, EmulatedNetworkNode* send_node);
+  ~EndpointNode() override;
+
+  uint64_t GetId() const;
+  // Send packet into network.
+  // |from| will be used to set source address for the packet in destination
+  // socket.
+  // |to| will be used for routing verification and picking right socket by port
+  // on destination endpoint.
+  void SendPacket(const rtc::SocketAddress& from,
+                  const rtc::SocketAddress& to,
+                  rtc::CopyOnWriteBuffer packet,
+                  Timestamp sent_time);
+  // Binds socket to this endpoint to send and receive data.
+  // |desired_port| is a port that should be used. If it is equals to 0,
+  // endpoint will select one.
+  // Returns the port, that should be used (it will be equals to desired, if
+  // |desired_port| != 0 and is free or will be the one, selected by endpoint)
+  // or absl::nullopt if desired_port in use or there are no more free ports to
+  // bind to.
+  absl::optional<uint16_t> BindSocket(uint16_t desired_port,
+                                      FakeNetworkSocket* socket);
+  void UnbindSocket(uint16_t port);
+
+  rtc::IPAddress GetPeerLocalAddress() const;
+
+  // Will be called to deliver packet into endpoint from network node.
+  void OnPacketReceived(EmulatedIpPacket packet) override;
+
+ protected:
+  EmulatedNetworkNode* GetSendNode() const;
+  void SetConnectedEndpointId(uint64_t endpoint_id);
+  void SetNetworkThread(rtc::Thread* network_thread);
+
+ private:
+  static constexpr uint16_t kFirstEphemeralPort = 49152;
+
+  rtc::CriticalSection scoket_lock_;
+
+  uint64_t id_;
+  // Peer's local IP address for this endpoint network node.
+  rtc::IPAddress peer_local_addr_;
+  EmulatedNetworkNode* const send_node_;
+
+  uint16_t next_port_ RTC_GUARDED_BY(scoket_lock_);
+  std::map<uint16_t, FakeNetworkSocket*> port_to_socket_
+      RTC_GUARDED_BY(scoket_lock_);
+
+  absl::optional<uint64_t> connected_endpoint_id_;
+
+  // Will be used to deliver packets to socket.
+  rtc::Thread* network_thread_;
 };
 
 }  // namespace test

@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "0af835d2_c6742ac9",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "Could this (and thereby clock_) be moved to the endpoint?",
+      "range": {
+        "startLine": 124,
+        "startChar": 24,
+        "endLine": 124,
+        "endChar": 67
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb937c17_d82090e2",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 3
@@ -71,6 +94,75 @@
     },
     {
       "key": {
+        "uuid": "ab1d0ba9_5f022ac6",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "Don\u0027t do forward declarations (with the exception of when it\u0027s needed for e.g. friend declarations.)",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "599caa84_a0a61985",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "If we modify the code below to use EmulatedIpPacket, we don\u0027t need this struct, we can store EmulatedIpPacket instead.",
+      "range": {
+        "startLine": 70,
+        "startChar": 9,
+        "endLine": 70,
+        "endChar": 15
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2eda541_e14296a0",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "nit: remove the namespace qualifier.",
+      "range": {
+        "startLine": 81,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 10
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7db72892_653d133a",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 3
@@ -87,6 +179,98 @@
         "startChar": 39,
         "endLine": 200,
         "endChar": 46
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0d097e4_a90c2d1b",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "Since we generally send a lot of packets. I suggest either silently ignoring the error or doing a CHECK.\n\nUnless we have a clear use case for packets with invalid ports I suggest the CHECK route, that will save a lot of time when debugging in case it\u0027s wrong by accident (for instance due to a race).\n\nIf we have a use case for accepting invalid ports, I suggest making that opt in. That is, provide a flag when creating the EndpointNode that indicates that we should just drop packets with invalid port number that defaults to false. In that case, we can just return here.",
+      "range": {
+        "startLine": 208,
+        "startChar": 6,
+        "endLine": 208,
+        "endChar": 23
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ee6b6f_a02657a6",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "When the above comment is addressed, this can be removed.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 3
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1b7a64_485eed32",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "Do we need the ability to have optional network_thread_?",
+      "range": {
+        "startLine": 218,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 24
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8a073f_c79c8f22",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-09T13:02:21Z",
+      "side": 1,
+      "message": "We could just forward the full EmulatedIpPacket here right? I\u0027d even suggest naming it  OnPacketReceived for consistency.",
+      "range": {
+        "startLine": 223,
+        "startChar": 12,
+        "endLine": 223,
+        "endChar": 51
       },
       "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

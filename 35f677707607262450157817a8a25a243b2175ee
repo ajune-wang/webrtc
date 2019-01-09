@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "450c7c4c_7471a533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-09T10:57:34Z",
+      "side": 1,
+      "message": "Since CLs 1 and 2 probably won\u0027t be landed, give the CL URLs here?\n\n(Alternatively, actually land them, and have a sixth CL that removes them again.)",
+      "revId": "35f677707607262450157817a8a25a243b2175ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

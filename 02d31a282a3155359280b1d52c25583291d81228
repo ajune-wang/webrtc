@@ -22,6 +22,53 @@
       "revId": "02d31a282a3155359280b1d52c25583291d81228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b1b91b_2f933e3b",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-09T15:45:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "777ecde8_c8852009",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "02d31a282a3155359280b1d52c25583291d81228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9488509_d034124a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-09T15:45:00Z",
+      "side": 1,
+      "message": "The issue last time was that GetEncoderInfo() was polled before InitEncode(), right?\nIs that case covered by unit tests now?",
+      "range": {
+        "startLine": 615,
+        "startChar": 8,
+        "endLine": 615,
+        "endChar": 28
+      },
+      "revId": "02d31a282a3155359280b1d52c25583291d81228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

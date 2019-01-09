@@ -141,7 +141,6 @@ class VideoReceiver : public Module {
   void SetDecodeErrorMode(VCMDecodeErrorMode decode_error_mode);
 
   int32_t SetReceiveChannelParameters(int64_t rtt);
-  int32_t SetVideoProtection(VCMVideoProtection videoProtection, bool enable);
 
   int64_t TimeUntilNextProcess() override;
   void Process() override;

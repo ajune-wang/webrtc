@@ -13,7 +13,11 @@
 #include <string>
 #include <vector>
 
+#include "absl/types/optional.h"
 #include "api/rtp_headers.h"
+#include "api/units/data_rate.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
@@ -437,5 +441,67 @@ struct LoggedVideoSendConfig {
   int64_t timestamp_us;
   rtclog::StreamConfig config;
 };
+
+struct LoggedRouteChangeEvent {
+  uint32_t route_id;
+  int64_t timestamp_us;
+  uint16_t send_overhead;
+  uint16_t return_overhead;
+};
+
+enum class LoggedMediaType : uint8_t { kUnknown, kAudio, kVideo };
+
+struct LoggedPacketInfo {
+  LoggedPacketInfo(const LoggedRtpPacket& rtp,
+                   LoggedMediaType media_type,
+                   bool rtx);
+  LoggedPacketInfo(const LoggedPacketInfo&);
+  ~LoggedPacketInfo();
+  uint32_t ssrc;
+  uint16_t stream_seq_no;
+  uint16_t size;
+  uint16_t overhead = 0;
+  uint8_t payload_type;
+  LoggedMediaType media_type = LoggedMediaType::kUnknown;
+  bool rtx = false;
+  bool marker_bit = false;
+  bool has_transport_seq_no = false;
+  bool last_in_feedback = false;
+  uint16_t transport_seq_no = 0;
+  // The RTP header timestamp converted from sample count to time stamp.
+  Timestamp capture_time;
+  // The time the packet was logged. This is the receive time for incomming
+  // packets and send time for outgoing.
+  Timestamp log_packet_time;
+  // The receive time that was reported in feedback. For incomming packets this
+  // corresponds to log_packet_time, but might be measured using another clock.
+  // PlusInfinity indicates that the packet was lost.
+  Timestamp reported_recv_time = Timestamp::MinusInfinity();
+  // The time feedback message was logged. This is the feedback send time for
+  // incomming packets and feedback receive time for outgoing.
+  // PlusInfinity indicates that feedback was expected but not received.
+  Timestamp log_feedback_time = Timestamp::MinusInfinity();
+  // Difference in reported receive time between this packet and the last packet
+  // in the same feedback message.
+  TimeDelta feedback_hold_duration = TimeDelta::MinusInfinity();
+};
+
+enum class LoggedIceEventType {
+  kAdded,
+  kUpdated,
+  kDestroyed,
+  kSelected,
+  kCheckSent,
+  kCheckReceived,
+  kCheckResponseSent,
+  kCheckResponseReceived,
+};
+
+struct LoggedIceEvent {
+  uint32_t candidate_pair_id;
+  int64_t timestamp_us;
+  LoggedIceEventType event_type;
+};
+
 }  // namespace webrtc
 #endif  // LOGGING_RTC_EVENT_LOG_LOGGED_EVENTS_H_

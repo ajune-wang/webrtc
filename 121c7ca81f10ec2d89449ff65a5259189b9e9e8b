@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6fedacd3_5a38fa10",
+        "filename": "call/rtp_transport_controller_send.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-09T09:14:25Z",
+      "side": 1,
+      "message": "Would it be possible to arrange so that this is the only place where this field trial is checked? Maybe it\u0027s sufficient to disable the trial by always passing pacer_queue \u003d 0 or pacer_queue \u003d nullopt, in the below UpdateControllerWithTimeInterval?\n\nIt might be brittle to have two field trial checks that need to be consistent.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 80
+      },
+      "revId": "121c7ca81f10ec2d89449ff65a5259189b9e9e8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

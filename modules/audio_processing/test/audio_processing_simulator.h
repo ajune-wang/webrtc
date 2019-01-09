@@ -96,6 +96,12 @@ struct SimulationSettings {
   bool print_aec3_parameter_values = false;
   bool dump_internal_data = false;
   absl::optional<std::string> dump_internal_data_output_dir;
+  bool analysis_only = false;
+  absl::optional<float> dump_start_seconds;
+  absl::optional<float> dump_end_seconds;
+  absl::optional<int> dump_start_frame;
+  absl::optional<int> dump_end_frame;
+  absl::optional<int> init_to_process;
   absl::optional<std::string> custom_call_order_filename;
   absl::optional<std::string> aec3_settings_filename;
 };
@@ -122,6 +128,9 @@ class AudioProcessingSimulator {
 
   // Processes the data in the input.
   virtual void Process() = 0;
+
+  // Analyzes the data in the input.
+  virtual void Analyze() = 0;
 
   // Returns the execution time of all AudioProcessing calls.
   const TickIntervalStats& proc_time() const { return proc_time_; }

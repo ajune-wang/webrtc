@@ -8,6 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <math.h>
 #include <string.h>
 
 #include <iostream>
@@ -219,6 +220,24 @@ WEBRTC_DEFINE_bool(dump_data,
 WEBRTC_DEFINE_string(dump_data_output_dir,
                      "",
                      "Internal data dump output directory");
+WEBRTC_DEFINE_bool(analyze,
+                   false,
+                   "Only analyze the call setup behavior (no processing)");
+WEBRTC_DEFINE_float(dump_start_seconds,
+                    kParameterNotSpecifiedValue,
+                    "Start of when to dump data (seconds).");
+WEBRTC_DEFINE_float(dump_end_seconds,
+                    kParameterNotSpecifiedValue,
+                    "End of when to dump data (seconds).");
+WEBRTC_DEFINE_int(dump_start_frame,
+                  kParameterNotSpecifiedValue,
+                  "Start of when to dump data (frames).");
+WEBRTC_DEFINE_int(dump_end_frame,
+                  kParameterNotSpecifiedValue,
+                  "End of when to dump data (frames).");
+WEBRTC_DEFINE_int(init_to_process,
+                  kParameterNotSpecifiedValue,
+                  "Init index to process.");
 WEBRTC_DEFINE_bool(help, false, "Print this message");
 
 void SetSettingIfSpecified(const std::string& value,
@@ -230,6 +249,12 @@ void SetSettingIfSpecified(const std::string& value,
 
 void SetSettingIfSpecified(int value, absl::optional<int>* parameter) {
   if (value != kParameterNotSpecifiedValue) {
+    *parameter = value;
+  }
+}
+
+void SetSettingIfSpecified(float value, absl::optional<float>* parameter) {
+  if (round(value) != kParameterNotSpecifiedValue) {
     *parameter = value;
   }
 }
@@ -356,6 +381,12 @@ SimulationSettings CreateSettings() {
   settings.dump_internal_data = FLAG_dump_data;
   SetSettingIfSpecified(FLAG_dump_data_output_dir,
                         &settings.dump_internal_data_output_dir);
+  settings.analysis_only = FLAG_analyze;
+  SetSettingIfSpecified(FLAG_dump_start_seconds, &settings.dump_start_seconds);
+  SetSettingIfSpecified(FLAG_dump_end_seconds, &settings.dump_end_seconds);
+  SetSettingIfSpecified(FLAG_dump_start_frame, &settings.dump_start_frame);
+  SetSettingIfSpecified(FLAG_dump_end_frame, &settings.dump_end_frame);
+  SetSettingIfSpecified(FLAG_init_to_process, &settings.init_to_process);
 
   return settings;
 }
@@ -515,6 +546,22 @@ void PerformBasicParameterSanityChecks(const SimulationSettings& settings) {
       !settings.dump_internal_data &&
           settings.dump_internal_data_output_dir.has_value(),
       "Error: --dump_data_output_dir cannot be set without --dump_data.\n");
+
+  ReportConditionalErrorAndExit(
+      settings.dump_start_seconds && settings.dump_start_frame,
+      "Error: --dump_start_seconds cannot be specified at the same time as "
+      "--dump_start_frame.\n");
+
+  ReportConditionalErrorAndExit(
+      settings.dump_end_seconds && settings.dump_end_frame,
+      "Error: --dump_end_seconds cannot be specified at the same time as "
+      "--dump_end_frame.\n");
+
+  ReportConditionalErrorAndExit(settings.init_to_process &&
+                                    *settings.init_to_process != 1 &&
+                                    !settings.aec_dump_input_filename,
+                                "Error: --init_to_process must be set to 1 for "
+                                "wav-file based simulations.\n");
 }
 
 }  // namespace
@@ -542,7 +589,11 @@ int AudioprocFloatImpl(std::unique_ptr<AudioProcessingBuilder> ap_builder,
     processor.reset(new WavBasedSimulator(settings, std::move(ap_builder)));
   }
 
-  processor->Process();
+  if (settings.analysis_only) {
+    processor->Analyze();
+  } else {
+    processor->Process();
+  }
 
   if (settings.report_performance) {
     const auto& proc_time = processor->proc_time();

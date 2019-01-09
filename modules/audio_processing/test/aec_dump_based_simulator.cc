@@ -12,6 +12,7 @@
 
 #include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
+#include "modules/audio_processing/logging/apm_data_dumper.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
 #include "modules/audio_processing/test/protobuf_utils.h"
 #include "modules/audio_processing/test/runtime_setting_util.h"
@@ -209,6 +210,63 @@ void AecDumpBasedSimulator::PrepareReverseProcessStreamCall(
 
 void AecDumpBasedSimulator::Process() {
   CreateAudioProcessor();
+
+  webrtc::audioproc::Event event_msg;
+  const bool timed_data_dump =
+      settings_.dump_start_seconds || settings_.dump_end_seconds ||
+      settings_.dump_start_frame || settings_.dump_end_frame;
+
+  // Initialize the frames and inits for which to control the dumping of data.
+  int init_for_data_dump_control = -1;
+  int frame_to_activate_data_dumping = -1;
+  int frame_to_deactivate_data_dumping = -1;
+  if (timed_data_dump) {
+    // Set the init for which to control the dumping of data.
+    if (settings_.init_to_process) {
+      init_for_data_dump_control = *settings_.init_to_process;
+    } else {
+      // Set the init for which to control the dumping of data to the last init
+      // in the recording.
+      int num_inits = 0;
+      dump_input_file_ =
+          OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
+      while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
+        if (event_msg.type() == webrtc::audioproc::Event::INIT) {
+          ++num_inits;
+        }
+      }
+      fclose(dump_input_file_);
+
+      init_for_data_dump_control = num_inits;
+    }
+
+    // Set the frame for which to activate data dumping.
+    ApmDataDumper::SetActivated(
+        !(settings_.dump_start_frame || settings_.dump_start_seconds));
+    int frame_to_activate_data_dumping = -1;
+    if (settings_.dump_start_frame) {
+      RTC_CHECK(!settings_.dump_start_seconds);
+      frame_to_activate_data_dumping = *settings_.dump_start_frame;
+    } else if (settings_.dump_start_seconds) {
+      RTC_CHECK(!settings_.dump_start_frame);
+      frame_to_activate_data_dumping =
+          static_cast<int>(floor((*settings_.dump_start_seconds) * 100));
+    }
+
+    // Set the frame for which to deactivate data dumping.
+    int frame_to_deactivate_data_dumping = -1;
+    if (settings_.dump_end_frame) {
+      RTC_CHECK(!settings_.dump_end_seconds);
+      frame_to_deactivate_data_dumping = *settings_.dump_end_frame;
+    } else if (settings_.dump_end_seconds) {
+      RTC_CHECK(!settings_.dump_end_frame);
+      frame_to_deactivate_data_dumping =
+          static_cast<int>(floor((*settings_.dump_end_seconds) * 100));
+    }
+  } else {
+    ApmDataDumper::SetActivated(settings_.dump_internal_data);
+  }
+
   dump_input_file_ = OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
 
   if (settings_.artificial_nearend_filename) {
@@ -226,32 +284,149 @@ void AecDumpBasedSimulator::Process() {
         rtc::CheckedDivExact(sample_rate_hz, kChunksPerSecond), 1));
   }
 
-  webrtc::audioproc::Event event_msg;
-  int num_forward_chunks_processed = 0;
+  int capture_frames_since_init = 0;
+  int current_init = 0;
   while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
     switch (event_msg.type()) {
       case webrtc::audioproc::Event::INIT:
         RTC_CHECK(event_msg.has_init());
+        ++current_init;
+        capture_frames_since_init = 0;
         HandleMessage(event_msg.init());
         break;
       case webrtc::audioproc::Event::STREAM:
         RTC_CHECK(event_msg.has_stream());
-        HandleMessage(event_msg.stream());
-        ++num_forward_chunks_processed;
+        // Active/deactivate dumping of data.
+        if (timed_data_dump && init_for_data_dump_control == current_init) {
+          if (capture_frames_since_init == frame_to_activate_data_dumping) {
+            ApmDataDumper::SetActivated(true);
+          }
+          if (capture_frames_since_init == frame_to_deactivate_data_dumping) {
+            ApmDataDumper::SetActivated(false);
+          }
+        }
+
+        if (!settings_.init_to_process ||
+            settings_.init_to_process != current_init) {
+          HandleMessage(event_msg.stream());
+        }
+        ++capture_frames_since_init;
         break;
       case webrtc::audioproc::Event::REVERSE_STREAM:
         RTC_CHECK(event_msg.has_reverse_stream());
-        HandleMessage(event_msg.reverse_stream());
+        if (!settings_.init_to_process ||
+            settings_.init_to_process != current_init) {
+          HandleMessage(event_msg.reverse_stream());
+        }
         break;
       case webrtc::audioproc::Event::CONFIG:
         RTC_CHECK(event_msg.has_config());
         HandleMessage(event_msg.config());
         break;
       case webrtc::audioproc::Event::RUNTIME_SETTING:
-        HandleMessage(event_msg.runtime_setting());
+        if (!settings_.init_to_process ||
+            settings_.init_to_process != current_init) {
+          HandleMessage(event_msg.runtime_setting());
+        }
         break;
       case webrtc::audioproc::Event::UNKNOWN_EVENT:
         RTC_CHECK(false);
+        break;
+    }
+
+    if (settings_.init_to_process && settings_.init_to_process < current_init) {
+      break;
+    }
+  }
+
+  fclose(dump_input_file_);
+
+  DestroyAudioProcessor();
+}
+
+void AecDumpBasedSimulator::Analyze() {
+  dump_input_file_ = OpenFile(settings_.aec_dump_input_filename->c_str(), "rb");
+
+  int capture_frame_counter = 0;
+  int render_frame_counter = 0;
+  int init_counter = 0;
+  webrtc::audioproc::Event event_msg;
+
+  std::cout << "Inits:" << std::endl;
+  while (ReadMessageFromFile(dump_input_file_, &event_msg)) {
+    switch (event_msg.type()) {
+      case webrtc::audioproc::Event::INIT: {
+        ++init_counter;
+        const webrtc::audioproc::Init& msg = event_msg.init();
+        RTC_CHECK(msg.has_sample_rate());
+        RTC_CHECK(msg.has_num_input_channels());
+        RTC_CHECK(msg.has_num_reverse_channels());
+        RTC_CHECK(msg.has_reverse_sample_rate());
+        int num_output_channels;
+        if (settings_.output_num_channels) {
+          num_output_channels = *settings_.output_num_channels;
+        } else {
+          num_output_channels = msg.has_num_output_channels()
+                                    ? msg.num_output_channels()
+                                    : msg.num_input_channels();
+        }
+
+        int output_sample_rate;
+        if (settings_.output_sample_rate_hz) {
+          output_sample_rate = *settings_.output_sample_rate_hz;
+        } else {
+          output_sample_rate = msg.has_output_sample_rate()
+                                   ? msg.output_sample_rate()
+                                   : msg.sample_rate();
+        }
+
+        int num_reverse_output_channels;
+        if (settings_.reverse_output_num_channels) {
+          num_reverse_output_channels = *settings_.reverse_output_num_channels;
+        } else {
+          num_reverse_output_channels = msg.has_num_reverse_output_channels()
+                                            ? msg.num_reverse_output_channels()
+                                            : msg.num_reverse_channels();
+        }
+
+        int reverse_output_sample_rate;
+        if (settings_.reverse_output_sample_rate_hz) {
+          reverse_output_sample_rate = *settings_.reverse_output_sample_rate_hz;
+        } else {
+          reverse_output_sample_rate = msg.has_reverse_output_sample_rate()
+                                           ? msg.reverse_output_sample_rate()
+                                           : msg.reverse_sample_rate();
+        }
+
+        std::cout << init_counter << ": -->" << std::endl;
+        std::cout << " Time: " << std::endl;
+        std::cout << "  Capture: " << capture_frame_counter * 0.01f << " s ("
+                  << capture_frame_counter << " frames)" << std::endl;
+        std::cout << "  Render:  " << render_frame_counter * 0.01f << " s ("
+                  << render_frame_counter << " frames)" << std::endl;
+        std::cout << " Configuration:" << std::endl;
+        std::cout << "  Capture" << std::endl;
+        std::cout << "   Input:  ";
+        std::cout << msg.num_input_channels() << " channels, ";
+        std::cout << msg.sample_rate() << " Hz" << std::endl;
+        std::cout << "   Output: ";
+        std::cout << num_output_channels << " channels, ";
+        std::cout << output_sample_rate << " Hz" << std::endl;
+        std::cout << "  Render" << std::endl;
+        std::cout << "   Input:  ";
+        std::cout << msg.num_reverse_channels() << " channels, ";
+        std::cout << msg.reverse_sample_rate() << " Hz" << std::endl;
+        std::cout << "   Output: ";
+        std::cout << num_reverse_output_channels << " channels, ";
+        std::cout << reverse_output_sample_rate << " Hz" << std::endl;
+      } break;
+      case webrtc::audioproc::Event::STREAM:
+        ++capture_frame_counter;
+        break;
+      case webrtc::audioproc::Event::REVERSE_STREAM:
+        ++render_frame_counter;
+        break;
+      default:
         break;
     }
   }

@@ -126,6 +126,7 @@ int do_main(int argc, char* argv[]) {
 
   Event event_msg;
   int frame_count = 0;
+  int init_count = 0;
   size_t reverse_samples_per_channel = 0;
   size_t input_samples_per_channel = 0;
   size_t output_samples_per_channel = 0;
@@ -325,9 +326,11 @@ int do_main(int argc, char* argv[]) {
         return 1;
       }
 
+      ++init_count;
       const Init msg = event_msg.init();
       // These should print out zeros if they're missing.
-      fprintf(settings_file, "Init at frame: %d\n", frame_count);
+      fprintf(settings_file, "Init #%d at frame: %d\n", init_count,
+              frame_count);
       int input_sample_rate = msg.sample_rate();
       fprintf(settings_file, "  Input sample rate: %d\n", input_sample_rate);
       int output_sample_rate = msg.output_sample_rate();
@@ -369,21 +372,21 @@ int do_main(int argc, char* argv[]) {
         // The WAV files need to be reset every time, because they cant change
         // their sample rate or number of channels.
         rtc::StringBuilder reverse_name;
-        reverse_name << FLAG_reverse_file << frame_count << ".wav";
+        reverse_name << FLAG_reverse_file << init_count << ".wav";
         reverse_wav_file.reset(new WavWriter(
             reverse_name.str(), reverse_sample_rate, num_reverse_channels));
         rtc::StringBuilder input_name;
-        input_name << FLAG_input_file << frame_count << ".wav";
+        input_name << FLAG_input_file << init_count << ".wav";
         input_wav_file.reset(new WavWriter(input_name.str(), input_sample_rate,
                                            num_input_channels));
         rtc::StringBuilder output_name;
-        output_name << FLAG_output_file << frame_count << ".wav";
+        output_name << FLAG_output_file << init_count << ".wav";
         output_wav_file.reset(new WavWriter(
             output_name.str(), output_sample_rate, num_output_channels));
 
         if (WritingCallOrderFile()) {
           rtc::StringBuilder callorder_name;
-          callorder_name << FLAG_callorder_file << frame_count << ".char";
+          callorder_name << FLAG_callorder_file << init_count << ".char";
           callorder_char_file = OpenFile(callorder_name.str(), "wb");
         }
       }

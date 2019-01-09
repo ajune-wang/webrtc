@@ -125,8 +125,6 @@ AudioProcessingSimulator::AudioProcessingSimulator(
           settings.initial_mic_level,
           settings_.simulate_mic_gain ? *settings.simulated_mic_kind : 0),
       worker_queue_("file_writer_task_queue") {
-  RTC_CHECK(!settings_.dump_internal_data || WEBRTC_APM_DEBUG_DUMP == 1);
-  ApmDataDumper::SetActivated(settings_.dump_internal_data);
   if (settings_.dump_internal_data_output_dir.has_value()) {
     ApmDataDumper::SetOutputDirectory(
         settings_.dump_internal_data_output_dir.value());

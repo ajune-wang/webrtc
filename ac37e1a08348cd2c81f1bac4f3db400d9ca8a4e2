@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc33f91f_e48c17c0",
+        "filename": "test/pc/e2e/api/video_quality_analyzer_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T13:31:25Z",
+      "side": 1,
+      "message": "points",
+      "range": {
+        "startLine": 49,
+        "startChar": 40,
+        "endLine": 49,
+        "endChar": 45
+      },
+      "revId": "ac37e1a08348cd2c81f1bac4f3db400d9ca8a4e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

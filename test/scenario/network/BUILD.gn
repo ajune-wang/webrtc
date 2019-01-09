@@ -10,6 +10,8 @@ import("../../../webrtc.gni")
 
 rtc_source_set("emulated_network") {
   sources = [
+    "fake_network_socket.cc",
+    "fake_network_socket.h",
     "network_emulation.cc",
     "network_emulation.h",
   ]
@@ -17,6 +19,7 @@ rtc_source_set("emulated_network") {
     "../../../api:simulated_network_api",
     "../../../api/units:timestamp",
     "../../../rtc_base:rtc_base",
+    "../../../system_wrappers:system_wrappers",
     "//third_party/abseil-cpp/absl/memory:memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]

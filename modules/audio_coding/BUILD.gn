@@ -1495,6 +1495,7 @@ if (rtc_include_tests) {
         "../../api/audio_codecs:builtin_audio_decoder_factory",
         "../../rtc_base:rtc_base_approved",
         "../../test:audio_codec_mocks",
+        "../../test:audio_decoder_proxy_factory",
         "../../test:test_support",
         "//third_party/abseil-cpp/absl/memory",
       ]
@@ -2061,6 +2062,7 @@ if (rtc_include_tests) {
       "../../system_wrappers",
       "../../system_wrappers:cpu_features_api",
       "../../test:audio_codec_mocks",
+      "../../test:audio_decoder_proxy_factory",
       "../../test:field_trial",
       "../../test:fileutils",
       "../../test:rtp_test_utils",

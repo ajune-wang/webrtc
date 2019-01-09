@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3d5b550_8dac7cbc",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-09T13:16:53Z",
+      "side": 1,
+      "message": "I take it all calls to RemoveSink are already done at this point, as part of DestroyStreams?\n\nTo be safe, set |frame_generator_capturer_| to null first, so that it won\u0027t point at a destroyed object?",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 27
+      },
+      "revId": "dbf7370bf391e45e6d7979b10ce085506a8b3484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

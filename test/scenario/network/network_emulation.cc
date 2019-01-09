@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "rtc_base/bind.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -124,6 +125,106 @@ void EmulatedNetworkNode::SetReceiver(
 void EmulatedNetworkNode::RemoveReceiver(uint64_t dest_endpoint_id) {
   rtc::CritScope crit(&lock_);
   routing_.erase(dest_endpoint_id);
+}
+
+EndpointNode::EndpointNode(uint64_t id,
+                           rtc::IPAddress ip,
+                           EmulatedNetworkNode* send_node)
+    : id_(id),
+      peer_local_addr_(ip),
+      send_node_(send_node),
+      next_port_(kFirstEphemeralPort),
+      connected_endpoint_id_(absl::nullopt),
+      network_thread_(nullptr) {}
+EndpointNode::~EndpointNode() = default;
+
+uint64_t EndpointNode::GetId() const {
+  return id_;
+}
+
+void EndpointNode::SendPacket(const rtc::SocketAddress& from,
+                              const rtc::SocketAddress& to,
+                              rtc::CopyOnWriteBuffer packet,
+                              Timestamp sent_time) {
+  RTC_CHECK(from.ipaddr() == peer_local_addr_);
+  RTC_CHECK(connected_endpoint_id_);
+  send_node_->OnPacketReceived(EmulatedIpPacket(
+      from, to, connected_endpoint_id_.value(), std::move(packet), sent_time));
+}
+
+bool EndpointNode::BindSocket(rtc::SocketAddress* local_addr,
+                              FakeNetworkSocket* socket) {
+  rtc::CritScope crit(&scoket_lock_);
+  if (local_addr->port() == 0) {
+    for (int i = 0;
+         i < std::numeric_limits<uint16_t>::max() - kFirstEphemeralPort; ++i) {
+      local_addr->SetPort(next_port_);
+      next_port_++;
+      if (next_port_ >= std::numeric_limits<uint16_t>::max()) {
+        next_port_ = kFirstEphemeralPort;
+      }
+      if (port_to_socket_.find(next_port_) == port_to_socket_.end()) {
+        break;
+      }
+    }
+  }
+  bool result = port_to_socket_.insert({local_addr->port(), socket}).second;
+  if (result) {
+    RTC_LOG(INFO) << "New socket is binded to endpoint " << GetId()
+                  << " on port " << local_addr->port();
+  }
+  return result;
+}
+
+void EndpointNode::UnbindSocket(uint16_t port) {
+  rtc::CritScope crit(&scoket_lock_);
+  port_to_socket_.erase(port);
+}
+
+rtc::IPAddress EndpointNode::GetPeerLocalAddress() const {
+  return peer_local_addr_;
+}
+
+void EndpointNode::OnPacketReceived(EmulatedIpPacket packet) {
+  RTC_CHECK(packet.dest_endpoint_id == GetId())
+      << "Routing error: wrong destination endpoint. Destination id: "
+      << packet.dest_endpoint_id << "; Receiver id: " << GetId();
+  FakeNetworkSocket* socket = nullptr;
+  {
+    rtc::CritScope crit(&scoket_lock_);
+    auto it = port_to_socket_.find(packet.to.port());
+    if (it == port_to_socket_.end()) {
+      RTC_LOG(LS_ERROR) << "No socket listening on port " << packet.to.port();
+    } else {
+      socket = it->second;
+    }
+  }
+  if (!socket) {
+    RTC_LOG(WARNING) << "PACKET DROPPED: No socket registered in " << GetId()
+                     << " on port " << packet.to.port();
+    return;
+  }
+  if (network_thread_) {
+    network_thread_->Invoke<void>(
+        RTC_FROM_HERE, rtc::Bind(&FakeNetworkSocket::DeliverPacket, socket,
+                                 packet.data, packet.from));
+  } else {
+    socket->DeliverPacket(packet.data, packet.from);
+  }
+}
+
+EmulatedNetworkNode* EndpointNode::GetSendNode() const {
+  return send_node_;
+}
+
+void EndpointNode::SetConnectedEndpointId(uint64_t endpoint_id) {
+  RTC_CHECK(!connected_endpoint_id_ || connected_endpoint_id_ == endpoint_id);
+  connected_endpoint_id_ = endpoint_id;
+}
+
+void EndpointNode::SetNetworkThread(rtc::Thread* network_thread) {
+  RTC_CHECK(!network_thread_);
+  network_thread_ = network_thread;
 }
 
 }  // namespace test

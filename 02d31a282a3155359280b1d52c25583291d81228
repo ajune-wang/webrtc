@@ -69,6 +69,30 @@
       "revId": "02d31a282a3155359280b1d52c25583291d81228",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f3913de_84bb891a",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-01-09T16:53:26Z",
+      "side": 1,
+      "message": "Modified TestEncoder to populate EncoderInfo only after InitEncode(), so that is covered now.",
+      "parentUuid": "a9488509_d034124a",
+      "range": {
+        "startLine": 615,
+        "startChar": 8,
+        "endLine": 615,
+        "endChar": 28
+      },
+      "revId": "02d31a282a3155359280b1d52c25583291d81228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

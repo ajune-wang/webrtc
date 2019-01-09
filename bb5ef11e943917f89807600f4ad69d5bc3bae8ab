@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "b5427c2b_557ceb65",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T13:01:22Z",
+      "side": 1,
+      "message": "Add a , here.",
+      "range": {
+        "startLine": 30,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 25
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38425852_77a40c9b",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
         "patchSetId": 2
@@ -87,6 +110,52 @@
         "startChar": 3,
         "endLine": 55,
         "endChar": 46
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d34ca75e_ab9711d8",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T13:01:22Z",
+      "side": 1,
+      "message": "Add: \", the \".",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "109ff825_74b51c8a",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T13:01:22Z",
+      "side": 1,
+      "message": "I would rewrite this as: \"(this is needed because there is no way to inform the injector that a buffer can be disposed)\".",
+      "range": {
+        "startLine": 57,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 31
       },
       "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

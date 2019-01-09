@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "484db1a7_485efc53",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T12:47:16Z",
+      "side": 1,
+      "message": "use",
+      "range": {
+        "startLine": 20,
+        "startChar": 48,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f12f199_72d9f0db",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T12:47:16Z",
+      "side": 1,
+      "message": "size_t length \u003d source._length;\nsource-\u003eVerifyAndAllocate(length + kEncodedBufferExpansion);\nuint8_t *buffer \u003d source-\u003eMutableBuffer();",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8978d7af_9863f82c",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T12:47:16Z",
+      "side": 1,
+      "message": "Not needed at all.",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38425852_77a40c9b",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T12:47:16Z",
+      "side": 1,
+      "message": "Yes, but the buffers already are managed in other places.\n\nFor example, on send side they are deleted by the encoder here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc?l\u003d194\u0026rcl\u003d455d27c49abfff587babed348ae90f1aba75969e\n\nOn receive side they are created and managed by FrameObject, which is a subclass:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/frame_object.cc?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026g\u003d0\u0026l\u003d58\n\nIt can also be reallocated on the receive side:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/frame_buffer2.cc?g\u003d0\u0026l\u003d677\n\nCorrect way I think would be to get a new buffer using |VCMEncodedFrame::VerifyAndAllocate| on the image itself.\n\nYou may also want to append the info at the end instead of at the beginning (this will skip extra memcopy of existing data).",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deb0fed2_b240e4b8",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-09T12:47:16Z",
+      "side": 1,
+      "message": "Better instead of returning a new image, modify the existing one.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 14
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

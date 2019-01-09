@@ -578,6 +578,30 @@
     },
     {
       "key": {
+        "uuid": "39369b38_d5f1099b",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "Not actually. I can try with it, but I thought that it will be more complicated. But let\u0027s see.",
+      "parentUuid": "85333544_3f42b24b",
+      "range": {
+        "startLine": 218,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 24
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e8a073f_c79c8f22",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 3
@@ -696,6 +720,30 @@
     },
     {
       "key": {
+        "uuid": "4bbb4283_48f2a157",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34bb9b9e_af72917e",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 1
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29aa0333_71ffed7a",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 3
@@ -710,6 +758,24 @@
       "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab44f031_2bc859d9",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "It is unknown at the construction time.",
+      "parentUuid": "29aa0333_71ffed7a",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -730,6 +796,24 @@
     },
     {
       "key": {
+        "uuid": "67f424dd_d9915d2d",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "I want to keep all emulated network in the single header file, because they all always will be used together. It should be the last class in this file.",
+      "parentUuid": "304173fe_8384d27e",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e59a266_063d41f0",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 3
@@ -747,6 +831,24 @@
     },
     {
       "key": {
+        "uuid": "fd946b58_d2be807d",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "Docs added",
+      "parentUuid": "0e59a266_063d41f0",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f525f50_e502c240",
         "filename": "test/scenario/network/network_emulation.h",
         "patchSetId": 3
@@ -761,6 +863,24 @@
       "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e945924e_272b2f77",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T17:11:51Z",
+      "side": 1,
+      "message": "I think no, it will lead to a bit more complicated code inside socket.",
+      "parentUuid": "1f525f50_e502c240",
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

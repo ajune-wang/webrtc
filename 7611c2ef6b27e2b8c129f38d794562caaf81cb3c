@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81238f9a_e1b9b23d",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-09T10:43:05Z",
+      "side": 1,
+      "message": "I added this class here temporary to split functionality into smaller parts. Real implementation will replace this class in next CLs.\n\nResponsibility of this abstraction is to provide a endpoint (network interface), that has specified IP address. Implementation will hold a list of available endpoints and will pick the corresponding one or will fail, if there are no required network interface.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "7611c2ef6b27e2b8c129f38d794562caaf81cb3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

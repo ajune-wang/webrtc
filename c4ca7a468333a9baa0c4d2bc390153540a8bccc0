@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f05fb538_2cda3780",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T11:32:02Z",
+      "side": 1,
+      "message": "We need to pick one between can and will: It can / It will.",
+      "range": {
+        "startLine": 9,
+        "startChar": 62,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ce0f8d_ce16cfee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T11:32:02Z",
+      "side": 1,
+      "message": "I think we can remove this and just say \"... provide factory interfaces ...\".",
+      "range": {
+        "startLine": 13,
+        "startChar": 38,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8910c919_62fb2200",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T11:32:02Z",
+      "side": 1,
+      "message": "Maybe add \"pick the first available port starting from kFirstEphemeralPort\"?",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72f5d335_364908e3",
+        "filename": "test/scenario/network/network_emulation.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-09T11:32:02Z",
+      "side": 1,
+      "message": "Typo: socket_lock_ ?",
+      "range": {
+        "startLine": 153,
+        "startChar": 23,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "c4ca7a468333a9baa0c4d2bc390153540a8bccc0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

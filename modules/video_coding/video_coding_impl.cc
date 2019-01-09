@@ -107,7 +107,7 @@ class VideoCodingModuleImpl : public VideoCodingModule {
 
   int SetReceiverRobustnessMode(ReceiverRobustness robustnessMode,
                                 VCMDecodeErrorMode errorMode) override {
-    return receiver_.SetReceiverRobustnessMode(robustnessMode, errorMode);
+    return receiver_.SetReceiverRobustnessMode(robustnessMode);
   }
 
   void SetNackSettings(size_t max_nack_list_size,

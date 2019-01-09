@@ -291,29 +291,6 @@ void VCMSessionInfo::UpdateCompleteSession() {
   }
 }
 
-void VCMSessionInfo::UpdateDecodableSession(const FrameData& frame_data) {
-  // Irrelevant if session is already complete or decodable
-  if (complete_ || decodable_)
-    return;
-  // TODO(agalusza): Account for bursty loss.
-  // TODO(agalusza): Refine these values to better approximate optimal ones.
-  // Do not decode frames if the RTT is lower than this.
-  const int64_t kRttThreshold = 100;
-  // Do not decode frames if the number of packets is between these two
-  // thresholds.
-  const float kLowPacketPercentageThreshold = 0.2f;
-  const float kHighPacketPercentageThreshold = 0.8f;
-  if (frame_data.rtt_ms < kRttThreshold || frame_type_ == kVideoFrameKey ||
-      !HaveFirstPacket() ||
-      (NumPackets() <= kHighPacketPercentageThreshold *
-                           frame_data.rolling_average_packets_per_frame &&
-       NumPackets() > kLowPacketPercentageThreshold *
-                          frame_data.rolling_average_packets_per_frame))
-    return;
-
-  decodable_ = true;
-}
-
 bool VCMSessionInfo::complete() const {
   return complete_;
 }
@@ -448,7 +425,6 @@ bool VCMSessionInfo::HaveLastPacket() const {
 
 int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
                                  uint8_t* frame_buffer,
-                                 VCMDecodeErrorMode decode_error_mode,
                                  const FrameData& frame_data) {
   if (packet.frameType == kEmptyFrame) {
     // Update sequence number of an empty packet.
@@ -526,10 +502,7 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
 
   size_t returnLength = InsertBuffer(frame_buffer, packet_list_it);
   UpdateCompleteSession();
-  if (decode_error_mode == kWithErrors)
-    decodable_ = true;
-  else if (decode_error_mode == kSelectiveErrors)
-    UpdateDecodableSession(frame_data);
+
   return static_cast<int>(returnLength);
 }
 

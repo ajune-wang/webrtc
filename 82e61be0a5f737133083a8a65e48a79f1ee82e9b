@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "185eec50_4f29a20f",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T09:54:10Z",
+      "side": 1,
+      "message": "maybe we can better move this into DelayPeakDetector?",
+      "range": {
+        "startLine": 66,
+        "startChar": 32,
+        "endLine": 66,
+        "endChar": 73
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b73a743c_7184c409",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T09:54:10Z",
+      "side": 1,
+      "message": "You seem to have missed my comment on adding a unittest here in delay_manager_unittests. I think it should be doable.",
+      "range": {
+        "startLine": 119,
+        "startChar": 25,
+        "endLine": 119,
+        "endChar": 37
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c85b230_be2eb459",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T09:54:10Z",
+      "side": 1,
+      "message": "I think the test should be failing if enable_rtx_handling \u003d false, is that the case?",
+      "range": {
+        "startLine": 1304,
+        "startChar": 22,
+        "endLine": 1304,
+        "endChar": 39
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13cda0d7_83ecb183",
+        "filename": "modules/audio_coding/neteq/neteq_impl_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T09:54:10Z",
+      "side": 1,
+      "message": "I think we would move this before line 1336, for reading clarity.\n\nand we can modify it to\n\nEXPECT_CALL(*mock_delay_manager_, Update(rtp_header.sequenceNumber, rtp_header.timestamp, _));",
+      "range": {
+        "startLine": 1309,
+        "startChar": 0,
+        "endLine": 1309,
+        "endChar": 53
+      },
+      "revId": "82e61be0a5f737133083a8a65e48a79f1ee82e9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

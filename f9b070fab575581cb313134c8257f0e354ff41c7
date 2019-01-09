@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "d021d673_7debb0cd",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T09:54:10Z",
+      "side": 1,
+      "message": "Ok, I see. So reordered packets were actually counted with the old code as long as they come before when it is supposed to be played out, right?",
+      "parentUuid": "f3f81acd_1967609f",
+      "range": {
+        "startLine": 762,
+        "startChar": 9,
+        "endLine": 762,
+        "endChar": 31
+      },
+      "revId": "f9b070fab575581cb313134c8257f0e354ff41c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c48c5096_4791ba18",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 3

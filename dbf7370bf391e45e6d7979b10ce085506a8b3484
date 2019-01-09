@@ -22,6 +22,30 @@
       "revId": "dbf7370bf391e45e6d7979b10ce085506a8b3484",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85253bca_2f3d1896",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-09T14:47:18Z",
+      "side": 1,
+      "message": "\u003e I take it all calls to RemoveSink are already done at this point, as part of DestroyStreams?\n\nYes, DestroyStreams() destroys the VideoSendStream and the VideoStreamEncoder it holds, what as part of that does RemoveSink for the \"normal\" frame path.\n\n\u003e To be safe, set |frame_generator_capturer_| to null first, so that it won\u0027t point at a destroyed object?\n\nDone.",
+      "parentUuid": "b3d5b550_8dac7cbc",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 27
+      },
+      "revId": "dbf7370bf391e45e6d7979b10ce085506a8b3484",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

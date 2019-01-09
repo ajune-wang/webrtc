@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "777ecde8_c8852009",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoder_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-01-09T15:11:15Z",
+      "side": 1,
+      "message": "Changed this similar to SimulcastEncoderAdapter even though for now this class seems to be used only with HW encoders.",
+      "range": {
+        "startLine": 127,
+        "startChar": 6,
+        "endLine": 127,
+        "endChar": 46
+      },
+      "revId": "02d31a282a3155359280b1d52c25583291d81228",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

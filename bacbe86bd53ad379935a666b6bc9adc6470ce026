@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74b5df65_029c5138",
+        "filename": "modules/audio_coding/neteq/delay_peak_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T15:46:01Z",
+      "side": 1,
+      "message": "Maybe clearer to say \"if the new inter-arrival time includes a compensation for reordering.\"",
+      "range": {
+        "startLine": 48,
+        "startChar": 21,
+        "endLine": 48,
+        "endChar": 27
+      },
+      "revId": "bacbe86bd53ad379935a666b6bc9adc6470ce026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e1620ce_0adb9220",
+        "filename": "modules/audio_coding/neteq/delay_peak_detector.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T15:46:01Z",
+      "side": 1,
+      "message": "nit: better put \"bool reordered\" after \"int inter_arrival_time\"",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "bacbe86bd53ad379935a666b6bc9adc6470ce026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee595c4_7a5a8ca5",
+        "filename": "modules/audio_coding/neteq/delay_peak_detector_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-09T15:46:01Z",
+      "side": 1,
+      "message": "\"Will trigger a peak\" is confusing to me. How will the Update() return a TRUE.\n\nIt would help if you add a comment of \"The following would fail if we do ....\" at corresponding line.\n\nThe same to the newly add IgnoreReorderedPacket.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 80
+      },
+      "revId": "bacbe86bd53ad379935a666b6bc9adc6470ce026",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

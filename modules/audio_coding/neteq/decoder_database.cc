@@ -168,32 +168,6 @@ std::vector<int> DecoderDatabase::SetCodecs(
   return changed_payload_types;
 }
 
-int DecoderDatabase::RegisterPayload(uint8_t rtp_payload_type,
-                                     NetEqDecoder codec_type,
-                                     const std::string& name) {
-  if (rtp_payload_type > 0x7F) {
-    return kInvalidRtpPayloadType;
-  }
-  if (codec_type == NetEqDecoder::kDecoderArbitrary) {
-    return kCodecNotSupported;  // Only supported through InsertExternal.
-  }
-  const auto opt_format = NetEqDecoderToSdpAudioFormat(codec_type);
-  if (!opt_format) {
-    return kCodecNotSupported;
-  }
-  DecoderInfo info(*opt_format, codec_pair_id_, decoder_factory_, name);
-  if (!info.CanGetDecoder()) {
-    return kCodecNotSupported;
-  }
-  auto ret =
-      decoders_.insert(std::make_pair(rtp_payload_type, std::move(info)));
-  if (ret.second == false) {
-    // Database already contains a decoder with type |rtp_payload_type|.
-    return kDecoderExists;
-  }
-  return kOK;
-}
-
 int DecoderDatabase::RegisterPayload(int rtp_payload_type,
                                      const SdpAudioFormat& audio_format) {
   if (rtp_payload_type < 0 || rtp_payload_type > 0x7f) {

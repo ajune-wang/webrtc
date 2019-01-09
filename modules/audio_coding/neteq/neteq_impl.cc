@@ -234,6 +234,7 @@ void NetEqImpl::SetCodecs(const std::map<int, SdpAudioFormat>& codecs) {
   }
 }
 
+#if 0
 int NetEqImpl::RegisterPayloadType(NetEqDecoder codec,
                                    const std::string& name,
                                    uint8_t rtp_payload_type) {
@@ -247,6 +248,7 @@ int NetEqImpl::RegisterPayloadType(NetEqDecoder codec,
   }
   return kOK;
 }
+#endif
 
 bool NetEqImpl::RegisterPayloadType(int rtp_payload_type,
                                     const SdpAudioFormat& audio_format) {

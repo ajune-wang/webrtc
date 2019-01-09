@@ -26,10 +26,10 @@ namespace webrtc {
 // AttachCurrentThread() to attach itself to the VM and obtain a JNI interface
 // pointer. The native thread remains attached to the VM until it calls
 // DetachCurrentThread() to detach.
-class AttachCurrentThreadIfNeeded {
+class WebrtcAttachCurrentThreadIfNeeded {
  public:
-  AttachCurrentThreadIfNeeded();
-  ~AttachCurrentThreadIfNeeded();
+  WebrtcAttachCurrentThreadIfNeeded();
+  ~WebrtcAttachCurrentThreadIfNeeded();
 
  private:
   rtc::ThreadChecker thread_checker_;

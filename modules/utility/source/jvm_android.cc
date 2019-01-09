@@ -67,9 +67,10 @@ jclass LookUpClass(const char* name) {
   return 0;
 }
 
-// AttachCurrentThreadIfNeeded implementation.
-AttachCurrentThreadIfNeeded::AttachCurrentThreadIfNeeded() : attached_(false) {
-  RTC_LOG(INFO) << "AttachCurrentThreadIfNeeded::ctor";
+// WebrtcAttachCurrentThreadIfNeeded implementation.
+WebrtcAttachCurrentThreadIfNeeded::WebrtcAttachCurrentThreadIfNeeded()
+    : attached_(false) {
+  RTC_LOG(INFO) << "WebrtcAttachCurrentThreadIfNeeded::ctor";
   JavaVM* jvm = JVM::GetInstance()->jvm();
   RTC_CHECK(jvm);
   JNIEnv* jni = GetEnv(jvm);
@@ -81,8 +82,8 @@ AttachCurrentThreadIfNeeded::AttachCurrentThreadIfNeeded() : attached_(false) {
   }
 }
 
-AttachCurrentThreadIfNeeded::~AttachCurrentThreadIfNeeded() {
-  RTC_LOG(INFO) << "AttachCurrentThreadIfNeeded::dtor";
+WebrtcAttachCurrentThreadIfNeeded::~WebrtcAttachCurrentThreadIfNeeded() {
+  RTC_LOG(INFO) << "WebrtcAttachCurrentThreadIfNeeded::dtor";
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   if (attached_) {
     RTC_LOG(INFO) << "Detaching thread from JVM";

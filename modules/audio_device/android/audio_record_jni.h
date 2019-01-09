@@ -116,9 +116,10 @@ class AudioRecordJni {
   // thread in Java. Detached during construction of this object.
   rtc::ThreadChecker thread_checker_java_;
 
-  // Calls AttachCurrentThread() if this thread is not attached at construction.
+  // Calls JavaVM::AttachCurrentThread() if this thread is not attached at
+  // construction.
   // Also ensures that DetachCurrentThread() is called at destruction.
-  AttachCurrentThreadIfNeeded attach_thread_if_needed_;
+  WebrtcAttachCurrentThreadIfNeeded attach_thread_if_needed_;
 
   // Wraps the JNI interface pointer and methods associated with it.
   std::unique_ptr<JNIEnvironment> j_environment_;

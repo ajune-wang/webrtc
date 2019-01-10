@@ -100,10 +100,12 @@ static void ClampBitrates(int64_t* bitrate_bps,
 }
 
 std::vector<PacketFeedback> ReceivedPacketsFeedbackAsRtp(
-    const TransportPacketsFeedback report) {
+    const TransportPacketsFeedback report,
+    bool ignore_ignorable = false) {
   std::vector<PacketFeedback> packet_feedback_vector;
   for (auto& fb : report.PacketsWithFeedback()) {
-    if (fb.receive_time.IsFinite()) {
+    if (fb.receive_time.IsFinite() &&
+        !(ignore_ignorable && fb.sent_packet.ignorable_in_overuse_detection)) {
       PacketFeedback pf(fb.receive_time.ms(), 0);
       pf.creation_time_ms = report.feedback_time.ms();
       pf.payload_size = fb.sent_packet.size.bytes();
@@ -138,6 +140,8 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           field_trial::IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
       fall_back_to_probe_rate_(
           field_trial::IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
+      ignore_ignorable_packets_(
+          field_trial::IsEnabled("WebRTC-Bwe-IgnoreIgnorable")),
       probe_controller_(new ProbeController()),
       congestion_window_pushback_controller_(
           MaybeInitalizeCongestionWindowPushbackController()),
@@ -551,8 +555,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   } else {
     DelayBasedBwe::Result result;
     result = delay_based_bwe_->IncomingPacketFeedbackVector(
-        received_feedback_vector, acknowledged_bitrate, probe_bitrate,
-        alr_start_time.has_value(), report.feedback_time);
+        ReceivedPacketsFeedbackAsRtp(report, ignore_ignorable_packets_),
+        acknowledged_bitrate, probe_bitrate, alr_start_time.has_value(),
+        report.feedback_time);
 
     if (result.updated) {
       if (result.probe) {

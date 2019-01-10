@@ -236,7 +236,7 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
   // Indicate that the packets sent by this module should be counted towards the
   // bitrate estimate since the stream participates in the bitrate allocation.
-  virtual void SetAsPartOfAllocation(bool part_of_allocation) = 0;
+  virtual void SetAsIgnorableInOveruseDetection(bool part_of_allocation) = 0;
 
   // Fetches the current send bitrates in bits/s.
   virtual void BitrateSent(uint32_t* total_rate,

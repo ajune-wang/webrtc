@@ -113,12 +113,13 @@ absl::optional<SentPacket> TransportFeedbackAdapter::ProcessSentPacket(
       msg.size = DataSize::bytes(packet->payload_size);
       msg.send_time = Timestamp::ms(packet->send_time_ms);
       msg.sequence_number = packet->long_sequence_number;
+      msg.ignorable_in_overuse = sent_packet.info.ignorable_in_overuse;
       msg.prior_unacked_data = DataSize::bytes(packet->unacknowledged_data);
       msg.data_in_flight =
           send_time_history_.GetOutstandingData(local_net_id_, remote_net_id_);
       return msg;
     }
-  } else if (sent_packet.info.included_in_allocation) {
+  } else if (sent_packet.info.ignorable_in_overuse) {
     send_time_history_.AddUntracked(sent_packet.info.packet_size_bytes,
                                     sent_packet.send_time_ms);
   }

@@ -33,7 +33,7 @@ struct PacketOptions {
   // Whether this is a retransmission of an earlier packet.
   bool is_retransmit = false;
   bool included_in_feedback = false;
-  bool included_in_allocation = false;
+  bool ignorable_in_overuse = false;
 };
 
 class Transport {

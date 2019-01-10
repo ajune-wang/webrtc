@@ -133,7 +133,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   bool SendingMedia() const override;
 
-  void SetAsPartOfAllocation(bool part_of_allocation) override;
+  void SetAsIgnorableInOveruseDetection(bool part_of_allocation) override;
 
   // Used by the codec module to deliver a video or audio frame for
   // packetization.

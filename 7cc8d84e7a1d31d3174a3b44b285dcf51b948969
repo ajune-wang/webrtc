@@ -16,6 +16,24 @@
       "revId": "7cc8d84e7a1d31d3174a3b44b285dcf51b948969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d1f834d_7df9777e",
+        "filename": "rtc_base/filerotatingstream_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-10T14:53:29Z",
+      "side": 1,
+      "message": "The intention is to check that the file isn\u0027t larger than expected. Since the below file size check based on GetSize is deleted.",
+      "parentUuid": "865e96a5_91565c7c",
+      "revId": "7cc8d84e7a1d31d3174a3b44b285dcf51b948969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

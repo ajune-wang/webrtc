@@ -15,7 +15,7 @@
 
 #include "rtc_base/helpers.h"
 #include "rtc_base/string_to_number.h"
-#include "rtc_base/stringencode.h"
+#include "rtc_base/string_encode.h"
 
 namespace webrtc {
 

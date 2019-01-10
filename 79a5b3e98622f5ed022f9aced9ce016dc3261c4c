@@ -39,6 +39,30 @@
       "revId": "79a5b3e98622f5ed022f9aced9ce016dc3261c4c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f4692aa_1969a1e4",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-10T12:28:28Z",
+      "side": 1,
+      "message": "Tried again, and now seems to work without default constructor.",
+      "parentUuid": "65686b5e_657e39a2",
+      "range": {
+        "startLine": 1737,
+        "startChar": 0,
+        "endLine": 1737,
+        "endChar": 59
+      },
+      "revId": "79a5b3e98622f5ed022f9aced9ce016dc3261c4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

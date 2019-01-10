@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb786747_1c1b01b4",
+        "filename": "modules/audio_processing/audio_processing_impl_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "Since this only tests two values (true/false), I\u0027d recommend not making it a TEST_P test and instead keep it as a TEST(.\n\nWith the TEST_P there is a fair amount of boilerplate code, and what is done becomes much more implicit and less localized.",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 23
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf715c38_80ecd2a4",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "Instead of making separate constants for clarifying the meanings of the parameters true/false I think you should add an enum that is passed to the gain applier constructor. \nUsing constants like this kind of achieves the same, but does not go all the way (as the actual constructors still receive a bool.\n\nIf the intention is to in future CLs add an enum for that, I think it would be better to keep it as it was (without the constants)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479be408_afbfc0ab",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "Is this cast really needed? An implicit cast should be fine and easier to read.",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "172a0971_59bc5dac",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "I\u0027d rather have this localize as\nconst bool pregain_has_changed \u003d previous_pre_gain_ !\u003dpre_fixed_digital_gain_applier_.GetGainFactor();\nprevious_pre_gain_ \u003dpre_fixed_digital_gain_applier_.GetGainFactor();\n\nand then remove the lines of 47+48.\n\nThat would keep all the logic for the values returned from this method within the method.",
+      "range": {
+        "startLine": 73,
+        "startChar": 13,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcfd5403_f634c6b5",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "Gain Controller 2 aims to automatically adjust levels by controlling the\n-\u003e\nGain Controller 2 automatically adjust the capture audio levels by controlling the",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 40
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b2d12bc_2399603e",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "What about\nHandleCapturePreGainRuntimeSettings -\u003e SetCapturePreGain()\n\nThat is much more explicit and does not contain more detail than needed.",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff6ae5a7_2ff649be",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "// Applies a pre-gain and returns true if a gain different from that of\n  // the last call has been used - i.e., the echo path gain has changed.\n-\u003e\n // Applies a pre-gain and returns a bool indicating whether the gain was updated since the last application.",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 72
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82d8110e_68ede978",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "// The applied gain is linear and the signal is clipped (no soft-saturation\n  // is used).\n  // This method should be called at the beginning of the audio processing\n  // pipeline, in particular before any software echo removal step and before\n\n-\u003e\n\n// The applied gain is linear and the signal is clipped (no soft-saturation\n  // is used).\n  // This method should be called at the beginning of the audio processing\n  // pipeline.",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 25
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eacafe98_deab4a74",
+        "filename": "modules/audio_processing/gain_controller2.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "// Applies a post-gain. This method should be called after any software echo\n  // removal step and after ApplyPreGain() is called.\n\n-\u003e\n// Applies a post-gain. This method should be called at the end of the audio processing pipeline.",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e620bb24_c3c2d272",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "This comment should be moved to line 26 (as a comment of the whole method). By changing the name of the method I do, however, think that the comment is redundant.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b865edc_ea582b91",
+        "filename": "modules/audio_processing/gain_controller2_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "Non-constant parameters should be last in the list.",
+      "range": {
+        "startLine": 35,
+        "startChar": 48,
+        "endLine": 35,
+        "endChar": 52
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad561440_689143f9",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand the second sentence of this comment.",
+      "range": {
+        "startLine": 267,
+        "startChar": 3,
+        "endLine": 268,
+        "endChar": 18
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "10cbebe6_4f8ebc9f",
+        "filename": "modules/audio_processing/gain_controller2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T07:47:03Z",
+      "side": 1,
+      "message": "What I meant with the commenting not being ok is that it\n1) Was not at the end of the line.\n2) Was using /* */ instead of the // that should be used for consistency.\n\nLooking at the style guide, I don\u0027t agree that it states that named constants should be used in this case. The comment for that states that that is a desired approach when the same constant is used in multiple function calls.\n\nI rather think that bullet 2 is approach suggested by the style guide for this case (I added a separate comment for that).",
+      "parentUuid": "2f6e2bb8_1bf22bf7",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "f26296a30158077992c9a98eda0724d80fceac2e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "747d66a6_39593434",
         "filename": "modules/audio_processing/gain_controller2.cc",
         "patchSetId": 5

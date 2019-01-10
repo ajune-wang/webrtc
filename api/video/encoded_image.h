@@ -79,6 +79,11 @@ class RTC_EXPORT EncodedImage {
     capacity_ = capacity;
   }
 
+  // TODO(nisse): Could return an ArrayView instead, but if we do, should we
+  // return the size or the capacity?
+  uint8_t* data() { return _buffer; }
+  const uint8_t* data() const { return _buffer; }
+
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
   // NTP time of the capture time in local timebase in milliseconds.

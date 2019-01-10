@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "29fae125_397e6eab",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29e431ed_cb5c9977",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe150499_75f76dc9",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-10T12:21:16Z",
       "side": 1,
       "message": "Nit: reserve() instead of resize or size() instead of capacity() above.",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d810df4_d1fe0e0b",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe150499_75f76dc9",
       "range": {
         "startLine": 62,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ca6febec_710c26a0",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51e2111a_fe41cabe",
+      "range": {
+        "startLine": 70,
+        "startChar": 1,
+        "endLine": 70,
+        "endChar": 4
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9c7f7a4_424198e5",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "251a4859_e87f94b5",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9c7f7a4_424198e5",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 10
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e96b835a_6d08df15",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-10T12:21:16Z",
       "side": 1,
       "message": "Nit:\nstd::make_pair is easier to read.",
+      "range": {
+        "startLine": 102,
+        "startChar": 28,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c637cc93_3b98567d",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e96b835a_6d08df15",
       "range": {
         "startLine": 102,
         "startChar": 28,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "aff3ce40_0cf1fba7",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05d23e7b_e51d3a78",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f87b973f_eea92111",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
         "patchSetId": 3
@@ -151,6 +295,30 @@
       "writtenOn": "2019-01-10T12:21:16Z",
       "side": 1,
       "message": "If you change the type of origin_data, use memcpy here instead.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 75
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e315bc3a_4b03f341",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f87b973f_eea92111",
       "range": {
         "startLine": 34,
         "startChar": 2,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "0ccc3564_3ed095c4",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Now it isn\u0027t true, because cleanup was added.",
+      "parentUuid": "577478d7_81d8eb07",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a5b5f4b_88591867",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
         "patchSetId": 3
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "4800c41f_3d9e7965",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Implemented cleanup of that vector here.",
+      "parentUuid": "1a5b5f4b_88591867",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1602880f_4ff32bf4",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
         "patchSetId": 3
@@ -226,6 +442,24 @@
     },
     {
       "key": {
+        "uuid": "4387dbd1_163b8224",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Actually I need it, but I forgot to implement cleanup of this vector. Now added, PTAL.",
+      "parentUuid": "1602880f_4ff32bf4",
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "938532d4_12fbb589",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
         "patchSetId": 3
@@ -237,6 +471,30 @@
       "writtenOn": "2019-01-10T12:21:16Z",
       "side": 1,
       "message": "Nit:\nuint8_t origin_data[4];",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65527077_18a6ee70",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T13:43:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "938532d4_12fbb589",
       "range": {
         "startLine": 57,
         "startChar": 4,

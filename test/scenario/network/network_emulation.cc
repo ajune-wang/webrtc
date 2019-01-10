@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "rtc_base/bind.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
@@ -28,9 +29,7 @@ EmulatedIpPacket::EmulatedIpPacket(const rtc::SocketAddress& from,
       dest_endpoint_id(dest_endpoint_id),
       data(data),
       arrival_time(arrival_time) {}
-
 EmulatedIpPacket::~EmulatedIpPacket() = default;
-
 EmulatedIpPacket::EmulatedIpPacket(EmulatedIpPacket&&) = default;
 
 void EmulatedNetworkNode::CreateRoute(
@@ -124,6 +123,116 @@ void EmulatedNetworkNode::SetReceiver(
 void EmulatedNetworkNode::RemoveReceiver(uint64_t dest_endpoint_id) {
   rtc::CritScope crit(&lock_);
   routing_.erase(dest_endpoint_id);
+}
+
+EndpointNode::EndpointNode(uint64_t id,
+                           rtc::IPAddress ip,
+                           EmulatedNetworkNode* send_node,
+                           Clock* clock)
+    : id_(id),
+      peer_local_addr_(ip),
+      send_node_(send_node),
+      clock_(clock),
+      next_port_(kFirstEphemeralPort),
+      connected_endpoint_id_(absl::nullopt),
+      network_thread_(nullptr) {}
+EndpointNode::~EndpointNode() = default;
+
+uint64_t EndpointNode::GetId() const {
+  return id_;
+}
+
+void EndpointNode::SendPacket(const rtc::SocketAddress& from,
+                              const rtc::SocketAddress& to,
+                              rtc::CopyOnWriteBuffer packet) {
+  RTC_CHECK(from.ipaddr() == peer_local_addr_);
+  RTC_CHECK(connected_endpoint_id_);
+  send_node_->OnPacketReceived(EmulatedIpPacket(
+      from, to, connected_endpoint_id_.value(), std::move(packet),
+      Timestamp::us(clock_->TimeInMicroseconds())));
+}
+
+absl::optional<uint16_t> EndpointNode::BindReceiver(
+    uint16_t desired_port,
+    EmulatedNetworkReceiverInterface* receiver) {
+  rtc::CritScope crit(&receiver_lock_);
+  uint16_t port = desired_port;
+  if (port == 0) {
+    // Because client can specify its own port, next_port_ can be used, so
+    // we need to find next available port.
+    uint16_t ports_pool_size =
+        std::numeric_limits<uint16_t>::max() - kFirstEphemeralPort + 1;
+    for (int i = 0; i < ports_pool_size && port != 0; ++i) {
+      if (port_to_receiver_.find(next_port_) == port_to_receiver_.end()) {
+        port = next_port_;
+      }
+      next_port_++;
+      if (next_port_ >= std::numeric_limits<uint16_t>::max()) {
+        next_port_ = kFirstEphemeralPort;
+      }
+    }
+  }
+  if (port == 0) {
+    RTC_LOG(LS_ERROR) << "Can't find free port for receiver in endpoint "
+                      << id_;
+    return absl::nullopt;
+  }
+  bool result = port_to_receiver_.insert({port, receiver}).second;
+  if (!result) {
+    RTC_LOG(LS_ERROR) << "Can't bind receiver to used port " << desired_port
+                      << " in endpoint " << id_;
+    return absl::nullopt;
+  }
+  RTC_LOG(INFO) << "New receiver is binded to endpoint " << id_ << " on port "
+                << port;
+  return port;
+}
+
+void EndpointNode::UnbindReceiver(uint16_t port) {
+  rtc::CritScope crit(&receiver_lock_);
+  port_to_receiver_.erase(port);
+}
+
+rtc::IPAddress EndpointNode::GetPeerLocalAddress() const {
+  return peer_local_addr_;
+}
+
+void EndpointNode::OnPacketReceived(EmulatedIpPacket packet) {
+  RTC_CHECK(packet.dest_endpoint_id == id_)
+      << "Routing error: wrong destination endpoint. Destination id: "
+      << packet.dest_endpoint_id << "; Receiver id: " << id_;
+  EmulatedNetworkReceiverInterface* receiver = nullptr;
+  {
+    rtc::CritScope crit(&receiver_lock_);
+    auto it = port_to_receiver_.find(packet.to.port());
+    if (it != port_to_receiver_.end()) {
+      receiver = it->second;
+    }
+  }
+  RTC_CHECK(receiver) << "No receiver registered in " << id_ << " on port "
+                      << packet.to.port();
+  RTC_CHECK(network_thread_);
+  struct ForwardPacket {
+    void operator()() { receiver->OnPacketReceived(std::move(packet)); }
+    EmulatedNetworkReceiverInterface* receiver;
+    EmulatedIpPacket packet;
+  };
+  network_thread_->Invoke<void>(RTC_FROM_HERE,
+                                ForwardPacket{receiver, std::move(packet)});
+}
+
+void EndpointNode::SetNetworkThread(rtc::Thread* network_thread) {
+  RTC_CHECK(!network_thread_);
+  network_thread_ = network_thread;
+}
+
+EmulatedNetworkNode* EndpointNode::GetSendNode() const {
+  return send_node_;
+}
+
+void EndpointNode::SetConnectedEndpointId(uint64_t endpoint_id) {
+  RTC_CHECK(!connected_endpoint_id_);
+  connected_endpoint_id_ = endpoint_id;
 }
 
 }  // namespace test

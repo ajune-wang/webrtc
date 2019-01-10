@@ -454,6 +454,10 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     // The minimum delay in milliseconds for the audio jitter buffer.
     int audio_jitter_buffer_min_delay_ms = 0;
 
+    // Wether the audio jitter buffer should use reordered packets to adapt the
+    // delay.
+    bool audio_jitter_buffer_enable_rtx_handling = false;
+
     // Timeout in milliseconds before an ICE candidate pair is considered to be
     // "not receiving", after which a lower priority candidate pair may be
     // selected.

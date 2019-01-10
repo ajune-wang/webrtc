@@ -94,7 +94,7 @@ std::vector<std::vector<FrameType>> GetTimingFrames(
 
       EncodedImage image;
       CodecSpecificInfo codec_specific;
-      image._length = FrameSize(min_frame_size, max_frame_size, s, i);
+      image.set_size(FrameSize(min_frame_size, max_frame_size, s, i));
       image.capture_time_ms_ = current_timestamp;
       image.SetTimestamp(static_cast<uint32_t>(current_timestamp * 90));
       image.SetSpatialIndex(s);
@@ -187,7 +187,7 @@ TEST(TestVCMEncodedFrameCallback, NoTimingFrameIfNoEncodeStartTime) {
   EncodedImage image;
   CodecSpecificInfo codec_specific;
   int64_t timestamp = 1;
-  image._length = 500;
+  image.set_size(500);
   image.capture_time_ms_ = timestamp;
   image.SetTimestamp(static_cast<uint32_t>(timestamp * 90));
   codec_specific.codecType = kVideoCodecGeneric;
@@ -218,7 +218,7 @@ TEST(TestVCMEncodedFrameCallback, AdjustsCaptureTimeForInternalSourceEncoder) {
   const int64_t kEncodeStartDelayMs = 2;
   const int64_t kEncodeFinishDelayMs = 10;
   int64_t timestamp = 1;
-  image._length = 500;
+  image.set_size(500);
   image.capture_time_ms_ = timestamp;
   image.SetTimestamp(static_cast<uint32_t>(timestamp * 90));
   codec_specific.codecType = kVideoCodecGeneric;

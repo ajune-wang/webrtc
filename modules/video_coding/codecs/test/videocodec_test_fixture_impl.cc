@@ -321,7 +321,7 @@ void VideoCodecTestFixtureImpl::H264KeyframeChecker::CheckEncodedFrame(
   bool contains_idr = false;
   const std::vector<webrtc::H264::NaluIndex> nalu_indices =
       webrtc::H264::FindNaluIndices(encoded_frame._buffer,
-                                    encoded_frame._length);
+                                    encoded_frame.size());
   for (const webrtc::H264::NaluIndex& index : nalu_indices) {
     webrtc::H264::NaluType nalu_type = webrtc::H264::ParseNaluType(
         encoded_frame._buffer[index.payload_start_offset]);

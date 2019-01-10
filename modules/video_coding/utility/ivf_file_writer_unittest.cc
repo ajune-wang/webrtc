@@ -45,7 +45,7 @@ class IvfFileWriterTest : public ::testing::Test {
     frame._encodedWidth = width;
     frame._encodedHeight = height;
     for (int i = 1; i <= num_frames; ++i) {
-      frame._length = i % sizeof(dummy_payload);
+      frame.set_size(i % sizeof(dummy_payload));
       if (use_capture_tims_ms) {
         frame.capture_time_ms_ = i;
       } else {

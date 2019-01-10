@@ -22,6 +22,30 @@
       "revId": "05137f5a4f5e969bd50f6de68898791b74aeb238",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "822d4dc0_1c6b82ac",
+        "filename": "video/video_stream_decoder_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-10T16:15:57Z",
+      "side": 1,
+      "message": "Here is the explanation why we create new frame object here - https://webrtc-review.googlesource.com/c/src/+/67162/2/video/video_stream_decoder_impl.cc#252.\n\nI\u0027m not sure if this requires a comment. Whoever will change that place in video observer has to know what he/she is doing.",
+      "parentUuid": "4651e4a0_d3bec32d",
+      "range": {
+        "startLine": 275,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 20
+      },
+      "revId": "05137f5a4f5e969bd50f6de68898791b74aeb238",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

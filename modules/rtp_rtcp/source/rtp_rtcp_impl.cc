@@ -417,9 +417,10 @@ bool ModuleRtpRtcpImpl::SendingMedia() const {
   return rtp_sender_ ? rtp_sender_->SendingMedia() : false;
 }
 
-void ModuleRtpRtcpImpl::SetAsPartOfAllocation(bool part_of_allocation) {
+void ModuleRtpRtcpImpl::SetAsIgnorableInOveruseDetection(
+    bool part_of_allocation) {
   RTC_CHECK(rtp_sender_);
-  rtp_sender_->SetAsPartOfAllocation(part_of_allocation);
+  rtp_sender_->SetAsIgnorableInOveruseDetection(part_of_allocation);
 }
 
 bool ModuleRtpRtcpImpl::SendOutgoingData(

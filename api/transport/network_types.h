@@ -31,7 +31,7 @@ struct StreamsConfig {
   StreamsConfig(const StreamsConfig&);
   ~StreamsConfig();
   Timestamp at_time = Timestamp::PlusInfinity();
-  absl::optional<bool> requests_alr_probing;
+  bool requests_alr_probing = false;
   absl::optional<double> pacing_factor;
   absl::optional<DataRate> min_pacing_rate;
   absl::optional<DataRate> max_padding_rate;
@@ -89,6 +89,7 @@ struct SentPacket {
   Timestamp send_time = Timestamp::PlusInfinity();
   DataSize size = DataSize::Zero();
   DataSize prior_unacked_data = DataSize::Zero();
+  bool ignorable_in_overuse_detection = false;
   PacedPacketInfo pacing_info;
   // Transport independent sequence number, any tracked packet should have a
   // sequence number that is unique over the whole call and increasing by 1 for

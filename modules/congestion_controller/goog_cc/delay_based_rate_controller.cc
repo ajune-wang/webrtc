@@ -27,6 +27,7 @@ constexpr double kDefaultTrendlineThresholdGain = 4.0;
 
 DelayBasedRateControllerConfig::DelayBasedRateControllerConfig()
     : enabled("Enabled"),
+      ignore_ignorable_packets("partial"),
       no_ack_backoff_fraction("no_ack_frac", 0.8),
       no_ack_backoff_interval("no_ack_int", TimeDelta::ms(1000)),
       ack_backoff_fraction("ack_dec", 0.90),
@@ -96,6 +97,9 @@ void DelayBasedRateController::OnTransportPacketsFeedback(
   first_unacked_send_ = msg.first_unacked_send_time;
 
   for (auto& packet : packets) {
+    if (conf_.ignore_ignorable_packets &&
+        packet.sent_packet.ignorable_in_overuse_detection)
+      continue;
     packet_grouper_.AddPacketInfo(packet, msg.feedback_time);
   }
 

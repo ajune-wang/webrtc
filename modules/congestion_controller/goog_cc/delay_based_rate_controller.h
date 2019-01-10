@@ -24,6 +24,7 @@
 namespace webrtc {
 struct DelayBasedRateControllerConfig {
   FieldTrialFlag enabled;
+  FieldTrialFlag ignore_ignorable_packets;
   FieldTrialParameter<double> no_ack_backoff_fraction;
   FieldTrialParameter<TimeDelta> no_ack_backoff_interval;
   FieldTrialParameter<double> ack_backoff_fraction;

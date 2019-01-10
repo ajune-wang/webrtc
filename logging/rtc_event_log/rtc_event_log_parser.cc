@@ -1820,13 +1820,13 @@ const std::vector<MatchedSendArrivalTimes> GetNetworkTrace(
         sent_packet.packet_id =
             rtp_packet.rtp.header.extension.transportSequenceNumber;
         sent_packet.info.included_in_feedback = true;
-        sent_packet.info.included_in_allocation = true;
+        sent_packet.info.ignorable_in_overuse = true;
         feedback_adapter.ProcessSentPacket(sent_packet);
       } else {
         sent_packet.info.included_in_feedback = false;
         // TODO(srte): Make it possible to indicate that all packets are part of
         // allocation.
-        sent_packet.info.included_in_allocation = false;
+        sent_packet.info.ignorable_in_overuse = false;
         feedback_adapter.ProcessSentPacket(sent_packet);
       }
       ++rtp_iterator;

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "93f1ce01_28da86cc",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-10T08:47:54Z",
+      "side": 1,
+      "message": "I think we will evaluate the usefulness of the metrics first before adding it to a standard. For that we would likely need to involve more people.",
+      "parentUuid": "ececd3ee_da6c525e",
+      "range": {
+        "startLine": 314,
+        "startChar": 38,
+        "endLine": 314,
+        "endChar": 67
+      },
+      "revId": "8e99a97525669c3b592386b0da03becd39e68753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bfff1b2_ac632780",
         "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "8e99a97525669c3b592386b0da03becd39e68753",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f4ec52a_e2c3ddb6",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-10T08:47:54Z",
+      "side": 1,
+      "message": "Sorry, this cl was submitted a while back.",
+      "parentUuid": "1bfff1b2_ac632780",
+      "range": {
+        "startLine": 122,
+        "startChar": 5,
+        "endLine": 122,
+        "endChar": 6
+      },
+      "revId": "8e99a97525669c3b592386b0da03becd39e68753",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

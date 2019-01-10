@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "aca8b63e_5bcfdd0e",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-10T15:16:26Z",
+      "side": 1,
+      "message": "Let\u0027s try to avoid to use _length (see: https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/encoded_image.h?l\u003d90\u0026rcl\u003da6fd5e4587cb90c335355c975461c421132b6c9a):\n\n  out.set_size(out.size() + kEncodedImageBufferExpansion);",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 47,
+        "endChar": 62
+      },
+      "revId": "5435365df4464be8c8ab96395cd3b17bcd2e13c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e109a4c_3d390c87",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-10T15:16:26Z",
+      "side": 1,
+      "message": "Also look here: https://cs.chromium.org/chromium/src/third_party/webrtc/api/video/encoded_image.h?rcl\u003da6fd5e4587cb90c335355c975461c421132b6c9a\u0026l\u003d29-30.\n\nI think there isn\u0027t a lot we can do here, but maybe loop nisse@ into this review.",
+      "range": {
+        "startLine": 48,
+        "startChar": 10,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "5435365df4464be8c8ab96395cd3b17bcd2e13c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2040ea9e_e7352dae",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector_unittest.cc",
         "patchSetId": 5

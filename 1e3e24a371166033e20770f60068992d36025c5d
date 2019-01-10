@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caf03335_515c6a8d",
+        "filename": "api/audio_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T14:29:32Z",
+      "side": 1,
+      "message": "\"should handle\"?",
+      "range": {
+        "startLine": 59,
+        "startChar": 42,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "1e3e24a371166033e20770f60068992d36025c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64882421_e6b75e6b",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T14:29:32Z",
+      "side": 1,
+      "message": "adapts",
+      "range": {
+        "startLine": 457,
+        "startChar": 39,
+        "endLine": 457,
+        "endChar": 44
+      },
+      "revId": "1e3e24a371166033e20770f60068992d36025c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a81bb4e6_05325ed5",
+        "filename": "video/replay.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-01-10T08:18:35Z",
+      "side": 1,
+      "message": "Should render and target delay be changed?",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 78
+      },
+      "revId": "ab6b1b173faa5ae6dd77e46eefc11f10b5a218bc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

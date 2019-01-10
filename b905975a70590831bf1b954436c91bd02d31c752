@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "cb7b9da6_4cd978dc",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T01:15:20Z",
+      "side": 1,
+      "message": "Both of these files seem to be intended for tests. Is it really a good idea to put them in a target that isn\u0027t testonly?",
+      "revId": "b905975a70590831bf1b954436c91bd02d31c752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4114b8cd_82dfdfb6",
         "filename": "test/BUILD.gn",
         "patchSetId": 1

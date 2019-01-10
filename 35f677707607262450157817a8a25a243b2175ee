@@ -16,6 +16,24 @@
       "revId": "35f677707607262450157817a8a25a243b2175ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82312d25_33031521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-10T23:54:13Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll land them then remove after the migration.",
+      "parentUuid": "450c7c4c_7471a533",
+      "revId": "35f677707607262450157817a8a25a243b2175ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

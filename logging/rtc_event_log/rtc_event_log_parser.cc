@@ -1122,6 +1122,13 @@ bool ParsedRtcEventLog::ParseStreamInternal(
       StoreParsedNewFormatEvent(event_stream);
     }
   }
+  for (auto& kv : incoming_rtp_packets_map_) {
+    auto& packets = kv.second;
+    std::sort(packets.begin(), packets.end(),
+              [](LoggedRtpPacketIncoming& a, LoggedRtpPacketIncoming& b) {
+                return a.log_time_us() < b.log_time_us();
+              });
+  }
   return true;
 }
 
@@ -1209,6 +1216,11 @@ void ParsedRtcEventLog::StoreParsedLegacyEvent(const rtclog::Event& event) {
       RTC_CHECK(event.has_timestamp_us());
       uint64_t timestamp_us = event.timestamp_us();
       if (direction == kIncomingPacket) {
+        constexpr int reorder_every_n_packet = 20;
+        constexpr int reorder_delay_us = 100000;
+        if (parsed_header.sequenceNumber % reorder_every_n_packet == 0) {
+          timestamp_us += reorder_delay_us;
+        }
         incoming_rtp_packets_map_[parsed_header.ssrc].push_back(
             LoggedRtpPacketIncoming(timestamp_us, parsed_header, header_length,
                                     total_length));

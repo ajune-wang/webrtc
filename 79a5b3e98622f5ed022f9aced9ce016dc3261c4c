@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32d16a41_76b3084c",
+        "filename": "api/audio_codecs/audio_format.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T01:29:00Z",
+      "side": 1,
+      "message": "Are you sure you need this? It makes SdpAudioFormat harder to use, since values can now (more easily) be bogus.\n\nInsertion with std::map::operator[] requires the value type to be default constructible, but e.g. std::map::insert should not IIRC.",
+      "revId": "79a5b3e98622f5ed022f9aced9ce016dc3261c4c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

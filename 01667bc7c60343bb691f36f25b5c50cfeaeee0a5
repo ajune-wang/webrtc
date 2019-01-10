@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e9f1c8e5_9ed21730",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d688b47_0d825045",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56943853_a41d58e2",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a49d0d17_7878fbac",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56943853_a41d58e2",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "737b7f54_93bea12d",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8990694d_2a749a57",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "737b7f54_93bea12d",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "ed389798_0100a5dd",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba48c5dd_4de5f652",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "830e5120_28d7c968",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 3
@@ -90,6 +168,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "358214a6_9a647ed7",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "830e5120_28d7c968",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "c731528b_20e3c6ff",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdcaa252_642be2a4",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ca0ffb3_058f9824",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 3
@@ -124,6 +238,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23801333_342cd6d2",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Now that part removed.",
+      "parentUuid": "9ca0ffb3_058f9824",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "5ce3e2d2_5e1ea331",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f980626a_698a02e9",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ebfa061b_4313ee96",
         "filename": "rtc_base/numerics/samples_stats_counter.cc",
         "patchSetId": 3
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "cb0a53f8_ac6e7e96",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebfa061b_4313ee96",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14c960df_5cbe136d",
         "filename": "rtc_base/numerics/samples_stats_counter.h",
         "patchSetId": 3
@@ -175,6 +343,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51bd5f3_dc81f570",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c960df_5cbe136d",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -201,6 +387,30 @@
     },
     {
       "key": {
+        "uuid": "126ad937_3b6f1ce7",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62f885ea_9cdfea6a",
+      "range": {
+        "startLine": 29,
+        "startChar": 40,
+        "endLine": 29,
+        "endChar": 44
+      },
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "457a2e81_c8ee03d3",
         "filename": "rtc_base/numerics/samples_stats_counter.h",
         "patchSetId": 3
@@ -224,6 +434,30 @@
     },
     {
       "key": {
+        "uuid": "b10a98cc_7223639b",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "457a2e81_c8ee03d3",
+      "range": {
+        "startLine": 31,
+        "startChar": 64,
+        "endLine": 31,
+        "endChar": 73
+      },
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1f8a5d5_1ee5236c",
         "filename": "rtc_base/numerics/samples_stats_counter.h",
         "patchSetId": 3
@@ -241,6 +475,24 @@
     },
     {
       "key": {
+        "uuid": "637bf860_d0b9df60",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1f8a5d5_1ee5236c",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "052f542e_70a75c56",
         "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
         "patchSetId": 3
@@ -255,6 +507,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41fd6958_a9a38931",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T10:25:47Z",
+      "side": 1,
+      "message": "Yep, right. The problem there was, that I had a floating point error in determining right index, so I used interpolation and it is why result was 2.5 and not 3. Now I have an idea, how to fix that, so PTAL.",
+      "parentUuid": "052f542e_70a75c56",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

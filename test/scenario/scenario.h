@@ -20,30 +20,13 @@
 #include "test/scenario/call_client.h"
 #include "test/scenario/column_printer.h"
 #include "test/scenario/network_node.h"
+#include "test/scenario/repeated_activity.h"
 #include "test/scenario/scenario_config.h"
 #include "test/scenario/simulated_time.h"
 #include "test/scenario/video_stream.h"
 
 namespace webrtc {
 namespace test {
-// RepeatedActivity is created by the Scenario class and can be used to stop a
-// running activity at runtime.
-class RepeatedActivity {
- public:
-  void Stop();
-
- private:
-  friend class Scenario;
-  RepeatedActivity(TimeDelta interval, std::function<void(TimeDelta)> function);
-
-  void Poll(Timestamp time);
-  void SetStartTime(Timestamp time);
-  Timestamp NextTime();
-
-  TimeDelta interval_;
-  std::function<void(TimeDelta)> function_;
-  Timestamp last_update_ = Timestamp::MinusInfinity();
-};
 
 struct PendingActivity {
   TimeDelta after_duration;

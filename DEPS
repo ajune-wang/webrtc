@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '4a7f224d18674c23cae8acdf2bfb3df1edd04851',
+  'chromium_revision': '4e00e614ced4cf12b881f2ab933eff703e8f1bb3',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -46,7 +46,7 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '39a3ef888a1a1ab13f6b3a7070a4b8dea9f989b5',
+    Var('chromium_git') + '/chromium/src/base' + '@' + 'f3b6296c0b6d0d0824bcd2001da9f960ed4cc383',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + '7b20546cf8f6eab7d7c1379f1d0842a29a910a3c',
   'src/buildtools':
@@ -58,13 +58,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '26e8a7f01b1519facceb8e52f4896368680152ec',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + 'e498653a611fa7e0f6bd90d95aca85a4c709897f',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '98928f83e8124c637d3c5bb1fcbea3928fc8b7cf',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '91b5064076247afdf3aa282caab8b43cf20decc5',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '1f39c2b117ba1b54c499edceba156f234e9a8d8b',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '3f36468b82442fe5759e2b89887ec59daeea4aea',
   'src/third_party/android_ndk': {
       'url': Var('chromium_git') + '/android_ndk.git' + '@' + '4e2cea441bfd43f0863d14f57b1e1844260b9884',
       'condition': 'checkout_android',
@@ -111,7 +111,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '2d4a955e9008d85f2ab4b6c530484c8b63c4d949',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'b1be3782a4caea81e21cdca0bf3fec4cf41a17dc',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -229,7 +229,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + 'd14e904200c08d7500104560cde43f8ed2945372',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '1a21b80d341e7ee7f51833653161884604c964a2',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

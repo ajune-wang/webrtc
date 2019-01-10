@@ -16,6 +16,24 @@
       "revId": "5adeba15a138239e9f8a4dc46014a982c1093b9d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba5408fc_50711637",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-10T16:20:44Z",
+      "side": 1,
+      "message": "Thanks, fixed",
+      "parentUuid": "9a1c362a_4075c716",
+      "revId": "5adeba15a138239e9f8a4dc46014a982c1093b9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

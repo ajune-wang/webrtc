@@ -52,6 +52,24 @@
       "revId": "6e5219c184f9ec46a6172451a39d8a316135e580",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "244c9c2a_c0fca515",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T14:05:39Z",
+      "side": 1,
+      "message": "All the standard containers\u0027 data() methods return a raw pointer, so we should probably do the same.\n\nWe could have CurrentBuffer() that returns an ArrayView with size, and AllocatedBuffer() that returns an ArrayView with capacity.\n\nAlso note that anything with data() and size() methods will implicitly convert to ArrayView, so we may not need special methods for it.",
+      "parentUuid": "4515fc09_3f3291d3",
+      "revId": "6e5219c184f9ec46a6172451a39d8a316135e580",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

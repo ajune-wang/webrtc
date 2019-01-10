@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d419260a_c6f75c6a",
+        "filename": "api/audio_options.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-10T14:58:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caf03335_515c6a8d",
+      "range": {
+        "startLine": 59,
+        "startChar": 42,
+        "endLine": 59,
+        "endChar": 48
+      },
+      "revId": "1e3e24a371166033e20770f60068992d36025c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64882421_e6b75e6b",
         "filename": "api/peerconnectioninterface.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1e3e24a371166033e20770f60068992d36025c5d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97aca771_0a6fb0cb",
+        "filename": "api/peerconnectioninterface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-01-10T14:58:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64882421_e6b75e6b",
+      "range": {
+        "startLine": 457,
+        "startChar": 39,
+        "endLine": 457,
+        "endChar": 44
+      },
+      "revId": "1e3e24a371166033e20770f60068992d36025c5d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

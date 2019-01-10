@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "baf4b75a_fb2dd6ed",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T09:39:39Z",
+      "side": 1,
+      "message": "\u003e I\u0027d prefer at least for audio_decoder_proxy_factory.h to go in test-only target.\n\nDefinitely.\n\n\u003e function_audio_decoder_factory.h on the other hand makes some sense to use in production utilities.\n\nPossibly. That code smells like it was made for tests, though. For example: https://cs.chromium.org/chromium/src/third_party/webrtc/test/function_audio_decoder_factory.h?q\u003dfunction_aud\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d42\n\nAnd it\u0027s in the webrtc::test namespace.\n\n\u003e Is it important to change analyzer back to non-test, or is it enough to cut the dependency on gmock/gtest? In the latter case, the new target could be marked test-only, and still solve the problem.\n\u003e \n\u003e Another alternative is to let analyzer.cc define its own AudioDecoderFactory class, without using the FunctionAudioDecoderFactory convenience class\n\nThis would be my preferred approach.\n\n\u003e (but even if we do that, I think the split in this cl is right; using one of the convenience factory classes shouldn\u0027t imply a dependency on gmock or gtest).\n\n+1",
+      "parentUuid": "e4f13a73_c2ad2713",
+      "revId": "b905975a70590831bf1b954436c91bd02d31c752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4114b8cd_82dfdfb6",
         "filename": "test/BUILD.gn",
         "patchSetId": 1

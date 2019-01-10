@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "36097a77_6fefa43a",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T13:57:52Z",
+      "side": 1,
+      "message": "Nice catch. I also added a comment to stress that point, since it\u0027s not very obvious that empty optional is always smaller than everything else.",
+      "parentUuid": "4e060acd_056e1499",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 9
+      },
+      "revId": "c9bceffed2158837af9b6349baaefeaecacd8e82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66745287_f51cd559",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "bc0763f2_0aaa552b",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T13:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66745287_f51cd559",
+      "range": {
+        "startLine": 643,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 41
+      },
+      "revId": "c9bceffed2158837af9b6349baaefeaecacd8e82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0d2cf35_7441083a",
         "filename": "modules/video_coding/frame_buffer2.h",
         "patchSetId": 4
@@ -68,6 +116,30 @@
       "revId": "c9bceffed2158837af9b6349baaefeaecacd8e82",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74a0512d_2701fa15",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T13:57:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0d2cf35_7441083a",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 49
+      },
+      "revId": "c9bceffed2158837af9b6349baaefeaecacd8e82",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

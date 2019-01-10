@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a491f35_d1b77d4a",
+        "filename": "modules/audio_coding/neteq/neteq_stereo_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-01-10T14:34:09Z",
+      "side": 1,
+      "message": "RTC_CHECK_GE",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 13
+      },
+      "revId": "1737d8851a9ccf1674b118edfc7b8f00e0d9f8c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

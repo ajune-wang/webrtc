@@ -34,6 +34,24 @@
       "revId": "7cc8d84e7a1d31d3174a3b44b285dcf51b948969",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a0a7e21_fed22306",
+        "filename": "rtc_base/filerotatingstream_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T14:59:48Z",
+      "side": 1,
+      "message": "Ah, got it. Thanks!",
+      "parentUuid": "7d1f834d_7df9777e",
+      "revId": "7cc8d84e7a1d31d3174a3b44b285dcf51b948969",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

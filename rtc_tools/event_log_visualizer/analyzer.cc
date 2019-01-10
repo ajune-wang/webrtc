@@ -57,7 +57,6 @@
 #include "rtc_base/numerics/sequence_number_util.h"
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/strings/string_builder.h"
-#include "test/function_audio_decoder_factory.h"
 
 #ifndef BWE_TEST_LOGGING_COMPILE_TIME_ENABLE
 #define BWE_TEST_LOGGING_COMPILE_TIME_ENABLE 0
@@ -1695,6 +1694,42 @@ class NetEqStreamInput : public test::NetEqInput {
 };
 
 namespace {
+
+// Factory to create a "replacement decoder" that produces the decoded audio
+// by reading from a file rather than from the encoded payloads.
+class ReplacementAudioDecoderFactory : public AudioDecoderFactory {
+ public:
+  ReplacementAudioDecoderFactory(const std::string& replacement_file_name,
+                                 int file_sample_rate_hz)
+      : replacement_file_name_(replacement_file_name),
+        file_sample_rate_hz_(file_sample_rate_hz) {}
+
+  // Unused by tests.
+  std::vector<AudioCodecSpec> GetSupportedDecoders() override {
+    RTC_NOTREACHED();
+    return {};
+  }
+
+  bool IsSupportedDecoder(const SdpAudioFormat& format) override {
+    return true;
+  }
+
+  std::unique_ptr<AudioDecoder> MakeAudioDecoder(
+      const SdpAudioFormat& format,
+      absl::optional<AudioCodecPairId> codec_pair_id) override {
+    std::unique_ptr<test::ResampleInputAudioFile> replacement_file(
+        new test::ResampleInputAudioFile(replacement_file_name_,
+                                         file_sample_rate_hz_));
+    replacement_file->set_output_rate_hz(48000);
+    return absl::make_unique<test::FakeDecodeFromFile>(
+        std::move(replacement_file), 48000, false);
+  }
+
+ private:
+  std::string replacement_file_name_;
+  int file_sample_rate_hz_;
+};
+
 // Creates a NetEq test object and all necessary input and output helpers. Runs
 // the test and returns the NetEqDelayAnalyzer object that was used to
 // instrument the test.
@@ -1719,18 +1754,9 @@ std::unique_ptr<test::NetEqStatsGetter> CreateNetEqTestAndRun(
 
   std::unique_ptr<test::VoidAudioSink> output(new test::VoidAudioSink());
 
-  // Factory to create a "replacement decoder" that produces the decoded audio
-  // by reading from a file rather than from the encoded payloads.
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
-      new rtc::RefCountedObject<test::FunctionAudioDecoderFactory>(
-          [replacement_file_name, file_sample_rate_hz]() {
-            std::unique_ptr<test::ResampleInputAudioFile> replacement_file(
-                new test::ResampleInputAudioFile(replacement_file_name,
-                                                 file_sample_rate_hz));
-            replacement_file->set_output_rate_hz(48000);
-            return absl::make_unique<test::FakeDecodeFromFile>(
-                std::move(replacement_file), 48000, false);
-          });
+      new rtc::RefCountedObject<ReplacementAudioDecoderFactory>(
+          replacement_file_name, file_sample_rate_hz);
 
   test::NetEqTest::DecoderMap codecs;
 

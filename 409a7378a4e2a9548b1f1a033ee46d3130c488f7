@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce4cb57b_8f8d752c",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T13:28:49Z",
+      "side": 1,
+      "message": "Please change RandomIndices to receive an std::ArrayView\u003cint16_t\u003e. That will reduce the risk for out-of boundary vector access and avoid the need to separately pass the array length.\n\n(And probably then the loop can be made into a for-each loop?)",
+      "revId": "409a7378a4e2a9548b1f1a033ee46d3130c488f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21ba170_d0f39bd6",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-10T13:28:49Z",
+      "side": 1,
+      "message": "Each std::transform translates into a separate loop, right?\nWould rewriting this as below be more efficient? It is at least more compact, uses less stack space and I think potentially more readable.\n\nfor (size_t k \u003d 1; k \u003c N.size(); ++k) {\n  seed \u003d (seed * 69069 + 1) \u0026 (0x80000000 - 1);\n  const int16_t index \u003d seed \u003e\u003e (31 - 5);\n  \n  const float x \u003d kSqrt2Sin[index];  \n  N.re[k] \u003d x * N_low.re[k];\n  N_high.re[k] \u003d x * high_band_noise_level;\n\n  const float y \u003d kSqrt2Sin[(index + 8) \u0026 kIndexMask];\n  N.im[k] \u003d y * N_low.im[k];\n  N_high.im[k] \u003d y * high_band_noise_level;\n}",
+      "revId": "409a7378a4e2a9548b1f1a033ee46d3130c488f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

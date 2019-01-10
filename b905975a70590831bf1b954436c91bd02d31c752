@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4f13a73_c2ad2713",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-10T07:59:39Z",
+      "side": 1,
+      "message": "I\u0027d prefer at least for audio_decoder_proxy_factory.h to go in test-only target. function_audio_decoder_factory.h on the other hand makes some sense to use in production utilities.\n\nIs it important to change analyzer back to non-test, or is it enough to cut the dependency on gmock/gtest? In the latter case, the new target could be marked test-only, and still solve the problem.\n\nAnother alternative is to let analyzer.cc define its own AudioDecoderFactory class, without using the FunctionAudioDecoderFactory convenience class (but even if we do that, I think the split in this cl is right; using one of the convenience factory classes shouldn\u0027t imply a dependency on gmock or gtest).",
+      "parentUuid": "cb7b9da6_4cd978dc",
+      "revId": "b905975a70590831bf1b954436c91bd02d31c752",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4114b8cd_82dfdfb6",
         "filename": "test/BUILD.gn",
         "patchSetId": 1

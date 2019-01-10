@@ -14,6 +14,7 @@
 #include <array>
 #include <map>
 #include <memory>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -136,8 +137,7 @@ class FrameBuffer {
   void PropagateDecodability(const FrameInfo& info)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
-  // Advances |last_decoded_frame_it_| to |decoded| and removes old
-  // frame info.
+  // Removes undecodable frames and moves decoded frame to the history.
   void AdvanceLastDecodedFrame(FrameMap::iterator decoded)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_);
 
@@ -164,7 +164,9 @@ class FrameBuffer {
   EncodedFrame* CombineAndDeleteFrames(
       const std::vector<EncodedFrame*>& frames) const;
 
+  // Stores only undecoded frames.
   FrameMap frames_ RTC_GUARDED_BY(crit_);
+  std::set<VideoLayerFrameId> decoded_frames_history_ RTC_GUARDED_BY(crit_);
 
   rtc::CriticalSection crit_;
   Clock* const clock_;
@@ -173,11 +175,10 @@ class FrameBuffer {
   VCMTiming* const timing_ RTC_GUARDED_BY(crit_);
   VCMInterFrameDelay inter_frame_delay_ RTC_GUARDED_BY(crit_);
   absl::optional<uint32_t> last_decoded_frame_timestamp_ RTC_GUARDED_BY(crit_);
-  FrameMap::iterator last_decoded_frame_it_ RTC_GUARDED_BY(crit_);
-  FrameMap::iterator last_continuous_frame_it_ RTC_GUARDED_BY(crit_);
+  absl::optional<VideoLayerFrameId> last_decoded_frame_ RTC_GUARDED_BY(crit_);
+  absl::optional<VideoLayerFrameId> last_continuous_frame_
+      RTC_GUARDED_BY(crit_);
   std::vector<FrameMap::iterator> frames_to_decode_ RTC_GUARDED_BY(crit_);
-  int num_frames_history_ RTC_GUARDED_BY(crit_);
-  int num_frames_buffered_ RTC_GUARDED_BY(crit_);
   bool stopped_ RTC_GUARDED_BY(crit_);
   VCMVideoProtection protection_mode_ RTC_GUARDED_BY(crit_);
   VCMReceiveStatisticsCallback* const stats_callback_;

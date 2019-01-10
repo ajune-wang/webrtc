@@ -17,6 +17,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/queued_task.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/system/rtc_export.h"
@@ -24,73 +25,8 @@
 
 namespace rtc {
 
-// Base interface for asynchronously executed tasks.
-// The interface basically consists of a single function, Run(), that executes
-// on the target queue.  For more details see the Run() method and TaskQueue.
-class QueuedTask {
- public:
-  QueuedTask() {}
-  virtual ~QueuedTask() {}
-
-  // Main routine that will run when the task is executed on the desired queue.
-  // The task should return |true| to indicate that it should be deleted or
-  // |false| to indicate that the queue should consider ownership of the task
-  // having been transferred.  Returning |false| can be useful if a task has
-  // re-posted itself to a different queue or is otherwise being re-used.
-  virtual bool Run() = 0;
-
- private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(QueuedTask);
-};
-
-// Simple implementation of QueuedTask for use with rtc::Bind and lambdas.
-template <class Closure>
-class ClosureTask : public QueuedTask {
- public:
-  explicit ClosureTask(Closure&& closure)
-      : closure_(std::forward<Closure>(closure)) {}
-
- private:
-  bool Run() override {
-    closure_();
-    return true;
-  }
-
-  typename std::remove_const<
-      typename std::remove_reference<Closure>::type>::type closure_;
-};
-
-// Extends ClosureTask to also allow specifying cleanup code.
-// This is useful when using lambdas if guaranteeing cleanup, even if a task
-// was dropped (queue is too full), is required.
-template <class Closure, class Cleanup>
-class ClosureTaskWithCleanup : public ClosureTask<Closure> {
- public:
-  ClosureTaskWithCleanup(Closure&& closure, Cleanup&& cleanup)
-      : ClosureTask<Closure>(std::forward<Closure>(closure)),
-        cleanup_(std::forward<Cleanup>(cleanup)) {}
-  ~ClosureTaskWithCleanup() { cleanup_(); }
-
- private:
-  typename std::remove_const<
-      typename std::remove_reference<Cleanup>::type>::type cleanup_;
-};
-
-// Convenience function to construct closures that can be passed directly
-// to methods that support std::unique_ptr<QueuedTask> but not template
-// based parameters.
-template <class Closure>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure) {
-  return absl::make_unique<ClosureTask<Closure>>(
-      std::forward<Closure>(closure));
-}
-
-template <class Closure, class Cleanup>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure,
-                                              Cleanup&& cleanup) {
-  return absl::make_unique<ClosureTaskWithCleanup<Closure, Cleanup>>(
-      std::forward<Closure>(closure), std::forward<Cleanup>(cleanup));
-}
+using ::webrtc::NewClosure;
+using ::webrtc::QueuedTask;
 
 // Implements a task queue that asynchronously executes tasks in a way that
 // guarantees that they're executed in FIFO order and that tasks never overlap.

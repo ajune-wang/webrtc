@@ -171,16 +171,13 @@ void FuzzOneInputTest(const uint8_t* data, size_t size) {
   // Verify that they all are included in the standard decoder map, and that
   // they point to the expected decoder types.
   RTC_CHECK_EQ(codecs.count(rate_types[0].second), 1);
-  RTC_CHECK(codecs[rate_types[0].second].first == NetEqDecoder::kDecoderPCM16B);
+  RTC_CHECK(codecs[rate_types[0].second] == SdpAudioFormat("l16", 8000, 1));
   RTC_CHECK_EQ(codecs.count(rate_types[1].second), 1);
-  RTC_CHECK(codecs[rate_types[1].second].first ==
-            NetEqDecoder::kDecoderPCM16Bwb);
+  RTC_CHECK(codecs[rate_types[1].second] == SdpAudioFormat("l16", 16000, 1));
   RTC_CHECK_EQ(codecs.count(rate_types[2].second), 1);
-  RTC_CHECK(codecs[rate_types[2].second].first ==
-            NetEqDecoder::kDecoderPCM16Bswb32kHz);
+  RTC_CHECK(codecs[rate_types[2].second] == SdpAudioFormat("l16", 32000, 1));
   RTC_CHECK_EQ(codecs.count(rate_types[3].second), 1);
-  RTC_CHECK(codecs[rate_types[3].second].first ==
-            NetEqDecoder::kDecoderPCM16Bswb48kHz);
+  RTC_CHECK(codecs[rate_types[3].second] == SdpAudioFormat("l16", 48000, 1));
 
   NetEqTest test(config, CreateBuiltinAudioDecoderFactory(), codecs, nullptr,
                  std::move(input), std::move(output), callbacks);

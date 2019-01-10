@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34a3d14_ef3cacf0",
+        "filename": "video/video_loopback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-01-10T14:03:35Z",
+      "side": 1,
+      "message": "maybe add comment automatic_scaling",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 26
+      },
+      "revId": "88bfae4969aa9474b898aa9e0e45e5fd29fe75bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

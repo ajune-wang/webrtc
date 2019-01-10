@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca2553d7_51fd0e26",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-01-10T14:49:01Z",
+      "side": 1,
+      "message": "Doing what you suggested below instead.",
+      "parentUuid": "ce4cb57b_8f8d752c",
+      "revId": "409a7378a4e2a9548b1f1a033ee46d3130c488f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b21ba170_d0f39bd6",
         "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "409a7378a4e2a9548b1f1a033ee46d3130c488f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87a5f0d0_6de4fc55",
+        "filename": "modules/audio_processing/aec3/comfort_noise_generator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-01-10T14:49:01Z",
+      "side": 1,
+      "message": "Good point, I agree. Did something very similar to this in the latest patchset.",
+      "parentUuid": "b21ba170_d0f39bd6",
+      "revId": "409a7378a4e2a9548b1f1a033ee46d3130c488f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

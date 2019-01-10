@@ -14,13 +14,13 @@
 #include <array>
 #include <map>
 #include <memory>
-#include <set>
 #include <utility>
 #include <vector>
 
 #include "api/video/encoded_frame.h"
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "modules/video_coding/inter_frame_delay.h"
+#include "modules/video_coding/utility/decoded_frames_history.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/criticalsection.h"
 #include "rtc_base/event.h"
@@ -166,7 +166,7 @@ class FrameBuffer {
 
   // Stores only undecoded frames.
   FrameMap frames_ RTC_GUARDED_BY(crit_);
-  std::set<VideoLayerFrameId> decoded_frames_history_ RTC_GUARDED_BY(crit_);
+  DecodedFramesHistory decoded_frames_history_ RTC_GUARDED_BY(crit_);
 
   rtc::CriticalSection crit_;
   Clock* const clock_;

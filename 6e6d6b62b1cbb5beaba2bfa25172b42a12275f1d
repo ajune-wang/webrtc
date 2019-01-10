@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29e431ed_cb5c9977",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Nit:\n\nSince you are using buffer-\u003ecapacity() above, you should use reserve() here.\n\nOr use size() above.",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe150499_75f76dc9",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Nit: reserve() instead of resize or size() instead of capacity() above.",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51e2111a_fe41cabe",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "RTC_CHECK() that there are at least 4 bytes left in the input buffer from source_pos.",
+      "range": {
+        "startLine": 70,
+        "startChar": 1,
+        "endLine": 70,
+        "endChar": 4
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c7f7a4_424198e5",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "RTC_CHECK() that copied length doesn\u0027t go beyond the source._length.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 10
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96b835a_6d08df15",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Nit:\nstd::make_pair is easier to read.",
+      "range": {
+        "startLine": 102,
+        "startChar": 28,
+        "endLine": 102,
+        "endChar": 54
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05d23e7b_e51d3a78",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Nit:\n\ninjectors_[std::make_pair(coding_entity_id, type)] \u003d std::move(injector);",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f87b973f_eea92111",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "If you change the type of origin_data, use memcpy here instead.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 75
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "577478d7_81d8eb07",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "just remember the size of the vector to the local variable here and write it as a sub_id to the buffer below.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a5b5f4b_88591867",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "info \u003d it-\u003esecond.infos[sub_id];",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1602880f_4ff32bf4",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "You don\u0027t need this sub_id at all. It\u0027s always equal to the index at std::vector\u003cExtractionInfo\u003e.",
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "938532d4_12fbb589",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Nit:\nuint8_t origin_data[4];",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 12
+      },
+      "revId": "6e6d6b62b1cbb5beaba2bfa25172b42a12275f1d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

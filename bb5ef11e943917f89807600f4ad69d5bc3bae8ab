@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "89067732_dcd387d9",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "7f12f199_72d9f0db",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8978d7af_9863f82c",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 2
@@ -68,6 +92,30 @@
       "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce70b6ee_a388c796",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "8978d7af_9863f82c",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "41a66b6d_b9c69d26",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "After offline discussion, I was wrong.",
+      "parentUuid": "38425852_77a40c9b",
+      "range": {
+        "startLine": 55,
+        "startChar": 3,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "109ff825_74b51c8a",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
         "patchSetId": 2
@@ -183,6 +255,30 @@
       "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58bb086_f614a1fb",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-10T12:21:16Z",
+      "side": 1,
+      "message": "After offline discussion, this is not needed.",
+      "parentUuid": "deb0fed2_b240e4b8",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 14
+      },
+      "revId": "bb5ef11e943917f89807600f4ad69d5bc3bae8ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

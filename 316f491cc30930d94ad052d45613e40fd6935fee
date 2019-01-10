@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6242d69d_c51664bc",
+        "filename": "rename-headers.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-10T23:40:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51d92aaf_01dc136d",
+      "range": {
+        "startLine": 70,
+        "startChar": 52,
+        "endLine": 70,
+        "endChar": 59
+      },
+      "revId": "316f491cc30930d94ad052d45613e40fd6935fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dbf3606_784d2e1e",
         "filename": "rename-headers.txt",
         "patchSetId": 14
@@ -81,6 +105,24 @@
       "revId": "316f491cc30930d94ad052d45613e40fd6935fee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c6c03a5_57d29ce8",
+        "filename": "rename-headers.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-10T23:40:52Z",
+      "side": 1,
+      "message": "Ok, leaving it as arraysize.h",
+      "parentUuid": "0ff983e6_662d74f8",
+      "revId": "316f491cc30930d94ad052d45613e40fd6935fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64b80659_b91088cc",
+        "filename": "rtc_base/numerics/samples_stats_counter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T13:57:17Z",
+      "side": 1,
+      "message": "This seems fragile---you\u0027ve probably just moved the problem to somewhere else where it\u0027s not as easy to find. It seems more robust to fix the linear interpolation instead (see my other comment).",
+      "revId": "ff8f6793c2a3b5456ef33fbb0faf55d06e375422",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c44fc88_4218169b",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T13:57:17Z",
+      "side": 1,
+      "message": "has",
+      "range": {
+        "startLine": 55,
+        "startChar": 18,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "ff8f6793c2a3b5456ef33fbb0faf55d06e375422",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -525,6 +525,24 @@
       "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cee57c47_8860b2e5",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-10T13:57:17Z",
+      "side": 1,
+      "message": "I implemented linear interpolation myself, and figured out what the problem is: this\n\n  double raw_rank \u003d percentile * samples_.size();\n\nneeds to be\n\n  double raw_rank \u003d percentile * (samples_.size() - 1);\n\nbecause we\u0027re counting the spaces *between* samples. (I can demonstrate with a whiteboard tomorrow if you want.)\n\nWith that change, the linear interpolation should work, and there will be no need to use hacks with magic values like 1e-6.",
+      "parentUuid": "41fd6958_a9a38931",
+      "revId": "01667bc7c60343bb691f36f25b5c50cfeaeee0a5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

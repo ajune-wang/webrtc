@@ -70,6 +70,30 @@
       "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c80a7e7_26fc4a94",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-11T10:43:12Z",
+      "side": 0,
+      "message": "Yes, keep both.\n\nThe loop was added since I didn\u0027t want to complicate VideoStreamEncoder for the sake of this test. In one case there can be two SetRates right after each other, once with the explicit bitrate and then again after sdp bitrate parameters have propagated through a task queue. So now wait just wait until we see the bitrate we expect and ignore any intermediate uninteresting rates.\n\nThe likely reason the test passed without the field trial hack when this CL was active, is that birate updates are normally propagate immediately, without waiting for the new frame. So likely the rate tracker estimating the packetization overhead just hadn\u0027t come up with an estimate yet. A flake waiting to happen...",
+      "parentUuid": "528cab8e_4359bca0",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2832,
+        "endChar": 0
+      },
+      "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

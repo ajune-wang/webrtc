@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fede6625_57f8565a",
+        "filename": "rtc_base/stream_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T14:41:06Z",
+      "side": 0,
+      "message": "This function appeared unused.",
+      "range": {
+        "startLine": 81,
+        "startChar": 5,
+        "endLine": 81,
+        "endChar": 13
+      },
+      "revId": "83953e4d95d7d1fa519cc0c25e1b93194e74f44f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

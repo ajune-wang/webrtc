@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf055a3f_b24077cd",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-11T09:49:57Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "9639a99f_30c15dc5",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f79f3e80_0a016bad",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
         "patchSetId": 8
@@ -45,6 +69,30 @@
       "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f761e0f_055edbef",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-11T09:49:57Z",
+      "side": 1,
+      "message": "No, it\u0027s not a multimap, I added comment",
+      "parentUuid": "f79f3e80_0a016bad",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 78
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3493cba0_d725bf38",
+        "filename": "test/pc/e2e/analyzer/video/encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-11T09:49:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "429798ca_f8513b9f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "22f3cded_791befae",
         "filename": "test/pc/e2e/analyzer/video/encoded_image_id_injector.h",
         "patchSetId": 8
@@ -91,6 +163,30 @@
       "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b1191a2_f2fb6985",
+        "filename": "test/pc/e2e/analyzer/video/encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-11T09:49:57Z",
+      "side": 1,
+      "message": "The main thing, that is shared - is algorithm, because injection have to correspond extraction, otherwise one can create injector with one algorithm and extractor with another, which will lead to error. Maybe it will be better to rename this class.. *Serializer? *StoreController? *TransportationManager?",
+      "parentUuid": "22f3cded_791befae",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 2
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

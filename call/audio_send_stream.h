@@ -42,6 +42,8 @@ class AudioSendStream {
     // TODO(solenberg): Harmonize naming and defaults with receive stream stats.
     uint32_t local_ssrc = 0;
     int64_t bytes_sent = 0;
+    int64_t media_bytes_sent = 0;
+    int64_t rtx_bytes_sent = 0;
     int32_t packets_sent = 0;
     int32_t packets_lost = -1;
     float fraction_lost = -1.0f;

@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "absl/types/optional.h"
+#include "api/config/webrtc_config.h"
 #include "api/transport/network_types.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/congestion_controller/goog_cc/link_capacity_estimator.h"
@@ -35,7 +36,7 @@ struct DelayBasedRateControllerConfig {
   FieldTrialParameter<TimeDelta> min_increase_interval;
   FieldTrialParameter<DataRate> linear_increase_threshold;
   FieldTrialParameter<TimeDelta> reference_duration_offset;
-  DelayBasedRateControllerConfig();
+  explicit DelayBasedRateControllerConfig(const WebRtcConfig* webrtc_config);
   ~DelayBasedRateControllerConfig();
 };
 
@@ -43,7 +44,8 @@ struct DelayBasedRateControllerConfig {
 // fixed increase interval and an RTT dependent increase rate.
 class DelayBasedRateController {
  public:
-  DelayBasedRateController(RtcEventLog* event_log,
+  DelayBasedRateController(const WebRtcConfig* webrtc_config,
+                           RtcEventLog* event_log,
                            TargetRateConstraints constraints);
   ~DelayBasedRateController();
   void OnRouteChange();

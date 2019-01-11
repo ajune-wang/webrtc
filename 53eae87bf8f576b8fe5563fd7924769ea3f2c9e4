@@ -70,6 +70,30 @@
       "revId": "53eae87bf8f576b8fe5563fd7924769ea3f2c9e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99f80f20_fbe32009",
+        "filename": "modules/desktop_capture/capture_result_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8391
+      },
+      "writtenOn": "2019-01-11T21:13:05Z",
+      "side": 0,
+      "message": "I hope no one, because that check at the beginning feels... odd.\n\nThe class name sounds generic enough that it may just be for testing, but I\u0027m not sure.",
+      "parentUuid": "a3c5c4b3_013c4f4c",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "53eae87bf8f576b8fe5563fd7924769ea3f2c9e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -45,6 +45,30 @@
       "revId": "62834717985f753c6ab1516a029e21305cd921a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3eb88d9_d45dbced",
+        "filename": "media/base/mediaconfig.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-11T11:56:06Z",
+      "side": 1,
+      "message": "But are those dropped frames ever sent to the decoder though? In this comment, I\u0027m only talking about frame dropping after the decoder.\n\nIn some sense, the jitter buffer is allowed to do \"encoded bitstream\" manipulation (dropping higher layer encoded frames in a way that does not destroy the decodability of the lower layers), whereas the render buffer is allowed to do \"raw pixel stream\" manipulation (arbitrarily dropping decoded frames). This setting disables the latter behaviour, but not the former. I guess the reason that we don\u0027t have a flag to disable the former behaviour is that then it doesn\u0027t make sense to do layered encoding in the first place.\n\nA casual reader will probably not realize this, so probably better to leave the statement out completely though.",
+      "parentUuid": "dd8b526c_097e9ed8",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 78
+      },
+      "revId": "62834717985f753c6ab1516a029e21305cd921a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

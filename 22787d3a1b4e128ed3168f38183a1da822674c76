@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "f7d4c2e6_5a66a394",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:58:45Z",
+      "side": 1,
+      "message": "last_decoded_frame_timestamp_ can\u0027t be moved, because history doesn\u0027t care about timestamps.\n\nlast_decoded_frame_ can be moved there, but i think there\u0027s no merit.\n\nIt will still be accessed here, in FrameBuffer:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/frame_buffer2.cc?rcl\u003d0554368eedf987c317eb29544f42a44baa2388ba\u0026l\u003d377\n\nAnd most importantly, here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/frame_buffer2.cc?q\u003dframe_buffer2.cc\u0026sq\u003dpackage:chromium\u0026dr\u0026l\u003d535\n\nIt isn\u0027t a state of the history, but it\u0027s the state of the FrameBuffer, independent of history.\n\nMoving this to DecodedFramesHistory will just add extra logical layer to accessing this. What if we decide to replace it with something tracking updated buffers, which will only store up-to 8 frames? That implementation will not even have anything like last decoded frame, but we will need to implement it there just because it\u0027s important to FrameBuffer.\n\nThis change would also require movement of VideoLayerId to a separate file, which I don\u0027t want to do for just this reason.\n\nIf you would please think about DecodedFramesHistory as a specially optimized set, I hope you could agree to leave these members in FrameBuffer.",
+      "parentUuid": "1cf563ce_3db4e12b",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 78
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a12437c5_9455eb48",
         "filename": "modules/video_coding/utility/decoded_frames_history.cc",
         "patchSetId": 2

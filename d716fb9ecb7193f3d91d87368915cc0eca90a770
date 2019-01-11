@@ -22,6 +22,30 @@
       "revId": "d716fb9ecb7193f3d91d87368915cc0eca90a770",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd9f253e_d82d985a",
+        "filename": "media/base/mediaconfig.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-11T10:54:19Z",
+      "side": 0,
+      "message": "Yeah, it\u0027s a bit out of date and that\u0027s why I removed it. But I now see that the other flags also have similar comments, so for consistency it\u0027s probably best to keep parts of this comment.\n\nI updated it to be correct, but removing the details of how the value is propagated from the RtcConfiguration down here. I find that code search is a good tool to find how this is done -- and that doesn\u0027t grow stale.",
+      "parentUuid": "80da6421_d3e94e4c",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "d716fb9ecb7193f3d91d87368915cc0eca90a770",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

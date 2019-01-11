@@ -1099,7 +1099,7 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 
     CreateCapturers();
 
-    analyzer_->SetSource(video_sources_[0].get(), params_.ss[0].infer_streams);
+    analyzer_->SetSource(video_sources_[0].get(), true);
 
     for (size_t video_idx = 1; video_idx < num_video_streams_; ++video_idx) {
       video_send_streams_[video_idx]->SetSource(video_sources_[video_idx].get(),

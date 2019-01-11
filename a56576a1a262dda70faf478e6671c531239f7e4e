@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d770823f_dc3ea467",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-11T13:36:27Z",
+      "side": 1,
+      "message": "TODO(mbonadei): Add more useful information to the bug (e.g. how to maintain MSVC support for //third_party/ffmpeg).",
+      "range": {
+        "startLine": 334,
+        "startChar": 41,
+        "endLine": 334,
+        "endChar": 62
+      },
+      "revId": "a56576a1a262dda70faf478e6671c531239f7e4e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

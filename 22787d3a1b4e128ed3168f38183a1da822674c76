@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "46abe57f_66a56c5d",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T14:12:51Z",
+      "side": 1,
+      "message": "It\u0027s optimization of ~1MB of extra memory and speed-up for most common case of steadly increasing picture ids. And I did reduce the complexity of FrameBuffer specifically for this fix.\n\nOk, I moved the last_decoded_frame_* members to the DecodedFramesHistory. I can\u0027t really see how is that cleaner and easier to update, but if you think so, let it be.",
+      "parentUuid": "5da6ece7_9bae92f8",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 78
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a12437c5_9455eb48",
         "filename": "modules/video_coding/utility/decoded_frames_history.cc",
         "patchSetId": 2
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "This if processes the case then we insert a first frame for some layer. \n\nIf all layers are known already, the layer_.size() will be big enough and the |if| body would not be triggered.\n\nIf some intermediate layers were to be created here, they would be initialized to correct state (all zeros).\n\nKeep in mind that all layers are processed completely separately in this class. Inserting frame to SL 1 wouldn\u0027t change history view in SL 1.\n\nI might be not understanding your question here, please elaborate.",
       "parentUuid": "a12437c5_9455eb48",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "083549ec_f161fdb7",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T14:12:51Z",
+      "side": 1,
+      "message": "What about this? Ack?",
+      "parentUuid": "5cf39f9b_72daaa3a",
       "range": {
         "startLine": 34,
         "startChar": 4,

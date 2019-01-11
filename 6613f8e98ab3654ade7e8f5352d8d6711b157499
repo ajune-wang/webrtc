@@ -46,6 +46,30 @@
       "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "528cab8e_4359bca0",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T10:17:51Z",
+      "side": 0,
+      "message": "It seems I attached this comment on the wrong place, causing some confusion.\n\nSo we should have both this loop (added in your original cl), and the fieldtrial tweak, added with the revert (and kept in ps# of this cl)?\n\nI take it this loop was what made the test pass, without the fieldtrial tweak?",
+      "parentUuid": "e1298eca_e181a012",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2832,
+        "endChar": 0
+      },
+      "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

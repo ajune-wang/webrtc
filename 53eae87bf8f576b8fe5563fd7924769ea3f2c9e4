@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf3e0332_bcf71878",
+        "filename": "modules/desktop_capture/capture_result_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-01-11T18:36:33Z",
+      "side": 0,
+      "message": "looks like we can just move this line up to the first of the Start().",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "53eae87bf8f576b8fe5563fd7924769ea3f2c9e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

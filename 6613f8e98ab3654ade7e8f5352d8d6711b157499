@@ -94,6 +94,30 @@
       "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e370503_b5998d96",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T10:46:29Z",
+      "side": 0,
+      "message": "Thanks for the explanation.",
+      "parentUuid": "4c80a7e7_26fc4a94",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2832,
+        "endChar": 0
+      },
+      "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

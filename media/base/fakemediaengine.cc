@@ -162,6 +162,8 @@ bool FakeVoiceMediaChannel::GetOutputVolume(uint32_t ssrc, double* volume) {
   *volume = output_scalings_[ssrc];
   return true;
 }
+void FakeVoiceMediaChannel::FillBitrateInfo(
+    BandwidthEstimationInfo* bwe_info) const {}
 bool FakeVoiceMediaChannel::GetStats(VoiceMediaInfo* info) {
   return false;
 }

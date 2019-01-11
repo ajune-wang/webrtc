@@ -133,7 +133,6 @@ class WebRtcVoiceEngine final : public VoiceEngineInterface {
   size_t audio_jitter_buffer_max_packets_ = 50;
   bool audio_jitter_buffer_fast_accelerate_ = false;
   int audio_jitter_buffer_min_delay_ms_ = 0;
-  bool audio_jitter_buffer_enable_rtx_handling_ = false;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(WebRtcVoiceEngine);
 };
@@ -239,6 +238,8 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
 
     return VoiceMediaChannel::SendRtcp(&packet, rtc_options);
   }
+
+  void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) const override;
 
  private:
   bool SetOptions(const AudioOptions& options);

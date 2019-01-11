@@ -36,10 +36,10 @@ namespace video_coding {
 
 namespace {
 // Max number of frames the buffer will hold.
-constexpr size_t kMaxFramesBuffered = 600;
+constexpr size_t kMaxFramesBuffered = 800;
 
 // Max number of decoded frame info that will be saved.
-constexpr size_t kMaxFramesHistory = 50;
+constexpr int kMaxFramesHistory = 1 << 13;
 
 // The time it's allowed for a frame to be late to its rendering prediction and
 // still be rendered.
@@ -52,7 +52,8 @@ FrameBuffer::FrameBuffer(Clock* clock,
                          VCMJitterEstimator* jitter_estimator,
                          VCMTiming* timing,
                          VCMReceiveStatisticsCallback* stats_callback)
-    : clock_(clock),
+    : decoded_frames_history_(kMaxFramesHistory),
+      clock_(clock),
       jitter_estimator_(jitter_estimator),
       timing_(timing),
       inter_frame_delay_(clock_->TimeInMilliseconds()),
@@ -491,17 +492,14 @@ void FrameBuffer::PropagateDecodability(const FrameInfo& info) {
 void FrameBuffer::AdvanceLastDecodedFrame(FrameMap::iterator decoded) {
   TRACE_EVENT0("webrtc", "FrameBuffer::AdvanceLastDecodedFrame");
 
-  decoded_frames_history_.insert(decoded->first);
+  decoded_frames_history_.InsertDecoded(decoded->first.picture_id,
+                                        decoded->first.spatial_layer);
 
   FrameMap::iterator frame_it = frames_.begin();
 
   // First, delete non-decoded frames from the history.
   while (frame_it != decoded)
     frame_it = frames_.erase(frame_it);
-
-  // Then remove old history if we have too much history saved.
-  if (decoded_frames_history_.size() > kMaxFramesHistory)
-    decoded_frames_history_.erase(decoded_frames_history_.begin());
 
   // Then remove the frame from the undecoded frames list.
   last_decoded_frame_ = decoded->first;
@@ -536,8 +534,8 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
     if (last_decoded_frame_ && ref_key <= *last_decoded_frame_) {
       // Was that frame decoded? If not, this |frame| will never become
       // decodable.
-      if (decoded_frames_history_.find(ref_key) ==
-          decoded_frames_history_.end()) {
+      if (!decoded_frames_history_.WasDecoded(ref_key.picture_id,
+                                              ref_key.spatial_layer)) {
         int64_t now_ms = clock_->TimeInMilliseconds();
         if (last_log_non_decoded_ms_ + kLogNonDecodedIntervalMs < now_ms) {
           RTC_LOG(LS_WARNING)
@@ -634,7 +632,7 @@ void FrameBuffer::ClearFramesAndHistory() {
   last_decoded_frame_.reset();
   last_continuous_frame_.reset();
   frames_to_decode_.clear();
-  decoded_frames_history_.clear();
+  decoded_frames_history_.Clear();
 }
 
 EncodedFrame* FrameBuffer::CombineAndDeleteFrames(

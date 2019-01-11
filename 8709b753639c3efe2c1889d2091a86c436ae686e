@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8a6d765_40a05407",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-11T09:43:19Z",
+      "side": 1,
+      "message": "But now it can be in [0,1], because the linear interpolation is not asymmetric. :-)",
+      "revId": "8709b753639c3efe2c1889d2091a86c436ae686e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000653f5_cb5ff341",
+        "filename": "rtc_base/numerics/samples_stats_counter_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-11T09:43:19Z",
+      "side": 1,
+      "message": "Put this helper in an unnamed namespace?",
+      "revId": "8709b753639c3efe2c1889d2091a86c436ae686e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

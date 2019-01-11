@@ -16,6 +16,24 @@
       "revId": "cfa051ca256d0193a61406333a73e18fc1c1f4c0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb94799_3c68b24d",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-01-11T10:28:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "691090b1_46fd24d3",
+      "revId": "cfa051ca256d0193a61406333a73e18fc1c1f4c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

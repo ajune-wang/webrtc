@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "691090b1_46fd24d3",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-11T09:09:38Z",
+      "side": 1,
+      "message": "Add a comment about why the \"if (pending_encoder_creation_)\" block is split in two.",
+      "revId": "cfa051ca256d0193a61406333a73e18fc1c1f4c0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

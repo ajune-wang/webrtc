@@ -275,6 +275,52 @@
       "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934fe6f2_6d0fb6c8",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-01-11T12:24:05Z",
+      "side": 1,
+      "message": "With several different responsibilities in AGC2, what does \u0027enabled\u0027 mean?\nHow would you configure APM to apply a pre-amp but no other gain control?\nMaybe we should organize the config by effects, rather than submodules.",
+      "range": {
+        "startLine": 271,
+        "startChar": 6,
+        "endLine": 271,
+        "endChar": 27
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26aa8262_06243413",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-01-11T12:24:05Z",
+      "side": 1,
+      "message": "How the pre-amp is applied seems like an implementation detail. Do we need to force a client code update? APM can silently switch to using AGC2 for this internally, but keep the PreAmplifier struct.",
+      "range": {
+        "startLine": 272,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 34
+      },
+      "revId": "6c6e8ca4b688f1f6a71697256037fce32ec465b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

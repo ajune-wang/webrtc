@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "145fc7c7_0c348e9a",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T12:43:19Z",
+      "side": 1,
+      "message": "I agree that the behavior changed in regards to max frames in the buffer, but I think this is cleaner compared to keeping track of the number of stored frames separately.\n\nI think the current comment \"Max number of decoded frame info that will be saved.\" explains this well enough.",
+      "parentUuid": "2d526e33_2da2071e",
+      "range": {
+        "startLine": 588,
+        "startChar": 4,
+        "endLine": 588,
+        "endChar": 43
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a97ee497_d46ba49d",
         "filename": "modules/video_coding/frame_buffer2.h",
         "patchSetId": 2
@@ -116,6 +140,30 @@
       "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf563ce_3db4e12b",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T12:43:19Z",
+      "side": 1,
+      "message": "I think it\u0027s weird that we have a class tracking decoded frames, but it can\u0027t keep track of the last decoded frame timestamp or it\u0027s VideoLayerFrameId. I strongly feel like this class should track this information.",
+      "parentUuid": "d0f3a8f1_917715ca",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 78
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -213,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "e78cc5d3_9be8f018",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T12:43:19Z",
+      "side": 1,
+      "message": "I realize I misunderstood the above if case, this makes sense now.",
+      "parentUuid": "f1d7a8a0_122f3377",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecac0e76_3df93dea",
         "filename": "modules/video_coding/utility/decoded_frames_history.cc",
         "patchSetId": 2
@@ -242,6 +314,24 @@
       "side": 1,
       "message": "Yes, it is 0. And all values in the buffer_ are false. It can really be anything, the only requirement is for it to be smaller than the first inserted value, which I sassume is always the case, since picture ids are all start from 1000000000 or something.",
       "parentUuid": "ecac0e76_3df93dea",
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6506985e_76b091ae",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T12:43:19Z",
+      "side": 1,
+      "message": "This also makes sense now.",
+      "parentUuid": "a45393c0_05a26598",
       "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

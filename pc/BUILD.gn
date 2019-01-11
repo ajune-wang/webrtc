@@ -524,6 +524,7 @@ if (rtc_include_tests) {
       "../rtc_base/third_party/base64",
       "../rtc_base/third_party/sigslot:sigslot",
       "../system_wrappers:metrics",
+      "../test:field_trial",
       "../test:fileutils",
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/strings",

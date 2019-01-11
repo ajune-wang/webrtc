@@ -19,6 +19,7 @@
 #include "pc/peerconnection.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/third_party/base64/base64.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -440,7 +441,10 @@ const char* AdapterTypeToStatsType(rtc::AdapterType type) {
 }
 
 StatsCollector::StatsCollector(PeerConnectionInternal* pc)
-    : pc_(pc), stats_gathering_started_(0) {
+    : pc_(pc),
+      stats_gathering_started_(0),
+      include_audio_in_bwe_stats_(field_trial::IsEnabled(
+          "WebRTC-Stats-IncludeAudioInBandwidthMetrics")) {
   RTC_DCHECK(pc_);
 }
 
@@ -876,15 +880,22 @@ void StatsCollector::ExtractBweInfo() {
   // Fill in target encoder bitrate, actual encoder bitrate, rtx bitrate, etc.
   // TODO(holmer): Also fill this in for audio.
   for (auto transceiver : pc_->GetTransceiversInternal()) {
-    if (transceiver->media_type() != cricket::MEDIA_TYPE_VIDEO) {
-      continue;
+    if (transceiver->media_type() == cricket::MEDIA_TYPE_VIDEO) {
+      auto* video_channel = static_cast<cricket::VideoChannel*>(
+          transceiver->internal()->channel());
+      if (!video_channel) {
+        continue;
+      }
+      video_channel->FillBitrateInfo(&bwe_info);
+    } else if (include_audio_in_bwe_stats_ &&
+               transceiver->media_type() == cricket::MEDIA_TYPE_AUDIO) {
+      auto* voice_channel = static_cast<cricket::VoiceChannel*>(
+          transceiver->internal()->channel());
+      if (!voice_channel) {
+        continue;
+      }
+      voice_channel->FillBitrateInfo(&bwe_info);
     }
-    auto* video_channel =
-        static_cast<cricket::VideoChannel*>(transceiver->internal()->channel());
-    if (!video_channel) {
-      continue;
-    }
-    video_channel->FillBitrateInfo(&bwe_info);
   }
 
   StatsReport::Id report_id(StatsReport::NewBandwidthEstimationId());

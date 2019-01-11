@@ -2173,6 +2173,27 @@ void WebRtcVoiceMediaChannel::OnReadyToSend(bool ready) {
       ready ? webrtc::kNetworkUp : webrtc::kNetworkDown);
 }
 
+void WebRtcVoiceMediaChannel::FillBitrateInfo(
+    BandwidthEstimationInfo* bwe_info) const {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  for (const auto& stream : send_streams_) {
+    webrtc::AudioSendStream::Stats stats =
+        stream.second->GetStats(recv_streams_.size() > 0);
+
+    bwe_info->target_enc_bitrate += stats.target_bitrate_bps;
+
+    // For audio, transmit- and actual_enc_bitrate are identical.
+    if (stats.total_input_duration > 0) {
+      bwe_info->transmit_bitrate +=
+          stats.bytes_sent / stats.total_input_duration;
+      bwe_info->actual_enc_bitrate +=
+          stats.media_bytes_sent / stats.total_input_duration;
+      bwe_info->retransmit_bitrate +=
+          stats.rtx_bytes_sent / stats.total_input_duration;
+    }
+  }
+}
+
 bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info) {
   TRACE_EVENT0("webrtc", "WebRtcVoiceMediaChannel::GetStats");
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());

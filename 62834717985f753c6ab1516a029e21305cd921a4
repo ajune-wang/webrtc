@@ -22,6 +22,29 @@
       "revId": "62834717985f753c6ab1516a029e21305cd921a4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd8b526c_097e9ed8",
+        "filename": "media/base/mediaconfig.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T11:08:43Z",
+      "side": 1,
+      "message": "Wrong. If there\u0027s some temporal/spatial layers some frames still can be skipped. Please update the comment.",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 78
+      },
+      "revId": "62834717985f753c6ab1516a029e21305cd921a4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

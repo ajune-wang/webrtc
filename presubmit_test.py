@@ -269,5 +269,36 @@ class CheckNoMixingSourcesTest(unittest.TestCase):
       f.write(content)
 
 
+class CheckStaticAnalyzer(unittest.TestCase):
+
+  def setUp(self):
+    # Static analyzer log as returned via ninja.
+    self.log = """
+[1/1] CXX obj/fake/path/dummy.o
+../../src/fake/path/dummy.cc:161:3: warning: Dereference of null pointer
+  targetEnergy = *dec_used_energy_;
+  ^              ~~~~~~~~~~~~~~~~~
+../../src/fake/path/dummy.cc:159:3: note: Taking false branch
+  if (std::internal::combustion)  // For testing purpose: line with 4 ':'
+  ^
+1 warning generated.
+"""
+
+  def testExtractWarnings(self):
+    # pylint: disable=protected-access
+    diagnostics = list(PRESUBMIT._ExtractWarnings(self.log))
+    # We got 1 warning, we should get 1 diagnostic.
+    self.assertEqual(len(diagnostics), 1)
+
+  def testCollectSourceLines(self):
+    # pylint: disable=protected-access
+    diagnostics = list(PRESUBMIT._ExtractWarnings(self.log))
+    # Sanity check, covered by previous test.
+    self.assertEqual(len(diagnostics), 1)
+    # pylint: disable=protected-access
+    result = PRESUBMIT._CollectSourceLines(diagnostics[0])
+    self.assertEqual(result, {'fake/path/dummy.cc': set([159, 161])})
+
+
 if __name__ == '__main__':
   unittest.main()

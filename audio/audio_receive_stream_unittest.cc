@@ -288,6 +288,8 @@ TEST(AudioReceiveStreamTest, GetStats) {
   EXPECT_EQ(static_cast<double>(kNetworkStats.jitterBufferDelayMs) /
                 static_cast<double>(rtc::kNumMillisecsPerSec),
             stats.jitter_buffer_delay_seconds);
+  EXPECT_EQ(kNetworkStats.jitterBufferEmittedCount,
+            stats.jitter_buffer_emitted_count);
   EXPECT_EQ(Q14ToFloat(kNetworkStats.currentExpandRate), stats.expand_rate);
   EXPECT_EQ(Q14ToFloat(kNetworkStats.currentSpeechExpandRate),
             stats.speech_expand_rate);

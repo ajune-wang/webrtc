@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8417d1d9_89afc32c",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1702,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-11T12:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db67ab3f_1c60a2f1",
+      "range": {
+        "startLine": 1702,
+        "startChar": 33,
+        "endLine": 1702,
+        "endChar": 51
+      },
+      "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "118ca13a_900659f5",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "590faa00_21c7f7b6",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1707,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-11T12:03:02Z",
+      "side": 1,
+      "message": "Comment was copied from other code. Removed.",
+      "parentUuid": "118ca13a_900659f5",
+      "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "f11d484b_b5cbc3b7",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1722,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-11T12:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3439c307_50554479",
+      "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afd34590_9435a76f",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0169953c_eb411ff9",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-11T12:03:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afd34590_9435a76f",
+      "revId": "9a68d01b471e9b0f8cb6714d24553a8538fd1df9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

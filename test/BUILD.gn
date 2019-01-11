@@ -398,7 +398,7 @@ if (is_ios) {
       ":fileutils_override_impl",
     ]
     sources = [
-      "testsupport/ios_file_utils.h",
+      "testsupport/ios_file_utils.h","testsupport/iosfileutils.h",
       "testsupport/ios_file_utils.mm",
     ]
     deps = [
@@ -417,7 +417,7 @@ if (is_mac) {
       ":fileutils_override_impl",
     ]
     sources = [
-      "testsupport/mac_file_utils.h",
+      "testsupport/mac_file_utils.h","testsupport/macfileutils.h",
       "testsupport/mac_file_utils.mm",
     ]
     deps = [
@@ -431,7 +431,7 @@ rtc_source_set("fileutils") {
   visibility = [ "*" ]
   sources = [
     "testsupport/file_utils.cc",
-    "testsupport/file_utils.h",
+    "testsupport/file_utils.h","testsupport/fileutils.h",
   ]
   deps = [
     ":fileutils_override_api",
@@ -458,7 +458,7 @@ rtc_source_set("fileutils") {
 rtc_source_set("fileutils_override_api") {
   testonly = true
   sources = [
-    "testsupport/file_utils_override.h",
+    "testsupport/file_utils_override.h","testsupport/fileutils_override.h",
   ]
 }
 

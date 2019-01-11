@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6676581d_661f3990",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-11T14:09:04Z",
+      "side": 1,
+      "message": "That\u0027s a bit hackish. Given:\n* root_dir (src/)\n* obj_dir  (ninja\u0027s work dir)\n\nWe should be able to find the local path as os.path.relpath(os.path.join(obj_dir, path), root_dir)",
+      "revId": "814ef5a6fb35a18094a4162fda4a5cfbadb9d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e014c72e_19d85489",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-11T14:09:04Z",
+      "side": 1,
+      "message": "Not sure about this one. It adds a \u0027\\\u0027 at the end of each line. It is required by a further parse phase?",
+      "revId": "814ef5a6fb35a18094a4162fda4a5cfbadb9d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

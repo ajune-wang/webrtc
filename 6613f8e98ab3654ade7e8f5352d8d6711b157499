@@ -22,6 +22,30 @@
       "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1298eca_e181a012",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2832,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-11T10:01:35Z",
+      "side": 0,
+      "message": "This wasn\u0027t added in the revert, it was only the field trial on rows 2763-2767.\nAnd yes, I think that should be kept.",
+      "parentUuid": "029f1936_12524b3c",
+      "range": {
+        "startLine": 2763,
+        "startChar": 0,
+        "endLine": 2832,
+        "endChar": 0
+      },
+      "revId": "6613f8e98ab3654ade7e8f5352d8d6711b157499",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

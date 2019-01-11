@@ -59,6 +59,30 @@
     },
     {
       "key": {
+        "uuid": "bb1a5a82_86cb500b",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-11T16:31:09Z",
+      "side": 1,
+      "message": "You were right, it doesn\u0027t work at all:\n * ninja (bash script) is picked instead of ninja.exe.\n * even with the previous issue corrected, the analysis doesn\u0027t work anyway!\nI plan to enable this only \"if sys.platform startswith(\u0027linux\u0027)\"",
+      "parentUuid": "db453225_ea7765ab",
+      "range": {
+        "startLine": 1068,
+        "startChar": 2,
+        "endLine": 1069,
+        "endChar": 52
+      },
+      "revId": "814ef5a6fb35a18094a4162fda4a5cfbadb9d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a1cbfc4_7f716245",
         "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
         "patchSetId": 1

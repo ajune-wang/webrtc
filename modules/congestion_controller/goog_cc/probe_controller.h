@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/config/webrtc_config.h"
 #include "api/transport/network_control.h"
 #include "rtc_base/constructormagic.h"
 #include "rtc_base/system/unused.h"
@@ -30,7 +31,7 @@ class Clock;
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  ProbeController();
+  explicit ProbeController(const WebRtcConfig* webrtc_config);
   ~ProbeController();
 
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> SetBitrates(

@@ -29,7 +29,6 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -52,28 +51,24 @@ constexpr TimeDelta kLossUpdateInterval = TimeDelta::Millis<1000>();
 // overshoots from the encoder.
 const float kDefaultPaceMultiplier = 2.5f;
 
-bool IsCongestionWindowPushbackExperimentEnabled() {
-  return webrtc::field_trial::IsEnabled(kCongestionPushbackExperiment) &&
-         webrtc::field_trial::IsEnabled(kCwndExperiment);
-}
-
 std::unique_ptr<CongestionWindowPushbackController>
-MaybeInitalizeCongestionWindowPushbackController() {
-  return IsCongestionWindowPushbackExperimentEnabled()
-             ? absl::make_unique<CongestionWindowPushbackController>()
-             : nullptr;
+MaybeCreateCongestionWindowPushbackController(
+    const WebRtcConfig* const webrtc_config) {
+  if (webrtc_config->IsEnabled(kCongestionPushbackExperiment) &&
+      webrtc_config->IsEnabled(kCwndExperiment))
+    return absl::make_unique<CongestionWindowPushbackController>(webrtc_config);
+  return nullptr;
 }
 
-bool CwndExperimentEnabled() {
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
+bool CwndExperimentEnabled(const WebRtcConfig* const webrtc_config) {
+  std::string experiment_string = webrtc_config->FindFullName(kCwndExperiment);
   // The experiment is enabled iff the field trial string begins with "Enabled".
   return experiment_string.find("Enabled") == 0;
 }
-bool ReadCwndExperimentParameter(int64_t* accepted_queue_ms) {
+bool ReadCwndExperimentParameter(const WebRtcConfig* const webrtc_config,
+                                 int64_t* accepted_queue_ms) {
   RTC_DCHECK(accepted_queue_ms);
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
+  std::string experiment_string = webrtc_config->FindFullName(kCwndExperiment);
   int parsed_values =
       sscanf(experiment_string.c_str(), "Enabled-%" PRId64, accepted_queue_ms);
   if (parsed_values == 1) {
@@ -127,35 +122,40 @@ int64_t GetBpsOrDefault(const absl::optional<DataRate>& rate,
 
 }  // namespace
 
-GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
-                                                 NetworkControllerConfig config,
-                                                 bool feedback_only)
-    : event_log_(event_log),
+GoogCcNetworkController::GoogCcNetworkController(
+    const WebRtcConfig* webrtc_config,
+    RtcEventLog* event_log,
+    NetworkControllerConfig config,
+    bool feedback_only)
+    : webrtc_config_(webrtc_config),
+      event_log_(event_log),
       packet_feedback_only_(feedback_only),
       safe_reset_on_route_change_("Enabled"),
       safe_reset_acknowledged_rate_("ack"),
       use_stable_bandwidth_estimate_(
-          field_trial::IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
+          webrtc_config_->IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
       fall_back_to_probe_rate_(
-          field_trial::IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
-      probe_controller_(new ProbeController()),
+          webrtc_config_->IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
+      probe_controller_(new ProbeController(webrtc_config_)),
       congestion_window_pushback_controller_(
-          MaybeInitalizeCongestionWindowPushbackController()),
+          MaybeCreateCongestionWindowPushbackController(webrtc_config_)),
       bandwidth_estimation_(
           absl::make_unique<SendSideBandwidthEstimation>(event_log_)),
       alr_detector_(absl::make_unique<AlrDetector>()),
       probe_bitrate_estimator_(new ProbeBitrateEstimator(event_log)),
       use_new_delay_based_controller_(
-          field_trial::IsEnabled("WebRTC-Bwe-DelayBasedRateController")),
+          webrtc_config_->IsEnabled("WebRTC-Bwe-DelayBasedRateController")),
       delay_based_bwe_(use_new_delay_based_controller_
                            ? nullptr
-                           : new DelayBasedBwe(event_log_)),
+                           : new DelayBasedBwe(webrtc_config_, event_log_)),
       delay_based_controller_(
           use_new_delay_based_controller_
-              ? new DelayBasedRateController(event_log_, config.constraints)
+              ? new DelayBasedRateController(webrtc_config_,
+                                             event_log_,
+                                             config.constraints)
               : nullptr),
       acknowledged_bitrate_estimator_(
-          absl::make_unique<AcknowledgedBitrateEstimator>()),
+          absl::make_unique<AcknowledgedBitrateEstimator>(webrtc_config_)),
       initial_config_(config),
       last_raw_target_rate_(*config.constraints.starting_rate),
       last_pushback_target_rate_(last_raw_target_rate_),
@@ -166,16 +166,16 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
       max_padding_rate_(config.stream_based_config.max_padding_rate.value_or(
           DataRate::Zero())),
       max_total_allocated_bitrate_(DataRate::Zero()),
-      in_cwnd_experiment_(CwndExperimentEnabled()),
+      in_cwnd_experiment_(CwndExperimentEnabled(webrtc_config_)),
       accepted_queue_ms_(kDefaultAcceptedQueueMs) {
   RTC_DCHECK(config.constraints.at_time.IsFinite());
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
-      field_trial::FindFullName("WebRTC-Bwe-SafeResetOnRouteChange"));
+      webrtc_config_->FindFullName("WebRTC-Bwe-SafeResetOnRouteChange"));
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
   if (in_cwnd_experiment_ &&
-      !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
+      !ReadCwndExperimentParameter(webrtc_config_, &accepted_queue_ms_)) {
     RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
                            "from field trial string. Experiment disabled.";
     in_cwnd_experiment_ = false;
@@ -221,10 +221,11 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
     }
   }
 
-  acknowledged_bitrate_estimator_.reset(new AcknowledgedBitrateEstimator());
+  acknowledged_bitrate_estimator_.reset(
+      new AcknowledgedBitrateEstimator(webrtc_config_));
   probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
   if (delay_based_bwe_) {
-    delay_based_bwe_.reset(new DelayBasedBwe(event_log_));
+    delay_based_bwe_.reset(new DelayBasedBwe(webrtc_config_, event_log_));
     if (msg.constraints.starting_rate)
       delay_based_bwe_->SetStartBitrate(*msg.constraints.starting_rate);
     // TODO(srte): Use original values instead of converted.

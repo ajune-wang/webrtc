@@ -261,6 +261,7 @@ if (!build_with_chromium) {
 
         # TODO(kwiberg): Remove this dependency.
         "../api/audio_codecs:audio_codecs_api",
+        "../api/config:field_trial_default",
         "../api/transport:goog_cc",
         "../call:call_interfaces",
         "../call:video_stream_api",

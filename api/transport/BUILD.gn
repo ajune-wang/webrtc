@@ -52,6 +52,8 @@ rtc_static_library("goog_cc") {
   deps = [
     ":network_control",
     "../../modules/congestion_controller/goog_cc",
+    "../config:field_trial_default",
+    "../config:webrtc_config",
     "//third_party/abseil-cpp/absl/memory",
   ]
 }

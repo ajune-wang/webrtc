@@ -12,6 +12,8 @@
 #define API_TRANSPORT_GOOG_CC_FACTORY_H_
 #include <memory>
 
+#include "api/config/field_trial_default.h"
+#include "api/config/webrtc_config.h"
 #include "api/transport/network_control.h"
 
 namespace webrtc {
@@ -20,13 +22,17 @@ class RtcEventLog;
 class GoogCcNetworkControllerFactory
     : public NetworkControllerFactoryInterface {
  public:
-  explicit GoogCcNetworkControllerFactory(RtcEventLog*);
+  explicit GoogCcNetworkControllerFactory(
+      RtcEventLog*,
+      const WebRtcConfig* webrtc_config = nullptr);
   std::unique_ptr<NetworkControllerInterface> Create(
       NetworkControllerConfig config) override;
   TimeDelta GetProcessInterval() const override;
 
  private:
+  const FieldTrialDefaultImplementation field_trial_default_;
   RtcEventLog* const event_log_;
+  const WebRtcConfig* const webrtc_config_;
 };
 
 // Factory to create packet feedback only GoogCC, this can be used for
@@ -40,6 +46,7 @@ class GoogCcFeedbackNetworkControllerFactory
   TimeDelta GetProcessInterval() const override;
 
  private:
+  const FieldTrialDefaultImplementation field_trial_default_;
   RtcEventLog* const event_log_;
 };
 }  // namespace webrtc

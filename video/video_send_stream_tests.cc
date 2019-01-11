@@ -2760,12 +2760,6 @@ TEST_P(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
   static const int kMaxBitrateKbps = 413;
   static const int kIncreasedStartBitrateKbps = 451;
   static const int kIncreasedMaxBitrateKbps = 597;
-  // If this field trial is on, we get lower bitrates than expected by this
-  // test, due to the packetization overhead.
-  webrtc::test::ScopedFieldTrials field_trials(
-      std::string(field_trial::GetFieldTrialString()) +
-      "WebRTC-SubtractPacketizationOverhead/Disabled/");
-
   class EncoderBitrateThresholdObserver : public test::SendTest,
                                           public test::FakeEncoder {
    public:
@@ -2829,11 +2823,21 @@ TEST_P(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
     }
 
     void WaitForSetRates(uint32_t expected_bitrate) {
-      EXPECT_TRUE(
-          bitrate_changed_event_.Wait(VideoSendStreamTest::kDefaultTimeoutMs))
-          << "Timed out while waiting encoder rate to be set.";
+      // Wait for the expected rate to be set. In some cases there can be
+      // more than one update pending, in which case we keep waiting
+      // until the correct value has been observed.
+      const int64_t start_time = rtc::TimeMillis();
+      do {
+        rtc::CritScope lock(&crit_);
+        if (target_bitrate_ == expected_bitrate) {
+          return;
+        }
+      } while (bitrate_changed_event_.Wait(
+          std::max(int64_t{1}, VideoSendStreamTest::kDefaultTimeoutMs -
+                                   (rtc::TimeMillis() - start_time))));
       rtc::CritScope lock(&crit_);
-      EXPECT_EQ(expected_bitrate, target_bitrate_);
+      EXPECT_EQ(target_bitrate_, expected_bitrate)
+          << "Timed out while waiting encoder rate to be set.";
     }
 
     void ModifySenderBitrateConfig(

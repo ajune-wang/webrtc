@@ -46,6 +46,30 @@
       "revId": "53eae87bf8f576b8fe5563fd7924769ea3f2c9e4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c5c4b3_013c4f4c",
+        "filename": "modules/desktop_capture/capture_result_desktop_capturer_wrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-01-11T18:52:16Z",
+      "side": 0,
+      "message": "Oh, my bad.\n\nPS: who is using this wrapper? I can\u0027t find out...",
+      "parentUuid": "9c35054d_2ad52c99",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "53eae87bf8f576b8fe5563fd7924769ea3f2c9e4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

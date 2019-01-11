@@ -500,6 +500,27 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
   }
 }
 
+// Test that transports are shown in the transceiver API after offer/answer.
+// This only works in Unified Plan.
+TEST_P(PeerConnectionSignalingTest, DtlsTransportsInstantiateInOfferAnswer) {
+  if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
+    auto caller = CreatePeerConnection();
+    auto callee = CreatePeerConnection();
+
+    auto transceivers = caller->pc()->GetTransceivers();
+    for (auto& transceiver : transceivers) {
+      ASSERT_FALSE(transceiver->dtls_transport());
+    }
+    ASSERT_TRUE(caller->ExchangeOfferAnswerWith(callee.get()));
+
+    ASSERT_EQ(SignalingState::kStable, caller->signaling_state());
+    transceivers = caller->pc()->GetTransceivers();
+    for (auto& transceiver : transceivers) {
+      ASSERT_TRUE(transceiver->dtls_transport());
+    }
+  }
+}
+
 INSTANTIATE_TEST_CASE_P(PeerConnectionSignalingTest,
                         PeerConnectionSignalingTest,
                         Values(SdpSemantics::kPlanB,

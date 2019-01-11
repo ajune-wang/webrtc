@@ -16,6 +16,7 @@
 
 #include "absl/types/optional.h"
 #include "api/array_view.h"
+#include "api/dtlstransportinterface.h"
 #include "api/mediatypes.h"
 #include "api/rtpparameters.h"
 #include "api/rtpreceiverinterface.h"
@@ -87,6 +88,13 @@ class RtpTransceiverInterface : public rtc::RefCountInterface {
   // always present, regardless of the direction of media.
   // https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver-receiver
   virtual rtc::scoped_refptr<RtpReceiverInterface> receiver() const = 0;
+
+  // The dtlsTransport attribute exposes the DTLS transport on which the
+  // media is sent or received. It is exposed in the standard as an attribute
+  // of the sender and the receiver. It may be null.
+  // https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender-transport
+  // https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver-transport
+  virtual rtc::scoped_refptr<DtlsTransportInterface> dtls_transport() const = 0;
 
   // The stopped attribute indicates that the sender of this transceiver will no
   // longer send, and that the receiver will no longer receive. It is true if

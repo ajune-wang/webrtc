@@ -136,6 +136,10 @@ class RtpTransceiver final
     direction_ = direction;
   }
 
+  void set_transport(rtc::scoped_refptr<DtlsTransport> transport) {
+    transport_ = transport;
+  }
+
   // Sets the current direction for this transceiver as negotiated in an offer/
   // answer exchange. The current direction is null before an answer with this
   // transceiver has been set.
@@ -168,6 +172,7 @@ class RtpTransceiver final
   absl::optional<std::string> mid() const override;
   rtc::scoped_refptr<RtpSenderInterface> sender() const override;
   rtc::scoped_refptr<RtpReceiverInterface> receiver() const override;
+  rtc::scoped_refptr<DtlsTransportInterface> dtls_transport() const override;
   bool stopped() const override;
   RtpTransceiverDirection direction() const override;
   void SetDirection(RtpTransceiverDirection new_direction) override;
@@ -186,6 +191,7 @@ class RtpTransceiver final
   std::vector<
       rtc::scoped_refptr<RtpReceiverProxyWithInternal<RtpReceiverInternal>>>
       receivers_;
+  rtc::scoped_refptr<DtlsTransport> transport_;
 
   bool stopped_ = false;
   RtpTransceiverDirection direction_ = RtpTransceiverDirection::kInactive;
@@ -205,6 +211,7 @@ PROXY_CONSTMETHOD0(cricket::MediaType, media_type);
 PROXY_CONSTMETHOD0(absl::optional<std::string>, mid);
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<RtpSenderInterface>, sender);
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<RtpReceiverInterface>, receiver);
+PROXY_CONSTMETHOD0(rtc::scoped_refptr<DtlsTransportInterface>, dtls_transport);
 PROXY_CONSTMETHOD0(bool, stopped);
 PROXY_CONSTMETHOD0(RtpTransceiverDirection, direction);
 PROXY_METHOD1(void, SetDirection, RtpTransceiverDirection);

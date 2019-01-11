@@ -167,6 +167,11 @@ rtc::scoped_refptr<RtpReceiverInterface> RtpTransceiver::receiver() const {
   return receivers_[0];
 }
 
+rtc::scoped_refptr<DtlsTransportInterface> RtpTransceiver::dtls_transport()
+    const {
+  return transport_;
+}
+
 void RtpTransceiver::set_current_direction(RtpTransceiverDirection direction) {
   RTC_LOG(LS_INFO) << "Changing transceiver (MID=" << mid_.value_or("<not set>")
                    << ") current direction from "

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2550c953_9e962f48",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-11T12:01:53Z",
+      "side": 1,
+      "message": "looks like quality scaling is not supported for multiplex",
+      "range": {
+        "startLine": 182,
+        "startChar": 26,
+        "endLine": 182,
+        "endChar": 30
+      },
+      "revId": "322a45e427c7283dac8e5dac0e3ed6a8036505a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2bc3c5b_57ef3162",
+        "filename": "video/full_stack_tests.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-11T12:01:53Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 195,
+        "startChar": 49,
+        "endLine": 195,
+        "endChar": 53
+      },
+      "revId": "322a45e427c7283dac8e5dac0e3ed6a8036505a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

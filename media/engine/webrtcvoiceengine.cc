@@ -280,7 +280,6 @@ void WebRtcVoiceEngine::Init() {
     options.audio_jitter_buffer_max_packets = 50;
     options.audio_jitter_buffer_fast_accelerate = false;
     options.audio_jitter_buffer_min_delay_ms = 0;
-    options.audio_jitter_buffer_enable_rtx_handling = false;
     options.typing_detection = true;
     options.experimental_agc = false;
     options.extended_filter_aec = false;
@@ -489,12 +488,6 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
                      << *options.audio_jitter_buffer_min_delay_ms;
     audio_jitter_buffer_min_delay_ms_ =
         *options.audio_jitter_buffer_min_delay_ms;
-  }
-  if (options.audio_jitter_buffer_enable_rtx_handling) {
-    RTC_LOG(LS_INFO) << "NetEq handle reordered packets? "
-                     << *options.audio_jitter_buffer_enable_rtx_handling;
-    audio_jitter_buffer_enable_rtx_handling_ =
-        *options.audio_jitter_buffer_enable_rtx_handling;
   }
 
   webrtc::Config config;
@@ -1102,7 +1095,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
       size_t jitter_buffer_max_packets,
       bool jitter_buffer_fast_accelerate,
       int jitter_buffer_min_delay_ms,
-      bool jitter_buffer_enable_rtx_handling,
       rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor,
       const webrtc::CryptoOptions& crypto_options)
       : call_(call), config_() {
@@ -1117,8 +1109,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     config_.jitter_buffer_max_packets = jitter_buffer_max_packets;
     config_.jitter_buffer_fast_accelerate = jitter_buffer_fast_accelerate;
     config_.jitter_buffer_min_delay_ms = jitter_buffer_min_delay_ms;
-    config_.jitter_buffer_enable_rtx_handling =
-        jitter_buffer_enable_rtx_handling;
     if (!stream_ids.empty()) {
       config_.sync_group = stream_ids[0];
     }
@@ -1918,7 +1908,6 @@ bool WebRtcVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
           codec_pair_id_, engine()->audio_jitter_buffer_max_packets_,
           engine()->audio_jitter_buffer_fast_accelerate_,
           engine()->audio_jitter_buffer_min_delay_ms_,
-          engine()->audio_jitter_buffer_enable_rtx_handling_,
           unsignaled_frame_decryptor_, crypto_options_)));
   recv_streams_[ssrc]->SetPlayout(playout_);
 
@@ -2171,6 +2160,27 @@ void WebRtcVoiceMediaChannel::OnReadyToSend(bool ready) {
   call_->SignalChannelNetworkState(
       webrtc::MediaType::AUDIO,
       ready ? webrtc::kNetworkUp : webrtc::kNetworkDown);
+}
+
+void WebRtcVoiceMediaChannel::FillBitrateInfo(
+    BandwidthEstimationInfo* bwe_info) const {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  for (const auto& stream : send_streams_) {
+    webrtc::AudioSendStream::Stats stats =
+        stream.second->GetStats(recv_streams_.size() > 0);
+
+    bwe_info->target_enc_bitrate += stats.target_bitrate_bps;
+
+    // For audio, transmit- and actual_enc_bitrate are identical.
+    if (stats.total_input_duration > 0) {
+      bwe_info->transmit_bitrate +=
+          stats.bytes_sent / stats.total_input_duration;
+      bwe_info->actual_enc_bitrate +=
+          stats.media_bytes_sent / stats.total_input_duration;
+      bwe_info->retransmit_bitrate +=
+          stats.rtx_bytes_sent / stats.total_input_duration;
+    }
+  }
 }
 
 bool WebRtcVoiceMediaChannel::GetStats(VoiceMediaInfo* info) {

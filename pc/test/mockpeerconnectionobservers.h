@@ -373,6 +373,14 @@ class MockStatsObserver : public webrtc::StatsObserver {
         stats_.timestamp = r->timestamp();
         GetIntValue(r, StatsReport::kStatsValueNameAvailableReceiveBandwidth,
                     &stats_.available_receive_bandwidth);
+        GetIntValue(r, StatsReport::kStatsValueNameTransmitBitrate,
+                    &stats_.transmit_bitrate);
+        GetIntValue(r, StatsReport::kStatsValueNameRetransmitBitrate,
+                    &stats_.retransmit_bitrate);
+        GetIntValue(r, StatsReport::kStatsValueNameTargetEncBitrate,
+                    &stats_.target_enc_bitrate);
+        GetIntValue(r, StatsReport::kStatsValueNameActualEncBitrate,
+                    &stats_.actual_encode_bitrate);
       } else if (r->type() == StatsReport::kStatsReportTypeComponent) {
         stats_.timestamp = r->timestamp();
         GetStringValue(r, StatsReport::kStatsValueNameDtlsCipher,
@@ -415,6 +423,26 @@ class MockStatsObserver : public webrtc::StatsObserver {
   int AvailableReceiveBandwidth() const {
     RTC_CHECK(called_);
     return stats_.available_receive_bandwidth;
+  }
+
+  int TransmitBitrate() const {
+    RTC_CHECK(called_);
+    return stats_.transmit_bitrate;
+  }
+
+  int RetransmitBitrate() const {
+    RTC_CHECK(called_);
+    return stats_.retransmit_bitrate;
+  }
+
+  int TargetEncBitrate() const {
+    RTC_CHECK(called_);
+    return stats_.target_enc_bitrate;
+  }
+
+  int ActualEncodeBitrate() const {
+    RTC_CHECK(called_);
+    return stats_.actual_encode_bitrate;
   }
 
   std::string DtlsCipher() const {
@@ -475,6 +503,10 @@ class MockStatsObserver : public webrtc::StatsObserver {
       bytes_sent = 0;
       capture_start_ntp_time = 0;
       available_receive_bandwidth = 0;
+      transmit_bitrate = 0;
+      retransmit_bitrate = 0;
+      target_enc_bitrate = 0;
+      actual_encode_bitrate = 0;
       dtls_cipher.clear();
       srtp_cipher.clear();
       track_ids.clear();
@@ -488,6 +520,10 @@ class MockStatsObserver : public webrtc::StatsObserver {
     int bytes_sent;
     int64_t capture_start_ntp_time;
     int available_receive_bandwidth;
+    int actual_encode_bitrate;
+    int transmit_bitrate;
+    int retransmit_bitrate;
+    int target_enc_bitrate;
     std::string dtls_cipher;
     std::string srtp_cipher;
     std::vector<std::string> track_ids;

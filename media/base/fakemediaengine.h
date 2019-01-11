@@ -350,6 +350,7 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
   bool SetOutputVolume(uint32_t ssrc, double volume) override;
   bool GetOutputVolume(uint32_t ssrc, double* volume);
 
+  void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) const override;
   bool GetStats(VoiceMediaInfo* info) override;
 
   void SetRawAudioSink(

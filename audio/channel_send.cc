@@ -1089,18 +1089,15 @@ CallSendStatistics ChannelSend::GetRTCPStatistics() const {
   CallSendStatistics stats = {0};
   stats.rttMs = GetRTT();
 
-  size_t bytesSent(0);
-  uint32_t packetsSent(0);
+  StreamDataCounters rtp_counter;
+  StreamDataCounters rtx_counter;
+  _rtpRtcpModule->GetSendStreamDataCounters(&rtp_counter, &rtx_counter);
 
-  if (_rtpRtcpModule->DataCountersRTP(&bytesSent, &packetsSent) != 0) {
-    RTC_DLOG(LS_WARNING)
-        << "GetRTPStatistics() failed to retrieve RTP datacounters"
-        << " => output will not be complete";
-  }
-
-  stats.bytesSent = bytesSent;
-  stats.packetsSent = packetsSent;
-
+  stats.bytesSent = rtp_counter.transmitted.TotalBytes();
+  stats.packetsSent = rtp_counter.transmitted.packets;
+  stats.payloadBytes = rtp_counter.MediaPayloadBytes();
+  // TODO(crodbro): Use RTX field of rtp_counter or rtx_counter here?
+  stats.rtxBytesSent = rtx_counter.transmitted.TotalBytes();
   return stats;
 }
 

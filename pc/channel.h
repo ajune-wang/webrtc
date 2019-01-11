@@ -369,6 +369,8 @@ class VoiceChannel : public BaseChannel {
     return static_cast<VoiceMediaChannel*>(BaseChannel::media_channel());
   }
 
+  void FillBitrateInfo(BandwidthEstimationInfo* bwe_info);
+
   cricket::MediaType media_type() const override {
     return cricket::MEDIA_TYPE_AUDIO;
   }

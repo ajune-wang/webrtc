@@ -144,6 +144,7 @@ class StatsCollector {
   // Raw pointer to the peer connection the statistics are gathered from.
   PeerConnectionInternal* const pc_;
   double stats_gathering_started_;
+  const bool include_audio_in_bwe_stats_;
 
   // TODO(tommi): We appear to be holding on to raw pointers to reference
   // counted objects?  We should be using scoped_refptr here.

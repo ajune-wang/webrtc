@@ -786,6 +786,11 @@ void BaseChannel::UpdateMediaSendRecvState() {
       Bind(&BaseChannel::UpdateMediaSendRecvState_w, this));
 }
 
+void VoiceChannel::FillBitrateInfo(BandwidthEstimationInfo* bwe_info) {
+  InvokeOnWorker<void>(RTC_FROM_HERE, Bind(&VoiceMediaChannel::FillBitrateInfo,
+                                           media_channel(), bwe_info));
+}
+
 void BaseChannel::OnNetworkRouteChanged(
     const rtc::NetworkRoute& network_route) {
   OnNetworkRouteChanged(absl::make_optional(network_route));

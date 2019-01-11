@@ -745,6 +745,7 @@ class VoiceMediaChannel : public MediaChannel {
       std::unique_ptr<webrtc::AudioSinkInterface> sink) = 0;
 
   virtual std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const = 0;
+  virtual void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) const = 0;
 };
 
 // TODO(deadbeef): Rename to VideoSenderParameters, since they're intended to

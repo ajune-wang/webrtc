@@ -377,6 +377,8 @@ webrtc::AudioSendStream::Stats AudioSendStream::GetStats(
   webrtc::CallSendStatistics call_stats = channel_send_->GetRTCPStatistics();
   stats.bytes_sent = call_stats.bytesSent;
   stats.packets_sent = call_stats.packetsSent;
+  stats.media_bytes_sent = call_stats.payloadBytes;
+  stats.rtx_bytes_sent = call_stats.rtxBytesSent;
   // RTT isn't known until a RTCP report is received. Until then, VoiceEngine
   // returns 0 to indicate an error value.
   if (call_stats.rttMs > 0) {

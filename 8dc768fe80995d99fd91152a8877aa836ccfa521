@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9639a99f_30c15dc5",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T09:02:55Z",
+      "side": 1,
+      "message": "When EncodedImage is changed to take ownership, this hack won\u0027t be needed any longer, right?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 64
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f79f3e80_0a016bad",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T09:02:55Z",
+      "side": 1,
+      "message": "Please comment on the purpose of this member. It looks like a multimap (is a std::set\u003cstd::pair\u003c...\u003e\u003e the best way to do that?). I take it it is indexed by id?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 78
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "429798ca_f8513b9f",
+        "filename": "test/pc/e2e/analyzer/video/encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T09:02:55Z",
+      "side": 1,
+      "message": "It would be a bit simpler to not have this flag (which looks like it\u0027s appended to the id). And either use separate instances for encoding or decoding, or allocate ids in some way to avoid collisions between encode and decode usage.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f3cded_791befae",
+        "filename": "test/pc/e2e/analyzer/video/encoded_image_id_injector.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-11T09:02:55Z",
+      "side": 1,
+      "message": "Do these methods need to be in the same class/interface? It would be clearer with one Injector and one Extractor, each doing only one thing. If the single-process-implementation needs to share state, it could either point to some shared state, or be a single class implementing both interfaces.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 2
+      },
+      "revId": "8dc768fe80995d99fd91152a8877aa836ccfa521",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

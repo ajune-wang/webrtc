@@ -143,6 +143,7 @@ rtc_source_set("rtp_sender") {
     "../modules/video_coding:video_codec_interface",
     "../rtc_base:checks",
     "../rtc_base:rate_limiter",
+    "../rtc_base:repeating_task",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",

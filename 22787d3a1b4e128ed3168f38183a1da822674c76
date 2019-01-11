@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "5f95efd2_76803f3d",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "952c1b61_ea7ebce0",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d526e33_2da2071e",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "Last CL introduced an issue here. We abolished num_buffered_frames and replaced it with frames_.size().\n\nBut this line adds new entry in frames_ (without image), yet it didn\u0027t increase num_buffered_frames here.\n\nShould we just increase kMaxFramesBuffered and change it to be the total number of undecoded frames known to the FrameBuffer? Or I can return the num_buffered_frames counted back.",
+      "range": {
+        "startLine": 588,
+        "startChar": 4,
+        "endLine": 588,
+        "endChar": 43
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a97ee497_d46ba49d",
         "filename": "modules/video_coding/frame_buffer2.h",
         "patchSetId": 2
@@ -48,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d0f3a8f1_917715ca",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "No, still needed to understand where to look for the reference: in decoded frames history or in the frames_ set.",
+      "parentUuid": "a97ee497_d46ba49d",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 78
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a12437c5_9455eb48",
         "filename": "modules/video_coding/utility/decoded_frames_history.cc",
         "patchSetId": 2
@@ -59,6 +130,30 @@
       "writtenOn": "2019-01-11T10:17:26Z",
       "side": 1,
       "message": "When all spatial layers are known you would no longer clean up old information since you return here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cf39f9b_72daaa3a",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "This if processes the case then we insert a first frame for some layer. \n\nIf all layers are known already, the layer_.size() will be big enough and the |if| body would not be triggered.\n\nIf some intermediate layers were to be created here, they would be initialized to correct state (all zeros).\n\nKeep in mind that all layers are processed completely separately in this class. Inserting frame to SL 1 wouldn\u0027t change history view in SL 1.\n\nI might be not understanding your question here, please elaborate.",
+      "parentUuid": "a12437c5_9455eb48",
       "range": {
         "startLine": 34,
         "startChar": 4,
@@ -94,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "f1d7a8a0_122f3377",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "Resize is done in the if above.",
+      "parentUuid": "78e38fd0_88fa86cf",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecac0e76_3df93dea",
         "filename": "modules/video_coding/utility/decoded_frames_history.cc",
         "patchSetId": 2
@@ -108,6 +227,24 @@
       "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45393c0_05a26598",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "Yes, it is 0. And all values in the buffer_ are false. It can really be anything, the only requirement is for it to be smaller than the first inserted value, which I sassume is always the case, since picture ids are all start from 1000000000 or something.",
+      "parentUuid": "ecac0e76_3df93dea",
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -131,6 +268,30 @@
       "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48cae13c_4533b76c",
+        "filename": "modules/video_coding/utility/decoded_frames_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-11T12:21:47Z",
+      "side": 1,
+      "message": "I think the current name is reflecting the nature of this class better.",
+      "parentUuid": "cd1cfdfb_e28947b8",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

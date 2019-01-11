@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "952c1b61_ea7ebce0",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "I think it\u0027s easier to just keep the old comment, this is not all correct.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a97ee497_d46ba49d",
+        "filename": "modules/video_coding/frame_buffer2.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "This should be tracked by DecodedFramesHistory now right?",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 78
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a12437c5_9455eb48",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "When all spatial layers are known you would no longer clean up old information since you return here.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78e38fd0_88fa86cf",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "This will read OOB, you have to resize first.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 46
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecac0e76_3df93dea",
+        "filename": "modules/video_coding/utility/decoded_frames_history.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "Does history.last_stored_index hold a meaningful value when it is first created?",
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd1cfdfb_e28947b8",
+        "filename": "modules/video_coding/utility/decoded_frames_history.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-11T10:17:26Z",
+      "side": 1,
+      "message": "WDYT about DecodeHistory instead?",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "22787d3a1b4e128ed3168f38183a1da822674c76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

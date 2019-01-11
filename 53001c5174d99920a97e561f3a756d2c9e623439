@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d86ccb6b_0e8979f3",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "nit: add blank line after opening the namespace { and add blank line before closing the namespace",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "168b436b_5091d1da",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "nit: add blank line after }",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11a7be5c_55106364",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "given that tests are run on a single architecture and endianess is not an issue, wouldn\u0027t it be simpler to simply memcpy id to out.data()[0] and memcpy source.size() to out.data()[2]? (assuming source.size() is uint16, if it isn\u0027t, just cast it, but also see the comment early on about 2 bytes for the size)",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d5cc1be_f97ca084",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "consider *(reinterpret_cast\u003cuint16*\u003e(source.data[2]))? see the comment above.",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85516dcc_bd840ea1",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "2^16 is 65KB (assuming unsigned int16). This doesn\u0027t sound right? I would imagine that a 4k keyframe could easily exceed this limit?\n\nAlso, we know about use cases where Webrtc uses 5mbps+ bandwidth. If the frame size was uniformly distributed, that\u0027s 21KB/s every 30ms. But in reality, keyframe can be much bigger.\n\nIs 2 bytes enough?\n\nAre you concerned about size? If yes, consider varint. If no, why not use int32?",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d281f25c_c6dea4f9",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "alternatively, you can create a wrapper with \u0027BufferOwningEncodedImage\u0027. I have an example implementation if you\u0027d like to see it.\nOf course it would come with some cost (in your impl you don\u0027t allocate memory for every frame), but overall it may be worth doing, because it simplifies code quite a lot.",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 8
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d68e380_7d4faa44",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "RTC_LOCKS_EXCLUDED?",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f426ac0_9041c840",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "please document what \u0027coding_entity_id\u0027 is -- maybe in the class level comment? (you mention frame id in the top level comment, but not coding_entity_id)",
+      "range": {
+        "startLine": 75,
+        "startChar": 28,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "871c8d41_57559915",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "RTC_LOCKS_EXCLUDED?",
+      "range": {
+        "startLine": 76,
+        "startChar": 24,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd4dbf75_984c3adc",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "I am curious how do you know that the buffer is no longer used.",
+      "range": {
+        "startLine": 82,
+        "startChar": 52,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d384a29f_e035802a",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "if you are defining copy ctor, you should also define copy assignment operator.",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59227076_c6bb48b1",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-11T15:23:31Z",
+      "side": 1,
+      "message": "please document what\u0027s the id here (sub_id? frame_id? coding_entity_id?)",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 19
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

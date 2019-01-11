@@ -173,6 +173,14 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
           continue;
         }
 
+        // Don't replace a full superframe by its decodable part in KSVC.
+        if (!frames_to_decode_.empty() &&
+            current_superframe[0]->first.picture_id ==
+                frames_to_decode_[0]->first.picture_id &&
+            current_superframe.size() < frames_to_decode_.size()) {
+          continue;
+        }
+
         frames_to_decode_ = std::move(current_superframe);
 
         if (frame->RenderTime() == -1) {

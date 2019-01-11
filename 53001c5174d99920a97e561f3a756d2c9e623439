@@ -220,6 +220,29 @@
     },
     {
       "key": {
+        "uuid": "ce77540c_c2137791",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-11T20:11:21Z",
+      "side": 1,
+      "message": "Please don\u0027t do that!\n* If you define a copy constructor, you should define a copy assignment (rule of three).\n* Likewise for move assignment (rule of five).\n* But then you define all of them to be default. So don\u0027t define them at all (rule of zero).",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d384a29f_e035802a",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
         "patchSetId": 10
@@ -231,6 +254,24 @@
       "writtenOn": "2019-01-11T15:23:31Z",
       "side": 1,
       "message": "if you are defining copy ctor, you should also define copy assignment operator.",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ba066b1_02972366",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-11T20:11:21Z",
+      "side": 1,
+      "message": "I would rather define none of them. See \"rule of zero\":\nhttps://en.cppreference.com/w/cpp/language/rule_of_three",
+      "parentUuid": "d384a29f_e035802a",
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

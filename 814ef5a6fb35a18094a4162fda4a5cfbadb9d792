@@ -56,6 +56,29 @@
       "revId": "814ef5a6fb35a18094a4162fda4a5cfbadb9d792",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12ca69ad_db6b8df7",
+        "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-11T14:24:49Z",
+      "side": 1,
+      "message": "What is the error message to the developer if the ninja command fails?",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "814ef5a6fb35a18094a4162fda4a5cfbadb9d792",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

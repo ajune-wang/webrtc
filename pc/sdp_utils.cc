@@ -18,12 +18,6 @@
 
 namespace webrtc {
 
-std::unique_ptr<SessionDescriptionInterface> CloneSessionDescription(
-    const SessionDescriptionInterface* sdesc) {
-  RTC_DCHECK(sdesc);
-  return CloneSessionDescriptionAsType(sdesc, sdesc->GetType());
-}
-
 std::unique_ptr<SessionDescriptionInterface> CloneSessionDescriptionAsType(
     const SessionDescriptionInterface* sdesc,
     SdpType type) {
@@ -47,20 +41,6 @@ bool SdpContentsAll(SdpContentPredicate pred,
     }
   }
   return true;
-}
-
-bool SdpContentsNone(SdpContentPredicate pred,
-                     const cricket::SessionDescription* desc) {
-  return SdpContentsAll(std::not2(pred), desc);
-}
-
-void SdpContentsForEach(SdpContentMutator fn,
-                        cricket::SessionDescription* desc) {
-  RTC_DCHECK(desc);
-  for (auto& content : desc->contents()) {
-    auto* transport_info = desc->GetTransportInfoByName(content.name);
-    fn(&content, transport_info);
-  }
 }
 
 }  // namespace webrtc

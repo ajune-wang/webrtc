@@ -17,7 +17,7 @@
 #include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/media_opt_util.h"
 #include "modules/video_coding/utility/frame_dropper.h"
-#include "rtc_base/criticalsection.h"
+#include "rtc_base/critical_section.h"
 
 namespace webrtc {
 

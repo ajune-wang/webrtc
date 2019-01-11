@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a340b50f_cf643c15",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1703,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-11T13:07:48Z",
+      "side": 1,
+      "message": "Nit: All this `const` does is ensure that you don\u0027t modify the local variable `replacement_file_name` in the function body. The string contents it points to is const anyway, because that\u0027s how string_view is defined.",
+      "range": {
+        "startLine": 1703,
+        "startChar": 33,
+        "endLine": 1703,
+        "endChar": 38
+      },
+      "revId": "6c4b1b7ade6bc47aa88b5b70acbc5f2d6dda3702",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

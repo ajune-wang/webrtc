@@ -40,7 +40,7 @@ rtc_source_set("call_api") {
 rtc_source_set("callfactory_api") {
   visibility = [ "*" ]
   sources = [
-    "call/call_factory_interface.h",
+    "call/call_factory_interface.h","call/callfactoryinterface.h",
   ]
 }
 
@@ -77,59 +77,59 @@ rtc_static_library("libjingle_peerconnection_api") {
   visibility = [ "*" ]
   cflags = []
   sources = [
-    "async_resolver_factory.h",
+    "async_resolver_factory.h","asyncresolverfactory.h",
     "bitrate_constraints.h",
     "candidate.cc",
     "candidate.h",
     "crypto/crypto_options.cc",
-    "crypto/crypto_options.h",
-    "crypto/frame_decryptor_interface.h",
-    "crypto/frame_encryptor_interface.h",
-    "crypto_params.h",
+    "crypto/crypto_options.h","crypto/cryptooptions.h",
+    "crypto/frame_decryptor_interface.h","crypto/framedecryptorinterface.h",
+    "crypto/frame_encryptor_interface.h","crypto/frameencryptorinterface.h",
+    "crypto_params.h","cryptoparams.h",
     "data_channel_interface.cc",
-    "data_channel_interface.h",
-    "dtls_transport_interface.h",
-    "dtmf_sender_interface.h",
+    "data_channel_interface.h","datachannelinterface.h",
+    "dtls_transport_interface.h","dtlstransportinterface.h",
+    "dtmf_sender_interface.h","dtmfsenderinterface.h",
     "jsep.cc",
     "jsep.h",
     "jsep_ice_candidate.cc",
-    "jsep_ice_candidate.h",
-    "jsep_session_description.h",
+    "jsep_ice_candidate.h","jsepicecandidate.h",
+    "jsep_session_description.h","jsepsessiondescription.h",
     "media_transport_interface.cc",
     "media_transport_interface.h",
     "media_constraints_interface.cc",
-    "media_constraints_interface.h",
+    "media_constraints_interface.h","mediaconstraintsinterface.h",
     "media_stream_interface.cc",
-    "media_stream_interface.h",
-    "media_stream_proxy.h",
-    "media_stream_track_proxy.h",
+    "media_stream_interface.h","mediastreaminterface.h",
+    "media_stream_proxy.h","mediastreamproxy.h",
+    "media_stream_track_proxy.h","mediastreamtrackproxy.h",
     "media_types.cc",
-    "media_types.h",
+    "media_types.h","mediatypes.h",
     "notifier.h",
-    "peer_connection_factory_proxy.h",
+    "peer_connection_factory_proxy.h","peerconnectionfactoryproxy.h",
     "peer_connection_interface.cc",
-    "peer_connection_interface.h",
-    "peer_connection_proxy.h",
+    "peer_connection_interface.h","peerconnectioninterface.h",
+    "peer_connection_proxy.h","peerconnectionproxy.h",
     "proxy.cc",
     "proxy.h",
     "rtc_error.cc",
-    "rtc_error.h",
+    "rtc_error.h","rtcerror.h",
     "rtp_headers.cc",
     "rtp_headers.h",
     "rtp_parameters.cc",
-    "rtp_parameters.h",
+    "rtp_parameters.h","rtpparameters.h",
     "rtp_receiver_interface.cc",
-    "rtp_receiver_interface.h",
+    "rtp_receiver_interface.h","rtpreceiverinterface.h",
     "rtp_sender_interface.cc",
-    "rtp_sender_interface.h",
+    "rtp_sender_interface.h","rtpsenderinterface.h",
     "rtp_transceiver_interface.cc",
-    "rtp_transceiver_interface.h",
-    "set_remote_description_observer_interface.h",
+    "rtp_transceiver_interface.h","rtptransceiverinterface.h",
+    "set_remote_description_observer_interface.h","setremotedescriptionobserverinterface.h",
     "stats_types.cc",
-    "stats_types.h",
-    "turn_customizer.h",
-    "uma_metrics.h",
-    "video_track_source_proxy.h",
+    "stats_types.h","statstypes.h",
+    "turn_customizer.h","turncustomizer.h",
+    "uma_metrics.h","umametrics.h",
+    "video_track_source_proxy.h","videosourceproxy.h",
   ]
   deps = [
     ":array_view",
@@ -240,16 +240,16 @@ if (rtc_include_tests) {
 rtc_source_set("libjingle_logging_api") {
   visibility = [ "*" ]
   sources = [
-    "rtc_event_log_output.h",
+    "rtc_event_log_output.h","rtceventlogoutput.h",
   ]
 }
 
 rtc_source_set("ortc_api") {
   visibility = [ "*" ]
   sources = [
-    "ortc/packet_transport_interface.h",
-    "ortc/rtp_transport_interface.h",
-    "ortc/srtp_transport_interface.h",
+    "ortc/packet_transport_interface.h","ortc/packettransportinterface.h",
+    "ortc/rtp_transport_interface.h","ortc/rtptransportinterface.h",
+    "ortc/srtp_transport_interface.h","ortc/srtptransportinterface.h",
   ]
 
   deps = [
@@ -262,10 +262,10 @@ rtc_source_set("rtc_stats_api") {
   visibility = [ "*" ]
   cflags = []
   sources = [
-    "stats/rtc_stats.h",
+    "stats/rtc_stats.h","stats/rtcstats.h",
     "stats/rtcstats_objects.h",
-    "stats/rtc_stats_collector_callback.h",
-    "stats/rtc_stats_report.h",
+    "stats/rtc_stats_collector_callback.h","stats/rtcstatscollectorcallback.h",
+    "stats/rtc_stats_report.h","stats/rtcstatsreport.h",
   ]
 
   deps = [
@@ -346,7 +346,7 @@ rtc_source_set("array_view") {
 rtc_source_set("refcountedbase") {
   visibility = [ "*" ]
   sources = [
-    "ref_counted_base.h",
+    "ref_counted_base.h","refcountedbase.h",
   ]
   deps = [
     "../rtc_base:rtc_base_approved",
@@ -357,7 +357,7 @@ rtc_source_set("libjingle_peerconnection_test_api") {
   visibility = [ "*" ]
   testonly = true
   sources = [
-    "test/fake_constraints.h",
+    "test/fake_constraints.h","test/fakeconstraints.h",
   ]
 
   deps = [

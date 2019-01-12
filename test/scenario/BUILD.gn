@@ -8,6 +8,17 @@
 
 import("../../webrtc.gni")
 
+rtc_source_set("repeated_activity") {
+  sources = [
+    "repeated_activity.cc",
+    "repeated_activity.h",
+  ]
+  deps = [
+    "../../api/units:time_delta",
+    "../../api/units:timestamp",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("scenario") {
     testonly = true
@@ -36,6 +47,7 @@ if (rtc_include_tests) {
       "video_stream.h",
     ]
     deps = [
+      ":repeated_activity",
       "../:fake_video_codecs",
       "../:fileutils",
       "../:test_common",

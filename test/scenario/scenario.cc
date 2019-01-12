@@ -29,31 +29,6 @@ namespace {
 int64_t kMicrosPerSec = 1000000;
 }
 
-RepeatedActivity::RepeatedActivity(TimeDelta interval,
-                                   std::function<void(TimeDelta)> function)
-    : interval_(interval), function_(function) {}
-
-void RepeatedActivity::Stop() {
-  interval_ = TimeDelta::PlusInfinity();
-}
-
-void RepeatedActivity::Poll(Timestamp time) {
-  RTC_DCHECK(last_update_.IsFinite());
-  if (time >= last_update_ + interval_) {
-    function_(time - last_update_);
-    last_update_ = time;
-  }
-}
-
-void RepeatedActivity::SetStartTime(Timestamp time) {
-  last_update_ = time;
-}
-
-Timestamp RepeatedActivity::NextTime() {
-  RTC_DCHECK(last_update_.IsFinite());
-  return last_update_ + interval_;
-}
-
 Scenario::Scenario() : Scenario("", true) {}
 
 Scenario::Scenario(std::string file_name) : Scenario(file_name, true) {}

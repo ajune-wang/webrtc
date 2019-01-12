@@ -17,6 +17,7 @@
 #include <string>
 #include <utility>  // For std::move.
 
+#include "absl/strings/string_view.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
@@ -129,7 +130,7 @@ class RTCError {
 // error type.
 //
 // Only intended to be used for logging/disagnostics.
-std::string ToString(RTCErrorType error);
+absl::string_view ToString(RTCErrorType error);
 
 #ifdef UNIT_TEST
 inline std::ostream& operator<<(  // no-presubmit-check TODO(webrtc:8982)

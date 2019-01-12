@@ -407,11 +407,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     return true;
   }
 
-  bool AddStream1(int id) {
-    return channel1_->AddRecvStream(cricket::StreamParams::CreateLegacy(id));
-  }
-  bool RemoveStream1(int id) { return channel1_->RemoveRecvStream(id); }
-
   void SendRtp1() {
     media_channel1_->SendRtp(rtp_packet_.data(), rtp_packet_.size(),
                              rtc::PacketOptions());
@@ -670,18 +665,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
         channel2_->SetRemoteContent(&content, SdpType::kPrAnswer, NULL));
     EXPECT_TRUE(channel2_->SetRemoteContent(&content, SdpType::kAnswer, NULL));
     EXPECT_EQ(0, rtcp_mux_activated_callbacks2_);
-  }
-
-  // Test that Add/RemoveStream properly forward to the media channel.
-  void TestStreams() {
-    CreateChannels(0, 0);
-    EXPECT_TRUE(AddStream1(1));
-    EXPECT_TRUE(AddStream1(2));
-    EXPECT_EQ(2U, media_channel1_->recv_streams().size());
-    EXPECT_TRUE(RemoveStream1(2));
-    EXPECT_EQ(1U, media_channel1_->recv_streams().size());
-    EXPECT_TRUE(RemoveStream1(1));
-    EXPECT_EQ(0U, media_channel1_->recv_streams().size());
   }
 
   // Test that SetLocalContent and SetRemoteContent properly
@@ -1589,12 +1572,6 @@ std::unique_ptr<cricket::VideoChannel> ChannelTest<VideoTraits>::CreateChannel(
       cricket::CN_VIDEO, (flags & DTLS) != 0, webrtc::CryptoOptions());
   channel->Init_w(rtp_transport, /*media_transport=*/nullptr);
   return channel;
-}
-
-// override to add 0 parameter
-template <>
-bool ChannelTest<VideoTraits>::AddStream1(int id) {
-  return channel1_->AddRecvStream(cricket::StreamParams::CreateLegacy(id));
 }
 
 template <>

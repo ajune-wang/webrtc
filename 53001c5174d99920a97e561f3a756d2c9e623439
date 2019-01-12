@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b4ed782e_ed0ea4dc",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d86ccb6b_0e8979f3",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "168b436b_5091d1da",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b5c74a0_d6b3bc3a",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "168b436b_5091d1da",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f41a6251_8904cad2",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "This class is designed in a way, that injector and extractor can be on different hosts, so I don\u0027t want to assume same endian in such case.",
+      "parentUuid": "11a7be5c_55106364",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5cc1be_f97ca084",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 10
@@ -85,6 +157,24 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dd5819f_c19d8fa5",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Same as above",
+      "parentUuid": "9d5cc1be_f97ca084",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -125,6 +215,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0025079_91093ff7",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "As I understand from Niels comment, soon EncodedImage will be able to take ownership of its buffer. I think it will make sense to update this implementation on that case when it will be ready.",
+      "parentUuid": "d281f25c_c6dea4f9",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 8
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -174,6 +288,54 @@
     },
     {
       "key": {
+        "uuid": "68f09190_279a4ac9",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d68e380_7d4faa44",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 23
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8493813_bfbfe20e",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f426ac0_9041c840",
+      "range": {
+        "startLine": 75,
+        "startChar": 28,
+        "endLine": 75,
+        "endChar": 44
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "871c8d41_57559915",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
         "patchSetId": 10
@@ -194,6 +356,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242bbcd9_bae9132f",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "871c8d41_57559915",
+      "range": {
+        "startLine": 76,
+        "startChar": 24,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +406,30 @@
     },
     {
       "key": {
+        "uuid": "1776e135_49e3319f",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "We just assuming, that we can reuse when we wrap around the whole pool. We can\u0027t know that exactly, just make pool big enough",
+      "parentUuid": "dd4dbf75_984c3adc",
+      "range": {
+        "startLine": 82,
+        "startChar": 52,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce77540c_c2137791",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
         "patchSetId": 10
@@ -240,6 +450,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4444ee84_5676c499",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Explicitly defined constructor and destructor are required by compiler (chromium style), everything else I removed, thanks. Before some of them were also required.",
+      "parentUuid": "ce77540c_c2137791",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 38
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -278,6 +512,24 @@
     },
     {
       "key": {
+        "uuid": "f6ce2e94_563e5754",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "In some time there were required for compiler, now I found that only constructor and destructor are required to be explicitly defined.",
+      "parentUuid": "4ba066b1_02972366",
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59227076_c6bb48b1",
         "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
         "patchSetId": 10
@@ -298,6 +550,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aed1459_47f06600",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-12T12:48:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59227076_c6bb48b1",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 19
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

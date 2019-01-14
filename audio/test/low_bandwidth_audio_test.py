@@ -25,6 +25,9 @@ import subprocess
 import sys
 
 
+sys.exit(1)
+
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, os.pardir, os.pardir))
 

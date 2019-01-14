@@ -242,6 +242,30 @@
     },
     {
       "key": {
+        "uuid": "1eb5eb0d_19d7c216",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T03:25:28Z",
+      "side": 1,
+      "message": "The current solution with the ring buffer looks fairly complex, and error prone (you are hoping that the buffer is no longer used - and in 99.99% that will be true). On the other side, the wrapper on the class which takes care of freeing would be fairly simple and would guarantee correctness. Even if the design is about to change in the future, both solutions would need to be adjusted (current one and the one that I am proposing), so why wouldn\u0027t we go with the simpler solution (that is also more correct?). Maybe I am missing something \u003d)",
+      "parentUuid": "e0025079_91093ff7",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 8
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d68e380_7d4faa44",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
         "patchSetId": 10

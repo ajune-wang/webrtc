@@ -241,6 +241,7 @@ bool PlatformThread::SetPriority(ThreadPriority priority) {
   return true;
 #else
 #ifdef WEBRTC_THREAD_RR
+#error "NEVER USED"
   const int policy = SCHED_RR;
 #else
   const int policy = SCHED_FIFO;

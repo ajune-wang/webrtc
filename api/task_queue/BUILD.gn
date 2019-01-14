@@ -12,5 +12,49 @@ rtc_source_set("task_queue") {
   visibility = [ "*" ]
   public = [
     "queued_task.h",
+    "task_queue_priority.h",
   ]
+}
+
+# TODO(danilchap): Merge this target into task_queue when it doesn't need to
+# depend on rtc_base:task_queue
+rtc_source_set("task_queue_factory") {
+  visibility = [ "*" ]
+  public = [
+    "task_queue.h",
+    "task_queue_factory.h",
+  ]
+  sources = [
+    "task_queue.cc",
+    "task_queue_impl.cc",
+    "task_queue_impl.h",
+  ]
+
+  deps = [
+    ":task_queue",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_task_queue_api",
+    "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+}
+
+rtc_source_set("task_queue_default_factory") {
+  visibility = [ "../../rtc_base:task_queue_global_factory" ]
+  sources = [
+    "task_queue_default_factory.h",
+  ]
+  deps = [
+    ":task_queue_factory",
+    "../../rtc_base:checks",
+  ]
+  if (rtc_enable_libevent) {
+    sources += [ "task_queue_default_factory_libevent.cc" ]
+    deps += [ "../../rtc_base:rtc_task_queue_libevent" ]
+  } else if (is_mac || is_ios) {
+    sources += [ "task_queue_default_factory_gcd.cc" ]
+    deps += [ "../../rtc_base:rtc_task_queue_gcd" ]
+  } else {
+    sources += [ "task_queue_default_factory.cc" ]
+  }
 }

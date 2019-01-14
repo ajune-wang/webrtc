@@ -30,6 +30,7 @@
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/deprecation.h"
 #include "rtc_base/network_route.h"
+#include "rtc_base/third_party/sigslot/sigslot.h"
 
 namespace rtc {
 class PacketTransportInternal;
@@ -350,9 +351,10 @@ class DataChannelSink {
 
 // Media transport interface for sending / receiving encoded audio/video frames
 // and receiving bandwidth estimate update from congestion control.
-class MediaTransportInterface {
+class MediaTransportInterface : public sigslot::has_slots<> {
  public:
-  virtual ~MediaTransportInterface() = default;
+  MediaTransportInterface();
+  ~MediaTransportInterface() override;
 
   // Start asynchronous send of audio frame. The status returned by this method
   // only pertains to the synchronous operations (e.g.
@@ -446,6 +448,11 @@ class MediaTransportInterface {
   // transport is destroyed, the sink must be unregistered by setting it to
   // nullptr.
   virtual void SetDataSink(DataChannelSink* sink) = 0;
+
+  // Invoked each time the audio packet is received with the channel_id for
+  // which it was received. This can be used for logging. It reports the
+  // channel_id for which the packet was received.
+  sigslot::signal1<int64_t> SignalAudioPacketReceived;
 
   // TODO(sukhanov): RtcEventLogs.
 };

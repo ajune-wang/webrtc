@@ -121,6 +121,7 @@ BaseChannel::~BaseChannel() {
 
   if (media_transport_) {
     media_transport_->SetNetworkChangeCallback(nullptr);
+    media_transport_->SignalAudioPacketReceived.disconnect(this);
   }
 
   // Eats any outstanding messages or packets.
@@ -184,6 +185,17 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport,
                    << (media_transport_ != nullptr);
   if (media_transport_) {
     media_transport_->SetNetworkChangeCallback(this);
+    media_transport->SignalAudioPacketReceived.connect(
+        this, &BaseChannel::MediaTransportFirstAudioPacketReceived);
+  }
+}
+
+void BaseChannel::MediaTransportFirstAudioPacketReceived(int64_t channel_id) {
+  if (media_type() == MediaType::MEDIA_TYPE_AUDIO) {
+    if (!has_received_packet_) {
+      has_received_packet_ = true;
+      signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
+    }
   }
 }
 

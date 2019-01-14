@@ -173,6 +173,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     "transport:network_control",
     "video:encoded_image",
     "video:video_frame",
+    "//rtc_base/third_party/sigslot:sigslot",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
 

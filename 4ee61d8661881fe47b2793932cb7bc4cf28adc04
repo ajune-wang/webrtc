@@ -16,6 +16,47 @@
       "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c160534e_d04b64d6",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-14T10:36:39Z",
+      "side": 1,
+      "message": "I prefer using interface classes. Whether or not we should be migrating away from sigslot is under debate. One problem is that changing the signature of a signal is more painful than changing the signature of a method call.",
+      "parentUuid": "a0577509_fedf92ac",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297cc1a3_ad9c7762",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-14T10:36:39Z",
+      "side": 1,
+      "message": "Do I get it right, that for each received audio frame, we\u0027d get one call to this signal, and one call to the registered MediaTransportAudioSinkInterface?\n\nIt seems this interface would be simpler without an extra signal or callback, and then logging would have to be done by the audio sink instead?",
+      "range": {
+        "startLine": 452,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 54
+      },
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

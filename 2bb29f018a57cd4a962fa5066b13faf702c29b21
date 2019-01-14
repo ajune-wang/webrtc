@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4270baac_b6d5d8af",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-14T07:37:40Z",
+      "side": 0,
+      "message": "I was wondering, what is the meaning of this target?\n\nIt is called call_api but there is only webrtc::AudioSinkInterface in it...",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 3
+      },
+      "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0577509_fedf92ac",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T03:58:48Z",
+      "side": 1,
+      "message": "I wonder why we are not exposing this already? (it\u0027s a transitive dependency, but it\u0027s not public, and yet, we have plenty of interfaces that expose sigslots).\n\nIf this is not recommended, please let me know.",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

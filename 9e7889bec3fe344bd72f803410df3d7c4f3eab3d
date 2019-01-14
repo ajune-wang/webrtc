@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "67800d0d_3c2783cb",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "I do not understand, do you have a failing test to reproduce that this is something that happens in WebRTC? I don\u0027t see why we would need to release the lock between the check and the process call.",
+      "parentUuid": "d3eb273a_3a999003",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52167b5e_bf1b6563",
         "filename": "test/scenario/network/fake_network_socket_server.cc",
         "patchSetId": 17
@@ -316,6 +340,30 @@
       "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "396794bb_54f7f84f",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "What if the socket manages to grab |receiver_lock_| in the unbind function before this lock is taken, and instead, this blocks on that lock?\n\nThis function is called from the thread running the preceding network node, right?",
+      "parentUuid": "422c2e63_748886c1",
+      "range": {
+        "startLine": 206,
+        "startChar": 1,
+        "endLine": 206,
+        "endChar": 42
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

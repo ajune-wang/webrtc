@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "582793dc_67e93b07",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "Is this expected to happen?",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 39
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d99db9_a5b625d7",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "Do we signal the read event for each individual packet with the physical socket?",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "290cbef4_e96f8475",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "Should this really be done from here? I couldn\u0027t see the equivalent in physical socket.",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 26
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa29b16_45750ea2",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "I find this a bit hard to follow, could you rewrite it to clarify? Seems like a break when a valid port is found could help, maybe also using next_port_ as the index (consider making it int and casting it to int16_t to avoid implicit wraparounds etc.",
+      "range": {
+        "startLine": 163,
+        "startChar": 1,
+        "endLine": 174,
+        "endChar": 3
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "423ab39f_cc1add8b",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 208,
+        "startChar": 1,
+        "endLine": 210,
+        "endChar": 37
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7768872f_2e83a069",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "Would it be possible to make real time scenario tests use this implementation as well? Then we\u0027d get some extra test coverage. With that running the tsan bot should help detect if there are bad race conditions.",
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1dfd9a6_a39fb34a",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "Try to see if you can come up with a name that is more generally known. Is this is what we call Process, or Run in other places? Or maybe make it even more descriptive, something like ProcessAllNodes.",
+      "range": {
+        "startLine": 114,
+        "startChar": 30,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b008b713_70eebb73",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed, infer it when creating the specific route instead.",
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93b4ca84_3414b7a6",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T16:00:41Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 74,
+        "endChar": 72
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

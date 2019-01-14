@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a55e1de_4a48b7c5",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-14T07:56:49Z",
+      "side": 0,
+      "message": "tommi@: The macro WEBRTC_THREAD_RR is defined by the build system for the target //system_wrappers but it is only used here in rtc_base/platform_thread.cc so at the moment we always use SCHED_FIFO.\n\nIs this expected? In that case my proposal is to remove the #ifdef and the macro.",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 6
+      },
+      "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

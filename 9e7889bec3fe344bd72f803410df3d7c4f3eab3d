@@ -1,0 +1,199 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4725da9a_5d671c83",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "SocketIoProcessor",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9dc42f5_025b8b49",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "Is this still true?",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 76,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39c73811_dabced92",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "Guess this is just for local debugging?",
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4249e9_22acbd8d",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem appropriate to grab - release - grab a lock like this. Maybe we could move the loop inside the socket and under the lock?",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52167b5e_bf1b6563",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "break;?",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b58f4e7b_b35fae9f",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "break;?",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb497340_5d43b7b8",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "Can we be sure that there are no packets being delivered around the time Close or destructor is being called on the socket?",
+      "range": {
+        "startLine": 206,
+        "startChar": 1,
+        "endLine": 206,
+        "endChar": 42
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54e459d1_92619e8b",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "Could we instead just always call Process() on all nodes and avoid the RepeatedActivity dependecy here?",
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e78e8a9_e25a172e",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:06:02Z",
+      "side": 1,
+      "message": "Why do we grab, then release, then grab the lock here?",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -70,6 +70,30 @@
       "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1aa8b3c3_0d6fade6",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-14T10:43:32Z",
+      "side": 0,
+      "message": "Ah I see. I got confused by the change in the other file.\nThanks for clarifying and cleaning this up.",
+      "parentUuid": "6c7195a8_e586f51f",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 6
+      },
+      "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

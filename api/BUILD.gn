@@ -188,6 +188,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
     "../rtc_base/system:rtc_export",
+    "../rtc_base/third_party/sigslot:sigslot",
   ]
 
   if (is_nacl) {

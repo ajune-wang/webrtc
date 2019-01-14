@@ -307,6 +307,8 @@ class BaseChannel : public ChannelInterface,
 
   // MediaTransportNetworkChangeCallback override.
   void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route) override;
+  void MediaTransportFirstAudioPacketReceived(int64_t channel_id);
+
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;

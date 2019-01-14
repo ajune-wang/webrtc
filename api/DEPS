@@ -110,6 +110,7 @@ specific_include_rules = {
     "+rtc_base/copy_on_write_buffer.h",  # As used by datachannelinterface.h
     "+rtc_base/network_route.h",
     "+rtc_base/deprecation.h",
+    "+rtc_base/third_party/sigslot/sigslot.h",
   ],
 
   "peer_connection_factory_proxy\.h": [

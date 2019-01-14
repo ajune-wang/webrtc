@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73ef908f_200a7998",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-14T10:47:35Z",
+      "side": 1,
+      "message": "These comments makes no sense anymore (should have been update/removed in the previous CL, but I missed them).\n\nThis whole function can be rewritten as:\n\n  decoded_frames_history_.InsertDecoded(decoded-\u003efirst, timestamp);\n  frames_.erase(frames_.begin(), ++decoded);\n\nI think we can remove this function all together and just move these lines to where this function is called.",
+      "range": {
+        "startLine": 502,
+        "startChar": 0,
+        "endLine": 509,
+        "endChar": 25
+      },
+      "revId": "64ec8358b6ffd76ac680465f6a5b65aa6524f7fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

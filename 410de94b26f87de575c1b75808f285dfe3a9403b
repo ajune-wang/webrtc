@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32245e91_81b09525",
+        "filename": "api/rtptransceiverinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-14T12:56:29Z",
+      "side": 1,
+      "message": "(Default implementation temporarily needed due to fakes in chromium even if the TransceiverStateSurfacer is updated)",
+      "revId": "410de94b26f87de575c1b75808f285dfe3a9403b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047d489e_90d7bac2",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-14T12:56:29Z",
+      "side": 1,
+      "message": "nit: Should this be EXPECT_FALSE?",
+      "revId": "410de94b26f87de575c1b75808f285dfe3a9403b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44154466_7c7ab71e",
+        "filename": "pc/peerconnection_signaling_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-14T12:56:29Z",
+      "side": 1,
+      "message": "Can you make this test more precise? The offerer\u0027s transceivers should have its transport set at setLocalDescription(offer) and the answerer should have its transports set not at setRemoteDescription(offer) but at setLocalDescription(answer). Can you make each step of the SDP exchange explicit and assert that DTLS transports exists in the appropriate places? You might also want to expect that at callee.SRD(offer) transceivers are created with null transports.",
+      "revId": "410de94b26f87de575c1b75808f285dfe3a9403b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

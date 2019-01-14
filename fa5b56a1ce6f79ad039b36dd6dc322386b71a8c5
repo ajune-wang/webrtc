@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b22dcfa0_ea9a1b3c",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-14T14:16:34Z",
+      "side": 1,
+      "message": "In this case it is pretty clear that we set the same timestamps of all frames, but we don\u0027t explain WHY, which is the important part.\n\nanyhow...",
+      "range": {
+        "startLine": 170,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 79
+      },
+      "revId": "fa5b56a1ce6f79ad039b36dd6dc322386b71a8c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

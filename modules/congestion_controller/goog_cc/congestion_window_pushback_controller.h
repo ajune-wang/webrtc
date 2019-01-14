@@ -15,6 +15,7 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
+#include "api/transport/webrtc_config.h"
 #include "api/units/data_size.h"
 
 namespace webrtc {
@@ -26,9 +27,10 @@ namespace webrtc {
 // used to prevent video pause due to a full congestion window.
 class CongestionWindowPushbackController {
  public:
-  CongestionWindowPushbackController();
   explicit CongestionWindowPushbackController(
-      uint32_t min_pushback_target_bitrate_bps);
+      const WebRtcConfig* webrtc_config);
+  CongestionWindowPushbackController(const WebRtcConfig* webrtc_config,
+                                     uint32_t min_pushback_target_bitrate_bps);
   void UpdateOutstandingData(int64_t outstanding_bytes);
   void UpdatePacingQueue(int64_t pacing_bytes);
   void UpdateMaxOutstandingData(size_t max_outstanding_bytes);

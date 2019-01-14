@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d92222a4_d7c225ed",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-14T13:08:07Z",
+      "side": 1,
+      "message": "Document that nullptr means that field trials will be used. Also, unless you dont use std::unique_ptr, document the expected lifetime of webrtc_config.",
+      "range": {
+        "startLine": 44,
+        "startChar": 50,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44740b4b_aea6ba02",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-14T13:08:07Z",
+      "side": 1,
+      "message": "WebRtcConfig is a very generic name. I understand that you would like to have this used \"everywhere\" in the end but I still wonder a bit about this name. Is the intention only for experiments? Maybe class ExperimentConfig ? or TrialConfig ...",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b16a1cb7_d133fa20",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-14T13:08:07Z",
+      "side": 1,
+      "message": "Can you document |name| and the return value?",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a784477_6bcf88f2",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-14T13:08:07Z",
+      "side": 1,
+      "message": "How about having FindFullName return absl::optional\u003cstring\u003e if you dont like Enabled/Disabled methods and dont have them in this interface ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

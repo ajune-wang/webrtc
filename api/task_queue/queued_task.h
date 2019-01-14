@@ -7,9 +7,9 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+
 #ifndef API_TASK_QUEUE_QUEUED_TASK_H_
 #define API_TASK_QUEUE_QUEUED_TASK_H_
-
 namespace webrtc {
 
 // Base interface for asynchronously executed tasks.

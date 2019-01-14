@@ -147,6 +147,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
     HIGH,
     LOW,
   };
+  class Impl;
 
   explicit TaskQueue(const char* queue_name,
                      Priority priority = Priority::NORMAL);
@@ -190,7 +191,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   }
 
  private:
-  class Impl;
   // TODO(danilchap): Remove when external implementaions of TaskQueue remove
   // these two functions.
   void PostTaskAndReply(std::unique_ptr<QueuedTask> task,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fde958e_6d0e0ad6",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-14T08:58:15Z",
+      "side": 1,
+      "message": "This used to be NetEqDecoder::kDecoderPCM16Bswb32kHz, with a single channel.",
+      "range": {
+        "startLine": 139,
+        "startChar": 2,
+        "endLine": 139,
+        "endChar": 59
+      },
+      "revId": "7955136ba109be38008b55f25be3580b2ea1858d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

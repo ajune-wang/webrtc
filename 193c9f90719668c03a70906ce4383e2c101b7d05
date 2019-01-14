@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a8fe0e1c_a957fb6e",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-14T15:37:08Z",
+      "side": 1,
+      "message": "How about describing what a proxy is, and say what the difference is between invoking its methods on the signaling thread vs any other thread? Being able to do something synchronously on the signaling thread is invaluable when surfacing state information to chromium and not wanting this unpredictable behavior.\n\nI don\u0027t think this description makes it clear that even the methods that look like they\u0027re synchronous aren\u0027t due to the PROXY behavior. Reading this description it sounds like it is only talking about methods that take callbacks.",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af306f0e_205df57a",
         "filename": "api/DESIGN.md",
         "patchSetId": 5
@@ -47,6 +64,24 @@
       "writtenOn": "2019-01-14T15:11:29Z",
       "side": 1,
       "message": "I think it\u0027s safe to assume that the places where you don\u0027t need to do this today, won\u0027t regress from that. Perhaps say that you may have to do this in some cases? :-/",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06a22ce0_c02d8579",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-14T15:37:08Z",
+      "side": 1,
+      "message": "The callbacks are invoked on the signaling thread, why don\u0027t we say that? Which thread the callback is invoked on is relevant because it allows us to read the state of webrtc objects synchronously (without implict threadjumps due to proxy), something we have to do to surface state information correctly in chromium.",
+      "parentUuid": "fe78a3a8_2a1fd3d3",
       "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75612d1c_ae1b2f39",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2185,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-14T13:11:59Z",
+      "side": 1,
+      "message": "Is this a useful comment here? They\u0027re not identically computed below.",
+      "range": {
+        "startLine": 2185,
+        "startChar": 0,
+        "endLine": 2185,
+        "endChar": 65
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "653bee01_34457fb2",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-14T13:11:59Z",
+      "side": 1,
+      "message": "Does this mean we get an average from the start of the call until when FillBitrateInfo is used? In that case I think we need to make this windowed?",
+      "range": {
+        "startLine": 2187,
+        "startChar": 0,
+        "endLine": 2192,
+        "endChar": 60
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e236b519_63ba1170",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-14T13:11:59Z",
+      "side": 1,
+      "message": "Remove TODO",
+      "range": {
+        "startLine": 881,
+        "startChar": 0,
+        "endLine": 881,
+        "endChar": 47
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

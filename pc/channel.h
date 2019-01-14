@@ -20,6 +20,7 @@
 
 #include "api/call/audio_sink.h"
 #include "api/jsep.h"
+#include "api/media_transport_interface.h"
 #include "api/rtp_receiver_interface.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
@@ -89,6 +90,9 @@ class BaseChannel : public ChannelInterface,
   virtual ~BaseChannel();
   void Init_w(webrtc::RtpTransportInternal* rtp_transport,
               webrtc::MediaTransportInterface* media_transport);
+
+  // Invoked at the end of Init_w.
+  virtual void OnInit_w();
 
   // Deinit may be called multiple times and is simply ignored if it's already
   // done.
@@ -307,6 +311,8 @@ class BaseChannel : public ChannelInterface,
 
   // MediaTransportNetworkChangeCallback override.
   void OnNetworkRouteChanged(const rtc::NetworkRoute& network_route) override;
+  void MediaTransportFirstAudioPacketReceived(int64_t channel_id);
+
   rtc::Thread* const worker_thread_;
   rtc::Thread* const network_thread_;
   rtc::Thread* const signaling_thread_;
@@ -352,7 +358,8 @@ class BaseChannel : public ChannelInterface,
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,
 // and input/output level monitoring.
-class VoiceChannel : public BaseChannel {
+class VoiceChannel : public BaseChannel,
+                     public webrtc::AudioPacketReceivedObserver {
  public:
   VoiceChannel(rtc::Thread* worker_thread,
                rtc::Thread* network_thread,
@@ -383,12 +390,18 @@ class VoiceChannel : public BaseChannel {
                           webrtc::SdpType type,
                           std::string* error_desc) override;
 
+  void OnInit_w() override;
+
+  void OnAudioPacketReceived(int64_t channel_id) override;
+
   // Last AudioSendParameters sent down to the media_channel() via
   // SetSendParameters.
   AudioSendParameters last_send_params_;
   // Last AudioRecvParameters sent down to the media_channel() via
   // SetRecvParameters.
   AudioRecvParameters last_recv_params_;
+
+  bool has_received_media_transport_packet_ = false;
 };
 
 // VideoChannel is a specialization for video.

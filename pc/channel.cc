@@ -185,6 +185,8 @@ void BaseChannel::Init_w(webrtc::RtpTransportInternal* rtp_transport,
   if (media_transport_) {
     media_transport_->SetNetworkChangeCallback(this);
   }
+
+  OnInit_w();
 }
 
 void BaseChannel::Deinit() {
@@ -773,11 +775,16 @@ VoiceChannel::VoiceChannel(rtc::Thread* worker_thread,
                   crypto_options) {}
 
 VoiceChannel::~VoiceChannel() {
+  if (media_transport()) {
+    media_transport()->SetAudioPacketReceivedObserver(nullptr);
+  }
   TRACE_EVENT0("webrtc", "VoiceChannel::~VoiceChannel");
   // this can't be done in the base class, since it calls a virtual
   DisableMedia_w();
   Deinit();
 }
+
+void BaseChannel::OnInit_w() {}
 
 void BaseChannel::UpdateMediaSendRecvState() {
   RTC_DCHECK(network_thread_->IsCurrent());
@@ -789,6 +796,19 @@ void BaseChannel::UpdateMediaSendRecvState() {
 void BaseChannel::OnNetworkRouteChanged(
     const rtc::NetworkRoute& network_route) {
   OnNetworkRouteChanged(absl::make_optional(network_route));
+}
+
+void VoiceChannel::OnInit_w() {
+  if (media_transport()) {
+    media_transport()->SetAudioPacketReceivedObserver(this);
+  }
+}
+
+void VoiceChannel::OnAudioPacketReceived(int64_t channel_id) {
+  if (!has_received_media_transport_packet_) {
+    has_received_media_transport_packet_ = true;
+    signaling_thread()->Post(RTC_FROM_HERE, this, MSG_FIRSTPACKETRECEIVED);
+  }
 }
 
 void VoiceChannel::UpdateMediaSendRecvState_w() {

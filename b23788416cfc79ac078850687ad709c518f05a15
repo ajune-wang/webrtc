@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d8419f8_b117b605",
+        "filename": "rtc_base/stream.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-14T10:48:46Z",
+      "side": 1,
+      "message": "This is redundant. Methods that are defined inside a class definitions are implicitly inline.",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 290,
+        "endChar": 8
+      },
+      "revId": "b23788416cfc79ac078850687ad709c518f05a15",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

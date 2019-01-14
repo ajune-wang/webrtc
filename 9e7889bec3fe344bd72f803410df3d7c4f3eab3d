@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bdaf0ed2_4d35f8c8",
+        "filename": "test/scenario/network/fake_network_socket.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4725da9a_5d671c83",
+      "range": {
+        "startLine": 27,
+        "startChar": 12,
+        "endLine": 27,
+        "endChar": 14
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9dc42f5_025b8b49",
         "filename": "test/scenario/network/fake_network_socket_server.cc",
         "patchSetId": 17
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ecff5a56_1b9eaa16",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9dc42f5_025b8b49",
+      "range": {
+        "startLine": 75,
+        "startChar": 5,
+        "endLine": 76,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39c73811_dabced92",
         "filename": "test/scenario/network/fake_network_socket_server.cc",
         "patchSetId": 17
@@ -62,6 +110,24 @@
       "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a72ec3ed_73569017",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Thanks, missed that one",
+      "parentUuid": "39c73811_dabced92",
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "d3eb273a_3a999003",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "I was thinking about it, but the real consumer, that subscribed on socket read event also need lock to process data. So I\u0027m worrying, about multiple fired read events before any processing..",
+      "parentUuid": "eb4249e9_22acbd8d",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 36
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52167b5e_bf1b6563",
         "filename": "test/scenario/network/fake_network_socket_server.cc",
         "patchSetId": 17
@@ -108,6 +198,30 @@
       "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6dfd916_3604d4dd",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52167b5e_bf1b6563",
+      "range": {
+        "startLine": 100,
+        "startChar": 6,
+        "endLine": 100,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "c481865f_1ebfba24",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58f4e7b_b35fae9f",
+      "range": {
+        "startLine": 106,
+        "startChar": 6,
+        "endLine": 106,
+        "endChar": 18
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb497340_5d43b7b8",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 17
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "422c2e63_748886c1",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "I commented it below. Socket will remove itself in destructor. To do it socket need a lock, that is holded here, so socket will block, until current call complete.",
+      "parentUuid": "fb497340_5d43b7b8",
+      "range": {
+        "startLine": 206,
+        "startChar": 1,
+        "endLine": 206,
+        "endChar": 42
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54e459d1_92619e8b",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 17
@@ -171,6 +333,24 @@
       "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "600deceb_e44b6736",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54e459d1_92619e8b",
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -194,6 +374,30 @@
       "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b28c101c_a617930b",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-14T15:13:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e78e8a9_e25a172e",
+      "range": {
+        "startLine": 88,
+        "startChar": 2,
+        "endLine": 91,
+        "endChar": 31
+      },
+      "revId": "9e7889bec3fe344bd72f803410df3d7c4f3eab3d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

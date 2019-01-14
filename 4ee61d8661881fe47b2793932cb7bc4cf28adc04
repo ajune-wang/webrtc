@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "aff0338b_43538583",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T15:09:03Z",
+      "side": 1,
+      "message": "\u003e Whether or not we should be migrating away from sigslot is under debate.\n\nI have heard that before - are there any documents that discuss it pros/cons/next steps? If not, I would rather use it, because it makes the code much simpler (we discussed it briefly with Anton).",
+      "parentUuid": "c160534e_d04b64d6",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "297cc1a3_ad9c7762",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 2
@@ -48,6 +66,30 @@
       "writtenOn": "2019-01-14T10:36:39Z",
       "side": 1,
       "message": "Do I get it right, that for each received audio frame, we\u0027d get one call to this signal, and one call to the registered MediaTransportAudioSinkInterface?\n\nIt seems this interface would be simpler without an extra signal or callback, and then logging would have to be done by the audio sink instead?",
+      "range": {
+        "startLine": 452,
+        "startChar": 0,
+        "endLine": 455,
+        "endChar": 54
+      },
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "250ad7c3_085771db",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T15:09:03Z",
+      "side": 1,
+      "message": "We only allow one audio sink. \n1) if we allow multiple sinks, we can\u0027t use move semantics\n2) In the channel.cc we don\u0027t need an entire frame. If there are interfaces that only expect info upon first packet, they shouldn\u0027t need the entire frame.\n3) In addition, the first packet doesn\u0027t necessarily mean first frame. While it is the case for audio, it\u0027s not the case for video, and it doesn\u0027t have to be the case for audio (technically an audio frame could be split to multiple packets).\n\nSo the semantics are different.",
+      "parentUuid": "297cc1a3_ad9c7762",
       "range": {
         "startLine": 452,
         "startChar": 0,

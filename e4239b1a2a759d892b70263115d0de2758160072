@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "160d64c4_fc939c89",
+        "filename": "api/rtc_error.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-14T10:17:09Z",
+      "side": 1,
+      "message": "This results in a strlen call. It would be nicer to have kRTCErrorTypeNames be an array on string_views. Example: https://godbolt.org/z/1kRzpi\n\nIf the table is long and infrequently used it may still be better to compute the lengths at run time, but it\u0027s probably better to default to having string_view arrays.",
+      "revId": "e4239b1a2a759d892b70263115d0de2758160072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88d1c471_270cc150",
+        "filename": "api/rtc_error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-14T10:17:09Z",
+      "side": 1,
+      "message": "Document that the string_view points to a literal that lives forever.",
+      "revId": "e4239b1a2a759d892b70263115d0de2758160072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

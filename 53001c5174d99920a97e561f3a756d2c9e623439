@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "98949fdd_97edc272",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T15:34:17Z",
+      "side": 1,
+      "message": "fair point!",
+      "parentUuid": "f41a6251_8904cad2",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5cc1be_f97ca084",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
         "patchSetId": 10
@@ -305,6 +329,30 @@
       "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8aa7816_9f3da660",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T15:34:17Z",
+      "side": 1,
+      "message": "\"The code around EncodedImage can use the property, that encoded image won\u0027t delete buffer after its destruction\"\n\nare you sure? I _think_ that EncodedImage doesn\u0027t OWN the buffer, but the code downstream (after encoder) cannot make the assumption that it outlives them? In the end, encoder can change the content of the buffer any time in subsequent callbacks?\n\nThe only place I am aware of that should use this property is the encoder: once encoded image is destroyed, encoder can reuse the buffer. But encoder doesn\u0027t know when the encoded image is destroyed :) it just owns the buffer.\n\nAnyway, up to you. Looks like what you have is similar to what the encoder is doing anyway.",
+      "parentUuid": "8d1badc6_7c5836b4",
+      "range": {
+        "startLine": 56,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 8
+      },
+      "revId": "53001c5174d99920a97e561f3a756d2c9e623439",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

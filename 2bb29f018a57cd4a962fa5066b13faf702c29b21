@@ -94,6 +94,30 @@
       "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9086778d_a05c46b3",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-14T13:36:07Z",
+      "side": 0,
+      "message": "Resolving comment.",
+      "parentUuid": "1aa8b3c3_0d6fade6",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 6
+      },
+      "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

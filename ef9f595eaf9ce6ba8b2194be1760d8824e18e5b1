@@ -307,6 +307,24 @@
     },
     {
       "key": {
+        "uuid": "f5c1a6ae_e74f0d8f",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-14T15:40:38Z",
+      "side": 1,
+      "message": "No, that\u0027s true, because you have a lock. Maybe comment on why the lock is needed though? Is it even needed? I don\u0027t think we should introduce it if it\u0027s not needed.",
+      "parentUuid": "6e927017_367ad6dd",
+      "revId": "ef9f595eaf9ce6ba8b2194be1760d8824e18e5b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ad5c86_f1be2cc0",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector_unittest.cc",
         "patchSetId": 12

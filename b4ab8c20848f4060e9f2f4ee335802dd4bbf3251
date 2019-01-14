@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b633bddc_08c35faa",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-14T15:40:38Z",
+      "side": 1,
+      "message": "kPreInit...",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "b4ab8c20848f4060e9f2f4ee335802dd4bbf3251",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66df196d_d607035f",
+        "filename": "rtc_base/platform_thread.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-14T09:23:13Z",
+      "side": 0,
+      "message": "I\u0027m fine with removing the macro but aren\u0027t you changing the default from SCHED_RR to SCHED_FIFO then?",
+      "parentUuid": "0a55e1de_4a48b7c5",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 6
+      },
+      "revId": "2bb29f018a57cd4a962fa5066b13faf702c29b21",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -24,7 +24,6 @@
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -49,9 +48,9 @@ constexpr double kDefaultTrendlineThresholdGain = 4.0;
 const char kBweWindowSizeInPacketsExperiment[] =
     "WebRTC-BweWindowSizeInPackets";
 
-size_t ReadTrendlineFilterWindowSize() {
+size_t ReadTrendlineFilterWindowSize(const WebRtcConfig* webrtc_config) {
   std::string experiment_string =
-      webrtc::field_trial::FindFullName(kBweWindowSizeInPacketsExperiment);
+      webrtc_config->FindFullName(kBweWindowSizeInPacketsExperiment);
   size_t window_size;
   int parsed_values =
       sscanf(experiment_string.c_str(), "Enabled-%zu", &window_size);
@@ -82,22 +81,23 @@ DelayBasedBwe::Result::Result(bool probe, DataRate target_bitrate)
 
 DelayBasedBwe::Result::~Result() {}
 
-DelayBasedBwe::DelayBasedBwe(RtcEventLog* event_log)
+DelayBasedBwe::DelayBasedBwe(const WebRtcConfig* webrtc_config,
+                             RtcEventLog* event_log)
     : event_log_(event_log),
       inter_arrival_(),
       delay_detector_(),
       last_seen_packet_(Timestamp::MinusInfinity()),
       uma_recorded_(false),
       trendline_window_size_(
-          webrtc::field_trial::IsEnabled(kBweWindowSizeInPacketsExperiment)
-              ? ReadTrendlineFilterWindowSize()
+          webrtc_config->IsEnabled(kBweWindowSizeInPacketsExperiment)
+              ? ReadTrendlineFilterWindowSize(webrtc_config)
               : kDefaultTrendlineWindowSize),
       trendline_smoothing_coeff_(kDefaultTrendlineSmoothingCoeff),
       trendline_threshold_gain_(kDefaultTrendlineThresholdGain),
       prev_bitrate_(DataRate::Zero()),
       prev_state_(BandwidthUsage::kBwNormal),
       alr_limited_backoff_enabled_(
-          field_trial::IsEnabled("WebRTC-Bwe-AlrLimitedBackoff")) {
+          webrtc_config->IsEnabled("WebRTC-Bwe-AlrLimitedBackoff")) {
   RTC_LOG(LS_INFO)
       << "Using Trendline filter for delay change estimation with window size "
       << trendline_window_size_;

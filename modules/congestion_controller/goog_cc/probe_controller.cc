@@ -20,7 +20,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
@@ -83,12 +82,12 @@ constexpr char kCappedProbingFieldTrialName[] = "WebRTC-BweCappedProbing";
 
 }  // namespace
 
-ProbeController::ProbeController()
+ProbeController::ProbeController(const WebRtcConfig* webrtc_config)
     : enable_periodic_alr_probing_(false),
       in_rapid_recovery_experiment_(
-          webrtc::field_trial::IsEnabled(kBweRapidRecoveryExperiment)),
+          webrtc_config->IsEnabled(kBweRapidRecoveryExperiment)),
       limit_probes_with_allocateable_rate_(
-          !webrtc::field_trial::IsDisabled(kCappedProbingFieldTrialName)) {
+          !webrtc_config->IsDisabled(kCappedProbingFieldTrialName)) {
   Reset(0);
 }
 

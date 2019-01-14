@@ -32,7 +32,6 @@
 #include "rtc_base/network/sent_packet.h"
 #include "rtc_base/rate_limiter.h"
 #include "rtc_base/time_utils.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -47,17 +46,16 @@ const char kCongestionPushbackExperiment[] = "WebRTC-CongestionWindowPushback";
 
 const int64_t kDefaultAcceptedQueueMs = 250;
 
-bool CwndExperimentEnabled() {
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
+bool CwndExperimentEnabled(const WebRtcConfig* const webrtc_config) {
+  std::string experiment_string = webrtc_config->FindFullName(kCwndExperiment);
   // The experiment is enabled iff the field trial string begins with "Enabled".
   return experiment_string.find("Enabled") == 0;
 }
 
-bool ReadCwndExperimentParameter(int64_t* accepted_queue_ms) {
+bool ReadCwndExperimentParameter(const WebRtcConfig* const webrtc_config,
+                                 int64_t* accepted_queue_ms) {
   RTC_DCHECK(accepted_queue_ms);
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
+  std::string experiment_string = webrtc_config->FindFullName(kCwndExperiment);
   int parsed_values =
       sscanf(experiment_string.c_str(), "Enabled-%" PRId64, accepted_queue_ms);
   if (parsed_values == 1) {
@@ -68,16 +66,13 @@ bool ReadCwndExperimentParameter(int64_t* accepted_queue_ms) {
   return false;
 }
 
-bool IsCongestionWindowPushbackExperimentEnabled() {
-  return webrtc::field_trial::IsEnabled(kCongestionPushbackExperiment) &&
-         webrtc::field_trial::IsEnabled(kCwndExperiment);
-}
-
 std::unique_ptr<CongestionWindowPushbackController>
-MaybeCreateCongestionWindowPushbackController() {
-  return IsCongestionWindowPushbackExperimentEnabled()
-             ? absl::make_unique<CongestionWindowPushbackController>()
-             : nullptr;
+MaybeCreateCongestionWindowPushbackController(
+    const WebRtcConfig* const webrtc_config) {
+  if (webrtc_config->IsEnabled(kCongestionPushbackExperiment) &&
+      webrtc_config->IsEnabled(kCwndExperiment))
+    return absl::make_unique<CongestionWindowPushbackController>(webrtc_config);
+  return nullptr;
 }
 
 static const int64_t kRetransmitWindowSizeMs = 500;
@@ -116,8 +111,8 @@ void SortPacketFeedbackVector(
   std::sort(input->begin(), input->end(), PacketFeedbackComparator());
 }
 
-bool IsPacerPushbackExperimentEnabled() {
-  return webrtc::field_trial::IsEnabled(kPacerPushbackExperiment);
+bool IsPacerPushbackExperimentEnabled(const WebRtcConfig* const webrtc_config) {
+  return webrtc_config->IsEnabled(kPacerPushbackExperiment);
 }
 
 }  // namespace
@@ -126,16 +121,18 @@ DEPRECATED_SendSideCongestionController::
     DEPRECATED_SendSideCongestionController(const Clock* clock,
                                             Observer* observer,
                                             RtcEventLog* event_log,
-                                            PacedSender* pacer)
-    : clock_(clock),
+                                            PacedSender* pacer,
+                                            const WebRtcConfig* webrtc_config)
+    : webrtc_config_(webrtc_config ? webrtc_config : &field_trial_config_),
+      clock_(clock),
       observer_(observer),
       event_log_(event_log),
       pacer_(pacer),
       bitrate_controller_(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
-          absl::make_unique<AcknowledgedBitrateEstimator>()),
-      probe_controller_(new ProbeController()),
+          absl::make_unique<AcknowledgedBitrateEstimator>(webrtc_config_)),
+      probe_controller_(new ProbeController(webrtc_config_)),
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
@@ -147,19 +144,20 @@ DEPRECATED_SendSideCongestionController::
       pacer_paused_(false),
       min_bitrate_bps_(congestion_controller::GetMinBitrateBps()),
       probe_bitrate_estimator_(new ProbeBitrateEstimator(event_log_)),
-      delay_based_bwe_(new DelayBasedBwe(event_log_)),
-      in_cwnd_experiment_(CwndExperimentEnabled()),
+      delay_based_bwe_(new DelayBasedBwe(webrtc_config_, event_log_)),
+      in_cwnd_experiment_(CwndExperimentEnabled(webrtc_config_)),
       accepted_queue_ms_(kDefaultAcceptedQueueMs),
       was_in_alr_(false),
       send_side_bwe_with_overhead_(
-          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+          webrtc_config->IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
       transport_overhead_bytes_per_packet_(0),
-      pacer_pushback_experiment_(IsPacerPushbackExperimentEnabled()),
+      pacer_pushback_experiment_(
+          IsPacerPushbackExperimentEnabled(webrtc_config_)),
       congestion_window_pushback_controller_(
-          MaybeCreateCongestionWindowPushbackController()) {
+          MaybeCreateCongestionWindowPushbackController(webrtc_config_)) {
   delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps_));
   if (in_cwnd_experiment_ &&
-      !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
+      !ReadCwndExperimentParameter(webrtc_config_, &accepted_queue_ms_)) {
     RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
                            "from field trial string. Experiment disabled.";
     in_cwnd_experiment_ = false;
@@ -183,7 +181,7 @@ void DEPRECATED_SendSideCongestionController::EnableCongestionWindowPushback(
   accepted_queue_ms_ = accepted_queue_ms;
   congestion_window_pushback_controller_ =
       absl::make_unique<CongestionWindowPushbackController>(
-          min_pushback_target_bitrate_bps);
+          webrtc_config_, min_pushback_target_bitrate_bps);
 }
 
 void DEPRECATED_SendSideCongestionController::SetAlrLimitedBackoffExperiment(
@@ -278,8 +276,9 @@ void DEPRECATED_SendSideCongestionController::OnNetworkRouteChanged(
     transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
     min_bitrate_bps_ = min_bitrate_bps;
     probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
-    delay_based_bwe_.reset(new DelayBasedBwe(event_log_));
-    acknowledged_bitrate_estimator_.reset(new AcknowledgedBitrateEstimator());
+    delay_based_bwe_.reset(new DelayBasedBwe(webrtc_config_, event_log_));
+    acknowledged_bitrate_estimator_.reset(
+        new AcknowledgedBitrateEstimator(webrtc_config_));
     if (bitrate_bps > 0) {
       delay_based_bwe_->SetStartBitrate(DataRate::bps(bitrate_bps));
     }

@@ -594,6 +594,8 @@ if (rtc_include_tests) {
       "../api/test/video:function_video_factory",
       "../api/units:time_delta",
       "../api/video:video_frame_i420",
+      "../call:mock_rtp_interfaces",
+      "../call:rtp_sender",
       "../modules/audio_processing:api",
       "../modules/audio_processing:mocks",
       "../modules/rtp_rtcp",

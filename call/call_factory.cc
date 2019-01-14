@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <memory>
 #include <string>
+#include <utility>
 
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
@@ -69,19 +70,19 @@ absl::optional<webrtc::BuiltInNetworkBehaviorConfig> ParseDegradationConfig(
 }
 }  // namespace
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
+Call* CallFactory::CreateCall(Call::Config config) {
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig> send_degradation_config =
       ParseDegradationConfig(true);
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig>
       receive_degradation_config = ParseDegradationConfig(false);
 
   if (send_degradation_config || receive_degradation_config) {
-    return new DegradedCall(std::unique_ptr<Call>(Call::Create(config)),
-                            send_degradation_config,
-                            receive_degradation_config);
+    return new DegradedCall(
+        std::unique_ptr<Call>(Call::Create(std::move(config))),
+        send_degradation_config, receive_degradation_config);
   }
 
-  return Call::Create(config);
+  return Call::Create(std::move(config));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {

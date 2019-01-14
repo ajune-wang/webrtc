@@ -71,7 +71,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
     num_flexfec_streams_ = test->GetNumFlexfecStreams();
     RTC_DCHECK(num_video_streams_ > 0 || num_audio_streams_ > 0);
     Call::Config send_config(send_event_log_.get());
-    test->ModifySenderBitrateConfig(&send_config.bitrate_config);
+    BitrateConstraints send_bitrate_config;
+    test->ModifySenderBitrateConfig(&send_bitrate_config);
     if (num_audio_streams_ > 0) {
       CreateFakeAudioDevices(test->CreateCapturer(), test->CreateRenderer());
       test->OnFakeAudioDevicesCreated(fake_send_audio_device_.get(),
@@ -88,14 +89,15 @@ void CallTest::RunBaseTest(BaseTest* test) {
       fake_send_audio_device_->RegisterAudioCallback(
           send_config.audio_state->audio_transport());
     }
-    CreateSenderCall(send_config);
+    CreateSenderCall(std::move(send_config), send_bitrate_config);
     if (sender_call_transport_controller_ != nullptr) {
       test->OnRtpTransportControllerSendCreated(
           sender_call_transport_controller_);
     }
     if (test->ShouldCreateReceivers()) {
       Call::Config recv_config(recv_event_log_.get());
-      test->ModifyReceiverBitrateConfig(&recv_config.bitrate_config);
+      BitrateConstraints recv_bitrate_config;
+      test->ModifyReceiverBitrateConfig(&recv_bitrate_config);
       if (num_audio_streams_ > 0) {
         AudioState::Config audio_state_config;
         audio_state_config.audio_mixer = AudioMixerImpl::Create();
@@ -105,7 +107,7 @@ void CallTest::RunBaseTest(BaseTest* test) {
         fake_recv_audio_device_->RegisterAudioCallback(
             recv_config.audio_state->audio_transport());
       }
-      CreateReceiverCall(recv_config);
+      CreateReceiverCall(std::move(recv_config), recv_bitrate_config);
     }
     test->OnCallsCreated(sender_call_.get(), receiver_call_.get());
     receive_transport_.reset(test->CreateReceiveTransport(&task_queue_));
@@ -180,39 +182,40 @@ void CallTest::RunBaseTest(BaseTest* test) {
 }
 
 void CallTest::CreateCalls() {
-  CreateCalls(Call::Config(send_event_log_.get()),
-              Call::Config(recv_event_log_.get()));
+  CreateCalls(Call::Config(send_event_log_.get()), BitrateConstraints(),
+              Call::Config(recv_event_log_.get()), BitrateConstraints());
 }
 
-void CallTest::CreateCalls(const Call::Config& sender_config,
-                           const Call::Config& receiver_config) {
-  CreateSenderCall(sender_config);
-  CreateReceiverCall(receiver_config);
+void CallTest::CreateCalls(Call::Config sender_config,
+                           BitrateConstraints sender_bitrate_config,
+                           Call::Config receiver_config,
+                           BitrateConstraints receiver_bitrate_config) {
+  CreateSenderCall(std::move(sender_config), sender_bitrate_config);
+  CreateReceiverCall(std::move(receiver_config), receiver_bitrate_config);
 }
 
 void CallTest::CreateSenderCall() {
-  CreateSenderCall(Call::Config(send_event_log_.get()));
+  CreateSenderCall(Call::Config(send_event_log_.get()), BitrateConstraints());
 }
 
-void CallTest::CreateSenderCall(const Call::Config& config) {
-  NetworkControllerFactoryInterface* injected_factory =
-      config.network_controller_factory;
-  if (injected_factory) {
-    RTC_LOG(LS_INFO) << "Using injected network controller factory";
-  } else {
-    RTC_LOG(LS_INFO) << "Using default network controller factory";
-  }
+void CallTest::CreateSenderCall(Call::Config config,
+                                BitrateConstraints bitrate_config) {
+  RTC_CHECK(!config.rtp_transport_send);
 
-  std::unique_ptr<RtpTransportControllerSend> controller_send =
-      absl::make_unique<RtpTransportControllerSend>(
-          Clock::GetRealTimeClock(), config.event_log, injected_factory,
-          config.bitrate_config);
-  sender_call_transport_controller_ = controller_send.get();
-  sender_call_.reset(Call::Create(config, std::move(controller_send)));
+  auto rtp_transport_send = absl::make_unique<RtpTransportControllerSend>(
+      Clock::GetRealTimeClock(), config.event_log,
+      /*controllerfactory=*/nullptr, bitrate_config);
+  sender_call_transport_controller_ = rtp_transport_send.get();
+  config.rtp_transport_send = std::move(rtp_transport_send);
+  sender_call_.reset(Call::Create(std::move(config)));
 }
 
-void CallTest::CreateReceiverCall(const Call::Config& config) {
-  receiver_call_.reset(Call::Create(config));
+void CallTest::CreateReceiverCall(Call::Config config,
+                                  BitrateConstraints bitrate_config) {
+  RTC_CHECK(!config.rtp_transport_send);
+  config.rtp_transport_send = absl::make_unique<RtpTransportControllerSend>(
+      Clock::GetRealTimeClock(), config.event_log, nullptr, bitrate_config);
+  receiver_call_.reset(Call::Create(std::move(config)));
 }
 
 void CallTest::DestroyCalls() {

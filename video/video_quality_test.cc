@@ -1043,16 +1043,18 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 
   Call::Config send_call_config(send_event_log_.get());
   Call::Config recv_call_config(recv_event_log_.get());
-  send_call_config.bitrate_config = params.call.call_bitrate_config;
-  recv_call_config.bitrate_config = params.call.call_bitrate_config;
+  BitrateConstraints send_bitrate_config = params.call.call_bitrate_config;
+  BitrateConstraints recv_bitrate_config = params.call.call_bitrate_config;
 
   task_queue_.SendTask([this, &send_call_config, &recv_call_config,
+                        &send_bitrate_config, &recv_bitrate_config,
                         &send_transport, &recv_transport]() {
     if (params_.audio.enabled)
       InitializeAudioDevice(
           &send_call_config, &recv_call_config, params_.audio.use_real_adm);
 
-    CreateCalls(send_call_config, recv_call_config);
+    CreateCalls(std::move(send_call_config), send_bitrate_config,
+                std::move(recv_call_config), recv_bitrate_config);
     send_transport = CreateSendTransport();
     recv_transport = CreateReceiveTransport();
   });
@@ -1267,14 +1269,14 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     // TODO(ivica): Remove bitrate_config and use the default Call::Config(), to
     // match the full stack tests.
     Call::Config send_call_config(send_event_log_.get());
-    send_call_config.bitrate_config = params_.call.call_bitrate_config;
     Call::Config recv_call_config(recv_event_log_.get());
 
     if (params_.audio.enabled)
       InitializeAudioDevice(
           &send_call_config, &recv_call_config, params_.audio.use_real_adm);
 
-    CreateCalls(send_call_config, recv_call_config);
+    CreateCalls(std::move(send_call_config), params_.call.call_bitrate_config,
+                std::move(recv_call_config), BitrateConstraints());
 
     // TODO(minyue): consider if this is a good transport even for audio only
     // calls.

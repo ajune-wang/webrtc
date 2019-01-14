@@ -10,6 +10,8 @@
 #ifndef CALL_CALL_CONFIG_H_
 #define CALL_CALL_CONFIG_H_
 
+#include <memory>
+
 #include "api/bitrate_constraints.h"
 #include "api/fec_controller.h"
 #include "api/rtc_error.h"
@@ -20,18 +22,23 @@ namespace webrtc {
 
 class AudioProcessing;
 class RtcEventLog;
+class RtpTransportControllerSendInterface;
 
 struct CallConfig {
   explicit CallConfig(RtcEventLog* event_log);
-  CallConfig(const CallConfig&);
+  CallConfig(CallConfig&&);
   ~CallConfig();
 
   RTC_DEPRECATED static constexpr int kDefaultStartBitrateBps = 300000;
 
+#if 0
+  // TODO(nisse): Delete, BitrateConstraints should be passed when constructing
+  // the rtp_transport_send member below.
+
   // Bitrate config used until valid bitrate estimates are calculated. Also
   // used to cap total bitrate used. This comes from the remote connection.
   BitrateConstraints bitrate_config;
-
+#endif
   // AudioState which is possibly shared between multiple calls.
   // TODO(solenberg): Change this to a shared_ptr once we can use C++11.
   rtc::scoped_refptr<AudioState> audio_state;
@@ -47,8 +54,11 @@ struct CallConfig {
   // FecController to use for this call.
   FecControllerFactoryInterface* fec_controller_factory = nullptr;
 
-  // Network controller factory to use for this call.
-  NetworkControllerFactoryInterface* network_controller_factory = nullptr;
+  // TODO(nisse): Ownership shouldn't be passed to Call, it should stay with
+  // PeerConnection. Passing it on to send streams should be done via the send
+  // stream config structs, not as a separate constructor argument provided by
+  // Call.
+  std::unique_ptr<RtpTransportControllerSendInterface> rtp_transport_send;
 };
 
 }  // namespace webrtc

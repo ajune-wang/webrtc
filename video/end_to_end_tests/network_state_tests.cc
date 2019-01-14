@@ -87,7 +87,7 @@ void NetworkStateEndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
 
   task_queue_.SendTask([this, network_to_bring_up, &encoder_factory,
                         transport]() {
-    CreateSenderCall(Call::Config(send_event_log_.get()));
+    CreateSenderCall(Call::Config(send_event_log_.get()), BitrateConstraints());
     sender_call_->SignalChannelNetworkState(network_to_bring_up, kNetworkUp);
 
     CreateSendConfig(1, 0, 0, transport);

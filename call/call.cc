@@ -27,7 +27,6 @@
 #include "call/flexfec_receive_stream_impl.h"
 #include "call/receive_time_calculator.h"
 #include "call/rtp_stream_receiver_controller.h"
-#include "call/rtp_transport_controller_send.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_receive_stream_config.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h"
@@ -155,8 +154,7 @@ class Call final : public webrtc::Call,
                    public TargetTransferRateObserver,
                    public BitrateAllocator::LimitObserver {
  public:
-  Call(const Call::Config& config,
-       std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
+  explicit Call(Call::Config config);
   ~Call() override;
 
   // Implements webrtc::Call.
@@ -404,17 +402,8 @@ std::string Call::Stats::ToString(int64_t time_ms) const {
   return ss.str();
 }
 
-Call* Call::Create(const Call::Config& config) {
-  return new internal::Call(
-      config, absl::make_unique<RtpTransportControllerSend>(
-                  Clock::GetRealTimeClock(), config.event_log,
-                  config.network_controller_factory, config.bitrate_config));
-}
-
-Call* Call::Create(
-    const Call::Config& config,
-    std::unique_ptr<RtpTransportControllerSendInterface> transport_send) {
-  return new internal::Call(config, std::move(transport_send));
+Call* Call::Create(Call::Config config) {
+  return new internal::Call(std::move(config));
 }
 
 // This method here to avoid subclasses has to implement this method.
@@ -429,20 +418,19 @@ VideoSendStream* Call::CreateVideoSendStream(
 
 namespace internal {
 
-Call::Call(const Call::Config& config,
-           std::unique_ptr<RtpTransportControllerSendInterface> transport_send)
+Call::Call(Call::Config config)
     : clock_(Clock::GetRealTimeClock()),
       num_cpu_cores_(CpuInfo::DetectNumberOfCores()),
       module_process_thread_(ProcessThread::Create("ModuleProcessThread")),
       call_stats_(new CallStats(clock_, module_process_thread_.get())),
       bitrate_allocator_(new BitrateAllocator(this)),
-      config_(config),
+      config_(std::move(config)),
       audio_network_state_(kNetworkDown),
       video_network_state_(kNetworkDown),
       aggregate_network_up_(false),
       receive_crit_(RWLockWrapper::CreateRWLock()),
       send_crit_(RWLockWrapper::CreateRWLock()),
-      event_log_(config.event_log),
+      event_log_(config_.event_log),
       received_bytes_per_second_counter_(clock_, nullptr, true),
       received_audio_bytes_per_second_counter_(clock_, nullptr, true),
       received_video_bytes_per_second_counter_(clock_, nullptr, true),
@@ -452,12 +440,12 @@ Call::Call(const Call::Config& config,
       configured_max_padding_bitrate_bps_(0),
       estimated_send_bitrate_kbps_counter_(clock_, nullptr, true),
       pacer_bitrate_kbps_counter_(clock_, nullptr, true),
-      receive_side_cc_(clock_, transport_send->packet_router()),
+      receive_side_cc_(clock_, config_.rtp_transport_send->packet_router()),
       receive_time_calculator_(ReceiveTimeCalculator::CreateFromFieldTrial()),
       video_send_delay_stats_(new SendDelayStats(clock_)),
-      start_ms_(clock_->TimeInMilliseconds()) {
+      start_ms_(clock_->TimeInMilliseconds()),
+      transport_send_(std::move(config_.rtp_transport_send)) {
   RTC_DCHECK(config.event_log != nullptr);
-  transport_send_ = std::move(transport_send);
   transport_send_ptr_ = transport_send_.get();
 }
 

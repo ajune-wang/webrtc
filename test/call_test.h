@@ -74,11 +74,14 @@ class CallTest : public ::testing::Test {
   void RunBaseTest(BaseTest* test);
 
   void CreateCalls();
-  void CreateCalls(const Call::Config& sender_config,
-                   const Call::Config& receiver_config);
+  void CreateCalls(Call::Config sender_config,
+                   BitrateConstraints sender_bitrate_config,
+                   Call::Config receiver_config,
+                   BitrateConstraints receiver_bitrate_config);
   void CreateSenderCall();
-  void CreateSenderCall(const Call::Config& config);
-  void CreateReceiverCall(const Call::Config& config);
+  void CreateSenderCall(Call::Config config, BitrateConstraints bitrate_config);
+  void CreateReceiverCall(Call::Config config,
+                          BitrateConstraints bitrate_config);
   void DestroyCalls();
 
   void CreateVideoSendConfig(VideoSendStream::Config* video_config,

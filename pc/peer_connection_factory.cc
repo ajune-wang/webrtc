@@ -23,6 +23,7 @@
 #include "api/peer_connection_proxy.h"
 #include "api/turn_customizer.h"
 #include "api/video_track_source_proxy.h"
+#include "call/rtp_transport_controller_send.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/base/rtp_data_engine.h"
 #include "media/sctp/sctp_transport.h"
@@ -468,21 +469,34 @@ std::unique_ptr<Call> PeerConnectionFactory::CreateCall_w(
   }
   call_config.audio_state =
       channel_manager_->media_engine()->voice().GetAudioState();
-  call_config.bitrate_config.min_bitrate_bps = kMinBandwidthBps;
-  call_config.bitrate_config.start_bitrate_bps = kStartBandwidthBps;
-  call_config.bitrate_config.max_bitrate_bps = kMaxBandwidthBps;
+
+  BitrateConstraints bitrate_config;
+
+  bitrate_config.min_bitrate_bps = kMinBandwidthBps;
+  bitrate_config.start_bitrate_bps = kStartBandwidthBps;
+  bitrate_config.max_bitrate_bps = kMaxBandwidthBps;
 
   call_config.fec_controller_factory = fec_controller_factory_.get();
 
+  NetworkControllerFactoryInterface* network_controller_factory;
   if (field_trial::IsEnabled("WebRTC-Bwe-InjectedCongestionController")) {
     RTC_LOG(LS_INFO) << "Using injected network controller factory";
-    call_config.network_controller_factory =
-        injected_network_controller_factory_.get();
+    network_controller_factory = injected_network_controller_factory_.get();
   } else {
     RTC_LOG(LS_INFO) << "Using default network controller factory";
+    network_controller_factory = nullptr;
   }
 
-  return std::unique_ptr<Call>(call_factory_->CreateCall(call_config));
+  // TODO(nisse): This is the RtpTransport object used by Call and by send
+  // streams. Consider merging in some way with RtpTransportInternal. There
+  // should be a single class (possibly with multiple interface surfaces)
+  // representing one RTP session.
+  call_config.rtp_transport_send =
+      absl::make_unique<RtpTransportControllerSend>(
+          Clock::GetRealTimeClock(), event_log, network_controller_factory,
+          bitrate_config);
+  return std::unique_ptr<Call>(
+      call_factory_->CreateCall(std::move(call_config)));
 }
 
 }  // namespace webrtc

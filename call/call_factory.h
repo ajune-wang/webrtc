@@ -20,7 +20,7 @@ namespace webrtc {
 class CallFactory : public CallFactoryInterface {
   ~CallFactory() override {}
 
-  Call* CreateCall(const CallConfig& config) override;
+  Call* CreateCall(CallConfig config) override;
 };
 
 }  // namespace webrtc

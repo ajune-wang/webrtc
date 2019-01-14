@@ -35,6 +35,8 @@ struct CallSendStatistics {
   int64_t rttMs;
   size_t bytesSent;
   int packetsSent;
+  size_t payloadBytes;
+  size_t rtxBytesSent;
 };
 
 // See section 6.4.2 in http://www.ietf.org/rfc/rfc3550.txt for details.

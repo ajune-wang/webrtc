@@ -68,6 +68,7 @@
 #include "rtc_base/time_utils.h"
 #include "rtc_base/virtual_socket_server.h"
 #include "system_wrappers/include/metrics.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 
 namespace webrtc {
@@ -2573,6 +2574,37 @@ TEST_P(PeerConnectionIntegrationTest, GetBytesSentStatsWithOldStatsApi) {
   // bytes" stats at this point.
   EXPECT_GT(caller()->OldGetStatsForTrack(audio_track)->BytesSent(), 0);
   EXPECT_GT(caller()->OldGetStatsForTrack(video_track)->BytesSent(), 0);
+}
+
+// Test that audio bandwidth stats are captured under field trial.
+TEST_P(PeerConnectionIntegrationTest, GetSendBandwidthForAudioOnly) {
+  // Set the key as well as config needed for audio TargetEncBitrate to be set.
+  test::ScopedFieldTrials trial(
+      "WebRTC-Audio-BitrateAdaptation/Enabled/"
+      "WebRTC-Audio-SendSideBwe/Enabled/"
+      "WebRTC-Stats-IncludeAudioInBandwidthMetrics/Enabled/");
+
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  caller()->AddAudioTrack();
+  callee()->AddAudioTrack();
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+  MediaExpectations media_expectations;
+  media_expectations.ExpectBidirectionalAudio();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+
+  // Check that all relevant fields are set.
+  EXPECT_GT(caller()->OldGetStats()->ActualEncodeBitrate(), 0);
+  EXPECT_GT(caller()->OldGetStats()->TargetEncBitrate(), 0);
+  EXPECT_GT(caller()->OldGetStats()->TransmitBitrate(), 0);
+
+  // Audio should not have retransmission.
+  EXPECT_EQ(caller()->OldGetStats()->RetransmitBitrate(), 0);
+
+  // TransmitBitrate should include overhead, ActuaEncodeBitrate should not.
+  EXPECT_GT(caller()->OldGetStats()->TransmitBitrate(),
+            caller()->OldGetStats()->ActualEncodeBitrate());
 }
 
 // Test that we can get capture start ntp time.

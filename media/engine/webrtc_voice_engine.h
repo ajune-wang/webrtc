@@ -240,6 +240,8 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
     return VoiceMediaChannel::SendRtcp(&packet, rtc_options);
   }
 
+  void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) const override;
+
  private:
   bool SetOptions(const AudioOptions& options);
   bool SetRecvCodecs(const std::vector<AudioCodec>& codecs);

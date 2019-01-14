@@ -358,6 +358,8 @@ class FakeVoiceMediaChannel : public RtpHelper<VoiceMediaChannel> {
 
   std::vector<webrtc::RtpSource> GetSources(uint32_t ssrc) const override;
 
+  void FillBitrateInfo(BandwidthEstimationInfo* bwe_info) const override;
+
  private:
   class VoiceChannelAudioSink : public AudioSource::Sink {
    public:

@@ -167,6 +167,11 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
           frame->SetRenderTime(
               timing_->RenderTimeMs(frame->Timestamp(), now_ms));
         }
+        // All frames in the superframe should have the same render timestamps.
+        for (size_t i = 1; i < frames_to_decode_.size(); ++i) {
+          frames_to_decode_[i]->second.frame->SetRenderTime(
+              frame->RenderTime());
+        }
         wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms);
 
         // This will cause the frame buffer to prefer high framerate rather

@@ -163,6 +163,30 @@
       "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "374eedf4_7440e9ea",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:32:11Z",
+      "side": 1,
+      "message": "Inlined these for now. Not sure they are really motivated to keep as distinct helper functions.",
+      "parentUuid": "b94db0b2_4b74dd00",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

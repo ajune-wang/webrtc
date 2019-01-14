@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af306f0e_205df57a",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-14T15:11:29Z",
+      "side": 1,
+      "message": "I\u0027m having a hard time groking the example since the operations will run to completion, they will be queued to run in order and assuming they both operate on the same variable, \u0027x\u0027, then they will increment \u0027x\u0027 by exactly two.\n\nIs the point being made that checking the value in between calls or following a call, isn\u0027t safe?",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd18993_d0bb8be9",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-14T15:11:29Z",
+      "side": 1,
+      "message": "Should this be at the top (before we talk about the API being designed to be called from a single thread)?",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe78a3a8_2a1fd3d3",
+        "filename": "api/DESIGN.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-14T15:11:29Z",
+      "side": 1,
+      "message": "I think it\u0027s safe to assume that the places where you don\u0027t need to do this today, won\u0027t regress from that. Perhaps say that you may have to do this in some cases? :-/",
+      "revId": "193c9f90719668c03a70906ce4383e2c101b7d05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

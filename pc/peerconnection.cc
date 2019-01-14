@@ -2972,6 +2972,12 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
   // the m= section.
   transceiver->internal()->set_mid(content.name);
   transceiver->internal()->set_mline_index(mline_index);
+  // Also store information to the sender and receiver about the DTLS
+  // transport object it's running on.
+  transceiver->internal()->sender_internal()->set_transport(
+      LookupDtlsTransportByMidInternal(content.name));
+  transceiver->internal()->receiver_internal()->set_transport(
+      LookupDtlsTransportByMidInternal(content.name));
   return std::move(transceiver);
 }
 
@@ -3442,6 +3448,11 @@ void PeerConnection::StopRtcEventLog() {
 
 rtc::scoped_refptr<DtlsTransportInterface>
 PeerConnection::LookupDtlsTransportByMid(const std::string& mid) {
+  return transport_controller_->LookupDtlsTransportByMid(mid);
+}
+
+rtc::scoped_refptr<DtlsTransport>
+PeerConnection::LookupDtlsTransportByMidInternal(const std::string& mid) {
   return transport_controller_->LookupDtlsTransportByMid(mid);
 }
 

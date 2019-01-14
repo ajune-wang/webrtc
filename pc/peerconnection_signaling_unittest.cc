@@ -108,6 +108,24 @@ class PeerConnectionSignalingBaseTest : public ::testing::Test {
     return wrapper;
   }
 
+  bool HasDtlsTransport(const WrapperPtr& pc_wrapper) {
+    bool has_transport = false;
+    auto transceivers = pc_wrapper->pc()->GetTransceivers();
+
+    for (auto& transceiver : transceivers) {
+      if (transceiver->sender()->dtls_transport()) {
+        EXPECT_TRUE(transceiver->receiver()->dtls_transport());
+        EXPECT_EQ(transceiver->sender()->dtls_transport().get(),
+                  transceiver->receiver()->dtls_transport().get());
+        has_transport = true;
+      } else {
+        // If one transceiver is missing, they all should be.
+        EXPECT_FALSE(has_transport);
+      }
+    }
+    return has_transport;
+  }
+
   std::unique_ptr<rtc::VirtualSocketServer> vss_;
   rtc::AutoSocketServerThread main_;
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
@@ -497,6 +515,33 @@ TEST_P(PeerConnectionSignalingTest, CreateOffersAndShutdown) {
     // was terminated. The offer creation may or may not have succeeded, but we
     // must have received a notification.
     EXPECT_TRUE(observer->called());
+  }
+}
+
+// Test that transports are shown in the transceiver API after offer/answer.
+// This only works in Unified Plan.
+TEST_P(PeerConnectionSignalingTest, DtlsTransportsInstantiateInOfferAnswer) {
+  if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
+    auto caller = CreatePeerConnectionWithAudioVideo();
+    auto callee = CreatePeerConnection();
+
+    EXPECT_FALSE(HasDtlsTransport(caller));
+    EXPECT_FALSE(HasDtlsTransport(callee));
+    auto offer = caller->CreateOffer(RTCOfferAnswerOptions());
+    caller->SetLocalDescription(CloneSessionDescription(offer.get()));
+    EXPECT_TRUE(HasDtlsTransport(caller));
+    callee->SetRemoteDescription(std::move(offer));
+    // According to spec, transports shouldn't be added to callee until
+    // after SetLocalDescription(answer).
+    // TODO(https://bugs.webrtc.org/tobefiled): Fix bug.
+    EXPECT_TRUE(HasDtlsTransport(callee));
+    auto answer = callee->CreateAnswer(RTCOfferAnswerOptions());
+    callee->SetLocalDescription(CloneSessionDescription(answer.get()));
+    EXPECT_TRUE(HasDtlsTransport(callee));
+    caller->SetRemoteDescription(std::move(answer));
+    EXPECT_TRUE(HasDtlsTransport(caller));
+
+    ASSERT_EQ(SignalingState::kStable, caller->signaling_state());
   }
 }
 

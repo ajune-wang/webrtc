@@ -99,6 +99,40 @@
       "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e72b870_cf69524b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-14T21:41:38Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be done in the VoiceChannel subclass?",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "479e1698_23a983ac",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-14T21:41:38Z",
+      "side": 1,
+      "message": "Maybe factor this out with the other MSG_FIRSTPACKETRECEIVED poster?",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

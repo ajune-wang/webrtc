@@ -23,6 +23,7 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/flags.h"
 #include "rtc_tools/event_log_visualizer/analyzer.h"
+#include "rtc_tools/event_log_visualizer/multilog_analyzer.h"
 #include "rtc_tools/event_log_visualizer/plot_base.h"
 #include "rtc_tools/event_log_visualizer/plot_protobuf.h"
 #include "rtc_tools/event_log_visualizer/plot_python.h"
@@ -200,7 +201,40 @@ WEBRTC_DEFINE_bool(protobuf_output,
                    false,
                    "Output charts as protobuf instead of python code.");
 
+WEBRTC_DEFINE_string(
+    second_log_filename,
+    "",
+    "Path to second RtcEventLog for combined ICE connectivity check plots.");
+
+WEBRTC_DEFINE_bool(plot_ice_combined_connectivity_checks,
+                   false,
+                   "Plot ICE candidate pair connectivity checks combined with "
+                   "events from <second_log_filename>");
+
 void SetAllPlotFlags(bool setting);
+
+void PlotCombinedPlots(
+    const webrtc::ParsedRtcEventLog::UnconfiguredHeaderExtensions&
+        header_extensions,
+    const webrtc::ParsedRtcEventLog& parsed_log,
+    webrtc::PlotCollection* collection) {
+  std::string second_filename = FLAG_second_log_filename;
+  if (second_filename.empty()) {
+    std::cerr << "--plot_ice_combined_connectivity_checks requires "
+                 "--second_log_filename=<second_filename>"
+              << std::endl;
+    return;
+  }
+
+  // Parse second log
+  webrtc::ParsedRtcEventLog second_log(header_extensions);
+  if (!second_log.ParseFile(second_filename)) {
+    std::cerr << "Could not parse the entire second log file." << std::endl;
+    std::cerr << "Only the parsable events will be analyzed." << std::endl;
+  }
+
+  webrtc::MultiEventLogAnalyzer analyzer(parsed_log, second_log);
+}
 
 int main(int argc, char* argv[]) {
   std::string program_name = argv[0];
@@ -480,6 +514,10 @@ int main(int argc, char* argv[]) {
   }
   if (FLAG_plot_dtls_writable_state) {
     analyzer.CreateDtlsWritableStateGraph(collection->AppendNewPlot());
+  }
+
+  if (FLAG_plot_ice_combined_connectivity_checks) {
+    PlotCombinedPlots(header_extensions, parsed_log, collection.get());
   }
 
   collection->Draw();

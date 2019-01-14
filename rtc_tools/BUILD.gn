@@ -241,6 +241,8 @@ if (!build_with_chromium) {
       sources = [
         "event_log_visualizer/analyzer.cc",
         "event_log_visualizer/analyzer.h",
+        "event_log_visualizer/multilog_analyzer.cc",
+        "event_log_visualizer/multilog_analyzer.h",
         "event_log_visualizer/plot_base.cc",
         "event_log_visualizer/plot_base.h",
         "event_log_visualizer/plot_protobuf.cc",

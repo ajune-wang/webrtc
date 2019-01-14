@@ -15,5 +15,4 @@
 // been updated to include the new path.
 
 #include "pc/jsep_transport_controller.h"
-
 #endif  // PC_JSEPTRANSPORTCONTROLLER_H_

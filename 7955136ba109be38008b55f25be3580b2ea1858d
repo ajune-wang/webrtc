@@ -45,6 +45,30 @@
       "revId": "7955136ba109be38008b55f25be3580b2ea1858d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e573e1b6_3ca49755",
+        "filename": "test/fuzzers/neteq_rtp_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-14T11:51:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fb0138e_e8fe45c2",
+      "range": {
+        "startLine": 139,
+        "startChar": 42,
+        "endLine": 139,
+        "endChar": 45
+      },
+      "revId": "7955136ba109be38008b55f25be3580b2ea1858d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

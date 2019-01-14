@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "4113630d_3e9f39d4",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:16:17Z",
+      "side": 1,
+      "message": "Since different users will set more or less persistent values here. So saying that it\u0027s only about experiment or trials wouldn\u0027t really match real world use.",
+      "parentUuid": "44740b4b_aea6ba02",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 18
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b16a1cb7_d133fa20",
         "filename": "api/transport/webrtc_config.h",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "57aee66f_b018b37f",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:16:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16a1cb7_d133fa20",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a784477_6bcf88f2",
         "filename": "api/transport/webrtc_config.h",
         "patchSetId": 4
@@ -82,6 +130,30 @@
       "writtenOn": "2019-01-14T13:08:07Z",
       "side": 1,
       "message": "How about having FindFullName return absl::optional\u003cstring\u003e if you dont like Enabled/Disabled methods and dont have them in this interface ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "110b1a459ba736a5770849136da1a2ae185851b5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b94db0b2_4b74dd00",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-14T14:16:17Z",
+      "side": 1,
+      "message": "Not really equivalent. I think these make sense to provide, they just don\u0027t belong in the interface, but should be put in some internal helper. But since introducing a helper is a larger change, I\u0027d rather postpone that to a later CL and just document that these are not intended for public use for now.",
+      "parentUuid": "5a784477_6bcf88f2",
       "range": {
         "startLine": 29,
         "startChar": 9,

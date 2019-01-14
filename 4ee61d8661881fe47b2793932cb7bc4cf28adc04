@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "a37e5f9e_667d5ee6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T23:23:54Z",
+      "side": 1,
+      "message": "Hmm, voice channel didn\u0027t have access to media transport, and init_w is not virtual... When you make Init_w virtual, all hell breaks loose... so I added OnInit_w called at the end of the actual base channel on init.",
+      "parentUuid": "7e72b870_cf69524b",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "479e1698_23a983ac",
         "filename": "pc/channel.cc",
         "patchSetId": 2
@@ -130,6 +148,24 @@
       "writtenOn": "2019-01-14T21:41:38Z",
       "side": 1,
       "message": "Maybe factor this out with the other MSG_FIRSTPACKETRECEIVED poster?",
+      "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4946c194_ce41bbb1",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-14T23:23:54Z",
+      "side": 1,
+      "message": "now that it\u0027s down in the VoiceChannel, I won\u0027t :) It\u0027s 2 lines (because even the condition is different), it will take more code to factor it...",
+      "parentUuid": "479e1698_23a983ac",
       "revId": "4ee61d8661881fe47b2793932cb7bc4cf28adc04",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

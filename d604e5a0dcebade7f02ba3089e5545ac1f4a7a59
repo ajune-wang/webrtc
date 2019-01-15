@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f221d2bd_4cad7598",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:55:52Z",
+      "side": 1,
+      "message": "Seems you should also reference bug 9308, since you\u0027re deleting a TODO that points to that.",
+      "revId": "d604e5a0dcebade7f02ba3089e5545ac1f4a7a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec44165d_f2fbbadc",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2499,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:55:52Z",
+      "side": 1,
+      "message": "Nit: This function is far more than a simple setter - it fires signals and sets other variables.\nIf not unreasonable, consider changing its name to SetWritable.",
+      "revId": "d604e5a0dcebade7f02ba3089e5545ac1f4a7a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cc62162_f77cb1a5",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3832,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:55:52Z",
+      "side": 1,
+      "message": "You shouldn\u0027t have to use _WAIT on these, since it\u0027s supposed to have happened already.",
+      "revId": "d604e5a0dcebade7f02ba3089e5545ac1f4a7a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

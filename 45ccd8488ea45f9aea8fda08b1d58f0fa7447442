@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ab99dad_ad247674",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3380,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-15T12:03:40Z",
+      "side": 1,
+      "message": "I think this is the only thing in this test calling anything interesting in the production code.\n\nThe calls to InjectVideoSinkWants are routed to FakeVideoCapturer. The expectations on frame size depends on adaptation as implemented in FakeVideoCapturer.\n\nSo what\u0027s the behaviour we really should be trying to test? What\u0027s the expected effect of setting options.is_screencast \u003d true?\n\nLooks like is_screencast is used in two places: In WebRtcVideoChannel::WebRtcVideoSendStream::GetDegradationPreference, passed to FakeVideoSendStream::SetSource. And in WebRtcVideoChannel::WebRtcVideoSendStream::CreateVideoEncoderConfig, with results passed to FakeCall::CreateVideoSendStream.\n\nTo me, it makes some sense for this test to check that expected values are passed to FakeCall and FakeVideoSendStrea, but not try to test the effect on the video source.",
+      "range": {
+        "startLine": 3379,
+        "startChar": 0,
+        "endLine": 3380,
+        "endChar": 70
+      },
+      "revId": "45ccd8488ea45f9aea8fda08b1d58f0fa7447442",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

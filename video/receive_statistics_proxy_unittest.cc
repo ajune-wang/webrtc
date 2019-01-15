@@ -1104,6 +1104,42 @@ TEST_P(ReceiveStatisticsProxyTest, FreezesAreReported) {
   }
 }
 
+TEST_P(ReceiveStatisticsProxyTest, HarmonicFrameRateIsReported) {
+  const VideoContentType content_type = GetParam();
+  const int kInterFrameDelayMs = 33;
+  const int kFreezeDelayMs = 200;
+  const int kCallDurationMs =
+      kMinRequiredSamples * kInterFrameDelayMs + kFreezeDelayMs;
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
+    statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, content_type);
+    statistics_proxy_->OnRenderedFrame(frame);
+    fake_clock_.AdvanceTimeMilliseconds(kInterFrameDelayMs);
+  }
+  // Add extra freeze.
+  fake_clock_.AdvanceTimeMilliseconds(kFreezeDelayMs);
+  statistics_proxy_->OnDecodedFrame(frame, absl::nullopt, content_type);
+  statistics_proxy_->OnRenderedFrame(frame);
+
+  statistics_proxy_.reset();
+  double kSumSquaredInterframeDelaysSecs =
+      (kMinRequiredSamples - 1) *
+      (kInterFrameDelayMs / 1000.0 * kInterFrameDelayMs / 1000.0);
+  kSumSquaredInterframeDelaysSecs +=
+      (kFreezeDelayMs + kInterFrameDelayMs) / 1000.0 *
+      (kFreezeDelayMs + kInterFrameDelayMs) / 1000.0;
+  const int kExpectedHarmonicFrameRateFps = static_cast<int>(
+      kCallDurationMs / (1000 * kSumSquaredInterframeDelaysSecs));
+  if (videocontenttypehelpers::IsScreenshare(content_type)) {
+    EXPECT_EQ(kExpectedHarmonicFrameRateFps,
+              metrics::MinSample("WebRTC.Video.Screenshare.HarmonicFrameRate"));
+  } else {
+    EXPECT_EQ(kExpectedHarmonicFrameRateFps,
+              metrics::MinSample("WebRTC.Video.HarmonicFrameRate"));
+  }
+}
+
 TEST_P(ReceiveStatisticsProxyTest, PausesAreIgnored) {
   const VideoContentType content_type = GetParam();
   const int kInterFrameDelayMs = 33;

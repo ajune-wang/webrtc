@@ -40,6 +40,14 @@ namespace webrtc {
 
 class RtcEventLog;
 
+class AudioPacketReceivedObserver {
+ public:
+  virtual ~AudioPacketReceivedObserver() = default;
+
+  // Invoked for the first received audio packet on a given channel id.
+  virtual void OnFirstAudioPacketReceived(int64_t channel_id) = 0;
+};
+
 // A collection of settings for creation of media transport.
 struct MediaTransportSettings final {
   MediaTransportSettings();
@@ -352,7 +360,8 @@ class DataChannelSink {
 // and receiving bandwidth estimate update from congestion control.
 class MediaTransportInterface {
  public:
-  virtual ~MediaTransportInterface() = default;
+  MediaTransportInterface();
+  virtual ~MediaTransportInterface();
 
   // Start asynchronous send of audio frame. The status returned by this method
   // only pertains to the synchronous operations (e.g.
@@ -386,6 +395,11 @@ class MediaTransportInterface {
   // pass a nullptr.
   virtual void SetReceiveVideoSink(MediaTransportVideoSinkInterface* sink) = 0;
 
+  // Removes an existing |observer| from observers. If observer was never
+  // registered, an error is logged and method does nothing.
+  virtual void RemoveTargetTransferRateObserver(
+      TargetTransferRateObserver* observer);
+
   // Adds a target bitrate observer. Before media transport is destructed
   // the observer must be unregistered (by calling
   // RemoveTargetTransferRateObserver).
@@ -394,10 +408,14 @@ class MediaTransportInterface {
   virtual void AddTargetTransferRateObserver(
       TargetTransferRateObserver* observer);
 
-  // Removes an existing |observer| from observers. If observer was never
-  // registered, an error is logged and method does nothing.
-  virtual void RemoveTargetTransferRateObserver(
-      TargetTransferRateObserver* observer);
+  // Sets audio packets observer, which gets informed about incoming audio
+  // packets. Before destruction, the observer must be unregistered by setting
+  // nullptr.
+  //
+  // This method may be temporary, when the multiplexer is implemented (or
+  // multiplexer may use it to demultiplex channel ids).
+  virtual void SetFirstAudioPacketReceivedObserver(
+      AudioPacketReceivedObserver* observer);
 
   // Intended for receive side. AddRttObserver registers an observer to be
   // called for each RTT measurement, typically once per ACK. Before media

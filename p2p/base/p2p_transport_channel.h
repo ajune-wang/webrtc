@@ -429,6 +429,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   uint32_t nomination_ = 0;
   bool receiving_ = false;
   bool writable_ = false;
+  bool has_been_writable_ = false;  // if writable_ has ever been true
 
   rtc::AsyncInvoker invoker_;
   absl::optional<rtc::NetworkRoute> network_route_;

@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46a8cf83_d310be5d",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "This seems like a bug if it happens and I think we should CHECK for it instead.",
+      "range": {
+        "startLine": 180,
+        "startChar": 3,
+        "endLine": 182,
+        "endChar": 57
+      },
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcebf78d_b3d413ab",
+        "filename": "test/scenario/network/fake_network_socket_server.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "merge the functions so this essentially becomes: (I still suggest moving the loop into fake socket though, as that would make the name more sensible, we can still release the lock there if needed.)\n\nwhile (io_processor-\u003eProcessIo()) {}",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 9
+      },
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1934fb3b_804f882f",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "This should be an int, since it\u0027s compared to an int below. There\u0027s no benefit in using uint16_t",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 12
+      },
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da50e301_dcee9484",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "redundant now, right?",
+      "range": {
+        "startLine": 166,
+        "startChar": 40,
+        "endLine": 166,
+        "endChar": 52
+      },
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d148f962_415423aa",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "You can use a macro to require that the lock is held when this is method called, do that instead.",
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d480fcc_0d46aaa1",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "ProcessNetworkPackets",
+      "range": {
+        "startLine": 116,
+        "startChar": 30,
+        "endLine": 116,
+        "endChar": 48
+      },
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14863cfe_9a38aeab",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "PacketProcessingInterval",
+      "revId": "1d3bf6f12a4b1211225a4d6fb1c007a096f06698",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "813ec3ab_e544e518",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "I think it makes sense to require that we only call ProcessIo from one thread. You can add a DCHECK here to catch if someone breaks that (or use a thread checker if you are paranoid)\n\nWe could move the socket and server to the same file and hide the socket implementation using forward declaration and/or an implementation namespace. That way we can be more confident that no one calls these internal apis externally.",
+      "parentUuid": "71c722bc_b78713fc",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 39
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16d99db9_a5b625d7",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 18
@@ -269,6 +293,24 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b98c395e_34576908",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T12:01:10Z",
+      "side": 1,
+      "message": "Ah ok, then I think it makes sense to include it now, makes it easier to understand the design. We can move it out when this is ready if you want to.",
+      "parentUuid": "5db1fa9f_b6981865",
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

@@ -501,7 +501,11 @@ size_t AudioEncoderOpusImpl::Num10MsFramesInNextPacket() const {
 }
 
 size_t AudioEncoderOpusImpl::Max10MsFramesInAPacket() const {
-  return Num10msFramesPerPacket();
+  return (*supported_frame_lengths_ms().cbegin()) * 10;
+}
+
+size_t AudioEncoderOpusImpl::Min10MsFramesInAPacket() const {
+  return (*supported_frame_lengths_ms().cend()) * 10;
 }
 
 int AudioEncoderOpusImpl::GetTargetBitrate() const {
@@ -622,14 +626,13 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     }
     const int overhead_bps = static_cast<int>(
         *overhead_bytes_per_packet_ * 8 * 100 / Num10MsFramesInNextPacket());
-    SetTargetBitrate(
-        std::min(AudioEncoderOpusConfig::kMaxBitrateBps,
-                 std::max(AudioEncoderOpusConfig::kMinBitrateBps,
-                          target_audio_bitrate_bps - overhead_bps)));
+
+    SetTargetBitrate(target_audio_bitrate_bps - overhead_bps);
   } else {
     SetTargetBitrate(target_audio_bitrate_bps);
   }
 }
+
 void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     int target_audio_bitrate_bps,
     absl::optional<int64_t> bwe_period_ms) {
@@ -829,10 +832,10 @@ void AudioEncoderOpusImpl::SetProjectedPacketLossRate(float fraction) {
   }
 }
 
-void AudioEncoderOpusImpl::SetTargetBitrate(int bits_per_second) {
-  config_.bitrate_bps = rtc::SafeClamp<int>(
-      bits_per_second, AudioEncoderOpusConfig::kMinBitrateBps,
-      AudioEncoderOpusConfig::kMaxBitrateBps);
+void AudioEncoderOpusImpl::SetTargetBitrate(int target_bps) {
+  config_.bitrate_bps =
+      rtc::SafeClamp<int>(target_bps, AudioEncoderOpusConfig::kMinBitrateBps,
+                          AudioEncoderOpusConfig::kMaxBitrateBps);
   RTC_DCHECK(config_.IsOk());
   RTC_CHECK_EQ(0, WebRtcOpus_SetBitRate(inst_, GetBitrateBps(config_)));
   const auto new_complexity = GetNewComplexity(config_);

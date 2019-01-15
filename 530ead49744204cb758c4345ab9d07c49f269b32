@@ -34,6 +34,24 @@
       "revId": "530ead49744204cb758c4345ab9d07c49f269b32",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ed8782c_df5cb552",
+        "filename": "audio/channel_receive.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-15T09:17:53Z",
+      "side": 1,
+      "message": "Deleting in cl https://webrtc-review.googlesource.com/c/src/+/117563.",
+      "parentUuid": "d1ae1080_c662ba7a",
+      "revId": "530ead49744204cb758c4345ab9d07c49f269b32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

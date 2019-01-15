@@ -47,7 +47,6 @@
 #include <errno.h>
 
 #include <list>
-#include <sstream>  // no-presubmit-check TODO(webrtc:8982)
 #include <string>
 #include <utility>
 
@@ -254,26 +253,6 @@ inline Val<LogArgType::kLogMetadataTag, LogMetadataTag> MakeVal(
   return {x};
 }
 #endif
-
-// Handle arbitrary types other than the above by falling back to stringstream.
-// TODO(bugs.webrtc.org/9278): Get rid of this overload when callers don't need
-// it anymore. No in-tree caller does, but some external callers still do.
-template <
-    typename T,
-    typename T1 =
-        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
-    typename std::enable_if<
-        std::is_class<T1>::value && !std::is_same<T1, std::string>::value &&
-        !std::is_same<T1, LogMetadata>::value &&
-#ifdef WEBRTC_ANDROID
-        !std::is_same<T1, LogMetadataTag>::value &&
-#endif
-        !std::is_same<T1, LogMetadataErr>::value>::type* = nullptr>
-Val<LogArgType::kStdString, std::string> MakeVal(const T& x) {
-  std::ostringstream os;  // no-presubmit-check TODO(webrtc:8982)
-  os << x;
-  return {os.str()};
-}
 
 void Log(const LogArgType* fmt, ...);
 

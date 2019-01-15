@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b68398c_476edcab",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-15T15:55:23Z",
+      "side": 1,
+      "message": "It\u0027s the clause \"for a given |channel_id|\" that looks like a restriction to me, but it seems it isn\u0027t.\n\nComment is clear enough now, but might be shortened to \"Invoked for each received audio packet\".",
+      "range": {
+        "startLine": 47,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "6dd840c0520f7848a1b654b2d0afc26c985f7b47",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

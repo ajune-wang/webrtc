@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0d8977ae_5ecefcd4",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:29:33Z",
+      "side": 1,
+      "message": "Unless I want to rewrite the stuff in the logging code that uses it, yes.",
+      "parentUuid": "6d1040fb_a21601e2",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f1af885_f6fe8e3b",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88bad9f4_cee3b7d2",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:29:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f1af885_f6fe8e3b",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7fb0a047_639fe273",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:29:33Z",
+      "side": 1,
+      "message": "Fixed bug instead.",
+      "parentUuid": "d6e81c7f_c31f23ad",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab724a1a_ff37eab8",
         "filename": "pc/peer_connection_signaling_unittest.cc",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45bfd08b_afeb5615",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T14:29:33Z",
+      "side": 1,
+      "message": "I test the case in layout tests (where an offer creates unbundled transports just in case bundling is rejected). The case I don\u0027t test in either case is the one where bundling is in fact rejected (because that requires a non-spec-compliant responder, which requires SDP editing to emulate).",
+      "parentUuid": "ab724a1a_ff37eab8",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d574f141_8f1b1390",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-15T22:27:07Z",
+      "side": 1,
+      "message": "The order of methods changed, rolled back :)",
+      "parentUuid": "c1490733_8a891ac7",
+      "revId": "9db8cd97dd8e704991d929b35c9045f084958979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0781e9d1_cd712dcf",
         "filename": "pc/channel.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "9db8cd97dd8e704991d929b35c9045f084958979",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b5be2e_ca68ff4d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-15T22:27:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0781e9d1_cd712dcf",
+      "revId": "9db8cd97dd8e704991d929b35c9045f084958979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

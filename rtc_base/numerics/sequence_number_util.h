@@ -81,6 +81,37 @@ struct DescendingSeqNumComp {
   bool operator()(T a, T b) const { return AheadOf<T, M>(b, a); }
 };
 
+template <typename T>
+inline typename std::enable_if<std::is_signed<T>::value, bool>::type 
+AddOverflow(T a, T b, T* result) {
+#if defined(_MSC_VER)
+  using UT = typename std::make_unsigned<T>::type;
+  UT a_shifted = static_cast<UT>(a) + std::numeric_limits<UT>::max() / 2 + 1u;
+  UT added = a_shifted + static_cast<UT>(b);
+  *result = a + b;
+  return (b <= 0) ^ (added <= a_shifted);
+#elif defined(__GNUC__)
+  return __builtin_add_overflow(a, b, result);
+#else
+  return __builtin_add_overflow(a, b, result);
+#endif
+}
+
+template <typename T>
+inline typename std::enable_if<std::is_unsigned<T>::value, bool>::type 
+AddOverflow(T a, T b, T* result) {
+#if defined(_MSC_VER)
+  *result = a + b;
+  return *result < a;
+#elif defined(__GNUC__)
+  return __builtin_add_overflow(a, b, result);
+#else
+  return __builtin_add_overflow(a, b, result);
+#endif
+}
+
+
+
 // A sequencer number unwrapper where the start value of the unwrapped sequence
 // can be set. The unwrapped value is not allowed to wrap.
 template <typename T, T M = 0>
@@ -92,35 +123,36 @@ class SeqNumUnwrapper {
       "Type unwrapped must be an unsigned integer smaller than uint64_t.");
 
  public:
-  // We want a default value that is close to 2^62 for a two reasons. Firstly,
-  // we can unwrap wrapping numbers in either direction, and secondly, the
-  // unwrapped numbers can be stored in either int64_t or uint64_t. We also want
-  // the default value to be human readable, which makes a power of 10 suitable.
-  static constexpr uint64_t kDefaultStartValue = 1000000000000000000UL;
+  static constexpr uint64_t kHalfUint64t =
+      std::numeric_limits<uint64_t>::max() / 2;
 
-  SeqNumUnwrapper() : last_unwrapped_(kDefaultStartValue) {}
-  explicit SeqNumUnwrapper(uint64_t start_at) : last_unwrapped_(start_at) {}
+  SeqNumUnwrapper() : last_unwrapped_(0) {}
+  explicit SeqNumUnwrapper(int64_t start_at) : last_unwrapped_(start_at) {}
 
-  uint64_t Unwrap(T value) {
+  int64_t Unwrap(T value) {
     if (!last_value_)
       last_value_.emplace(value);
 
-    uint64_t unwrapped = 0;
+    uint64_t last_unwrapped_shifted =
+        static_cast<uint64_t>(last_unwrapped_) + kHalfUint64t + 1;
+    int64_t diff;
     if (AheadOrAt<T, M>(value, *last_value_)) {
-      unwrapped = last_unwrapped_ + ForwardDiff<T, M>(*last_value_, value);
-      RTC_CHECK_GE(unwrapped, last_unwrapped_);
+      diff = ForwardDiff<T, M>(*last_value_, value);
+      RTC_CHECK_LE(last_unwrapped_shifted,
+                   last_unwrapped_shifted + static_cast<uint64_t>(diff));
     } else {
-      unwrapped = last_unwrapped_ - ReverseDiff<T, M>(*last_value_, value);
-      RTC_CHECK_LT(unwrapped, last_unwrapped_);
+      diff = -ReverseDiff<T, M>(*last_value_, value);
+      RTC_CHECK_GT(last_unwrapped_shifted,
+                   last_unwrapped_shifted + static_cast<uint64_t>(diff));
     }
 
     *last_value_ = value;
-    last_unwrapped_ = unwrapped;
+    last_unwrapped_ += diff;
     return last_unwrapped_;
   }
 
  private:
-  uint64_t last_unwrapped_;
+  int64_t last_unwrapped_;
   absl::optional<T> last_value_;
 };
 

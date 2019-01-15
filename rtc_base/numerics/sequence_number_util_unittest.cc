@@ -20,7 +20,7 @@ class TestSeqNumUtil : public ::testing::Test {
  protected:
   // Can't use std::numeric_limits<unsigned long>::max() since
   // MSVC doesn't support constexpr.
-  static const unsigned long ulmax = ~0ul;  // NOLINT
+  static const unsigned long ulmax = ~0l;  // NOLINT
 };
 
 TEST_F(TestSeqNumUtil, AheadOrAt) {
@@ -214,8 +214,8 @@ TEST_F(TestSeqNumUtil, SeqNumComparatorWithDivisor) {
 #if GTEST_HAS_DEATH_TEST
 #if !defined(WEBRTC_ANDROID)
 TEST(SeqNumUnwrapper, NoBackWardWrap) {
-  SeqNumUnwrapper<uint8_t> unwrapper(0);
-  EXPECT_EQ(0U, unwrapper.Unwrap(0));
+  SeqNumUnwrapper<uint8_t> unwrapper(std::numeric_limits<int64_t>::min());
+  EXPECT_EQ(std::numeric_limits<int64_t>::min(), unwrapper.Unwrap(0));
 
   // The unwrapped sequence is not allowed to wrap, if that happens the
   // SeqNumUnwrapper should have been constructed with a higher start value.
@@ -223,8 +223,8 @@ TEST(SeqNumUnwrapper, NoBackWardWrap) {
 }
 
 TEST(SeqNumUnwrapper, NoForwardWrap) {
-  SeqNumUnwrapper<uint32_t> unwrapper(std::numeric_limits<uint64_t>::max());
-  EXPECT_EQ(std::numeric_limits<uint64_t>::max(), unwrapper.Unwrap(0));
+  SeqNumUnwrapper<uint32_t> unwrapper(std::numeric_limits<int64_t>::max());
+  EXPECT_EQ(std::numeric_limits<int64_t>::max(), unwrapper.Unwrap(0));
 
   // The unwrapped sequence is not allowed to wrap, if that happens the
   // SeqNumUnwrapper should have been constructed with a lower start value.
@@ -234,59 +234,59 @@ TEST(SeqNumUnwrapper, NoForwardWrap) {
 #endif
 
 TEST(SeqNumUnwrapper, ForwardWrap) {
-  SeqNumUnwrapper<uint8_t> unwrapper(0);
-  EXPECT_EQ(0U, unwrapper.Unwrap(255));
-  EXPECT_EQ(1U, unwrapper.Unwrap(0));
+  SeqNumUnwrapper<uint8_t> unwrapper;
+  EXPECT_EQ(0, unwrapper.Unwrap(255));
+  EXPECT_EQ(1, unwrapper.Unwrap(0));
 }
 
 TEST(SeqNumUnwrapper, ForwardWrapWithDivisor) {
-  SeqNumUnwrapper<uint8_t, 33> unwrapper(0);
-  EXPECT_EQ(0U, unwrapper.Unwrap(30));
-  EXPECT_EQ(6U, unwrapper.Unwrap(3));
+  SeqNumUnwrapper<uint8_t, 33> unwrapper;
+  EXPECT_EQ(0, unwrapper.Unwrap(30));
+  EXPECT_EQ(6, unwrapper.Unwrap(3));
 }
 
 TEST(SeqNumUnwrapper, BackWardWrap) {
   SeqNumUnwrapper<uint8_t> unwrapper(10);
-  EXPECT_EQ(10U, unwrapper.Unwrap(0));
-  EXPECT_EQ(8U, unwrapper.Unwrap(254));
+  EXPECT_EQ(10, unwrapper.Unwrap(0));
+  EXPECT_EQ(8, unwrapper.Unwrap(254));
 }
 
 TEST(SeqNumUnwrapper, BackWardWrapWithDivisor) {
   SeqNumUnwrapper<uint8_t, 33> unwrapper(10);
-  EXPECT_EQ(10U, unwrapper.Unwrap(0));
-  EXPECT_EQ(8U, unwrapper.Unwrap(31));
+  EXPECT_EQ(10, unwrapper.Unwrap(0));
+  EXPECT_EQ(8, unwrapper.Unwrap(31));
 }
 
 TEST(SeqNumUnwrapper, Unwrap) {
-  SeqNumUnwrapper<uint16_t> unwrapper(0);
+  SeqNumUnwrapper<uint16_t> unwrapper;
   const uint16_t kMax = std::numeric_limits<uint16_t>::max();
   const uint16_t kMaxDist = kMax / 2 + 1;
 
-  EXPECT_EQ(0U, unwrapper.Unwrap(0));
+  EXPECT_EQ(0, unwrapper.Unwrap(0));
   EXPECT_EQ(kMaxDist, unwrapper.Unwrap(kMaxDist));
-  EXPECT_EQ(0U, unwrapper.Unwrap(0));
+  EXPECT_EQ(0, unwrapper.Unwrap(0));
 
   EXPECT_EQ(kMaxDist, unwrapper.Unwrap(kMaxDist));
   EXPECT_EQ(kMax, unwrapper.Unwrap(kMax));
-  EXPECT_EQ(kMax + 1U, unwrapper.Unwrap(0));
+  EXPECT_EQ(kMax + 1, unwrapper.Unwrap(0));
   EXPECT_EQ(kMax, unwrapper.Unwrap(kMax));
   EXPECT_EQ(kMaxDist, unwrapper.Unwrap(kMaxDist));
-  EXPECT_EQ(0U, unwrapper.Unwrap(0));
+  EXPECT_EQ(0, unwrapper.Unwrap(0));
 }
 
 TEST(SeqNumUnwrapper, UnwrapOddDivisor) {
   SeqNumUnwrapper<uint8_t, 11> unwrapper(10);
 
-  EXPECT_EQ(10U, unwrapper.Unwrap(10));
-  EXPECT_EQ(11U, unwrapper.Unwrap(0));
-  EXPECT_EQ(16U, unwrapper.Unwrap(5));
-  EXPECT_EQ(21U, unwrapper.Unwrap(10));
-  EXPECT_EQ(22U, unwrapper.Unwrap(0));
-  EXPECT_EQ(17U, unwrapper.Unwrap(6));
-  EXPECT_EQ(12U, unwrapper.Unwrap(1));
-  EXPECT_EQ(7U, unwrapper.Unwrap(7));
-  EXPECT_EQ(2U, unwrapper.Unwrap(2));
-  EXPECT_EQ(0U, unwrapper.Unwrap(0));
+  EXPECT_EQ(10, unwrapper.Unwrap(10));
+  EXPECT_EQ(11, unwrapper.Unwrap(0));
+  EXPECT_EQ(16, unwrapper.Unwrap(5));
+  EXPECT_EQ(21, unwrapper.Unwrap(10));
+  EXPECT_EQ(22, unwrapper.Unwrap(0));
+  EXPECT_EQ(17, unwrapper.Unwrap(6));
+  EXPECT_EQ(12, unwrapper.Unwrap(1));
+  EXPECT_EQ(7, unwrapper.Unwrap(7));
+  EXPECT_EQ(2, unwrapper.Unwrap(2));
+  EXPECT_EQ(0, unwrapper.Unwrap(0));
 }
 
 TEST(SeqNumUnwrapper, ManyForwardWraps) {
@@ -296,7 +296,7 @@ TEST(SeqNumUnwrapper, ManyForwardWraps) {
   SeqNumUnwrapper<uint16_t, kLargeNumber> unwrapper;
 
   uint16_t next_unwrap = 0;
-  uint64_t expected = decltype(unwrapper)::kDefaultStartValue;
+  int64_t expected = 0;
   for (int i = 0; i < kNumWraps * 2 + 1; ++i) {
     EXPECT_EQ(expected, unwrapper.Unwrap(next_unwrap));
     expected += kMaxStep;
@@ -311,12 +311,85 @@ TEST(SeqNumUnwrapper, ManyBackwardWraps) {
   SeqNumUnwrapper<uint16_t, kLargeNumber> unwrapper(kLargeNumber * kNumWraps);
 
   uint16_t next_unwrap = 0;
-  uint64_t expected = kLargeNumber * kNumWraps;
+  int64_t expected = kLargeNumber * kNumWraps;
   for (uint16_t i = 0; i < kNumWraps * 2 + 1; ++i) {
     EXPECT_EQ(expected, unwrapper.Unwrap(next_unwrap));
     expected -= kMaxStep;
     next_unwrap = (next_unwrap + kMaxStep + 1) % kLargeNumber;
   }
+}
+
+constexpr uint8_t kHalf = std::numeric_limits<uint8_t>::max() / 2;
+
+bool wrap1(int8_t a, int8_t b) {
+  uint8_t a_shifted = static_cast<uint8_t>(a) + kHalf + 1u;
+  uint8_t added = a_shifted + static_cast<uint8_t>(b);
+  return (b >= 0) ?  added < a_shifted : added > a_shifted;
+}
+
+bool wrap2(int8_t a, int8_t b) {
+  uint8_t a_shifted = static_cast<uint8_t>(a) + kHalf + 1u;
+  uint8_t added = a_shifted + static_cast<uint8_t>(b);
+  return (b <= 0) ^ (added <= a_shifted);
+}
+
+bool wrap3(int8_t a, int8_t b) {
+  int8_t added = a + b;
+  return b >= 0 ? added < a : added > a;
+}
+
+bool wrap4(int8_t a, int8_t b) {
+  int8_t added = a + b;
+  return (b <= 0) ^ (added <= a);
+}
+
+TEST(Wrap, Wut1) {
+  EXPECT_TRUE(wrap1(127, 1));
+  EXPECT_TRUE(wrap1(-128, -1));
+  EXPECT_FALSE(wrap1(126, 1));
+  EXPECT_FALSE(wrap1(127, 0));
+  EXPECT_FALSE(wrap1(-127, -1));
+  EXPECT_FALSE(wrap1(-128, 0));
+  EXPECT_FALSE(wrap1(-127, 127));
+
+  EXPECT_TRUE(wrap2(127, 1));
+  EXPECT_TRUE(wrap2(-128, -1));
+  EXPECT_FALSE(wrap2(126, 1));
+  EXPECT_FALSE(wrap2(127, 0));
+  EXPECT_FALSE(wrap2(-127, -1));
+  EXPECT_FALSE(wrap2(-128, 0));
+  EXPECT_FALSE(wrap2(-127, 127));
+
+  EXPECT_TRUE(wrap3(127, 1));
+  EXPECT_TRUE(wrap3(-128, -1));
+  EXPECT_FALSE(wrap3(126, 1));
+  EXPECT_FALSE(wrap3(127, 0));
+  EXPECT_FALSE(wrap3(-127, -1));
+  EXPECT_FALSE(wrap3(-128, 0));
+  EXPECT_FALSE(wrap3(-127, 127));
+
+  EXPECT_TRUE(wrap4(127, 1));
+  EXPECT_TRUE(wrap4(-128, -1));
+  EXPECT_FALSE(wrap4(126, 1));
+  EXPECT_FALSE(wrap4(127, 0));
+  EXPECT_FALSE(wrap4(-127, -1));
+  EXPECT_FALSE(wrap4(-128, 0));
+  EXPECT_FALSE(wrap4(-127, 127));
+}
+
+TEST(Wrap, Wut2) {
+  int8_t res;
+  EXPECT_FALSE(AddOverflow<int8_t>(5, 12, &res));
+  EXPECT_TRUE(AddOverflow<int8_t>(127, 1, &res));
+  EXPECT_TRUE(AddOverflow<int8_t>(-128, -1, &res));
+  EXPECT_FALSE(AddOverflow<int8_t>(-128, 0, &res));
+}
+
+TEST(Wrap, Wut3) {
+  uint8_t res;
+  EXPECT_FALSE(AddOverflow<uint8_t>(5, 12, &res));
+  EXPECT_FALSE(AddOverflow<uint8_t>(255, 0, &res));
+  EXPECT_TRUE(AddOverflow<uint8_t>(255, 1, &res));
 }
 
 }  // namespace webrtc

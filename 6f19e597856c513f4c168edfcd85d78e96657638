@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8710cff_1a2faaf5",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-15T19:38:30Z",
+      "side": 1,
+      "message": "Might be worth mentioning the lifetime expectations unless you want to use a shared ptr or similar.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "6f19e597856c513f4c168edfcd85d78e96657638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00a1d9c_de68303a",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3828,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-15T15:35:32Z",
+      "side": 1,
+      "message": "I think you have to wait for the first one, but both state transitions should happen at the same time, so you can use ASSERT_EQ for the second. No need to wait twice (and as a side benefit, you get to test that they do happen at the same time).\n\nThe pattern is repeated multiple times in this file.",
+      "revId": "82f237f994633f8927ce64a8c836e591dd617b73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

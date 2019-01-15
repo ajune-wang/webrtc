@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "00e2a268_0abebfc3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-15T15:36:38Z",
+      "side": 1,
+      "message": "I replaced with this-\u003e, looks nicer...:)",
+      "parentUuid": "f305e0b7_de163e2e",
+      "range": {
+        "startLine": 800,
+        "startChar": 6,
+        "endLine": 800,
+        "endChar": 19
+      },
+      "revId": "6f2856cf10f03a70c821e60c6f82f748b1c88b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4e342ce_aa04a98f",
         "filename": "pc/channel.h",
         "patchSetId": 4

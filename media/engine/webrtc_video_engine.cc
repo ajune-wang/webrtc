@@ -2511,6 +2511,9 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::GetVideoReceiverInfo(
   info.first_frame_received_to_decoded_ms =
       stats.first_frame_received_to_decoded_ms;
   info.interframe_delay_max_ms = stats.interframe_delay_max_ms;
+  info.num_freezes = stats.num_freezes;
+  info.mean_freeze_duration_ms = stats.mean_freeze_duration_ms;
+  info.mean_time_between_freezes_ms = stats.mean_time_between_freezes_ms;
 
   info.content_type = stats.content_type;
 

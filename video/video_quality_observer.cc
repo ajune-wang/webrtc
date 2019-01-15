@@ -227,4 +227,17 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
 void VideoQualityObserver::OnStreamInactive() {
   is_paused_ = true;
 }
+
+uint32_t VideoQualityObserver::GetNumFreezes() {
+  return freezes_durations_.NumSamples();
+}
+
+absl::optional<uint32_t> VideoQualityObserver::GetMeanFreezeDurationMs() {
+  return freezes_durations_.Avg(kMinRequiredSamples);
+}
+
+absl::optional<uint32_t> VideoQualityObserver::GetMeanTimeBetweenFreezesMs() {
+  return smooth_playback_durations_.Avg(kMinRequiredSamples);
+}
+
 }  // namespace webrtc

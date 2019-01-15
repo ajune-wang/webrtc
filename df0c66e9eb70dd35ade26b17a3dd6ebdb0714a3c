@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d4d1be0a_34ecdfc9",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2185,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-15T09:41:23Z",
+      "side": 1,
+      "message": "Correct, will delete. Comment from before double checking the video side code for parity.",
+      "parentUuid": "75612d1c_ae1b2f39",
+      "range": {
+        "startLine": 2185,
+        "startChar": 0,
+        "endLine": 2185,
+        "endChar": 65
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "653bee01_34457fb2",
         "filename": "media/engine/webrtc_voice_engine.cc",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-14T13:11:59Z",
       "side": 1,
       "message": "Does this mean we get an average from the start of the call until when FillBitrateInfo is used? In that case I think we need to make this windowed?",
+      "range": {
+        "startLine": 2187,
+        "startChar": 0,
+        "endLine": 2192,
+        "endChar": 60
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d700bcd8_a938b6c0",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2192,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-15T09:41:23Z",
+      "side": 1,
+      "message": "Hmm, you are right. I misread video code, thought it was average over call, but it actually seems to be in 1000 ms windows.",
+      "parentUuid": "653bee01_34457fb2",
       "range": {
         "startLine": 2187,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1ef198f_755dd7a2",
+        "filename": "pc/stats_collector.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-15T09:41:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e236b519_63ba1170",
+      "range": {
+        "startLine": 881,
+        "startChar": 0,
+        "endLine": 881,
+        "endChar": 47
+      },
+      "revId": "df0c66e9eb70dd35ade26b17a3dd6ebdb0714a3c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

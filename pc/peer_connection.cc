@@ -2106,6 +2106,12 @@ RTCError PeerConnection::ApplyLocalDescription(
     std::vector<rtc::scoped_refptr<RtpTransceiverInterface>> remove_list;
     std::vector<rtc::scoped_refptr<MediaStreamInterface>> removed_streams;
     for (auto transceiver : transceivers_) {
+      // 2.2.7.1.1.(6-9): Set sender and receiver's transport slots.
+      transceiver->internal()->sender_internal()->set_transport(
+          LookupDtlsTransportByMidInternal(*transceiver->mid()));
+      transceiver->internal()->receiver_internal()->set_transport(
+          LookupDtlsTransportByMidInternal(*transceiver->mid()));
+
       const ContentInfo* content =
           FindMediaSectionForTransceiver(transceiver, local_description());
       if (!content) {
@@ -3442,6 +3448,11 @@ void PeerConnection::StopRtcEventLog() {
 
 rtc::scoped_refptr<DtlsTransportInterface>
 PeerConnection::LookupDtlsTransportByMid(const std::string& mid) {
+  return transport_controller_->LookupDtlsTransportByMid(mid);
+}
+
+rtc::scoped_refptr<DtlsTransport>
+PeerConnection::LookupDtlsTransportByMidInternal(const std::string& mid) {
   return transport_controller_->LookupDtlsTransportByMid(mid);
 }
 

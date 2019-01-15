@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bdb3b8d9_6adc8b58",
+        "filename": "p2p/base/p2p_transport_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1901,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-01-15T14:10:18Z",
+      "side": 1,
+      "message": "I\u0027ve moved this block as ComputeIceTransportState now calls writable(), so we\u0027ll give it the freshest value.",
+      "range": {
+        "startLine": 1886,
+        "startChar": 2,
+        "endLine": 1901,
+        "endChar": 27
+      },
+      "revId": "9226ca00beed46636d002b16e62f83c8b84fbc85",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

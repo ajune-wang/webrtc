@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d98dbf7b_3c76f9d8",
+        "filename": "rtc_base/repeating_task.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "Shouldn\u0027t line 37 be run regardless of interval mode?",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "944b1e73_add8e0f8",
+        "filename": "rtc_base/repeating_task.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this comment---the one on line 46 is sufficient.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d559c343_0526f66b",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "Document that this is always finite, except for the special case where it\u0027s +inf to signal that the task should stop.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "affe69be_a6145a6c",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "themselves",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b4f305_16b35c07",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "\"you must stop one task before starting another\"\n\nHmm. Do you actually need the ability to re-use the handle for another task? The state diagram would be much simpler without it, and simplicity is a great asset in this sort of code.",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c261ba31_232bf635",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 18
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c050e3_8f013f51",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "Alternatively, (1) create a local unique_ptr foo that holds the task, (2) set repeating_task_ \u003d foo.get(), (3) call PostTask with std::move(foo). That way you always have a unique_ptr as owner, and don\u0027t have to explain that you\u0027re doing something tricky with ownership.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c804533_2bce045c",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "delayed",
+      "range": {
+        "startLine": 121,
+        "startChar": 21,
+        "endLine": 121,
+        "endChar": 27
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6a327fd_b70fc164",
+        "filename": "rtc_base/repeating_task_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "Don\u0027t we have a library function for sleeping? C++11 thread and std::chrono stuff is forbidden by the Chromium style guide IIRC.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62c7049c_f89a0fdb",
+        "filename": "rtc_base/repeating_task_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "kShortIntervalCount?",
+      "range": {
+        "startLine": 84,
+        "startChar": 28,
+        "endLine": 84,
+        "endChar": 29
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26d3efd5_de5fa774",
+        "filename": "video/overuse_frame_detector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-15T14:03:50Z",
+      "side": 1,
+      "message": "Would it make sense to allow Stop() even if the task isn\u0027t running?",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "655c3c21_01902d95",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "just replace with |this|\nremove analyzing_callback_ member.",
+      "range": {
+        "startLine": 82,
+        "startChar": 51,
+        "endLine": 82,
+        "endChar": 76
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68630d7e_444cdab0",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "Nit: maybe clear timestamp_to_frame_id_ and decoding_images_ here",
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1518eac2_e8b886da",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "Nit:\nBetter idea may be to return here something like \"AnalyzingDecoder(\"+delegate_-\u003eImplementationName()+\")\". To optimize you better generate this string in the constructor and return .c_str() member of it here.",
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1a2efc6_91b4dc38",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "This really irritates me. I can\u0027t find the guideline right now, but I think using a member lock from another class is a bad practice.\n\nEither make QualityAnalyzingVideoDecoder inherit DecodedImageCallback and merge two classes.\n\nOr add SetCallback() method to QualityAnalyzingVideoDecoder::DecoderCallback, move delegate_callback field to DecoderCallback class and add a lock there. Also, move private DecoderCallback::OnFrameDecoded() to QualityAnalyzingVideoDecoder, so it could access all the members directly. Alternatively, you can move all the state into DecoderCallback, and call some new method on callback class from QualityAnalyzingVideoDecoder::Decode() to populate the maps.\n\n\nSee, e.g. here: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/generic_encoder.cc\n\nGenericDecoder passes all the required information to callback instance before decoding is done by delegate decoder. Then callback has internal lock, and does what it needs with the state.",
+      "range": {
+        "startLine": 143,
+        "startChar": 22,
+        "endLine": 143,
+        "endChar": 38
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6133954a_c71a2e5b",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "will make a call to\nor\nwill call",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b85bd4cd_c88f01ad",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "at",
+      "range": {
+        "startLine": 48,
+        "startChar": 64,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e4d5c0d_8196fe51",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "being decoded\nor \ndecoded",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac099fd_d5cadc21",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "I feel there\u0027s an issue brewing here. In the future we are going to change the decoding stack so, in vp9 svc, case decoder would receive 3 separate encoded images for each spatial layer, all with the same id/timestamp.\n\nPlease add a spatial layer to the key here",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "096ffd42_d249d8ec",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "This is a tricky thing. You can get up-to 3 OnEncodedImage with the same timestamp for a single Encode() call for svc/simulcast case.\n\nSee generic_encoder.cc, there I had to do almost the same thing as you (I stored encode start instead of frame id): https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/generic_encoder.cc?sq\u003dpackage:chromium\u0026dr\u0026g\u003d0\u0026l\u003d216\n\nThere I had to get number of simulcast streams from the codec settings. Then I had separate list for each spatial layer/simulcast stream. \n\nAnd there\u0027s another problem here: you will need to parse set bitrate to understand if some layers are disabled. Because in that case callback will not be called for these layers for each Encode().",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 47
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e25779ac_ae30817c",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "at",
+      "range": {
+        "startLine": 46,
+        "startChar": 64,
+        "endLine": 46,
+        "endChar": 66
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166dba8c_b5490a50",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-15T14:46:24Z",
+      "side": 1,
+      "message": "The same problem here. Please either (1) merge callback with the encoder, or (2) move all the state to the callback (add there OnDecode() method then). Or (3) move all the processing to Encoder class and in the callback just bridge the calls.\n\nHaving a class, which works mostly with private members of another class just doesn\u0027t sit right with me.\n\nI think the second alternative is the best solution.\n\nSee generic_decoder.cc and generic_encoder.cc - they both use the second alternative.\n\nThe first alternative is multiple inheritance and some people discourage it. The third alternative is just first alternative disguised, actually.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 4
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

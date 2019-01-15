@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aae41155_4246cb32",
+        "filename": "api/task_queue/task_queue.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-15T09:25:14Z",
+      "side": 1,
+      "message": "Removed the default implementation for this virtual method.\nInitially I though it might be useful, but after converting libevent and gcd implementations of the task queue realize it helpful for all implementation to do the stopping in the Delete method, not in destructor.\n(e,g, gcd implementation become simpler when Delete method allowed to postpone deallocation)",
+      "parentUuid": "a064645d_29811cbd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "d78eafc159512d68962f242077ac411643db5bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7521a7e8_926c9b10",
         "filename": "api/task_queue/task_queue.h",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "54162544_47f7ffc2",
+        "filename": "api/task_queue/task_queue.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-15T09:25:14Z",
+      "side": 1,
+      "message": "probably shouldn\u0027t...\nhowever this class is more than an interface (and in follow up I plan to [temporary] add some state to it for backward compatibility).\nRenamed to TaskQueueBase",
+      "parentUuid": "7521a7e8_926c9b10",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 15
+      },
+      "revId": "d78eafc159512d68962f242077ac411643db5bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5dc9a0f6_5677b288",
         "filename": "api/task_queue/task_queue_factory.h",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "d78eafc159512d68962f242077ac411643db5bc4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f56c5c2_244f061b",
+        "filename": "api/task_queue/task_queue_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-15T09:25:14Z",
+      "side": 1,
+      "message": "this Deleter calls Delete method (that stops the TaskQueue but may postpone deallocation)\ndefault deleter calls delete operator (that enforces deallocation)",
+      "parentUuid": "5dc9a0f6_5677b288",
+      "range": {
+        "startLine": 27,
+        "startChar": 37,
+        "endLine": 27,
+        "endChar": 53
+      },
+      "revId": "d78eafc159512d68962f242077ac411643db5bc4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

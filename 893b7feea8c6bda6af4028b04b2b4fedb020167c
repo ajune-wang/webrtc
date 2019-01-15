@@ -257,6 +257,30 @@
       "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "351b0c2e_1be9367b",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f930546_6582f98e",
+      "range": {
+        "startLine": 832,
+        "startChar": 12,
+        "endLine": 832,
+        "endChar": 30
+      },
+      "revId": "893b7feea8c6bda6af4028b04b2b4fedb020167c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

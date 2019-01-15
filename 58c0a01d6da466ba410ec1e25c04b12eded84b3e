@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "40ba325e_b29bbfe0",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Not sure. I think 8 is good enough and other webrtc code use 8 * 1000 in multiple places to do similar conversion.",
+      "parentUuid": "eb024bee_8e5bbf9f",
+      "range": {
+        "startLine": 819,
+        "startChar": 40,
+        "endLine": 819,
+        "endChar": 41
+      },
+      "revId": "58c0a01d6da466ba410ec1e25c04b12eded84b3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed29902_3e90f961",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 11

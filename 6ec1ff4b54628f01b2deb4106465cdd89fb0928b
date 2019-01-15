@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "057e1e8e_7e46903e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c039307a_6964657d",
+      "range": {
+        "startLine": 11,
+        "startChar": 57,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc2a2d31_f461bf25",
         "filename": "/COMMIT_MSG",
         "patchSetId": 22
@@ -45,6 +69,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "846e5a1c_aa197da5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2a2d31_f461bf25",
+      "range": {
+        "startLine": 14,
+        "startChar": 74,
+        "endLine": 14,
+        "endChar": 92
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +166,54 @@
     },
     {
       "key": {
+        "uuid": "0744d8d1_b9b12dec",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02d566e7_633944f5",
+      "range": {
+        "startLine": 136,
+        "startChar": 14,
+        "endLine": 136,
+        "endChar": 59
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4807616_af4f4a78",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Correct, WebRTC-SendSideBwe-WithOverheadOptionMinMax is local to audio and it makes sense only when WebRTC-SendSideBwe-WithOverhead is enabled.\n\nAdded send_side_bwe_with_overhead_min_max \u003d send_side_bwe_with_overhead_ \u0026\u0026 webrtc::field_trial::IsEnabled(\"WebRTC-SendSideBwe-WithOverheadOptionMinMax\") to make it more clear that MinMax is an option.\n\nEventually I see MinMax option becoming default and field trial going away.",
+      "parentUuid": "850b0504_9333aef6",
+      "range": {
+        "startLine": 136,
+        "startChar": 34,
+        "endLine": 136,
+        "endChar": 58
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b37813d_94663734",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -138,6 +234,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54a4c362_2e7e9eaa",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "I will add SetMaxBitrate / SetMinBitrate APIs to encoder in a separate changelist.",
+      "parentUuid": "5b37813d_94663734",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 73
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "64f002d5_e2ac0c96",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7158acaf_1f5b24c3",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 448,
+        "endChar": 80
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "295d19df_6ff1f613",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -187,6 +331,30 @@
     },
     {
       "key": {
+        "uuid": "d45df265_fb9109e9",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "295d19df_6ff1f613",
+      "range": {
+        "startLine": 508,
+        "startChar": 35,
+        "endLine": 508,
+        "endChar": 41
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3db5b274_9bf02343",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -207,6 +375,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f519088_d7dee53d",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3db5b274_9bf02343",
+      "range": {
+        "startLine": 808,
+        "startChar": 32,
+        "endLine": 808,
+        "endChar": 41
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -256,6 +448,54 @@
     },
     {
       "key": {
+        "uuid": "7c78bc49_aece5056",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6fef224_af1680cf",
+      "range": {
+        "startLine": 812,
+        "startChar": 60,
+        "endLine": 812,
+        "endChar": 65
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4151cf0b_c7118d0a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09d5e9aa_f5fb46e4",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 812,
+        "endChar": 19
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db946852_3b042e56",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22
@@ -276,6 +516,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "923ddf21_ed2e1ccd",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Slightly changed wording.",
+      "parentUuid": "db946852_3b042e56",
+      "range": {
+        "startLine": 813,
+        "startChar": 6,
+        "endLine": 813,
+        "endChar": 56
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -348,6 +612,54 @@
     },
     {
       "key": {
+        "uuid": "83541f7b_4fa72b01",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14e7421e_bd7ff7fe",
+      "range": {
+        "startLine": 825,
+        "startChar": 35,
+        "endLine": 825,
+        "endChar": 48
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32dc5782_66ba93ac",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Yes this is equivalent to current code without MinMax option. Once we are comfortable with new MinMax option, we can remove old code and remove field trail (making MinMax option as default).",
+      "parentUuid": "fb4494e0_fae632fc",
+      "range": {
+        "startLine": 822,
+        "startChar": 3,
+        "endLine": 825,
+        "endChar": 75
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fdd5f5a4_cbb7eaa1",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 22
@@ -368,6 +680,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04961c2c_36725637",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "This is exactly what current implementation uses and it\u0027s used in legacy codepath without new field trial.",
+      "parentUuid": "fdd5f5a4_cbb7eaa1",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 46
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -489,6 +825,30 @@
     },
     {
       "key": {
+        "uuid": "743a6a47_cccaacfe",
+        "filename": "audio/audio_send_stream_unittest.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f6ca8a_48d8cda2",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 35
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05fe50b3_c7643fb1",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
         "patchSetId": 22
@@ -512,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "1ac89f47_5aca416e",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Yep the old code did not make sense. The new code relies on correct implementation, so I fixed it. If you prefer to move it to a separate CL, I can, let me know.",
+      "parentUuid": "05fe50b3_c7643fb1",
+      "range": {
+        "startLine": 503,
+        "startChar": 29,
+        "endLine": 503,
+        "endChar": 51
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc120a3d_e4364e56",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
         "patchSetId": 22
@@ -532,6 +916,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ba1d615_ab093f7d",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc120a3d_e4364e56",
+      "range": {
+        "startLine": 504,
+        "startChar": 15,
+        "endLine": 504,
+        "endChar": 26
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -581,6 +989,54 @@
     },
     {
       "key": {
+        "uuid": "42264301_76920d6a",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3834bc11_b7fb4d99",
+      "range": {
+        "startLine": 839,
+        "startChar": 48,
+        "endLine": 839,
+        "endChar": 70
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fc60dd4_75449b6a",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "994d029a_4027001f",
+      "range": {
+        "startLine": 839,
+        "startChar": 48,
+        "endLine": 839,
+        "endChar": 70
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73aac35e_c57fd60e",
         "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.h",
         "patchSetId": 22
@@ -601,6 +1057,30 @@
       "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05cb12eb_d5af2866",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-15T19:52:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73aac35e_c57fd60e",
+      "range": {
+        "startLine": 176,
+        "startChar": 28,
+        "endLine": 176,
+        "endChar": 50
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

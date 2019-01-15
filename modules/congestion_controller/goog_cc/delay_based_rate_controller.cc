@@ -14,7 +14,6 @@
 
 #include "absl/memory/memory.h"
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_delay_based.h"
-#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
@@ -25,7 +24,8 @@ constexpr double kDefaultTrendlineThresholdGain = 4.0;
 
 }  // namespace
 
-DelayBasedRateControllerConfig::DelayBasedRateControllerConfig()
+DelayBasedRateControllerConfig::DelayBasedRateControllerConfig(
+    const WebRtcConfig* webrtc_config)
     : enabled("Enabled"),
       no_ack_backoff_fraction("no_ack_frac", 0.8),
       no_ack_backoff_interval("no_ack_int", TimeDelta::ms(1000)),
@@ -38,20 +38,21 @@ DelayBasedRateControllerConfig::DelayBasedRateControllerConfig()
       min_increase_interval("int", TimeDelta::ms(100)),
       linear_increase_threshold("cut", DataRate::kbps(300)),
       reference_duration_offset("dur_offs", TimeDelta::ms(100)) {
-  ParseFieldTrial(
-      {&enabled, &no_ack_backoff_fraction, &no_ack_backoff_interval,
-       &ack_backoff_fraction, &probe_backoff_fraction, &initial_increase_rate,
-       &increase_rate, &stop_increase_after, &min_increase_interval,
-       &first_period_increase_rate, &linear_increase_threshold,
-       &reference_duration_offset},
-      field_trial::FindFullName("WebRTC-Bwe-DelayBasedRateController"));
+  ParseFieldTrial({&enabled, &no_ack_backoff_fraction, &no_ack_backoff_interval,
+                   &ack_backoff_fraction, &probe_backoff_fraction,
+                   &initial_increase_rate, &increase_rate, &stop_increase_after,
+                   &min_increase_interval, &first_period_increase_rate,
+                   &linear_increase_threshold, &reference_duration_offset},
+                  webrtc_config->Lookup("WebRTC-Bwe-DelayBasedRateController"));
 }
 DelayBasedRateControllerConfig::~DelayBasedRateControllerConfig() = default;
 
 DelayBasedRateController::DelayBasedRateController(
+    const WebRtcConfig* webrtc_config,
     RtcEventLog* event_log,
     TargetRateConstraints constraints)
-    : event_log_(event_log),
+    : conf_(webrtc_config),
+      event_log_(event_log),
       overuse_detector_(new TrendlineEstimator(kDefaultTrendlineWindowSize,
                                                kDefaultTrendlineSmoothingCoeff,
                                                kDefaultTrendlineThresholdGain)),

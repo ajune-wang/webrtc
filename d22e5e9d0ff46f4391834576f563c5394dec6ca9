@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b316b0a_39a3f51e",
+        "filename": "api/transport/field_trial_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-15T14:39:05Z",
+      "side": 1,
+      "message": "please update comment after name change.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 77
+      },
+      "revId": "d22e5e9d0ff46f4391834576f563c5394dec6ca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73d81b24_af228fb9",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-15T14:39:05Z",
+      "side": 1,
+      "message": "still think you should document what null means here.ie name the implementation used when nullptr.",
+      "range": {
+        "startLine": 44,
+        "startChar": 50,
+        "endLine": 44,
+        "endChar": 59
+      },
+      "revId": "d22e5e9d0ff46f4391834576f563c5394dec6ca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50b5cd6f_47cb58ec",
+        "filename": "api/transport/webrtc_config.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-01-15T14:39:05Z",
+      "side": 1,
+      "message": "rename the file accordingly and update all places where it is used. I think this is a good name.\nI would move the comment about the default implementation to network_config.h.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "d22e5e9d0ff46f4391834576f563c5394dec6ca9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

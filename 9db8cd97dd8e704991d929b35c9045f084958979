@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1490733_8a891ac7",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-01-15T19:02:10Z",
+      "side": 1,
+      "message": "Why do we need RemoveTargetTransferRateObserver in this changelist?",
+      "revId": "9db8cd97dd8e704991d929b35c9045f084958979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0781e9d1_cd712dcf",
+        "filename": "pc/channel.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-01-15T19:02:10Z",
+      "side": 1,
+      "message": "has_first_received_packet is not needed after you switched callback to FirstPacket?",
+      "revId": "9db8cd97dd8e704991d929b35c9045f084958979",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

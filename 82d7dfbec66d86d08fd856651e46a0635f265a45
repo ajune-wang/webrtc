@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71c722bc_b78713fc",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "In real world shouldn\u0027t. But from class definition A can ask HasIoToProcess() and receive true, but then before A will call to ProcessIo(), B can do it and process the last event, so A will call process on empty queue. So this check is done to make this case safe.",
+      "parentUuid": "582793dc_67e93b07",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 39
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16d99db9_a5b625d7",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 18
@@ -45,6 +69,30 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54739fc7_07077a18",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "As I can see on client side it will read single packet for single signal. So looks like if won\u0027t signal for each event, receiver won\u0027t read that data.",
+      "parentUuid": "16d99db9_a5b625d7",
+      "range": {
+        "startLine": 65,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0631d4c9_c2ac71d7",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "290cbef4_e96f8475",
+      "range": {
+        "startLine": 173,
+        "startChar": 4,
+        "endLine": 173,
+        "endChar": 26
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fa29b16_45750ea2",
         "filename": "test/scenario/network/network_emulation.cc",
         "patchSetId": 18
@@ -91,6 +163,30 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45af343_2d698aa3",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa29b16_45750ea2",
+      "range": {
+        "startLine": 163,
+        "startChar": 1,
+        "endLine": 174,
+        "endChar": 3
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "06fd0887_6a29c61e",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "423ab39f_cc1add8b",
+      "range": {
+        "startLine": 208,
+        "startChar": 1,
+        "endLine": 210,
+        "endChar": 37
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7768872f_2e83a069",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 18
@@ -131,6 +251,24 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5db1fa9f_b6981865",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "The plan was to do it in next CL.",
+      "parentUuid": "7768872f_2e83a069",
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "4a079ff1_40103a28",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1dfd9a6_a39fb34a",
+      "range": {
+        "startLine": 114,
+        "startChar": 30,
+        "endLine": 114,
+        "endChar": 43
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b008b713_70eebb73",
         "filename": "test/scenario/network/network_emulation_manager.h",
         "patchSetId": 18
@@ -171,6 +333,24 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ed6a45_daf107f4",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "It can be used to test case, when we have network interface, that is not connected to anything. If we will create a new one in route creation - we\u0027ll got different endpoint for single peer, when one is required. If we will change API to build bidirectional route - we won\u0027t be able to test cases, when we have only single direction from some interfaces.",
+      "parentUuid": "b008b713_70eebb73",
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -194,6 +374,30 @@
       "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5b55f17_7adad2dc",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-15T11:15:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93b4ca84_3414b7a6",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 74,
+        "endChar": 72
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

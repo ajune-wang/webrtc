@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8bb3e3ce_06aade94",
+        "filename": "pc/channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-15T00:00:35Z",
+      "side": 1,
+      "message": "Yep, otherwise it conficts with parameter to the method -- and I wanted to use the media transport assigned to the class member.",
+      "parentUuid": "7c7af323_8b7ecba9",
+      "range": {
+        "startLine": 800,
+        "startChar": 6,
+        "endLine": 800,
+        "endChar": 19
+      },
+      "revId": "6f2856cf10f03a70c821e60c6f82f748b1c88b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f4e342ce_aa04a98f",
         "filename": "pc/channel.h",
         "patchSetId": 4
@@ -39,6 +63,24 @@
       "revId": "6f2856cf10f03a70c821e60c6f82f748b1c88b08",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f75af4e_ff069853",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-15T00:00:35Z",
+      "side": 1,
+      "message": "it\u0027s private.... but sure. Not private anymore.",
+      "parentUuid": "f4e342ce_aa04a98f",
+      "revId": "6f2856cf10f03a70c821e60c6f82f748b1c88b08",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

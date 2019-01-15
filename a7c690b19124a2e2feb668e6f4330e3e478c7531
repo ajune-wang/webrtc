@@ -71,6 +71,54 @@
     },
     {
       "key": {
+        "uuid": "154c8c97_f3aaa0cb",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "That\u0027s not very useful in plotting etc, and it will lead to people re-implementing the sample rate conversion in many places, making it harder to fix when we have added logging of sample rates for audio. Added a comment on wrapping and made it double to hint that it\u0027s not trustworthy as a monotonically increasing timestamp.",
+      "parentUuid": "ee9de5a6_3e475388",
+      "range": {
+        "startLine": 471,
+        "startChar": 30,
+        "endLine": 471,
+        "endChar": 39
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f0573f0_c00767af",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54680ef8_d13608a0",
+      "range": {
+        "startLine": 471,
+        "startChar": 58,
+        "endLine": 471,
+        "endChar": 72
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11235359_3a1c4bd1",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 10
@@ -91,6 +139,30 @@
       "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6465ba0c_d9b84ac0",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11235359_3a1c4bd1",
+      "range": {
+        "startLine": 473,
+        "startChar": 66,
+        "endLine": 473,
+        "endChar": 75
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "cbef842e_aa397f93",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc4d1492_b35de2a4",
+      "range": {
+        "startLine": 476,
+        "startChar": 57,
+        "endLine": 476,
+        "endChar": 66
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b7df029_a61fe906",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 10
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "36a67c55_2382a4b5",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b7df029_a61fe906",
+      "range": {
+        "startLine": 481,
+        "startChar": 5,
+        "endLine": 481,
+        "endChar": 14
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc60e26_c4577bdf",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 10
@@ -160,6 +280,30 @@
       "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2309144c_f47268ac",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T13:08:10Z",
+      "side": 1,
+      "message": "That would be nice, and will be used as soon as we start reporting that (using the new feedback format) for now this is the best we can do. It\u0027s still somewhat useful, just less so.",
+      "parentUuid": "5fc60e26_c4577bdf",
+      "range": {
+        "startLine": 484,
+        "startChar": 5,
+        "endLine": 485,
+        "endChar": 33
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

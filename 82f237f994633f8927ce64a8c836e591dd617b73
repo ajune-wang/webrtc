@@ -16,6 +16,24 @@
       "revId": "82f237f994633f8927ce64a8c836e591dd617b73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb5673b9_0371b428",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3828,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-01-15T16:10:18Z",
+      "side": 1,
+      "message": "I\u0027ve tried doing that sort of optimization in the past and ended up with races(https://webrtc-review.googlesource.com/c/src/+/110441). The different states fire different signals so they can sometimes go out of sync for brief moments. \n\nThese particular WAITs didn\u0027t seem necessary when I ran the test locally, and the trybots haven\u0027t run into any problems (yet).",
+      "parentUuid": "d00a1d9c_de68303a",
+      "revId": "82f237f994633f8927ce64a8c836e591dd617b73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

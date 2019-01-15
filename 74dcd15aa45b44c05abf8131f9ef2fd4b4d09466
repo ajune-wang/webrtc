@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5723c4c8_cd78176b",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-15T12:17:37Z",
+      "side": 1,
+      "message": "AFAI understand, encoders are set up to encode to mono or stereo. They then can input any number of channels LESS OR EQUAL to whatever is the encoder config. An encoder cannot be set up to receive more channels than 2 (multistream works by running several mono or stereo encoders).\n\nThe multistream function applies the matching single-stream function on all streams.\n\nSo Force(Encoder(2), 1) works, \nForce(Encoder(1), 2) - error\nForce(Encoder(1), 0) - OK\nForce(Encoder(8), 3) - error because the 8-stream encoder is 4 stereo encoders.",
+      "parentUuid": "321459f8_44f886b3",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 77
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e557821e_1cfc4c09",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 16
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "0daebe57_5520cd83",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-15T12:17:37Z",
+      "side": 1,
+      "message": "Done. Got confused because this file is inconsistent.",
+      "parentUuid": "ec6236c5_ff4b2a57",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 32
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c530b77e_24e58ed5",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 16
@@ -82,6 +130,30 @@
       "writtenOn": "2019-01-03T11:35:43Z",
       "side": 1,
       "message": "is this still true with multistream encoder? I would think so, since encoded_bytes \u003d\u003d 1 || encoded_bytes \u003d\u003d 2 basically means that there is no payload generated, therefore leaving alone a table-of-contents (TOC). \n\nFor multistream case, if none of the streams generates payload, the combined packet should have a TOC only, but is the TOC still 1 or 2 bytes only.\n\nIt would also be interesting to understand how decoder behaves when some but not all streams runs into DTX.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 56
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc80196b_fbf6a1f1",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-15T12:17:37Z",
+      "side": 1,
+      "message": "I\u0027ve tried to understand this when I debugged the unit tests. The code refers to this RFC https://tools.ietf.org/html/rfc6716#appendix-B. The multistream format seems to be several packets after each-other, with 1-2 bytes telling how lange the current packet is. There is one packet for every stream. The last packet is just a normal single-stream Opus packet doesn\u0027t have this extra size in the beginning. This way there is backwards compatibility when there is only one stream. \nThe code for putting together the packets is here: https://cs.chromium.org/chromium/src/third_party/opus/src/src/repacketizer.c?q\u003dopus_repacketizer_out_range_impl\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d102\n\ngustaf@ is working on an Opus pull-request to get DTX info directly from the codec instead of looking at the packet size.\n\nI suggest landing this with an added TODO, and go back to this issue when there are DTX problems.",
+      "parentUuid": "c530b77e_24e58ed5",
       "range": {
         "startLine": 421,
         "startChar": 0,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "9b80873f_dd7f7b08",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-15T12:17:37Z",
+      "side": 1,
+      "message": "There is one in OpusSetMaxPlaybackRate. It shouldn\u0027t be possible to set up a multistream encoder where the single-stream encoders have different playback rates. Or, rather, it IS possible, but not with the WebRTC API.",
+      "parentUuid": "d1ffc56f_18097cd8",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 37
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3c380e1_82eb7d62",
         "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
         "patchSetId": 16
@@ -137,6 +233,30 @@
       "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d72d6e_1f8a3dba",
+        "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-15T12:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3c380e1_82eb7d62",
+      "range": {
+        "startLine": 791,
+        "startChar": 0,
+        "endLine": 791,
+        "endChar": 61
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

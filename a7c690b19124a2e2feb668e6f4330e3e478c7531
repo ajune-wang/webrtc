@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "752011fc_0b25b0d3",
+        "filename": "logging/rtc_event_log/logged_events.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-15T13:40:34Z",
+      "side": 1,
+      "message": "Our current unwrapper will handle (slightly) out of order packets.\n\nI don\u0027t understand what capture time in seconds mean if it wraps around at some unknown point. I would still prefer to either report the RTP timestamp raw and leave all conversion to the caller, or unwrap before converting to seconds.",
+      "parentUuid": "421be8cc_886a3251",
+      "range": {
+        "startLine": 30,
+        "startChar": 10,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "a7c690b19124a2e2feb668e6f4330e3e478c7531",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee9de5a6_3e475388",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 10

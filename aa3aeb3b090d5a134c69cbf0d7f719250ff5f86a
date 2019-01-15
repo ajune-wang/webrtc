@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e77ad1d8_ad621536",
+        "filename": "rtc_base/repeating_task.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "In excluding mode it\u0027s only used for stopping state. But semantically it makes some sense to keep updating it, so I moved it out.",
+      "parentUuid": "d98dbf7b_3c76f9d8",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "944b1e73_add8e0f8",
         "filename": "rtc_base/repeating_task.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c2b0d9dc_8a696163",
+        "filename": "rtc_base/repeating_task.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "944b1e73_add8e0f8",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d559c343_0526f66b",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "360d1fea_d117a598",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d559c343_0526f66b",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "aa204f5a_633f8ae2",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "affe69be_a6145a6c",
+      "range": {
+        "startLine": 84,
+        "startChar": 37,
+        "endLine": 84,
+        "endChar": 46
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71b4f305_16b35c07",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -87,6 +165,30 @@
       "writtenOn": "2019-01-15T14:03:50Z",
       "side": 1,
       "message": "\"you must stop one task before starting another\"\n\nHmm. Do you actually need the ability to re-use the handle for another task? The state diagram would be much simpler without it, and simplicity is a great asset in this sort of code.",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c213c3e_b654ab7c",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Not for another task, but for the same task again. In uses where a class has a Start() and Stop() method. I considered using some kind of unique_ptr semantics for this, but in practice, that just made everything more complex without really making anything more clear (we still need to handle the state of the unique_ptr). The state diagram is still simple enough, so I think it\u0027s fine.",
+      "parentUuid": "71b4f305_16b35c07",
       "range": {
         "startLine": 86,
         "startChar": 32,
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "6abec04f_831e5cb0",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c261ba31_232bf635",
+      "range": {
+        "startLine": 92,
+        "startChar": 6,
+        "endLine": 92,
+        "endChar": 18
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27c050e3_8f013f51",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -133,6 +259,24 @@
       "writtenOn": "2019-01-15T14:03:50Z",
       "side": 1,
       "message": "Alternatively, (1) create a local unique_ptr foo that holds the task, (2) set repeating_task_ \u003d foo.get(), (3) call PostTask with std::move(foo). That way you always have a unique_ptr as owner, and don\u0027t have to explain that you\u0027re doing something tricky with ownership.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "962ad9b0_54e8bef8",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "The comment is a leftover from a refactor, it\u0027s not needed here as it\u0027s implied by WrapUnique, so removed that.\n\nI tried that variant before. but I think it mostly made it more verbose without really clarifying anything. The wrapunique here also matches the one done when reposting the task nicely IMO.",
+      "parentUuid": "27c050e3_8f013f51",
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "5c25032d_e38f3d92",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c804533_2bce045c",
+      "range": {
+        "startLine": 121,
+        "startChar": 21,
+        "endLine": 121,
+        "endChar": 27
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6a327fd_b70fc164",
         "filename": "rtc_base/repeating_task_unittest.cc",
         "patchSetId": 4
@@ -173,6 +341,24 @@
       "writtenOn": "2019-01-15T14:03:50Z",
       "side": 1,
       "message": "Don\u0027t we have a library function for sleeping? C++11 thread and std::chrono stuff is forbidden by the Chromium style guide IIRC.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31101edc_6f5e5aa4",
+        "filename": "rtc_base/repeating_task_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "I found only SleepMs, but that can return early if there are system events. Added comments explaining that \u003cchrono\u003e and \u003cthread\u003e is not allowed in production. I figure it should be alright in test code?",
+      "parentUuid": "b6a327fd_b70fc164",
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -202,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "296c8f19_b28ba877",
+        "filename": "rtc_base/repeating_task_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62c7049c_f89a0fdb",
+      "range": {
+        "startLine": 84,
+        "startChar": 28,
+        "endLine": 84,
+        "endChar": 29
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26d3efd5_de5fa774",
         "filename": "video/overuse_frame_detector.cc",
         "patchSetId": 4
@@ -216,6 +426,24 @@
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6e1234_4ee2fffa",
+        "filename": "video/overuse_frame_detector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-15T15:14:14Z",
+      "side": 1,
+      "message": "Looking at the uses, it seems like it. Done!",
+      "parentUuid": "26d3efd5_de5fa774",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

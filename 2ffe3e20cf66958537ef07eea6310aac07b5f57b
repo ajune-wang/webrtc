@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d1040fb_a21601e2",
+        "filename": "api/dtls_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-15T13:13:30Z",
+      "side": 1,
+      "message": "Is kNumValues really needed?",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f1af885_f6fe8e3b",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-15T13:13:30Z",
+      "side": 1,
+      "message": "Can you make this a TEST_F since it\u0027s not applicable to Plan B?",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e81c7f_c31f23ad",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-15T13:13:30Z",
+      "side": 1,
+      "message": "Do file a bug.",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab724a1a_ff37eab8",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-15T13:13:30Z",
+      "side": 1,
+      "message": "There is also a case for setRemoteDescription(answer) where a transport might be assigned later (when bundling is used) that should be covered.",
+      "revId": "2ffe3e20cf66958537ef07eea6310aac07b5f57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

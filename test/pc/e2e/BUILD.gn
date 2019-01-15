@@ -14,6 +14,8 @@ group("e2e") {
   deps = [
     ":default_encoded_image_id_injector",
     ":encoded_image_id_injector_api",
+    ":id_generator",
+    ":quality_analyzing_video_decoder",
     ":single_process_encoded_image_id_injector",
   ]
 }
@@ -69,6 +71,35 @@ rtc_source_set("single_process_encoded_image_id_injector") {
     "../../../rtc_base:checks",
     "../../../rtc_base:criticalsection",
     "//third_party/abseil-cpp/absl/memory:memory",
+  ]
+}
+
+rtc_source_set("id_generator") {
+  visibility = [ "*" ]
+  sources = [
+    "analyzer/video/id_generator.cc",
+    "analyzer/video/id_generator.h",
+  ]
+  deps = []
+}
+
+rtc_source_set("quality_analyzing_video_decoder") {
+  visibility = [ "*" ]
+  sources = [
+    "analyzer/video/quality_analyzing_video_decoder.cc",
+    "analyzer/video/quality_analyzing_video_decoder.h",
+  ]
+  deps = [
+    ":encoded_image_id_injector_api",
+    ":id_generator",
+    "../../../api/video:encoded_image",
+    "../../../api/video_codecs:video_codecs_api",
+    "../../../modules/video_coding:video_codec_interface",
+    "../../../rtc_base:criticalsection",
+    "../../../rtc_base:logging",
+    "api:video_quality_analyzer_api",
+    "//third_party/abseil-cpp/absl/memory:memory",
+    "//third_party/abseil-cpp/absl/types:optional",
   ]
 }
 

@@ -22,6 +22,30 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9506348e_aceb434b",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-16T16:00:20Z",
+      "side": 1,
+      "message": "The file should only ever be accessed from one task queue. The check \"if (!debug_file_-\u003eis_open())\" on line 42 should be enough. That\u0027s because tasks are executed sequentially.",
+      "parentUuid": "53948daa_45014eb9",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

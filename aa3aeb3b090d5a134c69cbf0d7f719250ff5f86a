@@ -201,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "831f358c_f2e7cf8c",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T09:57:44Z",
+      "side": 1,
+      "message": "But the API you\u0027ve made doesn\u0027t say anything about the same task again. It even requires the caller to supply the task each time.",
+      "parentUuid": "4c213c3e_b654ab7c",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -277,6 +301,24 @@
       "side": 1,
       "message": "The comment is a leftover from a refactor, it\u0027s not needed here as it\u0027s implied by WrapUnique, so removed that.\n\nI tried that variant before. but I think it mostly made it more verbose without really clarifying anything. The wrapunique here also matches the one done when reposting the task nicely IMO.",
       "parentUuid": "27c050e3_8f013f51",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ca8466_40f3c6a6",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T09:57:44Z",
+      "side": 1,
+      "message": "\u003e The comment is a leftover from a refactor, it\u0027s not needed here as it\u0027s implied by WrapUnique, so removed that.\n\nAck.\n\n\u003e I tried that variant before. but I think it mostly made it more verbose without really clarifying anything.\n\nI find there\u0027s great value in never ever having raw pointer own stuff. When reading code, it\u0027s a great help to know that since there\u0027s always a unique_ptr holding ownership, the compiler has your back and will tell you if there are mistakes.\n\nThat said, if you still feel it\u0027s easier to read this way, OK. It *is* fewer steps.\n\n\u003e The wrapunique here also matches the one done when reposting the task nicely IMO.\n\nYes, but that one is forced by our API, which forces the caller to hold ownership in a raw pointer when calling Run(). Not a great example to emulate.",
+      "parentUuid": "962ad9b0_54e8bef8",
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -362,6 +404,24 @@
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed8d99c_ba6ad588",
+        "filename": "rtc_base/repeating_task_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T09:57:44Z",
+      "side": 1,
+      "message": "Hmm, I guess so.",
+      "parentUuid": "31101edc_6f5e5aa4",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

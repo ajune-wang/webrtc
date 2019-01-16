@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "bff08d32_db882ff5",
+        "filename": "logging/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-16T14:16:41Z",
+      "side": 1,
+      "message": "This seems like quite a large dependency to add for an enum. Do you think it\u0027s worth it to avoid translation between the two enums?",
+      "range": {
+        "startLine": 424,
+        "startChar": 8,
+        "endLine": 424,
+        "endChar": 40
+      },
+      "revId": "3da21ab8d365971672353dedbee5fd56bee488cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ceafd7af_7dd21f8c",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 7

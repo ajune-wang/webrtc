@@ -225,6 +225,30 @@
     },
     {
       "key": {
+        "uuid": "7a29659a_8062afdf",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T11:01:26Z",
+      "side": 1,
+      "message": "I mean that the current use case for restarting a task is to restart with an identical task. From the handles point of view it\u0027s not a requirement that it\u0027s identical.\n\nIf we believe that there\u0027s a risk for bugs due to starting with a different task by accident I guess it would make sense to make it so it\u0027s only possible to restart the task, not call start again with a new (potentially identical) task.\n\nHowever, that would increase the number of states for the class, now we have two states: Running and Stopped. Then we would have three: Not started, Running and Started but stopped. I also think it could be a bit complicated ownership wise. (We would have to keep the task alive even after stopping it, in case we want to restart it)\n\nBut maybe I\u0027m misinterpreting your suggestion?",
+      "parentUuid": "831f358c_f2e7cf8c",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -322,6 +346,24 @@
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "734dcd4c_bd5a1f7b",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T11:01:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4ca8466_40f3c6a6",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

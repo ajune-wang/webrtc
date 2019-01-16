@@ -69,6 +69,30 @@
       "revId": "bc1b27a6f9f54466a9d9a684ffb09e621b600df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "caca0bbe_0f556f5a",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-16T19:36:11Z",
+      "side": 1,
+      "message": "Good question, I don\u0027t know but it comes directly from the CL that checked in the BUILD.gn file https://codereview.webrtc.org/2037983002.\n\nI suspect Chromium wants to use its own implementation but after a quick search I didn\u0027t find anything. Let\u0027s try to remove in another CL?",
+      "parentUuid": "5fb95754_d85e11e3",
+      "range": {
+        "startLine": 353,
+        "startChar": 1,
+        "endLine": 358,
+        "endChar": 3
+      },
+      "revId": "bc1b27a6f9f54466a9d9a684ffb09e621b600df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1639c39f_f80e6e24",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T13:20:07Z",
+      "side": 1,
+      "message": "I\u0027m not following the grammar. Am I allowed to call tq.PostTask() and tq.PostDelayTask() (but no other methods) on a task queue tq after I\u0027ve called tq.Delete()?",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

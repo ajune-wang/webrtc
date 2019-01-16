@@ -22,6 +22,53 @@
       "revId": "bc1b27a6f9f54466a9d9a684ffb09e621b600df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c89d72_d2919fd8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-16T19:24:54Z",
+      "side": 1,
+      "message": "Everything is related. But good point!",
+      "parentUuid": "09fa3498_6d4fe799",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "bc1b27a6f9f54466a9d9a684ffb09e621b600df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fb95754_d85e11e3",
+        "filename": "media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-16T19:24:54Z",
+      "side": 1,
+      "message": "BTW, why is this switch here?",
+      "range": {
+        "startLine": 353,
+        "startChar": 1,
+        "endLine": 358,
+        "endChar": 3
+      },
+      "revId": "bc1b27a6f9f54466a9d9a684ffb09e621b600df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

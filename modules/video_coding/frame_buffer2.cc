@@ -167,6 +167,7 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
           frame->SetRenderTime(
               timing_->RenderTimeMs(frame->Timestamp(), now_ms));
         }
+
         wait_ms = timing_->MaxWaitingTime(frame->RenderTime(), now_ms);
 
         // This will cause the frame buffer to prefer high framerate rather
@@ -189,39 +190,44 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
     rtc::CritScope lock(&crit_);
     now_ms = clock_->TimeInMilliseconds();
     std::vector<EncodedFrame*> frames_out;
+
+    bool superframe_delayed_by_retransmission = false;
+    bool had_bad_render_time = false;
+    size_t superframe_size = 0;
+    int64_t receive_time_ms = 0;
+    int32_t timestamp = 0;
+    int64_t correct_render_time_ms = 0;
+
     for (FrameMap::iterator& frame_it : frames_to_decode_) {
       RTC_DCHECK(frame_it != frames_.end());
       EncodedFrame* frame = frame_it->second.frame.release();
 
-      if (!frame->delayed_by_retransmission()) {
-        int64_t frame_delay;
-
-        if (inter_frame_delay_.CalculateDelay(frame->Timestamp(), &frame_delay,
-                                              frame->ReceivedTime())) {
-          jitter_estimator_->UpdateEstimate(frame_delay, frame->size());
-        }
-
-        float rtt_mult = protection_mode_ == kProtectionNackFEC ? 0.0 : 1.0;
-        if (RttMultExperiment::RttMultEnabled()) {
-          rtt_mult = RttMultExperiment::GetRttMultValue();
-        }
-        timing_->SetJitterDelay(jitter_estimator_->GetJitterEstimate(rtt_mult));
-        timing_->UpdateCurrentDelay(frame->RenderTime(), now_ms);
-      } else {
-        if (RttMultExperiment::RttMultEnabled() ||
-            webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay"))
-          jitter_estimator_->FrameNacked();
-      }
-
-      // Gracefully handle bad RTP timestamps and render time issues.
-      if (HasBadRenderTiming(*frame, now_ms)) {
-        jitter_estimator_->Reset();
-        timing_->Reset();
+      // Render time might be unset on spatial higher layers yet.
+      if (frame->RenderTime() == -1) {
         frame->SetRenderTime(timing_->RenderTimeMs(frame->Timestamp(), now_ms));
       }
 
-      UpdateJitterDelay();
-      UpdateTimingFrameInfo();
+      superframe_delayed_by_retransmission |=
+          frame->delayed_by_retransmission();
+      timestamp = frame->Timestamp();
+      receive_time_ms = std::max(receive_time_ms, frame->ReceivedTime());
+      superframe_size += frame->size();
+
+      // Gracefully handle bad RTP timestamps and render time issues.
+      if (HasBadRenderTiming(*frame, now_ms) && !had_bad_render_time) {
+        had_bad_render_time = true;
+        jitter_estimator_->Reset();
+        timing_->Reset();
+        correct_render_time_ms =
+            timing_->RenderTimeMs(frame->Timestamp(), now_ms);
+      }
+
+      if (had_bad_render_time) {
+        frame->SetRenderTime(correct_render_time_ms);
+      } else {
+        correct_render_time_ms = frame->RenderTime();
+      }
+
       PropagateDecodability(frame_it->second);
 
       decoded_frames_history_.InsertDecoded(frame_it->first,
@@ -232,6 +238,29 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
 
       frames_out.push_back(frame);
     }
+
+    if (!superframe_delayed_by_retransmission) {
+      int64_t frame_delay;
+
+      if (inter_frame_delay_.CalculateDelay(timestamp, &frame_delay,
+                                            receive_time_ms)) {
+        jitter_estimator_->UpdateEstimate(frame_delay, superframe_size);
+      }
+
+      float rtt_mult = protection_mode_ == kProtectionNackFEC ? 0.0 : 1.0;
+      if (RttMultExperiment::RttMultEnabled()) {
+        rtt_mult = RttMultExperiment::GetRttMultValue();
+      }
+      timing_->SetJitterDelay(jitter_estimator_->GetJitterEstimate(rtt_mult));
+      timing_->UpdateCurrentDelay(correct_render_time_ms, now_ms);
+    } else {
+      if (RttMultExperiment::RttMultEnabled() ||
+          webrtc::field_trial::IsEnabled("WebRTC-AddRttToPlayoutDelay"))
+        jitter_estimator_->FrameNacked();
+    }
+
+    UpdateJitterDelay();
+    UpdateTimingFrameInfo();
 
     if (!frames_out.empty()) {
       if (frames_out.size() == 1) {

@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -137,6 +138,10 @@ class Plot {
                          float bottom_margin = 0,
                          float top_margin = 0);
 
+  // Sets a mapping from float values to strings for diplaying categorical
+  // variables on the y-axis.
+  void SetYAxisCategories(std::unordered_map<float, std::string> category_map);
+
   // Sets the title of the plot.
   void SetTitle(std::string title);
 
@@ -160,6 +165,7 @@ class Plot {
   std::string title_;
   std::vector<TimeSeries> series_list_;
   std::vector<IntervalSeries> interval_list_;
+  std::unordered_map<float, std::string> yaxis_categories_;
 };
 
 class PlotCollection {

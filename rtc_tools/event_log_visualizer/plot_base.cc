@@ -66,6 +66,11 @@ void Plot::SetSuggestedYAxis(float min_value,
   SetYAxis(min_value, max_value, label, bottom_margin, top_margin);
 }
 
+void Plot::SetYAxisCategories(
+    std::unordered_map<float, std::string> category_map) {
+  yaxis_categories_ = category_map;
+}
+
 void Plot::SetTitle(std::string title) {
   title_ = title;
 }

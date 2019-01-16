@@ -13,6 +13,11 @@ message DataSet {
   bool highlight_points = 5;
 }
 
+message CategoryMap {
+  repeated float encodings = 1;
+  repeated string categories = 2;
+}
+
 message Chart {
   repeated DataSet data_sets = 1;
   float xaxis_min = 2;
@@ -22,6 +27,8 @@ message Chart {
   float yaxis_max = 6;
   string yaxis_label = 7;
   string title = 8;
+
+  CategoryMap yaxis_categories = 9;
 }
 
 message ChartCollection {

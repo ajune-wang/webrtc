@@ -51,6 +51,15 @@ void ProtobufPlot::ExportProtobuf(webrtc::analytics::Chart* chart) {
     data_set->set_label(series_list_[i].label);
   }
 
+  if (!yaxis_categories_.empty()) {
+    webrtc::analytics::CategoryMap* categories =
+        chart->mutable_yaxis_categories();
+    for (const auto& kv : yaxis_categories_) {
+      categories->add_encodings(kv.first);
+      categories->add_categories(kv.second);
+    }
+  }
+
   chart->set_xaxis_min(xaxis_min_);
   chart->set_xaxis_max(xaxis_max_);
   chart->set_yaxis_min(yaxis_min_);

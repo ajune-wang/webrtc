@@ -22,6 +22,30 @@
       "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1958c3d5_51308899",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-16T14:39:05Z",
+      "side": 1,
+      "message": "Yep, use case is race between repeating task and TaskQueue Delete:\nmain thread calls Delete.\nsame time Repeatable task reposts itself to the task queue (not beeing aware Delete is just called).\nIt should be fine as long as that repost is done on the queue itself.\nDelete should ensure freshly posted task will not run but will be deleted (sooner or later).\n\n(Delete can\u0027t be called twice, Current/IsCurrent are always safe to call, so the only method that are not trivial are PostTask/PostDelayedTask. however it seems bad idea to name them explicitly. note is about potential races during destruction, not about posting tasks)\n\nI removed this sentence and incorporate the note into sentence below. hope it is less confusing this way.",
+      "parentUuid": "1639c39f_f80e6e24",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

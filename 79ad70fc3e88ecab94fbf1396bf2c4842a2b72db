@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8f99de69_dfce34ba",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-16T16:47:32Z",
+      "side": 1,
+      "message": "debug_file_-\u003eClose() is called after this. There should be no tasks in the queue by then.",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 19
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2
@@ -61,6 +84,30 @@
       "side": 1,
       "message": "could very well be a race. I\u0027m not sure if solving it in the FileWrapper class is the right approach though. Sounds good to get someone familiar with the two places where Close() is called and comment. It would be nice if we could reduce it to a single place.",
       "parentUuid": "53948daa_45014eb9",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67be688a_a316df1b",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-16T16:47:32Z",
+      "side": 1,
+      "message": "Aouch, missed that the file owner also calls close. But it should still be fine: when the ~AecDumpImpl d-tor is called, it blocks until all tasks are finished. Only after that ~FileWrapper is called. So there is no race.",
+      "parentUuid": "38494aa2_72a728fe",
       "range": {
         "startLine": 52,
         "startChar": 0,

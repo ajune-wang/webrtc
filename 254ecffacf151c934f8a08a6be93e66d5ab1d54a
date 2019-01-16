@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d08c4e79_90e0b338",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 0,
+      "message": "nice!",
+      "revId": "254ecffacf151c934f8a08a6be93e66d5ab1d54a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

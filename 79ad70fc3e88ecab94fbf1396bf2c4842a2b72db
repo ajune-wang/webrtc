@@ -46,6 +46,132 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38494aa2_72a728fe",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "could very well be a race. I\u0027m not sure if solving it in the FileWrapper class is the right approach though. Sounds good to get someone familiar with the two places where Close() is called and comment. It would be nice if we could reduce it to a single place.",
+      "parentUuid": "53948daa_45014eb9",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6c1415_40c15354",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "what about replacing these checks with RTC_DCHECK(file_); ?",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58e27fe4_8f64396d",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "would prefer dchecking in these situations too",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44431714_8922fbf8",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "for this particular case (Close()), I\u0027m fine with checking file_. For the other methods, I\u0027d consider it programmer error if we\u0027re trying to read from or write to a file handle that\u0027s not valid.",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286d147d_8903f146",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "personally I\u0027d prefer this approach. The accessor could even be called is_valid().\n\nBeing able to do both of:\n\n  if (!FileWrapper::Open(...)) {}\n\nand \n\n  auto fw \u003d FileWrapper::Open();\n\ncould be confusing.",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b357d54_9bd3b5e9",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "is Flush() used? (just curious)",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b649e8_8dd7227a",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-16T16:05:29Z",
+      "side": 1,
+      "message": "nit: Could rephrase this as \"Seeks to the beginning of the file\". Rewind is both the name of the function and the description, so the docs aren\u0027t that helpful. Also, makes it feel like we\u0027re dealing with tape storage :)",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c037b418_aad0b8c2",
+        "filename": "api/rtc_error.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-16T11:15:21Z",
+      "side": 1,
+      "message": "Good point, done (there are probably other instances of this in the codebase).",
+      "parentUuid": "160d64c4_fc939c89",
+      "revId": "e4239b1a2a759d892b70263115d0de2758160072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88d1c471_270cc150",
         "filename": "api/rtc_error.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "e4239b1a2a759d892b70263115d0de2758160072",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e3ee4c0_2010f971",
+        "filename": "api/rtc_error.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-16T11:15:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88d1c471_270cc150",
+      "revId": "e4239b1a2a759d892b70263115d0de2758160072",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

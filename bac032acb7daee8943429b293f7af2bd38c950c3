@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f3b15e6_ff2b5f0b",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T12:13:02Z",
+      "side": 1,
+      "message": "Excellent. In addition to never having raw pointers own things, it\u0027s now very obvious that we\u0027re explicitly saving a raw pointer to the task before giving it away.",
+      "revId": "bac032acb7daee8943429b293f7af2bd38c950c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

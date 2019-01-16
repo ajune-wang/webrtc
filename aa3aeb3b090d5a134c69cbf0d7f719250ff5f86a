@@ -249,6 +249,30 @@
     },
     {
       "key": {
+        "uuid": "9b61c8e7_4028bd5a",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T12:13:02Z",
+      "side": 1,
+      "message": "I was thinking of something like having only (1) constructors or create functions that create the handle and start the task, and (2) a method that stops the task. Then there would be two states, Running and Stopped, and we would never transition from Stopped back to Running. Users that want to restart things would simply use a new handle.",
+      "parentUuid": "7a29659a_8062afdf",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4

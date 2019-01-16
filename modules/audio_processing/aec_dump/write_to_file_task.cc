@@ -49,7 +49,7 @@ bool WriteToFileTask::Run() {
   const size_t event_byte_size = event_.ByteSizeLong();
 
   if (!IsRoomForNextEvent(event_byte_size)) {
-    debug_file_->CloseFile();
+    debug_file_->Close();
     return true;
   }
 

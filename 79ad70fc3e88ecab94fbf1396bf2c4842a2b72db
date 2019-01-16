@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53948daa_45014eb9",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-16T15:16:21Z",
+      "side": 1,
+      "message": "I wonder if this implies a race, since this cl deletes a lock. Close here modifies the pointer debug_file_-\u003efile_. The owner of the file (AecDumpImpl) also calls Close.\n\nCan we ensure that debug_file_ (including the file_, its only member) is never written to during the lifetime of the task queue? \n\nThis class could have a separate bool, or set debug_file_ \u003d nullptr, to say that it shouldn\u0027t write any more data, instead of calling Close.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

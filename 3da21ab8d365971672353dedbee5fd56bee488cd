@@ -16,6 +16,40 @@
       "revId": "3da21ab8d365971672353dedbee5fd56bee488cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc7a474c_f5cedf4d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2117,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-16T14:01:33Z",
+      "side": 1,
+      "message": "This also needs to be done at ApplyRemoteDescription in case the transport changes due to BUNDLE.",
+      "revId": "3da21ab8d365971672353dedbee5fd56bee488cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d6cb90_1c3bb46b",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-16T14:01:33Z",
+      "side": 1,
+      "message": "Add test coverage for BUNDLE, the transports might change at setRemoteDescription per-spec.",
+      "revId": "3da21ab8d365971672353dedbee5fd56bee488cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

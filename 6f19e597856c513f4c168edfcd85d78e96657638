@@ -22,6 +22,30 @@
       "revId": "6f19e597856c513f4c168edfcd85d78e96657638",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3ef1e1_5b77ca7a",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T07:48:51Z",
+      "side": 1,
+      "message": "We don\u0027t usually document lifetimes in that way systematically, the assumption is that callers should always expect that a raw pointer will be used for the duration of the object created from factory functions and constructors. If the lifetime is actually shorter, we generally would use a const reference function argument.\n\nI do think a shared_ptr would be very appropriate here, but sadly we don\u0027t allow those.",
+      "parentUuid": "a8710cff_1a2faaf5",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 28
+      },
+      "revId": "6f19e597856c513f4c168edfcd85d78e96657638",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

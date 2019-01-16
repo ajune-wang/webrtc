@@ -345,6 +345,30 @@
     },
     {
       "key": {
+        "uuid": "f9dec924_88b4f2c9",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T16:10:51Z",
+      "side": 1,
+      "message": "I made it movable in the way you suggested in the last CL (without exclusive mode)",
+      "parentUuid": "128ae9ef_583bcf74",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4

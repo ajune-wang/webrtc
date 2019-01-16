@@ -40,6 +40,11 @@ class VideoQualityObserver {
 
   void OnStreamInactive();
 
+  uint32_t NumFreezes();
+  absl::optional<uint32_t> MeanFreezeDurationMs();
+  absl::optional<uint32_t> MeanTimeBetweenFreezesMs();
+  uint32_t HarmonicFrameRateFps();
+
  private:
   void UpdateHistograms();
 

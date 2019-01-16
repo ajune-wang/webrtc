@@ -121,14 +121,11 @@ void VideoQualityObserver::UpdateHistograms() {
     log_stream << uma_prefix << ".NumberFreezesPerMinute "
                << num_freezes_per_minute << "\n";
 
-    if (sum_squared_interframe_delays_secs_ > 0.0) {
-      int harmonic_framerate_fps = std::round(
-          video_duration_ms / (1000 * sum_squared_interframe_delays_secs_));
-      RTC_HISTOGRAM_COUNTS_SPARSE_100(uma_prefix + ".HarmonicFrameRate",
-                                      harmonic_framerate_fps);
-      log_stream << uma_prefix << ".HarmonicFrameRate "
-                 << harmonic_framerate_fps << "\n";
-    }
+    uint32_t harmonic_framerate_fps = HarmonicFrameRateFps();
+    RTC_HISTOGRAM_COUNTS_SPARSE_100(uma_prefix + ".HarmonicFrameRate",
+                                    harmonic_framerate_fps);
+    log_stream << uma_prefix << ".HarmonicFrameRate " << harmonic_framerate_fps
+               << "\n";
   }
   RTC_LOG(LS_INFO) << log_stream.str();
 }
@@ -241,4 +238,27 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
 void VideoQualityObserver::OnStreamInactive() {
   is_paused_ = true;
 }
+
+uint32_t VideoQualityObserver::NumFreezes() {
+  return freezes_durations_.NumSamples();
+}
+
+absl::optional<uint32_t> VideoQualityObserver::MeanFreezeDurationMs() {
+  return freezes_durations_.Avg(kMinRequiredSamples);
+}
+
+absl::optional<uint32_t> VideoQualityObserver::MeanTimeBetweenFreezesMs() {
+  return smooth_playback_durations_.Avg(kMinRequiredSamples);
+}
+
+uint32_t VideoQualityObserver::HarmonicFrameRateFps() {
+  int64_t video_duration_ms =
+      last_frame_rendered_ms_ - first_frame_rendered_ms_;
+  if (video_duration_ms > 0 && sum_squared_interframe_delays_secs_ > 0.0) {
+    return std::round(video_duration_ms /
+                      (1000 * sum_squared_interframe_delays_secs_));
+  }
+  return 0;
+}
+
 }  // namespace webrtc

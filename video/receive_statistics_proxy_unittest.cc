@@ -28,6 +28,7 @@ const int64_t kFreqOffsetProcessIntervalInMs = 40000;
 const uint32_t kLocalSsrc = 123;
 const uint32_t kRemoteSsrc = 456;
 const int kMinRequiredSamples = 200;
+const int kMinFrameSamplesToDetectFreeze = 5;
 const int kWidth = 1280;
 const int kHeight = 720;
 
@@ -235,6 +236,44 @@ TEST_F(ReceiveStatisticsProxyTest, ReportInterframeDelayInWindow) {
   // Now the first sample is out of the window, so the second is the maximum.
   EXPECT_EQ(kInterframeDelayMs2,
             statistics_proxy_->GetStats().interframe_delay_max_ms);
+}
+
+TEST_F(ReceiveStatisticsProxyTest, ReportsFreezeMetrics) {
+  const int64_t kFrameDurationMs = 10;
+  const int64_t kFreezeDurationMs = 1000;
+  const int kCallDurationMs =
+      kMinFrameSamplesToDetectFreeze * kFrameDurationMs + kFreezeDurationMs;
+
+  VideoReceiveStream::Stats stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(0u, stats.num_freezes);
+  EXPECT_FALSE(stats.mean_freeze_duration_ms);
+  EXPECT_FALSE(stats.mean_time_between_freezes_ms);
+  EXPECT_EQ(0u, stats.harmonic_framerate_fps);
+
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  for (int i = 0; i < kMinFrameSamplesToDetectFreeze; ++i) {
+    fake_clock_.AdvanceTimeMilliseconds(kFrameDurationMs);
+    statistics_proxy_->OnRenderedFrame(frame);
+  }
+
+  // Freeze.
+  fake_clock_.AdvanceTimeMilliseconds(1000);
+  statistics_proxy_->OnRenderedFrame(frame);
+
+  stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(1u, stats.num_freezes);
+  EXPECT_EQ(kFreezeDurationMs, stats.mean_freeze_duration_ms);
+  EXPECT_EQ((kMinFrameSamplesToDetectFreeze - 1) * kFrameDurationMs,
+            stats.mean_time_between_freezes_ms);
+
+  double kSumSquaredInterframeDelaysSecs =
+      (kMinRequiredSamples - 1) *
+      (kFrameDurationMs / 1000.0 * kFrameDurationMs / 1000.0);
+  kSumSquaredInterframeDelaysSecs +=
+      kFreezeDurationMs / 1000.0 * kFreezeDurationMs / 1000.0;
+  const uint32_t kExpectedHarmonicFrameRateFps =
+      std::round(kCallDurationMs / (1000 * kSumSquaredInterframeDelaysSecs));
+  EXPECT_EQ(kExpectedHarmonicFrameRateFps, stats.harmonic_framerate_fps);
 }
 
 TEST_F(ReceiveStatisticsProxyTest, OnDecodedFrameWithoutQpQpSumWontExist) {

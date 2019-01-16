@@ -532,6 +532,10 @@ struct VideoReceiverInfo : public MediaReceiverInfo {
   uint32_t frames_rendered = 0;
   absl::optional<uint64_t> qp_sum;
   int64_t interframe_delay_max_ms = -1;
+  uint32_t num_freezes = 0;
+  absl::optional<uint32_t> mean_freeze_duration_ms;
+  absl::optional<uint32_t> mean_time_between_freezes_ms;
+  uint32_t harmonic_framerate_fps = 0;
 
   webrtc::VideoContentType content_type = webrtc::VideoContentType::UNSPECIFIED;
 

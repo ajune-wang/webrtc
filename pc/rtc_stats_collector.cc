@@ -521,6 +521,20 @@ ProduceMediaStreamTrackStatsFromVideoReceiverInfo(
                 video_receiver_info.frames_rendered);
   video_track_stats->frames_dropped = video_receiver_info.frames_received -
                                       video_receiver_info.frames_rendered;
+  video_track_stats->num_freezes = video_receiver_info.num_freezes;
+  if (video_receiver_info.mean_freeze_duration_ms) {
+    video_track_stats->mean_freeze_duration =
+        static_cast<double>(*video_receiver_info.mean_freeze_duration_ms) /
+        rtc::kNumMillisecsPerSec;
+  }
+  if (video_receiver_info.mean_time_between_freezes_ms) {
+    video_track_stats->mean_time_between_freezes =
+        static_cast<double>(*video_receiver_info.mean_time_between_freezes_ms) /
+        rtc::kNumMillisecsPerSec;
+  }
+  video_track_stats->harmonic_framerate =
+      video_receiver_info.harmonic_framerate_fps;
+
   return video_track_stats;
 }
 

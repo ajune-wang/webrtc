@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6bcc601_f46fead5",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-16T10:31:57Z",
+      "side": 1,
+      "message": "Since you moved everything else to the Decoder class, you can move delegate_callback_ there too.\n\nThis way you will eliminate extra lock, and frame processing path would be completely linear, instead of frame being modified by OnFrameDecoder and then passed further by DecoderCallback::Decoded()",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 61
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

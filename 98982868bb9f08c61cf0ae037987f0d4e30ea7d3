@@ -330,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "1a00ce7d_fdc0e489",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-16T10:31:57Z",
+      "side": 1,
+      "message": "This is still an issue. You need to store all of possibly 3 encoded images with the same timestamp/id in this map. But the returned decoded VideoFrame doesn\u0027t have any spatial layer info. You can assume that EncodedImages are consumed in order of increasing SL, so you can remove them in order for each decoded callback call. Or you can remove all 3 images one you receive VideoFrame with the next id or later timestamp.",
+      "parentUuid": "dac099fd_d5cadc21",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "096ffd42_d249d8ec",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 3

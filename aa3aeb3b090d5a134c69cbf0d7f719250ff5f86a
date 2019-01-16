@@ -297,6 +297,30 @@
     },
     {
       "key": {
+        "uuid": "63841f28_46e243c9",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T15:04:13Z",
+      "side": 1,
+      "message": "\u003e But the new handle would need a new scope as well, something we usually don\u0027t have. We could work around this by putting into a unique_ptr, but then we are essentially back to the situation of having two states, either a nullptr or a handle instance. I also don\u0027t want to rely on the destructor of the handle to stop the task as that\u0027s not always what we want to do.\n\nNot necessarily a new scope. You can overwrite an existing handle:\n\n  task_ \u003d RepeatingTask::Start(kIncludingExecution, []{Foo(17); return 4711;});\n  ...\n  task_.Stop();\n  task_ \u003d RepeatingTask::Start(kIncludingExecution, []{Bar(\"baz\"); return 17;});\n\n\u003e I\u0027d like to not make the interface and usage overly complicated (with unique_ptr, moves, etc), having two possible states for the handle seems like a reasonable tradeoff. If it\u0027s confusing, maybe there\u0027s something we can add to the documentation?",
+      "parentUuid": "4104b36d_cd6209f5",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -341,6 +365,23 @@
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaa0cdb_e5a87bc9",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-16T15:04:13Z",
+      "side": 1,
+      "message": "Hmm. Is it obvious which of the two is the default? Consider forcing callers to spell it out.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

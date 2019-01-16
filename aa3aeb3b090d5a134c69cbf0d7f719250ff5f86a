@@ -321,6 +321,30 @@
     },
     {
       "key": {
+        "uuid": "128ae9ef_583bcf74",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T15:52:26Z",
+      "side": 1,
+      "message": "We still would need to have two states right? Maybe we can land this as is, and then you can create a CL with your suggestions on how to improve it?",
+      "parentUuid": "63841f28_46e243c9",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -379,6 +403,24 @@
       "writtenOn": "2019-01-16T15:04:13Z",
       "side": 1,
       "message": "Hmm. Is it obvious which of the two is the default? Consider forcing callers to spell it out.",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9a903a_53067165",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-16T15:52:26Z",
+      "side": 1,
+      "message": "I just realized that the only place we actually use the exclusive mode is in the overuse checker task, and that is called with a 5 second interval, meaning that the difference excluding execution time makes would be minimal in comparison. do you agree that it makes sense to remove the exclusive interval mode in light of that?",
+      "parentUuid": "5aaa0cdb_e5a87bc9",
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

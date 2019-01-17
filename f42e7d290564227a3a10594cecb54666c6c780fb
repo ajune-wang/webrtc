@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "9a568dfe_e7ad6a7c",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537c3a0b_aef90f70",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b826435f_bc73c6f6",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 5
@@ -82,6 +100,30 @@
     },
     {
       "key": {
+        "uuid": "9a701ae4_a7a639bb",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "267e6609_ce2fa57e",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f6781fc_558092c5",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 5
@@ -93,6 +135,24 @@
       "writtenOn": "2019-01-17T10:31:01Z",
       "side": 1,
       "message": "How is the caller supposed to tell them apart? It seems like something ~every caller would want to do.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "927bdc61_cf5805f9",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "This class is generally very poor at error handling; e.g., there\u0027s no documented way to get the error code.\n\nThe proper way to use fread is to first check for short item count. Then, if it was short, call one of feof or ferror, to find out if it\u0027s eof or error. If it\u0027s an error, then check errno, and use strerror (or better, strerror_r, since strerror isn\u0027t thread safe) to produce a human-friendly error string.\n\nBefore this cl, Read() could return -1, but only did in the case of null file_.\n\nCould change it to return something like a std::pair\u003csize_t, int\u003e where the second value is a non-zero errno value on failure. Or we could use RTCError, although mapping errno values to RTCErrorType looks awkward. But I\u0027d prefer to leave as is for now, since no current callers seem to care.",
+      "parentUuid": "5f6781fc_558092c5",
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -116,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "c628713c_7d43d52f",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "Yes. For functions returning bool for success/fail indication, I really hope true is success everywhere.",
+      "parentUuid": "177334fc_0c67dacc",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96f2d27c_f0915378",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 5
@@ -127,6 +205,24 @@
       "writtenOn": "2019-01-17T10:31:01Z",
       "side": 1,
       "message": "Should these two take ArrayViews instead of separate pointer and lengths? That would fit nicely with the `size` and `count` arguments to std::fread/std::fwrite, and we could even static_assert that the element type is trivially copyable.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da4f4f94_52624130",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "Templateized on the T in ArrayView\u003cT\u003e, you mean? Maybe, but then we move beyond a \"simple\" wrapper. Can we consider that when we refactor some caller of these class?\n\nI\u0027ve rarely used size !\u003d 1 to fread or fwrite.",
+      "parentUuid": "96f2d27c_f0915378",
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

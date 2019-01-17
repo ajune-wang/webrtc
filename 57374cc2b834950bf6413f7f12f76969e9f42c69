@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "367bc964_806b90f2",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T11:51:57Z",
+      "side": 1,
+      "message": "We ought to close file_ first, to not leak it? (If we used a unique_ptr\u003cFILE, delete_by_fclose\u003e, we wouldn\u0027t need to think about that).\n\nAnd what was the status of self-assignment, that\u0027s not required to leave the object intact?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "57374cc2b834950bf6413f7f12f76969e9f42c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

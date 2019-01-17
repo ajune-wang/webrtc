@@ -159,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "3230410c_39b71554",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T12:57:07Z",
+      "side": 1,
+      "message": "Do any current callers check the other return values? And if not, should we keep them?",
+      "parentUuid": "927bdc61_cf5805f9",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "177334fc_0c67dacc",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 5
@@ -188,6 +206,24 @@
       "side": 1,
       "message": "Yes. For functions returning bool for success/fail indication, I really hope true is success everywhere.",
       "parentUuid": "177334fc_0c67dacc",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "297a0608_72781b45",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T12:57:07Z",
+      "side": 1,
+      "message": "I meant that the text should probably say that the \"otherwise false\" case means there was an error.",
+      "parentUuid": "c628713c_7d43d52f",
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -226,6 +262,24 @@
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b0ba421_80e1607c",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T12:57:07Z",
+      "side": 1,
+      "message": "I would contend that the wrapper would still be simple:\n\n  static_assert(std::is_trivially_copyable\u003cT\u003e::value, \"\");\n  std::fwrite(buf.data(), sizeof(T), buf.size(), stream_);\n\nBut sure, we can save it for later.",
+      "parentUuid": "da4f4f94_52624130",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

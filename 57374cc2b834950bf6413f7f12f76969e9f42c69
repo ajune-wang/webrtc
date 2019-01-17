@@ -22,6 +22,30 @@
       "revId": "57374cc2b834950bf6413f7f12f76969e9f42c69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fbbaf28_e1a0a568",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T12:57:07Z",
+      "side": 1,
+      "message": "\u003e We ought to close file_ first, to not leak it? (If we used a unique_ptr\u003cFILE, delete_by_fclose\u003e, we wouldn\u0027t need to think about that).\n\nYes and yes. I don\u0027t have a strong opinion on whether doing that is worth it or not, but it seems to be sensible.\n\n\u003e And what was the status of self-assignment, that\u0027s not required to leave the object intact?\n\nSelf copy assignment needs to work, but not self move assignment: https://isocpp.org/wiki/faq/assignment-operators#self-assignment-how",
+      "parentUuid": "367bc964_806b90f2",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "57374cc2b834950bf6413f7f12f76969e9f42c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

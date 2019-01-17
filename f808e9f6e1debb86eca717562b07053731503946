@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8aa5c012_5f1fa2d5",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T13:00:48Z",
+      "side": 1,
+      "message": "If I get this right, it clips GetPacketizationOverheadRate to the interval (0.5, 1)*encoder_target_rate_bps_. That doesn\u0027t seem right? I\u0027d expect\n\n  std::max(GetPacketizationOverheadRate(), encoder_target_rate_bps_ / 2)",
+      "range": {
+        "startLine": 645,
+        "startChar": 0,
+        "endLine": 647,
+        "endChar": 38
+      },
+      "revId": "f808e9f6e1debb86eca717562b07053731503946",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

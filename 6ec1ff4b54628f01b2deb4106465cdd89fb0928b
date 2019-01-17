@@ -850,6 +850,30 @@
     },
     {
       "key": {
+        "uuid": "c529dab5_783a019d",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-17T17:58:06Z",
+      "side": 1,
+      "message": "I think the right solution is to make AudioSendStream an overhead observer as already suggested in\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/audio/channel_send.cc?rcl\u003d83ed89a45f4578ca07efef48e772b9aafb263163\u0026l\u003d1181\n\n// TODO(solenberg): Make AudioSendStream an OverheadObserver instead.\n\nThis will make all overheads available in AudioSendStream and also consolidate AudioNetworkAdaptor logic in AudioSendStream (i.e. updating overhead for AudioNetworkAdaptor will be also in AudioSendStream).\n\nSince it requires a bit of refactoring, I will do it as a separate CL. Once it is done, the fix will be easy.",
+      "parentUuid": "49c8ac34_00a2ee62",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87f6ca8a_48d8cda2",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 22

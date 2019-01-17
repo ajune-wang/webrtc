@@ -39,7 +39,7 @@ void WriteToFileTask::UpdateBytesLeft(size_t event_byte_size) {
 }
 
 bool WriteToFileTask::Run() {
-  if (!debug_file_->is_open()) {
+  if (!debug_file_) {
     return true;
   }
 
@@ -49,7 +49,7 @@ bool WriteToFileTask::Run() {
   const size_t event_byte_size = event_.ByteSizeLong();
 
   if (!IsRoomForNextEvent(event_byte_size)) {
-    debug_file_->CloseFile();
+    debug_file_ = nullptr;
     return true;
   }
 

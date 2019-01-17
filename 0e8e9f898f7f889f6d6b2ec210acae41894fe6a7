@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b55e67a_a168b3f6",
+        "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "I suggest also create a dedicated bug tracker for this.",
+      "range": {
+        "startLine": 459,
+        "startChar": 19,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "0e8e9f898f7f889f6d6b2ec210acae41894fe6a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

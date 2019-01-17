@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "03b2382c_d34ada6a",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "I suppose Force(Encoder(8), 1) returns ok, and the effect is that 8 speakers are divided into 4 groups (depending on channel mapping), and in each group, the two speakers plays the same signal.",
+      "parentUuid": "5723c4c8_cd78176b",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 77
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e557821e_1cfc4c09",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 16
@@ -69,6 +93,30 @@
       "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b71bd844_08119af6",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e557821e_1cfc4c09",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 40
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "Done. Got confused because this file is inconsistent.",
       "parentUuid": "ec6236c5_ff4b2a57",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 32
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c0089b1b_45adca53",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0daebe57_5520cd83",
       "range": {
         "startLine": 322,
         "startChar": 0,
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "7b92dffa_48b089ed",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "As long as no non-DTX packets are misundstood as DTX packets, it is be fine for now.\n\nWould you create a specific bug for this rather than assigning to the master tracker?",
+      "parentUuid": "dc80196b_fbf6a1f1",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 56
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d1ffc56f_18097cd8",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
         "patchSetId": 16
@@ -201,6 +297,30 @@
       "side": 1,
       "message": "There is one in OpusSetMaxPlaybackRate. It shouldn\u0027t be possible to set up a multistream encoder where the single-stream encoders have different playback rates. Or, rather, it IS possible, but not with the WebRTC API.",
       "parentUuid": "d1ffc56f_18097cd8",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 37
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51b45394_6bc36bd7",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-17T10:10:42Z",
+      "side": 1,
+      "message": "It is fine to use opus APIs in unittests as we use opus_repacketizer_create/init etc there already.\n\nBut if it is still too complicated, forget about it. You decide.",
+      "parentUuid": "9b80873f_dd7f7b08",
       "range": {
         "startLine": 141,
         "startChar": 8,

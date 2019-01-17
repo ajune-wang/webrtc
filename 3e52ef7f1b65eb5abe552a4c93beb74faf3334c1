@@ -272,6 +272,30 @@
     },
     {
       "key": {
+        "uuid": "a3d966e0_c1e08f25",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-17T15:57:31Z",
+      "side": 1,
+      "message": "Maybe try output_api.PresubmitPromptWarning.",
+      "parentUuid": "7185d309_89ab32c6",
+      "range": {
+        "startLine": 564,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 77
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0fc7bb_3579f5a6",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3

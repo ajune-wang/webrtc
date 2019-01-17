@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "c966d4e7_6e5527a7",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-17T09:29:14Z",
+      "side": 1,
+      "message": "I think both Close() are needed.\n\nThe one from TQ happens when we have run out of num_bytes_left_. When that happens, it should be signaled to the next tasks. That\u0027s done by closing the file. Tasks that follow see that the file is closed and exit immediately.\n\nThe one in ~AecDumpImpl d-tor is needed because num_bytes_left_ need not reach zero during the TQ tasks execution.",
+      "parentUuid": "4f7aa2cc_bc8b6e34",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a6c1415_40c15354",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 2

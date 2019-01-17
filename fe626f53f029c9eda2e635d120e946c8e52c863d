@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fc31a8e_a61ff31e",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3297,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T12:17:32Z",
+      "side": 0,
+      "message": "This is passed to FakeVideoCapturer, handled by its base class cricket::VideoCapturer, which configures its VideoAdapter. The VideoAdapter is then queried by FakeVideoCapturer::Capture[Custom]Frame.\n\nHence, not testing anything interesting in WebrtcVideoEngine.",
+      "range": {
+        "startLine": 3297,
+        "startChar": 15,
+        "endLine": 3297,
+        "endChar": 35
+      },
+      "revId": "fe626f53f029c9eda2e635d120e946c8e52c863d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

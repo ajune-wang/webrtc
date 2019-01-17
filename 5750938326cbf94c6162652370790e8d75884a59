@@ -147,6 +147,30 @@
       "revId": "5750938326cbf94c6162652370790e8d75884a59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10686376_3f3115ed",
+        "filename": "api/task_queue/task_queue_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-17T12:11:57Z",
+      "side": 1,
+      "message": "true, easier to change sooner than later.\nTried, doesn\u0027t look bad (GCD implementation seems will need to have an extra member, other than that changes looks trivial)",
+      "parentUuid": "9d1e8d15_61ab4e4c",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "5750938326cbf94c6162652370790e8d75884a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

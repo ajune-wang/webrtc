@@ -75,6 +75,30 @@
       "revId": "5750938326cbf94c6162652370790e8d75884a59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82265b5c_cdc50f31",
+        "filename": "api/task_queue/task_queue_factory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-17T11:39:11Z",
+      "side": 1,
+      "message": "would like to, but some implementations expect 0-terminated string\n(e.g. GCD pass the name to dispatch_queue_create, libevent rely on PlatformThread that expects conat char*, though that one is easier to change)",
+      "parentUuid": "9b725761_0c6b1f81",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "5750938326cbf94c6162652370790e8d75884a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

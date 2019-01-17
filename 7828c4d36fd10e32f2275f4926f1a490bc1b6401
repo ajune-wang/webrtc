@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "eadc7c1f_338cf8f5",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-17T14:10:55Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "d795535d_624f2581",
+      "revId": "7828c4d36fd10e32f2275f4926f1a490bc1b6401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "661fd885_5d2f6a6a",
         "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
         "patchSetId": 3
@@ -47,6 +65,30 @@
       "writtenOn": "2019-01-17T08:13:06Z",
       "side": 0,
       "message": "Is it intentional to remove `finally`?\nSeems like it\u0027s not necessary to change the logic of these lines.",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "7828c4d36fd10e32f2275f4926f1a490bc1b6401",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30defeb6_a4c0cc36",
+        "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-17T14:10:55Z",
+      "side": 0,
+      "message": "Done. OTOH, the directory would have been kept in case of really unexpected error. That\u0027s not necessary a bad thing for investigation purpose!",
+      "parentUuid": "661fd885_5d2f6a6a",
       "range": {
         "startLine": 57,
         "startChar": 2,

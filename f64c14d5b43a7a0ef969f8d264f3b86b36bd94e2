@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "38d66879_d54dcf21",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "But a dozen or so lines below that, it gives exactly this situation as an example where the name *may* be omitted. This is of course inconsistent...",
+      "parentUuid": "e92338bf_a325fd50",
+      "range": {
+        "startLine": 80,
+        "startChar": 44,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81d4b196_ff330c95",
         "filename": "rtc_base/task_utils/repeating_task.h",
         "patchSetId": 9
@@ -210,6 +234,29 @@
       "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d6e0a6f_ab6f22db",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "Remove!",
+      "range": {
+        "startLine": 92,
+        "startChar": 28,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -257,6 +304,99 @@
       "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9711ff6_0de813aa",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "Oooohh, that\u0027s because you have \u0026\u0026 after the return type on line 92. You shouldn\u0027t do that. Using std::move only tricks the compiler into not warning; the problem is still there. See this example; the compiler generates the same code with or without the std::move: https://godbolt.org/z/hoNu2I\n\nI\u0027m guessing what makes your code still work is the fact that all of these are inlined and that the destructor is trivial, so accessing that dead space on the stack just happens to work fine...\n\nSorry for not catching this earlier.",
+      "parentUuid": "94292f6e_500d4ddb",
+      "range": {
+        "startLine": 99,
+        "startChar": 11,
+        "endLine": 99,
+        "endChar": 20
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f57bfdc1_59628b03",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "Begone!",
+      "range": {
+        "startLine": 102,
+        "startChar": 28,
+        "endLine": 102,
+        "endChar": 30
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81bb4307_8fa4ca57",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "Zap!",
+      "range": {
+        "startLine": 109,
+        "startChar": 28,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe63db31_d5657382",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:56:56Z",
+      "side": 1,
+      "message": "Get outta here!",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 30
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

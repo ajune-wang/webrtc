@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65d5c2da_5d67af9b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-17T14:40:29Z",
+      "side": 1,
+      "message": "Is this only the case for key frames? If yes, then maybe replace with is_key_pic.",
+      "range": {
+        "startLine": 989,
+        "startChar": 15,
+        "endLine": 989,
+        "endChar": 42
+      },
+      "revId": "4ea8755246b37ebbacfd852978bf24c19f6de1c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

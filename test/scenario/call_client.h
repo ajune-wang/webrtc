@@ -57,22 +57,26 @@ struct CallClientFakeAudio {
 // CallClient represents a participant in a call scenario. It is created by the
 // Scenario class and is used as sender and receiver when setting up a media
 // stream session.
-class CallClient : public EmulatedNetworkReceiverInterface {
+class CallClient : public sigslot::has_slots<> {
  public:
   CallClient(Clock* clock,
              std::string name,
              std::string log_filename,
-             CallClientConfig config);
+             CallClientConfig config,
+             EndpointNode* endpoint,
+             rtc::Thread* network_thread);
   RTC_DISALLOW_COPY_AND_ASSIGN(CallClient);
 
   ~CallClient();
+  EndpointNode* endpoint() const;
+  rtc::Thread* thread() const;
   ColumnPrinter StatsPrinter();
   Call::Stats GetStats();
   DataRate send_bandwidth() {
     return DataRate::bps(GetStats().send_bandwidth_bps);
   }
 
-  void OnPacketReceived(EmulatedIpPacket packet) override;
+  void OnPacketReceived(rtc::AsyncSocket* socket);
 
  private:
   friend class Scenario;
@@ -90,11 +94,17 @@ class CallClient : public EmulatedNetworkReceiverInterface {
   std::string GetNextPriorityId();
   void AddExtensions(std::vector<RtpExtension> extensions);
 
+  // Buffer for incoming packets
+  // Incoming packets buffer size is 64Kb
+  rtc::CopyOnWriteBuffer buffer_{64 * 1024};
+
   Clock* clock_;
   const std::string name_;
   LoggingNetworkControllerFactory network_controller_factory_;
   CallClientFakeAudio fake_audio_setup_;
   std::unique_ptr<Call> call_;
+  EndpointNode* endpoint_;
+  rtc::Thread* network_thread_;
   NetworkNodeTransport transport_;
   RtpHeaderParser* const header_parser_;
 

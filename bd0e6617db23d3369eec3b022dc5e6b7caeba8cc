@@ -34,6 +34,24 @@
       "revId": "bd0e6617db23d3369eec3b022dc5e6b7caeba8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893ea942_ad6b65dd",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-17T09:41:33Z",
+      "side": 1,
+      "message": "Added the non-bundle test.\nThe default is part of the API, I think setting it explicitly to the default case is not useful (the tests SHOULD fail if one changes the default without modifying everything that depends on the default).",
+      "parentUuid": "8a1dd1cf_2c3d2184",
+      "revId": "bd0e6617db23d3369eec3b022dc5e6b7caeba8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

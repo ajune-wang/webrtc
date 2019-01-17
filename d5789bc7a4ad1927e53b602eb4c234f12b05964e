@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2807983_1e4b2b1b",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-17T12:36:41Z",
+      "side": 1,
+      "message": "We need to check that encoder doesn\u0027t use old references when high layer is re-enabled. It would be nice to have unit test for this.",
+      "range": {
+        "startLine": 992,
+        "startChar": 14,
+        "endLine": 992,
+        "endChar": 33
+      },
+      "revId": "d5789bc7a4ad1927e53b602eb4c234f12b05964e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

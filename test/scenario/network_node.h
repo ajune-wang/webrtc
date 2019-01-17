@@ -46,27 +46,33 @@ class ActionReceiver : public EmulatedNetworkReceiverInterface {
 
 // SimulationNode is a EmulatedNetworkNode that expose an interface for changing
 // run time behavior of the underlying simulation.
-class SimulationNode : public EmulatedNetworkNode {
+class SimulationNode {
  public:
   void UpdateConfig(std::function<void(NetworkNodeConfig*)> modifier);
   void PauseTransmissionUntil(Timestamp until);
   ColumnPrinter ConfigPrinter() const;
+  EmulatedNetworkNode* node() const;
 
  private:
   friend class Scenario;
 
   SimulationNode(NetworkNodeConfig config,
-                 std::unique_ptr<NetworkBehaviorInterface> behavior,
+                 EmulatedNetworkNode* node,
                  SimulatedNetwork* simulation);
-  static std::unique_ptr<SimulationNode> Create(NetworkNodeConfig config);
+  static SimulatedNetwork::Config CreateSimulationConfig(
+      NetworkNodeConfig config);
 
   SimulatedNetwork* const simulated_network_;
   NetworkNodeConfig config_;
+  EmulatedNetworkNode* const node_;
 };
 
 class NetworkNodeTransport : public Transport {
  public:
-  NetworkNodeTransport(const Clock* sender_clock, Call* sender_call);
+  NetworkNodeTransport(const Clock* sender_clock,
+                       Call* sender_call,
+                       rtc::SocketFactory* socket_factory,
+                       rtc::IPAddress ip_address);
   ~NetworkNodeTransport() override;
 
   bool SendRtp(const uint8_t* packet,
@@ -74,8 +80,11 @@ class NetworkNodeTransport : public Transport {
                const PacketOptions& options) override;
   bool SendRtcp(const uint8_t* packet, size_t length) override;
 
-  void Connect(EmulatedNetworkNode* send_node,
-               uint64_t receiver_id,
+  rtc::SocketAddress local_address() const;
+  rtc::AsyncSocket* socket() const;
+
+  void Connect(rtc::SocketAddress remote_addr,
+               uint64_t dest_endpoint_id,
                DataSize packet_overhead);
 
   DataSize packet_overhead() {
@@ -85,10 +94,14 @@ class NetworkNodeTransport : public Transport {
 
  private:
   rtc::CriticalSection crit_sect_;
+
+  rtc::SocketFactory* const socket_factory_;
+  // Socket to send outgoing packets and receive incoming
+  rtc::AsyncSocket* const socket_;
+  const rtc::SocketAddress local_address_;
   const Clock* const sender_clock_;
   Call* const sender_call_;
-  EmulatedNetworkNode* send_net_ RTC_GUARDED_BY(crit_sect_) = nullptr;
-  uint64_t receiver_id_ RTC_GUARDED_BY(crit_sect_) = 0;
+
   DataSize packet_overhead_ RTC_GUARDED_BY(crit_sect_) = DataSize::Zero();
 };
 

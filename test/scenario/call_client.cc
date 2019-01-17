@@ -137,7 +137,9 @@ TimeDelta LoggingNetworkControllerFactory::GetProcessInterval() const {
 CallClient::CallClient(Clock* clock,
                        std::string name,
                        std::string log_filename,
-                       CallClientConfig config)
+                       CallClientConfig config,
+                       EndpointNode* endpoint,
+                       rtc::Thread* network_thread)
     : clock_(clock),
       name_(name),
       network_controller_factory_(log_filename, config.transport),
@@ -145,11 +147,27 @@ CallClient::CallClient(Clock* clock,
       call_(CreateCall(config,
                        &network_controller_factory_,
                        fake_audio_setup_.audio_state)),
-      transport_(clock_, call_.get()),
-      header_parser_(RtpHeaderParser::Create()) {}
+      endpoint_(endpoint),
+      network_thread_(network_thread),
+      transport_(clock_,
+                 call_.get(),
+                 network_thread_->socketserver(),
+                 endpoint_->GetPeerLocalAddress()),
+      header_parser_(RtpHeaderParser::Create()) {
+  transport_.socket()->SignalReadEvent.connect(this,
+                                               &CallClient::OnPacketReceived);
+}
 
 CallClient::~CallClient() {
   delete header_parser_;
+}
+
+EndpointNode* CallClient::endpoint() const {
+  return endpoint_;
+}
+
+rtc::Thread* CallClient::thread() const {
+  return network_thread_;
 }
 
 ColumnPrinter CallClient::StatsPrinter() {
@@ -167,26 +185,33 @@ Call::Stats CallClient::GetStats() {
   return call_->GetStats();
 }
 
-void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
-  // Removes added overhead before delivering packet to sender.
-  RTC_DCHECK_GE(packet.data.size(),
-                route_overhead_.at(packet.dest_endpoint_id).bytes());
-  packet.data.SetSize(packet.data.size() -
-                      route_overhead_.at(packet.dest_endpoint_id).bytes());
+void CallClient::OnPacketReceived(rtc::AsyncSocket* socket) {
+  RTC_DCHECK(transport_.socket() == socket);
+  // Ensure size of the buffer
+  buffer_.SetSize(64 * 1024);
+
+  // Receive incoming packet from socket and update buffer size. It won't
+  // change its capacity and won't lead to memory (de)allocation.
+  int64_t timestamp;
+  size_t len = socket->Recv(buffer_.data(), buffer_.size(), &timestamp);
+  buffer_.SetSize(len);
+
+  RTC_DCHECK_GE(buffer_.size(), route_overhead_.at(endpoint_->GetId()).bytes());
+  buffer_.SetSize(buffer_.size() -
+                  route_overhead_.at(endpoint_->GetId()).bytes());
 
   MediaType media_type = MediaType::ANY;
-  if (!RtpHeaderParser::IsRtcp(packet.cdata(), packet.data.size())) {
+  if (!RtpHeaderParser::IsRtcp(buffer_.cdata(), buffer_.size())) {
     RTPHeader header;
     bool success =
-        header_parser_->Parse(packet.cdata(), packet.data.size(), &header);
+        header_parser_->Parse(buffer_.cdata(), buffer_.size(), &header);
     if (!success) {
       RTC_DLOG(LS_ERROR) << "Failed to parse RTP header of packet";
       return;
     }
     media_type = ssrc_media_types_[header.ssrc];
   }
-  call_->Receiver()->DeliverPacket(media_type, packet.data,
-                                   packet.arrival_time.us());
+  call_->Receiver()->DeliverPacket(media_type, buffer_, timestamp);
 }
 
 uint32_t CallClient::GetNextVideoSsrc() {

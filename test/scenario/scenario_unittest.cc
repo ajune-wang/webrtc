@@ -21,7 +21,8 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   NetworkNodeConfig network_config;
   auto alice_net = s.CreateSimulationNode(network_config);
   auto bob_net = s.CreateSimulationNode(network_config);
-  auto route = s.CreateRoutes(alice, {alice_net}, bob, {bob_net});
+  auto route =
+      s.CreateRoutes(alice, {alice_net->node()}, bob, {bob_net->node()});
 
   VideoStreamConfig video_stream_config;
   s.CreateVideoStream(route->forward(), video_stream_config);
@@ -36,10 +37,10 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   s.CreateAudioStream(route->reverse(), audio_stream_config);
 
   CrossTrafficConfig cross_traffic_config;
-  s.CreateCrossTraffic({alice_net}, cross_traffic_config);
+  s.CreateCrossTraffic({alice_net->node()}, cross_traffic_config);
 
   bool packet_received = false;
-  s.NetworkDelayedAction({alice_net, bob_net}, 100,
+  s.NetworkDelayedAction({alice_net->node(), bob_net->node()}, 100,
                          [&packet_received] { packet_received = true; });
   bool bitrate_changed = false;
   s.Every(TimeDelta::ms(10), [alice, bob, &bitrate_changed] {

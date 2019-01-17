@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "7d6a7ece_ad526cbf",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T13:35:53Z",
+      "side": 1,
+      "message": "Callers check return values, but don\u0027t care about any details if return value isn\u0027t as expected.\n\n(I don\u0027t think callers check return values from Flush and Close, but I think those ought to nevertheless have return values in the same way as Write, since they can fail for the same reasons, e.g., full disk).",
+      "parentUuid": "3230410c_39b71554",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "177334fc_0c67dacc",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 5
@@ -224,6 +242,24 @@
       "side": 1,
       "message": "I meant that the text should probably say that the \"otherwise false\" case means there was an error.",
       "parentUuid": "c628713c_7d43d52f",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8564431_9fb88eed",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T13:35:53Z",
+      "side": 1,
+      "message": "I don\u0027t find it unclear, but I\u0027ve added two words. Ok? Otherwise, please suggest complete sentence.",
+      "parentUuid": "297a0608_72781b45",
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

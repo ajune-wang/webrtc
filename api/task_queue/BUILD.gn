@@ -26,11 +26,30 @@ rtc_source_set("task_queue_factory") {
   ]
   sources = [
     "task_queue_base.cc",
+    "task_queue_impl.cc",
+    "task_queue_impl.h",
   ]
 
   deps = [
     ":task_queue",
+    "../../rtc_base:checks",
+    "../../rtc_base:rtc_task_queue_api",
     "//third_party/abseil-cpp/absl/base:core_headers",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
+rtc_source_set("task_queue_default_factory") {
+  # TODO(bugs.webrtc.org/10191): Make public when implemented for all
+  # supported platforms.
+  visibility = [ "../../rtc_base:task_queue_global_factory" ]
+  sources = [
+    "task_queue_default_factory.cc",
+    "task_queue_default_factory.h",
+  ]
+  deps = [
+    ":task_queue_factory",
+    "../../rtc_base:checks",
     "//third_party/abseil-cpp/absl/strings",
   ]
 }

@@ -127,6 +127,7 @@ class VP9EncoderImpl : public VP9Encoder {
   VideoBitrateAllocation current_bitrate_allocation_;
   absl::optional<VideoBitrateAllocation> requested_bitrate_allocation_;
   bool ss_info_needed_;
+  bool layer_activated_now_[kMaxVp9NumberOfSpatialLayers];
 
   std::vector<FramerateController> framerate_controller_;
 

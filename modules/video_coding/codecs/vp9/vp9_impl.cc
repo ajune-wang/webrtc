@@ -489,7 +489,8 @@ int VP9EncoderImpl::InitEncode(const VideoCodec* inst,
   // External reference control is required for different frame rate on spatial
   // layers because libvpx generates rtp incompatible references in this case.
   external_ref_control_ = field_trial::IsEnabled("WebRTC-Vp9ExternalRefCtrl") ||
-                          different_framerates_used_;
+                          different_framerates_used_ ||
+                          inter_layer_pred_ == InterLayerPredMode::kOn;
 
   if (num_temporal_layers_ == 1) {
     gof_.SetGofInfoVP9(kTemporalStructureMode1);
@@ -976,15 +977,16 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
   vp9_info->num_spatial_layers = num_active_spatial_layers_;
 
   vp9_info->num_ref_pics = 0;
+  FillReferenceIndices(pkt, pics_since_key_, vp9_info->inter_layer_predicted,
+                       vp9_info);
   if (vp9_info->flexible_mode) {
     vp9_info->gof_idx = kNoGofIdx;
-    FillReferenceIndices(pkt, pics_since_key_, vp9_info->inter_layer_predicted,
-                         vp9_info);
   } else {
     vp9_info->gof_idx =
         static_cast<uint8_t>(pics_since_key_ % gof_.num_frames_in_gof);
     vp9_info->temporal_up_switch = gof_.temporal_up_switch[vp9_info->gof_idx];
-    vp9_info->num_ref_pics = gof_.num_ref_pics[vp9_info->gof_idx];
+    RTC_DCHECK(vp9_info->num_ref_pics == gof_.num_ref_pics[vp9_info->gof_idx] ||
+               vp9_info->num_ref_pics == 0);
   }
 
   vp9_info->inter_pic_predicted = (!is_key_pic && vp9_info->num_ref_pics > 0);
@@ -1284,9 +1286,7 @@ int VP9EncoderImpl::GetEncodedLayerFrame(const vpx_codec_cx_pkt* pkt) {
                         input_image_->timestamp());
   encoded_image_.SetSpatialIndex(spatial_index);
 
-  if (is_flexible_mode_) {
-    UpdateReferenceBuffers(*pkt, pics_since_key_);
-  }
+  UpdateReferenceBuffers(*pkt, pics_since_key_);
 
   TRACE_COUNTER1("webrtc", "EncodedFrameSize", encoded_image_.size());
   encoded_image_.SetTimestamp(input_image_->timestamp());

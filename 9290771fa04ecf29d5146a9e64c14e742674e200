@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4e1f4115_9217aeff",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "I\u0027ll give it a try.",
+      "parentUuid": "8825a3cb_d34af436",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7cd8f90c_8cd3c09a",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-17T13:58:15Z",
       "side": 1,
       "message": "DCHECK instead, like all the other methods?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56ecd21_9a681d17",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "Good catch. Done.",
+      "parentUuid": "7cd8f90c_8cd3c09a",
       "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "7ea03224_a1ce8c8c",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "a11f1a5a_f90d0c75",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ed5b4f64_c0a4a34d",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 9
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8550df22_1b5599d9",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "Done. Renaming to File might make sense, but not that important either.",
+      "parentUuid": "ed5b4f64_c0a4a34d",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4312b0a_efc50821",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 9
@@ -84,6 +156,24 @@
       "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6155ecd3_557a8ff0",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "That\u0027s what I meant with \"ownership\", but I\u0027ll change it to be more explicit.",
+      "parentUuid": "d4312b0a_efc50821",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -107,6 +197,30 @@
       "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa4c1c76_ddeae4db",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T14:24:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4878eb9d_b9039d1f",
+      "range": {
+        "startLine": 68,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

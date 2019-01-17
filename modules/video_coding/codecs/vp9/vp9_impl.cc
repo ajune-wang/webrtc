@@ -237,10 +237,13 @@ bool VP9EncoderImpl::SetSvcRates(
             bitrate_allocation.GetTemporalLayerSum(sl_idx, tl_idx) / 1000;
       }
 
+      layer_activated_now_[sl_idx] = false;
       const bool is_active_layer = (config_->ss_target_bitrate[sl_idx] > 0);
-      if (!was_layer_active && is_active_layer &&
-          layer_activation_requires_key_frame) {
-        force_key_frame_ = true;
+      if (!was_layer_active && is_active_layer) {
+        if (layer_activation_requires_key_frame) {
+          force_key_frame_ = true;
+        }
+        layer_activated_now_[sl_idx] = true;
       } else if (was_layer_active && !is_active_layer &&
                  layer_deactivation_requires_key_frame_) {
         force_key_frame_ = true;
@@ -980,14 +983,17 @@ void VP9EncoderImpl::PopulateCodecSpecific(CodecSpecificInfo* codec_specific,
     vp9_info->gof_idx = kNoGofIdx;
     FillReferenceIndices(pkt, pics_since_key_, vp9_info->inter_layer_predicted,
                          vp9_info);
+    vp9_info->inter_pic_predicted = (!is_key_pic && vp9_info->num_ref_pics > 0);
   } else {
     vp9_info->gof_idx =
         static_cast<uint8_t>(pics_since_key_ % gof_.num_frames_in_gof);
     vp9_info->temporal_up_switch = gof_.temporal_up_switch[vp9_info->gof_idx];
     vp9_info->num_ref_pics = gof_.num_ref_pics[vp9_info->gof_idx];
+    vp9_info->inter_pic_predicted =
+        (!is_key_pic && vp9_info->num_ref_pics > 0 &&
+         !layer_activated_now_[layer_id.spatial_layer_id]);
   }
-
-  vp9_info->inter_pic_predicted = (!is_key_pic && vp9_info->num_ref_pics > 0);
+  layer_activated_now_[layer_id.spatial_layer_id] = false;
 
   if (vp9_info->ss_data_available) {
     vp9_info->spatial_layer_resolution_present = true;

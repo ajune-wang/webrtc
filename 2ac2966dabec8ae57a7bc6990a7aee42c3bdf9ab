@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "065ede60_4b6e1eff",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-17T15:26:19Z",
+      "side": 1,
+      "message": "Forgot to edit the comment, timestamp is gone too. changed the structure of the code a little, no optionals are needed now once I check if there are any frames to decode.",
+      "parentUuid": "ec39b535_fbb47203",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "2ac2966dabec8ae57a7bc6990a7aee42c3bdf9ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d60ac88_3693c8b4",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 5

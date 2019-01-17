@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eedcefa0_949b4778",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-17T12:01:39Z",
+      "side": 1,
+      "message": "Is there any reason not to keep the verifier?",
+      "revId": "f50cde4a14666725a49b928dd94907a98e2c4db9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

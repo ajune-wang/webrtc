@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "379f4581_dfdd002c",
+        "filename": "modules/audio_processing/aec3/echo_canceller3.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-17T12:01:39Z",
+      "side": 0,
+      "message": "hat about the verifier?\nIf there is a good reason for not needing it, Aec3RenderQueueItemVerifier should also be removed from the codebase.",
+      "range": {
+        "startLine": 296,
+        "startChar": 45,
+        "endLine": 296,
+        "endChar": 72
+      },
+      "revId": "ba502233634bca12dc434f86078238c9f6de8f9d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

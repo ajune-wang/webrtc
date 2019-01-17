@@ -70,6 +70,30 @@
       "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fba14336_b8640860",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-17T09:52:35Z",
+      "side": 1,
+      "message": "documentation is important and hard. copying existent one is not sufficient.\nI tried to address your points.\nfor Delete function explicitly split cases \u0027code on the task queue\u0027 and \u0027code not on the task queue\u0027.\nmoved note about task lifetime from Delete to PostTask function comment. (Task is not guaranteed to be deleted on TQ, I tried to capture it implicitly by writing it can be deleted after TaskQueue)",
+      "parentUuid": "2a1a3c27_4006010a",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

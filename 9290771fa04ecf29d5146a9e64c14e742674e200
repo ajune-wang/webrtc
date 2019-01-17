@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8825a3cb_d34af436",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "Will the style checker allow you to inline some subset of these three (default constructor, FILE* constructor, and destructor)?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cd8f90c_8cd3c09a",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "DCHECK instead, like all the other methods?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11f1a5a_f90d0c75",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "Have the same check in Read() too? Or remove it here?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed5b4f64_c0a4a34d",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "Remove this comment?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4312b0a_efc50821",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "Note here too that we close the file in the destructor?",
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4878eb9d_b9039d1f",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T13:58:15Z",
+      "side": 1,
+      "message": "Suggestion: \"or false if there was an error\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "9290771fa04ecf29d5146a9e64c14e742674e200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

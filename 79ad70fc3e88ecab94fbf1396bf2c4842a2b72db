@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "605045d9_9a709ea6",
+        "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:55:32Z",
+      "side": 1,
+      "message": "I\u0027m changing this to debug_file_ \u003d nullptr (and replacing the is_open check a few lines up).",
+      "parentUuid": "c966d4e7_6e5527a7",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 25
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a6c1415_40c15354",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 2

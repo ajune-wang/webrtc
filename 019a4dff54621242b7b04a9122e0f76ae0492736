@@ -46,6 +46,30 @@
       "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a1a3c27_4006010a",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T00:56:39Z",
+      "side": 1,
+      "message": "This needs to be defined more carefully, I think. Some things to consider:\n\n* For code not running on the TQ: Once someone somewhere has called Delete(), the TQ object may disappear at any moment, and dereferencing a pointer to it becomes illegal. So code not running on the TQ may call methods only if it knows that Delete() hasn\u0027t been called.\n\n* For code running on the TQ: The TQ must guarantee that it remains alive while tasks are executing, even if someone somewhere calls Delete().\n\n* Tasks being deleted: Is this guaranteed to happen on the TQ? If so, the previous paragraph applies to the task destructor. In any case, we need to say which it is.\n\n* This is an interface, so the documentation needs to work well both for TQ users and TQ implementers.",
+      "parentUuid": "1958c3d5_51308899",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "019a4dff54621242b7b04a9122e0f76ae0492736",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

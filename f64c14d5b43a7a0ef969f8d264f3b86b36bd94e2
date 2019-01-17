@@ -202,6 +202,30 @@
     },
     {
       "key": {
+        "uuid": "33a4a069_2c454c21",
+        "filename": "rtc_base/task_utils/repeating_task.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-17T11:03:31Z",
+      "side": 1,
+      "message": "If implementation of the move constructor would be default then yes, it could be omited because definition wouldn\u0027t use the name:\n\n.h\nRepeatingTaskHandle(RepeatingTaskHandle\u0026\u0026);\n.cc\nRepeatingTaskHandle::RepeatingTaskHandle(RepeatingTaskHandle\u0026\u0026) \u003d default;\n\nBut in this case definition non-trivial and has to use parameter name, so it shouldn\u0027t be omited in declaration either.",
+      "parentUuid": "38d66879_d54dcf21",
+      "range": {
+        "startLine": 80,
+        "startChar": 44,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "f64c14d5b43a7a0ef969f8d264f3b86b36bd94e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81d4b196_ff330c95",
         "filename": "rtc_base/task_utils/repeating_task.h",
         "patchSetId": 9

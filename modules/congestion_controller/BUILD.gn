@@ -37,6 +37,8 @@ rtc_static_library("congestion_controller") {
     ":transport_feedback",
     "..:module_api",
     "../..:webrtc_common",
+    "../../../api/transport:field_trial_config",
+    "../../../api/transport:webrtc_key_value_config",
     "../../api/transport:network_control",
     "../../api/units:data_rate",
     "../../api/units:timestamp",

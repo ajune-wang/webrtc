@@ -1,0 +1,274 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9a73a0c_40b105ba",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "It is entirely unclear what analyzer and what log this is (at least when reading sequentially). Because this is just added to the main PRESUBMIT file.",
+      "range": {
+        "startLine": 497,
+        "startChar": 36,
+        "endLine": 497,
+        "endChar": 39
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d3d91a7_15f3c858",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "\"block\"? \n\"bloc\" is apparently a political term",
+      "range": {
+        "startLine": 506,
+        "startChar": 13,
+        "endLine": 506,
+        "endChar": 17
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d442421_f8357868",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Probably best to un-nest this with negative condition and `continue`.",
+      "range": {
+        "startLine": 534,
+        "startChar": 4,
+        "endLine": 534,
+        "endChar": 24
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a88b4055_53143f67",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "1) Use os.path.relpath\n2) May not be safe to assume that the directory is called /src/",
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0fc7bb_3579f5a6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Can be a normal function. Even a top-level function.",
+      "range": {
+        "startLine": 567,
+        "startChar": 2,
+        "endLine": 567,
+        "endChar": 54
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6f1689d_db623d20",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Might be worth putting it into  try-finally  to ensure cleanup.\nOr maybe it\u0027s OK to leave the out dir, to be able to diagnose in case of error.",
+      "range": {
+        "startLine": 583,
+        "startChar": 2,
+        "endLine": 583,
+        "endChar": 42
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f675c54_813c7e5c",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Is this the first time that we establish third_party as exempt to filters?\nIf yes: maybe it needs justification.\nIf no: maybe the list of filter should be defined in a single place.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 32,
+        "endLine": 1065,
+        "endChar": 43
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7d2fe6b_35d5aa4d",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "I\u0027d prefer a list, not a tuple.",
+      "range": {
+        "startLine": 1065,
+        "startChar": 28,
+        "endLine": 1065,
+        "endChar": 29
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c91e924_1e79667f",
+        "filename": "presubmit_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Why not check the value of it",
+      "range": {
+        "startLine": 291,
+        "startChar": 25,
+        "endLine": 291,
+        "endChar": 36
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b32da83_ef7dd5a6",
+        "filename": "presubmit_test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "`set([`  -\u003e  `{`",
+      "range": {
+        "startLine": 300,
+        "startChar": 52,
+        "endLine": 300,
+        "endChar": 57
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb7268c_35172a80",
+        "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "`shell\u003dFalse` is redundant",
+      "range": {
+        "startLine": 69,
+        "startChar": 32,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69e9bb18_eb77e34d",
+        "filename": "tools_webrtc/presubmit_checks_lib/gn_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-17T08:13:06Z",
+      "side": 1,
+      "message": "Note that you are suppressing stderr this way.",
+      "range": {
+        "startLine": 70,
+        "startChar": 47,
+        "endLine": 70,
+        "endChar": 69
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

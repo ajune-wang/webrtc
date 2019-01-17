@@ -22,6 +22,114 @@
       "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537c3a0b_aef90f70",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "Note somewhere, probably here, that we close the file in the destructor.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b826435f_bc73c6f6",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "Nice! And as you said, it probably makes sense to have separate read and write classes---that will let the compiler catch more bugs.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "267e6609_ce2fa57e",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "The name isn\u0027t informative here, so you can remove it if you like.",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6781fc_558092c5",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "How is the caller supposed to tell them apart? It seems like something ~every caller would want to do.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "177334fc_0c67dacc",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "Returning false always indicates an error, right?",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96f2d27c_f0915378",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "Should these two take ArrayViews instead of separate pointer and lengths? That would fit nicely with the `size` and `count` arguments to std::fread/std::fwrite, and we could even static_assert that the element type is trivially copyable.",
+      "revId": "f42e7d290564227a3a10594cecb54666c6c780fb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3b3b0fda_d575963d",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T10:31:01Z",
+      "side": 1,
+      "message": "But if we ought to [D]CHECK for nulls (which I didn\u0027t think of), doesn\u0027t it make sense to do that once, in the file wrapper? Rather than having each call site fail to do it?",
+      "parentUuid": "49818258_9275e80e",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2

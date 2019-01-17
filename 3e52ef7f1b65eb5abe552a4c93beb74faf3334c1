@@ -249,6 +249,29 @@
     },
     {
       "key": {
+        "uuid": "7185d309_89ab32c6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-17T15:56:07Z",
+      "side": 1,
+      "message": "Hmm, maybe we should just print a warning and avoid the exception. The rationale is that such error is not actionable by the user and it is just annoying, a warning with a call to action (e.g. open a bug) is better.",
+      "range": {
+        "startLine": 564,
+        "startChar": 2,
+        "endLine": 565,
+        "endChar": 77
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0fc7bb_3579f5a6",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3

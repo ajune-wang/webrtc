@@ -1052,6 +1052,7 @@ void P2PTransportChannel::ResolveHostnameCandidate(const Candidate& candidate) {
 
 void P2PTransportChannel::AddRemoteCandidate(const Candidate& candidate) {
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
+  RTC_LOG(INFO) << "AddRemoteCandidate " << candidate.ToString();
 
   uint32_t generation = GetRemoteCandidateGeneration(candidate);
   // If a remote candidate with a previous generation arrives, drop it.

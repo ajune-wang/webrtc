@@ -174,29 +174,35 @@ SocketAddress PhysicalSocket::GetRemoteAddress() const {
 }
 
 int PhysicalSocket::Bind(const SocketAddress& bind_addr) {
+  RTC_LOG(INFO) << "PhysicalSocket::Bind to " << bind_addr.ToString();
   SocketAddress copied_bind_addr = bind_addr;
   // If a network binder is available, use it to bind a socket to an interface
   // instead of bind(), since this is more reliable on an OS with a weak host
   // model.
   if (ss_->network_binder() && !bind_addr.IsAnyIP()) {
+    RTC_LOG(INFO) << "here1";
     NetworkBindingResult result =
         ss_->network_binder()->BindSocketToNetwork(s_, bind_addr.ipaddr());
     if (result == NetworkBindingResult::SUCCESS) {
+      RTC_LOG(INFO) << "here2";
       // Since the network binder handled binding the socket to the desired
       // network interface, we don't need to (and shouldn't) include an IP in
       // the bind() call; bind() just needs to assign a port.
       copied_bind_addr.SetIP(GetAnyIP(copied_bind_addr.ipaddr().family()));
     } else if (result == NetworkBindingResult::NOT_IMPLEMENTED) {
+      RTC_LOG(INFO) << "here3";
       RTC_LOG(LS_INFO) << "Can't bind socket to network because "
                           "network binding is not implemented for this OS.";
     } else {
       if (bind_addr.IsLoopbackIP()) {
+        RTC_LOG(INFO) << "here4";
         // If we couldn't bind to a loopback IP (which should only happen in
         // test scenarios), continue on. This may be expected behavior.
         RTC_LOG(LS_VERBOSE) << "Binding socket to loopback address "
                             << bind_addr.ipaddr().ToString()
                             << " failed; result: " << static_cast<int>(result);
       } else {
+        RTC_LOG(INFO) << "here5";
         RTC_LOG(LS_WARNING) << "Binding socket to network address "
                             << bind_addr.ipaddr().ToString()
                             << " failed; result: " << static_cast<int>(result);
@@ -212,6 +218,7 @@ int PhysicalSocket::Bind(const SocketAddress& bind_addr) {
   size_t len = copied_bind_addr.ToSockAddrStorage(&addr_storage);
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
   int err = ::bind(s_, addr, static_cast<int>(len));
+  RTC_LOG(INFO) << "err = " << err << " for s_ = " << s_;
   UpdateLastError();
 #if !defined(NDEBUG)
   if (0 == err) {
@@ -307,6 +314,9 @@ int PhysicalSocket::SetOption(Option opt, int value) {
 }
 
 int PhysicalSocket::Send(const void* pv, size_t cb) {
+  RTC_LOG(INFO) << "Send";
+  RTC_LOG(INFO) << "Send";
+  RTC_LOG(INFO) << "Send";
   int sent = DoSend(
       s_, reinterpret_cast<const char*>(pv), static_cast<int>(cb),
 #if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
@@ -334,6 +344,8 @@ int PhysicalSocket::Send(const void* pv, size_t cb) {
 int PhysicalSocket::SendTo(const void* buffer,
                            size_t length,
                            const SocketAddress& addr) {
+  RTC_LOG(INFO) << "PhysicalSocket::SendTo via s_ = " << s_ << " to "
+                << addr.ToString();
   sockaddr_storage saddr;
   size_t len = addr.ToSockAddrStorage(&saddr);
   int sent =
@@ -389,6 +401,7 @@ int PhysicalSocket::RecvFrom(void* buffer,
                              size_t length,
                              SocketAddress* out_addr,
                              int64_t* timestamp) {
+  RTC_LOG(INFO) << "PhysicalSocket::Recv via s_ = " << s_;
   sockaddr_storage addr_storage;
   socklen_t addr_len = sizeof(addr_storage);
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
@@ -729,6 +742,7 @@ void SocketDispatcher::OnPreEvent(uint32_t ff) {
 #if defined(WEBRTC_WIN)
 
 void SocketDispatcher::OnEvent(uint32_t ff, int err) {
+  RTC_LOG(INFO) << "SocketDispatcher::OnEvent";
   int cache_id = id_;
   // Make sure we deliver connect/accept first. Otherwise, consumers may see
   // something like a READ followed by a CONNECT, which would be odd.
@@ -763,6 +777,7 @@ void SocketDispatcher::OnEvent(uint32_t ff, int err) {
 #elif defined(WEBRTC_POSIX)
 
 void SocketDispatcher::OnEvent(uint32_t ff, int err) {
+  RTC_LOG(INFO) << "SocketDispatcher::OnEvent ff=" << ff;
 #if defined(WEBRTC_USE_EPOLL)
   // Remember currently enabled events so we can combine multiple changes
   // into one update call later.
@@ -1213,6 +1228,7 @@ Socket* PhysicalSocketServer::CreateSocket(int family, int type) {
 }
 
 AsyncSocket* PhysicalSocketServer::CreateAsyncSocket(int family, int type) {
+  RTC_LOG(INFO) << "PhysicalSocketServer::CreateAsyncSocket";
   SocketDispatcher* dispatcher = new SocketDispatcher(this);
   if (dispatcher->Create(family, type)) {
     return dispatcher;

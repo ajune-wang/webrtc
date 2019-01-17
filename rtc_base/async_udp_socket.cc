@@ -111,6 +111,7 @@ void AsyncUDPSocket::SetError(int error) {
 }
 
 void AsyncUDPSocket::OnReadEvent(AsyncSocket* socket) {
+  RTC_LOG(INFO) << "AsyncUDPSocket::OnReadEvent";
   RTC_DCHECK(socket_.get() == socket);
 
   SocketAddress remote_addr;

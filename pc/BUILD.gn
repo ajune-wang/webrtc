@@ -547,6 +547,7 @@ if (rtc_include_tests) {
       "rtp_transceiver_unittest.cc",
       "sctp_utils_unittest.cc",
       "sdp_serializer_unittest.cc",
+      "simpeerconnection_unittests.cc",
       "stats_collector_unittest.cc",
       "test/fake_audio_capture_module_unittest.cc",
       "test/test_sdp_strings.h",

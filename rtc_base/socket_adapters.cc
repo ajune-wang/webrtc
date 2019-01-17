@@ -220,8 +220,10 @@ void AsyncSSLSocket::ProcessInput(char* data, size_t* len) {
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
+    abort();
     SignalReadEvent(this);
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -340,8 +342,10 @@ void AsyncHttpsProxySocket::ProcessInput(char* data, size_t* len) {
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
+    abort();
     SignalReadEvent(this);  // TODO: signal this??
+  }
 }
 
 bool AsyncHttpsProxySocket::ShouldIssueConnect() const {
@@ -628,8 +632,10 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
+    abort();
     SignalReadEvent(this);  // TODO: signal this??
+  }
 }
 
 void AsyncSocksProxySocket::SendHello() {

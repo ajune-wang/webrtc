@@ -2,6 +2,287 @@
   "comments": [
     {
       "key": {
+        "uuid": "bd386a9a_1133be53",
+        "filename": "test/pc/e2e/analyzer/video/id_generator.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "documentation please (even if it may seem obvious: are the ids guaranteed to preserve any particular order? are they supposed to be incremented by 1?)",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228d9a41_3e34c7b2",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "please document ownership of the buffer in the image (who is responsible for freeing the buffer?) (if I read it right, the original encoded image is stored in the decoding_images_, but it\u0027s not yet clear to me who frees the buffer)",
+      "range": {
+        "startLine": 51,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b735e84f_f7c698cd",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "see my comment below: I don\u0027t thin interfaces methods should return std::pair\u003cfoo,bar\u003e -- because it\u0027s not clear what the foo/bar things are (especially when \u0027foo\u0027 is an integer).\n\nSuggestion: consider struct instead.",
+      "range": {
+        "startLine": 52,
+        "startChar": 18,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a3e6131_a8daa1f6",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "please add parenthesis to make the operator precedence explicit.",
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb5609d_30fcb08c",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "hmm, not sure about the threading model here, since this is outside of the lock: couldn\u0027t the pointer in the iterator get invalidated by the time you try to dereference it?",
+      "range": {
+        "startLine": 64,
+        "startChar": 41,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d973c24_e2a5f4bf",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "I personally am not a huge fan of std::pair\u003c\u003e, unless their lifetime is very short (one-two lines). .first and .second are not making code easier to read \u003d)\n\nespecially, if the first value is a \u003cuint16\u003e (is it an id? a timestamp? something else?).\n\nNaming things is important :)",
+      "range": {
+        "startLine": 64,
+        "startChar": 33,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59fe0add_b56ca000",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "sometimes you call it \u0027delegate\u0027, sometimes you call it \u0027origin\u0027. I\u0027d recommend sticking to one name, e.g. if the delegated decoder failed, ...",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b5a02a_b20337a5",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "neither analyzing_callback_ nor delegate_ are RTC_GUARDED_BY(lock). Can you clarify what needs a lock here?",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 21
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2fe09f8_562126ba",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "nit: /*foo\u003d*/absl::nullopt (and in the next one)",
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00eb3a7c_d01f2bd4",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "is that right? If the delegate callback is not registered, shouldn\u0027t we rather fail then return success? or maybe DCHECK? (or document when this is a valid scenario)",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de3a4e7b_2c2ab070",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "these 2 methods look alike, except that one has the qp passed in, and the other returns int32. \nWould it be possible to have one implementation for the two?",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 1
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8032873_2509f57b",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "timestamp\u003d\n\n(I personally like the pattern used in a lot of places of variable_name\u003dvalue, e.g.\nhttps://cs.chromium.org/search/?q\u003dRTC_LOG.*%3D\u0026sq\u003dpackage:chromium\u0026type\u003dcs\n\nso \"No frame id for frame with timestamp\u003d\" \u003c\u003c timestamp\nor even better \" No frame id for frame.timestamp()\u003d\" \u003c\u003c timestamp;\n\nBtw should it be a warning or error? Can you document when can it happen?",
+      "range": {
+        "startLine": 178,
+        "startChar": 63,
+        "endLine": 178,
+        "endChar": 65
+      },
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7274fc1f_dffd966e",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-17T01:30:50Z",
+      "side": 1,
+      "message": "it\u0027s not clear to me what this id is.",
+      "revId": "eb059f5b7385daebe8e69afd97922c2604b92602",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6bcc601_f46fead5",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
         "patchSetId": 5

@@ -22,6 +22,30 @@
       "revId": "4ea8755246b37ebbacfd852978bf24c19f6de1c3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391fcb31_b41632a4",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-17T14:52:40Z",
+      "side": 1,
+      "message": "No, for newly enabled layers num_ref_pics will be 0, because external ref control will see that buffers have wrong pid not set any references, as expected, and FillReferenceIndices will see that and return no references for highest layer of a delta frame picture.",
+      "parentUuid": "65d5c2da_5d67af9b",
+      "range": {
+        "startLine": 989,
+        "startChar": 15,
+        "endLine": 989,
+        "endChar": 42
+      },
+      "revId": "4ea8755246b37ebbacfd852978bf24c19f6de1c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

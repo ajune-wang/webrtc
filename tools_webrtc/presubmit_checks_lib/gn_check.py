@@ -6,6 +6,9 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
+"""This script helps to invoke gn and ninja
+which lie in depot_tools repository."""
+
 import os
 import re
 import shutil
@@ -27,6 +30,19 @@ sys.path.append(os.path.join(SRC_DIR, 'build'))
 import find_depot_tools
 
 
+def RunGnCommand(args, root_dir=None):
+  """Runs `gn` with provided args and return error if any."""
+  try:
+    command = [
+      sys.executable,
+      os.path.join(find_depot_tools.DEPOT_TOOLS_PATH, 'gn.py')
+    ] + args
+    subprocess.check_output(command, cwd=root_dir)
+  except subprocess.CalledProcessError as err:
+    return err.output
+  return None
+
+
 # GN_ERROR_RE matches the summary of an error output by `gn check`.
 # Matches "ERROR" and following lines until it sees an empty line or a line
 # containing just underscores.
@@ -42,17 +58,20 @@ def RunGnCheck(root_dir=None):
   """
   out_dir = tempfile.mkdtemp('gn')
   try:
-    command = [
-      sys.executable,
-      os.path.join(find_depot_tools.DEPOT_TOOLS_PATH, 'gn.py'),
-      'gen',
-      '--check',
-      out_dir,
-    ]
-    subprocess.check_output(command, cwd=root_dir)
-  except subprocess.CalledProcessError as err:
-    return GN_ERROR_RE.findall(err.output)
-  else:
-    return []
+    error = RunGnCommand(['gen', '--check'] + [out_dir], root_dir)
   finally:
     shutil.rmtree(out_dir, ignore_errors=True)
+  return GN_ERROR_RE.findall(error) if error else []
+
+
+def RunNinjaCommand(args, root_dir=None):
+  """Run ninja quietly. Any failure (e.g. clang not found) is
+     silently discarded, since this is unlikely an error in submitted CL."""
+  command = [
+              os.path.join(find_depot_tools.DEPOT_TOOLS_PATH, 'ninja')
+            ] + args
+  p = subprocess.Popen(command, shell=False, cwd=root_dir,
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  # Analyzer diagnostic is in stdout.
+  out, _ = p.communicate()
+  return out

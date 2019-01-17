@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "49818258_9275e80e",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "I think it must be the responsibility of any code calling .c_str() to consider the proper behavior if there are any embedded NUL characters in the C++ string. \n\nIt\u0027s impossible to open a file with a NUL character in the name, so if we move the .c_str call  into FileWrapper, that code ought to have a memchr check and fail for names with embedded NULs, rather than silently truncating the input file name. Silent termination is a known source of security bugs...\n\nTo me, it makes sense to stick to a plain NUL-termintaed C string here, since that\u0027s the only thing we really can support.",
+      "parentUuid": "192606bd_ab6b774b",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2
@@ -226,6 +250,24 @@
     },
     {
       "key": {
+        "uuid": "9c9e2d9a_0d1c9ba6",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef4e9691_2a272be2",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58e27fe4_8f64396d",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 2
@@ -243,6 +285,24 @@
     },
     {
       "key": {
+        "uuid": "20a5b523_3cedc16c",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58e27fe4_8f64396d",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44431714_8922fbf8",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 2
@@ -257,6 +317,24 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf716f5_64348d92",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44431714_8922fbf8",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -280,6 +358,30 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a2359a_6608db59",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done.\n\nOr should we go one step further, with separate classes for read and write? Probably not in this cl, though. But let\u0027s make them separate methods.",
+      "parentUuid": "a5422a4e_87d249d2",
+      "range": {
+        "startLine": 27,
+        "startChar": 54,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -318,6 +420,24 @@
     },
     {
       "key": {
+        "uuid": "e98d5363_0952a4b7",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Ok.Implicit conversion would make the type closer to a unique_ptr. But I\u0027ll leave it as is_open.",
+      "parentUuid": "934b8bc5_c0c96b87",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de4f1689_6245e691",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 2
@@ -332,6 +452,24 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc17ae59_272b3d5e",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Documented that closing a closed file is a nop.",
+      "parentUuid": "de4f1689_6245e691",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -364,6 +502,24 @@
       "side": 1,
       "message": "Document the return value?",
       "parentUuid": "5b357d54_9bd3b5e9",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783b2a68_cc358b6e",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "It\u0027s used in audio_processing/transient/file_utils.cc. Only use of related methods is in \n\nmodules/audio_processing/transient/click_annotate.cc\nmodules/audio_processing/transient/wpd_tree_unittest.cc\n\nCould perhaps be deleted, but I\u0027d prefer a separate cl.\n\nAnd rewind is used only once outside of tests, in modules/audio_device/dummy/file_audio_device.cc",
+      "parentUuid": "fda8f1dd_b564d2a7",
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -405,6 +561,24 @@
     },
     {
       "key": {
+        "uuid": "78e0726d_1ee22fa5",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47e9ab03_9cfe0cf5",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a31a021a_473e9eee",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 2
@@ -422,6 +596,24 @@
     },
     {
       "key": {
+        "uuid": "e62fbb06_52b7820b",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a31a021a_473e9eee",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4504b742_528a21e9",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 2
@@ -436,6 +628,24 @@
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f71a855_51309c49",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T09:49:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4504b742_528a21e9",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

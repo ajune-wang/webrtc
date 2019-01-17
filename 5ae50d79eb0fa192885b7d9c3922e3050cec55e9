@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4e1d23b1_29e15c30",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-17T16:12:00Z",
+      "side": 1,
+      "message": "Added TODO.",
+      "parentUuid": "8b42542f_58716c3a",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 42
+      },
+      "revId": "5ae50d79eb0fa192885b7d9c3922e3050cec55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60821a1a_8ad07870",
         "filename": "modules/video_coding/frame_buffer2.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "5ae50d79eb0fa192885b7d9c3922e3050cec55e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a490b24f_7dd04eb2",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-17T16:12:00Z",
+      "side": 1,
+      "message": "My bad, the if is redundant. it will happen all the times. See its \u0027not-equal\u0027 to -1. If we have some render time and it\u0027s bad, we reset everything, just like it was before my change (if render time was -1, it was computed. After that there was HasBadRenderTiming check).",
+      "parentUuid": "60821a1a_8ad07870",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 9
+      },
+      "revId": "5ae50d79eb0fa192885b7d9c3922e3050cec55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

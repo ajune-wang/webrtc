@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "71696e88_27571cdd",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-17T15:47:32Z",
+      "side": 1,
+      "message": "I see, this log is mixed with ninja logs. Thanks for explaining.\nRemoving this and just replying on _CollectSourceLines SGTM.",
+      "parentUuid": "3a079331_8b8c3eae",
+      "range": {
+        "startLine": 515,
+        "startChar": 4,
+        "endLine": 520,
+        "endChar": 26
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d442421_f8357868",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3

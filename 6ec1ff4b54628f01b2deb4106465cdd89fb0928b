@@ -566,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "2559af6c_55f3dbd8",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-17T00:12:49Z",
+      "side": 1,
+      "message": "You are absolutely right (more details in another comment). We also have a problem in media transport interface. which reports combined overhead. I am not sure if we ever need RTP and transport overheads separately if we have combined audio and combined video overheads, but it\u0027s orthogonal discussion.",
+      "parentUuid": "89f0dde3_a8b35d20",
+      "range": {
+        "startLine": 814,
+        "startChar": 33,
+        "endLine": 814,
+        "endChar": 69
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14e7421e_bd7ff7fe",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 22

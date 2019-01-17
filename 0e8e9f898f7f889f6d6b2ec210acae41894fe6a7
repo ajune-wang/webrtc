@@ -22,6 +22,30 @@
       "revId": "0e8e9f898f7f889f6d6b2ec210acae41894fe6a7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a15d79f8_2587bbc8",
+        "filename": "modules/audio_coding/codecs/opus/opus_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-17T11:19:34Z",
+      "side": 1,
+      "message": "Got it, https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10217",
+      "parentUuid": "2b55e67a_a168b3f6",
+      "range": {
+        "startLine": 459,
+        "startChar": 19,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "0e8e9f898f7f889f6d6b2ec210acae41894fe6a7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

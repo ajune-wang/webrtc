@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b2a8c3ea_570931ae",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-17T11:19:34Z",
+      "side": 1,
+      "message": "Exactly, that\u0027s how Force(Encoder(8), 1) works.",
+      "parentUuid": "03b2382c_d34ada6a",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 302,
+        "endChar": 77
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e557821e_1cfc4c09",
         "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
         "patchSetId": 16
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "As long as no non-DTX packets are misundstood as DTX packets, it is be fine for now.\n\nWould you create a specific bug for this rather than assigning to the master tracker?",
       "parentUuid": "dc80196b_fbf6a1f1",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 56
+      },
+      "revId": "74dcd15aa45b44c05abf8131f9ef2fd4b4d09466",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b12cde3a_057273fa",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-17T11:19:34Z",
+      "side": 1,
+      "message": "OK. New issue here https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10218",
+      "parentUuid": "7b92dffa_48b089ed",
       "range": {
         "startLine": 421,
         "startChar": 0,

@@ -16,6 +16,24 @@
       "revId": "bd0e6617db23d3369eec3b022dc5e6b7caeba8cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1dd1cf_2c3d2184",
+        "filename": "pc/peer_connection_signaling_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-17T09:11:01Z",
+      "side": 1,
+      "message": "And preferably explicitly set whether or not it is used in the setup rather than implicitly relying on the default being enabled",
+      "parentUuid": "226da8d7_74b3588c",
+      "revId": "bd0e6617db23d3369eec3b022dc5e6b7caeba8cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

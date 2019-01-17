@@ -50,7 +50,7 @@ PlatformThread::PlatformThread(ThreadRunFunctionDeprecated func,
 
 PlatformThread::PlatformThread(ThreadRunFunction func,
                                void* obj,
-                               const char* thread_name,
+                               absl::string_view thread_name,
                                ThreadPriority priority /*= kNormalPriority*/)
     : run_function_(func), priority_(priority), obj_(obj), name_(thread_name) {
   RTC_DCHECK(func);

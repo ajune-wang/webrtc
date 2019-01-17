@@ -1,0 +1,7 @@
+specific_include_rules = {
+  # temporary include until dependent project updated not to use link injection
+  # to override task queue
+  "task_queue_impl\.h": [
+    "+rtc_base/task_queue.h",
+  ],
+}

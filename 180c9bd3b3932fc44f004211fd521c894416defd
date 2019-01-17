@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "91783c31_51b0b999",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-17T16:06:14Z",
+      "side": 1,
+      "message": "nit:\nWas the fake one defaulting to hd?\nIf so, do tests pass with vga instead, alternatively do the other tests still pass if we change kVideoWidth et al to hd?",
+      "range": {
+        "startLine": 718,
+        "startChar": 40,
+        "endLine": 719,
+        "endChar": 69
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "802c06ef_9ab613b2",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 5
@@ -13,6 +36,30 @@
       "writtenOn": "2019-01-17T15:32:52Z",
       "side": 1,
       "message": "BTW, we have no test\n\n  TestCpuAdaptation(false, true);\n\nand if we had it would fail these expectations.",
+      "range": {
+        "startLine": 3327,
+        "startChar": 0,
+        "endLine": 3328,
+        "endChar": 72
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c25400_22869ef5",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3328,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-17T16:06:14Z",
+      "side": 1,
+      "message": "\u003e BTW, we have no test\n\u003e \n\u003e   TestCpuAdaptation(false, true);\nThat feel like an oversight.\n\n\u003e and if we had it would fail these expectations.\nWhy?",
+      "parentUuid": "802c06ef_9ab613b2",
       "range": {
         "startLine": 3327,
         "startChar": 0,
@@ -45,6 +92,30 @@
       "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ef97b53_50101ed4",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3335,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-17T16:06:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de9c454d_1379a6d1",
+      "range": {
+        "startLine": 3325,
+        "startChar": 2,
+        "endLine": 3335,
+        "endChar": 3
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

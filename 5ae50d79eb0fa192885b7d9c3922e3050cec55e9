@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b42542f_58716c3a",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-17T16:04:25Z",
+      "side": 1,
+      "message": "This is not related to this CL, but it would be nice if we could avoid this vector and only use the |frames_to_decode_| instead.",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 42
+      },
+      "revId": "5ae50d79eb0fa192885b7d9c3922e3050cec55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60821a1a_8ad07870",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-17T16:04:25Z",
+      "side": 1,
+      "message": "I don\u0027t think this should ever happen (line 168, |frame| in that case will be at index [0] in |frames_to_decode_|).\n\nAlso, I\u0027m not sure I understand why we would only reset the |jitter_estimator_| and |timing_| only if the frame has a render timestamp of -1.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 9
+      },
+      "revId": "5ae50d79eb0fa192885b7d9c3922e3050cec55e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

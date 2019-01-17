@@ -21,6 +21,7 @@
 #include "test/scenario/audio_stream.h"
 #include "test/scenario/call_client.h"
 #include "test/scenario/column_printer.h"
+#include "test/scenario/network/network_emulation_manager.h"
 #include "test/scenario/network_node.h"
 #include "test/scenario/scenario_config.h"
 #include "test/scenario/simulated_time.h"
@@ -122,12 +123,11 @@ class Scenario {
       std::pair<CallClient*, CallClient*> clients,
       AudioStreamConfig config);
 
-  CrossTrafficSource* CreateCrossTraffic(
+  CrossTraffic* CreateCrossTraffic(
       std::vector<EmulatedNetworkNode*> over_nodes,
       std::function<void(CrossTrafficConfig*)> config_modifier);
-  CrossTrafficSource* CreateCrossTraffic(
-      std::vector<EmulatedNetworkNode*> over_nodes,
-      CrossTrafficConfig config);
+  CrossTraffic* CreateCrossTraffic(std::vector<EmulatedNetworkNode*> over_nodes,
+                                   CrossTrafficConfig config);
 
   // Runs the provided function with a fixed interval.
   RepeatedActivity* Every(TimeDelta interval,
@@ -186,13 +186,14 @@ class Scenario {
   const bool real_time_mode_;
   SimulatedClock sim_clock_;
   Clock* clock_;
+  NetworkEmulationManager network_emulation_manager_;
   // Event logs use a global clock instance, this is used to override that
   // instance when not running in real time.
   rtc::FakeClock event_log_fake_clock_;
 
   std::vector<std::unique_ptr<CallClient>> clients_;
   std::vector<std::unique_ptr<CallClientPair>> client_pairs_;
-  std::vector<std::unique_ptr<EmulatedNetworkNode>> network_nodes_;
+  std::vector<std::unique_ptr<SimulationNode>> simulation_nodes_;
   std::vector<std::unique_ptr<CrossTrafficSource>> cross_traffic_sources_;
   std::vector<std::unique_ptr<VideoStreamPair>> video_streams_;
   std::vector<std::unique_ptr<AudioStreamPair>> audio_streams_;

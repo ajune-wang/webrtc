@@ -11,10 +11,12 @@
 
 #include <algorithm>
 
+#include "absl/memory/memory.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "rtc_base/flags.h"
 #include "rtc_base/socket_address.h"
+#include "test/scenario/network/cross_traffic.h"
 #include "test/scenario/network/network_emulation.h"
 #include "test/testsupport/file_utils.h"
 
@@ -62,6 +64,7 @@ Scenario::Scenario(std::string file_name, bool real_time)
     : real_time_mode_(real_time),
       sim_clock_(100000 * kMicrosPerSec),
       clock_(real_time ? Clock::GetRealTimeClock() : &sim_clock_),
+      network_emulation_manager_(clock_),
       audio_decoder_factory_(CreateBuiltinAudioDecoderFactory()),
       audio_encoder_factory_(CreateBuiltinAudioEncoderFactory()) {
   if (FLAG_scenario_logs && !file_name.empty()) {
@@ -115,6 +118,7 @@ StatesPrinter* Scenario::CreatePrinter(std::string name,
 }
 
 CallClient* Scenario::CreateClient(std::string name, CallClientConfig config) {
+  // TODO(titovartem) refactor me
   RTC_DCHECK(real_time_mode_);
   CallClient* client =
       new CallClient(clock_, name, GetFullPathOrEmpty(name), config);
@@ -130,6 +134,7 @@ CallClient* Scenario::CreateClient(std::string name, CallClientConfig config) {
 CallClient* Scenario::CreateClient(
     std::string name,
     std::function<void(CallClientConfig*)> config_modifier) {
+  // TODO(titovartem) refactor me
   CallClientConfig config;
   config_modifier(&config);
   return CreateClient(name, config);
@@ -140,6 +145,7 @@ CallClientPair* Scenario::CreateRoutes(
     std::vector<EmulatedNetworkNode*> send_link,
     CallClient* second,
     std::vector<EmulatedNetworkNode*> return_link) {
+  // TODO(titovartem) refactor me
   return CreateRoutes(first, send_link,
                       DataSize::bytes(PacketOverhead::kDefault), second,
                       return_link, DataSize::bytes(PacketOverhead::kDefault));
@@ -152,6 +158,7 @@ CallClientPair* Scenario::CreateRoutes(
     CallClient* second,
     std::vector<EmulatedNetworkNode*> return_link,
     DataSize second_overhead) {
+  // TODO(titovartem) refactor me
   CallClientPair* client_pair = new CallClientPair(first, second);
   ChangeRoute(client_pair->forward(), send_link, first_overhead);
   ChangeRoute(client_pair->reverse(), return_link, second_overhead);
@@ -161,12 +168,14 @@ CallClientPair* Scenario::CreateRoutes(
 
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
                            std::vector<EmulatedNetworkNode*> over_nodes) {
+  // TODO(titovartem) refactor me
   ChangeRoute(clients, over_nodes, DataSize::bytes(PacketOverhead::kDefault));
 }
 
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
                            std::vector<EmulatedNetworkNode*> over_nodes,
                            DataSize overhead) {
+  // TODO(titovartem) refactor me
   uint64_t route_id = next_route_id_++;
   clients.second->route_overhead_.insert({route_id, overhead});
   EmulatedNetworkNode::CreateRoute(route_id, over_nodes, clients.second);
@@ -179,6 +188,7 @@ SimulatedTimeClient* Scenario::CreateSimulatedTimeClient(
     std::vector<PacketStreamConfig> stream_configs,
     std::vector<EmulatedNetworkNode*> send_link,
     std::vector<EmulatedNetworkNode*> return_link) {
+  // TODO(titovartem) refactor me
   uint64_t send_id = next_route_id_++;
   uint64_t return_id = next_route_id_++;
   SimulatedTimeClient* client = new SimulatedTimeClient(
@@ -207,11 +217,18 @@ SimulationNode* Scenario::CreateSimulationNode(
 
 SimulationNode* Scenario::CreateSimulationNode(NetworkNodeConfig config) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kSimulation);
-  auto network_node = SimulationNode::Create(config);
+
+  SimulatedNetwork::Config sim_config =
+      SimulationNode::CreateSimulationConfig(config);
+  auto behavior = absl::make_unique<SimulatedNetwork>(sim_config);
+  SimulatedNetwork* simulated_network = behavior.get();
+  EmulatedNetworkNode* node = network_emulation_manager_.CreateEmulatedNode(
+      std::move(behavior), config.packet_overhead.bytes_or(0));
+  auto network_node =
+      absl::WrapUnique(new SimulationNode(config, node, simulated_network));
   SimulationNode* sim_node = network_node.get();
-  network_nodes_.emplace_back(std::move(network_node));
-  Every(config.update_frequency,
-        [this, sim_node] { sim_node->Process(Now()); });
+  simulation_nodes_.emplace_back(std::move(network_node));
+
   return sim_node;
 }
 
@@ -219,39 +236,34 @@ EmulatedNetworkNode* Scenario::CreateNetworkNode(
     NetworkNodeConfig config,
     std::unique_ptr<NetworkBehaviorInterface> behavior) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kCustom);
-  network_nodes_.emplace_back(new EmulatedNetworkNode(
-      std::move(behavior), config.packet_overhead.bytes_or(0)));
-  EmulatedNetworkNode* network_node = network_nodes_.back().get();
-  Every(config.update_frequency,
-        [this, network_node] { network_node->Process(Now()); });
-  return network_node;
+  return network_emulation_manager_.CreateEmulatedNode(
+      std::move(behavior), config.packet_overhead.bytes_or(0));
 }
 
 void Scenario::TriggerPacketBurst(std::vector<EmulatedNetworkNode*> over_nodes,
                                   size_t num_packets,
                                   size_t packet_size) {
-  uint64_t route_id = next_route_id_++;
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes, &null_receiver_);
-  for (size_t i = 0; i < num_packets; ++i)
-    over_nodes[0]->OnPacketReceived(EmulatedIpPacket(
-        rtc::SocketAddress() /*from*/, rtc::SocketAddress(), /*to*/
-        route_id, rtc::CopyOnWriteBuffer(packet_size), Now()));
+  CrossTraffic* traffic = network_emulation_manager_.CreateCrossTraffic(
+      over_nodes, absl::make_unique<IdleSendStrategy>());
+  traffic->TriggerPacketBurst(num_packets, packet_size);
 }
 
 void Scenario::NetworkDelayedAction(
     std::vector<EmulatedNetworkNode*> over_nodes,
     size_t packet_size,
     std::function<void()> action) {
-  uint64_t route_id = next_route_id_++;
   action_receivers_.emplace_back(new ActionReceiver(action));
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes,
-                                   action_receivers_.back().get());
-  over_nodes[0]->OnPacketReceived(EmulatedIpPacket(
-      rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/, route_id,
-      rtc::CopyOnWriteBuffer(packet_size), Now()));
+  // TODO(titovartem) rethink how to do it. It is bad to manipulate with
+  // receivers here directly. Only network manager should do it.
+  CrossTraffic* traffic = network_emulation_manager_.CreateCrossTraffic(
+      over_nodes, absl::make_unique<IdleSendStrategy>());
+  over_nodes.back()->RemoveReceiver(traffic->GetDestinationId());
+  over_nodes.back()->SetReceiver(traffic->GetDestinationId(),
+                                 action_receivers_.back().get());
+  traffic->TriggerPacketBurst(1, packet_size);
 }
 
-CrossTrafficSource* Scenario::CreateCrossTraffic(
+CrossTraffic* Scenario::CreateCrossTraffic(
     std::vector<EmulatedNetworkNode*> over_nodes,
     std::function<void(CrossTrafficConfig*)> config_modifier) {
   CrossTrafficConfig cross_config;
@@ -259,17 +271,32 @@ CrossTrafficSource* Scenario::CreateCrossTraffic(
   return CreateCrossTraffic(over_nodes, cross_config);
 }
 
-CrossTrafficSource* Scenario::CreateCrossTraffic(
+CrossTraffic* Scenario::CreateCrossTraffic(
     std::vector<EmulatedNetworkNode*> over_nodes,
     CrossTrafficConfig config) {
-  uint64_t route_id = next_route_id_++;
-  cross_traffic_sources_.emplace_back(
-      new CrossTrafficSource(over_nodes.front(), route_id, config));
-  CrossTrafficSource* node = cross_traffic_sources_.back().get();
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes, &null_receiver_);
-  Every(config.min_packet_interval,
-        [this, node](TimeDelta delta) { node->Process(Now(), delta); });
-  return node;
+  std::unique_ptr<CrossTrafficSendStrategy> strategy = nullptr;
+  if (config.mode == CrossTrafficConfig::Mode::kRandomWalk) {
+    RandomWalkConfig cfg;
+    cfg.random_seed = config.random_seed;
+    cfg.peak_rate = config.peak_rate;
+    cfg.min_packet_size = config.min_packet_size;
+    cfg.min_packet_interval = config.min_packet_interval;
+    cfg.update_interval = config.random_walk.update_interval;
+    cfg.variance = config.random_walk.variance;
+    cfg.bias = config.random_walk.bias;
+    strategy = absl::make_unique<RandomWalkSendStrategy>(cfg);
+  } else if (config.mode == CrossTrafficConfig::Mode::kPulsedPeaks) {
+    PulsedPeaksConfig cfg;
+    cfg.peak_rate = config.peak_rate;
+    cfg.min_packet_size = config.min_packet_size;
+    cfg.min_packet_interval = config.min_packet_interval;
+    cfg.send_duration = config.pulsed.send_duration;
+    cfg.hold_duration = config.pulsed.hold_duration;
+    strategy = absl::make_unique<PulsedPeaksSendStrategy>(cfg);
+  }
+  RTC_CHECK(strategy);
+  return network_emulation_manager_.CreateCrossTraffic(over_nodes,
+                                                       std::move(strategy));
 }
 
 VideoStreamPair* Scenario::CreateVideoStream(
@@ -340,6 +367,7 @@ void Scenario::RunUntil(TimeDelta max_duration,
                         std::function<bool()> exit_function) {
   if (start_time_.IsInfinite())
     Start();
+  network_emulation_manager_.Start();
 
   rtc::Event done_;
   while (!exit_function() && Duration() < max_duration) {
@@ -369,6 +397,7 @@ void Scenario::RunUntil(TimeDelta max_duration,
                                            1000);
     }
   }
+  network_emulation_manager_.Stop();
 }
 
 void Scenario::Start() {

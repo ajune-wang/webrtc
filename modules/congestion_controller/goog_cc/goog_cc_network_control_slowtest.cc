@@ -31,14 +31,14 @@ TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {send_net->node()}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateSimulationNode(NetworkNodeConfig())->node()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
   EXPECT_NEAR(client->send_bandwidth().kbps(), kLinkCapacity.kbps(), 50);
-  s.ChangeRoute(route->forward(), {send_net});
+  s.ChangeRoute(route->forward(), {send_net->node()});
   // Allow new settings to propagate.
   s.RunFor(TimeDelta::ms(100));
   // Under the trial, the target should be unchanged for low rates.
@@ -60,14 +60,14 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {send_net->node()}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateSimulationNode(NetworkNodeConfig())->node()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
   EXPECT_NEAR(client->send_bandwidth().kbps(), kLinkCapacity.kbps(), 300);
-  s.ChangeRoute(route->forward(), {send_net});
+  s.ChangeRoute(route->forward(), {send_net->node()});
   // Allow new settings to propagate.
   s.RunFor(TimeDelta::ms(50));
   // Under the trial, the target should be reset from high values.
@@ -96,14 +96,15 @@ TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {initial_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route =
+      s.CreateRoutes(client, {initial_net->node()},
+                     s.CreateClient("return", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkNodeConfig())->node()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(1000));
   EXPECT_NEAR(client->send_bandwidth().kbps(), kInitialLinkCapacity.kbps(), 50);
-  s.ChangeRoute(route->forward(), {new_net});
+  s.ChangeRoute(route->forward(), {new_net->node()});
   // Allow new settings to propagate, but not probes to be received.
   s.RunFor(TimeDelta::ms(50));
   // Under the field trial, the target rate should be unchanged since it's lower
@@ -135,9 +136,9 @@ TEST(GoogCcNetworkControllerTest,
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {net->node()}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateSimulationNode(NetworkNodeConfig())->node()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow some time for the buffer to build up.
   s.RunFor(TimeDelta::seconds(5));

@@ -17,16 +17,6 @@
 
 namespace webrtc {
 namespace test {
-namespace {
-SimulatedNetwork::Config CreateSimulationConfig(NetworkNodeConfig config) {
-  SimulatedNetwork::Config sim_config;
-  sim_config.link_capacity_kbps = config.simulation.bandwidth.kbps_or(0);
-  sim_config.loss_percent = config.simulation.loss_rate * 100;
-  sim_config.queue_delay_ms = config.simulation.delay.ms();
-  sim_config.delay_standard_deviation_ms = config.simulation.delay_std_dev.ms();
-  return sim_config;
-}
-}  // namespace
 
 void NullReceiver::OnPacketReceived(EmulatedIpPacket packet) {}
 
@@ -37,14 +27,14 @@ void ActionReceiver::OnPacketReceived(EmulatedIpPacket packet) {
   action_();
 }
 
-std::unique_ptr<SimulationNode> SimulationNode::Create(
+SimulatedNetwork::Config SimulationNode::CreateSimulationConfig(
     NetworkNodeConfig config) {
-  RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kSimulation);
-  SimulatedNetwork::Config sim_config = CreateSimulationConfig(config);
-  auto network = absl::make_unique<SimulatedNetwork>(sim_config);
-  SimulatedNetwork* simulation_ptr = network.get();
-  return std::unique_ptr<SimulationNode>(
-      new SimulationNode(config, std::move(network), simulation_ptr));
+  SimulatedNetwork::Config sim_config;
+  sim_config.link_capacity_kbps = config.simulation.bandwidth.kbps_or(0);
+  sim_config.loss_percent = config.simulation.loss_rate * 100;
+  sim_config.queue_delay_ms = config.simulation.delay.ms();
+  sim_config.delay_standard_deviation_ms = config.simulation.delay_std_dev.ms();
+  return sim_config;
 }
 
 void SimulationNode::UpdateConfig(
@@ -69,14 +59,14 @@ ColumnPrinter SimulationNode::ConfigPrinter() const {
                                });
 }
 
-SimulationNode::SimulationNode(
-    NetworkNodeConfig config,
-    std::unique_ptr<NetworkBehaviorInterface> behavior,
-    SimulatedNetwork* simulation)
-    : EmulatedNetworkNode(std::move(behavior),
-                          config.packet_overhead.bytes_or(0)),
-      simulated_network_(simulation),
-      config_(config) {}
+EmulatedNetworkNode* SimulationNode::node() const {
+  return node_;
+}
+
+SimulationNode::SimulationNode(NetworkNodeConfig config,
+                               EmulatedNetworkNode* node,
+                               SimulatedNetwork* simulation)
+    : simulated_network_(simulation), config_(config), node_(node) {}
 
 NetworkNodeTransport::NetworkNodeTransport(const Clock* sender_clock,
                                            Call* sender_call)

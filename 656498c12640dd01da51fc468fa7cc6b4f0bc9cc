@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20b020b8_f40a3aa7",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "Maybe it would be more natural to pass this as the second command line argument rather than a flag.\n\nI.e.\n\nevent_log_visualizer \u003coptional flags\u003e \u003cevent log\u003e \u003coptional second event log\u003e",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 23
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da06433_a5f1e872",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "Please add any new flags to SetAllPlotFlags(...).",
+      "range": {
+        "startLine": 209,
+        "startChar": 19,
+        "endLine": 209,
+        "endChar": 56
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f717dc5_2c91f81a",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "I think this function could be omitted. See below.",
+      "range": {
+        "startLine": 216,
+        "startChar": 5,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c81ce1_d73b53b1",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "I suspect that we might want to add other (non-ICE) plots that shouldn\u0027t be guarded by FLAG_plot_ice_combined_connectivity_checks.\n\nAnother implementation would be\nParsedRtcEventLogs second(second_filename);\nCommonSettings common_settings;\ncommon_settings.clock_offset \u003d CalculateClockOffset(parsed_log, second_parsed_log);\n\n...\n\nif (FLAG_plot_ice_combined_connectivity_checks) {\n  if (second_filename.empty()) {\n    RTC_LOG(LS_ERROR) \"--plot_ice_combined_connectivity_checks requires a second filename\";\n  } else {\n    CreateIceSequenceDiagrams(parsed_log, second_parsed_log, common_settings,\n                              collection-\u003eAppendNewPlot());\n    CreateIceTransactionGraphs(parsed_log, second_parsed_log, common_settings,\n                               collection-\u003eAppendNewPlot());\n    CreateIceTransactionStateGraphs(parsed_log, second_parsed_log, common_settings,\n                                    collection-\u003eAppendNewPlot());\n    CreateIceTransactionRttGraphs(parsed_log, second_parsed_log, common_settings,\n                                  collection-\u003eAppendNewPlot());\n  }\n}",
+      "range": {
+        "startLine": 520,
+        "startChar": 4,
+        "endLine": 520,
+        "endChar": 21
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7694d68_41665c18",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "I\u0027d be very interested in how you intend to implement this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a9c6f1_c0b896a7",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "We generally use RTC_LOG(LS_INFO) instead.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc03c1db_08efdc44",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "Have you considered how you want to represent the diagrams? Depending on the contents, maybe a new graph type would be appropriate?",
+      "range": {
+        "startLine": 33,
+        "startChar": 28,
+        "endLine": 33,
+        "endChar": 53
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28989a6d_1296c1cb",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure how much value a class adds compared to just having a bunch of standalone functions that accepts some common_settings struct.\n\n(The same goes for the EventLogAnalyzer class; it has grown quite large and the various CreateXGraph functions are largely independent. I just haven\u0027t had time to look into refactoring.)",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b55065_7c450002",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-17T13:18:58Z",
+      "side": 1,
+      "message": "You probably want to scale the x-axis in the same way as the other (single event log) graphs so that it\u0027s possible to correlate what happens in one of the graphs to what happens in the others.\n\n(If we add some graphs that use a sliding window average, then the smoothing parameters would probably also be something we\u0027d want to share between the different graphs.)",
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

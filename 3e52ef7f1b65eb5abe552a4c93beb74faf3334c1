@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "9da3bb95_3fccc6d6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-17T14:50:00Z",
+      "side": 1,
+      "message": "Is it possible to drop `in_warning_block`? And just do:\n\n  if not is_end:\n    current.append(line)",
+      "range": {
+        "startLine": 515,
+        "startChar": 4,
+        "endLine": 520,
+        "endChar": 26
+      },
+      "revId": "3e52ef7f1b65eb5abe552a4c93beb74faf3334c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d442421_f8357868",
         "filename": "PRESUBMIT.py",
         "patchSetId": 3

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "802c06ef_9ab613b2",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3328,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T15:32:52Z",
+      "side": 1,
+      "message": "BTW, we have no test\n\n  TestCpuAdaptation(false, true);\n\nand if we had it would fail these expectations.",
+      "range": {
+        "startLine": 3327,
+        "startChar": 0,
+        "endLine": 3328,
+        "endChar": 72
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de9c454d_1379a6d1",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3335,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T15:32:52Z",
+      "side": 1,
+      "message": "This test now only checks this configuration, not actual adaptation.",
+      "range": {
+        "startLine": 3325,
+        "startChar": 2,
+        "endLine": 3335,
+        "endChar": 3
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

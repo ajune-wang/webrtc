@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "192606bd_ab6b774b",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "Make an overload that takes a const std::string\u0026 ?",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2
@@ -161,6 +184,24 @@
     },
     {
       "key": {
+        "uuid": "ef4e9691_2a272be2",
+        "filename": "rtc_base/system/file_wrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "Sounds good. That should always be a programmer error.",
+      "parentUuid": "1a6c1415_40c15354",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58e27fe4_8f64396d",
         "filename": "rtc_base/system/file_wrapper.cc",
         "patchSetId": 2
@@ -195,6 +236,29 @@
     },
     {
       "key": {
+        "uuid": "a5422a4e_87d249d2",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "For call site readability, this ought to be an enum.",
+      "range": {
+        "startLine": 27,
+        "startChar": 54,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "286d147d_8903f146",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 2
@@ -206,6 +270,41 @@
       "writtenOn": "2019-01-16T16:05:29Z",
       "side": 1,
       "message": "personally I\u0027d prefer this approach. The accessor could even be called is_valid().\n\nBeing able to do both of:\n\n  if (!FileWrapper::Open(...)) {}\n\nand \n\n  auto fw \u003d FileWrapper::Open();\n\ncould be confusing.",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "934b8bc5_c0c96b87",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "+1 for having a normal method instead of implicit conversion to bool. This is easier to read at the call sites, unless it\u0027s a thing that we do extremely often (and it\u0027s not, in this case).",
+      "parentUuid": "286d147d_8903f146",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4f1689_6245e691",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "Document? Specifically, am I allowed to call this twice?",
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -229,6 +328,24 @@
     },
     {
       "key": {
+        "uuid": "fda8f1dd_b564d2a7",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "Document the return value?",
+      "parentUuid": "5b357d54_9bd3b5e9",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28b649e8_8dd7227a",
         "filename": "rtc_base/system/file_wrapper.h",
         "patchSetId": 2
@@ -240,6 +357,58 @@
       "writtenOn": "2019-01-16T16:05:29Z",
       "side": 1,
       "message": "nit: Could rephrase this as \"Seeks to the beginning of the file\". Rewind is both the name of the function and the description, so the docs aren\u0027t that helpful. Also, makes it feel like we\u0027re dealing with tape storage :)",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47e9ab03_9cfe0cf5",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "+1. Please also document the return value.",
+      "parentUuid": "28b649e8_8dd7227a",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a31a021a_473e9eee",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "Document these?",
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4504b742_528a21e9",
+        "filename": "rtc_base/system/file_wrapper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:55:59Z",
+      "side": 1,
+      "message": "These should be up with the other constructors.",
       "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

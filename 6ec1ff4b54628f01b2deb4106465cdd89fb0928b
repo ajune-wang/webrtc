@@ -802,6 +802,30 @@
     },
     {
       "key": {
+        "uuid": "49c8ac34_00a2ee62",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-17T00:11:03Z",
+      "side": 1,
+      "message": "I missed part of the overhead, because audio_send_stream is listening to SetTransportOverhead, which does not include RTP overhead. RTP overhead is accounted for in channel_send as correctly pointed out by Stefan. \n\nI am looking how to refactor code so that we have one place which adds both overheads and used in both channel_send and audio_send_stream. Separation of audio code into audio_send_stream and channel_send makes it harder to do...",
+      "parentUuid": "627e3772_b82034c3",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87f6ca8a_48d8cda2",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 22

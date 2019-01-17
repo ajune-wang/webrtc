@@ -263,7 +263,7 @@ MultiplexImage MultiplexEncodedImagePacker::Unpack(
     encoded_image.SetTimestamp(combined_image.Timestamp());
     encoded_image._frameType = frame_headers[i].frame_type;
     encoded_image.set_buffer(
-        combined_image.data() + frame_headers[i].bitstream_offset,
+        combined_image.buffer() + frame_headers[i].bitstream_offset,
         static_cast<size_t>(frame_headers[i].bitstream_length));
     const size_t padding =
         EncodedImage::GetBufferPaddingBytes(image_component.codec_type);

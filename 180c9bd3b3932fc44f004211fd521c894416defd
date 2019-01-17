@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "204d1714_c22dde6e",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T16:16:27Z",
+      "side": 1,
+      "message": "\u003e nit:\n\u003e Was the fake one defaulting to hd?\n\nI think so, since it\u0027s at the top of the list in \n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/base/fake_video_capturer.cc?l\u003d33\n\nSo I try to stick to that in all test using capturer.GetSupportedFormats()-\u003efront(), to minimize changes.\n\nI might have misunderstood something, though.\n\n\u003e If so, do tests pass with vga instead, alternatively do the other tests still pass if we change kVideoWidth et al to hd?\n\nHmm. Anything specific test you want me to try out?",
+      "parentUuid": "91783c31_51b0b999",
+      "range": {
+        "startLine": 718,
+        "startChar": 40,
+        "endLine": 719,
+        "endChar": 69
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "802c06ef_9ab613b2",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "\u003e BTW, we have no test\n\u003e \n\u003e   TestCpuAdaptation(false, true);\nThat feel like an oversight.\n\n\u003e and if we had it would fail these expectations.\nWhy?",
       "parentUuid": "802c06ef_9ab613b2",
+      "range": {
+        "startLine": 3327,
+        "startChar": 0,
+        "endLine": 3328,
+        "endChar": 72
+      },
+      "revId": "180c9bd3b3932fc44f004211fd521c894416defd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f583fa77_aa0ffc86",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 3328,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-17T16:16:27Z",
+      "side": 1,
+      "message": "\u003e \u003e BTW, we have no test\n\u003e \u003e \n\u003e \u003e   TestCpuAdaptation(false, true);\n\u003e That feel like an oversight.\n\nI can try adding one.\n\n\u003e \u003e and if we had it would fail these expectations.\n\u003e Why?\n\nBecause we then expect that framerate_scaling_enabled() is equal to both false and to is_screenshare.",
+      "parentUuid": "f8c25400_22869ef5",
       "range": {
         "startLine": 3327,
         "startChar": 0,

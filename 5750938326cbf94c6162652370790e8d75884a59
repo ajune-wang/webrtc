@@ -16,6 +16,24 @@
       "revId": "5750938326cbf94c6162652370790e8d75884a59",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3ff616_6359cf32",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-17T10:55:17Z",
+      "side": 1,
+      "message": "There are other events to wait for.\ne.g. GCD delayed task are triggered after the configured period pass.\nDelete shouldn\u0027t wait for that, but TaskQueue object still need to exist to catch that event and delete the task.\nhttps://webrtc-review.googlesource.com/c/src/+/116489/14/rtc_base/task_queue_gcd.cc#75\n(there can be other reasons for postponing deallocation after Delete returns)\n\nDelete only have to wait(block) for the task that is already Running.",
+      "parentUuid": "1936e512_5ed3ad45",
+      "revId": "5750938326cbf94c6162652370790e8d75884a59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

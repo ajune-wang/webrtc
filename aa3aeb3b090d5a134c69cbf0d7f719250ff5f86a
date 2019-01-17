@@ -369,6 +369,30 @@
     },
     {
       "key": {
+        "uuid": "c8c38f63_d519672e",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:33:20Z",
+      "side": 1,
+      "message": "And it looks awesome!",
+      "parentUuid": "f9dec924_88b4f2c9",
+      "range": {
+        "startLine": 86,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 69
+      },
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c261ba31_232bf635",
         "filename": "rtc_base/repeating_task.h",
         "patchSetId": 4
@@ -445,6 +469,24 @@
       "side": 1,
       "message": "I just realized that the only place we actually use the exclusive mode is in the overuse checker task, and that is called with a 5 second interval, meaning that the difference excluding execution time makes would be minimal in comparison. do you agree that it makes sense to remove the exclusive interval mode in light of that?",
       "parentUuid": "5aaa0cdb_e5a87bc9",
+      "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "437e3de9_cdd5e4f7",
+        "filename": "rtc_base/repeating_task.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T01:33:20Z",
+      "side": 1,
+      "message": "Yes. In general, if a feature isn\u0027t needed, kill it!",
+      "parentUuid": "ef9a903a_53067165",
       "revId": "aa3aeb3b090d5a134c69cbf0d7f719250ff5f86a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -1,0 +1,210 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67e39f28_2d24832c",
+        "filename": "sdk/android/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Redundant. (In GN, path/to/foo:foo and path/to/foo are the same target.)",
+      "range": {
+        "startLine": 993,
+        "startChar": 21,
+        "endLine": 993,
+        "endChar": 30
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d21bd6c_f581872d",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "You don\u0027t need `static` inside an unnamed namespace. And use constexpr?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 12
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095505a9_465be234",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9975810c_ac4f5327",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Spend a sentence documenting this function and its return value?",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c383d82e_1ff35777",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 6
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc7af465_04e0ef18",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Just {} will work too.",
+      "range": {
+        "startLine": 143,
+        "startChar": 13,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "119c1ac1_3530545f",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "\u003c\u003c \"for thread \" \u003c\u003c tid;",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 31
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4241422f_5ab0e856",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Use Release() instead, to avoid making a copy of the string.",
+      "range": {
+        "startLine": 210,
+        "startChar": 24,
+        "endLine": 210,
+        "endChar": 27
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc728f67_8d2fc309",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Is the pc always 32 bits?",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17efbdb5_6d975304",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-17T21:11:01Z",
+      "side": 1,
+      "message": "Use std::atomic\u003cbool\u003e instead; volatile doesn\u0027t give you atomic instructions.",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

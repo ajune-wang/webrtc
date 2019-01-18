@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50f9eac0_2ec9d694",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-18T17:32:20Z",
+      "side": 1,
+      "message": "Name it like the p2p_transport_channel method?\n\nvirtual const Connection* selected_connection() const \u003d 0;",
+      "range": {
+        "startLine": 257,
+        "startChar": 41,
+        "endLine": 257,
+        "endChar": 42
+      },
+      "revId": "b01f020b8d9719f61ff63e3dc999461c2cf54f73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

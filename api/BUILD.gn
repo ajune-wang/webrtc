@@ -256,11 +256,33 @@ if (rtc_include_tests) {
   }
 }
 
+# TODO(webrtc:10206): Remove this forwarding target after updating downstream projects.
 rtc_source_set("libjingle_logging_api") {
   visibility = [ "*" ]
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    ":rtc_event_log_api",
+  ]
   sources = [
     "rtc_event_log_output.h",
     "rtceventlogoutput.h",
+  ]
+}
+
+rtc_source_set("rtc_event_log_api") {
+  visibility = [ "*" ]
+  sources = [
+    "rtc_event_log/rtc_event.cc",
+    "rtc_event_log/rtc_event.h",
+    "rtc_event_log/rtc_event_log.cc",
+    "rtc_event_log/rtc_event_log.h",
+    "rtc_event_log/rtc_event_log_factory_interface.h",
+    "rtc_event_log/rtc_event_log_output.h",
+  ]
+
+  deps = [
+    "../rtc_base:rtc_base_approved",
+    "../rtc_base:timeutils",
+    "//third_party/abseil-cpp/absl/memory",
   ]
 }
 

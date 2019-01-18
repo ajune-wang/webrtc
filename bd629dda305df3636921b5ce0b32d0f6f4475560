@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcb2bea7_54c85fc5",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-01-18T11:49:31Z",
+      "side": 1,
+      "message": "Why are there two include_audio_in_feedback variants?",
+      "revId": "bd629dda305df3636921b5ce0b32d0f6f4475560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3656359_f695a328",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-01-18T11:49:31Z",
+      "side": 1,
+      "message": "The same parameter is called has_transport_sequence_number_id just below. If they\u0027re the same thing, they should probably have the same name.\n\nI\u0027m more widely wondering if having this bool-heavy interface makes sense, or if you should instead take the actual values in and do the comparisons within the function, so 0 would be \u0027unset\u0027 (which, I agree, is a wart as well). Perhaps there could be places where you don\u0027t _know_ the actual values, just that they are set? The four-bool-parameter functions below are the worst culprits, imo.",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "bd629dda305df3636921b5ce0b32d0f6f4475560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

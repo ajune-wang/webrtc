@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37ae1b83_81724db0",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-18T12:40:28Z",
+      "side": 1,
+      "message": "No, much more files may happen to be built.\n\nThe ninja doc (https://ninja-build.org/manual.html#_running_ninja) states:\n\"\"\"There is also a special syntax target^ for specifying a target as the first output of some rule containing the source you put in the command line, if one exists. For example, if you specify target as foo.c^ then foo.o will get built (assuming you have those targets in your build files).\"\"\"\n\nThe doc is not yet entirely clear to me, but in practice, invoking `ninja ../../modules/audio_coding/codecs/opus/audio_decoder_opus.cc` ends up taking 274 steps before arriving to:\n[275/275] CXX obj/modules/audio_coding/webrtc_opus/audio_decoder_opus.o\nThat takes 5 minutes, which is not acceptable for a presubmit check.",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

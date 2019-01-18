@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <queue>
+
 #include "api/transport/goog_cc_factory.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
@@ -15,6 +17,34 @@
 
 namespace webrtc {
 namespace test {
+namespace {
+// "Toggling" is a constant high bandwidth level with two or more dips within a
+// short time window.
+bool NoBandwidthToggling(std::queue<DataRate> bandwidth_history,
+                         DataRate threshold) {
+  if (bandwidth_history.empty())
+    return true;
+  printf("\n");
+  DataRate first = bandwidth_history.front();
+  bandwidth_history.pop();
+
+  int dips = 0;
+  bool state_high = true;
+  while (!bandwidth_history.empty()) {
+    if (bandwidth_history.front() + threshold < first && state_high) {
+      ++dips;
+      state_high = false;
+    } else if (bandwidth_history.front() == first) {
+      state_high = true;
+    } else if (bandwidth_history.front() > first) {
+      // If this is toggling we will catch it later when front becomes first.
+      state_high = false;
+    }
+    bandwidth_history.pop();
+  }
+  return dips < 2;
+}
+}  // namespace
 
 TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
   const DataRate kLinkCapacity = DataRate::kbps(200);
@@ -144,6 +174,45 @@ TEST(GoogCcNetworkControllerTest,
 
   // Without trial, pacer delay reaches ~250 ms.
   EXPECT_LT(client->GetStats().pacer_delay_ms, 150);
+}
+
+TEST(GoogCcNetworkControllerTest, NoBandwidthTogglingInLossControlTrial) {
+  const DataRate kLinkCapacity = DataRate::kbps(2000);
+  const DataRate kStartRate = DataRate::kbps(300);
+  const double kLossRate = 0.2;
+
+  ScopedFieldTrials trial("WebRTC-Bwe-LossBasedControl/Enabled/");
+  Scenario s("googcc_unit/no_toggling", true);
+  auto* send_net = s.CreateSimulationNode([&](NetworkNodeConfig* c) {
+    c->simulation.bandwidth = kLinkCapacity;
+    c->simulation.loss_rate = kLossRate;
+    c->simulation.delay = TimeDelta::ms(10);
+  });
+
+  // TODO(srte): replace with SimulatedTimeClient when it supports probing.
+  auto* client = s.CreateClient("send", [&](CallClientConfig* c) {
+    c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
+    c->transport.rates.start_rate = kStartRate;
+  });
+  auto* route = s.CreateRoutes(client, {send_net},
+                               s.CreateClient("return", CallClientConfig()),
+                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  s.CreateVideoStream(route->forward(), VideoStreamConfig());
+  // Allow the controller to initialize.
+  s.RunFor(TimeDelta::ms(250));
+  const TimeDelta step = TimeDelta::ms(50);
+  const TimeDelta window = TimeDelta::ms(500);
+  std::queue<DataRate> bandwidth_history;
+  for (int i = 0; i < window / step; ++i)
+    bandwidth_history.push(client->send_bandwidth());
+
+  for (TimeDelta time = TimeDelta::Zero(); time < TimeDelta::ms(2000);
+       time += step) {
+    s.RunFor(step);
+    bandwidth_history.pop();
+    bandwidth_history.push(client->send_bandwidth());
+    ASSERT_TRUE(NoBandwidthToggling(bandwidth_history, DataRate::kbps(100)));
+  }
 }
 
 }  // namespace test

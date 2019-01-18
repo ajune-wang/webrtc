@@ -93,6 +93,30 @@
       "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f349b0_cf2bda1b",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-18T16:33:58Z",
+      "side": 1,
+      "message": "I think parameterized test are much bigger overkill compare to creating two test cases.\n\nParameterized test works good when you have 10 scenarios and 10 configurations and you want 10*10 tests.",
+      "parentUuid": "59d52448_fafd54df",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 22
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

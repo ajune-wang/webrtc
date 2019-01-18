@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "b5d7abd1_27abd1b6",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T09:21:22Z",
+      "side": 1,
+      "message": "I understand - indeed there are many cases where this is a problem. UNICODE_STRING, a string structure used on windows (kernel mode), has the length stored separately and the string pointed to may not be zero terminated - although it usually is - which is the scary part. In such cases, I\u0027m definitely in favor of not assuming that regular functions that accept a string will do the \"right thing\".\n\nAs for file paths, there are other things to watch out for than NUL. NTFS for example supports N streams per file that can be accessed via \u0027:\u0027 following the file path. This isn\u0027t widely known, and that fact has caused problems in the past.\nFun read: https://hackernoon.com/breaking-software-integrity-with-ntfs-streams-fe4a1b13d2da\n\nBut that\u0027s NTFS, not other file systems. So, having a path class (like we have in Chromium), might be better than using std::string for paths :D",
+      "parentUuid": "65e5b2fb_21c094dd",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2

@@ -116,6 +116,24 @@
       "revId": "616eace9be32c1b949babfad5883b6053e105b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb246019_295fc573",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-18T14:31:26Z",
+      "side": 1,
+      "message": "\u003e 3. Understand why ../../pc/peerconnection.cc^ leads to 1 build step but ../../pc/peerconnectionwrapper.cc^ to 237 steps.\n\nHhmm, pc/peerconnection.cc and pc/peerconnectionwrapper.cc do not exist.",
+      "parentUuid": "fbf0c65e_e7ee1554",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

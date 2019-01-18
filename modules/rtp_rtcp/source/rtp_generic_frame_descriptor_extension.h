@@ -29,10 +29,12 @@ class RtpGenericFrameDescriptorExtension {
   static constexpr int kMaxSizeBytes = 16;
 
   static bool Parse(rtc::ArrayView<const uint8_t> data,
-                    RtpGenericFrameDescriptor* descriptor);
-  static size_t ValueSize(const RtpGenericFrameDescriptor&);
+                    RtpGenericFrameDescriptor* descriptor,
+                    bool use_discardability_flag);
+  static size_t ValueSize(const RtpGenericFrameDescriptor&, bool);
   static bool Write(rtc::ArrayView<uint8_t> data,
-                    const RtpGenericFrameDescriptor& descriptor);
+                    const RtpGenericFrameDescriptor& descriptor,
+                    bool use_discardability_flag);
 };
 
 }  // namespace webrtc

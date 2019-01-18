@@ -117,10 +117,10 @@ MATCHER_P(SamePacketAs, other, "") {
 
 }  // namespace
 
-class RtpVideoStreamReceiverTest : public testing::Test {
+class RtpVideoStreamReceiverTestBase : public testing::Test {
  public:
-  RtpVideoStreamReceiverTest() : RtpVideoStreamReceiverTest("") {}
-  explicit RtpVideoStreamReceiverTest(std::string field_trials)
+  RtpVideoStreamReceiverTestBase() : RtpVideoStreamReceiverTestBase("") {}
+  explicit RtpVideoStreamReceiverTestBase(std::string field_trials)
       : override_field_trials_(field_trials),
         config_(CreateConfig()),
         process_thread_(ProcessThread::Create("TestThread")) {}
@@ -203,7 +203,24 @@ class RtpVideoStreamReceiverTest : public testing::Test {
   std::unique_ptr<RtpVideoStreamReceiver> rtp_video_stream_receiver_;
 };
 
-TEST_F(RtpVideoStreamReceiverTest, GenericKeyFrame) {
+class RtpVideoStreamReceiverTest : public RtpVideoStreamReceiverTestBase,
+                                   public testing::WithParamInterface<bool> {
+ public:
+  RtpVideoStreamReceiverTest()
+      : use_discardability_flag_(GetParam()),
+        field_trials_(use_discardability_flag_
+                          ? "WebRTC-DiscardabilityFlag/Enabled/"
+                          : "WebRTC-DiscardabilityFlag/Disabled/") {}
+
+  ~RtpVideoStreamReceiverTest() override = default;
+
+  const bool use_discardability_flag_;
+  webrtc::test::ScopedFieldTrials field_trials_;
+};
+
+INSTANTIATE_TEST_CASE_P(, RtpVideoStreamReceiverTest, ::testing::Bool());
+
+TEST_P(RtpVideoStreamReceiverTest, GenericKeyFrame) {
   WebRtcRTPHeader rtp_header = {};
   const std::vector<uint8_t> data({1, 2, 3, 4});
   rtp_header.header.sequenceNumber = 1;
@@ -218,7 +235,7 @@ TEST_F(RtpVideoStreamReceiverTest, GenericKeyFrame) {
                                                     &rtp_header);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, NoInfiniteRecursionOnEncapsulatedRedPacket) {
+TEST_P(RtpVideoStreamReceiverTest, NoInfiniteRecursionOnEncapsulatedRedPacket) {
   const uint8_t kRedPayloadType = 125;
   VideoCodec codec;
   codec.plType = kRedPayloadType;
@@ -237,7 +254,7 @@ TEST_F(RtpVideoStreamReceiverTest, NoInfiniteRecursionOnEncapsulatedRedPacket) {
   rtp_video_stream_receiver_->OnRtpPacket(packet);
 }
 
-TEST_F(RtpVideoStreamReceiverTest,
+TEST_P(RtpVideoStreamReceiverTest,
        DropsPacketWithRedPayloadTypeAndEmptyPayload) {
   const uint8_t kRedPayloadType = 125;
   config_.rtp.red_payload_type = kRedPayloadType;
@@ -260,7 +277,7 @@ TEST_F(RtpVideoStreamReceiverTest,
   // Expect asan doesn't find anything.
 }
 
-TEST_F(RtpVideoStreamReceiverTest, GenericKeyFrameBitstreamError) {
+TEST_P(RtpVideoStreamReceiverTest, GenericKeyFrameBitstreamError) {
   WebRtcRTPHeader rtp_header = {};
   const std::vector<uint8_t> data({1, 2, 3, 4});
   rtp_header.header.sequenceNumber = 1;
@@ -278,10 +295,11 @@ TEST_F(RtpVideoStreamReceiverTest, GenericKeyFrameBitstreamError) {
 }
 
 class RtpVideoStreamReceiverTestH264
-    : public RtpVideoStreamReceiverTest,
+    : public RtpVideoStreamReceiverTestBase,
       public testing::WithParamInterface<std::string> {
  protected:
-  RtpVideoStreamReceiverTestH264() : RtpVideoStreamReceiverTest(GetParam()) {}
+  RtpVideoStreamReceiverTestH264()
+      : RtpVideoStreamReceiverTestBase(GetParam()) {}
 };
 
 INSTANTIATE_TEST_CASE_P(
@@ -373,7 +391,7 @@ TEST_P(RtpVideoStreamReceiverTestH264, OutOfBandFmtpSpsPps) {
                                                     &idr_packet);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, PaddingInMediaStream) {
+TEST_P(RtpVideoStreamReceiverTest, PaddingInMediaStream) {
   WebRtcRTPHeader header = GetDefaultPacket();
   std::vector<uint8_t> data;
   data.insert(data.end(), {1, 2, 3});
@@ -408,7 +426,7 @@ TEST_F(RtpVideoStreamReceiverTest, PaddingInMediaStream) {
   rtp_video_stream_receiver_->OnReceivedPayloadData(nullptr, 0, &header);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, RequestKeyframeIfFirstFrameIsDelta) {
+TEST_P(RtpVideoStreamReceiverTest, RequestKeyframeIfFirstFrameIsDelta) {
   WebRtcRTPHeader rtp_header = {};
   const std::vector<uint8_t> data({1, 2, 3, 4});
   rtp_header.header.sequenceNumber = 1;
@@ -422,7 +440,7 @@ TEST_F(RtpVideoStreamReceiverTest, RequestKeyframeIfFirstFrameIsDelta) {
                                                     &rtp_header);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, SecondarySinksGetRtpNotifications) {
+TEST_P(RtpVideoStreamReceiverTest, SecondarySinksGetRtpNotifications) {
   rtp_video_stream_receiver_->StartReceive();
 
   MockRtpPacketSink secondary_sink_1;
@@ -443,7 +461,7 @@ TEST_F(RtpVideoStreamReceiverTest, SecondarySinksGetRtpNotifications) {
   rtp_video_stream_receiver_->RemoveSecondarySink(&secondary_sink_2);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, RemovedSecondarySinksGetNoRtpNotifications) {
+TEST_P(RtpVideoStreamReceiverTest, RemovedSecondarySinksGetNoRtpNotifications) {
   rtp_video_stream_receiver_->StartReceive();
 
   MockRtpPacketSink secondary_sink;
@@ -461,7 +479,7 @@ TEST_F(RtpVideoStreamReceiverTest, RemovedSecondarySinksGetNoRtpNotifications) {
   rtp_video_stream_receiver_->StopReceive();
 }
 
-TEST_F(RtpVideoStreamReceiverTest,
+TEST_P(RtpVideoStreamReceiverTest,
        OnlyRemovedSecondarySinksExcludedFromNotifications) {
   rtp_video_stream_receiver_->StartReceive();
 
@@ -482,7 +500,7 @@ TEST_F(RtpVideoStreamReceiverTest,
   rtp_video_stream_receiver_->RemoveSecondarySink(&kept_secondary_sink);
 }
 
-TEST_F(RtpVideoStreamReceiverTest,
+TEST_P(RtpVideoStreamReceiverTest,
        SecondariesOfNonStartedStreamGetNoNotifications) {
   // Explicitly showing that the stream is not in the |started| state,
   // regardless of whether streams start out |started| or |stopped|.
@@ -500,7 +518,7 @@ TEST_F(RtpVideoStreamReceiverTest,
   rtp_video_stream_receiver_->RemoveSecondarySink(&secondary_sink);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorOnePacket) {
+TEST_P(RtpVideoStreamReceiverTest, ParseGenericDescriptorOnePacket) {
   const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
   const int kPayloadType = 123;
   const int kSpatialIndex = 1;
@@ -514,7 +532,7 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorOnePacket) {
   extension_map.Register<RtpGenericFrameDescriptorExtension>(5);
   RtpPacketReceived rtp_packet(&extension_map);
 
-  RtpGenericFrameDescriptor generic_descriptor;
+  RtpGenericFrameDescriptor generic_descriptor(use_discardability_flag_);
   generic_descriptor.SetFirstPacketInSubFrame(true);
   generic_descriptor.SetLastPacketInSubFrame(true);
   generic_descriptor.SetFrameId(100);
@@ -522,7 +540,7 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorOnePacket) {
   generic_descriptor.AddFrameDependencyDiff(90);
   generic_descriptor.AddFrameDependencyDiff(80);
   EXPECT_TRUE(rtp_packet.SetExtension<RtpGenericFrameDescriptorExtension>(
-      generic_descriptor));
+      generic_descriptor, use_discardability_flag_));
 
   uint8_t* payload = rtp_packet.SetPayloadSize(data.size());
   memcpy(payload, data.data(), data.size());
@@ -545,7 +563,7 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorOnePacket) {
   rtp_video_stream_receiver_->OnRtpPacket(rtp_packet);
 }
 
-TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorTwoPackets) {
+TEST_P(RtpVideoStreamReceiverTest, ParseGenericDescriptorTwoPackets) {
   const std::vector<uint8_t> data = {0, 1, 2, 3, 4};
   const int kPayloadType = 123;
   const int kSpatialIndex = 1;
@@ -559,14 +577,14 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorTwoPackets) {
   extension_map.Register<RtpGenericFrameDescriptorExtension>(5);
   RtpPacketReceived first_packet(&extension_map);
 
-  RtpGenericFrameDescriptor first_packet_descriptor;
+  RtpGenericFrameDescriptor first_packet_descriptor(use_discardability_flag_);
   first_packet_descriptor.SetFirstPacketInSubFrame(true);
   first_packet_descriptor.SetLastPacketInSubFrame(false);
   first_packet_descriptor.SetFrameId(100);
   first_packet_descriptor.SetSpatialLayersBitmask(1 << kSpatialIndex);
   first_packet_descriptor.SetResolution(480, 360);
   EXPECT_TRUE(first_packet.SetExtension<RtpGenericFrameDescriptorExtension>(
-      first_packet_descriptor));
+      first_packet_descriptor, use_discardability_flag_));
 
   uint8_t* first_packet_payload = first_packet.SetPayloadSize(data.size());
   memcpy(first_packet_payload, data.data(), data.size());
@@ -579,11 +597,11 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorTwoPackets) {
   rtp_video_stream_receiver_->OnRtpPacket(first_packet);
 
   RtpPacketReceived second_packet(&extension_map);
-  RtpGenericFrameDescriptor second_packet_descriptor;
+  RtpGenericFrameDescriptor second_packet_descriptor(use_discardability_flag_);
   second_packet_descriptor.SetFirstPacketInSubFrame(false);
   second_packet_descriptor.SetLastPacketInSubFrame(true);
   EXPECT_TRUE(second_packet.SetExtension<RtpGenericFrameDescriptorExtension>(
-      second_packet_descriptor));
+      second_packet_descriptor, use_discardability_flag_));
 
   second_packet.SetMarker(true);
   second_packet.SetPayloadType(kPayloadType);
@@ -607,7 +625,7 @@ TEST_F(RtpVideoStreamReceiverTest, ParseGenericDescriptorTwoPackets) {
 }
 
 #if RTC_DCHECK_IS_ON && GTEST_HAS_DEATH_TEST && !defined(WEBRTC_ANDROID)
-TEST_F(RtpVideoStreamReceiverTest, RepeatedSecondarySinkDisallowed) {
+TEST_P(RtpVideoStreamReceiverTest, RepeatedSecondarySinkDisallowed) {
   MockRtpPacketSink secondary_sink;
 
   rtp_video_stream_receiver_->AddSecondarySink(&secondary_sink);

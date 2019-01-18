@@ -113,7 +113,9 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
                                     packet_router)),
       complete_frame_callback_(complete_frame_callback),
       keyframe_request_sender_(keyframe_request_sender),
-      has_received_frame_(false) {
+      has_received_frame_(false),
+      use_discardability_flag_(
+          webrtc::field_trial::IsEnabled("WebRTC-DiscardabilityFlag")) {
   constexpr bool remb_candidate = true;
   packet_router_->AddReceiveRtpModule(rtp_rtcp_.get(), remb_candidate);
 
@@ -525,9 +527,9 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
     webrtc_rtp_header.video_header().color_space = last_color_space_;
   }
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor_wire;
-  generic_descriptor_wire.emplace();
+  generic_descriptor_wire.emplace(use_discardability_flag_);
   if (packet.GetExtension<RtpGenericFrameDescriptorExtension>(
-          &generic_descriptor_wire.value())) {
+          &generic_descriptor_wire.value(), use_discardability_flag_)) {
     generic_descriptor_wire->SetByteRepresentation(
         packet.GetRawExtension<RtpGenericFrameDescriptorExtension>());
     webrtc_rtp_header.video_header().is_first_packet_in_frame =

@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "b1892743_eff1108f",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-18T12:48:14Z",
+      "side": 1,
+      "message": "Backslash continuation should be avoided when possible.\n\nmsg \u003d (\u0027Clang static analyser reported issues. \u0027\n       \u0027Either fix or suppress them.\\n\u0027\n       \u0027etc\u0027)",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 74
+      },
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fde91440_49f44dd5",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-18T12:48:14Z",
+      "side": 1,
+      "message": "return (\n              )\n\nto avoid backslash continuation",
+      "range": {
+        "startLine": 587,
+        "startChar": 13,
+        "endLine": 588,
+        "endChar": 51
+      },
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "37ae1b83_81724db0",
         "filename": "PRESUBMIT.py",
         "patchSetId": 5
@@ -13,6 +59,24 @@
       "writtenOn": "2019-01-18T12:40:28Z",
       "side": 1,
       "message": "No, much more files may happen to be built.\n\nThe ninja doc (https://ninja-build.org/manual.html#_running_ninja) states:\n\"\"\"There is also a special syntax target^ for specifying a target as the first output of some rule containing the source you put in the command line, if one exists. For example, if you specify target as foo.c^ then foo.o will get built (assuming you have those targets in your build files).\"\"\"\n\nThe doc is not yet entirely clear to me, but in practice, invoking `ninja ../../modules/audio_coding/codecs/opus/audio_decoder_opus.cc` ends up taking 274 steps before arriving to:\n[275/275] CXX obj/modules/audio_coding/webrtc_opus/audio_decoder_opus.o\nThat takes 5 minutes, which is not acceptable for a presubmit check.",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b56625c_2cd97cac",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-01-18T12:48:14Z",
+      "side": 1,
+      "message": "I don\u0027t understand, is this a showstopper problem that you just noticed, or is it a comment about something prior?",
+      "parentUuid": "37ae1b83_81724db0",
       "revId": "616eace9be32c1b949babfad5883b6053e105b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

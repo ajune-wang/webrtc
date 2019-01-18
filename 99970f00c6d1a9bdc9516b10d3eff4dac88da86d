@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d15a9b60_70c1d9ef",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T11:07:05Z",
+      "side": 1,
+      "message": "initial_min_history_value?",
+      "range": {
+        "startLine": 456,
+        "startChar": 21,
+        "endLine": 456,
+        "endChar": 37
+      },
+      "revId": "99970f00c6d1a9bdc9516b10d3eff4dac88da86d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0212624_31869d9a",
+        "filename": "modules/bitrate_controller/send_side_bandwidth_estimation.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T11:07:05Z",
+      "side": 1,
+      "message": "nit: I think this would be easier to read with an if rather than the ternary. But it\u0027s up to you.",
+      "revId": "99970f00c6d1a9bdc9516b10d3eff4dac88da86d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07622a68_5c188cd9",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_slowtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T11:07:05Z",
+      "side": 1,
+      "message": "Maybe CountBandwidthEstimationDips, and then check for the cound where it\u0027s used?",
+      "range": {
+        "startLine": 23,
+        "startChar": 5,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "99970f00c6d1a9bdc9516b10d3eff4dac88da86d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a1dcae7_46a14fc0",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_slowtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T11:07:05Z",
+      "side": 1,
+      "message": "If they aren\u0027t fundamental to the test itself, maybe inline the values?",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 31
+      },
+      "revId": "99970f00c6d1a9bdc9516b10d3eff4dac88da86d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df8b971_91f70f2c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control_slowtest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T11:07:05Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me why this setup is made. Maybe you could add a comment explaining?",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 53
+      },
+      "revId": "99970f00c6d1a9bdc9516b10d3eff4dac88da86d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

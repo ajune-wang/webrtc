@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38ccaaf4_82ea55c5",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T18:15:36Z",
+      "side": 1,
+      "message": "instead of doing this, could you do:\n\nT* ptr \u003d reinterpret_cast\u003cT*\u003e(native_pointer);\nrtc::scoped_refptr\u003cT\u003e ref_counted_object;\nref_counted_object.swap(\u0026ptr);\nreturn ref_counted_object;",
+      "range": {
+        "startLine": 53,
+        "startChar": 21,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "e91cb523e512da3215024490852b43c8eb223d31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4128329_047e60e3",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T18:15:36Z",
+      "side": 1,
+      "message": "is this now the only place where we construct a OwnedFactoryAndThreads instance?\n\nIf so.. do you mind changing it so that it doesn\u0027t hold a raw pointer to PeerConnectionFactoryInterface but rather uses scoped_refptr? (and remove the call to Release() in the dtor)\n\nIf you do that, then you can do a std::move() here instead of .release(), which often raises concerns when reviewing code, and it should also be possible to make the factory_ variable in OwnedFactoryAndThreads, const.\n\nThe network_monitor_factory implementation also raises a few questions - the design seems to be very open to the potential of running into dangling pointers. Outside of the scope of this CL I guess though.",
+      "revId": "e91cb523e512da3215024490852b43c8eb223d31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

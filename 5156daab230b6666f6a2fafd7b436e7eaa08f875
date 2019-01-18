@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fcb62b18_6a50ebb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T13:01:40Z",
+      "side": 1,
+      "message": "In the next CL, I want to make these methods protected, with the only legitimate user being RtpGenericFrameDescriptorExtension, which will access them as a friend. Then, the public API of FirstSubFrameInFrame() and LastSubFrameInFrame() will have been deprecated.",
+      "parentUuid": "35dad5ce_50619c63",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "5156daab230b6666f6a2fafd7b436e7eaa08f875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9dea6e1e_63637126",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "309b21b4_95db9608",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T13:01:40Z",
+      "side": 1,
+      "message": "* I\u0027ll parameterize the test, then.\n* This test checks the parsing of a single flag - LastPacketOfSubFrame. But since we\u0027ve now parameterized, there\u0027s no longer a local variable, so the naming discussion is now moot.",
+      "parentUuid": "9dea6e1e_63637126",
+      "range": {
+        "startLine": 63,
+        "startChar": 12,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "5156daab230b6666f6a2fafd7b436e7eaa08f875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1dd47db3_6414e8ab",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-01-18T12:30:49Z",
       "side": 1,
       "message": "this look like the only usage of this constant, can as well inline it:\nkRaw[] \u003d {0x70};\n\nless logic in tests make tests easier to follow.",
+      "range": {
+        "startLine": 82,
+        "startChar": 43,
+        "endLine": 82,
+        "endChar": 59
+      },
+      "revId": "5156daab230b6666f6a2fafd7b436e7eaa08f875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbb10186_0c8ce2f4",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T13:01:40Z",
+      "side": 1,
+      "message": "IMHO, this is clearer, because otherwise, it\u0027s not clear why multiple bits are written, when the test aims to check only one boolean flag. Wdyt?",
+      "parentUuid": "1dd47db3_6414e8ab",
       "range": {
         "startLine": 82,
         "startChar": 43,
@@ -91,6 +163,30 @@
       "revId": "5156daab230b6666f6a2fafd7b436e7eaa08f875",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f692bd2d_bd711e8b",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T13:01:40Z",
+      "side": 1,
+      "message": "Didn\u0027t we want to drop packets where this is incorrectly not set, in a certain product? So we\u0027ll still have the method ParseFirstSubFrameInFrame(), in which case, we should have a unit test for it.",
+      "parentUuid": "676b653e_7e8bafb7",
+      "range": {
+        "startLine": 96,
+        "startChar": 45,
+        "endLine": 96,
+        "endChar": 70
+      },
+      "revId": "5156daab230b6666f6a2fafd7b436e7eaa08f875",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

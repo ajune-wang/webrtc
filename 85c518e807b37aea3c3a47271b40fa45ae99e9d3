@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "d2c04cec_7d162309",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-18T09:21:00Z",
+      "side": 1,
+      "message": "Well, yes, but with the current code you get messages like \"Failed to wait for thread to finish stack trace 4711\". The grammar is actively misleading, in a way that it isn\u0027t for the other messages in this file.",
+      "parentUuid": "734242e8_ba2aa6a7",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 31
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4241422f_5ab0e856",
         "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
         "patchSetId": 2

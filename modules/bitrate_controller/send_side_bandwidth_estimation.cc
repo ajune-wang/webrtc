@@ -453,7 +453,10 @@ void SendSideBandwidthEstimation::UpdateEstimate(Timestamp at_time) {
 
     if (new_bitrate != current_bitrate_) {
       min_bitrate_history_.clear();
-      min_bitrate_history_.push_back(std::make_pair(at_time, current_bitrate_));
+      const DataRate min_history_init =
+          loss_based_bandwidth_estimation_.Enabled() ? new_bitrate
+                                                     : current_bitrate_;
+      min_bitrate_history_.push_back(std::make_pair(at_time, min_history_init));
       CapBitrateToThresholds(at_time, new_bitrate);
       return;
     }

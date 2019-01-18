@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a7d7d4_0a51e5a8",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-18T15:22:07Z",
+      "side": 1,
+      "message": "why change EXPECTs into ASSERTs?\n\nI read ASSERT as \u0027there is absolutely no point to continue test if this fails\u0027\nAnother meaning even stricter: \u0027test will crash if this condition not true, better fail test than crash it\u0027.",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e7261fe_0c7cdc97",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-18T15:22:07Z",
+      "side": 1,
+      "message": "It become less clear what is the meaning of this bool parameter\n\nif you believe code under test behave differently when you set and when you clear the flag, make two tests.",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 22
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -134,6 +134,24 @@
       "revId": "616eace9be32c1b949babfad5883b6053e105b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6a2d71f_e669a12e",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-18T14:51:38Z",
+      "side": 1,
+      "message": "Oh yes I haven\u0027t rebased. Read peer_connection.cc and peer_connection_wrapper.cc",
+      "parentUuid": "eb246019_295fc573",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -11,7 +11,6 @@
 #include "sdk/android/src/jni/pc/owned_factory_and_threads.h"
 
 #include "sdk/android/src/jni/jni_helpers.h"
-#include "sdk/android/src/jni/pc/peer_connection_factory.h"
 
 namespace webrtc {
 namespace jni {
@@ -37,16 +36,6 @@ OwnedFactoryAndThreads::~OwnedFactoryAndThreads() {
   if (network_monitor_factory_ != nullptr) {
     rtc::NetworkMonitorFactory::ReleaseFactory(network_monitor_factory_);
   }
-}
-
-void OwnedFactoryAndThreads::InvokeJavaCallbacksOnFactoryThreads() {
-  RTC_LOG(LS_INFO) << "InvokeJavaCallbacksOnFactoryThreads.";
-  network_thread_->Invoke<void>(RTC_FROM_HERE,
-                                &PeerConnectionFactoryNetworkThreadReady);
-  worker_thread_->Invoke<void>(RTC_FROM_HERE,
-                               &PeerConnectionFactoryWorkerThreadReady);
-  signaling_thread_->Invoke<void>(RTC_FROM_HERE,
-                                  &PeerConnectionFactorySignalingThreadReady);
 }
 
 }  // namespace jni

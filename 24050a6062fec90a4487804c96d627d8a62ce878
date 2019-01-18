@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b4f7090a_f6707af4",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T15:50:05Z",
+      "side": 1,
+      "message": "I use it to convey one of two meanings.\n1. The practical one of not continuing when the test would crash.\n2. Distinguishing between the test focus (expectation), and assumptions which, if broken, render the test irrelevant (assertions).\nIn the case of this test, it\u0027s not clear why some flags are tested, but others aren\u0027t. After all, only LastPacketInSubFrame is the focus of the test. What about kFlagMoreDependencies, for example?",
+      "parentUuid": "10a7d7d4_0a51e5a8",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5e7261fe_0c7cdc97",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-18T15:22:07Z",
       "side": 1,
       "message": "It become less clear what is the meaning of this bool parameter\n\nif you believe code under test behave differently when you set and when you clear the flag, make two tests.",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 22
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d52448_fafd54df",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-18T15:50:05Z",
+      "side": 1,
+      "message": "What if Parse() always thinks this flag is set? An unparameterized test would not catch that. When testing the parsing of bools, IMHO, one should check both cases. It would be overkill to write two tests, though. How about a local variable for documentation, such as flag_value?",
+      "parentUuid": "5e7261fe_0c7cdc97",
       "range": {
         "startLine": 104,
         "startChar": 12,

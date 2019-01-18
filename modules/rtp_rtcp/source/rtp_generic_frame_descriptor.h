@@ -25,7 +25,7 @@ class RtpGenericFrameDescriptor {
   static constexpr int kMaxTemporalLayers = 8;
   static constexpr int kMaxSpatialLayers = 8;
 
-  RtpGenericFrameDescriptor();
+  explicit RtpGenericFrameDescriptor(bool use_discardable);
   RtpGenericFrameDescriptor(const RtpGenericFrameDescriptor&);
   ~RtpGenericFrameDescriptor();
 
@@ -34,8 +34,11 @@ class RtpGenericFrameDescriptor {
   bool LastPacketInSubFrame() const { return end_of_subframe_; }
   void SetLastPacketInSubFrame(bool last) { end_of_subframe_ = last; }
 
-  bool FirstSubFrameInFrame() const { return beginning_of_frame_; }
-  bool LastSubFrameInFrame() const { return end_of_frame_; }
+  bool FirstSubFrameInFrame() const;
+  bool LastSubFrameInFrame() const;
+
+  bool Discardable() const;
+  void SetDiscardable(bool discardable);
 
   // Properties below undefined if !FirstPacketInSubFrame()
   // Valid range for temporal layer: [0, 7]
@@ -73,6 +76,9 @@ class RtpGenericFrameDescriptor {
   bool end_of_subframe_ = false;
   bool beginning_of_frame_ = true;
   bool end_of_frame_ = true;
+
+  bool use_discardable_;
+  bool discardable_ = false;
 
   uint16_t frame_id_ = 0;
   uint8_t spatial_layers_ = 1;

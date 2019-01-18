@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e674471_5ecef434",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T09:48:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "494b6dfb_d5fbdff1",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 60
+      },
+      "revId": "605e3d9fefbebd8c2fdecb16775d2bf3c1de7eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3734b01f_2a3066fa",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "605e3d9fefbebd8c2fdecb16775d2bf3c1de7eb5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9af43d3_a933aaa7",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T09:48:19Z",
+      "side": 1,
+      "message": "It should not. Added DCHECK for clarity.",
+      "parentUuid": "3734b01f_2a3066fa",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 45
+      },
+      "revId": "605e3d9fefbebd8c2fdecb16775d2bf3c1de7eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -98,6 +98,24 @@
       "revId": "616eace9be32c1b949babfad5883b6053e105b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbf0c65e_e7ee1554",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-18T14:04:18Z",
+      "side": 1,
+      "message": "Possible workarounds/leads:\n1. Run `ninja -nv target^` or `ninja -t commands target^`, grep the command related to the file at stake (typically the last one) and run it (*).\n2. Get the needed compilation flags and defines more explicitly (`ninja -t compdb`? I have to check this one).   \u003c-- Looks the most promising.\n3. Understand why ../../pc/peerconnection.cc^ leads to 1 build step but ../../pc/peerconnectionwrapper.cc^ to 237 steps.\n\n(*) Or maybe run build/toolchain/clang_static_analyzer_wrapper.py with the same parameters, which seems more secure.",
+      "parentUuid": "781e9b21_43f3ad42",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

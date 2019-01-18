@@ -33,15 +33,6 @@
 
 namespace webrtc {
 namespace {
-
-const char kCwndExperiment[] = "WebRTC-CwndExperiment";
-// When CongestionWindowPushback is enabled, the pacer is oblivious to
-// the congestion window. The relation between outstanding data and
-// the congestion window affects encoder allocations directly.
-const char kCongestionPushbackExperiment[] = "WebRTC-CongestionWindowPushback";
-
-const int64_t kDefaultAcceptedQueueMs = 250;
-
 // From RTCPSender video report interval.
 constexpr TimeDelta kLossUpdateInterval = TimeDelta::Millis<1000>();
 
@@ -51,38 +42,6 @@ constexpr TimeDelta kLossUpdateInterval = TimeDelta::Millis<1000>();
 // Increasing this factor will result in lower delays in cases of bitrate
 // overshoots from the encoder.
 const float kDefaultPaceMultiplier = 2.5f;
-
-bool IsCongestionWindowPushbackExperimentEnabled() {
-  return webrtc::field_trial::IsEnabled(kCongestionPushbackExperiment) &&
-         webrtc::field_trial::IsEnabled(kCwndExperiment);
-}
-
-std::unique_ptr<CongestionWindowPushbackController>
-MaybeInitalizeCongestionWindowPushbackController() {
-  return IsCongestionWindowPushbackExperimentEnabled()
-             ? absl::make_unique<CongestionWindowPushbackController>()
-             : nullptr;
-}
-
-bool CwndExperimentEnabled() {
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
-  // The experiment is enabled iff the field trial string begins with "Enabled".
-  return experiment_string.find("Enabled") == 0;
-}
-bool ReadCwndExperimentParameter(int64_t* accepted_queue_ms) {
-  RTC_DCHECK(accepted_queue_ms);
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCwndExperiment);
-  int parsed_values =
-      sscanf(experiment_string.c_str(), "Enabled-%" PRId64, accepted_queue_ms);
-  if (parsed_values == 1) {
-    RTC_CHECK_GE(*accepted_queue_ms, 0)
-        << "Accepted must be greater than or equal to 0.";
-    return true;
-  }
-  return false;
-}
 
 // Makes sure that the bitrate and the min, max values are in valid range.
 static void ClampBitrates(int64_t* bitrate_bps,
@@ -138,9 +97,14 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           field_trial::IsEnabled("WebRTC-Bwe-StableBandwidthEstimate")),
       fall_back_to_probe_rate_(
           field_trial::IsEnabled("WebRTC-Bwe-ProbeRateFallback")),
+      rate_control_experiments_(
+          VideoRateControlExperiments::ParseFromFieldTrial()),
       probe_controller_(new ProbeController()),
       congestion_window_pushback_controller_(
-          MaybeInitalizeCongestionWindowPushbackController()),
+          (rate_control_experiments_.GetCongestionWindowPushbackParameter() &&
+           rate_control_experiments_.GetCongestionWindowParameter())
+              ? absl::make_unique<CongestionWindowPushbackController>()
+              : nullptr),
       bandwidth_estimation_(
           absl::make_unique<SendSideBandwidthEstimation>(event_log_)),
       alr_detector_(absl::make_unique<AlrDetector>()),
@@ -165,21 +129,13 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
           DataRate::Zero())),
       max_padding_rate_(config.stream_based_config.max_padding_rate.value_or(
           DataRate::Zero())),
-      max_total_allocated_bitrate_(DataRate::Zero()),
-      in_cwnd_experiment_(CwndExperimentEnabled()),
-      accepted_queue_ms_(kDefaultAcceptedQueueMs) {
+      max_total_allocated_bitrate_(DataRate::Zero()) {
   RTC_DCHECK(config.constraints.at_time.IsFinite());
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
       field_trial::FindFullName("WebRTC-Bwe-SafeResetOnRouteChange"));
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
-  if (in_cwnd_experiment_ &&
-      !ReadCwndExperimentParameter(&accepted_queue_ms_)) {
-    RTC_LOG(LS_WARNING) << "Failed to parse parameters for CwndExperiment "
-                           "from field trial string. Experiment disabled.";
-    in_cwnd_experiment_ = false;
-  }
 }
 
 GoogCcNetworkController::~GoogCcNetworkController() {}
@@ -583,13 +539,15 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
 
   // No valid RTT could be because send-side BWE isn't used, in which case
   // we don't try to limit the outstanding packets.
-  if (in_cwnd_experiment_ && max_feedback_rtt.IsFinite()) {
+  if (rate_control_experiments_.GetCongestionWindowParameter() &&
+      max_feedback_rtt.IsFinite()) {
     int64_t min_feedback_max_rtt_ms =
         *std::min_element(feedback_max_rtts_.begin(), feedback_max_rtts_.end());
 
     const DataSize kMinCwnd = DataSize::bytes(2 * 1500);
-    TimeDelta time_window =
-        TimeDelta::ms(min_feedback_max_rtt_ms + accepted_queue_ms_);
+    TimeDelta time_window = TimeDelta::ms(
+        min_feedback_max_rtt_ms +
+        *rate_control_experiments_.GetCongestionWindowParameter());
     DataSize data_window = last_raw_target_rate_ * time_window;
     if (current_data_window_) {
       data_window =

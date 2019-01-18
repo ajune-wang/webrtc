@@ -97,6 +97,20 @@ rtc_static_library("jitter_upper_bound_experiment") {
   ]
 }
 
+rtc_static_library("video_rate_control_experiments") {
+  sources = [
+    "video_rate_control_experiments.cc",
+    "video_rate_control_experiments.h",
+  ]
+  deps = [
+    ":field_trial_parser",
+    "../:rtc_base_approved",
+    "../../system_wrappers:field_trial",
+    "//third_party/abseil-cpp/absl/memory:memory",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("experiments_unittests") {
     testonly = true

@@ -15,44 +15,22 @@
 
 #include "modules/congestion_controller/goog_cc/congestion_window_pushback_controller.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/video_rate_control_experiments.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
 namespace {
-
-// When CongestionWindowPushback is enabled, the pacer is oblivious to
-// the congestion window. The relation between outstanding data and
-// the congestion window affects encoder allocations directly.
-// This experiment is build on top of congestion window experiment.
-const char kCongestionPushbackExperiment[] = "WebRTC-CongestionWindowPushback";
 const uint32_t kDefaultMinPushbackTargetBitrateBps = 30000;
-
-bool ReadCongestionWindowPushbackExperimentParameter(
-    uint32_t* min_pushback_target_bitrate_bps) {
-  RTC_DCHECK(min_pushback_target_bitrate_bps);
-  std::string experiment_string =
-      webrtc::field_trial::FindFullName(kCongestionPushbackExperiment);
-  int parsed_values = sscanf(experiment_string.c_str(), "Enabled-%" PRIu32,
-                             min_pushback_target_bitrate_bps);
-  if (parsed_values == 1) {
-    RTC_CHECK_GE(*min_pushback_target_bitrate_bps, 0)
-        << "Min pushback target bitrate must be greater than or equal to 0.";
-    return true;
-  }
-  return false;
-}
-
 }  // namespace
 
 CongestionWindowPushbackController::CongestionWindowPushbackController()
-    : add_pacing_(field_trial::IsEnabled(
-          "WebRTC-AddPacingToCongestionWindowPushback")) {
-  if (!ReadCongestionWindowPushbackExperimentParameter(
-          &min_pushback_target_bitrate_bps_)) {
-    min_pushback_target_bitrate_bps_ = kDefaultMinPushbackTargetBitrateBps;
-  }
-}
+    : add_pacing_(
+          field_trial::IsEnabled("WebRTC-AddPacingToCongestionWindowPushback")),
+      min_pushback_target_bitrate_bps_(
+          VideoRateControlExperiments::ParseFromFieldTrial()
+              .GetCongestionWindowPushbackParameter()
+              .value_or(kDefaultMinPushbackTargetBitrateBps)) {}
 
 CongestionWindowPushbackController::CongestionWindowPushbackController(
     uint32_t min_pushback_target_bitrate_bps)

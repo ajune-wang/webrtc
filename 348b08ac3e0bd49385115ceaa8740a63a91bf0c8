@@ -16,6 +16,24 @@
       "revId": "348b08ac3e0bd49385115ceaa8740a63a91bf0c8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39e5cd59_cd98cbe2",
+        "filename": "api/task_queue/task_queue_factory.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-18T11:29:21Z",
+      "side": 1,
+      "message": "yes, implementation must be thread-safe even when each peer connection factory would have own task queue factory.\nconst modifier on the CreateTaskQueue makes it harder for the implementation not to be thread-safe, but explicit note still will be helpful.\nI\u0027ve added a note to myself to add this comment next time this file is touched (likely when I\u0027ll move Priority enum into this class)",
+      "parentUuid": "a1de64f8_68e02603",
+      "revId": "348b08ac3e0bd49385115ceaa8740a63a91bf0c8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

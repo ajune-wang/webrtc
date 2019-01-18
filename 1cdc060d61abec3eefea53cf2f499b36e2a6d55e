@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "985c59de_7af406ff",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T13:09:20Z",
+      "side": 1,
+      "message": "This is essentially an index, right? Maybe the name or type could more clearly convey that.",
+      "range": {
+        "startLine": 207,
+        "startChar": 13,
+        "endLine": 207,
+        "endChar": 37
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c0b24df_4529769a",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T13:09:20Z",
+      "side": 1,
+      "message": "Shouldn\u0027t these be _LT ?",
+      "range": {
+        "startLine": 212,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 15
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c5e472_ed69be61",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T13:09:20Z",
+      "side": 1,
+      "message": "but it should _not_ alter it when screencast is enabled, right?\nis that what\u0027s being tested?",
+      "range": {
+        "startLine": 976,
+        "startChar": 5,
+        "endLine": 976,
+        "endChar": 10
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdb423fc_63dc0d1e",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-18T13:16:00Z",
+      "side": 1,
+      "message": "nit: remove",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b412f410_da4b6b94",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-18T13:16:00Z",
+      "side": 1,
+      "message": "Don\u0027t other classes rely on EncodedImage storing the pointer to the buffer so that it can be deleted[]? If so, won\u0027t this cause a memory leak?",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc274ea_deaae58b",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-18T13:16:00Z",
+      "side": 1,
+      "message": "Please add a CHECK(combined_image.buffer())",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b689dd8c_db54c4ab",
+        "filename": "modules/video_coding/encoded_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-18T13:16:00Z",
+      "side": 1,
+      "message": "nit: if if",
+      "range": {
+        "startLine": 156,
+        "startChar": 74,
+        "endLine": 156,
+        "endChar": 77
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

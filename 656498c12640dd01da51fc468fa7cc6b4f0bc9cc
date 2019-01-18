@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ef2213f4_8ad79136",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "I did it this way so that I wouldn\u0027t have to change the existing assumption that argc \u003d\u003d 2 after the flags have been parsed (line 289), but I don\u0027t feel very strongly either way.",
+      "parentUuid": "20b020b8_f40a3aa7",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 23
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8da06433_a5f1e872",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 1
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "70889365_f73d1220",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "Hadn\u0027t thought of passing in a common settings object like that, I will revisit.",
+      "parentUuid": "e0c81ce1_d73b53b1",
+      "range": {
+        "startLine": 520,
+        "startChar": 4,
+        "endLine": 520,
+        "endChar": 21
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f7694d68_41665c18",
         "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
         "patchSetId": 1
@@ -105,6 +153,30 @@
       "writtenOn": "2019-01-17T13:18:58Z",
       "side": 1,
       "message": "I\u0027d be very interested in how you intend to implement this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4cd8f94_1a599d6a",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "If you are curious, here is my initial prototype: https://webrtc-review.googlesource.com/c/src/+/114223\nI have been trying to clean it up here (better structure, but I introduced a clock related bug somewhere): https://webrtc-review.googlesource.com/c/src/+/118203\n\nHere is a screenshot of the interesting graphs for an example logs I have: https://screenshot.googleplex.com/K11yDxec47K\nFar left column is the existing ICE plots.\nNext column has a clock synchronization bug, so there is too much horizontal movement per line.\nThird and fourth columns are the potentially useful ones. Only the bottom one is really zoomed in enough here though. Here it is zoomed in a little further manually: https://screenshot.googleplex.com/vK1oaGzqjSE. The one on the left doesn\u0027t show you which client is which, the one on the right doesn\u0027t show you what the event types are and connects the dots in the wrong order.\nFifth column is trying to aggregate the information in the third column by only drawing the highest dot for each line.\nI can type up a better explanation if that would help.",
+      "parentUuid": "f7694d68_41665c18",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "89c1123a_780a1949",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32a9c6f1_c0b896a7",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc03c1db_08efdc44",
         "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
         "patchSetId": 1
@@ -151,6 +247,30 @@
       "writtenOn": "2019-01-17T13:18:58Z",
       "side": 1,
       "message": "Have you considered how you want to represent the diagrams? Depending on the contents, maybe a new graph type would be appropriate?",
+      "range": {
+        "startLine": 33,
+        "startChar": 28,
+        "endLine": 33,
+        "endChar": 53
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a0507c9_8e6a66fd",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "I think I can get by with scatterplots and lines. I started a CL to change how enum mapping works (https://webrtc-review.googlesource.com/c/src/+/117945), but I haven\u0027t followed all the way through on the JS side yet.",
+      "parentUuid": "fc03c1db_08efdc44",
       "range": {
         "startLine": 33,
         "startChar": 28,
@@ -186,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "78461a97_9c6e6155",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "I think breaking this up is a good idea and will make testing more manageable.\nWith my current implementation, it would still be convenient to have a couple of shared classes to re-use some of the joined data though (e.g. the IceTransactions in the prototype).",
+      "parentUuid": "28989a6d_1296c1cb",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6b55065_7c450002",
         "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.h",
         "patchSetId": 1
@@ -197,6 +341,24 @@
       "writtenOn": "2019-01-17T13:18:58Z",
       "side": 1,
       "message": "You probably want to scale the x-axis in the same way as the other (single event log) graphs so that it\u0027s possible to correlate what happens in one of the graphs to what happens in the others.\n\n(If we add some graphs that use a sliding window average, then the smoothing parameters would probably also be something we\u0027d want to share between the different graphs.)",
+      "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc4cc335_6c42c635",
+        "filename": "rtc_tools/event_log_visualizer/multilog_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5281
+      },
+      "writtenOn": "2019-01-18T06:27:17Z",
+      "side": 1,
+      "message": "It would be nice to be able to correlate the graphs and have the x-axis calculation in a single place, but I think some of these graphs might be too busy zoomed that far out. I\u0027d like to explore this further elsewhere.",
+      "parentUuid": "a6b55065_7c450002",
       "revId": "656498c12640dd01da51fc468fa7cc6b4f0bc9cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

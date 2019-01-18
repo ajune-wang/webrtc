@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "28181f51_6db99b50",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:55:36Z",
+      "side": 1,
+      "message": "From my perspective, I think that we shouldn\u0027t have to consider the fact that the type std::string supports embedded nulls. Filenames/paths are strings that don\u0027t support embedded \u0027\\0\u0027s so it\u0027s OK to not worry about that here. In fact we generally don\u0027t worry about that, so if we start doing that now, are we setting a precedent for an avalanche of null checks across the code base? :)",
+      "parentUuid": "3b3b0fda_d575963d",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2

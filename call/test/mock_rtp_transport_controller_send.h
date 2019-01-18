@@ -64,6 +64,7 @@ class MockRtpTransportControllerSend
   MOCK_CONST_METHOD0(GetPacerQueuingDelayMs, int64_t());
   MOCK_CONST_METHOD0(GetFirstPacketTimeMs, int64_t());
   MOCK_METHOD1(SetPerPacketFeedbackAvailable, void(bool));
+  MOCK_METHOD1(SetPadToTargetRate, void(bool));
   MOCK_METHOD1(EnablePeriodicAlrProbing, void(bool));
   MOCK_METHOD1(OnSentPacket, void(const rtc::SentPacket&));
   MOCK_METHOD1(SetSdpBitrateParameters, void(const BitrateConstraints&));

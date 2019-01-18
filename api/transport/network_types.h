@@ -32,6 +32,7 @@ struct StreamsConfig {
   ~StreamsConfig();
   Timestamp at_time = Timestamp::PlusInfinity();
   absl::optional<bool> requests_alr_probing;
+  absl::optional<bool> pad_to_target_rate;
   absl::optional<double> pacing_factor;
   absl::optional<DataRate> min_pacing_rate;
   absl::optional<DataRate> max_padding_rate;

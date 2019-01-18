@@ -310,6 +310,15 @@ void RtpTransportControllerSend::SetPerPacketFeedbackAvailable(bool available) {
   if (!controller_)
     MaybeCreateControllers();
 }
+
+void RtpTransportControllerSend::SetPadToTargetRate(bool pad_to_target_rate) {
+  task_queue_.PostTask([this, pad_to_target_rate]() {
+    RTC_DCHECK_RUN_ON(&task_queue_);
+    streams_config_.pad_to_target_rate = pad_to_target_rate;
+    UpdateStreamsConfig();
+  });
+}
+
 void RtpTransportControllerSend::EnablePeriodicAlrProbing(bool enable) {
   task_queue_.PostTask([this, enable]() {
     RTC_DCHECK_RUN_ON(&task_queue_);

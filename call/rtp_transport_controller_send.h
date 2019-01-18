@@ -95,6 +95,7 @@ class RtpTransportControllerSend final
   int64_t GetPacerQueuingDelayMs() const override;
   int64_t GetFirstPacketTimeMs() const override;
   void SetPerPacketFeedbackAvailable(bool available) override;
+  void SetPadToTargetRate(bool pad_to_target_rate) override;
   void EnablePeriodicAlrProbing(bool enable) override;
   void OnSentPacket(const rtc::SentPacket& sent_packet) override;
 

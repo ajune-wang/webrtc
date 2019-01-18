@@ -58,6 +58,7 @@
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/cpu_info.h"
+#include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 #include "video/call_stats.h"
 #include "video/send_delay_stats.h"
@@ -189,6 +190,8 @@ class Call final : public webrtc::Call,
       const FlexfecReceiveStream::Config& config) override;
   void DestroyFlexfecReceiveStream(
       FlexfecReceiveStream* receive_stream) override;
+
+  void OnSendStreamsReconfiguration();
 
   RtpTransportControllerSendInterface* GetTransportControllerSend() override;
 
@@ -327,6 +330,7 @@ class Call final : public webrtc::Call,
   std::map<uint32_t, VideoSendStream*> video_send_ssrcs_
       RTC_GUARDED_BY(send_crit_);
   std::set<VideoSendStream*> video_send_streams_ RTC_GUARDED_BY(send_crit_);
+  bool screenshare_added_at_least_once_ RTC_GUARDED_BY(send_crit_) = false;
 
   using RtpStateMap = std::map<uint32_t, RtpState>;
   RtpStateMap suspended_audio_send_ssrcs_
@@ -672,6 +676,7 @@ webrtc::AudioSendStream* Call::CreateAudioSendStream(
   }
   send_stream->SignalNetworkState(audio_network_state_);
   UpdateAggregateNetworkState();
+  OnSendStreamsReconfiguration();
   return send_stream;
 }
 
@@ -700,6 +705,7 @@ void Call::DestroyAudioSendStream(webrtc::AudioSendStream* send_stream) {
     }
   }
   UpdateAggregateNetworkState();
+  OnSendStreamsReconfiguration();
   delete send_stream;
 }
 
@@ -778,6 +784,8 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
     event_log_->Log(absl::make_unique<RtcEventVideoSendStreamConfig>(
         CreateRtcLogStreamConfig(config, ssrc_index)));
   }
+  bool is_screenshare =
+      encoder_config.content_type == VideoEncoderConfig::ContentType::kScreen;
 
   // TODO(mflodman): Base the start bitrate on a current bandwidth estimate, if
   // the call has already started.
@@ -801,8 +809,10 @@ webrtc::VideoSendStream* Call::CreateVideoSendStream(
       video_send_ssrcs_[ssrc] = send_stream;
     }
     video_send_streams_.insert(send_stream);
+    screenshare_added_at_least_once_ |= is_screenshare;
   }
   UpdateAggregateNetworkState();
+  OnSendStreamsReconfiguration();
 
   return send_stream;
 }
@@ -856,6 +866,7 @@ void Call::DestroyVideoSendStream(webrtc::VideoSendStream* send_stream) {
   }
 
   UpdateAggregateNetworkState();
+  OnSendStreamsReconfiguration();
   delete send_stream_impl;
 }
 
@@ -973,6 +984,36 @@ void Call::DestroyFlexfecReceiveStream(FlexfecReceiveStream* receive_stream) {
   }
 
   delete receive_stream;
+}
+
+void Call::OnSendStreamsReconfiguration() {
+  if (field_trial::IsEnabled("WebRTC-Bwe-PadAudioDtxInVideoCall")) {
+    bool one_audio_dtx_stream_in_allocation = false;
+    bool one_realtime_video_stream = false;
+    {
+      ReadLockScoped read_lock(*send_crit_);
+      one_realtime_video_stream =
+          video_send_ssrcs_.size() == 1 && !screenshare_added_at_least_once_;
+
+      if (one_realtime_video_stream && audio_send_ssrcs_.size() == 1) {
+        auto& audio_config = audio_send_ssrcs_.begin()->second->GetConfig();
+        auto& send_spec = audio_config.send_codec_spec;
+        if (send_spec && audio_config.min_bitrate_bps != -1 &&
+            audio_config.max_bitrate_bps != 1) {
+          auto it = send_spec->format.parameters.find("usedtx");
+          if (it != send_spec->format.parameters.end() && it->second == "1") {
+            one_audio_dtx_stream_in_allocation = true;
+          }
+        }
+      }
+    }
+    // If we have one video stream, and one audio stream that has DTX enabled
+    // and is part of bitrate allocation. We want to pad up to the target rate
+    // to avoid audio DTX causing undershoot.
+    bool pad_to_target_rate =
+        one_audio_dtx_stream_in_allocation && one_realtime_video_stream;
+    transport_send_->SetPadToTargetRate(pad_to_target_rate);
+  }
 }
 
 RtpTransportControllerSendInterface* Call::GetTransportControllerSend() {

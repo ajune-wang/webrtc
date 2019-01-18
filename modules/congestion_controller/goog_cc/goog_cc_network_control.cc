@@ -376,6 +376,11 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     max_padding_rate_ = *msg.max_padding_rate;
     pacing_changed = true;
   }
+  if (msg.pad_to_target_rate &&
+      *msg.pad_to_target_rate != pad_to_target_rate_) {
+    pad_to_target_rate_ = *msg.pad_to_target_rate;
+    pacing_changed = true;
+  }
   acknowledged_bitrate_estimator_->SetAllocatedBitrateWithoutFeedback(
       msg.unacknowledged_rate_allocation.bps());
 
@@ -711,6 +716,9 @@ PacerConfig GoogCcNetworkController::GetPacingRates(Timestamp at_time) const {
       std::max(min_pacing_rate_, last_raw_target_rate_) * pacing_factor_;
   DataRate padding_rate =
       std::min(max_padding_rate_, last_pushback_target_rate_);
+  if (pad_to_target_rate_) {
+    padding_rate = last_pushback_target_rate_;
+  }
   PacerConfig msg;
   msg.at_time = at_time;
   msg.time_window = TimeDelta::seconds(1);

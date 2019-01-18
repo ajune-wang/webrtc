@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "65e5b2fb_21c094dd",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-18T09:10:23Z",
+      "side": 1,
+      "message": "Maybe I\u0027m overly paranoid (we should never construct filenames from untrusted data, I\u0027d hope?)\n\nBut I feel uneasy if passing an invalid filename as a string to a method like Open doesn\u0027t fail, but instead opens a file with a slightly different name.\n\nWhen I\u0027ve had similar problems in security sensitive C programs, using a pointer+length string type similar to std::string, I\u0027ve used a function analoguous to the .c_str method, but calling abort if the input contained any embedded NUL.\n\nExample of a problem caused by silent truncation: https://hackaday.com/2009/07/29/black-hat-2009-breaking-ssl-with-null-characters/",
+      "parentUuid": "28181f51_6db99b50",
+      "range": {
+        "startLine": 219,
+        "startChar": 40,
+        "endLine": 219,
+        "endChar": 62
+      },
+      "revId": "79ad70fc3e88ecab94fbf1396bf2c4842a2b72db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53948daa_45014eb9",
         "filename": "modules/audio_processing/aec_dump/write_to_file_task.cc",
         "patchSetId": 2

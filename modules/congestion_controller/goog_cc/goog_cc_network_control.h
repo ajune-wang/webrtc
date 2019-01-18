@@ -17,10 +17,8 @@
 #include <vector>
 
 #include "absl/types/optional.h"
-#include "api/transport/field_trial_based_config.h"
 #include "api/transport/network_control.h"
 #include "api/transport/network_types.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_rate.h"
 #include "api/units/data_size.h"
 #include "api/units/timestamp.h"
@@ -33,7 +31,10 @@
 #include "modules/congestion_controller/goog_cc/delay_based_rate_controller.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/field_trial_based_config.h"
 #include "rtc_base/experiments/field_trial_parser.h"
+#include "rtc_base/experiments/video_rate_control_experiments.h"
+#include "rtc_base/experiments/webrtc_key_value_config.h"
 
 namespace webrtc {
 
@@ -78,6 +79,7 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   FieldTrialFlag safe_reset_acknowledged_rate_;
   const bool use_stable_bandwidth_estimate_;
   const bool fall_back_to_probe_rate_;
+  const VideoRateControlExperiments rate_control_experiments_;
 
   const std::unique_ptr<ProbeController> probe_controller_;
   const std::unique_ptr<CongestionWindowPushbackController>
@@ -113,8 +115,6 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   DataRate max_padding_rate_;
   DataRate max_total_allocated_bitrate_;
 
-  bool in_cwnd_experiment_;
-  int64_t accepted_queue_ms_;
   bool previously_in_alr = false;
 
   absl::optional<DataSize> current_data_window_;

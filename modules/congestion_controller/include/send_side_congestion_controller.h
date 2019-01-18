@@ -14,8 +14,6 @@
 #include <memory>
 #include <vector>
 
-#include "api/transport/field_trial_based_config.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/congestion_controller/goog_cc/delay_based_bwe.h"
 #include "modules/congestion_controller/include/network_changed_observer.h"
@@ -27,6 +25,8 @@
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/deprecation.h"
+#include "rtc_base/experiments/field_trial_based_config.h"
+#include "rtc_base/experiments/webrtc_key_value_config.h"
 #include "rtc_base/network_route.h"
 #include "rtc_base/race_checker.h"
 
@@ -168,8 +168,7 @@ class DEPRECATED_SendSideCongestionController
   std::unique_ptr<ProbeBitrateEstimator> probe_bitrate_estimator_
       RTC_GUARDED_BY(bwe_lock_);
   std::unique_ptr<DelayBasedBwe> delay_based_bwe_ RTC_GUARDED_BY(bwe_lock_);
-  bool in_cwnd_experiment_;
-  int64_t accepted_queue_ms_;
+  absl::optional<int64_t> cwnd_experiment_parameter_;
   bool was_in_alr_;
   const bool send_side_bwe_with_overhead_;
   size_t transport_overhead_bytes_per_packet_ RTC_GUARDED_BY(bwe_lock_);

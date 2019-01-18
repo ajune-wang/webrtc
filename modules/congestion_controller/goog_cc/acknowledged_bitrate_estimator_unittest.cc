@@ -13,8 +13,8 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
-#include "api/transport/field_trial_based_config.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
+#include "rtc_base/experiments/field_trial_based_config.h"
 #include "rtc_base/fake_clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"

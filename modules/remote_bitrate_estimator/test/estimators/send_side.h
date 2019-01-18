@@ -15,7 +15,6 @@
 #include <memory>
 #include <vector>
 
-#include "api/transport/field_trial_based_config.h"
 #include "logging/rtc_event_log/mock/mock_rtc_event_log.h"
 #include "modules/bitrate_controller/include/bitrate_controller.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
@@ -27,6 +26,7 @@
 #include "modules/remote_bitrate_estimator/test/packet.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/field_trial_based_config.h"
 #include "system_wrappers/include/clock.h"
 #include "test/gmock.h"
 

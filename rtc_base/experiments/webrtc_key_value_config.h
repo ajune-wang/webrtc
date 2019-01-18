@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef API_TRANSPORT_WEBRTC_KEY_VALUE_CONFIG_H_
-#define API_TRANSPORT_WEBRTC_KEY_VALUE_CONFIG_H_
+#ifndef RTC_BASE_EXPERIMENTS_WEBRTC_KEY_VALUE_CONFIG_H_
+#define RTC_BASE_EXPERIMENTS_WEBRTC_KEY_VALUE_CONFIG_H_
 
 #include <string>
 #include "absl/strings/string_view.h"
@@ -16,7 +16,7 @@
 namespace webrtc {
 
 // An interface that provides a key-value mapping for configuring internal
-// details of WebRTC. Note that there's no guarantess that the meaning of a
+// details of WebRTC. Note that there's no guarantees that the meaning of a
 // particular key value mapping will be preserved over time and no announcements
 // will be made if they are changed. It's up to the library user to ensure that
 // the behavior does not break.
@@ -28,4 +28,4 @@ class WebRtcKeyValueConfig {
 };
 }  // namespace webrtc
 
-#endif  // API_TRANSPORT_WEBRTC_KEY_VALUE_CONFIG_H_
+#endif  // RTC_BASE_EXPERIMENTS_WEBRTC_KEY_VALUE_CONFIG_H_

@@ -260,7 +260,6 @@ if (!build_with_chromium) {
 
         # TODO(kwiberg): Remove this dependency.
         "../api/audio_codecs:audio_codecs_api",
-        "../api/transport:field_trial_based_config",
         "../api/transport:goog_cc",
         "../call:call_interfaces",
         "../call:video_stream_api",
@@ -283,6 +282,7 @@ if (!build_with_chromium) {
         "../rtc_base:rtc_base_approved",
         "../rtc_base:rtc_numerics",
         "../rtc_base:stringutils",
+        "../rtc_base/experiments:field_trial_based_config",
         "//third_party/abseil-cpp/absl/memory",
         "//third_party/abseil-cpp/absl/strings",
       ]

@@ -97,6 +97,45 @@ rtc_static_library("jitter_upper_bound_experiment") {
   ]
 }
 
+rtc_static_library("video_rate_control_experiments") {
+  sources = [
+    "video_rate_control_experiments.cc",
+    "video_rate_control_experiments.h",
+  ]
+  deps = [
+    ":field_trial_based_config",
+    ":field_trial_parser",
+    ":webrtc_key_value_config",
+    "../:rtc_base_approved",
+    "../../system_wrappers:field_trial",
+    "//third_party/abseil-cpp/absl/memory:memory",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
+rtc_source_set("webrtc_key_value_config") {
+  visibility = [ "*" ]
+  sources = [
+    "webrtc_key_value_config.h",
+  ]
+  deps = [
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
+rtc_source_set("field_trial_based_config") {
+  visibility = [ "*" ]
+  sources = [
+    "field_trial_based_config.cc",
+    "field_trial_based_config.h",
+  ]
+  deps = [
+    ":webrtc_key_value_config",
+    "../../system_wrappers:field_trial",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
 if (rtc_include_tests) {
   rtc_source_set("experiments_unittests") {
     testonly = true

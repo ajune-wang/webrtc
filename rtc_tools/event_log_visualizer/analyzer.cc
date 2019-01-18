@@ -19,7 +19,6 @@
 
 #include "absl/memory/memory.h"
 #include "absl/strings/string_view.h"
-#include "api/transport/field_trial_based_config.h"
 #include "api/transport/goog_cc_factory.h"
 #include "call/audio_receive_stream.h"
 #include "call/audio_send_stream.h"
@@ -53,6 +52,7 @@
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/field_trial_based_config.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/function_view.h"
 #include "rtc_base/logging.h"

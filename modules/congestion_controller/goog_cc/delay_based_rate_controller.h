@@ -14,13 +14,13 @@
 
 #include "absl/types/optional.h"
 #include "api/transport/network_types.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/congestion_controller/goog_cc/link_capacity_estimator.h"
 #include "modules/congestion_controller/goog_cc/packet_grouping.h"
 #include "modules/congestion_controller/goog_cc/trendline_estimator.h"
 #include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/experiments/field_trial_units.h"
+#include "rtc_base/experiments/webrtc_key_value_config.h"
 
 namespace webrtc {
 struct DelayBasedRateControllerConfig {

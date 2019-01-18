@@ -18,8 +18,8 @@
 
 #include "absl/types/optional.h"
 #include "api/transport/network_control.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/webrtc_key_value_config.h"
 #include "rtc_base/system/unused.h"
 
 namespace webrtc {

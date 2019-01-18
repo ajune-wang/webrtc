@@ -44,6 +44,7 @@ specific_include_rules = {
     "+rtc_base/checks.h",
     "+rtc_base/system/rtc_export.h",
     "+rtc_base/units/unit_base.h",
+    "+rtc_base/experiments/webrtc_key_value_config.h",
   ],
 
   "array_view\.h": [

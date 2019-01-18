@@ -15,8 +15,8 @@
 #include <stdint.h>
 
 #include "absl/types/optional.h"
-#include "api/transport/webrtc_key_value_config.h"
 #include "api/units/data_size.h"
+#include "rtc_base/experiments/webrtc_key_value_config.h"
 
 namespace webrtc {
 
@@ -43,7 +43,7 @@ class CongestionWindowPushbackController {
   int64_t outstanding_bytes_ = 0;
   int64_t pacing_bytes_ = 0;
   const bool add_pacing_;
-  uint32_t min_pushback_target_bitrate_bps_;
+  const uint32_t min_pushback_target_bitrate_bps_;
   double encoding_rate_ratio_ = 1.0;
 };
 

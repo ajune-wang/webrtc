@@ -128,6 +128,47 @@
     },
     {
       "key": {
+        "uuid": "7830fffd_356ba51a",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "note also that this doesn\u0027t reset the value, so the event seems to now be indefinitely signaled and no guarantee that if Wait() is called again that it won\u0027t be immediately satisfied.\nCould use CompareAndSwap here instead to avoid more than one wait to be satisfied.\nAnother thing you could do is to conditionally decrement for every wait, and increment for every signal.\nI also don\u0027t see thread checks, so if considerations for what happens if Wait() is called from multiple threads either need to be taken into account or document the fact that we don\u0027t expect Wait() to be called on multiple threads (i.e. single \"waiter\").",
+      "parentUuid": "e6de4b8d_38fa4665",
+      "range": {
+        "startLine": 58,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eed952a1_507d090e",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "in case two threads were to call Signal back to back, without a wait being satisfied, two signals could result in a single wait being satisfied.\n\nIs that OK and am I understanding it correctly that the AsyncSafeWaitableEvent class is meant to be used only for a single Wait() and then discarded (never reused)?\n\nIf so, that\u0027s probably good to document.",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a30f7f90_f800dd50",
         "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
         "patchSetId": 2
@@ -151,6 +192,23 @@
     },
     {
       "key": {
+        "uuid": "edb54bee_6e330051",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "nit: stack_size_counter",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c383d82e_1ff35777",
         "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
         "patchSetId": 2
@@ -168,6 +226,23 @@
         "endLine": 90,
         "endChar": 6
       },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc0c1104_8195a5d1",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "FYI - RTC_LOG on android might do blocking IO operations. I don\u0027t know how relevant that is in this case, but holding a lock while logging doesn\u0027t feel good knowing that, just fyi. Sprinkling that pattern around the code base is bound to have a trickling effect on pretty much everything.",
       "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -220,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "734242e8_ba2aa6a7",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "does that not generate more code + more and longer strings?",
+      "parentUuid": "119c1ac1_3530545f",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 31
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4241422f_5ab0e856",
         "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
         "patchSetId": 2
@@ -254,6 +353,41 @@
       "writtenOn": "2019-01-17T21:11:01Z",
       "side": 1,
       "message": "Is the pc always 32 bits?",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9176989d_e71272b5",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "looks like this is an address offset rather than representing the instruction pointer. rename variable? for an offset, I think 32bits is OK for now :)",
+      "parentUuid": "fc728f67_8d2fc309",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50e97430_6f51993e",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-01-18T08:49:36Z",
+      "side": 1,
+      "message": "nit: \"GetAddress()\" is a little ambiguous as a function name. Could call this GetCurrentModuleRelativeExecutionAddress() :D",
       "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

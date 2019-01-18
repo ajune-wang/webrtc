@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd4f9bf8_6d4a68a0",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-18T13:09:35Z",
+      "side": 1,
+      "message": "#include \u003catomic\u003e is missing.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "9281535e4ebaeba7fc882f821f26df4aa963fc69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

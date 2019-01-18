@@ -80,6 +80,24 @@
       "revId": "616eace9be32c1b949babfad5883b6053e105b84",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "781e9b21_43f3ad42",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-18T12:52:48Z",
+      "side": 1,
+      "message": "The former. Despite what I had inferred from https://github.com/ninja-build/ninja/issues/113, this is not a \"one file\" mode.",
+      "parentUuid": "4b56625c_2cd97cac",
+      "revId": "616eace9be32c1b949babfad5883b6053e105b84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

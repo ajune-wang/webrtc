@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "725600d9_5414eb29",
+        "filename": "rtc_base/experiments/video_rate_control_experiments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T16:25:24Z",
+      "side": 1,
+      "message": "As discussed offline, these two field trials have a custom format that is incompatible with FieldTrialParser, so keeping the old parsing code around as default fallback.",
+      "parentUuid": "3f967281_618bec1e",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "ddabda96c2d2a88acb57f77f38ccd0f86cccebb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9eef61a_7fbc943f",
         "filename": "rtc_base/experiments/video_rate_control_experiments.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "ddabda96c2d2a88acb57f77f38ccd0f86cccebb6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd02fdf2_e5ae18fa",
+        "filename": "rtc_base/experiments/video_rate_control_experiments.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-18T16:25:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9eef61a_7fbc943f",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "ddabda96c2d2a88acb57f77f38ccd0f86cccebb6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

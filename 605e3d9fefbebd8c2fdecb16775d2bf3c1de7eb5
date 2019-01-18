@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "494b6dfb_d5fbdff1",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-18T09:18:48Z",
+      "side": 1,
+      "message": "Rephrase? We no longer \"cap to target\", but always cap at target/2. Which I think is intended to have some effect for both high and low targets?",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 644,
+        "endChar": 60
+      },
+      "revId": "605e3d9fefbebd8c2fdecb16775d2bf3c1de7eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3734b01f_2a3066fa",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-18T09:18:48Z",
+      "side": 1,
+      "message": "Can this possibly underflow? Please add a check or DCHECK as appropriate. Target member variable is unsigned, so underflow results in a huge value.",
+      "range": {
+        "startLine": 667,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 45
+      },
+      "revId": "605e3d9fefbebd8c2fdecb16775d2bf3c1de7eb5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

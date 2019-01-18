@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0f944d07_e48d844a",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T13:30:59Z",
+      "side": 1,
+      "message": "Renamed.",
+      "parentUuid": "dcb2bea7_54c85fc5",
+      "revId": "bd629dda305df3636921b5ce0b32d0f6f4475560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3656359_f695a328",
         "filename": "rtc_base/experiments/audio_allocation_settings.h",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "bd629dda305df3636921b5ce0b32d0f6f4475560",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4c02383_93411d4c",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-18T13:30:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3656359_f695a328",
+      "range": {
+        "startLine": 24,
+        "startChar": 38,
+        "endLine": 24,
+        "endChar": 67
+      },
+      "revId": "bd629dda305df3636921b5ce0b32d0f6f4475560",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -65,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "080b4363_627c0e9f",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-18T08:07:44Z",
+      "side": 1,
+      "message": "Can we use std::atomic? We are (really really slowly) trying to remove rtc::AtomicOps. :)\n\nThis one can become:\n\n  std::atomic_store_explicit(\u0026futex_, 0, std::memory_order_release)\n\n(same on line 66).",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 70
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9975810c_ac4f5327",
         "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
         "patchSetId": 2
@@ -76,6 +99,52 @@
       "writtenOn": "2019-01-17T21:11:01Z",
       "side": 1,
       "message": "Spend a sentence documenting this function and its return value?",
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6de4b8d_38fa4665",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-18T08:07:44Z",
+      "side": 1,
+      "message": "This will become:\n\n  std::atomic_load_explicit(\u0026futex_, std::memory_order_acquire)",
+      "range": {
+        "startLine": 58,
+        "startChar": 10,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a30f7f90_f800dd50",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-18T08:07:44Z",
+      "side": 1,
+      "message": "And this:\n\n  std::atomic\u003cint\u003e futex_;",
+      "range": {
+        "startLine": 72,
+        "startChar": 2,
+        "endLine": 72,
+        "endChar": 13
+      },
       "revId": "85c518e807b37aea3c3a47271b40fa45ae99e9d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -11,16 +11,27 @@
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 namespace {
 
 constexpr uint8_t kFlagBeginOfSubframe = 0x80;
 constexpr uint8_t kFlagEndOfSubframe = 0x40;
-constexpr uint8_t kFlagFirstSubframe = 0x20;
-constexpr uint8_t kFlagLastSubframe = 0x10;
 constexpr uint8_t kFlagDependencies = 0x08;
 constexpr uint8_t kMaskTemporalLayer = 0x07;
+
+// We no longer intend to support sub-frames.
+// Older clients always set these flags, and always expected them to be true.
+// When talking to these older clients, we therefore set these flags. When
+// talking to newer clients, we can use them for other purposes, such as
+// for the discardibility flag.
+constexpr uint8_t kFlagFirstSubframe = 0x20;
+constexpr uint8_t kFlagLastSubframe = 0x10;
+
+// Available only when kFlagFirstSubframe and kFlagLastSubframe are unused;
+// see more details above.
+constexpr uint8_t kFlagDiscardable = 0x20;
 
 constexpr uint8_t kFlagMoreDependencies = 0x01;
 constexpr uint8_t kFlageXtendedOffset = 0x02;
@@ -52,6 +63,7 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 //      +---------------+
 //      |      ...      |
 //      +-+-+-+-+-+-+-+-+
+
 constexpr RTPExtensionType RtpGenericFrameDescriptorExtension::kId;
 constexpr char RtpGenericFrameDescriptorExtension::kUri[];
 
@@ -65,8 +77,14 @@ bool RtpGenericFrameDescriptorExtension::Parse(
   bool begins_subframe = (data[0] & kFlagBeginOfSubframe) != 0;
   descriptor->SetFirstPacketInSubFrame(begins_subframe);
   descriptor->SetLastPacketInSubFrame((data[0] & kFlagEndOfSubframe) != 0);
-  descriptor->SetFirstSubFrameInFrame((data[0] & kFlagFirstSubframe) != 0);
-  descriptor->SetLastSubFrameInFrame((data[0] & kFlagLastSubframe) != 0);
+
+  // TODO(eladalon): Avoid reading the field trial for every incoming packet.
+  if (webrtc::field_trial::IsEnabled("WebRTC-DiscardabilityFlag")) {
+    descriptor->SetDiscardable((data[0] & kFlagDiscardable) != 0);
+  } else {
+    descriptor->SetFirstSubFrameInFrame((data[0] & kFlagFirstSubframe) != 0);
+    descriptor->SetLastSubFrameInFrame((data[0] & kFlagLastSubframe) != 0);
+  }
 
   // Parse Subframe details provided in 1st packet of subframe.
   if (!begins_subframe) {
@@ -129,11 +147,24 @@ bool RtpGenericFrameDescriptorExtension::Write(
     rtc::ArrayView<uint8_t> data,
     const RtpGenericFrameDescriptor& descriptor) {
   RTC_CHECK_EQ(data.size(), ValueSize(descriptor));
+
   uint8_t base_header =
       (descriptor.FirstPacketInSubFrame() ? kFlagBeginOfSubframe : 0) |
-      (descriptor.LastPacketInSubFrame() ? kFlagEndOfSubframe : 0) |
-      (descriptor.FirstSubFrameInFrame() ? kFlagFirstSubframe : 0) |
-      (descriptor.LastSubFrameInFrame() ? kFlagLastSubframe : 0);
+      (descriptor.LastPacketInSubFrame() ? kFlagEndOfSubframe : 0);
+  // TODO(eladalon): Avoid reading the field trial for every incoming packet.
+  if (webrtc::field_trial::IsEnabled("WebRTC-DiscardabilityFlag")) {
+    if (descriptor.Discardable()) {
+      base_header |= kFlagDiscardable;
+    }
+  } else {
+    if (descriptor.FirstSubFrameInFrame()) {
+      base_header |= kFlagFirstSubframe;
+    }
+    if (descriptor.LastSubFrameInFrame()) {
+      base_header |= kFlagLastSubframe;
+    }
+  }
+
   if (!descriptor.FirstPacketInSubFrame()) {
     data[0] = base_header;
     return true;

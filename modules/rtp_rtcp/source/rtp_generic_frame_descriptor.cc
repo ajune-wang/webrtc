@@ -13,6 +13,7 @@
 #include <cstdint>
 
 #include "rtc_base/checks.h"
+#include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
 
@@ -20,10 +21,34 @@ constexpr int RtpGenericFrameDescriptor::kMaxNumFrameDependencies;
 constexpr int RtpGenericFrameDescriptor::kMaxTemporalLayers;
 constexpr int RtpGenericFrameDescriptor::kMaxSpatialLayers;
 
-RtpGenericFrameDescriptor::RtpGenericFrameDescriptor() = default;
+RtpGenericFrameDescriptor::RtpGenericFrameDescriptor()
+    : use_discardability_flag_(
+          webrtc::field_trial::IsEnabled("WebRTC-DiscardabilityFlag")) {}
+
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor(
     const RtpGenericFrameDescriptor&) = default;
+
 RtpGenericFrameDescriptor::~RtpGenericFrameDescriptor() = default;
+
+bool RtpGenericFrameDescriptor::FirstSubFrameInFrame() const {
+  RTC_DCHECK(!use_discardability_flag_);
+  return beginning_of_frame_;
+}
+
+bool RtpGenericFrameDescriptor::LastSubFrameInFrame() const {
+  RTC_DCHECK(!use_discardability_flag_);
+  return end_of_frame_;
+}
+
+bool RtpGenericFrameDescriptor::Discardable() const {
+  RTC_DCHECK(use_discardability_flag_);
+  return discardable_;
+}
+
+void RtpGenericFrameDescriptor::SetDiscardable(bool discardable) {
+  RTC_DCHECK(use_discardability_flag_);
+  discardable_ = discardable;
+}
 
 int RtpGenericFrameDescriptor::TemporalLayer() const {
   RTC_DCHECK(FirstPacketInSubFrame());

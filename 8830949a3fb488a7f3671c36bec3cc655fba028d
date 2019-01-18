@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de9f38df_15759572",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-18T11:58:07Z",
+      "side": 1,
+      "message": "Don\u0027t initialize these values, let the compiler warn if they are used before being initialized.",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 34
+      },
+      "revId": "8830949a3fb488a7f3671c36bec3cc655fba028d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

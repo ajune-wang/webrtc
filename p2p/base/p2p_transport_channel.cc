@@ -709,6 +709,10 @@ RTCError P2PTransportChannel::ValidateIceConfig(const IceConfig& config) {
   return RTCError::OK();
 }
 
+Connection* P2PTransportChannel::SelectedConnection() {
+  return selected_connection_;
+}
+
 int P2PTransportChannel::check_receiving_interval() const {
   return std::max(MIN_CHECK_RECEIVING_INTERVAL,
                   config_.receiving_timeout_or_default() / 10);
@@ -1173,6 +1177,10 @@ void P2PTransportChannel::RemoveRemoteCandidate(
                         << cand_to_remove.ToString();
     remote_candidates_.erase(iter, remote_candidates_.end());
   }
+}
+
+void P2PTransportChannel::RemoveAllRemoteCandidates() {
+  remote_candidates_.clear();
 }
 
 // Creates connections from all of the ports that we care about to the given

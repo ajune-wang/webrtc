@@ -112,6 +112,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   void ResolveHostnameCandidate(const Candidate& candidate);
   void AddRemoteCandidate(const Candidate& candidate) override;
   void RemoveRemoteCandidate(const Candidate& candidate) override;
+  void RemoveAllRemoteCandidates() override;
   // Sets the parameters in IceConfig. We do not set them blindly. Instead, we
   // only update the parameter if it is considered set in |config|. For example,
   // a negative value of receiving_timeout will be considered "not set" and we
@@ -120,6 +121,7 @@ class RTC_EXPORT P2PTransportChannel : public IceTransportInternal {
   void SetIceConfig(const IceConfig& config) override;
   const IceConfig& config() const;
   static webrtc::RTCError ValidateIceConfig(const IceConfig& config);
+  Connection* SelectedConnection() override;
 
   // From TransportChannel:
   int SendPacket(const char* data,

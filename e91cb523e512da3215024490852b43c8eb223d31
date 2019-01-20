@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00a32090_ab2c62d7",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-01-20T11:43:19Z",
+      "side": 1,
+      "message": "Thanks! So there is a sneaky way to create an rtc::scoped_refptr without calling unnecessary AddRef after all.",
+      "parentUuid": "38ccaaf4_82ea55c5",
+      "range": {
+        "startLine": 53,
+        "startChar": 21,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "e91cb523e512da3215024490852b43c8eb223d31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4128329_047e60e3",
         "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "e91cb523e512da3215024490852b43c8eb223d31",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0bbc6f6_d29e8cf6",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-01-20T11:43:19Z",
+      "side": 1,
+      "message": "Good point, done. I don\u0027t know why the pointer to PeerConnectionFactoryInterface was ever raw or why manual calls to Release() was done. Fixed now anyway.\n\nI agree the network monitor implementation is sketchy and I know Sami has been complaining about this. I don\u0027t think it\u0027s trivial to fix though, so I won\u0027t address it in this CL.",
+      "parentUuid": "a4128329_047e60e3",
+      "revId": "e91cb523e512da3215024490852b43c8eb223d31",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

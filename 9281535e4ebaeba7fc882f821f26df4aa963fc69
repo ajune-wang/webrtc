@@ -22,6 +22,30 @@
       "revId": "9281535e4ebaeba7fc882f821f26df4aa963fc69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05618206_0225973b",
+        "filename": "sdk/android/native_api/stacktrace/stacktrace.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-01-20T10:47:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd4f9bf8_6d4a68a0",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "9281535e4ebaeba7fc882f821f26df4aa963fc69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

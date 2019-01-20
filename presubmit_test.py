@@ -269,5 +269,42 @@ class CheckNoMixingSourcesTest(unittest.TestCase):
       f.write(content)
 
 
+class CheckStaticAnalyzer(unittest.TestCase):
+
+  def setUp(self):
+    # Static analyzer log as returned via ninja.
+    self.log = """[1/1] CXX obj/fake/path/dummy.o
+\x1b[1m../../src/fake/path/dummy.cc:161:3: warning: Dereference of null pointer
+  targetEnergy = *dec_used_energy_;
+  ^              ~~~~~~~~~~~~~~~~~
+\x1b[1m../../src/fake/path/dummy.cc:159:3: note: Taking false branch
+  if (std::internal::combustion)  // For testing purpose: line with 4 ':'
+  ^
+1 warning generated. """
+
+  def testExtractWarnings(self):
+    # pylint: disable=protected-access
+    diagnostics = list(PRESUBMIT._ExtractClangAnalyzerWarnings(self.log))
+    # We get back one diagnostic as list of lines,
+    # without ninja's own log or clang summary.
+    expected = [self.log.split('\n')[1:-1]]
+    self.assertEqual(diagnostics, expected)
+
+  def testCollectSourceLines(self):
+    # pylint: disable=protected-access
+    diagnostics = list(PRESUBMIT._ExtractClangAnalyzerWarnings(self.log))
+    # Sanity check, covered by previous test.
+    self.assertEqual(len(diagnostics), 1)
+
+    def GetLocalPath(path):
+      return path.split('/src/')[-1]
+
+    # pylint: disable=protected-access
+    result = PRESUBMIT._CollectReportedSourceLines(diagnostics[0],
+                                                   'fake/path/dummy.cc',
+                                                   GetLocalPath)
+    self.assertEqual(result, {159, 161})
+
+
 if __name__ == '__main__':
   unittest.main()

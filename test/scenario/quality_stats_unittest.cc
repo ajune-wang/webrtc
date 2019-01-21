@@ -31,10 +31,11 @@ TEST(ScenarioAnalyzerTest, PsnrIsHighWhenNetworkIsGood) {
     Scenario s;
     NetworkNodeConfig good_network;
     good_network.simulation.bandwidth = DataRate::kbps(1000);
-    auto route = s.CreateRoutes(s.CreateClient("caller", CallClientConfig()),
-                                {s.CreateSimulationNode(good_network)},
-                                s.CreateClient("callee", CallClientConfig()),
-                                {s.CreateSimulationNode(NetworkNodeConfig())});
+    auto route = s.CreateRoutes(
+        s.CreateClient("caller", CallClientConfig()),
+        {s.CreateSimulationNode(good_network)->GetNode()},
+        s.CreateClient("callee", CallClientConfig()),
+        {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
     s.CreateVideoStream(route->forward(), AnalyzerVideoConfig(&stats));
     s.RunFor(TimeDelta::seconds(1));
   }
@@ -48,10 +49,11 @@ TEST(ScenarioAnalyzerTest, PsnrIsLowWhenNetworkIsBad) {
     NetworkNodeConfig bad_network;
     bad_network.simulation.bandwidth = DataRate::kbps(100);
     bad_network.simulation.loss_rate = 0.02;
-    auto route = s.CreateRoutes(s.CreateClient("caller", CallClientConfig()),
-                                {s.CreateSimulationNode(bad_network)},
-                                s.CreateClient("callee", CallClientConfig()),
-                                {s.CreateSimulationNode(NetworkNodeConfig())});
+    auto route = s.CreateRoutes(
+        s.CreateClient("caller", CallClientConfig()),
+        {s.CreateSimulationNode(bad_network)->GetNode()},
+        s.CreateClient("callee", CallClientConfig()),
+        {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
 
     s.CreateVideoStream(route->forward(), AnalyzerVideoConfig(&stats));
     s.RunFor(TimeDelta::seconds(2));

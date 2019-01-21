@@ -93,8 +93,9 @@ TEST(PccNetworkControllerTest, UpdatesTargetSendRate) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->GetNode()}, {ret_net->GetNode()});
 
   s.RunFor(TimeDelta::seconds(25));
   EXPECT_NEAR(client->target_rate_kbps(), 450, 100);

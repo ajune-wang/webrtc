@@ -59,9 +59,10 @@ TEST(GoogCcNetworkControllerTest, MaintainsLowRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route =
+      s.CreateRoutes(client, {send_net->GetNode()},
+                     s.CreateClient("return", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
@@ -88,9 +89,10 @@ TEST(GoogCcNetworkControllerTest, CutsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route =
+      s.CreateRoutes(client, {send_net->GetNode()},
+                     s.CreateClient("return", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(500));
@@ -124,9 +126,10 @@ TEST(GoogCcNetworkControllerTest, DetectsHighRateInSafeResetTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {initial_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route =
+      s.CreateRoutes(client, {initial_net->GetNode()},
+                     s.CreateClient("return", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to stabilize.
   s.RunFor(TimeDelta::ms(1000));
@@ -163,9 +166,9 @@ TEST(GoogCcNetworkControllerTest,
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = kStartRate;
   });
-  auto* route = s.CreateRoutes(client, {net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route = s.CreateRoutes(
+      client, {net->GetNode()}, s.CreateClient("return", CallClientConfig()),
+      {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow some time for the buffer to build up.
   s.RunFor(TimeDelta::seconds(5));
@@ -188,9 +191,10 @@ TEST(GoogCcNetworkControllerTest, NoBandwidthTogglingInLossControlTrial) {
     c->transport.cc = TransportControllerConfig::CongestionController::kGoogCc;
     c->transport.rates.start_rate = DataRate::kbps(300);
   });
-  auto* route = s.CreateRoutes(client, {send_net},
-                               s.CreateClient("return", CallClientConfig()),
-                               {s.CreateSimulationNode(NetworkNodeConfig())});
+  auto* route =
+      s.CreateRoutes(client, {send_net->GetNode()},
+                     s.CreateClient("return", CallClientConfig()),
+                     {s.CreateSimulationNode(NetworkNodeConfig())->GetNode()});
   s.CreateVideoStream(route->forward(), VideoStreamConfig());
   // Allow the controller to initialize.
   s.RunFor(TimeDelta::ms(250));

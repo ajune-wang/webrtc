@@ -141,6 +141,30 @@
       "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c38010f3_9ccea0a5",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-21T10:21:27Z",
+      "side": 1,
+      "message": "I feel strongly against using value-parameterized tests in this case:\n\nunnamed/arbitrary_bool parameter makes tests harder to understand.\nI checked motivations for using value-parameterized tests:\nhttps://github.com/google/googletest/blob/master/googletest/docs/advanced.md#value-parameterized-tests\nLook like use in this CL fall into last category, \u0027data-driven\u0027 test, but to me it seems it also match the warning next to it: \u0027this feature is easy to abuse\u0027.\n\nSuggestion. Since you think duplication each test is overkill, add single extra test:\n,ParseFrameBoundaryFlagsAsFalseFromZeroValue) {\n uint8_t kRaw \u003d {0}\n ...\n EXPECT_FALSE(FirstPacketInSubFrame());\n EXPECT_FALSE(LastPacketInSubFrame());\n // in the next CL these two checks can be guarded with if (!use_deprecated_flag_)\n EXPECT_FALSE(FirstSubframeInFrame());\n EXPECT_FALSE(LastSubframeInFrame());\n}\n\n\n(Though, I\u0027m not sure how expanding this test is relevant to the change description.)",
+      "parentUuid": "12233779_d7179671",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 22
+      },
+      "revId": "24050a6062fec90a4487804c96d627d8a62ce878",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

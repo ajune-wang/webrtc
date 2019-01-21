@@ -94,6 +94,30 @@
       "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93818f8a_af8a5bf9",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:37:00Z",
+      "side": 1,
+      "message": "+1 to not defining functions in other build targets, as Mirko said. It has caused enough problems that we\u0027ve written a style rule about it: https://webrtc.googlesource.com/src/+/master/style-guide.md#h-cc-pairs",
+      "parentUuid": "fd850fd0_9aed93a9",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

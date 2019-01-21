@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3adb16f_648b424a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:37:00Z",
+      "side": 1,
+      "message": "Can you add a BUILD.gn file in the new subdirectory instead? It\u0027s easier to keep things organized that way, and changing it after the fact is surprisingly difficult.",
+      "revId": "a6bb025f7f78660f0eb8755325bb39b7da2bccdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7850d4b8_abe2135e",
+        "filename": "api/rtc_event_log/rtc_event.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:37:00Z",
+      "side": 1,
+      "message": "Can you inline this one?",
+      "revId": "a6bb025f7f78660f0eb8755325bb39b7da2bccdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a361b7d8_dcca7860",
+        "filename": "api/rtc_event_log/rtc_event.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:37:00Z",
+      "side": 1,
+      "message": "Document?",
+      "revId": "a6bb025f7f78660f0eb8755325bb39b7da2bccdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68489e89_87473f8c",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:37:00Z",
+      "side": 1,
+      "message": "Move this to the .cc file?",
+      "revId": "a6bb025f7f78660f0eb8755325bb39b7da2bccdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0bfccade_d52d8f77",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T07:40:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdb423fc_63dc0d1e",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 39
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b412f410_da4b6b94",
         "filename": "api/video/encoded_image.cc",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-18T13:16:00Z",
       "side": 1,
       "message": "Don\u0027t other classes rely on EncodedImage storing the pointer to the buffer so that it can be deleted[]? If so, won\u0027t this cause a memory leak?",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebd30581_e3c6b307",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T07:40:24Z",
+      "side": 1,
+      "message": "I think some of the encoders do that. But I think all current uses of this method calls it on a copy of the EncodedImage (encoders pass it as const ref), so shouldn\u0027t affect the encoder\u0027s instance. Could add a separate bool saying whether or not buffer_ should be used, but I\u0027d prefer to keep it like this until proven broken.",
+      "parentUuid": "b412f410_da4b6b94",
       "range": {
         "startLine": 46,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9e07ff9c_c70c91da",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T07:40:24Z",
+      "side": 1,
+      "message": "Maybe the change from combined_image.data() to combined_image.buffer() is wrong?\n\nThe new encoded_image will not own any data but point into the data associated with combined_image. But it shouldn\u0027t care about ownership details of that buffer, only rely on caller keeping it alive in one way or the other.",
+      "parentUuid": "7fc274ea_deaae58b",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b689dd8c_db54c4ab",
         "filename": "modules/video_coding/encoded_frame.cc",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c71219a_79c7db46",
+        "filename": "modules/video_coding/encoded_frame.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T07:40:24Z",
+      "side": 1,
+      "message": "Fixed, intended \"find out if\".",
+      "parentUuid": "b689dd8c_db54c4ab",
+      "range": {
+        "startLine": 156,
+        "startChar": 74,
+        "endLine": 156,
+        "endChar": 77
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

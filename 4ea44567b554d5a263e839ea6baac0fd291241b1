@@ -137,6 +137,24 @@
     },
     {
       "key": {
+        "uuid": "57e4868b_d537d7a9",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T14:52:43Z",
+      "side": 1,
+      "message": "Added. (With default implementation).",
+      "parentUuid": "e63e1fb9_ce1a64dd",
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fc274ea_deaae58b",
         "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
         "patchSetId": 4
@@ -205,6 +223,30 @@
       "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434b671e_dbaba6ad",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T14:52:43Z",
+      "side": 1,
+      "message": "Problem is that data() gives a const pointer, and set_buffer wants non-const.\n\nSo to use data() we need a const_cast, and Karl didn\u0027t like that.",
+      "parentUuid": "2cfae6e5_d94cb472",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

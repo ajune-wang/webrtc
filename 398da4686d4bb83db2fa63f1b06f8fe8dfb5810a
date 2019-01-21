@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dddf9ce8_e8194844",
+        "filename": "modules/video_coding/encoded_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T14:52:43Z",
+      "side": 1,
+      "message": "Free appears unused, so deleted (don\u0027t yet know if that breaks any downstream code).",
+      "parentUuid": "0d324206_b64e2cee",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "398da4686d4bb83db2fa63f1b06f8fe8dfb5810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7ce1fa2_a1ca454c",
         "filename": "test/fake_vp8_encoder.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "398da4686d4bb83db2fa63f1b06f8fe8dfb5810a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "970562f1_9ca1bd87",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-21T14:52:43Z",
+      "side": 1,
+      "message": "const problem here too. WriteFakeVp8 wants a non-const pointer, and it actually writes to the buffer (which isn\u0027t very nice, imo).",
+      "parentUuid": "c7ce1fa2_a1ca454c",
+      "range": {
+        "startLine": 130,
+        "startChar": 29,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "398da4686d4bb83db2fa63f1b06f8fe8dfb5810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

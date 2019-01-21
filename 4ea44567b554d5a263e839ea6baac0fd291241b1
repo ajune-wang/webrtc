@@ -96,6 +96,23 @@
     },
     {
       "key": {
+        "uuid": "e63e1fb9_ce1a64dd",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T09:50:09Z",
+      "side": 1,
+      "message": "What about move assignment?",
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7fc274ea_deaae58b",
         "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
         "patchSetId": 4

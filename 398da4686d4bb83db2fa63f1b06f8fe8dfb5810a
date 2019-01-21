@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d324206_b64e2cee",
+        "filename": "modules/video_coding/encoded_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-21T10:11:09Z",
+      "side": 1,
+      "message": "If not too much work, please remove Free() altogether and just call Reset() instead.",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 26
+      },
+      "revId": "398da4686d4bb83db2fa63f1b06f8fe8dfb5810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7ce1fa2_a1ca454c",
+        "filename": "test/fake_vp8_encoder.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-21T10:11:09Z",
+      "side": 1,
+      "message": "data()?",
+      "range": {
+        "startLine": 130,
+        "startChar": 29,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "398da4686d4bb83db2fa63f1b06f8fe8dfb5810a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

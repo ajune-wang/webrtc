@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "d616fe74_40a40a56",
+        "filename": "api/video/encoded_image.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-21T10:11:09Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ebd30581_e3c6b307",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e63e1fb9_ce1a64dd",
         "filename": "api/video/encoded_image.h",
         "patchSetId": 4
@@ -148,6 +172,30 @@
       "side": 1,
       "message": "Maybe the change from combined_image.data() to combined_image.buffer() is wrong?\n\nThe new encoded_image will not own any data but point into the data associated with combined_image. But it shouldn\u0027t care about ownership details of that buffer, only rely on caller keeping it alive in one way or the other.",
       "parentUuid": "7fc274ea_deaae58b",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cfae6e5_d94cb472",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-01-21T10:11:09Z",
+      "side": 1,
+      "message": "\u003e Maybe the change from combined_image.data() to combined_image.buffer() is wrong?\n\nTo me data() looks like the right accessor in this case.",
+      "parentUuid": "9e07ff9c_c70c91da",
       "range": {
         "startLine": 265,
         "startChar": 4,

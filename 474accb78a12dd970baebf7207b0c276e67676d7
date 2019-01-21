@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9b72623c_93c1a5eb",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-21T14:23:34Z",
+      "side": 1,
+      "message": "Yes, end goal is to have 3 public targets:\n:task_queue with 3 interfaces,\n:task_queue_test with parametrized tests for a task queue implementation.\n:default_task_queue_factory for webrtc implementations of the task queue to give to PeerConnectionFactoryDependencies.\n(:global_task_queue_factory would live for a while too, but not to the end)",
+      "parentUuid": "15d8238e_ce71ccef",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aa71fae_fdc6f9fb",
         "filename": "api/task_queue/task_queue.cc",
         "patchSetId": 7

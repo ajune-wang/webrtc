@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "173c906c_0970f62c",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-21T18:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04bd49a8_b60f792d",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af66261a_b82185bc",
         "filename": "rtc_base/experiments/audio_allocation_settings.h",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "0fa4a931_b5b819f5",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-21T18:41:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af66261a_b82185bc",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06b6ddc1_180d547a",
         "filename": "rtc_base/experiments/audio_allocation_settings.h",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d35d2c3_d47e2d6c",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-21T18:41:51Z",
+      "side": 1,
+      "message": "No, it\u0027s set in the constructor, not in the initializer.",
+      "parentUuid": "06b6ddc1_180d547a",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

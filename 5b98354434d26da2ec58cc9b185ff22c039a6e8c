@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04bd49a8_b60f792d",
+        "filename": "rtc_base/experiments/audio_allocation_settings.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:02:30Z",
+      "side": 1,
+      "message": "constexpr?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af66261a_b82185bc",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:02:30Z",
+      "side": 1,
+      "message": "\"Regular functions have mixed case; accessors and mutators may be named like variables.\" -- https://google.github.io/styleguide/cppguide.html#Function_Names\n\nAlmost all of these are neither accessors nor mutators. Personally, I favor just using SnakeCase everywhere (also style guide compliant), since that\u0027s much simpler.\n\nOh, and please document what the methods and the class do.",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b6ddc1_180d547a",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:02:30Z",
+      "side": 1,
+      "message": "This one can be const, right? Unless you want to support operator\u003d, but you currently don\u0027t.",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

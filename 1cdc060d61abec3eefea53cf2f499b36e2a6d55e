@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "530dbf61_b290240d",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-01-21T13:39:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "985c59de_7af406ff",
+      "range": {
+        "startLine": 207,
+        "startChar": 13,
+        "endLine": 207,
+        "endChar": 37
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c0b24df_4529769a",
         "filename": "media/engine/simulcast_encoder_adapter.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "daa67748_a25a4103",
+        "filename": "media/engine/simulcast_encoder_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-01-21T13:39:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c0b24df_4529769a",
+      "range": {
+        "startLine": 212,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 15
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c5e472_ed69be61",
         "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e231995_a14bfd7d",
+        "filename": "media/engine/simulcast_encoder_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 976,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-01-21T13:39:52Z",
+      "side": 1,
+      "message": "Correct. This is the same test as the current \"DoesNotAlterMaxQpForScreenshare\", but with reversed layers to check that the various parameters (like denoising) are applied on the right layer.",
+      "parentUuid": "d0c5e472_ed69be61",
+      "range": {
+        "startLine": 976,
+        "startChar": 5,
+        "endLine": 976,
+        "endChar": 10
+      },
+      "revId": "1cdc060d61abec3eefea53cf2f499b36e2a6d55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

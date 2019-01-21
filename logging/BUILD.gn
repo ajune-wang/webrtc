@@ -28,20 +28,15 @@ group("logging") {
   ]
 }
 
+# TODO(webrtc:10206): Remove this forwarding target after updating downstream projects.
 rtc_source_set("rtc_event_log_api") {
+  public_deps = [  # no-presubmit-check TODO(webrtc:8603)
+    "../api:rtc_event_log_api",
+  ]
   sources = [
-    "rtc_event_log/encoder/rtc_event_log_encoder.h",
     "rtc_event_log/events/rtc_event.h",
-    "rtc_event_log/rtc_event_log.cc",
     "rtc_event_log/rtc_event_log.h",
     "rtc_event_log/rtc_event_log_factory_interface.h",
-  ]
-
-  deps = [
-    "../api:libjingle_logging_api",
-    "../rtc_base:ptr_util",
-    "../rtc_base:rtc_base_approved",
-    "//third_party/abseil-cpp/absl/memory",
   ]
 }
 
@@ -162,6 +157,7 @@ rtc_static_library("rtc_event_log_impl_encoder") {
     "rtc_event_log/encoder/blob_encoding.h",
     "rtc_event_log/encoder/delta_encoding.cc",
     "rtc_event_log/encoder/delta_encoding.h",
+    "rtc_event_log/encoder/rtc_event_log_encoder.h",
     "rtc_event_log/encoder/rtc_event_log_encoder_common.cc",
     "rtc_event_log/encoder/rtc_event_log_encoder_common.h",
     "rtc_event_log/encoder/var_int.cc",
@@ -172,6 +168,7 @@ rtc_static_library("rtc_event_log_impl_encoder") {
   defines = []
 
   deps = [
+    ":rtc_event_log_api",
     "../api:libjingle_peerconnection_api",
     "../api/transport:network_control",
     "../rtc_base:checks",

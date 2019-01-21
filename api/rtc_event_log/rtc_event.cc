@@ -1,5 +1,5 @@
 /*
- *  Copyright 2019 The WebRTC project authors. All Rights Reserved.
+ *  Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -8,12 +8,13 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef API_RTC_EVENT_LOG_OUTPUT_H_
-#define API_RTC_EVENT_LOG_OUTPUT_H_
+#include "api/rtc_event_log/rtc_event.h"
 
-// TODO(webrtc:10206): Remove this forwarding header once downstream projects
-// have been updated.
+#include "rtc_base/time_utils.h"
 
-#include "api/rtc_event_log/rtc_event_log_output.h"
+namespace webrtc {
 
-#endif  // API_RTC_EVENT_LOG_OUTPUT_H_
+RtcEvent::RtcEvent() : timestamp_us_(rtc::TimeMicros()) {}
+RtcEvent::RtcEvent(int64_t timestamp_us) : timestamp_us_(timestamp_us) {}
+
+}  // namespace webrtc

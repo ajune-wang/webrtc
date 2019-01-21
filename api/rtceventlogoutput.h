@@ -14,6 +14,6 @@
 // TODO(bugs.webrtc.org/10159): Remove this files once downstream projects have
 // been updated to include the new path.
 
-#include "api/rtc_event_log_output.h"
+#include "api/rtc_event_log/rtc_event_log_output.h"
 
 #endif  // API_RTCEVENTLOGOUTPUT_H_

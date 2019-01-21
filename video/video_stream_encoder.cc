@@ -449,7 +449,7 @@ void VideoStreamEncoder::SetSource(
     degradation_preference_ = degradation_preference;
 
     if (encoder_)
-      ConfigureQualityScaler();
+      ConfigureQualityScaler(encoder_->GetEncoderInfo());
 
     if (!IsFramerateScalingEnabled(degradation_preference) &&
         max_framerate_ != -1) {
@@ -671,12 +671,18 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       max_framerate_, source_proxy_->GetActiveSinkWants().max_framerate_fps);
   overuse_detector_->OnTargetFramerateUpdated(target_framerate);
 
-  ConfigureQualityScaler();
+  VideoEncoder::EncoderInfo info = encoder_->GetEncoderInfo();
+  if (!field_trial::IsDisabled("WebRTC-BitrateAdjuster")) {
+    bitrate_adjuster_ = absl::make_unique<EncoderBitrateAdjuster>(codec);
+    bitrate_adjuster_->OnEncoderInfo(info);
+  }
+  ConfigureQualityScaler(info);
 }
 
-void VideoStreamEncoder::ConfigureQualityScaler() {
+void VideoStreamEncoder::ConfigureQualityScaler(
+    const VideoEncoder::EncoderInfo& encoder_info) {
   RTC_DCHECK_RUN_ON(&encoder_queue_);
-  const auto scaling_settings = encoder_->GetEncoderInfo().scaling_settings;
+  const auto scaling_settings = encoder_info.scaling_settings;
   const bool quality_scaling_allowed =
       IsResolutionScalingEnabled(degradation_preference_) &&
       scaling_settings.thresholds;
@@ -839,6 +845,10 @@ VideoStreamEncoder::GetBitrateAllocationAndNotifyObserver(
     bitrate_observer_->OnBitrateAllocationUpdated(bitrate_allocation);
   }
 
+  if (bitrate_adjuster_) {
+    return bitrate_adjuster_->OnRateAllocation(bitrate_allocation,
+                                               framerate_fps);
+  }
   return bitrate_allocation;
 }
 
@@ -987,6 +997,16 @@ void VideoStreamEncoder::EncodeVideoFrame(const VideoFrame& video_frame,
     encoder_stats_observer_->OnEncoderImplementationChanged(
         info.implementation_name);
   }
+
+  if (bitrate_adjuster_) {
+    for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
+      if (info.fps_allocation[si] != encoder_info_.fps_allocation[si]) {
+        bitrate_adjuster_->OnEncoderInfo(info);
+        break;
+      }
+    }
+  }
+
   encoder_info_ = info;
 
   input_framerate_.Update(1u, clock_->TimeInMilliseconds());
@@ -1035,8 +1055,22 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
   // stats for internal encoders.
   const size_t frame_size = encoded_image.size();
   const bool keyframe = encoded_image._frameType == FrameType::kVideoFrameKey;
+
+  int temporal_index = 0;
+  if (codec_specific_info) {
+    if (codec_specific_info->codecType == kVideoCodecVP9) {
+      temporal_index = codec_specific_info->codecSpecific.VP9.temporal_idx;
+    } else if (codec_specific_info->codecType == kVideoCodecVP8) {
+      temporal_index = codec_specific_info->codecSpecific.VP8.temporalIdx;
+    }
+  }
+  if (temporal_index == kNoTemporalIdx) {
+    temporal_index = 0;
+  }
+
   RunPostEncode(timestamp, time_sent_us, capture_time_us, encode_duration_us,
-                qp, frame_size, keyframe);
+                qp, frame_size, keyframe,
+                encoded_image.SpatialIndex().value_or(0), temporal_index);
 
   if (result.error == Result::OK) {
     // In case of an internal encoder running on a separate thread, the
@@ -1377,13 +1411,17 @@ void VideoStreamEncoder::RunPostEncode(uint32_t frame_timestamp,
                                        absl::optional<int> encode_durations_us,
                                        int qp,
                                        size_t frame_size_bytes,
-                                       bool keyframe) {
+                                       bool keyframe,
+                                       int spatial_index,
+                                       int temporal_index) {
   if (!encoder_queue_.IsCurrent()) {
     encoder_queue_.PostTask([this, frame_timestamp, time_sent_us, qp,
                              capture_time_us, encode_durations_us,
-                             frame_size_bytes, keyframe] {
+                             frame_size_bytes, keyframe, spatial_index,
+                             temporal_index] {
       RunPostEncode(frame_timestamp, time_sent_us, capture_time_us,
-                    encode_durations_us, qp, frame_size_bytes, keyframe);
+                    encode_durations_us, qp, frame_size_bytes, keyframe,
+                    spatial_index, temporal_index);
     });
     return;
   }
@@ -1407,6 +1445,10 @@ void VideoStreamEncoder::RunPostEncode(uint32_t frame_timestamp,
                                encode_durations_us);
   if (quality_scaler_ && qp >= 0)
     quality_scaler_->ReportQp(qp);
+  if (bitrate_adjuster_) {
+    bitrate_adjuster_->OnEncodedImage(frame_size_bytes, spatial_index,
+                                      temporal_index);
+  }
 }
 
 // Class holding adaptation information.

@@ -149,6 +149,8 @@ TransportPacketsFeedback SimulatedSender::PullFeedbackReport(
           break;
         }
       }
+      RTC_CHECK(feedback.sent_packet.send_time.IsFinite())
+          << "Bad packet time :(";
 
       data_in_flight_ -= feedback.sent_packet.size;
       report.packet_feedbacks.push_back(feedback);
@@ -285,6 +287,7 @@ SimulatedTimeClient::SimulatedTimeClient(
 // Pulls feedback reports from sender side based on the recieved feedback
 // packet. Updates congestion controller with the resulting report.
 void SimulatedTimeClient::OnPacketReceived(EmulatedIpPacket packet) {
+  RTC_CHECK(packet.arrival_time.IsFinite()) << "Bad packet arrival time";
   auto report = sender_.PullFeedbackReport(FeedbackFromBuffer(packet.data),
                                            packet.arrival_time);
   for (PacketResult& feedback : report.packet_feedbacks) {

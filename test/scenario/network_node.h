@@ -52,6 +52,8 @@ class SimulationNode : public EmulatedNetworkNode {
   void PauseTransmissionUntil(Timestamp until);
   ColumnPrinter ConfigPrinter() const;
 
+  EmulatedNetworkNode* GetNode() { return this; }
+
  private:
   friend class Scenario;
 

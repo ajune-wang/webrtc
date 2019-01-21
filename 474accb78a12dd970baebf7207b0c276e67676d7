@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "15d8238e_ce71ccef",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T14:11:35Z",
+      "side": 1,
+      "message": "Got it.\n\nAnd the end state is that there will be only one public build target for this, for the interfaces, for those who want to implement a task queue factory?",
+      "parentUuid": "5ed26a20_e88816d7",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aa71fae_fdc6f9fb",
         "filename": "api/task_queue/task_queue.cc",
         "patchSetId": 7

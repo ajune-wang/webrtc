@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4097e93b_b3af9994",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:48:58Z",
+      "side": 1,
+      "message": "Would a WebRTC client link with this target in order to get a link-time-injected implementation that supports run-time injection? And if it doesn\u0027t link with this target, TQs still work like before, with link-time injection?\n\nOr is it all still nonfunctional, since WebRTC doesn\u0027t yet create TQs using the global factory?",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5aa71fae_fdc6f9fb",
+        "filename": "api/task_queue/task_queue.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:48:58Z",
+      "side": 1,
+      "message": "2019?",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef3e70b7_af765363",
+        "filename": "api/task_queue/task_queue_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-21T10:48:58Z",
+      "side": 1,
+      "message": "Document why this invariant holds? I couldn\u0027t figure it out...",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

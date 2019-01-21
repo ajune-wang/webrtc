@@ -24,6 +24,7 @@ namespace webrtc {
 // Certain hardware encoders tend to consistently overshoot the bitrate that
 // they are configured to encode at. This class estimates an adjusted bitrate
 // that when set on the encoder will produce the desired bitrate.
+// TODO(sprang): Remove this class when EncoderBitrateAdjuster is ready.
 class BitrateAdjuster {
  public:
   // min_adjusted_bitrate_pct and max_adjusted_bitrate_pct are the lower and

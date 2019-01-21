@@ -49,8 +49,9 @@ void UpdatesTargetRateBasedOnLinkCapacity(std::string test_name = "") {
   });
   StatesPrinter* truth = s.CreatePrinter(
       "send.truth.txt", TimeDelta::PlusInfinity(), {send_net->ConfigPrinter()});
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
 
   truth->PrintRow();
   s.RunFor(TimeDelta::seconds(25));
@@ -232,8 +233,9 @@ TEST_F(GoogCcNetworkControllerTest, CongestionWindowPushbackOnNetworkDelay) {
   config.transport.rates.start_rate = DataRate::kbps(300);
   config.transport.rates.max_rate = DataRate::kbps(2000);
   config.transport.rates.min_rate = DataRate::kbps(10);
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
 
   s.RunFor(TimeDelta::seconds(10));
   send_net->PauseTransmissionUntil(s.Now() + TimeDelta::seconds(10));
@@ -323,8 +325,9 @@ TEST_F(GoogCcNetworkControllerTest,
   config.transport.rates.start_rate = DataRate::kbps(1000);
   config.transport.rates.max_rate = DataRate::kbps(2000);
   config.transport.rates.max_padding_rate = config.transport.rates.max_rate;
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
   // Run for a few seconds to allow the controller to stabilize.
   s.RunFor(TimeDelta::seconds(10));
 
@@ -364,15 +367,17 @@ TEST_F(GoogCcNetworkControllerTest, LimitsToMinRateIfRttIsHighInTrial) {
       TransportControllerConfig::CongestionController::kGoogCc;
   config.transport.rates.min_rate = kMinRate;
   config.transport.rates.start_rate = kLinkCapacity;
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
   // Run for a few seconds to allow the controller to stabilize.
   s.RunFor(TimeDelta::seconds(10));
   const DataSize kBloatPacketSize = DataSize::bytes(1000);
   const int kBloatPacketCount =
       static_cast<int>(kBufferBloatDuration * kLinkCapacity / kBloatPacketSize);
   // This will cause the RTT to be large for a while.
-  s.TriggerPacketBurst({send_net}, kBloatPacketCount, kBloatPacketSize.bytes());
+  s.TriggerPacketBurst({send_net->node()}, kBloatPacketCount,
+                       kBloatPacketSize.bytes());
   // Wait to allow the high RTT to be detected and acted upon.
   s.RunFor(TimeDelta::seconds(4));
   // By now the target rate should have dropped to the minimum configured rate.
@@ -395,8 +400,9 @@ TEST_F(GoogCcNetworkControllerTest, DefaultEstimateVariesInSteadyState) {
   net_conf.update_frequency = TimeDelta::ms(5);
   auto send_net = s.CreateSimulationNode(net_conf);
   auto ret_net = s.CreateSimulationNode(net_conf);
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
   // Run for a while to allow the estimate to stabilize.
   s.RunFor(TimeDelta::seconds(20));
   DataRate min_estimate = DataRate::PlusInfinity();
@@ -423,8 +429,9 @@ TEST_F(GoogCcNetworkControllerTest, StableEstimateDoesNotVaryInSteadyState) {
   net_conf.update_frequency = TimeDelta::ms(5);
   auto send_net = s.CreateSimulationNode(net_conf);
   auto ret_net = s.CreateSimulationNode(net_conf);
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
   // Run for a while to allow the estimate to stabilize.
   s.RunFor(TimeDelta::seconds(20));
   DataRate min_estimate = DataRate::PlusInfinity();
@@ -472,8 +479,9 @@ TEST_F(GoogCcNetworkControllerTest,
     c->simulation.delay = TimeDelta::ms(200);
     c->update_frequency = TimeDelta::ms(5);
   });
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
 
   s.RunFor(TimeDelta::seconds(120));
   // Without LossBasedControl trial, bandwidth drops to ~10 kbps.
@@ -500,8 +508,9 @@ TEST_F(GoogCcNetworkControllerTest, LossBasedEstimatorCapsRateAtModerateLoss) {
     c->simulation.delay = TimeDelta::ms(100);
     c->update_frequency = TimeDelta::ms(5);
   });
-  SimulatedTimeClient* client = s.CreateSimulatedTimeClient(
-      "send", config, {PacketStreamConfig()}, {send_net}, {ret_net});
+  SimulatedTimeClient* client =
+      s.CreateSimulatedTimeClient("send", config, {PacketStreamConfig()},
+                                  {send_net->node()}, {ret_net->node()});
 
   s.RunFor(TimeDelta::seconds(60));
   // Without LossBasedControl trial, bitrate reaches above 4 mbps.

@@ -1286,7 +1286,7 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
     EXPECT_TRUE(channel_->AddSendStream(DefaultSendStreamParams()));
     frame_forwarder_ = absl::make_unique<webrtc::test::FrameForwarder>();
     frame_source_ = absl::make_unique<cricket::FakeFrameSource>(
-        640, 480, rtc::kNumMicrosecsPerSec / kFramerate);
+        640, 480, rtc::kNumMicrosecsPerSec / kFramerate, rtc::TimeMicros());
     EXPECT_TRUE(channel_->SetVideoSend(kSsrc, nullptr, frame_forwarder_.get()));
   }
 

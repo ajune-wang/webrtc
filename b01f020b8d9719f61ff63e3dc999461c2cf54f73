@@ -22,6 +22,30 @@
       "revId": "b01f020b8d9719f61ff63e3dc999461c2cf54f73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4bd6a1_b451c3c1",
+        "filename": "p2p/base/ice_transport_internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-01-21T08:30:21Z",
+      "side": 1,
+      "message": "Was a bit unsure of this one. The exception in the naming rules allowing snake_case for simple getters is effectively exposing an implementation detail through a method name, which seems a bit unstylish for a virtual method.\n\nBut on 3rd thought, that argument isn\u0027t strong enough to change the name (I think).",
+      "parentUuid": "50f9eac0_2ec9d694",
+      "range": {
+        "startLine": 257,
+        "startChar": 41,
+        "endLine": 257,
+        "endChar": 42
+      },
+      "revId": "b01f020b8d9719f61ff63e3dc999461c2cf54f73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

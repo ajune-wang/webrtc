@@ -22,6 +22,30 @@
       "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f960d5d_062a2b4b",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-21T10:10:26Z",
+      "side": 1,
+      "message": "I think the default factory should be moved, but I don\u0027t see a reason for moving the implementation to api/. I\u0027d rather get rid of the Create method instead.",
+      "parentUuid": "0f62e638_f2e56ee2",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

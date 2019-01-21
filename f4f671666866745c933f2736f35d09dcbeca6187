@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd83e07c_8e92c610",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-21T08:46:27Z",
+      "side": 1,
+      "message": "Doesn\u0027t this mean that we will keep adding padding up to the channel capacity, possibly 100\u0027s of mbps?",
+      "range": {
+        "startLine": 720,
+        "startChar": 4,
+        "endLine": 720,
+        "endChar": 46
+      },
+      "revId": "f4f671666866745c933f2736f35d09dcbeca6187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5a98697_d117ae11",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-21T08:46:27Z",
+      "side": 1,
+      "message": "Conditional operator?",
+      "range": {
+        "startLine": 717,
+        "startChar": 1,
+        "endLine": 721,
+        "endChar": 3
+      },
+      "revId": "f4f671666866745c933f2736f35d09dcbeca6187",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -58,7 +58,7 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '296c1e46f14022a3825fa9cfdb72cf6c5061e9f3',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '12d86dd03147ecb2fb680c9e5423ebcf4dcc406c',
     'condition': 'checkout_ios',
   },
   'src/testing':

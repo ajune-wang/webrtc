@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "40105181_470d2c56",
+        "filename": "test/scenario/network/fake_network_socket.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-21T11:10:07Z",
+      "side": 1,
+      "message": "FakeNetworkSocket will be exposed as AsyncSocket, so I think there is no need to hide it more.",
+      "parentUuid": "813ec3ab_e544e518",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 39
+      },
+      "revId": "82d7dfbec66d86d08fd856651e46a0635f265a45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "16d99db9_a5b625d7",
         "filename": "test/scenario/network/fake_network_socket.cc",
         "patchSetId": 18

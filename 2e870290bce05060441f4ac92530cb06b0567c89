@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f62e638_f2e56ee2",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-21T08:42:05Z",
+      "side": 1,
+      "message": "I am wondering if it makes sense to move https://cs.chromium.org/chromium/src/third_party/webrtc/logging/rtc_event_log/rtc_event_log_impl.cc?l\u003d370-379\u0026rcl\u003d10542f21c8e4e2d60b136fab45338f2b1e132dde to API in this CL.",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

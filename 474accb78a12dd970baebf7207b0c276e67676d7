@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ed26a20_e88816d7",
+        "filename": "api/task_queue/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-21T12:54:03Z",
+      "side": 1,
+      "message": "almost,\nclient link with global_task_queue_factory would get a link-time-injection that supports run-time injection (and work like before if doesn\u0027t link with it).\n\nlinking with just this target is not enough for run-time injection, but is enough to break link-time injection.\n\nLater I plan to simplify task queue build targets graph. Existence of the rtc::TaskQueue::Impl makes dependency graph more complicated that it need to be:\nrtc_task_queue_impl -\u003e global_tqf -\u003e default_tqf -\u003e (webrtc tq_implementaions) -\u003e tq_factory -\u003e rtc_task_queue_api -\u003e queued_task\n\nwhere I would like it to be\n(rtc_task_queue_api + rtc_task_queue_impl) -\u003e global_tqf -\u003e default_tqf -\u003e (webrtc tq_implementaions) -\u003e tq_factory + queued_task\n\nWith global_tqf removed should be even simpler:\ndefault_tqf -\u003e (tq_implementaions) -\u003e tq_factory + queued_task\nrtc_task_queue -\u003e tq_factory + queued_task\n\nI\u0027ve added comment to the global_tqf build target.",
+      "parentUuid": "4097e93b_b3af9994",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aa71fae_fdc6f9fb",
         "filename": "api/task_queue/task_queue.cc",
         "patchSetId": 7
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "64851537_1406c868",
+        "filename": "api/task_queue/task_queue.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-21T12:54:03Z",
+      "side": 1,
+      "message": "is is 2019 already?\noops.",
+      "parentUuid": "5aa71fae_fdc6f9fb",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ef3e70b7_af765363",
         "filename": "api/task_queue/task_queue_impl.cc",
         "patchSetId": 7
@@ -56,6 +98,24 @@
       "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0eeb06e_bb7ea7d1",
+        "filename": "api/task_queue/task_queue_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-21T12:54:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef3e70b7_af765363",
+      "revId": "474accb78a12dd970baebf7207b0c276e67676d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

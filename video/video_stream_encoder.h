@@ -24,6 +24,7 @@
 #include "api/video/video_stream_encoder_observer.h"
 #include "api/video/video_stream_encoder_settings.h"
 #include "api/video_codecs/video_encoder.h"
+#include "common_video/include/encoder_bitrate_adjuster.h"
 #include "modules/video_coding/utility/frame_dropper.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "modules/video_coding/video_coding_impl.h"
@@ -106,7 +107,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                                    size_t max_data_payload_length);
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
 
-  void ConfigureQualityScaler();
+  void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
@@ -186,7 +187,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                      absl::optional<int> encode_durations_us,
                      int qp,
                      size_t frame_size_bytes,
-                     bool keyframe);
+                     bool keyframe,
+                     int spatial_index,
+                     int temporal_index);
 
   rtc::Event shutdown_event_;
 
@@ -294,6 +297,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // OnEncodedImage(), which is only called by one thread but not necessarily
   // the worker thread.
   std::atomic<int> pending_frame_drops_;
+
+  std::unique_ptr<EncoderBitrateAdjuster> bitrate_adjuster_
+      RTC_GUARDED_BY(&encoder_queue_);
 
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.

@@ -179,7 +179,7 @@ void RtpFrameObject::AllocateBitstreamBuffer(size_t frame_size) {
                                       ? EncodedImage::kBufferPaddingBytesH264
                                       : 0);
   if (capacity() < new_size) {
-    delete[] data();
+    delete[] buffer();
     set_buffer(new uint8_t[new_size], new_size);
   }
 

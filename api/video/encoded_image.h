@@ -12,6 +12,7 @@
 #define API_VIDEO_ENCODED_IMAGE_H_
 
 #include <stdint.h>
+#include <vector>
 
 #include "absl/types/optional.h"
 #include "api/video/color_space.h"
@@ -37,8 +38,16 @@ class RTC_EXPORT EncodedImage {
   static size_t GetBufferPaddingBytes(VideoCodecType codec_type);
 
   EncodedImage();
+  EncodedImage(EncodedImage&&);
+  // Discouraged: potentially expensive.
   EncodedImage(const EncodedImage&);
   EncodedImage(uint8_t* buffer, size_t length, size_t capacity);
+
+  ~EncodedImage();
+
+  EncodedImage& operator=(EncodedImage&&);
+  // Discouraged: potentially expensive.
+  EncodedImage& operator=(const EncodedImage&);
 
   // TODO(nisse): Change style to timestamp(), set_timestamp(), for consistency
   // with the VideoFrame class.
@@ -69,19 +78,33 @@ class RTC_EXPORT EncodedImage {
 
   size_t size() const { return size_; }
   void set_size(size_t new_size) {
-    RTC_DCHECK_LE(new_size, capacity_);
+    RTC_DCHECK_LE(new_size, capacity());
     size_ = new_size;
   }
-  size_t capacity() const { return capacity_; }
+  size_t capacity() const { return buffer_ ? capacity_ : encoded_data_.size(); }
 
   void set_buffer(uint8_t* buffer, size_t capacity) {
     buffer_ = buffer;
     capacity_ = capacity;
   }
 
-  // TODO(bugs.webrtc.org/9378): When changed to owning the buffer, data() on a
-  // const object should return a const uint8_t*.
-  uint8_t* data() const { return buffer_; }
+  void Allocate(size_t capacity) {
+    encoded_data_.resize(capacity);
+    buffer_ = nullptr;
+  }
+
+  uint8_t* data() { return buffer_ ? buffer_ : encoded_data_.data(); }
+  const uint8_t* data() const {
+    return buffer_ ? buffer_ : encoded_data_.data();
+  }
+
+  // TODO(bugs.webrtc.org/9378): Delete. Used by code that wants to modify a
+  // buffer corresponding to a const EncodedImage. Requires an un-owned buffer.
+  uint8_t* buffer() const { return buffer_; }
+
+  // Hack to workaround lack of ownership of the encoded data. If we don't
+  // already own the underlying data, make an owned copy.
+  void Retain();
 
   uint32_t _encodedWidth = 0;
   uint32_t _encodedHeight = 0;
@@ -112,11 +135,14 @@ class RTC_EXPORT EncodedImage {
   } timing_;
 
  private:
-  // TODO(bugs.webrtc.org/9378): Fix ownership. Currently not owning the data
-  // buffer.
-  uint8_t* buffer_;
+  // TODO(bugs.webrtc.org/9378): We're transitioning to always owning the
+  // encoded data.
+  std::vector<uint8_t> encoded_data_;
   size_t size_;      // Size of encoded frame data.
-  size_t capacity_;  // Allocated size of _buffer.
+  // Non-null when used with an un-owned buffer.
+  uint8_t* buffer_;
+  // Allocated size of _buffer; relevant only if it's non-null.
+  size_t capacity_;
   uint32_t timestamp_rtp_ = 0;
   absl::optional<int> spatial_index_;
   absl::optional<webrtc::ColorSpace> color_space_;

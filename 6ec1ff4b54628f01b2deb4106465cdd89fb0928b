@@ -874,6 +874,30 @@
     },
     {
       "key": {
+        "uuid": "4525bf25_f4905e43",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-01-22T23:51:15Z",
+      "side": 1,
+      "message": "Quick update: Observer refactoring is ready for review\nhttps://webrtc-review.googlesource.com/c/src/+/119121\n\nOnce it is submitted we will have full overhead available in AudioSendStream.",
+      "parentUuid": "c529dab5_783a019d",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 24
+      },
+      "revId": "6ec1ff4b54628f01b2deb4106465cdd89fb0928b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "87f6ca8a_48d8cda2",
         "filename": "audio/audio_send_stream_unittest.cc",
         "patchSetId": 22

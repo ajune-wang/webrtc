@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d08a2d45_752bbbe2",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T23:59:29Z",
+      "side": 1,
+      "message": "Hmmm... so the user supplies a raw factory pointer, which is used by all tests and then leaked at the end?\n\nCould we instead do something like this?\n\n  INSTANTIATE_TEST_SUITE_P(My, TaskQueueTest,\n                           ::testing::Values(absl::make_unique\u003cMyTaskQueueFactory\u003e));\n\nand let the test parameter type be `std::function\u003cstd::unique_ptr\u003cTaskQueueFactory\u003e()\u003e`? Then each test case could instantiate a factory, no factories would be leaked, and world peace and harmony.\n\nAlternative way to document the same thing (probably better, since it doesn\u0027t use make_unique in a funny way that most people haven\u0027t seen before):\n\n  std::unique_ptr\u003cwebrtc::TaskQueueFactory\u003e CreateMyFactory() {\n    return absl::make_unique\u003cMyTaskQueueFactory\u003e();\n  }\n  INSTANTIATE_TEST_SUITE_P(My, TaskQueueTest, ::testing::Values(CreateMyFactory));",
+      "revId": "279bce4de6169ac8f366cb0e6fd45aa402e878b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

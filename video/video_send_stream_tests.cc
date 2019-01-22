@@ -2772,7 +2772,8 @@ TEST_P(VideoSendStreamTest, ReconfigureBitratesSetsEncoderBitratesCorrectly) {
   // test, due to the packetization overhead.
   webrtc::test::ScopedFieldTrials field_trials(
       std::string(field_trial::GetFieldTrialString()) +
-      "WebRTC-SubtractPacketizationOverhead/Disabled/");
+      "WebRTC-SubtractPacketizationOverhead/Disabled/"
+      "WebRTC-BitrateAdjuster/Disabled/");
 
   class EncoderBitrateThresholdObserver : public test::SendTest,
                                           public test::FakeEncoder {

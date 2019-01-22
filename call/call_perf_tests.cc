@@ -82,7 +82,7 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
                                  public rtc::VideoSinkInterface<VideoFrame> {
   static const int kInSyncThresholdMs = 50;
   static const int kStartupTimeMs = 2000;
-  static const int kMinRunTimeMs = 30000;
+  static const int kMinRunTimeMs = 120000;
 
  public:
   explicit VideoRtcpAndSyncObserver(Clock* clock, const std::string& test_label)

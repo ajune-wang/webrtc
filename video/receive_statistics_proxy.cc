@@ -207,6 +207,8 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
     RTC_HISTOGRAM_COUNTS_100000(
         "WebRTC.Video.RenderSqrtPixelsPerSecond",
         round(render_pixel_tracker_.ComputeTotalRate()));
+  } else {
+    fprintf(stderr, "Not enough samples, got just %d\n", samples);
   }
 
   absl::optional<int> sync_offset_ms =

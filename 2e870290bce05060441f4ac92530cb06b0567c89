@@ -118,6 +118,30 @@
       "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363b1470_8282c20d",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-22T07:56:33Z",
+      "side": 1,
+      "message": "I agree that the situation is already sub-optimal but I think we can do something in this CL to make our life easier going forward (or at least agree on a plan and see if there are other problems ahead).\n\nHere is another proposal, which also covers what kwiberg@ wrote on line 62:\n\n1. If RtcEventLogNullImpl should never be handled directly (but always through a pointer to an RtcEventLog), we can move this into rtc_event_log.cc, if instead we need it (a quick code search shows we are referring to webrtc::RtcEventLogNullImpl in some places I am not sure this is what we want, though) we have to keep the declaration in the header.\n\n2. We can move RtcEventLog::Create to api/rtc_event_log/rtc_event_log.cc and include logging/rtc_event_log_impl.h (we need to split decl and def in that case). It is OK to #include a non API header from a .cc file in api/.\n\nWhat is strange from the current approach is that RtcEventLog::Create is declared in api/, but defined in logging/, while the RtcEventLog::Create itself needs both RtcEventLogNullImpl (which is declared and defined in api/) and RtcEventLogImpl (declared and defined in logging/) based on the preprocessor macro ENABLE_RTC_EVENT_LOG.\n\nEven if we are going to remove RtcEventLog::Create in the future, I would like to simplify the current approach and I think the plan in point (2) fixes the problem while maintaining the implementation of RtcEventLog private.",
+      "parentUuid": "93818f8a_af8a5bf9",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

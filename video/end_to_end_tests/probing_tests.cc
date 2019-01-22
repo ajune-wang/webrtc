@@ -244,8 +244,7 @@ TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
           case 0:
             // Wait until initial probing has been completed (6 times start
             // bitrate).
-            if (stats.send_bandwidth_bps >= 250000 &&
-                stats.send_bandwidth_bps <= 350000) {
+            if (stats.send_bandwidth_bps >= 250000) {
               BuiltInNetworkBehaviorConfig config;
               config.link_capacity_kbps = 200;
               send_simulated_network_->SetConfig(config);

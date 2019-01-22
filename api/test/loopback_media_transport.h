@@ -127,6 +127,9 @@ class MediaTransportPair {
 
     Stats GetStats();
 
+    void SetAllocatedBitrateLimits(
+        const MediaTransportAllocateddBitrateLimits& limits) override;
+
    private:
     void OnData(uint64_t channel_id, MediaTransportEncodedAudioFrame frame);
 

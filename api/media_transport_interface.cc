@@ -188,4 +188,7 @@ size_t MediaTransportInterface::GetAudioPacketOverhead() const {
   return 0;
 }
 
+void MediaTransportInterface::SetAllocatedBitrateLimits(
+    const MediaTransportAllocateddBitrateLimits& limits) {}
+
 }  // namespace webrtc

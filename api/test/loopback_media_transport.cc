@@ -81,6 +81,9 @@ class WrapperMediaTransport : public MediaTransportInterface {
     wrapped_->SetDataSink(sink);
   }
 
+  void SetAllocatedBitrateLimits(
+      const MediaTransportAllocateddBitrateLimits& limits) override {}
+
  private:
   MediaTransportInterface* wrapped_;
 };
@@ -372,4 +375,8 @@ void MediaTransportPair::LoopbackMediaTransport::OnStateChanged() {
     state_callback_->OnStateChanged(state_);
   }
 }
+
+void MediaTransportPair::LoopbackMediaTransport::SetAllocatedBitrateLimits(
+    const MediaTransportAllocateddBitrateLimits& limits) {}
+
 }  // namespace webrtc

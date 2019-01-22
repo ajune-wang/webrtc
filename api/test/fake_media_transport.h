@@ -93,6 +93,9 @@ class FakeMediaTransport : public MediaTransportInterface {
     }
   }
 
+  void SetAllocatedBitrateLimits(
+      const MediaTransportAllocateddBitrateLimits& limits) override {}
+
   int target_rate_observers_size() { return target_rate_observers_.size(); }
 
  private:

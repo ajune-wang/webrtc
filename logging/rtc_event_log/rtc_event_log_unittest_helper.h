@@ -85,6 +85,7 @@ class EventGenerator {
   rtcp::Nack NewNack();
   rtcp::TransportFeedback NewTransportFeedback();
   rtcp::Remb NewRemb();
+  rtcp::LossNotification NewLossNotification();
 
   // |all_configured_exts| determines whether the RTP packet exhibits all
   // configured extensions, or a random subset thereof.
@@ -240,6 +241,10 @@ class EventVerifier {
   void VerifyLoggedRemb(int64_t log_time_us,
                         const rtcp::Remb& original_remb,
                         const LoggedRtcpPacketRemb& logged_remb);
+  void VerifyLoggedLossNotification(
+      int64_t log_time_us,
+      const rtcp::LossNotification& original_loss_notification,
+      const LoggedRtcpPacketLossNotification& logged_loss_notification);
 
   void VerifyLoggedStartEvent(int64_t start_time_us,
                               int64_t utc_start_time_us,

@@ -313,8 +313,12 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
   if (msg.requests_alr_probing) {
     probe_controller_->EnablePeriodicAlrProbing(*msg.requests_alr_probing);
   }
+  RTC_LOG(LS_INFO) << "psla:: OnStreamsConfig, max_total_allocated_bitrate_="
+                   << max_total_allocated_bitrate_.bps();
   if (msg.max_total_allocated_bitrate &&
       *msg.max_total_allocated_bitrate != max_total_allocated_bitrate_) {
+    RTC_LOG(LS_INFO) << "psla::OnStreamsConfig, max_total_allocated_bitrate="
+                     << msg.max_total_allocated_bitrate->bps();
     update.probe_cluster_configs =
         probe_controller_->OnMaxTotalAllocatedBitrate(
             msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
@@ -329,7 +333,10 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     min_pacing_rate_ = *msg.min_pacing_rate;
     pacing_changed = true;
   }
+  RTC_LOG(LS_INFO) << "psla: max_padding_rate_=" << max_padding_rate_.bps();
   if (msg.max_padding_rate && *msg.max_padding_rate != max_padding_rate_) {
+    RTC_LOG(LS_INFO) << "psla: msg.max_padding_rate="
+                     << msg.max_padding_rate->bps();
     max_padding_rate_ = *msg.max_padding_rate;
     pacing_changed = true;
   }

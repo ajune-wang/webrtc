@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a83c48f_7900afca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Text changed.",
+      "parentUuid": "14375c2c_a45d6ecf",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db8df107_f939fa4d",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 1
@@ -70,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "9cb5287b_d034427a",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b019972_f977f15a",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6738200c_612a5399",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
         "patchSetId": 1
@@ -81,6 +117,24 @@
       "writtenOn": "2019-01-22T15:53:23Z",
       "side": 1,
       "message": "if you add copy copy constructor, might be good idea to add also assign operator (ok to \u003d default it too).\n[it is no longer required because of classes with const members. not the case here]",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26e9f75e_7d5a3d96",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "So long as it\u0027s not used - what\u0027s the benefit?",
+      "parentUuid": "6738200c_612a5399",
       "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -110,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "36231085_4fd2daba",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b236d48a_edcb45db",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d778c69_0e54b980",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
         "patchSetId": 1
@@ -130,6 +208,30 @@
       "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562e1ecc_a3e11827",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Okay. FYI, you might want to take that advice in this file:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/rtp_rtcp/source/rtcp_packet/remb_unittest.cc?q\u003dremb_unittest\u0026sq\u003dpackage:chromium\u0026dr\n:-)",
+      "parentUuid": "1d778c69_0e54b980",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 36
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +258,30 @@
     },
     {
       "key": {
+        "uuid": "97fe7dc0_0f727c05",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Thanks for catching!",
+      "parentUuid": "ff4a0f25_c0f6b74c",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d3c9629_281468bd",
         "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
         "patchSetId": 1
@@ -167,6 +293,30 @@
       "writtenOn": "2019-01-22T15:53:23Z",
       "side": 1,
       "message": "may be 0x7b for clarity (or use 123 in the kPacket similar to constant 206)",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2f745fb_26e4f571",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d3c9629_281468bd",
       "range": {
         "startLine": 47,
         "startChar": 36,
@@ -202,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "0eb861b2_40cbf9de",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "Done\nNote: ParseFailsOnTooSmallPacketToBeLossNotification not changed.",
+      "parentUuid": "65b9d86a_aeaf0382",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 80
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e79e5f05_3d996232",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 1
@@ -225,6 +399,30 @@
     },
     {
       "key": {
+        "uuid": "0d84088b_4a573d33",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "I see this is a non-blocking suggestion. I\u0027ll think about it more and maybe change before landing.",
+      "parentUuid": "e79e5f05_3d996232",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a560ab9f_2696a0df",
         "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
         "patchSetId": 1
@@ -236,6 +434,30 @@
       "writtenOn": "2019-01-22T15:53:23Z",
       "side": 1,
       "message": "personally I find less indentation easier to follow.\nit is not a big deal remb or loss_notification variables leave longer than used (they are not critical sections)\nempty line can be good enough separator for these blocks.",
+      "range": {
+        "startLine": 875,
+        "startChar": 0,
+        "endLine": 875,
+        "endChar": 3
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3528423d_5f2aa640",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T16:31:51Z",
+      "side": 1,
+      "message": "The biggest benefit of this approach, IMHO, is not so much in restricting the lifetime of the objects, but rather in making it clear to the reader that |remb|, etc., is only relevant there.",
+      "parentUuid": "a560ab9f_2696a0df",
       "range": {
         "startLine": 875,
         "startChar": 0,

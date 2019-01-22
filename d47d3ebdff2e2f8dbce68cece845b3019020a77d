@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15b4be52_078360f8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:16:21Z",
+      "side": 0,
+      "message": "clock_ and rtc::TimeMillis\nmay have different offsets when clock_ is injected from the outside.\nbe ready for surprises.",
+      "range": {
+        "startLine": 129,
+        "startChar": 22,
+        "endLine": 129,
+        "endChar": 70
+      },
+      "revId": "d47d3ebdff2e2f8dbce68cece845b3019020a77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

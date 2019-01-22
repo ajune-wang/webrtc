@@ -273,7 +273,6 @@ class RTPSender {
   void UpdateRtpOverhead(const RtpPacketToSend& packet);
 
   Clock* const clock_;
-  const int64_t clock_delta_ms_;
   Random random_ RTC_GUARDED_BY(send_critsect_);
 
   const bool audio_configured_;

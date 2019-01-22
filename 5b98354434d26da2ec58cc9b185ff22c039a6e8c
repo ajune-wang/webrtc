@@ -134,6 +134,24 @@
       "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7b4e13_427363b3",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T10:34:37Z",
+      "side": 1,
+      "message": "This (that all the member variables should be const) is the one remaining point on my list. Do you agree, or do you have a counterargument?",
+      "parentUuid": "72121510_40322b09",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

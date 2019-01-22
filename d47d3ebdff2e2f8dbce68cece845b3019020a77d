@@ -22,6 +22,30 @@
       "revId": "d47d3ebdff2e2f8dbce68cece845b3019020a77d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "656fbc73_4a747707",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-22T15:23:10Z",
+      "side": 0,
+      "message": "Are you aware of any such injection? On a related track, I\u0027m considering converting this code to use rtc::TimeMillis() and friends (and test would then use rtc::ScopedFakeClock).",
+      "parentUuid": "15b4be52_078360f8",
+      "range": {
+        "startLine": 129,
+        "startChar": 22,
+        "endLine": 129,
+        "endChar": 70
+      },
+      "revId": "d47d3ebdff2e2f8dbce68cece845b3019020a77d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

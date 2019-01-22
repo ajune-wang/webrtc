@@ -125,8 +125,6 @@ RTPSender::RTPSender(
     bool require_frame_encryption,
     bool extmap_allow_mixed)
     : clock_(clock),
-      // TODO(holmer): Remove this conversion?
-      clock_delta_ms_(clock_->TimeInMilliseconds() - rtc::TimeMillis()),
       random_(clock_->TimeInMicroseconds()),
       audio_configured_(audio),
       audio_(audio ? new RTPSenderAudio(clock, this) : nullptr),
@@ -687,13 +685,9 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
   }
 
   if (paced_sender_) {
-    // Convert from TickTime to Clock since capture_time_ms is based on
-    // TickTime.
-    int64_t corrected_capture_tims_ms =
-        stored_packet->capture_time_ms + clock_delta_ms_;
     paced_sender_->InsertPacket(
         RtpPacketSender::kNormalPriority, stored_packet->ssrc,
-        stored_packet->rtp_sequence_number, corrected_capture_tims_ms,
+        stored_packet->rtp_sequence_number, stored_packet->capture_time_ms,
         stored_packet->payload_size, true);
 
     return packet_size;
@@ -948,9 +942,6 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
   absl::optional<uint32_t> flexfec_ssrc = FlexfecSsrc();
   if (paced_sender_) {
     uint16_t seq_no = packet->SequenceNumber();
-    // Correct offset between implementations of millisecond time stamps in
-    // TickTime and Clock.
-    int64_t corrected_time_ms = packet->capture_time_ms() + clock_delta_ms_;
     size_t payload_length = packet->payload_size();
     if (ssrc == flexfec_ssrc) {
       // Store FlexFEC packets in the history here, so they can be found
@@ -961,8 +952,9 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
       packet_history_.PutRtpPacket(std::move(packet), storage, absl::nullopt);
     }
 
-    paced_sender_->InsertPacket(priority, ssrc, seq_no, corrected_time_ms,
-                                payload_length, false);
+    paced_sender_->InsertPacket(priority, ssrc, seq_no,
+                                packet->capture_time_ms(), payload_length,
+                                false);
     return true;
   }
 

@@ -166,6 +166,30 @@
       "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46196d13_4c1650f6",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-22T10:57:33Z",
+      "side": 1,
+      "message": "I prefer the incremental approach (it is easier to revert if something goes wrong).\n\nWe can avoid to move the event log and also postpone the deprecation of RtcEventLog::Create. What I am proposing should be easy to achieve in this CL because it doesn\u0027t require moving headers around and targets that require RtcEventLog::Create will be redirected to this header by the current effort.\n\nWe just need to:\n- Create logging/rtc_event_log_impl.h.\n- Move the definition of RtcEventLog::Create to api/rtc_event_log/rtc_event_log.cc (next to RtcEventLog::CreateNull).\n- #include logging/rtc_event_log_impl.h from api/rtc_event_log/rtc_event_log.cc and add a dependency from api:rtc_event_log_api to logging:rtc_event_log_impl_base.\n\nThis way we should be able to move quickly and improve the current situation. The next refactoring will take care of the deprecation of Create.\n\nWDYT?",
+      "parentUuid": "b7e90037_0f4df39e",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

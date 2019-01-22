@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3c35d7b_d38e7e2d",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T16:38:07Z",
+      "side": 1,
+      "message": "\"My\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c064e38_a849f64a",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T16:38:07Z",
+      "side": 1,
+      "message": "Is returning the same factory object each time necessary, or an optimization? In the latter case, consider using the simpler form in the example code. (IOW, can you use CreateMyTaskQueueFactory() directly in the expression on line 30?)",
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "babffaad_9a51de5b",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T16:38:07Z",
+      "side": 1,
+      "message": "Probably \"My\" here too.",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

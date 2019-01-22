@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b80aaa3f_dfa0bea6",
+        "filename": "test/fuzzers/rtp_packet_fuzzer.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-22T21:01:21Z",
+      "side": 1,
+      "message": "It would be possible to reduce the above bitset to \u003c15\u003e, but I think the approach of this CL is both clearer, as well as will require less changes in the future.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 44
+      },
+      "revId": "a1d518c740761e603a6172973f40414237b8c94c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

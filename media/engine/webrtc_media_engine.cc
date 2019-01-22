@@ -18,6 +18,7 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/engine/webrtc_voice_engine.h"
+#include "system_wrappers/include/field_trial.h"
 
 #ifdef HAVE_WEBRTC_VIDEO
 #include "media/engine/webrtc_video_engine.h"
@@ -67,6 +68,17 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
 }
 
 namespace {
+// If this field trial is enabled, we will not filter out the abs-send-time
+// header extension even though the TWCC extension is also selected.
+bool IsKeepAbsSendTimeFieldTrialEnabled() {
+  return webrtc::field_trial::IsEnabled("WebRTC-KeepAbsSendTimeExtension");
+}
+
+bool IsProtectedAbsSendTimeUri(std::string uri) {
+  return IsKeepAbsSendTimeFieldTrialEnabled() &&
+         uri == webrtc::RtpExtension::kAbsSendTimeUri;
+}
+
 // Remove mutually exclusive extensions with lower priority.
 void DiscardRedundantExtensions(
     std::vector<webrtc::RtpExtension>* extensions,
@@ -78,7 +90,7 @@ void DiscardRedundantExtensions(
         extensions->begin(), extensions->end(),
         [uri](const webrtc::RtpExtension& rhs) { return rhs.uri == uri; });
     if (it != extensions->end()) {
-      if (found) {
+      if (found && !IsProtectedAbsSendTimeUri(it->uri)) {
         extensions->erase(it);
       }
       found = true;
@@ -143,7 +155,8 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
         });
     result.erase(it, result.end());
 
-    // Keep just the highest priority extension of any in the following list.
+    // Keep just the highest priority extension of any in the following list
+    // (subject to override by WebRTC-KeepAbsSendTimeExtension FieldTrial).
     static const char* const kBweExtensionPriorities[] = {
         webrtc::RtpExtension::kTransportSequenceNumberUri,
         webrtc::RtpExtension::kAbsSendTimeUri,

@@ -80,6 +80,7 @@ class RtcpSenderTest : public ::testing::Test {
     configuration.outgoing_transport = &test_transport_;
     configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;
     configuration.rtcp_report_interval_ms = 1000;
+    configuration.receiver_only = true;
 
     rtp_rtcp_impl_.reset(new ModuleRtpRtcpImpl(configuration));
     rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),

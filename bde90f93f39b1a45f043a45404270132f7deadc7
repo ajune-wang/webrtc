@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6fd1712_ad2a6d0c",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T17:24:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3c35d7b_d38e7e2d",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c064e38_a849f64a",
         "filename": "api/task_queue/task_queue_test.h",
         "patchSetId": 8
@@ -39,6 +63,24 @@
       "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8966ae_6aed1b92",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T17:24:33Z",
+      "side": 1,
+      "message": "it is more about lifetime management and documenting expected types...\n\nSimplified the example by dropping implementation of the helper (in particular removed any lifetime concerns).\n\n(it is possible to use  CreateMyTaskQueueFactory().release() directly at line 30)",
+      "parentUuid": "2c064e38_a849f64a",
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d602ffd2_eac150cc",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T17:24:33Z",
+      "side": 1,
+      "message": "yep, would like to use the same prefix",
+      "parentUuid": "babffaad_9a51de5b",
+      "range": {
+        "startLine": 30,
+        "startChar": 28,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "bde90f93f39b1a45f043a45404270132f7deadc7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

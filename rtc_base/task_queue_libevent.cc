@@ -7,8 +7,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-
-#include "rtc_base/task_queue.h"
+#include "rtc_base/task_queue_libevent.h"
 
 #include <errno.h>
 #include <fcntl.h>
@@ -22,30 +21,26 @@
 #include <type_traits>
 #include <utility>
 
+#include "absl/memory/memory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "base/third_party/libevent/event.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
-#include "rtc_base/platform_thread.h"
-#include "rtc_base/platform_thread_types.h"
 #include "rtc_base/ref_count.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/system/unused.h"
-#include "rtc_base/task_queue_posix.h"
+#include "rtc_base/task_queue.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 
-namespace rtc {
-using internal::GetQueuePtrTls;
-using internal::AutoSetCurrentQueuePtr;
-
+namespace webrtc {
 namespace {
-static const char kQuit = 1;
-static const char kRunTask = 2;
 
-using Priority = TaskQueue::Priority;
+constexpr char kQuit = 1;
+constexpr char kRunTask = 2;
 
 // This ignores the SIGPIPE signal on the calling thread.
 // This signal can be fired when trying to write() to a pipe that's being
@@ -66,14 +61,6 @@ void IgnoreSigPipeSignalOnCurrentThread() {
   sigaddset(&sigpipe_mask, SIGPIPE);
   pthread_sigmask(SIG_BLOCK, &sigpipe_mask, nullptr);
 }
-
-struct TimerEvent {
-  explicit TimerEvent(std::unique_ptr<QueuedTask> task)
-      : task(std::move(task)) {}
-  ~TimerEvent() { event_del(&ev); }
-  event ev;
-  std::unique_ptr<QueuedTask> task;
-};
 
 bool SetNonBlocking(int fd) {
   const int flags = fcntl(fd, F_GETFL);
@@ -101,99 +88,57 @@ void EventAssign(struct event* ev,
 #endif
 }
 
-ThreadPriority TaskQueuePriorityToThreadPriority(Priority priority) {
-  switch (priority) {
-    case Priority::HIGH:
-      return kRealtimePriority;
-    case Priority::LOW:
-      return kLowPriority;
-    case Priority::NORMAL:
-      return kNormalPriority;
-    default:
-      RTC_NOTREACHED();
-      break;
-  }
-  return kNormalPriority;
+void RunTask(int fd, short flags, void* context) {  // NOLINT
+  auto* task = static_cast<QueuedTask*>(context);
+  if (task->Run())
+    delete task;
 }
+
 }  // namespace
 
-class TaskQueue::Impl : public RefCountInterface {
+class TaskQueueLibevent::SetTimerTask : public QueuedTask {
  public:
-  explicit Impl(const char* queue_name,
-                TaskQueue* queue,
-                Priority priority = Priority::NORMAL);
-  ~Impl() override;
-
-  static TaskQueue::Impl* Current();
-  static TaskQueue* CurrentQueue();
-
-  // Used for DCHECKing the current queue.
-  bool IsCurrent() const;
-
-  void PostTask(std::unique_ptr<QueuedTask> task);
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds);
-
- private:
-  static void ThreadMain(void* context);
-  static void OnWakeup(int socket, short flags, void* context);  // NOLINT
-  static void RunTask(int fd, short flags, void* context);       // NOLINT
-  static void RunTimer(int fd, short flags, void* context);      // NOLINT
-
-  class SetTimerTask;
-
-  struct QueueContext;
-  TaskQueue* const queue_;
-  int wakeup_pipe_in_ = -1;
-  int wakeup_pipe_out_ = -1;
-  event_base* event_base_;
-  std::unique_ptr<event> wakeup_event_;
-  PlatformThread thread_;
-  rtc::CriticalSection pending_lock_;
-  std::list<std::unique_ptr<QueuedTask>> pending_ RTC_GUARDED_BY(pending_lock_);
-};
-
-struct TaskQueue::Impl::QueueContext {
-  explicit QueueContext(TaskQueue::Impl* q) : queue(q), is_active(true) {}
-  TaskQueue::Impl* queue;
-  bool is_active;
-  // Holds a list of events pending timers for cleanup when the loop exits.
-  std::list<TimerEvent*> pending_timers_;
-};
-
-class TaskQueue::Impl::SetTimerTask : public QueuedTask {
- public:
-  SetTimerTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds)
-      : task_(std::move(task)),
+  SetTimerTask(TaskQueueLibevent* task_queue,
+               std::unique_ptr<QueuedTask> task,
+               uint32_t milliseconds)
+      : task_queue_(task_queue),
+        task_(std::move(task)),
         milliseconds_(milliseconds),
-        posted_(Time32()) {}
+        posted_(rtc::Time32()) {}
 
  private:
   bool Run() override {
+    RTC_DCHECK(task_queue_->IsCurrent());
     // Compensate for the time that has passed since construction
     // and until we got here.
-    uint32_t post_time = Time32() - posted_;
-    TaskQueue::Impl::Current()->PostDelayedTask(
+    uint32_t post_time = rtc::Time32() - posted_;
+    task_queue_->PostDelayedTask(
         std::move(task_),
         post_time > milliseconds_ ? 0 : milliseconds_ - post_time);
     return true;
   }
 
+  TaskQueueLibevent* const task_queue_;
   std::unique_ptr<QueuedTask> task_;
   const uint32_t milliseconds_;
   const uint32_t posted_;
 };
 
-TaskQueue::Impl::Impl(const char* queue_name,
-                      TaskQueue* queue,
-                      Priority priority /*= NORMAL*/)
-    : queue_(queue),
-      event_base_(event_base_new()),
+struct TaskQueueLibevent::TimerEvent {
+  TimerEvent(TaskQueueLibevent* task_queue, std::unique_ptr<QueuedTask> task)
+      : task_queue(task_queue), task(std::move(task)) {}
+  ~TimerEvent() { event_del(&ev); }
+
+  event ev;
+  TaskQueueLibevent* task_queue;
+  std::unique_ptr<QueuedTask> task;
+};
+
+TaskQueueLibevent::TaskQueueLibevent(absl::string_view queue_name,
+                                     rtc::ThreadPriority priority)
+    : event_base_(event_base_new()),
       wakeup_event_(new event()),
-      thread_(&TaskQueue::Impl::ThreadMain,
-              this,
-              queue_name,
-              TaskQueuePriorityToThreadPriority(priority)) {
-  RTC_DCHECK(queue_name);
+      thread_(&TaskQueueLibevent::ThreadMain, this, queue_name, priority) {
   int fds[2];
   RTC_CHECK(pipe(fds) == 0);
   SetNonBlocking(fds[0]);
@@ -207,7 +152,9 @@ TaskQueue::Impl::Impl(const char* queue_name,
   thread_.Start();
 }
 
-TaskQueue::Impl::~Impl() {
+TaskQueueLibevent::~TaskQueueLibevent() = default;
+
+void TaskQueueLibevent::Delete() {
   RTC_DCHECK(!IsCurrent());
   struct timespec ts;
   char message = kQuit;
@@ -231,111 +178,87 @@ TaskQueue::Impl::~Impl() {
   wakeup_pipe_out_ = -1;
 
   event_base_free(event_base_);
+  delete this;
 }
 
-// static
-TaskQueue::Impl* TaskQueue::Impl::Current() {
-  QueueContext* ctx =
-      static_cast<QueueContext*>(pthread_getspecific(GetQueuePtrTls()));
-  return ctx ? ctx->queue : nullptr;
-}
-
-// static
-TaskQueue* TaskQueue::Impl::CurrentQueue() {
-  TaskQueue::Impl* current = Current();
-  if (current) {
-    return current->queue_;
-  }
-  return nullptr;
-}
-
-bool TaskQueue::Impl::IsCurrent() const {
-  return IsThreadRefEqual(thread_.GetThreadRef(), CurrentThreadRef());
-}
-
-void TaskQueue::Impl::PostTask(std::unique_ptr<QueuedTask> task) {
-  RTC_DCHECK(task.get());
+void TaskQueueLibevent::PostTask(std::unique_ptr<QueuedTask> task) {
+  RTC_DCHECK(task);
   // libevent isn't thread safe.  This means that we can't use methods such
   // as event_base_once to post tasks to the worker thread from a different
   // thread.  However, we can use it when posting from the worker thread itself.
   if (IsCurrent()) {
-    if (event_base_once(event_base_, -1, EV_TIMEOUT, &TaskQueue::Impl::RunTask,
-                        task.get(), nullptr) == 0) {
+    if (event_base_once(event_base_, -1, EV_TIMEOUT, &RunTask, task.get(),
+                        nullptr) == 0) {
       task.release();
     }
-  } else {
-    QueuedTask* task_id = task.get();  // Only used for comparison.
-    {
-      CritScope lock(&pending_lock_);
-      pending_.push_back(std::move(task));
-    }
-    char message = kRunTask;
-    if (write(wakeup_pipe_in_, &message, sizeof(message)) != sizeof(message)) {
-      RTC_LOG(WARNING) << "Failed to queue task.";
-      CritScope lock(&pending_lock_);
-      pending_.remove_if([task_id](std::unique_ptr<QueuedTask>& t) {
-        return t.get() == task_id;
-      });
-    }
+    return;
+  }
+
+  QueuedTask* task_id = task.get();  // Only used for comparison.
+  {
+    rtc::CritScope lock(&pending_lock_);
+    pending_.push_back(std::move(task));
+  }
+  char message = kRunTask;
+  if (write(wakeup_pipe_in_, &message, sizeof(message)) != sizeof(message)) {
+    RTC_LOG(LS_ERROR) << "Failed to queue task.";
+    rtc::CritScope lock(&pending_lock_);
+    pending_.remove_if([task_id](std::unique_ptr<QueuedTask>& t) {
+      return t.get() == task_id;
+    });
   }
 }
 
-void TaskQueue::Impl::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                      uint32_t milliseconds) {
-  if (IsCurrent()) {
-    TimerEvent* timer = new TimerEvent(std::move(task));
-    EventAssign(&timer->ev, event_base_, -1, 0, &TaskQueue::Impl::RunTimer,
-                timer);
-    QueueContext* ctx =
-        static_cast<QueueContext*>(pthread_getspecific(GetQueuePtrTls()));
-    ctx->pending_timers_.push_back(timer);
-    timeval tv = {rtc::dchecked_cast<int>(milliseconds / 1000),
-                  rtc::dchecked_cast<int>(milliseconds % 1000) * 1000};
-    event_add(&timer->ev, &tv);
-  } else {
-    PostTask(std::unique_ptr<QueuedTask>(
-        new SetTimerTask(std::move(task), milliseconds)));
+void TaskQueueLibevent::PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                                        uint32_t milliseconds) {
+  if (!IsCurrent()) {
+    PostTask(
+        absl::make_unique<SetTimerTask>(this, std::move(task), milliseconds));
+    return;
   }
+
+  auto timer = absl::make_unique<TimerEvent>(this, std::move(task));
+  EventAssign(&timer->ev, event_base_, -1, 0, &TaskQueueLibevent::RunTimer,
+              timer.get());
+  timeval tv = {rtc::dchecked_cast<int>(milliseconds / 1000),
+                rtc::dchecked_cast<int>(milliseconds % 1000) * 1000};
+  event_add(&timer->ev, &tv);
+  pending_timers_.push_back(std::move(timer));
 }
 
-// static
-void TaskQueue::Impl::ThreadMain(void* context) {
-  TaskQueue::Impl* me = static_cast<TaskQueue::Impl*>(context);
+void TaskQueueLibevent::ThreadMain(void* context) {
+  TaskQueueLibevent* me = static_cast<TaskQueueLibevent*>(context);
 
-  QueueContext queue_context(me);
-  pthread_setspecific(GetQueuePtrTls(), &queue_context);
+  {
+    CurrentTaskQueueSetter current_task_queue(me);
 
-  while (queue_context.is_active)
-    event_base_loop(me->event_base_, 0);
+    while (me->is_active_)
+      event_base_loop(me->event_base_, 0);
+  }
 
-  pthread_setspecific(GetQueuePtrTls(), nullptr);
-
-  for (TimerEvent* timer : queue_context.pending_timers_)
-    delete timer;
+  me->pending_timers_.clear();
 }
 
-// static
-void TaskQueue::Impl::OnWakeup(int socket,
-                               short flags,
-                               void* context) {  // NOLINT
-  QueueContext* ctx =
-      static_cast<QueueContext*>(pthread_getspecific(GetQueuePtrTls()));
-  RTC_DCHECK(ctx->queue->wakeup_pipe_out_ == socket);
+void TaskQueueLibevent::OnWakeup(int socket,
+                                 short flags,
+                                 void* context) {  // NOLINT
+  TaskQueueLibevent* task_queue = static_cast<TaskQueueLibevent*>(context);
+  RTC_DCHECK_EQ(task_queue->wakeup_pipe_out_, socket);
   char buf;
   RTC_CHECK(sizeof(buf) == read(socket, &buf, sizeof(buf)));
   switch (buf) {
     case kQuit:
-      ctx->is_active = false;
-      event_base_loopbreak(ctx->queue->event_base_);
+      task_queue->is_active_ = false;
+      event_base_loopbreak(task_queue->event_base_);
       break;
     case kRunTask: {
       std::unique_ptr<QueuedTask> task;
       {
-        CritScope lock(&ctx->queue->pending_lock_);
-        RTC_DCHECK(!ctx->queue->pending_.empty());
-        task = std::move(ctx->queue->pending_.front());
-        ctx->queue->pending_.pop_front();
-        RTC_DCHECK(task.get());
+        rtc::CritScope lock(&task_queue->pending_lock_);
+        RTC_DCHECK(!task_queue->pending_.empty());
+        task = std::move(task_queue->pending_.front());
+        task_queue->pending_.pop_front();
+        RTC_DCHECK(task);
       }
       if (!task->Run())
         task.release();
@@ -348,46 +271,14 @@ void TaskQueue::Impl::OnWakeup(int socket,
 }
 
 // static
-void TaskQueue::Impl::RunTask(int fd, short flags, void* context) {  // NOLINT
-  auto* task = static_cast<QueuedTask*>(context);
-  if (task->Run())
-    delete task;
-}
-
-// static
-void TaskQueue::Impl::RunTimer(int fd, short flags, void* context) {  // NOLINT
+void TaskQueueLibevent::RunTimer(int fd,
+                                 short flags,
+                                 void* context) {  // NOLINT
   TimerEvent* timer = static_cast<TimerEvent*>(context);
   if (!timer->task->Run())
     timer->task.release();
-  QueueContext* ctx =
-      static_cast<QueueContext*>(pthread_getspecific(GetQueuePtrTls()));
-  ctx->pending_timers_.remove(timer);
-  delete timer;
+  timer->task_queue->pending_timers_.remove_if(
+      [timer](std::unique_ptr<TimerEvent>& t) { return t.get() == timer; });
 }
 
-TaskQueue::TaskQueue(const char* queue_name, Priority priority)
-    : impl_(new RefCountedObject<TaskQueue::Impl>(queue_name, this, priority)) {
-}
-
-TaskQueue::~TaskQueue() {}
-
-// static
-TaskQueue* TaskQueue::Current() {
-  return TaskQueue::Impl::CurrentQueue();
-}
-
-// Used for DCHECKing the current queue.
-bool TaskQueue::IsCurrent() const {
-  return impl_->IsCurrent();
-}
-
-void TaskQueue::PostTask(std::unique_ptr<QueuedTask> task) {
-  return TaskQueue::impl_->PostTask(std::move(task));
-}
-
-void TaskQueue::PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                                uint32_t milliseconds) {
-  return TaskQueue::impl_->PostDelayedTask(std::move(task), milliseconds);
-}
-
-}  // namespace rtc
+}  // namespace webrtc

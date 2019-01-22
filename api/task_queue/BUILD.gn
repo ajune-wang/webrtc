@@ -39,18 +39,68 @@ rtc_source_set("task_queue_factory") {
   ]
 }
 
+rtc_source_set("task_queue_test") {
+  visibility = [ "*" ]
+  testonly = true
+  sources = [
+    "task_queue_test.cc",
+    "task_queue_test.h",
+  ]
+  deps = [
+    ":task_queue",
+    ":task_queue_factory",
+    "../../rtc_base:rtc_event",
+    "../../rtc_base:rtc_task_queue_api",
+    "../../rtc_base:timeutils",
+    "../../test:test_support",
+    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
 rtc_source_set("default_task_queue_factory") {
   # TODO(bugs.webrtc.org/10191): Make public when implemented for all
   # supported platforms.
-  visibility = [ ":global_task_queue_factory" ]
+  visibility = [
+    ":global_task_queue_factory",
+    ":task_queue_default_unittests",
+  ]
   sources = [
-    "default_task_queue_factory.cc",
     "default_task_queue_factory.h",
   ]
   deps = [
     ":task_queue_factory",
     "../../rtc_base:checks",
+    "//third_party/abseil-cpp/absl/memory",
+    "//third_party/abseil-cpp/absl/strings",
   ]
+  if (rtc_enable_libevent) {
+    sources += [ "default_task_queue_factory_libevent.cc" ]
+    deps += [ "../../rtc_base:rtc_task_queue_libevent" ]
+  } else if (is_mac || is_ios) {
+    sources += [ "default_task_queue_factory_gcd.cc" ]
+    deps += [ "../../rtc_base:rtc_task_queue_gcd" ]
+  } else {
+    sources += [ "default_task_queue_factory.cc" ]
+  }
+}
+
+if (rtc_include_tests) {
+  # TODO(danilchap): Included into a test binary when default task queue is
+  # implemented and can pass the tests.
+  rtc_source_set("task_queue_default_unittests") {
+    testonly = true
+    if (rtc_enable_libevent || is_mac || is_ios) {
+      sources = [
+        "default_task_queue_unittest.cc",
+      ]
+      deps = [
+        ":default_task_queue_factory",
+        ":task_queue_test",
+        "../../test:test_support",
+      ]
+    }
+  }
 }
 
 # Linking with global_task_queue_factory adds link-time implementation of the

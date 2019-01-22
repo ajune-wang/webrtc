@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <cstdint>
 
+#include "absl/container/fixed_array.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/safe_conversions.h"
 
@@ -89,10 +90,12 @@ int AudioFrameOperations::MonoToStereo(AudioFrame* frame) {
 
   if (!frame->muted()) {
     // TODO(yujo): this operation can be done in place.
-    int16_t data_copy[AudioFrame::kMaxDataSizeSamples];
-    memcpy(data_copy, frame->data(),
+    absl::FixedArray<int16_t, AudioFrame::kMaxDataSizeSamples> data_copy(
+        AudioFrame::kMaxDataSizeSamples);
+    memcpy(data_copy.data(), frame->data(),
            sizeof(int16_t) * frame->samples_per_channel_);
-    MonoToStereo(data_copy, frame->samples_per_channel_, frame->mutable_data());
+    MonoToStereo(data_copy.data(), frame->samples_per_channel_,
+                 frame->mutable_data());
   }
   frame->num_channels_ = 2;
 

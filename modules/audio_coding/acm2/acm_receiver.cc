@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <vector>
 
+#include "absl/container/fixed_array.h"
 #include "absl/strings/match.h"
 #include "api/audio/audio_frame.h"
 #include "api/audio_codecs/audio_decoder.h"
@@ -136,11 +137,12 @@ int AcmReceiver::GetAudio(int desired_freq_hz,
 
   if (need_resampling && !resampled_last_output_frame_) {
     // Prime the resampler with the last frame.
-    int16_t temp_output[AudioFrame::kMaxDataSizeSamples];
+    absl::FixedArray<int16_t, AudioFrame::kMaxDataSizeSamples> temp_output(
+        AudioFrame::kMaxDataSizeSamples);
     int samples_per_channel_int = resampler_.Resample10Msec(
         last_audio_buffer_.get(), current_sample_rate_hz, desired_freq_hz,
         audio_frame->num_channels_, AudioFrame::kMaxDataSizeSamples,
-        temp_output);
+        temp_output.data());
     if (samples_per_channel_int < 0) {
       RTC_LOG(LERROR) << "AcmReceiver::GetAudio - "
                          "Resampling last_audio_buffer_ failed.";

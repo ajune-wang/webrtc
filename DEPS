@@ -1429,6 +1429,7 @@ include_rules = [
 
   # Abseil whitelist. Keep this in sync with abseil-in-webrtc.md.
   "+absl/base/attributes.h",
+  "+absl/container/fixed_array.h",
   "+absl/container/inlined_vector.h",
   "+absl/memory/memory.h",
   "+absl/meta/type_traits.h",

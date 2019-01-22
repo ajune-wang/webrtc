@@ -17,10 +17,9 @@
 
 namespace webrtc {
 
-AudioFrame::AudioFrame() {
-  // Visual Studio doesn't like this in the class definition.
-  static_assert(sizeof(data_) == kMaxDataSizeBytes, "kMaxDataSizeBytes");
-}
+AudioFrame::AudioFrame() : data_(kMaxDataSizeSamples) {}
+
+AudioFrame::~AudioFrame() = default;
 
 void AudioFrame::Reset() {
   ResetWithoutMuting();
@@ -58,7 +57,7 @@ void AudioFrame::UpdateFrame(uint32_t timestamp,
   const size_t length = samples_per_channel * num_channels;
   RTC_CHECK_LE(length, kMaxDataSizeSamples);
   if (data != nullptr) {
-    memcpy(data_, data, sizeof(int16_t) * length);
+    memcpy(data_.data(), data, sizeof(int16_t) * length);
     muted_ = false;
   } else {
     muted_ = true;
@@ -82,7 +81,7 @@ void AudioFrame::CopyFrom(const AudioFrame& src) {
   const size_t length = samples_per_channel_ * num_channels_;
   RTC_CHECK_LE(length, kMaxDataSizeSamples);
   if (!src.muted()) {
-    memcpy(data_, src.data(), sizeof(int16_t) * length);
+    memcpy(data_.data(), src.data(), sizeof(int16_t) * length);
     muted_ = false;
   }
 }
@@ -100,17 +99,17 @@ int64_t AudioFrame::ElapsedProfileTimeMs() const {
 }
 
 const int16_t* AudioFrame::data() const {
-  return muted_ ? empty_data() : data_;
+  return muted_ ? empty_data() : data_.data();
 }
 
 // TODO(henrik.lundin) Can we skip zeroing the buffer?
 // See https://bugs.chromium.org/p/webrtc/issues/detail?id=5647.
 int16_t* AudioFrame::mutable_data() {
   if (muted_) {
-    memset(data_, 0, kMaxDataSizeBytes);
+    memset(data_.data(), 0, kMaxDataSizeBytes);
     muted_ = false;
   }
-  return data_;
+  return data_.data();
 }
 
 void AudioFrame::Mute() {

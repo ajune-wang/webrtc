@@ -487,6 +487,9 @@ if (rtc_include_tests) {
       "rtc_base:sigslot_unittest",
       "rtc_base:weak_ptr_unittests",
       "rtc_base/experiments:experiments_unittests",
+      "test/scenario/network:cross_traffic_unittest",
+      "test/scenario/network:network_emulation_unittest",
+      "test/scenario/network:time_controller_unittest",
     ]
 
     if (rtc_enable_protobuf) {

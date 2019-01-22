@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "14375c2c_a45d6ecf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "How sender and receiver of this message would agree on meaning of this flag?",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "db8df107_f939fa4d",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 1
@@ -13,6 +30,218 @@
       "writtenOn": "2019-01-22T14:26:50Z",
       "side": 1,
       "message": "To be done in an upcoming CL.",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0845ccfe_d255cf5d",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "this (or rather similar message in Remb) may become too spammy even for INFO level.\nconsider moving these LOGs into RTCPReceiver::HandlePsfbApp",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b019972_f977f15a",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "[in new code] prefer to include over forward declaration\nhttps://chromium.googlesource.com/external/webrtc/+/master/style-guide.md#forward-declarations",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6738200c_612a5399",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "if you add copy copy constructor, might be good idea to add also assign operator (ok to \u003d default it too).\n[it is no longer required because of classes with const members. not the case here]",
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b236d48a_edcb45db",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "please document that last_decoded/last_received are rtp sequence numbers.",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d778c69_0e54b980",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "prefer to put using block inside innermost namespace (i.e. just inside namespace webrtc) and fully-qualify:\n\nhttps://abseil.io/tips/119",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 36
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff4a0f25_c0f6b74c",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "bool? (and in below tests too)",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 20
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d3c9629_281468bd",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "may be 0x7b for clarity (or use 123 in the kPacket similar to constant 206)",
+      "range": {
+        "startLine": 47,
+        "startChar": 36,
+        "endLine": 47,
+        "endChar": 39
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65b9d86a_aeaf0382",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "Did you try slightly simpler syntax?\n(unlike previous test, here there is no need to temper with packet size)\nASSERT_TRUE(test::ParseSinglePacket(packet, \u0026loss_notification));",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 80
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e79e5f05_3d996232",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "May be absl::optional or plain object (since flags already indicates if this member is valid).\nhttps://abseil.io/tips/123\n(also, this object doesn\u0027t look large, so making a copy might be cheaper than an extra allocation)",
+      "range": {
+        "startLine": 78,
+        "startChar": 2,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a560ab9f_2696a0df",
+        "filename": "modules/rtp_rtcp/source/rtcp_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-22T15:53:23Z",
+      "side": 1,
+      "message": "personally I find less indentation easier to follow.\nit is not a big deal remb or loss_notification variables leave longer than used (they are not critical sections)\nempty line can be good enough separator for these blocks.",
+      "range": {
+        "startLine": 875,
+        "startChar": 0,
+        "endLine": 875,
+        "endChar": 3
+      },
       "revId": "ec5f62a1ac76b5bf56ee48f490f7e27fac4fe0cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

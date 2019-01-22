@@ -68,15 +68,13 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
 }
 
 namespace {
-// If this field trial is enabled, we will not filter out the abs-send-time
-// header extension even though the TWCC extension is also selected.
-bool IsKeepAbsSendTimeFieldTrialEnabled() {
-  return webrtc::field_trial::IsEnabled("WebRTC-KeepAbsSendTimeExtension");
-}
-
-bool IsProtectedAbsSendTimeUri(std::string uri) {
-  return IsKeepAbsSendTimeFieldTrialEnabled() &&
-         uri == webrtc::RtpExtension::kAbsSendTimeUri;
+// If this field trial is enabled, we will revert to filtering out both
+// abs-send-time and toffset header extension when the TWCC extensions is also
+// negotiated. Intended as a killswitch in case of unexpted problems with the
+// new behaviour which keeps abs-send-time also if TWCC extension is present.
+bool UseLegacyBweHeaderExtensionsFiltering() {
+  return webrtc::field_trial::IsEnabled(
+      "WebRTC-LegacyBweHeaderExtensionsFiltering");
 }
 
 // Remove mutually exclusive extensions with lower priority.
@@ -90,7 +88,7 @@ void DiscardRedundantExtensions(
         extensions->begin(), extensions->end(),
         [uri](const webrtc::RtpExtension& rhs) { return rhs.uri == uri; });
     if (it != extensions->end()) {
-      if (found && !IsProtectedAbsSendTimeUri(it->uri)) {
+      if (found) {
         extensions->erase(it);
       }
       found = true;
@@ -155,15 +153,20 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
         });
     result.erase(it, result.end());
 
-    // Keep just the highest priority extension of any in the following list
-    // (subject to override by WebRTC-KeepAbsSendTimeExtension FieldTrial).
-    static const char* const kBweExtensionPriorities[] = {
-        webrtc::RtpExtension::kTransportSequenceNumberUri,
-        webrtc::RtpExtension::kAbsSendTimeUri,
-        webrtc::RtpExtension::kTimestampOffsetUri};
-    DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    // Keep just the highest priority extension of any in the following lists.
+    if (UseLegacyBweHeaderExtensionsFiltering()) {
+      static const char* const kBweExtensionPriorities[] = {
+          webrtc::RtpExtension::kTransportSequenceNumberUri,
+          webrtc::RtpExtension::kAbsSendTimeUri,
+          webrtc::RtpExtension::kTimestampOffsetUri};
+      DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    } else {
+      static const char* const kBweExtensionPriorities[] = {
+          webrtc::RtpExtension::kAbsSendTimeUri,
+          webrtc::RtpExtension::kTimestampOffsetUri};
+      DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    }
   }
-
   return result;
 }
 

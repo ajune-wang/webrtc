@@ -11,7 +11,7 @@
 import os
 import unittest
 
-from gn_check import RunGnCheck
+from build_helpers import RunGnCheck
 
 
 TESTDATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),

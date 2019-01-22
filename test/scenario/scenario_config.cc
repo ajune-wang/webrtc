@@ -52,9 +52,5 @@ NetworkNodeConfig::Simulation::Simulation(
     const NetworkNodeConfig::Simulation&) = default;
 NetworkNodeConfig::Simulation::~Simulation() = default;
 
-CrossTrafficConfig::CrossTrafficConfig() = default;
-CrossTrafficConfig::CrossTrafficConfig(const CrossTrafficConfig&) = default;
-CrossTrafficConfig::~CrossTrafficConfig() = default;
-
 }  // namespace test
 }  // namespace webrtc

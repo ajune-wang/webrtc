@@ -15,7 +15,7 @@
 
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/fake_clock.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -34,16 +34,16 @@ using StorageMode = RtpPacketHistory::StorageMode;
 
 class RtpPacketHistoryTest : public ::testing::Test {
  protected:
-  RtpPacketHistoryTest() : fake_clock_(123456), hist_(&fake_clock_) {}
+  RtpPacketHistoryTest() {}
 
-  SimulatedClock fake_clock_;
+  rtc::ScopedFakeClock fake_clock_;
   RtpPacketHistory hist_;
 
   std::unique_ptr<RtpPacketToSend> CreateRtpPacket(uint16_t seq_num) {
     // Payload, ssrc, timestamp and extensions are irrelevant for this tests.
     std::unique_ptr<RtpPacketToSend> packet(new RtpPacketToSend(nullptr));
     packet->SetSequenceNumber(seq_num);
-    packet->set_capture_time_ms(fake_clock_.TimeInMilliseconds());
+    packet->set_capture_time_ms(rtc::TimeMillis());
     return packet;
   }
 };
@@ -87,9 +87,9 @@ TEST_F(RtpPacketHistoryTest, StartSeqResetAfterReset) {
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum + 1));
 
   // Advance time past where packet expires.
-  fake_clock_.AdvanceTimeMilliseconds(
-      RtpPacketHistory::kPacketCullingDelayFactor *
-      RtpPacketHistory::kMinPacketDurationMs);
+  fake_clock_.AdvanceTime(
+      TimeDelta::ms(RtpPacketHistory::kPacketCullingDelayFactor *
+                    RtpPacketHistory::kMinPacketDurationMs));
 
   // Add one more packet and verify no state left from packet before reset.
   hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + 2)),
@@ -138,8 +138,8 @@ TEST_F(RtpPacketHistoryTest, GetRtpPacket) {
 
 TEST_F(RtpPacketHistoryTest, NoCaptureTime) {
   hist_.SetStorePacketsStatus(StorageMode::kStore, 10);
-  fake_clock_.AdvanceTimeMilliseconds(1);
-  int64_t capture_time_ms = fake_clock_.TimeInMilliseconds();
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
+  int64_t capture_time_ms = rtc::TimeMillis();
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   packet->set_capture_time_ms(-1);
   rtc::CopyOnWriteBuffer buffer = packet->Buffer();
@@ -154,7 +154,7 @@ TEST_F(RtpPacketHistoryTest, NoCaptureTime) {
 
 TEST_F(RtpPacketHistoryTest, DontRetransmit) {
   hist_.SetStorePacketsStatus(StorageMode::kStore, 10);
-  int64_t capture_time_ms = fake_clock_.TimeInMilliseconds();
+  int64_t capture_time_ms = rtc::TimeMillis();
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   rtc::CopyOnWriteBuffer buffer = packet->Buffer();
   hist_.PutRtpPacket(std::move(packet), kDontRetransmit, absl::nullopt);
@@ -182,21 +182,21 @@ TEST_F(RtpPacketHistoryTest, PacketStateIsCorrect) {
   const size_t packet_size = packet->size();
 
   hist_.PutRtpPacket(std::move(packet), StorageType::kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   absl::optional<RtpPacketHistory::PacketState> state =
       hist_.GetPacketState(kStartSeqNum);
   ASSERT_TRUE(state);
   EXPECT_EQ(state->rtp_sequence_number, kStartSeqNum);
-  EXPECT_EQ(state->send_time_ms, fake_clock_.TimeInMilliseconds());
-  EXPECT_EQ(state->capture_time_ms, fake_clock_.TimeInMilliseconds());
+  EXPECT_EQ(state->send_time_ms, rtc::TimeMillis());
+  EXPECT_EQ(state->capture_time_ms, rtc::TimeMillis());
   EXPECT_EQ(state->ssrc, kSsrc);
   EXPECT_EQ(state->payload_size, packet_size);
   EXPECT_EQ(state->times_retransmitted, 0u);
 
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   EXPECT_TRUE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
-  fake_clock_.AdvanceTimeMilliseconds(kRttMs + 1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(kRttMs + 1));
 
   state = hist_.GetPacketState(kStartSeqNum);
   ASSERT_TRUE(state);
@@ -208,7 +208,7 @@ TEST_F(RtpPacketHistoryTest, MinResendTimeWithPacer) {
 
   hist_.SetStorePacketsStatus(StorageMode::kStore, 10);
   hist_.SetRtt(kMinRetransmitIntervalMs);
-  int64_t capture_time_ms = fake_clock_.TimeInMilliseconds();
+  int64_t capture_time_ms = rtc::TimeMillis();
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   size_t len = packet->size();
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission, absl::nullopt);
@@ -217,7 +217,7 @@ TEST_F(RtpPacketHistoryTest, MinResendTimeWithPacer) {
   EXPECT_TRUE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
 
   // First retransmission - allow early retransmission.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
 
   // With pacer there's two calls to history:
   // 1) When the NACK request arrived, use GetPacketState() to see if the
@@ -235,11 +235,11 @@ TEST_F(RtpPacketHistoryTest, MinResendTimeWithPacer) {
   EXPECT_TRUE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
 
   // Second retransmission - advance time to just before retransmission OK.
-  fake_clock_.AdvanceTimeMilliseconds(kMinRetransmitIntervalMs - 1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(kMinRetransmitIntervalMs - 1));
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
 
   // Advance time to just after retransmission OK.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
   EXPECT_TRUE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
 }
@@ -249,25 +249,25 @@ TEST_F(RtpPacketHistoryTest, MinResendTimeWithoutPacer) {
 
   hist_.SetStorePacketsStatus(StorageMode::kStore, 10);
   hist_.SetRtt(kMinRetransmitIntervalMs);
-  int64_t capture_time_ms = fake_clock_.TimeInMilliseconds();
+  int64_t capture_time_ms = rtc::TimeMillis();
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   size_t len = packet->size();
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   // First retransmission - allow early retransmission.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   packet = hist_.GetPacketAndSetSendTime(kStartSeqNum);
   EXPECT_TRUE(packet);
   EXPECT_EQ(len, packet->size());
   EXPECT_EQ(capture_time_ms, packet->capture_time_ms());
 
   // Second retransmission - advance time to just before retransmission OK.
-  fake_clock_.AdvanceTimeMilliseconds(kMinRetransmitIntervalMs - 1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(kMinRetransmitIntervalMs - 1));
   EXPECT_FALSE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
 
   // Advance time to just after retransmission OK.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   EXPECT_TRUE(hist_.GetPacketAndSetSendTime(kStartSeqNum));
 }
 
@@ -285,8 +285,8 @@ TEST_F(RtpPacketHistoryTest, RemovesOldestSentPacketWhenAtMaxSize) {
     std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum + i);
     // Immediate mark packet as sent.
     hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                       fake_clock_.TimeInMilliseconds());
-    fake_clock_.AdvanceTimeMilliseconds(kPacketIntervalMs);
+                       rtc::TimeMillis());
+    fake_clock_.AdvanceTime(TimeDelta::ms(kPacketIntervalMs));
   }
 
   // First packet should still be there.
@@ -296,7 +296,7 @@ TEST_F(RtpPacketHistoryTest, RemovesOldestSentPacketWhenAtMaxSize) {
   std::unique_ptr<RtpPacketToSend> packet =
       CreateRtpPacket(To16u(kStartSeqNum + kMaxNumPackets));
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   // Oldest packet should be gone, but packet after than one still present.
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
@@ -324,7 +324,7 @@ TEST_F(RtpPacketHistoryTest, RemovesOldestPacketWhenAtMaxCapacity) {
   std::unique_ptr<RtpPacketToSend> packet =
       CreateRtpPacket(To16u(kStartSeqNum + kMaxNumPackets));
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   // Oldest packet should be gone, but packet after than one still present.
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
@@ -341,14 +341,15 @@ TEST_F(RtpPacketHistoryTest, DontRemoveUnsentPackets) {
     hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + i)),
                        kAllowRetransmission, absl::nullopt);
   }
-  fake_clock_.AdvanceTimeMilliseconds(RtpPacketHistory::kMinPacketDurationMs);
+  fake_clock_.AdvanceTime(
+      TimeDelta::ms(RtpPacketHistory::kMinPacketDurationMs));
 
   // First packet should still be there.
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // History is full, but old packets not sent, so allow expansion.
   hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + kMaxNumPackets)),
-                     kAllowRetransmission, fake_clock_.TimeInMilliseconds());
+                     kAllowRetransmission, rtc::TimeMillis());
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // Set all packet as sent and advance time past min packet duration time,
@@ -356,10 +357,11 @@ TEST_F(RtpPacketHistoryTest, DontRemoveUnsentPackets) {
   for (size_t i = 0; i <= kMaxNumPackets; ++i) {
     EXPECT_TRUE(hist_.GetPacketAndSetSendTime(To16u(kStartSeqNum + i)));
   }
-  fake_clock_.AdvanceTimeMilliseconds(RtpPacketHistory::kMinPacketDurationMs);
+  fake_clock_.AdvanceTime(
+      TimeDelta::ms(RtpPacketHistory::kMinPacketDurationMs));
   // Add a new packet, this means the two oldest ones will be culled.
   hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + kMaxNumPackets + 1)),
-                     kAllowRetransmission, fake_clock_.TimeInMilliseconds());
+                     kAllowRetransmission, rtc::TimeMillis());
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum + 1));
   EXPECT_TRUE(hist_.GetPacketState(To16u(kStartSeqNum + 2)));
@@ -371,20 +373,20 @@ TEST_F(RtpPacketHistoryTest, DontRemoveTooRecentlyTransmittedPackets) {
 
   // Add a packet, marked as send, and advance time to just before removal time.
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
-  fake_clock_.AdvanceTimeMilliseconds(RtpPacketHistory::kMinPacketDurationMs -
-                                      1);
+                     rtc::TimeMillis());
+  fake_clock_.AdvanceTime(
+      TimeDelta::ms(RtpPacketHistory::kMinPacketDurationMs - 1));
 
   // Add a new packet to trigger culling.
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum + 1), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   // First packet should still be there.
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // Advance time to where packet will be eligible for removal and try again.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + 2)),
-                     kAllowRetransmission, fake_clock_.TimeInMilliseconds());
+                     kAllowRetransmission, rtc::TimeMillis());
   // First packet should no be gone, but next one still there.
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum + 1));
@@ -401,19 +403,19 @@ TEST_F(RtpPacketHistoryTest, DontRemoveTooRecentlyTransmittedPacketsHighRtt) {
 
   // Add a packet, marked as send, and advance time to just before removal time.
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
-  fake_clock_.AdvanceTimeMilliseconds(kPacketTimeoutMs - 1);
+                     rtc::TimeMillis());
+  fake_clock_.AdvanceTime(TimeDelta::ms(kPacketTimeoutMs - 1));
 
   // Add a new packet to trigger culling.
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum + 1), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   // First packet should still be there.
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // Advance time to where packet will be eligible for removal and try again.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   hist_.PutRtpPacket(CreateRtpPacket(To16u(kStartSeqNum + 2)),
-                     kAllowRetransmission, fake_clock_.TimeInMilliseconds());
+                     kAllowRetransmission, rtc::TimeMillis());
   // First packet should no be gone, but next one still there.
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum + 1));
@@ -425,19 +427,19 @@ TEST_F(RtpPacketHistoryTest, RemovesOldWithCulling) {
   hist_.SetStorePacketsStatus(StorageMode::kStoreAndCull, kMaxNumPackets);
 
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   int64_t kMaxPacketDurationMs = RtpPacketHistory::kMinPacketDurationMs *
                                  RtpPacketHistory::kPacketCullingDelayFactor;
-  fake_clock_.AdvanceTimeMilliseconds(kMaxPacketDurationMs - 1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(kMaxPacketDurationMs - 1));
 
   // First packet should still be there.
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // Advance to where packet can be culled, even if buffer is not full.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum + 1), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
 }
@@ -450,20 +452,20 @@ TEST_F(RtpPacketHistoryTest, RemovesOldWithCullingHighRtt) {
   hist_.SetRtt(kRttMs);
 
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   int64_t kMaxPacketDurationMs = kRttMs *
                                  RtpPacketHistory::kMinPacketDurationRtt *
                                  RtpPacketHistory::kPacketCullingDelayFactor;
-  fake_clock_.AdvanceTimeMilliseconds(kMaxPacketDurationMs - 1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(kMaxPacketDurationMs - 1));
 
   // First packet should still be there.
   EXPECT_TRUE(hist_.GetPacketState(kStartSeqNum));
 
   // Advance to where packet can be culled, even if buffer is not full.
-  fake_clock_.AdvanceTimeMilliseconds(1);
+  fake_clock_.AdvanceTime(TimeDelta::ms(1));
   hist_.PutRtpPacket(CreateRtpPacket(kStartSeqNum + 1), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   EXPECT_FALSE(hist_.GetPacketState(kStartSeqNum));
 }
@@ -477,15 +479,15 @@ TEST_F(RtpPacketHistoryTest, GetBestFittingPacket) {
   packet->SetPayloadSize(kTargetSize);
   const size_t target_packet_size = packet->size();
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   packet = CreateRtpPacket(kStartSeqNum + 1);
   packet->SetPayloadSize(kTargetSize - 1);
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   packet = CreateRtpPacket(To16u(kStartSeqNum + 2));
   packet->SetPayloadSize(kTargetSize + 1);
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   EXPECT_EQ(target_packet_size,
             hist_.GetBestFittingPacket(target_packet_size)->size());
@@ -498,7 +500,7 @@ TEST_F(RtpPacketHistoryTest,
   packet->SetPayloadSize(50);
   const size_t target_packet_size = packet->size();
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   packet = hist_.GetBestFittingPacket(target_packet_size + 2);
   ASSERT_THAT(packet, ::testing::NotNull());
@@ -506,14 +508,14 @@ TEST_F(RtpPacketHistoryTest,
   // Send the packet and advance time past where packet expires.
   ASSERT_THAT(hist_.GetPacketAndSetSendTime(kStartSeqNum),
               ::testing::NotNull());
-  fake_clock_.AdvanceTimeMilliseconds(
-      RtpPacketHistory::kPacketCullingDelayFactor *
-      RtpPacketHistory::kMinPacketDurationMs);
+  fake_clock_.AdvanceTime(
+      TimeDelta::ms(RtpPacketHistory::kPacketCullingDelayFactor *
+                    RtpPacketHistory::kMinPacketDurationMs));
 
   packet = CreateRtpPacket(kStartSeqNum + 1);
   packet->SetPayloadSize(100);
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   ASSERT_FALSE(hist_.GetPacketState(kStartSeqNum));
 
   auto best_packet = hist_.GetBestFittingPacket(target_packet_size + 2);
@@ -529,11 +531,11 @@ TEST_F(RtpPacketHistoryTest, GetBestFittingPacketReturnLastPacketWhenSameSize) {
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   packet->SetPayloadSize(kTargetSize);
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
   packet = CreateRtpPacket(kStartSeqNum + 1);
   packet->SetPayloadSize(kTargetSize);
   hist_.PutRtpPacket(std::move(packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   auto best_packet = hist_.GetBestFittingPacket(123);
   ASSERT_THAT(best_packet, ::testing::NotNull());
@@ -549,12 +551,12 @@ TEST_F(RtpPacketHistoryTest,
   std::unique_ptr<RtpPacketToSend> small_packet = CreateRtpPacket(kStartSeqNum);
   small_packet->SetPayloadSize(kTargetSize);
   hist_.PutRtpPacket(std::move(small_packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   auto large_packet = CreateRtpPacket(kStartSeqNum + 1);
   large_packet->SetPayloadSize(kTargetSize * 2);
   hist_.PutRtpPacket(std::move(large_packet), kAllowRetransmission,
-                     fake_clock_.TimeInMilliseconds());
+                     rtc::TimeMillis());
 
   ASSERT_THAT(hist_.GetBestFittingPacket(kTargetSize), ::testing::NotNull());
   EXPECT_EQ(hist_.GetBestFittingPacket(kTargetSize)->SequenceNumber(),
@@ -571,8 +573,7 @@ TEST_F(RtpPacketHistoryTest,
   hist_.SetStorePacketsStatus(StorageMode::kStoreAndCull, 10);
   std::unique_ptr<RtpPacketToSend> packet = CreateRtpPacket(kStartSeqNum);
   packet->SetPayloadSize(50);
-  hist_.PutRtpPacket(std::move(packet), kDontRetransmit,
-                     fake_clock_.TimeInMilliseconds());
+  hist_.PutRtpPacket(std::move(packet), kDontRetransmit, rtc::TimeMillis());
   EXPECT_THAT(hist_.GetBestFittingPacket(50), ::testing::IsNull());
   EXPECT_THAT(hist_.GetPacketAndSetSendTime(kStartSeqNum),
               ::testing::NotNull());

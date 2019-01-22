@@ -23,12 +23,13 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 
 namespace webrtc {
 
-RTPSenderAudio::RTPSenderAudio(Clock* clock, RTPSender* rtp_sender)
-    : clock_(clock), rtp_sender_(rtp_sender) {}
+RTPSenderAudio::RTPSenderAudio(RTPSender* rtp_sender)
+    : rtp_sender_(rtp_sender) {}
 
 RTPSenderAudio::~RTPSenderAudio() {}
 
@@ -136,8 +137,7 @@ bool RTPSenderAudio::SendAudio(FrameType frame_type,
 
   // Check if we have pending DTMFs to send
   if (!dtmf_event_is_on_ && dtmf_queue_.PendingDtmf()) {
-    if ((clock_->TimeInMilliseconds() - dtmf_time_last_sent_) >
-        kDtmfIntervalTimeMs) {
+    if ((rtc::TimeMillis() - dtmf_time_last_sent_) > kDtmfIntervalTimeMs) {
       // New tone to play
       dtmf_timestamp_ = rtp_timestamp;
       if (dtmf_queue_.NextDtmf(&dtmf_current_event_)) {
@@ -177,7 +177,7 @@ bool RTPSenderAudio::SendAudio(FrameType frame_type,
     } else {
       ended = true;
       dtmf_event_is_on_ = false;
-      dtmf_time_last_sent_ = clock_->TimeInMilliseconds();
+      dtmf_time_last_sent_ = rtc::TimeMillis();
     }
     if (send) {
       if (dtmf_duration_samples > 0xffff) {
@@ -218,7 +218,7 @@ bool RTPSenderAudio::SendAudio(FrameType frame_type,
   packet->SetMarker(MarkerBit(frame_type, payload_type));
   packet->SetPayloadType(payload_type);
   packet->SetTimestamp(rtp_timestamp);
-  packet->set_capture_time_ms(clock_->TimeInMilliseconds());
+  packet->set_capture_time_ms(rtc::TimeMillis());
   // Update audio level extension, if included.
   packet->SetExtension<AudioLevel>(frame_type == kAudioFrameSpeech,
                                    audio_level_dbov);
@@ -296,7 +296,7 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
     packet->SetMarker(marker_bit);
     packet->SetSsrc(rtp_sender_->SSRC());
     packet->SetTimestamp(dtmf_timestamp);
-    packet->set_capture_time_ms(clock_->TimeInMilliseconds());
+    packet->set_capture_time_ms(rtc::TimeMillis());
     if (!rtp_sender_->AssignSequenceNumber(packet.get()))
       return false;
 

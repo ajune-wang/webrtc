@@ -79,7 +79,7 @@ RtpTransportControllerSend::RtpTransportControllerSend(
       transport_overhead_bytes_per_packet_(0),
       network_available_(false),
       packet_feedback_available_(false),
-      retransmission_rate_limiter_(clock, kRetransmitWindowSizeMs),
+      retransmission_rate_limiter_(kRetransmitWindowSizeMs),
       task_queue_("rtp_send_controller") {
   initial_config_.constraints = ConvertConstraints(bitrate_config, clock_);
   RTC_DCHECK(bitrate_config.start_bitrate_bps > 0);

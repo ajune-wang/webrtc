@@ -894,9 +894,8 @@ void VideoSendStreamTest::TestNackRetransmission(
             non_padding_sequence_numbers_.end() - kNackedPacketsAtOnceCount,
             non_padding_sequence_numbers_.end());
 
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(), nullptr,
-                               nullptr, nullptr, transport_adapter_.get(),
-                               kRtcpIntervalMs);
+        RTCPSender rtcp_sender(false, nullptr, nullptr, nullptr,
+                               transport_adapter_.get(), kRtcpIntervalMs);
 
         rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
         rtcp_sender.SetRemoteSSRC(kVideoSendSsrcs[0]);
@@ -1108,8 +1107,7 @@ void VideoSendStreamTest::TestPacketFragmentationSize(VideoFormat format,
             kVideoSendSsrcs[0], header.sequenceNumber,
             packets_lost_,  // Cumulative lost.
             loss_ratio);    // Loss percent.
-        RTCPSender rtcp_sender(false, Clock::GetRealTimeClock(),
-                               &lossy_receive_stats, nullptr, nullptr,
+        RTCPSender rtcp_sender(false, &lossy_receive_stats, nullptr, nullptr,
                                transport_adapter_.get(), kRtcpIntervalMs);
 
         rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
@@ -1252,7 +1250,6 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
 
     RembObserver()
         : SendTest(kDefaultTimeoutMs),
-          clock_(Clock::GetRealTimeClock()),
           capture_observer_(this),
           stream_(nullptr),
           test_state_(kBeforeSuspend),
@@ -1356,7 +1353,7 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
         RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_) {
       FakeReceiveStatistics receive_stats(kVideoSendSsrcs[0],
                                           last_sequence_number_, rtp_count_, 0);
-      RTCPSender rtcp_sender(false, clock_, &receive_stats, nullptr, nullptr,
+      RTCPSender rtcp_sender(false, &receive_stats, nullptr, nullptr,
                              transport_adapter_.get(), kRtcpIntervalMs);
 
       rtcp_sender.SetRTCPStatus(RtcpMode::kReducedSize);
@@ -1369,7 +1366,6 @@ TEST_P(VideoSendStreamTest, SuspendBelowMinBitrate) {
     }
 
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
-    Clock* const clock_;
     CaptureObserver capture_observer_;
     VideoSendStream* stream_;
 
@@ -1392,14 +1388,13 @@ TEST_P(VideoSendStreamTest, NoPaddingWhenVideoIsMuted) {
    public:
     NoPaddingWhenVideoIsMuted()
         : SendTest(kDefaultTimeoutMs),
-          clock_(Clock::GetRealTimeClock()),
           last_packet_time_ms_(-1),
           capturer_(nullptr) {}
 
    private:
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       rtc::CritScope lock(&crit_);
-      last_packet_time_ms_ = clock_->TimeInMilliseconds();
+      last_packet_time_ms_ = rtc::TimeMillis();
 
       RTPHeader header;
       parser_->Parse(packet, length, &header);
@@ -1431,8 +1426,7 @@ TEST_P(VideoSendStreamTest, NoPaddingWhenVideoIsMuted) {
       const int kNoPacketsThresholdMs = 2000;
       if (test_state_ == kWaitingForNoPackets &&
           (last_packet_time_ms_ > 0 &&
-           clock_->TimeInMilliseconds() - last_packet_time_ms_ >
-               kNoPacketsThresholdMs)) {
+           rtc::TimeMillis() - last_packet_time_ms_ > kNoPacketsThresholdMs)) {
         // No packets seen for |kNoPacketsThresholdMs|, restart camera.
         capturer_->Start();
         test_state_ = kWaitingForMediaAfterCameraRestart;
@@ -1468,7 +1462,6 @@ TEST_P(VideoSendStreamTest, NoPaddingWhenVideoIsMuted) {
     };
 
     TestState test_state_ = kBeforeStopCapture;
-    Clock* const clock_;
     std::unique_ptr<internal::TransportAdapter> transport_adapter_;
     rtc::CriticalSection crit_;
     int64_t last_packet_time_ms_ RTC_GUARDED_BY(crit_);
@@ -1484,7 +1477,6 @@ TEST_P(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
    public:
     PaddingIsPrimarilyRetransmissions()
         : EndToEndTest(kDefaultTimeoutMs),
-          clock_(Clock::GetRealTimeClock()),
           padding_length_(0),
           total_length_(0),
           call_(nullptr) {}
@@ -1542,7 +1534,6 @@ TEST_P(VideoSendStreamTest, PaddingIsPrimarilyRetransmissions) {
     }
 
     rtc::CriticalSection crit_;
-    Clock* const clock_;
     size_t padding_length_ RTC_GUARDED_BY(crit_);
     size_t total_length_ RTC_GUARDED_BY(crit_);
     Call* call_;
@@ -1567,7 +1558,7 @@ TEST_P(VideoSendStreamTest, MinTransmitBitrateRespectsRemb) {
    public:
     BitrateObserver()
         : SendTest(kDefaultTimeoutMs),
-          retranmission_rate_limiter_(Clock::GetRealTimeClock(), 1000),
+          retranmission_rate_limiter_(1000),
           stream_(nullptr),
           bitrate_capped_(false) {}
 

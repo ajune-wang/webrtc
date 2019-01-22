@@ -63,7 +63,6 @@ class RTCPSender {
   };
 
   RTCPSender(bool audio,
-             Clock* clock,
              ReceiveStatisticsProvider* receive_statistics,
              RtcpPacketTypeCounterObserver* packet_type_counter_observer,
              RtcEventLog* event_log,
@@ -180,7 +179,6 @@ class RTCPSender {
 
  private:
   const bool audio_;
-  Clock* const clock_;
   Random random_ RTC_GUARDED_BY(critical_section_rtcp_sender_);
   RtcpMode method_ RTC_GUARDED_BY(critical_section_rtcp_sender_);
 

@@ -107,7 +107,6 @@ const char* FrameTypeToString(FrameType frame_type) {
 
 RTPSender::RTPSender(
     bool audio,
-    Clock* clock,
     Transport* transport,
     RtpPacketSender* paced_sender,
     FlexfecSender* flexfec_sender,
@@ -124,15 +123,13 @@ RTPSender::RTPSender(
     FrameEncryptorInterface* frame_encryptor,
     bool require_frame_encryption,
     bool extmap_allow_mixed)
-    : clock_(clock),
-      // TODO(holmer): Remove this conversion?
-      clock_delta_ms_(clock_->TimeInMilliseconds() - rtc::TimeMillis()),
-      random_(clock_->TimeInMicroseconds()),
+    :  // TODO(holmer): Remove this conversion?
+      clock_delta_ms_(rtc::TimeMillis() - rtc::TimeMillis()),
+      random_(rtc::TimeMicros()),
       audio_configured_(audio),
-      audio_(audio ? new RTPSenderAudio(clock, this) : nullptr),
+      audio_(audio ? new RTPSenderAudio(this) : nullptr),
       video_(audio ? nullptr
-                   : new RTPSenderVideo(clock,
-                                        this,
+                   : new RTPSenderVideo(this,
                                         flexfec_sender,
                                         frame_encryptor,
                                         require_frame_encryption)),
@@ -146,8 +143,6 @@ RTPSender::RTPSender(
       last_payload_type_(-1),
       payload_type_map_(),
       rtp_header_extension_map_(extmap_allow_mixed),
-      packet_history_(clock),
-      flexfec_packet_history_(clock),
       // Statistics
       send_delays_(),
       max_delay_it_(send_delays_.end()),
@@ -223,8 +218,7 @@ rtc::ArrayView<const RtpExtensionSize> RTPSender::VideoExtensionSizes() {
 uint16_t RTPSender::ActualSendBitrateKbit() const {
   rtc::CritScope cs(&statistics_crit_);
   return static_cast<uint16_t>(
-      total_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0) /
-      1000);
+      total_bitrate_sent_.Rate(rtc::TimeMillis()).value_or(0) / 1000);
 }
 
 uint32_t RTPSender::VideoBitrateSent() const {
@@ -243,7 +237,7 @@ uint32_t RTPSender::FecOverheadRate() const {
 
 uint32_t RTPSender::NackOverheadRate() const {
   rtc::CritScope cs(&statistics_crit_);
-  return nack_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0);
+  return nack_bitrate_sent_.Rate(rtc::TimeMillis()).value_or(0);
 }
 
 uint32_t RTPSender::PacketizationOverheadBps() const {
@@ -545,7 +539,7 @@ size_t RTPSender::SendPadData(size_t bytes,
   }
   size_t bytes_sent = 0;
   while (bytes_sent < bytes) {
-    int64_t now_ms = clock_->TimeInMilliseconds();
+    int64_t now_ms = rtc::TimeMillis();
     uint32_t ssrc;
     uint32_t timestamp;
     int64_t capture_time_ms;
@@ -819,7 +813,7 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
   // In case of VideoTimingExtension, since it's present not in every packet,
   // data after rtp header may be corrupted if these packets are protected by
   // the FEC.
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   int64_t diff_ms = now_ms - capture_time_ms;
   packet_to_send->SetExtension<TransmissionOffset>(kTimestampTicksPerMs *
                                                    diff_ms);
@@ -875,7 +869,7 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
 void RTPSender::UpdateRtpStats(const RtpPacketToSend& packet,
                                bool is_rtx,
                                bool is_retransmit) {
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
 
   rtc::CritScope lock(&statistics_crit_);
   StreamDataCounters* counters = is_rtx ? &rtx_rtp_stats_ : &rtp_stats_;
@@ -928,7 +922,7 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
                               StorageType storage,
                               RtpPacketSender::Priority priority) {
   RTC_DCHECK(packet);
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
 
   if (video_) {
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "VideoTotBitrate_kbps", now_ms,
@@ -1123,7 +1117,7 @@ void RTPSender::UpdateOnSendPacket(int packet_id,
 void RTPSender::ProcessBitrate() {
   if (!bitrate_callback_)
     return;
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   uint32_t ssrc;
   {
     rtc::CritScope lock(&send_critsect_);
@@ -1207,7 +1201,7 @@ bool RTPSender::AssignSequenceNumber(RtpPacketToSend* packet) {
   last_payload_type_ = packet->PayloadType();
   // Save timestamps to generate timestamp field and extensions for the padding.
   last_rtp_timestamp_ = packet->Timestamp();
-  last_timestamp_time_ms_ = clock_->TimeInMilliseconds();
+  last_timestamp_time_ms_ = rtc::TimeMillis();
   capture_time_ms_ = packet->capture_time_ms();
   return true;
 }
@@ -1466,7 +1460,7 @@ StreamDataCountersCallback* RTPSender::GetRtpStatisticsCallback() const {
 
 uint32_t RTPSender::BitrateSent() const {
   rtc::CritScope cs(&statistics_crit_);
-  return total_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0);
+  return total_bitrate_sent_.Rate(rtc::TimeMillis()).value_or(0);
 }
 
 void RTPSender::SetRtpState(const RtpState& rtp_state) {

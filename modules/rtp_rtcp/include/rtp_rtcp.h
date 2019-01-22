@@ -52,9 +52,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
     bool audio = false;
     bool receiver_only = false;
 
-    // The clock to use to read time. If nullptr then system clock will be used.
-    Clock* clock = nullptr;
-
     ReceiveStatisticsProvider* receive_statistics = nullptr;
 
     // Transport object that will be called when packets are ready to be sent

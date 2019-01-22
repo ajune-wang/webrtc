@@ -31,6 +31,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -149,13 +150,11 @@ bool IsBaseLayer(const RTPVideoHeader& video_header) {
 
 }  // namespace
 
-RTPSenderVideo::RTPSenderVideo(Clock* clock,
-                               RTPSender* rtp_sender,
+RTPSenderVideo::RTPSenderVideo(RTPSender* rtp_sender,
                                FlexfecSender* flexfec_sender,
                                FrameEncryptorInterface* frame_encryptor,
                                bool require_frame_encryption)
     : rtp_sender_(rtp_sender),
-      clock_(clock),
       video_type_(kVideoCodecGeneric),
       retransmission_settings_(kRetransmitBaseLayer |
                                kConditionallyRetransmitHigherLayers),
@@ -218,7 +217,7 @@ void RTPSenderVideo::SendVideoPacket(std::unique_ptr<RtpPacketToSend> packet,
     return;
   }
   rtc::CritScope cs(&stats_crit_);
-  video_bitrate_.Update(packet_size, clock_->TimeInMilliseconds());
+  video_bitrate_.Update(packet_size, rtc::TimeMillis());
 }
 
 void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
@@ -260,7 +259,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
   if (rtp_sender_->SendToNetwork(std::move(red_packet), media_packet_storage,
                                  RtpPacketSender::kLowPriority)) {
     rtc::CritScope cs(&stats_crit_);
-    video_bitrate_.Update(red_packet_size, clock_->TimeInMilliseconds());
+    video_bitrate_.Update(red_packet_size, rtc::TimeMillis());
   } else {
     RTC_LOG(LS_WARNING) << "Failed to send RED packet " << media_seq_num;
   }
@@ -275,7 +274,7 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
     if (rtp_sender_->SendToNetwork(std::move(rtp_packet), fec_storage,
                                    RtpPacketSender::kLowPriority)) {
       rtc::CritScope cs(&stats_crit_);
-      fec_bitrate_.Update(fec_packet->length(), clock_->TimeInMilliseconds());
+      fec_bitrate_.Update(fec_packet->length(), rtc::TimeMillis());
     } else {
       RTC_LOG(LS_WARNING) << "Failed to send ULPFEC packet "
                           << fec_sequence_number;
@@ -303,7 +302,7 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
       if (rtp_sender_->SendToNetwork(std::move(fec_packet), kDontRetransmit,
                                      RtpPacketSender::kLowPriority)) {
         rtc::CritScope cs(&stats_crit_);
-        fec_bitrate_.Update(packet_length, clock_->TimeInMilliseconds());
+        fec_bitrate_.Update(packet_length, rtc::TimeMillis());
       } else {
         RTC_LOG(LS_WARNING) << "Failed to send FlexFEC packet " << seq_num;
       }
@@ -593,7 +592,7 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
 
     // Put packetization finish timestamp into extension.
     if (packet->HasExtension<VideoTimingExtension>()) {
-      packet->set_packetization_finish_time_ms(clock_->TimeInMilliseconds());
+      packet->set_packetization_finish_time_ms(rtc::TimeMillis());
       // TODO(ilnik): Due to webrtc:7859, packets with timing extensions are not
       // protected by FEC. It reduces FEC efficiency a bit. When FEC is moved
       // below the pacer, it can be re-enabled for these packets.
@@ -629,8 +628,7 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
   rtc::CritScope cs(&stats_crit_);
   RTC_DCHECK_GE(packetized_payload_size, unpacketized_payload_size);
   packetization_overhead_bitrate_.Update(
-      packetized_payload_size - unpacketized_payload_size,
-      clock_->TimeInMilliseconds());
+      packetized_payload_size - unpacketized_payload_size, rtc::TimeMillis());
 
   TRACE_EVENT_ASYNC_END1("webrtc", "Video", capture_time_ms, "timestamp",
                          rtp_timestamp);
@@ -639,18 +637,17 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
 
 uint32_t RTPSenderVideo::VideoBitrateSent() const {
   rtc::CritScope cs(&stats_crit_);
-  return video_bitrate_.Rate(clock_->TimeInMilliseconds()).value_or(0);
+  return video_bitrate_.Rate(rtc::TimeMillis()).value_or(0);
 }
 
 uint32_t RTPSenderVideo::FecOverheadRate() const {
   rtc::CritScope cs(&stats_crit_);
-  return fec_bitrate_.Rate(clock_->TimeInMilliseconds()).value_or(0);
+  return fec_bitrate_.Rate(rtc::TimeMillis()).value_or(0);
 }
 
 uint32_t RTPSenderVideo::PacketizationOverheadBps() const {
   rtc::CritScope cs(&stats_crit_);
-  return packetization_overhead_bitrate_.Rate(clock_->TimeInMilliseconds())
-      .value_or(0);
+  return packetization_overhead_bitrate_.Rate(rtc::TimeMillis()).value_or(0);
 }
 
 int RTPSenderVideo::SelectiveRetransmissions() const {
@@ -707,7 +704,7 @@ uint8_t RTPSenderVideo::GetTemporalId(const RTPVideoHeader& header) {
 bool RTPSenderVideo::UpdateConditionalRetransmit(
     uint8_t temporal_id,
     int64_t expected_retransmission_time_ms) {
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   // Update stats for any temporal layer.
   TemporalLayerStats* current_layer_stats =
       &frame_stats_by_temporal_layer_[temporal_id];

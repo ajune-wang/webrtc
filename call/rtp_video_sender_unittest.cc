@@ -16,6 +16,7 @@
 #include "call/rtp_video_sender.h"
 #include "modules/video_coding/fec_controller_default.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/fake_clock.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
@@ -77,16 +78,20 @@ class RtpVideoSenderTestFixture {
       const std::vector<uint32_t>& ssrcs,
       int payload_type,
       const std::map<uint32_t, RtpPayloadState>& suspended_payload_states)
-      : clock_(0),
-        config_(&transport_),
-        send_delay_stats_(&clock_),
-        transport_controller_(&clock_, &event_log_, nullptr, bitrate_config_),
+      : config_(&transport_),
+        send_delay_stats_(
+            // Follows fake clock
+            Clock::GetRealTimeClock()),
+        transport_controller_(Clock::GetRealTimeClock(),
+                              &event_log_,
+                              nullptr,
+                              bitrate_config_),
         process_thread_(ProcessThread::Create("test_thread")),
-        call_stats_(&clock_, process_thread_.get()),
-        stats_proxy_(&clock_,
+        call_stats_(Clock::GetRealTimeClock(), process_thread_.get()),
+        stats_proxy_(Clock::GetRealTimeClock(),
                      config_,
                      VideoEncoderConfig::ContentType::kRealtimeVideo),
-        retransmission_rate_limiter_(&clock_, kRetransmitWindowSizeMs) {
+        retransmission_rate_limiter_(kRetransmitWindowSizeMs) {
     for (uint32_t ssrc : ssrcs) {
       config_.rtp.ssrcs.push_back(ssrc);
     }
@@ -99,8 +104,8 @@ class RtpVideoSenderTestFixture {
                         &stats_proxy_, &stats_proxy_, &stats_proxy_,
                         &stats_proxy_, &stats_proxy_, &send_delay_stats_),
         &transport_controller_, &event_log_, &retransmission_rate_limiter_,
-        absl::make_unique<FecControllerDefault>(&clock_), nullptr,
-        CryptoOptions{});
+        absl::make_unique<FecControllerDefault>(Clock::GetRealTimeClock()),
+        nullptr, CryptoOptions{});
   }
 
   RtpVideoSender* router() { return router_.get(); }
@@ -108,7 +113,7 @@ class RtpVideoSenderTestFixture {
  private:
   NiceMock<MockTransport> transport_;
   NiceMock<MockRtcpIntraFrameObserver> encoder_feedback_;
-  SimulatedClock clock_;
+  rtc::ScopedFakeClock clock_;
   RtcEventLogNullImpl event_log_;
   VideoSendStream::Config config_;
   SendDelayStats send_delay_stats_;

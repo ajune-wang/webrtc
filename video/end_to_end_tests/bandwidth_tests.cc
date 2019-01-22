@@ -144,7 +144,6 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     BweObserver()
         : EndToEndTest(kDefaultTimeoutMs),
           sender_call_(nullptr),
-          clock_(Clock::GetRealTimeClock()),
           sender_ssrc_(0),
           remb_bitrate_bps_(1000000),
           receive_transport_(nullptr),
@@ -152,7 +151,7 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
                          this,
                          "BitrateStatsPollingThread"),
           state_(kWaitForFirstRampUp),
-          retransmission_rate_limiter_(clock_, 1000) {}
+          retransmission_rate_limiter_(1000) {}
 
     ~BweObserver() {}
 
@@ -185,7 +184,6 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
       ASSERT_EQ(1u, receive_configs->size());
       RtpRtcp::Configuration config;
       config.receiver_only = true;
-      config.clock = clock_;
       config.outgoing_transport = receive_transport_;
       config.retransmission_rate_limiter = &retransmission_rate_limiter_;
       rtp_rtcp_.reset(RtpRtcp::CreateRtpRtcp(config));
@@ -251,7 +249,6 @@ TEST_F(BandwidthEndToEndTest, RembWithSendSideBwe) {
     enum TestState { kWaitForFirstRampUp, kWaitForRemb, kWaitForSecondRampUp };
 
     Call* sender_call_;
-    Clock* const clock_;
     uint32_t sender_ssrc_;
     int remb_bitrate_bps_;
     std::unique_ptr<RtpRtcp> rtp_rtcp_;

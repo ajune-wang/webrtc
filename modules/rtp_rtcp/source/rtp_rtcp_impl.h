@@ -37,7 +37,6 @@
 
 namespace webrtc {
 
-class Clock;
 struct PacedPacketInfo;
 struct RTPVideoHeader;
 
@@ -327,8 +326,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   RTCPReceiver* rtcp_receiver() { return &rtcp_receiver_; }
   const RTCPReceiver* rtcp_receiver() const { return &rtcp_receiver_; }
 
-  const Clock* clock() const { return clock_; }
-
  private:
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImplTest, Rtt);
   FRIEND_TEST_ALL_PREFIXES(RtpRtcpImplTest, RttForReceiverOnly);
@@ -342,8 +339,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   std::unique_ptr<RTPSender> rtp_sender_;
   RTCPSender rtcp_sender_;
   RTCPReceiver rtcp_receiver_;
-
-  const Clock* const clock_;
 
   const bool audio_;
 

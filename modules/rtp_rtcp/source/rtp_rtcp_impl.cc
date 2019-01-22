@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/time_utils.h"
 
 #ifdef _WIN32
 // Disable warning C4355: 'this' : used in base member initializer list.
@@ -40,15 +41,7 @@ constexpr int32_t kDefaultAudioReportInterval = 5000;
 RtpRtcp::Configuration::Configuration() = default;
 
 RtpRtcp* RtpRtcp::CreateRtpRtcp(const RtpRtcp::Configuration& configuration) {
-  if (configuration.clock) {
-    return new ModuleRtpRtcpImpl(configuration);
-  } else {
-    // No clock implementation provided, use default clock.
-    RtpRtcp::Configuration configuration_copy;
-    memcpy(&configuration_copy, &configuration, sizeof(RtpRtcp::Configuration));
-    configuration_copy.clock = Clock::GetRealTimeClock();
-    return new ModuleRtpRtcpImpl(configuration_copy);
-  }
+  return new ModuleRtpRtcpImpl(configuration);
 }
 
 // Deprecated.
@@ -61,7 +54,6 @@ int32_t RtpRtcp::SetFecParameters(const FecProtectionParams* delta_params,
 
 ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     : rtcp_sender_(configuration.audio,
-                   configuration.clock,
                    configuration.receive_statistics,
                    configuration.rtcp_packet_type_counter_observer,
                    configuration.event_log,
@@ -70,8 +62,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
                        ? configuration.rtcp_report_interval_ms
                        : (configuration.audio ? kDefaultAudioReportInterval
                                               : kDefaultVideoReportInterval)),
-      rtcp_receiver_(configuration.clock,
-                     configuration.receiver_only,
+      rtcp_receiver_(configuration.receiver_only,
                      configuration.rtcp_packet_type_counter_observer,
                      configuration.bandwidth_callback,
                      configuration.intra_frame_callback,
@@ -82,13 +73,11 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
                          : (configuration.audio ? kDefaultAudioReportInterval
                                                 : kDefaultVideoReportInterval),
                      this),
-      clock_(configuration.clock),
       audio_(configuration.audio),
       keepalive_config_(configuration.keepalive_config),
-      last_bitrate_process_time_(clock_->TimeInMilliseconds()),
-      last_rtt_process_time_(clock_->TimeInMilliseconds()),
-      next_process_time_(clock_->TimeInMilliseconds() +
-                         kRtpRtcpMaxIdleTimeProcessMs),
+      last_bitrate_process_time_(rtc::TimeMillis()),
+      last_rtt_process_time_(rtc::TimeMillis()),
+      next_process_time_(rtc::TimeMillis() + kRtpRtcpMaxIdleTimeProcessMs),
       next_keepalive_time_(-1),
       packet_overhead_(28),  // IPV4 UDP.
       nack_last_time_sent_full_ms_(0),
@@ -99,9 +88,8 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       rtt_ms_(0) {
   if (!configuration.receiver_only) {
     rtp_sender_.reset(new RTPSender(
-        configuration.audio, configuration.clock,
-        configuration.outgoing_transport, configuration.paced_sender,
-        configuration.flexfec_sender,
+        configuration.audio, configuration.outgoing_transport,
+        configuration.paced_sender, configuration.flexfec_sender,
         configuration.transport_sequence_number_allocator,
         configuration.transport_feedback_callback,
         configuration.send_bitrate_observer,
@@ -118,7 +106,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
 
     if (keepalive_config_.timeout_interval_ms != -1) {
       next_keepalive_time_ =
-          clock_->TimeInMilliseconds() + keepalive_config_.timeout_interval_ms;
+          rtc::TimeMillis() + keepalive_config_.timeout_interval_ms;
     }
   }
 
@@ -134,13 +122,12 @@ ModuleRtpRtcpImpl::~ModuleRtpRtcpImpl() = default;
 // Returns the number of milliseconds until the module want a worker thread
 // to call Process.
 int64_t ModuleRtpRtcpImpl::TimeUntilNextProcess() {
-  return std::max<int64_t>(0,
-                           next_process_time_ - clock_->TimeInMilliseconds());
+  return std::max<int64_t>(0, next_process_time_ - rtc::TimeMillis());
 }
 
 // Process any pending tasks such as timeouts (non time critical events).
 void ModuleRtpRtcpImpl::Process() {
-  const int64_t now = clock_->TimeInMilliseconds();
+  const int64_t now = rtc::TimeMillis();
   next_process_time_ = now + kRtpRtcpMaxIdleTimeProcessMs;
 
   if (rtp_sender_) {
@@ -695,7 +682,7 @@ int32_t ModuleRtpRtcpImpl::SendNACK(const uint16_t* nack_list,
   }
   uint16_t nack_length = size;
   uint16_t start_id = 0;
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   if (TimeToSendFullNackList(now_ms)) {
     nack_last_time_sent_full_ms_ = now_ms;
   } else {

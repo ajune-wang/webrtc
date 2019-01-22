@@ -100,8 +100,7 @@ DEPRECATED_SendSideCongestionController::
       acknowledged_bitrate_estimator_(
           absl::make_unique<AcknowledgedBitrateEstimator>(key_value_config_)),
       probe_controller_(new ProbeController(key_value_config_)),
-      retransmission_rate_limiter_(
-          new RateLimiter(clock, kRetransmitWindowSizeMs)),
+      retransmission_rate_limiter_(new RateLimiter(kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
       last_reported_bitrate_bps_(0),
       last_reported_fraction_loss_(0),

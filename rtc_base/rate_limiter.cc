@@ -13,13 +13,12 @@
 #include <limits>
 
 #include "absl/types/optional.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/time_utils.h"
 
 namespace webrtc {
 
-RateLimiter::RateLimiter(const Clock* clock, int64_t max_window_ms)
-    : clock_(clock),
-      current_rate_(max_window_ms, RateStatistics::kBpsScale),
+RateLimiter::RateLimiter(int64_t max_window_ms)
+    : current_rate_(max_window_ms, RateStatistics::kBpsScale),
       window_size_ms_(max_window_ms),
       max_rate_bps_(std::numeric_limits<uint32_t>::max()) {}
 
@@ -32,7 +31,7 @@ RateLimiter::~RateLimiter() {}
 // the RTT.
 bool RateLimiter::TryUseRate(size_t packet_size_bytes) {
   rtc::CritScope cs(&lock_);
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   absl::optional<uint32_t> current_rate = current_rate_.Rate(now_ms);
   if (current_rate) {
     // If there is a current rate, check if adding bytes would cause maximum
@@ -62,8 +61,7 @@ void RateLimiter::SetMaxRate(uint32_t max_rate_bps) {
 bool RateLimiter::SetWindowSize(int64_t window_size_ms) {
   rtc::CritScope cs(&lock_);
   window_size_ms_ = window_size_ms;
-  return current_rate_.SetWindowSize(window_size_ms,
-                                     clock_->TimeInMilliseconds());
+  return current_rate_.SetWindowSize(window_size_ms, rtc::TimeMillis());
 }
 
 }  // namespace webrtc

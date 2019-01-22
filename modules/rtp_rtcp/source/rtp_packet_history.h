@@ -22,7 +22,6 @@
 
 namespace webrtc {
 
-class Clock;
 class RtpPacketToSend;
 
 class RtpPacketHistory {
@@ -57,7 +56,7 @@ class RtpPacketHistory {
   // With kStoreAndCull, always remove packets after 3x max(1000ms, 3x rtt).
   static constexpr int kPacketCullingDelayFactor = 3;
 
-  explicit RtpPacketHistory(Clock* clock);
+  RtpPacketHistory();
   ~RtpPacketHistory();
 
   // Set/get storage mode. Note that setting the state will clear the history,
@@ -125,7 +124,6 @@ class RtpPacketHistory {
   static PacketState StoredPacketToPacketState(
       const StoredPacket& stored_packet);
 
-  Clock* const clock_;
   rtc::CriticalSection lock_;
   size_t number_to_store_ RTC_GUARDED_BY(lock_);
   StorageMode mode_ RTC_GUARDED_BY(lock_);
@@ -139,7 +137,7 @@ class RtpPacketHistory {
   // number, in case there is a wraparound.
   absl::optional<uint16_t> start_seqno_ RTC_GUARDED_BY(lock_);
 
-  RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(RtpPacketHistory);
+  RTC_DISALLOW_COPY_AND_ASSIGN(RtpPacketHistory);
 };
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_SOURCE_RTP_PACKET_HISTORY_H_

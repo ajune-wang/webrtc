@@ -124,7 +124,6 @@ std::unique_ptr<RtpRtcp> CreateRtpRtcpModule(
   RtpRtcp::Configuration configuration;
   configuration.audio = false;
   configuration.receiver_only = true;
-  configuration.clock = Clock::GetRealTimeClock();
   configuration.receive_statistics = receive_statistics;
   configuration.outgoing_transport = rtcp_send_transport;
   configuration.rtt_stats = rtt_stats;

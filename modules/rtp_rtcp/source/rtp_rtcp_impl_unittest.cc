@@ -19,6 +19,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/nack.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl.h"
+#include "rtc_base/fake_clock.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -53,7 +54,6 @@ class SendTransport : public Transport {
  public:
   SendTransport()
       : receiver_(nullptr),
-        clock_(nullptr),
         delay_ms_(0),
         rtp_packets_sent_(0),
         rtcp_packets_sent_(0),
@@ -61,10 +61,7 @@ class SendTransport : public Transport {
         num_keepalive_sent_(0) {}
 
   void SetRtpRtcpModule(ModuleRtpRtcpImpl* receiver) { receiver_ = receiver; }
-  void SimulateNetworkDelay(int64_t delay_ms, SimulatedClock* clock) {
-    clock_ = clock;
-    delay_ms_ = delay_ms;
-  }
+  void SimulateNetworkDelay(int64_t delay_ms) { delay_ms_ = delay_ms; }
   bool SendRtp(const uint8_t* data,
                size_t len,
                const PacketOptions& options) override {
@@ -108,12 +105,13 @@ class SendTransport : public Transport {
 
 class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
  public:
-  explicit RtpRtcpModule(SimulatedClock* clock)
-      : receive_statistics_(ReceiveStatistics::Create(clock)),
-        remote_ssrc_(0),
-        clock_(clock) {
+  RtpRtcpModule()
+      : receive_statistics_(ReceiveStatistics::Create(
+            // Follows fake clock
+            Clock::GetRealTimeClock())),
+        remote_ssrc_(0) {
     CreateModuleImpl();
-    transport_.SimulateNetworkDelay(kOneWayNetworkDelayMs, clock);
+    transport_.SimulateNetworkDelay(kOneWayNetworkDelayMs);
   }
 
   RtcpPacketTypeCounter packets_sent_;
@@ -168,7 +166,6 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
   void CreateModuleImpl() {
     RtpRtcp::Configuration config;
     config.audio = false;
-    config.clock = clock_;
     config.outgoing_transport = &transport_;
     config.receive_statistics = receive_statistics_.get();
     config.rtcp_packet_type_counter_observer = this;
@@ -180,15 +177,13 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
     impl_->SetRTCPStatus(RtcpMode::kCompound);
   }
 
-  SimulatedClock* const clock_;
   std::map<uint32_t, RtcpPacketTypeCounter> counter_map_;
 };
 }  // namespace
 
 class RtpRtcpImplTest : public ::testing::Test {
  protected:
-  RtpRtcpImplTest()
-      : clock_(133590000000000), sender_(&clock_), receiver_(&clock_) {}
+  RtpRtcpImplTest() { clock_.SetTimeMicros(133590000000000); }
 
   void SetUp() override {
     // Send module.
@@ -215,7 +210,7 @@ class RtpRtcpImplTest : public ::testing::Test {
     receiver_.transport_.SetRtpRtcpModule(sender_.impl_.get());
   }
 
-  SimulatedClock clock_;
+  rtc::ScopedFakeClock clock_;
   RtpRtcpModule sender_;
   RtpRtcpModule receiver_;
   VideoCodec codec_;
@@ -268,7 +263,7 @@ TEST_F(RtpRtcpImplTest, SetSelectiveRetransmissions_BaseLayer) {
   EXPECT_EQ(kSequenceNumber + 2, sender_.LastRtpSequenceNumber());
 
   // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
-  clock_.AdvanceTimeMilliseconds(5);
+  clock_.AdvanceTime(TimeDelta::ms(5));
 
   // Frame with kBaseLayerTid re-sent.
   IncomingRtcpNack(&sender_, kSequenceNumber);
@@ -297,7 +292,7 @@ TEST_F(RtpRtcpImplTest, SetSelectiveRetransmissions_HigherLayers) {
   EXPECT_EQ(kSequenceNumber + 2, sender_.LastRtpSequenceNumber());
 
   // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
-  clock_.AdvanceTimeMilliseconds(5);
+  clock_.AdvanceTime(TimeDelta::ms(5));
 
   // Frame with kBaseLayerTid re-sent.
   IncomingRtcpNack(&sender_, kSequenceNumber);
@@ -327,7 +322,7 @@ TEST_F(RtpRtcpImplTest, Rtt) {
   EXPECT_EQ(0, sender_.impl_->SendRTCP(kRtcpReport));
 
   // Receiver module should send a RR with a response to the last received SR.
-  clock_.AdvanceTimeMilliseconds(1000);
+  clock_.AdvanceTime(TimeDelta::ms(1000));
   EXPECT_EQ(0, receiver_.impl_->SendRTCP(kRtcpReport));
 
   // Verify RTT.
@@ -368,7 +363,7 @@ TEST_F(RtpRtcpImplTest, RttForReceiverOnly) {
   EXPECT_EQ(0, receiver_.impl_->SendRTCP(kRtcpReport));
 
   // Sender module should send a response to the last received RTRR (DLRR).
-  clock_.AdvanceTimeMilliseconds(1000);
+  clock_.AdvanceTime(TimeDelta::ms(1000));
   // Send Frame before sending a SR.
   SendFrame(&sender_, kBaseLayerTid);
   EXPECT_EQ(0, sender_.impl_->SendRTCP(kRtcpReport));
@@ -384,16 +379,16 @@ TEST_F(RtpRtcpImplTest, RttForReceiverOnly) {
 
 TEST_F(RtpRtcpImplTest, NoSrBeforeMedia) {
   // Ignore fake transport delays in this test.
-  sender_.transport_.SimulateNetworkDelay(0, &clock_);
-  receiver_.transport_.SimulateNetworkDelay(0, &clock_);
+  sender_.transport_.SimulateNetworkDelay(0);
+  receiver_.transport_.SimulateNetworkDelay(0);
 
   sender_.impl_->Process();
   EXPECT_EQ(-1, sender_.RtcpSent().first_packet_time_ms);
 
   // Verify no SR is sent before media has been sent, RR should still be sent
   // from the receiving module though.
-  clock_.AdvanceTimeMilliseconds(2000);
-  int64_t current_time = clock_.TimeInMilliseconds();
+  clock_.AdvanceTime(TimeDelta::ms(2000));
+  int64_t current_time = rtc::TimeMillis();
   sender_.impl_->Process();
   receiver_.impl_->Process();
   EXPECT_EQ(-1, sender_.RtcpSent().first_packet_time_ms);
@@ -522,7 +517,7 @@ TEST_F(RtpRtcpImplTest, SendsExtendedNackList) {
 }
 
 TEST_F(RtpRtcpImplTest, ReSendsNackListAfterRttMs) {
-  sender_.transport_.SimulateNetworkDelay(0, &clock_);
+  sender_.transport_.SimulateNetworkDelay(0);
   // Send module sends a NACK.
   const uint16_t kNackLength = 2;
   uint16_t nack_list[kNackLength] = {123, 125};
@@ -535,19 +530,19 @@ TEST_F(RtpRtcpImplTest, ReSendsNackListAfterRttMs) {
 
   // Same list not re-send, rtt interval has not passed.
   const int kStartupRttMs = 100;
-  clock_.AdvanceTimeMilliseconds(kStartupRttMs);
+  clock_.AdvanceTime(TimeDelta::ms(kStartupRttMs));
   EXPECT_EQ(0, sender_.impl_->SendNACK(nack_list, kNackLength));
   EXPECT_EQ(1U, sender_.RtcpSent().nack_packets);
 
   // Rtt interval passed, full list sent.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
   EXPECT_EQ(0, sender_.impl_->SendNACK(nack_list, kNackLength));
   EXPECT_EQ(2U, sender_.RtcpSent().nack_packets);
   EXPECT_THAT(sender_.LastNackListSent(), ElementsAre(123, 125));
 }
 
 TEST_F(RtpRtcpImplTest, UniqueNackRequests) {
-  receiver_.transport_.SimulateNetworkDelay(0, &clock_);
+  receiver_.transport_.SimulateNetworkDelay(0);
   EXPECT_EQ(0U, receiver_.RtcpSent().nack_packets);
   EXPECT_EQ(0U, receiver_.RtcpSent().nack_requests);
   EXPECT_EQ(0U, receiver_.RtcpSent().unique_nack_requests);
@@ -570,7 +565,7 @@ TEST_F(RtpRtcpImplTest, UniqueNackRequests) {
 
   // Receive module sends new request with duplicated packets.
   const int kStartupRttMs = 100;
-  clock_.AdvanceTimeMilliseconds(kStartupRttMs + 1);
+  clock_.AdvanceTime(TimeDelta::ms(kStartupRttMs + 1));
   const uint16_t kNackLength2 = 4;
   uint16_t nack_list2[kNackLength2] = {11, 18, 20, 21};
   EXPECT_EQ(0, receiver_.impl_->SendNACK(nack_list2, kNackLength2));
@@ -601,7 +596,7 @@ TEST_F(RtpRtcpImplTest, SendsKeepaliveAfterTimout) {
   EXPECT_EQ(0U, sender_.transport_.NumKeepaliveSent());
 
   // After one time, a single keep-alive packet should be sent.
-  clock_.AdvanceTimeMilliseconds(kTimeoutMs);
+  clock_.AdvanceTime(TimeDelta::ms(kTimeoutMs));
   sender_.impl_->Process();
   EXPECT_EQ(1U, sender_.transport_.NumKeepaliveSent());
 
@@ -610,17 +605,17 @@ TEST_F(RtpRtcpImplTest, SendsKeepaliveAfterTimout) {
   EXPECT_EQ(1U, sender_.transport_.NumKeepaliveSent());
 
   // Move ahead to the last ms before a keep-alive is expected, no action.
-  clock_.AdvanceTimeMilliseconds(kTimeoutMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kTimeoutMs - 1));
   sender_.impl_->Process();
   EXPECT_EQ(1U, sender_.transport_.NumKeepaliveSent());
 
   // Move the final ms, timeout relative last KA. Should create new keep-alive.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
   sender_.impl_->Process();
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
   // Move ahead to the last ms before Christmas.
-  clock_.AdvanceTimeMilliseconds(kTimeoutMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kTimeoutMs - 1));
   sender_.impl_->Process();
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
@@ -630,12 +625,12 @@ TEST_F(RtpRtcpImplTest, SendsKeepaliveAfterTimout) {
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
   // Move ahead as far as possible again, timeout now relative payload. No KA.
-  clock_.AdvanceTimeMilliseconds(kTimeoutMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kTimeoutMs - 1));
   sender_.impl_->Process();
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
   // Timeout relative payload, send new keep-alive.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
   sender_.impl_->Process();
   EXPECT_EQ(3U, sender_.transport_.NumKeepaliveSent());
 }
@@ -655,13 +650,13 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   EXPECT_EQ(0u, sender_.transport_.NumRtcpSent());
 
   // Move ahead to the last ms before a rtcp is expected, no action.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2 - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kVideoReportInterval / 2 - 1));
   sender_.impl_->Process();
   EXPECT_EQ(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 0u);
 
   // Move ahead to the first rtcp. Send RTCP.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
   sender_.impl_->Process();
   EXPECT_GT(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
@@ -669,21 +664,21 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   SendFrame(&sender_, kBaseLayerTid);
 
   // Move ahead to the last possible second before second rtcp is expected.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval * 1 / 2 - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kVideoReportInterval * 1 / 2 - 1));
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
   // Move ahead into the range of second rtcp, the second rtcp may be sent.
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
   sender_.impl_->Process();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
+  clock_.AdvanceTime(TimeDelta::ms(kVideoReportInterval / 2));
   sender_.impl_->Process();
   EXPECT_GE(sender_.transport_.NumRtcpSent(), 1u);
 
   // Move out the range of second rtcp, the second rtcp must have been sent.
-  clock_.AdvanceTimeMilliseconds(kVideoReportInterval / 2);
+  clock_.AdvanceTime(TimeDelta::ms(kVideoReportInterval / 2));
   sender_.impl_->Process();
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 2u);
 }

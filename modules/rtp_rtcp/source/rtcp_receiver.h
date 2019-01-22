@@ -50,8 +50,7 @@ class RTCPReceiver {
     virtual ~ModuleRtpRtcp() = default;
   };
 
-  RTCPReceiver(Clock* clock,
-               bool receiver_only,
+  RTCPReceiver(bool receiver_only,
                RtcpPacketTypeCounterObserver* packet_type_counter_observer,
                RtcpBandwidthObserver* rtcp_bandwidth_observer,
                RtcpIntraFrameObserver* rtcp_intra_frame_observer,
@@ -208,7 +207,6 @@ class RTCPReceiver {
                                PacketInformation* packet_information)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(rtcp_receiver_lock_);
 
-  Clock* const clock_;
   const bool receiver_only_;
   ModuleRtpRtcp* const rtp_rtcp_;
 

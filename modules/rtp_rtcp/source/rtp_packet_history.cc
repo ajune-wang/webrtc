@@ -18,7 +18,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "system_wrappers/include/clock.h"
+#include "rtc_base/time_utils.h"
 
 namespace webrtc {
 namespace {
@@ -50,11 +50,8 @@ RtpPacketHistory::StoredPacket& RtpPacketHistory::StoredPacket::operator=(
     RtpPacketHistory::StoredPacket&&) = default;
 RtpPacketHistory::StoredPacket::~StoredPacket() = default;
 
-RtpPacketHistory::RtpPacketHistory(Clock* clock)
-    : clock_(clock),
-      number_to_store_(0),
-      mode_(StorageMode::kDisabled),
-      rtt_ms_(-1) {}
+RtpPacketHistory::RtpPacketHistory()
+    : number_to_store_(0), mode_(StorageMode::kDisabled), rtt_ms_(-1) {}
 
 RtpPacketHistory::~RtpPacketHistory() {}
 
@@ -86,7 +83,7 @@ void RtpPacketHistory::PutRtpPacket(std::unique_ptr<RtpPacketToSend> packet,
                                     absl::optional<int64_t> send_time_ms) {
   RTC_DCHECK(packet);
   rtc::CritScope cs(&lock_);
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   if (mode_ == StorageMode::kDisabled) {
     return;
   }
@@ -131,7 +128,7 @@ std::unique_ptr<RtpPacketToSend> RtpPacketHistory::GetPacketAndSetSendTime(
     return nullptr;
   }
 
-  int64_t now_ms = clock_->TimeInMilliseconds();
+  int64_t now_ms = rtc::TimeMillis();
   StoredPacketIterator rtp_it = packet_history_.find(sequence_number);
   if (rtp_it == packet_history_.end()) {
     return nullptr;
@@ -169,7 +166,7 @@ absl::optional<RtpPacketHistory::PacketState> RtpPacketHistory::GetPacketState(
     return absl::nullopt;
   }
 
-  if (!VerifyRtt(rtp_it->second, clock_->TimeInMilliseconds())) {
+  if (!VerifyRtt(rtp_it->second, rtc::TimeMillis())) {
     return absl::nullopt;
   }
 

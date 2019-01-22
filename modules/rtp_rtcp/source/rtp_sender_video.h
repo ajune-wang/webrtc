@@ -39,8 +39,7 @@ class RTPSenderVideo {
  public:
   static constexpr int64_t kTLRateWindowSizeMs = 2500;
 
-  RTPSenderVideo(Clock* clock,
-                 RTPSender* rtpSender,
+  RTPSenderVideo(RTPSender* rtpSender,
                  FlexfecSender* flexfec_sender,
                  FrameEncryptorInterface* frame_encryptor,
                  bool require_frame_encryption);
@@ -131,7 +130,6 @@ class RTPSenderVideo {
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stats_crit_);
 
   RTPSender* const rtp_sender_;
-  Clock* const clock_;
 
   // Should never be held when calling out of this class.
   rtc::CriticalSection crit_;

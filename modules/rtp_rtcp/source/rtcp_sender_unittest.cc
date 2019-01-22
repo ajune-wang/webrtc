@@ -18,6 +18,7 @@
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_impl.h"
 #include "modules/rtp_rtcp/source/time_util.h"
+#include "rtc_base/fake_clock.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -71,25 +72,25 @@ static const uint32_t kRtpTimestamp = 0x45678;
 class RtcpSenderTest : public ::testing::Test {
  protected:
   RtcpSenderTest()
-      : clock_(1335900000),
-        receive_statistics_(ReceiveStatistics::Create(&clock_)),
-        retransmission_rate_limiter_(&clock_, 1000) {
+      : receive_statistics_(ReceiveStatistics::Create(
+            // Despite "RealTime", follows the fake clock
+            Clock::GetRealTimeClock())),
+        retransmission_rate_limiter_(1000) {
     RtpRtcp::Configuration configuration;
     configuration.audio = false;
-    configuration.clock = &clock_;
     configuration.outgoing_transport = &test_transport_;
     configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;
     configuration.rtcp_report_interval_ms = 1000;
 
     rtp_rtcp_impl_.reset(new ModuleRtpRtcpImpl(configuration));
-    rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),
-                                      nullptr, nullptr, &test_transport_,
+    rtcp_sender_.reset(new RTCPSender(false, receive_statistics_.get(), nullptr,
+                                      nullptr, &test_transport_,
                                       configuration.rtcp_report_interval_ms));
     rtcp_sender_->SetSSRC(kSenderSsrc);
     rtcp_sender_->SetRemoteSSRC(kRemoteSsrc);
     rtcp_sender_->SetTimestampOffset(kStartRtpTimestamp);
-    rtcp_sender_->SetLastRtpTime(kRtpTimestamp, clock_.TimeInMilliseconds(),
-                                 /*paylpad_type=*/0);
+    rtcp_sender_->SetLastRtpTime(kRtpTimestamp, rtc::TimeMillis(),
+                                 /*payload_type=*/0);
   }
 
   void InsertIncomingPacket(uint32_t remote_ssrc, uint16_t seq_num) {
@@ -107,7 +108,7 @@ class RtcpSenderTest : public ::testing::Test {
     return rtp_rtcp_impl_->GetFeedbackState();
   }
 
-  SimulatedClock clock_;
+  rtc::ScopedFakeClock clock_;
   TestTransport test_transport_;
   std::unique_ptr<ReceiveStatistics> receive_statistics_;
   std::unique_ptr<ModuleRtpRtcpImpl> rtp_rtcp_impl_;
@@ -140,7 +141,7 @@ TEST_F(RtcpSenderTest, SendSr) {
   rtcp_sender_->SetSendingStatus(feedback_state, true);
   feedback_state.packets_sent = kPacketCount;
   feedback_state.media_bytes_sent = kOctetCount;
-  NtpTime ntp = TimeMicrosToNtp(clock_.TimeInMicroseconds());
+  NtpTime ntp = TimeMicrosToNtp(rtc::TimeMicros());
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state, kRtcpSr));
   EXPECT_EQ(1, parser()->sender_report()->num_packets());
   EXPECT_EQ(kSenderSsrc, parser()->sender_report()->sender_ssrc());
@@ -158,7 +159,7 @@ TEST_F(RtcpSenderTest, SendConsecutiveSrWithExactSlope) {
   const int kTimeBetweenSRsUs = 10043;  // Not exact value in milliseconds.
   const int kExtraPackets = 30;
   // Make sure clock is not exactly at some milliseconds point.
-  clock_.AdvanceTimeMicroseconds(kTimeBetweenSRsUs);
+  clock_.AdvanceTime(TimeDelta::us(kTimeBetweenSRsUs));
   rtcp_sender_->SetRTCPStatus(RtcpMode::kReducedSize);
   RTCPSender::FeedbackState feedback_state = rtp_rtcp_impl_->GetFeedbackState();
   rtcp_sender_->SetSendingStatus(feedback_state, true);
@@ -172,7 +173,7 @@ TEST_F(RtcpSenderTest, SendConsecutiveSrWithExactSlope) {
 
   // Send more SRs to ensure slope is always exact for different offsets
   for (int packets = 1; packets <= kExtraPackets; ++packets) {
-    clock_.AdvanceTimeMicroseconds(kTimeBetweenSRsUs);
+    clock_.AdvanceTime(TimeDelta::us(kTimeBetweenSRsUs));
     EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state, kRtcpSr));
     EXPECT_EQ(packets + 1, parser()->sender_report()->num_packets());
 
@@ -186,8 +187,8 @@ TEST_F(RtcpSenderTest, SendConsecutiveSrWithExactSlope) {
 }
 
 TEST_F(RtcpSenderTest, DoNotSendSrBeforeRtp) {
-  rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),
-                                    nullptr, nullptr, &test_transport_, 1000));
+  rtcp_sender_.reset(new RTCPSender(false, receive_statistics_.get(), nullptr,
+                                    nullptr, &test_transport_, 1000));
   rtcp_sender_->SetSSRC(kSenderSsrc);
   rtcp_sender_->SetRemoteSSRC(kRemoteSsrc);
   rtcp_sender_->SetRTCPStatus(RtcpMode::kReducedSize);
@@ -204,8 +205,8 @@ TEST_F(RtcpSenderTest, DoNotSendSrBeforeRtp) {
 }
 
 TEST_F(RtcpSenderTest, DoNotSendCompundBeforeRtp) {
-  rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),
-                                    nullptr, nullptr, &test_transport_, 1000));
+  rtcp_sender_.reset(new RTCPSender(false, receive_statistics_.get(), nullptr,
+                                    nullptr, &test_transport_, 1000));
   rtcp_sender_->SetSSRC(kSenderSsrc);
   rtcp_sender_->SetRemoteSSRC(kRemoteSsrc);
   rtcp_sender_->SetRTCPStatus(RtcpMode::kCompound);
@@ -477,7 +478,7 @@ TEST_F(RtcpSenderTest, SendXrWithRrtr) {
   rtcp_sender_->SetRTCPStatus(RtcpMode::kCompound);
   EXPECT_EQ(0, rtcp_sender_->SetSendingStatus(feedback_state(), false));
   rtcp_sender_->SendRtcpXrReceiverReferenceTime(true);
-  NtpTime ntp = TimeMicrosToNtp(clock_.TimeInMicroseconds());
+  NtpTime ntp = TimeMicrosToNtp(rtc::TimeMicros());
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpReport));
   EXPECT_EQ(1, parser()->xr()->num_packets());
   EXPECT_EQ(kSenderSsrc, parser()->xr()->sender_ssrc());
@@ -504,17 +505,15 @@ TEST_F(RtcpSenderTest, TestNoXrRrtrSentIfNotEnabled) {
 
 TEST_F(RtcpSenderTest, TestRegisterRtcpPacketTypeObserver) {
   RtcpPacketTypeCounterObserverImpl observer;
-  rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),
-                                    &observer, nullptr, &test_transport_,
-                                    1000));
+  rtcp_sender_.reset(new RTCPSender(false, receive_statistics_.get(), &observer,
+                                    nullptr, &test_transport_, 1000));
   rtcp_sender_->SetRemoteSSRC(kRemoteSsrc);
   rtcp_sender_->SetRTCPStatus(RtcpMode::kReducedSize);
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpPli));
   EXPECT_EQ(1, parser()->pli()->num_packets());
   EXPECT_EQ(kRemoteSsrc, observer.ssrc_);
   EXPECT_EQ(1U, observer.counter_.pli_packets);
-  EXPECT_EQ(clock_.TimeInMilliseconds(),
-            observer.counter_.first_packet_time_ms);
+  EXPECT_EQ(rtc::TimeMillis(), observer.counter_.first_packet_time_ms);
 }
 
 TEST_F(RtcpSenderTest, SendTmmbr) {
@@ -627,13 +626,13 @@ TEST_F(RtcpSenderTest, ByeMustBeLast) {
       }));
 
   // Re-configure rtcp_sender_ with mock_transport_
-  rtcp_sender_.reset(new RTCPSender(false, &clock_, receive_statistics_.get(),
-                                    nullptr, nullptr, &mock_transport, 1000));
+  rtcp_sender_.reset(new RTCPSender(false, receive_statistics_.get(), nullptr,
+                                    nullptr, &mock_transport, 1000));
   rtcp_sender_->SetSSRC(kSenderSsrc);
   rtcp_sender_->SetRemoteSSRC(kRemoteSsrc);
   rtcp_sender_->SetTimestampOffset(kStartRtpTimestamp);
-  rtcp_sender_->SetLastRtpTime(kRtpTimestamp, clock_.TimeInMilliseconds(),
-                               /*paylpad_type=*/0);
+  rtcp_sender_->SetLastRtpTime(kRtpTimestamp, rtc::TimeMillis(),
+                               /*payload_type=*/0);
 
   // Set up REMB info to be included with BYE.
   rtcp_sender_->SetRTCPStatus(RtcpMode::kCompound);
@@ -680,7 +679,7 @@ TEST_F(RtcpSenderTest, SendImmediateXrWithTargetBitrate) {
   // Initialize. Send a first report right away.
   rtcp_sender_->SetRTCPStatus(RtcpMode::kCompound);
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpReport));
-  clock_.AdvanceTimeMilliseconds(5);
+  clock_.AdvanceTime(TimeDelta::ms(5));
 
   // Video bitrate allocation generated, save until next time we send a report.
   VideoBitrateAllocation allocation;
@@ -689,7 +688,7 @@ TEST_F(RtcpSenderTest, SendImmediateXrWithTargetBitrate) {
   // First seen instance will be sent immediately.
   EXPECT_TRUE(rtcp_sender_->TimeToSendRTCPReport(false));
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpReport));
-  clock_.AdvanceTimeMilliseconds(5);
+  clock_.AdvanceTime(TimeDelta::ms(5));
 
   // Update bitrate of existing layer, does not quality for immediate sending.
   allocation.SetBitrate(0, 0, 150000);
@@ -701,7 +700,7 @@ TEST_F(RtcpSenderTest, SendImmediateXrWithTargetBitrate) {
   rtcp_sender_->SetVideoBitrateAllocation(allocation);
   EXPECT_TRUE(rtcp_sender_->TimeToSendRTCPReport(false));
   EXPECT_EQ(0, rtcp_sender_->SendRTCP(feedback_state(), kRtcpReport));
-  clock_.AdvanceTimeMilliseconds(5);
+  clock_.AdvanceTime(TimeDelta::ms(5));
 
   // Explicitly disable top layer. The same set of layers now has a bitrate
   // defined, but the explicit 0 indicates shutdown. Signal immediately.

@@ -49,7 +49,6 @@ class RTPSenderVideo;
 class RTPSender {
  public:
   RTPSender(bool audio,
-            Clock* clock,
             Transport* transport,
             RtpPacketSender* paced_sender,
             // TODO(brandtr): Remove |flexfec_sender| when that is hooked up
@@ -272,7 +271,6 @@ class RTPSender {
 
   void UpdateRtpOverhead(const RtpPacketToSend& packet);
 
-  Clock* const clock_;
   const int64_t clock_delta_ms_;
   Random random_ RTC_GUARDED_BY(send_critsect_);
 

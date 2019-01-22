@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "rtc_base/fake_clock.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/gtest.h"
 
@@ -120,15 +121,15 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
         transport_(kTestRtxSsrc),
         rtx_stream_(&media_stream_, rtx_associated_payload_types_, kTestSsrc),
         payload_data_length(sizeof(payload_data)),
-        fake_clock(123456),
-        retransmission_rate_limiter_(&fake_clock, kMaxRttMs) {}
+        retransmission_rate_limiter_(kMaxRttMs) {}
   ~RtpRtcpRtxNackTest() override {}
 
   void SetUp() override {
     RtpRtcp::Configuration configuration;
     configuration.audio = false;
-    configuration.clock = &fake_clock;
-    receive_statistics_.reset(ReceiveStatistics::Create(&fake_clock));
+    receive_statistics_.reset(ReceiveStatistics::Create(
+        // Despite "RealTime", follows the fake clock
+        Clock::GetRealTimeClock()));
     configuration.receive_statistics = receive_statistics_.get();
     configuration.outgoing_transport = &transport_;
     configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;
@@ -207,11 +208,11 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
           webrtc::kVideoFrameDelta, kPayloadType, timestamp, timestamp / 90,
           payload_data, payload_data_length, nullptr, &video_header, nullptr));
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
-      fake_clock.AdvanceTimeMilliseconds(5);
+      fake_clock_.AdvanceTime(TimeDelta::ms(5));
       int length = BuildNackList(nack_list);
       if (length > 0)
         rtp_rtcp_module_->SendNACK(nack_list, length);
-      fake_clock.AdvanceTimeMilliseconds(28);  //  33ms - 5ms delay.
+      fake_clock_.AdvanceTime(TimeDelta::ms(28));  //  33ms - 5ms delay.
       rtp_rtcp_module_->Process();
       // Prepare next frame.
       timestamp += 3000;
@@ -221,6 +222,7 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
 
   void TearDown() override { delete rtp_rtcp_module_; }
 
+  rtc::ScopedFakeClock fake_clock_;
   std::unique_ptr<ReceiveStatistics> receive_statistics_;
   RtpRtcp* rtp_rtcp_module_;
   RtxLoopBackTransport transport_;
@@ -230,7 +232,6 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
   RtxReceiveStream rtx_stream_;
   uint8_t payload_data[65000];
   size_t payload_data_length;
-  SimulatedClock fake_clock;
   RateLimiter retransmission_rate_limiter_;
   std::unique_ptr<RtpStreamReceiverInterface> media_receiver_;
   std::unique_ptr<RtpStreamReceiverInterface> rtx_receiver_;
@@ -257,7 +258,7 @@ TEST_F(RtpRtcpRtxNackTest, LongNackList) {
         payload_data, payload_data_length, nullptr, &video_header, nullptr));
     // Prepare next frame.
     timestamp += 3000;
-    fake_clock.AdvanceTimeMilliseconds(33);
+    fake_clock_.AdvanceTime(TimeDelta::ms(33));
     rtp_rtcp_module_->Process();
   }
   EXPECT_FALSE(transport_.expected_sequence_numbers_.empty());

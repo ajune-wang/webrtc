@@ -114,15 +114,13 @@ class RTCPSender::RtcpContext {
 
 RTCPSender::RTCPSender(
     bool audio,
-    Clock* clock,
     ReceiveStatisticsProvider* receive_statistics,
     RtcpPacketTypeCounterObserver* packet_type_counter_observer,
     RtcEventLog* event_log,
     Transport* outgoing_transport,
     int report_interval_ms)
     : audio_(audio),
-      clock_(clock),
-      random_(clock_->TimeInMicroseconds()),
+      random_(rtc::TimeMicros()),
       method_(RtcpMode::kOff),
       event_log_(event_log),
       transport_(outgoing_transport),
@@ -181,8 +179,7 @@ void RTCPSender::SetRTCPStatus(RtcpMode new_method) {
 
   if (method_ == RtcpMode::kOff && new_method != RtcpMode::kOff) {
     // When switching on, reschedule the next packet
-    next_time_to_send_rtcp_ =
-        clock_->TimeInMilliseconds() + (report_interval_ms_ / 2);
+    next_time_to_send_rtcp_ = rtc::TimeMillis() + (report_interval_ms_ / 2);
   }
   method_ = new_method;
 }
@@ -220,7 +217,7 @@ void RTCPSender::SetRemb(int64_t bitrate_bps, std::vector<uint32_t> ssrcs) {
   SetFlag(kRtcpRemb, /*is_volatile=*/false);
   // Send a REMB immediately if we have a new REMB. The frequency of REMBs is
   // throttled by the caller.
-  next_time_to_send_rtcp_ = clock_->TimeInMilliseconds();
+  next_time_to_send_rtcp_ = rtc::TimeMillis();
 }
 
 void RTCPSender::UnsetRemb() {
@@ -265,7 +262,7 @@ void RTCPSender::SetLastRtpTime(uint32_t rtp_timestamp,
   last_rtp_timestamp_ = rtp_timestamp;
   if (capture_time_ms < 0) {
     // We don't currently get a capture time from VoiceEngine.
-    last_frame_capture_time_ms_ = clock_->TimeInMilliseconds();
+    last_frame_capture_time_ms_ = rtc::TimeMillis();
   } else {
     last_frame_capture_time_ms_ = capture_time_ms;
   }
@@ -288,7 +285,7 @@ void RTCPSender::SetSSRC(uint32_t ssrc) {
     // not first SetSSRC, probably due to a collision
     // schedule a new RTCP report
     // make sure that we send a RTP packet
-    next_time_to_send_rtcp_ = clock_->TimeInMilliseconds() + 100;
+    next_time_to_send_rtcp_ = rtc::TimeMillis() + 100;
   }
   ssrc_ = ssrc;
 }
@@ -392,7 +389,7 @@ bool RTCPSender::TimeToSendRTCPReport(bool sendKeyframeBeforeRTP) const {
         a value of the RTCP bandwidth below the intended average
   */
 
-  int64_t now = clock_->TimeInMilliseconds();
+  int64_t now = rtc::TimeMillis();
 
   rtc::CritScope lock(&critical_section_rtcp_sender_);
 
@@ -688,11 +685,11 @@ int32_t RTCPSender::SendCompoundRTCP(
     }
 
     if (packet_type_counter_.first_packet_time_ms == -1)
-      packet_type_counter_.first_packet_time_ms = clock_->TimeInMilliseconds();
+      packet_type_counter_.first_packet_time_ms = rtc::TimeMillis();
 
     // We need to send our NTP even if we haven't received any reports.
     RtcpContext context(feedback_state, nack_size, nack_list,
-                        clock_->TimeInMicroseconds());
+                        rtc::TimeMicros());
 
     PrepareReport(feedback_state);
 
@@ -782,7 +779,7 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
         random_.Rand(min_interval_ms * 1 / 2, min_interval_ms * 3 / 2);
 
     RTC_DCHECK_GT(time_to_next, 0);
-    next_time_to_send_rtcp_ = clock_->TimeInMilliseconds() + time_to_next;
+    next_time_to_send_rtcp_ = rtc::TimeMillis() + time_to_next;
 
     // RtcpSender expected to be used for sending either just sender reports
     // or just receiver reports.
@@ -804,7 +801,7 @@ std::vector<rtcp::ReportBlock> RTCPSender::CreateReportBlocks(
   if (!result.empty() && ((feedback_state.last_rr_ntp_secs != 0) ||
                           (feedback_state.last_rr_ntp_frac != 0))) {
     // Get our NTP as late as possible to avoid a race.
-    uint32_t now = CompactNtp(TimeMicrosToNtp(clock_->TimeInMicroseconds()));
+    uint32_t now = CompactNtp(TimeMicrosToNtp(rtc::TimeMicros()));
 
     uint32_t receive_time = feedback_state.last_rr_ntp_secs & 0x0000FFFF;
     receive_time <<= 16;
@@ -908,7 +905,7 @@ void RTCPSender::SetVideoBitrateAllocation(
       CheckAndUpdateLayerStructure(bitrate);
   if (new_bitrate) {
     video_bitrate_allocation_ = *new_bitrate;
-    next_time_to_send_rtcp_ = clock_->TimeInMilliseconds();
+    next_time_to_send_rtcp_ = rtc::TimeMillis();
   } else {
     video_bitrate_allocation_ = bitrate;
   }

@@ -29,7 +29,7 @@ namespace webrtc {
 
 class RTPSenderAudio {
  public:
-  RTPSenderAudio(Clock* clock, RTPSender* rtp_sender);
+  explicit RTPSenderAudio(RTPSender* rtp_sender);
   ~RTPSenderAudio();
 
   int32_t RegisterAudioPayload(absl::string_view payload_name,
@@ -63,7 +63,6 @@ class RTPSenderAudio {
   bool MarkerBit(FrameType frame_type, int8_t payload_type);
 
  private:
-  Clock* const clock_ = nullptr;
   RTPSender* const rtp_sender_ = nullptr;
 
   rtc::CriticalSection send_audio_critsect_;

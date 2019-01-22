@@ -11,17 +11,16 @@
 #include <memory>
 
 #include "rtc_base/event.h"
+#include "rtc_base/fakeclock.h"
 #include "rtc_base/platform_thread.h"
 #include "rtc_base/rate_limiter.h"
-#include "system_wrappers/include/clock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 class RateLimitTest : public ::testing::Test {
  public:
-  RateLimitTest()
-      : clock_(0), rate_limiter(new RateLimiter(&clock_, kWindowSizeMs)) {}
+  RateLimitTest() : rate_limiter(new RateLimiter(kWindowSizeMs)) {}
   ~RateLimitTest() override {}
 
   void SetUp() override { rate_limiter->SetMaxRate(kMaxRateBps); }
@@ -32,14 +31,14 @@ class RateLimitTest : public ::testing::Test {
   // Bytes needed to completely saturate the rate limiter.
   static constexpr size_t kRateFillingBytes =
       (kMaxRateBps * kWindowSizeMs) / (8 * 1000);
-  SimulatedClock clock_;
+  rtc::ScopedFakeClock clock_;
   std::unique_ptr<RateLimiter> rate_limiter;
 };
 
 TEST_F(RateLimitTest, IncreasingMaxRate) {
   // Fill rate, extend window to full size.
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
-  clock_.AdvanceTimeMilliseconds(kWindowSizeMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms((kWindowSizeMs - 1)));
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
 
   // All rate consumed.
@@ -56,7 +55,7 @@ TEST_F(RateLimitTest, IncreasingMaxRate) {
 TEST_F(RateLimitTest, DecreasingMaxRate) {
   // Fill rate, extend window to full size.
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
-  clock_.AdvanceTimeMilliseconds(kWindowSizeMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kWindowSizeMs - 1));
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
 
   // All rate consumed.
@@ -64,7 +63,7 @@ TEST_F(RateLimitTest, DecreasingMaxRate) {
 
   // Halve the available rate and move window so half of the data falls out.
   rate_limiter->SetMaxRate(kMaxRateBps / 2);
-  clock_.AdvanceTimeMilliseconds(1);
+  clock_.AdvanceTime(TimeDelta::ms(1));
 
   // All rate still consumed.
   EXPECT_FALSE(rate_limiter->TryUseRate(1));
@@ -73,7 +72,7 @@ TEST_F(RateLimitTest, DecreasingMaxRate) {
 TEST_F(RateLimitTest, ChangingWindowSize) {
   // Fill rate, extend window to full size.
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
-  clock_.AdvanceTimeMilliseconds(kWindowSizeMs - 1);
+  clock_.AdvanceTime(TimeDelta::ms(kWindowSizeMs - 1));
   EXPECT_TRUE(rate_limiter->TryUseRate(kRateFillingBytes / 2));
 
   // All rate consumed.
@@ -164,17 +163,17 @@ TEST_F(RateLimitTest, MultiThreadedUsage) {
 
   class UseRateTask : public ThreadTask {
    public:
-    UseRateTask(RateLimiter* rate_limiter, SimulatedClock* clock)
+    UseRateTask(RateLimiter* rate_limiter, rtc::FakeClock* clock)
         : ThreadTask(rate_limiter), clock_(clock) {}
     ~UseRateTask() override {}
 
     void DoRun() override {
       EXPECT_TRUE(rate_limiter_->TryUseRate(kRateFillingBytes / 2));
-      clock_->AdvanceTimeMilliseconds((kWindowSizeMs / 2) - 1);
+      clock_->AdvanceTime(TimeDelta::ms((kWindowSizeMs / 2) - 1));
       EXPECT_TRUE(rate_limiter_->TryUseRate(kRateFillingBytes / 2));
     }
 
-    SimulatedClock* const clock_;
+    rtc::FakeClock* const clock_;
   } use_rate_task(rate_limiter.get(), &clock_);
   rtc::PlatformThread thread3(RunTask, &use_rate_task, "Thread3");
   thread3.Start();

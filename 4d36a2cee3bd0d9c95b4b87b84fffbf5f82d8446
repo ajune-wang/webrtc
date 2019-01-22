@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b2cb1a24_e898967d",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-22T15:48:33Z",
+      "side": 1,
+      "message": "This isn\u0027t specific to the new encoding, is it?",
+      "range": {
+        "startLine": 863,
+        "startChar": 6,
+        "endLine": 863,
+        "endChar": 20
+      },
+      "revId": "4d36a2cee3bd0d9c95b4b87b84fffbf5f82d8446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f63980b_8f94052b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-22T15:48:33Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment adds any value.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 79
+      },
+      "revId": "4d36a2cee3bd0d9c95b4b87b84fffbf5f82d8446",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

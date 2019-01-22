@@ -18,6 +18,7 @@
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "media/engine/webrtc_voice_engine.h"
+#include "system_wrappers/include/field_trial.h"
 
 #ifdef HAVE_WEBRTC_VIDEO
 #include "media/engine/webrtc_video_engine.h"
@@ -67,6 +68,15 @@ std::unique_ptr<MediaEngineInterface> WebRtcMediaEngineFactory::Create(
 }
 
 namespace {
+// If this field trial is enabled, we will revert to filtering out both
+// abs-send-time and toffset header extension when the TWCC extensions is also
+// negotiated. Intended as a killswitch in case of unexpted problems with the
+// new behaviour which keeps abs-send-time also if TWCC extension is present.
+bool UseLegacyBweHeaderExtensionsFiltering() {
+  return webrtc::field_trial::IsEnabled(
+      "WebRTC-LegacyBweHeaderExtensionsFiltering");
+}
+
 // Remove mutually exclusive extensions with lower priority.
 void DiscardRedundantExtensions(
     std::vector<webrtc::RtpExtension>* extensions,
@@ -143,14 +153,20 @@ std::vector<webrtc::RtpExtension> FilterRtpExtensions(
         });
     result.erase(it, result.end());
 
-    // Keep just the highest priority extension of any in the following list.
-    static const char* const kBweExtensionPriorities[] = {
-        webrtc::RtpExtension::kTransportSequenceNumberUri,
-        webrtc::RtpExtension::kAbsSendTimeUri,
-        webrtc::RtpExtension::kTimestampOffsetUri};
-    DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    // Keep just the highest priority extension of any in the following lists.
+    if (UseLegacyBweHeaderExtensionsFiltering()) {
+      static const char* const kBweExtensionPriorities[] = {
+          webrtc::RtpExtension::kTransportSequenceNumberUri,
+          webrtc::RtpExtension::kAbsSendTimeUri,
+          webrtc::RtpExtension::kTimestampOffsetUri};
+      DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    } else {
+      static const char* const kBweExtensionPriorities[] = {
+          webrtc::RtpExtension::kAbsSendTimeUri,
+          webrtc::RtpExtension::kTimestampOffsetUri};
+      DiscardRedundantExtensions(&result, kBweExtensionPriorities);
+    }
   }
-
   return result;
 }
 

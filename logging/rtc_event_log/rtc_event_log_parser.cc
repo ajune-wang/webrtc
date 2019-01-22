@@ -1867,7 +1867,7 @@ std::vector<LoggedPacketInfo> ParsedRtcEventLog::GetPacketInfos(
       current_overhead = overhead_iter->overhead;
       ++overhead_iter;
     }
-    RTC_CHECK(new_log_time > last_log_time);
+    RTC_CHECK(new_log_time >= last_log_time);
     last_log_time = new_log_time;
   };
 

@@ -255,10 +255,10 @@ rtc_source_set("criticalsection") {
 rtc_source_set("platform_thread") {
   visibility = [
     ":rtc_base_approved",
-    ":rtc_task_queue_libevent",
     ":rtc_task_queue_win",
     ":rtc_task_queue_stdlib",
     ":sequenced_task_checker",
+    "task_queue:task_queue_libevent",
   ]
   sources = [
     "platform_thread.cc",
@@ -540,34 +540,6 @@ rtc_source_set("rtc_task_queue_api") {
   ]
 }
 
-if (rtc_enable_libevent) {
-  rtc_source_set("rtc_task_queue_libevent") {
-    visibility = [ ":rtc_task_queue_impl" ]
-    sources = [
-      "task_queue_libevent.cc",
-      "task_queue_posix.cc",
-      "task_queue_posix.h",
-    ]
-    deps = [
-      ":checks",
-      ":criticalsection",
-      ":logging",
-      ":macromagic",
-      ":platform_thread",
-      ":platform_thread_types",
-      ":ptr_util",
-      ":refcount",
-      ":rtc_task_queue_api",
-      ":safe_conversions",
-      ":timeutils",
-      "system:unused",
-    ]
-    if (rtc_build_libevent) {
-      deps += [ "//base/third_party/libevent" ]
-    }
-  }
-}
-
 if (is_mac || is_ios) {
   rtc_source_set("rtc_task_queue_gcd") {
     visibility = [ ":rtc_task_queue_impl" ]
@@ -632,7 +604,7 @@ rtc_source_set("rtc_task_queue_impl") {
   visibility = [ "*" ]
   if (rtc_enable_libevent) {
     deps = [
-      ":rtc_task_queue_libevent",
+      "../../api/task_queue:global_task_queue_factory",
     ]
   } else {
     if (is_mac || is_ios) {

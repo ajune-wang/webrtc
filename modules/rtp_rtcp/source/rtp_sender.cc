@@ -35,6 +35,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/rate_limiter.h"
+#include "rtc_base/system/unused.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -177,6 +178,7 @@ RTPSender::RTPSender(
       populate_network2_timestamp_(populate_network2_timestamp),
       send_side_bwe_with_overhead_(
           webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")) {
+  RTC_DCHECK(paced_sender_);
   // This random initialization is not intended to be cryptographic strong.
   timestamp_offset_ = random_.Rand<uint32_t>();
   // Random start, 16 bits. Can't be 0.
@@ -686,29 +688,14 @@ int32_t RTPSender::ReSendPacket(uint16_t packet_id) {
     }
   }
 
-  if (paced_sender_) {
-    // Convert from TickTime to Clock since capture_time_ms is based on
-    // TickTime.
-    int64_t corrected_capture_tims_ms =
-        stored_packet->capture_time_ms + clock_delta_ms_;
-    paced_sender_->InsertPacket(
-        RtpPacketSender::kNormalPriority, stored_packet->ssrc,
-        stored_packet->rtp_sequence_number, corrected_capture_tims_ms,
-        stored_packet->payload_size, true);
-
-    return packet_size;
-  }
-
-  std::unique_ptr<RtpPacketToSend> packet =
-      packet_history_.GetPacketAndSetSendTime(packet_id);
-  if (!packet) {
-    // Packet could theoretically time out between the first check and this one.
-    return 0;
-  }
-
-  const bool rtx = (RtxStatus() & kRtxRetransmitted) > 0;
-  if (!PrepareAndSendPacket(std::move(packet), rtx, true, PacedPacketInfo()))
-    return -1;
+  // Convert from TickTime to Clock since capture_time_ms is based on
+  // TickTime.
+  int64_t corrected_capture_tims_ms =
+      stored_packet->capture_time_ms + clock_delta_ms_;
+  paced_sender_->InsertPacket(
+      RtpPacketSender::kNormalPriority, stored_packet->ssrc,
+      stored_packet->rtp_sequence_number, corrected_capture_tims_ms,
+      stored_packet->payload_size, true);
 
   return packet_size;
 }
@@ -929,7 +916,7 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
                               RtpPacketSender::Priority priority) {
   RTC_DCHECK(packet);
   int64_t now_ms = clock_->TimeInMilliseconds();
-
+  RTC_UNUSED(now_ms);  // Used only if BWE logging is enabled
   if (video_) {
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "VideoTotBitrate_kbps", now_ms,
                                     ActualSendBitrateKbit(), packet->Ssrc());
@@ -946,81 +933,24 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
 
   uint32_t ssrc = packet->Ssrc();
   absl::optional<uint32_t> flexfec_ssrc = FlexfecSsrc();
-  if (paced_sender_) {
-    uint16_t seq_no = packet->SequenceNumber();
-    // Correct offset between implementations of millisecond time stamps in
-    // TickTime and Clock.
-    int64_t corrected_time_ms = packet->capture_time_ms() + clock_delta_ms_;
-    size_t payload_length = packet->payload_size();
-    if (ssrc == flexfec_ssrc) {
-      // Store FlexFEC packets in the history here, so they can be found
-      // when the pacer calls TimeToSendPacket.
-      flexfec_packet_history_.PutRtpPacket(std::move(packet), storage,
-                                           absl::nullopt);
-    } else {
-      packet_history_.PutRtpPacket(std::move(packet), storage, absl::nullopt);
-    }
 
-    paced_sender_->InsertPacket(priority, ssrc, seq_no, corrected_time_ms,
-                                payload_length, false);
-    return true;
+  uint16_t seq_no = packet->SequenceNumber();
+  // Correct offset between implementations of millisecond time stamps in
+  // TickTime and Clock.
+  int64_t corrected_time_ms = packet->capture_time_ms() + clock_delta_ms_;
+  size_t payload_length = packet->payload_size();
+  if (ssrc == flexfec_ssrc) {
+    // Store FlexFEC packets in the history here, so they can be found
+    // when the pacer calls TimeToSendPacket.
+    flexfec_packet_history_.PutRtpPacket(std::move(packet), storage,
+                                         absl::nullopt);
+  } else {
+    packet_history_.PutRtpPacket(std::move(packet), storage, absl::nullopt);
   }
 
-  PacketOptions options;
-  options.is_retransmit = false;
-
-  // |capture_time_ms| <= 0 is considered invalid.
-  // TODO(holmer): This should be changed all over Video Engine so that negative
-  // time is consider invalid, while 0 is considered a valid time.
-  if (packet->capture_time_ms() > 0) {
-    packet->SetExtension<TransmissionOffset>(
-        kTimestampTicksPerMs * (now_ms - packet->capture_time_ms()));
-
-    if (populate_network2_timestamp_ &&
-        packet->HasExtension<VideoTimingExtension>()) {
-      packet->set_network2_time_ms(now_ms);
-    }
-  }
-  packet->SetExtension<AbsoluteSendTime>(AbsoluteSendTime::MsTo24Bits(now_ms));
-
-  bool has_transport_seq_num;
-  {
-    rtc::CritScope lock(&send_critsect_);
-    has_transport_seq_num =
-        UpdateTransportSequenceNumber(packet.get(), &options.packet_id);
-    options.included_in_allocation =
-        has_transport_seq_num || force_part_of_allocation_;
-    options.included_in_feedback = has_transport_seq_num;
-  }
-  if (has_transport_seq_num) {
-    AddPacketToTransportFeedback(options.packet_id, *packet.get(),
-                                 PacedPacketInfo());
-  }
-  options.application_data.assign(packet->application_data().begin(),
-                                  packet->application_data().end());
-
-  UpdateDelayStatistics(packet->capture_time_ms(), now_ms);
-  UpdateOnSendPacket(options.packet_id, packet->capture_time_ms(),
-                     packet->Ssrc());
-
-  bool sent = SendPacketToNetwork(*packet, options, PacedPacketInfo());
-
-  if (sent) {
-    {
-      rtc::CritScope lock(&send_critsect_);
-      media_has_been_sent_ = true;
-    }
-    UpdateRtpStats(*packet, false, false);
-  }
-
-  // To support retransmissions, we store the media packet as sent in the
-  // packet history (even if send failed).
-  if (storage == kAllowRetransmission) {
-    RTC_DCHECK_EQ(ssrc, SSRC());
-    packet_history_.PutRtpPacket(std::move(packet), storage, now_ms);
-  }
-
-  return sent;
+  paced_sender_->InsertPacket(priority, ssrc, seq_no, corrected_time_ms,
+                              payload_length, false);
+  return true;
 }
 
 void RTPSender::RecomputeMaxSendDelay() {

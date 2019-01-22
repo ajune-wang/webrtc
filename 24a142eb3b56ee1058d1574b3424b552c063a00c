@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55c48943_8ac4579e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T14:09:51Z",
+      "side": 1,
+      "message": "Is it possible to remove the original code, and call the new copy instead? That should be much better---unless there\u0027s some snag that I don\u0027t see?",
+      "revId": "24a142eb3b56ee1058d1574b3424b552c063a00c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a00375ab_61fcd199",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T14:09:51Z",
+      "side": 1,
+      "message": "Document how to use this to test your own task queue factory?",
+      "revId": "24a142eb3b56ee1058d1574b3424b552c063a00c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

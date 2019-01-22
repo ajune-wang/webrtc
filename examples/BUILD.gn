@@ -699,6 +699,7 @@ if (is_linux || is_win) {
       "../media:rtc_media_base",
       "../p2p:rtc_p2p",
       "../rtc_base:checks",
+      "../rtc_base:threading",
       "../rtc_base/third_party/sigslot",
       "../system_wrappers:field_trial",
       "../test:field_trial",
@@ -714,7 +715,10 @@ if (is_linux || is_win) {
         "peerconnection/client/main_wnd.h",
       ]
       configs += [ "//build/config/win:windowed" ]
-      deps += [ "../media:rtc_media_base" ]
+      deps += [
+        "../media:rtc_media_base",
+        "../rtc_base:win32",
+      ]
     }
     if (is_linux) {
       sources += [
@@ -746,6 +750,7 @@ if (is_linux || is_win) {
       "../modules/video_capture:video_capture_module",
       "../pc:libjingle_peerconnection",
       "../pc:peerconnection",
+      "../rtc_base:net_helpers",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
       "../rtc_base:rtc_json",
@@ -787,6 +792,9 @@ if (is_linux || is_win) {
       "../pc:rtc_pc",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:socket_address",
+      "../rtc_base:socket_server",
+      "../rtc_base:threading",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -803,8 +811,12 @@ if (is_linux || is_win) {
       "../p2p:p2p_server_utils",
       "../p2p:rtc_p2p",
       "../pc:rtc_pc",
+      "../rtc_base:ip_address",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:socket_address",
+      "../rtc_base:socket_server",
+      "../rtc_base:threading",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -822,6 +834,9 @@ if (is_linux || is_win) {
       "../pc:rtc_pc",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:socket_address",
+      "../rtc_base:socket_server",
+      "../rtc_base:threading",
     ]
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -937,8 +952,11 @@ if (!build_with_chromium) {
       "../p2p:libstunprober",
       "../p2p:rtc_p2p",
       "../rtc_base:checks",
+      "../rtc_base:net_helpers",
       "../rtc_base:rtc_base",
       "../rtc_base:rtc_base_approved",
+      "../rtc_base:socket_address",
+      "../rtc_base:threading",
     ]
   }
 }

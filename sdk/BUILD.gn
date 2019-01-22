@@ -232,6 +232,7 @@ if (is_ios || is_mac) {
 
         deps = [
           "../rtc_base:rtc_base",
+          "../rtc_base:threading",
         ]
       }
 
@@ -259,6 +260,7 @@ if (is_ios || is_mac) {
           "../modules/audio_device:audio_device_generic",
           "../rtc_base:checks",
           "../rtc_base:rtc_base",
+          "../rtc_base:threading",
           "../rtc_base/system:fallthrough",
           "../system_wrappers:metrics",
         ]
@@ -322,6 +324,7 @@ if (is_ios || is_mac) {
         "../media:rtc_media_base",
         "../rtc_base:checks",
         "../rtc_base:rtc_base",
+        "../rtc_base:threading",
         "//third_party/libyuv",
       ]
 
@@ -909,6 +912,7 @@ if (is_ios || is_mac) {
         "../modules/video_coding:video_codec_interface",
         "../pc:peerconnection",
         "../rtc_base:checks",
+        "../rtc_base:network_constants",
         "../rtc_base:rtc_base",
         "../system_wrappers:field_trial",
         "../system_wrappers:metrics",
@@ -1535,6 +1539,7 @@ if (is_ios || is_mac) {
         "../api/video_codecs:video_codecs_api",
         "../common_video",
         "../rtc_base:rtc_base",
+        "../rtc_base:threading",
         "//third_party/abseil-cpp/absl/memory",
       ]
     }

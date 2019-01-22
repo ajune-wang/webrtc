@@ -10,6 +10,7 @@
 #ifndef TEST_SCENARIO_CALL_CLIENT_H_
 #define TEST_SCENARIO_CALL_CLIENT_H_
 
+#include <atomic>
 #include <map>
 #include <memory>
 #include <string>
@@ -60,22 +61,30 @@ struct CallClientFakeAudio {
 // CallClient represents a participant in a call scenario. It is created by the
 // Scenario class and is used as sender and receiver when setting up a media
 // stream session.
-class CallClient : public EmulatedNetworkReceiverInterface {
+class CallClient {
  public:
   CallClient(Clock* clock,
              std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
-             CallClientConfig config);
+             CallClientConfig config,
+             std::vector<EndpointNode*> endpoints,
+             rtc::Thread* network_thread);
   RTC_DISALLOW_COPY_AND_ASSIGN(CallClient);
 
   ~CallClient();
+  EndpointNode* endpoint() const;
+  std::vector<EndpointNode*> GetEndpoints() const;
+  // Switches to endpoint with specified index. |endpoint_idx| have to be inside
+  // vector, returned by GetEndpoints();
+  void SwitchToEndpoint(size_t endpoint_idx);
+  rtc::Thread* thread() const;
   ColumnPrinter StatsPrinter();
   Call::Stats GetStats();
   DataRate send_bandwidth() {
     return DataRate::bps(GetStats().send_bandwidth_bps);
   }
 
-  void OnPacketReceived(EmulatedIpPacket packet) override;
   std::unique_ptr<RtcEventLogOutput> GetLogWriter(std::string name);
+  void OnPacketReceived(rtc::CopyOnWriteBuffer buffer, int64_t timestamp);
 
  private:
   friend class Scenario;
@@ -98,6 +107,11 @@ class CallClient : public EmulatedNetworkReceiverInterface {
   LoggingNetworkControllerFactory network_controller_factory_;
   CallClientFakeAudio fake_audio_setup_;
   std::unique_ptr<Call> call_;
+  std::vector<EndpointNode*> endpoints_;
+  // There won't be concurrent access from different thread, but this field will
+  // be set by one thread and read by multiple threads.
+  std::atomic<size_t> current_endpoint_{0};
+  rtc::Thread* network_thread_;
   NetworkNodeTransport transport_;
   RtpHeaderParser* const header_parser_;
 

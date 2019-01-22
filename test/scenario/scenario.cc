@@ -17,6 +17,7 @@
 #include "rtc_base/flags.h"
 #include "rtc_base/socket_address.h"
 #include "test/logging/file_log_writer.h"
+#include "test/scenario/network/cross_traffic.h"
 #include "test/scenario/network/network_emulation.h"
 #include "test/testsupport/file_utils.h"
 
@@ -52,12 +53,18 @@ void RepeatedActivity::Stop() {
   interval_ = TimeDelta::PlusInfinity();
 }
 
-void RepeatedActivity::Poll(Timestamp time) {
-  RTC_DCHECK(last_update_.IsFinite());
+void RepeatedActivity::Execute(Timestamp time) {
+  if (last_update_.IsInfinite()) {
+    last_update_ = time;
+  }
   if (time >= last_update_ + interval_) {
     function_(time - last_update_);
     last_update_ = time;
   }
+}
+
+TimeDelta RepeatedActivity::TimeToNextExecution() const {
+  return interval_;
 }
 
 void RepeatedActivity::SetStartTime(Timestamp time) {
@@ -86,6 +93,17 @@ Scenario::Scenario(
       clock_(real_time ? Clock::GetRealTimeClock() : &sim_clock_),
       audio_decoder_factory_(CreateBuiltinAudioDecoderFactory()),
       audio_encoder_factory_(CreateBuiltinAudioEncoderFactory()) {
+  if (real_time)
+    time_controller_ = absl::make_unique<RealTimeController>();
+  else {
+    auto controller = absl::make_unique<SimulatedTimeController>(&sim_clock_);
+    if (log_writer_factory_) {
+      controller->SetGlobalFakeClock(&event_log_fake_clock_);
+    }
+    time_controller_ = std::move(controller);
+  }
+  network_emulation_manager_ =
+      absl::make_unique<NetworkEmulationManager>(time_controller_.get());
   if (!real_time_mode_ && log_writer_factory_) {
     rtc::SetClockForTesting(&event_log_fake_clock_);
     event_log_fake_clock_.SetTimeNanos(sim_clock_.TimeInMicroseconds() * 1000);
@@ -97,6 +115,17 @@ Scenario::~Scenario() {
     Stop();
   if (!real_time_mode_)
     rtc::SetClockForTesting(nullptr);
+  // We need to delete CallClient on the same thread, where it was created,
+  // so we have to do it on its own network thread. Also to delete it first
+  // we have to delete its streams. It is why we first clear streams vectors
+  // and then deleting clients on required threads.
+  audio_streams_.clear();
+  video_streams_.clear();
+  client_pairs_.clear();
+  for (size_t i = 0; i < clients_.size(); ++i) {
+    clients_[i]->thread()->Invoke<void>(RTC_FROM_HERE,
+                                        [&]() { clients_[i].reset(nullptr); });
+  }
 }
 
 ColumnPrinter Scenario::TimePrinter() {
@@ -124,14 +153,30 @@ StatesPrinter* Scenario::CreatePrinter(std::string name,
 
 CallClient* Scenario::CreateClient(std::string name, CallClientConfig config) {
   RTC_DCHECK(real_time_mode_);
+  RTC_DCHECK_GT(config.num_of_endpoints, 0);
+
+  std::vector<EndpointNode*> endpoints;
+  for (int i = 0; i < config.num_of_endpoints; ++i) {
+    endpoints.push_back(network_emulation_manager_->CreateEndpoint(
+        rtc::IPAddress(next_route_id_++)));
+  }
+  rtc::Thread* network_thread =
+      network_emulation_manager_->CreateNetworkThread(endpoints);
+  // We need create client on the same thread, on which its packet will be
+  // processed.
   CallClient* client =
-      new CallClient(clock_, GetLogWriterFactory(name), config);
+      network_thread->Invoke<CallClient*>(RTC_FROM_HERE, [&]() {
+        return new CallClient(clock_, GetLogWriterFactory(name), config,
+                              endpoints, network_thread);
+      });
+
   if (config.transport.state_log_interval.IsFinite()) {
     Every(config.transport.state_log_interval, [this, client]() {
       client->network_controller_factory_.LogCongestionControllerStats(Now());
     });
   }
   clients_.emplace_back(client);
+
   return client;
 }
 
@@ -175,10 +220,17 @@ void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
 void Scenario::ChangeRoute(std::pair<CallClient*, CallClient*> clients,
                            std::vector<EmulatedNetworkNode*> over_nodes,
                            DataSize overhead) {
-  uint64_t route_id = next_route_id_++;
-  clients.second->route_overhead_.insert({route_id, overhead});
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes, clients.second);
-  clients.first->transport_.Connect(over_nodes.front(), route_id, overhead);
+  clients.second->route_overhead_.insert(
+      {clients.second->endpoint()->GetId(), overhead});
+
+  network_emulation_manager_->CreateRoute(clients.first->endpoint(), over_nodes,
+                                          clients.second->endpoint());
+  clients.first->transport_.Bind(clients.first->endpoint(),
+                                 clients.second->endpoint());
+  clients.second->transport_.Bind(clients.second->endpoint(),
+                                  clients.first->endpoint());
+  clients.first->transport_.Connect(clients.second->transport_.local_address(),
+                                    overhead);
 }
 
 SimulatedTimeClient* Scenario::CreateSimulatedTimeClient(
@@ -215,11 +267,18 @@ SimulationNode* Scenario::CreateSimulationNode(
 
 SimulationNode* Scenario::CreateSimulationNode(NetworkNodeConfig config) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kSimulation);
-  auto network_node = SimulationNode::Create(config);
+
+  SimulatedNetwork::Config sim_config =
+      SimulationNode::CreateSimulationConfig(config);
+  auto behavior = absl::make_unique<SimulatedNetwork>(sim_config);
+  SimulatedNetwork* simulated_network = behavior.get();
+  EmulatedNetworkNode* node = network_emulation_manager_->CreateEmulatedNode(
+      std::move(behavior), config.packet_overhead.bytes_or(0));
+  auto network_node =
+      absl::WrapUnique(new SimulationNode(config, node, simulated_network));
   SimulationNode* sim_node = network_node.get();
-  network_nodes_.emplace_back(std::move(network_node));
-  Every(config.update_frequency,
-        [this, sim_node] { sim_node->Process(Now()); });
+  simulation_nodes_.emplace_back(std::move(network_node));
+
   return sim_node;
 }
 
@@ -227,57 +286,27 @@ EmulatedNetworkNode* Scenario::CreateNetworkNode(
     NetworkNodeConfig config,
     std::unique_ptr<NetworkBehaviorInterface> behavior) {
   RTC_DCHECK(config.mode == NetworkNodeConfig::TrafficMode::kCustom);
-  network_nodes_.emplace_back(new EmulatedNetworkNode(
-      std::move(behavior), config.packet_overhead.bytes_or(0)));
-  EmulatedNetworkNode* network_node = network_nodes_.back().get();
-  Every(config.update_frequency,
-        [this, network_node] { network_node->Process(Now()); });
-  return network_node;
+  return network_emulation_manager_->CreateEmulatedNode(
+      std::move(behavior), config.packet_overhead.bytes_or(0));
 }
 
-void Scenario::TriggerPacketBurst(std::vector<EmulatedNetworkNode*> over_nodes,
-                                  size_t num_packets,
-                                  size_t packet_size) {
-  uint64_t route_id = next_route_id_++;
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes, &null_receiver_);
-  for (size_t i = 0; i < num_packets; ++i)
-    over_nodes[0]->OnPacketReceived(EmulatedIpPacket(
-        rtc::SocketAddress() /*from*/, rtc::SocketAddress(), /*to*/
-        route_id, rtc::CopyOnWriteBuffer(packet_size), Now()));
+CrossTraffic* Scenario::CreateCrossTraffic(
+    std::vector<EmulatedNetworkNode*> over_nodes) {
+  return network_emulation_manager_->CreateCrossTraffic(over_nodes);
 }
 
-void Scenario::NetworkDelayedAction(
-    std::vector<EmulatedNetworkNode*> over_nodes,
-    size_t packet_size,
-    std::function<void()> action) {
-  uint64_t route_id = next_route_id_++;
-  action_receivers_.emplace_back(new ActionReceiver(action));
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes,
-                                   action_receivers_.back().get());
-  over_nodes[0]->OnPacketReceived(EmulatedIpPacket(
-      rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/, route_id,
-      rtc::CopyOnWriteBuffer(packet_size), Now()));
+RandomWalkCrossTraffic* Scenario::CreateRandomWalkCrossTraffic(
+    CrossTraffic* cross_traffic,
+    RandomWalkConfig config) {
+  return network_emulation_manager_->CreateRandomWalkCrossTraffic(
+      cross_traffic, std::move(config));
 }
 
-CrossTrafficSource* Scenario::CreateCrossTraffic(
-    std::vector<EmulatedNetworkNode*> over_nodes,
-    std::function<void(CrossTrafficConfig*)> config_modifier) {
-  CrossTrafficConfig cross_config;
-  config_modifier(&cross_config);
-  return CreateCrossTraffic(over_nodes, cross_config);
-}
-
-CrossTrafficSource* Scenario::CreateCrossTraffic(
-    std::vector<EmulatedNetworkNode*> over_nodes,
-    CrossTrafficConfig config) {
-  uint64_t route_id = next_route_id_++;
-  cross_traffic_sources_.emplace_back(
-      new CrossTrafficSource(over_nodes.front(), route_id, config));
-  CrossTrafficSource* node = cross_traffic_sources_.back().get();
-  EmulatedNetworkNode::CreateRoute(route_id, over_nodes, &null_receiver_);
-  Every(config.min_packet_interval,
-        [this, node](TimeDelta delta) { node->Process(Now(), delta); });
-  return node;
+PulsedPeaksCrossTraffic* Scenario::CreatePulsedPeaksCrossTraffic(
+    CrossTraffic* cross_traffic,
+    PulsedPeaksConfig config) {
+  return network_emulation_manager_->CreatePulsedPeaksCrossTraffic(
+      cross_traffic, std::move(config));
 }
 
 VideoStreamPair* Scenario::CreateVideoStream(
@@ -318,16 +347,16 @@ AudioStreamPair* Scenario::CreateAudioStream(
 
 RepeatedActivity* Scenario::Every(TimeDelta interval,
                                   std::function<void(TimeDelta)> function) {
-  repeated_activities_.emplace_back(new RepeatedActivity(interval, function));
-  return repeated_activities_.back().get();
+  auto activity = absl::WrapUnique(new RepeatedActivity(interval, function));
+  RepeatedActivity* out = activity.get();
+  time_controller_->RegisterActivity(std::move(activity));
+  return out;
 }
 
 RepeatedActivity* Scenario::Every(TimeDelta interval,
                                   std::function<void()> function) {
   auto function_with_argument = [function](TimeDelta) { function(); };
-  repeated_activities_.emplace_back(
-      new RepeatedActivity(interval, function_with_argument));
-  return repeated_activities_.back().get();
+  return Every(interval, function_with_argument);
 }
 
 void Scenario::At(TimeDelta offset, std::function<void()> function) {
@@ -348,33 +377,26 @@ void Scenario::RunUntil(TimeDelta max_duration,
   if (start_time_.IsInfinite())
     Start();
 
-  rtc::Event done_;
-  while (!exit_function() && Duration() < max_duration) {
-    Timestamp current_time = Now();
-    TimeDelta duration = current_time - start_time_;
-    Timestamp next_time = current_time + poll_interval;
-    for (auto& activity : repeated_activities_) {
-      activity->Poll(current_time);
-      next_time = std::min(next_time, activity->NextTime());
-    }
-    for (auto activity = pending_activities_.begin();
-         activity < pending_activities_.end(); activity++) {
-      if (duration > (*activity)->after_duration) {
-        (*activity)->function();
-        pending_activities_.erase(activity);
-      }
-    }
-    TimeDelta wait_time = next_time - current_time;
-    if (real_time_mode_) {
-      done_.Wait(wait_time.ms<int>());
-    } else {
-      sim_clock_.AdvanceTimeMicroseconds(wait_time.us());
-      // The fake clock is quite slow to update, we only update it if logging is
-      // turned on to save time.
-      if (!log_writer_factory_)
-        event_log_fake_clock_.SetTimeNanos(sim_clock_.TimeInMicroseconds() *
-                                           1000);
-    }
+  auto stop_by_exit_function = absl::make_unique<RepeatedActivity2>(
+      [exit_function, this](Timestamp at_time) {
+        if (exit_function()) {
+          time_controller_->Stop();
+        }
+      },
+      poll_interval);
+  auto stop_by_max_duration = absl::make_unique<DelayedActivity>(
+      [this](Timestamp at_time) { time_controller_->Stop(); },
+      max_duration - Duration());
+
+  std::vector<Activity*> activities = {stop_by_exit_function.get(),
+                                       stop_by_max_duration.get()};
+  time_controller_->RegisterActivity(std::move(stop_by_exit_function));
+  time_controller_->RegisterActivity(std::move(stop_by_max_duration));
+
+  time_controller_->Start();
+  time_controller_->AwaitTermination();
+  for (auto* activity : activities) {
+    time_controller_->CancelActivity(activity);
   }
 }
 
@@ -402,15 +424,23 @@ void Scenario::Start() {
 
 void Scenario::Stop() {
   RTC_DCHECK(start_time_.IsFinite());
-  for (auto& stream_pair : video_streams_) {
-    stream_pair->send()->send_stream_->Stop();
-  }
-  for (auto& stream_pair : audio_streams_)
-    stream_pair->send()->send_stream_->Stop();
+  // Here we need to stop all media streams on the right threads. Media stream
+  // have to be stopped on the thread, on which its call was created, so we have
+  // to stop them on their call client's threads.
   for (auto& stream_pair : video_streams_)
-    stream_pair->receive()->receive_stream_->Stop();
+    stream_pair->send()->sender_->thread()->Invoke<void>(
+        RTC_FROM_HERE, [&]() { stream_pair->send()->send_stream_->Stop(); });
   for (auto& stream_pair : audio_streams_)
-    stream_pair->receive()->receive_stream_->Stop();
+    stream_pair->send()->sender_->thread()->Invoke<void>(
+        RTC_FROM_HERE, [&]() { stream_pair->send()->send_stream_->Stop(); });
+  for (auto& stream_pair : video_streams_)
+    stream_pair->receive()->receiver_->thread()->Invoke<void>(
+        RTC_FROM_HERE,
+        [&]() { stream_pair->receive()->receive_stream_->Stop(); });
+  for (auto& stream_pair : audio_streams_)
+    stream_pair->receive()->receiver_->thread()->Invoke<void>(
+        RTC_FROM_HERE,
+        [&]() { stream_pair->receive()->receive_stream_->Stop(); });
   start_time_ = Timestamp::PlusInfinity();
 }
 

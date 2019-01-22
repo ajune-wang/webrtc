@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1ab33efa_fa0abfa0",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-22T12:23:22Z",
+      "side": 1,
+      "message": "I\u0027ll check if the depfile generation takes a significant time. Otherwise I would rather leave the arguments handling as simple as possible.",
+      "parentUuid": "d885e677_48e04516",
+      "range": {
+        "startLine": 615,
+        "startChar": 51,
+        "endLine": 615,
+        "endChar": 53
+      },
+      "revId": "2271e550ced42e109fb41d91962ea372fa42b553",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bee616b_20153631",
         "filename": "tools_webrtc/presubmit_checks_lib/build_helpers.py",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "2271e550ced42e109fb41d91962ea372fa42b553",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "571a1c11_2db0b967",
+        "filename": "tools_webrtc/presubmit_checks_lib/build_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-22T12:23:22Z",
+      "side": 1,
+      "message": "That\u0027s already done upstream when the args are constructed (via the cxx rule, cf toolchain.ninja).\nWhich makes more sense since the args much be consistent with this mode.",
+      "parentUuid": "0bee616b_20153631",
+      "range": {
+        "startLine": 86,
+        "startChar": 14,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "2271e550ced42e109fb41d91962ea372fa42b553",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

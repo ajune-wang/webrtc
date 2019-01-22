@@ -63,6 +63,8 @@
 #define BWE_TEST_LOGGING_COMPILE_TIME_ENABLE 0
 #endif  // BWE_TEST_LOGGING_COMPILE_TIME_ENABLE
 
+// TODO(eladalon): Add loss notification messages once something produces them.
+
 namespace webrtc {
 
 namespace {

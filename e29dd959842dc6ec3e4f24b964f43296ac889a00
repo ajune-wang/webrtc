@@ -289,6 +289,30 @@
     },
     {
       "key": {
+        "uuid": "c3d17409_eb579e0e",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 33
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-22T20:28:51Z",
+      "side": 1,
+      "message": "I want not to expose endpoint to prevent extra usage of its API, because this code is not expected, that its endpoint will be used in any other way, then it does.",
+      "parentUuid": "627189b4_7d4cb39c",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "752b8ead_37ee1587",
         "filename": "test/scenario/network/cross_traffic.h",
         "patchSetId": 33
@@ -386,6 +410,24 @@
     },
     {
       "key": {
+        "uuid": "bd77f587_d042ecfd",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 33
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-22T20:28:51Z",
+      "side": 1,
+      "message": "It is here, because it is part of network layer interface and will be moved with network layer out of scenario lib.",
+      "parentUuid": "0edf7d6a_ebf96405",
+      "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be11c50f_d8ca627a",
         "filename": "test/scenario/network/cross_traffic.h",
         "patchSetId": 33
@@ -463,6 +505,30 @@
       "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e29283a_c4e71272",
+        "filename": "test/scenario/network_node.cc",
+        "patchSetId": 33
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-22T20:28:51Z",
+      "side": 1,
+      "message": "In such case we needn\u0027t to recreate a sockets. We can reuse already created ones. Socket will tolerate changes in the network layer.",
+      "parentUuid": "63ca3ed1_70c7b026",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 3
+      },
+      "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

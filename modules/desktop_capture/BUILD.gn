@@ -67,6 +67,9 @@ if (rtc_include_tests) {
         "window_finder_unittest.cc",
       ]
     }
+    if (is_win) {
+      deps += [ "../../rtc_base:win32" ]
+    }
   }
 
   rtc_source_set("desktop_capture_unittests") {
@@ -415,13 +418,6 @@ rtc_static_library("desktop_capture_generic") {
     ]
   }
 
-  if (is_win) {
-    libs = [
-      "d3d11.lib",
-      "dxgi.lib",
-    ]
-  }
-
   deps = [
     ":primitives",
     "../../api:refcountedbase",
@@ -435,6 +431,14 @@ rtc_static_library("desktop_capture_generic") {
     "../../system_wrappers:metrics",
     "//third_party/abseil-cpp/absl/memory",
   ]
+
+  if (is_win) {
+    libs = [
+      "d3d11.lib",
+      "dxgi.lib",
+    ]
+    deps += [ "../../rtc_base:win32" ]
+  }
 
   if (build_with_mozilla) {
     deps += [ "../../rtc_base:rtc_base_approved" ]

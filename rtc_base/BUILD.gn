@@ -724,135 +724,214 @@ rtc_source_set("rtc_json") {
   }
 }
 
-rtc_source_set("nethelpers") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "net_helpers.cc",
-  #   "net_helpers.h",
-  # ]
+rtc_source_set("net_helpers") {
+  sources = [
+    "net_helpers.cc",
+    "net_helpers.h",
+    "nethelpers.h",
+  ]
+  if (is_android) {
+    deps = [
+      ":ifaddrs_android",
+    ]
+  }
+  if (is_win) {
+    deps = [
+      ":win32",
+    ]
+  }
 }
 
-rtc_source_set("asyncresolverinterface") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "async_resolver_interface.cc",
-  #   "async_resolver_interface.h",
-  # ]
+rtc_source_set("async_resolver_interface") {
+  sources = [
+    "async_resolver_interface.cc",
+    "async_resolver_interface.h",
+    "asyncresolverinterface.h",
+  ]
+  deps = [
+    ":socket_address",
+    "third_party/sigslot",
+  ]
 }
 
-rtc_source_set("ipaddress") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "ip_address.cc",
-  #   "ip_address.h",
-  # ]
+rtc_source_set("ip_address") {
+  sources = [
+    "ip_address.cc",
+    "ip_address.h",
+    "ipaddress.h",
+  ]
+  deps = [
+    ":net_helpers",
+    ":rtc_base_approved",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
 }
 
-rtc_source_set("socketaddress") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "socket_address.cc",
-  #   "socket_address.h",
-  # ]
+rtc_source_set("socket_address") {
+  sources = [
+    "socket_address.cc",
+    "socket_address.h",
+    "socketaddress.h",
+  ]
+  deps = [
+    ":checks",
+    ":ip_address",
+    ":net_helpers",
+    ":rtc_base_approved",
+    ":safe_conversions",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
 }
 
-rtc_source_set("nullsocketserver") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "null_socket_server.cc",
-  #   "null_socket_server.h",
-  # ]
+rtc_source_set("null_socket_server") {
+  sources = [
+    "null_socket_server.cc",
+    "null_socket_server.h",
+    "nullsocketserver.h",
+  ]
+  deps = [
+    ":async_socket",
+    ":checks",
+    ":rtc_event",
+    ":socket",
+    ":socket_server",
+  ]
 }
 
-rtc_source_set("socketserver") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "socket_server.h",
-  # ]
+rtc_source_set("socket_server") {
+  sources = [
+    "socket_server.h",
+    "socketserver.h",
+  ]
+  deps = [
+    ":socket_factory",
+  ]
 }
 
+# TODO(kwiberg): Split this up into smaller targets. This is
+# nontrivial, because everything in this target is tied together in
+# several different dependency cycles.
 rtc_source_set("threading") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "asyncresolver.cc",
-  #   "asyncresolver.h",
-  #   "defaultsocketserver.cc",
-  #   "defaultsocketserver.h",
-  #   "message_handler.cc",
-  #   "message_handler.h",
-  #   "message_queue.cc",
-  #   "message_queue.h",
-  #   "network_monitor.cc",
-  #   "network_monitor.h",
-  #   "physical_socket_server.cc",
-  #   "physical_socket_server.h",
-  #   "signal_thread.cc",
-  #   "signal_thread.h",
-  #   "thread.cc",
-  #   "thread.h",
-  # ]
+  sources = [
+    "async_resolver.cc",
+    "async_resolver.h",
+    "default_socket_server.cc",
+    "default_socket_server.h",
+    "message_handler.cc",
+    "message_handler.h",
+    "message_queue.cc",
+    "message_queue.h",
+    "messagehandler.h",
+    "messagequeue.h",
+    "network_monitor.cc",
+    "network_monitor.h",
+    "networkmonitor.h",
+    "physical_socket_server.cc",
+    "physical_socket_server.h",
+    "physicalsocketserver.h",
+    "signal_thread.cc",
+    "signal_thread.h",
+    "signalthread.h",
+    "thread.cc",
+    "thread.h",
+  ]
+  deps = [
+    ":async_resolver_interface",
+    ":checks",
+    ":criticalsection",
+    ":ip_address",
+    ":logging",
+    ":macromagic",
+    ":network_constants",
+    ":null_socket_server",
+    ":rtc_base_approved",
+    ":socket_address",
+    ":socket_server",
+    ":timeutils",
+    "third_party/sigslot",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
+  if (is_ios || is_mac) {
+    deps += [ "system:cocoa_threading" ]
+  }
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
 }
 
-rtc_source_set("socketfactory") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "socket_factory.h",
-  # ]
+rtc_source_set("socket_factory") {
+  sources = [
+    "socket_factory.h",
+    "socketfactory.h",
+  ]
+  deps = [
+    ":async_socket",
+    ":socket",
+  ]
 }
 
-rtc_source_set("asyncsocket") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "async_socket.cc",
-  #   "async_socket.h",
-  # ]
+rtc_source_set("async_socket") {
+  sources = [
+    "async_socket.cc",
+    "async_socket.h",
+    "asyncsocket.h",
+  ]
+  deps = [
+    ":checks",
+    ":socket",
+    ":socket_address",
+    "third_party/sigslot",
+  ]
 }
 
 rtc_source_set("socket") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "socket.cc",
-  #   "socket.h",
-  # ]
+  sources = [
+    "socket.cc",
+    "socket.h",
+  ]
+  deps = [
+    ":macromagic",
+    ":socket_address",
+    "network:sent_packet",
+  ]
+  if (is_win) {
+    deps += [ ":win32" ]
+  }
 }
 
 rtc_source_set("network_constants") {
-  # TODO(bugs.webrtc.org/9987): This build target will soon contain
-  #                             the following files:
-  # sources = [
-  #   "network_constants.h",
-  # ]
+  sources = [
+    "network_constants.h",
+  ]
 }
 
 if (is_android) {
   rtc_source_set("ifaddrs_android") {
-    # TODO(bugs.webrtc.org/9987): This build target will soon contain
-    #                             the following files:
-    # sources = [
-    #   "ifaddrs_android.cc",
-    #   "ifaddrs_android.h",
-    # ]
+    sources = [
+      "ifaddrs-android.h",
+      "ifaddrs_android.cc",
+      "ifaddrs_android.h",
+    ]
   }
 }
 
 if (is_win) {
   rtc_source_set("win32") {
-    # TODO(bugs.webrtc.org/9987): This build target will soon contain
-    #                             the following files:
-    # sources = [
-    #   "win32.cc",
-    #   "win32.h",
-    # ]
+    sources = [
+      "win32.cc",
+      "win32.h",
+    ]
+    deps = [
+      ":checks",
+      ":logging",
+      ":macromagic",
+      ":rtc_base_approved",
+      ":stringutils",
+    ]
   }
 }
 
@@ -863,8 +942,15 @@ rtc_static_library("rtc_base") {
   libs = []
   defines = []
   deps = [
+    ":async_socket",
     ":checks",
+    ":ip_address",
+    ":net_helpers",
+    ":socket",
+    ":socket_address",
+    ":socket_factory",
     ":stringutils",
+    ":threading",
     "..:webrtc_common",
     "../api:array_view",
     "network:sent_packet",
@@ -888,10 +974,6 @@ rtc_static_library("rtc_base") {
     "async_invoker_inl.h",
     "async_packet_socket.cc",
     "async_packet_socket.h",
-    "async_resolver_interface.cc",
-    "async_resolver_interface.h",
-    "async_socket.cc",
-    "async_socket.h",
     "async_tcp_socket.cc",
     "async_tcp_socket.h",
     "async_udp_socket.cc",
@@ -899,8 +981,6 @@ rtc_static_library("rtc_base") {
     "asyncinvoker-inl.h",
     "asyncinvoker.h",
     "asyncpacketsocket.h",
-    "asyncresolverinterface.h",
-    "asyncsocket.h",
     "asynctcpsocket.h",
     "asyncudpsocket.h",
     "crc32.cc",
@@ -920,39 +1000,20 @@ rtc_static_library("rtc_base") {
     "http_common.cc",
     "http_common.h",
     "httpcommon.h",
-    "ip_address.cc",
-    "ip_address.h",
-    "ipaddress.h",
     "keep_ref_until_done.h",
     "key_derivation.cc",
     "key_derivation.h",
     "mdns_responder_interface.h",
     "message_digest.cc",
     "message_digest.h",
-    "message_handler.cc",
-    "message_handler.h",
-    "message_queue.cc",
-    "message_queue.h",
     "messagedigest.h",
-    "messagehandler.h",
-    "messagequeue.h",
     "net_helper.cc",
     "net_helper.h",
-    "net_helpers.cc",
-    "net_helpers.h",
     "nethelper.h",
-    "nethelpers.h",
     "network.cc",
     "network.h",
-    "network_constants.h",
-    "network_monitor.cc",
-    "network_monitor.h",
     "network_route.h",
-    "networkmonitor.h",
     "networkroute.h",
-    "null_socket_server.cc",
-    "null_socket_server.h",
-    "nullsocketserver.h",
     "openssl.h",
     "openssl_adapter.cc",
     "openssl_adapter.h",
@@ -977,9 +1038,6 @@ rtc_static_library("rtc_base") {
     "opensslsessioncache.h",
     "opensslstreamadapter.h",
     "opensslutility.h",
-    "physical_socket_server.cc",
-    "physical_socket_server.h",
-    "physicalsocketserver.h",
     "proxy_info.cc",
     "proxy_info.h",
     "proxyinfo.h",
@@ -989,26 +1047,14 @@ rtc_static_library("rtc_base") {
     "rtc_certificate_generator.h",
     "rtccertificate.h",
     "rtccertificategenerator.h",
-    "signal_thread.cc",
-    "signal_thread.h",
-    "signalthread.h",
     "sigslot_repeater.h",
     "sigslotrepeater.h",
-    "socket.cc",
-    "socket.h",
     "socket_adapters.cc",
     "socket_adapters.h",
-    "socket_address.cc",
-    "socket_address.h",
     "socket_address_pair.cc",
     "socket_address_pair.h",
-    "socket_factory.h",
-    "socket_server.h",
     "socketadapters.h",
-    "socketaddress.h",
     "socketaddresspair.h",
-    "socketfactory.h",
-    "socketserver.h",
     "ssl_adapter.cc",
     "ssl_adapter.h",
     "ssl_certificate.cc",
@@ -1026,8 +1072,6 @@ rtc_static_library("rtc_base") {
     "sslstreamadapter.h",
     "stream.cc",
     "stream.h",
-    "thread.cc",
-    "thread.h",
   ]
 
   if (build_with_chromium) {
@@ -1052,12 +1096,14 @@ rtc_static_library("rtc_base") {
         "win32_socket_init.h",
         "win32socketinit.h",
       ]
+      deps += [ ":win32" ]
       if (current_os != "winuwp") {
         sources += [
           "win32_socket_server.cc",
           "win32_socket_server.h",
           "win32socketserver.h",
         ]
+        deps += [ ":socket_server" ]
       }
     }
   }  # !build_with_chromium
@@ -1069,12 +1115,7 @@ rtc_static_library("rtc_base") {
   }
 
   if (is_android) {
-    sources += [
-      "ifaddrs-android.h",
-      "ifaddrs_android.cc",
-      "ifaddrs_android.h",
-    ]
-
+    deps += [ ":ifaddrs_android" ]
     libs += [
       "log",
       "GLESv2",
@@ -1083,7 +1124,6 @@ rtc_static_library("rtc_base") {
 
   if (is_ios || is_mac) {
     sources += [ "mac_ifaddrs_converter.cc" ]
-    deps += [ "system:cocoa_threading" ]
   }
 
   if (rtc_use_x11) {
@@ -1114,8 +1154,6 @@ rtc_static_library("rtc_base") {
 
   if (is_win) {
     sources += [
-      "win32.cc",
-      "win32.h",
       "win32_window.cc",
       "win32_window.h",
       "win32window.h",
@@ -1162,6 +1200,7 @@ rtc_source_set("gunit_helpers") {
     ":rtc_base",
     ":rtc_base_tests_utils",
     ":stringutils",
+    ":threading",
     "../test:test_support",
     "//third_party/abseil-cpp/absl/strings",
   ]
@@ -1180,6 +1219,7 @@ rtc_source_set("testclient") {
     ":macromagic",
     ":rtc_base",
     ":rtc_base_tests_utils",
+    ":threading",
     ":timeutils",
     "//third_party/abseil-cpp/absl/memory",
   ]
@@ -1241,8 +1281,15 @@ rtc_source_set("rtc_base_tests_utils") {
     "virtualsocketserver.h",
   ]
   deps = [
+    ":async_socket",
     ":checks",
+    ":ip_address",
     ":rtc_base",
+    ":socket",
+    ":socket_address",
+    ":socket_factory",
+    ":socket_server",
+    ":threading",
     "../api/units:time_delta",
     "third_party/sigslot",
     "//third_party/abseil-cpp/absl/memory",
@@ -1313,12 +1360,20 @@ if (rtc_include_tests) {
       "socket_unittest.h",
     ]
     deps = [
+      ":async_socket",
       ":checks",
       ":gunit_helpers",
+      ":ip_address",
+      ":net_helpers",
+      ":null_socket_server",
       ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":socket",
+      ":socket_address",
+      ":socket_server",
       ":testclient",
+      ":threading",
       "../system_wrappers:system_wrappers",
       "../test:fileutils",
       "../test:test_support",
@@ -1378,12 +1433,12 @@ if (rtc_include_tests) {
       "virtual_socket_unittest.cc",
       "zero_memory_unittest.cc",
     ]
-    if (is_win) {
-      sources += [ "win/windows_version_unittest.cc" ]
-    }
     deps = [
+      ":async_socket",
       ":checks",
       ":gunit_helpers",
+      ":ip_address",
+      ":null_socket_server",
       ":rate_limiter",
       ":rtc_base",
       ":rtc_base_approved",
@@ -1393,8 +1448,12 @@ if (rtc_include_tests) {
       ":safe_compare",
       ":safe_minmax",
       ":sanitizer",
+      ":socket",
+      ":socket_address",
+      ":socket_server",
       ":stringutils",
       ":testclient",
+      ":threading",
       "../api:array_view",
       "../api/units:time_delta",
       "../system_wrappers:system_wrappers",
@@ -1405,6 +1464,10 @@ if (rtc_include_tests) {
       "third_party/sigslot:sigslot",
       "//third_party/abseil-cpp/absl/memory",
     ]
+    if (is_win) {
+      sources += [ "win/windows_version_unittest.cc" ]
+      deps += [ ":win32" ]
+    }
   }
 
   rtc_source_set("rtc_task_queue_unittests") {
@@ -1538,12 +1601,20 @@ if (rtc_include_tests) {
       ]
     }
     deps = [
+      ":async_socket",
       ":checks",
       ":gunit_helpers",
+      ":ip_address",
+      ":net_helpers",
+      ":null_socket_server",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
+      ":socket_address",
+      ":socket_factory",
+      ":socket_server",
       ":stringutils",
       ":testclient",
+      ":threading",
       "../api:array_view",
       "../test:fileutils",
       "../test:test_support",
@@ -1554,6 +1625,13 @@ if (rtc_include_tests) {
     public_deps = [
       ":rtc_base",
     ]
+    if (is_win) {
+      sources += [
+        "win32_unittest.cc",
+        "win32window_unittest.cc",
+      ]
+      deps += [ ":win32" ]
+    }
     if (build_with_chromium) {
       include_dirs = [ "../../boringssl/src/include" ]
     }

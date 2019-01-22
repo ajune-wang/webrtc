@@ -387,6 +387,8 @@ if (rtc_include_tests) {
       "../common_video:common_video",
       "../rtc_base",
       "../rtc_base:checks",
+      "../rtc_base:null_socket_server",
+      "../rtc_base:threading",
       "../test:fileutils",
       "../test:test_main",
       "../test:test_support",

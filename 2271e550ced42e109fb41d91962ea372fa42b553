@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d885e677_48e04516",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-22T10:39:49Z",
+      "side": 1,
+      "message": "In theory we can also do [4:] and skip the depfile generation (-MMD -MF obj/foo/bar.o.d) but maybe that is too magic (even if ninja will always add -MMD -MF so it should always be in the compdb).",
+      "range": {
+        "startLine": 615,
+        "startChar": 51,
+        "endLine": 615,
+        "endChar": 53
+      },
+      "revId": "2271e550ced42e109fb41d91962ea372fa42b553",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bee616b_20153631",
+        "filename": "tools_webrtc/presubmit_checks_lib/build_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-22T10:39:49Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we also pass --mode (clang vs cl)?\n\nhttps://cs.chromium.org/chromium/src/build/toolchain/clang_static_analyzer_wrapper.py?l\u003d50-53\u0026rcl\u003d7d3437a87caa2a437ab665579234ce4a6d2d2088",
+      "range": {
+        "startLine": 86,
+        "startChar": 14,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "2271e550ced42e109fb41d91962ea372fa42b553",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

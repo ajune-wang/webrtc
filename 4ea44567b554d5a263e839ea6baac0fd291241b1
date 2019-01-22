@@ -250,6 +250,30 @@
     },
     {
       "key": {
+        "uuid": "d0179b5e_76e13a74",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T01:15:49Z",
+      "side": 1,
+      "message": "I was hoping you were avoiding it because it\u0027s bad design, not just to get me to stop complaining. :-)\n\n`const` annotations are a powerful tool because they provide compiler-verified guarantees that something will not change, which makes that part of the code much easier to think about. const_cast breaks this by asking the compiler to look the other way while you mutate something that your own const annotations proclaim to be immutable. It\u0027s pretty much always better to refactor your code to eliminate the need for the const_cast (and it\u0027s almost always feasible to do this).",
+      "parentUuid": "434b671e_dbaba6ad",
+      "range": {
+        "startLine": 265,
+        "startChar": 4,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "4ea44567b554d5a263e839ea6baac0fd291241b1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b689dd8c_db54c4ab",
         "filename": "modules/video_coding/encoded_frame.cc",
         "patchSetId": 4

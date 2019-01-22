@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2867e4c_c4d6b699",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T00:17:34Z",
+      "side": 1,
+      "message": "grammar",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "70b8ed58071102b4ed6118233909e59b87fb11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cedeb675_e759cb94",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T00:17:34Z",
+      "side": 1,
+      "message": "Please also document the arguments; at least for me, their meaning is not obvious just from their names.",
+      "revId": "70b8ed58071102b4ed6118233909e59b87fb11fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

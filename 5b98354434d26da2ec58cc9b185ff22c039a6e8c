@@ -116,6 +116,24 @@
       "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72121510_40322b09",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-22T00:17:34Z",
+      "side": 1,
+      "message": "But that can be changed. In fact, now that I look closer, can\u0027t *all* member variables be const? The fact that all the methods are const gave it away...\n\nI hope this isn\u0027t coming across as just busywork. When reading code, const annotations are very valuable, because they\u0027re a compiler-verified assertion that the variable in question will behave in a much simpler way than might otherwise be the case. Therefore it\u0027s worth some effort to be able to apply them where possible.",
+      "parentUuid": "9d35d2c3_d47e2d6c",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

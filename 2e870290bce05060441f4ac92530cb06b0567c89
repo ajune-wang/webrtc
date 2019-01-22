@@ -142,6 +142,30 @@
       "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7e90037_0f4df39e",
+        "filename": "api/rtc_event_log/rtc_event_log.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-01-22T10:15:11Z",
+      "side": 1,
+      "message": "Moving the event log isn\u0027t really part of what I\u0027m working on, so I can\u0027t spend too much time on this right now.\n\nHow are you with going back to a single massive CL instead of trying to split it up into parts? The approach we previously discussed was 1) moving the event log API to api/ and insert forwarding header 2) update all WebRTC includes the use api/ instead of the forwarding header 3) splitting the _impl target into a factory that\u0027s moved to api and deprecating the Create method",
+      "parentUuid": "363b1470_8282c20d",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "2e870290bce05060441f4ac92530cb06b0567c89",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

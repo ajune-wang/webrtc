@@ -199,7 +199,7 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
     }
   }
 
-  const int kMinRequiredSamples = 200;
+  const int kMinRequiredSamples = 50;
   int samples = static_cast<int>(render_fps_tracker_.TotalSampleCount());
   if (samples >= kMinRequiredSamples) {
     RTC_HISTOGRAM_COUNTS_100("WebRTC.Video.RenderFramesPerSecond",

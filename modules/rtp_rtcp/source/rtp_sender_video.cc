@@ -156,7 +156,6 @@ RTPSenderVideo::RTPSenderVideo(Clock* clock,
                                bool require_frame_encryption)
     : rtp_sender_(rtp_sender),
       clock_(clock),
-      video_type_(kVideoCodecGeneric),
       retransmission_settings_(kRetransmitBaseLayer |
                                kConditionallyRetransmitHigherLayers),
       last_rotation_(kVideoRotation_0),
@@ -176,12 +175,27 @@ RTPSenderVideo::RTPSenderVideo(Clock* clock,
 
 RTPSenderVideo::~RTPSenderVideo() {}
 
-void RTPSenderVideo::SetVideoCodecType(enum VideoCodecType video_type) {
-  video_type_ = video_type;
-}
+void RTPSenderVideo::RegisterPayloadType(int8_t payload_type,
+                                         absl::string_view payload_name) {
+  VideoCodecType video_type;
 
-VideoCodecType RTPSenderVideo::VideoCodecType() const {
-  return video_type_;
+  if (absl::EqualsIgnoreCase(payload_name, "VP8")) {
+    video_type = kVideoCodecVP8;
+  } else if (absl::EqualsIgnoreCase(payload_name, "VP9")) {
+    video_type = kVideoCodecVP9;
+  } else if (absl::EqualsIgnoreCase(payload_name, "H264")) {
+    video_type = kVideoCodecH264;
+  } else if (absl::EqualsIgnoreCase(payload_name, "I420")) {
+    video_type = kVideoCodecGeneric;
+  } else if (absl::EqualsIgnoreCase(payload_name, "stereo")) {
+    video_type = kVideoCodecGeneric;
+  } else {
+    video_type = kVideoCodecGeneric;
+  }
+  {
+    rtc::CritScope cs(&crit_);
+    payload_type_map_[payload_type] = video_type;
+  }
 }
 
 // Static.
@@ -376,8 +390,7 @@ absl::optional<uint32_t> RTPSenderVideo::FlexfecSsrc() const {
   return absl::nullopt;
 }
 
-bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
-                               FrameType frame_type,
+bool RTPSenderVideo::SendVideo(FrameType frame_type,
                                int8_t payload_type,
                                uint32_t rtp_timestamp,
                                int64_t capture_time_ms,
@@ -536,6 +549,14 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
         << "one is required since require_frame_encryptor is set";
   }
 
+  VideoCodecType video_type;
+  {
+    rtc::CritScope cs(&crit_);
+    const auto it = payload_type_map_.find(payload_type);
+    video_type = (it != payload_type_map_.end())
+                     ? it->second
+                     : VideoCodecType::kVideoCodecGeneric;
+  }
   std::unique_ptr<RtpPacketizer> packetizer = RtpPacketizer::Create(
       video_type, rtc::MakeArrayView(payload_data, payload_size), limits,
       *packetize_video_header, frame_type, fragmentation);

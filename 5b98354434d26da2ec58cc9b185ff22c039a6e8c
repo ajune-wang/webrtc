@@ -170,6 +170,24 @@
       "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3158fe76_ddef5360",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-23T10:32:09Z",
+      "side": 1,
+      "message": "You can transform code like this\n\n  MyClass(int x) {\n    Foo(x, \u0026member_);\n  }\n\nto this\n\n  Bar CallFoo(int x) {\n    Bar b;\n    Foo(x, \u0026b);\n    return b;\n  }\n  MyClass(int x) : member_(CallFoo(x)) {}\n\nprovided only that Bar (the type of member_) is move constructible. (You can of course use a lambda instead of a named function---whichever is more readable.)\n\nIf I\u0027m reading the code right, FieldTrialFlag isn\u0027t currently movable, but only because it doesn\u0027t declare itself to be.\n\nIf you still think this is a bad idea I won\u0027t try to force you, but constness is an important tool for C++ code readability, and it\u0027s unfortunate if we design our code so that we can\u0027t or won\u0027t use it. For example, if you don\u0027t want to do this on the grounds that it makes the code verbose and convoluted, we should maybe consider if there shouldn\u0027t exist a function that does the same job as ParseFieldTrial, but returns a result instead of taking an output argument.",
+      "parentUuid": "8af54b38_b46a0318",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

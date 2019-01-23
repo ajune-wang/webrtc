@@ -163,6 +163,30 @@
     },
     {
       "key": {
+        "uuid": "cdd081b2_e463e9f8",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T10:59:59Z",
+      "side": 1,
+      "message": "I\u0027d like to avoid having to add explicit constructors as it\u0027s easy to make mistakes in the implementation and can make it harder to follow the code. (See for example PacketFeedback and it\u0027s usage).\n\nAn option would be to provide them as parallel arguments to avoid the deep nesting? I just want to avoid too much duplication of fields in different structs, as it makes it harder to follow where some value is set and used.",
+      "parentUuid": "63f59148_c5eef16e",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "978e347f_f1be0e8a",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 2

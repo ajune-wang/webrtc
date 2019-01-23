@@ -30,6 +30,14 @@ const char* kCongestionWindowPushbackFieldTrialName =
     "WebRTC-CongestionWindowPushback";
 const int kDefaultMinPushbackTargetBitrateBps = 30000;
 
+const char* kVideoHysteresisFieldTrialname =
+    "WebRTC-SimulcastUpswitchHysteresisPercent";
+const double kDefaultVideoHysteresisFactor = 1.0;
+const char* kScreenshareHysteresisFieldTrialname =
+    "WebRTC-SimulcastScreenshareUpswitchHysteresisPercent";
+// Default to 35% hysteresis for simulcast screenshare.
+const double kDefaultScreenshareHysteresisFactor = 1.35;
+
 absl::optional<int> MaybeReadCwndExperimentParameter(
     const WebRtcKeyValueConfig* const key_value_config) {
   int64_t accepted_queue_ms;
@@ -64,6 +72,18 @@ absl::optional<int> MaybeReadCongestionWindowPushbackExperimentParameter(
   return absl::nullopt;
 }
 
+double ParseHysteresisFactor(const WebRtcKeyValueConfig* const key_value_config,
+                             absl::string_view key,
+                             double default_value) {
+  std::string group_name = key_value_config->Lookup(key);
+  int percent = 0;
+  if (!group_name.empty() && sscanf(group_name.c_str(), "%d", &percent) == 1 &&
+      percent >= 0) {
+    return 1.0 + (percent / 100.0);
+  }
+  return default_value;
+}
+
 }  // namespace
 
 RateControlSettings::RateControlSettings(
@@ -75,10 +95,20 @@ RateControlSettings::RateControlSettings(
           MaybeReadCongestionWindowPushbackExperimentParameter(
               key_value_config)),
       pacing_factor_("pacing_factor"),
-      alr_probing_("alr_probing", false) {
-  ParseFieldTrial({&congestion_window_, &congestion_window_pushback_,
-                   &pacing_factor_, &alr_probing_},
-                  key_value_config->Lookup("WebRTC-VideoRateControl"));
+      alr_probing_("alr_probing", false),
+      video_hysteresis_("video_hysteresis",
+                        ParseHysteresisFactor(key_value_config,
+                                              kVideoHysteresisFieldTrialname,
+                                              kDefaultVideoHysteresisFactor)),
+      screenshare_hysteresis_(
+          "screenshare_hysteresis",
+          ParseHysteresisFactor(key_value_config,
+                                kScreenshareHysteresisFieldTrialname,
+                                kDefaultScreenshareHysteresisFactor)) {
+  ParseFieldTrial(
+      {&congestion_window_, &congestion_window_pushback_, &pacing_factor_,
+       &alr_probing_, &video_hysteresis_, &screenshare_hysteresis_},
+      key_value_config->Lookup("WebRTC-VideoRateControl"));
 }
 
 RateControlSettings::~RateControlSettings() = default;
@@ -120,6 +150,14 @@ absl::optional<double> RateControlSettings::GetPacingFactor() const {
 
 bool RateControlSettings::UseAlrProbing() const {
   return alr_probing_.Get();
+}
+
+double RateControlSettings::GetSimulcastVideoHysteresisFactor() const {
+  return video_hysteresis_.Get();
+}
+
+double RateControlSettings::GetSimulcastScreenshareHysteresisFactor() const {
+  return screenshare_hysteresis_.Get();
 }
 
 }  // namespace webrtc

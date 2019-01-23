@@ -402,6 +402,7 @@ void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   // function itself, another in GetChannel() and a third in
   // GetPlayoutTimestamp.  Seems excessive.  Anyhow, I'm assuming the function
   // succeeds most of the time, which leads to grabbing a fourth lock.
+  fprintf(stderr, "Received new frame in VideoReceiveStream::OnFrame()\n");
   if (rtp_stream_sync_.GetStreamSyncOffsetInMs(
           video_frame.timestamp(), video_frame.render_time_ms(),
           &sync_offset_ms, &estimated_freq_khz)) {

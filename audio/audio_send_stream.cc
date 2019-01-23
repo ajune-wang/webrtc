@@ -88,6 +88,17 @@ void UpdateEventLogStreamConfig(RtcEventLog* event_log,
       std::move(rtclog_config)));
 }
 
+bool MaxBitrateIsVariable(
+    const absl::optional<AudioSendStream::Config::SendCodecSpec>&
+        send_codec_spec) {
+  if (send_codec_spec) {
+    auto it = send_codec_spec->format.parameters.find("usedtx");
+    if (it != send_codec_spec->format.parameters.end() && it->second == "1") {
+      return true;
+    }
+  }
+  return false;
+}
 }  // namespace
 
 AudioSendStream::AudioSendStream(
@@ -754,9 +765,13 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
     // This either updates the current observer or adds a new observer.
     bitrate_allocator_->AddObserver(
         this,
-        MediaStreamAllocationConfig{static_cast<uint32_t>(min_bitrate_bps),
-                                    static_cast<uint32_t>(max_bitrate_bps), 0,
-                                    true, config_.track_id, bitrate_priority});
+        MediaStreamAllocationConfig{
+            {static_cast<uint32_t>(min_bitrate_bps),
+             static_cast<uint32_t>(max_bitrate_bps), true, config_.track_id},
+            0,
+            bitrate_priority,
+            MediaStreamAllocationConfig::MediaType::kAudio,
+            MaxBitrateIsVariable(config_.send_codec_spec)});
     thread_sync_event.Set();
   });
   thread_sync_event.Wait(rtc::Event::kForever);

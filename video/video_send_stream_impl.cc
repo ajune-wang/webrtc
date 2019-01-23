@@ -204,6 +204,8 @@ VideoSendStreamImpl::VideoSendStreamImpl(
       pacing_config_(PacingConfig()),
       stats_proxy_(stats_proxy),
       config_(config),
+      variable_max_bitrate_(content_type ==
+                            VideoEncoderConfig::ContentType::kScreen),
       worker_queue_(worker_queue),
       timed_out_(false),
       call_stats_(call_stats),
@@ -370,12 +372,14 @@ void VideoSendStreamImpl::Start() {
 void VideoSendStreamImpl::StartupVideoSendStream() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   bitrate_allocator_->AddObserver(
-      this,
-      MediaStreamAllocationConfig{
-          static_cast<uint32_t>(encoder_min_bitrate_bps_),
-          encoder_max_bitrate_bps_, static_cast<uint32_t>(max_padding_bitrate_),
-          !config_->suspend_below_min_bitrate, config_->track_id,
-          encoder_bitrate_priority_});
+      this, MediaStreamAllocationConfig{
+                {static_cast<uint32_t>(encoder_min_bitrate_bps_),
+                 encoder_max_bitrate_bps_, !config_->suspend_below_min_bitrate,
+                 config_->track_id},
+                static_cast<uint32_t>(max_padding_bitrate_),
+                encoder_bitrate_priority_,
+                MediaStreamAllocationConfig::MediaType::kVideo,
+                variable_max_bitrate_});
   // Start monitoring encoder activity.
   {
     RTC_DCHECK(!check_encoder_activity_task_.Running());
@@ -483,12 +487,14 @@ void VideoSendStreamImpl::SignalEncoderActive() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "SignalEncoderActive, Encoder is active.";
   bitrate_allocator_->AddObserver(
-      this,
-      MediaStreamAllocationConfig{
-          static_cast<uint32_t>(encoder_min_bitrate_bps_),
-          encoder_max_bitrate_bps_, static_cast<uint32_t>(max_padding_bitrate_),
-          !config_->suspend_below_min_bitrate, config_->track_id,
-          encoder_bitrate_priority_});
+      this, MediaStreamAllocationConfig{
+                {static_cast<uint32_t>(encoder_min_bitrate_bps_),
+                 encoder_max_bitrate_bps_, !config_->suspend_below_min_bitrate,
+                 config_->track_id},
+                static_cast<uint32_t>(max_padding_bitrate_),
+                encoder_bitrate_priority_,
+                MediaStreamAllocationConfig::MediaType::kVideo,
+                variable_max_bitrate_});
 }
 
 void VideoSendStreamImpl::OnEncoderConfigurationChanged(
@@ -553,11 +559,13 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
     // limits.
     bitrate_allocator_->AddObserver(
         this, MediaStreamAllocationConfig{
-                  static_cast<uint32_t>(encoder_min_bitrate_bps_),
-                  encoder_max_bitrate_bps_,
+                  {static_cast<uint32_t>(encoder_min_bitrate_bps_),
+                   encoder_max_bitrate_bps_,
+                   !config_->suspend_below_min_bitrate, config_->track_id},
                   static_cast<uint32_t>(max_padding_bitrate_),
-                  !config_->suspend_below_min_bitrate, config_->track_id,
-                  encoder_bitrate_priority_});
+                  encoder_bitrate_priority_,
+                  MediaStreamAllocationConfig::MediaType::kVideo,
+                  variable_max_bitrate_});
   }
 }
 

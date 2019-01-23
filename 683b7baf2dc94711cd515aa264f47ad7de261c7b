@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7069121a_326a8722",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "It\u0027s also kbits/sec accroding to this:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_codec.h?q\u003dVideoCodec+file:webrtc\u0026g\u003d0\u0026l\u003d119",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f82761e_2509fad0",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 40,
+        "startChar": 36,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2675a04b_a2eb1be6",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "update",
+      "range": {
+        "startLine": 79,
+        "startChar": 10,
+        "endLine": 79,
+        "endChar": 17
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "878e3d0d_afff5e47",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "no",
+      "range": {
+        "startLine": 88,
+        "startChar": 41,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca8c3aab_1c897095",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "be unused spatial layer",
+      "range": {
+        "startLine": 88,
+        "startChar": 70,
+        "endLine": 89,
+        "endChar": 14
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64f71bec_34628793",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "support",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68386c05_cf3a4436",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "If for some reason there\u0027s no utilization factor for some TLs, the weighted sum will be skewed. Please calculate sum of used weights to divide by it at the end.",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 128,
+        "endChar": 72
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc01c08e_cd9bebaf",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "Where does 3000 come from? As a count you put in bits. You get back rate in bps. So scale should be 1000, if I understand correctly.",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 20,
+        "endChar": 42
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35148753_c5e3315d",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "Maybe add some comments, it\u0027s really hard to understand the formulas here and why you assign as overshoot only buffer_level_bits.",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "399caa2c_3f6da799",
+        "filename": "common_video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "Empty test? Please either implement some tests now, or add this file in the later CL.",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c5411c0_3fe5a043",
+        "filename": "video/end_to_end_tests/bandwidth_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "Maybe add a new test with field trials enabled and less strict expectations?",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 269,
+        "endChar": 34
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0d38833_b53ecb2f",
+        "filename": "video/end_to_end_tests/probing_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "Why is this test completely disabled?",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 71
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1afd4b36_9cbfc413",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 2771,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-23T11:57:40Z",
+      "side": 1,
+      "message": "It would be nice to have a similar test for enabled field trials.",
+      "range": {
+        "startLine": 2771,
+        "startChar": 35,
+        "endLine": 2771,
+        "endChar": 71
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

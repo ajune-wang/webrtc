@@ -16,8 +16,10 @@
 
 #include "api/video_codecs/video_encoder.h"
 #include "call/rtp_config.h"
+#include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/video_coding/include/video_codec_interface.h"
 
 namespace webrtc {
 
@@ -43,18 +45,20 @@ class RtpPayloadParams final {
  private:
   void SetCodecSpecific(RTPVideoHeader* rtp_video_header,
                         bool first_frame_in_picture);
-  void SetGeneric(int64_t frame_id,
+  void SetGeneric(const CodecSpecificInfo* codec_specific_info,
+                  int64_t frame_id,
                   bool is_keyframe,
                   RTPVideoHeader* rtp_video_header);
 
-  void Vp8ToGeneric(int64_t shared_frame_id,
+  void Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
+                    int64_t shared_frame_id,
                     bool is_keyframe,
                     RTPVideoHeader* rtp_video_header);
 
-  // Holds the last shared frame id for a given (spatial, temporal) layer.
-  std::array<std::array<int64_t, RtpGenericFrameDescriptor::kMaxTemporalLayers>,
-             RtpGenericFrameDescriptor::kMaxSpatialLayers>
-      last_shared_frame_id_;
+  static constexpr size_t kVp8BufferCount =
+      CodecSpecificInfoVP8::Buffer::kCount;
+  std::array<int64_t, kVp8BufferCount> vp8_shared_frame_id_by_buffer_;
+
   const uint32_t ssrc_;
   RtpPayloadState state_;
 

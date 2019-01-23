@@ -58,6 +58,7 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
                             bool set_color_space,
                             bool first_packet,
                             bool last_packet,
+                            bool use_discardability_flag,
                             RtpPacketToSend* packet) {
   // Color space requires two-byte header extensions if HDR metadata is
   // included. Therefore, it's best to add this extension first so that the
@@ -79,9 +80,14 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
     packet->SetExtension<VideoTimingExtension>(video_header.video_timing);
 
   if (video_header.generic) {
-    RtpGenericFrameDescriptor generic_descriptor;
+    RtpGenericFrameDescriptor generic_descriptor(use_discardability_flag);
+
     generic_descriptor.SetFirstPacketInSubFrame(first_packet);
     generic_descriptor.SetLastPacketInSubFrame(last_packet);
+
+    if (use_discardability_flag) {
+      generic_descriptor.SetDiscardable(video_header.generic->discardable);
+    }
 
     if (first_packet) {
       generic_descriptor.SetFrameId(
@@ -107,7 +113,7 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
       }
     }
     packet->SetExtension<RtpGenericFrameDescriptorExtension>(
-        generic_descriptor);
+        use_discardability_flag, generic_descriptor);
   }
 }
 
@@ -172,7 +178,9 @@ RTPSenderVideo::RTPSenderVideo(Clock* clock,
       frame_encryptor_(frame_encryptor),
       require_frame_encryption_(require_frame_encryption),
       generic_descriptor_auth_experiment_(
-          field_trial::IsEnabled("WebRTC-GenericDescriptorAuth")) {}
+          field_trial::IsEnabled("WebRTC-GenericDescriptorAuth")),
+      use_discardability_flag_(
+          field_trial::IsEnabled("WebRTC-DiscardabilityFlag")) {}
 
 RTPSenderVideo::~RTPSenderVideo() {}
 
@@ -460,16 +468,16 @@ bool RTPSenderVideo::SendVideo(enum VideoCodecType video_type,
   // Simplest way to estimate how much extensions would occupy is to set them.
   AddRtpHeaderExtensions(*video_header, frame_type, set_video_rotation,
                          set_color_space, /*first=*/true, /*last=*/true,
-                         single_packet.get());
+                         use_discardability_flag_, single_packet.get());
   AddRtpHeaderExtensions(*video_header, frame_type, set_video_rotation,
                          set_color_space, /*first=*/true, /*last=*/false,
-                         first_packet.get());
+                         use_discardability_flag_, first_packet.get());
   AddRtpHeaderExtensions(*video_header, frame_type, set_video_rotation,
                          set_color_space, /*first=*/false, /*last=*/false,
-                         middle_packet.get());
+                         use_discardability_flag_, middle_packet.get());
   AddRtpHeaderExtensions(*video_header, frame_type, set_video_rotation,
                          set_color_space, /*first=*/false, /*last=*/true,
-                         last_packet.get());
+                         use_discardability_flag_, last_packet.get());
 
   RTC_DCHECK_GT(packet_capacity, single_packet->headers_size());
   RTC_DCHECK_GT(packet_capacity, first_packet->headers_size());

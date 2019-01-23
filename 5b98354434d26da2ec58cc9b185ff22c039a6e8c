@@ -152,6 +152,24 @@
       "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8af54b38_b46a0318",
+        "filename": "rtc_base/experiments/audio_allocation_settings.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T07:56:29Z",
+      "side": 1,
+      "message": "They can\u0027t be made const either, as they are read using the parser.\n\nI don\u0027t think it\u0027s a big issue ass all public members are const it\u0027s quite clear that the state isn\u0027t expected to change. However, I made all usages of the class const to clarify.",
+      "parentUuid": "6a7b4e13_427363b3",
+      "revId": "5b98354434d26da2ec58cc9b185ff22c039a6e8c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

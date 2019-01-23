@@ -44,7 +44,7 @@ std::vector<VideoStream> CreateVideoStreams(
     stream_settings[i].height =
         (i + 1) * height / encoder_config.number_of_streams;
     stream_settings[i].max_framerate = 30;
-    stream_settings[i].min_bitrate_bps =
+    stream_settings[i].min_bitrate_bps =  // Triggers an analyzer warning.
         DefaultVideoStreamFactory::kDefaultMinBitratePerStream[i];
 
     int target_bitrate_bps = -1;

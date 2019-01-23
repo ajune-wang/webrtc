@@ -29,6 +29,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/default_socket_server.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/null_socket_server.h"
 #include "rtc_base/time_utils.h"
@@ -81,7 +82,7 @@ Thread* Thread::Current() {
 #ifndef NO_MAIN_THREAD_WRAPPING
   // Only autowrap the thread which instantiated the ThreadManager.
   if (!thread && manager->IsMainThread()) {
-    thread = new Thread(SocketServer::CreateDefault());
+    thread = new Thread(CreateDefaultSocketServer());
     thread->WrapCurrentWithThreadManager(manager, true);
   }
 #endif
@@ -128,7 +129,7 @@ void ThreadManager::SetCurrentThread(Thread* thread) {
 Thread* ThreadManager::WrapCurrentThread() {
   Thread* result = CurrentThread();
   if (nullptr == result) {
-    result = new Thread(SocketServer::CreateDefault());
+    result = new Thread(CreateDefaultSocketServer());
     result->WrapCurrentWithThreadManager(this, true);
   }
   return result;
@@ -156,7 +157,7 @@ Thread::ScopedDisallowBlockingCalls::~ScopedDisallowBlockingCalls() {
 }
 
 // DEPRECATED.
-Thread::Thread() : Thread(SocketServer::CreateDefault()) {}
+Thread::Thread() : Thread(CreateDefaultSocketServer()) {}
 
 Thread::Thread(SocketServer* ss) : Thread(ss, /*do_init=*/true) {}
 
@@ -189,7 +190,7 @@ bool Thread::IsCurrent() const {
 }
 
 std::unique_ptr<Thread> Thread::CreateWithSocketServer() {
-  return std::unique_ptr<Thread>(new Thread(SocketServer::CreateDefault()));
+  return std::unique_ptr<Thread>(new Thread(CreateDefaultSocketServer()));
 }
 
 std::unique_ptr<Thread> Thread::Create() {
@@ -576,7 +577,7 @@ bool Thread::IsRunning() {
 }
 
 AutoThread::AutoThread()
-    : Thread(SocketServer::CreateDefault(), /*do_init=*/false) {
+    : Thread(CreateDefaultSocketServer(), /*do_init=*/false) {
   DoInit();
   if (!ThreadManager::Instance()->CurrentThread()) {
     ThreadManager::Instance()->SetCurrentThread(this);

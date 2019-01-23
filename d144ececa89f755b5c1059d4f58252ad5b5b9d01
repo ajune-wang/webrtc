@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7b18feaf_4ebd72b5",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T20:11:17Z",
+      "side": 1,
+      "message": "I actually think it would make sense to use StreamsConfig, while it contains requests_alr_probing and pacing_factor, both of those would ideally be computed by BitrateAllocator as BitrateAllocator currently is the component that keeps track of the current streams configuration. So my suggestion would be to use that in BitrateAllocator::LimitObserver::OnAllocationLimitsChanged and RtpTransportControllerSend::SetAllocatedSendBitrateLimits.\n\nWe would have to do some special treatment of requests_alr_probing and pacing_factor in RtpTransportControllerSend, but just add a TODO to move that configuration to BitrateAllocator and it will be fine.\n\nThis design would make sense to me, since neither requests_alr_probing nor pacing_factor are RTP specific and they should be moved away from RtpTRansportControllerSend either way. This would also prepare for having those values consistently signaled to all MediaTransportcontrollers (including RtpTransportControllerSend when it has been moved to the new interface.)",
+      "parentUuid": "9dcff361_45fde406",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4037ce9b_7d673e00",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3

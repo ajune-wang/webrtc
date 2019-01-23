@@ -133,7 +133,9 @@ TimeDelta LoggingNetworkControllerFactory::GetProcessInterval() const {
 CallClient::CallClient(
     Clock* clock,
     std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
-    CallClientConfig config)
+    CallClientConfig config,
+    std::vector<EndpointNode*> endpoints,
+    rtc::Thread* network_thread)
     : clock_(clock),
       log_writer_factory_(std::move(log_writer_factory)),
       network_controller_factory_(log_writer_factory_.get(), config.transport),
@@ -141,11 +143,45 @@ CallClient::CallClient(
       call_(CreateCall(config,
                        &network_controller_factory_,
                        fake_audio_setup_.audio_state)),
-      transport_(clock_, call_.get()),
-      header_parser_(RtpHeaderParser::Create()) {}
+      endpoints_(endpoints),
+      network_thread_(network_thread),
+      transport_(clock_,
+                 call_.get(),
+                 network_thread_->socketserver(),
+                 [this](rtc::CopyOnWriteBuffer buffer, int64_t timestamp) {
+                   OnPacketReceived(buffer, timestamp);
+                 }),
+      header_parser_(RtpHeaderParser::Create()) {
+  RTC_CHECK(!endpoints_.empty());
+  current_endpoint_ = endpoints_[0];
+}
 
 CallClient::~CallClient() {
   delete header_parser_;
+}
+
+EndpointNode* CallClient::endpoint() const {
+  return current_endpoint_;
+}
+
+std::vector<EndpointNode*> CallClient::GetEndpoints() const {
+  return endpoints_;
+}
+
+void CallClient::SwitchToEndpoint(EndpointNode* endpoint) {
+  bool found = false;
+  for (auto* en : endpoints_) {
+    if (en == endpoint) {
+      found = true;
+      break;
+    }
+  }
+  RTC_CHECK(found);
+  current_endpoint_ = endpoint;
+}
+
+rtc::Thread* CallClient::thread() const {
+  return network_thread_;
 }
 
 ColumnPrinter CallClient::StatsPrinter() {
@@ -163,26 +199,25 @@ Call::Stats CallClient::GetStats() {
   return call_->GetStats();
 }
 
-void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
-  // Removes added overhead before delivering packet to sender.
-  RTC_DCHECK_GE(packet.data.size(),
-                route_overhead_.at(packet.dest_endpoint_id).bytes());
-  packet.data.SetSize(packet.data.size() -
-                      route_overhead_.at(packet.dest_endpoint_id).bytes());
+void CallClient::OnPacketReceived(rtc::CopyOnWriteBuffer buffer,
+                                  int64_t timestamp) {
+  RTC_DCHECK_GE(buffer.size(),
+                route_overhead_.at(current_endpoint_.load()->GetId()).bytes());
+  buffer.SetSize(buffer.size() -
+                 route_overhead_.at(current_endpoint_.load()->GetId()).bytes());
 
   MediaType media_type = MediaType::ANY;
-  if (!RtpHeaderParser::IsRtcp(packet.cdata(), packet.data.size())) {
+  if (!RtpHeaderParser::IsRtcp(buffer.cdata(), buffer.size())) {
     RTPHeader header;
     bool success =
-        header_parser_->Parse(packet.cdata(), packet.data.size(), &header);
+        header_parser_->Parse(buffer.cdata(), buffer.size(), &header);
     if (!success) {
       RTC_DLOG(LS_ERROR) << "Failed to parse RTP header of packet";
       return;
     }
     media_type = ssrc_media_types_[header.ssrc];
   }
-  call_->Receiver()->DeliverPacket(media_type, packet.data,
-                                   packet.arrival_time.us());
+  call_->Receiver()->DeliverPacket(media_type, buffer, timestamp);
 }
 
 std::unique_ptr<RtcEventLogOutput> CallClient::GetLogWriter(std::string name) {

@@ -244,31 +244,36 @@ SendVideoStream::SendVideoStream(CallClient* sender,
 
   VideoEncoderConfig encoder_config = CreateVideoEncoderConfig(config);
 
-  send_stream_ = sender_->call_->CreateVideoSendStream(
-      std::move(send_config), std::move(encoder_config));
-  std::vector<std::function<void(const VideoFrameQualityInfo&)> >
-      frame_info_handlers;
-  if (config.analyzer.frame_quality_handler)
-    frame_info_handlers.push_back(config.analyzer.frame_quality_handler);
-
-  if (analyzer->Active()) {
-    frame_tap_.reset(new ForwardingCapturedFrameTap(sender_->clock_, analyzer,
-                                                    video_capturer_.get()));
-    send_stream_->SetSource(frame_tap_.get(),
-                            config.encoder.degradation_preference);
-  } else {
-    send_stream_->SetSource(video_capturer_.get(),
-                            config.encoder.degradation_preference);
-  }
+  // Video stream should be set up on the same thread where call was created.
+  sender_->thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    send_stream_ = sender_->call_->CreateVideoSendStream(
+        std::move(send_config), std::move(encoder_config));
+    if (analyzer->Active()) {
+      frame_tap_.reset(new ForwardingCapturedFrameTap(sender_->clock_, analyzer,
+                                                      video_capturer_.get()));
+      send_stream_->SetSource(frame_tap_.get(),
+                              config.encoder.degradation_preference);
+    } else {
+      send_stream_->SetSource(video_capturer_.get(),
+                              config.encoder.degradation_preference);
+    }
+  });
 }
 
 SendVideoStream::~SendVideoStream() {
-  sender_->call_->DestroyVideoSendStream(send_stream_);
+  // Video stream should be destroyed on the same thread where call was
+  // created.
+  sender_->thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    sender_->call_->DestroyVideoSendStream(send_stream_);
+  });
 }
 
 void SendVideoStream::Start() {
-  send_stream_->Start();
-  sender_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  // Video stream should be started on the same thread where call was created.
+  sender_->thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    send_stream_->Start();
+    sender_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  });
 }
 
 void SendVideoStream::UpdateConfig(
@@ -382,19 +387,30 @@ ReceiveVideoStream::ReceiveVideoStream(CallClient* receiver,
     recv_config.rtp.rtx_associated_payload_types[CallTest::kRtxRedPayloadType] =
         CallTest::kRedPayloadType;
   }
+  // Video stream should be set up on the same thread where call was created.
   receive_stream_ =
-      receiver_->call_->CreateVideoReceiveStream(std::move(recv_config));
+      receiver_->thread()->Invoke<VideoReceiveStream*>(RTC_FROM_HERE, [&]() {
+        return receiver_->call_->CreateVideoReceiveStream(
+            std::move(recv_config));
+      });
 }
 
 ReceiveVideoStream::~ReceiveVideoStream() {
-  receiver_->call_->DestroyVideoReceiveStream(receive_stream_);
-  if (flecfec_stream_)
-    receiver_->call_->DestroyFlexfecReceiveStream(flecfec_stream_);
+  // Video stream should be destroyed on the same thread where call was
+  // created.
+  receiver_->thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    receiver_->call_->DestroyVideoReceiveStream(receive_stream_);
+    if (flecfec_stream_)
+      receiver_->call_->DestroyFlexfecReceiveStream(flecfec_stream_);
+  });
 }
 
 void ReceiveVideoStream::Start() {
-  receive_stream_->Start();
-  receiver_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  // Video stream should be started on the same thread where call was created.
+  receiver_->thread()->Invoke<void>(RTC_FROM_HERE, [&]() {
+    receive_stream_->Start();
+    receiver_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  });
 }
 
 VideoStreamPair::~VideoStreamPair() = default;

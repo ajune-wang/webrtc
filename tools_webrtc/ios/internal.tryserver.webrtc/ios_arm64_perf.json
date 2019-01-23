@@ -21,8 +21,8 @@
   "tests": [
     {
       "include": "perf_trybot_tests.json",
-      "device type": "iPhone 7",
-      "os": "11.0.3",
+      "device type": "iPhone X",
+      "os": "11.4.1",
       "max runtime seconds": 7200
     }
   ]

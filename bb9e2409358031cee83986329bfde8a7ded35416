@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "42239b80_6406788d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-23T14:17:19Z",
+      "side": 1,
+      "message": "Deleted this. Added payloadtype check in RTPSenderVideo. Should I do it for audio as well? Seems a bit useless to add a mapping there, only to be able to reject unregister payload types.\n\nRegarding last_payload_type_, that appears used in SendPadData.",
+      "parentUuid": "c89de12e_649aa097",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 3
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a1c2fc_adee2d0b",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 4
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "is it possible to register all payloads during construction?\n\nintroducing extra lock I guess works too, though not optimal.",
       "parentUuid": "26e9a24c_0ddf3b4d",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 80
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab9d2181_6d706537",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-23T14:17:19Z",
+      "side": 1,
+      "message": "I\u0027ll try with a separate lock for now. Agree it\u0027s desirable with a construction time const mapping, but that would require larger changes.",
+      "parentUuid": "d1443283_de015d54",
       "range": {
         "startLine": 133,
         "startChar": 0,

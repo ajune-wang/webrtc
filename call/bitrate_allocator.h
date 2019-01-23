@@ -52,12 +52,22 @@ class BitrateAllocatorObserver {
 // available bitrate and that the bitrate in OnBitrateUpdated will be zero if
 // the |observer| is currently not allowed to send data.
 struct MediaStreamAllocationConfig {
-  uint32_t min_bitrate_bps;
-  uint32_t max_bitrate_bps;
+  enum class MediaType {
+    kUnknown,
+    kAudio,
+    kVideo,
+  };
+  rtc::BitrateAllocationStrategy::TrackConfig track_config;
   uint32_t pad_up_bitrate_bps;
-  bool enforce_min_bitrate;
-  std::string track_id;
+  // The amount of bitrate allocated to this observer relative to all other
+  // observers. If an observer has twice the bitrate_priority of other
+  // observers, it should be allocated twice the bitrate above its min.
   double bitrate_priority;
+  MediaType media_type;
+  // Indicated that the max produced bitrate can vary, e.g. we might enter
+  // application/encoder limited regions. This is typically true for sceenshare
+  // and audio with DTX enabled.
+  bool variable_max_rate;
 };
 
 // Interface used for mocking
@@ -123,32 +133,18 @@ class BitrateAllocator : public BitrateAllocatorInterface {
           bitrate_allocation_strategy);
 
  private:
-  struct ObserverConfig : rtc::BitrateAllocationStrategy::TrackConfig {
+  struct ObserverConfig {
     ObserverConfig(BitrateAllocatorObserver* observer,
-                   uint32_t min_bitrate_bps,
-                   uint32_t max_bitrate_bps,
-                   uint32_t pad_up_bitrate_bps,
-                   bool enforce_min_bitrate,
-                   std::string track_id,
-                   double bitrate_priority)
-        : TrackConfig(min_bitrate_bps,
-                      max_bitrate_bps,
-                      enforce_min_bitrate,
-                      track_id),
-          observer(observer),
-          pad_up_bitrate_bps(pad_up_bitrate_bps),
+                   MediaStreamAllocationConfig config)
+        : observer(observer),
+          config(config),
           allocated_bitrate_bps(-1),
-          media_ratio(1.0),
-          bitrate_priority(bitrate_priority) {}
+          media_ratio(1.0) {}
 
     BitrateAllocatorObserver* observer;
-    uint32_t pad_up_bitrate_bps;
+    MediaStreamAllocationConfig config;
     int64_t allocated_bitrate_bps;
     double media_ratio;  // Part of the total bitrate used for media [0.0, 1.0].
-    // The amount of bitrate allocated to this observer relative to all other
-    // observers. If an observer has twice the bitrate_priority of other
-    // observers, it should be allocated twice the bitrate above its min.
-    double bitrate_priority;
 
     uint32_t LastAllocatedBitrate() const;
     // The minimum bitrate required by this observer, including

@@ -143,6 +143,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
 
   SendStatisticsProxy* const stats_proxy_;
   const VideoSendStream::Config* const config_;
+  const bool variable_max_bitrate_;
 
   rtc::TaskQueue* const worker_queue_;
 

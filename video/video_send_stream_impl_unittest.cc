@@ -160,11 +160,12 @@ TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
     EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
         .WillOnce(Invoke(
             [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
-              EXPECT_EQ(config.min_bitrate_bps, 0u);
-              EXPECT_EQ(config.max_bitrate_bps, kDefaultInitialBitrateBps);
+              EXPECT_EQ(config.track_config.min_bitrate_bps, 0u);
+              EXPECT_EQ(config.track_config.max_bitrate_bps,
+                        kDefaultInitialBitrateBps);
               EXPECT_EQ(config.pad_up_bitrate_bps, 0u);
-              EXPECT_EQ(config.enforce_min_bitrate, !kSuspend);
-              EXPECT_EQ(config.track_id, "test");
+              EXPECT_EQ(config.track_config.enforce_min_bitrate, !kSuspend);
+              EXPECT_EQ(config.track_config.track_id, "test");
               EXPECT_EQ(config.bitrate_priority, kDefaultBitratePriority);
             }));
     vss_impl->Start();
@@ -214,15 +215,15 @@ TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChange) {
     EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
         .WillOnce(Invoke(
             [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
-              EXPECT_EQ(config.min_bitrate_bps,
+              EXPECT_EQ(config.track_config.min_bitrate_bps,
                         static_cast<uint32_t>(min_transmit_bitrate_bps));
-              EXPECT_EQ(config.max_bitrate_bps,
+              EXPECT_EQ(config.track_config.max_bitrate_bps,
                         static_cast<uint32_t>(qvga_stream.max_bitrate_bps +
                                               vga_stream.max_bitrate_bps));
               EXPECT_EQ(config.pad_up_bitrate_bps,
                         static_cast<uint32_t>(qvga_stream.target_bitrate_bps +
                                               vga_stream.min_bitrate_bps));
-              EXPECT_EQ(config.enforce_min_bitrate, !kSuspend);
+              EXPECT_EQ(config.track_config.enforce_min_bitrate, !kSuspend);
             }));
 
     static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())
@@ -279,14 +280,14 @@ TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChangeWithAlr) {
     EXPECT_CALL(bitrate_allocator_, AddObserver(vss_impl.get(), _))
         .WillOnce(Invoke(
             [&](BitrateAllocatorObserver*, MediaStreamAllocationConfig config) {
-              EXPECT_EQ(config.min_bitrate_bps,
+              EXPECT_EQ(config.track_config.min_bitrate_bps,
                         static_cast<uint32_t>(low_stream.min_bitrate_bps));
-              EXPECT_EQ(config.max_bitrate_bps,
+              EXPECT_EQ(config.track_config.max_bitrate_bps,
                         static_cast<uint32_t>(low_stream.max_bitrate_bps +
                                               high_stream.max_bitrate_bps));
               EXPECT_EQ(config.pad_up_bitrate_bps,
                         static_cast<uint32_t>(min_transmit_bitrate_bps));
-              EXPECT_EQ(config.enforce_min_bitrate, !kSuspend);
+              EXPECT_EQ(config.track_config.enforce_min_bitrate, !kSuspend);
             }));
 
     static_cast<VideoStreamEncoderInterface::EncoderSink*>(vss_impl.get())

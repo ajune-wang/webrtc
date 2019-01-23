@@ -10,6 +10,7 @@
 
 #include "audio/remix_resample.h"
 
+#include "absl/memory/memory.h"
 #include "api/audio/audio_frame.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "common_audio/resampler/include/push_resampler.h"
@@ -37,7 +38,8 @@ void RemixAndResample(const int16_t* src_data,
                       AudioFrame* dst_frame) {
   const int16_t* audio_ptr = src_data;
   size_t audio_ptr_num_channels = num_channels;
-  int16_t downmixed_audio[AudioFrame::kMaxDataSizeSamples];
+  auto downmixed_audio =
+      absl::make_unique<std::array<int16_t, AudioFrame::kMaxDataSizeSamples>>();
 
   // Downmix before resampling.
   if (num_channels > dst_frame->num_channels_) {
@@ -48,8 +50,8 @@ void RemixAndResample(const int16_t* src_data,
 
     AudioFrameOperations::DownmixChannels(
         src_data, num_channels, samples_per_channel, dst_frame->num_channels_,
-        downmixed_audio);
-    audio_ptr = downmixed_audio;
+        downmixed_audio->data());
+    audio_ptr = downmixed_audio->data();
     audio_ptr_num_channels = dst_frame->num_channels_;
   }
 

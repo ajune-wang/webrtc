@@ -57,6 +57,7 @@ rtc_static_library("audio_coding") {
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
     "../../system_wrappers:metrics",
+    "//third_party/abseil-cpp/absl/memory:memory",
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]

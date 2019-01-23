@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68dc4624_5bb52f76",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T12:53:04Z",
+      "side": 1,
+      "message": "Suggestion.\nCode that calls RtpGenericFrameDesciptor should know if Discardability flag is used or not.\ninstead of introducing new flag, do something like\n\nclass RtpGenericFrameDescrptior {\n  bool beginning_of_frame_or_discardability_;\n};\n\nbool RtpGenericFrameDescrptior::Discardable() const {\n  RTC_DCHECK(use_discardable_);\n  return beginning_of_frame_or_discardability_;\n}\n\nRTC_DEPRECATED\nbool RtpGenericFrameDescrptior::FirstSubFrameInFrame() const {\n  RTC_DCHECK(!use_discardable_);\n  return beginning_of_frame_or_discardability_;\n}\n\n// just for RtpGenericFrameDescriptorExtension\nbool FirstSubFrameInFrameOrDiscardability() {\n  return beginning_of_frame_or_discardability_;\n}\n\n\nThen Parsing/Writing would be almost the same and do not need to care if use_discardable_ flag is set.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "382cecb1_23a711d3",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T12:53:04Z",
+      "side": 1,
+      "message": "it seems to me it would be more natural to remove 2nd constructor\n(when old clients stop reading/relying on subframe flags) and always use a bit for discardability flag",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 58
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a757ca_ce4067f3",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T12:53:04Z",
+      "side": 1,
+      "message": "why is it needed?",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 66
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

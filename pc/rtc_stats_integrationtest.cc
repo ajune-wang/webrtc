@@ -557,6 +557,18 @@ class RTCStatsReportVerifier {
             media_stream_track.frames_decoded);
         verifier.TestMemberIsNonNegative<uint32_t>(
             media_stream_track.frames_dropped);
+        verifier.TestMemberIsNonNegative<uint32_t>(
+            media_stream_track.freeze_count);
+        verifier.TestMemberIsNonNegative<uint32_t>(
+            media_stream_track.pause_count);
+        verifier.TestMemberIsNonNegative<double>(
+            media_stream_track.total_freezes_duration);
+        verifier.TestMemberIsNonNegative<double>(
+            media_stream_track.total_pauses_duration);
+        verifier.TestMemberIsNonNegative<double>(
+            media_stream_track.total_frames_duration);
+        verifier.TestMemberIsNonNegative<double>(
+            media_stream_track.sum_squared_frame_durations);
       } else {
         verifier.TestMemberIsNonNegative<uint32_t>(
             media_stream_track.frames_sent);
@@ -565,6 +577,16 @@ class RTCStatsReportVerifier {
         verifier.TestMemberIsUndefined(media_stream_track.frames_received);
         verifier.TestMemberIsUndefined(media_stream_track.frames_decoded);
         verifier.TestMemberIsUndefined(media_stream_track.frames_dropped);
+        verifier.TestMemberIsUndefined(media_stream_track.freeze_count);
+        verifier.TestMemberIsUndefined(media_stream_track.pause_count);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.total_freezes_duration);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.total_pauses_duration);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.total_frames_duration);
+        verifier.TestMemberIsUndefined(
+            media_stream_track.sum_squared_frame_durations);
       }
       verifier.TestMemberIsUndefined(media_stream_track.frames_corrupted);
       verifier.TestMemberIsUndefined(media_stream_track.partial_frames_lost);
@@ -590,6 +612,13 @@ class RTCStatsReportVerifier {
       verifier.TestMemberIsUndefined(media_stream_track.frames_corrupted);
       verifier.TestMemberIsUndefined(media_stream_track.partial_frames_lost);
       verifier.TestMemberIsUndefined(media_stream_track.full_frames_lost);
+      verifier.TestMemberIsUndefined(media_stream_track.freeze_count);
+      verifier.TestMemberIsUndefined(media_stream_track.pause_count);
+      verifier.TestMemberIsUndefined(media_stream_track.total_freezes_duration);
+      verifier.TestMemberIsUndefined(media_stream_track.total_pauses_duration);
+      verifier.TestMemberIsUndefined(media_stream_track.total_frames_duration);
+      verifier.TestMemberIsUndefined(
+          media_stream_track.sum_squared_frame_durations);
       // Audio-only members
       verifier.TestMemberIsNonNegative<double>(media_stream_track.audio_level);
       verifier.TestMemberIsNonNegative<double>(

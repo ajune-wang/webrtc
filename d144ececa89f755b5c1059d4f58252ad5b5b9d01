@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89cdef7a_f5e07856",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T18:30:54Z",
+      "side": 1,
+      "message": "Could we use the same struct to send from BitrateAllocator and from RtpTransportControllerSend? Maybe we can put it api/transport/network_types which has similar structs?",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4037ce9b_7d673e00",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T18:30:54Z",
+      "side": 1,
+      "message": "Not needed as we are in webrtc namespace.",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95aab394_4a67f660",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T18:30:54Z",
+      "side": 1,
+      "message": "Should be \u003d 0; since it\u0027s for an interface. If it\u0027s temporary, add a TODO to indicate that it will be made virtual when downstream changes has been landed.",
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c46fe20a_0a7e7b19",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T18:30:54Z",
+      "side": 1,
+      "message": "webrtc:: not needed.",
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

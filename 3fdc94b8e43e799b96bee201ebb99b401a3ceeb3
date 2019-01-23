@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bbccb2a_9573fc39",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "Can we avoid these three levels of nesting configs? It confuses me.",
+      "range": {
+        "startLine": 139,
+        "startChar": 10,
+        "endLine": 139,
+        "endChar": 36
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6163482e_6e64e9f5",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "++variable_audio;",
+      "range": {
+        "startLine": 229,
+        "startChar": 10,
+        "endLine": 229,
+        "endChar": 27
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dfc6cf6_67a4ffc4",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 231,
+        "startChar": 10,
+        "endLine": 231,
+        "endChar": 29
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b1fe58a_cb1a4d1c",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "Is this basically screensharing? Maybe add a comment.",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 48
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d20e6288_6b56e3e8",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 236,
+        "startChar": 10,
+        "endLine": 236,
+        "endChar": 27
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9889e692_3b51ebb9",
+        "filename": "call/bitrate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 238,
+        "startChar": 9,
+        "endLine": 238,
+        "endChar": 29
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63f59148_c5eef16e",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "Maybe (even if against general recommendations) this struct just inherits TrackConfig? The name TrackConfig is pretty meaningless to me, but all its members make sense.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "978e347f_f1be0e8a",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-23T10:37:08Z",
+      "side": 1,
+      "message": "allocation_config?",
+      "range": {
+        "startLine": 145,
+        "startChar": 32,
+        "endLine": 145,
+        "endChar": 39
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

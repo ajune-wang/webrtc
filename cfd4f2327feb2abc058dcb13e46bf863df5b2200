@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c1299f0_7ad8bf38",
+        "filename": "rtc_base/scoped_ref_ptr.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-23T10:00:07Z",
+      "side": 1,
+      "message": "Tag the commit with this bug number?",
+      "revId": "cfd4f2327feb2abc058dcb13e46bf863df5b2200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

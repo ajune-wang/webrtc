@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8004b5fe_4ca37404",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-23T13:12:27Z",
+      "side": 1,
+      "message": "Thank you for this suggestion. I prefer the current version of the code, though. I find it to be simpler. Someone looking at only one code path (e.g. discardability) has to ingest less information about the other path (in the same example - first-sub-frame).",
+      "parentUuid": "68dc4624_5bb52f76",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 0
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "382cecb1_23a711d3",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
         "patchSetId": 13
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c40a0b64_2e09f218",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-23T13:12:27Z",
+      "side": 1,
+      "message": "I am not aware of a plan to deprecate those old clients, at least not before you launch the next version of GFD, which will obsolete this anyway.",
+      "parentUuid": "382cecb1_23a711d3",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 58
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68a757ca_ce4067f3",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 13
@@ -68,6 +116,30 @@
       "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5988ea8d_9f2b16d0",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-23T13:12:27Z",
+      "side": 1,
+      "message": "Relic from before the change to pass |use_discardability_flag| to the ctor. Removed.",
+      "parentUuid": "68a757ca_ce4067f3",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 66
+      },
+      "revId": "d48b94c43705d960fa253da8df7b18c6376c3a46",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

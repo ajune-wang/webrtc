@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f488ca3_623ab918",
+        "filename": "rtc_base/unique_id_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-23T23:11:40Z",
+      "side": 1,
+      "message": "Could keep it in the webrtc namespace, up to you.",
+      "revId": "14cf7597f2b931eb25f43784f67cfc267f19fb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -28,6 +28,7 @@ const int64_t kFreqOffsetProcessIntervalInMs = 40000;
 const uint32_t kLocalSsrc = 123;
 const uint32_t kRemoteSsrc = 456;
 const int kMinRequiredSamples = 200;
+const int kMinFrameSamplesToDetectFreeze = 5;
 const int kWidth = 1280;
 const int kHeight = 720;
 
@@ -235,6 +236,79 @@ TEST_F(ReceiveStatisticsProxyTest, ReportInterframeDelayInWindow) {
   // Now the first sample is out of the window, so the second is the maximum.
   EXPECT_EQ(kInterframeDelayMs2,
             statistics_proxy_->GetStats().interframe_delay_max_ms);
+}
+
+TEST_F(ReceiveStatisticsProxyTest, ReportsFreezeMetrics) {
+  const int64_t kFreezeDurationMs = 1000;
+
+  VideoReceiveStream::Stats stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(0u, stats.freeze_count);
+  EXPECT_FALSE(stats.total_freezes_duration_ms);
+
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  for (int i = 0; i < kMinFrameSamplesToDetectFreeze; ++i) {
+    fake_clock_.AdvanceTimeMilliseconds(30);
+    statistics_proxy_->OnRenderedFrame(frame);
+  }
+
+  // Freeze.
+  fake_clock_.AdvanceTimeMilliseconds(kFreezeDurationMs);
+  statistics_proxy_->OnRenderedFrame(frame);
+
+  stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(1u, stats.freeze_count);
+  EXPECT_EQ(kFreezeDurationMs, stats.total_freezes_duration_ms);
+}
+
+TEST_F(ReceiveStatisticsProxyTest, ReportsPauseMetrics) {
+  const int64_t kPauseDurationMs = 5000;
+
+  VideoReceiveStream::Stats stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(0u, stats.pause_count);
+  EXPECT_FALSE(stats.total_pauses_duration_ms);
+
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  for (int i = 0; i < kMinFrameSamplesToDetectFreeze; ++i) {
+    fake_clock_.AdvanceTimeMilliseconds(30);
+    statistics_proxy_->OnRenderedFrame(frame);
+  }
+
+  // Pause.
+  fake_clock_.AdvanceTimeMilliseconds(kPauseDurationMs);
+  statistics_proxy_->OnStreamInactive();
+  statistics_proxy_->OnRenderedFrame(frame);
+
+  stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(1u, stats.pause_count);
+  EXPECT_EQ(kPauseDurationMs, stats.total_pauses_duration_ms);
+}
+
+TEST_F(ReceiveStatisticsProxyTest, ReportsFramesDuration) {
+  VideoReceiveStream::Stats stats = statistics_proxy_->GetStats();
+  EXPECT_FALSE(stats.total_frames_duration_ms);
+
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  for (int i = 0; i <= 10; ++i) {
+    fake_clock_.AdvanceTimeMilliseconds(30);
+    statistics_proxy_->OnRenderedFrame(frame);
+  }
+
+  stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(10 * 30u, stats.total_frames_duration_ms);
+}
+
+TEST_F(ReceiveStatisticsProxyTest, ReportsSumSquaredFrameDurations) {
+  VideoReceiveStream::Stats stats = statistics_proxy_->GetStats();
+  EXPECT_FALSE(stats.total_frames_duration_ms);
+
+  webrtc::VideoFrame frame = CreateFrame(kWidth, kHeight);
+  for (int i = 0; i <= 10; ++i) {
+    fake_clock_.AdvanceTimeMilliseconds(30);
+    statistics_proxy_->OnRenderedFrame(frame);
+  }
+
+  stats = statistics_proxy_->GetStats();
+  EXPECT_EQ(10 * 30u, stats.total_frames_duration_ms);
 }
 
 TEST_F(ReceiveStatisticsProxyTest, OnDecodedFrameWithoutQpQpSumWontExist) {

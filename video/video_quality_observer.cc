@@ -181,6 +181,8 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
                                      last_unfreeze_time_);
     }
     last_unfreeze_time_ = now_ms;
+
+    pauses_durations_.Add(now_ms - last_frame_rendered_ms_);
   }
 
   int64_t pixels = frame.width() * frame.height();
@@ -241,4 +243,29 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
 void VideoQualityObserver::OnStreamInactive() {
   is_paused_ = true;
 }
+
+uint32_t VideoQualityObserver::NumFreezes() {
+  return freezes_durations_.NumSamples();
+}
+
+uint32_t VideoQualityObserver::NumPauses() {
+  return pauses_durations_.NumSamples();
+}
+
+uint32_t VideoQualityObserver::TotalFreezesDurationMs() {
+  return freezes_durations_.Sum(kMinRequiredSamples).value_or(0);
+}
+
+uint32_t VideoQualityObserver::TotalPausesDurationMs() {
+  return pauses_durations_.Sum(kMinRequiredSamples).value_or(0);
+}
+
+uint32_t VideoQualityObserver::TotalFramesDurationMs() {
+  return last_frame_rendered_ms_ - first_frame_rendered_ms_;
+}
+
+double VideoQualityObserver::SumSquaredFrameDurationsSec() {
+  return sum_squared_interframe_delays_secs_;
+}
+
 }  // namespace webrtc

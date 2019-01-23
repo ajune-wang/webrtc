@@ -16,6 +16,7 @@
 #include <algorithm>  // min, max
 #include <limits>     // numeric_limits<T>
 
+#include "absl/memory/memory.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 #include "modules/audio_coding/neteq/background_noise.h"
@@ -71,8 +72,10 @@ int Expand::Process(AudioMultiVector* output) {
   int16_t random_vector[kMaxSampleRate / 8000 * 120 + 30];
   int16_t scaled_random_vector[kMaxSampleRate / 8000 * 125];
   static const int kTempDataSize = 3600;
-  int16_t temp_data[kTempDataSize];  // TODO(hlundin) Remove this.
-  int16_t* voiced_vector_storage = temp_data;
+  auto temp_data =
+      absl::make_unique<std::array<int16_t, kTempDataSize>>();  // TODO(hlundin)
+                                                                // Remove this.
+  int16_t* voiced_vector_storage = temp_data->data();
   int16_t* voiced_vector = &voiced_vector_storage[overlap_length_];
   static const size_t kNoiseLpcOrder = BackgroundNoise::kMaxLpcOrder;
   int16_t unvoiced_array_memory[kNoiseLpcOrder + kMaxSampleRate / 8000 * 125];

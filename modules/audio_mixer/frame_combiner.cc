@@ -16,6 +16,7 @@
 #include <iterator>
 #include <string>
 
+#include "absl/container/fixed_array.h"
 #include "api/array_view.h"
 #include "common_audio/include/audio_util.h"
 #include "modules/audio_mixer/audio_frame_manipulator.h"
@@ -34,7 +35,7 @@ namespace {
 constexpr int kMaximumAmountOfChannels = 2;
 constexpr int kMaximumChannelSize = 48 * AudioMixerImpl::kFrameDurationInMs;
 
-using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
+using OneChannelBuffer = absl::FixedArray<float, kMaximumChannelSize>;
 
 void SetAudioFrameFields(const std::vector<AudioFrame*>& mix_list,
                          size_t number_of_channels,
@@ -74,13 +75,13 @@ void MixFewFramesWithNoLimiter(const std::vector<AudioFrame*>& mix_list,
             audio_frame_for_mixing->mutable_data());
 }
 
-std::array<OneChannelBuffer, kMaximumAmountOfChannels> MixToFloatFrame(
+std::vector<OneChannelBuffer> MixToFloatFrame(
     const std::vector<AudioFrame*>& mix_list,
     size_t samples_per_channel,
     size_t number_of_channels) {
   // Convert to FloatS16 and mix.
-  using OneChannelBuffer = std::array<float, kMaximumChannelSize>;
-  std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer{};
+  std::vector<OneChannelBuffer> mixing_buffer(
+      number_of_channels, OneChannelBuffer(kMaximumChannelSize, 0.f));
 
   for (size_t i = 0; i < mix_list.size(); ++i) {
     const AudioFrame* const frame = mix_list[i];
@@ -154,12 +155,12 @@ void FrameCombiner::Combine(const std::vector<AudioFrame*>& mix_list,
     return;
   }
 
-  std::array<OneChannelBuffer, kMaximumAmountOfChannels> mixing_buffer =
+  std::vector<OneChannelBuffer> mixing_buffer =
       MixToFloatFrame(mix_list, samples_per_channel, number_of_channels);
 
   // Put float data in an AudioFrameView.
   std::array<float*, kMaximumAmountOfChannels> channel_pointers{};
-  for (size_t i = 0; i < number_of_channels; ++i) {
+  for (size_t i = 0; i < mixing_buffer.size(); ++i) {
     channel_pointers[i] = &mixing_buffer[i][0];
   }
   AudioFrameView<float> mixing_buffer_view(

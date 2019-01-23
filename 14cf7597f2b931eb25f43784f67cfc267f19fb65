@@ -16,6 +16,24 @@
       "revId": "14cf7597f2b931eb25f43784f67cfc267f19fb65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45ed48a0_0b613d85",
+        "filename": "rtc_base/unique_id_generator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-23T23:23:24Z",
+      "side": 1,
+      "message": "wanted to be consistent with the choice in helpers.h (which this class sort-of complements)",
+      "parentUuid": "4f488ca3_623ab918",
+      "revId": "14cf7597f2b931eb25f43784f67cfc267f19fb65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

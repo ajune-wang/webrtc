@@ -45,6 +45,30 @@
       "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e9a24c_0ddf3b4d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-23T13:29:45Z",
+      "side": 1,
+      "message": "Not sure what other things crit_ are intended for. To avoid lock-order problems, could add a separate lock for this map, which would then be a leaf in the lock-order graph.",
+      "parentUuid": "c8a1c2fc_adee2d0b",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 80
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -16,6 +16,7 @@
 #include <algorithm>  // min, max
 #include <limits>     // numeric_limits<T>
 
+#include "absl/memory/memory.h"
 #include "common_audio/signal_processing/include/signal_processing_library.h"
 #include "modules/audio_coding/neteq/audio_multi_vector.h"
 #include "modules/audio_coding/neteq/background_noise.h"
@@ -71,8 +72,10 @@ int Expand::Process(AudioMultiVector* output) {
   int16_t random_vector[kMaxSampleRate / 8000 * 120 + 30];
   int16_t scaled_random_vector[kMaxSampleRate / 8000 * 125];
   static const int kTempDataSize = 3600;
-  int16_t temp_data[kTempDataSize];  // TODO(hlundin) Remove this.
-  int16_t* voiced_vector_storage = temp_data;
+  auto temp_data =
+      absl::make_unique<std::array<int16_t, kTempDataSize>>();  // TODO(hlundin)
+                                                                // Remove this.
+  int16_t* voiced_vector_storage = temp_data->data();
   int16_t* voiced_vector = &voiced_vector_storage[overlap_length_];
   static const size_t kNoiseLpcOrder = BackgroundNoise::kMaxLpcOrder;
   int16_t unvoiced_array_memory[kNoiseLpcOrder + kMaxSampleRate / 8000 * 125];
@@ -237,7 +240,7 @@ int Expand::Process(AudioMultiVector* output) {
     temp_length = std::min(temp_length, current_lag);
     DspHelper::CrossFade(voiced_vector, unvoiced_vector, temp_length,
                          &parameters.current_voice_mix_factor,
-                         mix_factor_increment, temp_data);
+                         mix_factor_increment, temp_data->data());
 
     // End of cross-fading period was reached before end of expanded signal
     // path. Mix the rest with a fixed mixing factor.
@@ -249,7 +252,7 @@ int Expand::Process(AudioMultiVector* output) {
       WebRtcSpl_ScaleAndAddVectorsWithRound(
           voiced_vector + temp_length, parameters.current_voice_mix_factor,
           unvoiced_vector + temp_length, temp_scale, 14,
-          temp_data + temp_length, current_lag - temp_length);
+          temp_data->data() + temp_length, current_lag - temp_length);
     }
 
     // Select muting slope depending on how many consecutive expands we have
@@ -268,11 +271,13 @@ int Expand::Process(AudioMultiVector* output) {
     // Mute segment according to slope value.
     if ((consecutive_expands_ != 0) || !parameters.onset) {
       // Mute to the previous level, then continue with the muting.
-      WebRtcSpl_AffineTransformVector(
-          temp_data, temp_data, parameters.mute_factor, 8192, 14, current_lag);
+      WebRtcSpl_AffineTransformVector(temp_data->data(), temp_data->data(),
+                                      parameters.mute_factor, 8192, 14,
+                                      current_lag);
 
       if (!stop_muting_) {
-        DspHelper::MuteSignal(temp_data, parameters.mute_slope, current_lag);
+        DspHelper::MuteSignal(temp_data->data(), parameters.mute_slope,
+                              current_lag);
 
         // Shift by 6 to go from Q20 to Q14.
         // TODO(hlundin): Adding 8192 before shifting 6 steps seems wrong.
@@ -298,14 +303,14 @@ int Expand::Process(AudioMultiVector* output) {
 
     // Add background noise to the combined voiced-unvoiced signal.
     for (size_t i = 0; i < current_lag; i++) {
-      temp_data[i] = temp_data[i] + noise_vector[i];
+      temp_data->data()[i] = temp_data->data()[i] + noise_vector[i];
     }
     if (channel_ix == 0) {
       output->AssertSize(current_lag);
     } else {
       assert(output->Size() == current_lag);
     }
-    (*output)[channel_ix].OverwriteAt(temp_data, current_lag, 0);
+    (*output)[channel_ix].OverwriteAt(temp_data->data(), current_lag, 0);
   }
 
   // Increase call number and cap it.

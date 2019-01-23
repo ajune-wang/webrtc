@@ -14,6 +14,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include <array>
+#include <memory>
+
 #include "rtc_base/constructor_magic.h"
 
 namespace webrtc {
@@ -54,6 +57,7 @@ class AudioFrame {
   };
 
   AudioFrame();
+  ~AudioFrame();
 
   // Resets all members to their default state.
   void Reset();
@@ -121,7 +125,7 @@ class AudioFrame {
   // buffer per translation unit is to wrap a static in an inline function.
   static const int16_t* empty_data();
 
-  int16_t data_[kMaxDataSizeSamples];
+  std::unique_ptr<std::array<int16_t, kMaxDataSizeSamples>> data_;
   bool muted_ = true;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(AudioFrame);

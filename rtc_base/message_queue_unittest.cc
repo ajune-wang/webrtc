@@ -14,6 +14,7 @@
 
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/bind.h"
+#include "rtc_base/default_socket_server.h"
 #include "rtc_base/event.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/logging.h"
@@ -28,7 +29,7 @@ namespace {
 
 class MessageQueueTest : public testing::Test, public MessageQueue {
  public:
-  MessageQueueTest() : MessageQueue(SocketServer::CreateDefault(), true) {}
+  MessageQueueTest() : MessageQueue(CreateDefaultSocketServer(), true) {}
   bool IsLocked_Worker() {
     if (!crit_.TryEnter()) {
       return true;
@@ -80,7 +81,7 @@ static void DelayedPostsWithIdenticalTimesAreProcessedInFifoOrder(
 
 TEST_F(MessageQueueTest,
        DelayedPostsWithIdenticalTimesAreProcessedInFifoOrder) {
-  MessageQueue q(SocketServer::CreateDefault(), true);
+  MessageQueue q(CreateDefaultSocketServer(), true);
   DelayedPostsWithIdenticalTimesAreProcessedInFifoOrder(&q);
 
   NullSocketServer nullss;

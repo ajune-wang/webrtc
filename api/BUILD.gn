@@ -57,6 +57,7 @@ rtc_static_library("create_peerconnection_factory") {
     "../rtc_base:ptr_util",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:threading",
     "audio:audio_mixer_api",
     "audio_codecs:audio_codecs_api",
     "transport:network_control",
@@ -173,10 +174,15 @@ rtc_static_library("libjingle_peerconnection_api") {
     "../logging:rtc_event_log_api",
     "../media:rtc_media_config",
     "../modules/audio_processing:audio_processing_statistics",
+    "../rtc_base:async_resolver_interface",
     "../rtc_base:checks",
     "../rtc_base:deprecation",
+    "../rtc_base:ip_address",
+    "../rtc_base:network_constants",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",
+    "../rtc_base:socket_address",
+    "../rtc_base:threading",
     "../rtc_base/system:rtc_export",
   ]
 
@@ -685,6 +691,7 @@ if (rtc_include_tests) {
       ":libjingle_peerconnection_api",
       "../rtc_base:checks",
       "../rtc_base:rtc_base",
+      "../rtc_base:threading",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }

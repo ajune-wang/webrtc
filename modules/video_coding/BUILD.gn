@@ -930,6 +930,7 @@ if (rtc_include_tests) {
       "../../rtc_base:rtc_numerics",
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base:rtc_task_queue_for_test",
+      "../../rtc_base:threading",
       "../../rtc_base/experiments:jitter_upper_bound_experiment",
       "../../system_wrappers",
       "../../system_wrappers:field_trial",

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c89de12e_649aa097",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T13:44:30Z",
+      "side": 1,
+      "message": "payload_type \u003e 0 might be [more than] enough as DCHECK\nit should be catched with check for unregistered payload type anyway.\n\nunregistered payload type looks like reasonable check. You shouldn\u0027t packetize a frame when you do not know how.\nkeeping track of last_payload_type_.... is it used?",
+      "parentUuid": "c17c5f05_530042a1",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 3
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8a1c2fc_adee2d0b",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 4
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "Not sure what other things crit_ are intended for. To avoid lock-order problems, could add a separate lock for this map, which would then be a leaf in the lock-order graph.",
       "parentUuid": "c8a1c2fc_adee2d0b",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 80
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1443283_de015d54",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T13:44:30Z",
+      "side": 1,
+      "message": "is it possible to register all payloads during construction?\n\nintroducing extra lock I guess works too, though not optimal.",
+      "parentUuid": "26e9a24c_0ddf3b4d",
       "range": {
         "startLine": 133,
         "startChar": 0,

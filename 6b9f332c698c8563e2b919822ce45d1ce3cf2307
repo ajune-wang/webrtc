@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c243bbf_5677501f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T13:44:30Z",
+      "side": 1,
+      "message": "do not forget to properly remove this block if you do not find it useful",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 5
+      },
+      "revId": "6b9f332c698c8563e2b919822ce45d1ce3cf2307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3613dba9_076e21f8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T13:44:30Z",
+      "side": 1,
+      "message": "previous version refuse to send unknown payload type\n(and logged an ERROR as that should never happen)",
+      "range": {
+        "startLine": 533,
+        "startChar": 17,
+        "endLine": 533,
+        "endChar": 47
+      },
+      "revId": "6b9f332c698c8563e2b919822ce45d1ce3cf2307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

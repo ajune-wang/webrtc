@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9dcff361_45fde406",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-23T18:48:14Z",
+      "side": 1,
+      "message": "TLDR: please clarify, I am not sure which usages you are talking about. (we could put it in api/transport/network_types)\n\nAre you talking about \u0027StreamsConfig\u0027? \n\nRtpTransportControllerSend doesn\u0027t use the struct in the method:\nvoid RtpTransportControllerSend::SetAllocatedSendBitrateLimits(\n    int min_send_bitrate_bps,\n    int max_padding_bitrate_bps,\n    int max_total_bitrate_bps);\n\nit then converts it to stream_config:\n  streams_config_.min_pacing_rate \u003d DataRate::bps(min_send_bitrate_bps);\n  streams_config_.max_padding_rate \u003d DataRate::bps(max_padding_bitrate_bps);\n  streams_config_.max_total_allocated_bitrate \u003d\n      DataRate::bps(max_total_bitrate_bps);\n\nand this is also what we do in media transport interface implementation (we essentially take these values and convert them to the StreamConfig).\n\nBut passing StreamConfig to MediaTransportInterface would not sound right.\n\nSo I am not sure I understand the comment, are you suggesting to update \u0027void RtpTransportControllerSend::SetAllocatedSendBitrateLimits\u0027 to use this struct?\n\nBitrateAllocator already uses:\nstruct MediaStreamAllocationConfig {\n  uint32_t min_bitrate_bps;\n  uint32_t max_bitrate_bps;\n  uint32_t pad_up_bitrate_bps;\n  bool enforce_min_bitrate;\n  std::string track_id;\n  double bitrate_priority;\n};\nwhich is a superset? of this setting.\n\nPlease clarify :)",
+      "parentUuid": "89cdef7a_f5e07856",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 43
+      },
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4037ce9b_7d673e00",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9d94c5ba_5cd02a9f",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-23T18:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4037ce9b_7d673e00",
+      "range": {
+        "startLine": 54,
+        "startChar": 2,
+        "endLine": 54,
+        "endChar": 10
+      },
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95aab394_4a67f660",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 3
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "f1426718_14628203",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-23T18:48:14Z",
+      "side": 1,
+      "message": "Adding to do. SHould be \u003d0, but will break existing implementations.",
+      "parentUuid": "95aab394_4a67f660",
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c46fe20a_0a7e7b19",
         "filename": "call/call.cc",
         "patchSetId": 3
@@ -79,6 +145,24 @@
       "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26c1a9cd_8dfa665c",
+        "filename": "call/call.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-23T18:48:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c46fe20a_0a7e7b19",
+      "revId": "d144ececa89f755b5c1059d4f58252ad5b5b9d01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

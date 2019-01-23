@@ -24,9 +24,20 @@ namespace webrtc {
 
 class RTPFragmentationHeader;  // forward declaration
 
-// Note: if any pointers are added to this struct, it must be fitted
+// Note: If any pointers are added to this struct, it must be fitted
 // with a copy-constructor. See below.
 struct CodecSpecificInfoVP8 {
+  // Hack alert - it is assumed that CodecSpecificInfo's ctor memsets
+  // everything to zero.
+
+  enum Buffer : size_t { kLast = 0, kGolden = 1, kArf = 2, kCount };
+
+  // True if and only if the current frame is predicted from the given buffer.
+  bool referencedBuffers[Buffer::kCount];
+
+  // True if and only if the current frame updates the given buffer.
+  bool updatedBuffers[Buffer::kCount];
+
   bool nonReference;
   uint8_t temporalIdx;
   bool layerSync;
@@ -71,7 +82,7 @@ union CodecSpecificInfoUnion {
   CodecSpecificInfoH264 H264;
 };
 
-// Note: if any pointers are added to this struct or its sub-structs, it
+// Note: If any pointers are added to this struct or its sub-structs, it
 // must be fitted with a copy-constructor. This is because it is copied
 // in the copy-constructor of VCMEncodedFrame.
 struct CodecSpecificInfo {

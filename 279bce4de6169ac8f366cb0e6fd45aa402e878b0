@@ -34,6 +34,24 @@
       "revId": "279bce4de6169ac8f366cb0e6fd45aa402e878b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b1cdcec_d6da3578",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-23T09:55:50Z",
+      "side": 1,
+      "message": "I\u0027m not really a fan of handling the lifetime manually like that, largely because it\u0027s complicated to explain. I would be happy if the parameter type was unique_ptr\u003cTaskQueueFactory\u003e, but I assume it needs to be copyable? And we can\u0027t use shared_ptr\u003cTaskQueueFactory\u003e, so a std::function felt like the next best thing.\n\nBut I won\u0027t veto the raw pointer. Just document that the thing it points to needs to live for the duration of the program.",
+      "parentUuid": "363e1933_1c061b08",
+      "revId": "279bce4de6169ac8f366cb0e6fd45aa402e878b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

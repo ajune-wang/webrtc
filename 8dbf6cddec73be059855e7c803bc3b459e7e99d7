@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ece53387_ef826202",
+        "filename": "audio/utility/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-23T13:56:42Z",
+      "side": 1,
+      "message": "Nit: In GN, path/to/foo:foo is the same as just path/to/foo.",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 48
+      },
+      "revId": "8dbf6cddec73be059855e7c803bc3b459e7e99d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e142f8d_11503a91",
+        "filename": "modules/audio_mixer/frame_combiner.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-23T13:56:42Z",
+      "side": 1,
+      "message": "Just this change should be enough; you shouldn\u0027t also have to introduce a heap indirection up on line 38. Right?",
+      "revId": "8dbf6cddec73be059855e7c803bc3b459e7e99d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -313,6 +313,30 @@
     },
     {
       "key": {
+        "uuid": "4f7e5887_03fb790d",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 33
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T07:51:47Z",
+      "side": 1,
+      "message": "We should have some kind of type safe reference. It doesn\u0027t need to be a full endpointnode if that\u0027s hard to achieve. Maybe a dummy called EndpointHandle that contains an identifier but doesn\u0027t allow direct interaction.",
+      "parentUuid": "c3d17409_eb579e0e",
+      "range": {
+        "startLine": 95,
+        "startChar": 23,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "752b8ead_37ee1587",
         "filename": "test/scenario/network/cross_traffic.h",
         "patchSetId": 33
@@ -425,6 +449,24 @@
       "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f01672b_990f2da2",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 33
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-23T07:51:47Z",
+      "side": 1,
+      "message": "Ok, I see what you mean, then I\u0027d suggest moving the RandomWalkCrossTraffic and PulsedPeaksCrossTraffic to a separate header that can be seen as standalone. Make it so that a user could implement their own generator. that way we ensure that they are not too coupled to the scenario framework itself.",
+      "parentUuid": "bd77f587_d042ecfd",
+      "revId": "e29dd959842dc6ec3e4f24b964f43296ac889a00",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "8c590d39_ddeb706d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "Rejecting unknown payload id is a safety check. \nAgree that mapping (or std::set\u003cint\u003e registered_) for that seems a bit useless, so won\u0027t insists, unless you see an easy way to add debug-only check.",
+      "parentUuid": "42239b80_6406788d",
+      "range": {
+        "startLine": 346,
+        "startChar": 0,
+        "endLine": 362,
+        "endChar": 3
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8a1c2fc_adee2d0b",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 4
@@ -165,6 +189,30 @@
       "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "549a44d2_de060d2d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "actually, while you\u0027ve added an extra lock acquiring in SendVideo, you removed an extra lock in CheckPayloadType, so it is an improvement any way.",
+      "parentUuid": "ab9d2181_6d706537",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 80
+      },
+      "revId": "bb9e2409358031cee83986329bfde8a7ded35416",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

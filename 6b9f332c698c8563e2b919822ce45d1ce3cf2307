@@ -69,6 +69,30 @@
       "revId": "6b9f332c698c8563e2b919822ce45d1ce3cf2307",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "082a46b6_d18bef33",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "There is difference between unknown payload name (caller knows it, but RtpSender doesn\u0027t, so use generic packetizer) and unknown payload id (caller doesn\u0027t warn RtpSender about it).\n\nAnyway, I see you now refuse unknown (unregistered) payload ids for video.",
+      "parentUuid": "697c63b3_e3525d7b",
+      "range": {
+        "startLine": 533,
+        "startChar": 17,
+        "endLine": 533,
+        "endChar": 47
+      },
+      "revId": "6b9f332c698c8563e2b919822ce45d1ce3cf2307",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17867dbc_00668223",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "not needed since end of this scope match end of function scope anyway.\n(but I do not mind if you keep it for clearer view of the crit scope)",
+      "range": {
+        "startLine": 195,
+        "startChar": 2,
+        "endLine": 195,
+        "endChar": 3
+      },
+      "revId": "4fe741d9f2c174045c88eecc050c6e465014e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ced0d048_d01a78dd",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "or even an LS_ERROR [like before]\nI think It is a code bug to use payload_type without registering it first.",
+      "range": {
+        "startLine": 534,
+        "startChar": 14,
+        "endLine": 534,
+        "endChar": 24
+      },
+      "revId": "4fe741d9f2c174045c88eecc050c6e465014e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4c58b0d_e3fbd3a9",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T16:16:03Z",
+      "side": 1,
+      "message": "because you deleted VideoCodecType function, you probably no longer need to mention this is an enum type.",
+      "range": {
+        "startLine": 132,
+        "startChar": 19,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "4fe741d9f2c174045c88eecc050c6e465014e339",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

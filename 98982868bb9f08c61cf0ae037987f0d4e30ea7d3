@@ -354,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "5ad33dd9_07fcb076",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-23T11:53:15Z",
+      "side": 1,
+      "message": "So as I understand decoder will never receive multiple encoded images for same video frame in sequential Decode(...) calls right now. So here we can keep single encoded image per frame id.\n\nSpatial layers right now will be merged before decoder and them merged image will be passed to the decoder. \n\nIn the future, when decode will support decoding multiple encoded images for single frame, this part will require update.",
+      "parentUuid": "1a00ce7d_fdc0e489",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "096ffd42_d249d8ec",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 3
@@ -374,6 +398,30 @@
       "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1209c0_1f59d9d6",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-23T11:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "096ffd42_d249d8ec",
+      "range": {
+        "startLine": 115,
+        "startChar": 3,
+        "endLine": 115,
+        "endChar": 47
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -444,6 +492,30 @@
       "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "412e911a_c70b7508",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-23T11:53:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "166dba8c_b5490a50",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 4
+      },
+      "revId": "98982868bb9f08c61cf0ae037987f0d4e30ea7d3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

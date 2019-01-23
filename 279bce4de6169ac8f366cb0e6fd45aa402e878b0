@@ -16,6 +16,24 @@
       "revId": "279bce4de6169ac8f366cb0e6fd45aa402e878b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363e1933_1c061b08",
+        "filename": "api/task_queue/task_queue_test.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-23T09:45:40Z",
+      "side": 1,
+      "message": "the test verifies TaskQueue implementation, so parameter is TaskQueue factory.\ntaking TaskQueueFactory factory as a parameter seems like unnecessary extra layer.\n\nI do not consider using pointer as parameter something that has to be avoided. gmock do mention raw pointer as an option:\nhttps://github.com/google/googletest/blob/master/googletest/docs/advanced.md#how-to-write-value-parameterized-tests\n\"If it\u0027s a raw pointer, you are responsible for managing the lifespan of the pointed values.\"\n\npointer doesn\u0027t have to leak in the end, but it is up to implementer of MyFactory() to decide lifetime of it. Options are plenty:\ne.g. use static unique_ptr (or static object) like in my first example, object destructed when test program exits.\nor make it leak, but annotate it for leak detector to ignore. (e.g. chromium has NoDestructor helper for such cases)",
+      "parentUuid": "d08a2d45_752bbbe2",
+      "revId": "279bce4de6169ac8f366cb0e6fd45aa402e878b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

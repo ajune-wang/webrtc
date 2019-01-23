@@ -598,6 +598,8 @@ void CallTest::Stop() {
 }
 
 void CallTest::StopVideoStreams() {
+  if (frame_generator_capturer_)
+    frame_generator_capturer_->Stop();
   for (VideoSendStream* video_send_stream : video_send_streams_)
     video_send_stream->Stop();
   for (VideoReceiveStream* video_recv_stream : video_receive_streams_)

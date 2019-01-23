@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eccc5eda_1146d8a9",
+        "filename": "test/pc/e2e/analyzer/video/id_generator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-23T18:26:48Z",
+      "side": 1,
+      "message": "not that helpful :) Do they need to be in order or monotonic? Or just unique (e.g. random?)",
+      "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

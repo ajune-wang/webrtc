@@ -5,8 +5,8 @@
       "test args": [
         "--save_chartjson_result"
       ],
-      "bot id": "build16-a7",
-      "pool": "WebRTC"
+      "bot id": "build83-m7",
+      "pool": "chrome.tests"
     }
   ]
 }

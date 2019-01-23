@@ -16,6 +16,24 @@
       "revId": "cfd4f2327feb2abc058dcb13e46bf863df5b2200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "057e284f_0b8ed7b0",
+        "filename": "rtc_base/scoped_ref_ptr.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-23T10:09:29Z",
+      "side": 1,
+      "message": "Done, thanks. I also added webrtc:8205 (which is the master bug for this work).",
+      "parentUuid": "7c1299f0_7ad8bf38",
+      "revId": "cfd4f2327feb2abc058dcb13e46bf863df5b2200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

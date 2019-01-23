@@ -15,6 +15,7 @@
 #include "rtc_base/gunit.h"
 #include "rtc_base/ip_address.h"
 #include "rtc_base/logging.h"
+#include "rtc_base/nethelpers.h"
 #include "rtc_base/network_monitor.h"
 #include "rtc_base/physical_socket_server.h"
 #include "rtc_base/socket_unittest.h"

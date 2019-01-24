@@ -17,6 +17,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/media_transport_interface.h"
+#include "api/transport/network_types.h"
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/thread.h"
@@ -126,6 +127,9 @@ class MediaTransportPair {
     void FlushAsyncInvokes();
 
     Stats GetStats();
+
+    void SetAllocatedBitrateLimits(
+        const AllocatedBitrateLimits& limits) override;
 
    private:
     void OnData(uint64_t channel_id, MediaTransportEncodedAudioFrame frame);

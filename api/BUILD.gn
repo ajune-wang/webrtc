@@ -161,6 +161,7 @@ rtc_static_library("libjingle_peerconnection_api") {
     "audio_codecs:audio_codecs_api",
     "transport:bitrate_settings",
     "transport:network_control",
+    "units:data_rate",
     "video:encoded_image",
     "video:video_frame",
     "//third_party/abseil-cpp/absl/strings",
@@ -669,6 +670,7 @@ if (rtc_include_tests) {
     deps = [
       ":libjingle_peerconnection_api",
       "../rtc_base:checks",
+      "transport:network_control",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -685,6 +687,7 @@ if (rtc_include_tests) {
       ":libjingle_peerconnection_api",
       "../rtc_base:checks",
       "../rtc_base:rtc_base",
+      "transport:network_control",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }

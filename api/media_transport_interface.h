@@ -26,6 +26,8 @@
 #include "absl/types/optional.h"
 #include "api/array_view.h"
 #include "api/rtc_error.h"
+#include "api/transport/network_types.h"
+#include "api/units/data_rate.h"
 #include "api/video/encoded_image.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/deprecation.h"
@@ -448,6 +450,10 @@ class MediaTransportInterface {
   // Media transport does not invoke this callback concurrently.
   virtual void SetMediaTransportStateCallback(
       MediaTransportStateCallback* callback) = 0;
+
+  // Updates allocation limits.
+  // TODO(psla): Make abstract when downstream implementation implement it.
+  virtual void SetAllocatedBitrateLimits(const AllocatedBitrateLimits& limits);
 
   // Sends a data buffer to the remote endpoint using the given send parameters.
   // |buffer| may not be larger than 256 KiB. Returns an error if the send

@@ -18,6 +18,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/media_transport_interface.h"
+#include "api/transport/network_types.h"
 
 namespace webrtc {
 
@@ -92,6 +93,9 @@ class FakeMediaTransport : public MediaTransportInterface {
       target_rate_observers_.erase(it);
     }
   }
+
+  void SetAllocatedBitrateLimits(
+      const AllocatedBitrateLimits& limits) override {}
 
   int target_rate_observers_size() { return target_rate_observers_.size(); }
 

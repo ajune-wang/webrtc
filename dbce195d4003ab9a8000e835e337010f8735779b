@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dacd14fa_db03248e",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-24T10:23:47Z",
+      "side": 1,
+      "message": "Make it a while(it !\u003d timestamp_to_frame_id_list_.begin()) loop please. This incomplete for is a little confusing. It took me a while to notice that --it; is happening before the loop body, not after.",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 83,
+        "endChar": 54
+      },
+      "revId": "dbce195d4003ab9a8000e835e337010f8735779b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6390231a_5200e8e1",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-24T10:23:47Z",
+      "side": 1,
+      "message": "may",
+      "range": {
+        "startLine": 141,
+        "startChar": 65,
+        "endLine": 141,
+        "endChar": 72
+      },
+      "revId": "dbce195d4003ab9a8000e835e337010f8735779b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57824354_2a5a98b6",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-24T10:23:47Z",
+      "side": 1,
+      "message": "layers",
+      "range": {
+        "startLine": 142,
+        "startChar": 24,
+        "endLine": 142,
+        "endChar": 29
+      },
+      "revId": "dbce195d4003ab9a8000e835e337010f8735779b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3f2ab07_f7430d49",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-24T10:23:47Z",
+      "side": 1,
+      "message": "The current element will be removed when the next frame would be encoded and EncodedImageCallback would be called with the next timestamp.",
+      "range": {
+        "startLine": 143,
+        "startChar": 43,
+        "endLine": 145,
+        "endChar": 38
+      },
+      "revId": "dbce195d4003ab9a8000e835e337010f8735779b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -568,10 +568,8 @@ const webrtc::EncodedImage* VideoProcessor::BuildAndStoreSuperframe(
     }
   }
   const size_t payload_size_bytes = base_image.size() + encoded_image.size();
-  const size_t buffer_size_bytes =
-      payload_size_bytes + EncodedImage::GetBufferPaddingBytes(codec);
 
-  uint8_t* copied_buffer = new uint8_t[buffer_size_bytes];
+  uint8_t* copied_buffer = new uint8_t[payload_size_bytes];
   RTC_CHECK(copied_buffer);
 
   if (base_image.size()) {
@@ -583,7 +581,7 @@ const webrtc::EncodedImage* VideoProcessor::BuildAndStoreSuperframe(
 
   EncodedImage copied_image = encoded_image;
   copied_image = encoded_image;
-  copied_image.set_buffer(copied_buffer, buffer_size_bytes);
+  copied_image.set_buffer(copied_buffer, payload_size_bytes);
   copied_image.set_size(payload_size_bytes);
 
   // Replace previous EncodedImage for this spatial layer.

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08a494d3_104a90d9",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-24T16:31:05Z",
+      "side": 1,
+      "message": "discardable() (no capital D) since it\u0027s a trivial getter?",
+      "range": {
+        "startLine": 44,
+        "startChar": 32,
+        "endLine": 44,
+        "endChar": 43
+      },
+      "revId": "09d6d8d970c875ad6a7e5bb37cca143dd50e40aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e7a988c_c66c4e1d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-24T16:31:05Z",
+      "side": 1,
+      "message": "Doesn\u0027t this have to be negotiated in order to work? Seems like it should be determined by the version of the descriptor being negotiated.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 72
+      },
+      "revId": "09d6d8d970c875ad6a7e5bb37cca143dd50e40aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

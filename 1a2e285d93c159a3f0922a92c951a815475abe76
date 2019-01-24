@@ -1,0 +1,289 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f7d74b7_2b2bc668",
+        "filename": "media/base/stream_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "nit: RTC_DCHECK_GE(num_layers, 0);",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 12
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a93d9474_0659e34d",
+        "filename": "media/base/stream_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Maybe:\n\nEXPECT_THAT(primary_ssrcs, ElementsAre(Ne(0), Ne(0), Ne(0))) ?",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f16e192_6a0c89c8",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Maybe just use a lambda?",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526782b2_40d5c46b",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "DCHECK(target_) ?",
+      "range": {
+        "startLine": 53,
+        "startChar": 54,
+        "endLine": 53,
+        "endChar": 61
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2927f74b_e721a70e",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "I think std::equal does this check:\n\n\u003e Two ranges are considered equal if they have the same number of elements and, for every iterator i in the range [first1,last1), *i equals *(first2 + (i - first1)).",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5582cb2b_a77297ec",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Can use absl::c_equal like this:\n\nreturn absl::c_equal(sp.rids(), target_-\u003erids(), {{lambda}});",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed71602_20381297",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Why the rename? Content usually means ContentInfo",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 50
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b4535b1_5f4f4c70",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Can you add a brief note about what the SSRC generate is used for",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfb25b6f_de088a59",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "maybe:\n\nlocal_streams() const ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 43,
+        "endLine": 57,
+        "endChar": 58
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a807dfcc_ed090314",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1547,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "nit: unnecessary newline",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e0aa7b4_31effa11",
+        "filename": "pc/media_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "If the ssrc_generate is required, should it be taken in the constructor? Or at least something should DCHECK that it is present.",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0049341_b68be534",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Does this change any behavior?",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ba4b66_bb2c546c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "const reference?",
+      "range": {
+        "startLine": 2922,
+        "startChar": 10,
+        "endLine": 2922,
+        "endChar": 34
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a285d787_cb1495a6",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2933,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Is this guaranteed by the deserializer?",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d12a9f4a_c1c7c24d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-24T22:29:36Z",
+      "side": 1,
+      "message": "Is this optimization important?",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

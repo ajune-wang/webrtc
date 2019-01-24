@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aff69c20_1747d602",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-24T10:28:53Z",
+      "side": 1,
+      "message": "prefer RTC_DCHECK_EQ (like in next line).",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 12
+      },
+      "revId": "b16da8a8240c66e6267d2ce1a25b9ed74a9764d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c342494_9fae7abd",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-24T10:28:53Z",
+      "side": 1,
+      "message": "if wrong unique identifier is not a warning, wrong size probably shouldn\u0027t be a warning either.",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 76
+      },
+      "revId": "b16da8a8240c66e6267d2ce1a25b9ed74a9764d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2338c58a_1d80cb64",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-24T10:28:53Z",
+      "side": 1,
+      "message": "number",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "b16da8a8240c66e6267d2ce1a25b9ed74a9764d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "991dc4eb_484c5cb5",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/loss_notification_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-24T10:28:53Z",
+      "side": 1,
+      "message": "\"When declaring namespace aliases and using-declarations, use fully qualified names (with leading `::`)\"\nhttps://abseil.io/tips/119",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "b16da8a8240c66e6267d2ce1a25b9ed74a9764d8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

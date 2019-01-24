@@ -70,6 +70,30 @@
       "revId": "0dd838176848f69225a918c258b82907f6ed1ef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1953bc92_b057df39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-24T16:25:03Z",
+      "side": 1,
+      "message": "Fair enough, and our GN build doesn\u0027t allow users to change the ffmpeg implementation (see: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/BUILD.gn?l\u003d349\u0026rcl\u003decb6897adea334e32c355930166963e5fdfe20d1).\n\nSo I would say that a good comment at the top of h264_decoder_impl.h is enough.",
+      "parentUuid": "76f31b3f_36e090a9",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "0dd838176848f69225a918c258b82907f6ed1ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

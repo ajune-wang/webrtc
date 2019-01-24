@@ -18,6 +18,7 @@
 #include "call/rtp_config.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
+#include "modules/video_coding/include/video_codec_interface.h"
 
 namespace webrtc {
 
@@ -43,18 +44,42 @@ class RtpPayloadParams final {
  private:
   void SetCodecSpecific(RTPVideoHeader* rtp_video_header,
                         bool first_frame_in_picture);
-  void SetGeneric(int64_t frame_id,
+  void SetGeneric(const CodecSpecificInfo* codec_specific_info,
+                  int64_t frame_id,
                   bool is_keyframe,
                   RTPVideoHeader* rtp_video_header);
 
-  void Vp8ToGeneric(int64_t shared_frame_id,
+  void Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
+                    int64_t shared_frame_id,
                     bool is_keyframe,
                     RTPVideoHeader* rtp_video_header);
 
+  // TODO(eladalon): Delete SetDependenciesVp8Deprecated() and move the
+  // logic in SetDependenciesVp8New() into Vp8ToGeneric() once all hardware
+  // wrappers have been updated.
+  void SetDependenciesVp8Deprecated(
+      const CodecSpecificInfoVP8& vp8_info,
+      int64_t shared_frame_id,
+      bool is_keyframe,
+      int spatial_index,
+      int temporal_index,
+      bool layer_sync,
+      RTPVideoHeader::GenericDescriptorInfo* generic);
+  void SetDependenciesVp8New(const CodecSpecificInfoVP8& vp8_info,
+                             int64_t shared_frame_id,
+                             bool is_keyframe,
+                             RTPVideoHeader::GenericDescriptorInfo* generic);
+
+  // TODO(eladalon): Remove this once all encoder-wrappers are updated.
   // Holds the last shared frame id for a given (spatial, temporal) layer.
   std::array<std::array<int64_t, RtpGenericFrameDescriptor::kMaxTemporalLayers>,
              RtpGenericFrameDescriptor::kMaxSpatialLayers>
-      last_shared_frame_id_;
+      deprecated_last_shared_frame_id_;
+
+  // TODO: !!! Explain.
+  std::map<size_t, int64_t> last_shared_frame_id_;
+  int64_t last_key_shared_frame_id_;
+
   const uint32_t ssrc_;
   RtpPayloadState state_;
 

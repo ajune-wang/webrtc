@@ -24,16 +24,29 @@ namespace webrtc {
 
 class RTPFragmentationHeader;  // forward declaration
 
-// Note: if any pointers are added to this struct, it must be fitted
+// Note: If any pointers are added to this struct, it must be fitted
 // with a copy-constructor. See below.
 struct CodecSpecificInfoVP8 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   bool nonReference;
   uint8_t temporalIdx;
   bool layerSync;
   int8_t keyIdx;  // Negative value to skip keyIdx.
+
+  // TODO: !!! Explain.
+  bool useDependencyIdentifier;
+  constexpr size_t kMaxDependencyIdentifiers =
+      RtpGenericFrameDescriptor::kMaxTemporalLayers *
+      RtpGenericFrameDescriptor::kMaxSpatialLayers;
+  size_t dependencyIdentifier[kMaxDependencyIdentifiers];
+  size_t dependencyIdentifierCount;
 };
+static_assert(std::is_pod<CodecSpecificInfoVP8>::value, "");
 
 struct CodecSpecificInfoVP9 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   bool first_frame_in_picture;  // First frame, increment picture_id.
   bool inter_pic_predicted;     // This layer frame is dependent on previously
                                 // coded frame(s).
@@ -62,6 +75,8 @@ struct CodecSpecificInfoVP9 {
 };
 
 struct CodecSpecificInfoH264 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   H264PacketizationMode packetization_mode;
 };
 
@@ -71,7 +86,7 @@ union CodecSpecificInfoUnion {
   CodecSpecificInfoH264 H264;
 };
 
-// Note: if any pointers are added to this struct or its sub-structs, it
+// Note: If any pointers are added to this struct or its sub-structs, it
 // must be fitted with a copy-constructor. This is because it is copied
 // in the copy-constructor of VCMEncodedFrame.
 struct CodecSpecificInfo {

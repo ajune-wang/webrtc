@@ -22,6 +22,30 @@
       "revId": "fdc791a8cde77f75ca1ef38c0d4016deb67a3a7f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442b3d00_00be730a",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-01-24T14:45:57Z",
+      "side": 1,
+      "message": "Broken unit tests fixed.",
+      "parentUuid": "2c17008c_a3af0a86",
+      "range": {
+        "startLine": 148,
+        "startChar": 10,
+        "endLine": 148,
+        "endChar": 68
+      },
+      "revId": "fdc791a8cde77f75ca1ef38c0d4016deb67a3a7f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "d666f14d8cca152722e8a7fc0b2a9ca44f2d2e93",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b91a4e9a_4552e161",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-24T09:06:00Z",
+      "side": 1,
+      "message": "Perhaps. But I\u0027d prefer to not add a dependency on the large media:rtc_media_base target in this cl.",
+      "parentUuid": "b7a4a64e_644a5174",
+      "range": {
+        "startLine": 182,
+        "startChar": 43,
+        "endLine": 182,
+        "endChar": 48
+      },
+      "revId": "d666f14d8cca152722e8a7fc0b2a9ca44f2d2e93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

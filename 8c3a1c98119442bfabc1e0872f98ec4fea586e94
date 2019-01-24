@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b41a4672_29376176",
+        "filename": "test/frame_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-24T15:40:23Z",
+      "side": 1,
+      "message": "super nitpicky: consider submitting it in the separate change (this file and its .cc counterpart have nothing to do with your change).",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 31
+      },
+      "revId": "8c3a1c98119442bfabc1e0872f98ec4fea586e94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c736502_4823eb13",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 2
@@ -25,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "5083480e_80b4f86e",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-24T15:40:23Z",
+      "side": 1,
+      "message": "nit: taking const std::string\u0026 in the constructor param and creating a copy here may be preferred by some (instead of creating a copy and than moving a copy). I think it\u0027s a matter of preference, and I certainly implemented both in the past :)",
+      "revId": "8c3a1c98119442bfabc1e0872f98ec4fea586e94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5401f166_4ae48c24",
         "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.cc",
         "patchSetId": 2
@@ -41,6 +81,29 @@
         "startChar": 35,
         "endLine": 62,
         "endChar": 42
+      },
+      "revId": "8c3a1c98119442bfabc1e0872f98ec4fea586e94",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "626ffb0f_057e8352",
+        "filename": "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-24T15:40:23Z",
+      "side": 1,
+      "message": "nit: another way to avoid null checks, is to provide a \"null implementation\".\nso you would have a VideoFrameWriter and a NullWriter (possibly implementing \u0027FrameObserver\u0027);\nThe caller would then always pass a writer, but one of the writers is a no-op, and you essentially don\u0027t have a null check in the implementation.\n\nFor some reason it seems like the c++ world (that I\u0027ve seen so far) likes null checks over null objects, so this is more \u0027FYI\u0027 than actionable feedback.",
+      "range": {
+        "startLine": 50,
+        "startChar": 22,
+        "endLine": 51,
+        "endChar": 26
       },
       "revId": "8c3a1c98119442bfabc1e0872f98ec4fea586e94",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

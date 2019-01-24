@@ -13,6 +13,7 @@
 
 // TODO(bugs.webrtc.org/10159): Remove this files once downstream projects have
 // been updated to include the new path.
+#include <vector>
 
 #include "pc/channel_interface.h"
 

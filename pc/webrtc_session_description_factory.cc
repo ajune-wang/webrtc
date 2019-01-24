@@ -31,6 +31,7 @@
 #include "rtc_base/string_encode.h"
 
 using cricket::MediaSessionOptions;
+using rtc::UniqueRandomIdGenerator;
 
 namespace webrtc {
 namespace {
@@ -131,7 +132,8 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
     PeerConnectionInternal* pc,
     const std::string& session_id,
     std::unique_ptr<rtc::RTCCertificateGeneratorInterface> cert_generator,
-    const rtc::scoped_refptr<rtc::RTCCertificate>& certificate)
+    const rtc::scoped_refptr<rtc::RTCCertificate>& certificate,
+    UniqueRandomIdGenerator* ssrc_generator)
     : signaling_thread_(signaling_thread),
       session_desc_factory_(channel_manager, &transport_desc_factory_),
       // RFC 4566 suggested a Network Time Protocol (NTP) format timestamp
@@ -145,6 +147,8 @@ WebRtcSessionDescriptionFactory::WebRtcSessionDescriptionFactory(
       certificate_request_state_(CERTIFICATE_NOT_NEEDED) {
   RTC_DCHECK(signaling_thread_);
   RTC_DCHECK(!(cert_generator_ && certificate));
+  RTC_DCHECK(ssrc_generator);
+  session_desc_factory_.set_ssrc_generator(ssrc_generator);
   bool dtls_enabled = cert_generator_ || certificate;
   // SRTP-SDES is disabled if DTLS is on.
   SetSdesPolicy(dtls_enabled ? cricket::SEC_DISABLED : cricket::SEC_REQUIRED);

@@ -254,9 +254,11 @@ void BitrateAllocator::UpdateAllocationLimits() {
                    << total_requested_padding_bitrate
                    << "bps, total_requested_max_bitrate: "
                    << total_requested_max_bitrate << "bps";
-  limit_observer_->OnAllocationLimitsChanged(total_requested_min_bitrate,
-                                             total_requested_padding_bitrate,
-                                             total_requested_max_bitrate);
+  AllocatedBitrateLimits limits;
+  limits.min_send_bitrate = DataRate::bps(total_requested_min_bitrate);
+  limits.max_padding_bitrate = DataRate::bps(total_requested_padding_bitrate);
+  limits.total_bitrate = DataRate::bps(total_requested_max_bitrate);
+  limit_observer_->OnAllocationLimitsChanged(limits);
 }
 
 void BitrateAllocator::RemoveObserver(BitrateAllocatorObserver* observer) {

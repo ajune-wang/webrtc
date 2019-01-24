@@ -23,6 +23,15 @@ namespace webrtc {
 
 // Configuration
 
+// Limits allocated for the given connection.
+// In the future, if other fields are needed, it may be merged with
+// StreamsConfig.
+struct AllocatedBitrateLimits {
+  DataRate min_send_bitrate = DataRate::Zero();
+  DataRate max_padding_bitrate = DataRate::Zero();
+  DataRate total_bitrate = DataRate::Zero();
+};
+
 // Use StreamsConfig for information about streams that is required for specific
 // adjustments to the algorithms in network controllers. Especially useful
 // for experiments.

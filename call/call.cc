@@ -19,6 +19,7 @@
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/transport/network_control.h"
+#include "api/transport/network_types.h"
 #include "audio/audio_receive_stream.h"
 #include "audio/audio_send_stream.h"
 #include "audio/audio_state.h"
@@ -218,9 +219,8 @@ class Call final : public webrtc::Call,
   void OnStartRateUpdate(DataRate start_rate) override;
 
   // Implements BitrateAllocator::LimitObserver.
-  void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                 uint32_t max_padding_bitrate_bps,
-                                 uint32_t total_bitrate_bps) override;
+  void OnAllocationLimitsChanged(
+      const AllocatedBitrateLimits& bitrate_limits) override;
 
   // This method is invoked when the media transport is created and when the
   // media transport is being destructed.
@@ -1174,15 +1174,21 @@ void Call::OnTargetTransferRate(TargetTransferRate msg) {
   pacer_bitrate_kbps_counter_.Add(pacer_bitrate_bps / 1000);
 }
 
-void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                     uint32_t max_padding_bitrate_bps,
-                                     uint32_t total_bitrate_bps) {
-  transport_send_ptr_->SetAllocatedSendBitrateLimits(
-      min_send_bitrate_bps, max_padding_bitrate_bps, total_bitrate_bps);
+void Call::OnAllocationLimitsChanged(
+    const AllocatedBitrateLimits& bitrate_limits) {
+  transport_send_ptr_->SetAllocatedSendBitrateLimits(bitrate_limits);
+
+  {
+    rtc::CritScope lock(&target_observer_crit_);
+    if (media_transport_) {
+      media_transport_->SetAllocatedBitrateLimits(bitrate_limits);
+    }
+  }
 
   rtc::CritScope lock(&bitrate_crit_);
-  min_allocated_send_bitrate_bps_ = min_send_bitrate_bps;
-  configured_max_padding_bitrate_bps_ = max_padding_bitrate_bps;
+  min_allocated_send_bitrate_bps_ = bitrate_limits.min_send_bitrate.bps();
+  configured_max_padding_bitrate_bps_ =
+      bitrate_limits.max_padding_bitrate.bps();
 }
 
 void Call::ConfigureSync(const std::string& sync_group) {

@@ -25,6 +25,12 @@ namespace webrtc {
 // TODO(srte): Update tests to reflect new interface.
 class LimitObserverWrapper : public BitrateAllocator::LimitObserver {
  public:
+  void OnAllocationLimitsChanged(
+      const AllocatedBitrateLimits& bitrate_limits) override {
+    OnAllocationLimitsChanged(bitrate_limits.min_send_bitrate.bps(),
+                              bitrate_limits.max_padding_bitrate.bps(),
+                              bitrate_limits.total_bitrate.bps());
+  }
   virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
                                          uint32_t max_padding_bitrate_bps,
                                          uint32_t total_bitrate_bps) = 0;

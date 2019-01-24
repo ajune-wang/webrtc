@@ -32,6 +32,7 @@ constexpr int kPixelsInMediumResolution = 640 * 360;
 constexpr int kBlockyQpThresholdVp8 = 70;
 constexpr int kBlockyQpThresholdVp9 = 60;  // TODO(ilnik): tune this value.
 constexpr int kMaxNumCachedBlockyFrames = 100;
+constexpr int kAvgInterframeDelaysSamples = 30;
 // TODO(ilnik): Add H264/HEVC thresholds.
 }  // namespace
 
@@ -42,6 +43,7 @@ VideoQualityObserver::VideoQualityObserver(VideoContentType content_type)
       last_frame_pixels_(0),
       is_last_frame_blocky_(false),
       last_unfreeze_time_(0),
+      render_interframe_delays_(kAvgInterframeDelaysSamples),
       sum_squared_interframe_delays_secs_(0.0),
       time_in_resolution_ms_(3, 0),
       current_resolution_(Resolution::Low),
@@ -146,17 +148,22 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
   if (!is_paused_ && num_frames_rendered_ > 1) {
     // Process inter-frame delay.
     const int64_t interframe_delay_ms = now_ms - last_frame_rendered_ms_;
-    const float interframe_delays_secs = interframe_delay_ms / 1000.0;
+    const double interframe_delays_secs = interframe_delay_ms / 1000.0;
     sum_squared_interframe_delays_secs_ +=
         interframe_delays_secs * interframe_delays_secs;
-    render_interframe_delays_.Add(interframe_delay_ms);
-    absl::optional<int> avg_interframe_delay =
-        render_interframe_delays_.Avg(kMinFrameSamplesToDetectFreeze);
-    // Check if it was a freeze.
-    if (avg_interframe_delay &&
-        interframe_delay_ms >=
-            std::max(3 * *avg_interframe_delay,
-                     *avg_interframe_delay + kMinIncreaseForFreezeMs)) {
+    render_interframe_delays_.AddSample(interframe_delay_ms);
+
+    bool was_freeze = false;
+    if (render_interframe_delays_.Size() >= kMinFrameSamplesToDetectFreeze) {
+      RTC_DCHECK(render_interframe_delays_.GetAverageRoundedDown());
+      int avg_interframe_delay =
+          *render_interframe_delays_.GetAverageRoundedDown();
+      was_freeze = interframe_delay_ms >=
+                   std::max(3 * avg_interframe_delay,
+                            avg_interframe_delay + kMinIncreaseForFreezeMs);
+    }
+
+    if (was_freeze) {
       freezes_durations_.Add(interframe_delay_ms);
       smooth_playback_durations_.Add(last_frame_rendered_ms_ -
                                      last_unfreeze_time_);
@@ -181,6 +188,8 @@ void VideoQualityObserver::OnRenderedFrame(const VideoFrame& frame,
                                      last_unfreeze_time_);
     }
     last_unfreeze_time_ = now_ms;
+
+    pauses_durations_.Add(now_ms - last_frame_rendered_ms_);
   }
 
   int64_t pixels = frame.width() * frame.height();
@@ -241,4 +250,29 @@ void VideoQualityObserver::OnDecodedFrame(const VideoFrame& frame,
 void VideoQualityObserver::OnStreamInactive() {
   is_paused_ = true;
 }
+
+uint32_t VideoQualityObserver::NumFreezes() {
+  return freezes_durations_.NumSamples();
+}
+
+uint32_t VideoQualityObserver::NumPauses() {
+  return pauses_durations_.NumSamples();
+}
+
+uint32_t VideoQualityObserver::TotalFreezesDurationMs() {
+  return freezes_durations_.Sum(kMinRequiredSamples).value_or(0);
+}
+
+uint32_t VideoQualityObserver::TotalPausesDurationMs() {
+  return pauses_durations_.Sum(kMinRequiredSamples).value_or(0);
+}
+
+uint32_t VideoQualityObserver::TotalFramesDurationMs() {
+  return last_frame_rendered_ms_ - first_frame_rendered_ms_;
+}
+
+double VideoQualityObserver::SumSquaredFrameDurationsSec() {
+  return sum_squared_interframe_delays_secs_;
+}
+
 }  // namespace webrtc

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbf9824d_83e3ac01",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-24T18:05:06Z",
+      "side": 1,
+      "message": "Why not \u003d?",
+      "revId": "a971862373d005789074fdb09e5559df808d0de7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4603e7_6cdc7ad0",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1883,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-24T18:05:06Z",
+      "side": 1,
+      "message": "nit: should be joined to one line again.",
+      "range": {
+        "startLine": 1882,
+        "startChar": 6,
+        "endLine": 1883,
+        "endChar": 21
+      },
+      "revId": "a971862373d005789074fdb09e5559df808d0de7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

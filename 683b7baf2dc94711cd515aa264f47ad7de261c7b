@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7865e9d7_447be141",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "I think it would be more generic to special case on VP9 for spatialLayers access, and then just use simulcastStream for all other codecs. That way we would support generic codecs too here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 65
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7069121a_326a8722",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -41,6 +64,29 @@
         "startChar": 36,
         "endLine": 40,
         "endChar": 46
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5f728c8_5b383694",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "layout \u003d\u003d layering configuration?",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 29
       },
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -186,6 +232,29 @@
     },
     {
       "key": {
+        "uuid": "ab7fdd8c_1904c2fa",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "It seems a bit fragile to depend on this here, but I don\u0027t have any better suggestion for encoders with poor rate control that are not able to drop incoming frames.",
+      "range": {
+        "startLine": 149,
+        "startChar": 14,
+        "endLine": 149,
+        "endChar": 29
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc01c08e_cd9bebaf",
         "filename": "common_video/encoder_overshoot_detector.cc",
         "patchSetId": 13
@@ -202,6 +271,29 @@
         "startChar": 38,
         "endLine": 20,
         "endChar": 42
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d8e0eff_001fbd39",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "const, here and below.",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 9
       },
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
@@ -237,6 +329,120 @@
       "writtenOn": "2019-01-23T11:57:40Z",
       "side": 1,
       "message": "Empty test? Please either implement some tests now, or add this file in the later CL.",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8d2b32a_62a448ea",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8315f8d_ad62045d",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "Maybe define this term, as it is not widely used in the code base.",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1004720_72fecdce",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "Add comment why this \"On\" method has non-void return type.",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16448c99_a2fa2f54",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure if it is nicer, but WDYT of doing const EncodedImage\u0026 instead, and then calling the appropriate member functions inside?",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7237fbea_3d7fb911",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "First I thought this was in frames per second, but based on \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_encoder.h?l\u003d172\u0026rcl\u003db0397d69a93a909fc0b29ffdb9236bab1e1b2db7\nit seems that this is in Q8?",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "406c1b23_f5910f00",
+        "filename": "common_video/include/encoder_overshoot_detector.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "OnEncodedImage, to be consistent with EncoderBitrateAdjuster? Or do you think we should try to migrate towards calling everything \"EncodedFrame\" ?",
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -305,6 +511,29 @@
         "startChar": 35,
         "endLine": 2771,
         "endChar": 71
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d163aa_803ae951",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-24T09:14:46Z",
+      "side": 1,
+      "message": "Could the EncoderBitrateAdjuster live in video/ or modules/video_coding? Unless we want to use it from Chrome, I\u0027m not sure there is any value to keeping it in common_video/?",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 22
       },
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

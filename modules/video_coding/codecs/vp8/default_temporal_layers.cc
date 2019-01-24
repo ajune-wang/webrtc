@@ -25,6 +25,7 @@
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+using Buffer = Vp8TemporalLayers::FrameConfig::Buffer;
 
 Vp8TemporalLayers::FrameConfig::FrameConfig()
     : FrameConfig(kNone, kNone, kNone, false) {}
@@ -484,15 +485,26 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
     RTC_DCHECK(checker_->CheckTemporalConfig(true, frame.frame_config));
   }
 
+  constexpr size_t kCodecBufferCount = CodecSpecificInfoVP8::kCodecBufferCount;
+
+  vp8_info->useDependencyIdentifiers = true;
+  RTC_DCHECK_EQ(vp8_info->referencedCount, 0u);
+  RTC_DCHECK_EQ(vp8_info->updatedCount, 0u);
+
   if (num_layers_ == 1) {
     vp8_info->temporalIdx = kNoTemporalIdx;
     vp8_info->layerSync = false;
+    vp8_info->referenced[vp8_info->referencedCount++] = 0;
+    vp8_info->updated[vp8_info->updatedCount++] = 0;
   } else {
     if (is_keyframe) {
       // Restart the temporal pattern on keyframes.
       pattern_idx_ = 0;
       vp8_info->temporalIdx = 0;
       vp8_info->layerSync = true;  // Keyframes are always sync frames.
+      // Keeping |vp8_info->referencedCount| set to 0 (see DCHECK above)
+      // carries the meaning that this is a key frame, referencing none
+      // and updating all.
 
       for (Vp8BufferReference buffer : kAllBuffers) {
         if (kf_buffers_.find(buffer) != kf_buffers_.end()) {
@@ -509,8 +521,23 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
       // Delta frame, update codec specifics with temporal id and sync flag.
       vp8_info->temporalIdx = frame.frame_config.packetizer_temporal_idx;
       vp8_info->layerSync = frame.frame_config.layer_sync;
+
+      for (int i = 0; i < static_cast<int>(Buffer::kCount); ++i) {
+        if (frame.frame_config.References(static_cast<Buffer>(i))) {
+          RTC_DCHECK_LT(vp8_info->referencedCount, kCodecBufferCount);
+          vp8_info->referenced[vp8_info->referencedCount++] = i;
+        }
+
+        if (frame.frame_config.Updates(static_cast<Buffer>(i))) {
+          RTC_DCHECK_LT(vp8_info->updatedCount, kCodecBufferCount);
+          vp8_info->updated[vp8_info->updatedCount++] = 0;
+        }
+      }
     }
   }
+
+  RTC_DCHECK_LE(vp8_info->referencedCount, kCodecBufferCount);
+  RTC_DCHECK_LE(vp8_info->updatedCount, kCodecBufferCount);
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {

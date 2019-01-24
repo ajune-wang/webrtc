@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f6e4d6f_80ac06bd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-24T15:25:58Z",
+      "side": 1,
+      "message": "Can we break the build with an #error if this precondition is not satisfied?\n\nI don\u0027t know if CONFIG_SAFE_BITSTREAM_READER is visible from our .cc file but if we can safely break at build time that would be nice.",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "0dd838176848f69225a918c258b82907f6ed1ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fde7e08e_89600641",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 34
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-24T14:52:41Z",
+      "side": 1,
+      "message": "What is cross about it? I think it\u0027s a bit confusing if we used it for NetworkDelayedAction as it can then be part of the control traffic, it\u0027s just that we ignore the content of the packets sent. To me it doesn\u0027t make a huge difference if it would read Dummy TrafficRoute rather than DummyTraffic Route, both makes some kind of sense. But maybe we can come up with a third option that is clearer?",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 23
+      },
+      "revId": "823aa1ec46e8b7609b10639f928d26b0cb325fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80f7fee7_f83f151a",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 34
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-24T14:52:41Z",
+      "side": 1,
+      "message": "Is this added just to allow the unit tests? Please make things more complicated to make testing easier. Try to make tests that tests for the actual desired behavior instead. (For cross traffic, you could have a test that looks at how a call is affected by adding cross traffic)\n\nHaving a lot of tests of implementation details makes it much harder to maintain and refactor code and code complexity is our largest time sink, so anything that increases complexity should be avoided.",
+      "range": {
+        "startLine": 57,
+        "startChar": 14,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "823aa1ec46e8b7609b10639f928d26b0cb325fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b3aa13b_a6fcc211",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 34
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-24T14:52:41Z",
+      "side": 1,
+      "message": "Seems to me that these should not be needed in the public interface. The route should contain all the information needed. The only required public interface is SendPacket(packet_size), TriggerPacketBurst and NetworkDelayedAction.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "823aa1ec46e8b7609b10639f928d26b0cb325fa2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

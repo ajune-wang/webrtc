@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "018aff32_6368d66c",
+        "filename": "test/pc/e2e/analyzer/video/id_generator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-24T10:17:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eccc5eda_1146d8a9",
+      "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a2c826f_ce23c4d2",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
         "patchSetId": 7
@@ -30,6 +48,30 @@
       "writtenOn": "2019-01-24T09:59:05Z",
       "side": 1,
       "message": "Nit: instead of a raw pointer, you can make this an iterator.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 29
+      },
+      "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "268247e9_71db32fc",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-24T10:17:11Z",
+      "side": 1,
+      "message": "Iterator will point to a pair and it will be less obvious what is inside during sequential invocations.",
+      "parentUuid": "0a2c826f_ce23c4d2",
       "range": {
         "startLine": 58,
         "startChar": 2,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "4af7193c_86a78e3c",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-24T10:17:11Z",
+      "side": 1,
+      "message": "Forgot to fix that. Now it is done. PTAL.",
+      "parentUuid": "97061b82_85f11ca6",
+      "range": {
+        "startLine": 81,
+        "startChar": 10,
+        "endLine": 82,
+        "endChar": 56
+      },
+      "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4ad5573_43fa855b",
         "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
         "patchSetId": 7
@@ -76,6 +142,24 @@
       "writtenOn": "2019-01-24T09:59:05Z",
       "side": 1,
       "message": "Nit: Maybe add here a comment, that the front element of timestamps_to_frame_id_list_ is not removed here, as it may be needed for more frames because encoder might call several callbacks for the same input frame.",
+      "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fbe51f1_3d8db941",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-24T10:17:11Z",
+      "side": 1,
+      "message": "Added comment after the loop.",
+      "parentUuid": "d4ad5573_43fa855b",
       "revId": "5ea40964ab234c372aedf2171e5d3ae5b0008152",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

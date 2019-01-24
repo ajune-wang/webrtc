@@ -26,6 +26,7 @@
 #include "p2p/base/transport_description_factory.h"
 #include "pc/jsep_transport.h"
 #include "pc/session_description.h"
+#include "rtc_base/unique_id_generator.h"
 
 namespace cricket {
 
@@ -165,6 +166,10 @@ class MediaSessionDescriptionFactory {
     is_unified_plan_ = is_unified_plan;
   }
 
+  void set_ssrc_generator(rtc::UniqueRandomIdGenerator* ssrc_generator) {
+    ssrc_generator_ = ssrc_generator;
+  }
+
   std::unique_ptr<SessionDescription> CreateOffer(
       const MediaSessionOptions& options,
       const SessionDescription* current_description) const;
@@ -300,6 +305,7 @@ class MediaSessionDescriptionFactory {
   VideoCodecs video_codecs_;
   RtpHeaderExtensions video_rtp_extensions_;
   DataCodecs data_codecs_;
+  rtc::UniqueRandomIdGenerator* ssrc_generator_ = nullptr;
   bool enable_encrypted_rtp_header_extensions_ = false;
   // TODO(zhihuang): Rename secure_ to sdec_policy_; rename the related getter
   // and setter.

@@ -41,6 +41,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/network.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/unique_id_generator.h"
 
 namespace webrtc {
 class AudioSinkInterface;
@@ -86,7 +87,8 @@ class BaseChannel : public ChannelInterface,
               std::unique_ptr<MediaChannel> media_channel,
               const std::string& content_name,
               bool srtp_required,
-              webrtc::CryptoOptions crypto_options);
+              webrtc::CryptoOptions crypto_options,
+              rtc::UniqueRandomIdGenerator* ssrc_generator);
   virtual ~BaseChannel();
   virtual void Init_w(webrtc::RtpTransportInternal* rtp_transport,
                       webrtc::MediaTransportInterface* media_transport);
@@ -123,14 +125,14 @@ class BaseChannel : public ChannelInterface,
                         webrtc::SdpType type,
                         std::string* error_desc) override;
 
-  bool Enable(bool enable) override;
-
-  const std::vector<StreamParams>& local_streams() const {
+  const std::vector<StreamParams>& GetLocalContent() const override {
     return local_streams_;
   }
-  const std::vector<StreamParams>& remote_streams() const {
+  const std::vector<StreamParams>& GetRemoteContent() const override {
     return remote_streams_;
   }
+
+  bool Enable(bool enable) override;
 
   sigslot::signal2<BaseChannel*, bool> SignalDtlsSrtpSetupFailure;
   void SignalDtlsSrtpSetupFailure_n(bool rtcp);
@@ -345,6 +347,7 @@ class BaseChannel : public ChannelInterface,
       webrtc::RtpTransceiverDirection::kInactive;
 
   webrtc::RtpDemuxerCriteria demuxer_criteria_;
+  rtc::UniqueRandomIdGenerator* ssrc_generator_ = nullptr;
 };
 
 // VoiceChannel is a specialization that adds support for early media, DTMF,
@@ -355,11 +358,11 @@ class VoiceChannel : public BaseChannel,
   VoiceChannel(rtc::Thread* worker_thread,
                rtc::Thread* network_thread,
                rtc::Thread* signaling_thread,
-               MediaEngineInterface* media_engine,
                std::unique_ptr<VoiceMediaChannel> channel,
                const std::string& content_name,
                bool srtp_required,
-               webrtc::CryptoOptions crypto_options);
+               webrtc::CryptoOptions crypto_options,
+               rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~VoiceChannel();
 
   // downcasts a MediaChannel
@@ -402,7 +405,8 @@ class VideoChannel : public BaseChannel {
                std::unique_ptr<VideoMediaChannel> media_channel,
                const std::string& content_name,
                bool srtp_required,
-               webrtc::CryptoOptions crypto_options);
+               webrtc::CryptoOptions crypto_options,
+               rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~VideoChannel();
 
   // downcasts a MediaChannel
@@ -443,7 +447,8 @@ class RtpDataChannel : public BaseChannel {
                  std::unique_ptr<DataMediaChannel> channel,
                  const std::string& content_name,
                  bool srtp_required,
-                 webrtc::CryptoOptions crypto_options);
+                 webrtc::CryptoOptions crypto_options,
+                 rtc::UniqueRandomIdGenerator* ssrc_generator);
   ~RtpDataChannel();
   // TODO(zhihuang): Remove this once the RtpTransport can be shared between
   // BaseChannels.

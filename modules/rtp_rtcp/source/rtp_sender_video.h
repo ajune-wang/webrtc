@@ -173,6 +173,8 @@ class RTPSenderVideo {
   bool require_frame_encryption_;
   // Set to true if the generic descriptor should be authenticated.
   const bool generic_descriptor_auth_experiment_;
+  // Whether the generic descriptor uses the discardability flag.
+  const bool use_discardability_flag_;
 };
 
 }  // namespace webrtc

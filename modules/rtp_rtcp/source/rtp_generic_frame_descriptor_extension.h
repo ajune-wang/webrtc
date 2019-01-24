@@ -16,22 +16,32 @@
 #include "api/array_view.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
+#include "rtc_base/deprecation.h"  // TODO(eladalon): Resolve and remove.
 
 namespace webrtc {
 
 class RtpGenericFrameDescriptorExtension {
  public:
-  using value_type = RtpGenericFrameDescriptor;
   static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor;
   static constexpr char kUri[] =
       "http://www.webrtc.org/experiments/rtp-hdrext/"
       "generic-frame-descriptor-00";
   static constexpr int kMaxSizeBytes = 16;
 
+  RTC_DEPRECATED static bool Parse(rtc::ArrayView<const uint8_t> data,
+                                   RtpGenericFrameDescriptor* descriptor);
+  RTC_DEPRECATED static size_t ValueSize(
+      const RtpGenericFrameDescriptor& descriptor);
+  RTC_DEPRECATED static bool Write(rtc::ArrayView<uint8_t> data,
+                                   const RtpGenericFrameDescriptor& descriptor);
+
   static bool Parse(rtc::ArrayView<const uint8_t> data,
+                    bool use_discardability_flag,
                     RtpGenericFrameDescriptor* descriptor);
-  static size_t ValueSize(const RtpGenericFrameDescriptor&);
+  static size_t ValueSize(bool use_discardability_flag,
+                          const RtpGenericFrameDescriptor& descriptor);
   static bool Write(rtc::ArrayView<uint8_t> data,
+                    bool use_discardability_flag,
                     const RtpGenericFrameDescriptor& descriptor);
 };
 

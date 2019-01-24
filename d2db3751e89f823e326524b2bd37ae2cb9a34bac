@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b613fea8_c76827ea",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-24T13:25:07Z",
+      "side": 1,
+      "message": "Can\u0027t use .buffer(), because EncodedImage typically owns the data, and then buffer() returns null.\n\n\"MPEG bitstream\" is a bit ambiguous, but might refer to MPEG 4 AVC aka MPEG 4 part 10 aka h.264.",
+      "range": {
+        "startLine": 262,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 63
+      },
+      "revId": "d2db3751e89f823e326524b2bd37ae2cb9a34bac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fc47b0_41eaf6a5",
+        "filename": "modules/video_coding/codecs/multiplex/multiplex_encoded_image_packer.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-24T13:25:07Z",
+      "side": 1,
+      "message": "Here too, buffer() typically returns null, since the EncodedImage owns the data. \n\nNot sure if this usecase is important; if it is, more work is needed to be able to have clear ownership and still avoid copying.",
+      "range": {
+        "startLine": 266,
+        "startChar": 8,
+        "endLine": 266,
+        "endChar": 51
+      },
+      "revId": "d2db3751e89f823e326524b2bd37ae2cb9a34bac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

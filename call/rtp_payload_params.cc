@@ -31,6 +31,8 @@
 namespace webrtc {
 
 namespace {
+constexpr size_t kCodecBufferCount = CodecSpecificInfoVP8::kCodecBufferCount;
+
 void PopulateRtpWithCodecSpecifics(const CodecSpecificInfo& info,
                                    absl::optional<int> spatial_index,
                                    RTPVideoHeader* rtp) {
@@ -129,7 +131,7 @@ RtpPayloadParams::RtpPayloadParams(const uint32_t ssrc,
           field_trial::IsEnabled("WebRTC-GenericPictureId")),
       generic_descriptor_experiment_(
           field_trial::IsEnabled("WebRTC-GenericDescriptor")) {
-  for (auto& spatial_layer : last_shared_frame_id_)
+  for (auto& spatial_layer : deprecated_last_shared_frame_id_)
     spatial_layer.fill(-1);
 
   Random random(rtc::TimeMicros());
@@ -170,7 +172,8 @@ RTPVideoHeader RtpPayloadParams::GetRtpVideoHeader(
   SetCodecSpecific(&rtp_video_header, first_frame_in_picture);
 
   if (generic_descriptor_experiment_)
-    SetGeneric(shared_frame_id, is_keyframe, &rtp_video_header);
+    SetGeneric(codec_specific_info, shared_frame_id, is_keyframe,
+               &rtp_video_header);
 
   return rtp_video_header;
 }
@@ -231,19 +234,33 @@ void RtpPayloadParams::SetCodecSpecific(RTPVideoHeader* rtp_video_header,
   }
 }
 
-void RtpPayloadParams::SetGeneric(int64_t frame_id,
+void RtpPayloadParams::SetGeneric(const CodecSpecificInfo* codec_specific_info,
+                                  int64_t frame_id,
                                   bool is_keyframe,
                                   RTPVideoHeader* rtp_video_header) {
-  if (rtp_video_header->codec == kVideoCodecVP8) {
-    Vp8ToGeneric(frame_id, is_keyframe, rtp_video_header);
+  switch (rtp_video_header->codec) {
+    case VideoCodecType::kVideoCodecGeneric:
+      // TODO(philipel): Implement generic codec to new generic descriptor.
+      return;
+    case VideoCodecType::kVideoCodecVP8:
+      if (codec_specific_info) {
+        Vp8ToGeneric(codec_specific_info->codecSpecific.VP8, frame_id,
+                     is_keyframe, rtp_video_header);
+      }
+      return;
+    case VideoCodecType::kVideoCodecVP9:
+      // TODO(philipel): Implement VP9 to new generic descriptor.
+      return;
+    case VideoCodecType::kVideoCodecH264:
+      // TODO(philipel): Implement H264 to new generic descriptor.
+    case VideoCodecType::kVideoCodecMultiplex:
+      return;
   }
-
-  // TODO(philipel): Implement VP9 to new generic descriptor.
-  // TODO(philipel): Implement H264 to new generic descriptor.
-  // TODO(philipel): Implement generic codec to new generic descriptor.
+  RTC_NOTREACHED() << "Unsupported codec.";
 }
 
-void RtpPayloadParams::Vp8ToGeneric(int64_t shared_frame_id,
+void RtpPayloadParams::Vp8ToGeneric(const CodecSpecificInfoVP8& vp8_info,
+                                    int64_t shared_frame_id,
                                     bool is_keyframe,
                                     RTPVideoHeader* rtp_video_header) {
   const auto& vp8_header =
@@ -266,37 +283,101 @@ void RtpPayloadParams::Vp8ToGeneric(int64_t shared_frame_id,
   generic.spatial_index = spatial_index;
   generic.temporal_index = temporal_index;
 
+  // TODO: !!! 1. Condition. 2. Should not toggle, or we would have a problem
+  // with |deprecated_last_shared_frame_id_|.
+  if (vp8_info.useDependencyIdentifiers) {
+    SetDependenciesVp8New(vp8_info, shared_frame_id, is_keyframe, &generic);
+  } else {
+    SetDependenciesVp8Deprecated(vp8_info, shared_frame_id, is_keyframe,
+                                 spatial_index, temporal_index,
+                                 vp8_header.layerSync, &generic);
+  }
+}
+
+void RtpPayloadParams::SetDependenciesVp8Deprecated(
+    const CodecSpecificInfoVP8& vp8_info,
+    int64_t shared_frame_id,
+    bool is_keyframe,
+    int spatial_index,
+    int temporal_index,
+    bool layer_sync,
+    RTPVideoHeader::GenericDescriptorInfo* generic) {
+  RTC_DCHECK(!vp8_info.useDependencyIdentifiers);
+
   if (is_keyframe) {
     RTC_DCHECK_EQ(temporal_index, 0);
-    last_shared_frame_id_[spatial_index].fill(-1);
-    last_shared_frame_id_[spatial_index][temporal_index] = shared_frame_id;
+    deprecated_last_shared_frame_id_[spatial_index].fill(-1);
+    deprecated_last_shared_frame_id_[spatial_index][temporal_index] =
+        shared_frame_id;
     return;
   }
 
-  if (vp8_header.layerSync) {
-    int64_t tl0_frame_id = last_shared_frame_id_[spatial_index][0];
+  if (layer_sync) {
+    int64_t tl0_frame_id = deprecated_last_shared_frame_id_[spatial_index][0];
 
     for (int i = 1; i < RtpGenericFrameDescriptor::kMaxTemporalLayers; ++i) {
-      if (last_shared_frame_id_[spatial_index][i] < tl0_frame_id) {
-        last_shared_frame_id_[spatial_index][i] = -1;
+      if (deprecated_last_shared_frame_id_[spatial_index][i] < tl0_frame_id) {
+        deprecated_last_shared_frame_id_[spatial_index][i] = -1;
       }
     }
 
     RTC_DCHECK_GE(tl0_frame_id, 0);
     RTC_DCHECK_LT(tl0_frame_id, shared_frame_id);
-    generic.dependencies.push_back(tl0_frame_id);
+    generic->dependencies.push_back(tl0_frame_id);
   } else {
     for (int i = 0; i <= temporal_index; ++i) {
-      int64_t frame_id = last_shared_frame_id_[spatial_index][i];
+      int64_t frame_id = deprecated_last_shared_frame_id_[spatial_index][i];
 
       if (frame_id != -1) {
         RTC_DCHECK_LT(frame_id, shared_frame_id);
-        generic.dependencies.push_back(frame_id);
+        generic->dependencies.push_back(frame_id);
       }
     }
   }
 
-  last_shared_frame_id_[spatial_index][temporal_index] = shared_frame_id;
+  deprecated_last_shared_frame_id_[spatial_index][temporal_index] =
+      shared_frame_id;
+}
+
+void RtpPayloadParams::SetDependenciesVp8New(
+    const CodecSpecificInfoVP8& vp8_info,
+    int64_t shared_frame_id,
+    bool is_keyframe,
+    RTPVideoHeader::GenericDescriptorInfo* generic) {
+  RTC_DCHECK(vp8_info.useDependencyIdentifiers);
+
+  if (is_keyframe) {
+    RTC_DCHECK_EQ(vp8_info.referencedCount, 0u);
+    last_shared_frame_id_.clear();
+    last_key_shared_frame_id_ = shared_frame_id;
+    return;
+  }
+
+  RTC_DCHECK_GT(vp8_info.referencedCount, 0u);
+  RTC_DCHECK_LE(vp8_info.referencedCount, kCodecBufferCount);
+
+  for (size_t i = 0; i < vp8_info.referencedCount; ++i) {
+    const size_t referenced_id = vp8_info.referenced[i];
+    const auto it = last_shared_frame_id_.find(referenced_id);
+    if (it == last_shared_frame_id_.end()) {
+      const int64_t dependency_frame_id = it->second;
+      RTC_DCHECK_LT(dependency_frame_id, shared_frame_id);
+      generic->dependencies.push_back(dependency_frame_id);
+    } else {
+      // Key frames update all buffers, but we don't bother inserting
+      // them into |last_shared_frame_id_|, because we don't know how
+      // many dependency identifiers there will be.
+      generic->dependencies.push_back(last_key_shared_frame_id_);
+    }
+  }
+
+  RTC_DCHECK_LE(vp8_info.updatedCount, kCodecBufferCount);
+  for (size_t i = 0; i < vp8_info.updatedCount; ++i) {
+    const size_t updated_id = vp8_info.updated[i];
+    last_shared_frame_id_[updated_id] = shared_frame_id;
+  }
+
+  RTC_DCHECK_LE(last_shared_frame_id_.size(), kCodecBufferCount);
 }
 
 }  // namespace webrtc

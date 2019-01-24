@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29b32c58_742af573",
+        "filename": "pc/channelinterface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-24T19:23:13Z",
+      "side": 1,
+      "message": "bad merge from the snake_rename change",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "4f9404aeb64222b82de65f2efb1ed37a85875000",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

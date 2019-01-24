@@ -46,6 +46,30 @@
       "revId": "0dd838176848f69225a918c258b82907f6ed1ef3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76f31b3f_36e090a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-24T15:57:53Z",
+      "side": 1,
+      "message": "ffmpeg\u0027s config.h lies in a platform dependent path you might get via config(\"ffmpeg_dependent_config\") from third_parth/ffmpeg/BUILD.gn.\n\nBut then \"config.h\" is a pretty ambiguous name and the cure could be worse than the disease.\n\nFor the record, CONFIG_SAFE_BITSTREAM_READER has a Doppelgänger (UNCHECKED_BITSTREAM_READER) whose setting is monitored here: https://cs.chromium.org/chromium/src/third_party/ffmpeg/chromium/scripts/check_merge.py?UNCHECKED_BITSTREAM_READER\u0026q\u003df:check_merge.py+UNCHECKED_BITSTREAM_READER\u0026g\u003d0\u0026l\u003d34",
+      "parentUuid": "5aa05555_5444e45a",
+      "range": {
+        "startLine": 9,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "0dd838176848f69225a918c258b82907f6ed1ef3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

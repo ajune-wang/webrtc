@@ -589,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "a04f74f0_a78cfec7",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d8e0eff_001fbd39",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 9
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35148753_c5e3315d",
         "filename": "common_video/encoder_overshoot_detector.cc",
         "patchSetId": 13
@@ -641,6 +665,24 @@
     },
     {
       "key": {
+        "uuid": "75dffe0f_43e7e513",
+        "filename": "common_video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "This is a placeholder, I\u0027ll add tests and ping you before landing.",
+      "parentUuid": "399caa2c_3f6da799",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8d2b32a_62a448ea",
         "filename": "common_video/include/encoder_bitrate_adjuster.h",
         "patchSetId": 13
@@ -655,6 +697,24 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1955232b_2469a738",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8d2b32a_62a448ea",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -681,6 +741,30 @@
     },
     {
       "key": {
+        "uuid": "da394edd_56cfb14a",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8315f8d_ad62045d",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 47
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1004720_72fecdce",
         "filename": "common_video/include/encoder_bitrate_adjuster.h",
         "patchSetId": 13
@@ -698,6 +782,24 @@
     },
     {
       "key": {
+        "uuid": "e09d97b7_5a20b4a4",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Renamed it to AdjustRateAllocation",
+      "parentUuid": "c1004720_72fecdce",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16448c99_a2fa2f54",
         "filename": "common_video/include/encoder_bitrate_adjuster.h",
         "patchSetId": 13
@@ -712,6 +814,24 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99ef3670_ee60f65a",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Unfortunately |temporal_index| is not part of EncodedImage yet, it lives in one of the sub-structs of CodecSpecificInfo :(\nBut still changes to EncodedIMage since it simplified things a lot in VideoStreamEncoder.",
+      "parentUuid": "16448c99_a2fa2f54",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -738,6 +858,30 @@
     },
     {
       "key": {
+        "uuid": "5e719469_897ccc15",
+        "filename": "common_video/include/encoder_bitrate_adjuster.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Correct. Added comment.",
+      "parentUuid": "7237fbea_3d7fb911",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "406c1b23_f5910f00",
         "filename": "common_video/include/encoder_overshoot_detector.h",
         "patchSetId": 13
@@ -752,6 +896,24 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb1396c_5c91c095",
+        "filename": "common_video/include/encoder_overshoot_detector.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "I like encoded frame better, personally. Change the other place so at least the adjuster and detectors use the same name.",
+      "parentUuid": "406c1b23_f5910f00",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -778,6 +940,30 @@
     },
     {
       "key": {
+        "uuid": "38db34be_87839759",
+        "filename": "video/end_to_end_tests/bandwidth_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "That\u0027s better handled outside of this CL though. There are other field trials that affect this test too, so it needs to be re-written. I will likely remove this part from this CL.",
+      "parentUuid": "2c5411c0_3fe5a043",
+      "range": {
+        "startLine": 269,
+        "startChar": 5,
+        "endLine": 269,
+        "endChar": 34
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0d38833_b53ecb2f",
         "filename": "video/end_to_end_tests/probing_tests.cc",
         "patchSetId": 13
@@ -798,6 +984,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9532801a_b1722cd9",
+        "filename": "video/end_to_end_tests/probing_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "I added a comment but unfortunately it\u0027s not really easy to find that comment in gerrit :/\nThis test is flaky, is even more flaky with pushback enabled. To be addressed in a sperate cl.",
+      "parentUuid": "b0d38833_b53ecb2f",
+      "range": {
+        "startLine": 194,
+        "startChar": 28,
+        "endLine": 194,
+        "endChar": 71
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -824,6 +1034,30 @@
     },
     {
       "key": {
+        "uuid": "f4eba519_9d40dae7",
+        "filename": "video/video_send_stream_tests.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 2771,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "As mentioned in other test, multiple pending experiments break this test. It needs to be rewritten outside of this cl.",
+      "parentUuid": "1afd4b36_9cbfc413",
+      "range": {
+        "startLine": 2771,
+        "startChar": 35,
+        "endLine": 2771,
+        "endChar": 71
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56d163aa_803ae951",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 13
@@ -844,6 +1078,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c93e1e_246fc320",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T16:02:19Z",
+      "side": 1,
+      "message": "Probably right, I just placed in next to the old adjuster.",
+      "parentUuid": "56d163aa_803ae951",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 22
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

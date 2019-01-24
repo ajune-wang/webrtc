@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00239edc_b4fdca75",
+        "filename": "webrtc.gni",
+        "patchSetId": 1
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-01-24T11:45:05Z",
+      "side": 1,
+      "message": "Can you add some details on what actually happens here; not clear to me.",
+      "revId": "e01b6238accf34eec2295b00b70576d073e7d676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

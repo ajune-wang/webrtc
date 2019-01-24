@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "39951b2f_4d11bb28",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7865e9d7_447be141",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 65
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7069121a_326a8722",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6fc2b04_67379048",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7069121a_326a8722",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ef48fc9d_fe671558",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f82761e_2509fad0",
+      "range": {
+        "startLine": 40,
+        "startChar": 36,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b5f728c8_5b383694",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -82,6 +154,30 @@
       "writtenOn": "2019-01-24T09:14:46Z",
       "side": 1,
       "message": "layout \u003d\u003d layering configuration?",
+      "range": {
+        "startLine": 69,
+        "startChar": 23,
+        "endLine": 69,
+        "endChar": 29
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ebb0d30_a7f332d8",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Yes. Do you think that name is easier to understand or should I just add a comment?",
+      "parentUuid": "b5f728c8_5b383694",
       "range": {
         "startLine": 69,
         "startChar": 23,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "29b75135_7fce9f94",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2675a04b_a2eb1be6",
+      "range": {
+        "startLine": 79,
+        "startChar": 10,
+        "endLine": 79,
+        "endChar": 17
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "878e3d0d_afff5e47",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "741f73eb_3a98cf10",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "878e3d0d_afff5e47",
+      "range": {
+        "startLine": 88,
+        "startChar": 41,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "2e73b138_0b8c54e0",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca8c3aab_1c897095",
+      "range": {
+        "startLine": 88,
+        "startChar": 70,
+        "endLine": 89,
+        "endChar": 14
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64f71bec_34628793",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -183,6 +351,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e354c69e_e4b622f4",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64f71bec_34628793",
+      "range": {
+        "startLine": 94,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "25ff59f9_2a69cd1c",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Yes I also just noticed this. My previous prototype did it correctly but then I screwed it up\nwhen I refactored it. The error was masked by the incorrectly configured rate statics class.",
+      "parentUuid": "ec0fe710_4a417e82",
+      "range": {
+        "startLine": 97,
+        "startChar": 35,
+        "endLine": 97,
+        "endChar": 48
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68386c05_cf3a4436",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "6b93e958_7aa390f2",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "No, if any temporal layer is missing a utilization factor, |use_weighted_sum| will be set to false and we fall back to default value.\nI\u0027ve refactored the class a bit.",
+      "parentUuid": "68386c05_cf3a4436",
+      "range": {
+        "startLine": 128,
+        "startChar": 10,
+        "endLine": 128,
+        "endChar": 72
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab7fdd8c_1904c2fa",
         "filename": "common_video/encoder_bitrate_adjuster.cc",
         "patchSetId": 13
@@ -243,6 +483,30 @@
       "writtenOn": "2019-01-24T09:14:46Z",
       "side": 1,
       "message": "It seems a bit fragile to depend on this here, but I don\u0027t have any better suggestion for encoders with poor rate control that are not able to drop incoming frames.",
+      "range": {
+        "startLine": 149,
+        "startChar": 14,
+        "endLine": 149,
+        "endChar": 29
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4da7e2a2_162f24a1",
+        "filename": "common_video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Right. I have seen issues in the past with codecs where the max qp was set too high and it did not support frame dropping. I think we\u0027ll need to keep the \"trusted rate controller\" thing around until we\u0027re sure if this class can replace the external frame dropper.\n\nWe could potentially make the frame dropping a part of this class, and drop frames if the utilization factor grows \u003e 2?\nThat should be in a follow-up though.",
+      "parentUuid": "ab7fdd8c_1904c2fa",
       "range": {
         "startLine": 149,
         "startChar": 14,
@@ -275,6 +539,30 @@
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f993b725_0a14595d",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Yes, this is wrong, thanks for spotting.\nWas probably trying to set the window size...",
+      "parentUuid": "fc01c08e_cd9bebaf",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 20,
+        "endChar": 42
+      },
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -312,6 +600,24 @@
       "writtenOn": "2019-01-23T11:57:40Z",
       "side": 1,
       "message": "Maybe add some comments, it\u0027s really hard to understand the formulas here and why you assign as overshoot only buffer_level_bits.",
+      "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5df04a49_56376477",
+        "filename": "common_video/encoder_overshoot_detector.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-24T12:30:21Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll try to do that. Just gonna make sure it\u0027s in a bit more stable state first :)",
+      "parentUuid": "35148753_c5e3315d",
       "revId": "683b7baf2dc94711cd515aa264f47ad7de261c7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

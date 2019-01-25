@@ -32,7 +32,6 @@ AndroidVideoTrackSource::AndroidVideoTrackSource(rtc::Thread* signaling_thread,
       is_screencast_(is_screencast),
       align_timestamps_(align_timestamps) {
   RTC_LOG(LS_INFO) << "AndroidVideoTrackSource ctor";
-  camera_thread_checker_.DetachFromThread();
 }
 AndroidVideoTrackSource::~AndroidVideoTrackSource() = default;
 
@@ -66,57 +65,56 @@ bool AndroidVideoTrackSource::remote() const {
   return false;
 }
 
-void AndroidVideoTrackSource::OnFrameCaptured(
-    JNIEnv* jni,
-    int width,
-    int height,
-    int64_t timestamp_ns,
-    VideoRotation rotation,
-    const JavaRef<jobject>& j_video_frame_buffer) {
-  RTC_DCHECK(camera_thread_checker_.CalledOnValidThread());
+absl::optional<AndroidVideoTrackSource::FrameAdaptationParameters>
+AndroidVideoTrackSource::GetFrameAdaptationParameters(int width,
+                                                      int height,
+                                                      int64_t timestamp_ns,
+                                                      VideoRotation rotation) {
+  FrameAdaptationParameters parameters;
 
   int64_t camera_time_us = timestamp_ns / rtc::kNumNanosecsPerMicrosec;
-  int64_t translated_camera_time_us =
-      align_timestamps_ ? timestamp_aligner_.TranslateTimestamp(
-                              camera_time_us, rtc::TimeMicros())
-                        : camera_time_us;
-
-  int adapted_width;
-  int adapted_height;
-  int crop_width;
-  int crop_height;
-  int crop_x;
-  int crop_y;
+  parameters.aligned_timestamp_ns =
+      align_timestamps_ ? rtc::kNumNanosecsPerMicrosec *
+                              timestamp_aligner_.TranslateTimestamp(
+                                  camera_time_us, rtc::TimeMicros())
+                        : timestamp_ns;
 
   if (rotation % 180 == 0) {
-    if (!AdaptFrame(width, height, camera_time_us, &adapted_width,
-                    &adapted_height, &crop_width, &crop_height, &crop_x,
-                    &crop_y)) {
-      return;
+    if (!AdaptFrame(width, height, camera_time_us, &parameters.adapted_width,
+                    &parameters.adapted_height, &parameters.crop_width,
+                    &parameters.crop_height, &parameters.crop_x,
+                    &parameters.crop_y)) {
+      return absl::nullopt;
     }
   } else {
     // Swap all width/height and x/y.
-    if (!AdaptFrame(height, width, camera_time_us, &adapted_height,
-                    &adapted_width, &crop_height, &crop_width, &crop_y,
-                    &crop_x)) {
-      return;
+    if (!AdaptFrame(height, width, camera_time_us, &parameters.adapted_height,
+                    &parameters.adapted_width, &parameters.crop_height,
+                    &parameters.crop_width, &parameters.crop_y,
+                    &parameters.crop_x)) {
+      return absl::nullopt;
     }
   }
 
+  return parameters;
+}
+
+void AndroidVideoTrackSource::OnFrameCaptured(
+    JNIEnv* env,
+    int64_t timestamp_ns,
+    VideoRotation rotation,
+    const JavaRef<jobject>& j_video_frame_buffer) {
   rtc::scoped_refptr<VideoFrameBuffer> buffer =
-      AndroidVideoBuffer::Create(jni, j_video_frame_buffer)
-          ->CropAndScale(jni, crop_x, crop_y, crop_width, crop_height,
-                         adapted_width, adapted_height);
+      AndroidVideoBuffer::Create(env, j_video_frame_buffer);
 
   // AdaptedVideoTrackSource handles applying rotation for I420 frames.
-  if (apply_rotation() && rotation != kVideoRotation_0) {
+  if (apply_rotation() && rotation != kVideoRotation_0)
     buffer = buffer->ToI420();
-  }
 
   OnFrame(VideoFrame::Builder()
               .set_video_frame_buffer(buffer)
               .set_rotation(rotation)
-              .set_timestamp_us(translated_camera_time_us)
+              .set_timestamp_us(timestamp_ns / rtc::kNumNanosecsPerMicrosec)
               .build());
 }
 

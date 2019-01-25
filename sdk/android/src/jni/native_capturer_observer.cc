@@ -34,19 +34,37 @@ ScopedJavaLocalRef<jobject> CreateJavaNativeCapturerObserver(
       env, NativeToJavaPointer(native_source.release()));
 }
 
+static ScopedJavaLocalRef<jobject>
+JNI_NativeCapturerObserver_GetFrameAdaptationParameters(JNIEnv* env,
+                                                        jlong j_source,
+                                                        jint width,
+                                                        jint height,
+                                                        jint j_rotation,
+                                                        int64_t timestamp_ns) {
+  absl::optional<AndroidVideoTrackSource::FrameAdaptationParameters>
+      parameters =
+          reinterpret_cast<AndroidVideoTrackSource*>(j_source)
+              ->GetFrameAdaptationParameters(width, height, timestamp_ns,
+                                             jintToVideoRotation(j_rotation));
+
+  if (!parameters)
+    return nullptr;
+
+  return Java_FrameAdaptationParameters_Constructor(
+      env, parameters->crop_x, parameters->crop_y, parameters->crop_width,
+      parameters->crop_height, parameters->adapted_width,
+      parameters->adapted_height, parameters->aligned_timestamp_ns);
+}
+
 static void JNI_NativeCapturerObserver_OnFrameCaptured(
     JNIEnv* jni,
     jlong j_source,
-    jint j_width,
-    jint j_height,
     jint j_rotation,
     jlong j_timestamp_ns,
     const JavaParamRef<jobject>& j_video_frame_buffer) {
-  AndroidVideoTrackSource* source =
-      reinterpret_cast<AndroidVideoTrackSource*>(j_source);
-  source->OnFrameCaptured(jni, j_width, j_height, j_timestamp_ns,
-                          jintToVideoRotation(j_rotation),
-                          j_video_frame_buffer);
+  reinterpret_cast<AndroidVideoTrackSource*>(j_source)->OnFrameCaptured(
+      jni, j_timestamp_ns, jintToVideoRotation(j_rotation),
+      j_video_frame_buffer);
 }
 
 static void JNI_NativeCapturerObserver_CapturerStarted(

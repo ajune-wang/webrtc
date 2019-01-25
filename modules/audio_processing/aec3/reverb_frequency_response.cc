@@ -24,11 +24,6 @@ namespace webrtc {
 
 namespace {
 
-bool EnableSmoothUpdatesTailFreqResp() {
-  return !field_trial::IsEnabled(
-      "WebRTC-Aec3SmoothUpdatesTailFreqRespKillSwitch");
-}
-
 // Computes the ratio of the energies between the direct path and the tail. The
 // energy is computed in the power spectrum domain discarding the DC
 // contributions.
@@ -54,8 +49,7 @@ float AverageDecayWithinFilter(
 
 }  // namespace
 
-ReverbFrequencyResponse::ReverbFrequencyResponse()
-    : enable_smooth_tail_response_updates_(EnableSmoothUpdatesTailFreqResp()) {
+ReverbFrequencyResponse::ReverbFrequencyResponse() {
   tail_response_.fill(0.f);
 }
 ReverbFrequencyResponse::~ReverbFrequencyResponse() = default;
@@ -66,10 +60,6 @@ void ReverbFrequencyResponse::Update(
     int filter_delay_blocks,
     const absl::optional<float>& linear_filter_quality,
     bool stationary_block) {
-  if (!enable_smooth_tail_response_updates_) {
-    Update(frequency_response, filter_delay_blocks, 0.5f);
-    return;
-  }
 
   if (stationary_block || !linear_filter_quality) {
     return;

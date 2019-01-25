@@ -25,35 +25,7 @@
 namespace webrtc {
 namespace {
 
-const std::string kFieldTrialNames[] = {
-    "WebRTC-Aec3AdaptErleOnLowRenderKillSwitch",
-    "WebRTC-Aec3AgcGainChangeResponseKillSwitch",
-    "WebRTC-Aec3BoundedNearendKillSwitch",
-    "WebRTC-Aec3EarlyShadowFilterJumpstartKillSwitch",
-    "WebRTC-Aec3EnableAdaptiveEchoReverbEstimation",
-    "WebRTC-Aec3EnforceSkewHysteresis1",
-    "WebRTC-Aec3EnforceSkewHysteresis2",
-    "WebRTC-Aec3FilterAnalyzerPreprocessorKillSwitch",
-    "WebRTC-Aec3MisadjustmentEstimatorKillSwitch",
-    "WebRTC-Aec3OverrideEchoPathGainKillSwitch",
-    "WebRTC-Aec3RapidAgcGainRecoveryKillSwitch",
-    "WebRTC-Aec3ResetErleAtGainChangesKillSwitch",
-    "WebRTC-Aec3ShadowFilterBoostedJumpstartKillSwitch",
-    "WebRTC-Aec3ShadowFilterJumpstartKillSwitch",
-    "WebRTC-Aec3SmoothSignalTransitionsKillSwitch",
-    "WebRTC-Aec3SmoothUpdatesTailFreqRespKillSwitch",
-    "WebRTC-Aec3SoftTransparentModeKillSwitch",
-    "WebRTC-Aec3StandardNonlinearReverbModelKillSwitch",
-    "WebRTC-Aec3StrictDivergenceCheckKillSwitch",
-    "WebRTC-Aec3UseOffsetBlocks",
-    "WebRTC-Aec3UseStationarityPropertiesKillSwitch",
-    "WebRTC-Aec3UtilizeShadowFilterOutputKillSwitch",
-    "WebRTC-Aec3ZeroExternalDelayHeadroomKillSwitch",
-    "WebRTC-Aec3FilterQualityStateKillSwitch",
-    "WebRTC-Aec3NewSaturationBehaviorKillSwitch",
-    "WebRTC-Aec3GainLimiterDeactivationKillSwitch",
-    "WebRTC-Aec3EnableErleUpdatesDuringReverbKillSwitch",
-};
+const std::string kFieldTrialNames[] = {};
 
 std::unique_ptr<AudioProcessing> CreateApm(test::FuzzDataHelper* fuzz_data,
                                            std::string* field_trial_string,

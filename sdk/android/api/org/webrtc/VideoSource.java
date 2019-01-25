@@ -46,6 +46,18 @@ public class VideoSource extends MediaSource {
         portraitWidth, portraitHeight, fps);
   }
 
+  /**
+   * Hook for injecting a custom video processor before frames are passed onto WebRTC. The frames
+   * will be cropped and scaled depending on CPU and network conditions before they are passed to
+   * the video processor. Frames will be delivered to the video processor on the same thread they
+   * are passed to this object. The video processor is allowed to deliver the processed frames
+   * back on any thread. The caller is responsible of ensuring that the video processor is not
+   * delivering frames after VideoSource.dispose() has been called.
+   */
+  public void setVideoProcessor(@Nullable VideoProcessor videoProcessor) {
+    capturerObserver.setVideoProcessor(videoProcessor);
+  }
+
   public CapturerObserver getCapturerObserver() {
     return capturerObserver;
   }

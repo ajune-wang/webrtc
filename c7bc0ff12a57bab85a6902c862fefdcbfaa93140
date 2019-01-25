@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c89390d9_653e6b33",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "Since pc() is a public method of PeerConnectionWrapper, why wouldn\u0027t the client set IceCandidates itself?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf320fff_d36a910e",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "|params| isn\u0027t checked againts null.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba99de6_0f830854",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "|components| isn\u0027t checked against null.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ec53999_ea26b07e",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "It would be great to have an usage sample here. Most often the unit-tests play this role (showing how the class is meant to be used), but I think it\u0027s nice anyway to have an unencumbered example of client code.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "921ec502_c7106a0c",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "Ok, what about signaling_thread then?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b344fe4e_ace4065d",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "Oh? It isn\u0027t in the params anymore? It feels a bit weird to have this one hanging here alone.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3694fa_cfbe96d3",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-01-25T14:41:32Z",
+      "side": 1,
+      "message": "Maybe move it next to CreatePCFDependencies, since they are similar. It would make it easier to see the difference between the two.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

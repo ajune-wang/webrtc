@@ -18,22 +18,43 @@
 #include "api/video_codecs/video_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/include/module_common_types.h"
+#include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h"
 #include "modules/video_coding/include/video_error_codes.h"
 
 namespace webrtc {
 
 class RTPFragmentationHeader;  // forward declaration
 
-// Note: if any pointers are added to this struct, it must be fitted
+// Note: If any pointers are added to this struct, it must be fitted
 // with a copy-constructor. See below.
 struct CodecSpecificInfoVP8 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   bool nonReference;
   uint8_t temporalIdx;
   bool layerSync;
   int8_t keyIdx;  // Negative value to skip keyIdx.
+
+  // Used to generate the list of dependent frame IDs.
+  // |referencedBuffers| and |updatedBuffers| contain buffer IDs.
+  // Note that the buffer IDs here have a one-to-one mapping with the actual
+  // codec buffers, but the exact mapping (i.e. whether 0 refers to Last,
+  // to Golden or to Arf) is not pre-determined.
+  // Additionaly, more references may be specified than are strictly necessary.
+  // TODO(bugs.webrtc.org/10242): Remove |useExplicitDependencies| once all
+  // encoder-wrappers are updated.
+  bool useExplicitDependencies;
+  static constexpr size_t kBuffersCount = 3;
+  size_t referencedBuffers[kBuffersCount];
+  size_t referencedBuffersCount;
+  size_t updatedBuffers[1];  // Only key frames update more.
+  size_t updatedBuffersCount;
 };
+static_assert(std::is_pod<CodecSpecificInfoVP8>::value, "");
 
 struct CodecSpecificInfoVP9 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   bool first_frame_in_picture;  // First frame, increment picture_id.
   bool inter_pic_predicted;     // This layer frame is dependent on previously
                                 // coded frame(s).
@@ -62,6 +83,8 @@ struct CodecSpecificInfoVP9 {
 };
 
 struct CodecSpecificInfoH264 {
+  // Hack alert - the code relies on the struct being memset at construction.
+
   H264PacketizationMode packetization_mode;
 };
 
@@ -71,7 +94,7 @@ union CodecSpecificInfoUnion {
   CodecSpecificInfoH264 H264;
 };
 
-// Note: if any pointers are added to this struct or its sub-structs, it
+// Note: If any pointers are added to this struct or its sub-structs, it
 // must be fitted with a copy-constructor. This is because it is copied
 // in the copy-constructor of VCMEncodedFrame.
 struct CodecSpecificInfo {

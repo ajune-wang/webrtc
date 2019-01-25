@@ -18,6 +18,28 @@ import org.webrtc.VideoFrame;
  * webrtc::jni::AndroidVideoTrackSource.
  */
 class NativeCapturerObserver implements CapturerObserver {
+  private static class FrameAdaptationParameters {
+    int cropX;
+    int cropY;
+    int cropWidth;
+    int cropHeight;
+    int scaleWidth;
+    int scaleHeight;
+    long timestampNs;
+
+    @CalledByNative("FrameAdaptationParameters")
+    FrameAdaptationParameters(int cropX, int cropY, int cropWidth, int cropHeight, int scaleWidth,
+        int scaleHeight, long timestampNs) {
+      this.cropX = cropX;
+      this.cropY = cropY;
+      this.cropWidth = cropWidth;
+      this.cropHeight = cropHeight;
+      this.scaleWidth = scaleWidth;
+      this.scaleHeight = scaleHeight;
+      this.timestampNs = timestampNs;
+    }
+  }
+
   // Pointer to webrtc::jni::AndroidVideoTrackSource.
   private final long nativeSource;
 
@@ -38,12 +60,27 @@ class NativeCapturerObserver implements CapturerObserver {
 
   @Override
   public void onFrameCaptured(VideoFrame frame) {
-    nativeOnFrameCaptured(nativeSource, frame.getBuffer().getWidth(), frame.getBuffer().getHeight(),
-        frame.getRotation(), frame.getTimestampNs(), frame.getBuffer());
+    final FrameAdaptationParameters parameters =
+        nativeGetFrameAdaptationParameters(nativeSource, frame.getBuffer().getWidth(),
+            frame.getBuffer().getHeight(), frame.getRotation(), frame.getTimestampNs());
+    final VideoFrame.Buffer adaptedBuffer =
+        frame.getBuffer().cropAndScale(parameters.cropX, parameters.cropY, parameters.cropWidth,
+            parameters.cropHeight, parameters.scaleWidth, parameters.scaleHeight);
+    final VideoFrame adaptedFrame =
+        new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs);
+    deliverFrameToWebRtc(adaptedFrame);
+    adaptedFrame.release();
+  }
+
+  private void deliverFrameToWebRtc(VideoFrame frame) {
+    nativeOnFrameCaptured(
+        nativeSource, frame.getRotation(), frame.getTimestampNs(), frame.getBuffer());
   }
 
   private static native void nativeCapturerStarted(long source, boolean success);
   private static native void nativeCapturerStopped(long source);
+  private static native FrameAdaptationParameters nativeGetFrameAdaptationParameters(
+      long source, int width, int height, int rotation, long timestampNs);
   private static native void nativeOnFrameCaptured(
-      long source, int width, int height, int rotation, long timestampNs, VideoFrame.Buffer frame);
+      long source, int rotation, long timestampNs, VideoFrame.Buffer frame);
 }

@@ -18,7 +18,6 @@
 #include "media/base/adapted_video_track_source.h"
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/thread_checker.h"
 #include "rtc_base/timestamp_aligner.h"
 #include "sdk/android/src/jni/video_frame.h"
 
@@ -27,6 +26,16 @@ namespace jni {
 
 class AndroidVideoTrackSource : public rtc::AdaptedVideoTrackSource {
  public:
+  struct FrameAdaptationParameters {
+    int crop_x;
+    int crop_y;
+    int crop_width;
+    int crop_height;
+    int adapted_width;
+    int adapted_height;
+    int64_t aligned_timestamp_ns;
+  };
+
   AndroidVideoTrackSource(rtc::Thread* signaling_thread,
                           JNIEnv* jni,
                           bool is_screencast,
@@ -47,9 +56,20 @@ class AndroidVideoTrackSource : public rtc::AdaptedVideoTrackSource {
 
   bool remote() const override;
 
-  void OnFrameCaptured(JNIEnv* jni,
-                       int width,
-                       int height,
+  // This function should be called before delivering any frame to determine if
+  // the frame should be dropped or what the cropping and scaling parameters
+  // should be. This function is thread safe and can be called from any thread.
+  absl::optional<FrameAdaptationParameters> GetFrameAdaptationParameters(
+      int width,
+      int height,
+      int64_t timestamp_ns,
+      VideoRotation rotation);
+
+  // This function converts and passes the frame on to the rest of the C++
+  // WebRTC layer. Note that GetFrameAdaptationParameters() is expected to be
+  // called first and that the delivered frame conforms to those parameters.
+  // This function is thread safe and can be called from any thread.
+  void OnFrameCaptured(JNIEnv* env,
                        int64_t timestamp_ns,
                        VideoRotation rotation,
                        const JavaRef<jobject>& j_video_frame_buffer);
@@ -63,7 +83,6 @@ class AndroidVideoTrackSource : public rtc::AdaptedVideoTrackSource {
  private:
   rtc::Thread* signaling_thread_;
   rtc::AsyncInvoker invoker_;
-  rtc::ThreadChecker camera_thread_checker_;
   SourceState state_;
   const bool is_screencast_;
   rtc::TimestampAligner timestamp_aligner_;

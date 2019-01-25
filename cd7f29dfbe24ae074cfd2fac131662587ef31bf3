@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfd0c100_1d3c3aef",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-25T13:35:55Z",
+      "side": 1,
+      "message": "It seems we use \"holder\" in the Java/JNI part of the codebase (https://cs.chromium.org/search/?q\u003dholder+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026type\u003dcs) but maybe wrapper is better in this case (https://cs.chromium.org/search/?q\u003dwrapper+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026type\u003dcs)?\n\nNaming is always hard so feel free to ignore this comment if you prefer \"holder\".",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "cd7f29dfbe24ae074cfd2fac131662587ef31bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

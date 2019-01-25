@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2cacd3c9_12e2f5f4",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "nit: should this be RTCError or some other error type? :)",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c89390d9_653e6b33",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 5
@@ -13,6 +36,23 @@
       "writtenOn": "2019-01-25T14:41:32Z",
       "side": 1,
       "message": "Since pc() is a public method of PeerConnectionWrapper, why wouldn\u0027t the client set IceCandidates itself?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f345db21_177c2326",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "DCHECK(!audio_output_file.has_value() || params.audio_config.has_value) ? or is one for outgoing, and the other incoming?",
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -36,6 +76,40 @@
     },
     {
       "key": {
+        "uuid": "51142c74_9cf2c7a9",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "I suggest std::move(components-\u003epcf_dependencies), see below.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40f4655c_bcc9f63f",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "I\u0027d suggest std::move(components-\u003epc_dependencies); to pass the ownership to CreatePCDependencies.\n\nand then in the next line\nNetworkManager * network_manager \u003d pc_deps.network_manager;\n\ninstead of relying on CreatePCdependencies to modify the field in the passed struct. In other words: take the output from the output, and consume the input (instead of mutating it, by consuming some things and creating some others).\n\nMy concern with the current design is that it mixes input with output (and also because of this I am a bit concerned with the \"PeerConnectionComponents\")\n\nPeerConnectionComponents is an input to that method (as part of Injectable components), but it\u0027s not complete.\n\nHow does the caller is supposed to know that he shouldn\u0027t provide network_manager?\n\nI would suggest making input and outputs explicit. Right now some parameters are used as both inputs and outputs.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cba99de6_0f830854",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -47,6 +121,166 @@
       "writtenOn": "2019-01-25T14:41:32Z",
       "side": 1,
       "message": "|components| isn\u0027t checked against null.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0faf9f85_36de7e0e",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "PeerConnectionFactoryComponents.\n\nAlso, I think it should take ownership of PeerConnectionFactoryComponents.\nYou are essentially moving out all of the parameters from it, rendering PeerConnectionFactoryComponents unusable.\n\nSo consider std::unique_ptr\u003cPeerConnectionFactoryComponents\u003e",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6d2de36_52b700c3",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "PeerConnectionFactoryComponents",
+      "range": {
+        "startLine": 135,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 24
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ddda9cc_97dd6770",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "optional\u003cAudioConfig\u003e instead? see below",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 10
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ade479a8_499cbe1e",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "nit add blank line",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e6b4ef9_32944e0a",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "you only use params-\u003eaudio_config in this method, why wouldn\u0027t you pass absl::optional\u003cAudioConfig\u003e here instead?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "497f46ec_e3ebf29e",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "you don\u0027t need all of them, just  PeerConnectionFactoryComponents?",
+      "range": {
+        "startLine": 198,
+        "startChar": 21,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ba675fe_90be3fc1",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "PeerConnectionFactoryComponents",
+      "range": {
+        "startLine": 212,
+        "startChar": 21,
+        "endLine": 212,
+        "endChar": 41
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc5f9d1_55bb15df",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "instead of passing the entire InjectableComponents, wouldn\u0027t it be better to pass PeerConnectionComponents in the parameter here?",
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -81,6 +315,29 @@
       "writtenOn": "2019-01-25T14:41:32Z",
       "side": 1,
       "message": "Ok, what about signaling_thread then?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a576491_c2c49585",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-25T21:02:28Z",
+      "side": 1,
+      "message": "since params is a struct, is there a reason to simply not pass a struct? I don\u0027t mind unique_ptr, but I wanted to understand why :)",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 28
+      },
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

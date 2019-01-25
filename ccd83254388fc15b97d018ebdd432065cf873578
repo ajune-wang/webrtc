@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a017a50f_ee6bfabf",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-25T16:51:40Z",
+      "side": 1,
+      "message": "Now that the PR is merged please add a reference to the spec for each of these, e.g:\nhttps://henbos.github.io/webrtc-provisional-stats/#dom-rtcvideoreceiverstats-freezecount",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "014b789a_5d47b048",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-25T16:51:40Z",
+      "side": 1,
+      "message": "Please add a test for this in sample_counter_unittest.cc",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5230872_10ace238",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-25T16:51:40Z",
+      "side": 1,
+      "message": "nit: Can you have a similar test that is just below and verify that it\u0027s not a freeze?",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5756470_b953e111",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-25T16:51:40Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be enough to have a single frame arrive and then wait 5 seconds?\nCan you add a test to verify that the first frame is not considered a pause if it takes 5+ seconds since it was created and a frame arriving?",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4520812a_0e21e887",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-25T16:51:40Z",
+      "side": 1,
+      "message": "nit: How about waiting before the first frame arrives to ensure that the duration only covers the time since the first frame and not the total time?",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

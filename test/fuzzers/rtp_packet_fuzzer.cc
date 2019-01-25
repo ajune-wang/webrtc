@@ -25,15 +25,13 @@ static_assert(kRtpExtensionNumberOfExtensions <= 16,
               "an extra byte and update the switches.");
 
 void FuzzOneInput(const uint8_t* data, size_t size) {
-  if (size <= 3)
+  if (size <= 2)
     return;
 
   // Don't use the configuration bytes as part of the packet.
   std::bitset<16> extensionMask(*reinterpret_cast<const uint16_t*>(data));
-  const uint8_t additional_config = data[2];
-  const bool use_discardability_flag = (additional_config & 0x01);
-  data += 3;
-  size -= 3;
+  data += 2;
+  size -= 2;
 
   RtpPacketReceived::ExtensionManager extensions;
   // Skip i = 0 since it maps to ExtensionNone and extension id = 0 is invalid.
@@ -120,8 +118,7 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
       }
       case kRtpExtensionGenericFrameDescriptor: {
         RtpGenericFrameDescriptor descriptor;
-        packet.GetExtension<RtpGenericFrameDescriptorExtension>(
-            use_discardability_flag, &descriptor);
+        packet.GetExtension<RtpGenericFrameDescriptorExtension>(&descriptor);
         break;
       }
       case kRtpExtensionColorSpace: {

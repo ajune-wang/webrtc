@@ -98,7 +98,6 @@ rtc_source_set("rtp_rtcp_format") {
     "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
     "../../system_wrappers",
-    "../../system_wrappers:field_trial",
     "../video_coding:codec_globals_headers",
     "//third_party/abseil-cpp/absl/types:optional",
     "//third_party/abseil-cpp/absl/types:variant",

@@ -2237,12 +2237,11 @@ TEST_P(RtpSenderVideoTest, PopulateGenericFrameDescriptor) {
                                kFrame, sizeof(kFrame), nullptr, &hdr,
                                kDefaultExpectedRetransmissionTimeMs);
 
-  constexpr bool kUseDiscardabilityFlag = false;
-  RtpGenericFrameDescriptor descriptor_wire(kUseDiscardabilityFlag);
+  RtpGenericFrameDescriptor descriptor_wire;
   EXPECT_EQ(1U, transport_.sent_packets_.size());
-  EXPECT_TRUE(transport_.last_sent_packet()
-                  .GetExtension<RtpGenericFrameDescriptorExtension>(
-                      kUseDiscardabilityFlag, &descriptor_wire));
+  EXPECT_TRUE(
+      transport_.last_sent_packet()
+          .GetExtension<RtpGenericFrameDescriptorExtension>(&descriptor_wire));
   EXPECT_EQ(static_cast<uint16_t>(generic.frame_id), descriptor_wire.FrameId());
   EXPECT_EQ(generic.temporal_index, descriptor_wire.TemporalLayer());
   EXPECT_THAT(descriptor_wire.FrameDependenciesDiffs(), ElementsAre(1, 500));

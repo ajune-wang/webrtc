@@ -21,6 +21,7 @@ namespace webrtc {
 
 class RtpGenericFrameDescriptorExtension {
  public:
+  using value_type = RtpGenericFrameDescriptor;
   static constexpr RTPExtensionType kId = kRtpExtensionGenericFrameDescriptor;
   static constexpr char kUri[] =
       "http://www.webrtc.org/experiments/rtp-hdrext/"
@@ -28,12 +29,9 @@ class RtpGenericFrameDescriptorExtension {
   static constexpr int kMaxSizeBytes = 16;
 
   static bool Parse(rtc::ArrayView<const uint8_t> data,
-                    bool use_discardability_flag,
                     RtpGenericFrameDescriptor* descriptor);
-  static size_t ValueSize(bool use_discardability_flag,
-                          const RtpGenericFrameDescriptor& descriptor);
+  static size_t ValueSize(const RtpGenericFrameDescriptor&);
   static bool Write(rtc::ArrayView<uint8_t> data,
-                    bool use_discardability_flag,
                     const RtpGenericFrameDescriptor& descriptor);
 };
 

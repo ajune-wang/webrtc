@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1ff64f7c_3989ee3a",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T21:17:26Z",
+      "side": 1,
+      "message": "it may no longer be default. in fact, i don\u0027t think \u0027default\u0027 usually means what i understand this to mean. i\u0027ll update to:\n// Simple constructor that does not set any configuration for the factory.\n// When using this constructor, the methods below can be used to set the configuration",
+      "parentUuid": "bc55a06c_6ebb4351",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b3e31f1_09559e46",
         "filename": "pc/media_session.h",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "35bf6093_1a8371a2",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T21:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b3e31f1_09559e46",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f6d2bf5_629f7ceb",
         "filename": "pc/media_session.h",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7243fe65_fbf30074",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T21:17:26Z",
+      "side": 1,
+      "message": "// The TransportDescriptionFactory and the UniqueRandomIdGenerator are not\n// owned by MediaSessionDescriptionFactory, so they must be kept alive by the \n// user of this class.",
+      "parentUuid": "5f6d2bf5_629f7ceb",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

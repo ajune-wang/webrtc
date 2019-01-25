@@ -68,23 +68,6 @@ constexpr char RtpGenericFrameDescriptorExtension::kUri[];
 
 bool RtpGenericFrameDescriptorExtension::Parse(
     rtc::ArrayView<const uint8_t> data,
-    RtpGenericFrameDescriptor* descriptor) {
-  return RtpGenericFrameDescriptorExtension::Parse(data, false, descriptor);
-}
-
-size_t RtpGenericFrameDescriptorExtension::ValueSize(
-    const RtpGenericFrameDescriptor& descriptor) {
-  return RtpGenericFrameDescriptorExtension::ValueSize(false, descriptor);
-}
-
-bool RtpGenericFrameDescriptorExtension::Write(
-    rtc::ArrayView<uint8_t> data,
-    const RtpGenericFrameDescriptor& descriptor) {
-  return Write(data, false, descriptor);
-}
-
-bool RtpGenericFrameDescriptorExtension::Parse(
-    rtc::ArrayView<const uint8_t> data,
     bool use_discardability_flag,
     RtpGenericFrameDescriptor* descriptor) {
   if (data.empty()) {

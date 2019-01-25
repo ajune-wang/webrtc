@@ -21,10 +21,12 @@ class MockDelayManager : public DelayManager {
  public:
   MockDelayManager(size_t max_packets_in_buffer,
                    int base_min_target_delay_ms,
+                   bool handle_rtx,
                    DelayPeakDetector* peak_detector,
                    const TickTimer* tick_timer)
       : DelayManager(max_packets_in_buffer,
                      base_min_target_delay_ms,
+                     handle_rtx,
                      peak_detector,
                      tick_timer) {}
   virtual ~MockDelayManager() { Die(); }

@@ -1425,6 +1425,7 @@ include_rules = [
   "+modules/include",
   "+rtc_base",
   "+test",
+  "+media",
   "+rtc_tools",
 
   # Abseil whitelist. Keep this in sync with abseil-in-webrtc.md.

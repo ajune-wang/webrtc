@@ -23,6 +23,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/match.h"
 #include "api/candidate.h"
@@ -699,8 +700,8 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
       track_id = rtc::CreateRandomString(8);
     }
 
-    auto track_it = std::find_if(
-        tracks->begin(), tracks->end(),
+    auto track_it = absl::c_find_if(
+        *tracks,
         [track_id](const StreamParams& track) { return track.id == track_id; });
     if (track_it == tracks->end()) {
       // If we don't find an existing track, create a new one.
@@ -2440,30 +2441,29 @@ static void RemoveInvalidRidsFromSimulcast(
   // This algorithm runs in O(n^2) time, but for small n (as is the case with
   // simulcast layers) it should still perform well.
   for (const SimulcastLayer& send_layer : all_send_layers) {
-    if (std::find_if(all_receive_layers.begin(), all_receive_layers.end(),
-                     [&send_layer](const SimulcastLayer& layer) {
-                       return layer.rid == send_layer.rid;
-                     }) != all_receive_layers.end()) {
+    if (absl::c_any_of(all_receive_layers,
+                       [&send_layer](const SimulcastLayer& layer) {
+                         return layer.rid == send_layer.rid;
+                       })) {
       to_remove.insert(send_layer.rid);
     }
   }
 
   // Add any rid that is not in the valid list to the remove set.
   for (const SimulcastLayer& send_layer : all_send_layers) {
-    if (std::find_if(valid_rids.begin(), valid_rids.end(),
-                     [&send_layer](const RidDescription& rid) {
-                       return send_layer.rid == rid.rid;
-                     }) == valid_rids.end()) {
+    if (absl::c_none_of(valid_rids, [&send_layer](const RidDescription& rid) {
+          return send_layer.rid == rid.rid;
+        })) {
       to_remove.insert(send_layer.rid);
     }
   }
 
   // Add any rid that is not in the valid list to the remove set.
   for (const SimulcastLayer& receive_layer : all_receive_layers) {
-    if (std::find_if(valid_rids.begin(), valid_rids.end(),
-                     [&receive_layer](const RidDescription& rid) {
-                       return receive_layer.rid == rid.rid;
-                     }) == valid_rids.end()) {
+    if (absl::c_none_of(valid_rids,
+                        [&receive_layer](const RidDescription& rid) {
+                          return receive_layer.rid == rid.rid;
+                        })) {
       to_remove.insert(receive_layer.rid);
     }
   }
@@ -3324,10 +3324,10 @@ bool ParseSsrcAttribute(const std::string& line,
 
   // Check if there's already an item for this |ssrc_id|. Create a new one if
   // there isn't.
-  auto ssrc_info_it = std::find_if(ssrc_infos->begin(), ssrc_infos->end(),
-                                   [ssrc_id](const SsrcInfo& ssrc_info) {
-                                     return ssrc_info.ssrc_id == ssrc_id;
-                                   });
+  auto ssrc_info_it =
+      absl::c_find_if(*ssrc_infos, [ssrc_id](const SsrcInfo& ssrc_info) {
+        return ssrc_info.ssrc_id == ssrc_id;
+      });
   if (ssrc_info_it == ssrc_infos->end()) {
     SsrcInfo info;
     info.ssrc_id = ssrc_id;

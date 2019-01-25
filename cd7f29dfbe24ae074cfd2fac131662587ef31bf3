@@ -22,6 +22,30 @@
       "revId": "cd7f29dfbe24ae074cfd2fac131662587ef31bf3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55fb86cf_5a71d366",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-25T13:38:29Z",
+      "side": 1,
+      "message": "Actually it is helper..",
+      "parentUuid": "dfd0c100_1d3c3aef",
+      "range": {
+        "startLine": 50,
+        "startChar": 43,
+        "endLine": 50,
+        "endChar": 64
+      },
+      "revId": "cd7f29dfbe24ae074cfd2fac131662587ef31bf3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

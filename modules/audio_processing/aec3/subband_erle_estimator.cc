@@ -26,10 +26,6 @@ constexpr int kBlocksToHoldErle = 100;
 constexpr int kBlocksForOnsetDetection = kBlocksToHoldErle + 150;
 constexpr int kPointsToAccumulate = 6;
 
-bool EnableAdaptErleOnLowRender() {
-  return !field_trial::IsEnabled("WebRTC-Aec3AdaptErleOnLowRenderKillSwitch");
-}
-
 std::array<float, kFftLengthBy2Plus1> SetMaxErleBands(float max_erle_l,
                                                       float max_erle_h) {
   std::array<float, kFftLengthBy2Plus1> max_erle;
@@ -42,8 +38,7 @@ std::array<float, kFftLengthBy2Plus1> SetMaxErleBands(float max_erle_l,
 
 SubbandErleEstimator::SubbandErleEstimator(const EchoCanceller3Config& config)
     : min_erle_(config.erle.min),
-      max_erle_(SetMaxErleBands(config.erle.max_l, config.erle.max_h)),
-      adapt_on_low_render_(EnableAdaptErleOnLowRender()) {
+      max_erle_(SetMaxErleBands(config.erle.max_l, config.erle.max_h)) {
   Reset();
 }
 
@@ -151,7 +146,6 @@ void SubbandErleEstimator::UpdateAccumulatedSpectra(
     rtc::ArrayView<const float> Y2,
     rtc::ArrayView<const float> E2) {
   auto& st = accum_spectra_;
-  if (adapt_on_low_render_) {
     if (st.num_points_[0] == kPointsToAccumulate) {
       st.num_points_[0] = 0;
       st.Y2_.fill(0.f);
@@ -169,25 +163,6 @@ void SubbandErleEstimator::UpdateAccumulatedSpectra(
     }
     st.num_points_[0]++;
     st.num_points_.fill(st.num_points_[0]);
-
-  } else {
-    // The update is always done using high render energy signals and
-    // therefore the field accum_spectra_.low_render_energy_ does not need to
-    // be modified.
-    for (size_t k = 0; k < X2.size(); ++k) {
-      if (X2[k] > kX2BandEnergyThreshold) {
-        if (st.num_points_[k] == kPointsToAccumulate) {
-          st.Y2_[k] = 0.f;
-          st.E2_[k] = 0.f;
-          st.num_points_[k] = 0;
-        }
-        st.Y2_[k] += Y2[k];
-        st.E2_[k] += E2[k];
-        st.num_points_[k]++;
-      }
-      RTC_DCHECK_EQ(st.low_render_energy_[k], false);
-    }
-  }
 }
 
 }  // namespace webrtc

@@ -25,11 +25,6 @@ namespace webrtc {
 
 namespace {
 
-bool EnforceAdaptiveEchoReverbEstimation() {
-  return field_trial::IsEnabled(
-      "WebRTC-Aec3EnableAdaptiveEchoReverbEstimation");
-}
-
 constexpr int kEarlyReverbMinSizeBlocks = 3;
 constexpr int kBlocksPerSection = 6;
 // Linear regression approach assumes symmetric index around 0.
@@ -92,8 +87,7 @@ float BlockEnergyAverage(rtc::ArrayView<const float> h, int block_index) {
 ReverbDecayEstimator::ReverbDecayEstimator(const EchoCanceller3Config& config)
     : filter_length_blocks_(config.filter.main.length_blocks),
       filter_length_coefficients_(GetTimeDomainLength(filter_length_blocks_)),
-      use_adaptive_echo_decay_(config.ep_strength.default_len < 0.f ||
-                               EnforceAdaptiveEchoReverbEstimation()),
+      use_adaptive_echo_decay_(config.ep_strength.default_len < 0.f),
       early_reverb_estimator_(config.filter.main.length_blocks -
                               kEarlyReverbMinSizeBlocks),
       late_reverb_start_(kEarlyReverbMinSizeBlocks),

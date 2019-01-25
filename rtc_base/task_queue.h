@@ -18,9 +18,9 @@
 
 #include "absl/memory/memory.h"
 #include "api/task_queue/queued_task.h"
-#include "api/task_queue/task_queue_priority.h"
+#include "api/task_queue/task_queue_base.h"
+#include "api/task_queue/task_queue_factory.h"
 #include "rtc_base/constructor_magic.h"
-#include "rtc_base/scoped_ref_ptr.h"
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
@@ -143,8 +143,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
  public:
   // TaskQueue priority levels. On some platforms these will map to thread
   // priorities, on others such as Mac and iOS, GCD queue priorities.
-  using Priority = ::webrtc::TaskQueuePriority;
-  class Impl;
+  using Priority = ::webrtc::TaskQueueFactory::Priority;
 
   explicit TaskQueue(const char* queue_name,
                      Priority priority = Priority::NORMAL);
@@ -153,19 +152,24 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   static TaskQueue* Current();
 
   // Used for DCHECKing the current queue.
-  bool IsCurrent() const;
+  bool IsCurrent() const { return webrtc::TaskQueueBase::Current() == impl_; }
 
   // TODO(tommi): For better debuggability, implement RTC_FROM_HERE.
 
   // Ownership of the task is passed to PostTask.
-  void PostTask(std::unique_ptr<QueuedTask> task);
+  void PostTask(std::unique_ptr<QueuedTask> task) {
+    impl_->PostTask(std::move(task));
+  }
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds (although 8 would be
   // more likely). This can be mitigated by limiting the use of delayed tasks.
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds);
+  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                       uint32_t milliseconds) {
+    impl_->PostDelayedTask(std::move(task), milliseconds);
+  }
 
   // std::enable_if is used here to make sure that calls to PostTask() with
   // std::unique_ptr<SomeClassDerivedFromQueuedTask> would not end up being
@@ -188,15 +192,8 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   }
 
  private:
-  // TODO(danilchap): Remove when external implementaions of TaskQueue remove
-  // these two functions.
-  void PostTaskAndReply(std::unique_ptr<QueuedTask> task,
-                        std::unique_ptr<QueuedTask> reply,
-                        TaskQueue* reply_queue);
-  void PostTaskAndReply(std::unique_ptr<QueuedTask> task,
-                        std::unique_ptr<QueuedTask> reply);
-
-  const scoped_refptr<Impl> impl_;
+  // rtc::TaskQueue owns the impl_, but destroys it with custom Deleter.
+  webrtc::TaskQueueBase* const impl_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(TaskQueue);
 };

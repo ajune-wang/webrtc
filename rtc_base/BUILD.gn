@@ -503,14 +503,18 @@ if (is_mac && !build_with_chromium) {
 
 rtc_source_set("rtc_task_queue") {
   visibility = [ "*" ]
-  deps = []
-  public_deps = [
-    ":rtc_task_queue_api",
+  sources = [
+    "task_queue.cc",
+    "task_queue.h",
   ]
-
-  if (rtc_link_task_queue_impl) {
-    deps += [ ":rtc_task_queue_impl" ]
-  }
+  deps = [
+    ":macromagic",
+    ":ptr_util",
+    "../api/task_queue",
+    "../api/task_queue:global_task_queue_factory",
+    "system:rtc_export",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
 }
 
 # WebRTC targets must not directly depend on rtc_task_queue_api or
@@ -542,11 +546,9 @@ rtc_source_set("rtc_task_queue_api") {
 
 if (rtc_enable_libevent) {
   rtc_source_set("rtc_task_queue_libevent") {
-    visibility = [ ":rtc_task_queue_impl" ]
+    visibility = [ "../api/task_queue:default_task_queue_factory" ]
     sources = [
       "task_queue_libevent.cc",
-      "task_queue_posix.cc",
-      "task_queue_posix.h",
     ]
     deps = [
       ":checks",
@@ -555,12 +557,11 @@ if (rtc_enable_libevent) {
       ":macromagic",
       ":platform_thread",
       ":platform_thread_types",
-      ":ptr_util",
-      ":refcount",
-      ":rtc_task_queue_api",
       ":safe_conversions",
       ":timeutils",
+      "../api/task_queue",
       "system:unused",
+      "//third_party/abseil-cpp/absl/memory",
     ]
     if (rtc_build_libevent) {
       deps += [ "//base/third_party/libevent" ]
@@ -630,26 +631,20 @@ rtc_source_set("rtc_task_queue_stdlib") {
 
 rtc_source_set("rtc_task_queue_impl") {
   visibility = [ "*" ]
-  if (rtc_enable_libevent) {
+  if (is_mac || is_ios) {
     deps = [
-      ":rtc_task_queue_libevent",
+      ":rtc_task_queue_gcd",
     ]
-  } else {
-    if (is_mac || is_ios) {
+  }
+  if (is_win) {
+    if (current_os == "winuwp") {
       deps = [
-        ":rtc_task_queue_gcd",
+        ":rtc_task_queue_stdlib",
       ]
-    }
-    if (is_win) {
-      if (current_os == "winuwp") {
-        deps = [
-          ":rtc_task_queue_stdlib",
-        ]
-      } else {
-        deps = [
-          ":rtc_task_queue_win",
-        ]
-      }
+    } else {
+      deps = [
+        ":rtc_task_queue_win",
+      ]
     }
   }
 }

@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a89f15e2_0f49b55a",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "/*...\u003d*/\n\nOr make these numbers be a named constants.",
+      "range": {
+        "startLine": 154,
+        "startChar": 66,
+        "endLine": 154,
+        "endChar": 78
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a39e4747_63ccc9d2",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "RTC_NOTREACHED();",
+      "range": {
+        "startLine": 160,
+        "startChar": 6,
+        "endLine": 160,
+        "endChar": 23
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92647b16_857e233f",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "/*max_amplitude\u003d*/",
+      "range": {
+        "startLine": 166,
+        "startChar": 64,
+        "endLine": 166,
+        "endChar": 69
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc73a537_e1e9e4ce",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "/*sampling_frequency_in_hz\u003d*/",
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db63f8ae_518c5672",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "if (params-\u003eaudio_config) {\n  capturer \u003d absl::make_unique\u003cCopyToFileAudioCapturer\u003e(\n        std::move(capturer), params-\u003eaudio_config-\u003einput_dump_file_name);\n}",
+      "range": {
+        "startLine": 170,
+        "startChar": 2,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c238e97_3998dbe1",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "/*...\u003d*/",
+      "range": {
+        "startLine": 185,
+        "startChar": 60,
+        "endLine": 185,
+        "endChar": 65
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5bc9560_dbe77b43",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "/*speed\u003d*/",
+      "range": {
+        "startLine": 189,
+        "startChar": 47,
+        "endLine": 189,
+        "endChar": 48
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f03ec8_a42a1c84",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "Return immediately",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 31
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9660975b_18692c40",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "you can simply return result here.",
+      "range": {
+        "startLine": 217,
+        "startChar": 2,
+        "endLine": 219,
+        "endChar": 31
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b0cb62b_fcef795e",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-25T12:18:53Z",
+      "side": 1,
+      "message": "Unnecessary.",
+      "range": {
+        "startLine": 46,
+        "startChar": 70,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "7517f0592a3f7c3241b1a5cb389171feba154b49",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

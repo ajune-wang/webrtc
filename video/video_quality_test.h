@@ -97,7 +97,7 @@ class VideoQualityTest :
   virtual std::unique_ptr<test::LayerFilteringTransport> CreateSendTransport();
   virtual std::unique_ptr<test::DirectTransport> CreateReceiveTransport();
 
-  std::vector<std::unique_ptr<rtc::VideoSourceInterface<VideoFrame>>>
+  std::vector<std::unique_ptr<test::FrameGeneratorCapturer>>
       thumbnail_capturers_;
   Clock* const clock_;
 

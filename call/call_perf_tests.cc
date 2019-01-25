@@ -280,6 +280,7 @@ void CallPerfTest::TestAudioVideoSync(FecMode fec,
 
     audio_send_stream->Start();
     audio_receive_stream->Start();
+    frame_generator_capturer_->Start();
   });
 
   EXPECT_TRUE(observer.Wait())

@@ -47,15 +47,11 @@ class FrameGeneratorCapturerVideoTrackSource : public VideoTrackSource {
         config.num_squares_generated, config.frames_per_second, clock));
   }
 
-  explicit FrameGeneratorCapturerVideoTrackSource(
-      std::unique_ptr<test::FrameGeneratorCapturer> video_capturer)
-      : VideoTrackSource(false /* remote */),
-        video_capturer_(std::move(video_capturer)) {}
-
   ~FrameGeneratorCapturerVideoTrackSource() = default;
 
   void Start() {
     SetState(kLive);
+    video_capturer_->Start();
   }
 
   void Stop() {

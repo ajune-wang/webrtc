@@ -97,6 +97,7 @@ void NetworkStateEndToEndTest::VerifyNewVideoSendStreamsRespectNetworkState(
                                  kDefaultHeight);
 
     Start();
+    frame_generator_capturer_->Start();
   });
 
   SleepMs(kSilenceTimeoutMs);
@@ -130,6 +131,7 @@ void NetworkStateEndToEndTest::VerifyNewVideoReceiveStreamsRespectNetworkState(
     CreateFrameGeneratorCapturer(kDefaultFramerate, kDefaultWidth,
                                  kDefaultHeight);
     Start();
+    frame_generator_capturer_->Start();
   });
 
   SleepMs(kSilenceTimeoutMs);

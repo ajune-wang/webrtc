@@ -166,6 +166,8 @@ void CallTest::RunBaseTest(BaseTest* test) {
     }
 
     Start();
+    if (frame_generator_capturer_)
+      frame_generator_capturer_->Start();
   });
 
   test->PerformTest();

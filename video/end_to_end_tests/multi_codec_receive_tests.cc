@@ -214,6 +214,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
     CreateVideoStreams();
     CreateFrameGeneratorCapturer(kFps, kWidth, kHeight);
     Start();
+    frame_generator_capturer_->Start();
   });
   EXPECT_TRUE(observer_.Wait()) << "Timed out waiting for frames.";
 
@@ -228,6 +229,7 @@ void MultiCodecReceiveTest::RunTestWithCodecs(
       GetVideoSendStream()->Start();
       CreateFrameGeneratorCapturer(kFps, kWidth / 2, kHeight / 2);
       ConnectVideoSourcesToStreams();
+      frame_generator_capturer_->Start();
     });
     EXPECT_TRUE(observer_.Wait()) << "Timed out waiting for frames.";
   }

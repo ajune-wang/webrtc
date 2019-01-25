@@ -198,9 +198,6 @@ SendVideoStream::SendVideoStream(CallClient* sender,
           test::ResourcePath(config.source.video_file.name, "yuv"),
           config.source.width, config.source.height, config.source.framerate,
           sender_->clock_);
-      RTC_CHECK(frame_generator_)
-          << "Could not create capturer for " << config.source.video_file.name
-          << ".yuv. Is this resource file present?";
       video_capturer_.reset(frame_generator_);
       break;
   }
@@ -260,6 +257,9 @@ SendVideoStream::SendVideoStream(CallClient* sender,
     send_stream_->SetSource(video_capturer_.get(),
                             config.encoder.degradation_preference);
   }
+
+  if (frame_generator_)
+    frame_generator_->Start();
 }
 
 SendVideoStream::~SendVideoStream() {

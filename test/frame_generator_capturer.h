@@ -10,12 +10,14 @@
 #ifndef TEST_FRAME_GENERATOR_CAPTURER_H_
 #define TEST_FRAME_GENERATOR_CAPTURER_H_
 
+#include <atomic>
 #include <memory>
 #include <string>
 
 #include "api/video/video_frame.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "test/frame_generator.h"
 #include "test/test_video_capturer.h"
 
@@ -81,28 +83,26 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
   FrameGeneratorCapturer(Clock* clock,
                          std::unique_ptr<FrameGenerator> frame_generator,
                          int target_fps);
-  bool Init();
-
  private:
-  void InsertFrame();
-  static bool Run(void* obj);
-  int GetCurrentConfiguredFramerate();
+  void InsertFrame() RTC_EXCLUSIVE_LOCKS_REQUIRED(&task_queue_);
+  TimeDelta GetCurrentFrameInterval()
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(&task_queue_);
   void UpdateFps(int max_fps) RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
   Clock* const clock_;
-  bool sending_;
+  RepeatingTaskHandle insert_frame_task_;
+  rtc::CriticalSection lock_;
   SinkWantsObserver* sink_wants_observer_ RTC_GUARDED_BY(&lock_);
 
-  rtc::CriticalSection lock_;
   std::unique_ptr<FrameGenerator> frame_generator_;
 
-  int source_fps_ RTC_GUARDED_BY(&lock_);
-  int target_capture_fps_ RTC_GUARDED_BY(&lock_);
-  absl::optional<int> wanted_fps_ RTC_GUARDED_BY(&lock_);
-  VideoRotation fake_rotation_ = kVideoRotation_0;
-  absl::optional<ColorSpace> fake_color_space_ RTC_GUARDED_BY(&lock_);
+  int source_fps_ RTC_GUARDED_BY(&task_queue_);
+  int target_capture_fps_ RTC_GUARDED_BY(&task_queue_);
+  absl::optional<int> wanted_fps_ RTC_GUARDED_BY(&task_queue_);
+  VideoRotation fake_rotation_ RTC_GUARDED_BY(&task_queue_) = kVideoRotation_0;
+  absl::optional<ColorSpace> fake_color_space_ RTC_GUARDED_BY(&task_queue_);
 
-  int64_t first_frame_capture_time_;
+  std::atomic<int64_t> first_frame_capture_time_;
   // Must be the last field, so it will be deconstructed first as tasks
   // in the TaskQueue access other fields of the instance of this class.
   rtc::TaskQueue task_queue_;

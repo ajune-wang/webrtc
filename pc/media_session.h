@@ -26,6 +26,7 @@
 #include "p2p/base/transport_description_factory.h"
 #include "pc/jsep_transport.h"
 #include "pc/session_description.h"
+#include "rtc_base/unique_id_generator.h"
 
 namespace cricket {
 
@@ -131,11 +132,13 @@ class MediaSessionDescriptionFactory {
   // The TransportDescriptionFactory is not owned by MediaSessionDescFactory,
   // so it must be kept alive by the user of this class.
   explicit MediaSessionDescriptionFactory(
-      const TransportDescriptionFactory* factory);
+      const TransportDescriptionFactory* factory,
+      rtc::UniqueRandomIdGenerator* ssrc_generator);
   // This helper automatically sets up the factory to get its configuration
   // from the specified ChannelManager.
   MediaSessionDescriptionFactory(ChannelManager* cmanager,
-                                 const TransportDescriptionFactory* factory);
+                                 const TransportDescriptionFactory* factory,
+                                 rtc::UniqueRandomIdGenerator* ssrc_generator);
 
   const AudioCodecs& audio_sendrecv_codecs() const;
   const AudioCodecs& audio_send_codecs() const;
@@ -300,6 +303,7 @@ class MediaSessionDescriptionFactory {
   VideoCodecs video_codecs_;
   RtpHeaderExtensions video_rtp_extensions_;
   DataCodecs data_codecs_;
+  rtc::UniqueRandomIdGenerator* const ssrc_generator_;
   bool enable_encrypted_rtp_header_extensions_ = false;
   // TODO(zhihuang): Rename secure_ to sdec_policy_; rename the related getter
   // and setter.

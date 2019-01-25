@@ -8,11 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "media/base/codec.h"
 #include "media/base/test_utils.h"
@@ -273,18 +273,16 @@ static std::vector<std::string> GetCodecNames(const std::vector<T>& codecs) {
 std::vector<MediaDescriptionOptions>::iterator FindFirstMediaDescriptionByMid(
     const std::string& mid,
     MediaSessionOptions* opts) {
-  return std::find_if(
-      opts->media_description_options.begin(),
-      opts->media_description_options.end(),
+  return absl::c_find_if(
+      opts->media_description_options,
       [&mid](const MediaDescriptionOptions& t) { return t.mid == mid; });
 }
 
 std::vector<MediaDescriptionOptions>::const_iterator
 FindFirstMediaDescriptionByMid(const std::string& mid,
                                const MediaSessionOptions& opts) {
-  return std::find_if(
-      opts.media_description_options.begin(),
-      opts.media_description_options.end(),
+  return absl::c_find_if(
+      opts.media_description_options,
       [&mid](const MediaDescriptionOptions& t) { return t.mid == mid; });
 }
 
@@ -358,10 +356,10 @@ static void DetachSenderFromMediaSection(const std::string& mid,
   std::vector<cricket::SenderOptions>& sender_options_list =
       FindFirstMediaDescriptionByMid(mid, session_options)->sender_options;
   auto sender_it =
-      std::find_if(sender_options_list.begin(), sender_options_list.end(),
-                   [track_id](const cricket::SenderOptions& sender_options) {
-                     return sender_options.track_id == track_id;
-                   });
+      absl::c_find_if(sender_options_list,
+                      [track_id](const cricket::SenderOptions& sender_options) {
+                        return sender_options.track_id == track_id;
+                      });
   RTC_DCHECK(sender_it != sender_options_list.end());
   sender_options_list.erase(sender_it);
 }
@@ -439,11 +437,8 @@ class MediaSessionDescriptionFactoryTest : public testing::Test {
   // Returns true if the transport info contains "renomination" as an
   // ICE option.
   bool GetIceRenomination(const TransportInfo* transport_info) {
-    const std::vector<std::string>& ice_options =
-        transport_info->description.transport_options;
-    auto iter =
-        std::find(ice_options.begin(), ice_options.end(), "renomination");
-    return iter != ice_options.end();
+    return absl::linear_search(transport_info->description.transport_options,
+                               "renomination");
   }
 
   void TestTransportInfo(bool offer,
@@ -4137,16 +4132,10 @@ TEST_F(MediaSessionDescriptionFactoryTest, VideoHasRidExtensionsInUnifiedPlan) {
   cricket::RtpHeaderExtensions result = sf.video_rtp_header_extensions();
   // Check to see that RID extensions were added to the extension list
   EXPECT_GE(result.size(), 2u);
-  auto rid_extension = std::find_if(
-      result.begin(), result.end(), [](const RtpExtension& extension) {
-        return extension.uri == webrtc::RtpExtension::kRidUri;
-      });
-  EXPECT_NE(rid_extension, extensions.end());
-  auto repaired_rid_extension = std::find_if(
-      result.begin(), result.end(), [](const RtpExtension& extension) {
-        return extension.uri == webrtc::RtpExtension::kRepairedRidUri;
-      });
-  EXPECT_NE(repaired_rid_extension, extensions.end());
+  EXPECT_THAT(result, Contains(Field("uri", &RtpExtension::uri,
+                                     RtpExtension::kRidUri)));
+  EXPECT_THAT(result, Contains(Field("uri", &RtpExtension::uri,
+                                     RtpExtension::kRepairedRidUri)));
 }
 
 // Checks that the RID extensions are added to the audio RTP header extensions.
@@ -4162,16 +4151,10 @@ TEST_F(MediaSessionDescriptionFactoryTest, AudioHasRidExtensionsInUnifiedPlan) {
   cricket::RtpHeaderExtensions result = sf.audio_rtp_header_extensions();
   // Check to see that RID extensions were added to the extension list
   EXPECT_GE(result.size(), 2u);
-  auto rid_extension = std::find_if(
-      result.begin(), result.end(), [](const RtpExtension& extension) {
-        return extension.uri == webrtc::RtpExtension::kRidUri;
-      });
-  EXPECT_NE(rid_extension, extensions.end());
-  auto repaired_rid_extension = std::find_if(
-      result.begin(), result.end(), [](const RtpExtension& extension) {
-        return extension.uri == webrtc::RtpExtension::kRepairedRidUri;
-      });
-  EXPECT_NE(repaired_rid_extension, extensions.end());
+  EXPECT_THAT(result, Contains(Field("uri", &RtpExtension::uri,
+                                     RtpExtension::kRidUri)));
+  EXPECT_THAT(result, Contains(Field("uri", &RtpExtension::uri,
+                                     RtpExtension::kRepairedRidUri)));
 }
 
 namespace {

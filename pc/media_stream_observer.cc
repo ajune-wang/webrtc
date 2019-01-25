@@ -10,9 +10,10 @@
 
 #include "pc/media_stream_observer.h"
 
-#include <algorithm>
 #include <string>
 #include <vector>
+
+#include "absl/algorithm/container.h"
 
 namespace webrtc {
 
@@ -33,8 +34,8 @@ void MediaStreamObserver::OnChanged() {
 
   // Find removed audio tracks.
   for (const auto& cached_track : cached_audio_tracks_) {
-    auto it = std::find_if(
-        new_audio_tracks.begin(), new_audio_tracks.end(),
+    auto it = absl::c_find_if(
+        new_audio_tracks,
         [cached_track](const AudioTrackVector::value_type& new_track) {
           return new_track->id().compare(cached_track->id()) == 0;
         });
@@ -45,8 +46,8 @@ void MediaStreamObserver::OnChanged() {
 
   // Find added audio tracks.
   for (const auto& new_track : new_audio_tracks) {
-    auto it = std::find_if(
-        cached_audio_tracks_.begin(), cached_audio_tracks_.end(),
+    auto it = absl::c_find_if(
+        cached_audio_tracks_,
         [new_track](const AudioTrackVector::value_type& cached_track) {
           return new_track->id().compare(cached_track->id()) == 0;
         });
@@ -57,8 +58,8 @@ void MediaStreamObserver::OnChanged() {
 
   // Find removed video tracks.
   for (const auto& cached_track : cached_video_tracks_) {
-    auto it = std::find_if(
-        new_video_tracks.begin(), new_video_tracks.end(),
+    auto it = absl::c_find_if(
+        new_video_tracks,
         [cached_track](const VideoTrackVector::value_type& new_track) {
           return new_track->id().compare(cached_track->id()) == 0;
         });
@@ -69,8 +70,8 @@ void MediaStreamObserver::OnChanged() {
 
   // Find added video tracks.
   for (const auto& new_track : new_video_tracks) {
-    auto it = std::find_if(
-        cached_video_tracks_.begin(), cached_video_tracks_.end(),
+    auto it = absl::c_find_if(
+        cached_video_tracks_,
         [new_track](const VideoTrackVector::value_type& cached_track) {
           return new_track->id().compare(cached_track->id()) == 0;
         });

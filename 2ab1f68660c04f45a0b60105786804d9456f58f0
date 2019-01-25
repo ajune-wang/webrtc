@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c0a19698_5d35814f",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "This is the case of 1 rid. Side question, but when/how will this case be supported? If AddTransceiver() specifies 1 layer with a rid?\n\nAlso isn\u0027t this dechecked below that it never occurs?\nRTC_DCHECK(new_stream.has_ssrcs() || new_stream.has_rids());",
+      "range": {
+        "startLine": 630,
+        "startChar": 5,
+        "endLine": 630,
+        "endChar": 50
+      },
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b0fc42e_7d42d7f3",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "Do you want to add a comment/TODO for supporting flex fec? Since this can be true in the case of AddStreamParams:\n const bool include_flexfec_stream \u003d ContainsFlexfecCodec(content_description-\u003ecodecs());\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/media_session.cc?l\u003d536",
+      "range": {
+        "startLine": 678,
+        "startChar": 31,
+        "endLine": 678,
+        "endChar": 53
+      },
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bc55a06c_6ebb4351",
         "filename": "pc/media_session.h",
         "patchSetId": 3

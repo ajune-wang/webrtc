@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de25c0ec_a123361d",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "Could you also comment on lifetime/ownership here?",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 47
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875d8042_182e5ad5",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "EXPECT_NE(stream1, stream3)?",
+      "range": {
+        "startLine": 1489,
+        "startChar": 4,
+        "endLine": 1489,
+        "endChar": 31
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e0ee037_7ecaf976",
+        "filename": "pc/media_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "Just my preference, but I like the comment on lifetime/ownership here. Your call.",
+      "range": {
+        "startLine": 308,
+        "startChar": 38,
+        "endLine": 308,
+        "endChar": 53
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80f1f98a_b4aa9e39",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "I\u0027m wondering if the better thing to do would be to recreate the WebRTCVideoSendStream (WebRTCVideoChannel::AddSendStream) in this case. The reason I\u0027m wondering this is because maybe keeping those layers might send pings or something to the other side even though they are turned off. I\u0027m not sure, but it\u0027s probably worth asking Erik (sprang@).",
+      "range": {
+        "startLine": 2965,
+        "startChar": 16,
+        "endLine": 2965,
+        "endChar": 40
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41b94c0_de475e93",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4180,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "This can happen currently if the SDP is munged for simulcast. Meaning that if someone munged for simulcast then later reoffered it would hit this code path and create the new spec compliant simulcast. I think this could break backwards compat.",
+      "range": {
+        "startLine": 4180,
+        "startChar": 29,
+        "endLine": 4180,
+        "endChar": 61
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60ce458e_a3b99a7c",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4195,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "This means if rids are set for the RtpSender, then this will signal an SDP w/o SSRCs.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/pc/media_session.cc?l\u003d547\n\nI think that\u0027s fine, because we only will support setting rids with AddTransceiver(). Correct?\n\nWhat about the case here for calling AddTransceiver() with one layer and the rid specified? Wouldn\u0027t this add the rids to the SenderOptions, but not add the simulcast layers. I think this would hit a DCHECK down the road (RidDescription w/o a SimulcastLayer).",
+      "range": {
+        "startLine": 4195,
+        "startChar": 4,
+        "endLine": 4195,
+        "endChar": 23
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "076ab628_963dc0a8",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-25T22:39:37Z",
+      "side": 1,
+      "message": "Could comment here where this is used. Something like:\nUsed to generate SSRCs in a legacy SDP in MediaSessionDescriptionFactory or to generate SSRCs from RIDs to give to the  the media engine layer in the case of a spec compliant SDP with RIDs.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 31,
+        "endLine": 1153,
+        "endChar": 46
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

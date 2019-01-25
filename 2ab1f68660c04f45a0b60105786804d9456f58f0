@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc55a06c_6ebb4351",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-25T20:37:36Z",
+      "side": 1,
+      "message": "This line feels out of date.",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b3e31f1_09559e46",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-25T20:37:36Z",
+      "side": 1,
+      "message": "nit: remove explicit",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6d2bf5_629f7ceb",
+        "filename": "pc/media_session.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-25T20:37:36Z",
+      "side": 1,
+      "message": "Maybe also mention lifetime requirement of ssrc_generator",
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

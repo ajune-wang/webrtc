@@ -22,6 +22,30 @@
       "revId": "e647b8539e77c640ecce8c835001dd082832a142",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c5b864a_827cfefc",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5116
+      },
+      "writtenOn": "2019-01-25T13:27:17Z",
+      "side": 0,
+      "message": "Very true, Mirko. Thanks!",
+      "parentUuid": "0f1be1b1_fbbabca0",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 48
+      },
+      "revId": "e647b8539e77c640ecce8c835001dd082832a142",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

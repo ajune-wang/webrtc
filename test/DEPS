@@ -45,4 +45,11 @@ specific_include_rules = {
   ".*stun_validator_fuzzer\.cc": [
     "+p2p/base/stun.h",
   ],
+  ".*test_peer\.h": [
+    "+pc",
+  ],
+  ".*test_peer_factory\.cc": [
+    "+pc",
+    "+p2p",
+  ],
 }

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "11268aa0_6ace0dde",
+        "filename": "media/base/stream_params.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f7d74b7_2b2bc668",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 12
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a93d9474_0659e34d",
         "filename": "media/base/stream_params_unittest.cc",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3166b144_8eef241e",
+        "filename": "media/base/stream_params_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "added\nEXPECT_TAHT(primray_ssrcs, Each(Gt(0)));\ntogether with the size check this will be more elegant.",
+      "parentUuid": "a93d9474_0659e34d",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f16e192_6a0c89c8",
         "filename": "pc/channel.cc",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32d011c6_551f52c5",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "this logic is way to complex for a lambda. unless the lambda calls a function:\n[\u0026bar] (foo) { return CustomEquals(foo, bar); }\nbut if i already write a function, then putting it in a struct is straightforward and makes the code more readable and self contained.",
+      "parentUuid": "8f16e192_6a0c89c8",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "4c541de4_28b4e904",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "i\u0027ll add it because it doesn\u0027t hurt, but there is no need because this is private implementation, so i can guarantee that assumption.",
+      "parentUuid": "526782b2_40d5c46b",
+      "range": {
+        "startLine": 53,
+        "startChar": 54,
+        "endLine": 53,
+        "endChar": 61
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2927f74b_e721a70e",
         "filename": "pc/channel.cc",
         "patchSetId": 2
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "837ac6d2_306096ed",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "there is no way for std::equal to know the size if you do not supply an end pointer to both ranges.\nwhat it will do is try to access elements in the second range as long as there are elements in the first range to be consumed.\nthis could generate an incorrect answer or worse, cause a bad memory read if |source_rids| \u003e |target_rids|.\nthe overloads for 4 pointers are C++14 and above.",
+      "parentUuid": "2927f74b_e721a70e",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5582cb2b_a77297ec",
         "filename": "pc/channel.cc",
         "patchSetId": 2
@@ -113,6 +215,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42f48c03_a97410f6",
+        "filename": "pc/channel.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "thanks for the pointer about c_equal, but is it worth adding that complexity? c_equal is not \u0027standard\u0027 and not as well known as std::equal. i need to include a complex header (with lots of template meta programming) and the benefit is small (as it calls std::equal under the hood).\ni\u0027m going to keep as is since algorithm.h is also not on the approve list (and the effort to add reduces the appeal of the suggestion) :)",
+      "parentUuid": "5582cb2b_a77297ec",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "f91e150e_870e6802",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "changed back",
+      "parentUuid": "8ed71602_20381297",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 50
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b4535b1_5f4f4c70",
         "filename": "pc/channel.h",
         "patchSetId": 2
@@ -153,6 +297,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5efded6f_3be5f2d9",
+        "filename": "pc/channel.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "// This generator is used to generate SSRCs for local streams.\n// This is needed in cases where SSRCs are not negotiated or set explicitly\n// like in Simulcast.",
+      "parentUuid": "4b4535b1_5f4f4c70",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "c2695cd0_7c8a065b",
+        "filename": "pc/channel_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "i have seen this comment twice, so i\u0027ll do the rename.",
+      "parentUuid": "cfb25b6f_de088a59",
+      "range": {
+        "startLine": 57,
+        "startChar": 43,
+        "endLine": 57,
+        "endChar": 58
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a807dfcc_ed090314",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 2
@@ -193,6 +379,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b03db33_ecc21ee4",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1547,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a807dfcc_ed090314",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +417,24 @@
     },
     {
       "key": {
+        "uuid": "3c364bdf_fdcbd66d",
+        "filename": "pc/media_session.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "it was done at the higher level (webrtc_session_description_factory). i\u0027ll move it down to this object.",
+      "parentUuid": "5e0aa7b4_31effa11",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0049341_b68be534",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -227,6 +449,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f12f5d4_49f1321e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "it should not. there are two differences:\n1. streams are now taken from the channel instead of the description. this is because the channel can change the streams by adding generated ssrcs which would not appear in the media description.\n2. conditions were reversed, so that we can also check channel for null. it\u0027s a condition that should never happen, but i added it as a safety measure (instead of DCHECK) because we get the streams from the channel. it is still consistent with the behavior. if we don\u0027t have a channel we want to disassociate the sender.",
+      "parentUuid": "b0049341_b68be534",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -253,6 +493,30 @@
     },
     {
       "key": {
+        "uuid": "1ef5f791_2a14a245",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2922,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "sure. done",
+      "parentUuid": "18ba4b66_bb2c546c",
+      "range": {
+        "startLine": 2922,
+        "startChar": 10,
+        "endLine": 2922,
+        "endChar": 34
+      },
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a285d787_cb1495a6",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -270,6 +534,24 @@
     },
     {
       "key": {
+        "uuid": "ff324e0e_4bd653a7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2933,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "yes. there should never be an empty list.",
+      "parentUuid": "a285d787_cb1495a6",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d12a9f4a_c1c7c24d",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 2
@@ -284,6 +566,24 @@
       "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50669179_7fa0673b",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-25T19:06:03Z",
+      "side": 1,
+      "message": "i guess this is done at a lower level as well. i\u0027ll remove from here.",
+      "parentUuid": "d12a9f4a_c1c7c24d",
+      "revId": "1a2e285d93c159a3f0922a92c951a815475abe76",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

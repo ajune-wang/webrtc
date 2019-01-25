@@ -42,6 +42,19 @@ class NativeCapturerObserver implements CapturerObserver {
 
   // Pointer to webrtc::jni::AndroidVideoTrackSource.
   private final long nativeSource;
+  @Nullable private volatile VideoProcessor videoProcessor;
+
+  /**
+   * Hook for injecting a custom video processor before frames are passed onto WebRTC. The frames
+   * will be cropped and scaled depending on CPU and network conditions before they are passed to
+   * the video processor.
+   */
+  public void setVideoProcessor(@Nullable VideoProcessor videoProcessor) {
+    this.videoProcessor = videoProcessor;
+    if (videoProcessor != null) {
+      videoProcessor.setSink(this::deliverFrameToWebRtc);
+    }
+  }
 
   @CalledByNative
   public NativeCapturerObserver(long nativeSource) {
@@ -51,11 +64,19 @@ class NativeCapturerObserver implements CapturerObserver {
   @Override
   public void onCapturerStarted(boolean success) {
     nativeCapturerStarted(nativeSource, success);
+    final VideoProcessor videoProcessor = this.videoProcessor;
+    if (videoProcessor != null) {
+      videoProcessor.onCapturerStarted(success);
+    }
   }
 
   @Override
   public void onCapturerStopped() {
     nativeCapturerStopped(nativeSource);
+    final VideoProcessor videoProcessor = this.videoProcessor;
+    if (videoProcessor != null) {
+      videoProcessor.onCapturerStopped();
+    }
   }
 
   @Override
@@ -68,7 +89,14 @@ class NativeCapturerObserver implements CapturerObserver {
             parameters.cropHeight, parameters.scaleWidth, parameters.scaleHeight);
     final VideoFrame adaptedFrame =
         new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs);
-    deliverFrameToWebRtc(adaptedFrame);
+
+    final VideoProcessor videoProcessor = this.videoProcessor;
+    if (videoProcessor != null) {
+      videoProcessor.onFrameCaptured(adaptedFrame);
+    } else {
+      deliverFrameToWebRtc(adaptedFrame);
+    }
+
     adaptedFrame.release();
   }
 

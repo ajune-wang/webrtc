@@ -46,6 +46,15 @@ public class VideoSource extends MediaSource {
         portraitWidth, portraitHeight, fps);
   }
 
+  /**
+   * Hook for injecting a custom video processor before frames are passed onto WebRTC. The frames
+   * will be cropped and scaled depending on CPU and network conditions before they are passed to
+   * the video processor.
+   */
+  public void setVideoProcessor(@Nullable VideoProcessor videoProcessor) {
+    capturerObserver.setVideoProcessor(videoProcessor);
+  }
+
   public CapturerObserver getCapturerObserver() {
     return capturerObserver;
   }

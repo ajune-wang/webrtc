@@ -21,7 +21,8 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   NetworkNodeConfig network_config;
   auto alice_net = s.CreateSimulationNode(network_config);
   auto bob_net = s.CreateSimulationNode(network_config);
-  auto route = s.CreateRoutes(alice, {alice_net}, bob, {bob_net});
+  auto route =
+      s.CreateRoutes(alice, {alice_net->node()}, bob, {bob_net->node()});
 
   VideoStreamConfig video_stream_config;
   s.CreateVideoStream(route->forward(), video_stream_config);
@@ -35,18 +36,21 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   s.CreateAudioStream(route->forward(), audio_stream_config);
   s.CreateAudioStream(route->reverse(), audio_stream_config);
 
-  CrossTrafficConfig cross_traffic_config;
-  s.CreateCrossTraffic({alice_net}, cross_traffic_config);
+  auto cross_traffic = s.CreateCrossTraffic({alice_net->node()});
+  s.CreateRandomWalkCrossTraffic(cross_traffic, RandomWalkConfig());
 
   bool packet_received = false;
-  s.NetworkDelayedAction({alice_net, bob_net}, 100,
-                         [&packet_received] { packet_received = true; });
+  auto action_cross_traffic =
+      s.CreateCrossTraffic({alice_net->node(), bob_net->node()});
+  action_cross_traffic->NetworkDelayedAction(
+      100, [&packet_received] { packet_received = true; });
   bool bitrate_changed = false;
   s.Every(TimeDelta::ms(10), [alice, bob, &bitrate_changed] {
     if (alice->GetStats().send_bandwidth_bps != 300000 &&
         bob->GetStats().send_bandwidth_bps != 300000)
       bitrate_changed = true;
   });
+
   s.RunUntil(TimeDelta::seconds(2), TimeDelta::ms(5),
              [&bitrate_changed, &packet_received] {
                return packet_received && bitrate_changed;

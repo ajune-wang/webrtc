@@ -165,7 +165,8 @@ TEST_P(BbrScenarioTest, ReceivesVideo) {
   net_conf.simulation.delay_std_dev = conf_.scenario.delay_noise;
   SimulationNode* send_net = s.CreateSimulationNode(net_conf);
   SimulationNode* ret_net = s.CreateSimulationNode(net_conf);
-  auto route = s.CreateRoutes(alice, {send_net}, bob, {ret_net});
+  auto route =
+      s.CreateRoutes(alice, {send_net->node()}, bob, {ret_net->node()});
 
   VideoStreamPair* alice_video =
       s.CreateVideoStream(route->forward(), [&](VideoStreamConfig* c) {
@@ -191,11 +192,12 @@ TEST_P(BbrScenarioTest, ReceivesVideo) {
       }
     });
   }
-  CrossTrafficConfig cross_config;
+  RandomWalkConfig cross_config;
   cross_config.peak_rate = conf_.scenario.cross_traffic;
   cross_config.random_seed = conf_.scenario.random_seed;
-  CrossTrafficSource* cross_traffic =
-      s.CreateCrossTraffic({send_net}, cross_config);
+  TrafficRoute* ct = s.CreateCrossTraffic({send_net->node()});
+  RandomWalkCrossTraffic* cross_traffic =
+      s.CreateRandomWalkCrossTraffic(ct, cross_config);
 
   s.CreatePrinter("send.stats.txt", TimeDelta::ms(100),
                   {alice->StatsPrinter(), alice_video->send()->StatsPrinter(),

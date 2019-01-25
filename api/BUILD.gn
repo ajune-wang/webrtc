@@ -669,6 +669,7 @@ if (rtc_include_tests) {
     deps = [
       ":libjingle_peerconnection_api",
       "../rtc_base:checks",
+      "transport:network_control",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }
@@ -685,6 +686,7 @@ if (rtc_include_tests) {
       ":libjingle_peerconnection_api",
       "../rtc_base:checks",
       "../rtc_base:rtc_base",
+      "transport:network_control",
       "//third_party/abseil-cpp/absl/memory",
     ]
   }

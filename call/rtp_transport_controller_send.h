@@ -74,9 +74,8 @@ class RtpTransportControllerSend final
   RtpPacketSender* packet_sender() override;
   const RtpKeepAliveConfig& keepalive_config() const override;
 
-  void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                     int max_padding_bitrate_bps,
-                                     int max_total_bitrate_bps) override;
+  void SetAllocatedSendBitrateLimits(
+      const AllocatedBitrateLimits& bitrate_limits) override;
 
   void SetKeepAliveConfig(const RtpKeepAliveConfig& config);
   void SetPacingFactor(float pacing_factor) override;

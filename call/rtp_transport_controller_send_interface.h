@@ -127,9 +127,8 @@ class RtpTransportControllerSendInterface {
   // bitrate the send streams request for padding. This can be higher than the
   // current network estimate and tells the PacedSender how much it should max
   // pad unless there is real packets to send.
-  virtual void SetAllocatedSendBitrateLimits(int min_send_bitrate_bps,
-                                             int max_padding_bitrate_bps,
-                                             int total_bitrate_bps) = 0;
+  virtual void SetAllocatedSendBitrateLimits(
+      const AllocatedBitrateLimits& bitrate_limits) = 0;
 
   virtual void SetPacingFactor(float pacing_factor) = 0;
   virtual void SetQueueTimeLimit(int limit_ms) = 0;

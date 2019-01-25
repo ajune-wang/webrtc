@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "api/call/bitrate_allocation.h"
+#include "api/transport/network_types.h"
 #include "rtc_base/bitrate_allocation_strategy.h"
 #include "rtc_base/sequenced_task_checker.h"
 
@@ -81,9 +82,8 @@ class BitrateAllocator : public BitrateAllocatorInterface {
   // bitrate and max padding bitrate is changed.
   class LimitObserver {
    public:
-    virtual void OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
-                                           uint32_t max_padding_bitrate_bps,
-                                           uint32_t total_bitrate_bps) = 0;
+    virtual void OnAllocationLimitsChanged(
+        const AllocatedBitrateLimits& bitrate_limits) = 0;
 
    protected:
     virtual ~LimitObserver() = default;

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f1be1b1_fbbabca0",
+        "filename": "modules/audio_processing/aec3/echo_remover.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-25T13:12:41Z",
+      "side": 0,
+      "message": "We can also remove the #include of field_trial.h (here and in other places, and probably also the dependency on system_wrappers:field_trial).",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 48
+      },
+      "revId": "e647b8539e77c640ecce8c835001dd082832a142",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "932d5cbe_ee762439",
+        "filename": "call/simulated_network.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-01-25T15:40:59Z",
+      "side": 1,
+      "message": "Actually, this will break the setting to PacketDeliveryInfo::kNotReceived; above.",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 164,
+        "endChar": 59
+      },
+      "revId": "a8f9e257781175584d725bc2eaa185ec1c294511",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

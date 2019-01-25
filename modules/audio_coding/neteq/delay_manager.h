@@ -36,6 +36,7 @@ class DelayManager {
   // PeakDetector object to the DelayManager.
   DelayManager(size_t max_packets_in_buffer,
                int base_min_target_delay_ms,
+               bool handle_rtx,
                DelayPeakDetector* peak_detector,
                const TickTimer* tick_timer);
 
@@ -170,6 +171,7 @@ class DelayManager {
   int last_pack_cng_or_dtmf_;
   const bool frame_length_change_experiment_;
   const absl::optional<int> forced_limit_probability_;
+  const bool handle_rtx_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(DelayManager);
 };

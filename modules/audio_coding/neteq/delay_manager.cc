@@ -63,6 +63,7 @@ namespace webrtc {
 
 DelayManager::DelayManager(size_t max_packets_in_buffer,
                            int base_min_target_delay_ms,
+                           bool handle_rtx,
                            DelayPeakDetector* peak_detector,
                            const TickTimer* tick_timer)
     : first_packet_received_(false),
@@ -85,7 +86,8 @@ DelayManager::DelayManager(size_t max_packets_in_buffer,
       last_pack_cng_or_dtmf_(1),
       frame_length_change_experiment_(
           field_trial::IsEnabled("WebRTC-Audio-NetEqFramelengthExperiment")),
-      forced_limit_probability_(GetForcedLimitProbability()) {
+      forced_limit_probability_(GetForcedLimitProbability()),
+      handle_rtx_(handle_rtx) {
   assert(peak_detector);  // Should never be NULL.
   RTC_DCHECK_GE(base_min_target_delay_ms_, 0);
   RTC_DCHECK_LE(minimum_delay_ms_, maximum_delay_ms_);
@@ -146,6 +148,7 @@ int DelayManager::Update(uint16_t sequence_number,
         rtc::saturated_cast<int>(1000 * packet_len_samp / sample_rate_hz);
   }
 
+  bool reordered = false;
   if (packet_len_ms > 0) {
     // Cannot update statistics unless |packet_len_ms| is valid.
     // Calculate inter-arrival time (IAT) in integer "packet times"
@@ -158,7 +161,6 @@ int DelayManager::Update(uint16_t sequence_number,
     }
 
     // Check for discontinuous packet sequence and re-ordering.
-    bool reordered = false;
     if (IsNewerSequenceNumber(sequence_number, last_seq_no_ + 1)) {
       // Compensate for gap in the sequence numbers. Reduce IAT with the
       // expected extra time due to lost packets, but ensure that the IAT is
@@ -183,6 +185,9 @@ int DelayManager::Update(uint16_t sequence_number,
     LimitTargetLevel();
   }  // End if (packet_len_ms > 0).
 
+  if (handle_rtx_ && reordered) {
+    return 0;
+  }
   // Prepare for next packet arrival.
   packet_iat_stopwatch_ = tick_timer_->GetNewStopwatch();
   last_seq_no_ = sequence_number;

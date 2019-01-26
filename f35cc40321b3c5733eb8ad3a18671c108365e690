@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dad8126_9d065cf7",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-26T18:52:28Z",
+      "side": 1,
+      "message": "The changes to this file are because in the \"real\" code, CodecSpecificInfoVP8 is never constructed independently; it\u0027s always part of CodecSpecificInfoVP8, and CodecSpecificInfo\u0027s ctor memsets CodecSpecificInfoVP8. This memset behavior is something that we rely on, and DCHECK.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 197,
+        "endChar": 66
+      },
+      "revId": "f35cc40321b3c5733eb8ad3a18671c108365e690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dc20752_cf2ecd22",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-26T18:52:28Z",
+      "side": 1,
+      "message": "I\u0027ve not had time to look into this enough, but it seems to me like this test unrealistically encodes a dropped frame, which hits a (newly introduced) DCHECK. I\u0027ll look into this more on Monday.",
+      "revId": "f35cc40321b3c5733eb8ad3a18671c108365e690",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

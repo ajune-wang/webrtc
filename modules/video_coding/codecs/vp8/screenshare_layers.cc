@@ -22,6 +22,8 @@
 
 namespace webrtc {
 namespace {
+using Buffer = Vp8TemporalLayers::FrameConfig::Buffer;
+
 static const int kOneSecond90Khz = 90000;
 static const int kMinTimeBetweenSyncs = kOneSecond90Khz * 2;
 static const int kMaxTimeBetweenSyncs = kOneSecond90Khz * 4;
@@ -277,18 +279,40 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
     }
   }
 
+  vp8_info->useExplicitDependencies = true;
+  RTC_DCHECK_EQ(vp8_info->referencedBuffersCount, 0u);
+  RTC_DCHECK_EQ(vp8_info->updatedBuffersCount, 0u);
+
   if (number_of_temporal_layers_ == 1) {
     vp8_info->temporalIdx = kNoTemporalIdx;
     vp8_info->layerSync = false;
+    if (!is_keyframe) {  // referencedBuffersCount == 0 signals key frame.
+      vp8_info->referencedBuffers[vp8_info->referencedBuffersCount++] = 0;
+      vp8_info->updatedBuffers[vp8_info->updatedBuffersCount++] = 0;
+    }
   } else {
     int64_t unwrapped_timestamp = time_wrap_handler_.Unwrap(rtp_timestamp);
     if (frame_config) {
       vp8_info->temporalIdx = frame_config->packetizer_temporal_idx;
       vp8_info->layerSync = frame_config->layer_sync;
+      if (!is_keyframe) {  // For handling of key frames, see comment below.
+        for (int i = 0; i < static_cast<int>(Buffer::kCount); ++i) {
+          if (frame_config->References(static_cast<Buffer>(i))) {
+            vp8_info->referencedBuffers[vp8_info->referencedBuffersCount++] = i;
+          }
+
+          if (frame_config->Updates(static_cast<Buffer>(i))) {
+            vp8_info->updatedBuffers[vp8_info->updatedBuffersCount++] = i;
+          }
+        }
+      }
     } else {
-      // Frame requested to be dropped, but was not. Fall back to base-layer.
-      vp8_info->temporalIdx = 0;
-      vp8_info->layerSync = false;
+      // Frame requested to be dropped, but was not. This can only happen
+      // if LibvpxVp8Encoder decides to send a key frame independently of
+      // the result of ScreenshareLayers::UpdateLayerConfig. (E.g. in
+      // response to a key frame request from the remote side.)
+      RTC_DCHECK(is_keyframe);
+      // Keeping |referencedBuffersCount| set to 0 signals a key frame.
     }
     if (is_keyframe) {
       vp8_info->temporalIdx = 0;
@@ -297,6 +321,9 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
       layers_[0].state = TemporalLayer::State::kKeyFrame;
       layers_[1].state = TemporalLayer::State::kKeyFrame;
       active_layer_ = 1;
+      // Keeping |vp8_info->referencedBuffersCount| set to 0 (see DCHECK above)
+      // carries the meaning that this is a key frame, referencing none
+      // and updating all.
     }
   }
 

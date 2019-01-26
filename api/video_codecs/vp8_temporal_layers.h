@@ -173,8 +173,8 @@ class Vp8TemporalLayers {
 
   virtual ~Vp8TemporalLayers() = default;
 
-  // If this method returns true, the encoder is free to drop frames for
-  // instance in an effort to uphold encoding bitrate.
+  // If this method returns true, the encoder is free to drop frames (for
+  // instance, in an effort to uphold encoding bitrate).
   // If this return false, the encoder must not drop any frames unless:
   //  1. Requested to do so via FrameConfig.drop_frame
   //  2. The frame to be encoded is requested to be a keyframe

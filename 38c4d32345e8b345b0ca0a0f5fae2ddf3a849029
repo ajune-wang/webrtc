@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0987043d_d90952fa",
+        "filename": "pc/channel.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "Done and also in the constructor.",
+      "parentUuid": "de25c0ec_a123361d",
+      "range": {
+        "startLine": 353,
+        "startChar": 32,
+        "endLine": 353,
+        "endChar": 47
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "875d8042_182e5ad5",
         "filename": "pc/channel_unittest.cc",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "41c80479_15fda106",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "i think that would be more confusing, that is how the test is set up, it\u0027s not a behavior that is tested.\nit comes from the fact that first two streams are (f,h,q) and the last one is (f,q,h)",
+      "parentUuid": "875d8042_182e5ad5",
+      "range": {
+        "startLine": 1489,
+        "startChar": 4,
+        "endLine": 1489,
+        "endChar": 31
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e0ee037_7ecaf976",
         "filename": "pc/media_session.h",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-01-25T22:39:37Z",
       "side": 1,
       "message": "Just my preference, but I like the comment on lifetime/ownership here. Your call.",
+      "range": {
+        "startLine": 308,
+        "startChar": 38,
+        "endLine": 308,
+        "endChar": 53
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "450f4309_e62d6533",
+        "filename": "pc/media_session.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e0ee037_7ecaf976",
       "range": {
         "startLine": 308,
         "startChar": 38,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d9153122_fb4f12dc",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "There are a few issues related to this.\n1. recreating the send stream is currently hard, because of all the layers and because the StreamParams is used both in SDP and to configure streams.\n2. we might need to drop layers if they are removed.\n\nBoth of these have to keep the SSRCs that were set by the next layer, making this hard (without some more refactoring, or exposing higher level APIs).\n\n3. Furthermore, the API layer exposes a single boolean for \u0027active\u0027 that is used both for disabling streams and for pausing them. \nI need a second variable to ensure that disabled streams are not re-enabled by the user in SetParameters(), and that a stream that is paused by the user is not unpaused by the remote party. (maybe i need more variables).\n\ni will open a bug and reach out to Erik.",
+      "parentUuid": "80f1f98a_b4aa9e39",
+      "range": {
+        "startLine": 2965,
+        "startChar": 16,
+        "endLine": 2965,
+        "endChar": 40
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b41b94c0_de475e93",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fee7d03_92d429b1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4180,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "We went over this F2F and decided that we can simplify the code by assuming that spec simulcast always has RIDs. so that will be used to figure out if we need spec compliant simulcast or not.",
+      "parentUuid": "b41b94c0_de475e93",
+      "range": {
+        "startLine": 4180,
+        "startChar": 29,
+        "endLine": 4180,
+        "endChar": 61
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "4763b3f6_02988c7e",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4195,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "correct, even with one layer, AddTransceiver() must be called to do this.\nthe code is built such that RIDs and Simulcast are not the same thing. Simulcast requires RIDs but RIDs can exist independently, so there is no DCHECK for RIDs without simulcast.",
+      "parentUuid": "60ce458e_a3b99a7c",
+      "range": {
+        "startLine": 4195,
+        "startChar": 4,
+        "endLine": 4195,
+        "endChar": 23
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "076ab628_963dc0a8",
         "filename": "pc/peer_connection.h",
         "patchSetId": 4
@@ -160,6 +304,30 @@
       "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9360d6c_6abd9271",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "it\u0027s actually used to generate all SSRCs. i\u0027ll add documentation.",
+      "parentUuid": "076ab628_963dc0a8",
+      "range": {
+        "startLine": 1153,
+        "startChar": 31,
+        "endLine": 1153,
+        "endChar": 46
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

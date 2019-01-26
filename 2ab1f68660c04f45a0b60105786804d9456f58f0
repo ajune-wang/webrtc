@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8b1466e6_e8d9b1b2",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "with 1 rid this is fine, it will generate an SSRC for that rid.\nthe DCHECK below is only meant as a safeguard for the implementation below it. just above that DCHECK there is a \"continue\" if there are no ssrcs or rids.",
+      "parentUuid": "c0a19698_5d35814f",
+      "range": {
+        "startLine": 630,
+        "startChar": 5,
+        "endLine": 630,
+        "endChar": 50
+      },
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b0fc42e_7d42d7f3",
         "filename": "pc/channel.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7517396_a456c28d",
+        "filename": "pc/channel.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-01-26T01:14:24Z",
+      "side": 1,
+      "message": "https://cs.chromium.org/chromium/src/third_party/webrtc/pc/media_session.cc?type\u003dcs\u0026q\u003dmedia_session.cc\u0026g\u003d0\u0026l\u003d427\nreferences brandtr to update the code when this is supported.\nFlex does not support multiple streams. however, this code can technically be called with a single stream, so there may be an issue here.\ni\u0027ll add a bug.",
+      "parentUuid": "7b0fc42e_7d42d7f3",
+      "range": {
+        "startLine": 678,
+        "startChar": 31,
+        "endLine": 678,
+        "endChar": 53
+      },
+      "revId": "2ab1f68660c04f45a0b60105786804d9456f58f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ddcd446_e001b20b",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T11:33:34Z",
+      "side": 0,
+      "message": "note this early return where frame is not  counted",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 18
+      },
+      "revId": "2d65fff16f83ceab129a7041ca77e38f4bba19b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a8b8137_d1e7a651",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T11:33:34Z",
+      "side": 0,
+      "message": "this early return doesn\u0027t seem a problem though.",
+      "range": {
+        "startLine": 391,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 18
+      },
+      "revId": "2d65fff16f83ceab129a7041ca77e38f4bba19b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

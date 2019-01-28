@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "f93c5877_1c1e9c85",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T12:09:19Z",
+      "side": 1,
+      "message": "Could add a check of rtp_modules_[stream_index]-\u003eSendingMedia(), to return early if module isn\u0027t sending media packets. Does it make sense to check both Sending() and SendingMedia()? It looks like they\u0027re always configured the same, and also track the bool vector passed to SetActiveModules().",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 47
+      },
+      "revId": "51436d7c22ac05f3c2ce1279ae6b99400b8906c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c62da711_1174925e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T12:09:19Z",
+      "side": 1,
+      "message": "Or make SendOutgoingMedia return false when not sending, and check send_result here?\n\nAre the frame counts intended to count frames produced by the encoder, or frames actually transmitted?",
+      "range": {
+        "startLine": 382,
+        "startChar": 6,
+        "endLine": 382,
+        "endChar": 27
+      },
+      "revId": "51436d7c22ac05f3c2ce1279ae6b99400b8906c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4d92501a_df8c8f9e",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 1

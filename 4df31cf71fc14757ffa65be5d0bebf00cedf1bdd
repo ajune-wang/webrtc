@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bfb62111_baa722e0",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "I think that would be nice for clarity.",
+      "parentUuid": "6c9520fc_588d0567",
+      "range": {
+        "startLine": 486,
+        "startChar": 15,
+        "endLine": 486,
+        "endChar": 70
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9ac8b0a_1a28052c",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 6
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "8201fe6c_bf5ab200",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "Better, thanks.",
+      "parentUuid": "94d01cb4_d52777f1",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94b69785_a6311a9e",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 6
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Done, then edited the code in a way that made the DCHECK no longer necessary. PTAL.",
       "parentUuid": "94b69785_a6311a9e",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a27a4274_73f839f8",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf61c22a_e35a147d",
       "range": {
         "startLine": 515,
         "startChar": 0,

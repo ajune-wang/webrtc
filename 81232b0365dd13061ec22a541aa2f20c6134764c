@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "8f0f9ab7_e30d6002",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f31608ff_04836a40",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 74
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95f940aa_4d788b47",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 4
@@ -262,6 +286,30 @@
     },
     {
       "key": {
+        "uuid": "474a4b29_df67a178",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "Seems a bit brittle to assume that we only write non key frames into buffer #0 too, or?",
+      "parentUuid": "2521513c_972a2882",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 68
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5b04fb_bb76aafe",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 4
@@ -297,6 +345,30 @@
       "side": 1,
       "message": "I\u0027ve increased the size of |updatedBuffers| to accommodate as many entries as there are buffers, and have changed the code to communicate the updated buffers explicitly in the case of key frames, too.",
       "parentUuid": "cb5b04fb_bb76aafe",
+      "range": {
+        "startLine": 506,
+        "startChar": 9,
+        "endLine": 507,
+        "endChar": 53
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fdb7c0d_776f27e5",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T13:43:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b3b1ac1a_3f09ac1b",
       "range": {
         "startLine": 506,
         "startChar": 9,

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fb75eb62_3cdbeede",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T11:58:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4b157192_6d2c4164",
+      "range": {
+        "startLine": 237,
+        "startChar": 34,
+        "endLine": 237,
+        "endChar": 79
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6794910_2300971d",
         "filename": "call/rtp_payload_params.h",
         "patchSetId": 4
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "If we only have on temporal layer, it\u0027s enough to use one codec buffer over and over again. Buffer #0 just happens to be the first one of those.\nI\u0027ve added a constant and a comment.",
       "parentUuid": "95f940aa_4d788b47",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 68
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b88166a9_30441c4a",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T11:58:08Z",
+      "side": 1,
+      "message": "But you are not controlling what the codec does here, are you? The codec will make use of all codec buffers most likely, how do you know one is enough? Maybe what you mean is that you always will have frames depend on the previous frame?",
+      "parentUuid": "a69ed83e_238db4f9",
       "range": {
         "startLine": 497,
         "startChar": 0,

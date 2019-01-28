@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1edc58b_2d92fa8c",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T11:58:08Z",
+      "side": 1,
+      "message": "Should this only be called in debug mode? Otherwise I think you have to call from outside the DCHECK.",
+      "range": {
+        "startLine": 486,
+        "startChar": 15,
+        "endLine": 486,
+        "endChar": 70
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ac8b0a_1a28052c",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T11:58:08Z",
+      "side": 1,
+      "message": "Might as well DCHECK it here as well instead of writing a comment?",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b69785_a6311a9e",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T11:58:08Z",
+      "side": 1,
+      "message": "DCHECK instead?",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

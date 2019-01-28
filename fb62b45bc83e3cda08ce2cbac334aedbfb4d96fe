@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1422668_b971ebce",
+        "filename": "test/vcm_capturer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T13:06:18Z",
+      "side": 1,
+      "message": "Destroy call here and above look redundant, since Destroy does nothing if vcm_ is null.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "fb62b45bc83e3cda08ce2cbac334aedbfb4d96fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

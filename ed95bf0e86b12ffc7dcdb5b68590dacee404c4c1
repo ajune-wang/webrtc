@@ -140,6 +140,30 @@
       "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bee5382_01512288",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T16:10:18Z",
+      "side": 1,
+      "message": "may be,\nthough need for testing::Mock::VerifyAndClearExpectations\noften indicates test verifies several behaviors and thus better be split into several smaller tests. (duplicated setup of EncodedImage can be factored out as free helper factory)\n\nhttps://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html\n\n(on the other size, since the structure of this test is moved, not created a new, I do not insist on improving it)",
+      "parentUuid": "cd396801_db36d303",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 321,
+        "endChar": 13
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

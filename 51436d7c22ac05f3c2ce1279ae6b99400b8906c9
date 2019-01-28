@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "4d92501a_df8c8f9e",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-28T10:42:52Z",
+      "side": 1,
+      "message": "Is there a scenario where we expect that frame type is something else? Maybe we should use a switch and DCHECK that the default: is not hit or something equivalent?",
+      "range": {
+        "startLine": 388,
+        "startChar": 4,
+        "endLine": 388,
+        "endChar": 5
+      },
+      "revId": "51436d7c22ac05f3c2ce1279ae6b99400b8906c9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13521e0f_52d345a6",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 1

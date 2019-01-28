@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3725bc8e_7c35d6df",
+        "filename": "DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "Can you move this one to: https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_tools/DEPS ?\n\nI am still trying to figure out how to organize the checkdeps thing, as of today it is confusing but I would like to stay as strict as possible while I understand what to do (FYI, this should be addressed sometime in the next future: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10244).",
+      "range": {
+        "startLine": 1428,
+        "startChar": 2,
+        "endLine": 1428,
+        "endChar": 11
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "591a9a3f_0b6e8a9d",
+        "filename": "rtc_tools/rtp_generator/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "Oh, I was not aware of a second way to manage flags (we also have https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/flags.h).\n\nI should look into merging them in the future.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96b0229d_289e53fc",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "Maybe create 4 constexpr for these values (kFakeVideoSendPayloadType, kPayloadTypeVP9, kPayloadTypeVP8 and kPayloadTypeH264)?",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 14
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "287f3cec_b340850d",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "What is this? Can we use a constexpr?",
+      "range": {
+        "startLine": 74,
+        "startChar": 29,
+        "endLine": 74,
+        "endChar": 33
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228ba952_4ed3ed60",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "I know this is considered testing code, so take this comment with a grain of salt.\n\nWe are trying to merge how we do file I/O in WebRTC and some work have been done around https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/system/file_wrapper.h, can we use it instead of std::ifstream?\n\nWebRTC also tries to stay away from streams in general and we usually opt for https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/strings/string_builder.h instead of std::stringstream.\n\nEven if this is considered testing code, maybe it makes sense to use FileWrapper and StringBuilder.",
+      "range": {
+        "startLine": 111,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 36
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1e7e772_73a0777c",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "The comment in the .h file says that it is ignored for now but here we are writing a packet? Should this just return true?",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 46
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09647a5f_0993652c",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-28T09:00:53Z",
+      "side": 1,
+      "message": "The definition of this one is identical to the definition of RtpGenerator::SendRtp, should we add another comment in the .cc file?",
+      "range": {
+        "startLine": 99,
+        "startChar": 2,
+        "endLine": 100,
+        "endChar": 63
+      },
+      "revId": "d349d202064d30267be281f22648363b49a99d45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

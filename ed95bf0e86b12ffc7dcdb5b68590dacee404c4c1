@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51dd43af_5c13402f",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T15:27:33Z",
+      "side": 1,
+      "message": "writing type explicitly (FrameCounts\u0026 instead of auto\u0026) makes code a bit easier to follow.",
+      "range": {
+        "startLine": 383,
+        "startChar": 4,
+        "endLine": 383,
+        "endChar": 8
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e651c6dd_53c5d54e",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T15:27:33Z",
+      "side": 1,
+      "message": "can this member be access from multiple threads/task queues?",
+      "range": {
+        "startLine": 167,
+        "startChar": 27,
+        "endLine": 167,
+        "endChar": 41
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7187aade_d304b740",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-28T15:27:33Z",
+      "side": 1,
+      "message": "this look like simulating a mock class. may use mock:\nclass MockFrameCountObserver : public FrameCountObserver {\n  MOCK_METHOD2(FrameCountUpdated, ...);\n} callback;\n\n...\nEXPECT_CALL(callback, FrameCountUpdated).Times(0);\n...\nEXPECT_CALL(callback, FrameCountUpdates(_, kSsrc1).WillOnce(SaveArg\u003c0\u003e(\u0026frame_counts));\nEXPECT_EQ(frame_counts.key_frames, 1);\n...\nor EXPECT_CALL(callback, FrameCountUpdates).WillOnce(Invoke([](const FrameCounts\u0026 frame_counts, ...) {\n  EXPECT_EQ(frame_counts.key_frames, 1);\n});\nor EXPECT_CALL(callback, FrameCountUpdates(Property(\u0026FrameCounts::key_frames, 1), kSsrc1));",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 321,
+        "endChar": 13
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

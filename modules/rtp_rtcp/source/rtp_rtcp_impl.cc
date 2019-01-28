@@ -17,6 +17,7 @@
 #include <string>
 #include <utility>
 
+#include "absl/memory/memory.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/dlrr.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
 #include "rtc_base/checks.h"
@@ -83,7 +84,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
                                                 : kDefaultVideoReportInterval),
                      this),
       clock_(configuration.clock),
-      audio_(configuration.audio),
+      audio_configured_(configuration.audio),
       keepalive_config_(configuration.keepalive_config),
       last_bitrate_process_time_(clock_->TimeInMilliseconds()),
       last_rtt_process_time_(clock_->TimeInMilliseconds()),
@@ -99,13 +100,15 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
       rtt_ms_(0) {
   if (!configuration.receiver_only) {
     rtp_sender_.reset(new RTPSender(
-        configuration.audio, configuration.clock,
+        audio_configured_, configuration.clock,
         configuration.outgoing_transport, configuration.paced_sender,
-        configuration.flexfec_sender,
+        configuration.flexfec_sender
+            ? absl::make_optional(configuration.flexfec_sender->ssrc())
+            : absl::nullopt,
         configuration.transport_sequence_number_allocator,
         configuration.transport_feedback_callback,
         configuration.send_bitrate_observer,
-        configuration.send_frame_count_observer,
+        // configuration.send_frame_count_observer,
         configuration.send_side_delay_observer, configuration.event_log,
         configuration.send_packet_observer,
         configuration.retransmission_rate_limiter,
@@ -113,6 +116,14 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
         configuration.populate_network2_timestamp,
         configuration.frame_encryptor, configuration.require_frame_encryption,
         configuration.extmap_allow_mixed));
+    if (audio_configured_) {
+      audio_ = absl::make_unique<RTPSenderAudio>(clock_, rtp_sender_.get());
+    } else {
+      video_ = absl::make_unique<RTPSenderVideo>(
+          clock_, rtp_sender_.get(), configuration.flexfec_sender,
+          configuration.frame_encryptor,
+          configuration.require_frame_encryption);
+    }
     // Make sure rtcp sender use same timestamp offset as rtp sender.
     rtcp_sender_.SetTimestampOffset(rtp_sender_->TimestampOffset());
 
@@ -270,21 +281,18 @@ void ModuleRtpRtcpImpl::RegisterAudioSendPayload(int payload_type,
                                                  int channels,
                                                  int rate) {
   rtcp_sender_.SetRtpClockRate(payload_type, frequency);
-  RTC_CHECK_EQ(0,
-               rtp_sender_->RegisterPayload(payload_name, payload_type,
-                                            frequency, channels, rate));
+  RTC_CHECK_EQ(0, audio_->RegisterAudioPayload(payload_name, payload_type,
+                                               frequency, channels, rate));
 }
 
 void ModuleRtpRtcpImpl::RegisterVideoSendPayload(int payload_type,
                                                  const char* payload_name) {
   rtcp_sender_.SetRtpClockRate(payload_type, kVideoPayloadTypeFrequency);
-  RTC_CHECK_EQ(0,
-               rtp_sender_->RegisterPayload(payload_name, payload_type,
-                                            kVideoPayloadTypeFrequency, 0, 0));
+  video_->RegisterPayloadType(payload_type, payload_name);
 }
 
 int32_t ModuleRtpRtcpImpl::DeRegisterSendPayload(const int8_t payload_type) {
-  return rtp_sender_->DeRegisterSendPayload(payload_type);
+  return 0;
 }
 
 uint32_t ModuleRtpRtcpImpl::StartTimestamp() const {
@@ -447,10 +455,31 @@ bool ModuleRtpRtcpImpl::SendOutgoingData(
       expected_retransmission_time_ms = kDefaultExpectedRetransmissionTimeMs;
     }
   }
-  return rtp_sender_->SendOutgoingData(
-      frame_type, payload_type, time_stamp, capture_time_ms, payload_data,
-      payload_size, fragmentation, rtp_video_header, transport_frame_id_out,
-      expected_retransmission_time_ms);
+
+#if 0
+  // TODO(nisse): XXX Where should these stats go? RTPSenderVideo, maybe?
+
+  // Note:
+  // This is currently only counting for video.
+  if (frame_type == kVideoFrameKey) {
+    ++frame_counts_.key_frames;
+  } else if (frame_type == kVideoFrameDelta) {
+    ++frame_counts_.delta_frames;
+  }
+  if (frame_count_observer_) {
+    frame_count_observer_->FrameCountUpdated(frame_counts_, ssrc);
+  }
+#endif
+  const uint32_t rtp_timestamp = time_stamp + rtp_sender_->TimestampOffset();
+  if (audio_configured_) {
+    return audio_->SendAudio(frame_type, payload_type, rtp_timestamp,
+                             payload_data, payload_size);
+  } else {
+    return video_->SendVideo(frame_type, payload_type, rtp_timestamp,
+                             capture_time_ms, payload_data, payload_size,
+                             fragmentation, rtp_video_header,
+                             expected_retransmission_time_ms);
+  }
 }
 
 bool ModuleRtpRtcpImpl::TimeToSendPacket(uint32_t ssrc,
@@ -765,11 +794,11 @@ bool ModuleRtpRtcpImpl::SendFeedbackPacket(
 int32_t ModuleRtpRtcpImpl::SendTelephoneEventOutband(const uint8_t key,
                                                      const uint16_t time_ms,
                                                      const uint8_t level) {
-  return rtp_sender_->SendTelephoneEvent(key, time_ms, level);
+  return audio_ ? audio_->SendTelephoneEvent(key, time_ms, level) : -1;
 }
 
 int32_t ModuleRtpRtcpImpl::SetAudioLevel(const uint8_t level_d_bov) {
-  return rtp_sender_->SetAudioLevel(level_d_bov);
+  return audio_ ? audio_->SetAudioLevel(level_d_bov) : -1;
 }
 
 int32_t ModuleRtpRtcpImpl::SetKeyFrameRequestMethod(
@@ -790,13 +819,18 @@ int32_t ModuleRtpRtcpImpl::RequestKeyFrame() {
 
 void ModuleRtpRtcpImpl::SetUlpfecConfig(int red_payload_type,
                                         int ulpfec_payload_type) {
-  rtp_sender_->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
+  RTC_DCHECK(video_);
+  video_->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
 }
 
 bool ModuleRtpRtcpImpl::SetFecParameters(
     const FecProtectionParams& delta_params,
     const FecProtectionParams& key_params) {
-  return rtp_sender_->SetFecParameters(delta_params, key_params);
+  if (!video_) {
+    return false;
+  }
+  video_->SetFecParameters(delta_params, key_params);
+  return true;
 }
 
 void ModuleRtpRtcpImpl::SetRemoteSSRC(const uint32_t ssrc) {
@@ -810,13 +844,13 @@ void ModuleRtpRtcpImpl::BitrateSent(uint32_t* total_rate,
                                     uint32_t* fec_rate,
                                     uint32_t* nack_rate) const {
   *total_rate = rtp_sender_->BitrateSent();
-  *video_rate = rtp_sender_->VideoBitrateSent();
-  *fec_rate = rtp_sender_->FecOverheadRate();
+  *video_rate = video_ ? video_->VideoBitrateSent() : 0;
+  *fec_rate = video_ ? video_->FecOverheadRate() : 0;
   *nack_rate = rtp_sender_->NackOverheadRate();
 }
 
 uint32_t ModuleRtpRtcpImpl::PacketizationOverheadBps() const {
-  return rtp_sender_->PacketizationOverheadBps();
+  return video_ ? video_->PacketizationOverheadBps() : 0;
 }
 
 void ModuleRtpRtcpImpl::OnRequestSendReport() {

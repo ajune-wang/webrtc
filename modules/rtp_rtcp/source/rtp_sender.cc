@@ -27,8 +27,6 @@
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
-#include "modules/rtp_rtcp/source/rtp_sender_audio.h"
-#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/rtp_rtcp/source/time_util.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
@@ -88,6 +86,7 @@ constexpr RtpExtensionSize kVideoExtensionSizes[] = {
      RtpGenericFrameDescriptorExtension::kMaxSizeBytes},
 };
 
+#if 0
 const char* FrameTypeToString(FrameType frame_type) {
   switch (frame_type) {
     case kEmptyFrame:
@@ -103,6 +102,7 @@ const char* FrameTypeToString(FrameType frame_type) {
   }
   return "";
 }
+#endif
 }  // namespace
 
 RTPSender::RTPSender(
@@ -110,11 +110,10 @@ RTPSender::RTPSender(
     Clock* clock,
     Transport* transport,
     RtpPacketSender* paced_sender,
-    FlexfecSender* flexfec_sender,
+    absl::optional<uint32_t> flexfec_ssrc,
     TransportSequenceNumberAllocator* sequence_number_allocator,
     TransportFeedbackObserver* transport_feedback_observer,
     BitrateStatisticsObserver* bitrate_callback,
-    FrameCountObserver* frame_count_observer,
     SendSideDelayObserver* send_side_delay_observer,
     RtcEventLog* event_log,
     SendPacketObserver* send_packet_observer,
@@ -129,6 +128,8 @@ RTPSender::RTPSender(
       clock_delta_ms_(clock_->TimeInMilliseconds() - rtc::TimeMillis()),
       random_(clock_->TimeInMicroseconds()),
       audio_configured_(audio),
+      flexfec_ssrc_(flexfec_ssrc),
+#if 0
       audio_(audio ? new RTPSenderAudio(clock, this) : nullptr),
       video_(audio ? nullptr
                    : new RTPSenderVideo(clock,
@@ -136,6 +137,7 @@ RTPSender::RTPSender(
                                         flexfec_sender,
                                         frame_encryptor,
                                         require_frame_encryption)),
+#endif
       paced_sender_(paced_sender),
       transport_sequence_number_allocator_(sequence_number_allocator),
       transport_feedback_observer_(transport_feedback_observer),
@@ -155,7 +157,6 @@ RTPSender::RTPSender(
       total_bitrate_sent_(kBitrateStatisticsWindowMs,
                           RateStatistics::kBpsScale),
       nack_bitrate_sent_(kBitrateStatisticsWindowMs, RateStatistics::kBpsScale),
-      frame_count_observer_(frame_count_observer),
       send_side_delay_observer_(send_side_delay_observer),
       event_log_(event_log),
       send_packet_observer_(send_packet_observer),
@@ -183,7 +184,7 @@ RTPSender::RTPSender(
 
   // Store FlexFEC packets in the packet history data structure, so they can
   // be found when paced.
-  if (flexfec_sender) {
+  if (flexfec_ssrc_) {
     flexfec_packet_history_.SetStorePacketsStatus(
         RtpPacketHistory::StorageMode::kStore,
         kMinFlexfecPacketsToStoreForPacing);
@@ -219,6 +220,7 @@ uint16_t RTPSender::ActualSendBitrateKbit() const {
       1000);
 }
 
+#if 0
 uint32_t RTPSender::VideoBitrateSent() const {
   if (video_) {
     return video_->VideoBitrateSent();
@@ -232,15 +234,18 @@ uint32_t RTPSender::FecOverheadRate() const {
   }
   return 0;
 }
+#endif
 
 uint32_t RTPSender::NackOverheadRate() const {
   rtc::CritScope cs(&statistics_crit_);
   return nack_bitrate_sent_.Rate(clock_->TimeInMilliseconds()).value_or(0);
 }
 
+#if 0
 uint32_t RTPSender::PacketizationOverheadBps() const {
   return video_ ? video_->PacketizationOverheadBps() : 0;
 }
+#endif
 
 void RTPSender::SetExtmapAllowMixed(bool extmap_allow_mixed) {
   rtc::CritScope lock(&send_critsect_);
@@ -268,6 +273,7 @@ int32_t RTPSender::DeregisterRtpHeaderExtension(RTPExtensionType type) {
   return rtp_header_extension_map_.Deregister(type);
 }
 
+#if 0
 int32_t RTPSender::RegisterPayload(absl::string_view payload_name,
                                    int8_t payload_number,
                                    uint32_t frequency,
@@ -290,6 +296,7 @@ int32_t RTPSender::RegisterPayload(absl::string_view payload_name,
 int32_t RTPSender::DeRegisterSendPayload(int8_t /* payload_type */) {
   return 0;
 }
+#endif
 
 void RTPSender::SetMaxRtpPacketSize(size_t max_packet_size) {
   RTC_DCHECK_GE(max_packet_size, 100);
@@ -336,6 +343,7 @@ void RTPSender::SetRtxPayloadType(int payload_type,
   rtx_payload_type_map_[associated_payload_type] = payload_type;
 }
 
+#if 0
 bool RTPSender::SendOutgoingData(FrameType frame_type,
                                  int8_t payload_type,
                                  uint32_t capture_timestamp,
@@ -414,7 +422,7 @@ bool RTPSender::SendOutgoingData(FrameType frame_type,
 
   return result;
 }
-
+#endif
 size_t RTPSender::TrySendRedundantPayloads(size_t bytes_to_send,
                                            const PacedPacketInfo& pacing_info) {
   {
@@ -800,6 +808,9 @@ void RTPSender::UpdateRtpStats(const RtpPacketToSend& packet,
 }
 
 bool RTPSender::IsFecPacket(const RtpPacketToSend& packet) const {
+  // TODO(nisse): Add is_fec member to RtpPacketToSend instead?
+  return false;
+#if 0
   if (!video_)
     return false;
 
@@ -813,6 +824,7 @@ bool RTPSender::IsFecPacket(const RtpPacketToSend& packet) const {
   video_->GetUlpfecConfig(&pt_red, &pt_fec);
   return static_cast<int>(packet.PayloadType()) == pt_red &&
          static_cast<int>(packet.payload()[0]) == pt_fec;
+#endif
 }
 
 size_t RTPSender::TimeToSendPadding(size_t bytes,
@@ -831,6 +843,7 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
   RTC_DCHECK(packet);
   int64_t now_ms = clock_->TimeInMilliseconds();
 
+#if 0
   if (video_) {
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "VideoTotBitrate_kbps", now_ms,
                                     ActualSendBitrateKbit(), packet->Ssrc());
@@ -844,6 +857,7 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
     BWE_TEST_LOGGING_PLOT_WITH_SSRC(1, "AudioNackBitrate_kbps", now_ms,
                                     NackOverheadRate() / 1000, packet->Ssrc());
   }
+#endif
 
   uint32_t ssrc = packet->Ssrc();
   absl::optional<uint32_t> flexfec_ssrc = FlexfecSsrc();
@@ -1189,10 +1203,7 @@ void RTPSender::SetMid(const std::string& mid) {
 }
 
 absl::optional<uint32_t> RTPSender::FlexfecSsrc() const {
-  if (video_) {
-    return video_->FlexfecSsrc();
-  }
-  return absl::nullopt;
+  return flexfec_ssrc_;
 }
 
 void RTPSender::SetCsrcs(const std::vector<uint32_t>& csrcs) {
@@ -1212,20 +1223,7 @@ uint16_t RTPSender::SequenceNumber() const {
   return sequence_number_;
 }
 
-// Audio.
-int32_t RTPSender::SendTelephoneEvent(uint8_t key,
-                                      uint16_t time_ms,
-                                      uint8_t level) {
-  if (!audio_configured_) {
-    return -1;
-  }
-  return audio_->SendTelephoneEvent(key, time_ms, level);
-}
-
-int32_t RTPSender::SetAudioLevel(uint8_t level_d_bov) {
-  return audio_->SetAudioLevel(level_d_bov);
-}
-
+#if 0
 void RTPSender::SetUlpfecConfig(int red_payload_type, int ulpfec_payload_type) {
   RTC_DCHECK(!audio_configured_);
   video_->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
@@ -1239,6 +1237,7 @@ bool RTPSender::SetFecParameters(const FecProtectionParams& delta_params,
   video_->SetFecParameters(delta_params, key_params);
   return true;
 }
+#endif
 
 static std::unique_ptr<RtpPacketToSend> CreateRtxPacket(
     const RtpPacketToSend& packet,

@@ -23,8 +23,11 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
+#include "absl/strings/ascii.h"
 #include "absl/strings/match.h"
+#include "absl/strings/string_view.h"
 #include "api/candidate.h"
 #include "api/crypto_params.h"
 #include "api/jsep_ice_candidate.h"
@@ -610,10 +613,9 @@ static bool GetValue(const std::string& message,
   return true;
 }
 
-static bool CaseInsensitiveFind(std::string str1, std::string str2) {
-  std::transform(str1.begin(), str1.end(), str1.begin(), ::tolower);
-  std::transform(str2.begin(), str2.end(), str2.begin(), ::tolower);
-  return str1.find(str2) != std::string::npos;
+static bool CaseInsensitiveFind(absl::string_view str1,
+                                absl::string_view str2) {
+  return absl::AsciiStrToLower(str1).find(absl::AsciiStrToLower(str2));
 }
 
 template <class T>
@@ -699,8 +701,8 @@ void CreateTracksFromSsrcInfos(const SsrcInfoVec& ssrc_infos,
       track_id = rtc::CreateRandomString(8);
     }
 
-    auto track_it = std::find_if(
-        tracks->begin(), tracks->end(),
+    auto track_it = absl::c_find_if(
+        *tracks,
         [track_id](const StreamParams& track) { return track.id == track_id; });
     if (track_it == tracks->end()) {
       // If we don't find an existing track, create a new one.
@@ -1813,9 +1815,8 @@ bool GetMinValue(const std::vector<int>& values, int* value) {
   if (values.empty()) {
     return false;
   }
-  std::vector<int>::const_iterator found =
-      std::min_element(values.begin(), values.end());
-  *value = *found;
+  auto it = absl::c_min_element(values);
+  *value = *it;
   return true;
 }
 
@@ -2262,8 +2263,7 @@ static bool ParseFingerprintAttribute(
 
   // Downcase the algorithm. Note that we don't need to downcase the
   // fingerprint because hex_decode can handle upper-case.
-  std::transform(algorithm.begin(), algorithm.end(), algorithm.begin(),
-                 ::tolower);
+  absl::AsciiStrToLower(&algorithm);
 
   // The second field is the digest value. De-hexify it.
   *fingerprint =
@@ -2370,8 +2370,7 @@ static void RemoveInvalidRidDescriptions(const std::vector<int>& payload_types,
     // Media section does not handle duplicates either.
     std::set<int> removed_formats;
     for (int payload_type : rid.payload_types) {
-      if (std::find(payload_types.begin(), payload_types.end(), payload_type) ==
-          payload_types.end()) {
+      if (!absl::c_linear_search(payload_types, payload_type)) {
         removed_formats.insert(payload_type);
       }
     }
@@ -2440,30 +2439,29 @@ static void RemoveInvalidRidsFromSimulcast(
   // This algorithm runs in O(n^2) time, but for small n (as is the case with
   // simulcast layers) it should still perform well.
   for (const SimulcastLayer& send_layer : all_send_layers) {
-    if (std::find_if(all_receive_layers.begin(), all_receive_layers.end(),
-                     [&send_layer](const SimulcastLayer& layer) {
-                       return layer.rid == send_layer.rid;
-                     }) != all_receive_layers.end()) {
+    if (absl::c_any_of(all_receive_layers,
+                       [&send_layer](const SimulcastLayer& layer) {
+                         return layer.rid == send_layer.rid;
+                       })) {
       to_remove.insert(send_layer.rid);
     }
   }
 
   // Add any rid that is not in the valid list to the remove set.
   for (const SimulcastLayer& send_layer : all_send_layers) {
-    if (std::find_if(valid_rids.begin(), valid_rids.end(),
-                     [&send_layer](const RidDescription& rid) {
-                       return send_layer.rid == rid.rid;
-                     }) == valid_rids.end()) {
+    if (absl::c_none_of(valid_rids, [&send_layer](const RidDescription& rid) {
+          return send_layer.rid == rid.rid;
+        })) {
       to_remove.insert(send_layer.rid);
     }
   }
 
   // Add any rid that is not in the valid list to the remove set.
   for (const SimulcastLayer& receive_layer : all_receive_layers) {
-    if (std::find_if(valid_rids.begin(), valid_rids.end(),
-                     [&receive_layer](const RidDescription& rid) {
-                       return receive_layer.rid == rid.rid;
-                     }) == valid_rids.end()) {
+    if (absl::c_none_of(valid_rids,
+                        [&receive_layer](const RidDescription& rid) {
+                          return receive_layer.rid == rid.rid;
+                        })) {
       to_remove.insert(receive_layer.rid);
     }
   }
@@ -2560,12 +2558,11 @@ static std::unique_ptr<C> ParseContentDescription(
     payload_type_preferences[pt] = preference--;
   }
   std::vector<typename C::CodecType> codecs = media_desc->codecs();
-  std::sort(codecs.begin(), codecs.end(),
-            [&payload_type_preferences](const typename C::CodecType& a,
-                                        const typename C::CodecType& b) {
-              return payload_type_preferences[a.id] >
-                     payload_type_preferences[b.id];
-            });
+  absl::c_sort(
+      codecs, [&payload_type_preferences](const typename C::CodecType& a,
+                                          const typename C::CodecType& b) {
+        return payload_type_preferences[a.id] > payload_type_preferences[b.id];
+      });
   media_desc->set_codecs(codecs);
   return media_desc;
 }
@@ -2749,13 +2746,11 @@ bool VerifyCodec(const cricket::Codec& codec) {
 }
 
 bool VerifyAudioCodecs(const AudioContentDescription* audio_desc) {
-  const std::vector<cricket::AudioCodec>& codecs = audio_desc->codecs();
-  return std::all_of(codecs.begin(), codecs.end(), &VerifyCodec);
+  return absl::c_all_of(audio_desc->codecs(), &VerifyCodec);
 }
 
 bool VerifyVideoCodecs(const VideoContentDescription* video_desc) {
-  const std::vector<cricket::VideoCodec>& codecs = video_desc->codecs();
-  return std::all_of(codecs.begin(), codecs.end(), &VerifyCodec);
+  return absl::c_all_of(video_desc->codecs(), &VerifyCodec);
 }
 
 void AddParameters(const cricket::CodecParameterMap& parameters,
@@ -3324,10 +3319,10 @@ bool ParseSsrcAttribute(const std::string& line,
 
   // Check if there's already an item for this |ssrc_id|. Create a new one if
   // there isn't.
-  auto ssrc_info_it = std::find_if(ssrc_infos->begin(), ssrc_infos->end(),
-                                   [ssrc_id](const SsrcInfo& ssrc_info) {
-                                     return ssrc_info.ssrc_id == ssrc_id;
-                                   });
+  auto ssrc_info_it =
+      absl::c_find_if(*ssrc_infos, [ssrc_id](const SsrcInfo& ssrc_info) {
+        return ssrc_info.ssrc_id == ssrc_id;
+      });
   if (ssrc_info_it == ssrc_infos->end()) {
     SsrcInfo info;
     info.ssrc_id = ssrc_id;
@@ -3482,8 +3477,7 @@ bool ParseRtpmapAttribute(const std::string& line,
     return false;
   }
 
-  if (std::find(payload_types.begin(), payload_types.end(), payload_type) ==
-      payload_types.end()) {
+  if (!absl::c_linear_search(payload_types, payload_type)) {
     RTC_LOG(LS_WARNING) << "Ignore rtpmap line that did not appear in the "
                            "<fmt> of the m-line: "
                         << line;

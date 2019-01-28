@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2935f82e_9fc41a41",
+        "filename": "modules/audio_processing/aec3/suppression_gain_limiter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-01-28T11:35:41Z",
+      "side": 0,
+      "message": "Since you are removing the only use of these parameters, please also remove the parameters in the config struct.",
+      "range": {
+        "startLine": 25,
+        "startChar": 34,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "da37473a54616433f65c4ec7d6e80792315a2e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

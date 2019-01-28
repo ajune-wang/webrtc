@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "60ab12dd_72c6b1d2",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-28T10:57:26Z",
+      "side": 1,
+      "message": "Inline this method? It\u0027s trivial.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cacd3c9_12e2f5f4",
         "filename": "test/pc/e2e/test_peer.cc",
         "patchSetId": 5
@@ -36,6 +53,29 @@
       "writtenOn": "2019-01-25T14:41:32Z",
       "side": 1,
       "message": "Since pc() is a public method of PeerConnectionWrapper, why wouldn\u0027t the client set IceCandidates itself?",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da1a0cbd_fff095be",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-28T10:57:26Z",
+      "side": 1,
+      "message": "Since this method doesn\u0027t save the `candidates` vector, change to ArrayView?",
+      "range": {
+        "startLine": 45,
+        "startChar": 24,
+        "endLine": 45,
+        "endChar": 65
+      },
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +178,24 @@
       "writtenOn": "2019-01-25T21:02:28Z",
       "side": 1,
       "message": "PeerConnectionFactoryComponents.\n\nAlso, I think it should take ownership of PeerConnectionFactoryComponents.\nYou are essentially moving out all of the parameters from it, rendering PeerConnectionFactoryComponents unusable.\n\nSo consider std::unique_ptr\u003cPeerConnectionFactoryComponents\u003e",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70e7238d_5c74932c",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-28T10:57:26Z",
+      "side": 1,
+      "message": "Sounds like an improvement to me.",
+      "parentUuid": "0faf9f85_36de7e0e",
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

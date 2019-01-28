@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "555c453a_3506d37a",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-28T14:00:26Z",
+      "side": 1,
+      "message": "Much cleaner, great!\n\nCould we simplify it even further by just providing a size?",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 45
+      },
+      "revId": "e48854aba86b16156dfe47831c7f779bae40663a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

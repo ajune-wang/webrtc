@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e19f11f0_e0564915",
+        "filename": "pc/channel_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-28T17:58:42Z",
+      "side": 1,
+      "message": "What I mean here is to test that the StreamParams stored in local_streams() is replaced. Correct me if I\u0027m wrong, but from what I see this is the behavior given that order matters with the StreamFinder. So when SetLocalContent() is called with a StreamParams object with different ordered rids, ssrcs will be generated for a new StreamParams object replaced in local_streams_.",
+      "parentUuid": "41c80479_15fda106",
+      "range": {
+        "startLine": 1489,
+        "startChar": 4,
+        "endLine": 1489,
+        "endChar": 31
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8e0ee037_7ecaf976",
         "filename": "pc/media_session.h",
         "patchSetId": 4
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "58a59025_b63739ad",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-28T17:58:42Z",
+      "side": 1,
+      "message": "Sounds good punting on this and thanks for filing the bug. \n\nJust writing a note here-\nA possible solution here is to add/remove send streams with BaseChannel::UpdateRemoteStreams, like how it is currently done with UpdateLocalStreams. The hard part could be keeping the SSRCs. The alternative of exposing a new parameter could be a bit more tricky, but I\u0027d have to think on this stuff more.",
+      "parentUuid": "d9153122_fb4f12dc",
+      "range": {
+        "startLine": 2965,
+        "startChar": 16,
+        "endLine": 2965,
+        "endChar": 40
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b41b94c0_de475e93",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "correct, even with one layer, AddTransceiver() must be called to do this.\nthe code is built such that RIDs and Simulcast are not the same thing. Simulcast requires RIDs but RIDs can exist independently, so there is no DCHECK for RIDs without simulcast.",
       "parentUuid": "60ce458e_a3b99a7c",
+      "range": {
+        "startLine": 4195,
+        "startChar": 4,
+        "endLine": 4195,
+        "endChar": 23
+      },
+      "revId": "38c4d32345e8b345b0ca0a0f5fae2ddf3a849029",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48f0d0ae_a0bf81aa",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4195,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-01-28T17:58:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4763b3f6_02988c7e",
       "range": {
         "startLine": 4195,
         "startChar": 4,

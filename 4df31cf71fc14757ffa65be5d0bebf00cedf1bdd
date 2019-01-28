@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6c9520fc_588d0567",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-28T13:27:47Z",
+      "side": 1,
+      "message": "* As far as I can tell, it should indeed only be called in debug mode.\n* This code was not introduced nor edited by me, but I guess we could avoid creating |checker_| #if !RTC_DCHECK_IS_ON. Do you think it\u0027s worth doing, in a separate CL?",
+      "parentUuid": "c1edc58b_2d92fa8c",
+      "range": {
+        "startLine": 486,
+        "startChar": 15,
+        "endLine": 486,
+        "endChar": 70
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9ac8b0a_1a28052c",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94d01cb4_d52777f1",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-28T13:27:47Z",
+      "side": 1,
+      "message": "Done, then edited the code in a way that made the DCHECK no longer necessary. PTAL.",
+      "parentUuid": "f9ac8b0a_1a28052c",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 497,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cf61c22a_e35a147d",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-28T13:27:47Z",
+      "side": 1,
+      "message": "Done, then edited the code in a way that made the DCHECK no longer necessary. PTAL.",
+      "parentUuid": "94b69785_a6311a9e",
+      "range": {
+        "startLine": 515,
+        "startChar": 0,
+        "endLine": 515,
+        "endChar": 79
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1502faa6_3a544329",
         "filename": "modules/video_coding/include/video_codec_interface.h",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cae23651_7bf1b74a",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-28T13:27:47Z",
+      "side": 1,
+      "message": "1. VP9 doesn\u0027t currently work with GFD. (Why is this relevant? See #2.)\n2. The diff in frames does not correspond exactly to the diff in GFD frame IDs, becuase GFD shares those frame IDs between streams.\n3. So I will still have to have something similar to |last_shared_frame_id_| or |buffer_id_to_frame_id_| in RtpPayloadParams, making the use of p_diffs unhelpful.",
+      "parentUuid": "1502faa6_3a544329",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "2521513c_972a2882",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-28T13:27:47Z",
+      "side": 1,
+      "message": "I see my mistake now - even though we only ever write non-key frames into buffer #0, we still have key frames in #1 and #2, and they could end up being used. Thanks for catching.",
+      "parentUuid": "b88166a9_30441c4a",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 68
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5b04fb_bb76aafe",
         "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
         "patchSetId": 4

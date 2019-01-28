@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d2f955b3_eb827b4b",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T15:55:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51dd43af_5c13402f",
+      "range": {
+        "startLine": 383,
+        "startChar": 4,
+        "endLine": 383,
+        "endChar": 8
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e651c6dd_53c5d54e",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-28T15:27:33Z",
       "side": 1,
       "message": "can this member be access from multiple threads/task queues?",
+      "range": {
+        "startLine": 167,
+        "startChar": 27,
+        "endLine": 167,
+        "endChar": 41
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "766a9afc_71dc8363",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T15:55:10Z",
+      "side": 1,
+      "message": "Besides constructor, it is accessed only in OnEncodedImage. I think that can be called on several threads, but it\u0027s under the protection of |crit_|. I don\u0027t think holding the lock during the callback is a change, since earlier it was called from SendOutgiongData while holding this lock, and one additional lock.\n\nAdding RTC_GUARDED_BY annotation.",
+      "parentUuid": "e651c6dd_53c5d54e",
       "range": {
         "startLine": 167,
         "startChar": 27,
@@ -68,6 +116,30 @@
       "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd396801_db36d303",
+        "filename": "call/rtp_video_sender_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-28T15:55:10Z",
+      "side": 1,
+      "message": "With testing::Mock::VerifyAndClearExpectations between frames?",
+      "parentUuid": "7187aade_d304b740",
+      "range": {
+        "startLine": 306,
+        "startChar": 2,
+        "endLine": 321,
+        "endChar": 13
+      },
+      "revId": "ed95bf0e86b12ffc7dcdb5b68590dacee404c4c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

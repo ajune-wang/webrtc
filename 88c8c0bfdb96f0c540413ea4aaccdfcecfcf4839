@@ -81,6 +81,24 @@
       "revId": "88c8c0bfdb96f0c540413ea4aaccdfcecfcf4839",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b84dee_2f4a353e",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-01-28T15:54:33Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "f4dc4810_c8f8fe9a",
+      "revId": "88c8c0bfdb96f0c540413ea4aaccdfcecfcf4839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

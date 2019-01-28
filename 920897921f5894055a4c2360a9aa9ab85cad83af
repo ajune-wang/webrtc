@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5df83d5e_2a1810de",
+        "filename": "modules/audio_coding/codecs/opus/opus_interface.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-28T15:16:29Z",
+      "side": 1,
+      "message": "nit: since we touch this line, it is good to refactor as \"!state-\u003edecoder.decoder || !state-\u003edecoder.multistream_decoder\"",
+      "range": {
+        "startLine": 413,
+        "startChar": 29,
+        "endLine": 413,
+        "endChar": 34
+      },
+      "revId": "920897921f5894055a4c2360a9aa9ab85cad83af",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

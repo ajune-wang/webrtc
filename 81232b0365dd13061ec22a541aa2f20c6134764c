@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "670d38bb_cf2593a7",
+        "filename": "call/rtp_payload_params.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "Pass as const reference?",
+      "range": {
+        "startLine": 237,
+        "startChar": 34,
+        "endLine": 237,
+        "endChar": 79
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6794910_2300971d",
+        "filename": "call/rtp_payload_params.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "Please elaborate, difficult for anyone else to resolve this.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 74
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab11b26b_247730a4",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "Does this comment mean that we don\u0027t want to increment referencedBuffersCount etc because it\u0027s a key frame? Would it be easier to read if you simply set them to zero?",
+      "range": {
+        "startLine": 496,
+        "startChar": 0,
+        "endLine": 496,
+        "endChar": 74
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95f940aa_4d788b47",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "Why are these set to zero?",
+      "range": {
+        "startLine": 497,
+        "startChar": 0,
+        "endLine": 498,
+        "endChar": 68
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb5b04fb_bb76aafe",
+        "filename": "modules/video_coding/codecs/vp8/default_temporal_layers.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "This is not true. The frame may be an intra-only frame (not referencing anything) but not update any buffers, thus not being a key frame.",
+      "range": {
+        "startLine": 506,
+        "startChar": 9,
+        "endLine": 507,
+        "endChar": 53
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc531552_df95e444",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "Should these be vectors?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d94544_9ba3d18e",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T08:48:35Z",
+      "side": 1,
+      "message": "This is not true in general. I\u0027m fairly sure VP8 can update all 3 buffers if we want to?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 60
+      },
+      "revId": "81232b0365dd13061ec22a541aa2f20c6134764c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

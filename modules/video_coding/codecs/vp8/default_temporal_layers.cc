@@ -20,11 +20,13 @@
 #include "modules/include/module_common_types.h"
 #include "modules/video_coding/codecs/vp8/default_temporal_layers.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "rtc_base/arraysize.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
+using Buffer = Vp8TemporalLayers::FrameConfig::Buffer;
 
 Vp8TemporalLayers::FrameConfig::FrameConfig()
     : FrameConfig(kNone, kNone, kNone, false) {}
@@ -484,15 +486,36 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
     RTC_DCHECK(checker_->CheckTemporalConfig(true, frame.frame_config));
   }
 
+  vp8_info->useExplicitDependencies = true;
+  RTC_DCHECK_EQ(vp8_info->referencedBuffersCount, 0u);
+  RTC_DCHECK_EQ(vp8_info->updatedBuffersCount, 0u);
+
   if (num_layers_ == 1) {
     vp8_info->temporalIdx = kNoTemporalIdx;
     vp8_info->layerSync = false;
+    if (is_keyframe) {
+      // |vp8_info->referencedBuffersCount| is already set to 0 (DCHECK above).
+      for (size_t i = 0; i < static_cast<size_t>(Buffer::kCount); ++i) {
+        vp8_info->updatedBuffers[i] = i;
+      }
+      vp8_info->updatedBuffersCount = static_cast<size_t>(Buffer::kCount);
+    } else {
+      // Only one codec buffer need be used. Arbitrarily, we use buffer #0.
+      constexpr size_t kMainBuffer = 0;
+      vp8_info->referencedBuffers[vp8_info->referencedBuffersCount++] =
+          kMainBuffer;
+      vp8_info->updatedBuffers[vp8_info->updatedBuffersCount++] = kMainBuffer;
+    }
   } else {
     if (is_keyframe) {
       // Restart the temporal pattern on keyframes.
       pattern_idx_ = 0;
       vp8_info->temporalIdx = 0;
       vp8_info->layerSync = true;  // Keyframes are always sync frames.
+      for (size_t i = 0; i < static_cast<size_t>(Buffer::kCount); ++i) {
+        vp8_info->updatedBuffers[i] = i;
+      }
+      vp8_info->updatedBuffersCount = static_cast<size_t>(Buffer::kCount);
 
       for (Vp8BufferReference buffer : kAllBuffers) {
         if (kf_buffers_.find(buffer) != kf_buffers_.end()) {
@@ -509,8 +532,23 @@ void DefaultTemporalLayers::OnEncodeDone(uint32_t rtp_timestamp,
       // Delta frame, update codec specifics with temporal id and sync flag.
       vp8_info->temporalIdx = frame.frame_config.packetizer_temporal_idx;
       vp8_info->layerSync = frame.frame_config.layer_sync;
+
+      for (int i = 0; i < static_cast<int>(Buffer::kCount); ++i) {
+        if (frame.frame_config.References(static_cast<Buffer>(i))) {
+          vp8_info->referencedBuffers[vp8_info->referencedBuffersCount++] = i;
+        }
+
+        if (frame.frame_config.Updates(static_cast<Buffer>(i))) {
+          vp8_info->updatedBuffers[vp8_info->updatedBuffersCount++] = i;
+        }
+      }
     }
   }
+
+  RTC_DCHECK_LE(vp8_info->referencedBuffersCount,
+                arraysize(CodecSpecificInfoVP8::referencedBuffers));
+  RTC_DCHECK_LE(vp8_info->updatedBuffersCount,
+                arraysize(CodecSpecificInfoVP8::updatedBuffers));
 
   if (!frame.expired) {
     for (Vp8BufferReference buffer : kAllBuffers) {

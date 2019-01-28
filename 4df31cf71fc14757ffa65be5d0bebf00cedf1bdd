@@ -283,6 +283,30 @@
       "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f9ab9b6_5a577b7f",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2019-01-28T14:25:47Z",
+      "side": 1,
+      "message": "you will need map from codec_frame_num -\u003e gfd_frame_num.\n\ni don\u0027t like that we are exposing buffers related stuff to level higher than codec wrapper.",
+      "parentUuid": "cae23651_7bf1b74a",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

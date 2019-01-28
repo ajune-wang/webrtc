@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "124d41ed_be13d886",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2721,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-01-28T14:02:55Z",
+      "side": 1,
+      "message": "Could the else clause be moved here?\nif (encoder_config.simulcast_layers[i].target_bitrate_bps \u003e 0) {          \n  layers[i].target_bitrate_bps \u003d\n              encoder_config.simulcast_layers[i].target_bitrate_bps;\n}",
+      "range": {
+        "startLine": 2721,
+        "startChar": 0,
+        "endLine": 2721,
+        "endChar": 7
+      },
+      "revId": "7009eceeb429694d81927e32aa90b931687b915f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

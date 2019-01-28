@@ -22,6 +22,30 @@
       "revId": "90ab50a8a99d9a3d81e0697ec730462eaa7ab6c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6122f87_9725dc07",
+        "filename": "pc/media_session_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-01-28T21:00:34Z",
+      "side": 1,
+      "message": "cpplint complains about needing it for `copy`, but I\u0027m guessing that\u0027s just the regex getting confused.",
+      "parentUuid": "53c43888_a63f124d",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 19
+      },
+      "revId": "90ab50a8a99d9a3d81e0697ec730462eaa7ab6c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

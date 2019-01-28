@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ebef351f_4e5d5c0c",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60ab12dd_72c6b1d2",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cacd3c9_12e2f5f4",
         "filename": "test/pc/e2e/test_peer.cc",
         "patchSetId": 5
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "1c62861d_14b843c8",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "I don\u0027t know, I can put some error here in case of PeerConnection returned false, but it won\u0027t really say something more... So I just copied current PeerConnection API return value.",
+      "parentUuid": "2cacd3c9_12e2f5f4",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c89390d9_653e6b33",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 5
@@ -56,6 +98,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2359529_34558dec",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "I think, it will make the code a bit more readable on the client side. I want TestPeer hides most part of signaling logic inside itself.",
+      "parentUuid": "c89390d9_653e6b33",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "620622ff_35ef9f01",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da1a0cbd_fff095be",
+      "range": {
+        "startLine": 45,
+        "startChar": 24,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f345db21_177c2326",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -96,6 +180,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11951724_98e9510b",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "params.audio_config.has_value - it is about current peer\u0027s audio stream,\naudio_output_file_name - it is about remote peer output\nComment added to the header file/",
+      "parentUuid": "f345db21_177c2326",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "087c8fa0_c31fb1cf",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf320fff_d36a910e",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51142c74_9cf2c7a9",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -130,6 +250,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "539d25b7_8ec36bc6",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51142c74_9cf2c7a9",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -164,6 +302,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fb91bdd_49e092f6",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cba99de6_0f830854",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "9874a642_f2e6d5f5",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70e7238d_5c74932c",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6d2de36_52b700c3",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -222,6 +396,30 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418e0fae_9d0981d8",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d2de36_52b700c3",
+      "range": {
+        "startLine": 135,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 24
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "b7826f67_709123bd",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ddda9cc_97dd6770",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 10
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ade479a8_499cbe1e",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -265,6 +487,24 @@
     },
     {
       "key": {
+        "uuid": "f072431b_19490fad",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ade479a8_499cbe1e",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e6b4ef9_32944e0a",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -279,6 +519,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9bebd30_514d308c",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e6b4ef9_32944e0a",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -305,6 +563,30 @@
     },
     {
       "key": {
+        "uuid": "577b8efe_5078ce13",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497f46ec_e3ebf29e",
+      "range": {
+        "startLine": 198,
+        "startChar": 21,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ba675fe_90be3fc1",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -328,6 +610,30 @@
     },
     {
       "key": {
+        "uuid": "47c5b6a9_7b36ea8f",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ba675fe_90be3fc1",
+      "range": {
+        "startLine": 212,
+        "startChar": 21,
+        "endLine": 212,
+        "endChar": 41
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bc5f9d1_55bb15df",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -342,6 +648,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0259c3e_9ca7ad75",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc5f9d1_55bb15df",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -362,6 +686,24 @@
     },
     {
       "key": {
+        "uuid": "6da58839_0eac3746",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ec53999_ea26b07e",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "921ec502_c7106a0c",
         "filename": "test/pc/e2e/test_peer_factory.h",
         "patchSetId": 5
@@ -376,6 +718,24 @@
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9f7974e_60ec428f",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "921ec502_c7106a0c",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -402,6 +762,30 @@
     },
     {
       "key": {
+        "uuid": "b10381cd_d261a320",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Params can be modified before they will end up in the TestPeer, so it will makes it clear, that you shouldn\u0027t use your old copy for any assumptions.",
+      "parentUuid": "3a576491_c2c49585",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 28
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b344fe4e_ace4065d",
         "filename": "test/pc/e2e/test_peer_factory.h",
         "patchSetId": 5
@@ -419,6 +803,24 @@
     },
     {
       "key": {
+        "uuid": "2d219298_d25aca43",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b344fe4e_ace4065d",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd3694fa_cfbe96d3",
         "filename": "test/pc/e2e/test_peer_factory.h",
         "patchSetId": 5
@@ -430,6 +832,24 @@
       "writtenOn": "2019-01-25T14:41:32Z",
       "side": 1,
       "message": "Maybe move it next to CreatePCFDependencies, since they are similar. It would make it easier to see the difference between the two.",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9326e0fd_896de85a",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-28T13:39:47Z",
+      "side": 1,
+      "message": "I don\u0027t know. I first put all methods, that are required to create PeerConnectionFactoryDependencies and then PeerConnectionDependencies.. So what layout will be better, what do you think?",
+      "parentUuid": "dd3694fa_cfbe96d3",
       "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

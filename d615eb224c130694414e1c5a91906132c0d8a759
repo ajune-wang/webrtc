@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "492c2437_b181692c",
+        "filename": "api/video_codecs/vp8_temporal_layers.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-01-28T18:20:03Z",
+      "side": 1,
+      "message": "I think adding a vp8_temporal_layer.cc file would be in order, and move the definitions of Vp8TemporalLayers::FrameConfig::FrameConfig() et al to it while you\u0027re at it (not sure why they reside in default_temporal_layers.cc right now...)",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 0
+      },
+      "revId": "d615eb224c130694414e1c5a91906132c0d8a759",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -201,6 +201,7 @@ class RtpSenderReceiverTest : public testing::Test,
   void CreateVideoRtpSenderWithSimulcast(
       int num_layers = kVideoSimulcastLayerCount) {
     std::vector<uint32_t> ssrcs;
+    ssrcs.reserve(num_layers);
     for (int i = 0; i < num_layers; ++i)
       ssrcs.push_back(kVideoSsrcSimulcast + i);
     cricket::StreamParams stream_params =
@@ -258,6 +259,7 @@ class RtpSenderReceiverTest : public testing::Test,
       std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams = {},
       int num_layers = kVideoSimulcastLayerCount) {
     std::vector<uint32_t> ssrcs;
+    ssrcs.reserve(num_layers);
     for (int i = 0; i < num_layers; ++i)
       ssrcs.push_back(kVideoSsrcSimulcast + i);
     cricket::StreamParams stream_params =
@@ -940,6 +942,7 @@ TEST_F(RtpSenderReceiverTest, VideoSenderInitParametersMovedAfterNegotiation) {
 
   // Simulate the setLocalDescription call
   std::vector<uint32_t> ssrcs;
+  ssrcs.reserve(2);
   for (int i = 0; i < 2; ++i)
     ssrcs.push_back(kVideoSsrcSimulcast + i);
   cricket::StreamParams stream_params =
@@ -975,6 +978,7 @@ TEST_F(RtpSenderReceiverTest,
   // Simulate the setLocalDescription call as if the user used SDP munging
   // to enable simulcast
   std::vector<uint32_t> ssrcs;
+  ssrcs.reserve(2);
   for (int i = 0; i < 2; ++i)
     ssrcs.push_back(kVideoSsrcSimulcast + i);
   cricket::StreamParams stream_params =

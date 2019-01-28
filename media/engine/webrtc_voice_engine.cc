@@ -125,6 +125,7 @@ bool VerifyUniquePayloadTypes(const std::vector<AudioCodec>& codecs) {
     return true;
   }
   std::vector<int> payload_types;
+  payload_types.reserve(codecs.size());
   for (const AudioCodec& codec : codecs) {
     payload_types.push_back(codec.id);
   }

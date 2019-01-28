@@ -407,6 +407,7 @@ static StreamParams CreateStreamParamsForNewSenderWithSsrcs(
   // We need to keep |primary_ssrcs| separate from |result.ssrcs|  because
   // iterators are invalidated when rtx and flexfec ssrcs are added to the list.
   std::vector<uint32_t> primary_ssrcs;
+  primary_ssrcs.reserve(sender.num_sim_layers);
   for (int i = 0; i < sender.num_sim_layers; ++i) {
     primary_ssrcs.push_back(ssrc_generator());
   }

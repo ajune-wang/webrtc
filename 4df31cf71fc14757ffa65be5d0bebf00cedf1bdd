@@ -68,6 +68,29 @@
       "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1502faa6_3a544329",
+        "filename": "modules/video_coding/include/video_codec_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7654
+      },
+      "writtenOn": "2019-01-28T12:24:07Z",
+      "side": 1,
+      "message": "why not use pdiffs approach, like we do in VP9 (L76-77)? then the only things you need would be:\nuint8_t num_ref_pics;\nuint8_t p_diff[kMaxVp9RefPics];",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 29
+      },
+      "revId": "4df31cf71fc14757ffa65be5d0bebf00cedf1bdd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

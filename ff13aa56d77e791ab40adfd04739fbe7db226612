@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf7d5914_0225cd00",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-28T19:28:50Z",
+      "side": 1,
+      "message": "consider creating a separate method:\nCreateDefaultCapturer(audio_config)\n\nit would make this method more readable (you already have double-nesting here :))",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 170,
+        "endChar": 5
+      },
+      "revId": "ff13aa56d77e791ab40adfd04739fbe7db226612",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

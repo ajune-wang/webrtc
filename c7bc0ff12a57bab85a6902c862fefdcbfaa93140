@@ -288,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "661ead2e_f67744c7",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-28T19:28:50Z",
+      "side": 1,
+      "message": "Discussed offline. \nTest peer needs to get a unique_ptr to network manager (pc outlives network manager, but there is an assumption that pc will be closed by the time network manager is disconnected).\n\nIt seems like there is no nice way of returning unique ptr. We could make CreatePCDepenencies return struct (pc_deps and Network_manager), but I am not sure it would make it much cleaner.\n\nI still don\u0027t like this design of having input/output parameter, but I can\u0027t come up with a better approach/design, so I am going to be fine with the current proposal.",
+      "parentUuid": "40f4655c_bcc9f63f",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cba99de6_0f830854",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -540,6 +558,24 @@
     },
     {
       "key": {
+        "uuid": "e913a73e_10e73146",
+        "filename": "test/pc/e2e/test_peer_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-28T19:28:50Z",
+      "side": 1,
+      "message": "much nicer, thanks :)",
+      "parentUuid": "a9bebd30_514d308c",
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "497f46ec_e3ebf29e",
         "filename": "test/pc/e2e/test_peer_factory.cc",
         "patchSetId": 5
@@ -774,6 +810,30 @@
       "side": 1,
       "message": "Params can be modified before they will end up in the TestPeer, so it will makes it clear, that you shouldn\u0027t use your old copy for any assumptions.",
       "parentUuid": "3a576491_c2c49585",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 28
+      },
+      "revId": "c7bc0ff12a57bab85a6902c862fefdcbfaa93140",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac0b2503_cb9a2a55",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-28T19:28:50Z",
+      "side": 1,
+      "message": "Makes sense. But also since params is a struct, if the caller doesn\u0027t move it, a copy will be made. And if the struct owns std::unique_ptr, then you have to move the struct, essentially guaranteeing the same thing.",
+      "parentUuid": "b10381cd_d261a320",
       "range": {
         "startLine": 49,
         "startChar": 22,

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a15819ed_38e6d6aa",
+        "filename": "audio/utility/audio_frame_operations.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-28T15:41:28Z",
+      "side": 1,
+      "message": "True, it should never be called with target\u003d0.",
+      "parentUuid": "0e829fe3_210d7be7",
+      "range": {
+        "startLine": 163,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 41
+      },
+      "revId": "88c8c0bfdb96f0c540413ea4aaccdfcecfcf4839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "727d3832_4af81929",
         "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
         "patchSetId": 20
@@ -36,6 +60,24 @@
       "writtenOn": "2019-01-22T14:41:06Z",
       "side": 1,
       "message": "If these tests are called NoCrashes, why are they death tests? :O",
+      "revId": "88c8c0bfdb96f0c540413ea4aaccdfcecfcf4839",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4dc4810_c8f8fe9a",
+        "filename": "modules/audio_mixer/frame_combiner_unittest.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-01-28T15:41:28Z",
+      "side": 1,
+      "message": "\"DebugBuildCrashesWithManyChannels\"?",
+      "parentUuid": "727d3832_4af81929",
       "revId": "88c8c0bfdb96f0c540413ea4aaccdfcecfcf4839",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

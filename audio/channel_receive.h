@@ -87,6 +87,7 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
   virtual bool ReceivedRTCPPacket(const uint8_t* data, size_t length) = 0;
 
   virtual void SetChannelOutputVolumeScaling(float scaling) = 0;
+  virtual void SetChannelLatency(double latency) = 0;
   virtual int GetSpeechOutputLevelFullRange() const = 0;
   // See description of "totalAudioEnergy" in the WebRTC stats spec:
   // https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats-totalaudioenergy

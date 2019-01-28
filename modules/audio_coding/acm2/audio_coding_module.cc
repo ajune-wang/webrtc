@@ -117,6 +117,7 @@ class AudioCodingModuleImpl final : public AudioCodingModule {
   //
 
   int GetNetworkStatistics(NetworkStatistics* statistics) override;
+  int SetLatency(double latency) override;
 
   // If current send codec is Opus, informs it about the maximum playback rate
   // the receiver will render.
@@ -729,6 +730,11 @@ int AudioCodingModuleImpl::PlayoutData10Ms(int desired_freq_hz,
 // NetEq function.
 int AudioCodingModuleImpl::GetNetworkStatistics(NetworkStatistics* statistics) {
   receiver_.GetNetworkStatistics(statistics);
+  return 0;
+}
+
+int AudioCodingModuleImpl::SetLatency(double latency) {
+  receiver_.SetLatency(latency);
   return 0;
 }
 

@@ -10,6 +10,7 @@
 
 #include "pc/rtp_receiver.h"
 
+#include <iostream>
 #include <stddef.h>
 #include <utility>
 #include <vector>
@@ -130,6 +131,24 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
       RTC_NOTREACHED();
     }
   }
+}
+
+void AudioRtpReceiver::OnSetLatency(double latency) {
+    std::cout << "AudioRtpReceiver kuddai" << std::endl;
+    RTC_LOG(LS_ERROR) << "Here lattency ! kuddai " << latency;
+    if (!media_channel_ || !ssrc_) {
+      RTC_LOG(LS_ERROR)
+          << "AudioRtpReceiver::OnSetLatency: No audio channel exists.";
+      return;
+    }
+
+    // Does it the same for latency as volume?
+    // Also what behaviour is desired for recreation (reconfigure)
+    if (!stopped_ && track_->enabled()) {
+      worker_thread_->Invoke<bool>(RTC_FROM_HERE, [&] {
+        return media_channel_->SetLatency(*ssrc_, latency);
+      });
+    }
 }
 
 std::vector<std::string> AudioRtpReceiver::stream_ids() const {

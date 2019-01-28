@@ -129,6 +129,7 @@ class ChannelReceive : public ChannelReceiveInterface,
 
   // Muting, Volume and Level.
   void SetChannelOutputVolumeScaling(float scaling) override;
+  void SetChannelLatency(double latency) override;
   int GetSpeechOutputLevelFullRange() const override;
   // See description of "totalAudioEnergy" in the WebRTC stats spec:
   // https://w3c.github.io/webrtc-stats/#dom-rtcmediastreamtrackstats-totalaudioenergy
@@ -829,6 +830,11 @@ NetworkStatistics ChannelReceive::GetNetworkStatistics() const {
   int error = audio_coding_->GetNetworkStatistics(&stats);
   RTC_DCHECK_EQ(0, error);
   return stats;
+}
+
+void ChannelReceive::SetChannelLatency(double latency) {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  audio_coding_->SetLatency(latency);
 }
 
 AudioDecodingCallStats ChannelReceive::GetDecodingCallStatistics() const {

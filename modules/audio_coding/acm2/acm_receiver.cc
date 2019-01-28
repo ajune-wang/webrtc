@@ -10,6 +10,7 @@
 
 #include "modules/audio_coding/acm2/acm_receiver.h"
 
+#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <cstdint>
@@ -216,6 +217,11 @@ absl::optional<std::pair<int, SdpAudioFormat>>
   }
   RTC_DCHECK_NE(-1, last_decoder_->first);  // Payload type should be valid.
   return last_decoder_;
+}
+
+int AcmReceiver::SetLatency(double latency) {
+  std::cout << "kuddai AcmReceiver::SetLatency " << latency << std::endl;
+  return neteq_->SetMinimumDelay(static_cast<int>(latency)) ? 0 : 1;
 }
 
 void AcmReceiver::GetNetworkStatistics(NetworkStatistics* acm_stat) {

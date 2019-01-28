@@ -342,6 +342,7 @@ class AudioCodingModule {
   //    0 if maximum bandwidth is set successfully.
   //
   virtual int SetOpusMaxPlaybackRate(int frequency_hz) = 0;
+  virtual int SetLatency(double latency) = 0;
 
   ///////////////////////////////////////////////////////////////////////////
   // EnableOpusDtx()

@@ -239,6 +239,11 @@ void AudioReceiveStream::SetGain(float gain) {
   channel_receive_->SetChannelOutputVolumeScaling(gain);
 }
 
+void AudioReceiveStream::SetLatency(double latency) {
+  RTC_DCHECK_RUN_ON(&worker_thread_checker_);
+  channel_receive_->SetChannelLatency(latency);
+}
+
 std::vector<RtpSource> AudioReceiveStream::GetSources() const {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
   return channel_receive_->GetSources();

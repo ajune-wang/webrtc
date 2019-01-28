@@ -130,6 +130,8 @@ class AcmReceiver {
   //
   void GetNetworkStatistics(NetworkStatistics* statistics);
 
+  int SetLatency(double latency);
+
   //
   // Flushes the NetEq packet and speech buffers.
   //

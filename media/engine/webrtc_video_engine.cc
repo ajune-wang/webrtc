@@ -2723,21 +2723,36 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
           encoder_config.simulcast_layers[i].max_bitrate_bps > 0) {
         // Min and max bitrate are configured.
         // Set target to 3/4 of the max bitrate (or to max if below min).
-        layers[i].target_bitrate_bps = layers[i].max_bitrate_bps * 3 / 4;
+        if (encoder_config.simulcast_layers[i].target_bitrate_bps <= 0) {
+          layers[i].target_bitrate_bps = layers[i].max_bitrate_bps * 3 / 4;
+        } else {
+          layers[i].target_bitrate_bps =
+              encoder_config.simulcast_layers[i].target_bitrate_bps;
+        }
         if (layers[i].target_bitrate_bps < layers[i].min_bitrate_bps)
           layers[i].target_bitrate_bps = layers[i].max_bitrate_bps;
       } else if (encoder_config.simulcast_layers[i].min_bitrate_bps > 0) {
         // Only min bitrate is configured, make sure target/max are above min.
-        layers[i].target_bitrate_bps =
-            std::max(layers[i].target_bitrate_bps, layers[i].min_bitrate_bps);
+        if (encoder_config.simulcast_layers[i].target_bitrate_bps <= 0) {
+          layers[i].target_bitrate_bps =
+              std::max(layers[i].target_bitrate_bps, layers[i].min_bitrate_bps);
+        } else {
+          layers[i].target_bitrate_bps =
+              encoder_config.simulcast_layers[i].target_bitrate_bps;
+        }
         layers[i].max_bitrate_bps =
             std::max(layers[i].max_bitrate_bps, layers[i].min_bitrate_bps);
       } else if (encoder_config.simulcast_layers[i].max_bitrate_bps > 0) {
         // Only max bitrate is configured, make sure min/target are below max.
         layers[i].min_bitrate_bps =
             std::min(layers[i].min_bitrate_bps, layers[i].max_bitrate_bps);
-        layers[i].target_bitrate_bps =
-            std::min(layers[i].target_bitrate_bps, layers[i].max_bitrate_bps);
+        if (encoder_config.simulcast_layers[i].target_bitrate_bps <= 0) {
+          layers[i].target_bitrate_bps =
+              std::min(layers[i].target_bitrate_bps, layers[i].max_bitrate_bps);
+        } else {
+          layers[i].target_bitrate_bps =
+              encoder_config.simulcast_layers[i].target_bitrate_bps;
+        }
       }
       if (i == layers.size() - 1) {
         is_highest_layer_max_bitrate_configured =
@@ -2778,7 +2793,13 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   // In the case that the application sets a max bitrate that's lower than the
   // min bitrate, we adjust it down (see bugs.webrtc.org/9141).
   layer.min_bitrate_bps = std::min(min_bitrate_bps, max_bitrate_bps);
-  layer.target_bitrate_bps = layer.max_bitrate_bps = max_bitrate_bps;
+  if (encoder_config.simulcast_layers[0].target_bitrate_bps <= 0) {
+    layer.target_bitrate_bps = max_bitrate_bps;
+  } else {
+    layer.target_bitrate_bps =
+        encoder_config.simulcast_layers[0].target_bitrate_bps;
+  }
+  layer.max_bitrate_bps = max_bitrate_bps;
   layer.max_qp = max_qp_;
   layer.bitrate_priority = encoder_config.bitrate_priority;
 

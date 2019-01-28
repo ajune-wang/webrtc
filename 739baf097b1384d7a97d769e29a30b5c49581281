@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "652cd804_4053755d",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-01-28T11:45:34Z",
+      "side": 0,
+      "message": "I\u0027d argue that this was not necessary, and even incorrect. A FEC packet could conceivably not be wrapped in RED, and multiplexed using e.g. SSRC.",
+      "revId": "739baf097b1384d7a97d769e29a30b5c49581281",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

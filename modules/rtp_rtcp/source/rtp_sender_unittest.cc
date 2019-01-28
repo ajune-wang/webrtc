@@ -2013,9 +2013,6 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesGeneric) {
             rtp_sender_video_->GetStorageType(
                 header, kConditionallyRetransmitHigherLayers,
                 kDefaultExpectedRetransmissionTimeMs));
-  EXPECT_EQ(kAllowRetransmission, rtp_sender_video_->GetStorageType(
-                                      header, kRetransmitAllPackets,
-                                      kDefaultExpectedRetransmissionTimeMs));
 }
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesH264) {
@@ -2037,9 +2034,6 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesH264) {
             rtp_sender_video_->GetStorageType(
                 header, kConditionallyRetransmitHigherLayers,
                 kDefaultExpectedRetransmissionTimeMs));
-  EXPECT_EQ(kAllowRetransmission, rtp_sender_video_->GetStorageType(
-                                      header, kRetransmitAllPackets,
-                                      kDefaultExpectedRetransmissionTimeMs));
 }
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8BaseLayer) {
@@ -2069,9 +2063,6 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8BaseLayer) {
       rtp_sender_video_->GetStorageType(
           header, kRetransmitBaseLayer | kConditionallyRetransmitHigherLayers,
           kDefaultExpectedRetransmissionTimeMs));
-  EXPECT_EQ(kAllowRetransmission, rtp_sender_video_->GetStorageType(
-                                      header, kRetransmitAllPackets,
-                                      kDefaultExpectedRetransmissionTimeMs));
 }
 
 TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8HigherLayers) {
@@ -2095,9 +2086,6 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesVP8HigherLayers) {
               rtp_sender_video_->GetStorageType(
                   header, kRetransmitHigherLayers | kRetransmitBaseLayer,
                   kDefaultExpectedRetransmissionTimeMs));
-    EXPECT_EQ(kAllowRetransmission, rtp_sender_video_->GetStorageType(
-                                        header, kRetransmitAllPackets,
-                                        kDefaultExpectedRetransmissionTimeMs));
   }
 }
 
@@ -2122,9 +2110,6 @@ TEST_P(RtpSenderVideoTest, RetransmissionTypesVP9) {
               rtp_sender_video_->GetStorageType(
                   header, kRetransmitHigherLayers | kRetransmitBaseLayer,
                   kDefaultExpectedRetransmissionTimeMs));
-    EXPECT_EQ(kAllowRetransmission, rtp_sender_video_->GetStorageType(
-                                        header, kRetransmitAllPackets,
-                                        kDefaultExpectedRetransmissionTimeMs));
   }
 }
 

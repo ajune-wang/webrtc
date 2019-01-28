@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd6fa62c_61f902a6",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-01-28T12:27:12Z",
+      "side": 1,
+      "message": "Make final",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb783c0_30c84ee6",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-01-28T12:27:12Z",
+      "side": 1,
+      "message": "I would like to keep class logic-free wrapper around the native code. This will allow us to unit test any logic by mocking the native parts.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 27
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92882ac6_f391f932",
+        "filename": "sdk/android/src/jni/android_video_track_source.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-01-28T12:27:12Z",
+      "side": 1,
+      "message": "I think it might be good to move this logic to Java layer now so we can test it.",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fab80b5_f3196ce4",
+        "filename": "sdk/android/src/jni/android_video_track_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-01-28T12:27:12Z",
+      "side": 1,
+      "message": "nit: I would prefer to name this AdaptFrame or something similar to make it more clear this actually modifies the state of the object.",
+      "range": {
+        "startLine": 62,
+        "startChar": 44,
+        "endLine": 62,
+        "endChar": 72
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

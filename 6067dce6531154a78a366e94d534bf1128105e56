@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6131e739_017e7bf3",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d490dc25_afd5e889",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee039954_b700fd5e",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 7
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0f8289a5_20d26505",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee039954_b700fd5e",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ded443f_a383ffa2",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 7
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "d0d1dd49_8dbfce71",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ded443f_a383ffa2",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e245fc5_a1513892",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 7
@@ -79,6 +145,24 @@
       "revId": "6067dce6531154a78a366e94d534bf1128105e56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4281ae3c_eca4516a",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "It can make sense to reuse this object in simpler tests, when you need to setup peer connection and hold all required entities in the single place. But I\u0027m not strongly against making it private. (Maybe it\u0027s better protected in such case, because I think the private state of the class shouldn\u0027t be exposed)",
+      "parentUuid": "7e245fc5_a1513892",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "35263e1c_a7739a75",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7b9a997_2179824d",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 49
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b735a2b1_8be1675e",
         "filename": "test/pc/e2e/test_peer_factory.h",
         "patchSetId": 7
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "e0833c60_3f58af39",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b735a2b1_8be1675e",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b3cf4f1_e144ca57",
         "filename": "test/pc/e2e/test_peer_factory.h",
         "patchSetId": 7
@@ -136,6 +262,24 @@
       "revId": "6067dce6531154a78a366e94d534bf1128105e56",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710c2742_9431d091",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-01-29T13:28:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b3cf4f1_e144ca57",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

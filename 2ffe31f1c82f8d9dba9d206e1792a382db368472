@@ -16,6 +16,24 @@
       "revId": "2ffe31f1c82f8d9dba9d206e1792a382db368472",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ad856b6_ea0fe95d",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1968,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-01-29T09:05:25Z",
+      "side": 1,
+      "message": "Are sure you didn\u0027t mean WebRtcAudioReceiveStream::SetLatency. It is on line 1171 above. Sorry, it is really a bit confusing. But here can you please comment on unsignaled_recv_ssrcs_ functionality, is is really necessary in my case? What those unsignaled_recv_ssrcs_ mean?\nAm asking because in my test scenarios I couldn\u0027t trigger 0 condition and above there is method SetRtpReceiveParameter which only looking for given ssrc.",
+      "parentUuid": "f08976ba_3718ffe9",
+      "revId": "2ffe31f1c82f8d9dba9d206e1792a382db368472",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

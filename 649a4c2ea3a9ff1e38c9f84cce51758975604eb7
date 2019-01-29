@@ -22,6 +22,30 @@
       "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0331fa9_d7d3bf98",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6014,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T13:40:24Z",
+      "side": 0,
+      "message": "`bundle_group` is a raw pointer, so I assume clang-tidy removes the std::move because it\u0027s ~useless for trivially copyable types. IOW, I think clang-tidy does the right thing here.",
+      "parentUuid": "e267e3a0_0f0f8488",
+      "range": {
+        "startLine": 6014,
+        "startChar": 2,
+        "endLine": 6014,
+        "endChar": 33
+      },
+      "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

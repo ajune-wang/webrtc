@@ -23,7 +23,6 @@
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
 #include "modules/rtp_rtcp/include/rtp_cvo.h"
 #include "modules/rtp_rtcp/source/byte_io.h"
-#include "modules/rtp_rtcp/source/playout_delay_oracle.h"
 #include "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h"
 #include "modules/rtp_rtcp/source/rtp_header_extensions.h"
 #include "modules/rtp_rtcp/source/rtp_packet_to_send.h"
@@ -344,7 +343,6 @@ bool RTPSender::SendOutgoingData(FrameType frame_type,
                                  const RTPVideoHeader* rtp_header,
                                  uint32_t* transport_frame_id_out,
                                  int64_t expected_retransmission_time_ms) {
-  uint32_t ssrc;
   uint16_t sequence_number;
   uint32_t rtp_timestamp;
   {
@@ -352,7 +350,6 @@ bool RTPSender::SendOutgoingData(FrameType frame_type,
     rtc::CritScope lock(&send_critsect_);
     RTC_DCHECK(ssrc_);
 
-    ssrc = *ssrc_;
     sequence_number = sequence_number_;
     rtp_timestamp = timestamp_offset_ + capture_timestamp;
     if (transport_frame_id_out)
@@ -388,14 +385,9 @@ bool RTPSender::SendOutgoingData(FrameType frame_type,
     if (frame_type == kEmptyFrame)
       return true;
 
-    if (rtp_header) {
-      playout_delay_oracle_.UpdateRequest(ssrc, rtp_header->playout_delay,
-                                          sequence_number);
-    }
-
-    result = video_->SendVideo(frame_type, payload_type, rtp_timestamp,
-                               capture_time_ms, payload_data, payload_size,
-                               fragmentation, rtp_header,
+    result = video_->SendVideo(frame_type, payload_type, sequence_number,
+                               rtp_timestamp, capture_time_ms, payload_data,
+                               payload_size, fragmentation, rtp_header,
                                expected_retransmission_time_ms);
   }
 
@@ -653,7 +645,22 @@ void RTPSender::OnReceivedNack(
 
 void RTPSender::OnReceivedRtcpReportBlocks(
     const ReportBlockList& report_blocks) {
-  playout_delay_oracle_.OnReceivedRtcpReportBlocks(report_blocks);
+  if (!video_) {
+    return;
+  }
+  uint32_t ssrc;
+  {
+    rtc::CritScope lock(&send_critsect_);
+    if (!ssrc_)
+      return;
+    ssrc = *ssrc_;
+  }
+
+  for (const RTCPReportBlock& report_block : report_blocks) {
+    if (ssrc == report_block.source_ssrc) {
+      video_->OnReceivedAck(report_block.extended_highest_sequence_number);
+    }
+  }
 }
 
 // Called from pacer when we can send the packet.
@@ -1050,10 +1057,6 @@ std::unique_ptr<RtpPacketToSend> RTPSender::AllocatePacket() const {
   packet->ReserveExtension<AbsoluteSendTime>();
   packet->ReserveExtension<TransmissionOffset>();
   packet->ReserveExtension<TransportSequenceNumber>();
-  if (playout_delay_oracle_.send_playout_delay()) {
-    packet->SetExtension<PlayoutDelayLimits>(
-        playout_delay_oracle_.playout_delay());
-  }
   if (!mid_.empty()) {
     // This is a no-op if the MID header extension is not registered.
     packet->SetExtension<RtpMid>(mid_);

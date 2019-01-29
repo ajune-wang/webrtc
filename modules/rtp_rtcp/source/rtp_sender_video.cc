@@ -362,6 +362,7 @@ absl::optional<uint32_t> RTPSenderVideo::FlexfecSsrc() const {
 
 bool RTPSenderVideo::SendVideo(FrameType frame_type,
                                int8_t payload_type,
+                               uint16_t sequence_number,
                                uint32_t rtp_timestamp,
                                int64_t capture_time_ms,
                                const uint8_t* payload_data,
@@ -378,6 +379,9 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
   int32_t retransmission_settings;
   bool set_video_rotation;
   bool set_color_space = false;
+
+  playout_delay_oracle_.UpdateRequest(video_header->playout_delay,
+                                      sequence_number);
   {
     rtc::CritScope cs(&crit_);
     // According to
@@ -453,7 +457,11 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
   AddRtpHeaderExtensions(*video_header, frame_type, set_video_rotation,
                          set_color_space, /*first=*/false, /*last=*/true,
                          last_packet.get());
-
+  if (playout_delay_oracle_.send_playout_delay()) {
+    PlayoutDelay delay = playout_delay_oracle_.playout_delay();
+    single_packet->SetExtension<PlayoutDelayLimits>(delay);
+    first_packet->SetExtension<PlayoutDelayLimits>(delay);
+  }
   RTC_DCHECK_GT(packet_capacity, single_packet->headers_size());
   RTC_DCHECK_GT(packet_capacity, first_packet->headers_size());
   RTC_DCHECK_GT(packet_capacity, middle_packet->headers_size());

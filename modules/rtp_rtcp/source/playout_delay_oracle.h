@@ -51,13 +51,11 @@ class PlayoutDelayOracle {
     return playout_delay_;
   }
 
-  // Updates the application requested playout delay, current ssrc
-  // and the current sequence number.
-  void UpdateRequest(uint32_t ssrc,
-                     PlayoutDelay playout_delay,
-                     uint16_t seq_num);
+  // Updates the application requested playout delay and the current sequence
+  // number.
+  void UpdateRequest(PlayoutDelay playout_delay, uint16_t seq_num);
 
-  void OnReceivedRtcpReportBlocks(const ReportBlockList& report_blocks);
+  void OnReceivedAck(int64_t extended_highest_sequence_number);
 
  private:
   // The playout delay information is updated from the encoder thread(s).
@@ -68,8 +66,6 @@ class PlayoutDelayOracle {
   int64_t high_sequence_number_ RTC_GUARDED_BY(crit_sect_);
   // Indicates whether the playout delay should go on the next frame.
   bool send_playout_delay_ RTC_GUARDED_BY(crit_sect_);
-  // Sender ssrc.
-  uint32_t ssrc_ RTC_GUARDED_BY(crit_sect_);
   // Sequence number unwrapper.
   SequenceNumberUnwrapper unwrapper_ RTC_GUARDED_BY(crit_sect_);
   // Playout delay values on the next frame if |send_playout_delay_| is set.

@@ -46,6 +46,30 @@
       "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd17525a_b6b699e7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6014,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-29T13:56:58Z",
+      "side": 0,
+      "message": "Yes, I also think it is doing the right thing. This is the error from GCC:\n\n../../pc/peer_connection.cc:6013:10: error: cannot bind \u0027const cricket::ContentGroup*\u0027 lvalue to \u0027const cricket::ContentGroup*\u0026\u0026\u0027\n   return bundle_group;\n          ^\nIn file included from ../../api/media_transport_interface.h:28:0,\n                 from ../../pc/peer_connection.h:20,\n                 from ../../pc/peer_connection.cc:11:\n../../api/rtc_error.h:223:3: error:   initializing argument 1 of \u0027webrtc::RTCErrorOr\u003cT\u003e::RTCErrorOr(T\u0026\u0026) [with T \u003d const cricket::ContentGroup*]\u0027\n   RTCErrorOr(T\u0026\u0026 value) : value_(std::move(value)) {}  // NOLINT\n\n\nIt looks like GCC requires the cast to rvalue, that\u0027s why I was thinking about RVO not being applied.",
+      "parentUuid": "a0331fa9_d7d3bf98",
+      "range": {
+        "startLine": 6014,
+        "startChar": 2,
+        "endLine": 6014,
+        "endChar": 33
+      },
+      "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

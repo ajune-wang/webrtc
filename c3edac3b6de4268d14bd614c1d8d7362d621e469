@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "80042e3b_4fc30b42",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-29T12:41:07Z",
+      "side": 1,
+      "message": "if you need this kind of comparator, you can create it without modifying the rtp packet:\n\nstruct RtpPacketByTimestampAndSequenceNumberComparator {\n  bool operator()(const RtpPacket\u0026 lhs, const RtpPacket\u0026 rhs) {\n    return AheadOf\u003cuint32t\u003e(lhs.Timestamp(), rhs.Timestamp() || ...\n  }\n};",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

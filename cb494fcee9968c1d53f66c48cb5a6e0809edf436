@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52b80cdd_cb835732",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T10:25:14Z",
+      "side": 1,
+      "message": "It depends on whether the object owns the state that\u0027s being returned, or if it just points to it. For example, *p may legitimately return different things at different times even if p is a const pointer (but not if it\u0027s a pointer to const).\n\nMy mental model is that a Clock object \"points\" to some source of time, not that it owns it. If Clock had a method to set the time, I would probably reconsider.\n\nWhat side effects are you referring to?",
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

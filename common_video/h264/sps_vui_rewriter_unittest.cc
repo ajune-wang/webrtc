@@ -21,7 +21,6 @@
 namespace webrtc {
 
 enum SpsMode {
-  kNoRewriteRequired_PocCorrect,
   kNoRewriteRequired_VuiOptimal,
   kRewriteRequired_NoVui,
   kRewriteRequired_NoBitstreamRestriction,
@@ -55,14 +54,10 @@ void GenerateFakeSps(SpsMode mode, rtc::Buffer* out_buffer) {
   // log2_max_frame_num_minus4: ue(v). 0 is fine.
   writer.WriteExponentialGolomb(0);
   // pic_order_cnt_type: ue(v).
-  // POC type 2 is the one that doesn't need to be rewritten.
-  if (mode == kNoRewriteRequired_PocCorrect) {
-    writer.WriteExponentialGolomb(2);
-  } else {
-    writer.WriteExponentialGolomb(0);
-    // log2_max_pic_order_cnt_lsb_minus4: ue(v). 0 is fine.
-    writer.WriteExponentialGolomb(0);
-  }
+  writer.WriteExponentialGolomb(0);
+  // log2_max_pic_order_cnt_lsb_minus4: ue(v). 0 is fine.
+  writer.WriteExponentialGolomb(0);
+
   // max_num_ref_frames: ue(v). Use 1, to make optimal/suboptimal more obvious.
   writer.WriteExponentialGolomb(1);
   // gaps_in_frame_num_value_allowed_flag: u(1).
@@ -96,7 +91,7 @@ void GenerateFakeSps(SpsMode mode, rtc::Buffer* out_buffer) {
 
   // Finally! The VUI.
   // vui_parameters_present_flag: u(1)
-  if (mode == kNoRewriteRequired_PocCorrect || mode == kRewriteRequired_NoVui) {
+  if (mode == kRewriteRequired_NoVui) {
     writer.WriteBits(0, 1);
   } else {
     writer.WriteBits(1, 1);
@@ -124,7 +119,7 @@ void GenerateFakeSps(SpsMode mode, rtc::Buffer* out_buffer) {
       if (mode == kRewriteRequired_VuiSuboptimal) {
         writer.WriteExponentialGolomb(4);
         writer.WriteExponentialGolomb(4);
-      } else if (kNoRewriteRequired_VuiOptimal) {
+      } else {
         writer.WriteExponentialGolomb(0);
         writer.WriteExponentialGolomb(1);
       }
@@ -171,9 +166,6 @@ void TestSps(SpsMode mode, SpsVuiRewriter::ParseResult expected_parse_result) {
 #define REWRITE_TEST(test_name, mode, expected_parse_result) \
   TEST(SpsVuiRewriterTest, test_name) { TestSps(mode, expected_parse_result); }
 
-REWRITE_TEST(PocCorrect,
-             kNoRewriteRequired_PocCorrect,
-             SpsVuiRewriter::ParseResult::kPocOk);
 REWRITE_TEST(VuiAlreadyOptimal,
              kNoRewriteRequired_VuiOptimal,
              SpsVuiRewriter::ParseResult::kVuiOk);
@@ -186,5 +178,4 @@ REWRITE_TEST(AddBitstreamRestriction,
 REWRITE_TEST(RewriteSuboptimalVui,
              kRewriteRequired_VuiSuboptimal,
              SpsVuiRewriter::ParseResult::kVuiRewritten);
-
 }  // namespace webrtc

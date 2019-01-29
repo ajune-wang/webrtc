@@ -46,6 +46,7 @@ class RemoteAudioSource : public Notifier<AudioSourceInterface>,
 
   // AudioSourceInterface implementation.
   void SetVolume(double volume) override;
+  void SetLatency(double latency) override;
   void RegisterAudioObserver(AudioObserver* observer) override;
   void UnregisterAudioObserver(AudioObserver* observer) override;
 

@@ -188,6 +188,7 @@ class AudioSourceInterface : public MediaSourceInterface {
   class AudioObserver {
    public:
     virtual void OnSetVolume(double volume) = 0;
+    virtual void OnSetLatency(double latency) = 0;
 
    protected:
     virtual ~AudioObserver() {}
@@ -200,6 +201,7 @@ class AudioSourceInterface : public MediaSourceInterface {
   // TODO(tommi): This method should be on the track and ideally volume should
   // be applied in the track in a way that does not affect clones of the track.
   virtual void SetVolume(double volume) {}
+  virtual void SetLatency(double latency) {}
 
   // Registers/unregisters observers to the audio source.
   virtual void RegisterAudioObserver(AudioObserver* observer) {}

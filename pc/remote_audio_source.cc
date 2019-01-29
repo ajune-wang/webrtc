@@ -10,6 +10,7 @@
 
 #include "pc/remote_audio_source.h"
 
+#include <iostream>
 #include <stddef.h>
 #include <algorithm>
 #include <string>
@@ -96,6 +97,14 @@ void RemoteAudioSource::SetVolume(double volume) {
   RTC_DCHECK_LE(volume, 10);
   for (auto* observer : audio_observers_) {
     observer->OnSetVolume(volume);
+  }
+}
+
+void RemoteAudioSource::SetLatency(double latency) {
+  RTC_DCHECK_GE(latency, 0);
+  std::cout << " RemoteAudioSource kuddai set latency" << std::endl;
+  for (auto* observer : audio_observers_) {
+    observer->OnSetLatency(latency);
   }
 }
 

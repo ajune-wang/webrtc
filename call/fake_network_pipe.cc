@@ -24,7 +24,8 @@
 namespace webrtc {
 
 namespace {
-constexpr int64_t kDefaultProcessIntervalMs = 5;
+// Fallback value used when queues are empty.
+constexpr int64_t kDefaultProcessIntervalMs = 1000;
 constexpr int64_t kLogIntervalMs = 5000;
 }  // namespace
 

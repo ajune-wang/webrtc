@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d490dc25_afd5e889",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "`const auto*`, to hint to the reader that it\u0027s a pointer?",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee039954_b700fd5e",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "\"Describes a single\"",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ded443f_a383ffa2",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "`final`?",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e245fc5_a1513892",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "Would it fit with the design to have this constructor be private, and let TestPeerFactory be a friend? Or do you want others to be able to create TestPeer instances?",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7b9a997_2179824d",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "I think this can be `const IceCandidateInterface* const`, since the method doesn\u0027t modify the elements in the array.",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 49
+      },
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b735a2b1_8be1675e",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "`final`?",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b3cf4f1_e144ca57",
+        "filename": "test/pc/e2e/test_peer_factory.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T12:19:32Z",
+      "side": 1,
+      "message": "Since this class has no state, you should be able to remove everything from this header except CreateTestPeer (now a free function). It can all go in an unnamed namespace in the .cc file.\n\nAnd at that point, maybe combine the two .h files added by this CL?",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

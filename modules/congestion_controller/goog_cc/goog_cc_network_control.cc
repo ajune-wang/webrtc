@@ -320,6 +320,9 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
             msg.max_total_allocated_bitrate->bps(), msg.at_time.ms());
     max_total_allocated_bitrate_ = *msg.max_total_allocated_bitrate;
   }
+  if (msg.max_probing_bitrate) {
+    probe_controller_->SetMaxBitrate(msg.max_probing_bitrate->bps());
+  }
   bool pacing_changed = false;
   if (msg.pacing_factor && *msg.pacing_factor != pacing_factor_) {
     pacing_factor_ = *msg.pacing_factor;

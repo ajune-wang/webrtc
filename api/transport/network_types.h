@@ -36,6 +36,7 @@ struct StreamsConfig {
   absl::optional<DataRate> min_pacing_rate;
   absl::optional<DataRate> max_padding_rate;
   absl::optional<DataRate> max_total_allocated_bitrate;
+  absl::optional<DataRate> max_probing_bitrate;
 };
 
 struct TargetRateConstraints {

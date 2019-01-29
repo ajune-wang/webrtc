@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2549ccee_104c6bed",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T10:11:13Z",
+      "side": 1,
+      "message": "Additional",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "726173710f0cf5fdcf4f25221bd8f9293d2f38f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9190c599_5d6cefe7",
+        "filename": "call/fake_network_pipe.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T10:11:13Z",
+      "side": 1,
+      "message": "Does this change belong in this CL?",
+      "revId": "726173710f0cf5fdcf4f25221bd8f9293d2f38f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8a1dd7_e04fe7a1",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T10:11:13Z",
+      "side": 1,
+      "message": "Use optional\u003cint64_t\u003e instead?",
+      "revId": "726173710f0cf5fdcf4f25221bd8f9293d2f38f2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

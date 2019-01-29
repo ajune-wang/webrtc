@@ -34,6 +34,24 @@
       "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83f51491_9d3d5b28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T17:06:58Z",
+      "side": 1,
+      "message": "Ah. That code doesn\u0027t look pretty; who guarantees that we don\u0027t wrap twice between calls...?\n\nBut OK. Removing the const from most of Clock\u0027s methods seems like an OK way to solve this. Will you require Clock to be thread safe?",
+      "parentUuid": "999ed80e_7859eb9e",
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

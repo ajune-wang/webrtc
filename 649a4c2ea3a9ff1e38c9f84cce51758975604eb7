@@ -70,6 +70,30 @@
       "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e78b4dd2_ae76750d",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6014,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T16:54:31Z",
+      "side": 0,
+      "message": "Aha. The return statement does an implicit conversion to RTCErrorOr, and there is an RTCErrorOr(T\u0026\u0026) constructor but no RTCErrorOr(const T\u0026) constructor. I would argue that the right fix is to create the latter; it is also what Google\u0027s internal StatusOr does.\n\nSo I rescind my earlier judgment; this one is also a wrong fix. Or, well, it\u0027s a partial fix. Once you add that new constructor, you can also remove the std::move call on this line.",
+      "parentUuid": "dd17525a_b6b699e7",
+      "range": {
+        "startLine": 6014,
+        "startChar": 2,
+        "endLine": 6014,
+        "endChar": 33
+      },
+      "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

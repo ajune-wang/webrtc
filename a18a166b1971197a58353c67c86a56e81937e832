@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33d491e3_98335683",
+        "filename": "modules/video_coding/codecs/vp8/screenshare_layers_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-01-29T16:19:44Z",
+      "side": 1,
+      "message": "Clarification - this is done because CodecSpecificInfo\u0027s ctor memsets the codecSpecific.VP8 part of the struct. When a CodecSpecificInfoVP8 is allocated by the unit test, this does not happen. Code in this CL relies on this memset (for the purpose of setting some initial counters to 0).",
+      "revId": "a18a166b1971197a58353c67c86a56e81937e832",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -16,6 +16,24 @@
       "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999ed80e_7859eb9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-29T10:39:33Z",
+      "side": 1,
+      "message": "Quoting my comments on https://webrtc-review.googlesource.com/c/src/+/120344:\n\nIt\u0027s desirable (if not formally required) that calling a method on a const object twice produces the same result.\n\nIn particular, as one of the implementations of this interface (WindowsRealTimeClock) declares mutable member variables, see https://cs.chromium.org/chromium/src/third_party/webrtc/system_wrappers/source/clock.cc?rcl\u003d190713c7cd0fc02b95ccd94baae5f184d6529596\u0026l\u003d200",
+      "parentUuid": "52b80cdd_cb835732",
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

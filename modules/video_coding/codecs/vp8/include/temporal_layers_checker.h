@@ -27,9 +27,8 @@ class TemporalLayersChecker {
   explicit TemporalLayersChecker(int num_temporal_layers);
   virtual ~TemporalLayersChecker() {}
 
-  virtual bool CheckTemporalConfig(
-      bool frame_is_keyframe,
-      const Vp8TemporalLayers::FrameConfig& frame_config);
+  virtual bool CheckTemporalConfig(bool frame_is_keyframe,
+                                   const FrameConfig& frame_config);
 
   static std::unique_ptr<TemporalLayersChecker> CreateTemporalLayersChecker(
       Vp8TemporalLayersType type,
@@ -46,7 +45,7 @@ class TemporalLayersChecker {
                                  bool* need_sync,
                                  bool frame_is_keyframe,
                                  uint8_t temporal_layer,
-                                 webrtc::Vp8TemporalLayers::BufferFlags flags,
+                                 FrameConfig::BufferFlags flags,
                                  uint32_t sequence_number,
                                  uint32_t* lowest_sequence_referenced);
   BufferState last_;

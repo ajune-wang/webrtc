@@ -38,8 +38,7 @@ class ScreenshareLayers : public Vp8TemporalLayers {
 
   // Returns the recommended VP8 encode flags needed. May refresh the decoder
   // and/or update the reference buffers.
-  Vp8TemporalLayers::FrameConfig UpdateLayerConfig(
-      uint32_t rtp_timestamp) override;
+  FrameConfig UpdateLayerConfig(uint32_t rtp_timestamp) override;
 
   // New target bitrate, per temporal layer.
   void OnRatesUpdated(const std::vector<uint32_t>& bitrates_bps,
@@ -74,7 +73,7 @@ class ScreenshareLayers : public Vp8TemporalLayers {
   int max_qp_;
   uint32_t max_debt_bytes_;
 
-  std::map<uint32_t, Vp8TemporalLayers::FrameConfig> pending_frame_configs_;
+  std::map<uint32_t, FrameConfig> pending_frame_configs_;
 
   // Configured max framerate.
   absl::optional<uint32_t> target_framerate_;

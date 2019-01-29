@@ -52,6 +52,24 @@
       "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15b9762b_78f9dfb0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-29T17:38:30Z",
+      "side": 1,
+      "message": "I haven\u0027t looked at thread safety concerns, but it seems like that should be enforced.",
+      "parentUuid": "83f51491_9d3d5b28",
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

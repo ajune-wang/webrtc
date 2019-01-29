@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "75cf409c_f1d057fd",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-29T15:17:35Z",
+      "side": 1,
+      "message": "is it info, or warning?",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 19
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb83f819_83083939",
         "filename": "video/encoder_key_frame_callback.cc",
         "patchSetId": 1
@@ -18,6 +41,99 @@
         "startChar": 0,
         "endLine": 62,
         "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6c5909b_1f3f5107",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-29T15:17:35Z",
+      "side": 1,
+      "message": "My first thought is that this layer should be responsible for throttling key frame requests\nkMinKeyFrameRequestIntervalMs. \n\nAnd transport simply passes the requests to the other side, reliably.\n\nOtherwise, all implementations of media transport would have to repeat this logic? (or we would have to put it in some base class).",
+      "parentUuid": "bb83f819_83083939",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feb0c498_455e9a8a",
+        "filename": "video/encoder_key_frame_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-29T15:17:35Z",
+      "side": 1,
+      "message": "this will be removed once rtp media transport is implemented, right?\nCan you add a // TODO ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 39,
+        "endLine": 25,
+        "endChar": 61
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8a5abf6_5e6c97a1",
+        "filename": "video/encoder_key_frame_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-29T15:17:35Z",
+      "side": 1,
+      "message": "please document.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd50866b_4b697cdd",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-29T15:17:35Z",
+      "side": 1,
+      "message": "note that if we have two video streams, this won\u0027t work and DCHECK.\nShould we allow multiple listeners?",
+      "range": {
+        "startLine": 245,
+        "startChar": 22,
+        "endLine": 245,
+        "endChar": 48
       },
       "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

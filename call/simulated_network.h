@@ -74,6 +74,7 @@ class SimulatedNetwork : public NetworkBehaviorInterface {
   // The probability to drop a burst of packets.
   double prob_start_bursting_ RTC_GUARDED_BY(config_lock_);
   int64_t capacity_delay_error_bytes_ = 0;
+  int64_t last_process_time_us_ RTC_GUARDED_BY(process_lock_) = -1;
 };
 
 }  // namespace webrtc

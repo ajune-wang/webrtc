@@ -66,7 +66,10 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
     rtc::CritScope crit(&config_lock_);
     config = config_;
   }
+  packet.size += config.packet_overhead;
   rtc::CritScope crit(&process_lock_);
+  if (last_process_time_us_ == -1)
+    last_process_time_us_ = packet.send_time_us;
   if (config.queue_length_packets > 0 &&
       capacity_link_.size() >= config.queue_length_packets) {
     // Too many packet on the link, drop this one.
@@ -113,6 +116,10 @@ absl::optional<int64_t> SimulatedNetwork::NextDeliveryTimeUs() const {
   rtc::CritScope crit(&process_lock_);
   if (!delay_link_.empty())
     return delay_link_.begin()->arrival_time_us;
+  if (last_process_time_us_ >= 0) {
+    rtc::CritScope crit(&config_lock_);
+    return last_process_time_us_ + config_.update_delay_ms * 1000;
+  }
   return absl::nullopt;
 }
 std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
@@ -129,6 +136,7 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
   }
   {
     rtc::CritScope crit(&process_lock_);
+    last_process_time_us_ = receive_time_us;
     // Check the capacity link first.
     if (!capacity_link_.empty()) {
       int64_t last_arrival_time_us =

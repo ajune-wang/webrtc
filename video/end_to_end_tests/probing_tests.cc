@@ -191,7 +191,7 @@ TEST_P(ProbingEndToEndTest, DISABLED_ProbeOnVideoEncoderReconfiguration) {
 #elif defined(TARGET_IPHONE_SIMULATOR) && TARGET_IPHONE_SIMULATOR
 TEST_P(ProbingEndToEndTest, DISABLED_ProbeOnVideoEncoderReconfiguration) {
 #else
-TEST_P(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
+TEST_P(ProbingEndToEndTest, DISABLED_ProbeOnVideoEncoderReconfiguration) {
 #endif
 
   class ReconfigureTest : public ProbingTest {

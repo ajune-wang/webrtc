@@ -22,6 +22,99 @@
       "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bcc0245_39026421",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-29T15:34:00Z",
+      "side": 1,
+      "message": "May be move this block to same place other extensions are set, inside AddRtpHeaderExtensions ?\n\n\n// may be Oracle::UpdateRequest should return absl::optional\u003cPlayoutDelay\u003e to avoid\n// taking crit section multiple times, in particular to avoid races between reentering it\nabsl::optional\u003cPlayoutDelay\u003e playout_delay \u003d absl::nullopt;\nif (playout_delay_oracle_.set_playout_delay()) {\n  playout_delay \u003d playout_delay_oracle_.playout_delay();\n}\nAddRtpHeaderExtensions(..., playout_delay, ...) {\nif (playout_delay \u0026\u0026 first_packet) {\n  packet-\u003eSetExtension\u003cPlayoutDelayLimits\u003e(*playout_delay);\n}\n}\n\n(btw, old code set the delay in all packets, not just the first one, On the other side, setting it just in one packet also makes sense.)",
+      "range": {
+        "startLine": 460,
+        "startChar": 2,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fceb1fd_202e5f79",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-29T15:34:00Z",
+      "side": 1,
+      "message": "(offtopic)\nsorry for confusion, I left a small comment that main purpose is to calculate size of the extensions, but seems it still confusing. (btw, I did some microbenchmarking, calculating size without setting the extensions sometimes slightly faster, sometimes slightly slow)",
+      "parentUuid": "1cfee821_8157b839",
+      "range": {
+        "startLine": 460,
+        "startChar": 0,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d3fa792_5f83dd77",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-29T15:34:00Z",
+      "side": 1,
+      "message": "more reliable source of sequence_number is\npacket-\u003eSequenceNumber after it was assigned.\n\nmay be it is better to split Oracle::UpdateRequest into two calls.\n\nfirst one updates PlayoutDelay and returns if it should be propagated,\nthen, after packets are sent, another call updates PlayoutDelay with first/only sequence number that was used to propogate the playout delay.\n\nThen there will be no need for questionable parameter sequence_number.",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 0
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9efb47e5_db2e190c",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-29T15:34:00Z",
+      "side": 1,
+      "message": "would like to avoid this parameter.",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb83f819_83083939",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-29T08:48:41Z",
+      "side": 1,
+      "message": "Should we take kMinKeyFrameRequestIntervalMs into account also with MediaTransport?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

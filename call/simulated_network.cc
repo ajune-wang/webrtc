@@ -137,7 +137,7 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
       while (!capacity_link_.empty() &&
              time_now_us >= capacity_link_.front().arrival_time_us) {
         // Time to get this packet.
-        PacketInfo packet = std::move(capacity_link_.front());
+        PacketInfo packet = capacity_link_.front();
         capacity_link_.pop();
 
         // Drop packets at an average rate of |config_.loss_percent| with
@@ -168,7 +168,7 @@ std::vector<PacketDeliveryInfo> SimulatedNetwork::DequeueDeliverablePackets(
             needs_sort = true;
           }
         }
-        delay_link_.emplace_back(std::move(packet));
+        delay_link_.emplace_back(packet);
       }
 
       if (needs_sort) {

@@ -498,7 +498,7 @@ void VideoSendStreamImpl::OnEncoderConfigurationChanged(
     rtc::WeakPtr<VideoSendStreamImpl> send_stream = weak_ptr_;
     worker_queue_->PostTask([send_stream, streams, min_transmit_bitrate_bps]() {
       if (send_stream)
-        send_stream->OnEncoderConfigurationChanged(std::move(streams),
+        send_stream->OnEncoderConfigurationChanged(streams,
                                                    min_transmit_bitrate_bps);
     });
     return;

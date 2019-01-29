@@ -620,8 +620,7 @@ int32_t ChannelSend::SendMediaTransportAudio(
 
   // TODO(nisse): Introduce a MediaTransportSender object bound to a specific
   // channel id.
-  RTCError rtc_error =
-      media_transport()->SendAudioFrame(channel_id, std::move(frame));
+  RTCError rtc_error = media_transport()->SendAudioFrame(channel_id, frame);
 
   if (!rtc_error.ok()) {
     RTC_LOG(LS_ERROR) << "Failed to send frame, rtc_error="
@@ -1252,7 +1251,7 @@ void ChannelSend::SetFrameEncryptor(
   rtc::CritScope cs(&encoder_queue_lock_);
   if (encoder_queue_is_active_) {
     encoder_queue_->PostTask([this, frame_encryptor]() {
-      this->frame_encryptor_ = std::move(frame_encryptor);
+      this->frame_encryptor_ = frame_encryptor;
     });
   } else {
     frame_encryptor_ = std::move(frame_encryptor);

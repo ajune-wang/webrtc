@@ -3734,7 +3734,7 @@ void PeerConnection::CreateAudioReceiver(
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
       signaling_thread(), audio_receiver);
   GetAudioTransceiver()->internal()->AddReceiver(receiver);
-  Observer()->OnAddTrack(receiver, std::move(streams));
+  Observer()->OnAddTrack(receiver, streams);
   NoteUsageEvent(UsageEvent::AUDIO_ADDED);
 }
 
@@ -3752,7 +3752,7 @@ void PeerConnection::CreateVideoReceiver(
   auto receiver = RtpReceiverProxyWithInternal<RtpReceiverInternal>::Create(
       signaling_thread(), video_receiver);
   GetVideoTransceiver()->internal()->AddReceiver(receiver);
-  Observer()->OnAddTrack(receiver, std::move(streams));
+  Observer()->OnAddTrack(receiver, streams);
   NoteUsageEvent(UsageEvent::VIDEO_ADDED);
 }
 
@@ -5182,9 +5182,8 @@ bool PeerConnection::InitializePortAllocator_n(
   // Call this last since it may create pooled allocator sessions using the
   // properties set above.
   port_allocator_->SetConfiguration(
-      stun_servers, std::move(turn_servers_copy),
-      configuration.ice_candidate_pool_size, configuration.prune_turn_ports,
-      configuration.turn_customizer,
+      stun_servers, turn_servers_copy, configuration.ice_candidate_pool_size,
+      configuration.prune_turn_ports, configuration.turn_customizer,
       configuration.stun_candidate_keepalive_interval);
   return true;
 }
@@ -5213,8 +5212,8 @@ bool PeerConnection::ReconfigurePortAllocator_n(
   // Call this last since it may create pooled allocator sessions using the
   // candidate filter set above.
   return port_allocator_->SetConfiguration(
-      stun_servers, std::move(turn_servers_copy), candidate_pool_size,
-      prune_turn_ports, turn_customizer, stun_candidate_keepalive_interval);
+      stun_servers, turn_servers_copy, candidate_pool_size, prune_turn_ports,
+      turn_customizer, stun_candidate_keepalive_interval);
 }
 
 cricket::ChannelManager* PeerConnection::channel_manager() const {
@@ -5738,7 +5737,7 @@ PeerConnection::GetTransportStatsByNames(
     bool success =
         transport_controller_->GetStats(transport_name, &transport_stats);
     if (success) {
-      transport_stats_by_name[transport_name] = std::move(transport_stats);
+      transport_stats_by_name[transport_name] = transport_stats;
     } else {
       RTC_LOG(LS_ERROR) << "Failed to get transport stats for transport_name="
                         << transport_name;
@@ -6011,7 +6010,7 @@ RTCErrorOr<const cricket::ContentGroup*> PeerConnection::GetEarlyBundleGroup(
                            "has no BUNDLE group");
     }
   }
-  return std::move(bundle_group);
+  return bundle_group;
 }
 
 RTCError PeerConnection::CreateChannels(const SessionDescription& desc) {

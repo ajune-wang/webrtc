@@ -19,7 +19,7 @@ const char AudioDeviceName::kDefaultCommunicationsDeviceId[] = "communications";
 
 AudioDeviceName::AudioDeviceName(const std::string device_name,
                                  const std::string unique_id)
-    : device_name(std::move(device_name)), unique_id(std::move(unique_id)) {}
+    : device_name(device_name), unique_id(unique_id) {}
 
 bool AudioDeviceName::IsValid() {
   return !device_name.empty() && !unique_id.empty();

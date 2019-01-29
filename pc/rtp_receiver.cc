@@ -41,8 +41,8 @@ std::vector<rtc::scoped_refptr<MediaStreamInterface>> CreateStreamsFromIds(
   std::vector<rtc::scoped_refptr<MediaStreamInterface>> streams(
       stream_ids.size());
   for (size_t i = 0; i < stream_ids.size(); ++i) {
-    streams[i] = MediaStreamProxy::Create(
-        rtc::Thread::Current(), MediaStream::Create(std::move(stream_ids[i])));
+    streams[i] = MediaStreamProxy::Create(rtc::Thread::Current(),
+                                          MediaStream::Create(stream_ids[i]));
   }
   return streams;
 }

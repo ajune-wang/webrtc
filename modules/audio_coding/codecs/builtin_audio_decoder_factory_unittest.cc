@@ -155,10 +155,9 @@ TEST(AudioDecoderFactoryTest, CreateOpus) {
         }
         const bool good = (hz == 48000 && channels == 2 &&
                            (stereo == "XX" || stereo == "0" || stereo == "1"));
-        EXPECT_EQ(good,
-                  static_cast<bool>(adf->MakeAudioDecoder(
-                      SdpAudioFormat("opus", hz, channels, std::move(params)),
-                      absl::nullopt)));
+        EXPECT_EQ(good, static_cast<bool>(adf->MakeAudioDecoder(
+                            SdpAudioFormat("opus", hz, channels, params),
+                            absl::nullopt)));
       }
     }
   }

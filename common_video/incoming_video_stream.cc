@@ -50,7 +50,7 @@ void IncomingVideoStream::OnFrame(const VideoFrame& video_frame) {
     IncomingVideoStream* stream;
     VideoFrame frame;
   };
-  incoming_render_queue_.PostTask(NewFrameTask{this, std::move(video_frame)});
+  incoming_render_queue_.PostTask(NewFrameTask{this, video_frame});
 }
 
 void IncomingVideoStream::Dequeue() {

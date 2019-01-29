@@ -97,7 +97,7 @@ TEST(FunctionViewTest, CopyConstructor) {
 TEST(FunctionViewTest, MoveConstructorIsCopy) {
   auto f17 = [] { return 17; };
   rtc::FunctionView<int()> fv1(f17);
-  rtc::FunctionView<int()> fv2(std::move(fv1));
+  rtc::FunctionView<int()> fv2(fv1);
   EXPECT_EQ(17, fv1());
   EXPECT_EQ(17, fv2());
 }
@@ -121,7 +121,7 @@ TEST(FunctionViewTest, MoveAssignmentIsCopy) {
   rtc::FunctionView<int()> fv2(f23);
   EXPECT_EQ(17, fv1());
   EXPECT_EQ(23, fv2());
-  fv2 = std::move(fv1);
+  fv2 = fv1;
   EXPECT_EQ(17, fv1());
   EXPECT_EQ(17, fv2());
 }

@@ -124,7 +124,7 @@ RTCError MediaTransportPair::LoopbackMediaTransport::SendAudioFrame(
     ++stats_.sent_audio_frames;
   }
   invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_, [this, channel_id, frame] {
-    other_->OnData(channel_id, std::move(frame));
+    other_->OnData(channel_id, frame);
   });
   return RTCError::OK();
 }
@@ -139,10 +139,10 @@ RTCError MediaTransportPair::LoopbackMediaTransport::SendVideoFrame(
   // Ensure that we own the referenced data.
   MediaTransportEncodedVideoFrame frame_copy = frame;
   frame_copy.Retain();
-  invoker_.AsyncInvoke<void>(
-      RTC_FROM_HERE, thread_, [this, channel_id, frame_copy] {
-        other_->OnData(channel_id, std::move(frame_copy));
-      });
+  invoker_.AsyncInvoke<void>(RTC_FROM_HERE, thread_,
+                             [this, channel_id, frame_copy] {
+                               other_->OnData(channel_id, frame_copy);
+                             });
   return RTCError::OK();
 }
 

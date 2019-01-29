@@ -480,9 +480,9 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
   }
 
   if (source == ContentSource::CS_LOCAL) {
-    recv_extension_ids_ = std::move(encrypted_extension_ids);
+    recv_extension_ids_ = encrypted_extension_ids;
   } else {
-    send_extension_ids_ = std::move(encrypted_extension_ids);
+    send_extension_ids_ = encrypted_extension_ids;
   }
 
   // If setting an SDES answer succeeded, apply the negotiated parameters
@@ -651,8 +651,8 @@ webrtc::RTCError JsepTransport::NegotiateDtlsRole(
     // If local is passive, local will act as server.
   }
 
-  *negotiated_dtls_role = (is_remote_server ? std::move(rtc::SSL_CLIENT)
-                                            : std::move(rtc::SSL_SERVER));
+  *negotiated_dtls_role =
+      (is_remote_server ? rtc::SSL_CLIENT : rtc::SSL_SERVER);
   return webrtc::RTCError::OK();
 }
 

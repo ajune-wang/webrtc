@@ -1054,16 +1054,14 @@ bool ParsedRtcEventLog::ParseStream(
   for (const auto& kv : incoming_rtp_packets_map_) {
     incoming_rtp_packets_by_ssrc_.emplace_back(LoggedRtpStreamIncoming());
     incoming_rtp_packets_by_ssrc_.back().ssrc = kv.first;
-    incoming_rtp_packets_by_ssrc_.back().incoming_packets =
-        std::move(kv.second);
+    incoming_rtp_packets_by_ssrc_.back().incoming_packets = kv.second;
   }
   incoming_rtp_packets_map_.clear();
   outgoing_rtp_packets_by_ssrc_.reserve(outgoing_rtp_packets_map_.size());
   for (const auto& kv : outgoing_rtp_packets_map_) {
     outgoing_rtp_packets_by_ssrc_.emplace_back(LoggedRtpStreamOutgoing());
     outgoing_rtp_packets_by_ssrc_.back().ssrc = kv.first;
-    outgoing_rtp_packets_by_ssrc_.back().outgoing_packets =
-        std::move(kv.second);
+    outgoing_rtp_packets_by_ssrc_.back().outgoing_packets = kv.second;
   }
   outgoing_rtp_packets_map_.clear();
 

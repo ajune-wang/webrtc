@@ -99,6 +99,7 @@ rtc_source_set("rtp_rtcp_format") {
     "../../rtc_base:checks",
     "../../rtc_base:deprecation",
     "../../rtc_base:rtc_base_approved",
+    "../../rtc_base:rtc_numerics",
     "../../rtc_base/system:unused",
     "../../system_wrappers",
     "../video_coding:codec_globals_headers",

@@ -18,9 +18,29 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "rtc_base/copy_on_write_buffer.h"
 #include "rtc_base/deprecation.h"
+#include "rtc_base/numerics/sequence_number_util.h"
 
 namespace webrtc {
 class Random;
+
+class TimestampAndSequenceNumber {
+ public:
+  TimestampAndSequenceNumber(uint32_t timestamp, uint16_t sequence_number)
+      : timestamp_(timestamp), sequence_number_(sequence_number) {}
+  uint32_t Timestamp() const { return timestamp_; }
+  uint16_t SequenceNumber() const { return sequence_number_; }
+
+  friend bool operator<(const TimestampAndSequenceNumber& lhs,
+                        const TimestampAndSequenceNumber& rhs) {
+    return AheadOf<uint32_t>(rhs.timestamp_, lhs.timestamp_) ||
+           (rhs.timestamp_ == lhs.timestamp_ &&
+            AheadOf<uint16_t>(rhs.sequence_number_, lhs.sequence_number_));
+  }
+
+ private:
+  uint32_t timestamp_;
+  uint16_t sequence_number_;
+};
 
 class RtpPacket {
  public:
@@ -52,8 +72,13 @@ class RtpPacket {
   // Header.
   bool Marker() const { return marker_; }
   uint8_t PayloadType() const { return payload_type_; }
-  uint16_t SequenceNumber() const { return sequence_number_; }
-  uint32_t Timestamp() const { return timestamp_; }
+  uint16_t SequenceNumber() const {
+    return timestampSequenceNumber_.SequenceNumber();
+  }
+  uint32_t Timestamp() const { return timestampSequenceNumber_.Timestamp(); }
+  TimestampAndSequenceNumber TimestampSequenceNumber() const {
+    return timestampSequenceNumber_;
+  }
   uint32_t Ssrc() const { return ssrc_; }
   std::vector<uint32_t> Csrcs() const;
 
@@ -83,8 +108,7 @@ class RtpPacket {
   void CopyHeaderFrom(const RtpPacket& packet);
   void SetMarker(bool marker_bit);
   void SetPayloadType(uint8_t payload_type);
-  void SetSequenceNumber(uint16_t seq_no);
-  void SetTimestamp(uint32_t timestamp);
+  void SetTimestampAndSequenceNumber(uint32_t timestamp, uint16_t seq_no);
   void SetSsrc(uint32_t ssrc);
 
   // Writes csrc list. Assumes:
@@ -171,8 +195,7 @@ class RtpPacket {
   bool marker_;
   uint8_t payload_type_;
   uint8_t padding_size_;
-  uint16_t sequence_number_;
-  uint32_t timestamp_;
+  TimestampAndSequenceNumber timestampSequenceNumber_;
   uint32_t ssrc_;
   size_t payload_offset_;  // Match header size with csrcs and extensions.
   size_t payload_size_;

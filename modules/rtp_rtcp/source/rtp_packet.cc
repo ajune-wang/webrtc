@@ -116,8 +116,7 @@ void RtpPacket::CopyHeaderFrom(const RtpPacket& packet) {
 
   marker_ = packet.marker_;
   payload_type_ = packet.payload_type_;
-  sequence_number_ = packet.sequence_number_;
-  timestamp_ = packet.timestamp_;
+  timestampSequenceNumber_ = packet.timestampSequenceNumber_;
   ssrc_ = packet.ssrc_;
   payload_offset_ = packet.payload_offset_;
   extensions_ = packet.extensions_;
@@ -144,13 +143,10 @@ void RtpPacket::SetPayloadType(uint8_t payload_type) {
   WriteAt(1, (data()[1] & 0x80) | payload_type);
 }
 
-void RtpPacket::SetSequenceNumber(uint16_t seq_no) {
-  sequence_number_ = seq_no;
+void RtpPacket::SetTimestampAndSequenceNumber(uint32_t timestamp,
+                                              uint16_t seq_no) {
+  timestampSequenceNumber_ = TimestampAndSequenceNumber(timestamp, seq_no);
   ByteWriter<uint16_t>::WriteBigEndian(WriteAt(2), seq_no);
-}
-
-void RtpPacket::SetTimestamp(uint32_t timestamp) {
-  timestamp_ = timestamp;
   ByteWriter<uint32_t>::WriteBigEndian(WriteAt(4), timestamp);
 }
 
@@ -382,8 +378,7 @@ bool RtpPacket::SetPadding(size_t padding_bytes) {
 void RtpPacket::Clear() {
   marker_ = false;
   payload_type_ = 0;
-  sequence_number_ = 0;
-  timestamp_ = 0;
+  timestampSequenceNumber_ = TimestampAndSequenceNumber(0, 0);
   ssrc_ = 0;
   payload_offset_ = kFixedHeaderSize;
   payload_size_ = 0;
@@ -410,8 +405,10 @@ bool RtpPacket::ParseBuffer(const uint8_t* buffer, size_t size) {
   marker_ = (buffer[1] & 0x80) != 0;
   payload_type_ = buffer[1] & 0x7f;
 
-  sequence_number_ = ByteReader<uint16_t>::ReadBigEndian(&buffer[2]);
-  timestamp_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[4]);
+  uint16_t sequence_number = ByteReader<uint16_t>::ReadBigEndian(&buffer[2]);
+  uint32_t timestamp = ByteReader<uint32_t>::ReadBigEndian(&buffer[4]);
+  timestampSequenceNumber_ =
+      TimestampAndSequenceNumber(timestamp, sequence_number);
   ssrc_ = ByteReader<uint32_t>::ReadBigEndian(&buffer[8]);
   if (size < kFixedHeaderSize + number_of_crcs * 4) {
     return false;

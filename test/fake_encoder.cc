@@ -47,9 +47,9 @@ void WriteCounter(unsigned char* payload, uint32_t counter) {
 
 };  // namespace
 
-FakeEncoder::FakeEncoder(Clock* clock) : FakeEncoder(clock, 100000) {}
+FakeEncoder::FakeEncoder(const Clock* clock) : FakeEncoder(clock, 100000) {}
 
-FakeEncoder::FakeEncoder(Clock* clock, size_t buffer_size)
+FakeEncoder::FakeEncoder(const Clock* clock, size_t buffer_size)
     : clock_(clock),
       callback_(nullptr),
       configured_input_framerate_(-1),
@@ -278,7 +278,7 @@ int FakeEncoder::GetConfiguredInputFramerate() const {
   return configured_input_framerate_;
 }
 
-FakeH264Encoder::FakeH264Encoder(Clock* clock)
+FakeH264Encoder::FakeH264Encoder(const Clock* clock)
     : FakeEncoder(clock), callback_(nullptr), idr_counter_(0) {
   FakeEncoder::RegisterEncodeCompleteCallback(this);
 }
@@ -350,7 +350,7 @@ EncodedImageCallback::Result FakeH264Encoder::OnEncodedImage(
   return callback->OnEncodedImage(encoded_image, &specifics, &fragmentation);
 }
 
-DelayedEncoder::DelayedEncoder(Clock* clock, int delay_ms)
+DelayedEncoder::DelayedEncoder(const Clock* clock, int delay_ms)
     : test::FakeEncoder(clock), delay_ms_(delay_ms) {
   // The encoder could be created on a different thread than
   // it is being used on.
@@ -372,7 +372,7 @@ int32_t DelayedEncoder::Encode(const VideoFrame& input_image,
   return FakeEncoder::Encode(input_image, codec_specific_info, frame_types);
 }
 
-MultithreadedFakeH264Encoder::MultithreadedFakeH264Encoder(Clock* clock)
+MultithreadedFakeH264Encoder::MultithreadedFakeH264Encoder(const Clock* clock)
     : test::FakeH264Encoder(clock),
       current_queue_(0),
       queue1_(nullptr),

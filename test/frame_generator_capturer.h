@@ -46,23 +46,24 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
       absl::optional<FrameGenerator::OutputType> type,
       absl::optional<int> num_squares,
       int target_fps,
-      Clock* clock);
+      const Clock* clock);
 
   static FrameGeneratorCapturer* CreateFromYuvFile(const std::string& file_name,
                                                    size_t width,
                                                    size_t height,
                                                    int target_fps,
-                                                   Clock* clock);
+                                                   const Clock* clock);
 
   static FrameGeneratorCapturer* CreateSlideGenerator(int width,
                                                       int height,
                                                       int frame_repeat_count,
                                                       int target_fps,
-                                                      Clock* clock);
+                                                      const Clock* clock);
+
   static FrameGeneratorCapturer* Create(
       std::unique_ptr<FrameGenerator> frame_generator,
       int target_fps,
-      Clock* clock);
+      const Clock* clock);
 
   virtual ~FrameGeneratorCapturer();
 
@@ -83,7 +84,7 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
 
   int64_t first_frame_capture_time() const { return first_frame_capture_time_; }
 
-  FrameGeneratorCapturer(Clock* clock,
+  FrameGeneratorCapturer(const Clock* clock,
                          std::unique_ptr<FrameGenerator> frame_generator,
                          int target_fps);
   bool Init();
@@ -94,7 +95,7 @@ class FrameGeneratorCapturer : public TestVideoCapturer {
   int GetCurrentConfiguredFramerate();
   void UpdateFps(int max_fps) RTC_EXCLUSIVE_LOCKS_REQUIRED(&lock_);
 
-  Clock* const clock_;
+  const Clock* const clock_;
   bool sending_;
   SinkWantsObserver* sink_wants_observer_ RTC_GUARDED_BY(&lock_);
 

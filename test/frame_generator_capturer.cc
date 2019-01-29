@@ -34,7 +34,7 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
     absl::optional<FrameGenerator::OutputType> type,
     absl::optional<int> num_squares,
     int target_fps,
-    Clock* clock) {
+    const Clock* clock) {
   auto capturer = absl::make_unique<FrameGeneratorCapturer>(
       clock,
       FrameGenerator::CreateSquareGenerator(width, height, type, num_squares),
@@ -50,7 +50,7 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::CreateFromYuvFile(
     size_t width,
     size_t height,
     int target_fps,
-    Clock* clock) {
+    const Clock* clock) {
   auto capturer = absl::make_unique<FrameGeneratorCapturer>(
       clock,
       FrameGenerator::CreateFromYuvFile(std::vector<std::string>(1, file_name),
@@ -67,7 +67,7 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::CreateSlideGenerator(
     int height,
     int frame_repeat_count,
     int target_fps,
-    Clock* clock) {
+    const Clock* clock) {
   auto capturer = absl::make_unique<FrameGeneratorCapturer>(
       clock,
       FrameGenerator::CreateSlideGenerator(width, height, frame_repeat_count),
@@ -81,7 +81,7 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::CreateSlideGenerator(
 FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
     std::unique_ptr<FrameGenerator> frame_generator,
     int target_fps,
-    Clock* clock) {
+    const Clock* clock) {
   auto capturer = absl::make_unique<FrameGeneratorCapturer>(
       clock, std::move(frame_generator), target_fps);
   if (!capturer->Init())
@@ -91,7 +91,7 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
 }
 
 FrameGeneratorCapturer::FrameGeneratorCapturer(
-    Clock* clock,
+    const Clock* clock,
     std::unique_ptr<FrameGenerator> frame_generator,
     int target_fps)
     : clock_(clock),

@@ -131,7 +131,7 @@ TimeDelta LoggingNetworkControllerFactory::GetProcessInterval() const {
 }
 
 CallClient::CallClient(
-    Clock* clock,
+    const Clock* clock,
     std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
     CallClientConfig config)
     : clock_(clock),

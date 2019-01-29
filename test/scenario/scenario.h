@@ -185,7 +185,7 @@ class Scenario {
   std::unique_ptr<LogWriterFactoryInterface> log_writer_factory_;
   const bool real_time_mode_;
   SimulatedClock sim_clock_;
-  Clock* clock_;
+  const Clock* clock_;
   // Event logs use a global clock instance, this is used to override that
   // instance when not running in real time.
   rtc::FakeClock event_log_fake_clock_;

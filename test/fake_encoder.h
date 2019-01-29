@@ -35,8 +35,8 @@ namespace test {
 
 class FakeEncoder : public VideoEncoder {
  public:
-  explicit FakeEncoder(Clock* clock);
-  FakeEncoder(Clock* clock, size_t buffer_size);
+  explicit FakeEncoder(const Clock* clock);
+  FakeEncoder(const Clock* clock, size_t buffer_size);
   virtual ~FakeEncoder() = default;
 
   // Sets max bitrate. Not thread-safe, call before registering the encoder.
@@ -81,7 +81,7 @@ class FakeEncoder : public VideoEncoder {
                       int framerate);
 
   FrameInfo last_frame_info_ RTC_GUARDED_BY(crit_sect_);
-  Clock* const clock_;
+  const Clock* const clock_;
 
   VideoCodec config_ RTC_GUARDED_BY(crit_sect_);
   EncodedImageCallback* callback_ RTC_GUARDED_BY(crit_sect_);
@@ -102,7 +102,7 @@ class FakeEncoder : public VideoEncoder {
 
 class FakeH264Encoder : public FakeEncoder, public EncodedImageCallback {
  public:
-  explicit FakeH264Encoder(Clock* clock);
+  explicit FakeH264Encoder(const Clock* clock);
   virtual ~FakeH264Encoder() = default;
 
   int32_t RegisterEncodeCompleteCallback(
@@ -120,7 +120,7 @@ class FakeH264Encoder : public FakeEncoder, public EncodedImageCallback {
 
 class DelayedEncoder : public test::FakeEncoder {
  public:
-  DelayedEncoder(Clock* clock, int delay_ms);
+  DelayedEncoder(const Clock* clock, int delay_ms);
   virtual ~DelayedEncoder() = default;
 
   void SetDelay(int delay_ms);
@@ -139,7 +139,7 @@ class DelayedEncoder : public test::FakeEncoder {
 // as it is called from the task queue in VideoStreamEncoder.
 class MultithreadedFakeH264Encoder : public test::FakeH264Encoder {
  public:
-  explicit MultithreadedFakeH264Encoder(Clock* clock);
+  explicit MultithreadedFakeH264Encoder(const Clock* clock);
   virtual ~MultithreadedFakeH264Encoder() = default;
 
   int32_t InitEncode(const VideoCodec* config,

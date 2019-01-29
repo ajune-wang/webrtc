@@ -166,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "ac8c7dcf_c2d09c1f",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T16:38:35Z",
+      "side": 1,
+      "message": "In that case, I recommend making it private. It\u0027ll be easy to make it public again later if you need it.",
+      "parentUuid": "4281ae3c_eca4516a",
+      "revId": "6067dce6531154a78a366e94d534bf1128105e56",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7b9a997_2179824d",
         "filename": "test/pc/e2e/test_peer.h",
         "patchSetId": 7

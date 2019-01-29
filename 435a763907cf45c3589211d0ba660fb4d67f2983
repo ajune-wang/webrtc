@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2426f5b8_42a5a29a",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-29T16:38:35Z",
+      "side": 1,
+      "message": "This class has no state, and just one method (that could be static, but isn\u0027t). Remove the class, and turn CreateTestPeer into a free function? Alternatively, it could become a static method in TestPeer.",
+      "revId": "435a763907cf45c3589211d0ba660fb4d67f2983",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

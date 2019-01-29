@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3c4bb18_8e5d60b7",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-01-29T23:50:44Z",
+      "side": 1,
+      "message": "Why do we support 10 and 11? Can we move this to off-by-default at some point soon?",
+      "range": {
+        "startLine": 969,
+        "startChar": 6,
+        "endLine": 969,
+        "endChar": 35
+      },
+      "revId": "b392b73dd82e049a3ee409e5bcaf79c6518111eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

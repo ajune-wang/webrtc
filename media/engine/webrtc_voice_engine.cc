@@ -1168,6 +1168,12 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
     stream_->SetGain(volume);
   }
 
+  void SetLatency(double latency) {
+    RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+    latency_ = latency;
+    stream_->SetLatency(latency);
+  }
+
   void SetPlayout(bool playout) {
     RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
     RTC_DCHECK(stream_);
@@ -1221,6 +1227,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioReceiveStream {
   webrtc::AudioReceiveStream* stream_ = nullptr;
   bool playout_ = false;
   float output_volume_ = 1.0;
+  double latency_ = 2000.0;
   std::unique_ptr<webrtc::AudioSinkInterface> raw_audio_sink_;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(WebRtcAudioReceiveStream);
@@ -1953,6 +1960,26 @@ bool WebRtcVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
     }
     it->second->SetOutputVolume(volume);
     RTC_LOG(LS_INFO) << "SetOutputVolume() to " << volume
+                     << " for recv stream with ssrc " << ssrc;
+  }
+  return true;
+}
+
+bool WebRtcVoiceMediaChannel::SetLatency(uint32_t ssrc, double latency) {
+  RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
+  std::vector<uint32_t> ssrcs(1, ssrc);
+  // SSRC of 0 represents the default receive stream.
+  if (ssrc == 0) {
+    ssrcs = unsignaled_recv_ssrcs_;
+  }
+  for (uint32_t ssrc : ssrcs) {
+    const auto it = recv_streams_.find(ssrc);
+    if (it == recv_streams_.end()) {
+      RTC_LOG(LS_WARNING) << "SetLatency: no recv stream " << ssrc;
+      return false;
+    }
+    it->second->SetLatency(latency);
+    RTC_LOG(LS_INFO) << "SetLatency() to " << latency
                      << " for recv stream with ssrc " << ssrc;
   }
   return true;

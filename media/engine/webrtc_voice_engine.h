@@ -196,6 +196,9 @@ class WebRtcVoiceMediaChannel final : public VoiceMediaChannel,
   // SSRC=0 will apply the new volume to current and future unsignaled streams.
   bool SetOutputVolume(uint32_t ssrc, double volume) override;
 
+  // SSRC=0 will apply the new volume to current and future unsignaled streams.
+  bool SetLatency(uint32_t ssrc, double latency) override;
+
   bool CanInsertDtmf() override;
   bool InsertDtmf(uint32_t ssrc, int event, int duration) override;
 

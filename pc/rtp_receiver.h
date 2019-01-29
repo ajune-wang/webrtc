@@ -100,6 +100,9 @@ class AudioRtpReceiver : public ObserverInterface,
   // AudioSourceInterface::AudioObserver implementation
   void OnSetVolume(double volume) override;
 
+  // AudioSourceInterface::AudioObserver implementation
+  void OnSetLatency(double latency) override;
+
   rtc::scoped_refptr<AudioTrackInterface> audio_track() const {
     return track_.get();
   }

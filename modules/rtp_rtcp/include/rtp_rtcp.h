@@ -161,13 +161,6 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
 
   virtual bool HasBweExtensions() const = 0;
 
-  // Returns start timestamp.
-  virtual uint32_t StartTimestamp() const = 0;
-
-  // Sets start timestamp. Start timestamp is set to a random value if this
-  // function is never called.
-  virtual void SetStartTimestamp(uint32_t timestamp) = 0;
-
   // Returns SequenceNumber.
   virtual uint16_t SequenceNumber() const = 0;
 

@@ -139,7 +139,6 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     rtp_rtcp_module_->SetStorePacketsStatus(true, 600);
     EXPECT_EQ(0, rtp_rtcp_module_->SetSendingStatus(true));
     rtp_rtcp_module_->SetSequenceNumber(kTestSequenceNumber);
-    rtp_rtcp_module_->SetStartTimestamp(111111);
 
     // Used for NACK processing.
     // TODO(nisse): Unclear on which side? It's confusing to use a

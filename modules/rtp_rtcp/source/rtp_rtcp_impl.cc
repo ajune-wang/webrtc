@@ -286,16 +286,6 @@ int32_t ModuleRtpRtcpImpl::DeRegisterSendPayload(const int8_t payload_type) {
   return rtp_sender_->DeRegisterSendPayload(payload_type);
 }
 
-uint32_t ModuleRtpRtcpImpl::StartTimestamp() const {
-  return rtp_sender_->TimestampOffset();
-}
-
-// Configure start timestamp, default is a random number.
-void ModuleRtpRtcpImpl::SetStartTimestamp(const uint32_t timestamp) {
-  rtcp_sender_.SetTimestampOffset(timestamp);
-  rtp_sender_->SetTimestampOffset(timestamp);
-}
-
 uint16_t ModuleRtpRtcpImpl::SequenceNumber() const {
   return rtp_sender_->SequenceNumber();
 }

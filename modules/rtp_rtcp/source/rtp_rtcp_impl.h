@@ -84,12 +84,6 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   bool HasBweExtensions() const override;
 
-  // Get start timestamp.
-  uint32_t StartTimestamp() const override;
-
-  // Configure start timestamp, default is a random number.
-  void SetStartTimestamp(uint32_t timestamp) override;
-
   uint16_t SequenceNumber() const override;
 
   // Set SequenceNumber, default is a random number.

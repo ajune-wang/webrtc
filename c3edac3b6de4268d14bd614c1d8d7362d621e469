@@ -22,6 +22,30 @@
       "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f7c0462_757d196c",
+        "filename": "modules/rtp_rtcp/source/rtp_packet.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-01-29T13:39:17Z",
+      "side": 1,
+      "message": "Most of the time we don\u0027t have the packets at hand, just two sequence numbers. The current code that does the unwrapping relies on a state to be able to do the unwrapping. So the outcome of the sequence number unwrapping is dependent on the preceding calls to the function.",
+      "parentUuid": "80042e3b_4fc30b42",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 32
+      },
+      "revId": "c3edac3b6de4268d14bd614c1d8d7362d621e469",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

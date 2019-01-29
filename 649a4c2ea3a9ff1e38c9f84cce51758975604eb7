@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e267e3a0_0f0f8488",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6014,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-29T11:29:02Z",
+      "side": 0,
+      "message": "Hmm, so it seems this is not eligible for RVO with our version of GCC and we need to keep the cast to rvalue in place. WDYT?",
+      "range": {
+        "startLine": 6014,
+        "startChar": 2,
+        "endLine": 6014,
+        "endChar": 33
+      },
+      "revId": "649a4c2ea3a9ff1e38c9f84cce51758975604eb7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

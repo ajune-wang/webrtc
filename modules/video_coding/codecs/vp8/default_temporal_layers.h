@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/video_codecs/vp8_frame_config.h"
 #include "api/video_codecs/vp8_temporal_layers.h"
 #include "modules/video_coding/codecs/vp8/include/temporal_layers_checker.h"
 #include "modules/video_coding/include/video_codec_interface.h"
@@ -36,7 +37,7 @@ class DefaultTemporalLayers : public Vp8TemporalLayers {
 
   // Returns the recommended VP8 encode flags needed. May refresh the decoder
   // and/or update the reference buffers.
-  Vp8TemporalLayers::FrameConfig UpdateLayerConfig(uint32_t timestamp) override;
+  FrameConfig UpdateLayerConfig(uint32_t timestamp) override;
 
   // New target bitrate, per temporal layer.
   void OnRatesUpdated(const std::vector<uint32_t>& bitrates_bps,
@@ -52,15 +53,15 @@ class DefaultTemporalLayers : public Vp8TemporalLayers {
 
  private:
   static constexpr size_t kKeyframeBuffer = std::numeric_limits<size_t>::max();
-  static std::vector<Vp8TemporalLayers::FrameConfig> GetTemporalPattern(
-      size_t num_layers);
+  static std::vector<FrameConfig> GetTemporalPattern(size_t num_layers);
   bool IsSyncFrame(const FrameConfig& config) const;
-  void ValidateReferences(BufferFlags* flags, Vp8BufferReference ref) const;
+  void ValidateReferences(FrameConfig::BufferFlags* flags,
+                          Vp8BufferReference ref) const;
   void UpdateSearchOrder(FrameConfig* config);
 
   const size_t num_layers_;
   const std::vector<unsigned int> temporal_ids_;
-  const std::vector<Vp8TemporalLayers::FrameConfig> temporal_pattern_;
+  const std::vector<FrameConfig> temporal_pattern_;
   // Set of buffers that are never updated except by keyframes.
   const std::set<Vp8BufferReference> kf_buffers_;
 
@@ -99,9 +100,8 @@ class DefaultTemporalLayersChecker : public TemporalLayersChecker {
   explicit DefaultTemporalLayersChecker(int number_of_temporal_layers);
   ~DefaultTemporalLayersChecker() override;
 
-  bool CheckTemporalConfig(
-      bool frame_is_keyframe,
-      const Vp8TemporalLayers::FrameConfig& frame_config) override;
+  bool CheckTemporalConfig(bool frame_is_keyframe,
+                           const FrameConfig& frame_config) override;
 
  private:
   struct BufferState {

@@ -22,11 +22,20 @@
 
 namespace webrtc {
 namespace {
-static const int kOneSecond90Khz = 90000;
-static const int kMinTimeBetweenSyncs = kOneSecond90Khz * 2;
-static const int kMaxTimeBetweenSyncs = kOneSecond90Khz * 4;
-static const int kQpDeltaThresholdForSync = 8;
-static const int kMinBitrateKbpsForQpBoost = 500;
+using Buffer = FrameConfig::Buffer;
+using BufferFlags = FrameConfig::BufferFlags;
+
+constexpr BufferFlags kNone = FrameConfig::BufferFlags::kNone;
+constexpr BufferFlags kReference = FrameConfig::BufferFlags::kReference;
+constexpr BufferFlags kUpdate = FrameConfig::BufferFlags::kUpdate;
+constexpr BufferFlags kReferenceAndUpdate =
+    FrameConfig::BufferFlags::kReferenceAndUpdate;
+
+constexpr int kOneSecond90Khz = 90000;
+constexpr int kMinTimeBetweenSyncs = kOneSecond90Khz * 2;
+constexpr int kMaxTimeBetweenSyncs = kOneSecond90Khz * 4;
+constexpr int kQpDeltaThresholdForSync = 8;
+constexpr int kMinBitrateKbpsForQpBoost = 500;
 }  // namespace
 
 const double ScreenshareLayers::kMaxTL0FpsReduction = 2.5;
@@ -68,8 +77,7 @@ bool ScreenshareLayers::SupportsEncoderFrameDropping() const {
   return false;
 }
 
-Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
-    uint32_t timestamp) {
+FrameConfig ScreenshareLayers::UpdateLayerConfig(uint32_t timestamp) {
   auto it = pending_frame_configs_.find(timestamp);
   if (it != pending_frame_configs_.end()) {
     // Drop and re-encode, reuse the previous config.
@@ -79,8 +87,8 @@ Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
   if (number_of_temporal_layers_ <= 1) {
     // No flags needed for 1 layer screenshare.
     // TODO(pbos): Consider updating only last, and not all buffers.
-    Vp8TemporalLayers::FrameConfig tl_config(
-        kReferenceAndUpdate, kReferenceAndUpdate, kReferenceAndUpdate);
+    FrameConfig tl_config(kReferenceAndUpdate, kReferenceAndUpdate,
+                          kReferenceAndUpdate);
     pending_frame_configs_[timestamp] = tl_config;
     return tl_config;
   }
@@ -100,7 +108,7 @@ Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
     // averaging window, or if frame interval is below 90% of desired value,
     // drop frame.
     if (encode_framerate_.Rate(now_ms).value_or(0) > *target_framerate_)
-      return Vp8TemporalLayers::FrameConfig(kNone, kNone, kNone);
+      return FrameConfig(kNone, kNone, kNone);
 
     // Primarily check if frame interval is too short using frame timestamps,
     // as if they are correct they won't be affected by queuing in webrtc.
@@ -108,7 +116,7 @@ Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
         kOneSecond90Khz / *target_framerate_;
     if (last_timestamp_ != -1 && ts_diff > 0) {
       if (ts_diff < 85 * expected_frame_interval_90khz / 100) {
-        return Vp8TemporalLayers::FrameConfig(kNone, kNone, kNone);
+        return FrameConfig(kNone, kNone, kNone);
       }
     } else {
       // Timestamps looks off, use realtime clock here instead.
@@ -116,7 +124,7 @@ Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
       if (last_frame_time_ms_ != -1 &&
           now_ms - last_frame_time_ms_ <
               (85 * expected_frame_interval_ms) / 100) {
-        return Vp8TemporalLayers::FrameConfig(kNone, kNone, kNone);
+        return FrameConfig(kNone, kNone, kNone);
       }
     }
   }
@@ -182,30 +190,28 @@ Vp8TemporalLayers::FrameConfig ScreenshareLayers::UpdateLayerConfig(
       RTC_NOTREACHED();
   }
 
-  Vp8TemporalLayers::FrameConfig tl_config;
+  FrameConfig tl_config;
   // TODO(pbos): Consider referencing but not updating the 'alt' buffer for all
   // layers.
   switch (layer_state) {
     case TemporalLayerState::kDrop:
-      tl_config = Vp8TemporalLayers::FrameConfig(kNone, kNone, kNone);
+      tl_config = FrameConfig(kNone, kNone, kNone);
       break;
     case TemporalLayerState::kTl0:
       // TL0 only references and updates 'last'.
-      tl_config =
-          Vp8TemporalLayers::FrameConfig(kReferenceAndUpdate, kNone, kNone);
+      tl_config = FrameConfig(kReferenceAndUpdate, kNone, kNone);
       tl_config.packetizer_temporal_idx = 0;
       break;
     case TemporalLayerState::kTl1:
       // TL1 references both 'last' and 'golden' but only updates 'golden'.
-      tl_config = Vp8TemporalLayers::FrameConfig(kReference,
-                                                 kReferenceAndUpdate, kNone);
+      tl_config = FrameConfig(kReference, kReferenceAndUpdate, kNone);
       tl_config.packetizer_temporal_idx = 1;
       break;
     case TemporalLayerState::kTl1Sync:
       // Predict from only TL0 to allow participants to switch to the high
       // bitrate stream. Updates 'golden' so that TL1 can continue to refer to
       // and update 'golden' from this point on.
-      tl_config = Vp8TemporalLayers::FrameConfig(kReference, kUpdate, kNone);
+      tl_config = FrameConfig(kReference, kUpdate, kNone);
       tl_config.packetizer_temporal_idx = 1;
       break;
   }

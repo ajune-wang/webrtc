@@ -52,8 +52,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   EncoderInfo GetEncoderInfo() const override;
 
-  static vpx_enc_frame_flags_t EncodeFlags(
-      const Vp8TemporalLayers::FrameConfig& references);
+  static vpx_enc_frame_flags_t EncodeFlags(const FrameConfig& references);
 
  private:
   void SetupTemporalLayers(const VideoCodec& codec);

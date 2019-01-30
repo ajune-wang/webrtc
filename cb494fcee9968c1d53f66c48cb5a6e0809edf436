@@ -70,6 +70,52 @@
       "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2eec57_516754b8",
+        "filename": "modules/video_coding/jitter_estimator.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T07:44:22Z",
+      "side": 1,
+      "message": "Can this be Clock* const clock_; ?",
+      "range": {
+        "startLine": 161,
+        "startChar": 2,
+        "endLine": 161,
+        "endChar": 16
+      },
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "425ff7ba_44dab58b",
+        "filename": "test/scenario/quality_stats.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T07:44:22Z",
+      "side": 1,
+      "message": "Clock* const clock_; if possible.",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

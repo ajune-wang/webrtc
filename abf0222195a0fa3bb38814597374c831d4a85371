@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "e635637c_b355c64d",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-30T16:03:42Z",
+      "side": 1,
+      "message": "Our downstream implementation won\u0027t repeat a keyframe if there is one in transit already.\nBut if the encoder was requesting keyframe with every frame it gets, it will cause issues -- e.g.\n1) you request a keyframe\n2) the keyframe arrives, but it gets put in the jitter buffer\n3) you request a keyframe again\n4) the keyframe request arrives to the other side, new keyframe is generated and sent\n5) you get the keyframe from the jitter buffer (2), but there is another keyframe in transit again.\n\nIn addition, our existing implementation would cancel all intra frames after the first keyframe to the second keyframe, because you explicitly requested a keyframe.\n\nEncoder should only request a keyframe once, and assume that the keyframe request gets delivered to the other side. And then the other side should guarantee the keyframe is sent.\n\nNo other keyframe requests should be requested after you request one keyframe, until you receive that keyframe.\n\n\nI am going to \u0027submit\u0027, because I think this type of logic could be done in a separate change. But please consider doing something like this sooner rather than later :)",
+      "parentUuid": "ad5357be_004dd331",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feb0c498_455e9a8a",
         "filename": "video/encoder_key_frame_callback.h",
         "patchSetId": 1

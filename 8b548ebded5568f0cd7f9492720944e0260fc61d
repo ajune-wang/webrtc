@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b97660d7_14d38ecf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T08:33:07Z",
+      "side": 1,
+      "message": "We\u0027d then pass another bool to that function, set_playout_delay?\n\nI wonder if |delay|, the return value of |playout_delay_oracle_.playout_delay()|, will always equals |video_header-\u003eplayout_delay|? But it seems they might differ if one or both values in |video_header-\u003eplayout_delay| is -1 (meaning unset)?\n\nRegarding which packets get the extension: I don\u0027t fully understand the ack logic in PlayoutDelayOracle, but it looks like it might depend on the extension being present in *every* packet until acked? Say we add it only to packets 1, 4, 7, those packets are lost, but we receive an ack for packet 2, then |send_playout_delay| will nevertheless be cleared, it seems.",
+      "parentUuid": "6bcc0245_39026421",
+      "range": {
+        "startLine": 460,
+        "startChar": 2,
+        "endLine": 464,
+        "endChar": 3
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5d3fa792_5f83dd77",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 3
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "21862f95_1686d3c8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T08:33:07Z",
+      "side": 1,
+      "message": "\u003e more reliable source of sequence_number is\n\u003e packet-\u003eSequenceNumber after it was assigned.\n\nAt which point is that assigned? Hmm, that\u0027s from the all to AssignSequenceNumber later on in RTPSenderVideo::SendVideo.\n\n\u003e may be it is better to split Oracle::UpdateRequest into two calls.\n\u003e \n\u003e first one updates PlayoutDelay and returns if it should be propagated,\n\u003e then, after packets are sent, another call updates PlayoutDelay with first/only sequence number that was used to propogate the playout delay.\n\nGood idea. Then we\u0027ll have two \"observer\" methods: One that observes seqno and PlayoutDelay extension of outgoing packet, and one that observes extended_highest_sequence_number from rtcp reports.\n\nBTW, here we have a slight unwrapping problem: PlayoutDelayOracle has its own seqno unwrapper, and |extended_highest_sequence_number| is the result of a different unwrapper. And then these two are compared. Will usually work, but there\u0027s a slight possibility that the unwrappers can get out of sync since they see different subsets of used seqnos, and in different order. Do the RTCP report block include any corresponding timestamps of ACKed packets, which could be used for disambiguation?\n\nOne could also consider using raw 16-bit seqno for the comparison in PlayoutDelayOracle; potential problem is if we add the extension to every outgoing packet, but never see any ack before seqnos wrap around; at that point comparisons will give meaningless results. Similarly, if we receive an ack for a very old packet (but that case is going to break the unwrapping too, I imagine).\n\n\u003e Then there will be no need for questionable parameter sequence_number.\n\nThat\u0027s good.",
+      "parentUuid": "5d3fa792_5f83dd77",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 0
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9efb47e5_db2e190c",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
         "patchSetId": 3
@@ -106,6 +154,30 @@
       "writtenOn": "2019-01-29T15:34:00Z",
       "side": 1,
       "message": "would like to avoid this parameter.",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 41
+      },
+      "revId": "8b548ebded5568f0cd7f9492720944e0260fc61d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42d913c1_cbdde0a8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T08:33:07Z",
+      "side": 1,
+      "message": "Agree it\u0027s not pretty.",
+      "parentUuid": "9efb47e5_db2e190c",
       "range": {
         "startLine": 52,
         "startChar": 26,

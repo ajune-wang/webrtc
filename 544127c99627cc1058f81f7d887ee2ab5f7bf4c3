@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea8524c9_8de5e2b8",
+        "filename": "pc/rtp_transport_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-30T22:45:57Z",
+      "side": 1,
+      "message": "I had to do this, because \nconst char data[] \u003d { static_cast\u003cchar\u003e(0x80), ...} complained that \n../../pc/rtp_transport_unittest.cc(296): warning C4309: \u0027static_cast\u0027: truncation of constant value\n\n(on msvc)",
+      "range": {
+        "startLine": 296,
+        "startChar": 8,
+        "endLine": 296,
+        "endChar": 16
+      },
+      "revId": "544127c99627cc1058f81f7d887ee2ab5f7bf4c3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

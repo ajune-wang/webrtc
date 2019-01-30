@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "11954439_7fe0ba8d",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-30T14:12:13Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "a017a50f_ee6bfabf",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "014b789a_5d47b048",
         "filename": "rtc_base/numerics/sample_counter.h",
         "patchSetId": 13
@@ -33,6 +51,24 @@
       "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42586f41_9b2b7e44",
+        "filename": "rtc_base/numerics/sample_counter.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-30T14:12:13Z",
+      "side": 1,
+      "message": "Added.",
+      "parentUuid": "014b789a_5d47b048",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "386be479_db9204d8",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-30T14:12:13Z",
+      "side": 1,
+      "message": "Added parameterized test.",
+      "parentUuid": "e5230872_10ace238",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5756470_b953e111",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 13
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "f8f5254c_a1095755",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-30T14:12:13Z",
+      "side": 1,
+      "message": "You\u0027re right, number of processed frames in this test is redundant. It would be enough to pass just two frames and trigger pause event in between them. I updated the test.\n\n\u003e\u003eWouldn\u0027t it be enough to have a single frame arrive and then wait 5 seconds?\nPause event is triggered externally, by video stream receiver. If it is not set then freeze of any duration is counted as freeze, not pause. Also, we detect freeze/pause when frame is rendered. This means that freeze/pause at the end of call is not counted by current implementation. I added PauseBeforeFirstAndAfterLastFrameIgnored to verify this.\n\n\u003e\u003eCan you add a test to verify that the first frame is not considered a pause if it takes 5+ seconds since it was created and a frame arriving?\nAs I said above pause event is set externally.",
+      "parentUuid": "d5756470_b953e111",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4520812a_0e21e887",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 13
@@ -84,6 +156,24 @@
       "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34737fd6_aa68ed69",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-30T14:12:13Z",
+      "side": 1,
+      "message": "Added delay before rending of first frame.",
+      "parentUuid": "4520812a_0e21e887",
+      "revId": "ccd83254388fc15b97d018ebdd432065cf873578",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06e657be_19cd2f40",
+        "filename": "system_wrappers/source/clock.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-01-30T10:46:29Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6e1a0b2e_27ecee9d",
+      "range": {
+        "startLine": 204,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 7
+      },
+      "revId": "cb494fcee9968c1d53f66c48cb5a6e0809edf436",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

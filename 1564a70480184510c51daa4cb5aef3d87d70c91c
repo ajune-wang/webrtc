@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69180f69_a60c44a6",
+        "filename": "commit-queue.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2019-01-30T18:01:05Z",
+      "side": 1,
+      "message": "refs/heads/infra/config now matches both group, and CQ doesn\u0027t like this. There is no guaranteed way to ensure regexps don\u0027t overlap, but i\u0027ll try to improve heuristic validation. Meanwhile, please change this regexp to exclude infra/config\n\nsee https://crbug.com/926971",
+      "revId": "1564a70480184510c51daa4cb5aef3d87d70c91c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

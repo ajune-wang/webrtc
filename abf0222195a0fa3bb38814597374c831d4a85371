@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a6e9a82c_22f70719",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T15:34:15Z",
+      "side": 1,
+      "message": "I chose info because it would be normal if we supported multiple streams with the current api.",
+      "parentUuid": "75cf409c_f1d057fd",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 19
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb83f819_83083939",
         "filename": "video/encoder_key_frame_callback.cc",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "My first thought is that this layer should be responsible for throttling key frame requests\nkMinKeyFrameRequestIntervalMs. \n\nAnd transport simply passes the requests to the other side, reliably.\n\nOtherwise, all implementations of media transport would have to repeat this logic? (or we would have to put it in some base class).",
       "parentUuid": "bb83f819_83083939",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02213789_4bb71cd5",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T15:34:15Z",
+      "side": 1,
+      "message": "I agree transports shouldn\u0027t implement throttling. I\u0027m thinking maybe this should move to VideoStreamEncoder; that class also gets RTT estimates, and hence could do better than using a hard-coded constant.\n\nNot clear to me if we need it at the moment, or if it\u0027s good enough for now to always call SendKeyFrame?",
+      "parentUuid": "c6c5909b_1f3f5107",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -118,6 +166,54 @@
     },
     {
       "key": {
+        "uuid": "51f8c7fa_24814a30",
+        "filename": "video/encoder_key_frame_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T15:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8a5abf6_5e6c97a1",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 29
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "684bc45a_18c8c9ea",
+        "filename": "video/encoder_key_frame_callback.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T15:34:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb0c498_455e9a8a",
+      "range": {
+        "startLine": 25,
+        "startChar": 39,
+        "endLine": 25,
+        "endChar": 61
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd50866b_4b697cdd",
         "filename": "video/video_send_stream_impl.cc",
         "patchSetId": 1
@@ -129,6 +225,30 @@
       "writtenOn": "2019-01-29T15:17:35Z",
       "side": 1,
       "message": "note that if we have two video streams, this won\u0027t work and DCHECK.\nShould we allow multiple listeners?",
+      "range": {
+        "startLine": 245,
+        "startChar": 22,
+        "endLine": 245,
+        "endChar": 48
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b595a34_875a7017",
+        "filename": "video/video_send_stream_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-30T15:34:15Z",
+      "side": 1,
+      "message": "My thinking is that when adding support for multiple streams, we\u0027ll have a VideoSender object here, which would ideally get this callback at construction time.",
+      "parentUuid": "fd50866b_4b697cdd",
       "range": {
         "startLine": 245,
         "startChar": 22,

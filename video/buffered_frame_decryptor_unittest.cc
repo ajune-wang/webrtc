@@ -19,6 +19,7 @@
 #include "modules/video_coding/packet_buffer.h"
 #include "rtc_base/ref_counted_object.h"
 #include "system_wrappers/include/clock.h"
+#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -58,7 +59,7 @@ class FakePacketBuffer : public video_coding::PacketBuffer {
 }  // namespace
 
 class BufferedFrameDecryptorTest
-    : public ::testing::Test,
+    : public ::testing::TestWithParam<bool>,
       public OnDecryptedFrameCallback,
       public video_coding::OnReceivedFrameCallback {
  public:
@@ -82,7 +83,8 @@ class BufferedFrameDecryptorTest
     packet.codec = kVideoCodecGeneric;
     packet.seqNum = seq_num_;
     packet.frameType = key_frame ? kVideoFrameKey : kVideoFrameDelta;
-    packet.generic_descriptor = RtpGenericFrameDescriptor();
+    packet.generic_descriptor =
+        RtpGenericFrameDescriptor(use_discardability_flag_);
     fake_packet_buffer_->InsertPacket(&packet);
     packet.seqNum = seq_num_;
     packet.is_last_packet_in_frame = true;
@@ -94,7 +96,12 @@ class BufferedFrameDecryptorTest
   }
 
  protected:
-  BufferedFrameDecryptorTest() : fake_packet_buffer_(new FakePacketBuffer()) {}
+  BufferedFrameDecryptorTest()
+      : use_discardability_flag_(GetParam()),
+        field_trials_(use_discardability_flag_
+                          ? "WebRTC-DiscardabilityFlag/Enabled/"
+                          : "WebRTC-DiscardabilityFlag/Disabled/"),
+        fake_packet_buffer_(new FakePacketBuffer()) {}
   void SetUp() override {
     fake_packet_data_ = std::vector<uint8_t>(100);
     decrypted_frame_call_count_ = 0;
@@ -106,6 +113,9 @@ class BufferedFrameDecryptorTest
 
   static const size_t kMaxStashedFrames;
 
+  const bool use_discardability_flag_;
+  test::ScopedFieldTrials field_trials_;
+
   std::vector<uint8_t> fake_packet_data_;
   rtc::scoped_refptr<FakePacketBuffer> fake_packet_buffer_;
   rtc::scoped_refptr<MockFrameDecryptor> mock_frame_decryptor_;
@@ -114,10 +124,12 @@ class BufferedFrameDecryptorTest
   uint16_t seq_num_;
 };
 
+INSTANTIATE_TEST_CASE_P(, BufferedFrameDecryptorTest, ::testing::Bool());
+
 const size_t BufferedFrameDecryptorTest::kMaxStashedFrames = 24;
 
 // Callback should always be triggered on a successful decryption.
-TEST_F(BufferedFrameDecryptorTest, CallbackCalledOnSuccessfulDecryption) {
+TEST_P(BufferedFrameDecryptorTest, CallbackCalledOnSuccessfulDecryption) {
   EXPECT_CALL(*mock_frame_decryptor_, Decrypt).Times(1).WillOnce(Return(0));
   EXPECT_CALL(*mock_frame_decryptor_, GetMaxPlaintextByteSize)
       .Times(1)
@@ -127,7 +139,7 @@ TEST_F(BufferedFrameDecryptorTest, CallbackCalledOnSuccessfulDecryption) {
 }
 
 // An initial fail to decrypt should not trigger the callback.
-TEST_F(BufferedFrameDecryptorTest, CallbackNotCalledOnFailedDecryption) {
+TEST_P(BufferedFrameDecryptorTest, CallbackNotCalledOnFailedDecryption) {
   EXPECT_CALL(*mock_frame_decryptor_, Decrypt).Times(1).WillOnce(Return(1));
   EXPECT_CALL(*mock_frame_decryptor_, GetMaxPlaintextByteSize)
       .Times(1)
@@ -138,7 +150,7 @@ TEST_F(BufferedFrameDecryptorTest, CallbackNotCalledOnFailedDecryption) {
 
 // Initial failures should be stored and retried after the first successful
 // decryption.
-TEST_F(BufferedFrameDecryptorTest, DelayedCallbackOnBufferedFrames) {
+TEST_P(BufferedFrameDecryptorTest, DelayedCallbackOnBufferedFrames) {
   EXPECT_CALL(*mock_frame_decryptor_, Decrypt)
       .Times(3)
       .WillOnce(Return(1))
@@ -158,7 +170,7 @@ TEST_F(BufferedFrameDecryptorTest, DelayedCallbackOnBufferedFrames) {
 
 // Subsequent failure to decrypts after the first successful decryption should
 // fail to decryptk
-TEST_F(BufferedFrameDecryptorTest, FTDDiscardedAfterFirstSuccess) {
+TEST_P(BufferedFrameDecryptorTest, FTDDiscardedAfterFirstSuccess) {
   EXPECT_CALL(*mock_frame_decryptor_, Decrypt)
       .Times(4)
       .WillOnce(Return(1))
@@ -183,7 +195,7 @@ TEST_F(BufferedFrameDecryptorTest, FTDDiscardedAfterFirstSuccess) {
 
 // Validate that the maximum number of stashed frames cannot be exceeded even if
 // more than its maximum arrives before the first successful decryption.
-TEST_F(BufferedFrameDecryptorTest, MaximumNumberOfFramesStored) {
+TEST_P(BufferedFrameDecryptorTest, MaximumNumberOfFramesStored) {
   const size_t failed_to_decrypt_count = kMaxStashedFrames * 2;
   EXPECT_CALL(*mock_frame_decryptor_, Decrypt)
       .Times(failed_to_decrypt_count)

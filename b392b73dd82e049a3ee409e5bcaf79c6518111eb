@@ -22,6 +22,30 @@
       "revId": "b392b73dd82e049a3ee409e5bcaf79c6518111eb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11a5f4c_0d39e4ad",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 969,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2019-01-30T00:00:56Z",
+      "side": 1,
+      "message": "The line you\u0027d want to target is primarily line 961. Added a TODO comment linking to https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10261.",
+      "parentUuid": "f3c4bb18_8e5d60b7",
+      "range": {
+        "startLine": 969,
+        "startChar": 6,
+        "endLine": 969,
+        "endChar": 35
+      },
+      "revId": "b392b73dd82e049a3ee409e5bcaf79c6518111eb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

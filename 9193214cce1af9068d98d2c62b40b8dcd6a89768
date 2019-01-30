@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "638f38f3_1f977050",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-30T09:09:07Z",
+      "side": 1,
+      "message": "Or \"TODO(bugs.webrtc.org/10261)\"",
+      "range": {
+        "startLine": 961,
+        "startChar": 10,
+        "endLine": 961,
+        "endChar": 40
+      },
+      "revId": "9193214cce1af9068d98d2c62b40b8dcd6a89768",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c190a560_2884a71a",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-01-30T09:09:07Z",
+      "side": 1,
+      "message": "Add a comment that explains why there\u0027s a special case?",
+      "revId": "9193214cce1af9068d98d2c62b40b8dcd6a89768",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

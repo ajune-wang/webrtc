@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cb7c7b66_f3e562a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-01-30T18:05:19Z",
+      "side": 1,
+      "message": "SGTM, thanks!",
+      "parentUuid": "03395b04_1353d188",
+      "revId": "9193214cce1af9068d98d2c62b40b8dcd6a89768",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "638f38f3_1f977050",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 2

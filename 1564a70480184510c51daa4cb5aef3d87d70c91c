@@ -34,6 +34,24 @@
       "revId": "1564a70480184510c51daa4cb5aef3d87d70c91c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d26717c_464673eb",
+        "filename": "commit-queue.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5533
+      },
+      "writtenOn": "2019-01-30T18:12:20Z",
+      "side": 1,
+      "message": "i\u0027m open to adding exclude_refs, but I wonder can you just leave refs/heads/master here?",
+      "parentUuid": "3d17d335_94e1778f",
+      "revId": "1564a70480184510c51daa4cb5aef3d87d70c91c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

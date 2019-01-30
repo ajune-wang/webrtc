@@ -660,7 +660,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   pending_encoder_reconfiguration_ = false;
 
   sink_->OnEncoderConfigurationChanged(
-      std::move(streams), encoder_config_.min_transmit_bitrate_bps);
+      std::move(streams), codec.mode, encoder_config_.min_transmit_bitrate_bps);
 
   // Get the current target framerate, ie the maximum framerate as specified by
   // the current codec configuration, or any limit imposed by cpu adaption in

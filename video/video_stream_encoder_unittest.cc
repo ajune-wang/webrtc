@@ -734,6 +734,7 @@ class VideoStreamEncoderTest : public ::testing::Test {
     }
 
     void OnEncoderConfigurationChanged(std::vector<VideoStream> streams,
+                                       VideoCodecMode mode,
                                        int min_transmit_bitrate_bps) override {
       rtc::CriticalSection crit_;
       ++number_of_reconfigurations_;

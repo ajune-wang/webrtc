@@ -113,6 +113,7 @@ class VideoSendStreamImpl : public webrtc::BitrateAllocatorObserver,
   uint32_t OnBitrateUpdated(BitrateAllocationUpdate update) override;
 
   void OnEncoderConfigurationChanged(std::vector<VideoStream> streams,
+                                     VideoCodecMode mode,
                                      int min_transmit_bitrate_bps) override;
 
   // Implements EncodedImageCallback. The implementation routes encoded frames

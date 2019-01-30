@@ -17,6 +17,7 @@
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video/video_sink_interface.h"
 #include "api/video/video_source_interface.h"
+#include "api/video_codecs/video_codec.h"
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_config.h"
 
@@ -42,6 +43,7 @@ class VideoStreamEncoderInterface : public rtc::VideoSinkInterface<VideoFrame> {
    public:
     virtual void OnEncoderConfigurationChanged(
         std::vector<VideoStream> streams,
+        VideoCodecMode mode,
         int min_transmit_bitrate_bps) = 0;
   };
 

@@ -261,8 +261,7 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
   bool rtcp =
       transport == rtcp_packet_transport() || cricket::IsRtcpPacket(data, len);
 
-  // Filter out the packet that is neither RTP nor RTCP.
-  if (!rtcp && !cricket::IsRtpPacket(data, len)) {
+  if (!cricket::IsRtpPacket(data, len) && !rtcp) {
     return;
   }
 

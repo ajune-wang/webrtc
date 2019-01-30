@@ -293,7 +293,7 @@ TEST(RtpTransportTest, SignalDemuxedRtcp) {
   TransportObserver observer(&transport);
 
   // An rtcp packet.
-  const char data[] = {0, 73, 0, 0};
+  const char data[] = {static_cast<char>(0x80), 73, 0, 0};
   const int len = 4;
   const rtc::PacketOptions options;
   const int flags = 0;

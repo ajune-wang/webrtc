@@ -290,6 +290,12 @@ bool IsRtcpPacket(const char* data, size_t len) {
   if (len < 2) {
     return false;
   }
+
+  // RTCP must be a valid RTP packet.
+  if (!IsRtpPacket(data, len)) {
+    return false;
+  }
+
   char pt = data[1] & 0x7F;
   return (63 < pt) && (pt < 96);
 }

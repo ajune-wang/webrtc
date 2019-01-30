@@ -256,15 +256,14 @@ void RtpTransport::OnReadPacket(rtc::PacketTransportInternal* transport,
                                 int flags) {
   TRACE_EVENT0("webrtc", "RtpTransport::OnReadPacket");
 
+  if (!cricket::IsRtpPacket(data, len)) {
+    return;
+  }
+
   // When using RTCP multiplexing we might get RTCP packets on the RTP
   // transport. We check the RTP payload type to determine if it is RTCP.
   bool rtcp =
       transport == rtcp_packet_transport() || cricket::IsRtcpPacket(data, len);
-
-  // Filter out the packet that is neither RTP nor RTCP.
-  if (!rtcp && !cricket::IsRtpPacket(data, len)) {
-    return;
-  }
 
   rtc::CopyOnWriteBuffer packet(data, len);
   // Protect ourselves against crazy data.

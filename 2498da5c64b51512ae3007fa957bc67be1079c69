@@ -22,6 +22,30 @@
       "revId": "2498da5c64b51512ae3007fa957bc67be1079c69",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eeac1128_a5128a84",
+        "filename": "media/base/rtp_utils.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-31T02:42:48Z",
+      "side": 1,
+      "message": "Can\u0027t do, because IsRtpPacket requires at least 12 bytes, while RTCP allows 4 byte packets. So if I call IsRtpPacket, it would reject correct RTCP.",
+      "parentUuid": "d5b770f1_0d0f4100",
+      "range": {
+        "startLine": 294,
+        "startChar": 2,
+        "endLine": 297,
+        "endChar": 3
+      },
+      "revId": "2498da5c64b51512ae3007fa957bc67be1079c69",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

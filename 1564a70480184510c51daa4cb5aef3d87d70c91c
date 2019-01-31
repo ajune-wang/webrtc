@@ -52,6 +52,24 @@
       "revId": "1564a70480184510c51daa4cb5aef3d87d70c91c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3facac4_9f4166e8",
+        "filename": "commit-queue.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7796
+      },
+      "writtenOn": "2019-01-31T08:29:07Z",
+      "side": 1,
+      "message": "\u003e re2 doesn\u0027t support it directly\n\nProbably the negative lookahead will work?\n\n^(?!infra/config).*$",
+      "parentUuid": "3d26717c_464673eb",
+      "revId": "1564a70480184510c51daa4cb5aef3d87d70c91c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

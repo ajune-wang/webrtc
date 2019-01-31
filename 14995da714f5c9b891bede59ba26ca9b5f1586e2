@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ffe1245_53c71279",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-01-31T21:50:34Z",
+      "side": 1,
+      "message": "This basically makes \nlast_seq_no_ \u003d max of seq_num of all history\nlast_timestamp_ \u003d max of timestamp of all history\n\nI think this has too strong dependency on history, and not very robust.\n\nHenrik may advice.",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

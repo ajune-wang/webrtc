@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "920f92b4_a9713773",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da6c2c20_566ac8bf",
+      "range": {
+        "startLine": 283,
+        "startChar": 18,
+        "endLine": 283,
+        "endChar": 24
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5eb6a370_d8778783",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a5b1cc7f_8852fed8",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5eb6a370_d8778783",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 290,
+        "endChar": 8
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68e199d2_3c97a13b",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
         "patchSetId": 5
@@ -59,6 +107,24 @@
       "writtenOn": "2019-01-31T11:05:24Z",
       "side": 1,
       "message": "each module is either audio or video, do you consider putting RtpSenderAudio/RtpSenderVideo behind an interface.\n\nIf yes, todo here might be helpful.\n\nalternatively ptr\u003cAudio\u003e, ptr\u003cVideo\u003e and audio_configured_flag_ seem to form an\nabsl::variant\u003cptr\u003cAudio\u003e, ptr\u003cVideo\u003e\u003e",
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fba7f0e_50c0bad3",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "I\u0027ve considered an interface as a possible followup. However, I think the right direction is to move responsibility for packetization up one level more, and let RtpVideoSender own responsibility for packetization, and some similar class for audio.\n\nHmm, and the audio_configured_ flag isn\u0027t really needed any longer. I\u0027ll delete it.",
+      "parentUuid": "68e199d2_3c97a13b",
       "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -79,6 +145,24 @@
       "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "866c1533_9db1817e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "d707f2d4_1172bce8",
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -128,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "38c53e83_914267d1",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "They\u0027re used by the tests inside #if 0. So should be restored, deleted or moved, depending on what\u0027s done to the corresponding tests.",
+      "parentUuid": "84c4ed2a_59e66535",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 36
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "33727d1d_401734d7",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 5
@@ -139,6 +247,30 @@
       "writtenOn": "2019-01-31T11:05:24Z",
       "side": 1,
       "message": "do not leave this",
+      "range": {
+        "startLine": 260,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 4
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c386f54f_a947f58f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-01-31T12:44:07Z",
+      "side": 1,
+      "message": "Any suggestion on what to do with these tests? I think the simplest way to keep them is to instantiate an RTPVideoSender connected to the RTPSender under test.",
+      "parentUuid": "33727d1d_401734d7",
       "range": {
         "startLine": 260,
         "startChar": 3,

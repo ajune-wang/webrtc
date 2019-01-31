@@ -7,15 +7,14 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-#ifndef API_TASK_QUEUE_TASK_QUEUE_PRIORITY_H_
-#define API_TASK_QUEUE_TASK_QUEUE_PRIORITY_H_
+#include "api/task_queue/default_task_queue_factory.h"
+
+#include "rtc_base/task_queue_libevent.h"
 
 namespace webrtc {
 
-// TODO(bugs.webrtc.org/10191): Move as member class of TaskQueueFactory when
-// rtc::TaskQueue would be able to depende on it.
-enum class TaskQueuePriority { NORMAL = 0, HIGH, LOW };
+std::unique_ptr<TaskQueueFactory> CreateDefaultTaskQueueFactory() {
+  return CreateLibeventTaskQueueFactory();
+}
 
 }  // namespace webrtc
-
-#endif  // API_TASK_QUEUE_TASK_QUEUE_PRIORITY_H_

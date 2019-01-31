@@ -33,7 +33,8 @@ class AcmReceiveTestOldApi {
   enum NumOutputChannels : size_t {
     kArbitraryChannels = 0,
     kMonoOutput = 1,
-    kStereoOutput = 2
+    kStereoOutput = 2,
+    kQuadOutput = 4
   };
 
   AcmReceiveTestOldApi(PacketSource* packet_source,
@@ -50,7 +51,12 @@ class AcmReceiveTestOldApi {
   // files.
   void RegisterNetEqTestCodecs();
 
-  // Runs the test and returns true if successful.
+  void SetUpTestExternalDecoder(uint8_t decoder_pltype,
+                                AudioDecoder* external_audio_decoder,
+                                int sample_rate_hz,
+                                int num_channels,
+                                const std::string& name);
+
   void Run();
 
   AudioCodingModule* get_acm() { return acm_.get(); }

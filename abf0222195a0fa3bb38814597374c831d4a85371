@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "fdf1645f_0563f276",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-01-31T14:48:28Z",
+      "side": 1,
+      "message": "(I meant decoder, of course)\n\nJust to clarify \"No other keyframe requests should be requested after you request one keyframe, until you receive that keyframe.\" by the same decoder. If there is a new participant joining, that participant should request a keyframe (once).\n\nI think that it is the responsibility of the transport to guarantee delivery of the message that requests the keyframe.\n\nNow if we allow the keyframe to be lost in transit, then the sender should know that it was lost? (in rtp by receiving RST, I guess?), in which case transport should re-request the keyframe from the encoder.\n\nThis is how it works in our underlying implementation: \n1) we guarantee that keyframe request is delivered to the remote side. We expect this request only once from the decoder, and media transport guarantees its delivery.\n2) Once the encoder on the other side produces the keyframe, we don\u0027t guarantee it will be delivered. But if it isn\u0027t, it\u0027s the responsibility of the transport to re-request the keyframe from the encoder (and not the responsibility of the decoder on the other side).\n\nI did not put much thinking how would this work in group calls, but I think similarly: as long as the keyframe is delivered to the SFU, SFU should now guarantee the delivery of the keyframe. If the keyframe can\u0027t be delivered to the participant, (maybe) it should be SFU to request another keyframe from the sender (because SFU knows that the frame was lost on the way to the receiver!).",
+      "parentUuid": "872af556_5570b117",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "abf0222195a0fa3bb38814597374c831d4a85371",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "feb0c498_455e9a8a",
         "filename": "video/encoder_key_frame_callback.h",
         "patchSetId": 1

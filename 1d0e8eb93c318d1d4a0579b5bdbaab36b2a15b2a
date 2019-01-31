@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1f0c4446_03e41ce3",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-31T12:29:38Z",
+      "side": 1,
+      "message": "0.0",
+      "range": {
+        "startLine": 98,
+        "startChar": 41,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "39a0e139_c234d354",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -16,6 +39,75 @@
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616621f1_ee07c226",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-31T12:29:38Z",
+      "side": 1,
+      "message": "Maybe to make it more realistic do this instead:\n  // Pause.\n  fake_clock_.AdvanceTimeMilliseconds(5000);\n  statistics_proxy_-\u003eOnStreamInactive();\n  fake_clock_.AdvanceTimeMilliseconds(432);\n\ni.e. the pause it detected after 5sec of inactivity.",
+      "range": {
+        "startLine": 271,
+        "startChar": 21,
+        "endLine": 271,
+        "endChar": 37
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "675aa009_cb1dda1c",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-31T12:29:38Z",
+      "side": 1,
+      "message": "Again, switch order of clock advancement and pause notification.",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 292,
+        "endChar": 44
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1683c376_debbd5d1",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-31T12:29:38Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 298,
+        "startChar": 2,
+        "endLine": 299,
+        "endChar": 43
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +210,29 @@
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3999b36b_6aff631f",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-01-31T12:29:38Z",
+      "side": 1,
+      "message": "Nit: Save it in the local variable, so DCHECK and actual use of the value use obviously the same value. Otherwise reader have to check or believe that GetAverageRoundedDown returns the same value.",
+      "range": {
+        "startLine": 159,
+        "startChar": 17,
+        "endLine": 159,
+        "endChar": 66
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

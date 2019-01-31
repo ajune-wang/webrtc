@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39a0e139_c234d354",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "The code that triggers OnStreamInactive (https://cs.chromium.org/chromium/src/third_party/webrtc/video/video_receive_stream.cc?type\u003dcs\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d553) looks pretty straight-forward, but I\u0027m having trouble finding unittests that confirms that this happens. I\u0027d be happy to see it, but I\u0027m not going to block his CL.",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "404d2bb7_53bfb0ae",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "What does this variable mean? I don\u0027t understand it.",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455f9154_1ef631f9",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "KFreeze -\u003e kFreeze",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b25e8e_833904ea",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "Isn\u0027t this supposed to be Max(3 * avg_frame_duration_ms, avg_frame_duration_ms + 150)?",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3af81ee_3c8efebf",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "What\u0027s kFreezeDetectionMinFreezeDurationMs - 1 ?\n\nI think these two tests would be more easy to read and understand if they weren\u0027t parameterized.",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0333e0f9_00b45d56",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "It should be fine for two frames in the pipe to get processed within a ms otherwise things might get flaky. Are there any assumptions here about time must having passed?",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0f7ac53_f3651dcb",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T09:38:15Z",
+      "side": 1,
+      "message": "Is this a detail missing from the spec? Whatever you end up with, let\u0027s make sure it\u0027s documented.",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

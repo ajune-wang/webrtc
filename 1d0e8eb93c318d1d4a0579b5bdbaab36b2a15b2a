@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7b077ab7_dd015e76",
+        "filename": "call/video_receive_stream.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f0c4446_03e41ce3",
+      "range": {
+        "startLine": 98,
+        "startChar": 41,
+        "endLine": 98,
+        "endChar": 42
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39a0e139_c234d354",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -65,6 +89,48 @@
     },
     {
       "key": {
+        "uuid": "f51f7ddf_ffeda28b",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Changed to:\n  // Pause.\n  fake_clock_.AdvanceTimeMilliseconds(5432);\n  statistics_proxy_-\u003eOnStreamInactive();\n  statistics_proxy_-\u003eOnRenderedFrame(frame);",
+      "parentUuid": "616621f1_ee07c226",
+      "range": {
+        "startLine": 271,
+        "startChar": 21,
+        "endLine": 271,
+        "endChar": 37
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0fa0006_ff4155dd",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Agree, VideoReceiveStream is lacking unittesting.",
+      "parentUuid": "39a0e139_c234d354",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "675aa009_cb1dda1c",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -76,6 +142,30 @@
       "writtenOn": "2019-01-31T12:29:38Z",
       "side": 1,
       "message": "Again, switch order of clock advancement and pause notification.",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 292,
+        "endChar": 44
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45102fa5_81e03df0",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "675aa009_cb1dda1c",
       "range": {
         "startLine": 290,
         "startChar": 2,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "76593ea8_4af76196",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1683c376_debbd5d1",
+      "range": {
+        "startLine": 298,
+        "startChar": 2,
+        "endLine": 299,
+        "endChar": 43
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "404d2bb7_53bfb0ae",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -125,6 +239,24 @@
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c893448_1cfbd2b1",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "I prefixed it with \u0027FreeDetection\u0027 to make it clear that it belongs to freeze detection test. Moved it to a test parameter and named frame_duration_ms_.",
+      "parentUuid": "404d2bb7_53bfb0ae",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "1da76130_7330b598",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "455f9154_1ef631f9",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03b25e8e_833904ea",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -159,6 +309,24 @@
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06de596_8e2f0167",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Tests for 3 * avg_frame_duration_ms condition were missing. Added them.",
+      "parentUuid": "03b25e8e_833904ea",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +347,24 @@
     },
     {
       "key": {
+        "uuid": "c3c81c1b_f4c992fa",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Since we actually need to test 4 cases I believe parameterized test is right thing to use.",
+      "parentUuid": "d3af81ee_3c8efebf",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0333e0f9_00b45d56",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -193,6 +379,24 @@
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0fae7e_baaf52f0",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Such small frame duration should not cause any problems. But I changed it to more realistic values: 30 and 150ms (depending on tested condition).",
+      "parentUuid": "0333e0f9_00b45d56",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -213,6 +417,24 @@
     },
     {
       "key": {
+        "uuid": "f7c9ecc1_5da09765",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Yes, there are some nuances. I\u0027d like to suggest that we reveal these details in the documentation when we decide to standardize these metrics.",
+      "parentUuid": "b0f7ac53_f3651dcb",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3999b36b_6aff631f",
         "filename": "video/video_quality_observer.cc",
         "patchSetId": 17
@@ -224,6 +446,30 @@
       "writtenOn": "2019-01-31T12:29:38Z",
       "side": 1,
       "message": "Nit: Save it in the local variable, so DCHECK and actual use of the value use obviously the same value. Otherwise reader have to check or believe that GetAverageRoundedDown returns the same value.",
+      "range": {
+        "startLine": 159,
+        "startChar": 17,
+        "endLine": 159,
+        "endChar": 66
+      },
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59c2caf0_c52e7091",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-01-31T13:06:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3999b36b_6aff631f",
       "range": {
         "startLine": 159,
         "startChar": 17,

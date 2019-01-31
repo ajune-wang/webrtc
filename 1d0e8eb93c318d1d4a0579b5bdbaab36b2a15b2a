@@ -365,6 +365,24 @@
     },
     {
       "key": {
+        "uuid": "e35f47af_0bd467e8",
+        "filename": "video/receive_statistics_proxy_unittest.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T13:18:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3c81c1b_f4c992fa",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0333e0f9_00b45d56",
         "filename": "video/receive_statistics_proxy_unittest.cc",
         "patchSetId": 17
@@ -429,6 +447,24 @@
       "side": 1,
       "message": "Yes, there are some nuances. I\u0027d like to suggest that we reveal these details in the documentation when we decide to standardize these metrics.",
       "parentUuid": "b0f7ac53_f3651dcb",
+      "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d02344_e3ba26b7",
+        "filename": "video/video_quality_observer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-01-31T13:18:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f7c9ecc1_5da09765",
       "revId": "1d0e8eb93c318d1d4a0579b5bdbaab36b2a15b2a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

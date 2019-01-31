@@ -2,6 +2,86 @@
   "comments": [
     {
       "key": {
+        "uuid": "da6c2c20_566ac8bf",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "may be check audio_ is valid pointer",
+      "range": {
+        "startLine": 283,
+        "startChar": 18,
+        "endLine": 283,
+        "endChar": 24
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb6a370_d8778783",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "may be check video_ is valid",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 290,
+        "endChar": 8
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68e199d2_3c97a13b",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "each module is either audio or video, do you consider putting RtpSenderAudio/RtpSenderVideo behind an interface.\n\nIf yes, todo here might be helpful.\n\nalternatively ptr\u003cAudio\u003e, ptr\u003cVideo\u003e and audio_configured_flag_ seem to form an\nabsl::variant\u003cptr\u003cAudio\u003e, ptr\u003cVideo\u003e\u003e",
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d707f2d4_1172bce8",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "I guess this return statement can not be reached because function return in all cases, including default.",
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "575224df_a7e80c6d",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
         "patchSetId": 5
@@ -18,6 +98,52 @@
         "startChar": 0,
         "endLine": 357,
         "endChar": 40
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84c4ed2a_59e66535",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "leftover?\nI guess you planned to delete those",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 36
+      },
+      "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33727d1d_401734d7",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-01-31T11:05:24Z",
+      "side": 1,
+      "message": "do not leave this",
+      "range": {
+        "startLine": 260,
+        "startChar": 3,
+        "endLine": 260,
+        "endChar": 4
       },
       "revId": "730118f98e8d07367d74dfefe7aafd58f3834723",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

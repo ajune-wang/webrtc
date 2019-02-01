@@ -88,6 +88,46 @@ void NetworkEmulationManager::ClearRoute(
   }
 }
 
+TrafficRoute* NetworkEmulationManager::CreateCrossTraffic(
+    std::vector<EmulatedNetworkNode*> via_nodes) {
+  RTC_CHECK(!via_nodes.empty());
+  EndpointNode* endpoint = CreateEndpoint(rtc::IPAddress(next_node_id_++));
+
+  // Setup a route via specified nodes.
+  EmulatedNetworkNode* cur_node = via_nodes[0];
+  for (size_t i = 1; i < via_nodes.size(); ++i) {
+    cur_node->SetReceiver(endpoint->GetId(), via_nodes[i]);
+    cur_node = via_nodes[i];
+  }
+  cur_node->SetReceiver(endpoint->GetId(), endpoint);
+
+  std::unique_ptr<TrafficRoute> cross_traffic =
+      absl::make_unique<TrafficRoute>(clock_, via_nodes[0], endpoint);
+  TrafficRoute* out = cross_traffic.get();
+  cross_traffics_.push_back(std::move(cross_traffic));
+  return out;
+}
+
+RandomWalkCrossTraffic* NetworkEmulationManager::CreateRandomWalkCrossTraffic(
+    TrafficRoute* cross_traffic,
+    RandomWalkConfig config) {
+  auto traffic = absl::make_unique<RandomWalkCrossTraffic>(std::move(config),
+                                                           cross_traffic);
+  RandomWalkCrossTraffic* out = traffic.get();
+  random_cross_traffics_.push_back(std::move(traffic));
+  return out;
+}
+
+PulsedPeaksCrossTraffic* NetworkEmulationManager::CreatePulsedPeaksCrossTraffic(
+    TrafficRoute* cross_traffic,
+    PulsedPeaksConfig config) {
+  auto traffic = absl::make_unique<PulsedPeaksCrossTraffic>(std::move(config),
+                                                            cross_traffic);
+  PulsedPeaksCrossTraffic* out = traffic.get();
+  pulsed_cross_traffics_.push_back(std::move(traffic));
+  return out;
+}
+
 rtc::Thread* NetworkEmulationManager::CreateNetworkThread(
     std::vector<EndpointNode*> endpoints) {
   FakeNetworkSocketServer* socket_server = CreateSocketServer(endpoints);
@@ -123,6 +163,12 @@ FakeNetworkSocketServer* NetworkEmulationManager::CreateSocketServer(
 
 void NetworkEmulationManager::ProcessNetworkPackets() {
   Timestamp current_time = Now();
+  for (auto& traffic : random_cross_traffics_) {
+    traffic->Process(current_time);
+  }
+  for (auto& traffic : pulsed_cross_traffics_) {
+    traffic->Process(current_time);
+  }
   for (auto& node : network_nodes_) {
     node->Process(current_time);
   }

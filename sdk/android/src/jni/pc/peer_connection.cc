@@ -299,6 +299,14 @@ void PeerConnectionObserverJni::OnIceConnectionChange(
       Java_IceConnectionState_fromNativeIndex(env, new_state));
 }
 
+void PeerConnectionObserverJni::OnStandardizedIceConnectionChange(
+    PeerConnectionInterface::IceConnectionState new_state) {
+  JNIEnv* env = AttachCurrentThreadIfNeeded();
+  Java_Observer_onStandardizedIceConnectionChange(
+      env, j_observer_global_,
+      Java_IceConnectionState_fromNativeIndex(env, new_state));
+}
+
 void PeerConnectionObserverJni::OnConnectionChange(
     PeerConnectionInterface::PeerConnectionState new_state) {
   JNIEnv* env = AttachCurrentThreadIfNeeded();
@@ -756,6 +764,14 @@ static ScopedJavaLocalRef<jobject> JNI_PeerConnection_IceConnectionState(
     const JavaParamRef<jobject>& j_pc) {
   return Java_IceConnectionState_fromNativeIndex(
       env, ExtractNativePC(env, j_pc)->ice_connection_state());
+}
+
+static ScopedJavaLocalRef<jobject>
+JNI_PeerConnection_StandardizedIceConnectionState(
+    JNIEnv* env,
+    const JavaParamRef<jobject>& j_pc) {
+  return Java_IceConnectionState_fromNativeIndex(
+      env, ExtractNativePC(env, j_pc)->standardized_ice_connection_state());
 }
 
 static ScopedJavaLocalRef<jobject> JNI_PeerConnection_ConnectionState(

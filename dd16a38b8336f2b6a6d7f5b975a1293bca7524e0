@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c307ebfa_aa41e1fd",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "const auto\u0026",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af609e89_1038698a",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "for (const auto\u0026 stream : options_video_streams) {",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98c5cc0_1e9d0a48",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "std::max",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a7bea82_f18fcc55",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "Oh how nice it would be if the frame generator could simply be driven from this thread and not have its own TQ...",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adb56f61_a1768406",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "at least add a Sleep(10) so we yield some CPU...",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13c56e0_b211c72d",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "This is including a bit too much - we only need enc/dec factory in this file.",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "967c0925_a449a1f7",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "I like that this function and the options struct lives outside the generator class - that makes it nice and simple! \"ParseOptionsFromFile\" though, is a very generic name to put in the webrtc namespace. How about adding a nested NS, \"rtp_generator\" for everything in this file, and drop the RtpGenerator prefix?",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fbaf58_e0dbddf8",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "Use DISALLOW_IMPLICIT_CONSTRUCTORS instead",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "767f44a8_50c3aff2",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "If it only depends on the config it sounds like it belongs outside this class. Function is currently empty - suggest you remove it until needed.\n\nAs a side effect, that would make the class only have ctor and GenerateRtpDump - so you could replace it with a single function in the .h:\n\nnamespace rtp_generator {\n\nvoid GenerateRtpDump(const Options\u0026 options, const std::string\u0026 rtp_dump_path);\n\n}\n\nand keep the class in the .cc",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75d17f38_22580dd9",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T09:17:46Z",
+      "side": 1,
+      "message": "move to private",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

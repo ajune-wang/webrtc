@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb874481_c7d8a3a8",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T19:31:26Z",
+      "side": 1,
+      "message": "nit: unneceessary comment",
+      "revId": "95842d89919af5bf4b1cd2f1476fcd6b9785fd32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "006d3797_5c14a57e",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T19:31:26Z",
+      "side": 1,
+      "message": "Actually, you can just do:\n\nfor (const auto\u0026 entry : kSrtpCipherMap) {",
+      "revId": "95842d89919af5bf4b1cd2f1476fcd6b9785fd32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

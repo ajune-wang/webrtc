@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9438078d_6a52b7d7",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T17:56:07Z",
+      "side": 1,
+      "message": "Put this next to EnableTimeCallbackForTesting ?",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8eb1e2fd_d72cf956",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T17:56:07Z",
+      "side": 1,
+      "message": "Could also change this to an anonymous struct",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "633507ef_12663134",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T17:56:07Z",
+      "side": 1,
+      "message": "How about using arraysize instead of a sentinel value?",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25f4e35_015aaed1",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-01T17:56:07Z",
+      "side": 1,
+      "message": "unnecessary diff?",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

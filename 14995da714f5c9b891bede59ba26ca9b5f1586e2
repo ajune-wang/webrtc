@@ -22,6 +22,30 @@
       "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72996c5a_e6edb318",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-01T13:25:52Z",
+      "side": 1,
+      "message": "We could count the number of consecutive reordered packets and if they are more than X (relatively small number) then we can \"reset\" the state (packet_iat_stopwatch_, last_seq_no_ and last_timestamp_). However, then we are adding custom behavior for \"faulty\" clients that send bad packets.",
+      "parentUuid": "5ffe1245_53c71279",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

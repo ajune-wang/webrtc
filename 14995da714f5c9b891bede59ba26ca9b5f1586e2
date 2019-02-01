@@ -46,6 +46,30 @@
       "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1c5df86_f0b8a32d",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-01T13:40:52Z",
+      "side": 1,
+      "message": "Such packet validation and resetting should probably be done in the RTP layer anyway.",
+      "parentUuid": "72996c5a_e6edb318",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -3891,6 +3891,8 @@ void PeerConnection::SetStandardizedIceConnectionState(
     return;
   standardized_ice_connection_state_ = new_state;
   Observer()->OnStandardizedIceConnectionChange(new_state);
+  Observer()->OnStandardizedIceConnectionChange(new_state);
+  Observer()->OnStandardizedIceConnectionChange(new_state);
 }
 
 void PeerConnection::SetConnectionState(

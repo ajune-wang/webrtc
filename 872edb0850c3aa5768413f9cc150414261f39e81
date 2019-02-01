@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f18d109d_974c23c6",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "nit: could use range-for here as well",
+      "revId": "872edb0850c3aa5768413f9cc150414261f39e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175bff93_1bff4101",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "hm. at what point will current_time \u003e end_ms? and wouldn\u0027t this cause unnecessary long sleeps without updating current_time for each stream we evaluate?",
+      "revId": "872edb0850c3aa5768413f9cc150414261f39e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed252645_abb7fe1c",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "nit: this macro is usually put at the very end of the class declaration, after all members",
+      "range": {
+        "startLine": 85,
+        "startChar": 22,
+        "endLine": 85,
+        "endChar": 23
+      },
+      "revId": "872edb0850c3aa5768413f9cc150414261f39e81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

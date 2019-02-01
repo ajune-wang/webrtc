@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "7bb6bdb5_3875cd3f",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "oh sorry, just thinking out loud I guess :)",
+      "parentUuid": "dd06a966_927a5dd2",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "adb56f61_a1768406",
         "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
         "patchSetId": 4
@@ -247,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "2c991363_7771edc2",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "407dbf78_f0817f82",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76fbaf58_e0dbddf8",
         "filename": "rtc_tools/rtp_generator/rtp_generator.h",
         "patchSetId": 4
@@ -311,6 +347,24 @@
       "side": 1,
       "message": "Generally like this idea, however since this tools main purpose will be the automatic generation of (rtp_dump, recv_configuration) pairs I prefer an object like structure. Maybe in a later refactor we could take the core that generates these RtpDumps and have them generate to a buffer instead and put that core code in test:: which could be used all over the place in the webrtc code to aid E2E testing.",
       "parentUuid": "767f44a8_50c3aff2",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6a156d_3e3ea6f8",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-01T15:30:22Z",
+      "side": 1,
+      "message": "Don\u0027t see the connection with generating to a buffer - what I suggested was to simplify the interface and not push all the #include deps onto clients of it. There\u0027s little point exposing an object like this when there is only one method you can call on it, and only one time.",
+      "parentUuid": "63a062ec_0049f0a3",
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

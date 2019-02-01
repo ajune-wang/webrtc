@@ -443,7 +443,7 @@ bool OpenSSLStreamAdapter::SetDtlsSrtpCryptoSuites(
     }
 
     if (!found) {
-      RTC_LOG(LS_ERROR) << "Could not find cipher: " << *cipher;
+      RTC_LOG(LS_ERROR) << "Could not find cipher: " << cipher;
       return false;
     }
   }

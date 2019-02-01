@@ -77,6 +77,7 @@ public class PeerConnectionTest {
     private int expectedTracksAdded;
     private Queue<SignalingState> expectedSignalingChanges = new ArrayDeque<>();
     private Queue<IceConnectionState> expectedIceConnectionChanges = new ArrayDeque<>();
+    private Queue<IceConnectionState> expectedStandardizedIceConnectionChanges = new ArrayDeque<>();
     private Queue<PeerConnectionState> expectedConnectionChanges = new ArrayDeque<>();
     private Queue<IceGatheringState> expectedIceGatheringChanges = new ArrayDeque<>();
     private Queue<String> expectedAddStreamLabels = new ArrayDeque<>();
@@ -185,11 +186,30 @@ public class PeerConnectionTest {
       }
 
       if (expectedIceConnectionChanges.isEmpty()) {
-        System.out.println(name + "Got an unexpected ICE connection change " + newState);
+        System.out.println(name + " got an unexpected ICE connection change " + newState);
         return;
       }
 
       assertEquals(expectedIceConnectionChanges.remove(), newState);
+    }
+
+    // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
+    @SuppressWarnings("NoSynchronizedMethodCheck")
+    public synchronized void expectStandardizedIceConnectionChange(IceConnectionState newState) {
+      expectedStandardizedIceConnectionChanges.add(newState);
+    }
+
+    @Override
+    // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
+    @SuppressWarnings("NoSynchronizedMethodCheck")
+    public synchronized void onStandardizedIceConnectionChange(IceConnectionState newState) {
+      if (expectedStandardizedIceConnectionChanges.isEmpty()) {
+        System.out.println(
+            name + " got an unexpected standardized ICE connection change " + newState);
+        return;
+      }
+
+      assertEquals(expectedStandardizedIceConnectionChanges.remove(), newState);
     }
 
     // TODO(bugs.webrtc.org/8491): Remove NoSynchronizedMethodCheck suppression.
@@ -924,6 +944,7 @@ public class PeerConnectionTest {
 
     sdpLatch = new SdpObserverLatch();
     answeringExpectations.expectSignalingChange(SignalingState.STABLE);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringPC.setLocalDescription(sdpLatch, answerSdp);
     assertTrue(sdpLatch.await());
@@ -931,6 +952,7 @@ public class PeerConnectionTest {
 
     sdpLatch = new SdpObserverLatch();
     offeringExpectations.expectSignalingChange(SignalingState.HAVE_LOCAL_OFFER);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     offeringPC.setLocalDescription(sdpLatch, offerSdp);
     assertTrue(sdpLatch.await());
@@ -941,6 +963,7 @@ public class PeerConnectionTest {
 
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
     // TODO(bemasc): uncomment once delivery of ICECompleted is reliable
     // (https://code.google.com/p/webrtc/issues/detail?id=3021).
@@ -949,6 +972,7 @@ public class PeerConnectionTest {
     //     IceConnectionState.COMPLETED);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);
@@ -1158,6 +1182,7 @@ public class PeerConnectionTest {
 
     sdpLatch = new SdpObserverLatch();
     answeringExpectations.expectSignalingChange(SignalingState.STABLE);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringPC.setLocalDescription(sdpLatch, answerSdp);
     assertTrue(sdpLatch.await());
@@ -1165,6 +1190,7 @@ public class PeerConnectionTest {
 
     sdpLatch = new SdpObserverLatch();
     offeringExpectations.expectSignalingChange(SignalingState.HAVE_LOCAL_OFFER);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     offeringPC.setLocalDescription(sdpLatch, offerSdp);
     assertTrue(sdpLatch.await());
@@ -1174,11 +1200,13 @@ public class PeerConnectionTest {
 
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
     // TODO(bemasc): uncomment once delivery of ICECompleted is reliable
     // (https://code.google.com/p/webrtc/issues/detail?id=3021).
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);
@@ -1312,6 +1340,7 @@ public class PeerConnectionTest {
     offeringExpectations.expectSignalingChange(SignalingState.HAVE_LOCAL_OFFER);
     offeringExpectations.expectIceCandidates(2);
     offeringExpectations.expectIceGatheringChange(IceGatheringState.COMPLETE);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     offeringPC.setLocalDescription(sdpLatch, offerSdp);
     assertTrue(sdpLatch.await());
@@ -1344,6 +1373,7 @@ public class PeerConnectionTest {
     answeringExpectations.expectSignalingChange(SignalingState.STABLE);
     answeringExpectations.expectIceCandidates(2);
     answeringExpectations.expectIceGatheringChange(IceGatheringState.COMPLETE);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTING);
     answeringPC.setLocalDescription(sdpLatch, answerSdp);
     assertTrue(sdpLatch.await());
@@ -1356,6 +1386,7 @@ public class PeerConnectionTest {
 
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     offeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    offeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     offeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
     // TODO(bemasc): uncomment once delivery of ICECompleted is reliable
     // (https://code.google.com/p/webrtc/issues/detail?id=3021).
@@ -1364,6 +1395,7 @@ public class PeerConnectionTest {
     //     IceConnectionState.COMPLETED);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CHECKING);
     answeringExpectations.expectIceConnectionChange(IceConnectionState.CONNECTED);
+    answeringExpectations.expectStandardizedIceConnectionChange(IceConnectionState.CONNECTED);
     answeringExpectations.expectConnectionChange(PeerConnectionState.CONNECTED);
 
     offeringPC.setRemoteDescription(sdpLatch, answerSdp);

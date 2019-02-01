@@ -251,3 +251,8 @@ not `#ifdef` or `#if defined()`:
 When combined with the `-Wundef` compiler option, this produces
 compile time warnings if preprocessor symbols are misspelled, or used
 without corresponding build rules to set them.
+
+### If Statements
+In security critical code prefer if (condition) {} for one line conditionals
+over if (condition) statement. This has caused real security vulnerabilities
+before in SSL code which we would like to avoid.

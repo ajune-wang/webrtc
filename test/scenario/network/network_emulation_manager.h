@@ -22,6 +22,7 @@
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread.h"
+#include "test/scenario/network/cross_traffic.h"
 #include "test/scenario/network/fake_network_socket_server.h"
 #include "test/scenario/network/network_emulation.h"
 
@@ -47,6 +48,14 @@ class NetworkEmulationManager {
                   std::vector<EmulatedNetworkNode*> via_nodes,
                   EndpointNode* to);
 
+  TrafficRoute* CreateCrossTraffic(std::vector<EmulatedNetworkNode*> via_nodes);
+  RandomWalkCrossTraffic* CreateRandomWalkCrossTraffic(
+      TrafficRoute* cross_traffic,
+      RandomWalkConfig config);
+  PulsedPeaksCrossTraffic* CreatePulsedPeaksCrossTraffic(
+      TrafficRoute* cross_traffic,
+      PulsedPeaksConfig config);
+
   rtc::Thread* CreateNetworkThread(std::vector<EndpointNode*> endpoints);
 
   void Start();
@@ -66,6 +75,9 @@ class NetworkEmulationManager {
   // All objects can be added to the manager only when it is idle.
   std::vector<std::unique_ptr<EndpointNode>> endpoints_;
   std::vector<std::unique_ptr<EmulatedNetworkNode>> network_nodes_;
+  std::vector<std::unique_ptr<TrafficRoute>> cross_traffics_;
+  std::vector<std::unique_ptr<RandomWalkCrossTraffic>> random_cross_traffics_;
+  std::vector<std::unique_ptr<PulsedPeaksCrossTraffic>> pulsed_cross_traffics_;
   std::vector<std::unique_ptr<FakeNetworkSocketServer>> socket_servers_;
   std::vector<std::unique_ptr<rtc::Thread>> threads_;
 

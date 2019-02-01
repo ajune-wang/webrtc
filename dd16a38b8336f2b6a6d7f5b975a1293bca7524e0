@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bdcb1c72_4ef81c3e",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c307ebfa_aa41e1fd",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af609e89_1038698a",
         "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81574281_6a5d23c6",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af609e89_1038698a",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3cded970_3559412f",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e98c5cc0_1e9d0a48",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a7bea82_f18fcc55",
         "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-01T09:17:46Z",
       "side": 1,
       "message": "Oh how nice it would be if the frame generator could simply be driven from this thread and not have its own TQ...",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd06a966_927a5dd2",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Not sure if there is an action item here. The scope for this tool is super limited for fuzzing atm.",
+      "parentUuid": "7a7bea82_f18fcc55",
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0a9fdcea_f3219a85",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "The reason it is a spinlock is because it will be used to generate about 8 corpus data sets and then probably never executed again. Even so it is simple enough to throw in a sleep so why not.",
+      "parentUuid": "adb56f61_a1768406",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a13c56e0_b211c72d",
         "filename": "rtc_tools/rtp_generator/rtp_generator.h",
         "patchSetId": 4
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "d43ba2e7_1bdc4df8",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a13c56e0_b211c72d",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "967c0925_a449a1f7",
         "filename": "rtc_tools/rtp_generator/rtp_generator.h",
         "patchSetId": 4
@@ -115,6 +223,24 @@
       "writtenOn": "2019-02-01T09:17:46Z",
       "side": 1,
       "message": "I like that this function and the options struct lives outside the generator class - that makes it nice and simple! \"ParseOptionsFromFile\" though, is a very generic name to put in the webrtc namespace. How about adding a nested NS, \"rtp_generator\" for everything in this file, and drop the RtpGenerator prefix?",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "407dbf78_f0817f82",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "This is a nice idea but I generally try to avoid nested namespaces due to how they can lead to cascading valid symbols that require full or aliased namespace qualification. As a compromise I have updated this to be a more specific name. (I hope no one is ever including rtc_tools, as this isn\u0027t really a library but just a binary).",
+      "parentUuid": "967c0925_a449a1f7",
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "e338b349_9e939188",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76fbaf58_e0dbddf8",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "767f44a8_50c3aff2",
         "filename": "rtc_tools/rtp_generator/rtp_generator.h",
         "patchSetId": 4
@@ -149,6 +293,24 @@
       "writtenOn": "2019-02-01T09:17:46Z",
       "side": 1,
       "message": "If it only depends on the config it sounds like it belongs outside this class. Function is currently empty - suggest you remove it until needed.\n\nAs a side effect, that would make the class only have ctor and GenerateRtpDump - so you could replace it with a single function in the .h:\n\nnamespace rtp_generator {\n\nvoid GenerateRtpDump(const Options\u0026 options, const std::string\u0026 rtp_dump_path);\n\n}\n\nand keep the class in the .cc",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63a062ec_0049f0a3",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Generally like this idea, however since this tools main purpose will be the automatic generation of (rtp_dump, recv_configuration) pairs I prefer an object like structure. Maybe in a later refactor we could take the core that generates these RtpDumps and have them generate to a buffer instead and put that core code in test:: which could be used all over the place in the webrtc code to aid E2E testing.",
+      "parentUuid": "767f44a8_50c3aff2",
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -169,6 +331,24 @@
       "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c625fa0_dfaa19f8",
+        "filename": "rtc_tools/rtp_generator/rtp_generator.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75d17f38_22580dd9",
+      "revId": "dd16a38b8336f2b6a6d7f5b975a1293bca7524e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

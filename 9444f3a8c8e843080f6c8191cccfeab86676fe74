@@ -16,6 +16,24 @@
       "revId": "9444f3a8c8e843080f6c8191cccfeab86676fe74",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe32b9e_496ed911",
+        "filename": "test/fuzzers/configs/replay_packet_fuzzer/vp9_config.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T10:16:48Z",
+      "side": 0,
+      "message": "The RtpGenerator generates the rtpdumps that are consumed by the video_replayer when operating as a fuzzer. This configuration informs the video_replay about the payload types it needs to consume. This more complex configuration will be implemented later when the generator can support more. For now it is cut down to match a configuration that can replay streams from the rtp generator. \n\nRight now these configurations aren\u0027t used for anything anyway and won\u0027t be until we can generate a corpus.",
+      "parentUuid": "aef23a87_37693957",
+      "revId": "9444f3a8c8e843080f6c8191cccfeab86676fe74",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

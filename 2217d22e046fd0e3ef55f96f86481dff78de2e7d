@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "162f6e84_7aaef11d",
+        "filename": "rtc_base/experiments/rate_control_settings_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-01T15:44:18Z",
+      "side": 1,
+      "message": "Thanks for fixing! And should add for all the other things I moved there... :/",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "2217d22e046fd0e3ef55f96f86481dff78de2e7d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

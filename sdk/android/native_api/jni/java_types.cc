@@ -132,6 +132,14 @@ absl::optional<bool> JavaToNativeOptionalBool(JNIEnv* jni,
   return JNI_Boolean::Java_Boolean_booleanValue(jni, boolean);
 }
 
+absl::optional<double> JavaToNativeOptionalDouble(
+    JNIEnv* jni,
+    const JavaRef<jobject>& j_double) {
+  if (IsNull(jni, j_double))
+    return absl::nullopt;
+  return JNI_Double::Java_Double_doubleValue(jni, j_double);
+}
+
 absl::optional<int32_t> JavaToNativeOptionalInt(
     JNIEnv* jni,
     const JavaRef<jobject>& integer) {
@@ -194,6 +202,12 @@ ScopedJavaLocalRef<jstring> NativeToJavaString(JNIEnv* jni,
   return NativeToJavaString(jni, str.c_str());
 }
 
+ScopedJavaLocalRef<jobject> NativeToJavaDouble(
+    JNIEnv* jni,
+    const absl::optional<double>& optional_double) {
+  return optional_double ? NativeToJavaDouble(jni, *optional_double) : nullptr;
+}
+
 ScopedJavaLocalRef<jobject> NativeToJavaInteger(
     JNIEnv* jni,
     const absl::optional<int32_t>& optional_int) {
@@ -216,8 +230,10 @@ ScopedJavaLocalRef<jobjectArray> NativeToJavaBooleanArray(
 ScopedJavaLocalRef<jobjectArray> NativeToJavaDoubleArray(
     JNIEnv* env,
     const std::vector<double>& container) {
+  ScopedJavaLocalRef<jobject> (*convert_function)(JNIEnv*, double) =
+      &NativeToJavaDouble;
   return NativeToJavaObjectArray(env, container, java_lang_Double_clazz(env),
-                                 &NativeToJavaDouble);
+                                 convert_function);
 }
 
 ScopedJavaLocalRef<jobjectArray> NativeToJavaIntegerArray(

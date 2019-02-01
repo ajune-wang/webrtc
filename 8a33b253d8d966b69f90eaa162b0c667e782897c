@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2499e75c_3cb464b9",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T19:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9438078d_6a52b7d7",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8eb1e2fd_d72cf956",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 3
@@ -30,6 +48,54 @@
       "writtenOn": "2019-02-01T17:56:07Z",
       "side": 1,
       "message": "Could also change this to an anonymous struct",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36205339_1afebe18",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T19:02:12Z",
+      "side": 1,
+      "message": "I think this reduces code clarity so going to leave it here for now.",
+      "parentUuid": "8eb1e2fd_d72cf956",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbb05d32_b6d21a70",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T19:02:12Z",
+      "side": 1,
+      "message": "Reduces code clarity imo. So avoiding for now.",
+      "parentUuid": "8eb1e2fd_d72cf956",
       "range": {
         "startLine": 71,
         "startChar": 10,
@@ -59,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "936940c7_2a45052b",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T19:02:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "633507ef_12663134",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a25f4e35_015aaed1",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 3
@@ -70,6 +154,24 @@
       "writtenOn": "2019-02-01T17:56:07Z",
       "side": 1,
       "message": "unnecessary diff?",
+      "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0075899_b624d7ce",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-01T19:02:12Z",
+      "side": 1,
+      "message": "I prefer putting braces around single line returns in secure code. Not doing so has caused real issues in the past for other products so I feel this is a valid change.",
+      "parentUuid": "a25f4e35_015aaed1",
       "revId": "8a33b253d8d966b69f90eaa162b0c667e782897c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

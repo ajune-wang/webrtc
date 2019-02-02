@@ -34,8 +34,6 @@ namespace webrtc {
 class JsepSessionDescription : public SessionDescriptionInterface {
  public:
   explicit JsepSessionDescription(SdpType type);
-  // TODO(steveanton): Remove this once callers have switched to SdpType.
-  explicit JsepSessionDescription(const std::string& type);
   JsepSessionDescription(
       SdpType type,
       std::unique_ptr<cricket::SessionDescription> description,

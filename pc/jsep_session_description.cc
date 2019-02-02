@@ -152,18 +152,6 @@ std::unique_ptr<SessionDescriptionInterface> CreateSessionDescription(
 
 JsepSessionDescription::JsepSessionDescription(SdpType type) : type_(type) {}
 
-JsepSessionDescription::JsepSessionDescription(const std::string& type) {
-  absl::optional<SdpType> maybe_type = SdpTypeFromString(type);
-  if (maybe_type) {
-    type_ = *maybe_type;
-  } else {
-    RTC_LOG(LS_WARNING)
-        << "JsepSessionDescription constructed with invalid type string: "
-        << type << ". Assuming it is an offer.";
-    type_ = SdpType::kOffer;
-  }
-}
-
 JsepSessionDescription::JsepSessionDescription(
     SdpType type,
     std::unique_ptr<cricket::SessionDescription> description,

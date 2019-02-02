@@ -45,6 +45,7 @@ class RateControlSettings final {
   double GetSimulcastScreenshareHysteresisFactor() const;
 
   bool TriggerProbeOnMaxAllocatedBitrateChange() const;
+  bool UseEncoderBitrateAdjuster() const;
 
  private:
   explicit RateControlSettings(
@@ -59,6 +60,7 @@ class RateControlSettings final {
   FieldTrialParameter<double> video_hysteresis_;
   FieldTrialParameter<double> screenshare_hysteresis_;
   FieldTrialParameter<bool> probe_max_allocation_;
+  FieldTrialParameter<bool> bitrate_adjuster_;
 };
 
 }  // namespace webrtc

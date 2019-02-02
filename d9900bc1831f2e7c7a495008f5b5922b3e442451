@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea069852_cc9409cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-02T07:55:08Z",
+      "side": 1,
+      "message": "I would like to get convinced it was absent of this rule, not something else, that caused vulnerabilities\n\nCan you send me examples of code where it did cause problem.\nDid that example followed (other) rules we already have?\nHow was it covered with tests?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "448b27e1_1e031c4e",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-02T07:55:08Z",
+      "side": 1,
+      "message": "how do I know if I\u0027m in security critical code or not?",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 25
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92138fbf_94b9353f",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-02T07:55:08Z",
+      "side": 1,
+      "message": "I do not see enough difference between \"prefer\" and \n\"they are allowed if you like them; conditional or loop statements with complex conditions or statements may be more readable with curly braces.\"",
+      "range": {
+        "startLine": 256,
+        "startChar": 26,
+        "endLine": 256,
+        "endChar": 32
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

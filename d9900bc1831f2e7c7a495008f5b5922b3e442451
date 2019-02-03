@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce68bb53_a3ee33cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-03T22:34:31Z",
+      "side": 1,
+      "message": "SEI CERT C Coding Standard rule:\nhttps://wiki.sei.cmu.edu/confluence/display/c/EXP19-C.+Use+braces+for+the+body+of+an+if%2C+for%2C+or+while+statement\n\nApple CVE in SSL Code caused by this:\nhttps://nvd.nist.gov/vuln/detail/CVE-2014-1266\n\nAdam Langley\u0027s blog on the specifics of the issue (includes code sample, explains counter to testing argument):\nhttps://www.imperialviolet.org/2014/02/22/applebug.html",
+      "parentUuid": "ea069852_cc9409cc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "448b27e1_1e031c4e",
         "filename": "style-guide.md",
         "patchSetId": 2

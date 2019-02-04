@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcc79318_c3735a6b",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T12:16:29Z",
+      "side": 1,
+      "message": "Isn\u0027t the default not to apply scaling? That\u0027s what the spec says:\nBy default, the sender will not apply any scaling, (i.e., scaleResolutionDownBy will be 1.0).",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 57
+      },
+      "revId": "865aa0cbf1363dfbe28d4cd8dc5b299120b8af36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

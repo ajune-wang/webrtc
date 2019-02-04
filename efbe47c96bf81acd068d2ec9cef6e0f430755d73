@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "c66d5c88_044e4b34",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T12:16:29Z",
+      "side": 1,
+      "message": "Can you try Google Truth?\n\nimport static com.google.common.truth.Truth.assertThat;\n\nassertThat(actual).isEqualTo(expected);?",
+      "parentUuid": "0aa163a6_2f783446",
+      "range": {
+        "startLine": 1049,
+        "startChar": 85,
+        "endLine": 1049,
+        "endChar": 90
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e27f3c6_b8060d81",
         "filename": "sdk/android/native_api/jni/java_types.cc",
         "patchSetId": 3

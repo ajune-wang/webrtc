@@ -95,8 +95,15 @@ public class PeerConnection {
     /** Triggered when the SignalingState changes. */
     @CalledByNative("Observer") void onSignalingChange(SignalingState newState);
 
-    /** Triggered when the IceConnectionState changes. */
+    /**
+     * Triggered when the legacy IceConnectionState changes.
+     *  This one is actually a combination of ICE and DTLS.
+     */
     @CalledByNative("Observer") void onIceConnectionChange(IceConnectionState newState);
+
+    /** Triggered when the standardized IceConnectionState changes. */
+    @CalledByNative("Observer")
+    default void onStandardizedIceConnectionChange(IceConnectionState newState) {}
 
     /** Triggered when the PeerConnectionState changes. */
     @CalledByNative("Observer")
@@ -1141,6 +1148,10 @@ public class PeerConnection {
     return nativeIceConnectionState();
   }
 
+  public IceConnectionState standardizedIceConnectionState() {
+    return nativeStandardizedIceConnectionState();
+  }
+
   public PeerConnectionState connectionState() {
     return nativeConnectionState();
   }
@@ -1219,6 +1230,7 @@ public class PeerConnection {
   private native boolean nativeSetBitrate(Integer min, Integer current, Integer max);
   private native SignalingState nativeSignalingState();
   private native IceConnectionState nativeIceConnectionState();
+  private native IceConnectionState nativeStandardizedIceConnectionState();
   private native PeerConnectionState nativeConnectionState();
   private native IceGatheringState nativeIceGatheringState();
   private native void nativeClose();

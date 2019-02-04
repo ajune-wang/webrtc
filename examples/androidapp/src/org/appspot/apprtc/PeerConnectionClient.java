@@ -1277,6 +1277,12 @@ public class PeerConnectionClient {
     }
 
     @Override
+    public void onStandardizedIceConnectionChange(
+        final PeerConnection.IceConnectionState newState) {
+      executor.execute(() -> { Log.d(TAG, "StandardizedIceConnectionState: " + newState); });
+    }
+
+    @Override
     public void onConnectionChange(final PeerConnection.PeerConnectionState newState) {
       executor.execute(() -> {
         Log.d(TAG, "PeerConnectionState: " + newState);

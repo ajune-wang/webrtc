@@ -16,6 +16,24 @@
       "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11d4a36_98298591",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-04T19:56:01Z",
+      "side": 1,
+      "message": "Few issues here.\n1. Using a single RID\nThe spec is somewhat contradictory in this case.\nOn one hand it says that a if a RID is supplied it must be used.\nOn the other hand it says that a single RID should not be communicated in the SDP.\nI understand this to mean that the user of PeerConnection can supply a single RID and it should be reflected in the parameters but not actually sent. It is currently not possible to achieve this without significant refactoring (or hacks) because of the channel implementation and conflicts with Plan-B semantics.\nRemoving the RID from the given parameters feels wrong to me (vs. informing the user that they should do it themselves), especially since |RtpTransceiverInit| is const.\nThis is also why i chose not to generate RIDs if they are not supplied at the moment.\n2. kMaxSimulcastStreams\nI didn\u0027t realize that this was an API thing, i thought it would be up to the media engine to understand its capabilities and drop from the tail if necessary.\nSince this const is in the API directory, do you think that this should return INVALID_PARAMETER or drop the layers? dropping the layers goes against the const argument in #1.\n\nWDYT? interested in hearing more feedback on this.",
+      "parentUuid": "3e481a66_c94f1029",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

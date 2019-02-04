@@ -251,3 +251,16 @@ not `#ifdef` or `#if defined()`:
 When combined with the `-Wundef` compiler option, this produces
 compile time warnings if preprocessor symbols are misspelled, or used
 without corresponding build rules to set them.
+
+### Single line statement blocks are not allowed
+All loop and conditional statements must use braces.
+```
+if (condition) {
+  Func()
+}
+```
+not
+```
+if (condition)
+  Func()
+```

@@ -157,6 +157,21 @@ MediaTransportInterface::GetLatestTargetTransferRate() {
 void MediaTransportInterface::SetNetworkChangeCallback(
     MediaTransportNetworkChangeCallback* callback) {}
 
+// Temporary default implementation, for downstream transports implementing
+// SetNetworkChangeCallback. Only a single registered callback is supported in
+// this case.
+void MediaTransportInterface::AddNetworkChangeCallback(
+    MediaTransportNetworkChangeCallback* callback) {
+  RTC_CHECK(callback != nullptr);
+  SetNetworkChangeCallback(callback);
+}
+
+void MediaTransportInterface::RemoveNetworkChangeCallback(
+    MediaTransportNetworkChangeCallback* callback) {
+  RTC_CHECK(callback != nullptr);
+  SetNetworkChangeCallback(nullptr);
+}
+
 void MediaTransportInterface::SetFirstAudioPacketReceivedObserver(
     AudioPacketReceivedObserver* observer) {}
 

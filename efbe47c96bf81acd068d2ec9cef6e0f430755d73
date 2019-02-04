@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2ccfbed_0c6ad2f4",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-04T09:25:27Z",
+      "side": 1,
+      "message": "I think we should write \u0027width and height\u0027 here, to clarify that this is a linear scale factor, not an area scale factor.",
+      "range": {
+        "startLine": 44,
+        "startChar": 17,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab5a9a9b_5f2eabe8",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-04T09:25:27Z",
+      "side": 1,
+      "message": "/*delta\u003d*/ ?",
+      "range": {
+        "startLine": 1049,
+        "startChar": 85,
+        "endLine": 1049,
+        "endChar": 90
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e27f3c6_b8060d81",
+        "filename": "sdk/android/native_api/jni/java_types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-04T09:25:27Z",
+      "side": 1,
+      "message": "Is this strictly needed, or is it done for consistency with NativeToJavaIntegerArray? If the latter, should we update NativeToJavaBooleanArray and NativeToJavaLongArray too?",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 234,
+        "endChar": 26
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d247cf5_54da1f73",
+        "filename": "sdk/android/native_api/jni/java_types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-04T09:25:27Z",
+      "side": 1,
+      "message": "convert_function?",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 39
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

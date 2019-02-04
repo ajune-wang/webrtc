@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54b069bb_0a667b84",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-04T22:52:10Z",
+      "side": 1,
+      "message": "this should now become abstract? \u003d 0; and call to AddNetwork() if !\u003d null, and RemoveNetworkCallback if \u003d\u003d null?\n\notherwise I can\u0027t remove it in the downstream implementation..\n\nAlternatively, we can rework the downstream impls and change open source in the meantime.",
+      "range": {
+        "startLine": 442,
+        "startChar": 50,
+        "endLine": 442,
+        "endChar": 53
+      },
+      "revId": "789acd33f051d3c407aeae9287eecab928ab11c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec15b2d_13e390de",
+        "filename": "pc/channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-04T22:52:10Z",
+      "side": 1,
+      "message": "we can\u0027t land it yet.\nthis will cause crashes in downstream projects.\n\nWe need to update downstream projects first.\n\nI think the right order is\n1) implement the new methods in Downstream projects\n2) update existing callbacks in webrtc and change the Set* to abstract\n3) remove downstream implementations of Set*\n4) remove abstract method.",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 49
+      },
+      "revId": "789acd33f051d3c407aeae9287eecab928ab11c1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

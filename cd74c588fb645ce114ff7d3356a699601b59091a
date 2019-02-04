@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d5923a7_a8488bad",
+        "filename": "style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-04T09:16:08Z",
+      "side": 1,
+      "message": "You\u0027ve put this under \"Build files\". Please move it up with the rest of the C++ rules.",
+      "revId": "cd74c588fb645ce114ff7d3356a699601b59091a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39aee45f_8f9161a4",
+        "filename": "style-guide.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-04T09:16:08Z",
+      "side": 1,
+      "message": ";",
+      "revId": "cd74c588fb645ce114ff7d3356a699601b59091a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

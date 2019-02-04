@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "07f13086_3237c4eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-04T08:20:23Z",
+      "side": 1,
+      "message": "^ I believe this material covers the requested information.",
+      "parentUuid": "ce68bb53_a3ee33cd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "448b27e1_1e031c4e",
         "filename": "style-guide.md",
         "patchSetId": 2

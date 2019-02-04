@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "554dacef_4070b93e",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-04T21:18:45Z",
+      "side": 0,
+      "message": "Chromium is still using it. I think the if is just to switch to directly use MediaProtocolType::kRtp or there is more?",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 68
+      },
+      "revId": "a1fae4b4751e7ba6b19a1200638284294b26436c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

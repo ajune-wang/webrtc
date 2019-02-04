@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "81dc25f6_0f3be5db",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-04T10:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2ccfbed_0c6ad2f4",
+      "range": {
+        "startLine": 44,
+        "startChar": 17,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab5a9a9b_5f2eabe8",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8bcf1fa_2a8db998",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-04T10:03:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab5a9a9b_5f2eabe8",
+      "range": {
+        "startLine": 1049,
+        "startChar": 85,
+        "endLine": 1049,
+        "endChar": 90
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "75a8504b_e9a7c364",
+        "filename": "sdk/android/native_api/jni/java_types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-04T10:03:32Z",
+      "side": 1,
+      "message": "It is needed for the code to compile since there are two conversion functions called NativeToJavaDouble now, one taking a double and one taking an optional double. We could rename the added NativeToJavaDouble, but I thought it is better to be consistent with the naming.",
+      "parentUuid": "6e27f3c6_b8060d81",
+      "range": {
+        "startLine": 233,
+        "startChar": 2,
+        "endLine": 234,
+        "endChar": 26
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d247cf5_54da1f73",
         "filename": "sdk/android/native_api/jni/java_types.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b268ae_051ceaf8",
+        "filename": "sdk/android/native_api/jni/java_types.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-04T10:03:32Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "4d247cf5_54da1f73",
+      "range": {
+        "startLine": 258,
+        "startChar": 32,
+        "endLine": 258,
+        "endChar": 39
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

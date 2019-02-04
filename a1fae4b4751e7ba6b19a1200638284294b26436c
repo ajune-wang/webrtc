@@ -22,6 +22,30 @@
       "revId": "a1fae4b4751e7ba6b19a1200638284294b26436c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3e788b5_bd40e314",
+        "filename": "pc/session_description.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-04T22:15:28Z",
+      "side": 0,
+      "message": "Yeah that should be fine.",
+      "parentUuid": "554dacef_4070b93e",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 68
+      },
+      "revId": "a1fae4b4751e7ba6b19a1200638284294b26436c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

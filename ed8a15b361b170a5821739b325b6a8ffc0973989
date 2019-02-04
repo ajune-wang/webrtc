@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "282f5b8f_8f05d233",
+        "filename": "rtc_base/task_utils/repeating_task_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-04T15:27:48Z",
+      "side": 1,
+      "message": "Nit: maybe wait here for 27ms or something smaller than 30ms. Otherwise, incorrect implementation may still succeed in executing a second task 30ms after the start.",
+      "range": {
+        "startLine": 119,
+        "startChar": 22,
+        "endLine": 119,
+        "endChar": 24
+      },
+      "revId": "ed8a15b361b170a5821739b325b6a8ffc0973989",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

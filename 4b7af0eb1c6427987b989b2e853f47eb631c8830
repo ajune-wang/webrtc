@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ce3812_df735aa1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T12:36:12Z",
+      "side": 1,
+      "message": "I am not completely sure, but is it possible to remove this cast or cast 2.0 to Double. This should give a nicer error if scaleResolutionDownBy happens to be null.",
+      "range": {
+        "startLine": 1050,
+        "startChar": 15,
+        "endLine": 1050,
+        "endChar": 24
+      },
+      "revId": "4b7af0eb1c6427987b989b2e853f47eb631c8830",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

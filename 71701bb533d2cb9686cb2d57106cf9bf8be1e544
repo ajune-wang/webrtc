@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e481a66_c94f1029",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 7036
+      },
+      "writtenOn": "2019-02-04T19:37:17Z",
+      "side": 1,
+      "message": "The spec says otherwise here: \"If the number of RTCRtpEncodingParameters now stored in sendEncodings is 1, then remove any rid member from the lone entry.\"\n\nAlso, you should check we have at most kMaxSimulcastStreams and remove excess layers above that: \"Let maxN be the maximum number of total simultaneous encodings the user agent may support for this kind, at minimum 1.This should be an optimistic number since the codec to be used is not known yet.\n\nIf the number of RTCRtpEncodingParameters stored in sendEncodings exceeds maxN, then trim sendEncodings from the tail until its length is maxN.\"",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

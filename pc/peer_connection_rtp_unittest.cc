@@ -1429,15 +1429,15 @@ TEST_F(PeerConnectionRtpTestUnifiedPlan,
 }
 
 // Test that AddTransceiver fails if trying to use simulcast using
-// send_encodings as it isn't currently supported.
-TEST_F(PeerConnectionRtpTestUnifiedPlan, CheckForUnsupportedSimulcast) {
+// send_encodings without RIDs.
+TEST_F(PeerConnectionRtpTestUnifiedPlan, CheckForSimulcastWithoutRids) {
   auto caller = CreatePeerConnection();
 
   RtpTransceiverInit init;
   init.send_encodings.emplace_back();
   init.send_encodings.emplace_back();
   auto result = caller->pc()->AddTransceiver(cricket::MEDIA_TYPE_VIDEO, init);
-  EXPECT_EQ(result.error().type(), RTCErrorType::UNSUPPORTED_PARAMETER);
+  EXPECT_EQ(result.error().type(), RTCErrorType::INVALID_PARAMETER);
 }
 
 // Test that AddTransceiver fails if trying to use unimplemented RTP encoding

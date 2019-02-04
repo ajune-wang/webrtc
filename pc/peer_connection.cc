@@ -1462,19 +1462,29 @@ PeerConnection::AddTransceiver(
                        : cricket::MEDIA_TYPE_VIDEO));
   }
 
-  // TODO(bugs.webrtc.org/7600): Verify init.
-  if (init.send_encodings.size() > 1) {
+  if (init.send_encodings.size() > 1 &&
+      absl::c_any_of(init.send_encodings,
+                     [](const RtpEncodingParameters& encoding) {
+                       return encoding.rid.empty();
+                     })) {
     LOG_AND_RETURN_ERROR(
-        RTCErrorType::UNSUPPORTED_PARAMETER,
-        "Attempted to create an encoder with more than 1 encoding parameter.");
+        RTCErrorType::INVALID_PARAMETER,
+        "RIDs must be provided when multiple encodings are used.");
   }
 
-  for (const auto& encoding : init.send_encodings) {
-    if (encoding.ssrc.has_value()) {
-      LOG_AND_RETURN_ERROR(
-          RTCErrorType::UNSUPPORTED_PARAMETER,
-          "Attempted to set an unimplemented parameter of RtpParameters.");
-    }
+  if (init.send_encodings.size() == 1 && !init.send_encodings[0].rid.empty()) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::UNSUPPORTED_PARAMETER,
+        "RIDs can only be used in Simulcast scenario with multiple encodings.");
+  }
+
+  if (absl::c_any_of(init.send_encodings,
+                     [](const RtpEncodingParameters& encoding) {
+                       return encoding.ssrc.has_value();
+                     })) {
+    LOG_AND_RETURN_ERROR(
+        RTCErrorType::UNSUPPORTED_PARAMETER,
+        "Attempted to set an unimplemented parameter of RtpParameters.");
   }
 
   RtpParameters parameters;
@@ -3035,8 +3045,11 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     RTC_DCHECK_EQ(source, cricket::CS_REMOTE);
     // If the m= section is sendrecv or recvonly, and there are RtpTransceivers
     // of the same type...
+    // When simulcast is requested, a transceiver cannot be recycled because
+    // AddTrack cannot be called to initialize it.
     if (!transceiver &&
-        RtpTransceiverDirectionHasRecv(media_desc->direction())) {
+        RtpTransceiverDirectionHasRecv(media_desc->direction()) &&
+        !media_desc->HasSimulcast()) {
       transceiver = FindAvailableTransceiverToReceive(media_desc->type());
     }
     // If no RtpTransceiver was found in the previous step, create one with a

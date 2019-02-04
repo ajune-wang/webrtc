@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "ee7b75d3_febcd618",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-04T09:38:23Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "bb874481_c7d8a3a8",
+      "revId": "95842d89919af5bf4b1cd2f1476fcd6b9785fd32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca783f6b_dd131133",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-04T09:38:23Z",
+      "side": 1,
+      "message": "New sentence here? And \"should never *be* set\"?",
+      "range": {
+        "startLine": 139,
+        "startChar": 42,
+        "endLine": 139,
+        "endChar": 43
+      },
+      "revId": "95842d89919af5bf4b1cd2f1476fcd6b9785fd32",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "006d3797_5c14a57e",
         "filename": "rtc_base/openssl_stream_adapter.cc",
         "patchSetId": 4

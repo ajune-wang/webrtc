@@ -92,6 +92,54 @@
       "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1843bab2_574f334a",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-04T08:19:06Z",
+      "side": 1,
+      "message": "Made this global and explicit to avoid this issue.",
+      "parentUuid": "92138fbf_94b9353f",
+      "range": {
+        "startLine": 256,
+        "startChar": 26,
+        "endLine": 256,
+        "endChar": 32
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "015d6b07_afdeb321",
+        "filename": "style-guide.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-02-04T08:19:06Z",
+      "side": 1,
+      "message": "Updated to make this global.",
+      "parentUuid": "448b27e1_1e031c4e",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 256,
+        "endChar": 25
+      },
+      "revId": "d9900bc1831f2e7c7a495008f5b5922b3e442451",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

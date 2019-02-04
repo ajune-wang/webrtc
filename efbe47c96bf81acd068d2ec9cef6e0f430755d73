@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "17b0bfd2_549172e1",
+        "filename": "sdk/android/api/org/webrtc/RtpParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T11:43:52Z",
+      "side": 1,
+      "message": "Please also add a comment what null will do.",
+      "parentUuid": "f2ccfbed_0c6ad2f4",
+      "range": {
+        "startLine": 44,
+        "startChar": 17,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb2bd567_7fe2bee1",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T11:43:52Z",
+      "side": 1,
+      "message": "Maybe something else than 1.0 would be a better test value?",
+      "range": {
+        "startLine": 1034,
+        "startChar": 59,
+        "endLine": 1034,
+        "endChar": 62
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab5a9a9b_5f2eabe8",
         "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
         "patchSetId": 3
@@ -93,6 +140,30 @@
       "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be1b059f_4ada7cb7",
+        "filename": "sdk/android/instrumentationtests/src/org/webrtc/PeerConnectionTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-04T11:43:52Z",
+      "side": 1,
+      "message": "I would prefer to compare exactly here. It seems very risky if we manage to mess it up as we could end up with a non-standard resolutions? HW codecs typically only support a limited set of resolutions.",
+      "parentUuid": "ab5a9a9b_5f2eabe8",
+      "range": {
+        "startLine": 1049,
+        "startChar": 85,
+        "endLine": 1049,
+        "endChar": 90
+      },
+      "revId": "efbe47c96bf81acd068d2ec9cef6e0f430755d73",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

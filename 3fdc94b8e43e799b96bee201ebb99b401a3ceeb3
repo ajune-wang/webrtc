@@ -187,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "f6778652_683bf085",
+        "filename": "call/bitrate_allocator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-04T15:16:29Z",
+      "side": 1,
+      "message": "Parallel arguments are fine.",
+      "parentUuid": "cdd081b2_e463e9f8",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 36
+      },
+      "revId": "3fdc94b8e43e799b96bee201ebb99b401a3ceeb3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "978e347f_f1be0e8a",
         "filename": "call/bitrate_allocator.h",
         "patchSetId": 2

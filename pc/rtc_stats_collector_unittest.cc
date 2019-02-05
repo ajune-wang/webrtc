@@ -30,6 +30,7 @@
 #include "pc/test/mock_rtp_receiver_internal.h"
 #include "pc/test/mock_rtp_sender_internal.h"
 #include "pc/test/rtc_stats_obtainer.h"
+#include "rtc_base/async_invoker.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/fake_clock.h"
 #include "rtc_base/fake_ssl_identity.h"
@@ -2249,7 +2250,9 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
         worker_thread_(pc->worker_thread()),
         network_thread_(pc->network_thread()) {}
 
-  void ProducePartialResultsOnSignalingThread(int64_t timestamp_us) override {
+  void ProducePartialResultsOnSignalingThreadImpl(
+      int64_t timestamp_us,
+      RTCStatsReport* partial_report) override {
     EXPECT_TRUE(signaling_thread_->IsCurrent());
     {
       rtc::CritScope cs(&lock_);
@@ -2257,13 +2260,15 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
       ++produced_on_signaling_thread_;
     }
 
-    rtc::scoped_refptr<RTCStatsReport> signaling_report =
-        RTCStatsReport::Create(0);
-    signaling_report->AddStats(std::unique_ptr<const RTCStats>(
+    partial_report->AddStats(std::unique_ptr<const RTCStats>(
         new RTCTestStats("SignalingThreadStats", timestamp_us)));
-    AddPartialResults(signaling_report);
   }
-  void ProducePartialResultsOnNetworkThread(int64_t timestamp_us) override {
+  void ProducePartialResultsOnNetworkThreadImpl(
+      int64_t timestamp_us,
+      const std::map<std::string, cricket::TransportStats>&
+          transport_stats_by_name,
+      const std::map<std::string, CertificateStatsPair>& transport_cert_stats,
+      RTCStatsReport* partial_report) override {
     EXPECT_TRUE(network_thread_->IsCurrent());
     {
       rtc::CritScope cs(&lock_);
@@ -2271,11 +2276,8 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
       ++produced_on_network_thread_;
     }
 
-    rtc::scoped_refptr<RTCStatsReport> network_report =
-        RTCStatsReport::Create(0);
-    network_report->AddStats(std::unique_ptr<const RTCStats>(
+    partial_report->AddStats(std::unique_ptr<const RTCStats>(
         new RTCTestStats("NetworkThreadStats", timestamp_us)));
-    AddPartialResults(network_report);
   }
 
  private:
@@ -2285,6 +2287,7 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
 
   rtc::CriticalSection lock_;
   rtc::scoped_refptr<const RTCStatsReport> delivered_report_;
+  rtc::AsyncInvoker invoker_;
   int produced_on_signaling_thread_ = 0;
   int produced_on_network_thread_ = 0;
 };

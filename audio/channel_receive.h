@@ -102,6 +102,10 @@ class ChannelReceiveInterface : public RtpPacketSinkInterface {
   virtual void SetMinimumPlayoutDelay(int delay_ms) = 0;
   virtual uint32_t GetPlayoutTimestamp() const = 0;
 
+  // Audio quality.
+  virtual bool SetBaseMinimumPlayoutDelayMs(int delay_ms) = 0;
+  virtual int GetBaseMinimumPlayoutDelayMs() const = 0;
+
   // Produces the transport-related timestamps; current_delay_ms is left unset.
   virtual absl::optional<Syncable::Info> GetSyncInfo() const = 0;
 

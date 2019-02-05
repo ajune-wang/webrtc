@@ -33,7 +33,9 @@ AsyncInvoker::~AsyncInvoker() {
     // Thread::Post even after we called MessageQueueManager::Clear(this). So
     // we need to keep calling Clear to discard these posts.
     Thread::Current()->Clear(this);
+    printf("WAITING...\n");
     invocation_complete_->Wait(Event::kForever);
+    printf("BUT NOT FOREVAHHH!\n");
   }
 }
 

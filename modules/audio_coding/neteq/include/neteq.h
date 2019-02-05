@@ -194,6 +194,15 @@ class NetEq {
   // the |max_delay_ms| value in the NetEq::Config struct.
   virtual bool SetMaximumDelay(int delay_ms) = 0;
 
+  // Sets a base minimum delay in millisecond for packet buffer. The minimum
+  // can't be lower than base minimum delay. Calling this method similar to
+  // setting the |min_delay_ms| value in the NetEq::Config struct. Returns true
+  // if the base minimum is successfully applied, otherwise false is returned.
+  virtual bool SetBaseMinimumDelay(int delay_ms) = 0;
+
+  // Returns current value of base minimum delay.
+  virtual int GetBaseMinimumDelay() const = 0;
+
   // Returns the current target delay in ms. This includes any extra delay
   // requested through SetMinimumDelay.
   virtual int TargetDelayMs() const = 0;

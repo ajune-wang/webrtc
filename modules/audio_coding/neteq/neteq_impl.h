@@ -150,6 +150,10 @@ class NetEqImpl : public webrtc::NetEq {
 
   bool SetMaximumDelay(int delay_ms) override;
 
+  bool SetBaseMinimumDelay(int delay_ms) override;
+
+  int GetBaseMinimumDelay() const override;
+
   int TargetDelayMs() const override;
 
   int FilteredCurrentDelayMs() const override;

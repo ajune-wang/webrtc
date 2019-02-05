@@ -58,6 +58,17 @@ int AcmReceiver::SetMaximumDelay(int delay_ms) {
   return -1;
 }
 
+int AcmReceiver::SetBaseMinimumDelay(int delay_ms) {
+  if (neteq_->SetBaseMinimumDelay(delay_ms))
+    return 0;
+  RTC_LOG(LERROR) << "AcmReceiver::SetBaseMinimumDelay" << delay_ms;
+  return -1;
+}
+
+int AcmReceiver::GetBaseMinimumDelay() const {
+  return neteq_->GetBaseMinimumDelay();
+}
+
 absl::optional<int> AcmReceiver::last_packet_sample_rate_hz() const {
   rtc::CritScope lock(&crit_sect_);
   if (!last_decoder_) {

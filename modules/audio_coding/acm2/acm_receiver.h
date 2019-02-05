@@ -108,6 +108,21 @@ class AcmReceiver {
   //
   int SetMaximumDelay(int delay_ms);
 
+  // Sets a base minimum delay [ms] for the packet buffer. The buffer minimum
+  // delay can't be lower than base minimum delay.
+  //
+  // Input:
+  //   - delay_ms             : maximum delay in milliseconds.
+  //
+  // Return value             : 0 if OK.
+  //                           <0 if NetEq returned an error.
+  int SetBaseMinimumDelay(int delay_ms);
+
+  // Returns current value of base minimum delay.
+  //
+  // Return value             : base minimum delay in milliseconds.
+  int GetBaseMinimumDelay() const;
+
   //
   // Resets the initial delay to zero.
   //

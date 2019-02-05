@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70662d63_0499ddcc",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-05T10:25:16Z",
+      "side": 1,
+      "message": "Is logging necessary?",
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e914b7f5_e42e5b29",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-05T10:25:16Z",
+      "side": 1,
+      "message": "Add an \"Ms\" suffix?",
+      "range": {
+        "startLine": 124,
+        "startChar": 6,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b09ee36b_7b8089bf",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-05T10:25:16Z",
+      "side": 1,
+      "message": "Isn\u0027t the \"base minimum delay\" the thing that we\u0027re setting here?",
+      "range": {
+        "startLine": 197,
+        "startChar": 65,
+        "endLine": 198,
+        "endChar": 44
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d60647_9a49c902",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-05T10:25:16Z",
+      "side": 1,
+      "message": "Add an \"Ms\" suffix to these two methods?",
+      "range": {
+        "startLine": 204,
+        "startChar": 14,
+        "endLine": 204,
+        "endChar": 33
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

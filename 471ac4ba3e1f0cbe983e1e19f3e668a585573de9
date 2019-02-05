@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffa5346e_7fe7827c",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-05T15:28:06Z",
+      "side": 1,
+      "message": "nit: How about instead defining a constant AspectRatio.UNDEFINED that has both with and height set to 0? It would clean up the code quite significantly.",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "471ac4ba3e1f0cbe983e1e19f3e668a585573de9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

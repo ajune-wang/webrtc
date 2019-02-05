@@ -32,6 +32,7 @@
 #include "rtc_base/rate_statistics.h"
 #include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
+#include "video/encoder_bitrate_adjuster.h"
 #include "video/overuse_frame_detector.h"
 #include "video/partial_frame_assembler.h"
 
@@ -107,7 +108,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
                                    size_t max_data_payload_length);
   void ReconfigureEncoder() RTC_RUN_ON(&encoder_queue_);
 
-  void ConfigureQualityScaler();
+  void ConfigureQualityScaler(const VideoEncoder::EncoderInfo& encoder_info);
 
   // Implements VideoSinkInterface.
   void OnFrame(const VideoFrame& video_frame) override;
@@ -181,13 +182,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void UpdateAdaptationStats(AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
   VideoStreamEncoderObserver::AdaptationSteps GetActiveCounts(
       AdaptReason reason) RTC_RUN_ON(&encoder_queue_);
-  void RunPostEncode(uint32_t frame_timestamp,
+  void RunPostEncode(EncodedImage encoded_image,
                      int64_t time_sent_us,
-                     int64_t capture_time_us,
-                     absl::optional<int> encode_durations_us,
-                     int qp,
-                     size_t frame_size_bytes,
-                     bool keyframe);
+                     int temporal_index);
 
   rtc::Event shutdown_event_;
 
@@ -298,6 +295,9 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
 
   PartialFrameAssembler partial_frame_assembler_
       RTC_GUARDED_BY(incoming_frame_race_checker_);
+
+  std::unique_ptr<EncoderBitrateAdjuster> bitrate_adjuster_
+      RTC_GUARDED_BY(&encoder_queue_);
 
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.

@@ -154,7 +154,8 @@ RttBasedBackoff::RttBasedBackoff()
       // By initializing this to plus infinity, we make sure that we never
       // trigger rtt backoff unless packet feedback is enabled.
       last_propagation_rtt_update_(Timestamp::PlusInfinity()),
-      last_propagation_rtt_(TimeDelta::Zero()) {
+      last_propagation_rtt_(TimeDelta::Zero()),
+      last_feedback_triggering_packet_sent_(Timestamp::MinusInfinity()) {
   ParseFieldTrial({&rtt_limit_, &drop_fraction_, &drop_interval_,
                    &persist_on_route_change_},
                   field_trial::FindFullName("WebRTC-Bwe-MaxRttLimit"));
@@ -174,9 +175,12 @@ void RttBasedBackoff::UpdatePropagationRtt(Timestamp at_time,
 }
 
 TimeDelta RttBasedBackoff::RttLowerBound(Timestamp at_time) const {
-  // TODO(srte): Use time since last unacknowledged packet for this.
   TimeDelta time_since_rtt = at_time - last_propagation_rtt_update_;
-  return time_since_rtt + last_propagation_rtt_;
+  TimeDelta time_since_timestamped_packet_sent =
+      at_time - last_feedback_triggering_packet_sent_;
+  TimeDelta time_since_unacknowledged = std::max(
+      TimeDelta::Zero(), time_since_rtt - time_since_timestamped_packet_sent);
+  return time_since_unacknowledged + last_propagation_rtt_;
 }
 
 RttBasedBackoff::~RttBasedBackoff() = default;
@@ -550,6 +554,11 @@ void SendSideBandwidthEstimation::UpdatePropagationRtt(
     Timestamp at_time,
     TimeDelta propagation_rtt) {
   rtt_backoff_.UpdatePropagationRtt(at_time, propagation_rtt);
+}
+
+void SendSideBandwidthEstimation::OnSentPacket(const SentPacket& sent_packet) {
+  // Only feedback-triggering packets will be reported here.
+  rtt_backoff_.last_feedback_triggering_packet_sent_ = sent_packet.send_time;
 }
 
 bool SendSideBandwidthEstimation::IsInStartPhase(Timestamp at_time) const {

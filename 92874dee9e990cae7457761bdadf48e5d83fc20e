@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "164b7d3d_c6c43ffa",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-05T15:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37a6eac6_069e083e",
+      "range": {
+        "startLine": 244,
+        "startChar": 2,
+        "endLine": 244,
+        "endChar": 13
+      },
+      "revId": "92874dee9e990cae7457761bdadf48e5d83fc20e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c62b1c3_684efabe",
         "filename": "PRESUBMIT.py",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2019-02-05T15:22:32Z",
       "side": 1,
       "message": "If you\u0027re just using `re.search` then the `.*` at either end are not needed.",
+      "revId": "92874dee9e990cae7457761bdadf48e5d83fc20e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6afd2a0e_51af50f6",
+        "filename": "PRESUBMIT.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-05T15:49:10Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "3c62b1c3_684efabe",
       "revId": "92874dee9e990cae7457761bdadf48e5d83fc20e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

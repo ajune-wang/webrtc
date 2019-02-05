@@ -154,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "f9b7b4c8_9b64a98a",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T12:57:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0fc7d8e9_ca9dc5af",
+      "range": {
+        "startLine": 198,
+        "startChar": 58,
+        "endLine": 198,
+        "endChar": 72
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8d60647_9a49c902",
         "filename": "modules/audio_coding/neteq/include/neteq.h",
         "patchSetId": 1
@@ -198,6 +222,30 @@
       "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ee55082_ed4fbd61",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T12:57:44Z",
+      "side": 1,
+      "message": "Asked the same question in person. I need to add Ms to setters as well because it would  alleviate reading on further levels.",
+      "parentUuid": "dd00982c_1cb3222e",
+      "range": {
+        "startLine": 204,
+        "startChar": 14,
+        "endLine": 204,
+        "endChar": 33
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

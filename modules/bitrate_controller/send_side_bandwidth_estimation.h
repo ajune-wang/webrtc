@@ -63,6 +63,7 @@ class RttBasedBackoff {
  public:
   Timestamp last_propagation_rtt_update_;
   TimeDelta last_propagation_rtt_;
+  Timestamp last_feedback_triggering_packet_sent_;
 };
 
 class SendSideBandwidthEstimation {
@@ -76,7 +77,7 @@ class SendSideBandwidthEstimation {
   DataRate GetEstimatedLinkCapacity() const;
   // Call periodically to update estimate.
   void UpdateEstimate(Timestamp at_time);
-  void OnSentPacket(SentPacket sent_packet);
+  void OnSentPacket(const SentPacket& sent_packet);
   void UpdatePropagationRtt(Timestamp at_time, TimeDelta propagation_rtt);
 
   // Call when we receive a RTCP message with TMMBR or REMB.

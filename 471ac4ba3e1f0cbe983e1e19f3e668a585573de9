@@ -22,6 +22,30 @@
       "revId": "471ac4ba3e1f0cbe983e1e19f3e668a585573de9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af47ad73_63baebb4",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-05T15:40:08Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "ffa5346e_7fe7827c",
+      "range": {
+        "startLine": 78,
+        "startChar": 32,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "471ac4ba3e1f0cbe983e1e19f3e668a585573de9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

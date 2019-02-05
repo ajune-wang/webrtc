@@ -125,8 +125,9 @@ bool CriticalSection::TryEnter() const RTC_EXCLUSIVE_TRYLOCK_FUNCTION(true) {
 #elif defined(WEBRTC_POSIX)
 #if defined(WEBRTC_MAC) && !USE_NATIVE_MUTEX_ON_MAC
   if (!IsThreadRefEqual(owning_thread_, CurrentThreadRef())) {
-    if (AtomicOps::CompareAndSwap(&lock_queue_, 0, 1) != 0)
+    if (AtomicOps::CompareAndSwap(&lock_queue_, 0, 1) != 0) {
       return false;
+    }
     owning_thread_ = CurrentThreadRef();
     RTC_DCHECK(!recursion_);
   } else {
@@ -167,11 +168,13 @@ void CriticalSection::Leave() const RTC_UNLOCK_FUNCTION() {
   RTC_DCHECK(IsThreadRefEqual(owning_thread_, CurrentThreadRef()));
   RTC_DCHECK_GE(recursion_, 0);
   --recursion_;
-  if (!recursion_)
+  if (!recursion_) {
     owning_thread_ = 0;
+  }
 
-  if (AtomicOps::Decrement(&lock_queue_) > 0 && !recursion_)
+  if (AtomicOps::Decrement(&lock_queue_) > 0 && !recursion_) {
     dispatch_semaphore_signal(semaphore_);
+  }
 #else
   pthread_mutex_unlock(&mutex_);
 #endif
@@ -214,8 +217,9 @@ TryCritScope::TryCritScope(const CriticalSection* cs)
 
 TryCritScope::~TryCritScope() {
   CS_DEBUG_CODE(RTC_DCHECK(lock_was_called_));
-  if (locked_)
+  if (locked_) {
     cs_->Leave();
+  }
 }
 
 bool TryCritScope::locked() const {

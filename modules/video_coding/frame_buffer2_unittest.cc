@@ -43,10 +43,11 @@ class VCMTimingFake : public VCMTiming {
     }
 
     uint32_t diff = MinDiff(frame_timestamp, last_timestamp_);
-    if (AheadOf(frame_timestamp, last_timestamp_))
+    if (AheadOf(frame_timestamp, last_timestamp_)) {
       last_ms_ += diff / 90;
-    else
+    } else {
       last_ms_ -= diff / 90;
+    }
 
     last_timestamp_ = frame_timestamp;
     return last_ms_;
@@ -165,8 +166,9 @@ class TestFrameBuffer2 : public ::testing::Test {
     // Add some data to buffer.
     frame->VerifyAndAllocate(kFrameSize);
     frame->set_size(kFrameSize);
-    for (size_t r = 0; r < references.size(); ++r)
+    for (size_t r = 0; r < references.size(); ++r) {
       frame->references[r] = references[r];
+    }
 
     return buffer_->InsertFrame(std::move(frame));
   }
@@ -177,8 +179,9 @@ class TestFrameBuffer2 : public ::testing::Test {
       std::unique_ptr<EncodedFrame> frame;
       FrameBuffer::ReturnReason res =
           buffer_->NextFrame(0, &frame, keyframe_required);
-      if (res != FrameBuffer::ReturnReason::kStopped)
+      if (res != FrameBuffer::ReturnReason::kStopped) {
         frames_.emplace_back(std::move(frame));
+      }
       crit_.Leave();
     } else {
       max_wait_time_ = max_wait_time;
@@ -217,14 +220,16 @@ class TestFrameBuffer2 : public ::testing::Test {
       {
         rtc::CritScope lock(&tfb->crit_);
         tfb->crit_acquired_event_.Set();
-        if (tfb->tear_down_)
+        if (tfb->tear_down_) {
           return;
+        }
 
         std::unique_ptr<EncodedFrame> frame;
         FrameBuffer::ReturnReason res =
             tfb->buffer_->NextFrame(tfb->max_wait_time_, &frame);
-        if (res != FrameBuffer::ReturnReason::kStopped)
+        if (res != FrameBuffer::ReturnReason::kStopped) {
           tfb->frames_.emplace_back(std::move(frame));
+        }
       }
     }
   }
@@ -550,8 +555,9 @@ TEST_F(TestFrameBuffer2, KeyframeRequired) {
 TEST_F(TestFrameBuffer2, KeyframeClearsFullBuffer) {
   const int kMaxBufferSize = 600;
 
-  for (int i = 1; i <= kMaxBufferSize; ++i)
+  for (int i = 1; i <= kMaxBufferSize; ++i) {
     EXPECT_EQ(-1, InsertFrame(i, 0, i * 1000, false, true, i - 1));
+  }
   ExtractFrame();
   CheckNoFrame(0);
 

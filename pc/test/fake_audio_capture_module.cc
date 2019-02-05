@@ -427,8 +427,9 @@ bool FakeAudioCaptureModule::CheckRecBuffer(int value) {
   const size_t buffer_size_in_samples =
       sizeof(rec_buffer_) / kNumberBytesPerSample;
   for (size_t i = 0; i < buffer_size_in_samples; ++i) {
-    if (buffer_ptr[i] >= value)
+    if (buffer_ptr[i] >= value) {
       return true;
+    }
   }
   return false;
 }

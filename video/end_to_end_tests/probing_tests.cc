@@ -61,8 +61,9 @@ TEST_F(ProbingEndToEndTest, InitialProbing) {
     void PerformTest() override {
       int64_t start_time_ms = clock_->TimeInMilliseconds();
       do {
-        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs)
+        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs) {
           break;
+        }
 
         Call::Stats stats = sender_call_->GetStats();
         // Initial probing is done with a x3 and x6 multiplier of the start
@@ -84,8 +85,9 @@ TEST_F(ProbingEndToEndTest, InitialProbing) {
   for (int i = 0; i < kMaxAttempts; ++i) {
     InitialProbingTest test(&success);
     RunBaseTest(&test);
-    if (success)
+    if (success) {
       return;
+    }
   }
   EXPECT_TRUE(success) << "Failed to perform mid initial probing ("
                        << kMaxAttempts << " attempts).";
@@ -112,8 +114,9 @@ TEST_F(ProbingEndToEndTest, TriggerMidCallProbing) {
       *success_ = false;
       int64_t start_time_ms = clock_->TimeInMilliseconds();
       do {
-        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs)
+        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs) {
           break;
+        }
 
         Call::Stats stats = sender_call_->GetStats();
 
@@ -164,8 +167,9 @@ TEST_F(ProbingEndToEndTest, TriggerMidCallProbing) {
   for (int i = 0; i < kMaxAttempts; ++i) {
     TriggerMidCallProbingTest test(&task_queue_, &success);
     RunBaseTest(&test);
-    if (success)
+    if (success) {
       return;
+    }
   }
   EXPECT_TRUE(success) << "Failed to perform mid call probing (" << kMaxAttempts
                        << " attempts).";
@@ -220,8 +224,9 @@ TEST_F(ProbingEndToEndTest, ProbeOnVideoEncoderReconfiguration) {
       *success_ = false;
       int64_t start_time_ms = clock_->TimeInMilliseconds();
       do {
-        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs)
+        if (clock_->TimeInMilliseconds() - start_time_ms > kTimeoutMs) {
           break;
+        }
 
         Call::Stats stats = sender_call_->GetStats();
 

@@ -101,8 +101,9 @@ bool TestClient::CheckNextPacket(const char* buf,
   if (packet) {
     res = (packet->size == size && memcmp(packet->buf, buf, size) == 0 &&
            CheckTimestamp(packet->packet_time_us));
-    if (addr)
+    if (addr) {
       *addr = packet->addr;
+    }
   }
   return res;
 }

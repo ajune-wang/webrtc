@@ -122,10 +122,11 @@ void RunMethodOnDifferentTaskQueue(bool expect_true) {
   TaskQueue queue(kQueueName);
   Event done_event;
   queue.PostTask([&sequenced_task_checker, &done_event, expect_true] {
-    if (expect_true)
+    if (expect_true) {
       EXPECT_TRUE(sequenced_task_checker->CalledSequentially());
-    else
+    } else {
       EXPECT_FALSE(sequenced_task_checker->CalledSequentially());
+    }
     done_event.Set();
   });
   EXPECT_TRUE(done_event.Wait(1000));
@@ -149,10 +150,11 @@ void DetachThenCallFromDifferentTaskQueue(bool expect_true) {
   // another task queue.
   TaskQueue queue2("DetachThenCallFromDifferentTaskQueueImpl2");
   queue2.PostTask([&sequenced_task_checker, &done_event, expect_true] {
-    if (expect_true)
+    if (expect_true) {
       EXPECT_TRUE(sequenced_task_checker->CalledSequentially());
-    else
+    } else {
       EXPECT_FALSE(sequenced_task_checker->CalledSequentially());
+    }
     done_event.Set();
   });
   EXPECT_TRUE(done_event.Wait(1000));

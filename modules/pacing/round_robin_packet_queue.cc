@@ -42,10 +42,12 @@ RoundRobinPacketQueue::Packet::~Packet() {}
 
 bool RoundRobinPacketQueue::Packet::operator<(
     const RoundRobinPacketQueue::Packet& other) const {
-  if (priority != other.priority)
+  if (priority != other.priority) {
     return priority > other.priority;
-  if (retransmission != other.retransmission)
+  }
+  if (retransmission != other.retransmission) {
     return other.retransmission;
+  }
 
   return enqueue_order > other.enqueue_order;
 }
@@ -183,16 +185,18 @@ uint64_t RoundRobinPacketQueue::SizeInBytes() const {
 }
 
 int64_t RoundRobinPacketQueue::OldestEnqueueTimeMs() const {
-  if (Empty())
+  if (Empty()) {
     return 0;
+  }
   RTC_CHECK(!enqueue_times_.empty());
   return *enqueue_times_.begin();
 }
 
 void RoundRobinPacketQueue::UpdateQueueTime(int64_t timestamp_ms) {
   RTC_CHECK_GE(timestamp_ms, time_last_updated_ms_);
-  if (timestamp_ms == time_last_updated_ms_)
+  if (timestamp_ms == time_last_updated_ms_) {
     return;
+  }
 
   int64_t delta_ms = timestamp_ms - time_last_updated_ms_;
 
@@ -206,15 +210,17 @@ void RoundRobinPacketQueue::UpdateQueueTime(int64_t timestamp_ms) {
 }
 
 void RoundRobinPacketQueue::SetPauseState(bool paused, int64_t timestamp_ms) {
-  if (paused_ == paused)
+  if (paused_ == paused) {
     return;
+  }
   UpdateQueueTime(timestamp_ms);
   paused_ = paused;
 }
 
 int64_t RoundRobinPacketQueue::AverageQueueTimeMs() const {
-  if (Empty())
+  if (Empty()) {
     return 0;
+  }
   return queue_time_sum_ms_ / size_packets_;
 }
 
@@ -232,8 +238,9 @@ RoundRobinPacketQueue::GetHighestPriorityStream() {
 
 bool RoundRobinPacketQueue::IsSsrcScheduled(uint32_t ssrc) const {
   for (const auto& scheduled_stream : stream_priorities_) {
-    if (scheduled_stream.second == ssrc)
+    if (scheduled_stream.second == ssrc) {
       return true;
+    }
   }
   return false;
 }

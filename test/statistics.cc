@@ -36,8 +36,9 @@ double Statistics::Max() const {
 }
 
 double Statistics::Mean() const {
-  if (count_ == 0)
+  if (count_ == 0) {
     return 0.0;
+  }
   return sum_ / count_;
 }
 
@@ -46,8 +47,9 @@ double Statistics::Min() const {
 }
 
 double Statistics::Variance() const {
-  if (count_ == 0)
+  if (count_ == 0) {
     return 0.0;
+  }
   return sum_squared_ / count_ - Mean() * Mean();
 }
 

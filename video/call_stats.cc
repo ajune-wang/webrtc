@@ -30,8 +30,9 @@ void RemoveOldReports(int64_t now, std::list<CallStats::RttTime>* reports) {
 
 int64_t GetMaxRttMs(const std::list<CallStats::RttTime>& reports) {
   int64_t max_rtt_ms = -1;
-  for (const CallStats::RttTime& rtt_time : reports)
+  for (const CallStats::RttTime& rtt_time : reports) {
     max_rtt_ms = std::max(rtt_time.rtt, max_rtt_ms);
+  }
   return max_rtt_ms;
 }
 
@@ -47,12 +48,14 @@ int64_t GetAvgRttMs(const std::list<CallStats::RttTime>& reports) {
 
 int64_t GetNewAvgRttMs(const std::list<CallStats::RttTime>& reports,
                        int64_t prev_avg_rtt) {
-  if (reports.empty())
+  if (reports.empty()) {
     return -1;  // Reset (invalid average).
+  }
 
   int64_t cur_rtt_ms = GetAvgRttMs(reports);
-  if (prev_avg_rtt == -1)
+  if (prev_avg_rtt == -1) {
     return cur_rtt_ms;  // New initial average value.
+  }
 
   // Weight factor to apply to the average rtt.
   // We weigh the old average at 70% against the new average (30%).
@@ -73,12 +76,14 @@ class TemporaryDeregistration {
       : module_(module),
         process_thread_(process_thread),
         deregistered_(thread_running) {
-    if (thread_running)
+    if (thread_running) {
       process_thread_->DeRegisterModule(module_);
+    }
   }
   ~TemporaryDeregistration() {
-    if (deregistered_)
+    if (deregistered_) {
       process_thread_->RegisterModule(module_, RTC_FROM_HERE);
+    }
   }
 
  private:
@@ -133,8 +138,9 @@ void CallStats::Process() {
   // If there is a valid rtt, update all observers with the max rtt.
   if (max_rtt_ms_ >= 0) {
     RTC_DCHECK_GE(avg_rtt_ms, 0);
-    for (CallStatsObserver* observer : observers_)
+    for (CallStatsObserver* observer : observers_) {
       observer->OnRttUpdate(avg_rtt_ms, max_rtt_ms_);
+    }
     // Sum for Histogram of average RTT reported over the entire call.
     sum_avg_rtt_ms_ += avg_rtt_ms;
     ++num_avg_rtt_;
@@ -159,8 +165,9 @@ void CallStats::RegisterStatsObserver(CallStatsObserver* observer) {
                                      process_thread_running_);
 
   auto it = std::find(observers_.begin(), observers_.end(), observer);
-  if (it == observers_.end())
+  if (it == observers_.end()) {
     observers_.push_back(observer);
+  }
 }
 
 void CallStats::DeregisterStatsObserver(CallStatsObserver* observer) {
@@ -180,8 +187,9 @@ void CallStats::OnRttUpdate(int64_t rtt) {
   process_thread_->PostTask(rtc::NewClosure([rtt, now_ms, this]() {
     RTC_DCHECK_RUN_ON(&process_thread_checker_);
     reports_.push_back(RttTime(rtt, now_ms));
-    if (time_of_first_rtt_ms_ == -1)
+    if (time_of_first_rtt_ms_ == -1) {
       time_of_first_rtt_ms_ = now_ms;
+    }
 
     process_thread_->WakeUp(this);
   }));
@@ -204,8 +212,9 @@ void CallStats::UpdateHistograms() {
     // it.
     RTC_DCHECK_RUN_ON(&process_thread_checker_);
 
-    if (time_of_first_rtt_ms_ == -1 || num_avg_rtt_ < 1)
+    if (time_of_first_rtt_ms_ == -1 || num_avg_rtt_ < 1) {
       return;
+    }
 
     int64_t elapsed_sec =
         (clock_->TimeInMilliseconds() - time_of_first_rtt_ms_) / 1000;

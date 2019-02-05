@@ -63,8 +63,9 @@ const unsigned char* GetCategoryEnabledHandler(const char* name) {
 class RTCStatsReportTraceListener {
  public:
   static void SetUp() {
-    if (!traced_report_)
+    if (!traced_report_) {
       traced_report_ = new RTCStatsReportTraceListener();
+    }
     traced_report_->last_trace_ = "";
     SetupEventTracer(&GetCategoryEnabledHandler,
                      &RTCStatsReportTraceListener::AddTraceEventHandler);
@@ -277,8 +278,9 @@ class RTCStatsVerifier {
   }
 
   bool ExpectAllMembersSuccessfullyTested() {
-    if (untested_members_.empty())
+    if (untested_members_.empty()) {
       return all_tests_successful_;
+    }
     for (const RTCStatsMemberInterface* member : untested_members_) {
       EXPECT_TRUE(false) << stats_->type() << "." << member->name() << "["
                          << stats_->id() << "] was not tested.";
@@ -909,8 +911,9 @@ TEST_F(RTCStatsIntegrationTest, GetStatsReferencedIds) {
     // "Ids" suffix.
     std::set<const std::string*> expected_ids;
     for (const auto* member : stats.Members()) {
-      if (!member->is_defined())
+      if (!member->is_defined()) {
         continue;
+      }
       if (member->type() == RTCStatsMemberInterface::kString) {
         if (absl::EndsWith(member->name(), "Id")) {
           const auto& id = member->cast_to<const RTCStatsMember<std::string>>();
@@ -920,8 +923,9 @@ TEST_F(RTCStatsIntegrationTest, GetStatsReferencedIds) {
         if (absl::EndsWith(member->name(), "Ids")) {
           const auto& ids =
               member->cast_to<const RTCStatsMember<std::vector<std::string>>>();
-          for (const std::string& id : *ids)
+          for (const std::string& id : *ids) {
             expected_ids.insert(&id);
+          }
         }
       }
     }

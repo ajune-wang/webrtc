@@ -138,8 +138,9 @@ int AsyncTCPSocketBase::SendTo(const void* pv,
                                const SocketAddress& addr,
                                const rtc::PacketOptions& options) {
   const SocketAddress& remote_address = GetRemoteAddress();
-  if (addr == remote_address)
+  if (addr == remote_address) {
     return Send(pv, cb, options);
+  }
   // Remote address may be empty if there is a sudden network change.
   RTC_DCHECK(remote_address.IsNil());
   socket_->SetError(ENOTCONN);
@@ -288,8 +289,9 @@ int AsyncTCPSocket::Send(const void* pv,
   }
 
   // If we are blocking on send, then silently drop this packet
-  if (!IsOutBufferEmpty())
+  if (!IsOutBufferEmpty()) {
     return static_cast<int>(cb);
+  }
 
   PacketLength pkt_len = HostToNetwork16(static_cast<PacketLength>(cb));
   AppendToOutBuffer(&pkt_len, kPacketLenSize);
@@ -315,12 +317,14 @@ void AsyncTCPSocket::ProcessInput(char* data, size_t* len) {
   SocketAddress remote_addr(GetRemoteAddress());
 
   while (true) {
-    if (*len < kPacketLenSize)
+    if (*len < kPacketLenSize) {
       return;
+    }
 
     PacketLength pkt_len = rtc::GetBE16(data);
-    if (*len < kPacketLenSize + pkt_len)
+    if (*len < kPacketLenSize + pkt_len) {
       return;
+    }
 
     SignalReadPacket(this, data + kPacketLenSize, pkt_len, remote_addr,
                      TimeMicros());

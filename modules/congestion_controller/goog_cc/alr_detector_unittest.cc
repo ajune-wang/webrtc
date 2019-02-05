@@ -45,8 +45,9 @@ class SimulateOutgoingTrafficIn {
 
  private:
   void ProduceTraffic() {
-    if (!interval_ms_ || !usage_percentage_)
+    if (!interval_ms_ || !usage_percentage_) {
       return;
+    }
     const int kTimeStepMs = 10;
     for (int t = 0; t < *interval_ms_; t += kTimeStepMs) {
       *timestamp_ms_ += kTimeStepMs;

@@ -94,8 +94,9 @@ void AsyncResolver::Start(const SocketAddress& addr) {
 }
 
 bool AsyncResolver::GetResolvedAddress(int family, SocketAddress* addr) const {
-  if (error_ != 0 || addresses_.empty())
+  if (error_ != 0 || addresses_.empty()) {
     return false;
+  }
 
   *addr = addr_;
   for (size_t i = 0; i < addresses_.size(); ++i) {

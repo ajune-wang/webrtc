@@ -87,8 +87,9 @@ class TestMainImpl : public TestMain {
 
     // Default to LS_INFO, even for release builds to provide better test
     // logging.
-    if (rtc::LogMessage::GetLogToDebug() > rtc::LS_INFO)
+    if (rtc::LogMessage::GetLogToDebug() > rtc::LS_INFO) {
       rtc::LogMessage::LogToDebug(rtc::LS_INFO);
+    }
 
     if (rtc::FlagList::SetFlagsFromCommandLine(argc, argv, false)) {
       return 1;
@@ -98,8 +99,9 @@ class TestMainImpl : public TestMain {
       return 0;
     }
 
-    if (FLAG_verbose)
+    if (FLAG_verbose) {
       rtc::LogMessage::LogToDebug(rtc::LS_VERBOSE);
+    }
 
     rtc::LogMessage::SetLogToStderr(FLAG_logs || FLAG_verbose);
 

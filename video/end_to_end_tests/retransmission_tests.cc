@@ -63,12 +63,14 @@ TEST_F(RetransmissionEndToEndTest, ReceivesAndRetransmitsNack) {
       ++sent_rtp_packets_;
 
       // Enough NACKs received, stop dropping packets.
-      if (nacks_left_ <= 0)
+      if (nacks_left_ <= 0) {
         return SEND_PACKET;
+      }
 
       // Check if it's time for a new loss burst.
-      if (sent_rtp_packets_ % kPacketsBetweenLossBursts == 0)
+      if (sent_rtp_packets_ % kPacketsBetweenLossBursts == 0) {
         packets_left_to_drop_ = kLossBurstSize;
+      }
 
       // Never drop padding packets as those won't be retransmitted.
       if (packets_left_to_drop_ > 0 && header.paddingLength == 0) {
@@ -250,8 +252,9 @@ void RetransmissionEndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
       // Drop all retransmitted packets to force a PLI.
-      if (header.timestamp <= highest_dropped_timestamp_)
+      if (header.timestamp <= highest_dropped_timestamp_) {
         return DROP_PACKET;
+      }
 
       if (frames_to_drop_ > 0) {
         highest_dropped_timestamp_ = header.timestamp;
@@ -266,10 +269,12 @@ void RetransmissionEndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
       rtc::CritScope lock(&crit_);
       test::RtcpPacketParser parser;
       EXPECT_TRUE(parser.Parse(packet, length));
-      if (!nack_enabled_)
+      if (!nack_enabled_) {
         EXPECT_EQ(0, parser.nack()->num_packets());
-      if (parser.pli()->num_packets() > 0)
+      }
+      if (parser.pli()->num_packets() > 0) {
         received_pli_ = true;
+      }
       return SEND_PACKET;
     }
 
@@ -279,8 +284,9 @@ void RetransmissionEndToEndTest::ReceivesPliAndRecovers(int rtp_history_ms) {
           video_frame.timestamp() > highest_dropped_timestamp_) {
         observation_complete_.Set();
       }
-      if (!received_pli_)
+      if (!received_pli_) {
         frames_to_drop_ = kPacketsToDrop;
+      }
     }
 
     void ModifyVideoConfigs(
@@ -344,8 +350,9 @@ void RetransmissionEndToEndTest::DecodesRetransmittedFrame(bool enable_rtx,
       // Ignore padding-only packets over RTX.
       if (header.payloadType != payload_type_) {
         EXPECT_EQ(retransmission_ssrc_, header.ssrc);
-        if (length == header.headerLength + header.paddingLength)
+        if (length == header.headerLength + header.paddingLength) {
           return SEND_PACKET;
+        }
       }
 
       if (header.timestamp == retransmitted_timestamp_) {
@@ -383,8 +390,9 @@ void RetransmissionEndToEndTest::DecodesRetransmittedFrame(bool enable_rtx,
       EXPECT_EQ(kVideoRotation_90, frame.rotation());
       {
         rtc::CritScope lock(&crit_);
-        if (frame.timestamp() == retransmitted_timestamp_)
+        if (frame.timestamp() == retransmitted_timestamp_) {
           observation_complete_.Set();
+        }
         rendered_timestamps_.push_back(frame.timestamp());
       }
       orig_renderer_->OnFrame(frame);
@@ -409,8 +417,9 @@ void RetransmissionEndToEndTest::DecodesRetransmittedFrame(bool enable_rtx,
       if (payload_type_ == kRedPayloadType) {
         send_config->rtp.ulpfec.ulpfec_payload_type = kUlpfecPayloadType;
         send_config->rtp.ulpfec.red_payload_type = kRedPayloadType;
-        if (retransmission_ssrc_ == kSendRtxSsrcs[0])
+        if (retransmission_ssrc_ == kSendRtxSsrcs[0]) {
           send_config->rtp.ulpfec.red_rtx_payload_type = kRtxRedPayloadType;
+        }
         (*receive_configs)[0].rtp.ulpfec_payload_type =
             send_config->rtp.ulpfec.ulpfec_payload_type;
         (*receive_configs)[0].rtp.red_payload_type =
@@ -448,12 +457,14 @@ void RetransmissionEndToEndTest::DecodesRetransmittedFrame(bool enable_rtx,
 
     int GetPayloadType(bool use_rtx, bool use_fec) {
       if (use_fec) {
-        if (use_rtx)
+        if (use_rtx) {
           return kRtxRedPayloadType;
+        }
         return kRedPayloadType;
       }
-      if (use_rtx)
+      if (use_rtx) {
         return kSendRtxPayloadType;
+      }
       return kFakeVideoSendPayloadType;
     }
 

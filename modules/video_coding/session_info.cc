@@ -47,30 +47,35 @@ VCMSessionInfo::~VCMSessionInfo() {}
 
 void VCMSessionInfo::UpdateDataPointers(const uint8_t* old_base_ptr,
                                         const uint8_t* new_base_ptr) {
-  for (PacketIterator it = packets_.begin(); it != packets_.end(); ++it)
+  for (PacketIterator it = packets_.begin(); it != packets_.end(); ++it) {
     if ((*it).dataPtr != NULL) {
       assert(old_base_ptr != NULL && new_base_ptr != NULL);
       (*it).dataPtr = new_base_ptr + ((*it).dataPtr - old_base_ptr);
     }
+  }
 }
 
 int VCMSessionInfo::LowSequenceNumber() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return empty_seq_num_low_;
+  }
   return packets_.front().seqNum;
 }
 
 int VCMSessionInfo::HighSequenceNumber() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return empty_seq_num_high_;
-  if (empty_seq_num_high_ == -1)
+  }
+  if (empty_seq_num_high_ == -1) {
     return packets_.back().seqNum;
+  }
   return LatestSequenceNumber(packets_.back().seqNum, empty_seq_num_high_);
 }
 
 int VCMSessionInfo::PictureId() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return kNoPictureId;
+  }
   if (packets_.front().video_header.codec == kVideoCodecVP8) {
     return absl::get<RTPVideoHeaderVP8>(
                packets_.front().video_header.video_type_header)
@@ -85,8 +90,9 @@ int VCMSessionInfo::PictureId() const {
 }
 
 int VCMSessionInfo::TemporalId() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return kNoTemporalIdx;
+  }
   if (packets_.front().video_header.codec == kVideoCodecVP8) {
     return absl::get<RTPVideoHeaderVP8>(
                packets_.front().video_header.video_type_header)
@@ -101,8 +107,9 @@ int VCMSessionInfo::TemporalId() const {
 }
 
 bool VCMSessionInfo::LayerSync() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return false;
+  }
   if (packets_.front().video_header.codec == kVideoCodecVP8) {
     return absl::get<RTPVideoHeaderVP8>(
                packets_.front().video_header.video_type_header)
@@ -117,8 +124,9 @@ bool VCMSessionInfo::LayerSync() const {
 }
 
 int VCMSessionInfo::Tl0PicId() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return kNoTl0PicIdx;
+  }
   if (packets_.front().video_header.codec == kVideoCodecVP8) {
     return absl::get<RTPVideoHeaderVP8>(
                packets_.front().video_header.video_type_header)
@@ -134,8 +142,9 @@ int VCMSessionInfo::Tl0PicId() const {
 
 std::vector<NaluInfo> VCMSessionInfo::GetNaluInfos() const {
   if (packets_.empty() ||
-      packets_.front().video_header.codec != kVideoCodecH264)
+      packets_.front().video_header.codec != kVideoCodecH264) {
     return std::vector<NaluInfo>();
+  }
   std::vector<NaluInfo> nalu_infos;
   for (const VCMPacket& packet : packets_) {
     const auto& h264 =
@@ -148,13 +157,15 @@ std::vector<NaluInfo> VCMSessionInfo::GetNaluInfos() const {
 }
 
 void VCMSessionInfo::SetGofInfo(const GofInfoVP9& gof_info, size_t idx) {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return;
+  }
 
   auto* vp9_header = absl::get_if<RTPVideoHeaderVP9>(
       &packets_.front().video_header.video_type_header);
-  if (!vp9_header || vp9_header->flexible_mode)
+  if (!vp9_header || vp9_header->flexible_mode) {
     return;
+  }
 
   vp9_header->temporal_idx = gof_info.temporal_idx[idx];
   vp9_header->temporal_up_switch = gof_info.temporal_up_switch[idx];
@@ -176,8 +187,9 @@ void VCMSessionInfo::Reset() {
 
 size_t VCMSessionInfo::SessionLength() const {
   size_t length = 0;
-  for (PacketIteratorConst it = packets_.begin(); it != packets_.end(); ++it)
+  for (PacketIteratorConst it = packets_.begin(); it != packets_.end(); ++it) {
     length += (*it).sizeBytes;
+  }
   return length;
 }
 
@@ -192,8 +204,9 @@ size_t VCMSessionInfo::InsertBuffer(uint8_t* frame_buffer,
 
   // Calculate the offset into the frame buffer for this packet.
   size_t offset = 0;
-  for (it = packets_.begin(); it != packet_it; ++it)
+  for (it = packets_.begin(); it != packet_it; ++it) {
     offset += (*it).sizeBytes;
+  }
 
   // Set the data pointer to pointing to the start of this packet in the
   // frame buffer.
@@ -258,15 +271,17 @@ size_t VCMSessionInfo::Insert(const uint8_t* buffer,
 void VCMSessionInfo::ShiftSubsequentPackets(PacketIterator it,
                                             int steps_to_shift) {
   ++it;
-  if (it == packets_.end())
+  if (it == packets_.end()) {
     return;
+  }
   uint8_t* first_packet_ptr = const_cast<uint8_t*>((*it).dataPtr);
   int shift_length = 0;
   // Calculate the total move length and move the data pointers in advance.
   for (; it != packets_.end(); ++it) {
     shift_length += (*it).sizeBytes;
-    if ((*it).dataPtr != NULL)
+    if ((*it).dataPtr != NULL) {
       (*it).dataPtr += steps_to_shift;
+    }
   }
   memmove(first_packet_ptr + steps_to_shift, first_packet_ptr, shift_length);
 }
@@ -307,10 +322,12 @@ VCMSessionInfo::PacketIterator VCMSessionInfo::FindNaluEnd(
     if (((*packet_it).completeNALU == kNaluComplete &&
          (*packet_it).sizeBytes > 0) ||
         // Found next NALU.
-        (*packet_it).completeNALU == kNaluStart)
+        (*packet_it).completeNALU == kNaluStart) {
       return --packet_it;
-    if ((*packet_it).completeNALU == kNaluEnd)
+    }
+    if ((*packet_it).completeNALU == kNaluEnd) {
       return packet_it;
+    }
   }
   // The end wasn't found.
   return --packet_it;
@@ -329,8 +346,9 @@ size_t VCMSessionInfo::DeletePacketData(PacketIterator start,
     (*it).sizeBytes = 0;
     (*it).dataPtr = NULL;
   }
-  if (bytes_to_delete > 0)
+  if (bytes_to_delete > 0) {
     ShiftSubsequentPackets(end, -static_cast<int>(bytes_to_delete));
+  }
   return bytes_to_delete;
 }
 
@@ -435,14 +453,16 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
   // Find the position of this packet in the packet list in sequence number
   // order and insert it. Loop over the list in reverse order.
   ReversePacketIterator rit = packets_.rbegin();
-  for (; rit != packets_.rend(); ++rit)
-    if (LatestSequenceNumber(packet.seqNum, (*rit).seqNum) == packet.seqNum)
+  for (; rit != packets_.rend(); ++rit) {
+    if (LatestSequenceNumber(packet.seqNum, (*rit).seqNum) == packet.seqNum) {
       break;
+    }
 
   // Check for duplicate packets.
   if (rit != packets_.rend() && (*rit).seqNum == packet.seqNum &&
-      (*rit).sizeBytes > 0)
+      (*rit).sizeBytes > 0) {
     return -2;
+  }
 
   if (packet.codec == kVideoCodecH264) {
     frame_type_ = packet.frameType;
@@ -498,20 +518,22 @@ int VCMSessionInfo::InsertPacket(const VCMPacket& packet,
   UpdateCompleteSession();
 
   return static_cast<int>(returnLength);
-}
+  }
 
 void VCMSessionInfo::InformOfEmptyPacket(uint16_t seq_num) {
   // Empty packets may be FEC or filler packets. They are sequential and
   // follow the data packets, therefore, we should only keep track of the high
   // and low sequence numbers and may assume that the packets in between are
   // empty packets belonging to the same frame (timestamp).
-  if (empty_seq_num_high_ == -1)
+  if (empty_seq_num_high_ == -1) {
     empty_seq_num_high_ = seq_num;
-  else
+  } else {
     empty_seq_num_high_ = LatestSequenceNumber(seq_num, empty_seq_num_high_);
+  }
   if (empty_seq_num_low_ == -1 ||
-      IsNewerSequenceNumber(empty_seq_num_low_, seq_num))
+      IsNewerSequenceNumber(empty_seq_num_low_, seq_num)) {
     empty_seq_num_low_ = seq_num;
+  }
 }
 
 }  // namespace webrtc

@@ -41,16 +41,18 @@ class SigslotReceiver : public sigslot::has_slots<slot_policy> {
   SigslotReceiver(const SigslotReceiver&) = default;
 
   void Connect(sigslot::signal0<signal_policy>* signal) {
-    if (!signal)
+    if (!signal) {
       return;
+    }
     Disconnect();
     signal_ = signal;
     signal->connect(this,
                     &SigslotReceiver<slot_policy, signal_policy>::OnSignal);
   }
   void Disconnect() {
-    if (!signal_)
+    if (!signal_) {
       return;
+    }
     signal_->disconnect(this);
     signal_ = nullptr;
   }

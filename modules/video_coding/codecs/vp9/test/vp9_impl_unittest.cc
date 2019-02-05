@@ -1406,8 +1406,9 @@ class TestVp9ImplProfile2 : public TestVp9Impl {
         profile_2_is_supported = true;
       }
     }
-    if (!profile_2_is_supported)
+    if (!profile_2_is_supported) {
       return;
+    }
 
     TestVp9Impl::SetUp();
     input_frame_generator_ = test::FrameGenerator::CreateSquareGenerator(
@@ -1428,8 +1429,9 @@ class TestVp9ImplProfile2 : public TestVp9Impl {
 };
 
 TEST_F(TestVp9ImplProfile2, EncodeDecode) {
-  if (!encoder_)
+  if (!encoder_) {
     return;
+  }
 
   VideoFrame* input_frame = NextInputFrame();
   EXPECT_EQ(WEBRTC_VIDEO_CODEC_OK,

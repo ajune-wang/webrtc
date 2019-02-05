@@ -333,12 +333,14 @@ void Expand::SetParametersForMergeAfterExpand() {
 }
 
 bool Expand::Muted() const {
-  if (first_expand_ || stop_muting_)
+  if (first_expand_ || stop_muting_) {
     return false;
+  }
   RTC_DCHECK(channel_parameters_);
   for (size_t ch = 0; ch < num_channels_; ++ch) {
-    if (channel_parameters_[ch].mute_factor != 0)
+    if (channel_parameters_[ch].mute_factor != 0) {
       return false;
+    }
   }
   return true;
 }

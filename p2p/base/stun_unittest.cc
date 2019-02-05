@@ -1220,8 +1220,9 @@ TEST_F(StunTest, ValidateMessageIntegrity) {
   memcpy(buf, kRfc5769SampleRequest, sizeof(kRfc5769SampleRequest));
   for (size_t i = 0; i < sizeof(buf); ++i) {
     buf[i] ^= 0x01;
-    if (i > 0)
+    if (i > 0) {
       buf[i - 1] ^= 0x01;
+    }
     EXPECT_EQ(i >= sizeof(buf) - 8,
               StunMessage::ValidateMessageIntegrity(buf, sizeof(buf),
                                                     kRfc5769SampleMsgPassword));
@@ -1297,8 +1298,9 @@ TEST_F(StunTest, ValidateFingerprint) {
   memcpy(buf, kRfc5769SampleRequest, sizeof(kRfc5769SampleRequest));
   for (size_t i = 0; i < sizeof(buf); ++i) {
     buf[i] ^= 0x01;
-    if (i > 0)
+    if (i > 0) {
       buf[i - 1] ^= 0x01;
+    }
     EXPECT_FALSE(StunMessage::ValidateFingerprint(buf, sizeof(buf)));
   }
   // Put them all back to normal and the check should pass again.

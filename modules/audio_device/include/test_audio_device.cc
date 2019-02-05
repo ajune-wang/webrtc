@@ -209,8 +209,9 @@ class TestAudioDeviceModuleImpl
         }
       } else {
         while (time_left_us > 1000) {
-          if (rtc::Thread::SleepMs(time_left_us / 1000))
+          if (rtc::Thread::SleepMs(time_left_us / 1000)) {
             break;
+          }
           time_left_us = time_us - rtc::TimeMicros();
         }
       }

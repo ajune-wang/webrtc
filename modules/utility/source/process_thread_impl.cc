@@ -59,13 +59,15 @@ ProcessThreadImpl::~ProcessThreadImpl() {
 void ProcessThreadImpl::Start() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(!thread_.get());
-  if (thread_.get())
+  if (thread_.get()) {
     return;
+  }
 
   RTC_DCHECK(!stop_);
 
-  for (ModuleCallback& m : modules_)
+  for (ModuleCallback& m : modules_) {
     m.module->ProcessThreadAttached(this);
+  }
 
   thread_.reset(
       new rtc::PlatformThread(&ProcessThreadImpl::Run, this, thread_name_));
@@ -74,8 +76,9 @@ void ProcessThreadImpl::Start() {
 
 void ProcessThreadImpl::Stop() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  if (!thread_.get())
+  if (!thread_.get()) {
     return;
+  }
 
   {
     rtc::CritScope lock(&lock_);
@@ -88,8 +91,9 @@ void ProcessThreadImpl::Stop() {
   stop_ = false;
 
   thread_.reset();
-  for (ModuleCallback& m : modules_)
+  for (ModuleCallback& m : modules_) {
     m.module->ProcessThreadAttached(nullptr);
+  }
 }
 
 void ProcessThreadImpl::WakeUp(Module* module) {
@@ -97,8 +101,9 @@ void ProcessThreadImpl::WakeUp(Module* module) {
   {
     rtc::CritScope lock(&lock_);
     for (ModuleCallback& m : modules_) {
-      if (m.module == module)
+      if (m.module == module) {
         m.next_callback = kCallProcessImmediately;
+      }
     }
   }
   wake_up_.Set();
@@ -133,8 +138,9 @@ void ProcessThreadImpl::RegisterModule(Module* module,
   // Now that we know the module isn't in the list, we'll call out to notify
   // the module that it's attached to the worker thread.  We don't hold
   // the lock while we make this call.
-  if (thread_.get())
+  if (thread_.get()) {
     module->ProcessThreadAttached(this);
+  }
 
   {
     rtc::CritScope lock(&lock_);
@@ -173,15 +179,17 @@ bool ProcessThreadImpl::Process() {
 
   {
     rtc::CritScope lock(&lock_);
-    if (stop_)
+    if (stop_) {
       return false;
+    }
     for (ModuleCallback& m : modules_) {
       // TODO(tommi): Would be good to measure the time TimeUntilNextProcess
       // takes and dcheck if it takes too long (e.g. >=10ms).  Ideally this
       // operation should not require taking a lock, so querying all modules
       // should run in a matter of nanoseconds.
-      if (m.next_callback == 0)
+      if (m.next_callback == 0) {
         m.next_callback = GetNextCallbackTime(m.module, now);
+      }
 
       if (m.next_callback <= now ||
           m.next_callback == kCallProcessImmediately) {
@@ -198,8 +206,9 @@ bool ProcessThreadImpl::Process() {
         m.next_callback = GetNextCallbackTime(m.module, new_now);
       }
 
-      if (m.next_callback < next_checkpoint)
+      if (m.next_callback < next_checkpoint) {
         next_checkpoint = m.next_callback;
+      }
     }
 
     while (!queue_.empty()) {
@@ -213,8 +222,9 @@ bool ProcessThreadImpl::Process() {
   }
 
   int64_t time_to_wait = next_checkpoint - rtc::TimeMillis();
-  if (time_to_wait > 0)
+  if (time_to_wait > 0) {
     wake_up_.Wait(static_cast<int>(time_to_wait));
+  }
 
   return true;
 }

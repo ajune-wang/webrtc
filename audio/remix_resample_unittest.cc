@@ -132,8 +132,9 @@ float ComputeSNR(const AudioFrame& ref_frame,
       variance += ref_frame_data[i] * ref_frame_data[i];
     }
     float snr = 100;  // We assign 100 dB to the zero-error case.
-    if (mse > 0)
+    if (mse > 0) {
       snr = 10 * log10(variance / mse);
+    }
     if (snr > best_snr) {
       best_snr = snr;
       best_delay = delay;
@@ -173,31 +174,34 @@ void UtilityTest::RunResampleTest(int src_channels,
   const float dst_quad_to_mono = (dst_ch1 + dst_ch2 + dst_ch3 + dst_ch4) / 4;
   const float dst_quad_to_stereo_ch1 = (dst_ch1 + dst_ch2) / 2;
   const float dst_quad_to_stereo_ch2 = (dst_ch3 + dst_ch4) / 2;
-  if (src_channels == 1)
+  if (src_channels == 1) {
     SetMonoFrame(kSrcCh1, src_sample_rate_hz, &src_frame_);
-  else if (src_channels == 2)
+  } else if (src_channels == 2) {
     SetStereoFrame(kSrcCh1, kSrcCh2, src_sample_rate_hz, &src_frame_);
-  else
+  } else {
     SetQuadFrame(kSrcCh1, kSrcCh2, kSrcCh3, kSrcCh4, src_sample_rate_hz,
                  &src_frame_);
+  }
 
   if (dst_channels == 1) {
     SetMonoFrame(0, dst_sample_rate_hz, &dst_frame_);
-    if (src_channels == 1)
+    if (src_channels == 1) {
       SetMonoFrame(dst_ch1, dst_sample_rate_hz, &golden_frame_);
-    else if (src_channels == 2)
+    } else if (src_channels == 2) {
       SetMonoFrame(dst_stereo_to_mono, dst_sample_rate_hz, &golden_frame_);
-    else
+    } else {
       SetMonoFrame(dst_quad_to_mono, dst_sample_rate_hz, &golden_frame_);
+    }
   } else {
     SetStereoFrame(0, 0, dst_sample_rate_hz, &dst_frame_);
-    if (src_channels == 1)
+    if (src_channels == 1) {
       SetStereoFrame(dst_ch1, dst_ch1, dst_sample_rate_hz, &golden_frame_);
-    else if (src_channels == 2)
+    } else if (src_channels == 2) {
       SetStereoFrame(dst_ch1, dst_ch2, dst_sample_rate_hz, &golden_frame_);
-    else
+    } else {
       SetStereoFrame(dst_quad_to_stereo_ch1, dst_quad_to_stereo_ch2,
                      dst_sample_rate_hz, &golden_frame_);
+    }
   }
 
   // The sinc resampler has a known delay, which we compute here. Multiplying by

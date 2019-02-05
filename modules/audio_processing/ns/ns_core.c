@@ -1249,9 +1249,10 @@ void WebRtcNs_ProcessCore(NoiseSuppressionC* self,
     // Update synthesis buffer.
     UpdateBuffer(NULL, self->blockLen, self->anaLen, self->syntBuf);
 
-    for (i = 0; i < self->blockLen; ++i)
+    for (i = 0; i < self->blockLen; ++i) {
       outFrame[0][i] =
           WEBRTC_SPL_SAT(WEBRTC_SPL_WORD16_MAX, fout[i], WEBRTC_SPL_WORD16_MIN);
+}
 
     // For time-domain gain of HB.
     if (flagHB == 1) {
@@ -1358,9 +1359,10 @@ void WebRtcNs_ProcessCore(NoiseSuppressionC* self,
   // Update synthesis buffer.
   UpdateBuffer(NULL, self->blockLen, self->anaLen, self->syntBuf);
 
-  for (i = 0; i < self->blockLen; ++i)
+  for (i = 0; i < self->blockLen; ++i) {
     outFrame[0][i] =
         WEBRTC_SPL_SAT(WEBRTC_SPL_WORD16_MAX, fout[i], WEBRTC_SPL_WORD16_MIN);
+}
 
   // For time-domain gain of HB.
   if (flagHB == 1) {

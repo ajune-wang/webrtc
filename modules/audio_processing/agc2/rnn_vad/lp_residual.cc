@@ -126,8 +126,9 @@ void ComputeLpResidual(
     const float sum = std::inner_product(input_chunk.begin(), input_chunk.end(),
                                          lpc_coeffs.begin(), x[i]);
     // Circular shift and add a new sample.
-    for (size_t j = kNumLpcCoefficients - 1; j > 0; --j)
+    for (size_t j = kNumLpcCoefficients - 1; j > 0; --j) {
       input_chunk[j] = input_chunk[j - 1];
+    }
     input_chunk[0] = x[i];
     // Copy result.
     y[i] = sum;

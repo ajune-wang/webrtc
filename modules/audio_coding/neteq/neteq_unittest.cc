@@ -116,13 +116,15 @@ void AddMessage(FILE* file,
                 rtc::MessageDigest* digest,
                 const std::string& message) {
   int32_t size = message.length();
-  if (file)
+  if (file) {
     ASSERT_EQ(1u, fwrite(&size, sizeof(size), 1, file));
+  }
   digest->Update(&size, sizeof(size));
 
-  if (file)
+  if (file) {
     ASSERT_EQ(static_cast<size_t>(size),
               fwrite(message.data(), sizeof(char), size, file));
+  }
   digest->Update(message.data(), sizeof(char) * size);
 }
 
@@ -191,8 +193,9 @@ ResultSink::ResultSink(const std::string& output_file)
 }
 
 ResultSink::~ResultSink() {
-  if (output_fp_)
+  if (output_fp_) {
     fclose(output_fp_);
+  }
 }
 
 template <typename T>
@@ -997,8 +1000,9 @@ class NetEqBgnTest : public NetEqDecodingTest {
         double sum_squared = 0;
         const int16_t* output_data = output.data();
         for (size_t k = 0;
-             k < output.num_channels_ * output.samples_per_channel_; ++k)
+             k < output.num_channels_ * output.samples_per_channel_; ++k) {
           sum_squared += output_data[k] * output_data[k];
+        }
         EXPECT_EQ(0, sum_squared);
       } else {
         EXPECT_EQ(AudioFrame::kPLC, output.speech_type_);
@@ -1449,37 +1453,44 @@ class NetEqDecodingTestTwoInstances : public NetEqDecodingTest {
 namespace {
 ::testing::AssertionResult AudioFramesEqualExceptData(const AudioFrame& a,
                                                       const AudioFrame& b) {
-  if (a.timestamp_ != b.timestamp_)
+  if (a.timestamp_ != b.timestamp_) {
     return ::testing::AssertionFailure() << "timestamp_ diff (" << a.timestamp_
                                          << " != " << b.timestamp_ << ")";
-  if (a.sample_rate_hz_ != b.sample_rate_hz_)
+  }
+  if (a.sample_rate_hz_ != b.sample_rate_hz_) {
     return ::testing::AssertionFailure()
            << "sample_rate_hz_ diff (" << a.sample_rate_hz_
            << " != " << b.sample_rate_hz_ << ")";
-  if (a.samples_per_channel_ != b.samples_per_channel_)
+  }
+  if (a.samples_per_channel_ != b.samples_per_channel_) {
     return ::testing::AssertionFailure()
            << "samples_per_channel_ diff (" << a.samples_per_channel_
            << " != " << b.samples_per_channel_ << ")";
-  if (a.num_channels_ != b.num_channels_)
+  }
+  if (a.num_channels_ != b.num_channels_) {
     return ::testing::AssertionFailure()
            << "num_channels_ diff (" << a.num_channels_
            << " != " << b.num_channels_ << ")";
-  if (a.speech_type_ != b.speech_type_)
+  }
+  if (a.speech_type_ != b.speech_type_) {
     return ::testing::AssertionFailure()
            << "speech_type_ diff (" << a.speech_type_
            << " != " << b.speech_type_ << ")";
-  if (a.vad_activity_ != b.vad_activity_)
+  }
+  if (a.vad_activity_ != b.vad_activity_) {
     return ::testing::AssertionFailure()
            << "vad_activity_ diff (" << a.vad_activity_
            << " != " << b.vad_activity_ << ")";
+  }
   return ::testing::AssertionSuccess();
 }
 
 ::testing::AssertionResult AudioFramesEqual(const AudioFrame& a,
                                             const AudioFrame& b) {
   ::testing::AssertionResult res = AudioFramesEqualExceptData(a, b);
-  if (!res)
+  if (!res) {
     return res;
+  }
   if (memcmp(a.data(), b.data(),
              a.samples_per_channel_ * a.num_channels_ * sizeof(*a.data())) !=
       0) {

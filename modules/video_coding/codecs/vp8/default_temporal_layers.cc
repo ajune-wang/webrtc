@@ -437,8 +437,9 @@ void DefaultTemporalLayers::UpdateSearchOrder(Vp8FrameConfig* config) {
   // Populate the search order fields where possible.
   if (!eligible_buffers.empty()) {
     config->first_reference = eligible_buffers.front().first;
-    if (eligible_buffers.size() > 1)
+    if (eligible_buffers.size() > 1) {
       config->second_reference = eligible_buffers[1].first;
+    }
   }
 }
 

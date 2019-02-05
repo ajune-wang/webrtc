@@ -119,8 +119,9 @@ bool IvfFileWriter::InitFromFirstFrame(const EncodedImage& encoded_image,
 
   codec_type_ = codec_type;
 
-  if (!WriteHeader())
+  if (!WriteHeader()) {
     return false;
+  }
 
   const char* codec_name = CodecTypeToPayloadString(codec_type_);
   RTC_LOG(LS_WARNING) << "Created IVF file for codec data of type "
@@ -133,11 +134,13 @@ bool IvfFileWriter::InitFromFirstFrame(const EncodedImage& encoded_image,
 
 bool IvfFileWriter::WriteFrame(const EncodedImage& encoded_image,
                                VideoCodecType codec_type) {
-  if (!file_.IsOpen())
+  if (!file_.IsOpen()) {
     return false;
+  }
 
-  if (num_frames_ == 0 && !InitFromFirstFrame(encoded_image, codec_type))
+  if (num_frames_ == 0 && !InitFromFirstFrame(encoded_image, codec_type)) {
     return false;
+  }
   RTC_DCHECK_EQ(codec_type_, codec_type);
 
   if ((encoded_image._encodedWidth > 0 || encoded_image._encodedHeight > 0) &&
@@ -184,8 +187,9 @@ bool IvfFileWriter::WriteFrame(const EncodedImage& encoded_image,
 }
 
 bool IvfFileWriter::Close() {
-  if (!file_.IsOpen())
+  if (!file_.IsOpen()) {
     return false;
+  }
 
   if (num_frames_ == 0) {
     file_.Close();

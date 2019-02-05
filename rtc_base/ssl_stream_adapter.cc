@@ -39,14 +39,18 @@ std::string SrtpCryptoSuiteToName(int crypto_suite) {
 }
 
 int SrtpCryptoSuiteFromName(const std::string& crypto_suite) {
-  if (crypto_suite == CS_AES_CM_128_HMAC_SHA1_32)
+  if (crypto_suite == CS_AES_CM_128_HMAC_SHA1_32) {
     return SRTP_AES128_CM_SHA1_32;
-  if (crypto_suite == CS_AES_CM_128_HMAC_SHA1_80)
+  }
+  if (crypto_suite == CS_AES_CM_128_HMAC_SHA1_80) {
     return SRTP_AES128_CM_SHA1_80;
-  if (crypto_suite == CS_AEAD_AES_128_GCM)
+  }
+  if (crypto_suite == CS_AEAD_AES_128_GCM) {
     return SRTP_AEAD_AES_128_GCM;
-  if (crypto_suite == CS_AEAD_AES_256_GCM)
+  }
+  if (crypto_suite == CS_AEAD_AES_256_GCM) {
     return SRTP_AEAD_AES_256_GCM;
+  }
   return SRTP_INVALID_CRYPTO_SUITE;
 }
 

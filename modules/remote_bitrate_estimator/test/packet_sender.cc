@@ -69,8 +69,9 @@ std::list<FeedbackPacket*> GetFeedbackPackets(Packets* in_out,
                                               int flow_id) {
   std::list<FeedbackPacket*> fb_packets;
   for (auto it = in_out->begin(); it != in_out->end();) {
-    if ((*it)->send_time_us() > 1000 * end_time_ms)
+    if ((*it)->send_time_us() > 1000 * end_time_ms) {
       break;
+    }
     if ((*it)->GetPacketType() == Packet::kFeedback &&
         flow_id == (*it)->flow_id()) {
       fb_packets.push_back(static_cast<FeedbackPacket*>(*it));
@@ -183,10 +184,12 @@ PacedVideoSender::PacedVideoSender(PacketProcessorListener* listener,
 }
 
 PacedVideoSender::~PacedVideoSender() {
-  for (Packet* packet : pacer_queue_)
+  for (Packet* packet : pacer_queue_) {
     delete packet;
-  for (Packet* packet : queue_)
+  }
+  for (Packet* packet : queue_) {
     delete packet;
+  }
 }
 
 void PacedVideoSender::RunFor(int64_t time_ms, Packets* in_out) {
@@ -200,9 +203,10 @@ void PacedVideoSender::RunFor(int64_t time_ms, Packets* in_out) {
   do {
     int64_t time_until_process_ms = TimeUntilNextProcess(modules_);
     int64_t time_until_feedback_ms = time_ms;
-    if (!feedbacks.empty())
+    if (!feedbacks.empty()) {
       time_until_feedback_ms = std::max<int64_t>(
           feedbacks.front()->send_time_ms() - clock_.TimeInMilliseconds(), 0);
+    }
 
     int64_t time_until_next_event_ms =
         std::min(time_until_feedback_ms, time_until_process_ms);
@@ -211,13 +215,15 @@ void PacedVideoSender::RunFor(int64_t time_ms, Packets* in_out) {
         std::min(source_->GetTimeUntilNextFrameMs(), time_until_next_event_ms);
 
     // Never run for longer than we have been asked for.
-    if (clock_.TimeInMilliseconds() + time_until_next_event_ms > end_time_ms)
+    if (clock_.TimeInMilliseconds() + time_until_next_event_ms > end_time_ms) {
       time_until_next_event_ms = end_time_ms - clock_.TimeInMilliseconds();
+    }
 
     // Make sure we don't get stuck if an event doesn't trigger. This typically
     // happens if the prober wants to probe, but there's no packet to send.
-    if (time_until_next_event_ms == 0 && last_run_time_ms == 0)
+    if (time_until_next_event_ms == 0 && last_run_time_ms == 0) {
       time_until_next_event_ms = 1;
+    }
     last_run_time_ms = time_until_next_event_ms;
 
     Packets generated_packets;
@@ -258,11 +264,13 @@ int64_t PacedVideoSender::TimeUntilNextProcess(
   int64_t time_until_next_process_ms = 10;
   for (Module* module : modules) {
     int64_t next_process_ms = module->TimeUntilNextProcess();
-    if (next_process_ms < time_until_next_process_ms)
+    if (next_process_ms < time_until_next_process_ms) {
       time_until_next_process_ms = next_process_ms;
+    }
   }
-  if (time_until_next_process_ms < 0)
+  if (time_until_next_process_ms < 0) {
     time_until_next_process_ms = 0;
+  }
   return time_until_next_process_ms;
 }
 
@@ -406,10 +414,11 @@ void TcpSender::RunFor(int64_t time_ms, Packets* in_out) {
   }
 
   for (auto it = in_flight_.begin(); it != in_flight_.end();) {
-    if (it->time_ms < clock_.TimeInMilliseconds() - 1000)
+    if (it->time_ms < clock_.TimeInMilliseconds() - 1000) {
       in_flight_.erase(it++);
-    else
+    } else {
       ++it;
+    }
   }
 
   clock_.AdvanceTimeMilliseconds(time_ms -
@@ -430,8 +439,9 @@ void TcpSender::SendPackets(Packets* in_out) {
   }
   if (packets_to_send > 0) {
     Packets generated = GeneratePackets(packets_to_send);
-    for (Packet* packet : generated)
+    for (Packet* packet : generated) {
       in_flight_.insert(InFlight(*static_cast<MediaPacket*>(packet)));
+    }
 
     in_out->merge(generated, DereferencingComparator<Packet>);
   }
@@ -446,8 +456,9 @@ void TcpSender::UpdateCongestionControl(const FeedbackPacket* fb) {
   uint16_t missing =
       expected - static_cast<uint16_t>(tcp_fb->acked_packets().size());
 
-  for (uint16_t ack_seq_num : tcp_fb->acked_packets())
+  for (uint16_t ack_seq_num : tcp_fb->acked_packets()) {
     in_flight_.erase(InFlight(ack_seq_num, clock_.TimeInMilliseconds()));
+  }
 
   if (missing > 0) {
     HandleLoss();
@@ -475,8 +486,9 @@ int TcpSender::TriggerTimeouts() {
 }
 
 void TcpSender::HandleLoss() {
-  if (clock_.TimeInMilliseconds() - last_reduction_time_ms_ < last_rtt_ms_)
+  if (clock_.TimeInMilliseconds() - last_reduction_time_ms_ < last_rtt_ms_) {
     return;
+  }
   last_reduction_time_ms_ = clock_.TimeInMilliseconds();
   ssthresh_ = std::max(static_cast<int>(in_flight_.size() / 2), 2);
   cwnd_ = ssthresh_;

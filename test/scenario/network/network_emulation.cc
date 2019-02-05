@@ -39,15 +39,17 @@ void EmulatedNetworkNode::CreateRoute(
     std::vector<EmulatedNetworkNode*> nodes,
     EmulatedNetworkReceiverInterface* receiver) {
   RTC_CHECK(!nodes.empty());
-  for (size_t i = 0; i + 1 < nodes.size(); ++i)
+  for (size_t i = 0; i + 1 < nodes.size(); ++i) {
     nodes[i]->SetReceiver(receiver_id, nodes[i + 1]);
+  }
   nodes.back()->SetReceiver(receiver_id, receiver);
 }
 
 void EmulatedNetworkNode::ClearRoute(uint64_t receiver_id,
                                      std::vector<EmulatedNetworkNode*> nodes) {
-  for (EmulatedNetworkNode* node : nodes)
+  for (EmulatedNetworkNode* node : nodes) {
     node->RemoveReceiver(receiver_id);
+  }
 }
 
 EmulatedNetworkNode::EmulatedNetworkNode(
@@ -75,8 +77,9 @@ void EmulatedNetworkNode::Process(Timestamp at_time) {
     rtc::CritScope crit(&lock_);
     absl::optional<int64_t> delivery_us =
         network_behavior_->NextDeliveryTimeUs();
-    if (delivery_us && *delivery_us > at_time.us())
+    if (delivery_us && *delivery_us > at_time.us()) {
       return;
+    }
 
     delivery_infos = network_behavior_->DequeueDeliverablePackets(at_time.us());
   }

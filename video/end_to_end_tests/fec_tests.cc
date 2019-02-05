@@ -343,8 +343,9 @@ TEST_F(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
       if (header.payloadType == kRedPayloadType) {
         encapsulated_payload_type =
             static_cast<int>(packet[header.headerLength]);
-        if (encapsulated_payload_type != kFakeVideoSendPayloadType)
+        if (encapsulated_payload_type != kFakeVideoSendPayloadType) {
           EXPECT_EQ(kUlpfecPayloadType, encapsulated_payload_type);
+        }
       } else {
         EXPECT_EQ(kFakeVideoSendPayloadType, header.payloadType);
       }
@@ -371,20 +372,23 @@ TEST_F(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
           }
           break;
         case kDropAllMediaPacketsUntilUlpfec:
-          if (!ulpfec_packet)
+          if (!ulpfec_packet) {
             return DROP_PACKET;
+          }
           ulpfec_sequence_number_ = header.sequenceNumber;
           state_ = kDropOneMediaPacket;
           break;
         case kDropOneMediaPacket:
-          if (ulpfec_packet)
+          if (ulpfec_packet) {
             return DROP_PACKET;
+          }
           state_ = kPassOneMediaPacket;
           return DROP_PACKET;
           break;
         case kPassOneMediaPacket:
-          if (ulpfec_packet)
+          if (ulpfec_packet) {
             return DROP_PACKET;
+          }
           // Pass one media packet after dropped packet after last FEC,
           // otherwise receiver might never see a seq_no after
           // |ulpfec_sequence_number_|
@@ -392,8 +396,9 @@ TEST_F(FecEndToEndTest, ReceivedUlpfecPacketsNotNacked) {
           break;
         case kVerifyUlpfecPacketNotInNackList:
           // Continue to drop packets. Make sure no frame can be decoded.
-          if (ulpfec_packet || header.sequenceNumber % 2 == 0)
+          if (ulpfec_packet || header.sequenceNumber % 2 == 0) {
             return DROP_PACKET;
+          }
           break;
       }
       return SEND_PACKET;

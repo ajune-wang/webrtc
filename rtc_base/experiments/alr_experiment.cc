@@ -52,8 +52,9 @@ AlrExperimentSettings::CreateFromFieldTrial(const char* experiment_name) {
     }
   }
 
-  if (group_name.empty())
+  if (group_name.empty()) {
     return ret;
+  }
 
   AlrExperimentSettings settings;
   if (sscanf(group_name.c_str(), "%f,%" PRId64 ",%d,%d,%d,%d",

@@ -77,8 +77,9 @@ void ShuffleInPlace(Random* prng, rtc::ArrayView<T> array) {
 absl::optional<int> GetExtensionId(const std::vector<RtpExtension>& extensions,
                                    const std::string& uri) {
   for (const auto& extension : extensions) {
-    if (extension.uri == uri)
+    if (extension.uri == uri) {
       return extension.id;
+    }
   }
   return absl::nullopt;
 }
@@ -264,8 +265,9 @@ rtcp::Nack EventGenerator::NewNack() {
   std::vector<uint16_t> nack_list;
   nack_list.push_back(base_seq_no);
   for (uint16_t i = 1u; i < 10u; i++) {
-    if (prng_.Rand<bool>())
+    if (prng_.Rand<bool>()) {
       nack_list.push_back(base_seq_no + i);
+    }
   }
   nack.SetPacketIds(nack_list);
   return nack;

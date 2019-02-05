@@ -42,16 +42,18 @@ int64_t NetEqPerformanceTest::Run(int runtime_ms,
   NetEq* neteq = NetEq::Create(config, CreateBuiltinAudioDecoderFactory());
   // Register decoder in |neteq|.
   if (!neteq->RegisterPayloadType(kPayloadType,
-                                  SdpAudioFormat("l16", kSampRateHz, 1)))
+                                  SdpAudioFormat("l16", kSampRateHz, 1))) {
     return -1;
+  }
 
   // Set up AudioLoop object.
   AudioLoop audio_loop;
   const size_t kMaxLoopLengthSamples = kSampRateHz * 10;  // 10 second loop.
   const size_t kInputBlockSizeSamples = 60 * kSampRateHz / 1000;  // 60 ms.
   if (!audio_loop.Init(kInputFileName, kMaxLoopLengthSamples,
-                       kInputBlockSizeSamples))
+                       kInputBlockSizeSamples)) {
     return -1;
+  }
 
   int32_t time_now_ms = 0;
 
@@ -64,8 +66,9 @@ int64_t NetEqPerformanceTest::Run(int runtime_ms,
   int32_t packet_input_time_ms =
       rtp_gen.GetRtpHeader(kPayloadType, kInputBlockSizeSamples, &rtp_header);
   auto input_samples = audio_loop.GetNextBlock();
-  if (input_samples.empty())
+  if (input_samples.empty()) {
     exit(1);
+  }
   uint8_t input_payload[kInputBlockSizeSamples * sizeof(int16_t)];
   size_t payload_len = WebRtcPcm16b_Encode(input_samples.data(),
                                            input_samples.size(), input_payload);
@@ -87,16 +90,18 @@ int64_t NetEqPerformanceTest::Run(int runtime_ms,
         int error =
             neteq->InsertPacket(rtp_header, input_payload,
                                 packet_input_time_ms * kSampRateHz / 1000);
-        if (error != NetEq::kOK)
+        if (error != NetEq::kOK) {
           return -1;
+        }
       }
 
       // Get next packet.
       packet_input_time_ms = rtp_gen.GetRtpHeader(
           kPayloadType, kInputBlockSizeSamples, &rtp_header);
       input_samples = audio_loop.GetNextBlock();
-      if (input_samples.empty())
+      if (input_samples.empty()) {
         return -1;
+      }
       payload_len = WebRtcPcm16b_Encode(input_samples.data(),
                                         input_samples.size(), input_payload);
       RTC_DCHECK_EQ(payload_len, kInputBlockSizeSamples * sizeof(int16_t));
@@ -106,8 +111,9 @@ int64_t NetEqPerformanceTest::Run(int runtime_ms,
     bool muted;
     int error = neteq->GetAudio(&out_frame, &muted);
     RTC_CHECK(!muted);
-    if (error != NetEq::kOK)
+    if (error != NetEq::kOK) {
       return -1;
+    }
 
     RTC_DCHECK_EQ(out_frame.samples_per_channel_, (kSampRateHz * 10) / 1000);
 

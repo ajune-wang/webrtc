@@ -135,8 +135,9 @@ RtpVideoStreamReceiver::RtpVideoStreamReceiver(
                                            : kDefaultMaxReorderingThreshold;
   rtp_receive_statistics_->SetMaxReorderingThreshold(max_reordering_threshold);
 
-  if (config_.rtp.rtcp_xr.receiver_reference_time_report)
+  if (config_.rtp.rtcp_xr.receiver_reference_time_report) {
     rtp_rtcp_->SetRtcpXrRrtrStatus(true);
+  }
 
   // Stats callback for CNAME changes.
   rtp_rtcp_->RegisterRtcpStatisticsCallback(receive_stats_proxy);
@@ -286,8 +287,9 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
 void RtpVideoStreamReceiver::OnRecoveredPacket(const uint8_t* rtp_packet,
                                                size_t rtp_packet_length) {
   RtpPacketReceived packet;
-  if (!packet.Parse(rtp_packet, rtp_packet_length))
+  if (!packet.Parse(rtp_packet, rtp_packet_length)) {
     return;
+  }
   if (packet.PayloadType() == config_.rtp.red_payload_type) {
     RTC_LOG(LS_WARNING) << "Discarding recovered packet with RED encapsulation";
     return;
@@ -419,8 +421,9 @@ void RtpVideoStreamReceiver::OnDecryptedFrame(
 }
 
 void RtpVideoStreamReceiver::UpdateRtt(int64_t max_rtt_ms) {
-  if (nack_module_)
+  if (nack_module_) {
     nack_module_->UpdateRtt(max_rtt_ms);
+  }
 }
 
 absl::optional<int64_t> RtpVideoStreamReceiver::LastReceivedPacketMs() const {
@@ -627,18 +630,21 @@ bool RtpVideoStreamReceiver::DeliverRtcp(const uint8_t* rtcp_packet,
 }
 
 void RtpVideoStreamReceiver::FrameContinuous(int64_t picture_id) {
-  if (!nack_module_)
+  if (!nack_module_) {
     return;
+  }
 
   int seq_num = -1;
   {
     rtc::CritScope lock(&last_seq_num_cs_);
     auto seq_num_it = last_seq_num_for_pic_id_.find(picture_id);
-    if (seq_num_it != last_seq_num_for_pic_id_.end())
+    if (seq_num_it != last_seq_num_for_pic_id_.end()) {
       seq_num = seq_num_it->second;
+    }
   }
-  if (seq_num != -1)
+  if (seq_num != -1) {
     nack_module_->ClearUpTo(seq_num);
+  }
 }
 
 void RtpVideoStreamReceiver::FrameDecoded(int64_t picture_id) {
@@ -679,13 +685,15 @@ void RtpVideoStreamReceiver::StopReceive() {
 
 void RtpVideoStreamReceiver::UpdateHistograms() {
   FecPacketCounter counter = ulpfec_receiver_->GetPacketCounter();
-  if (counter.first_packet_time_ms == -1)
+  if (counter.first_packet_time_ms == -1) {
     return;
+  }
 
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - counter.first_packet_time_ms) / 1000;
-  if (elapsed_sec < metrics::kMinRunTimeInSeconds)
+  if (elapsed_sec < metrics::kMinRunTimeInSeconds) {
     return;
+  }
 
   if (counter.num_packets > 0) {
     RTC_HISTOGRAM_PERCENTAGE(
@@ -701,8 +709,9 @@ void RtpVideoStreamReceiver::UpdateHistograms() {
 
 void RtpVideoStreamReceiver::InsertSpsPpsIntoTracker(uint8_t payload_type) {
   auto codec_params_it = pt_codec_params_.find(payload_type);
-  if (codec_params_it == pt_codec_params_.end())
+  if (codec_params_it == pt_codec_params_.end()) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << "Found out of band supplied codec parameters for"
                    << " payload type: " << static_cast<int>(payload_type);
@@ -711,11 +720,13 @@ void RtpVideoStreamReceiver::InsertSpsPpsIntoTracker(uint8_t payload_type) {
   auto sprop_base64_it =
       codec_params_it->second.find(cricket::kH264FmtpSpropParameterSets);
 
-  if (sprop_base64_it == codec_params_it->second.end())
+  if (sprop_base64_it == codec_params_it->second.end()) {
     return;
+  }
 
-  if (!sprop_decoder.DecodeSprop(sprop_base64_it->second.c_str()))
+  if (!sprop_decoder.DecodeSprop(sprop_base64_it->second.c_str())) {
     return;
+  }
 
   tracker_.InsertSpsPpsNalus(sprop_decoder.sps_nalu(),
                              sprop_decoder.pps_nalu());

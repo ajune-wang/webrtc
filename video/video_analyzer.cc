@@ -150,8 +150,9 @@ void VideoAnalyzer::SetReceiver(PacketReceiver* receiver) {
 void VideoAnalyzer::SetSource(
     rtc::VideoSourceInterface<VideoFrame>* video_source,
     bool respect_sink_wants) {
-  if (respect_sink_wants)
+  if (respect_sink_wants) {
     captured_frame_forwarder_.SetSource(video_source);
+  }
   rtc::VideoSinkWants wants;
   video_source->AddOrUpdateSink(InputInterface(), wants);
 }
@@ -279,8 +280,9 @@ bool VideoAnalyzer::SendRtp(const uint8_t* packet,
         total_media_bytes_ +=
             length - (header.headerLength + header.paddingLength);
       }
-      if (first_sending_time_ == 0)
+      if (first_sending_time_ == 0) {
         first_sending_time_ = current_time;
+      }
       last_sending_time_ = current_time;
     }
   }
@@ -380,12 +382,14 @@ void VideoAnalyzer::Wait() {
     last_frames_captured = frames_captured;
   }
 
-  if (iteration > 0)
+  if (iteration > 0) {
     printf("- Farewell, sweet Concorde!\n");
+  }
 
   PrintResults();
-  if (graph_data_output_file_)
+  if (graph_data_output_file_) {
     PrintSamplesToFile();
+  }
 
   stats_polling_thread_.Stop();
 }
@@ -472,14 +476,18 @@ void VideoAnalyzer::PollStats() {
     VideoSendStream::Stats send_stats = send_stream_->GetStats();
     // It's not certain that we yet have estimates for any of these stats.
     // Check that they are positive before mixing them in.
-    if (send_stats.encode_frame_rate > 0)
+    if (send_stats.encode_frame_rate > 0) {
       encode_frame_rate_.AddSample(send_stats.encode_frame_rate);
-    if (send_stats.avg_encode_time_ms > 0)
+    }
+    if (send_stats.avg_encode_time_ms > 0) {
       encode_time_ms_.AddSample(send_stats.avg_encode_time_ms);
-    if (send_stats.encode_usage_percent > 0)
+    }
+    if (send_stats.encode_usage_percent > 0) {
       encode_usage_percent_.AddSample(send_stats.encode_usage_percent);
-    if (send_stats.media_bitrate_bps > 0)
+    }
+    if (send_stats.media_bitrate_bps > 0) {
       media_bitrate_bps_.AddSample(send_stats.media_bitrate_bps);
+    }
     size_t fec_bytes = 0;
     for (const auto& kv : send_stats.substreams) {
       fec_bytes += kv.second.rtp_stats.fec.payload_bytes +
@@ -490,10 +498,12 @@ void VideoAnalyzer::PollStats() {
 
     if (receive_stream_ != nullptr) {
       VideoReceiveStream::Stats receive_stats = receive_stream_->GetStats();
-      if (receive_stats.decode_ms > 0)
+      if (receive_stats.decode_ms > 0) {
         decode_time_ms_.AddSample(receive_stats.decode_ms);
-      if (receive_stats.max_decode_ms > 0)
+      }
+      if (receive_stats.max_decode_ms > 0) {
         decode_time_max_ms_.AddSample(receive_stats.max_decode_ms);
+      }
       if (receive_stats.width > 0 && receive_stats.height > 0) {
         pixels_.AddSample(receive_stats.width * receive_stats.height);
       }
@@ -516,8 +526,9 @@ bool VideoAnalyzer::FrameComparisonThread(void* obj) {
 }
 
 bool VideoAnalyzer::CompareFrames() {
-  if (AllFramesRecorded())
+  if (AllFramesRecorded()) {
     return false;
+  }
 
   FrameComparison comparison;
 
@@ -554,8 +565,9 @@ bool VideoAnalyzer::PopComparison(VideoAnalyzer::FrameComparison* comparison) {
   // for this thread to be done. frames_processed_ might still be lower if
   // all comparisons are not done, but those frames are currently being
   // worked on by other threads.
-  if (comparisons_.empty() || AllFramesRecorded())
+  if (comparisons_.empty() || AllFramesRecorded()) {
     return false;
+  }
 
   *comparison = comparisons_.front();
   comparisons_.pop_front();
@@ -681,17 +693,20 @@ void VideoAnalyzer::PerformFrameComparison(
                               comparison.render_time_ms,
                               comparison.encoded_frame_size, psnr, ssim));
   }
-  if (psnr >= 0.0)
+  if (psnr >= 0.0) {
     psnr_.AddSample(psnr);
-  if (ssim >= 0.0)
+  }
+  if (ssim >= 0.0) {
     ssim_.AddSample(ssim);
+  }
 
   if (comparison.dropped) {
     ++dropped_frames_;
     return;
   }
-  if (last_unfreeze_time_ms_ == 0)
+  if (last_unfreeze_time_ms_ == 0) {
     last_unfreeze_time_ms_ = comparison.render_time_ms;
+  }
   if (last_render_time_ != 0) {
     const int64_t render_delta_ms =
         comparison.render_time_ms - last_render_time_;
@@ -797,11 +812,13 @@ void VideoAnalyzer::AddFrameComparison(const VideoFrame& reference,
 
   // TODO(ivica): Make this work for > 2 streams.
   auto it = encoded_frame_sizes_.find(reference_timestamp);
-  if (it == encoded_frame_sizes_.end())
+  if (it == encoded_frame_sizes_.end()) {
     it = encoded_frame_sizes_.find(reference_timestamp - 1);
+  }
   size_t encoded_size = it == encoded_frame_sizes_.end() ? 0 : it->second;
-  if (it != encoded_frame_sizes_.end())
+  if (it != encoded_frame_sizes_.end()) {
     encoded_frame_sizes_.erase(it);
+  }
 
   rtc::CritScope crit(&comparison_lock_);
   if (comparisons_.size() < kMaxComparisons) {
@@ -882,8 +899,9 @@ VideoAnalyzer::CapturedFrameForwarder::CapturedFrameForwarder(
       clock_(clock),
       captured_frames_(0),
       frames_to_process_(frames_to_process) {
-  if (partial_updates)
+  if (partial_updates) {
     frame_change_extractor_.reset(new FrameChangeExtractor);
+  }
 }
 
 void VideoAnalyzer::CapturedFrameForwarder::SetSource(
@@ -897,14 +915,16 @@ void VideoAnalyzer::CapturedFrameForwarder::OnFrame(
   // Frames from the capturer does not have a rtp timestamp.
   // Create one so it can be used for comparison.
   RTC_DCHECK_EQ(0, video_frame.timestamp());
-  if (video_frame.ntp_time_ms() == 0)
+  if (video_frame.ntp_time_ms() == 0) {
     copy.set_ntp_time_ms(clock_->CurrentNtpInMilliseconds());
+  }
   copy.set_timestamp(copy.ntp_time_ms() * 90);
   analyzer_->AddCapturedFrameForComparison(copy);
   rtc::CritScope lock(&crit_);
   ++captured_frames_;
-  if (captured_frames_ > frames_to_process_)
+  if (captured_frames_ > frames_to_process_) {
     return;
+  }
   if (frame_change_extractor_) {
     frame_change_extractor_->OnFrame(copy);
   } else if (send_stream_input_) {

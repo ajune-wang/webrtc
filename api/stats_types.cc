@@ -260,8 +260,9 @@ StatsReport::Value::~Value() {
 }
 
 bool StatsReport::Value::Equals(const Value& other) const {
-  if (name != other.name)
+  if (name != other.name) {
     return false;
+  }
 
   // There's a 1:1 relation between a name and a type, so we don't have to
   // check that.
@@ -301,10 +302,12 @@ bool StatsReport::Value::operator==(const std::string& value) const {
 }
 
 bool StatsReport::Value::operator==(const char* value) const {
-  if (type_ == kString)
+  if (type_ == kString) {
     return value_.string_->compare(value) == 0;
-  if (type_ != kStaticString)
+  }
+  if (type_ != kStaticString) {
     return false;
+  }
 #if RTC_DCHECK_IS_ON
   if (value_.static_string_ != value)
     RTC_DCHECK(strcmp(value_.static_string_, value) != 0)
@@ -731,45 +734,52 @@ const char* StatsReport::TypeToString() const {
 void StatsReport::AddString(StatsReport::StatsValueName name,
                             const std::string& value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value));
+  }
 }
 
 void StatsReport::AddString(StatsReport::StatsValueName name,
                             const char* value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value));
+  }
 }
 
 void StatsReport::AddInt64(StatsReport::StatsValueName name, int64_t value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value, Value::kInt64));
+  }
 }
 
 void StatsReport::AddInt(StatsReport::StatsValueName name, int value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == static_cast<int64_t>(value)))
+  if (!found || !(*found == static_cast<int64_t>(value))) {
     values_[name] = ValuePtr(new Value(name, value, Value::kInt));
+  }
 }
 
 void StatsReport::AddFloat(StatsReport::StatsValueName name, float value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value));
+  }
 }
 
 void StatsReport::AddBoolean(StatsReport::StatsValueName name, bool value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value));
+  }
 }
 
 void StatsReport::AddId(StatsReport::StatsValueName name, const Id& value) {
   const Value* found = FindValue(name);
-  if (!found || !(*found == value))
+  if (!found || !(*found == value)) {
     values_[name] = ValuePtr(new Value(name, value));
+  }
 }
 
 const StatsReport::Value* StatsReport::FindValue(StatsValueName name) const {
@@ -781,8 +791,9 @@ StatsCollection::StatsCollection() {}
 
 StatsCollection::~StatsCollection() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  for (auto* r : list_)
+  for (auto* r : list_) {
     delete r;
+  }
 }
 
 StatsCollection::const_iterator StatsCollection::begin() const {

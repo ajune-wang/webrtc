@@ -62,8 +62,9 @@ namespace webrtc_checks_impl {
 // Reads one argument from args, appends it to s and advances fmt.
 // Returns true iff an argument was sucessfully parsed.
 bool ParseArg(va_list* args, const CheckArgType** fmt, std::string* s) {
-  if (**fmt == CheckArgType::kEnd)
+  if (**fmt == CheckArgType::kEnd) {
     return false;
+  }
 
   switch (**fmt) {
     case CheckArgType::kInt:
@@ -131,15 +132,17 @@ RTC_NORETURN void FatalLog(const char* file,
     fmt++;
 
     std::string s1, s2;
-    if (ParseArg(&args, &fmt, &s1) && ParseArg(&args, &fmt, &s2))
+    if (ParseArg(&args, &fmt, &s1) && ParseArg(&args, &fmt, &s2)) {
       AppendFormat(&s, " (%s vs. %s)\n# ", s1.c_str(), s2.c_str());
+    }
   } else {
     s.append("\n# ");
   }
 
   // Append all the user-supplied arguments to the message.
-  while (ParseArg(&args, &fmt, &s))
+  while (ParseArg(&args, &fmt, &s)) {
     ;
+  }
 
   va_end(args);
 

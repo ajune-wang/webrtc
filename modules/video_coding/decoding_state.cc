@@ -56,22 +56,25 @@ uint16_t VCMDecodingState::sequence_num() const {
 
 bool VCMDecodingState::IsOldFrame(const VCMFrameBuffer* frame) const {
   assert(frame != NULL);
-  if (in_initial_state_)
+  if (in_initial_state_) {
     return false;
+  }
   return !IsNewerTimestamp(frame->Timestamp(), time_stamp_);
 }
 
 bool VCMDecodingState::IsOldPacket(const VCMPacket* packet) const {
   assert(packet != NULL);
-  if (in_initial_state_)
+  if (in_initial_state_) {
     return false;
+  }
   return !IsNewerTimestamp(packet->timestamp, time_stamp_);
 }
 
 void VCMDecodingState::SetState(const VCMFrameBuffer* frame) {
   assert(frame != NULL && frame->GetHighSeqNum() >= 0);
-  if (!UsingFlexibleMode(frame))
+  if (!UsingFlexibleMode(frame)) {
     UpdateSyncState(frame);
+  }
   sequence_num_ = static_cast<uint16_t>(frame->GetHighSeqNum());
   time_stamp_ = frame->Timestamp();
   picture_id_ = frame->PictureId();
@@ -171,8 +174,9 @@ bool VCMDecodingState::full_sync() const {
 }
 
 void VCMDecodingState::UpdateSyncState(const VCMFrameBuffer* frame) {
-  if (in_initial_state_)
+  if (in_initial_state_) {
     return;
+  }
   if (frame->TemporalId() == kNoTemporalIdx ||
       frame->Tl0PicId() == kNoTl0PicIdx) {
     full_sync_ = true;
@@ -212,18 +216,22 @@ bool VCMDecodingState::ContinuousFrame(const VCMFrameBuffer* frame) const {
     return true;
   }
   // When in the initial state we always require a key frame to start decoding.
-  if (in_initial_state_)
+  if (in_initial_state_) {
     return false;
-  if (ContinuousLayer(frame->TemporalId(), frame->Tl0PicId()))
+  }
+  if (ContinuousLayer(frame->TemporalId(), frame->Tl0PicId())) {
     return true;
+  }
   // tl0picId is either not used, or should remain unchanged.
-  if (frame->Tl0PicId() != tl0_pic_id_)
+  if (frame->Tl0PicId() != tl0_pic_id_) {
     return false;
+  }
   // Base layers are not continuous or temporal layers are inactive.
   // In the presence of temporal layers, check for Picture ID/sequence number
   // continuity if sync can be restored by this frame.
-  if (!full_sync_ && !frame->LayerSync())
+  if (!full_sync_ && !frame->LayerSync()) {
     return false;
+  }
   if (UsingPictureId(frame)) {
     if (UsingFlexibleMode(frame)) {
       return ContinuousFrameRefs(frame);
@@ -258,17 +266,19 @@ bool VCMDecodingState::ContinuousSeqNum(uint16_t seq_num) const {
 
 bool VCMDecodingState::ContinuousLayer(int temporal_id, int tl0_pic_id) const {
   // First, check if applicable.
-  if (temporal_id == kNoTemporalIdx || tl0_pic_id == kNoTl0PicIdx)
+  if (temporal_id == kNoTemporalIdx || tl0_pic_id == kNoTl0PicIdx) {
     return false;
   // If this is the first frame to use temporal layers, make sure we start
   // from base.
-  else if (tl0_pic_id_ == kNoTl0PicIdx && temporal_id_ == kNoTemporalIdx &&
-           temporal_id == 0)
+  } else if (tl0_pic_id_ == kNoTl0PicIdx && temporal_id_ == kNoTemporalIdx &&
+             temporal_id == 0) {
     return true;
+  }
 
   // Current implementation: Look for base layer continuity.
-  if (temporal_id != 0)
+  if (temporal_id != 0) {
     return false;
+  }
   return (static_cast<uint8_t>(tl0_pic_id_ + 1) == tl0_pic_id);
 }
 
@@ -321,8 +331,9 @@ bool VCMDecodingState::HaveSpsAndPps(const std::vector<NaluInfo>& nalus) const {
   std::map<int, int> new_pps;
   for (const NaluInfo& nalu : nalus) {
     // Check if this nalu actually contains sps/pps information or dependencies.
-    if (nalu.sps_id == -1 && nalu.pps_id == -1)
+    if (nalu.sps_id == -1 && nalu.pps_id == -1) {
       continue;
+    }
     switch (nalu.type) {
       case H264::NaluType::kPps:
         if (nalu.pps_id < 0) {

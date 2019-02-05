@@ -58,10 +58,11 @@ int GetCpuSpeed(int width, int height) {
 #else
   // For smaller resolutions, use lower speed setting (get some coding gain at
   // the cost of increased encoding complexity).
-  if (width * height <= 352 * 288)
+  if (width * height <= 352 * 288) {
     return 5;
-  else
+  } else {
     return 7;
+  }
 #endif
 }
 // Helper class for extracting VP9 colorspace.
@@ -1442,8 +1443,9 @@ int VP9DecoderImpl::Decode(const EncodedImage& input_image,
   }
   // Always start with a complete key frame.
   if (key_frame_required_) {
-    if (input_image._frameType != kVideoFrameKey)
+    if (input_image._frameType != kVideoFrameKey) {
       return WEBRTC_VIDEO_CODEC_ERROR;
+    }
     // We have a key frame - is it complete?
     if (input_image._completeFrame) {
       key_frame_required_ = false;

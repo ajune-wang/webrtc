@@ -145,8 +145,9 @@ std::string IPAddress::ToSensitiveString() const {
     case AF_INET: {
       std::string address = ToString();
       size_t find_pos = address.rfind('.');
-      if (find_pos == std::string::npos)
+      if (find_pos == std::string::npos) {
         return std::string();
+      }
       address.resize(find_pos);
       address += ".x";
       return address;
@@ -206,8 +207,9 @@ const InterfaceAddress& InterfaceAddress::operator=(
 std::string InterfaceAddress::ToString() const {
   std::string result = IPAddress::ToString();
 
-  if (family() == AF_INET6)
+  if (family() == AF_INET6) {
     result += "|flags:0x" + rtc::ToHex(ipv6_flags());
+  }
 
   return result;
 }
@@ -420,18 +422,24 @@ int CountIPMaskBits(IPAddress mask) {
   // This could also be written word_to_count &= -word_to_count, but
   // MSVC emits warning C4146 when negating an unsigned number.
   word_to_count &= ~word_to_count + 1;  // Isolate lowest set bit.
-  if (word_to_count)
+  if (word_to_count) {
     zeroes--;
-  if (word_to_count & 0x0000FFFF)
+  }
+  if (word_to_count & 0x0000FFFF) {
     zeroes -= 16;
-  if (word_to_count & 0x00FF00FF)
+  }
+  if (word_to_count & 0x00FF00FF) {
     zeroes -= 8;
-  if (word_to_count & 0x0F0F0F0F)
+  }
+  if (word_to_count & 0x0F0F0F0F) {
     zeroes -= 4;
-  if (word_to_count & 0x33333333)
+  }
+  if (word_to_count & 0x33333333) {
     zeroes -= 2;
-  if (word_to_count & 0x55555555)
+  }
+  if (word_to_count & 0x55555555) {
     zeroes -= 1;
+  }
 
   return bits + (32 - zeroes);
 }

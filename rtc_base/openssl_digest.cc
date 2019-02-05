@@ -108,8 +108,9 @@ bool OpenSSLDigest::GetDigestName(const EVP_MD* md, std::string* algorithm) {
 bool OpenSSLDigest::GetDigestSize(const std::string& algorithm,
                                   size_t* length) {
   const EVP_MD* md;
-  if (!GetDigestEVP(algorithm, &md))
+  if (!GetDigestEVP(algorithm, &md)) {
     return false;
+  }
 
   *length = EVP_MD_size(md);
   return true;

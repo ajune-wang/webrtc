@@ -62,12 +62,14 @@ StreamResult StringStream::Read(void* buffer,
                                 size_t* read,
                                 int* error) {
   size_t available = std::min(buffer_len, str_.size() - read_pos_);
-  if (!available)
+  if (!available) {
     return SR_EOS;
+  }
   memcpy(buffer, str_.data() + read_pos_, available);
   read_pos_ += available;
-  if (read)
+  if (read) {
     *read = available;
+  }
   return SR_SUCCESS;
 }
 
@@ -83,8 +85,9 @@ StreamResult StringStream::Write(const void* data,
   }
   str_.append(static_cast<const char*>(data),
               static_cast<const char*>(data) + data_len);
-  if (written)
+  if (written) {
     *written = data_len;
+  }
   return SR_SUCCESS;
 }
 

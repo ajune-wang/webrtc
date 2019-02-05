@@ -496,8 +496,9 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
 
   webrtc::Config config;
 
-  if (options.delay_agnostic_aec)
+  if (options.delay_agnostic_aec) {
     delay_agnostic_aec_ = options.delay_agnostic_aec;
+  }
   if (delay_agnostic_aec_) {
     RTC_LOG(LS_INFO) << "Delay agnostic aec is enabled? "
                      << *delay_agnostic_aec_;

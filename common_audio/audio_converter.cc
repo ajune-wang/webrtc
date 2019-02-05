@@ -39,8 +39,9 @@ class CopyConverter : public AudioConverter {
                size_t dst_capacity) override {
     CheckSizes(src_size, dst_capacity);
     if (src != dst) {
-      for (size_t i = 0; i < src_channels(); ++i)
+      for (size_t i = 0; i < src_channels(); ++i) {
         std::memcpy(dst[i], src[i], dst_frames() * sizeof(*dst[i]));
+      }
     }
   }
 };
@@ -61,8 +62,9 @@ class UpmixConverter : public AudioConverter {
     CheckSizes(src_size, dst_capacity);
     for (size_t i = 0; i < dst_frames(); ++i) {
       const float value = src[0][i];
-      for (size_t j = 0; j < dst_channels(); ++j)
+      for (size_t j = 0; j < dst_channels(); ++j) {
         dst[j][i] = value;
+      }
     }
   }
 };
@@ -84,8 +86,9 @@ class DownmixConverter : public AudioConverter {
     float* dst_mono = dst[0];
     for (size_t i = 0; i < src_frames(); ++i) {
       float sum = 0;
-      for (size_t j = 0; j < src_channels(); ++j)
+      for (size_t j = 0; j < src_channels(); ++j) {
         sum += src[j][i];
+      }
       dst_mono[i] = sum / src_channels();
     }
   }
@@ -99,9 +102,10 @@ class ResampleConverter : public AudioConverter {
                     size_t dst_frames)
       : AudioConverter(src_channels, src_frames, dst_channels, dst_frames) {
     resamplers_.reserve(src_channels);
-    for (size_t i = 0; i < src_channels; ++i)
+    for (size_t i = 0; i < src_channels; ++i) {
       resamplers_.push_back(std::unique_ptr<PushSincResampler>(
           new PushSincResampler(src_frames, dst_frames)));
+    }
   }
   ~ResampleConverter() override{};
 
@@ -110,8 +114,9 @@ class ResampleConverter : public AudioConverter {
                float* const* dst,
                size_t dst_capacity) override {
     CheckSizes(src_size, dst_capacity);
-    for (size_t i = 0; i < resamplers_.size(); ++i)
+    for (size_t i = 0; i < resamplers_.size(); ++i) {
       resamplers_[i]->Resample(src[i], src_frames(), dst[i], dst_frames());
+    }
   }
 
  private:
@@ -127,10 +132,11 @@ class CompositionConverter : public AudioConverter {
       : converters_(std::move(converters)) {
     RTC_CHECK_GE(converters_.size(), 2);
     // We need an intermediate buffer after every converter.
-    for (auto it = converters_.begin(); it != converters_.end() - 1; ++it)
+    for (auto it = converters_.begin(); it != converters_.end() - 1; ++it) {
       buffers_.push_back(
           std::unique_ptr<ChannelBuffer<float>>(new ChannelBuffer<float>(
               (*it)->dst_frames(), (*it)->dst_channels())));
+    }
   }
   ~CompositionConverter() override{};
 

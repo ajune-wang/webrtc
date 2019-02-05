@@ -77,8 +77,9 @@ std::string VectorToStringAsDouble(const std::vector<T>& vector) {
 }  // namespace
 
 bool RTCStats::operator==(const RTCStats& other) const {
-  if (type() != other.type() || id() != other.id())
+  if (type() != other.type() || id() != other.id()) {
     return false;
+  }
   std::vector<const RTCStatsMemberInterface*> members = Members();
   std::vector<const RTCStatsMemberInterface*> other_members = other.Members();
   RTC_DCHECK_EQ(members.size(), other_members.size());
@@ -87,8 +88,9 @@ bool RTCStats::operator==(const RTCStats& other) const {
     const RTCStatsMemberInterface* other_member = other_members[i];
     RTC_DCHECK_EQ(member->type(), other_member->type());
     RTC_DCHECK_EQ(member->name(), other_member->name());
-    if (*member != *other_member)
+    if (*member != *other_member) {
       return false;
+    }
   }
   return true;
 }
@@ -105,10 +107,11 @@ std::string RTCStats::ToJson() const {
   for (const RTCStatsMemberInterface* member : Members()) {
     if (member->is_defined()) {
       sb << ",\"" << member->name() << "\":";
-      if (member->is_string())
+      if (member->is_string()) {
         sb << "\"" << member->ValueToJson() << "\"";
-      else
+      } else {
         sb << member->ValueToJson();
+      }
     }
   }
   sb << "}";

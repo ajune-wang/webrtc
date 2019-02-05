@@ -77,8 +77,9 @@ bool Base64::GetNextBase64Char(char ch, char* next_ch) {
     return false;
   }
   const char* p = strchr(Base64Table, ch);
-  if (!p)
+  if (!p) {
     return false;
+  }
   ++p;
   *next_ch = (*p) ? *p : Base64Table[0];
   return true;
@@ -86,8 +87,9 @@ bool Base64::GetNextBase64Char(char ch, char* next_ch) {
 
 bool Base64::IsBase64Encoded(const std::string& str) {
   for (size_t i = 0; i < str.size(); ++i) {
-    if (!IsBase64Char(str.at(i)))
+    if (!IsBase64Char(str.at(i))) {
       return false;
+    }
   }
   return true;
 }
@@ -144,21 +146,25 @@ size_t Base64::GetNextQuantum(DecodeFlags parse_flags,
   for (; (byte_len < 4) && (*dpos < len); ++*dpos) {
     qbuf[byte_len] = DecodeTable[static_cast<unsigned char>(data[*dpos])];
     if ((il == qbuf[byte_len]) || (illegal_pads && (pd == qbuf[byte_len]))) {
-      if (parse_flags != DO_PARSE_ANY)
+      if (parse_flags != DO_PARSE_ANY) {
         break;
+      }
       // Ignore illegal characters
     } else if (sp == qbuf[byte_len]) {
-      if (parse_flags == DO_PARSE_STRICT)
+      if (parse_flags == DO_PARSE_STRICT) {
         break;
+      }
       // Ignore spaces
     } else if (pd == qbuf[byte_len]) {
       if (byte_len < 2) {
-        if (parse_flags != DO_PARSE_ANY)
+        if (parse_flags != DO_PARSE_ANY) {
           break;
+        }
         // Ignore unexpected padding
       } else if (byte_len + pad_len >= 4) {
-        if (parse_flags != DO_PARSE_ANY)
+        if (parse_flags != DO_PARSE_ANY) {
           break;
+        }
         // Ignore extra pads
       } else {
         if (1 == ++pad_len) {
@@ -167,8 +173,9 @@ size_t Base64::GetNextQuantum(DecodeFlags parse_flags,
       }
     } else {
       if (pad_len > 0) {
-        if (parse_flags != DO_PARSE_ANY)
+        if (parse_flags != DO_PARSE_ANY) {
           break;
+        }
         // Ignore pads which are followed by data
         pad_len = 0;
       }

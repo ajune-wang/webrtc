@@ -33,8 +33,9 @@ void RtcEventProcessor::ProcessEventsInOrder() {
 bool RtcEventProcessor::Cmp(const RtcEventProcessor::ListPtrType& a,
                             const RtcEventProcessor::ListPtrType& b) {
   int64_t time_diff = a->GetNextTime() - b->GetNextTime();
-  if (time_diff == 0)
+  if (time_diff == 0) {
     return a->GetTieBreaker() > b->GetTieBreaker();
+  }
   return time_diff > 0;
 }
 

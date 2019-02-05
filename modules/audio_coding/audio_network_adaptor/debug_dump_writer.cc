@@ -88,8 +88,9 @@ void DebugDumpWriterImpl::DumpNetworkMetrics(
   event.set_type(Event::NETWORK_METRICS);
   auto dump_metrics = event.mutable_network_metrics();
 
-  if (metrics.uplink_bandwidth_bps)
+  if (metrics.uplink_bandwidth_bps) {
     dump_metrics->set_uplink_bandwidth_bps(*metrics.uplink_bandwidth_bps);
+  }
 
   if (metrics.uplink_packet_loss_fraction) {
     dump_metrics->set_uplink_packet_loss_fraction(
@@ -101,8 +102,9 @@ void DebugDumpWriterImpl::DumpNetworkMetrics(
         *metrics.target_audio_bitrate_bps);
   }
 
-  if (metrics.rtt_ms)
+  if (metrics.rtt_ms) {
     dump_metrics->set_rtt_ms(*metrics.rtt_ms);
+  }
 
   if (metrics.uplink_recoverable_packet_loss_fraction) {
     dump_metrics->set_uplink_recoverable_packet_loss_fraction(
@@ -122,25 +124,30 @@ void DebugDumpWriterImpl::DumpEncoderRuntimeConfig(
   event.set_type(Event::ENCODER_RUNTIME_CONFIG);
   auto dump_config = event.mutable_encoder_runtime_config();
 
-  if (config.bitrate_bps)
+  if (config.bitrate_bps) {
     dump_config->set_bitrate_bps(*config.bitrate_bps);
+  }
 
-  if (config.frame_length_ms)
+  if (config.frame_length_ms) {
     dump_config->set_frame_length_ms(*config.frame_length_ms);
+  }
 
   if (config.uplink_packet_loss_fraction) {
     dump_config->set_uplink_packet_loss_fraction(
         *config.uplink_packet_loss_fraction);
   }
 
-  if (config.enable_fec)
+  if (config.enable_fec) {
     dump_config->set_enable_fec(*config.enable_fec);
+  }
 
-  if (config.enable_dtx)
+  if (config.enable_dtx) {
     dump_config->set_enable_dtx(*config.enable_dtx);
+  }
 
-  if (config.num_channels)
+  if (config.num_channels) {
     dump_config->set_num_channels(*config.num_channels);
+  }
 
   DumpEventToFile(event, &dump_file_);
 #endif  // WEBRTC_ENABLE_PROTOBUF

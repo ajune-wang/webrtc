@@ -44,8 +44,9 @@ double GetIncreaseFactor(const LossBasedControlConfig& config, TimeDelta rtt) {
 double LossFromBitrate(DataRate bitrate,
                        DataRate loss_bandwidth_balance,
                        double exponent) {
-  if (loss_bandwidth_balance >= bitrate)
+  if (loss_bandwidth_balance >= bitrate) {
     return 1.0;
+  }
   return pow(loss_bandwidth_balance / bitrate, exponent);
 }
 
@@ -56,8 +57,9 @@ DataRate BitrateFromLoss(double loss,
     RTC_DCHECK(false);
     return DataRate::Infinity();
   }
-  if (loss < 1e-5)
+  if (loss < 1e-5) {
     return DataRate::Infinity();
+  }
   return loss_bandwidth_balance * pow(loss, -1.0 / exponent);
 }
 
@@ -219,8 +221,9 @@ void LossBasedBandwidthEstimation::Reset(DataRate bitrate) {
 }
 
 void LossBasedBandwidthEstimation::MaybeReset(DataRate bitrate) {
-  if (config_.allow_resets)
+  if (config_.allow_resets) {
     Reset(bitrate);
+  }
 }
 
 void LossBasedBandwidthEstimation::SetInitialBitrate(DataRate bitrate) {

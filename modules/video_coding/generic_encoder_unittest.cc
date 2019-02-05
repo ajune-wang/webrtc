@@ -84,8 +84,9 @@ std::vector<std::vector<FrameType>> GetTimingFrames(
   int s, i;
   std::vector<uint8_t> frame_data(max_frame_size);
   std::vector<std::vector<FrameType>> result(num_streams);
-  for (s = 0; s < num_streams; ++s)
+  for (s = 0; s < num_streams; ++s) {
     callback.OnTargetBitrateChanged(average_frame_sizes[s] * kFramerate, s);
+  }
   int64_t current_timestamp = 0;
   for (i = 0; i < num_frames; ++i) {
     current_timestamp += 1;
@@ -158,8 +159,9 @@ TEST(TestVCMEncodedFrameCallback, MarksTimingFramesPeriodicallyTogether) {
         EXPECT_EQ(num_timing, 0);
       }
     }
-    if (num_timing > 0)
+    if (num_timing > 0) {
       last_timing_frame = i;
+    }
   }
 }
 

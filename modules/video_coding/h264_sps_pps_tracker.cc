@@ -140,8 +140,9 @@ H264SpsPpsTracker::PacketAction H264SpsPpsTracker::CopyAndFixBitstream(
       nalu_ptr += segment_length;
     }
   } else {
-    if (video_header.is_first_packet_in_frame)
+    if (video_header.is_first_packet_in_frame) {
       required_size += sizeof(start_code_h264);
+    }
     required_size += data_size;
   }
 

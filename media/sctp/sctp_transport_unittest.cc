@@ -435,8 +435,9 @@ TEST_F(SctpTransportTest, SendDataBlocked) {
   for (size_t i = 0; i < 100; ++i) {
     transport1()->SendData(
         params, rtc::CopyOnWriteBuffer(&buffer[0], buffer.size()), &result);
-    if (result == SDR_BLOCK)
+    if (result == SDR_BLOCK) {
       break;
+    }
   }
 
   EXPECT_EQ(SDR_BLOCK, result);

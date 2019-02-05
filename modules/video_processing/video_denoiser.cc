@@ -97,16 +97,18 @@ void VideoDenoiser::DenoiserReset(
 }
 
 int VideoDenoiser::PositionCheck(int mb_row, int mb_col, int noise_level) {
-  if (noise_level == 0)
+  if (noise_level == 0) {
     return 1;
+  }
   if ((mb_row <= (mb_rows_ >> 4)) || (mb_col <= (mb_cols_ >> 4)) ||
-      (mb_col >= (15 * mb_cols_ >> 4)))
+      (mb_col >= (15 * mb_cols_ >> 4))) {
     return 3;
-  else if ((mb_row <= (mb_rows_ >> 3)) || (mb_col <= (mb_cols_ >> 3)) ||
-           (mb_col >= (7 * mb_cols_ >> 3)))
+  } else if ((mb_row <= (mb_rows_ >> 3)) || (mb_col <= (mb_cols_ >> 3)) ||
+             (mb_col >= (7 * mb_cols_ >> 3))) {
     return 2;
-  else
+  } else {
     return 1;
+  }
 }
 
 void VideoDenoiser::ReduceFalseDetection(
@@ -164,11 +166,12 @@ bool VideoDenoiser::IsTrailingBlock(const std::unique_ptr<uint8_t[]>& d_status,
                                     int mb_col) {
   bool ret = false;
   int mb_index = mb_row * mb_cols_ + mb_col;
-  if (!mb_row || !mb_col || mb_row == mb_rows_ - 1 || mb_col == mb_cols_ - 1)
+  if (!mb_row || !mb_col || mb_row == mb_rows_ - 1 || mb_col == mb_cols_ - 1) {
     ret = false;
-  else
+  } else {
     ret = d_status[mb_index + 1] || d_status[mb_index - 1] ||
           d_status[mb_index + mb_cols_] || d_status[mb_index - mb_cols_];
+  }
   return ret;
 }
 
@@ -327,8 +330,9 @@ rtc::scoped_refptr<I420BufferInterface> VideoDenoiser::DenoiseFrame(
 
   // When frame width/height not divisible by 16, copy the margin to
   // denoised_frame.
-  if ((mb_rows_ << 4) != height_ || (mb_cols_ << 4) != width_)
+  if ((mb_rows_ << 4) != height_ || (mb_cols_ << 4) != width_) {
     CopyLumaOnMargin(y_src, stride_y_src, y_dst, stride_y_dst);
+  }
 
   // Copy u/v planes.
   libyuv::CopyPlane(frame->DataU(), frame->StrideU(), dst->MutableDataU(),

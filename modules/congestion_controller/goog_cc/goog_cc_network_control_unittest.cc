@@ -160,8 +160,9 @@ class GoogCcNetworkControllerTest : public ::testing::Test {
   }
 
   void OnUpdate(NetworkControlUpdate update) {
-    if (update.target_rate)
+    if (update.target_rate) {
       target_bitrate_ = update.target_rate->target_rate;
+    }
   }
 
   void PacketTransmissionAndFeedbackBlock(int64_t runtime_ms, int64_t delay) {

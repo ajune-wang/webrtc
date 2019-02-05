@@ -45,8 +45,9 @@ ReceiveTimeCalculator::ReceiveTimeCalculator()
 
 std::unique_ptr<ReceiveTimeCalculator>
 ReceiveTimeCalculator::CreateFromFieldTrial() {
-  if (!IsEnabled(kBweReceiveTimeCorrection))
+  if (!IsEnabled(kBweReceiveTimeCorrection)) {
     return nullptr;
+  }
   return absl::make_unique<ReceiveTimeCalculator>();
 }
 
@@ -70,10 +71,11 @@ int64_t ReceiveTimeCalculator::ReconcileReceiveTimes(int64_t packet_time_us,
 
     // Repair backwards clock resets during initial stall. In this case, the
     // reset is observed only in packet time but never in system time.
-    if (system_time_delta_us < 0)
+    if (system_time_delta_us < 0) {
       total_system_time_passed_us_ += config_.stall_threshold->us();
-    else
+    } else {
       total_system_time_passed_us_ += system_time_delta_us;
+    }
     if (packet_time_delta_us < 0 &&
         total_system_time_passed_us_ < config_.stall_threshold->us()) {
       static_clock_offset_us_ -= packet_time_delta_us;
@@ -96,10 +98,11 @@ int64_t ReceiveTimeCalculator::ReconcileReceiveTimes(int64_t packet_time_us,
     bool stall_is_over = safe_time_delta_us > config_.stall_threshold->us();
     bool packet_time_caught_up =
         packet_time_delta_us < 0 && system_time_delta_us >= 0;
-    if (stall_start && small_backward_clock_reset)
+    if (stall_start && small_backward_clock_reset) {
       small_reset_during_stall_ = true;
-    else if (stall_is_over || packet_time_caught_up)
+    } else if (stall_is_over || packet_time_caught_up) {
       small_reset_during_stall_ = false;
+    }
 
     // If resets are detected, advance time by (capped) packet time increase.
     if (forward_clock_reset || obvious_backward_clock_reset ||

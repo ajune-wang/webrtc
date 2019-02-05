@@ -174,8 +174,9 @@ class OveruseFrameDetectorTest : public ::testing::Test,
 
       overuse_detector_->CheckForOveruse(observer_);
       // Avoid turning clock backwards.
-      if (interval_us > delay_us)
+      if (interval_us > delay_us) {
         clock_.AdvanceTimeMicros(interval_us - delay_us);
+      }
 
       timestamp += interval_us * 90 / 1000;
     }

@@ -401,15 +401,19 @@ static void WebRtcSpl_DotProdIntToShort(const int32_t* in1, const int32_t* in2,
 
     // scale down, round and saturate
     tmp1 >>= 15;
-    if (tmp1 > (int32_t)0x00007FFF)
+    if (tmp1 > (int32_t)0x00007FFF) {
         tmp1 = 0x00007FFF;
-    if (tmp1 < (int32_t)0xFFFF8000)
+}
+    if (tmp1 < (int32_t)0xFFFF8000) {
         tmp1 = 0xFFFF8000;
+}
     tmp2 >>= 15;
-    if (tmp2 > (int32_t)0x00007FFF)
+    if (tmp2 > (int32_t)0x00007FFF) {
         tmp2 = 0x00007FFF;
-    if (tmp2 < (int32_t)0xFFFF8000)
+}
+    if (tmp2 < (int32_t)0xFFFF8000) {
         tmp2 = 0xFFFF8000;
+}
     *out1 = (int16_t)tmp1;
     *out2 = (int16_t)tmp2;
 }
@@ -477,10 +481,12 @@ void WebRtcSpl_32khzTo22khzIntToShort(const int32_t *In,
     {
         // first output sample
         tmp = In[3];
-        if (tmp > (int32_t)0x00007FFF)
+        if (tmp > (int32_t)0x00007FFF) {
             tmp = 0x00007FFF;
-        if (tmp < (int32_t)0xFFFF8000)
+}
+        if (tmp < (int32_t)0xFFFF8000) {
             tmp = 0xFFFF8000;
+}
         Out[0] = (int16_t)tmp;
 
         // sum and accumulate filter coefficients and input samples

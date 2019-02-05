@@ -193,8 +193,9 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     vp9_header.spatial_idx = sid;
     vp9_header.tl0_pic_idx = kNoTl0PicIdx;
     vp9_header.num_ref_pics = refs.size();
-    for (size_t i = 0; i < refs.size(); ++i)
+    for (size_t i = 0; i < refs.size(); ++i) {
       vp9_header.pid_diff[i] = refs[i];
+    }
     ref_packet_buffer_->InsertPacket(&packet);
 
     if (seq_num_start != seq_num_end) {
@@ -224,8 +225,9 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
     }
 
     std::set<int64_t> actual_refs;
-    for (uint8_t r = 0; r < frame_it->second->num_references; ++r)
+    for (uint8_t r = 0; r < frame_it->second->num_references; ++r) {
       actual_refs.insert(frame_it->second->references[r]);
+    }
 
     std::set<int64_t> expected_refs;
     RefsToSet(&expected_refs, refs...);
@@ -262,8 +264,9 @@ class TestRtpFrameReferenceFinder : public ::testing::Test,
   struct FrameComp {
     bool operator()(const std::pair<int64_t, uint8_t> f1,
                     const std::pair<int64_t, uint8_t> f2) const {
-      if (f1.first == f2.first)
+      if (f1.first == f2.first) {
         return f1.second < f2.second;
+      }
       return f1.first < f2.first;
     }
   };

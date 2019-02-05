@@ -96,8 +96,9 @@ int DefaultNumberOfTemporalLayers(int simulcast_id, bool screenshare) {
                         "WebRTC-VP8ScreenshareTemporalLayers")
                   : webrtc::field_trial::FindFullName(
                         "WebRTC-VP8ConferenceTemporalLayers");
-  if (group_name.empty())
+  if (group_name.empty()) {
     return default_num_temporal_layers;
+  }
 
   int num_temporal_layers = default_num_temporal_layers;
   if (sscanf(group_name.c_str(), "%d", &num_temporal_layers) == 1 &&
@@ -184,8 +185,9 @@ void SlotSimulcastMaxResolution(size_t max_layers, int* width, int* height) {
 
 void BoostMaxSimulcastLayer(int max_bitrate_bps,
                             std::vector<webrtc::VideoStream>* layers) {
-  if (layers->empty())
+  if (layers->empty()) {
     return;
+  }
 
   // Spend additional bits to boost the max layer.
   int bitrate_left_bps = max_bitrate_bps - GetTotalMaxBitrateBps(*layers);
@@ -195,8 +197,9 @@ void BoostMaxSimulcastLayer(int max_bitrate_bps,
 }
 
 int GetTotalMaxBitrateBps(const std::vector<webrtc::VideoStream>& layers) {
-  if (layers.empty())
+  if (layers.empty()) {
     return 0;
+  }
 
   int total_max_bitrate_bps = 0;
   for (size_t s = 0; s < layers.size() - 1; ++s) {

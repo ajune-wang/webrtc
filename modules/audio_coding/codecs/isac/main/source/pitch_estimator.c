@@ -165,8 +165,9 @@ static void WebRtcIsac_DecimateAllpass(
   WebRtcIsac_AllpassFilterForDec(data_vec, APlower, N,
                                  state_in + ALLPASSSECTIONS);
 
-  for (n = 0; n < N / 2; n++)
+  for (n = 0; n < N / 2; n++) {
     out[n] = data_vec[2 * n] + data_vec[2 * n + 1];
+}
 }
 
 RTC_PUSH_IGNORING_WFRAME_LARGER_THAN()
@@ -217,8 +218,9 @@ static void WebRtcIsac_InitializePitch(const double* in,
                              &buf_dec[PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2]);
 
   /* low-pass filtering */
-  for (k = PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2; k < PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2+2; k++)
+  for (k = PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2; k < PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2+2; k++) {
     buf_dec[k] += 0.75 * buf_dec[k-1] - 0.25 * buf_dec[k-2];
+}
 
   /* copy end part back into state buffer */
   memcpy(State->dec_buffer, buf_dec+PITCH_FRAME_LEN/2, sizeof(double) * (PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2));
@@ -230,7 +232,8 @@ static void WebRtcIsac_InitializePitch(const double* in,
   /* bias towards pitch lag of previous frame */
   log_lag = log(0.5 * old_lag);
   gain_bias = 4.0 * old_gain * old_gain;
-  if (gain_bias > 0.8) gain_bias = 0.8;
+  if (gain_bias > 0.8) { gain_bias = 0.8;
+}
   for (k = 0; k < PITCH_LAG_SPAN2; k++)
   {
     ratio = log((double) (k + (PITCH_MIN_LAG/2-2))) - log_lag;
@@ -332,7 +335,8 @@ static void WebRtcIsac_InitializePitch(const double* in,
   peaks_ind = 0;
   /* find peaks */
   for (m = 1; m < PITCH_BW+1; m++) {
-    if (peaks_ind == PITCH_MAX_NUM_PEAKS) break;
+    if (peaks_ind == PITCH_MAX_NUM_PEAKS) { break;
+}
     CorrSurfPtr1 = &CorrSurf[m][2];
     for (k = 2; k < PITCH_LAG_SPAN2-PITCH_BW-2+m; k++) {
       corr = CorrSurfPtr1[k];
@@ -341,14 +345,16 @@ static void WebRtcIsac_InitializePitch(const double* in,
           if ( (corr > CorrSurfPtr1[k + (PITCH_LAG_SPAN2+4)]) && (corr > CorrSurfPtr1[k + (PITCH_LAG_SPAN2+5)]) ) {
             /* found a peak; store index into matrix */
             peaks[peaks_ind++] = (int)(&CorrSurfPtr1[k] - &CorrSurf[0][0]);
-            if (peaks_ind == PITCH_MAX_NUM_PEAKS) break;
+            if (peaks_ind == PITCH_MAX_NUM_PEAKS) { break;
+}
           }
         }
       }
     }
   }
   for (m = PITCH_BW+1; m < 2*PITCH_BW; m++) {
-    if (peaks_ind == PITCH_MAX_NUM_PEAKS) break;
+    if (peaks_ind == PITCH_MAX_NUM_PEAKS) { break;
+}
     CorrSurfPtr1 = &CorrSurf[m][2];
     for (k = 2+m-PITCH_BW; k < PITCH_LAG_SPAN2-2; k++) {
       corr = CorrSurfPtr1[k];
@@ -357,7 +363,8 @@ static void WebRtcIsac_InitializePitch(const double* in,
           if ( (corr > CorrSurfPtr1[k + (PITCH_LAG_SPAN2+4)]) && (corr > CorrSurfPtr1[k + (PITCH_LAG_SPAN2+5)]) ) {
             /* found a peak; store index into matrix */
             peaks[peaks_ind++] = (int)(&CorrSurfPtr1[k] - &CorrSurf[0][0]);
-            if (peaks_ind == PITCH_MAX_NUM_PEAKS) break;
+            if (peaks_ind == PITCH_MAX_NUM_PEAKS) { break;
+}
           }
         }
       }
@@ -379,9 +386,12 @@ static void WebRtcIsac_InitializePitch(const double* in,
       /* determine maximum of the interpolated values */
       corr = CorrSurfPtr1[peak];
       corr_max = intrp_a;
-      if (intrp_b > corr_max) corr_max = intrp_b;
-      if (intrp_c > corr_max) corr_max = intrp_c;
-      if (intrp_d > corr_max) corr_max = intrp_d;
+      if (intrp_b > corr_max) { corr_max = intrp_b;
+}
+      if (intrp_c > corr_max) { corr_max = intrp_c;
+}
+      if (intrp_d > corr_max) { corr_max = intrp_d;
+}
 
       /* determine where the peak sits and fill a 3x3 matrix around it */
       row = peak / (PITCH_LAG_SPAN2+4);
@@ -466,10 +476,14 @@ static void WebRtcIsac_InitializePitch(const double* in,
     lags1[peak] *= 2.0;
     lags2[peak] *= 2.0;
 
-    if (lags1[peak] < (double) PITCH_MIN_LAG) lags1[peak] = (double) PITCH_MIN_LAG;
-    if (lags2[peak] < (double) PITCH_MIN_LAG) lags2[peak] = (double) PITCH_MIN_LAG;
-    if (lags1[peak] > (double) PITCH_MAX_LAG) lags1[peak] = (double) PITCH_MAX_LAG;
-    if (lags2[peak] > (double) PITCH_MAX_LAG) lags2[peak] = (double) PITCH_MAX_LAG;
+    if (lags1[peak] < (double) PITCH_MIN_LAG) { lags1[peak] = (double) PITCH_MIN_LAG;
+}
+    if (lags2[peak] < (double) PITCH_MIN_LAG) { lags2[peak] = (double) PITCH_MIN_LAG;
+}
+    if (lags1[peak] > (double) PITCH_MAX_LAG) { lags1[peak] = (double) PITCH_MAX_LAG;
+}
+    if (lags2[peak] > (double) PITCH_MAX_LAG) { lags2[peak] = (double) PITCH_MAX_LAG;
+}
 
     /* store lags of highest peak in output array */
     lags[0] = lags1[peak];
@@ -483,10 +497,14 @@ static void WebRtcIsac_InitializePitch(const double* in,
     lags1[0] = (double) ((max_ind - row * (PITCH_LAG_SPAN2+4)) + PITCH_MIN_LAG/2 - 4);
     lags2[0] = (double) (lags1[0] + PITCH_BW - row);
 
-    if (lags1[0] < (double) PITCH_MIN_LAG) lags1[0] = (double) PITCH_MIN_LAG;
-    if (lags2[0] < (double) PITCH_MIN_LAG) lags2[0] = (double) PITCH_MIN_LAG;
-    if (lags1[0] > (double) PITCH_MAX_LAG) lags1[0] = (double) PITCH_MAX_LAG;
-    if (lags2[0] > (double) PITCH_MAX_LAG) lags2[0] = (double) PITCH_MAX_LAG;
+    if (lags1[0] < (double) PITCH_MIN_LAG) { lags1[0] = (double) PITCH_MIN_LAG;
+}
+    if (lags2[0] < (double) PITCH_MIN_LAG) { lags2[0] = (double) PITCH_MIN_LAG;
+}
+    if (lags1[0] > (double) PITCH_MAX_LAG) { lags1[0] = (double) PITCH_MAX_LAG;
+}
+    if (lags2[0] > (double) PITCH_MAX_LAG) { lags2[0] = (double) PITCH_MAX_LAG;
+}
 
     /* store lags of highest peak in output array */
     lags[0] = lags1[0];
@@ -578,8 +596,9 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
 
   /* compute energy of whitened signal */
   nrg_wht = 0.0;
-  for (k = 0; k < PITCH_FRAME_LEN + QLOOKAHEAD; k++)
+  for (k = 0; k < PITCH_FRAME_LEN + QLOOKAHEAD; k++) {
     nrg_wht += Whitened[k] * Whitened[k];
+}
 
 
   /* Iterative optimization of gains */
@@ -590,8 +609,9 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
   Wfluct = 3.0;
 
   /* set initial gains */
-  for (k = 0; k < 4; k++)
+  for (k = 0; k < 4; k++) {
     gains[k] = PITCH_MAX_GAIN_06;
+}
 
   /* two iterations should be enough */
   for (iter = 0; iter < 2; iter++) {
@@ -601,15 +621,17 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
     /* gradient and approximate Hessian (lower triangle) for minimizing the filter's output power */
     for (k = 0; k < 4; k++) {
       tmp = 0.0;
-      for (n = 0; n < PITCH_FRAME_LEN + QLOOKAHEAD; n++)
+      for (n = 0; n < PITCH_FRAME_LEN + QLOOKAHEAD; n++) {
         tmp += out_G[n] * out_dG[k][n];
+}
       grad[k] = tmp * Wnrg;
     }
     for (k = 0; k < 4; k++) {
       for (m = 0; m <= k; m++) {
         tmp = 0.0;
-        for (n = 0; n < PITCH_FRAME_LEN + QLOOKAHEAD; n++)
+        for (n = 0; n < PITCH_FRAME_LEN + QLOOKAHEAD; n++) {
           tmp += out_dG[m][n] * out_dG[k][n];
+}
         H[k][m] = tmp * Wnrg;
       }
     }
@@ -617,8 +639,9 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
     /* add gradient and Hessian (lower triangle) for dampening fast gain changes */
     for (k = 0; k < 4; k++) {
       tmp = kWeight[k+1][0] * old_gain;
-      for (m = 0; m < 4; m++)
+      for (m = 0; m < 4; m++) {
         tmp += kWeight[k+1][m+1] * gains[m];
+}
       grad[k] += tmp * Wfluct;
     }
     for (k = 0; k < 4; k++) {
@@ -653,15 +676,17 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
 
     /* Compute update as  delta_gains = -inv(H) * grad */
     /* copy and negate */
-    for (k = 0; k < 4; k++)
+    for (k = 0; k < 4; k++) {
       dG[k] = -grad[k];
+}
     /* back substitution */
     dG[1] -= dG[0] * H[0][1];
     dG[2] -= dG[0] * H[0][2] + dG[1] * H[1][2];
     dG[3] -= dG[0] * H[0][3] + dG[1] * H[1][3] + dG[2] * H[2][3];
     /* scale */
-    for (k = 0; k < 4; k++)
+    for (k = 0; k < 4; k++) {
       dG[k] /= H[k][k];
+}
     /* back substitution */
     dG[2] -= dG[3] * H[2][3];
     dG[1] -= dG[3] * H[1][3] + dG[2] * H[1][2];
@@ -670,10 +695,11 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
     /* update gains and check range */
     for (k = 0; k < 4; k++) {
       gains[k] += dG[k];
-      if (gains[k] > PITCH_MAX_GAIN)
+      if (gains[k] > PITCH_MAX_GAIN) {
         gains[k] = PITCH_MAX_GAIN;
-      else if (gains[k] < 0.0)
+      } else if (gains[k] < 0.0) {
         gains[k] = 0.0;
+}
     }
   }
 
@@ -688,8 +714,9 @@ void WebRtcIsac_PitchAnalysis(const double *in,               /* PITCH_FRAME_LEN
   WebRtcIsac_PitchfilterPre_la(inbuf, out, &(State->PFstr), lags, gains);
 
   /* store last part of input */
-  for (k = 0; k < QLOOKAHEAD; k++)
+  for (k = 0; k < QLOOKAHEAD; k++) {
     State->inbuf[k] = inbuf[k + PITCH_FRAME_LEN];
+}
 }
 
 RTC_POP_IGNORING_WFRAME_LARGER_THAN()

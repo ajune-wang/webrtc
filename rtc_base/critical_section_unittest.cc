@@ -318,8 +318,9 @@ class PerfTestData {
   void AddToCounter(int add) {
     rtc::CritScope cs(&lock_);
     my_counter_ += add;
-    if (my_counter_ == expected_count_)
+    if (my_counter_ == expected_count_) {
       event_->Set();
+    }
   }
 
   int64_t total() const {
@@ -361,8 +362,9 @@ class PerfTestThread {
  private:
   static bool ThreadFunc(void* param) {
     PerfTestThread* me = static_cast<PerfTestThread*>(param);
-    for (int i = 0; i < me->repeats_; ++i)
+    for (int i = 0; i < me->repeats_; ++i) {
       me->data_->AddToCounter(me->my_id_);
+    }
     return false;
   }
 
@@ -401,13 +403,15 @@ TEST(CriticalSectionTest, DISABLED_Performance) {
   static const int kExpectedCount = kThreadRepeats * arraysize(threads);
   PerfTestData test_data(kExpectedCount, &event);
 
-  for (auto& t : threads)
+  for (auto& t : threads) {
     t.Start(&test_data, kThreadRepeats, 1);
+  }
 
   event.Wait(Event::kForever);
 
-  for (auto& t : threads)
+  for (auto& t : threads) {
     t.Stop();
+  }
 }
 
 }  // namespace rtc

@@ -30,16 +30,18 @@ void VadCircularBuffer::Reset() {
 }
 
 VadCircularBuffer* VadCircularBuffer::Create(int buffer_size) {
-  if (buffer_size <= 0)
+  if (buffer_size <= 0) {
     return NULL;
+  }
   return new VadCircularBuffer(buffer_size);
 }
 
 double VadCircularBuffer::Oldest() const {
-  if (!is_full_)
+  if (!is_full_) {
     return buffer_[0];
-  else
+  } else {
     return buffer_[index_];
+  }
 }
 
 double VadCircularBuffer::Mean() {
@@ -47,10 +49,11 @@ double VadCircularBuffer::Mean() {
   if (is_full_) {
     m = sum_ / buffer_size_;
   } else {
-    if (index_ > 0)
+    if (index_ > 0) {
       m = sum_ / index_;
-    else
+    } else {
       m = 0;
+    }
   }
   return m;
 }
@@ -68,23 +71,26 @@ void VadCircularBuffer::Insert(double value) {
   }
 }
 int VadCircularBuffer::BufferLevel() {
-  if (is_full_)
+  if (is_full_) {
     return buffer_size_;
+  }
   return index_;
 }
 
 int VadCircularBuffer::Get(int index, double* value) const {
   int err = ConvertToLinearIndex(&index);
-  if (err < 0)
+  if (err < 0) {
     return -1;
+  }
   *value = buffer_[index];
   return 0;
 }
 
 int VadCircularBuffer::Set(int index, double value) {
   int err = ConvertToLinearIndex(&index);
-  if (err < 0)
+  if (err < 0) {
     return -1;
+  }
 
   sum_ -= buffer_[index];
   buffer_[index] = value;
@@ -93,40 +99,48 @@ int VadCircularBuffer::Set(int index, double value) {
 }
 
 int VadCircularBuffer::ConvertToLinearIndex(int* index) const {
-  if (*index < 0 || *index >= buffer_size_)
+  if (*index < 0 || *index >= buffer_size_) {
     return -1;
+  }
 
-  if (!is_full_ && *index >= index_)
+  if (!is_full_ && *index >= index_) {
     return -1;
+  }
 
   *index = index_ - 1 - *index;
-  if (*index < 0)
+  if (*index < 0) {
     *index += buffer_size_;
+  }
   return 0;
 }
 
 int VadCircularBuffer::RemoveTransient(int width_threshold,
                                        double val_threshold) {
-  if (!is_full_ && index_ < width_threshold + 2)
+  if (!is_full_ && index_ < width_threshold + 2) {
     return 0;
+  }
 
   int index_1 = 0;
   int index_2 = width_threshold + 1;
   double v = 0;
-  if (Get(index_1, &v) < 0)
+  if (Get(index_1, &v) < 0) {
     return -1;
+  }
   if (v < val_threshold) {
     Set(index_1, 0);
     int index;
     for (index = index_2; index > index_1; index--) {
-      if (Get(index, &v) < 0)
+      if (Get(index, &v) < 0) {
         return -1;
-      if (v < val_threshold)
+      }
+      if (v < val_threshold) {
         break;
+      }
     }
     for (; index > index_1; index--) {
-      if (Set(index, 0.0) < 0)
+      if (Set(index, 0.0) < 0) {
         return -1;
+      }
     }
   }
   return 0;

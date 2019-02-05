@@ -275,8 +275,9 @@ class SSLIdentityTest : public testing::Test {
     // fail, since cryptographic hash collisions have a non-zero probability.
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
-        if (i != j)
+        if (i != j) {
           EXPECT_NE(0, memcmp(digest[i], digest[j], expected_len));
+        }
       }
     }
   }

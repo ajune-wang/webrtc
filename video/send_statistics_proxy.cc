@@ -88,8 +88,9 @@ bool IsForcedFallbackPossible(const CodecSpecificInfo* codec_info,
 }
 
 absl::optional<int> GetFallbackMaxPixels(const std::string& group) {
-  if (group.empty())
+  if (group.empty()) {
     return absl::nullopt;
+  }
 
   int min_pixels;
   int max_pixels;
@@ -99,8 +100,9 @@ absl::optional<int> GetFallbackMaxPixels(const std::string& group) {
     return absl::optional<int>();
   }
 
-  if (min_pixels <= 0 || max_pixels <= 0 || max_pixels < min_pixels)
+  if (min_pixels <= 0 || max_pixels <= 0 || max_pixels < min_pixels) {
     return absl::optional<int>();
+  }
 
   return absl::optional<int>(max_pixels);
 }
@@ -150,8 +152,9 @@ SendStatisticsProxy::~SendStatisticsProxy() {
   RTC_HISTOGRAM_COUNTS_100000("WebRTC.Video.SendStreamLifetimeInSeconds",
                               elapsed_sec);
 
-  if (elapsed_sec >= metrics::kMinRunTimeInSeconds)
+  if (elapsed_sec >= metrics::kMinRunTimeInSeconds) {
     UpdateCodecTypeHistogram(payload_name_);
+  }
 }
 
 SendStatisticsProxy::FallbackEncoderInfo::FallbackEncoderInfo() = default;
@@ -210,8 +213,9 @@ void SendStatisticsProxy::UmaSamplesContainer::RemoveOld(
     bool* is_limited_in_resolution) {
   while (!encoded_frames_.empty()) {
     auto it = encoded_frames_.begin();
-    if (now_ms - it->second.send_ms < kMaxEncodedFrameWindowMs)
+    if (now_ms - it->second.send_ms < kMaxEncodedFrameWindowMs) {
       break;
+    }
 
     // Use max per timestamp.
     sent_width_counter_.Add(it->second.max_width);
@@ -333,8 +337,9 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       // If reported period is small, it may happen that sent_fps is larger than
       // input_fps briefly on average. This should be treated as 100% sent to
       // input ratio.
-      if (sent_to_in_fps_ratio_percent > 100)
+      if (sent_to_in_fps_ratio_percent > 100) {
         sent_to_in_fps_ratio_percent = 100;
+      }
       RTC_HISTOGRAMS_PERCENTAGE(kIndex,
                                 uma_prefix_ + "SentToInputFpsRatioPercent",
                                 sent_to_in_fps_ratio_percent);
@@ -393,9 +398,10 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
         num_disabled, 10);
   }
   int delay_ms = delay_counter_.Avg(kMinRequiredMetricsSamples);
-  if (delay_ms != -1)
+  if (delay_ms != -1) {
     RTC_HISTOGRAMS_COUNTS_100000(kIndex, uma_prefix_ + "SendSideDelayInMs",
                                  delay_ms);
+  }
 
   int max_delay_ms = max_delay_counter_.Avg(kMinRequiredMetricsSamples);
   if (max_delay_ms != -1) {
@@ -475,8 +481,9 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       // Only base stats on changes during a call, discard initial changes.
       int initial_changes =
           initial_quality_changes_.down + initial_quality_changes_.up;
-      if (initial_changes <= quality_changes)
+      if (initial_changes <= quality_changes) {
         quality_changes -= initial_changes;
+      }
       RTC_HISTOGRAMS_COUNTS_100(kIndex,
                                 uma_prefix_ + "AdaptChangesPerMinute.Quality",
                                 quality_changes * 60 / elapsed_sec);
@@ -514,14 +521,16 @@ void SendStatisticsProxy::UmaSamplesContainer::UpdateHistograms(
       RtcpPacketTypeCounter counters;
       for (uint32_t ssrc : rtp_config.ssrcs) {
         auto kv = current_stats.substreams.find(ssrc);
-        if (kv == current_stats.substreams.end())
+        if (kv == current_stats.substreams.end()) {
           continue;
+        }
 
         RtcpPacketTypeCounter stream_counters =
             kv->second.rtcp_packet_type_counts;
         kv = start_stats_.substreams.find(ssrc);
-        if (kv != start_stats_.substreams.end())
+        if (kv != start_stats_.substreams.end()) {
           stream_counters.Subtract(kv->second.rtcp_packet_type_counts);
+        }
 
         counters.Add(stream_counters);
       }
@@ -702,10 +711,12 @@ void SendStatisticsProxy::OnSuspendChange(bool is_suspended) {
     uma_container_->quality_adapt_timer_.Stop(now_ms);
   } else {
     // Start adaptation stats if scaling is enabled.
-    if (cpu_downscales_ >= 0)
+    if (cpu_downscales_ >= 0) {
       uma_container_->cpu_adapt_timer_.Start(now_ms);
-    if (quality_downscales_ >= 0)
+    }
+    if (quality_downscales_ >= 0) {
       uma_container_->quality_adapt_timer_.Start(now_ms);
+    }
     // Stop pause explicitly for stats that may be zero/not updated for some
     // time.
     uma_container_->rtx_byte_counter_.ProcessAndStopPause();
@@ -746,8 +757,9 @@ VideoSendStream::StreamStats* SendStatisticsProxy::GetStatsEntry(
     uint32_t ssrc) {
   std::map<uint32_t, VideoSendStream::StreamStats>::iterator it =
       stats_.substreams.find(ssrc);
-  if (it != stats_.substreams.end())
+  if (it != stats_.substreams.end()) {
     return &it->second;
+  }
 
   bool is_media = std::find(rtp_config_.ssrcs.begin(), rtp_config_.ssrcs.end(),
                             ssrc) != rtp_config_.ssrcs.end();
@@ -756,8 +768,9 @@ VideoSendStream::StreamStats* SendStatisticsProxy::GetStatsEntry(
   bool is_rtx =
       std::find(rtp_config_.rtx.ssrcs.begin(), rtp_config_.rtx.ssrcs.end(),
                 ssrc) != rtp_config_.rtx.ssrcs.end();
-  if (!is_media && !is_flexfec && !is_rtx)
+  if (!is_media && !is_flexfec && !is_rtx) {
     return nullptr;
+  }
 
   // Insert new entry and return ptr.
   VideoSendStream::StreamStats* entry = &stats_.substreams[ssrc];
@@ -770,8 +783,9 @@ VideoSendStream::StreamStats* SendStatisticsProxy::GetStatsEntry(
 void SendStatisticsProxy::OnInactiveSsrc(uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   stats->total_bitrate_bps = 0;
   stats->retransmit_bitrate_bps = 0;
@@ -781,8 +795,9 @@ void SendStatisticsProxy::OnInactiveSsrc(uint32_t ssrc) {
 
 void SendStatisticsProxy::OnSetEncoderTargetRate(uint32_t bitrate_bps) {
   rtc::CritScope lock(&crit_);
-  if (uma_container_->target_rate_updates_.last_ms == -1 && bitrate_bps == 0)
+  if (uma_container_->target_rate_updates_.last_ms == -1 && bitrate_bps == 0) {
     return;  // Start on first non-zero bitrate, may initially be zero.
+  }
 
   int64_t now = clock_->TimeInMilliseconds();
   if (uma_container_->target_rate_updates_.last_ms != -1) {
@@ -791,8 +806,9 @@ void SendStatisticsProxy::OnSetEncoderTargetRate(uint32_t bitrate_bps) {
     uma_container_->paused_time_counter_.Add(was_paused, diff_ms);
 
     // Use last to not include update when stream is stopped and video disabled.
-    if (uma_container_->target_rate_updates_.last_paused_or_resumed)
+    if (uma_container_->target_rate_updates_.last_paused_or_resumed) {
       ++uma_container_->target_rate_updates_.pause_resume_events;
+    }
 
     // Check if video is paused/resumed.
     uma_container_->target_rate_updates_.last_paused_or_resumed =
@@ -911,8 +927,9 @@ void SendStatisticsProxy::OnSendEncodedImage(
   uint32_t ssrc = rtp_config_.ssrcs[simulcast_idx];
 
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   // Report resolution of top spatial layer in case of VP9 SVC.
   bool is_svc_low_spatial_layer =
@@ -930,8 +947,9 @@ void SendStatisticsProxy::OnSendEncodedImage(
                                          kVideoFrameKey);
 
   if (encoded_image.qp_ != -1) {
-    if (!stats_.qp_sum)
+    if (!stats_.qp_sum) {
       stats_.qp_sum = 0;
+    }
     *stats_.qp_sum += encoded_image.qp_;
 
     if (codec_info) {
@@ -974,8 +992,9 @@ void SendStatisticsProxy::OnSendEncodedImage(
 
   if (quality_downscales_ != -1) {
     uma_container_->quality_limited_frame_counter_.Add(quality_downscales_ > 0);
-    if (quality_downscales_ > 0)
+    if (quality_downscales_ > 0) {
       uma_container_->quality_downscales_counter_.Add(quality_downscales_);
+    }
   }
 }
 
@@ -1073,8 +1092,9 @@ void SendStatisticsProxy::OnInitialQualityResolutionAdaptDown() {
 
 void SendStatisticsProxy::TryUpdateInitialQualityResolutionAdaptUp(
     const AdaptationSteps& quality_counts) {
-  if (uma_container_->initial_quality_changes_.down == 0)
+  if (uma_container_->initial_quality_changes_.down == 0) {
     return;
+  }
 
   if (quality_downscales_ > 0 &&
       quality_counts.num_resolution_reductions.value_or(-1) <
@@ -1091,8 +1111,9 @@ void SendStatisticsProxy::SetAdaptTimer(const AdaptationSteps& counts,
                                         StatsTimer* timer) {
   if (counts.num_resolution_reductions || counts.num_framerate_reductions) {
     // Adaptation enabled.
-    if (!stats_.suspended)
+    if (!stats_.suspended) {
       timer->Start(clock_->TimeInMilliseconds());
+    }
     return;
   }
   timer->Stop(clock_->TimeInMilliseconds());
@@ -1103,20 +1124,23 @@ void SendStatisticsProxy::RtcpPacketTypesCounterUpdated(
     const RtcpPacketTypeCounter& packet_counter) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   stats->rtcp_packet_type_counts = packet_counter;
-  if (uma_container_->first_rtcp_stats_time_ms_ == -1)
+  if (uma_container_->first_rtcp_stats_time_ms_ == -1) {
     uma_container_->first_rtcp_stats_time_ms_ = clock_->TimeInMilliseconds();
+  }
 }
 
 void SendStatisticsProxy::StatisticsUpdated(const RtcpStatistics& statistics,
                                             uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   stats->rtcp_stats = statistics;
   uma_container_->report_block_stats_.Store(statistics, 0, ssrc);
@@ -1165,8 +1189,9 @@ void SendStatisticsProxy::Notify(uint32_t total_bitrate_bps,
                                  uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   stats->total_bitrate_bps = total_bitrate_bps;
   stats->retransmit_bitrate_bps = retransmit_bitrate_bps;
@@ -1176,8 +1201,9 @@ void SendStatisticsProxy::FrameCountUpdated(const FrameCounts& frame_counts,
                                             uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
 
   stats->frame_counts = frame_counts;
 }
@@ -1187,8 +1213,9 @@ void SendStatisticsProxy::SendSideDelayUpdated(int avg_delay_ms,
                                                uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   VideoSendStream::StreamStats* stats = GetStatsEntry(ssrc);
-  if (!stats)
+  if (!stats) {
     return;
+  }
   stats->avg_delay_ms = avg_delay_ms;
   stats->max_delay_ms = max_delay_ms;
 
@@ -1197,8 +1224,9 @@ void SendStatisticsProxy::SendSideDelayUpdated(int avg_delay_ms,
 }
 
 void SendStatisticsProxy::StatsTimer::Start(int64_t now_ms) {
-  if (start_ms == -1)
+  if (start_ms == -1) {
     start_ms = now_ms;
+  }
 }
 
 void SendStatisticsProxy::StatsTimer::Stop(int64_t now_ms) {
@@ -1210,8 +1238,9 @@ void SendStatisticsProxy::StatsTimer::Stop(int64_t now_ms) {
 
 void SendStatisticsProxy::StatsTimer::Restart(int64_t now_ms) {
   total_ms = 0;
-  if (start_ms != -1)
+  if (start_ms != -1) {
     start_ms = now_ms;
+  }
 }
 
 void SendStatisticsProxy::SampleCounter::Add(int sample) {
@@ -1221,20 +1250,23 @@ void SendStatisticsProxy::SampleCounter::Add(int sample) {
 
 int SendStatisticsProxy::SampleCounter::Avg(
     int64_t min_required_samples) const {
-  if (num_samples < min_required_samples || num_samples == 0)
+  if (num_samples < min_required_samples || num_samples == 0) {
     return -1;
+  }
   return static_cast<int>((sum + (num_samples / 2)) / num_samples);
 }
 
 void SendStatisticsProxy::BoolSampleCounter::Add(bool sample) {
-  if (sample)
+  if (sample) {
     ++sum;
+  }
   ++num_samples;
 }
 
 void SendStatisticsProxy::BoolSampleCounter::Add(bool sample, int64_t count) {
-  if (sample)
+  if (sample) {
     sum += count;
+  }
   num_samples += count;
 }
 int SendStatisticsProxy::BoolSampleCounter::Percent(
@@ -1250,8 +1282,9 @@ int SendStatisticsProxy::BoolSampleCounter::Permille(
 int SendStatisticsProxy::BoolSampleCounter::Fraction(
     int64_t min_required_samples,
     float multiplier) const {
-  if (num_samples < min_required_samples || num_samples == 0)
+  if (num_samples < min_required_samples || num_samples == 0) {
     return -1;
+  }
   return static_cast<int>((sum * multiplier / num_samples) + 0.5f);
 }
 }  // namespace webrtc

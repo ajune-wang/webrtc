@@ -39,8 +39,9 @@ std::unique_ptr<Packet> ConstantPcmPacketSource::NextPacket() {
   RTC_CHECK_GT(packet_len_bytes_, kHeaderLenBytes);
   uint8_t* packet_memory = new uint8_t[packet_len_bytes_];
   // Fill the payload part of the packet memory with the pre-encoded value.
-  for (unsigned i = 0; i < 2 * payload_len_samples_; ++i)
+  for (unsigned i = 0; i < 2 * payload_len_samples_; ++i) {
     packet_memory[kHeaderLenBytes + i] = encoded_sample_[i % 2];
+  }
   WriteHeader(packet_memory);
   // |packet| assumes ownership of |packet_memory|.
   std::unique_ptr<Packet> packet(

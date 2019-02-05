@@ -275,8 +275,9 @@ TEST_F(TestPacketBuffer, SingleFrameExpandsBuffer) {
   const uint16_t seq_num = Rand();
 
   EXPECT_TRUE(Insert(seq_num, kKeyFrame, kFirst, kNotLast));
-  for (int i = 1; i < kStartSize; ++i)
+  for (int i = 1; i < kStartSize; ++i) {
     EXPECT_TRUE(Insert(seq_num + i, kKeyFrame, kNotFirst, kNotLast));
+  }
   EXPECT_TRUE(Insert(seq_num + kStartSize, kKeyFrame, kNotFirst, kLast));
 
   ASSERT_EQ(1UL, frames_from_callback_.size());
@@ -286,8 +287,9 @@ TEST_F(TestPacketBuffer, SingleFrameExpandsBuffer) {
 TEST_F(TestPacketBuffer, ExpandBufferOverflow) {
   const uint16_t seq_num = Rand();
 
-  for (int i = 0; i < kMaxSize; ++i)
+  for (int i = 0; i < kMaxSize; ++i) {
     EXPECT_TRUE(Insert(seq_num + i, kKeyFrame, kFirst, kLast));
+  }
   EXPECT_TRUE(Insert(seq_num + kMaxSize + 1, kKeyFrame, kFirst, kLast));
 }
 
@@ -348,21 +350,24 @@ TEST_F(TestPacketBuffer, Frames) {
 TEST_F(TestPacketBuffer, ClearSinglePacket) {
   const uint16_t seq_num = Rand();
 
-  for (int i = 0; i < kMaxSize; ++i)
+  for (int i = 0; i < kMaxSize; ++i) {
     EXPECT_TRUE(Insert(seq_num + i, kDeltaFrame, kFirst, kLast));
+  }
 
   packet_buffer_->ClearTo(seq_num);
   EXPECT_TRUE(Insert(seq_num + kMaxSize, kDeltaFrame, kFirst, kLast));
 }
 
 TEST_F(TestPacketBuffer, ClearFullBuffer) {
-  for (int i = 0; i < kMaxSize; ++i)
+  for (int i = 0; i < kMaxSize; ++i) {
     EXPECT_TRUE(Insert(i, kDeltaFrame, kFirst, kLast));
+  }
 
   packet_buffer_->ClearTo(kMaxSize - 1);
 
-  for (int i = kMaxSize; i < 2 * kMaxSize; ++i)
+  for (int i = kMaxSize; i < 2 * kMaxSize; ++i) {
     EXPECT_TRUE(Insert(i, kDeltaFrame, kFirst, kLast));
+  }
 }
 
 TEST_F(TestPacketBuffer, DontClearNewerPacket) {
@@ -393,8 +398,9 @@ TEST_F(TestPacketBuffer, OneIncompleteFrame) {
 TEST_F(TestPacketBuffer, TwoIncompleteFramesFullBuffer) {
   const uint16_t seq_num = Rand();
 
-  for (int i = 1; i < kMaxSize - 1; ++i)
+  for (int i = 1; i < kMaxSize - 1; ++i) {
     EXPECT_TRUE(Insert(seq_num + i, kDeltaFrame, kNotFirst, kNotLast));
+  }
   EXPECT_TRUE(Insert(seq_num, kDeltaFrame, kFirst, kNotLast));
   EXPECT_TRUE(Insert(seq_num - 1, kDeltaFrame, kNotFirst, kLast));
 
@@ -483,8 +489,9 @@ TEST_F(TestPacketBuffer, GetBitstreamOneFrameFullBuffer) {
   }
 
   EXPECT_TRUE(Insert(0, kKeyFrame, kFirst, kNotLast, 1, data_arr[0]));
-  for (uint8_t i = 1; i < kStartSize - 1; ++i)
+  for (uint8_t i = 1; i < kStartSize - 1; ++i) {
     EXPECT_TRUE(Insert(i, kKeyFrame, kNotFirst, kNotLast, 1, data_arr[i]));
+  }
   EXPECT_TRUE(Insert(kStartSize - 1, kKeyFrame, kNotFirst, kLast, 1,
                      data_arr[kStartSize - 1]));
 
@@ -665,8 +672,9 @@ TEST_F(TestPacketBuffer, FreeSlotsOnFrameDestruction) {
 
   // Insert frame that fills the whole buffer.
   EXPECT_TRUE(Insert(seq_num + 3, kKeyFrame, kFirst, kNotLast));
-  for (int i = 0; i < kMaxSize - 2; ++i)
+  for (int i = 0; i < kMaxSize - 2; ++i) {
     EXPECT_TRUE(Insert(seq_num + i + 4, kDeltaFrame, kNotFirst, kNotLast));
+  }
   EXPECT_TRUE(Insert(seq_num + kMaxSize + 2, kKeyFrame, kNotFirst, kLast));
   EXPECT_EQ(1UL, frames_from_callback_.size());
   CheckFrame(seq_num + 3);
@@ -828,8 +836,9 @@ TEST_F(TestPacketBuffer, TooManyNalusInPacket) {
 
 TEST_P(TestPacketBufferH264Parameterized, OneFrameFillBuffer) {
   InsertH264(0, kKeyFrame, kFirst, kNotLast, 1000);
-  for (int i = 1; i < kStartSize - 1; ++i)
+  for (int i = 1; i < kStartSize - 1; ++i) {
     InsertH264(i, kKeyFrame, kNotFirst, kNotLast, 1000);
+  }
   InsertH264(kStartSize - 1, kKeyFrame, kNotFirst, kLast, 1000);
 
   EXPECT_EQ(1UL, frames_from_callback_.size());
@@ -842,8 +851,9 @@ TEST_P(TestPacketBufferH264Parameterized, CreateFramesAfterFilledBuffer) {
   frames_from_callback_.clear();
 
   InsertH264(kStartSize, kDeltaFrame, kFirst, kNotLast, 2000);
-  for (int i = 1; i < kStartSize; ++i)
+  for (int i = 1; i < kStartSize; ++i) {
     InsertH264(kStartSize + i, kDeltaFrame, kNotFirst, kNotLast, 2000);
+  }
   InsertH264(kStartSize + kStartSize, kDeltaFrame, kNotFirst, kLast, 2000);
   ASSERT_EQ(0UL, frames_from_callback_.size());
 

@@ -146,14 +146,16 @@ bool InterArrival::BelongsToBurst(int64_t arrival_time_ms,
       arrival_time_ms - current_timestamp_group_.complete_time_ms;
   uint32_t timestamp_diff = timestamp - current_timestamp_group_.timestamp;
   int64_t ts_delta_ms = timestamp_to_ms_coeff_ * timestamp_diff + 0.5;
-  if (ts_delta_ms == 0)
+  if (ts_delta_ms == 0) {
     return true;
+  }
   int propagation_delta_ms = arrival_time_delta_ms - ts_delta_ms;
   if (propagation_delta_ms < 0 &&
       arrival_time_delta_ms <= kBurstDeltaThresholdMs &&
       arrival_time_ms - current_timestamp_group_.first_arrival_ms <
-          kMaxBurstDurationMs)
+          kMaxBurstDurationMs) {
     return true;
+  }
   return false;
 }
 

@@ -77,8 +77,9 @@ void AudioCodecSpeedTest::SetUp() {
 
     // Erase '/'
     size_t found;
-    while ((found = out_filename.find('/')) != std::string::npos)
+    while ((found = out_filename.find('/')) != std::string::npos) {
       out_filename.replace(found, 1, "_");
+    }
 
     out_filename = test::OutputPath() + out_filename + ".pcm";
 

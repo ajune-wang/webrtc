@@ -65,8 +65,9 @@ bool TestPictureWithOneRect(rtc::scoped_refptr<I420BufferInterface> buf,
       bool in_rect = col >= offset_x && col < offset_x + rect_width &&
                      row >= offset_y && row < offset_y + rect_height;
       uint8_t expected_data = in_rect ? in_rect_data : out_rect_data;
-      if (y != expected_data || u != expected_data || v != expected_data)
+      if (y != expected_data || u != expected_data || v != expected_data) {
         return false;
+      }
     }
   }
   return true;

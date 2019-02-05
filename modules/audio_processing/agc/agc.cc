@@ -39,8 +39,9 @@ float Agc::AnalyzePreproc(const int16_t* audio, size_t length) {
   RTC_DCHECK_GT(length, 0);
   size_t num_clipped = 0;
   for (size_t i = 0; i < length; ++i) {
-    if (audio[i] == 32767 || audio[i] == -32768)
+    if (audio[i] == 32767 || audio[i] == -32768) {
       ++num_clipped;
+    }
   }
   return 1.0f * num_clipped / length;
 }
@@ -86,8 +87,9 @@ int Agc::set_target_level_dbfs(int level) {
   // TODO(turajs): just some arbitrary sanity check. We can come up with better
   // limits. The upper limit should be chosen such that the risk of clipping is
   // low. The lower limit should not result in a too quiet signal.
-  if (level >= 0 || level <= -100)
+  if (level >= 0 || level <= -100) {
     return -1;
+  }
   target_level_dbfs_ = level;
   target_level_loudness_ = Dbfs2Loudness(level);
   return 0;

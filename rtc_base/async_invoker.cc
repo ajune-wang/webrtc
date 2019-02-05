@@ -49,8 +49,9 @@ void AsyncInvoker::OnMessage(Message* msg) {
 void AsyncInvoker::Flush(Thread* thread, uint32_t id /*= MQID_ANY*/) {
   // If the destructor is waiting for invocations to finish, don't start
   // running even more tasks.
-  if (destroying_.load(std::memory_order_relaxed))
+  if (destroying_.load(std::memory_order_relaxed)) {
     return;
+  }
 
   // Run this on |thread| to reduce the number of context switches.
   if (Thread::Current() != thread) {
@@ -110,8 +111,9 @@ GuardedAsyncInvoker::~GuardedAsyncInvoker() {}
 
 bool GuardedAsyncInvoker::Flush(uint32_t id) {
   CritScope cs(&crit_);
-  if (thread_ == nullptr)
+  if (thread_ == nullptr) {
     return false;
+  }
   invoker_.Flush(thread_, id);
   return true;
 }

@@ -77,8 +77,9 @@ void SimulcastRateAllocator::DistributeAllocationToSimulcastLayers(
     uint32_t total_bitrate_bps,
     VideoBitrateAllocation* allocated_bitrates_bps) {
   uint32_t left_to_allocate = total_bitrate_bps;
-  if (codec_.maxBitrate && codec_.maxBitrate * 1000 < left_to_allocate)
+  if (codec_.maxBitrate && codec_.maxBitrate * 1000 < left_to_allocate) {
     left_to_allocate = codec_.maxBitrate * 1000;
+  }
 
   if (codec_.numberOfSimulcastStreams == 0) {
     // No simulcast, just set the target as this has been capped already.
@@ -300,8 +301,9 @@ SimulcastRateAllocator::ScreenshareTemporalLayerAllocation(
   }
   std::vector<uint32_t> allocation;
   allocation.push_back(bitrate_kbps);
-  if (max_bitrate_kbps > bitrate_kbps)
+  if (max_bitrate_kbps > bitrate_kbps) {
     allocation.push_back(max_bitrate_kbps - bitrate_kbps);
+  }
   return allocation;
 }
 

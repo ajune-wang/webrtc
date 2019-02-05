@@ -28,11 +28,12 @@ typedef std::unique_ptr<ChannelBuffer<float>> ScopedBuffer;
 ScopedBuffer CreateBuffer(const std::vector<float>& data, size_t frames) {
   const size_t num_channels = data.size();
   ScopedBuffer sb(new ChannelBuffer<float>(frames, num_channels));
-  for (size_t i = 0; i < num_channels; ++i)
-    for (size_t j = 0; j < frames; ++j)
+  for (size_t i = 0; i < num_channels; ++i) {
+    for (size_t j = 0; j < frames; ++j) {
       sb->channels()[i][j] = data[i] * j;
+    }
   return sb;
-}
+  }
 
 void VerifyParams(const ChannelBuffer<float>& ref,
                   const ChannelBuffer<float>& test) {
@@ -71,8 +72,9 @@ float ComputeSNR(const ChannelBuffer<float>& ref,
     mean /= length;
     variance -= mean * mean;
     float snr = 100;  // We assign 100 dB to the zero-error case.
-    if (mse > 0)
+    if (mse > 0) {
       snr = 10 * std::log10(variance / mse);
+    }
     if (snr > best_snr) {
       best_snr = snr;
       best_delay = delay;
@@ -100,24 +102,27 @@ void RunAudioConverterTest(size_t src_channels,
   const size_t dst_frames = static_cast<size_t>(dst_sample_rate_hz / 100);
 
   std::vector<float> src_data(1, kSrcLeft);
-  if (src_channels == 2)
+  if (src_channels == 2) {
     src_data.push_back(kSrcRight);
+  }
   ScopedBuffer src_buffer = CreateBuffer(src_data, src_frames);
 
   std::vector<float> dst_data(1, 0);
   std::vector<float> ref_data;
   if (dst_channels == 1) {
-    if (src_channels == 1)
+    if (src_channels == 1) {
       ref_data.push_back(dst_left);
-    else
+    } else {
       ref_data.push_back(dst_mono);
+    }
   } else {
     dst_data.push_back(0);
     ref_data.push_back(dst_left);
-    if (src_channels == 1)
+    if (src_channels == 1) {
       ref_data.push_back(dst_left);
-    else
+    } else {
       ref_data.push_back(dst_right);
+    }
   }
   ScopedBuffer dst_buffer = CreateBuffer(dst_data, dst_frames);
   ScopedBuffer ref_buffer = CreateBuffer(ref_data, dst_frames);

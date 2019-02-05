@@ -27,8 +27,9 @@ std::unique_ptr<DenoiserFilter> DenoiserFilter::Create(
     CpuType* cpu_type) {
   std::unique_ptr<DenoiserFilter> filter;
 
-  if (cpu_type != nullptr)
+  if (cpu_type != nullptr) {
     *cpu_type = CPU_NOT_NEON;
+  }
   if (runtime_cpu_detection) {
 // If we know the minimum architecture at compile time, avoid CPU detection.
 #if defined(WEBRTC_ARCH_X86_FAMILY)

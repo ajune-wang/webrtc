@@ -381,8 +381,9 @@ bool OpenSSLStreamAdapter::GetSslCipherSuite(int* cipher_suite) {
 }
 
 int OpenSSLStreamAdapter::GetSslVersion() const {
-  if (state_ != SSL_CONNECTED)
+  if (state_ != SSL_CONNECTED) {
     return -1;
+  }
 
   int ssl_version = SSL_version(ssl_);
   if (ssl_mode_ == SSL_MODE_DTLS) {
@@ -564,8 +565,9 @@ StreamResult OpenSSLStreamAdapter::Write(const void* data,
       RTC_LOG(LS_VERBOSE) << " -- success";
       RTC_DCHECK_GT(code, 0);
       RTC_DCHECK_LE(code, data_len);
-      if (written)
+      if (written) {
         *written = code;
+      }
       return SR_SUCCESS;
     case SSL_ERROR_WANT_READ:
       RTC_LOG(LS_VERBOSE) << " -- error want read";

@@ -64,20 +64,24 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
   // included. Therefore, it's best to add this extension first so that the
   // other extensions in the same packet are written as two-byte headers at
   // once.
-  if (last_packet && set_color_space && video_header.color_space)
+  if (last_packet && set_color_space && video_header.color_space) {
     packet->SetExtension<ColorSpaceExtension>(video_header.color_space.value());
+  }
 
-  if (last_packet && set_video_rotation)
+  if (last_packet && set_video_rotation) {
     packet->SetExtension<VideoOrientation>(video_header.rotation);
+  }
 
   // Report content type only for key frames.
   if (last_packet && frame_type == kVideoFrameKey &&
-      video_header.content_type != VideoContentType::UNSPECIFIED)
+      video_header.content_type != VideoContentType::UNSPECIFIED) {
     packet->SetExtension<VideoContentTypeExtension>(video_header.content_type);
+  }
 
   if (last_packet &&
-      video_header.video_timing.flags != VideoSendTiming::kInvalid)
+      video_header.video_timing.flags != VideoSendTiming::kInvalid) {
     packet->SetExtension<VideoTimingExtension>(video_header.video_timing);
+  }
 
   // If transmitted, add to all packets; ack logic depends on this.
   if (playout_delay) {
@@ -245,8 +249,9 @@ void RTPSenderVideo::SendVideoPacketAsRedMaybeWithUlpfec(
         fec_packets = ulpfec_generator_.GetUlpfecPacketsAsRed(
             red_payload_type_, ulpfec_payload_type_, first_fec_sequence_number);
         RTC_DCHECK_EQ(num_fec_packets, fec_packets.size());
-        if (retransmission_settings_ & kRetransmitFECPackets)
+        if (retransmission_settings_ & kRetransmitFECPackets) {
           fec_storage = kAllowRetransmission;
+        }
       }
     }
   }
@@ -285,8 +290,9 @@ void RTPSenderVideo::SendVideoPacketWithFlexfec(
     bool protect_media_packet) {
   RTC_DCHECK(flexfec_sender_);
 
-  if (protect_media_packet)
+  if (protect_media_packet) {
     flexfec_sender_->AddRtpPacketAndGenerateFec(*media_packet);
+  }
 
   SendVideoPacket(std::move(media_packet), media_packet_storage);
 
@@ -330,8 +336,9 @@ void RTPSenderVideo::SetUlpfecConfig(int red_payload_type,
 }
 
 size_t RTPSenderVideo::CalculateFecPacketOverhead() const {
-  if (flexfec_enabled())
+  if (flexfec_enabled()) {
     return flexfec_sender_->MaxPacketOverhead();
+  }
 
   size_t overhead = 0;
   if (red_enabled()) {
@@ -374,8 +381,9 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
                                const RTPFragmentationHeader* fragmentation,
                                const RTPVideoHeader* video_header,
                                int64_t expected_retransmission_time_ms) {
-  if (payload_size == 0)
+  if (payload_size == 0) {
     return false;
+  }
   RTC_CHECK(video_header);
 
   size_t fec_packet_overhead;
@@ -423,10 +431,12 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
     // FEC settings.
     const FecProtectionParams& fec_params =
         frame_type == kVideoFrameKey ? key_fec_params_ : delta_fec_params_;
-    if (flexfec_enabled())
+    if (flexfec_enabled()) {
       flexfec_sender_->SetFecParameters(fec_params);
-    if (ulpfec_enabled())
+    }
+    if (ulpfec_enabled()) {
       ulpfec_generator_.SetFecParameters(fec_params);
+    }
 
     fec_packet_overhead = CalculateFecPacketOverhead();
     red_enabled = this->red_enabled();
@@ -557,8 +567,9 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
   }
   size_t packetized_payload_size = 0;
 
-  if (num_packets == 0)
+  if (num_packets == 0) {
     return false;
+  }
 
   bool first_frame = first_frame_sent_();
   for (size_t i = 0; i < num_packets; ++i) {
@@ -582,11 +593,13 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
       expected_payload_capacity = limits.max_payload_len;
     }
 
-    if (!packetizer->NextPacket(packet.get()))
+    if (!packetizer->NextPacket(packet.get())) {
       return false;
+    }
     RTC_DCHECK_LE(packet->payload_size(), expected_payload_capacity);
-    if (!rtp_sender_->AssignSequenceNumber(packet.get()))
+    if (!rtp_sender_->AssignSequenceNumber(packet.get())) {
       return false;
+    }
     packetized_payload_size += packet->payload_size();
 
     if (i == 0) {
@@ -662,10 +675,12 @@ StorageType RTPSenderVideo::GetStorageType(
     uint8_t temporal_id,
     int32_t retransmission_settings,
     int64_t expected_retransmission_time_ms) {
-  if (retransmission_settings == kRetransmitOff)
+  if (retransmission_settings == kRetransmitOff) {
     return StorageType::kDontRetransmit;
-  if (retransmission_settings == kRetransmitAllPackets)
+  }
+  if (retransmission_settings == kRetransmitAllPackets) {
     return StorageType::kAllowRetransmission;
+  }
 
   rtc::CritScope cs(&stats_crit_);
   // Media packet storage.
@@ -675,14 +690,17 @@ StorageType RTPSenderVideo::GetStorageType(
     retransmission_settings |= kRetransmitHigherLayers;
   }
 
-  if (temporal_id == kNoTemporalIdx)
+  if (temporal_id == kNoTemporalIdx) {
     return kAllowRetransmission;
+  }
 
-  if ((retransmission_settings & kRetransmitBaseLayer) && temporal_id == 0)
+  if ((retransmission_settings & kRetransmitBaseLayer) && temporal_id == 0) {
     return kAllowRetransmission;
+  }
 
-  if ((retransmission_settings & kRetransmitHigherLayers) && temporal_id > 0)
+  if ((retransmission_settings & kRetransmitHigherLayers) && temporal_id > 0) {
     return kAllowRetransmission;
+  }
 
   return kDontRetransmit;
 }

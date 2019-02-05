@@ -128,8 +128,9 @@ std::unique_ptr<test::AudioLoop> Create10msAudioBlocks(
           file_name,
           packet_size_ms * audio_samples_per_ms *
               encoder->num_channels_to_encode(),
-          10 * audio_samples_per_ms * encoder->num_channels_to_encode()))
+          10 * audio_samples_per_ms * encoder->num_channels_to_encode())) {
     return nullptr;
+  }
   return speech_data;
 }
 
@@ -221,8 +222,9 @@ std::vector<float> IntervalSteps(float a, float b, size_t n) {
   const float step = (b - a) / (n - 1);
   std::vector<float> points;
   points.push_back(a);
-  for (size_t i = 1; i < n - 1; ++i)
+  for (size_t i = 1; i < n - 1; ++i) {
     points.push_back(a + i * step);
+  }
   points.push_back(b);
   return points;
 }
@@ -942,8 +944,9 @@ TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
     if (info.encoded_bytes <= 2) {
       ++dtx_frames;
     } else {
-      if (dtx_frames > max_dtx_frames)
+      if (dtx_frames > max_dtx_frames) {
         max_dtx_frames = dtx_frames;
+      }
       dtx_frames = 0;
     }
 
@@ -951,8 +954,9 @@ TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
     if (info.speech == 0) {
       ++nonspeech_frames;
     } else {
-      if (nonspeech_frames > max_nonspeech_frames)
+      if (nonspeech_frames > max_nonspeech_frames) {
         max_nonspeech_frames = nonspeech_frames;
+      }
       nonspeech_frames = 0;
     }
   }

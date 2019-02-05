@@ -134,8 +134,9 @@ void AudioRtpReceiver::OnSetVolume(double volume) {
 
 std::vector<std::string> AudioRtpReceiver::stream_ids() const {
   std::vector<std::string> stream_ids(streams_.size());
-  for (size_t i = 0; i < streams_.size(); ++i)
+  for (size_t i = 0; i < streams_.size(); ++i) {
     stream_ids[i] = streams_[i]->id();
+  }
   return stream_ids;
 }
 
@@ -322,8 +323,9 @@ VideoRtpReceiver::~VideoRtpReceiver() {
 
 std::vector<std::string> VideoRtpReceiver::stream_ids() const {
   std::vector<std::string> stream_ids(streams_.size());
-  for (size_t i = 0; i < streams_.size(); ++i)
+  for (size_t i = 0; i < streams_.size(); ++i) {
     stream_ids[i] = streams_[i]->id();
+  }
   return stream_ids;
 }
 

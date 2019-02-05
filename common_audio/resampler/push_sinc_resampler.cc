@@ -34,8 +34,9 @@ size_t PushSincResampler::Resample(const int16_t* source,
                                    size_t source_length,
                                    int16_t* destination,
                                    size_t destination_capacity) {
-  if (!float_buffer_.get())
+  if (!float_buffer_.get()) {
     float_buffer_.reset(new float[destination_frames_]);
+  }
 
   source_ptr_int_ = source;
   // Pass nullptr as the float source to have Run() read from the int16 source.
@@ -69,8 +70,9 @@ size_t PushSincResampler::Resample(const float* source,
   // It works out that ChunkSize() is exactly the amount of output we need to
   // request in order to prime the buffer with a single Run() request for
   // |source_frames|.
-  if (first_pass_)
+  if (first_pass_) {
     resampler_->Resample(resampler_->ChunkSize(), destination);
+  }
 
   resampler_->Resample(destination_frames_, destination);
   source_ptr_ = nullptr;
@@ -93,8 +95,9 @@ void PushSincResampler::Run(size_t frames, float* destination) {
   if (source_ptr_) {
     std::memcpy(destination, source_ptr_, frames * sizeof(*destination));
   } else {
-    for (size_t i = 0; i < frames; ++i)
+    for (size_t i = 0; i < frames; ++i) {
       destination[i] = static_cast<float>(source_ptr_int_[i]);
+    }
   }
   source_available_ -= frames;
 }

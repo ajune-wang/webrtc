@@ -79,8 +79,9 @@ rtc::Buffer CreateFrame(size_t frame_size) {
   // Set some valid header.
   frame[0] = 0x01;
   // Generate payload to detect when shifted payload was put into a packet.
-  for (size_t i = 1; i < frame_size; ++i)
+  for (size_t i = 1; i < frame_size; ++i) {
     frame[i] = static_cast<uint8_t>(i);
+  }
   return frame;
 }
 

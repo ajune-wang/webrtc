@@ -66,8 +66,9 @@ bool AudioAllocationSettings::EnableTransportSequenceNumberExtension() const {
 
 bool AudioAllocationSettings::IncludeAudioInFeedback(
     int transport_seq_num_extension_header_id) const {
-  if (force_no_audio_feedback_)
+  if (force_no_audio_feedback_) {
     return false;
+  }
   return transport_seq_num_extension_header_id != 0;
 }
 
@@ -77,10 +78,12 @@ bool AudioAllocationSettings::UpdateAudioTargetBitrate(
   // not enabled, do not update target audio bitrate if we are in
   // WebRTC-Audio-SendSideBwe-For-Video experiment
   if (allocate_audio_without_feedback_ ||
-      transport_seq_num_extension_header_id != 0)
+      transport_seq_num_extension_header_id != 0) {
     return true;
-  if (audio_feedback_to_improve_video_bwe_)
+  }
+  if (audio_feedback_to_improve_video_bwe_) {
     return false;
+  }
   return true;
 }
 
@@ -89,14 +92,18 @@ bool AudioAllocationSettings::IncludeAudioInAllocationOnStart(
     int max_bitrate_bps,
     bool has_dscp,
     int transport_seq_num_extension_header_id) const {
-  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1)
+  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1) {
     return false;
-  if (transport_seq_num_extension_header_id != 0 && !force_no_audio_feedback_)
+  }
+  if (transport_seq_num_extension_header_id != 0 && !force_no_audio_feedback_) {
     return true;
-  if (allocate_audio_without_feedback_)
+  }
+  if (allocate_audio_without_feedback_) {
     return true;
-  if (audio_send_side_bwe_)
+  }
+  if (audio_send_side_bwe_) {
     return false;
+  }
   return true;
 }
 
@@ -106,12 +113,15 @@ bool AudioAllocationSettings::IncludeAudioInAllocationOnReconfigure(
     bool has_dscp,
     int transport_seq_num_extension_header_id) const {
   // TODO(srte): Make this match include_audio_in_allocation_on_start.
-  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1)
+  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1) {
     return false;
-  if (transport_seq_num_extension_header_id != 0)
+  }
+  if (transport_seq_num_extension_header_id != 0) {
     return true;
-  if (audio_send_side_bwe_)
+  }
+  if (audio_send_side_bwe_) {
     return false;
+  }
   return true;
 }
 
@@ -131,8 +141,9 @@ int AudioAllocationSettings::MaxBitrateBps(
   // This means that when RtpParameters is reset, we may change the
   // encoder's bit rate immediately (through ReconfigureAudioSendStream()),
   // meanwhile change the cap to the output of BWE.
-  if (rtp_parameter_max_bitrate_bps)
+  if (rtp_parameter_max_bitrate_bps) {
     return *rtp_parameter_max_bitrate_bps + min_overhead_bps_;
+  }
   return kOpusBitrateFbBps + min_overhead_bps_;
 }
 }  // namespace webrtc

@@ -52,8 +52,9 @@ Fraction FindScale(int input_pixels, int target_pixels, int max_pixels) {
   RTC_DCHECK_GE(max_pixels, target_pixels);
 
   // Don't scale up original.
-  if (target_pixels >= input_pixels)
+  if (target_pixels >= input_pixels) {
     return Fraction{1, 1};
+  };
 
   Fraction current_scale = Fraction{1, 1};
   Fraction best_scale = Fraction{1, 1};
@@ -117,11 +118,13 @@ bool VideoAdapter::KeepFrame(int64_t in_timestamp_ns) {
   rtc::CritScope cs(&critical_section_);
 
   int max_fps = max_framerate_request_;
-  if (max_fps_)
+  if (max_fps_) {
     max_fps = std::min(max_fps, *max_fps_);
+  }
 
-  if (max_fps <= 0)
+  if (max_fps <= 0) {
     return false;
+  }
 
   // If |max_framerate_request_| is not set, it will default to maxint, which
   // will lead to a frame_interval_ns rounded to 0.
@@ -139,8 +142,9 @@ bool VideoAdapter::KeepFrame(int64_t in_timestamp_ns) {
     // Continue if timestamp is within expected range.
     if (std::abs(time_until_next_frame_ns) < 2 * frame_interval_ns) {
       // Drop if a frame shouldn't be outputted yet.
-      if (time_until_next_frame_ns > 0)
+      if (time_until_next_frame_ns > 0) {
         return false;
+      }
       // Time to output new frame.
       *next_frame_timestamp_ns_ += frame_interval_ns;
       return true;
@@ -173,12 +177,14 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   absl::optional<std::pair<int, int>> target_aspect_ratio;
   if (in_width > in_height) {
     target_aspect_ratio = target_landscape_aspect_ratio_;
-    if (max_landscape_pixel_count_)
+    if (max_landscape_pixel_count_) {
       max_pixel_count = std::min(max_pixel_count, *max_landscape_pixel_count_);
+    }
   } else {
     target_aspect_ratio = target_portrait_aspect_ratio_;
-    if (max_portrait_pixel_count_)
+    if (max_portrait_pixel_count_) {
       max_pixel_count = std::min(max_pixel_count, *max_portrait_pixel_count_);
+    }
   }
 
   int target_pixel_count =
@@ -238,8 +244,9 @@ bool VideoAdapter::AdaptFrameResolution(int in_width,
   RTC_DCHECK_EQ(0, *out_height % required_resolution_alignment_);
 
   ++frames_out_;
-  if (scale.numerator != scale.denominator)
+  if (scale.numerator != scale.denominator) {
     ++frames_scaled_;
+  }
 
   if (previous_width_ &&
       (previous_width_ != *out_width || previous_height_ != *out_height)) {
@@ -268,8 +275,9 @@ void VideoAdapter::OnOutputFormatRequest(
   if (format) {
     target_aspect_ratio = std::make_pair(format->width, format->height);
     max_pixel_count = format->width * format->height;
-    if (format->interval > 0)
+    if (format->interval > 0) {
       max_fps = rtc::kNumNanosecsPerSec / format->interval;
+    }
   }
   OnOutputFormatRequest(target_aspect_ratio, max_pixel_count, max_fps);
 }

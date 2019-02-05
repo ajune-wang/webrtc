@@ -27,8 +27,9 @@ bool frozen_frame(std::vector<double> psnr_per_frame,
                   std::vector<double> ssim_per_frame,
                   size_t frame) {
   if (psnr_per_frame[frame] >= PSNR_FREEZE_THRESHOLD ||
-      ssim_per_frame[frame] >= SSIM_FREEZE_THRESHOLD)
+      ssim_per_frame[frame] >= SSIM_FREEZE_THRESHOLD) {
     return true;
+  }
   return false;
 }
 
@@ -98,8 +99,9 @@ void print_freezing_metrics(const std::vector<double>& psnr_per_frame,
 
   printf("Print identical frame which appears in clusters : \n");
   for (int cluster = 0;
-       cluster < static_cast<int>(identical_frame_clusters.size()); cluster++)
+       cluster < static_cast<int>(identical_frame_clusters.size()); cluster++) {
     printf("%d ", identical_frame_clusters[cluster]);
+  }
   printf("\n");
 }
 

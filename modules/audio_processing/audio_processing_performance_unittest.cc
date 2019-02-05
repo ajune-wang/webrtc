@@ -169,8 +169,10 @@ class LockedFlag {
   bool get_flag() const { return rtc::AtomicOps::AcquireLoad(&flag_); }
 
   void set_flag() {
-    if (!get_flag())  // read-only operation to avoid affecting the cache-line.
+    if (!get_flag()) {  // read-only operation to avoid affecting the
+                        // cache-line.
       rtc::AtomicOps::CompareAndSwap(&flag_, 0, 1);
+    }
   }
 
  private:

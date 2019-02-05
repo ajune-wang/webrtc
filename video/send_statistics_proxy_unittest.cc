@@ -57,10 +57,12 @@ class SendStatisticsProxyTest : public ::testing::Test {
         &fake_clock_, GetTestConfig(),
         VideoEncoderConfig::ContentType::kRealtimeVideo));
     expected_ = VideoSendStream::Stats();
-    for (const auto& ssrc : config_.rtp.ssrcs)
+    for (const auto& ssrc : config_.rtp.ssrcs) {
       expected_.substreams[ssrc].is_rtx = false;
-    for (const auto& ssrc : config_.rtp.rtx.ssrcs)
+    }
+    for (const auto& ssrc : config_.rtp.rtx.ssrcs) {
       expected_.substreams[ssrc].is_rtx = true;
+    }
   }
 
   VideoSendStream::Config GetTestConfig() {
@@ -997,8 +999,9 @@ TEST_F(SendStatisticsProxyTest, AdaptChangesReportedAfterContentSwitch) {
 }
 
 TEST_F(SendStatisticsProxyTest, SwitchContentTypeUpdatesHistograms) {
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);
+  }
 
   // No switch, stats should not be updated.
   VideoEncoderConfig config;
@@ -1013,8 +1016,9 @@ TEST_F(SendStatisticsProxyTest, SwitchContentTypeUpdatesHistograms) {
 }
 
 TEST_F(SendStatisticsProxyTest, InputResolutionHistogramsAreUpdated) {
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.InputWidthInPixels"));
@@ -1148,8 +1152,9 @@ TEST_F(SendStatisticsProxyTest, CpuLimitedHistogramNotUpdatedWhenDisabled) {
       VideoStreamEncoderObserver::AdaptationReason::kNone, cpu_counts,
       quality_counts);
 
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(0,
@@ -1164,16 +1169,18 @@ TEST_F(SendStatisticsProxyTest, CpuLimitedHistogramUpdated) {
       VideoStreamEncoderObserver::AdaptationReason::kNone, cpu_counts,
       quality_counts);
 
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);
+  }
 
   cpu_counts.num_resolution_reductions = 1;
   statistics_proxy_->OnAdaptationChanged(
       VideoStreamEncoderObserver::AdaptationReason::kCpu, cpu_counts,
       quality_counts);
 
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnIncomingFrame(kWidth, kHeight);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(1,
@@ -1538,8 +1545,9 @@ TEST_F(SendStatisticsProxyTest,
       quality_counts);
   EncodedImage encoded_image;
   encoded_image.SetSpatialIndex(0);
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
+  }
 
   // Histograms are updated when the statistics_proxy_ is deleted.
   statistics_proxy_.reset();
@@ -1559,8 +1567,9 @@ TEST_F(SendStatisticsProxyTest,
       quality_counts);
   EncodedImage encoded_image;
   encoded_image.SetSpatialIndex(0);
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
+  }
 
   // Histograms are updated when the statistics_proxy_ is deleted.
   statistics_proxy_.reset();
@@ -1584,8 +1593,9 @@ TEST_F(SendStatisticsProxyTest,
       quality_counts);
   EncodedImage encoded_image;
   encoded_image.SetSpatialIndex(0);
-  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i)
+  for (int i = 0; i < SendStatisticsProxy::kMinRequiredMetricsSamples; ++i) {
     statistics_proxy_->OnSendEncodedImage(encoded_image, &kDefaultCodecInfo);
+  }
   // Histograms are updated when the statistics_proxy_ is deleted.
   statistics_proxy_.reset();
   EXPECT_EQ(

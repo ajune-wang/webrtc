@@ -219,12 +219,14 @@ bool RTPSenderAudio::SendAudio(FrameType frame_type,
                                    audio_level_dbov);
 
   uint8_t* payload = packet->AllocatePayload(payload_size);
-  if (!payload)  // Too large payload buffer.
+  if (!payload) {  // Too large payload buffer.
     return false;
+  }
   memcpy(payload, payload_data, payload_size);
 
-  if (!rtp_sender_->AssignSequenceNumber(packet.get()))
+  if (!rtp_sender_->AssignSequenceNumber(packet.get())) {
     return false;
+  }
 
   {
     rtc::CritScope cs(&send_audio_critsect_);
@@ -292,8 +294,9 @@ bool RTPSenderAudio::SendTelephoneEventPacket(bool ended,
     packet->SetSsrc(rtp_sender_->SSRC());
     packet->SetTimestamp(dtmf_timestamp);
     packet->set_capture_time_ms(clock_->TimeInMilliseconds());
-    if (!rtp_sender_->AssignSequenceNumber(packet.get()))
+    if (!rtp_sender_->AssignSequenceNumber(packet.get())) {
       return false;
+    }
 
     // Create DTMF data.
     uint8_t* dtmfbuffer = packet->AllocatePayload(kDtmfSize);

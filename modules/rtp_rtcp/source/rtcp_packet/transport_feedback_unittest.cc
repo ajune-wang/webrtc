@@ -114,8 +114,9 @@ class FeedbackTester {
     int64_t offset = 0;
 
     for (size_t i = 0; i < length; ++i) {
-      if (seq[i] < last_seq)
+      if (seq[i] < last_seq) {
         offset += 0x10000 * default_delta_;
+      }
       last_seq = seq[i];
 
       deltas[i] = offset + (last_seq * default_delta_);
@@ -300,8 +301,9 @@ TEST(RtcpPacketTest, TransportFeedback_OneToTwoBitVectorSplit) {
                                     (kLargeDeltaSize * 1);
 
   uint16_t kReceived[kNumPackets];
-  for (size_t i = 0; i < kNumPackets; ++i)
+  for (size_t i = 0; i < kNumPackets; ++i) {
     kReceived[i] = i;
+  }
 
   int64_t kReceiveTimes[kNumPackets];
   kReceiveTimes[0] = 1000;
@@ -323,8 +325,9 @@ TEST(RtcpPacketTest, TransportFeedback_Aliasing) {
   const int kSamples = 100;
   const int64_t kTooSmallDelta = TransportFeedback::kDeltaScaleFactor / 3;
 
-  for (int i = 0; i < kSamples; ++i)
+  for (int i = 0; i < kSamples; ++i) {
     feedback.AddReceivedPacket(i, i * kTooSmallDelta);
+  }
 
   feedback.Build();
 
@@ -416,8 +419,9 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
   rtc::Buffer packet = feedback.Build();
   EXPECT_EQ(kExpectedSizeWords * 4, packet.size());
   ASSERT_GT(kExpectedSizeWords * 4, kExpectedSizeBytes);
-  for (size_t i = kExpectedSizeBytes; i < kExpectedSizeWords * 4; ++i)
+  for (size_t i = kExpectedSizeBytes; i < kExpectedSizeWords * 4; ++i) {
     EXPECT_EQ(0u, packet.data()[i]);
+  }
 
   // Modify packet by adding 4 bytes of padding at the end. Not currently used
   // when we're sending, but need to be able to handle it when receiving.
@@ -452,8 +456,9 @@ TEST(RtcpPacketTest, TransportFeedback_CorrectlySplitsVectorChunks) {
   for (int deltas = 0; deltas <= kOneBitVectorCapacity + 1; ++deltas) {
     TransportFeedback feedback;
     feedback.SetBase(0, 0);
-    for (int i = 0; i < deltas; ++i)
+    for (int i = 0; i < deltas; ++i) {
       feedback.AddReceivedPacket(i, i * 1000);
+    }
     feedback.AddReceivedPacket(deltas, deltas * 1000 + kLargeTimeDelta);
 
     rtc::Buffer serialized_packet = feedback.Build();

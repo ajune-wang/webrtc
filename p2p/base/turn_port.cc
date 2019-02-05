@@ -551,8 +551,9 @@ bool TurnPort::FailAndPruneConnection(const rtc::SocketAddress& address) {
 
 int TurnPort::SetOption(rtc::Socket::Option opt, int value) {
   // Remember the last requested DSCP value, for STUN traffic.
-  if (opt == rtc::Socket::OPT_DSCP)
+  if (opt == rtc::Socket::OPT_DSCP) {
     stun_dscp_value_ = static_cast<rtc::DiffServCodePoint>(value);
+  }
 
   if (!socket_) {
     // If socket is not created yet, these options will be applied during socket
@@ -751,8 +752,9 @@ bool TurnPort::SetAlternateServer(const rtc::SocketAddress& address) {
 }
 
 void TurnPort::ResolveTurnAddress(const rtc::SocketAddress& address) {
-  if (resolver_)
+  if (resolver_) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << ToString() << ": Starting TURN host lookup for "
                    << address.ToSensitiveString();

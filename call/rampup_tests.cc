@@ -35,8 +35,9 @@ static const int kLowBitrateMarginBps = 2000;
 
 std::vector<uint32_t> GenerateSsrcs(size_t num_streams, uint32_t ssrc_offset) {
   std::vector<uint32_t> ssrcs;
-  for (size_t i = 0; i != num_streams; ++i)
+  for (size_t i = 0; i != num_streams; ++i) {
     ssrcs.push_back(static_cast<uint32_t>(ssrc_offset + i));
+  }
   return ssrcs;
 }
 }  // namespace
@@ -78,8 +79,9 @@ RampUpTester::RampUpTester(size_t num_video_streams,
       poller_thread_(&BitrateStatsPollingThread,
                      this,
                      "BitrateStatsPollingThread") {
-  if (red_)
+  if (red_) {
     EXPECT_EQ(0u, num_flexfec_streams_);
+  }
   EXPECT_LE(num_audio_streams_, 1u);
 }
 
@@ -253,8 +255,9 @@ void RampUpTester::ModifyVideoConfigs(
 void RampUpTester::ModifyAudioConfigs(
     AudioSendStream::Config* send_config,
     std::vector<AudioReceiveStream::Config>* receive_configs) {
-  if (num_audio_streams_ == 0)
+  if (num_audio_streams_ == 0) {
     return;
+  }
 
   EXPECT_NE(RtpExtension::kTimestampOffsetUri, extension_type_)
       << "Audio BWE not supported with toffset.";
@@ -283,8 +286,9 @@ void RampUpTester::ModifyAudioConfigs(
 
 void RampUpTester::ModifyFlexfecConfigs(
     std::vector<FlexfecReceiveStream::Config>* receive_configs) {
-  if (num_flexfec_streams_ == 0)
+  if (num_flexfec_streams_ == 0) {
     return;
+  }
   RTC_DCHECK_EQ(1, num_flexfec_streams_);
   (*receive_configs)[0].payload_type = test::CallTest::kFlexfecPayloadType;
   (*receive_configs)[0].remote_ssrc = test::CallTest::kFlexfecSendSsrc;
@@ -355,8 +359,9 @@ void RampUpTester::TriggerTestDone() {
   RTC_DCHECK_GE(test_start_ms_, 0);
 
   // TODO(holmer): Add audio send stats here too when those APIs are available.
-  if (!send_stream_)
+  if (!send_stream_) {
     return;
+  }
 
   VideoSendStream::Stats send_stats = send_stream_->GetStats();
 
@@ -483,10 +488,12 @@ std::string RampUpDownUpTester::GetModifierString() const {
 
 int RampUpDownUpTester::GetExpectedHighBitrate() const {
   int expected_bitrate_bps = 0;
-  if (num_audio_streams_ > 0)
+  if (num_audio_streams_ > 0) {
     expected_bitrate_bps += kExpectedHighAudioBitrateBps;
-  if (num_video_streams_ > 0)
+  }
+  if (num_video_streams_ > 0) {
     expected_bitrate_bps += kExpectedHighVideoBitrateBps;
+  }
   return expected_bitrate_bps;
 }
 
@@ -494,8 +501,9 @@ size_t RampUpDownUpTester::GetFecBytes() const {
   size_t flex_fec_bytes = 0;
   if (num_flexfec_streams_ > 0) {
     webrtc::VideoSendStream::Stats stats = send_stream_->GetStats();
-    for (const auto& kv : stats.substreams)
+    for (const auto& kv : stats.substreams) {
       flex_fec_bytes += kv.second.rtp_stats.fec.TotalBytes();
+    }
   }
   return flex_fec_bytes;
 }

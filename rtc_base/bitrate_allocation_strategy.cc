@@ -121,10 +121,12 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
     if (track_config.track_id == audio_track_id_) {
       audio_config_index = &track_config - &track_configs[0];
       audio_track_config = &track_config;
-      if (config_.min_rate)
+      if (config_.min_rate) {
         audio_track_config->min_bitrate_bps = config_.min_rate->bps();
-      if (config_.max_rate)
+      }
+      if (config_.max_rate) {
         audio_track_config->max_bitrate_bps = config_.max_rate->bps();
+      }
     }
     sum_min_bitrates += track_config.min_bitrate_bps;
     sum_max_bitrates += track_config.max_bitrate_bps;
@@ -133,8 +135,9 @@ std::vector<uint32_t> AudioPriorityBitrateAllocationStrategy::AllocateBitrates(
     // Allow non audio streams to go above max upto
     // kTransmissionMaxBitrateMultiplier * max_bitrate_bps
     for (auto& track_config : track_configs) {
-      if (&track_config != audio_track_config)
+      if (&track_config != audio_track_config) {
         track_config.max_bitrate_bps *= kTransmissionMaxBitrateMultiplier;
+      }
     }
     return DistributeBitratesEvenly(track_configs, available_bitrate);
   }

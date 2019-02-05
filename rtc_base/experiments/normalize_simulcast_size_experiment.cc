@@ -24,12 +24,14 @@ constexpr int kMaxSetting = 5;
 }  // namespace
 
 absl::optional<int> NormalizeSimulcastSizeExperiment::GetBase2Exponent() {
-  if (!webrtc::field_trial::IsEnabled(kFieldTrial))
+  if (!webrtc::field_trial::IsEnabled(kFieldTrial)) {
     return absl::nullopt;
+  }
 
   const std::string group = webrtc::field_trial::FindFullName(kFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return absl::nullopt;
+  }
 
   int exponent;
   if (sscanf(group.c_str(), "Enabled-%d", &exponent) != 1) {

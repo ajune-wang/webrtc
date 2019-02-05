@@ -1833,10 +1833,11 @@ int16_t WebRtcIsac_GetNewFrameLen(ISACStruct* ISAC_main_inst) {
   ISACMainStruct* instISAC = (ISACMainStruct*)ISAC_main_inst;
 
   /* Return new frame length. */
-  if (instISAC->in_sample_rate_hz == 16000)
+  if (instISAC->in_sample_rate_hz == 16000) {
     return (instISAC->instLB.ISACencLB_obj.new_framelength);
-  else  /* 32000 Hz */
+  } else {  /* 32000 Hz */
     return ((instISAC->instLB.ISACencLB_obj.new_framelength) * 2);
+}
 }
 
 

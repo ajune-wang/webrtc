@@ -234,8 +234,9 @@ bool MessageQueue::Peek(Message* pmsg, int cmsWait) {
     *pmsg = msgPeek_;
     return true;
   }
-  if (!Get(pmsg, cmsWait))
+  if (!Get(pmsg, cmsWait)) {
     return false;
+  }
   msgPeek_ = *pmsg;
   fPeekKeep_ = true;
   return true;
@@ -311,8 +312,9 @@ bool MessageQueue::Get(Message* pmsg, int cmsWait, bool process_io) {
       return true;
     }
 
-    if (IsQuitting())
+    if (IsQuitting()) {
       break;
+    }
 
     // Which is shorter, the delay wait or the asked wait?
 
@@ -321,14 +323,16 @@ bool MessageQueue::Get(Message* pmsg, int cmsWait, bool process_io) {
       cmsNext = cmsDelayNext;
     } else {
       cmsNext = std::max<int64_t>(0, cmsTotal - cmsElapsed);
-      if ((cmsDelayNext != kForever) && (cmsDelayNext < cmsNext))
+      if ((cmsDelayNext != kForever) && (cmsDelayNext < cmsNext)) {
         cmsNext = cmsDelayNext;
+      }
     }
 
     {
       // Wait and multiplex in the meantime
-      if (!ss_->Wait(static_cast<int>(cmsNext), process_io))
+      if (!ss_->Wait(static_cast<int>(cmsNext), process_io)) {
         return false;
+      }
     }
 
     // If the specified timeout expired, return
@@ -336,8 +340,9 @@ bool MessageQueue::Get(Message* pmsg, int cmsWait, bool process_io) {
     msCurrent = TimeMillis();
     cmsElapsed = TimeDiff(msCurrent, msStart);
     if (cmsWait != kForever) {
-      if (cmsElapsed >= cmsWait)
+      if (cmsElapsed >= cmsWait) {
         return false;
+      }
     }
   }
   return false;
@@ -438,13 +443,15 @@ void MessageQueue::DoDelayPost(const Location& posted_from,
 int MessageQueue::GetDelay() {
   CritScope cs(&crit_);
 
-  if (!msgq_.empty())
+  if (!msgq_.empty()) {
     return 0;
+  }
 
   if (!dmsgq_.empty()) {
     int delay = TimeUntil(dmsgq_.top().msTrigger_);
-    if (delay < 0)
+    if (delay < 0) {
       delay = 0;
+    }
     return delay;
   }
 

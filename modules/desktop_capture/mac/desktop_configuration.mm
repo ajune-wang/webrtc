@@ -114,8 +114,9 @@ MacDesktopConfiguration MacDesktopConfiguration::GetCurrent(Origin origin) {
     MacDisplayConfiguration display_config =
         GetConfigurationForScreen([screens objectAtIndex: i]);
 
-    if (i == 0)
+    if (i == 0) {
       desktop_config.dip_to_pixel_scale = display_config.dip_to_pixel_scale;
+    }
 
     // Cocoa uses bottom-up coordinates, so if the caller wants top-down then
     // we need to invert the positions of secondary monitors relative to the

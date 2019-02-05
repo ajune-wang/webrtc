@@ -68,8 +68,9 @@ int32_t WebRtcSpl_DivResultInQ31(int32_t num, int32_t den)
     int k = 31;
     int change_sign = 0;
 
-    if (num == 0)
+    if (num == 0) {
         return 0;
+}
 
     if (num < 0)
     {

@@ -45,8 +45,9 @@ void MedianSlopeEstimator::Update(double recv_delta_ms,
                                   int64_t arrival_time_ms) {
   const double delta_ms = recv_delta_ms - send_delta_ms;
   ++num_of_deltas_;
-  if (num_of_deltas_ > kDeltaCounterMax)
+  if (num_of_deltas_ > kDeltaCounterMax) {
     num_of_deltas_ = kDeltaCounterMax;
+  }
 
   accumulated_delay_ += delta_ms;
   BWE_TEST_LOGGING_PLOT(1, "accumulated_delay_ms", arrival_time_ms,
@@ -82,8 +83,9 @@ void MedianSlopeEstimator::Update(double recv_delta_ms,
   delay_hist_.emplace_back(arrival_time_ms, accumulated_delay_,
                            window_size_ - 1);
   // Recompute the median slope.
-  if (delay_hist_.size() == window_size_)
+  if (delay_hist_.size() == window_size_) {
     trendline_ = median_filter_.GetPercentileValue();
+  }
 
   BWE_TEST_LOGGING_PLOT(1, "trendline_slope", arrival_time_ms, trendline_);
 }

@@ -27,10 +27,12 @@ std::vector<SdpVideoFormat> InternalEncoderFactory::GetSupportedFormats()
     const {
   std::vector<SdpVideoFormat> supported_codecs;
   supported_codecs.push_back(SdpVideoFormat(cricket::kVp8CodecName));
-  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedVP9Codecs())
+  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedVP9Codecs()) {
     supported_codecs.push_back(format);
-  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs())
+  }
+  for (const webrtc::SdpVideoFormat& format : webrtc::SupportedH264Codecs()) {
     supported_codecs.push_back(format);
+  }
   return supported_codecs;
 }
 
@@ -44,12 +46,15 @@ VideoEncoderFactory::CodecInfo InternalEncoderFactory::QueryVideoEncoder(
 
 std::unique_ptr<VideoEncoder> InternalEncoderFactory::CreateVideoEncoder(
     const SdpVideoFormat& format) {
-  if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName))
+  if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName)) {
     return VP8Encoder::Create();
-  if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName))
+  }
+  if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName)) {
     return VP9Encoder::Create(cricket::VideoCodec(format));
-  if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
+  }
+  if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName)) {
     return H264Encoder::Create(cricket::VideoCodec(format));
+  }
   RTC_LOG(LS_ERROR) << "Trying to created encoder of unsupported format "
                     << format.name;
   return nullptr;

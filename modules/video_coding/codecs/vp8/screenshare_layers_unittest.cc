@@ -79,9 +79,10 @@ class ScreenshareLayerTest : public ::testing::Test {
     }
 
     int flags = ConfigureFrame(base_sync);
-    if (flags != -1)
+    if (flags != -1) {
       layers_->OnEncodeDone(timestamp_, frame_size_, base_sync, kDefaultQp,
                             &info->codecSpecific.VP8);
+    }
 
     return flags;
   }
@@ -142,8 +143,9 @@ class ScreenshareLayerTest : public ::testing::Test {
       } else {
         got_tl1 = true;
       }
-      if (got_tl0 && got_tl1)
+      if (got_tl0 && got_tl1) {
         return true;
+      }
     }
     return false;
   }
@@ -255,8 +257,9 @@ TEST_F(ScreenshareLayerTest, 2LayersSyncAfterTimeout) {
                             vp8_info);
     }
 
-    if (vp8_info->temporalIdx == 1 && vp8_info->layerSync)
+    if (vp8_info->temporalIdx == 1 && vp8_info->layerSync) {
       sync_times.push_back(timestamp_);
+    }
 
     timestamp_ += kTimestampDelta5Fps;
   }
@@ -286,8 +289,9 @@ TEST_F(ScreenshareLayerTest, 2LayersSyncAfterSimilarQP) {
                             vp8_info);
     }
 
-    if (vp8_info->temporalIdx == 1 && vp8_info->layerSync)
+    if (vp8_info->temporalIdx == 1 && vp8_info->layerSync) {
       sync_times.push_back(timestamp_);
+    }
 
     timestamp_ += kTimestampDelta5Fps;
   }
@@ -527,8 +531,9 @@ TEST_F(ScreenshareLayerTest, UpdatesHistograms) {
       continue;
     }
     int flags = LibvpxVp8Encoder::EncodeFlags(tl_config_);
-    if (flags != -1)
+    if (flags != -1) {
       layers_->UpdateConfiguration(&cfg_);
+    }
 
     if (timestamp >= kTimestampDelta5Fps * 5 && !overshoot && flags != -1) {
       // Simulate one overshoot.
@@ -692,8 +697,9 @@ TEST_F(ScreenshareLayerTest, AdjustsBitrateWhenDroppingFrames) {
 
   int num_dropped_frames = 0;
   for (int i = 0; i < kNumFrames; ++i) {
-    if (EncodeFrame(false) == -1)
+    if (EncodeFrame(false) == -1) {
       ++num_dropped_frames;
+    }
     timestamp_ += kTimestampDelta10Fps;
   }
   layers_->UpdateConfiguration(&cfg_);

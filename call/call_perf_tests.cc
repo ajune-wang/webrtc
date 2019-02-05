@@ -97,18 +97,21 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
     VideoReceiveStream::Stats stats;
     {
       rtc::CritScope lock(&crit_);
-      if (receive_stream_)
+      if (receive_stream_) {
         stats = receive_stream_->GetStats();
+      }
     }
-    if (stats.sync_offset_ms == std::numeric_limits<int>::max())
+    if (stats.sync_offset_ms == std::numeric_limits<int>::max()) {
       return;
+    }
 
     int64_t now_ms = clock_->TimeInMilliseconds();
     int64_t time_since_creation = now_ms - creation_time_ms_;
     // During the first couple of seconds audio and video can falsely be
     // estimated as being synchronized. We don't want to trigger on those.
-    if (time_since_creation < kStartupTimeMs)
+    if (time_since_creation < kStartupTimeMs) {
       return;
+    }
     if (std::abs(stats.sync_offset_ms) < kInSyncThresholdMs) {
       if (first_time_in_sync_ == -1) {
         first_time_in_sync_ = now_ms;
@@ -116,11 +119,13 @@ class VideoRtcpAndSyncObserver : public test::RtpRtcpObserver,
                                   "synchronization", time_since_creation, "ms",
                                   false);
       }
-      if (time_since_creation > kMinRunTimeMs)
+      if (time_since_creation > kMinRunTimeMs) {
         observation_complete_.Set();
+      }
     }
-    if (first_time_in_sync_ != -1)
+    if (first_time_in_sync_ != -1) {
       sync_offset_ms_list_.push_back(stats.sync_offset_ms);
+    }
   }
 
   void set_receive_stream(VideoReceiveStream* receive_stream) {
@@ -635,11 +640,13 @@ void CallPerfTest::TestMinTransmitBitrate(bool pad_to_min_bitrate) {
           converged_ = true;
           ++num_bitrate_observations_in_range_;
           if (num_bitrate_observations_in_range_ ==
-              kNumBitrateObservationsInRange)
+              kNumBitrateObservationsInRange) {
             observation_complete_.Set();
+          }
         }
-        if (converged_)
+        if (converged_) {
           bitrate_kbps_list_.push_back(bitrate_kbps);
+        }
       }
       return SEND_PACKET;
     }

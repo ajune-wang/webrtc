@@ -961,8 +961,9 @@ int NetEqImpl::GetAudioInternal(AudioFrame* audio_frame,
     generated_noise_stopwatch_.reset();
   }
 
-  if (decode_return_value)
+  if (decode_return_value) {
     return decode_return_value;
+  }
   return return_value;
 }
 
@@ -1276,13 +1277,15 @@ int NetEqImpl::Decode(PacketList* packet_list,
 
   if (reset_decoder_) {
     // TODO(hlundin): Write test for this.
-    if (decoder)
+    if (decoder) {
       decoder->Reset();
+    }
 
     // Reset comfort noise decoder.
     ComfortNoiseDecoder* cng_decoder = decoder_database_->GetActiveCngDecoder();
-    if (cng_decoder)
+    if (cng_decoder) {
       cng_decoder->Reset();
+    }
 
     reset_decoder_ = false;
   }
@@ -1308,8 +1311,9 @@ int NetEqImpl::Decode(PacketList* packet_list,
     sync_buffer_->IncreaseEndTimestamp(
         static_cast<uint32_t>(decoder_frame_length_));
     int error_code = 0;
-    if (decoder)
+    if (decoder) {
       error_code = decoder->ErrorCode();
+    }
     if (error_code != 0) {
       // Got some error code from the decoder.
       return_value = kDecoderErrorCode;
@@ -1971,8 +1975,9 @@ void NetEqImpl::SetSampleRateAndChannels(int fs_hz, size_t channels) {
   last_mode_ = kModeNormal;
 
   ComfortNoiseDecoder* cng_decoder = decoder_database_->GetActiveCngDecoder();
-  if (cng_decoder)
+  if (cng_decoder) {
     cng_decoder->Reset();
+  }
 
   // Reinit post-decode VAD with new sample rate.
   assert(vad_.get());  // Cannot be NULL here.

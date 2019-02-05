@@ -74,13 +74,16 @@ SendAudioStream::SendAudioStream(
   ssrc_ = sender->GetNextAudioSsrc();
   send_config.rtp.ssrc = ssrc_;
   SdpAudioFormat::Parameters sdp_params;
-  if (config.source.channels == 2)
+  if (config.source.channels == 2) {
     sdp_params["stereo"] = "1";
-  if (config.encoder.initial_frame_length != TimeDelta::ms(20))
+  }
+  if (config.encoder.initial_frame_length != TimeDelta::ms(20)) {
     sdp_params["ptime"] =
         std::to_string(config.encoder.initial_frame_length.ms());
-  if (config.encoder.enable_dtx)
+  }
+  if (config.encoder.enable_dtx) {
     sdp_params["usedtx"] = "1";
+  }
 
   // SdpAudioFormat::num_channels indicates that the encoder is capable of
   // stereo, but the actual channel count used is based on the "stereo"
@@ -90,9 +93,10 @@ SendAudioStream::SendAudioStream(
   RTC_DCHECK_LE(config.source.channels, 2);
   send_config.encoder_factory = encoder_factory;
 
-  if (config.encoder.fixed_rate)
+  if (config.encoder.fixed_rate) {
     send_config.send_codec_spec->target_bitrate_bps =
         config.encoder.fixed_rate->bps();
+  }
 
   if (config.network_adaptation) {
     send_config.audio_network_adaptor_config =

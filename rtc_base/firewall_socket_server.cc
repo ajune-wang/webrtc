@@ -74,10 +74,12 @@ class FirewallSocket : public AsyncSocketAdapter {
     if (type_ == SOCK_DGRAM) {
       while (true) {
         int res = AsyncSocketAdapter::RecvFrom(pv, cb, paddr, timestamp);
-        if (res <= 0)
+        if (res <= 0) {
           return res;
-        if (server_->Check(FP_UDP, *paddr, GetLocalAddress()))
+        }
+        if (server_->Check(FP_UDP, *paddr, GetLocalAddress())) {
           return res;
+        }
         RTC_LOG(LS_VERBOSE)
             << "FirewallSocket inbound UDP packet from "
             << paddr->ToSensitiveString() << " to "
@@ -99,8 +101,9 @@ class FirewallSocket : public AsyncSocketAdapter {
     SocketAddress addr;
     while (AsyncSocket* sock = AsyncSocketAdapter::Accept(&addr)) {
       if (server_->Check(FP_TCP, addr, GetLocalAddress())) {
-        if (paddr)
+        if (paddr) {
           *paddr = addr;
+        }
         return sock;
       }
       sock->Close();
@@ -126,13 +129,15 @@ FirewallSocketServer::FirewallSocketServer(SocketServer* server,
       udp_sockets_enabled_(true),
       tcp_sockets_enabled_(true),
       tcp_listen_enabled_(true) {
-  if (manager_)
+  if (manager_) {
     manager_->AddServer(this);
+  }
 }
 
 FirewallSocketServer::~FirewallSocketServer() {
-  if (manager_)
+  if (manager_) {
     manager_->RemoveServer(this);
+  }
 
   if (server_ && should_delete_server_) {
     delete server_;
@@ -177,16 +182,21 @@ bool FirewallSocketServer::Check(FirewallProtocol p,
   CritScope scope(&crit_);
   for (size_t i = 0; i < rules_.size(); ++i) {
     const Rule& r = rules_[i];
-    if ((r.p != p) && (r.p != FP_ANY))
+    if ((r.p != p) && (r.p != FP_ANY)) {
       continue;
-    if ((r.src.ipaddr() != src.ipaddr()) && !r.src.IsNil())
+    }
+    if ((r.src.ipaddr() != src.ipaddr()) && !r.src.IsNil()) {
       continue;
-    if ((r.src.port() != src.port()) && (r.src.port() != 0))
+    }
+    if ((r.src.port() != src.port()) && (r.src.port() != 0)) {
       continue;
-    if ((r.dst.ipaddr() != dst.ipaddr()) && !r.dst.IsNil())
+    }
+    if ((r.dst.ipaddr() != dst.ipaddr()) && !r.dst.IsNil()) {
       continue;
-    if ((r.dst.port() != dst.port()) && (r.dst.port() != 0))
+    }
+    if ((r.dst.port() != dst.port()) && (r.dst.port() != 0)) {
       continue;
+    }
     return r.allow;
   }
   return true;

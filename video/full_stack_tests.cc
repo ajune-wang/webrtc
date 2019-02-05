@@ -107,8 +107,9 @@ class GenericDescriptorTest : public ::testing::TestWithParam<std::string> {
             field_trial::IsEnabled("WebRTC-GenericDescriptor")) {}
 
   std::string GetTestName(std::string base) {
-    if (generic_descriptor_enabled_)
+    if (generic_descriptor_enabled_) {
       base += "_generic_descriptor";
+    }
     return base;
   }
 
@@ -157,8 +158,9 @@ TEST(FullStackTest, GeneratorWithoutPacketLossVp9Profile2) {
       profile_2_is_supported = true;
     }
   }
-  if (!profile_2_is_supported)
+  if (!profile_2_is_supported) {
     return;
+  }
   auto fixture = CreateVideoQualityTestFixture();
 
   SdpVideoFormat::Parameters vp92 = {

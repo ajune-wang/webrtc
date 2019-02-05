@@ -42,8 +42,9 @@ void FrameChangeExtractor::OnFrame(const VideoFrame& frame) {
 
   rtc::CritScope lock(&sink_crit_);
 
-  if (!sink_)
+  if (!sink_) {
     return;
+  }
 
   webrtc::I420BufferInterface* current_buffer =
       frame.video_frame_buffer()->ToI420();
@@ -91,14 +92,18 @@ void FrameChangeExtractor::OnFrame(const VideoFrame& frame) {
     max_col = max_row = -1;
   }
   // Expand changed rect to accommodate subsampled UV plane.
-  if (min_row % 2)
+  if (min_row % 2) {
     --min_row;
-  if (min_col % 2)
+  }
+  if (min_col % 2) {
     --min_row;
-  if (max_row < frame.width() && max_row % 2 == 0)
+  }
+  if (max_row < frame.width() && max_row % 2 == 0) {
     ++max_row;
-  if (max_col < frame.height() && max_col % 2 == 0)
+  }
+  if (max_col < frame.height() && max_col % 2 == 0) {
     ++max_col;
+  }
   VideoFrame::PartialFrameDescription part_desc;
   part_desc.offset_x = min_col;
   part_desc.offset_y = min_row;

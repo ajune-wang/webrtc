@@ -318,8 +318,9 @@ void SincResampler::Resample(size_t frames, float* destination) {
       // Advance the virtual index.
       virtual_source_idx_ += current_io_ratio;
 
-      if (!--remaining_frames)
+      if (!--remaining_frames) {
         return;
+      }
     }
 
     // Wrap back around to the start.
@@ -330,8 +331,9 @@ void SincResampler::Resample(size_t frames, float* destination) {
     memcpy(r1_, r3_, sizeof(*input_buffer_.get()) * kKernelSize);
 
     // Step (4) -- Reinitialize regions if necessary.
-    if (r0_ == r2_)
+    if (r0_ == r2_) {
       UpdateRegions(true);
+    }
 
     // Step (5) -- Refresh the buffer with more input.
     read_cb_->Run(request_frames_, r0_);

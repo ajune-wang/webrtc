@@ -66,8 +66,9 @@ class TestVideoCaptureCallback
         rotate_frame_(webrtc::kVideoRotation_0) {}
 
   ~TestVideoCaptureCallback() override {
-    if (timing_warnings_ > 0)
+    if (timing_warnings_ > 0) {
       printf("No of timing warnings %d\n", timing_warnings_);
+    }
   }
 
   void OnFrame(const webrtc::VideoFrame& videoFrame) override {
@@ -165,8 +166,9 @@ class VideoCaptureTest : public testing::Test {
 
     rtc::scoped_refptr<VideoCaptureModule> module(
         VideoCaptureFactory::Create(unique_name));
-    if (module.get() == NULL)
+    if (module.get() == NULL) {
       return NULL;
+    }
 
     EXPECT_FALSE(module->CaptureStarted());
 
@@ -270,8 +272,9 @@ TEST_F(VideoCaptureTest, MAYBE_Capabilities) {
     // Since Android presents so many resolution/FPS combinations and the test
     // runner imposes a timeout, we only actually start the capture and test
     // that a frame was captured for 2 frame-rates at each resolution.
-    if (frame_rates_by_resolution[resolution].size() > 2)
+    if (frame_rates_by_resolution[resolution].size() > 2) {
       continue;
+    }
 
     capture_observer.SetExpectedCapability(capability);
     ASSERT_NO_FATAL_FAILURE(StartCapture(module.get(), capability));

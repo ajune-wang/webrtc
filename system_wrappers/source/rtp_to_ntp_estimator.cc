@@ -31,8 +31,9 @@ const int kMaxAllowedRtcpNtpIntervalMs = 60 * 60 * 1000;
 bool Contains(const std::list<RtpToNtpEstimator::RtcpMeasurement>& measurements,
               const RtpToNtpEstimator::RtcpMeasurement& other) {
   for (const auto& measurement : measurements) {
-    if (measurement.IsEqual(other))
+    if (measurement.IsEqual(other)) {
       return true;
+    }
   }
   return false;
 }
@@ -44,11 +45,13 @@ bool LinearRegression(rtc::ArrayView<const double> x,
                       double* k,
                       double* b) {
   size_t n = x.size();
-  if (n < 2)
+  if (n < 2) {
     return false;
+  }
 
-  if (y.size() != n)
+  if (y.size() != n) {
     return false;
+  }
 
   double avg_x = 0;
   double avg_y = 0;
@@ -68,8 +71,9 @@ bool LinearRegression(rtc::ArrayView<const double> x,
     covariance_xy += normalized_x * normalized_y;
   }
 
-  if (std::fabs(variance_x) < 1e-8)
+  if (std::fabs(variance_x) < 1e-8) {
     return false;
+  }
 
   *k = static_cast<double>(covariance_xy / variance_x);
   *b = static_cast<double>(avg_y - (*k) * avg_x);
@@ -98,8 +102,9 @@ RtpToNtpEstimator::RtpToNtpEstimator() : consecutive_invalid_samples_(0) {}
 RtpToNtpEstimator::~RtpToNtpEstimator() {}
 
 void RtpToNtpEstimator::UpdateParameters() {
-  if (measurements_.size() < 2)
+  if (measurements_.size() < 2) {
     return;
+  }
 
   std::vector<double> x;
   std::vector<double> y;
@@ -133,8 +138,9 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
     return true;
   }
 
-  if (!new_measurement.ntp_time.Valid())
+  if (!new_measurement.ntp_time.Valid()) {
     return false;
+  }
 
   int64_t ntp_ms_new = new_measurement.ntp_time.ToMs();
   bool invalid_sample = false;
@@ -167,8 +173,9 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
   consecutive_invalid_samples_ = 0;
 
   // Insert new RTCP SR report.
-  if (measurements_.size() == kNumRtcpReportsToUse)
+  if (measurements_.size() == kNumRtcpReportsToUse) {
     measurements_.pop_back();
+  }
 
   measurements_.push_front(new_measurement);
   *new_rtcp_sr = true;
@@ -180,8 +187,9 @@ bool RtpToNtpEstimator::UpdateMeasurements(uint32_t ntp_secs,
 
 bool RtpToNtpEstimator::Estimate(int64_t rtp_timestamp,
                                  int64_t* ntp_timestamp_ms) const {
-  if (!params_)
+  if (!params_) {
     return false;
+  }
 
   int64_t rtp_timestamp_unwrapped = unwrapper_.Unwrap(rtp_timestamp);
 
@@ -192,8 +200,9 @@ bool RtpToNtpEstimator::Estimate(int64_t rtp_timestamp,
       static_cast<double>(rtp_timestamp_unwrapped) / params_->frequency_khz +
       params_->offset_ms + 0.5f;
 
-  if (rtp_ms < 0)
+  if (rtp_ms < 0) {
     return false;
+  }
 
   *ntp_timestamp_ms = rtp_ms;
 

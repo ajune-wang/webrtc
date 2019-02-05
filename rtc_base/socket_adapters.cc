@@ -201,8 +201,9 @@ void AsyncSSLSocket::OnConnectEvent(AsyncSocket* socket) {
 }
 
 void AsyncSSLSocket::ProcessInput(char* data, size_t* len) {
-  if (*len < sizeof(kSslServerHello))
+  if (*len < sizeof(kSslServerHello)) {
     return;
+  }
 
   if (memcmp(kSslServerHello, data, sizeof(kSslServerHello)) != 0) {
     Close();
@@ -220,8 +221,9 @@ void AsyncSSLSocket::ProcessInput(char* data, size_t* len) {
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
     SignalReadEvent(this);
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -315,12 +317,14 @@ void AsyncHttpsProxySocket::ProcessInput(char* data, size_t* len) {
       continue;
     }
 
-    if (data[pos++] != '\n')
+    if (data[pos++] != '\n') {
       continue;
+    }
 
     size_t len = pos - start - 1;
-    if ((len > 0) && (data[start + len - 1] == '\r'))
+    if ((len > 0) && (data[start + len - 1] == '\r')) {
       --len;
+    }
 
     data[start + len] = 0;
     ProcessLine(data + start, len);
@@ -332,16 +336,18 @@ void AsyncHttpsProxySocket::ProcessInput(char* data, size_t* len) {
     memmove(data, data + start, *len);
   }
 
-  if (state_ != PS_TUNNEL)
+  if (state_ != PS_TUNNEL) {
     return;
+  }
 
   bool remainder = (*len > 0);
   BufferInput(false);
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
     SignalReadEvent(this);  // TODO: signal this??
+  }
 }
 
 bool AsyncHttpsProxySocket::ShouldIssueConnect() const {
@@ -444,8 +450,9 @@ void AsyncHttpsProxySocket::ProcessLine(char* data, size_t len) {
                              pass_, context_, response, auth_method)) {
       case HAR_IGNORE:
         RTC_LOG(LS_VERBOSE) << "Ignoring Proxy-Authenticate: " << auth_method;
-        if (!unknown_mechanisms_.empty())
+        if (!unknown_mechanisms_.empty()) {
           unknown_mechanisms_.append(", ");
+        }
         unknown_mechanisms_.append(auth_method);
         break;
       case HAR_RESPONSE:
@@ -552,8 +559,9 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
 
   if (state_ == SS_HELLO) {
     uint8_t ver, method;
-    if (!response.ReadUInt8(&ver) || !response.ReadUInt8(&method))
+    if (!response.ReadUInt8(&ver) || !response.ReadUInt8(&method)) {
       return;
+    }
 
     if (ver != 5) {
       Error(0);
@@ -570,8 +578,9 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
     }
   } else if (state_ == SS_AUTH) {
     uint8_t ver, status;
-    if (!response.ReadUInt8(&ver) || !response.ReadUInt8(&status))
+    if (!response.ReadUInt8(&ver) || !response.ReadUInt8(&status)) {
       return;
+    }
 
     if ((ver != 1) || (status != 0)) {
       Error(SOCKET_EACCES);
@@ -582,8 +591,9 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
   } else if (state_ == SS_CONNECT) {
     uint8_t ver, rep, rsv, atyp;
     if (!response.ReadUInt8(&ver) || !response.ReadUInt8(&rep) ||
-        !response.ReadUInt8(&rsv) || !response.ReadUInt8(&atyp))
+        !response.ReadUInt8(&rsv) || !response.ReadUInt8(&atyp)) {
       return;
+    }
 
     if ((ver != 5) || (rep != 0)) {
       Error(0);
@@ -593,20 +603,23 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
     uint16_t port;
     if (atyp == 1) {
       uint32_t addr;
-      if (!response.ReadUInt32(&addr) || !response.ReadUInt16(&port))
+      if (!response.ReadUInt32(&addr) || !response.ReadUInt16(&port)) {
         return;
+      }
       RTC_LOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
     } else if (atyp == 3) {
       uint8_t len;
       std::string addr;
       if (!response.ReadUInt8(&len) || !response.ReadString(&addr, len) ||
-          !response.ReadUInt16(&port))
+          !response.ReadUInt16(&port)) {
         return;
+      }
       RTC_LOG(LS_VERBOSE) << "Bound on " << addr << ":" << port;
     } else if (atyp == 4) {
       std::string addr;
-      if (!response.ReadString(&addr, 16) || !response.ReadUInt16(&port))
+      if (!response.ReadString(&addr, 16) || !response.ReadUInt16(&port)) {
         return;
+      }
       RTC_LOG(LS_VERBOSE) << "Bound on <IPV6>:" << port;
     } else {
       Error(0);
@@ -620,16 +633,18 @@ void AsyncSocksProxySocket::ProcessInput(char* data, size_t* len) {
   *len = response.Length();
   memmove(data, response.Data(), *len);
 
-  if (state_ != SS_TUNNEL)
+  if (state_ != SS_TUNNEL) {
     return;
+  }
 
   bool remainder = (*len > 0);
   BufferInput(false);
   SignalConnectEvent(this);
 
   // FIX: if SignalConnect causes the socket to be destroyed, we are in trouble
-  if (remainder)
+  if (remainder) {
     SignalReadEvent(this);  // TODO: signal this??
+  }
 }
 
 void AsyncSocksProxySocket::SendHello() {

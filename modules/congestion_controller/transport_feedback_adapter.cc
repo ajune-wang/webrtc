@@ -138,8 +138,9 @@ LegacyTransportFeedbackAdapter::GetPacketFeedbackVector(
         PacketFeedback packet_feedback(PacketFeedback::kNotReceived, seq_num);
         // Note: Element not removed from history because it might be reported
         // as received by another feedback.
-        if (!send_time_history_.GetFeedback(&packet_feedback, false))
+        if (!send_time_history_.GetFeedback(&packet_feedback, false)) {
           ++failed_lookups;
+        }
         if (packet_feedback.local_net_id == local_net_id_ &&
             packet_feedback.remote_net_id == remote_net_id_) {
           packet_feedback_vector.push_back(packet_feedback);
@@ -150,8 +151,9 @@ LegacyTransportFeedbackAdapter::GetPacketFeedbackVector(
       offset_us += packet.delta_us();
       timestamp_ms = current_offset_ms_ + (offset_us / 1000);
       PacketFeedback packet_feedback(timestamp_ms, packet.sequence_number());
-      if (!send_time_history_.GetFeedback(&packet_feedback, true))
+      if (!send_time_history_.GetFeedback(&packet_feedback, true)) {
         ++failed_lookups;
+      }
       if (packet_feedback.local_net_id == local_net_id_ &&
           packet_feedback.remote_net_id == remote_net_id_) {
         if (packet_feedback.send_time_ms >= 0) {
@@ -174,8 +176,9 @@ LegacyTransportFeedbackAdapter::GetPacketFeedbackVector(
     if (feedback_rtt > -1) {
       feedback_rtts_.push_back(feedback_rtt);
       const size_t kFeedbackRttWindow = 32;
-      if (feedback_rtts_.size() > kFeedbackRttWindow)
+      if (feedback_rtts_.size() > kFeedbackRttWindow) {
         feedback_rtts_.pop_front();
+      }
       min_feedback_rtt_.emplace(
           *std::min_element(feedback_rtts_.begin(), feedback_rtts_.end()));
     }

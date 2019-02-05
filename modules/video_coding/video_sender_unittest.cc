@@ -156,8 +156,9 @@ class EncodedImageCallbackImpl : public EncodedImageCallback {
       EXPECT_EQ(kVideoCodecVP8, frame_data_[i].codec_specific_info.codecType);
       const uint8_t temporal_idx =
           frame_data_[i].codec_specific_info.codecSpecific.VP8.temporalIdx;
-      if (temporal_idx <= temporal_layer || temporal_idx == kNoTemporalIdx)
+      if (temporal_idx <= temporal_layer || temporal_idx == kNoTemporalIdx) {
         frames++;
+      }
     }
     return frames;
   }
@@ -168,8 +169,9 @@ class EncodedImageCallbackImpl : public EncodedImageCallback {
       EXPECT_EQ(kVideoCodecVP8, frame_data_[i].codec_specific_info.codecType);
       const uint8_t temporal_idx =
           frame_data_[i].codec_specific_info.codecSpecific.VP8.temporalIdx;
-      if (temporal_idx <= temporal_layer || temporal_idx == kNoTemporalIdx)
+      if (temporal_idx <= temporal_layer || temporal_idx == kNoTemporalIdx) {
         payload_size += frame_data_[i].payload_size;
+      }
     }
     return payload_size;
   }

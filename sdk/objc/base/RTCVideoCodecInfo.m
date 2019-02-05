@@ -39,10 +39,12 @@
 }
 
 - (BOOL)isEqual:(id)object {
-  if (self == object)
+  if (self == object) {
     return YES;
-  if (![object isKindOfClass:[self class]])
+  }
+  if (![object isKindOfClass:[self class]]) {
     return NO;
+  }
   return [self isEqualToCodecInfo:object];
 }
 

@@ -51,8 +51,9 @@ class MoveOnlyClosure {
     other.mock_ = nullptr;
   }
   ~MoveOnlyClosure() {
-    if (mock_)
+    if (mock_) {
       mock_->Delete();
+    }
   }
   TimeDelta operator()() { return mock_->Call(); }
 
@@ -70,8 +71,9 @@ TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
   rtc::TaskQueue task_queue("TestQueue");
   std::atomic_int counter(0);
   auto handle = RepeatingTaskHandle::Start(&task_queue, [&] {
-    if (++counter >= kShortIntervalCount)
+    if (++counter >= kShortIntervalCount) {
       return kLongInterval;
+    }
     return kShortInterval;
   });
   // Sleep long enough to go through the initial phase.
@@ -97,8 +99,9 @@ TEST(RepeatingTaskTest, CompensatesForLongRunTime) {
   std::atomic_int counter(0);
   rtc::TaskQueue task_queue("TestQueue");
   RepeatingTaskHandle::Start(&task_queue, [&] {
-    if (++counter == kSleepAtCount)
+    if (++counter == kSleepAtCount) {
       Sleep(kSleepDuration);
+    }
     return kRepeatInterval;
   });
   Sleep(kRepeatInterval * kTargetCount);

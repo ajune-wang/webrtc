@@ -77,8 +77,9 @@ MetricRecorder::MetricRecorder(const std::string algorithm_name,
       started_computing_metrics_(false),
       num_packets_received_(0) {
   std::fill_n(sum_lp_weighted_estimate_error_, 2, 0);
-  if (packet_sender != nullptr)
+  if (packet_sender != nullptr) {
     packet_sender->set_metric_recorder(this);
+  }
 }
 
 MetricRecorder::~MetricRecorder() = default;
@@ -185,14 +186,16 @@ void MetricRecorder::UpdateObjective() {
 }
 
 uint32_t MetricRecorder::GetTotalAvailableKbps() {
-  if (link_share_ == nullptr)
+  if (link_share_ == nullptr) {
     return 0;
+  }
   return link_share_->TotalAvailableKbps();
 }
 
 uint32_t MetricRecorder::GetAvailablePerFlowKbps() {
-  if (link_share_ == nullptr)
+  if (link_share_ == nullptr) {
     return 0;
+  }
   return link_share_->AvailablePerFlowKbps(flow_id_);
 }
 
@@ -383,8 +386,9 @@ void MetricRecorder::ResumeFlow(int64_t paused_time_ms) {
 
 double MetricRecorder::AverageBitrateKbps(int64_t extra_offset_ms) const {
   int64_t duration_ms = RunDurationMs(extra_offset_ms);
-  if (duration_ms == 0)
+  if (duration_ms == 0) {
     return 0.0;
+  }
   return static_cast<double>(8 * sum_throughput_bytes_ / duration_ms);
 }
 
@@ -410,8 +414,9 @@ int64_t MetricRecorder::NthDelayPercentile(int n) const {
   }
   size_t num_packets_remaining = (n * num_packets_received_) / 100;
   for (auto hist : delay_histogram_ms_) {
-    if (num_packets_remaining <= hist.second)
+    if (num_packets_remaining <= hist.second) {
       return static_cast<int64_t>(hist.first);
+    }
     num_packets_remaining -= hist.second;
   }
 

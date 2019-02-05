@@ -412,12 +412,14 @@ void WebRtcIsacfix_GetVars(const int16_t *input, const int16_t *pitchGains_Q12,
   if (tmp16<0) {
     tmp16_2 = (0x0400 | (tmp16 & 0x03FF));
     tmp16_1 = ((uint16_t)(tmp16 ^ 0xFFFF) >> 10) - 3;  /* Gives result in Q14 */
-    if (tmp16_1<0)
+    if (tmp16_1<0) {
       expPg = -(tmp16_2 << -tmp16_1);
-    else
+    } else {
       expPg = -(tmp16_2 >> tmp16_1);
-  } else
+}
+  } else {
     expPg = (int16_t) -16384; /* 1 in Q14, since 2^0=1 */
+}
 
   expPg32 = (int32_t)expPg << 8;  /* Q22 */
   divVal = WebRtcSpl_DivW32W16ResW16(expPg32, chngQ); /* Q22/Q12=Q10 */
@@ -426,12 +428,14 @@ void WebRtcIsacfix_GetVars(const int16_t *input, const int16_t *pitchGains_Q12,
   if (tmp16<0) {
     tmp16_2 = (0x0400 | (tmp16 & 0x03FF));
     tmp16_1 = ((uint16_t)(tmp16 ^ 0xFFFF) >> 10) - 3;  /* Gives result in Q14 */
-    if (tmp16_1<0)
+    if (tmp16_1<0) {
       expPg = tmp16_2 << -tmp16_1;
-    else
+    } else {
       expPg = tmp16_2 >> tmp16_1;
-  } else
+}
+  } else {
     expPg = (int16_t) 16384; /* 1 in Q14, since 2^0=1 */
+}
 
   *varscale = expPg-1;
   *oldEnergy = nrgQ[3];
@@ -445,10 +449,11 @@ static __inline int16_t  exp2_Q10_T(int16_t x) { // Both in and out in Q10
 
   tmp16_2=(int16_t)(0x0400|(x&0x03FF));
   tmp16_1 = -(x >> 10);
-  if(tmp16_1>0)
+  if(tmp16_1>0) {
     return tmp16_2 >> tmp16_1;
-  else
+  } else {
     return tmp16_2 << -tmp16_1;
+}
 
 }
 
@@ -734,8 +739,9 @@ void WebRtcIsacfix_GetLpcCoef(int16_t *inLoQ0,
           newQdomLO = QdomLO-(sh-shMem-6);
           maskdata->CorrBufLoQdom[n] = newQdomLO;
         }
-      } else
+      } else {
         tmp = 0;
+}
 
       tmp = tmp + corrlo2QQ[n];
 
@@ -748,8 +754,9 @@ void WebRtcIsacfix_GetLpcCoef(int16_t *inLoQ0,
     }
     if( newQdomLO!=QdomLO) {
       for (n = 0; n <= ORDERLO; n++) {
-        if (maskdata->CorrBufLoQdom[n] != newQdomLO)
+        if (maskdata->CorrBufLoQdom[n] != newQdomLO) {
           corrloQQ[n] >>= maskdata->CorrBufLoQdom[n] - newQdomLO;
+}
       }
       QdomLO = newQdomLO;
     }
@@ -805,8 +812,9 @@ void WebRtcIsacfix_GetLpcCoef(int16_t *inLoQ0,
 
     if( newQdomHI!=QdomHI) {
       for (n = 0; n <= ORDERHI; n++) {
-        if (maskdata->CorrBufHiQdom[n] != newQdomHI)
+        if (maskdata->CorrBufHiQdom[n] != newQdomHI) {
           corrhiQQ[n] >>= maskdata->CorrBufHiQdom[n] - newQdomHI;
+}
       }
       QdomHI = newQdomHI;
     }

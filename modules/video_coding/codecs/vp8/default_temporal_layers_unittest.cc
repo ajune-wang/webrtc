@@ -678,8 +678,9 @@ class TemporalLayersReferenceTest : public TemporalLayersTest,
 
   bool UpdateSyncRefState(const BufferFlags& flags, BufferState* buffer_state) {
     if (flags & BufferFlags::kReference) {
-      if (buffer_state->temporal_idx == -1)
+      if (buffer_state->temporal_idx == -1) {
         return true;  // References key-frame.
+      }
       if (buffer_state->temporal_idx == 0) {
         // No more than one reference to TL0 frame.
         EXPECT_EQ(nullptr, tl0_reference_);
@@ -774,12 +775,15 @@ TEST_P(TemporalLayersReferenceTest, ValidFrameConfigs) {
 
     // Update the current layer state.
     BufferState state = {temporal_idx, timestamp_, is_sync_frame};
-    if (tl_config.last_buffer_flags & BufferFlags::kUpdate)
+    if (tl_config.last_buffer_flags & BufferFlags::kUpdate) {
       last_state = state;
-    if (tl_config.golden_buffer_flags & BufferFlags::kUpdate)
+    }
+    if (tl_config.golden_buffer_flags & BufferFlags::kUpdate) {
       golden_state = state;
-    if (tl_config.arf_buffer_flags & BufferFlags::kUpdate)
+    }
+    if (tl_config.arf_buffer_flags & BufferFlags::kUpdate) {
       altref_state = state;
+    }
   }
 }
 }  // namespace test

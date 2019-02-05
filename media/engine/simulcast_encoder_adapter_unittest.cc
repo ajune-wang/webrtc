@@ -832,8 +832,9 @@ TEST_F(TestSimulcastEncoderAdapterFake,
   EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
   adapter_->RegisterEncodeCompleteCallback(this);
   ASSERT_EQ(3u, helper_->factory()->encoders().size());
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
+  for (MockVideoEncoder* encoder : helper_->factory()->encoders()) {
     encoder->set_supports_native_handle(true);
+  }
   // If one encoder doesn't support it, then overall support is disabled.
   helper_->factory()->encoders()[0]->set_supports_native_handle(false);
   EXPECT_FALSE(adapter_->GetEncoderInfo().supports_native_handle);
@@ -874,8 +875,9 @@ TEST_F(TestSimulcastEncoderAdapterFake,
   EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
   adapter_->RegisterEncodeCompleteCallback(this);
   ASSERT_EQ(3u, helper_->factory()->encoders().size());
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
+  for (MockVideoEncoder* encoder : helper_->factory()->encoders()) {
     encoder->set_supports_native_handle(true);
+  }
   EXPECT_EQ(0, adapter_->InitEncode(&codec_, 1, 1200));
   EXPECT_TRUE(adapter_->GetEncoderInfo().supports_native_handle);
 
@@ -889,8 +891,9 @@ TEST_F(TestSimulcastEncoderAdapterFake,
                                .build();
   // Expect calls with the given video frame verbatim, since it's a texture
   // frame and can't otherwise be modified/resized.
-  for (MockVideoEncoder* encoder : helper_->factory()->encoders())
+  for (MockVideoEncoder* encoder : helper_->factory()->encoders()) {
     EXPECT_CALL(*encoder, Encode(::testing::Ref(input_frame), _, _)).Times(1);
+  }
   std::vector<FrameType> frame_types(3, kVideoFrameKey);
   EXPECT_EQ(0, adapter_->Encode(input_frame, nullptr, &frame_types));
 }

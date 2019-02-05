@@ -42,8 +42,9 @@ bool ReadUint32(uint32_t* out, FILE* file) {
   for (size_t i = 0; i < 4; ++i) {
     *out <<= 8;
     uint8_t tmp;
-    if (fread(&tmp, 1, sizeof(uint8_t), file) != sizeof(uint8_t))
+    if (fread(&tmp, 1, sizeof(uint8_t), file) != sizeof(uint8_t)) {
       return false;
+    }
     *out |= tmp;
   }
   return true;
@@ -54,8 +55,9 @@ bool ReadUint16(uint16_t* out, FILE* file) {
   for (size_t i = 0; i < 2; ++i) {
     *out <<= 8;
     uint8_t tmp;
-    if (fread(&tmp, 1, sizeof(uint8_t), file) != sizeof(uint8_t))
+    if (fread(&tmp, 1, sizeof(uint8_t), file) != sizeof(uint8_t)) {
       return false;
+    }
     *out |= tmp;
   }
   return true;
@@ -96,8 +98,9 @@ class InterleavedRtpFileReader : public RtpFileReaderImpl {
               << " bytes allocated. Consider increasing the buffer "
                  "size";
     }
-    if (fread(packet->data, 1, len, file_) != len)
+    if (fread(packet->data, 1, len, file_) != len) {
       return false;
+    }
 
     packet->length = len;
     packet->original_length = len;
@@ -335,8 +338,9 @@ class PcapReader : public RtpFileReaderImpl {
 
   bool NextPacket(RtpPacket* packet) override {
     uint32_t length = RtpPacket::kMaxPacketBufferSize;
-    if (NextPcap(packet->data, &length, &packet->time_ms) != kResultSuccess)
+    if (NextPcap(packet->data, &length, &packet->time_ms) != kResultSuccess) {
       return false;
+    }
     packet->length = static_cast<size_t>(length);
     packet->original_length = packet->length;
     return true;

@@ -46,8 +46,9 @@ PitchInfo PitchEstimator::Estimate(
   // The refinement is done using the pitch buffer that contains 24 kHz samples.
   // Therefore, adapt the inverted lags in |pitch_candidates_inv_lags| from 12
   // to 24 kHz.
-  for (size_t i = 0; i < pitch_candidates_inv_lags.size(); ++i)
+  for (size_t i = 0; i < pitch_candidates_inv_lags.size(); ++i) {
     pitch_candidates_inv_lags[i] *= 2;
+  }
   size_t pitch_inv_lag_48kHz =
       RefinePitchPeriod48kHz(pitch_buf, pitch_candidates_inv_lags);
   // Look for stronger harmonics to find the final pitch period and its gain.

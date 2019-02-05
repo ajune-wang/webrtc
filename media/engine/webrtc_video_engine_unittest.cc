@@ -120,8 +120,9 @@ bool HasRtxCodec(const std::vector<cricket::VideoCodec>& codecs,
 // TODO(nisse): Duplicated in call.cc.
 const int* FindKeyByValue(const std::map<int, int>& m, int v) {
   for (const auto& kv : m) {
-    if (kv.second == v)
+    if (kv.second == v) {
       return &kv.first;
+    }
   }
   return nullptr;
 }
@@ -136,8 +137,9 @@ bool HasRtxReceiveAssociation(const webrtc::VideoReceiveStream::Config& config,
 bool VerifyRtxReceiveAssociations(
     const webrtc::VideoReceiveStream::Config& config) {
   for (const auto& decoder : config.decoders) {
-    if (!HasRtxReceiveAssociation(config, decoder.payload_type))
+    if (!HasRtxReceiveAssociation(config, decoder.payload_type)) {
       return false;
+    }
   }
   return true;
 }
@@ -266,8 +268,9 @@ TEST_F(WebRtcVideoEngineTest, DefaultRtxCodecHasAssociatedPayloadTypeSet) {
 
   std::vector<VideoCodec> engine_codecs = engine_.codecs();
   for (size_t i = 0; i < engine_codecs.size(); ++i) {
-    if (engine_codecs[i].name != kRtxCodecName)
+    if (engine_codecs[i].name != kRtxCodecName) {
       continue;
+    }
     int associated_payload_type;
     EXPECT_TRUE(engine_codecs[i].GetParam(kCodecParamAssociatedPayloadType,
                                           &associated_payload_type));
@@ -648,8 +651,9 @@ size_t WebRtcVideoEngineTest::GetEngineCodecIndex(
   const std::vector<cricket::VideoCodec> codecs = engine_.codecs();
   for (size_t i = 0; i < codecs.size(); ++i) {
     const cricket::VideoCodec engine_codec = codecs[i];
-    if (!absl::EqualsIgnoreCase(name, engine_codec.name))
+    if (!absl::EqualsIgnoreCase(name, engine_codec.name)) {
       continue;
+    }
     // The tests only use H264 Constrained Baseline. Make sure we don't return
     // an internal H264 codec from the engine with a different H264 profile.
     if (absl::EqualsIgnoreCase(name.c_str(), kH264CodecName)) {
@@ -1421,8 +1425,9 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
 
   cricket::VideoCodec GetEngineCodec(const std::string& name) {
     for (const cricket::VideoCodec& engine_codec : engine_.codecs()) {
-      if (absl::EqualsIgnoreCase(name, engine_codec.name))
+      if (absl::EqualsIgnoreCase(name, engine_codec.name)) {
         return engine_codec;
+      }
     }
     // This point should never be reached.
     ADD_FAILURE() << "Unrecognized codec name: " << name;
@@ -2183,8 +2188,9 @@ class WebRtcVideoChannelTest : public WebRtcVideoEngineTest {
     int expected_id = -1;
     int id = 1;
     for (const std::string& extension : extensions) {
-      if (extension == expected_extension)
+      if (extension == expected_extension) {
         expected_id = id;
+      }
       parameters.extensions.push_back(RtpExtension(extension, id++));
     }
     EXPECT_TRUE(channel_->SetSendParameters(parameters));
@@ -2320,8 +2326,9 @@ TEST_F(WebRtcVideoChannelTest, RecvStreamWithSimAndRtx) {
       cricket::CreateSimWithRtxStreamParams("cname", ssrcs, rtx_ssrcs));
 
   ASSERT_EQ(rtx_ssrcs.size(), send_stream->GetConfig().rtp.rtx.ssrcs.size());
-  for (size_t i = 0; i < rtx_ssrcs.size(); ++i)
+  for (size_t i = 0; i < rtx_ssrcs.size(); ++i) {
     EXPECT_EQ(rtx_ssrcs[i], send_stream->GetConfig().rtp.rtx.ssrcs[i]);
+  }
 
   // Receiver side.
   FakeVideoReceiveStream* recv_stream = AddRecvStream(
@@ -5930,8 +5937,9 @@ TEST_F(WebRtcVideoChannelTest, GetAndSetRtpSendParametersNumTemporalLayers) {
   // Get and set the rtp encoding parameters.
   webrtc::RtpParameters parameters = channel_->GetRtpSendParameters(last_ssrc_);
   EXPECT_EQ(kNumSimulcastStreams, parameters.encodings.size());
-  for (const auto& encoding : parameters.encodings)
+  for (const auto& encoding : parameters.encodings) {
     EXPECT_FALSE(encoding.num_temporal_layers);
+  }
 
   // Change the value and set it on the VideoChannel.
   parameters.encodings[0].num_temporal_layers = 3;
@@ -6853,8 +6861,9 @@ void WebRtcVideoChannelTest::TestReceiverLocalSsrcConfiguration(
               receive_streams[0]->GetConfig().rtp.local_ssrc);
   }
   AddSendStream(StreamParams::CreateLegacy(kSenderSsrc));
-  if (!receiver_first)
+  if (!receiver_first) {
     AddRecvStream(StreamParams::CreateLegacy(kReceiverSsrc));
+  }
   std::vector<FakeVideoReceiveStream*> receive_streams =
       fake_call_->GetVideoReceiveStreams();
   ASSERT_EQ(1u, receive_streams.size());
@@ -6934,8 +6943,9 @@ class WebRtcVideoChannelSimulcastTest : public testing::Test {
                                           rtc::kNumMicrosecsPerSec / 30);
 
     VideoOptions options;
-    if (screenshare)
+    if (screenshare) {
       options.is_screencast = screenshare;
+    }
     EXPECT_TRUE(
         channel_->SetVideoSend(ssrcs.front(), &options, &frame_forwarder));
     // Fetch the latest stream since SetVideoSend() may recreate it if the

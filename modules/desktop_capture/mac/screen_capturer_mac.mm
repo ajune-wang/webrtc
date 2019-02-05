@@ -61,11 +61,15 @@ void CopyRect(const uint8_t* src_plane,
 // |window_to_exclude|, or NULL if the window is not found or it fails. The
 // caller should release the returned CFArrayRef.
 CFArrayRef CreateWindowListWithExclusion(CGWindowID window_to_exclude) {
-  if (!window_to_exclude) return nullptr;
+  if (!window_to_exclude) {
+    return nullptr;
+  }
 
   CFArrayRef all_windows =
       CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
-  if (!all_windows) return nullptr;
+  if (!all_windows) {
+    return nullptr;
+  }
 
   CFMutableArrayRef returned_array =
       CFArrayCreateMutable(nullptr, CFArrayGetCount(all_windows), nullptr);
@@ -287,7 +291,9 @@ bool ScreenCapturerMac::SelectSource(SourceId id) {
   } else {
     const MacDisplayConfiguration* config =
         desktop_config_.FindDisplayConfigurationById(static_cast<CGDirectDisplayID>(id));
-    if (!config) return false;
+    if (!config) {
+      return false;
+    }
     current_display_ = config->id;
   }
 
@@ -411,7 +417,9 @@ bool ScreenCapturerMac::CgBlit(const DesktopFrame& frame, const DesktopRegion& r
       }
     }
   }
-  if (window_list) CFRelease(window_list);
+  if (window_list) {
+    CFRelease(window_list);
+  }
   return true;
 }
 
@@ -513,14 +521,18 @@ void ScreenCapturerMac::ScreenRefresh(CGDirectDisplayID display_id,
                                       const CGRect* rect_array,
                                       DesktopVector display_origin,
                                       IOSurfaceRef io_surface) {
-  if (screen_pixel_bounds_.is_empty()) ScreenConfigurationChanged();
+  if (screen_pixel_bounds_.is_empty()) {
+    ScreenConfigurationChanged();
+  }
 
   // The refresh rects are in display coordinates. We want to translate to
   // framebuffer coordinates. If a specific display is being captured, then no
   // change is necessary. If all displays are being captured, then we want to
   // translate by the origin of the display.
   DesktopVector translate_vector;
-  if (!current_display_) translate_vector = display_origin;
+  if (!current_display_) {
+    translate_vector = display_origin;
+  }
 
   DesktopRegion region;
   for (CGRectCount i = 0; i < count; ++i) {

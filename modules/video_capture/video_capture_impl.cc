@@ -97,8 +97,9 @@ VideoCaptureImpl::VideoCaptureImpl()
 
 VideoCaptureImpl::~VideoCaptureImpl() {
   DeRegisterCaptureDataCallback();
-  if (_deviceUniqueId)
+  if (_deviceUniqueId) {
     delete[] _deviceUniqueId;
+  }
 }
 
 void VideoCaptureImpl::RegisterCaptureDataCallback(

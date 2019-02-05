@@ -149,8 +149,9 @@ int32_t PCMFile::Read10MsData(AudioFrame& audio_frame) {
   audio_frame.timestamp_ = timestamp_;
   timestamp_ += samples_10ms_;
   ++blocks_read_;
-  if (num_10ms_blocks_to_read_ && blocks_read_ >= *num_10ms_blocks_to_read_)
+  if (num_10ms_blocks_to_read_ && blocks_read_ >= *num_10ms_blocks_to_read_) {
     end_of_file_ = true;
+  }
   return samples_10ms_;
 }
 

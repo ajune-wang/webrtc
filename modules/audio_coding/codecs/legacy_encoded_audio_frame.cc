@@ -36,8 +36,9 @@ LegacyEncodedAudioFrame::Decode(rtc::ArrayView<int16_t> decoded) const {
       payload_.data(), payload_.size(), decoder_->SampleRateHz(),
       decoded.size() * sizeof(int16_t), decoded.data(), &speech_type);
 
-  if (ret < 0)
+  if (ret < 0) {
     return absl::nullopt;
+  }
 
   return DecodeResult{static_cast<size_t>(ret), speech_type};
 }

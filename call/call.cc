@@ -71,11 +71,13 @@ namespace {
 // TODO(nisse): This really begs for a shared context struct.
 bool UseSendSideBwe(const std::vector<RtpExtension>& extensions,
                     bool transport_cc) {
-  if (!transport_cc)
+  if (!transport_cc) {
     return false;
+  }
   for (const auto& extension : extensions) {
-    if (extension.uri == RtpExtension::kTransportSequenceNumberUri)
+    if (extension.uri == RtpExtension::kTransportSequenceNumberUri) {
       return true;
+    }
   }
   return false;
 }
@@ -94,8 +96,9 @@ bool UseSendSideBwe(const FlexfecReceiveStream::Config& config) {
 
 const int* FindKeyByValue(const std::map<int, int>& m, int v) {
   for (const auto& kv : m) {
-    if (kv.second == v)
+    if (kv.second == v) {
       return &kv.first;
+    }
   }
   return nullptr;
 }
@@ -551,12 +554,14 @@ void Call::UpdateHistograms() {
 }
 
 void Call::UpdateSendHistograms(int64_t first_sent_packet_ms) {
-  if (first_sent_packet_ms == -1)
+  if (first_sent_packet_ms == -1) {
     return;
+  }
   int64_t elapsed_sec =
       (clock_->TimeInMilliseconds() - first_sent_packet_ms) / 1000;
-  if (elapsed_sec < metrics::kMinRunTimeInSeconds)
+  if (elapsed_sec < metrics::kMinRunTimeInSeconds) {
     return;
+  }
   const int kMinRequiredPeriodicSamples = 5;
   AggregatedStats send_bitrate_stats =
       estimated_send_bitrate_kbps_counter_.ProcessAndGetStats();
@@ -1075,17 +1080,21 @@ void Call::UpdateAggregateNetworkState() {
   bool have_video = false;
   {
     ReadLockScoped read_lock(*send_crit_);
-    if (audio_send_ssrcs_.size() > 0)
+    if (audio_send_ssrcs_.size() > 0) {
       have_audio = true;
-    if (video_send_ssrcs_.size() > 0)
+    }
+    if (video_send_ssrcs_.size() > 0) {
       have_video = true;
+    }
   }
   {
     ReadLockScoped read_lock(*receive_crit_);
-    if (audio_receive_streams_.size() > 0)
+    if (audio_receive_streams_.size() > 0) {
       have_audio = true;
-    if (video_receive_streams_.size() > 0)
+    }
+    if (video_receive_streams_.size() > 0) {
       have_video = true;
+    }
   }
 
   bool aggregate_network_up =
@@ -1198,8 +1207,9 @@ void Call::OnAllocationLimitsChanged(uint32_t min_send_bitrate_bps,
 
 void Call::ConfigureSync(const std::string& sync_group) {
   // Set sync only if there was no previous one.
-  if (sync_group.empty())
+  if (sync_group.empty()) {
     return;
+  }
 
   AudioReceiveStream* sync_audio_stream = nullptr;
   // Find existing audio stream.
@@ -1221,12 +1231,14 @@ void Call::ConfigureSync(const std::string& sync_group) {
       }
     }
   }
-  if (sync_audio_stream)
+  if (sync_audio_stream) {
     sync_stream_mapping_[sync_group] = sync_audio_stream;
+  }
   size_t num_synced_streams = 0;
   for (VideoReceiveStream* video_stream : video_receive_streams_) {
-    if (video_stream->config().sync_group != sync_group)
+    if (video_stream->config().sync_group != sync_group) {
       continue;
+    }
     ++num_synced_streams;
     if (num_synced_streams > 1) {
       // TODO(pbos): Support synchronizing more than one A/V pair.
@@ -1262,29 +1274,33 @@ PacketReceiver::DeliveryStatus Call::DeliverRtcp(MediaType media_type,
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     ReadLockScoped read_lock(*receive_crit_);
     for (VideoReceiveStream* stream : video_receive_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet, length)) {
         rtcp_delivered = true;
+      }
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
     ReadLockScoped read_lock(*receive_crit_);
     for (AudioReceiveStream* stream : audio_receive_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet, length)) {
         rtcp_delivered = true;
+      }
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::VIDEO) {
     ReadLockScoped read_lock(*send_crit_);
     for (VideoSendStream* stream : video_send_streams_) {
-      if (stream->DeliverRtcp(packet, length))
+      if (stream->DeliverRtcp(packet, length)) {
         rtcp_delivered = true;
+      }
     }
   }
   if (media_type == MediaType::ANY || media_type == MediaType::AUDIO) {
     ReadLockScoped read_lock(*send_crit_);
     for (auto& kv : audio_send_ssrcs_) {
-      if (kv.second->DeliverRtcp(packet, length))
+      if (kv.second->DeliverRtcp(packet, length)) {
         rtcp_delivered = true;
+      }
     }
   }
 
@@ -1302,8 +1318,9 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
   TRACE_EVENT0("webrtc", "Call::DeliverRtp");
 
   RtpPacketReceived parsed_packet;
-  if (!parsed_packet.Parse(std::move(packet)))
+  if (!parsed_packet.Parse(std::move(packet))) {
     return DELIVERY_PACKET_ERROR;
+  }
 
   if (packet_time_us != -1) {
     if (receive_time_calculator_) {
@@ -1381,16 +1398,18 @@ PacketReceiver::DeliveryStatus Call::DeliverPacket(
     rtc::CopyOnWriteBuffer packet,
     int64_t packet_time_us) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&configuration_sequence_checker_);
-  if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size()))
+  if (RtpHeaderParser::IsRtcp(packet.cdata(), packet.size())) {
     return DeliverRtcp(media_type, packet.cdata(), packet.size());
+  }
 
   return DeliverRtp(media_type, std::move(packet), packet_time_us);
 }
 
 void Call::OnRecoveredPacket(const uint8_t* packet, size_t length) {
   RtpPacketReceived parsed_packet;
-  if (!parsed_packet.Parse(packet, length))
+  if (!parsed_packet.Parse(packet, length)) {
     return;
+  }
 
   parsed_packet.set_recovered(true);
 

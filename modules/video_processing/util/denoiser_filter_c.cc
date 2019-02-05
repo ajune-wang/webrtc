@@ -88,25 +88,28 @@ DenoiserDecision DenoiserFilterC::MbDenoise(const uint8_t* mc_running_avg_y,
         running_avg_y[c] = mc_running_avg_y[c];
         col_sum[c] += diff;
       } else {
-        if (absdiff >= 4 + shift_inc1 && absdiff <= 7)
+        if (absdiff >= 4 + shift_inc1 && absdiff <= 7) {
           adjustment = adj_val[0];
-        else if (absdiff >= 8 && absdiff <= 15)
+        } else if (absdiff >= 8 && absdiff <= 15) {
           adjustment = adj_val[1];
-        else
+        } else {
           adjustment = adj_val[2];
+        }
 
         if (diff > 0) {
-          if ((sig[c] + adjustment) > 255)
+          if ((sig[c] + adjustment) > 255) {
             running_avg_y[c] = 255;
-          else
+          } else {
             running_avg_y[c] = sig[c] + adjustment;
+          }
 
           col_sum[c] += adjustment;
         } else {
-          if ((sig[c] - adjustment) < 0)
+          if ((sig[c] - adjustment) < 0) {
             running_avg_y[c] = 0;
-          else
+          } else {
             running_avg_y[c] = sig[c] - adjustment;
+          }
 
           col_sum[c] -= adjustment;
         }
@@ -128,8 +131,9 @@ DenoiserDecision DenoiserFilterC::MbDenoise(const uint8_t* mc_running_avg_y,
 
   sum_diff_thresh =
       increase_denoising ? kSumDiffThresholdHigh : kSumDiffThreshold;
-  if (abs(sum_diff) > sum_diff_thresh)
+  if (abs(sum_diff) > sum_diff_thresh) {
     return COPY_BLOCK;
+  }
 
   return FILTER_BLOCK;
 }

@@ -63,9 +63,11 @@ void RunTest(void(*test)()) {
                            withObject:testBlock];
 
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-    while ([testRunner running] && [runLoop runMode:NSDefaultRunLoopMode
-                                         beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]])
+    while ([testRunner running] &&
+           [runLoop runMode:NSDefaultRunLoopMode
+                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]]) {
       ;
+    }
   }
 }
 

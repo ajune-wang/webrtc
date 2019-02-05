@@ -54,8 +54,9 @@ void ComputeBandCoefficients(
                                          band_boundaries[i] - 1);
     // Depending on the sample rate, the highest bands can have no FFT
     // coefficients. Stop the iteration when coming across the first empty band.
-    if (first_freq_bin >= last_freq_bin)
+    if (first_freq_bin >= last_freq_bin) {
       break;
+    }
     const size_t band_size = last_freq_bin - first_freq_bin + 1;
     // Compute the band coefficient using a triangular band with peak response
     // at the band boundary.
@@ -106,8 +107,9 @@ std::array<float, kNumBands * kNumBands> ComputeDctTable() {
   std::array<float, kNumBands * kNumBands> dct_table;
   const double k = std::sqrt(0.5);
   for (size_t i = 0; i < kNumBands; ++i) {
-    for (size_t j = 0; j < kNumBands; ++j)
+    for (size_t j = 0; j < kNumBands; ++j) {
       dct_table[i * kNumBands + j] = std::cos((i + 0.5) * j * kPi / kNumBands);
+    }
     dct_table[i * kNumBands] *= k;
   }
   return dct_table;

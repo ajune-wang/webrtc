@@ -111,8 +111,9 @@ int32_t VideoDecoderSoftwareFallbackWrapper::InitHwDecoder() {
   }
 
   decoder_type_ = DecoderType::kHardware;
-  if (callback_)
+  if (callback_) {
     hw_decoder_->RegisterDecodeCompleteCallback(callback_);
+  }
   return status;
 }
 
@@ -132,8 +133,9 @@ bool VideoDecoderSoftwareFallbackWrapper::InitFallbackDecoder() {
   }
   decoder_type_ = DecoderType::kFallback;
 
-  if (callback_)
+  if (callback_) {
     fallback_decoder_->RegisterDecodeCompleteCallback(callback_);
+  }
   return true;
 }
 

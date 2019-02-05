@@ -32,8 +32,9 @@ TEST(MinRttFilterTest, AddRttSample) {
 
 TEST(MinRttFilterTest, MinRttExpired) {
   MinRttFilter min_rtt_filter;
-  for (int i = 1; i <= 25; i++)
+  for (int i = 1; i <= 25; i++) {
     min_rtt_filter.AddRttSample(i, i);
+  }
   EXPECT_EQ(min_rtt_filter.MinRttExpired(25), true);
   EXPECT_EQ(min_rtt_filter.MinRttExpired(24), false);
 }

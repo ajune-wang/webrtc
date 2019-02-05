@@ -94,15 +94,17 @@ bool WindowCapturerMac::GetSourceList(SourceList* sources) {
 }
 
 bool WindowCapturerMac::SelectSource(SourceId id) {
-  if (!IsWindowValid(id))
+  if (!IsWindowValid(id)) {
     return false;
+  }
   window_id_ = id;
   return true;
 }
 
 bool WindowCapturerMac::FocusOnSelectedSource() {
-  if (!window_id_)
+  if (!window_id_) {
     return false;
+  }
 
   CGWindowID ids[1];
   ids[0] = window_id_;
@@ -167,8 +169,9 @@ void WindowCapturerMac::CaptureFrame() {
     CGWindowID full_screen_window =
         full_screen_chrome_window_detector_->FindFullScreenWindow(window_id_);
 
-    if (full_screen_window != kCGNullWindowID)
+    if (full_screen_window != kCGNullWindowID) {
       on_screen_window = full_screen_window;
+    }
   }
 
   CGImageRef window_image = CGWindowListCreateImage(

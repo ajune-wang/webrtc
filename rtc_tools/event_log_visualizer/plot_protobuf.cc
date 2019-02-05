@@ -45,8 +45,9 @@ void ProtobufPlot::ExportProtobuf(webrtc::analytics::Chart* chart) {
       data_set->set_style(webrtc::analytics::ChartStyle::UNDEFINED);
     }
 
-    if (series_list_[i].point_style == PointStyle::kHighlight)
+    if (series_list_[i].point_style == PointStyle::kHighlight) {
       data_set->set_highlight_points(true);
+    }
 
     data_set->set_label(series_list_[i].label);
   }

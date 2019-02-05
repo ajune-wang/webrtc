@@ -53,14 +53,17 @@ static int SkinPixel(const uint8_t y, const uint8_t cb, const uint8_t cr) {
       return (EvaluateSkinColorDifference(cb, cr, 0) < skin_threshold[0]);
     } else {
       // Exit on grey.
-      if (cb == 128 && cr == 128)
+      if (cb == 128 && cr == 128) {
         return 0;
+      }
       // Exit on very strong cb.
-      if (cb > 150 && cr < 110)
+      if (cb > 150 && cr < 110) {
         return 0;
+      }
       // Exit on (another) low luminance threshold if either color is high.
-      if (y < 50 && (cb > 140 || cr > 140))
+      if (y < 50 && (cb > 140 || cr > 140)) {
         return 0;
+      }
       for (int i = 0; i < 5; i++) {
         int diff = EvaluateSkinColorDifference(cb, cr, i);
         if (diff < skin_threshold[i + 1]) {

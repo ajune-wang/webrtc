@@ -32,10 +32,11 @@ static double LimitProbability(double p) {
   const double kLimHigh = 0.99;
   const double kLimLow = 0.01;
 
-  if (p > kLimHigh)
+  if (p > kLimHigh) {
     p = kLimHigh;
-  else if (p < kLimLow)
+  } else if (p < kLimLow) {
     p = kLimLow;
+  }
   return p;
 }
 
@@ -99,8 +100,9 @@ int PitchBasedVad::VoicingProbability(const AudioFeatures& features,
     double prod_inactive = (1 - p) * (1 - p_combined[n]);
     p_combined[n] = prod_active / (prod_active + prod_inactive);
 
-    if (UpdatePrior(p_combined[n]) < 0)
+    if (UpdatePrior(p_combined[n]) < 0) {
       return -1;
+    }
     // Limit prior probability. With a zero prior probability the posterior
     // probability is always zero.
     p_prior_ = LimitProbability(p_prior_);
@@ -111,8 +113,9 @@ int PitchBasedVad::VoicingProbability(const AudioFeatures& features,
 int PitchBasedVad::UpdatePrior(double p) {
   circular_buffer_->Insert(p);
   if (circular_buffer_->RemoveTransient(kTransientWidthThreshold,
-                                        kLowProbabilityThreshold) < 0)
+                                        kLowProbabilityThreshold) < 0) {
     return -1;
+  }
   p_prior_ = circular_buffer_->Mean();
   return 0;
 }

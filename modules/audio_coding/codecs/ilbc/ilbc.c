@@ -186,8 +186,9 @@ int WebRtcIlbcfix_Decode(IlbcDecoderInstance* iLBCdec_inst,
             &decoded[i * ((IlbcDecoder*)iLBCdec_inst)->blockl],
             (const uint16_t*)&encoded
                 [2 * i * ((IlbcDecoder*)iLBCdec_inst)->no_of_words],
-            (IlbcDecoder*)iLBCdec_inst, 1) == -1)
+            (IlbcDecoder*)iLBCdec_inst, 1) == -1) {
       return -1;
+}
     i++;
   }
   /* iLBC does not support VAD/CNG yet */
@@ -215,8 +216,9 @@ int WebRtcIlbcfix_Decode20Ms(IlbcDecoderInstance* iLBCdec_inst,
         &decoded[i * ((IlbcDecoder*)iLBCdec_inst)->blockl],
         (const uint16_t*)&encoded
             [2 * i * ((IlbcDecoder*)iLBCdec_inst)->no_of_words],
-        (IlbcDecoder*)iLBCdec_inst, 1))
+        (IlbcDecoder*)iLBCdec_inst, 1)) {
       return -1;
+}
     i++;
   }
   /* iLBC does not support VAD/CNG yet */
@@ -244,8 +246,9 @@ int WebRtcIlbcfix_Decode30Ms(IlbcDecoderInstance* iLBCdec_inst,
         &decoded[i * ((IlbcDecoder*)iLBCdec_inst)->blockl],
         (const uint16_t*)&encoded
             [2 * i * ((IlbcDecoder*)iLBCdec_inst)->no_of_words],
-        (IlbcDecoder*)iLBCdec_inst, 1))
+        (IlbcDecoder*)iLBCdec_inst, 1)) {
       return -1;
+}
     i++;
   }
   /* iLBC does not support VAD/CNG yet */

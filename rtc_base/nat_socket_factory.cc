@@ -185,8 +185,9 @@ class NATSocket : public AsyncSocket, public sigslot::has_slots<> {
 
       // Make sure this packet should be delivered before returning it.
       if (!connected_ || (real_remote_addr == remote_addr_)) {
-        if (out_addr)
+        if (out_addr) {
           *out_addr = real_remote_addr;
+        }
         result = result - static_cast<int>(addrlength);
       } else {
         RTC_LOG(LS_ERROR) << "Dropping packet from unknown remote address: "
@@ -370,8 +371,9 @@ NATSocketServer::Translator* NATSocketServer::AddTranslator(
     const SocketAddress& int_ip,
     NATType type) {
   // Fail if a translator already exists with this extternal address.
-  if (nats_.Get(ext_ip))
+  if (nats_.Get(ext_ip)) {
     return nullptr;
+  }
 
   return nats_.Add(ext_ip, new Translator(this, type, int_ip, server_, ext_ip));
 }
@@ -447,8 +449,9 @@ NATSocketServer::Translator* NATSocketServer::Translator::AddTranslator(
     const SocketAddress& int_ip,
     NATType type) {
   // Fail if a translator already exists with this extternal address.
-  if (nats_.Get(ext_ip))
+  if (nats_.Get(ext_ip)) {
     return nullptr;
+  }
 
   AddClient(ext_ip);
   return nats_.Add(ext_ip,
@@ -462,8 +465,9 @@ void NATSocketServer::Translator::RemoveTranslator(
 
 bool NATSocketServer::Translator::AddClient(const SocketAddress& int_ip) {
   // Fail if a client already exists with this internal address.
-  if (clients_.find(int_ip) != clients_.end())
+  if (clients_.find(int_ip) != clients_.end()) {
     return false;
+  }
 
   clients_.insert(int_ip);
   return true;

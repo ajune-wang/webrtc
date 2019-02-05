@@ -34,8 +34,9 @@ class EmulatedClock {
 
  protected:
   int64_t UpdateClock(int64_t time_us) {
-    if (!last_query_us_)
+    if (!last_query_us_) {
       last_query_us_ = time_us;
+    }
     int64_t skip_us = time_us - *last_query_us_;
     accumulated_drift_us_ += skip_us * drift_;
     int64_t drift_correction_us = static_cast<int64_t>(accumulated_drift_us_);
@@ -139,8 +140,9 @@ class EmulatedNonMonotoneousClock : public EmulatedClock {
     size_t ixStart =
         (last_reset_query_time_us_ + (kResolutionUs >> 1)) / kResolutionUs + 1;
     size_t ixEnd = (time_us + (kResolutionUs >> 1)) / kResolutionUs;
-    if (ixEnd >= pregenerated_clock_.size())
+    if (ixEnd >= pregenerated_clock_.size()) {
       return -1;
+    }
     last_reset_size_us_ = 0;
     for (size_t ix = ixStart; ix <= ixEnd; ++ix) {
       if (resets_us_[ix] != 0) {
@@ -200,11 +202,13 @@ TEST(ClockRepair, NoClockDrift) {
 
       int64_t corrected_clock_us = reception_time_tracker.ReconcileReceiveTimes(
           socket_time_us, system_time_us, monotone_us);
-      if (time_us == 0)
+      if (time_us == 0) {
         corrected_clock_0 = corrected_clock_us;
+      }
 
-      if (add_tolerance_on_next_packet)
+      if (add_tolerance_on_next_packet) {
         accumulated_lower_bound_tolerance_us -= (time_us - last_time_us);
+      }
 
       // Perfect repair cannot be achiveved if non-monotone clock resets during
       // a monotone clock stall.

@@ -35,8 +35,9 @@ class MultiplexEncoderAdapter::AdapterEncodedImageCallback
       const EncodedImage& encoded_image,
       const CodecSpecificInfo* codec_specific_info,
       const RTPFragmentationHeader* fragmentation) override {
-    if (!adapter_)
+    if (!adapter_) {
       return Result(Result::OK);
+    }
     return adapter_->OnEncodedImage(stream_idx_, encoded_image,
                                     codec_specific_info, fragmentation);
   }
@@ -187,8 +188,9 @@ int MultiplexEncoderAdapter::Encode(
   // If we do not receive an alpha frame, we send a single frame for this
   // |picture_index_|. The receiver will receive |frame_count| as 1 which
   // specifies this case.
-  if (rv || !has_alpha)
+  if (rv || !has_alpha) {
     return rv;
+  }
 
   // Encode AXX
   const I420ABufferInterface* yuva_buffer =
@@ -232,8 +234,9 @@ int MultiplexEncoderAdapter::SetRateAllocation(
     const int rv = encoder->SetRateAllocation(
         bitrate_allocation,
         static_cast<uint32_t>(encoders_.size()) * framerate);
-    if (rv)
+    if (rv) {
       return rv;
+    }
   }
   return WEBRTC_VIDEO_CODEC_OK;
 }
@@ -241,8 +244,9 @@ int MultiplexEncoderAdapter::SetRateAllocation(
 int MultiplexEncoderAdapter::Release() {
   for (auto& encoder : encoders_) {
     const int rv = encoder->Release();
-    if (rv)
+    if (rv) {
       return rv;
+    }
   }
   encoders_.clear();
   adapter_callbacks_.clear();
@@ -297,13 +301,15 @@ EncodedImageCallback::Result MultiplexEncoderAdapter::OnEncodedImage(
          iter != stashed_images_.end() && iter != stashed_image_next_itr;
          iter++) {
       // No image at all, skip.
-      if (iter->second.image_components.size() == 0)
+      if (iter->second.image_components.size() == 0) {
         continue;
+      }
 
       // We have to send out those stashed frames, otherwise the delta frame
       // dependency chain is broken.
-      if (combined_image_.data())
+      if (combined_image_.data()) {
         delete[] combined_image_.data();
+      }
       combined_image_ =
           MultiplexEncodedImagePacker::PackAndRelease(iter->second);
 

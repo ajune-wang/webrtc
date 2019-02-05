@@ -57,8 +57,9 @@ void BbrPacedSender::InsertPacket(RtpPacketSender::Priority priority,
                                   size_t bytes,
                                   bool retransmission) {
   int64_t now_ms = clock_->TimeInMilliseconds();
-  if (capture_time_ms < 0)
+  if (capture_time_ms < 0) {
     capture_time_ms = now_ms;
+  }
   packets_.push_back(new Packet(priority, ssrc, sequence_number,
                                 capture_time_ms, now_ms, bytes,
                                 retransmission));
@@ -69,8 +70,9 @@ int64_t BbrPacedSender::TimeUntilNextProcess() {
   // the |next_packet_send_time_|, so that we can send packet earlier or later,
   // depending on the error.
   rounding_error_time_ms_ = std::min(rounding_error_time_ms_, 1.0f);
-  if (rounding_error_time_ms_ < -0.9f)
+  if (rounding_error_time_ms_ < -0.9f) {
     rounding_error_time_ms_ = -1.0f;
+  }
   int64_t result =
       std::max<int64_t>(next_packet_send_time_ + time_last_update_ms_ -
                             clock_->TimeInMilliseconds(),

@@ -53,8 +53,9 @@ void WebRtcSpl_AutoCorrToReflCoef(const int32_t *R, int use_order, int16_t *K)
         tmp = WEBRTC_SPL_ABS_W16(*p1ptr);
         if (*P < tmp)
         {
-            for (i = n; i <= use_order; i++)
+            for (i = n; i <= use_order; i++) {
                 *K++ = 0;
+}
 
             return;
         }
@@ -76,13 +77,15 @@ void WebRtcSpl_AutoCorrToReflCoef(const int32_t *R, int use_order, int16_t *K)
                     (*K)++;
                 }
             }
-            if (*p1ptr > 0)
+            if (*p1ptr > 0) {
                 *K = -*K;
+}
         }
 
         // Last iteration; don't do Schur recursion.
-        if (n == use_order)
+        if (n == use_order) {
             return;
+}
 
         // Schur recursion.
         pptr = P;

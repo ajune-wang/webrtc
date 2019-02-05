@@ -87,8 +87,9 @@ bool Fir::Create(uint8_t* packet,
                  PacketReadyCallback callback) const {
   RTC_DCHECK(!items_.empty());
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(packet, index, callback)) {
       return false;
+    }
   }
   size_t index_end = *index + BlockLength();
   CreateHeader(kFeedbackMessageType, kPacketType, HeaderLength(), packet,

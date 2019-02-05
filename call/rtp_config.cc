@@ -55,8 +55,9 @@ std::string RtpConfig::ToString() const {
   ss << "{ssrcs: [";
   for (size_t i = 0; i < ssrcs.size(); ++i) {
     ss << ssrcs[i];
-    if (i != ssrcs.size() - 1)
+    if (i != ssrcs.size() - 1) {
       ss << ", ";
+    }
   }
   ss << ']';
   ss << ", rtcp_mode: "
@@ -67,8 +68,9 @@ std::string RtpConfig::ToString() const {
   ss << ", extensions: [";
   for (size_t i = 0; i < extensions.size(); ++i) {
     ss << extensions[i].ToString();
-    if (i != extensions.size() - 1)
+    if (i != extensions.size() - 1) {
       ss << ", ";
+    }
   }
   ss << ']';
 
@@ -82,8 +84,9 @@ std::string RtpConfig::ToString() const {
   ss << ", protected_media_ssrcs: [";
   for (size_t i = 0; i < flexfec.protected_media_ssrcs.size(); ++i) {
     ss << flexfec.protected_media_ssrcs[i];
-    if (i != flexfec.protected_media_ssrcs.size() - 1)
+    if (i != flexfec.protected_media_ssrcs.size() - 1) {
       ss << ", ";
+    }
   }
   ss << "]}";
 
@@ -103,8 +106,9 @@ std::string RtpConfig::Rtx::ToString() const {
   ss << "{ssrcs: [";
   for (size_t i = 0; i < ssrcs.size(); ++i) {
     ss << ssrcs[i];
-    if (i != ssrcs.size() - 1)
+    if (i != ssrcs.size() - 1) {
       ss << ", ";
+    }
   }
   ss << ']';
 

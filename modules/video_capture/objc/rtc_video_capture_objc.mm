@@ -153,7 +153,9 @@ using namespace webrtc::videocapturemodule;
   _capability = capability;
 
   AVCaptureVideoDataOutput* currentOutput = [self currentOutput];
-  if (!currentOutput) return NO;
+  if (!currentOutput) {
+    return NO;
+  }
 
   [self directOutputToSelf];
 

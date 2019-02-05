@@ -86,8 +86,9 @@ TransportDescription::~TransportDescription() = default;
 TransportDescription& TransportDescription::operator=(
     const TransportDescription& from) {
   // Self-assignment
-  if (this == &from)
+  if (this == &from) {
     return *this;
+  }
 
   transport_options = from.transport_options;
   ice_ufrag = from.ice_ufrag;

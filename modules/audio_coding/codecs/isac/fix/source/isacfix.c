@@ -294,13 +294,13 @@ int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct *ISAC_main_inst,
   /* flag encoder init */
   ISAC_inst->initflag |= 2;
 
-  if (CodingMode == 0)
+  if (CodingMode == 0) {
     /* Adaptive mode */
     ISAC_inst->ISACenc_obj.new_framelength  = INITIAL_FRAMESAMPLES;
-  else if (CodingMode == 1)
+  } else if (CodingMode == 1) {
     /* Instantaneous mode */
     ISAC_inst->ISACenc_obj.new_framelength = 480;    /* default for I-mode */
-  else {
+  } else {
     ISAC_inst->errorcode = ISAC_DISALLOWED_CODING_MODE;
     statusInit = -1;
   }
@@ -349,10 +349,12 @@ int16_t WebRtcIsacfix_EncoderInit(ISACFIX_MainStruct *ISAC_main_inst,
    element is set to 0. */
 static void read_be16(const uint8_t* src, size_t nbytes, uint16_t* dest) {
   size_t i;
-  for (i = 0; i < nbytes / 2; ++i)
+  for (i = 0; i < nbytes / 2; ++i) {
     dest[i] = src[2 * i] << 8 | src[2 * i + 1];
-  if (nbytes % 2 == 1)
+}
+  if (nbytes % 2 == 1) {
     dest[nbytes / 2] = src[nbytes - 1] << 8;
+}
 }
 
 /* Read the given number of bytes of host-endian 16-bit integers from |src| and
@@ -1091,18 +1093,18 @@ int16_t WebRtcIsacfix_Control(ISACFIX_MainStruct *ISAC_main_inst,
   }
 
 
-  if (rate >= 10000 && rate <= 32000)
+  if (rate >= 10000 && rate <= 32000) {
     ISAC_inst->ISACenc_obj.BottleNeck = rate;
-  else {
+  } else {
     ISAC_inst->errorcode = ISAC_DISALLOWED_BOTTLENECK;
     return -1;
   }
 
 
 
-  if (framesize  == 30 || framesize == 60)
+  if (framesize  == 30 || framesize == 60) {
     ISAC_inst->ISACenc_obj.new_framelength = (int16_t)((FS/1000) * framesize);
-  else {
+  } else {
     ISAC_inst->errorcode = ISAC_DISALLOWED_FRAME_LENGTH;
     return -1;
   }
@@ -1281,8 +1283,9 @@ int16_t WebRtcIsacfix_ReadFrameLen(const uint8_t* encoded,
 
   /* decode frame length */
   err = WebRtcIsacfix_DecodeFrameLen(&streamdata, frameLength);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   return 0;
 }
@@ -1321,13 +1324,15 @@ int16_t WebRtcIsacfix_ReadBwIndex(const uint8_t* encoded,
   /* decode frame length, needed to get to the rateIndex in the bitstream */
   size_t frameLength;
   err = WebRtcIsacfix_DecodeFrameLen(&streamdata, &frameLength);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   /* decode BW estimation */
   err = WebRtcIsacfix_DecodeSendBandwidth(&streamdata, rateIndex);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   return 0;
 }

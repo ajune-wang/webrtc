@@ -43,10 +43,12 @@ std::vector<SdpVideoFormat> InternalDecoderFactory::GetSupportedFormats()
     const {
   std::vector<SdpVideoFormat> formats;
   formats.push_back(SdpVideoFormat(cricket::kVp8CodecName));
-  for (const SdpVideoFormat& format : SupportedVP9Codecs())
+  for (const SdpVideoFormat& format : SupportedVP9Codecs()) {
     formats.push_back(format);
-  for (const SdpVideoFormat& h264_format : SupportedH264Codecs())
+  }
+  for (const SdpVideoFormat& h264_format : SupportedH264Codecs()) {
     formats.push_back(h264_format);
+  }
   return formats;
 }
 
@@ -57,12 +59,15 @@ std::unique_ptr<VideoDecoder> InternalDecoderFactory::CreateVideoDecoder(
     return nullptr;
   }
 
-  if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName))
+  if (absl::EqualsIgnoreCase(format.name, cricket::kVp8CodecName)) {
     return VP8Decoder::Create();
-  if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName))
+  }
+  if (absl::EqualsIgnoreCase(format.name, cricket::kVp9CodecName)) {
     return VP9Decoder::Create();
-  if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName))
+  }
+  if (absl::EqualsIgnoreCase(format.name, cricket::kH264CodecName)) {
     return H264Decoder::Create();
+  }
 
   RTC_NOTREACHED();
   return nullptr;

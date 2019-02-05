@@ -117,10 +117,12 @@ typedef std::pair<std::string, std::string> HttpAttribute;
 typedef std::vector<HttpAttribute> HttpAttributeList;
 
 inline bool IsEndOfAttributeName(size_t pos, size_t len, const char* data) {
-  if (pos >= len)
+  if (pos >= len) {
     return true;
-  if (isspace(static_cast<unsigned char>(data[pos])))
+  }
+  if (isspace(static_cast<unsigned char>(data[pos]))) {
     return true;
+  }
   // The reason for this complexity is that some attributes may contain trailing
   // equal signs (like base64 tokens in Negotiate auth headers)
   if ((pos + 1 < len) && (data[pos] == '=') &&
@@ -142,8 +144,9 @@ void HttpParseAttributes(const char* data,
     }
 
     // End of attributes?
-    if (pos >= len)
+    if (pos >= len) {
       return;
+    }
 
     // Find end of attribute name
     size_t start = pos;
@@ -164,8 +167,9 @@ void HttpParseAttributes(const char* data,
             ++pos;
             break;
           }
-          if ((data[pos] == '\\') && (pos + 1 < len))
+          if ((data[pos] == '\\') && (pos + 1 < len)) {
             ++pos;
+          }
           attribute.second.append(1, data[pos]);
         }
       } else {
@@ -177,8 +181,9 @@ void HttpParseAttributes(const char* data,
     }
 
     attributes.push_back(attribute);
-    if ((pos < len) && (data[pos] == ','))
+    if ((pos < len) && (data[pos] == ',')) {
       ++pos;  // Skip ','
+    }
   }
 }
 
@@ -201,13 +206,16 @@ bool HttpHasNthAttribute(HttpAttributeList& attributes,
                          size_t index,
                          std::string* name,
                          std::string* value) {
-  if (index >= attributes.size())
+  if (index >= attributes.size()) {
     return false;
+  }
 
-  if (name)
+  if (name) {
     *name = attributes[index].first;
-  if (value)
+  }
+  if (value) {
     *value = attributes[index].second;
+  }
   return true;
 }
 
@@ -215,8 +223,9 @@ std::string quote(const std::string& str) {
   std::string result;
   result.push_back('"');
   for (size_t i = 0; i < str.size(); ++i) {
-    if ((str[i] == '"') || (str[i] == '\\'))
+    if ((str[i] == '"') || (str[i] == '\\')) {
       result.push_back('\\');
+    }
     result.push_back(str[i]);
   }
   result.push_back('"');
@@ -260,15 +269,18 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
   HttpParseAttributes(challenge, len, args);
   HttpHasNthAttribute(args, 0, &auth_method, nullptr);
 
-  if (context && (context->auth_method != auth_method))
+  if (context && (context->auth_method != auth_method)) {
     return HAR_IGNORE;
+  }
 
   // BASIC
   if (absl::EqualsIgnoreCase(auth_method, "basic")) {
-    if (context)
+    if (context) {
       return HAR_CREDENTIALS;  // Bad credentials
-    if (username.empty())
+    }
+    if (username.empty()) {
       return HAR_CREDENTIALS;  // Missing credentials
+    }
 
     context = new HttpAuthContext(auth_method);
 
@@ -293,10 +305,12 @@ HttpAuthResult HttpAuthenticate(const char* challenge,
 
   // DIGEST
   if (absl::EqualsIgnoreCase(auth_method, "digest")) {
-    if (context)
+    if (context) {
       return HAR_CREDENTIALS;  // Bad credentials
-    if (username.empty())
+    }
+    if (username.empty()) {
       return HAR_CREDENTIALS;  // Missing credentials
+    }
 
     context = new HttpAuthContext(auth_method);
 

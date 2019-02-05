@@ -39,8 +39,9 @@ bool VerifyBuffer(uint8_t* buffer, size_t length, uint8_t start_value) {
   for (size_t i = 0; i < length; ++i) {
     uint8_t val = start_value++;
     EXPECT_EQ(val, buffer[i]);
-    if (buffer[i] != val)
+    if (buffer[i] != val) {
       return false;
+    }
   }
   // Prevent the same buffer from being verified multiple times simply
   // because some operation that should have written to it failed

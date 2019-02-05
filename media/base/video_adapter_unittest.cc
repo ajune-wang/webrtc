@@ -132,8 +132,9 @@ INSTANTIATE_TEST_SUITE_P(OnOutputFormatRequests,
 // Do not adapt the frame rate or the resolution. Expect no frame drop, no
 // cropping, and no resolution change.
 TEST_P(VideoAdapterTest, AdaptNothing) {
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop and no resolution change.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -145,8 +146,9 @@ TEST_P(VideoAdapterTest, AdaptNothing) {
 
 TEST_P(VideoAdapterTest, AdaptZeroInterval) {
   OnOutputFormatRequest(kWidth, kHeight, absl::nullopt);
-  for (int i = 0; i < 40; ++i)
+  for (int i = 0; i < 40; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no crash and that frames aren't dropped.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -257,8 +259,9 @@ TEST_P(VideoAdapterTest, AdaptFramerateToTwoThirds) {
 TEST_P(VideoAdapterTest, AdaptFramerateHighLimit) {
   OnOutputFormatRequest(kWidth, kHeight, kDefaultFps * 2);
 
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop.
   EXPECT_EQ(0, adapter_wrapper_->GetStats().dropped_frames);
@@ -276,8 +279,9 @@ TEST_P(VideoAdapterTest, AdaptFramerateToHalfWithNoPixelLimit) {
   for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
     EXPECT_GE(adapter_wrapper_->GetStats().captured_frames, i + 1);
-    if (i % 2 == 1)
+    if (i % 2 == 1) {
       ++expected_dropped_frames;
+    }
     EXPECT_EQ(expected_dropped_frames,
               adapter_wrapper_->GetStats().dropped_frames);
     VerifyAdaptedResolution(adapter_wrapper_->GetStats(), kWidth, kHeight,
@@ -362,16 +366,18 @@ TEST_P(VideoAdapterTest, AdaptFramerateTimestampJitter) {
 // after adaptation.
 TEST_P(VideoAdapterTest, AdaptFramerateOntheFly) {
   OnOutputFormatRequest(kWidth, kHeight, kDefaultFps);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop before adaptation.
   EXPECT_EQ(0, adapter_wrapper_->GetStats().dropped_frames);
 
   // Adapt the frame rate.
   OnOutputFormatRequest(kWidth, kHeight, kDefaultFps / 2);
-  for (int i = 0; i < 20; ++i)
+  for (int i = 0; i < 20; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify frame drop after adaptation.
   EXPECT_GT(adapter_wrapper_->GetStats().dropped_frames, 0);
@@ -384,8 +390,9 @@ TEST_P(VideoAdapterTest, AdaptFramerateRequestMax) {
                                         std::numeric_limits<int>::max(),
                                         std::numeric_limits<int>::max());
 
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop and no resolution change.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -398,8 +405,9 @@ TEST_P(VideoAdapterTest, AdaptFramerateRequestMax) {
 TEST_P(VideoAdapterTest, AdaptFramerateRequestZero) {
   adapter_.OnResolutionFramerateRequest(absl::nullopt,
                                         std::numeric_limits<int>::max(), 0);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no crash and that frames aren't dropped.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -412,8 +420,9 @@ TEST_P(VideoAdapterTest, AdaptFramerateRequestZero) {
 TEST_P(VideoAdapterTest, AdaptFramerateRequestHalf) {
   adapter_.OnResolutionFramerateRequest(
       absl::nullopt, std::numeric_limits<int>::max(), kDefaultFps / 2);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no crash and that frames aren't dropped.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -473,8 +482,9 @@ TEST_P(VideoAdapterTest, AdaptFrameResolutionDrop) {
 // beginning. Expect no cropping but a resolution change.
 TEST_P(VideoAdapterTest, AdaptResolution) {
   OnOutputFormatRequest(kWidth / 2, kHeight / 2, kDefaultFps);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop, no cropping, and resolution change.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -487,8 +497,9 @@ TEST_P(VideoAdapterTest, AdaptResolution) {
 // adaptation and resolution change after adaptation.
 TEST_P(VideoAdapterTest, AdaptResolutionOnTheFly) {
   OnOutputFormatRequest(kWidth, kHeight, kDefaultFps);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no resolution change before adaptation.
   VerifyAdaptedResolution(adapter_wrapper_->GetStats(), kWidth, kHeight, kWidth,
@@ -496,8 +507,9 @@ TEST_P(VideoAdapterTest, AdaptResolutionOnTheFly) {
 
   // Adapt the frame resolution.
   OnOutputFormatRequest(kWidth / 2, kHeight / 2, kDefaultFps);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify resolution change after adaptation.
   VerifyAdaptedResolution(adapter_wrapper_->GetStats(), kWidth, kHeight,
@@ -507,8 +519,9 @@ TEST_P(VideoAdapterTest, AdaptResolutionOnTheFly) {
 // Drop all frames for resolution 0x0.
 TEST_P(VideoAdapterTest, DropAllFrames) {
   OnOutputFormatRequest(kWidth * 0, kHeight * 0, kDefaultFps);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify all frames are dropped.
   VideoAdapterWrapper::Stats stats = adapter_wrapper_->GetStats();
@@ -889,8 +902,9 @@ TEST_P(VideoAdapterTest, TestOnOutputFormatRequestResolutionReset) {
 
 TEST_P(VideoAdapterTest, TestOnOutputFormatRequestFpsReset) {
   OnOutputFormatRequest(kWidth, kHeight, kDefaultFps / 2);
-  for (int i = 0; i < 10; ++i)
+  for (int i = 0; i < 10; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify frame drop.
   const int dropped_frames = adapter_wrapper_->GetStats().dropped_frames;
@@ -898,8 +912,9 @@ TEST_P(VideoAdapterTest, TestOnOutputFormatRequestFpsReset) {
 
   // Reset frame rate.
   OnOutputFormatRequest(kWidth, kHeight, absl::nullopt);
-  for (int i = 0; i < 20; ++i)
+  for (int i = 0; i < 20; ++i) {
     adapter_wrapper_->AdaptFrame(frame_source_->GetFrame());
+  }
 
   // Verify no frame drop after reset.
   EXPECT_EQ(dropped_frames, adapter_wrapper_->GetStats().dropped_frames);

@@ -97,8 +97,9 @@ TEST(SincResamplerTest, Flush) {
   testing::Mock::VerifyAndClear(&mock_source);
   EXPECT_CALL(mock_source, Run(_, _)).Times(1).WillOnce(ClearBuffer());
   resampler.Resample(resampler.ChunkSize() / 2, resampled_destination.get());
-  for (size_t i = 0; i < resampler.ChunkSize() / 2; ++i)
+  for (size_t i = 0; i < resampler.ChunkSize() / 2; ++i) {
     ASSERT_FLOAT_EQ(resampled_destination[i], 0);
+  }
 }
 
 // Test flush resets the internal state properly.
@@ -108,8 +109,9 @@ TEST(SincResamplerTest, DISABLED_SetRatioBench) {
                           &mock_source);
 
   int64_t start = rtc::TimeNanos();
-  for (int i = 1; i < 10000; ++i)
+  for (int i = 1; i < 10000; ++i) {
     resampler.SetRatio(1.0 / i);
+  }
   double total_time_c_us =
       (rtc::TimeNanos() - start) / rtc::kNumNanosecsPerMicrosec;
   printf("SetRatio() took %.2fms.\n", total_time_c_us / 1000);
@@ -308,11 +310,13 @@ TEST_P(SincResamplerTest, Resample) {
     double error = fabs(resampled_destination[i] - pure_destination[i]);
 
     if (pure_source.Frequency(i) < low_frequency_range) {
-      if (error > low_freq_max_error)
+      if (error > low_freq_max_error) {
         low_freq_max_error = error;
+      }
     } else if (pure_source.Frequency(i) < high_frequency_range) {
-      if (error > high_freq_max_error)
+      if (error > high_freq_max_error) {
         high_freq_max_error = error;
+      }
     }
     // TODO(dalecurtis): Sanity check frequencies > kHighFrequencyNyquistRange.
 

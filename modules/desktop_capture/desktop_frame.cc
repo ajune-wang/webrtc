@@ -69,8 +69,9 @@ DesktopRect DesktopFrame::rect() const {
 
 float DesktopFrame::scale_factor() const {
   float scale = 1.0f;
-  if (!dpi().is_zero() && dpi().x() == dpi().y())
+  if (!dpi().is_zero() && dpi().x() == dpi().y()) {
     scale = dpi().x() / kStandardDPI;
+  }
 
   return scale;
 }
@@ -126,8 +127,9 @@ std::unique_ptr<DesktopFrame> SharedMemoryDesktopFrame::Create(
   size_t buffer_size = size.height() * size.width() * kBytesPerPixel;
   std::unique_ptr<SharedMemory> shared_memory =
       shared_memory_factory->CreateSharedMemory(buffer_size);
-  if (!shared_memory)
+  if (!shared_memory) {
     return nullptr;
+  }
 
   return absl::make_unique<SharedMemoryDesktopFrame>(
       size, size.width() * kBytesPerPixel, std::move(shared_memory));

@@ -29,8 +29,9 @@ WEBRTC_DEFINE_string(o_probs, "", "VAD probabilities output file");
 WEBRTC_DEFINE_string(o_rms, "", "VAD output file");
 
 int main(int argc, char* argv[]) {
-  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true))
+  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
     return 1;
+  }
 
   // Open wav input file and check properties.
   WavReader wav_reader(FLAG_i);

@@ -151,8 +151,9 @@ bool GetValue(const StatsReport* report,
               StatsReport::StatsValueName name,
               std::string* value) {
   const StatsReport::Value* v = report->FindValue(name);
-  if (!v)
+  if (!v) {
     return false;
+  }
   *value = v->ToString();
   return true;
 }
@@ -162,8 +163,9 @@ std::string ExtractStatsValue(const StatsReport::StatsType& type,
                               StatsReport::StatsValueName name) {
   for (const auto* r : reports) {
     std::string ret;
-    if (r->type() == type && GetValue(r, name, &ret))
+    if (r->type() == type && GetValue(r, name, &ret)) {
       return ret;
+    }
   }
 
   return kNotFound;
@@ -173,16 +175,18 @@ StatsReport::Id TypedIdFromIdString(StatsReport::StatsType type,
                                     const std::string& value) {
   EXPECT_FALSE(value.empty());
   StatsReport::Id id;
-  if (value.empty())
+  if (value.empty()) {
     return id;
+  }
 
   // This has assumptions about how the ID is constructed.  As is, this is
   // OK since this is for testing purposes only, but if we ever need this
   // in production, we should add a generic method that does this.
   size_t index = value.find('_');
   EXPECT_NE(index, std::string::npos);
-  if (index == std::string::npos || index == (value.length() - 1))
+  if (index == std::string::npos || index == (value.length() - 1)) {
     return id;
+  }
 
   id = StatsReport::NewTypedId(type, value.substr(index + 1));
   EXPECT_EQ(id->ToString(), value);
@@ -201,8 +205,9 @@ const StatsReport* FindNthReportByType(const StatsReports& reports,
   for (size_t i = 0; i < reports.size(); ++i) {
     if (reports[i]->type() == type) {
       n--;
-      if (n == 0)
+      if (n == 0) {
         return reports[i];
+      }
     }
   }
   return nullptr;
@@ -211,8 +216,9 @@ const StatsReport* FindNthReportByType(const StatsReports& reports,
 const StatsReport* FindReportById(const StatsReports& reports,
                                   const StatsReport::Id& id) {
   for (const auto* r : reports) {
-    if (r->id()->Equals(id))
+    if (r->id()->Equals(id)) {
       return r;
+    }
   }
   return nullptr;
 }
@@ -703,8 +709,9 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
     track_ = VideoTrack::Create(kLocalTrackId, FakeVideoTrackSource::Create(),
                                 rtc::Thread::Current());
     if (GetParam()) {
-      if (!stream_)
+      if (!stream_) {
         stream_ = MediaStream::Create("streamid");
+      }
       stream_->AddTrack(track_);
       stats->AddStream(stream_);
     } else {
@@ -736,8 +743,9 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
                              StatsCollectorForTest* stats) {
     audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(kLocalTrackId);
     if (GetParam()) {
-      if (!stream_)
+      if (!stream_) {
         stream_ = MediaStream::Create("streamid");
+      }
       stream_->AddTrack(audio_track_);
       stats->AddStream(stream_);
     } else {
@@ -751,8 +759,9 @@ class StatsCollectorTrackTest : public StatsCollectorTest,
                              StatsCollectorForTest* stats) {
     audio_track_ = new rtc::RefCountedObject<FakeAudioTrack>(kRemoteTrackId);
     if (GetParam()) {
-      if (stream_ == NULL)
+      if (stream_ == NULL) {
         stream_ = MediaStream::Create("streamid");
+      }
       stream_->AddTrack(audio_track_);
       stats->AddStream(stream_);
     } else {

@@ -60,12 +60,15 @@ bool WebRtcIlbcfix_CbConstruct(
   /* codebook vector construction and construction of total vector */
 
   /* Stack based */
-  if (!WebRtcIlbcfix_GetCbVec(cbvec0, mem, (size_t)index[0], lMem, veclen))
+  if (!WebRtcIlbcfix_GetCbVec(cbvec0, mem, (size_t)index[0], lMem, veclen)) {
     return false;  // Failure.
-  if (!WebRtcIlbcfix_GetCbVec(cbvec1, mem, (size_t)index[1], lMem, veclen))
+}
+  if (!WebRtcIlbcfix_GetCbVec(cbvec1, mem, (size_t)index[1], lMem, veclen)) {
     return false;  // Failure.
-  if (!WebRtcIlbcfix_GetCbVec(cbvec2, mem, (size_t)index[2], lMem, veclen))
+}
+  if (!WebRtcIlbcfix_GetCbVec(cbvec2, mem, (size_t)index[2], lMem, veclen)) {
     return false;  // Failure.
+}
 
   gainPtr = &gain[0];
   for (j=0;j<veclen;j++) {

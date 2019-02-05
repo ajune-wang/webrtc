@@ -35,8 +35,9 @@ void GetSubframesPitchParameters(int sampling_rate_hz,
                                  double* log_pitch_gain,
                                  double* pitch_lag_hz) {
   // Gain interpolation is in log-domain, also returned in log-domain.
-  for (int n = 0; n < num_in_frames; n++)
+  for (int n = 0; n < num_in_frames; n++) {
     gains[n] = log(gains[n] + 1e-12);
+  }
 
   // Interpolate lags and gains.
   PitchInterpolation(*log_old_gain, gains, log_pitch_gain);

@@ -82,8 +82,9 @@ bool SimulatedNetwork::EnqueuePacket(PacketInFlightInfo packet) {
 
 absl::optional<int64_t> SimulatedNetwork::NextDeliveryTimeUs() const {
   RTC_DCHECK_RUNS_SERIALIZED(&process_checker_);
-  if (!delay_link_.empty())
+  if (!delay_link_.empty()) {
     return delay_link_.begin()->arrival_time_us;
+  }
   return absl::nullopt;
 }
 
@@ -92,8 +93,9 @@ void SimulatedNetwork::UpdateCapacityQueue(ConfigState state,
   bool needs_sort = false;
 
   // Catch for thread races.
-  if (time_now_us < last_capacity_link_visit_us_.value_or(time_now_us))
+  if (time_now_us < last_capacity_link_visit_us_.value_or(time_now_us)) {
     return;
+  }
 
   int64_t time_us = last_capacity_link_visit_us_.value_or(time_now_us);
   // Check the capacity link first.

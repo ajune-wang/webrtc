@@ -20,11 +20,12 @@ namespace {
 
 template <typename T, size_t S>
 void CheckSymmetry(const SymmetricMatrixBuffer<T, S>* sym_matrix_buf) {
-  for (size_t row = 0; row < S - 1; ++row)
-    for (size_t col = row + 1; col < S; ++col)
+  for (size_t row = 0; row < S - 1; ++row) {
+    for (size_t col = row + 1; col < S; ++col) {
       EXPECT_EQ(sym_matrix_buf->GetValue(row, col),
                 sym_matrix_buf->GetValue(col, row));
-}
+    }
+  }
 
 using PairType = std::pair<int, int>;
 
@@ -37,8 +38,9 @@ bool CheckPairsWithValueExist(
   for (size_t row = 0; row < S - 1; ++row) {
     for (size_t col = row + 1; col < S; ++col) {
       auto p = sym_matrix_buf->GetValue(row, col);
-      if (p.first == value || p.second == value)
+      if (p.first == value || p.second == value) {
         return true;
+      }
     }
   }
   return false;

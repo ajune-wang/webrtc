@@ -589,8 +589,9 @@ bool TraceBasedDeliveryFilter::Init(const std::string& filename) {
       int64_t timestamp;
       buffer >> timestamp;
       timestamp /= 1000;  // Convert to microseconds.
-      if (first_timestamp == -1)
+      if (first_timestamp == -1) {
         first_timestamp = timestamp;
+      }
       assert(delivery_times_us_.empty() ||
              timestamp - first_timestamp - delivery_times_us_.back() >= 0);
       delivery_times_us_.push_back(timestamp - first_timestamp);
@@ -794,8 +795,9 @@ uint32_t PeriodicKeyFrameSource::NextFrameSize() {
       compensation_bytes_ -= compensation_per_frame_;
     }
   }
-  if (compensation_bytes_ < 0)
+  if (compensation_bytes_ < 0) {
     compensation_bytes_ = 0;
+  }
   ++frame_counter_;
   return payload_size;
 }

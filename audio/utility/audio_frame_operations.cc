@@ -51,8 +51,9 @@ void AudioFrameOperations::Add(const AudioFrame& frame_to_add,
     result_frame->vad_activity_ = AudioFrame::kVadUnknown;
   }
 
-  if (result_frame->speech_type_ != frame_to_add.speech_type_)
+  if (result_frame->speech_type_ != frame_to_add.speech_type_) {
     result_frame->speech_type_ = AudioFrame::kUndefined;
+  }
 
   if (!frame_to_add.muted()) {
     const int16_t* in_data = frame_to_add.data();

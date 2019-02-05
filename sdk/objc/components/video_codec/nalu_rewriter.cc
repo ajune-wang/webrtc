@@ -319,10 +319,12 @@ void AnnexBBufferReader::SeekToStart() {
 
 bool AnnexBBufferReader::SeekToNextNaluOfType(NaluType type) {
   for (; offset_ != offsets_.end(); ++offset_) {
-    if (offset_->payload_size < 1)
+    if (offset_->payload_size < 1) {
       continue;
-    if (ParseNaluType(*(start_ + offset_->payload_start_offset)) == type)
+    }
+    if (ParseNaluType(*(start_ + offset_->payload_start_offset)) == type) {
       return true;
+    }
   }
   return false;
 }

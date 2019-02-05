@@ -174,8 +174,9 @@ VideoStreamDecoderImpl::DecodeResult VideoStreamDecoderImpl::DecodeNextFrame(
   video_coding::FrameBuffer::ReturnReason res =
       frame_buffer_.NextFrame(max_wait_time_ms, &frame, keyframe_required);
 
-  if (res == video_coding::FrameBuffer::ReturnReason::kStopped)
+  if (res == video_coding::FrameBuffer::ReturnReason::kStopped) {
     return kShutdown;
+  }
 
   if (frame) {
     VideoDecoder* decoder = GetDecoder(frame->PayloadType());
@@ -223,8 +224,9 @@ VideoStreamDecoderImpl::GetFrameTimestamps(int64_t timestamp) {
   for (int i = 0; i < kFrameTimestampsMemory; ++i) {
     start_time_index = Subtract<kFrameTimestampsMemory>(start_time_index, 1);
 
-    if (frame_timestamps_[start_time_index].timestamp == timestamp)
+    if (frame_timestamps_[start_time_index].timestamp == timestamp) {
       return &frame_timestamps_[start_time_index];
+    }
   }
 
   return nullptr;
@@ -262,8 +264,9 @@ void VideoStreamDecoderImpl::Decoded(VideoFrame& decoded_image,
     }
 
     absl::optional<int> casted_qp;
-    if (qp)
+    if (qp) {
       casted_qp.emplace(*qp);
+    }
 
     absl::optional<int> casted_decode_time_ms(decode_time_ms.value_or(
         decode_stop_time_ms - frame_timestamps->decode_start_time_ms));

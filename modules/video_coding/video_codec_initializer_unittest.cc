@@ -93,8 +93,9 @@ class VideoCodecInitializerTest : public ::testing::Test {
     bitrate_allocator_ = CreateBuiltinVideoBitrateAllocatorFactory()
                              ->CreateVideoBitrateAllocator(codec_out_);
     RTC_CHECK(bitrate_allocator_);
-    if (codec_out_.codecType == VideoCodecType::kVideoCodecMultiplex)
+    if (codec_out_.codecType == VideoCodecType::kVideoCodecMultiplex) {
       return true;
+    }
 
     // Make sure temporal layers instances have been created.
     if (codec_out_.codecType == VideoCodecType::kVideoCodecVP8) {

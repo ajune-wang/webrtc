@@ -47,8 +47,9 @@ std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats() const {
   // values to reduce CPU use in |StatsCollector::GetStats|. This will require
   // adding a fast |SSLCertificate::Equals| to detect certificate changes.
   std::string digest_algorithm;
-  if (!GetSignatureDigestAlgorithm(&digest_algorithm))
+  if (!GetSignatureDigestAlgorithm(&digest_algorithm)) {
     return nullptr;
+  }
 
   // |SSLFingerprint::Create| can fail if the algorithm returned by
   // |SSLCertificate::GetSignatureDigestAlgorithm| is not supported by the
@@ -56,8 +57,9 @@ std::unique_ptr<SSLCertificateStats> SSLCertificate::GetStats() const {
   // with MD5- and SHA-224-signed certificates when linked to libNSS.
   std::unique_ptr<SSLFingerprint> ssl_fingerprint =
       SSLFingerprint::Create(digest_algorithm, *this);
-  if (!ssl_fingerprint)
+  if (!ssl_fingerprint) {
     return nullptr;
+  }
   std::string fingerprint = ssl_fingerprint->GetRfc4572Fingerprint();
 
   Buffer der_buffer;

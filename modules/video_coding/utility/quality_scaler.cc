@@ -133,10 +133,12 @@ void QualityScaler::ReportQp(int qp) {
   framedrop_percent_media_opt_.AddSample(0);
   framedrop_percent_all_.AddSample(0);
   average_qp_.AddSample(qp);
-  if (qp_smoother_high_)
+  if (qp_smoother_high_) {
     qp_smoother_high_->Add(qp);
-  if (qp_smoother_low_)
+  }
+  if (qp_smoother_low_) {
     qp_smoother_low_->Add(qp);
+  }
 }
 
 void QualityScaler::CheckQp() {
@@ -209,9 +211,11 @@ void QualityScaler::ClearSamples() {
   framedrop_percent_media_opt_.Reset();
   framedrop_percent_all_.Reset();
   average_qp_.Reset();
-  if (qp_smoother_high_)
+  if (qp_smoother_high_) {
     qp_smoother_high_->Reset();
-  if (qp_smoother_low_)
+  }
+  if (qp_smoother_low_) {
     qp_smoother_low_->Reset();
+  }
 }
 }  // namespace webrtc

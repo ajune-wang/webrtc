@@ -35,12 +35,14 @@ class Y4mFileReaderTest : public ::testing::Test {
     const int height = 4;
     const int i40_size = width * height * 3 / 2;
     // First frame.
-    for (int i = 0; i < i40_size; ++i)
+    for (int i = 0; i < i40_size; ++i) {
       fputc(static_cast<char>(i), file);
+    }
     fprintf(file, "FRAME\n");
     // Second frame.
-    for (int i = 0; i < i40_size; ++i)
+    for (int i = 0; i < i40_size; ++i) {
       fputc(static_cast<char>(i + i40_size), file);
+    }
     fclose(file);
 
     // Open the newly created file.
@@ -63,12 +65,15 @@ TEST_F(Y4mFileReaderTest, TestParsingNumberOfFrames) {
 TEST_F(Y4mFileReaderTest, TestPixelContent) {
   int cnt = 0;
   for (const rtc::scoped_refptr<I420BufferInterface> frame : *video) {
-    for (int i = 0; i < 6 * 4; ++i, ++cnt)
+    for (int i = 0; i < 6 * 4; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataY()[i]);
-    for (int i = 0; i < 3 * 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < 3 * 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataU()[i]);
-    for (int i = 0; i < 3 * 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < 3 * 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataV()[i]);
+    }
   }
 }
 
@@ -86,11 +91,13 @@ class YuvFileReaderTest : public ::testing::Test {
     const int height = 4;
     const int i40_size = width * height * 3 / 2;
     // First frame.
-    for (int i = 0; i < i40_size; ++i)
+    for (int i = 0; i < i40_size; ++i) {
       fputc(static_cast<char>(i), file);
+    }
     // Second frame.
-    for (int i = 0; i < i40_size; ++i)
+    for (int i = 0; i < i40_size; ++i) {
       fputc(static_cast<char>(i + i40_size), file);
+    }
     fclose(file);
 
     // Open the newly created file.
@@ -113,12 +120,15 @@ TEST_F(YuvFileReaderTest, TestParsingNumberOfFrames) {
 TEST_F(YuvFileReaderTest, TestPixelContent) {
   int cnt = 0;
   for (const rtc::scoped_refptr<I420BufferInterface> frame : *video) {
-    for (int i = 0; i < 6 * 4; ++i, ++cnt)
+    for (int i = 0; i < 6 * 4; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataY()[i]);
-    for (int i = 0; i < 3 * 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < 3 * 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataU()[i]);
-    for (int i = 0; i < 3 * 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < 3 * 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataV()[i]);
+    }
   }
 }
 

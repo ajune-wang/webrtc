@@ -280,8 +280,9 @@ class PseudoTcpTest : public PseudoTcpTestBase {
       size_t received, required;
       recv_stream_.GetPosition(&received);
       send_stream_.GetSize(&required);
-      if (received == required)
+      if (received == required) {
         OnTcpClosed(&remote_, 0);
+      }
     }
   }
   virtual void OnTcpWriteable(PseudoTcp* tcp) {
@@ -404,8 +405,9 @@ class PseudoTcpTestPingPong : public PseudoTcpTestBase {
     }
   }
   virtual void OnTcpWriteable(PseudoTcp* tcp) {
-    if (tcp != sender_)
+    if (tcp != sender_) {
       return;
+    }
     // Write bytes from the send stream when we can.
     // Shut down when we've sent everything.
     RTC_LOG(LS_VERBOSE) << "Flow Control Lifted";

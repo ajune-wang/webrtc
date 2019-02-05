@@ -36,8 +36,9 @@ static void InsertSequentially(int k, VadCircularBuffer* circular_buffer) {
 static void Insert(double value,
                    int num_insertion,
                    VadCircularBuffer* circular_buffer) {
-  for (int n = 0; n < num_insertion; n++)
+  for (int n = 0; n < num_insertion; n++) {
     circular_buffer->Insert(value);
+  }
 }
 
 static void InsertZeros(int num_zeros, VadCircularBuffer* circular_buffer) {

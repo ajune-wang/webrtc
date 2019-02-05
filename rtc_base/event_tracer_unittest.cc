@@ -27,8 +27,9 @@ class TestStatistics {
 
   static TestStatistics* Get() {
     static TestStatistics* test_stats = nullptr;
-    if (!test_stats)
+    if (!test_stats) {
       test_stats = new TestStatistics();
+    }
     return test_stats;
   }
 

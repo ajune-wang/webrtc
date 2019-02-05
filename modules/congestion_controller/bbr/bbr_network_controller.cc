@@ -216,8 +216,9 @@ BbrNetworkController::BbrNetworkController(NetworkControllerConfig config)
       app_limited_since_last_probe_rtt_(false),
       min_rtt_since_last_probe_rtt_(TimeDelta::PlusInfinity()) {
   RTC_LOG(LS_INFO) << "Creating BBR controller";
-  if (config.constraints.starting_rate)
+  if (config.constraints.starting_rate) {
     default_bandwidth_ = *config.constraints.starting_rate;
+  }
   constraints_ = config.constraints;
   Reset();
 }
@@ -239,17 +240,19 @@ void BbrNetworkController::Reset() {
 NetworkControlUpdate BbrNetworkController::CreateRateUpdate(
     Timestamp at_time) const {
   DataRate bandwidth = BandwidthEstimate();
-  if (bandwidth.IsZero())
+  if (bandwidth.IsZero()) {
     bandwidth = default_bandwidth_;
+  }
   TimeDelta rtt = GetMinRtt();
   DataRate pacing_rate = PacingRate();
   DataRate target_rate =
       config_.pacing_rate_as_target ? pacing_rate : bandwidth;
 
-  if (mode_ == PROBE_RTT)
+  if (mode_ == PROBE_RTT) {
     target_rate = target_rate * config_.encoder_rate_gain_in_probe_rtt;
-  else
+  } else {
     target_rate = target_rate * config_.encoder_rate_gain;
+  }
   target_rate = std::min(target_rate, pacing_rate);
 
   if (constraints_) {
@@ -287,10 +290,11 @@ NetworkControlUpdate BbrNetworkController::CreateRateUpdate(
   pacer_config.time_window = rtt * 0.25;
   pacer_config.data_window = pacer_config.time_window * pacing_rate;
 
-  if (IsProbingForMoreBandwidth())
+  if (IsProbingForMoreBandwidth()) {
     pacer_config.pad_window = pacer_config.data_window;
-  else
+  } else {
     pacer_config.pad_window = DataSize::Zero();
+  }
 
   pacer_config.at_time = at_time;
   update.pacer_config = pacer_config;
@@ -310,8 +314,9 @@ NetworkControlUpdate BbrNetworkController::OnNetworkRouteChange(
     NetworkRouteChange msg) {
   constraints_ = msg.constraints;
   Reset();
-  if (msg.constraints.starting_rate)
+  if (msg.constraints.starting_rate) {
     default_bandwidth_ = *msg.constraints.starting_rate;
+  }
 
   rtt_stats_.OnConnectionMigration();
   return CreateRateUpdate(msg.at_time);
@@ -381,12 +386,13 @@ DataSize BbrNetworkController::GetCongestionWindow() const {
 }
 
 double BbrNetworkController::GetPacingGain(int round_offset) const {
-  if (round_offset == 0)
+  if (round_offset == 0) {
     return 1 + config_.probe_bw_pacing_gain_offset;
-  else if (round_offset == 1)
+  } else if (round_offset == 1) {
     return 1 - config_.probe_bw_pacing_gain_offset;
-  else
+  } else {
     return 1;
+  }
 }
 
 bool BbrNetworkController::InRecovery() const {
@@ -399,8 +405,9 @@ bool BbrNetworkController::IsProbingForMoreBandwidth() const {
 
 NetworkControlUpdate BbrNetworkController::OnTransportPacketsFeedback(
     TransportPacketsFeedback msg) {
-  if (msg.packet_feedbacks.empty())
+  if (msg.packet_feedbacks.empty()) {
     return NetworkControlUpdate();
+  }
 
   Timestamp feedback_recv_time = msg.feedback_time;
   SentPacket last_sent_packet = msg.PacketsWithFeedback().back().sent_packet;
@@ -690,10 +697,11 @@ void BbrNetworkController::MaybeExitStartupOrDrain(
   TimeDelta rtt_delta = last_rtt_ - min_rtt_;
   if (mode_ == STARTUP &&
       (is_at_full_bandwidth_ || rtt_delta > exit_threshold)) {
-    if (rtt_delta > exit_threshold)
+    if (rtt_delta > exit_threshold) {
       RTC_LOG(LS_INFO) << "Exiting startup due to rtt increase from: "
                        << ToString(min_rtt_) << " to:" << ToString(last_rtt_)
                        << " > " << ToString(min_rtt_ + exit_threshold);
+    }
     mode_ = DRAIN;
     pacing_gain_ = kDrainGain;
     congestion_window_gain_ = kHighGain;

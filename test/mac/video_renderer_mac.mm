@@ -106,8 +106,9 @@ bool MacRenderer::Init(const char* window_title, int width, int height) {
       initWithTitle:[NSString stringWithUTF8String:window_title]
                                              width:width
                                             height:height];
-  if (!window_)
+  if (!window_) {
     return false;
+  }
   [window_ performSelectorOnMainThread:@selector(createWindow:)
                             withObject:nil
                          waitUntilDone:YES];

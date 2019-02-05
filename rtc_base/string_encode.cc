@@ -26,10 +26,12 @@ size_t url_decode(char* buffer,
                   size_t buflen,
                   const char* source,
                   size_t srclen) {
-  if (nullptr == buffer)
+  if (nullptr == buffer) {
     return srclen + 1;
-  if (buflen <= 0)
+  }
+  if (buflen <= 0) {
     return 0;
+  }
 
   unsigned char h1, h2;
   size_t srcpos = 0, bufpos = 0;
@@ -83,16 +85,18 @@ size_t hex_encode_with_delimiter(char* buffer,
                                  size_t srclen,
                                  char delimiter) {
   RTC_DCHECK(buffer);  // TODO(kwiberg): estimate output size
-  if (buflen == 0)
+  if (buflen == 0) {
     return 0;
+  }
 
   // Init and check bounds.
   const unsigned char* bsource =
       reinterpret_cast<const unsigned char*>(csource);
   size_t srcpos = 0, bufpos = 0;
   size_t needed = delimiter ? (srclen * 3) : (srclen * 2 + 1);
-  if (buflen < needed)
+  if (buflen < needed) {
     return 0;
+  }
 
   while (srcpos < srclen) {
     unsigned char ch = bsource[srcpos++];
@@ -144,15 +148,17 @@ size_t hex_decode_with_delimiter(char* cbuffer,
                                  size_t srclen,
                                  char delimiter) {
   RTC_DCHECK(cbuffer);  // TODO(kwiberg): estimate output size
-  if (buflen == 0)
+  if (buflen == 0) {
     return 0;
+  }
 
   // Init and bounds check.
   unsigned char* bbuffer = reinterpret_cast<unsigned char*>(cbuffer);
   size_t srcpos = 0, bufpos = 0;
   size_t needed = (delimiter) ? (srclen + 1) / 3 : srclen / 2;
-  if (buflen < needed)
+  if (buflen < needed) {
     return 0;
+  }
 
   while (srcpos < srclen) {
     if ((srclen - srcpos) < 2) {
@@ -162,16 +168,18 @@ size_t hex_decode_with_delimiter(char* cbuffer,
 
     unsigned char h1, h2;
     if (!hex_decode(source[srcpos], &h1) ||
-        !hex_decode(source[srcpos + 1], &h2))
+        !hex_decode(source[srcpos + 1], &h2)) {
       return 0;
+    }
 
     bbuffer[bufpos++] = (h1 << 4) | h2;
     srcpos += 2;
 
     // Remove the delimiter if needed.
     if (delimiter && (srclen - srcpos) > 1) {
-      if (source[srcpos] != delimiter)
+      if (source[srcpos] != delimiter) {
         return 0;
+      }
       ++srcpos;
     }
   }
@@ -247,8 +255,9 @@ size_t tokenize_with_empty_tokens(const std::string& source,
 size_t tokenize_append(const std::string& source,
                        char delimiter,
                        std::vector<std::string>* fields) {
-  if (!fields)
+  if (!fields) {
     return 0;
+  }
 
   std::vector<std::string> new_fields;
   tokenize(source, delimiter, &new_fields);
@@ -261,15 +270,17 @@ size_t tokenize(const std::string& source,
                 char start_mark,
                 char end_mark,
                 std::vector<std::string>* fields) {
-  if (!fields)
+  if (!fields) {
     return 0;
+  }
   fields->clear();
 
   std::string remain_source = source;
   while (!remain_source.empty()) {
     size_t start_pos = remain_source.find(start_mark);
-    if (std::string::npos == start_pos)
+    if (std::string::npos == start_pos) {
       break;
+    }
     std::string pre_mark;
     if (start_pos > 0) {
       pre_mark = remain_source.substr(0, start_pos - 1);
@@ -277,8 +288,9 @@ size_t tokenize(const std::string& source,
 
     ++start_pos;
     size_t end_pos = remain_source.find(end_mark, start_pos);
-    if (std::string::npos == end_pos)
+    if (std::string::npos == end_pos) {
       break;
+    }
 
     // We have found the matching marks. First tokenize the pre-mask. Then add
     // the marked part as a single field. Finally, loop back for the post-mark.

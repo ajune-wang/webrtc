@@ -30,14 +30,16 @@ void ExpectNear(const ColorTransformationMatrix& expected,
                 const ColorTransformationMatrix& actual) {
   // The scaling factor on y/u/v should be pretty precise.
   for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 3; ++j)
+    for (int j = 0; j < 3; ++j) {
       EXPECT_NEAR(expected[i][j], actual[i][j], /* abs_error= */ 1.0e-3)
           << "at element i: " << i << ", j: " << j;
+    }
   }
   // The offset can be less precise since the range is [0, 255].
-  for (int i = 0; i < 3; ++i)
+  for (int i = 0; i < 3; ++i) {
     EXPECT_NEAR(expected[i][3], actual[i][3], /* abs_error= */ 0.1)
         << "at element i: " << i;
+  }
 }
 
 }  // namespace
@@ -142,12 +144,15 @@ TEST_F(VideoColorAlignerTest, CalculateColorTransformationMatrixOffset) {
   uint8_t big_data_u[4];
   uint8_t big_data_v[4];
   // Create another I420 frame where all values are 10 bigger.
-  for (int i = 0; i < 16; ++i)
+  for (int i = 0; i < 16; ++i) {
     big_data_y[i] = small_data_y[i] + 10;
-  for (int i = 0; i < 4; ++i)
+  }
+  for (int i = 0; i < 4; ++i) {
     big_data_u[i] = small_data_u[i] + 10;
-  for (int i = 0; i < 4; ++i)
+  }
+  for (int i = 0; i < 4; ++i) {
     big_data_v[i] = small_data_v[i] + 10;
+  }
 
   const rtc::scoped_refptr<I420BufferInterface> big_i420_buffer =
       I420Buffer::Copy(

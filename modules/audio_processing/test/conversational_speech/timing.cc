@@ -46,8 +46,9 @@ std::vector<Turn> LoadTiming(const std::string& timing_filepath) {
   std::string line;
   std::ifstream infile(timing_filepath);
   while (std::getline(infile, line)) {
-    if (line.empty())
+    if (line.empty()) {
       continue;
+    }
     timing.push_back(parse_line(line));
   }
   infile.close();

@@ -615,12 +615,14 @@ TEST_F(RtcpSenderTest, ByeMustBeLast) {
           EXPECT_TRUE(packet.Parse(next_packet, packet_end - next_packet));
           next_packet = packet.NextPacket();
           if (packet.type() ==
-              rtcp::Bye::kPacketType)  // Main test expectation.
+              rtcp::Bye::kPacketType) {  // Main test expectation.
             EXPECT_EQ(0, packet_end - next_packet)
                 << "Bye packet should be last in a compound RTCP packet.";
-          if (next_packet == packet_end)  // Validate test was set correctly.
+          }
+          if (next_packet == packet_end) {  // Validate test was set correctly.
             EXPECT_EQ(packet.type(), rtcp::Bye::kPacketType)
                 << "Last packet in this test expected to be Bye.";
+          }
         }
 
         return true;
@@ -648,8 +650,9 @@ TEST_F(RtcpSenderTest, SendXrWithTargetBitrate) {
   VideoBitrateAllocation allocation;
   for (size_t sl = 0; sl < kNumSpatialLayers; ++sl) {
     uint32_t start_bitrate_bps = (sl + 1) * 100000;
-    for (size_t tl = 0; tl < kNumTemporalLayers; ++tl)
+    for (size_t tl = 0; tl < kNumTemporalLayers; ++tl) {
       allocation.SetBitrate(sl, tl, start_bitrate_bps + (tl * 20000));
+    }
   }
   rtcp_sender_->SetVideoBitrateAllocation(allocation);
 

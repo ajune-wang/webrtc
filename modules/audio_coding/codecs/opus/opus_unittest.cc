@@ -235,8 +235,9 @@ void OpusTest::TestDtxEffect(bool dtx, int block_length_ms) {
                              EncodeDecode(opus_encoder_, silence, opus_decoder_,
                                           output_data_decode, &audio_type)));
       if (dtx) {
-        if (encoded_bytes_ > 1)
+        if (encoded_bytes_ > 1) {
           break;
+        }
         EXPECT_EQ(0U, encoded_bytes_)  // Send 0 byte.
             << "Opus should have entered DTX mode.";
         EXPECT_EQ(1, opus_encoder_->in_dtx_mode);

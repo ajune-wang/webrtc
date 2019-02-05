@@ -68,14 +68,16 @@ TEST_F(TestNackModule, WrappingSeqNumClearToKeyframe) {
 
   nack_module_.OnReceivedPacket(501, true, false);
   EXPECT_EQ(498u, sent_nacks_.size());
-  for (int seq_num = 3; seq_num < 501; ++seq_num)
+  for (int seq_num = 3; seq_num < 501; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 3]);
+  }
 
   sent_nacks_.clear();
   nack_module_.OnReceivedPacket(1001, false, false);
   EXPECT_EQ(499u, sent_nacks_.size());
-  for (int seq_num = 502; seq_num < 1001; ++seq_num)
+  for (int seq_num = 502; seq_num < 1001; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 502]);
+  }
 
   sent_nacks_.clear();
   clock_->AdvanceTimeMilliseconds(100);
@@ -83,10 +85,12 @@ TEST_F(TestNackModule, WrappingSeqNumClearToKeyframe) {
   EXPECT_EQ(999u, sent_nacks_.size());
   EXPECT_EQ(0xffff, sent_nacks_[0]);
   EXPECT_EQ(0, sent_nacks_[1]);
-  for (int seq_num = 3; seq_num < 501; ++seq_num)
+  for (int seq_num = 3; seq_num < 501; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 1]);
-  for (int seq_num = 502; seq_num < 1001; ++seq_num)
+  }
+  for (int seq_num = 502; seq_num < 1001; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 2]);
+  }
 
   // Adding packet 1004 will cause the nack list to reach it's max limit.
   // It will then clear all nacks up to the next keyframe (seq num 2),
@@ -101,10 +105,12 @@ TEST_F(TestNackModule, WrappingSeqNumClearToKeyframe) {
   clock_->AdvanceTimeMilliseconds(100);
   nack_module_.Process();
   EXPECT_EQ(999u, sent_nacks_.size());
-  for (int seq_num = 3; seq_num < 501; ++seq_num)
+  for (int seq_num = 3; seq_num < 501; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 3]);
-  for (int seq_num = 502; seq_num < 1001; ++seq_num)
+  }
+  for (int seq_num = 502; seq_num < 1001; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 4]);
+  }
 
   // Adding packet 1007 will cause the nack module to overflow again, thus
   // clearing everything up to 501 which is the next keyframe.
@@ -113,8 +119,9 @@ TEST_F(TestNackModule, WrappingSeqNumClearToKeyframe) {
   clock_->AdvanceTimeMilliseconds(100);
   nack_module_.Process();
   EXPECT_EQ(503u, sent_nacks_.size());
-  for (int seq_num = 502; seq_num < 1001; ++seq_num)
+  for (int seq_num = 502; seq_num < 1001; ++seq_num) {
     EXPECT_EQ(seq_num, sent_nacks_[seq_num - 502]);
+  }
   EXPECT_EQ(1005, sent_nacks_[501]);
   EXPECT_EQ(1006, sent_nacks_[502]);
 }

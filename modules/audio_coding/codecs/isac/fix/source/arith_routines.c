@@ -64,7 +64,8 @@ int16_t WebRtcIsacfix_EncTerminate(Bitstr_enc *streamData)
         /* propagate carry by adding one to the previous byte in the
          * stream if that byte is 0xFFFF we need to propagate the carry
          * furhter back in the stream */
-        while ( !(++(*--streamPtr)) );
+        while ( !(++(*--streamPtr)) ) {;
+}
       }
 
       /* put pointer back to the old value */
@@ -102,7 +103,8 @@ int16_t WebRtcIsacfix_EncTerminate(Bitstr_enc *streamData)
         }
       } else {
         /* Add carry to previous byte */
-        while ( !(++(*--streamPtr)) );
+        while ( !(++(*--streamPtr)) ) {;
+}
       }
 
       /* put pointer back to the old value */

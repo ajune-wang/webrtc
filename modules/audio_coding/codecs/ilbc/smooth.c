@@ -61,8 +61,10 @@ void WebRtcIlbcfix_Smooth(
   w11=WebRtcSpl_DotProductWithScale(surround,surround,ENH_BLOCKL,scale);
   w10=WebRtcSpl_DotProductWithScale(surround,current,ENH_BLOCKL,scale);
 
-  if (w00<0) w00 = WEBRTC_SPL_WORD32_MAX;
-  if (w11<0) w11 = WEBRTC_SPL_WORD32_MAX;
+  if (w00<0) { w00 = WEBRTC_SPL_WORD32_MAX;
+}
+  if (w11<0) { w11 = WEBRTC_SPL_WORD32_MAX;
+}
 
   /* Rescale w00 and w11 to w00prim and w11prim, so that w00prim/w11prim
      is in Q16 */

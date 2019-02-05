@@ -17,8 +17,9 @@ size_t WebRtcG711_EncodeA(const int16_t* speechIn,
                           size_t len,
                           uint8_t* encoded) {
   size_t n;
-  for (n = 0; n < len; n++)
+  for (n = 0; n < len; n++) {
     encoded[n] = linear_to_alaw(speechIn[n]);
+}
   return len;
 }
 
@@ -26,8 +27,9 @@ size_t WebRtcG711_EncodeU(const int16_t* speechIn,
                           size_t len,
                           uint8_t* encoded) {
   size_t n;
-  for (n = 0; n < len; n++)
+  for (n = 0; n < len; n++) {
     encoded[n] = linear_to_ulaw(speechIn[n]);
+}
   return len;
 }
 
@@ -36,8 +38,9 @@ size_t WebRtcG711_DecodeA(const uint8_t* encoded,
                           int16_t* decoded,
                           int16_t* speechType) {
   size_t n;
-  for (n = 0; n < len; n++)
+  for (n = 0; n < len; n++) {
     decoded[n] = alaw_to_linear(encoded[n]);
+}
   *speechType = 1;
   return len;
 }
@@ -47,8 +50,9 @@ size_t WebRtcG711_DecodeU(const uint8_t* encoded,
                           int16_t* decoded,
                           int16_t* speechType) {
   size_t n;
-  for (n = 0; n < len; n++)
+  for (n = 0; n < len; n++) {
     decoded[n] = ulaw_to_linear(encoded[n]);
+}
   *speechType = 1;
   return len;
 }

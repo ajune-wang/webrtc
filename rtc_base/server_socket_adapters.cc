@@ -159,8 +159,9 @@ void AsyncSocksProxyServerSocket::HandleConnect(ByteBufferReader* request) {
 
 void AsyncSocksProxyServerSocket::SendConnectResult(int result,
                                                     const SocketAddress& addr) {
-  if (state_ != SS_CONNECT_PENDING)
+  if (state_ != SS_CONNECT_PENDING) {
     return;
+  }
 
   ByteBufferWriter response;
   response.WriteUInt8(5);              // Socks version

@@ -67,8 +67,9 @@ int32_t VCMGenericEncoder::InitEncode(const VideoCodec* settings,
   if (settings->codecType == kVideoCodecVP9) {
     streams_or_svc_num_ = settings->VP9().numberOfSpatialLayers;
   }
-  if (streams_or_svc_num_ == 0)
+  if (streams_or_svc_num_ == 0) {
     streams_or_svc_num_ = 1;
+  }
 
   vcm_encoded_frame_callback_->SetTimingFramesThresholds(
       settings->timing_frame_thresholds);
@@ -93,12 +94,14 @@ int32_t VCMGenericEncoder::Encode(const VideoFrame& frame,
   TRACE_EVENT1("webrtc", "VCMGenericEncoder::Encode", "timestamp",
                frame.timestamp());
 
-  for (FrameType frame_type : frame_types)
+  for (FrameType frame_type : frame_types) {
     RTC_DCHECK(frame_type == kVideoFrameKey || frame_type == kVideoFrameDelta);
+  }
 
-  for (size_t i = 0; i < streams_or_svc_num_; ++i)
+  for (size_t i = 0; i < streams_or_svc_num_; ++i) {
     vcm_encoded_frame_callback_->OnEncodeStarted(frame.timestamp(),
                                                  frame.render_time_ms(), i);
+  }
 
   return encoder_->Encode(frame, codec_specific, &frame_types);
 }
@@ -192,8 +195,9 @@ void VCMEncodedFrameCallback::OnTargetBitrateChanged(
     size_t bitrate_bytes_per_second,
     size_t simulcast_svc_idx) {
   rtc::CritScope crit(&timing_params_lock_);
-  if (timing_frames_info_.size() < simulcast_svc_idx + 1)
+  if (timing_frames_info_.size() < simulcast_svc_idx + 1) {
     timing_frames_info_.resize(simulcast_svc_idx + 1);
+  }
   timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec =
       bitrate_bytes_per_second;
 }
@@ -210,8 +214,9 @@ void VCMEncodedFrameCallback::OnEncodeStarted(uint32_t rtp_timestamp,
     return;
   }
   rtc::CritScope crit(&timing_params_lock_);
-  if (timing_frames_info_.size() < simulcast_svc_idx + 1)
+  if (timing_frames_info_.size() < simulcast_svc_idx + 1) {
     timing_frames_info_.resize(simulcast_svc_idx + 1);
+  }
   RTC_DCHECK(
       timing_frames_info_[simulcast_svc_idx].encode_start_list.empty() ||
       rtc::TimeDiff(capture_time_ms, timing_frames_info_[simulcast_svc_idx]
@@ -219,8 +224,10 @@ void VCMEncodedFrameCallback::OnEncodeStarted(uint32_t rtp_timestamp,
                                          .capture_time_ms) >= 0);
   // If stream is disabled due to low bandwidth OnEncodeStarted still will be
   // called and have to be ignored.
-  if (timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec == 0)
+  if (timing_frames_info_[simulcast_svc_idx].target_bitrate_bytes_per_sec ==
+      0) {
     return;
+  }
   if (timing_frames_info_[simulcast_svc_idx].encode_start_list.size() ==
       kMaxEncodeStartTimeListSize) {
     ++stalled_encoder_logged_messages_;

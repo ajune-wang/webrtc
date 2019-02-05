@@ -20,10 +20,11 @@ std::string ToString(Timestamp value) {
   if (value.IsInfinite()) {
     sb << "inf ms";
   } else {
-    if (value.ms() % 1000 == 0)
+    if (value.ms() % 1000 == 0) {
       sb << value.seconds() << " s";
-    else
+    } else {
       sb << value.ms() << " ms";
+    }
   }
   return sb.str();
 }

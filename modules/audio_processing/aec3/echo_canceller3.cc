@@ -195,8 +195,9 @@ void EchoCanceller3::RenderWriter::Insert(AudioBuffer* input) {
   RTC_DCHECK_EQ(num_bands_, input->num_bands());
 
   // TODO(bugs.webrtc.org/8759) Temporary work-around.
-  if (num_bands_ != static_cast<int>(input->num_bands()))
+  if (num_bands_ != static_cast<int>(input->num_bands())) {
     return;
+  }
 
   data_dumper_->DumpWav("aec3_render_input", frame_length_,
                         &input->split_bands_f(0)[0][0],

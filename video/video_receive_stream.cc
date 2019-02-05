@@ -373,8 +373,9 @@ void VideoReceiveStream::Stop() {
     // destruction. This effectively stops the VCM since the decoder thread is
     // stopped, the VCM is deregistered and no asynchronous decoder threads are
     // running.
-    for (const Decoder& decoder : config_.decoders)
+    for (const Decoder& decoder : config_.decoders) {
       video_receiver_.RegisterExternalDecoder(nullptr, decoder.payload_type);
+    }
   }
 
   video_stream_decoder_.reset();
@@ -439,8 +440,9 @@ void VideoReceiveStream::OnCompleteFrame(
   last_complete_frame_time_ms_ = time_now_ms;
 
   int64_t last_continuous_pid = frame_buffer_->InsertFrame(std::move(frame));
-  if (last_continuous_pid != -1)
+  if (last_continuous_pid != -1) {
     rtp_video_stream_receiver_.FrameContinuous(last_continuous_pid);
+  }
 }
 
 void VideoReceiveStream::OnData(uint64_t channel_id,
@@ -470,8 +472,9 @@ absl::optional<Syncable::Info> VideoReceiveStream::GetInfo() const {
   absl::optional<Syncable::Info> info =
       rtp_video_stream_receiver_.GetSyncInfo();
 
-  if (!info)
+  if (!info) {
     return absl::nullopt;
+  }
 
   info->current_delay_ms = video_receiver_.Delay();
   return info;
@@ -528,8 +531,9 @@ bool VideoReceiveStream::Decode() {
       frame_decoded_ = true;
       rtp_video_stream_receiver_.FrameDecoded(frame->id.picture_id);
 
-      if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
+      if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME) {
         RequestKeyFrame();
+      }
     } else if (!frame_decoded_ || !keyframe_required_ ||
                (last_keyframe_request_ms_ + kMaxWaitForKeyFrameMs < now_ms)) {
       keyframe_required_ = true;
@@ -549,8 +553,9 @@ bool VideoReceiveStream::Decode() {
     // To avoid spamming keyframe requests for a stream that is not active we
     // check if we have received a packet within the last 5 seconds.
     bool stream_is_active = last_packet_ms && now_ms - *last_packet_ms < 5000;
-    if (!stream_is_active)
+    if (!stream_is_active) {
       stats_proxy_.OnStreamInactive();
+    }
 
     // If we recently have been receiving packets belonging to a keyframe then
     // we assume a keyframe is currently being received.

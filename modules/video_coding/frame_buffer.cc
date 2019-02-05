@@ -125,8 +125,9 @@ VCMFrameBufferEnum VCMFrameBuffer::InsertPacket(
   }
 
   // Don't copy payload specific data for empty packets (e.g padding packets).
-  if (packet.sizeBytes > 0)
+  if (packet.sizeBytes > 0) {
     CopyCodecSpecific(&packet.video_header);
+  }
 
   int retVal = _sessionInfo.InsertPacket(packet, data(), frame_data);
   if (retVal == -1) {

@@ -86,8 +86,9 @@ FakeWebRtcVideoDecoderFactory::GetSupportedFormats() const {
 
   for (const webrtc::SdpVideoFormat& format : supported_codec_formats_) {
     // Don't add same codec twice.
-    if (!IsFormatSupported(formats, format))
+    if (!IsFormatSupported(formats, format)) {
       formats.push_back(format);
+    }
   }
 
   return formats;
@@ -207,8 +208,9 @@ FakeWebRtcVideoEncoderFactory::GetSupportedFormats() const {
 
   for (const webrtc::SdpVideoFormat& format : formats_) {
     // Don't add same codec twice.
-    if (!IsFormatSupported(formats, format))
+    if (!IsFormatSupported(formats, format)) {
       formats.push_back(format);
+    }
   }
 
   return formats;
@@ -252,8 +254,9 @@ bool FakeWebRtcVideoEncoderFactory::WaitForCreatedVideoEncoders(
   int64_t start_offset_ms = rtc::TimeMillis();
   int64_t wait_time = kEventTimeoutMs;
   do {
-    if (GetNumCreatedEncoders() >= num_encoders)
+    if (GetNumCreatedEncoders() >= num_encoders) {
       return true;
+    }
     wait_time = kEventTimeoutMs - (rtc::TimeMillis() - start_offset_ms);
   } while (wait_time > 0 && created_video_encoder_event_.Wait(wait_time));
   return false;

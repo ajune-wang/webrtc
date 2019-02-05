@@ -450,8 +450,9 @@ int VCMFecMethod::BitsPerFrame(const VCMProtectionParameters* parameters) {
   // TODO(mikhal): Update factor following testing.
   float adjustmentFactor = 1;
 
-  if (frameRate < 1.0f)
+  if (frameRate < 1.0f) {
     frameRate = 1.0f;
+  }
   // Average bits per frame (units of kbits)
   return rtc::saturated_cast<int>(adjustmentFactor * bitRate / frameRate);
 }
@@ -513,8 +514,9 @@ VCMLossProtectionLogic::~VCMLossProtectionLogic() {
 
 void VCMLossProtectionLogic::SetMethod(
     enum VCMProtectionMethodEnum newMethodType) {
-  if (_selectedMethod && _selectedMethod->Type() == newMethodType)
+  if (_selectedMethod && _selectedMethod->Type() == newMethodType) {
     return;
+  }
 
   switch (newMethodType) {
     case kNack:
@@ -653,8 +655,9 @@ void VCMLossProtectionLogic::UpdateNumLayers(int numLayers) {
 }
 
 bool VCMLossProtectionLogic::UpdateMethod() {
-  if (!_selectedMethod)
+  if (!_selectedMethod) {
     return false;
+  }
   _currentParameters.rtt = _rtt;
   _currentParameters.lossPr = _lossPr;
   _currentParameters.bitRate = _bitRate;

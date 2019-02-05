@@ -88,16 +88,18 @@ int NackModule::OnReceivedPacket(uint16_t seq_num,
 
   if (!initialized_) {
     newest_seq_num_ = seq_num;
-    if (is_keyframe)
+    if (is_keyframe) {
       keyframe_list_.insert(seq_num);
+    }
     initialized_ = true;
     return 0;
   }
 
   // Since the |newest_seq_num_| is a packet we have actually received we know
   // that packet has never been Nacked.
-  if (seq_num == newest_seq_num_)
+  if (seq_num == newest_seq_num_) {
     return 0;
+  }
 
   if (AheadOf(newest_seq_num_, seq_num)) {
     // An out of order packet has been received.
@@ -107,27 +109,31 @@ int NackModule::OnReceivedPacket(uint16_t seq_num,
       nacks_sent_for_packet = nack_list_it->second.retries;
       nack_list_.erase(nack_list_it);
     }
-    if (!is_retransmitted)
+    if (!is_retransmitted) {
       UpdateReorderingStatistics(seq_num);
+    }
     return nacks_sent_for_packet;
   }
 
   // Keep track of new keyframes.
-  if (is_keyframe)
+  if (is_keyframe) {
     keyframe_list_.insert(seq_num);
+  }
 
   // And remove old ones so we don't accumulate keyframes.
   auto it = keyframe_list_.lower_bound(seq_num - kMaxPacketAge);
-  if (it != keyframe_list_.begin())
+  if (it != keyframe_list_.begin()) {
     keyframe_list_.erase(keyframe_list_.begin(), it);
+  }
 
   if (is_recovered) {
     recovered_list_.insert(seq_num);
 
     // Remove old ones so we don't accumulate recovered packets.
     auto it = recovered_list_.lower_bound(seq_num - kMaxPacketAge);
-    if (it != recovered_list_.begin())
+    if (it != recovered_list_.begin()) {
       recovered_list_.erase(recovered_list_.begin(), it);
+    }
 
     // Do not send nack for packets recovered by FEC or RTX.
     return 0;
@@ -138,8 +144,9 @@ int NackModule::OnReceivedPacket(uint16_t seq_num,
 
   // Are there any nacks that are waiting for this seq_num.
   std::vector<uint16_t> nack_batch = GetNackBatch(kSeqNumOnly);
-  if (!nack_batch.empty())
+  if (!nack_batch.empty()) {
     nack_sender_->SendNack(nack_batch);
+  }
 
   return 0;
 }
@@ -178,8 +185,9 @@ void NackModule::Process() {
       nack_batch = GetNackBatch(kTimeOnly);
     }
 
-    if (!nack_batch.empty())
+    if (!nack_batch.empty()) {
       nack_sender_->SendNack(nack_batch);
+    }
   }
 
   // Update the next_process_time_ms_ in intervals to achieve
@@ -240,8 +248,9 @@ void NackModule::AddPacketsToNack(uint16_t seq_num_start,
 
   for (uint16_t seq_num = seq_num_start; seq_num != seq_num_end; ++seq_num) {
     // Do not send nack for packets that are already recovered by FEC or RTX
-    if (recovered_list_.find(seq_num) != recovered_list_.end())
+    if (recovered_list_.find(seq_num) != recovered_list_.end()) {
       continue;
+    }
     NackInfo nack_info(seq_num, seq_num + WaitNumberOfPackets(0.5),
                        clock_->TimeInMilliseconds());
     RTC_DCHECK(nack_list_.find(seq_num) == nack_list_.end());
@@ -288,8 +297,9 @@ void NackModule::UpdateReorderingStatistics(uint16_t seq_num) {
 }
 
 int NackModule::WaitNumberOfPackets(float probability) const {
-  if (reordering_histogram_.NumValues() == 0)
+  if (reordering_histogram_.NumValues() == 0) {
     return 0;
+  }
   return reordering_histogram_.InverseCdf(probability);
 }
 

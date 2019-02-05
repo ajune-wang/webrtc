@@ -39,8 +39,9 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
       clock,
       FrameGenerator::CreateSquareGenerator(width, height, type, num_squares),
       target_fps);
-  if (!capturer->Init())
+  if (!capturer->Init()) {
     return nullptr;
+  }
 
   return capturer.release();
 }
@@ -56,8 +57,9 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::CreateFromYuvFile(
       FrameGenerator::CreateFromYuvFile(std::vector<std::string>(1, file_name),
                                         width, height, 1),
       target_fps);
-  if (!capturer->Init())
+  if (!capturer->Init()) {
     return nullptr;
+  }
 
   return capturer.release();
 }
@@ -72,8 +74,9 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::CreateSlideGenerator(
       clock,
       FrameGenerator::CreateSlideGenerator(width, height, frame_repeat_count),
       target_fps);
-  if (!capturer->Init())
+  if (!capturer->Init()) {
     return nullptr;
+  }
 
   return capturer.release();
 }
@@ -84,8 +87,9 @@ FrameGeneratorCapturer* FrameGeneratorCapturer::Create(
     Clock* clock) {
   auto capturer = absl::make_unique<FrameGeneratorCapturer>(
       clock, std::move(frame_generator), target_fps);
-  if (!capturer->Init())
+  if (!capturer->Init()) {
     return nullptr;
+  }
 
   return capturer.release();
 }
@@ -124,8 +128,9 @@ void FrameGeneratorCapturer::SetFakeColorSpace(
 bool FrameGeneratorCapturer::Init() {
   // This check is added because frame_generator_ might be file based and should
   // not crash because a file moved.
-  if (frame_generator_.get() == nullptr)
+  if (frame_generator_.get() == nullptr) {
     return false;
+  }
 
   RepeatingTaskHandle::DelayedStart(
       &task_queue_, TimeDelta::seconds(1) / GetCurrentConfiguredFramerate(),
@@ -144,8 +149,9 @@ void FrameGeneratorCapturer::InsertFrame() {
     // fractions.
     int decimation =
         std::round(static_cast<double>(source_fps_) / target_capture_fps_);
-    for (int i = 1; i < decimation; ++i)
+    for (int i = 1; i < decimation; ++i) {
       frame = frame_generator_->NextFrame();
+    }
     frame->set_timestamp_us(clock_->TimeInMicroseconds());
     frame->set_ntp_time_ms(clock_->CurrentNtpInMilliseconds());
     frame->set_rotation(fake_rotation_);
@@ -178,9 +184,10 @@ void FrameGeneratorCapturer::ChangeResolution(size_t width, size_t height) {
 void FrameGeneratorCapturer::ChangeFramerate(int target_framerate) {
   rtc::CritScope cs(&lock_);
   RTC_CHECK(target_capture_fps_ > 0);
-  if (target_framerate > source_fps_)
+  if (target_framerate > source_fps_) {
     RTC_LOG(LS_WARNING) << "Target framerate clamped from " << target_framerate
                         << " to " << source_fps_;
+  }
   if (source_fps_ % target_capture_fps_ != 0) {
     int decimation =
         std::round(static_cast<double>(source_fps_) / target_capture_fps_);
@@ -234,8 +241,9 @@ void FrameGeneratorCapturer::ForceFrame() {
 
 int FrameGeneratorCapturer::GetCurrentConfiguredFramerate() {
   rtc::CritScope cs(&lock_);
-  if (wanted_fps_ && *wanted_fps_ < target_capture_fps_)
+  if (wanted_fps_ && *wanted_fps_ < target_capture_fps_) {
     return *wanted_fps_;
+  }
   return target_capture_fps_;
 }
 

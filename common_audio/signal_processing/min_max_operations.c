@@ -86,8 +86,9 @@ int16_t WebRtcSpl_MaxValueW16C(const int16_t* vector, size_t length) {
   RTC_DCHECK_GT(length, 0);
 
   for (i = 0; i < length; i++) {
-    if (vector[i] > maximum)
+    if (vector[i] > maximum) {
       maximum = vector[i];
+}
   }
   return maximum;
 }
@@ -100,8 +101,9 @@ int32_t WebRtcSpl_MaxValueW32C(const int32_t* vector, size_t length) {
   RTC_DCHECK_GT(length, 0);
 
   for (i = 0; i < length; i++) {
-    if (vector[i] > maximum)
+    if (vector[i] > maximum) {
       maximum = vector[i];
+}
   }
   return maximum;
 }
@@ -114,8 +116,9 @@ int16_t WebRtcSpl_MinValueW16C(const int16_t* vector, size_t length) {
   RTC_DCHECK_GT(length, 0);
 
   for (i = 0; i < length; i++) {
-    if (vector[i] < minimum)
+    if (vector[i] < minimum) {
       minimum = vector[i];
+}
   }
   return minimum;
 }
@@ -128,8 +131,9 @@ int32_t WebRtcSpl_MinValueW32C(const int32_t* vector, size_t length) {
   RTC_DCHECK_GT(length, 0);
 
   for (i = 0; i < length; i++) {
-    if (vector[i] < minimum)
+    if (vector[i] < minimum) {
       minimum = vector[i];
+}
   }
   return minimum;
 }

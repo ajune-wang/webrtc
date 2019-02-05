@@ -68,8 +68,9 @@ bool Tmmbr::Parse(const CommonHeader& packet) {
   size_t number_of_items = items_size_bytes / TmmbItem::kLength;
   items_.resize(number_of_items);
   for (TmmbItem& item : items_) {
-    if (!item.Parse(next_item))
+    if (!item.Parse(next_item)) {
       return false;
+    }
     next_item += TmmbItem::kLength;
   }
   return true;
@@ -90,8 +91,9 @@ bool Tmmbr::Create(uint8_t* packet,
                    PacketReadyCallback callback) const {
   RTC_DCHECK(!items_.empty());
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(packet, index, callback)) {
       return false;
+    }
   }
   const size_t index_end = *index + BlockLength();
 

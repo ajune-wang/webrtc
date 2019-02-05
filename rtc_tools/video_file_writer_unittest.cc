@@ -35,12 +35,14 @@ class VideoFileWriterTest : public ::testing::Test {
 
     const int i420_size = width * height * 3 / 2;
     // First frame.
-    for (int i = 0; i < i420_size; ++i)
+    for (int i = 0; i < i420_size; ++i) {
       fputc(static_cast<char>(i), file);
+    }
     fprintf(file, "FRAME\n");
     // Second frame.
-    for (int i = 0; i < i420_size; ++i)
+    for (int i = 0; i < i420_size; ++i) {
       fputc(static_cast<char>(i + i420_size), file);
+    }
     fclose(file);
 
     // Open the newly created file.
@@ -99,12 +101,15 @@ TEST_F(VideoFileWriterTest, TestPixelContentY4m) {
   WriteVideoY4m();
   int cnt = 0;
   for (const rtc::scoped_refptr<I420BufferInterface> frame : *written_video) {
-    for (int i = 0; i < width * height; ++i, ++cnt)
+    for (int i = 0; i < width * height; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataY()[i]);
-    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataU()[i]);
-    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataV()[i]);
+    }
   }
 }
 
@@ -112,12 +117,15 @@ TEST_F(VideoFileWriterTest, TestPixelContentYuv) {
   WriteVideoYuv();
   int cnt = 0;
   for (const rtc::scoped_refptr<I420BufferInterface> frame : *written_video) {
-    for (int i = 0; i < width * height; ++i, ++cnt)
+    for (int i = 0; i < width * height; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataY()[i]);
-    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataU()[i]);
-    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt)
+    }
+    for (int i = 0; i < width / 2 * height / 2; ++i, ++cnt) {
       EXPECT_EQ(cnt, frame->DataV()[i]);
+    }
   }
 }
 

@@ -39,10 +39,11 @@ static __inline int16_t Exp2Q10(int16_t x) { // Both in and out in Q10
 
   tmp16_2=(int16_t)(0x0400|(x&0x03FF));
   tmp16_1 = -(x >> 10);
-  if(tmp16_1>0)
+  if(tmp16_1>0) {
     return tmp16_2 >> tmp16_1;
-  else
+  } else {
     return tmp16_2 << -tmp16_1;
+}
 
 }
 
@@ -60,10 +61,12 @@ static __inline void Intrp1DQ8(int32_t *x, int32_t *fx, int32_t *y, int32_t *fy)
     q32=fx[0]-fx[1];
     nom32=q32+r32;
     den32 = (q32 - r32) * 2;
-    if (nom32<0)
+    if (nom32<0) {
       sign1=-1;
-    if (den32<0)
+}
+    if (den32<0) {
       sign2=-1;
+}
 
     /* t = (q32+r32)/(2*(q32-r32)) = (fx[0]-fx[1] + fx[1]-fx[2])/(2 * fx[0]-fx[1] - (fx[1]-fx[2]))*/
     /* (Signs are removed because WebRtcSpl_DivResultInQ31 can't handle negative numbers) */
@@ -195,8 +198,9 @@ void WebRtcIsacfix_InitialPitch(const int16_t *in, /* Q0 */
   WebRtcSpl_FilterARFastQ12(&buf_dec16[start],&buf_dec16[start],(int16_t*)kACoefQ12,3, PITCH_FRAME_LEN/2);
 
   /* copy end part back into state buffer */
-  for (k = 0; k < (PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2); k++)
+  for (k = 0; k < (PITCH_CORR_LEN2+PITCH_CORR_STEP2+PITCH_MAX_LAG/2-PITCH_FRAME_LEN/2+2); k++) {
     State->dec_buffer16[k] = buf_dec16[k+PITCH_FRAME_LEN/2];
+}
 
 
   /* compute correlation for first and second half of the frame */
@@ -209,7 +213,8 @@ void WebRtcIsacfix_InitialPitch(const int16_t *in, /* Q0 */
       // log2(0.5*oldlag) in Q8
   tmp32b = oldgQ12 * oldgQ12 >> 10;  // Q12 & * 4.0;
   gain_bias16 = (int16_t) tmp32b;  //Q12
-  if (gain_bias16 > 3276) gain_bias16 = 3276; // 0.8 in Q12
+  if (gain_bias16 > 3276) { gain_bias16 = 3276; // 0.8 in Q12
+}
 
 
   for (k = 0; k < PITCH_LAG_SPAN2; k++)
@@ -252,14 +257,16 @@ void WebRtcIsacfix_InitialPitch(const int16_t *in, /* Q0 */
 
 
     corr32=crrvecQ8_1[k-1];
-    if (corr32 > corr_max32)
+    if (corr32 > corr_max32) {
       corr_max32 = corr32;
+}
 
     corr32=crrvecQ8_2[k-1];
     corr32 += -4; // Compensate for later (log2(0.99))
 
-    if (corr32 > corr_max32)
+    if (corr32 > corr_max32) {
       corr_max32 = corr32;
+}
 
   }
 

@@ -99,8 +99,9 @@ bool NetworkNodeTransport::SendRtp(const uint8_t* packet,
 
   Timestamp send_time = Timestamp::ms(send_time_ms);
   rtc::CritScope crit(&crit_sect_);
-  if (!send_net_)
+  if (!send_net_) {
     return false;
+  }
   rtc::CopyOnWriteBuffer buffer(packet, length,
                                 length + packet_overhead_.bytes());
   buffer.SetSize(length + packet_overhead_.bytes());
@@ -115,8 +116,9 @@ bool NetworkNodeTransport::SendRtcp(const uint8_t* packet, size_t length) {
   Timestamp send_time = Timestamp::ms(sender_clock_->TimeInMilliseconds());
   rtc::CritScope crit(&crit_sect_);
   buffer.SetSize(length + packet_overhead_.bytes());
-  if (!send_net_)
+  if (!send_net_) {
     return false;
+  }
   send_net_->OnPacketReceived(EmulatedIpPacket(
       rtc::SocketAddress() /*from*/, rtc::SocketAddress() /*to*/, receiver_id_,
       buffer, send_time));

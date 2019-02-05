@@ -128,8 +128,9 @@ FakeVideoSendStream::FakeVideoSendStream(
 }
 
 FakeVideoSendStream::~FakeVideoSendStream() {
-  if (source_)
+  if (source_) {
     source_->RemoveSink(this);
+  }
 }
 
 const webrtc::VideoSendStream::Config& FakeVideoSendStream::GetConfig() const {
@@ -281,8 +282,9 @@ void FakeVideoSendStream::Stop() {
 void FakeVideoSendStream::SetSource(
     rtc::VideoSourceInterface<webrtc::VideoFrame>* source,
     const webrtc::DegradationPreference& degradation_preference) {
-  if (source_)
+  if (source_) {
     source_->RemoveSink(this);
+  }
   source_ = source;
   switch (degradation_preference) {
     case webrtc::DegradationPreference::MAINTAIN_FRAMERATE:
@@ -302,10 +304,11 @@ void FakeVideoSendStream::SetSource(
       framerate_scaling_enabled_ = false;
       break;
   }
-  if (source)
+  if (source) {
     source->AddOrUpdateSink(this, resolution_scaling_enabled_
                                       ? sink_wants_
                                       : rtc::VideoSinkWants());
+  }
 }
 
 void FakeVideoSendStream::InjectVideoSinkWants(
@@ -572,13 +575,15 @@ FakeCall::DeliveryStatus FakeCall::DeliverPacket(webrtc::MediaType media_type,
              media_type == webrtc::MediaType::VIDEO);
 
   uint32_t ssrc;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc))
+  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
     return DELIVERY_PACKET_ERROR;
+  }
 
   if (media_type == webrtc::MediaType::VIDEO) {
     for (auto receiver : video_receive_streams_) {
-      if (receiver->GetConfig().rtp.remote_ssrc == ssrc)
+      if (receiver->GetConfig().rtp.remote_ssrc == ssrc) {
         return DELIVERY_OK;
+      }
     }
   }
   if (media_type == webrtc::MediaType::AUDIO) {

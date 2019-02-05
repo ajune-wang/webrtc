@@ -58,8 +58,9 @@ TEST(BweTestFramework_PacketTest, IsTimeSorted) {
   packets.push_back(new MediaPacket(120, 0));
   EXPECT_TRUE(IsTimeSorted(packets));
 
-  for (auto* packet : packets)
+  for (auto* packet : packets) {
     delete packet;
+  }
 }
 
 TEST(BweTestFramework_PacketTest, IsSequenceNumberSorted) {
@@ -83,8 +84,9 @@ TEST(BweTestFramework_PacketTest, IsSequenceNumberSorted) {
   packets.push_back(new MediaPacket(0, 120));
   EXPECT_TRUE(IsSequenceNumberSorted(packets));
 
-  for (auto* packet : packets)
+  for (auto* packet : packets) {
     delete packet;
+  }
 }
 
 TEST(BweTestFramework_StatsTest, Mean) {
@@ -170,8 +172,9 @@ class BweTestFramework_RateCounterFilterTest : public ::testing::Test {
     EXPECT_EQ(expected_pps, filter_.packets_per_second());
     EXPECT_EQ(expected_bps, filter_.bits_per_second());
 
-    for (auto* packet : packets)
+    for (auto* packet : packets) {
       delete packet;
+    }
   }
 
  private:
@@ -227,22 +230,25 @@ static void TestLossFilter(float loss_percent, bool zero_tolerance) {
     remaining_packets += packets.size();
     EXPECT_EQ(0u, sent_packets);
     EXPECT_EQ(0u, remaining_packets);
-    for (auto* packet : packets)
+    for (auto* packet : packets) {
       delete packet;
+    }
   }
 
   // Generate and process 10000 packets in different batch sizes (some empty)
   for (int i = 0; i < 2225; ++i) {
     Packets packets;
-    for (int j = 0; j < i % 10; ++j)
+    for (int j = 0; j < i % 10; ++j) {
       packets.push_back(new MediaPacket(i, i));
+    }
     sent_packets += packets.size();
     filter.RunFor(0, &packets);
     ASSERT_TRUE(IsTimeSorted(packets));
     ASSERT_TRUE(IsSequenceNumberSorted(packets));
     remaining_packets += packets.size();
-    for (auto* packet : packets)
+    for (auto* packet : packets) {
       delete packet;
+    }
   }
 
   float loss_fraction = 0.01f * (100.0f - loss_percent);
@@ -278,8 +284,9 @@ class BweTestFramework_DelayFilterTest : public ::testing::Test {
   BweTestFramework_DelayFilterTest()
       : filter_(NULL, 0), now_ms_(0), sequence_number_(0) {}
   virtual ~BweTestFramework_DelayFilterTest() {
-    for (auto* packet : accumulated_packets_)
+    for (auto* packet : accumulated_packets_) {
       delete packet;
+    }
   }
 
  protected:
@@ -407,8 +414,9 @@ TEST_F(BweTestFramework_DelayFilterTest, JumpToZeroDelay) {
   ASSERT_TRUE(IsTimeSorted(acc));
   ASSERT_TRUE(IsSequenceNumberSorted(acc));
 
-  for (auto* packet : acc)
+  for (auto* packet : acc) {
     delete packet;
+  }
 }
 
 TEST_F(BweTestFramework_DelayFilterTest, IncreasingDelay) {
@@ -478,10 +486,12 @@ static void TestJitterFilter(int64_t max_jitter_ms) {
               max_jitter_ms * 1000.0 * 0.01);
   EXPECT_NEAR(max_jitter_ms * 1000.0, max_jitter_obtained_us,
               max_jitter_ms * 1000.0 * 0.01);
-  for (auto* packet : original)
+  for (auto* packet : original) {
     delete packet;
-  for (auto* packet : jittered)
+  }
+  for (auto* packet : jittered) {
     delete packet;
+  }
 }
 
 TEST(BweTestFramework_JitterFilterTest, Jitter0) {
@@ -548,8 +558,9 @@ static void TestReorderFilter(uint16_t reorder_percent) {
   double std_deviation = sqrt((kPacketCount - 1) * p * (1 - p));
   EXPECT_NEAR(mean, distance, 3 * std_deviation);
 
-  for (auto* packet : packets)
+  for (auto* packet : packets) {
     delete packet;
+  }
 }
 
 TEST(BweTestFramework_ReorderFilterTest, Reorder0) {
@@ -586,8 +597,9 @@ class BweTestFramework_ChokeFilterTest : public ::testing::Test {
   BweTestFramework_ChokeFilterTest()
       : now_ms_(0), sequence_number_(0), output_packets_(), send_times_us_() {}
   virtual ~BweTestFramework_ChokeFilterTest() {
-    for (auto* packet : output_packets_)
+    for (auto* packet : output_packets_) {
       delete packet;
+    }
   }
 
  protected:
@@ -817,8 +829,9 @@ void TestVideoSender(VideoSender* sender,
   EXPECT_GE(1u, absolute_send_time_wraps);
   EXPECT_GE(1u, rtp_timestamp_wraps);
 
-  for (auto* packet : packets)
+  for (auto* packet : packets) {
     delete packet;
+  }
 }
 
 // Random {-1, 0, +1} ms was added to frame timestamps.
@@ -951,8 +964,9 @@ TEST(BweTestFramework_VideoSenderTest, TestAppendInOrder) {
   ASSERT_TRUE(IsTimeSorted(packets));
   EXPECT_EQ(54u, packets.size());
 
-  for (auto* packet : packets)
+  for (auto* packet : packets) {
     delete packet;
+  }
 }
 
 TEST(BweTestFramework_VideoSenderTest, FeedbackIneffective) {

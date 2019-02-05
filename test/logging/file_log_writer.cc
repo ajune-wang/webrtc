@@ -48,8 +48,9 @@ void FileLogWriter::Flush() {
 FileLogWriterFactory::FileLogWriterFactory(std::string base_path)
     : base_path_(base_path) {
   for (size_t i = 0; i < base_path.size(); ++i) {
-    if (base_path[i] == '/')
+    if (base_path[i] == '/') {
       test::CreateDir(base_path.substr(0, i));
+    }
   }
 }
 

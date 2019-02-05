@@ -102,11 +102,12 @@ void BitrateProber::CreateProbeCluster(int bitrate_bps, int64_t now_ms) {
   cluster.pace_info.send_bitrate_bps = bitrate_bps;
   cluster.pace_info.probe_cluster_id = next_cluster_id_++;
   clusters_.push(cluster);
-  if (event_log_)
+  if (event_log_) {
     event_log_->Log(absl::make_unique<RtcEventProbeClusterCreated>(
         cluster.pace_info.probe_cluster_id, cluster.pace_info.send_bitrate_bps,
         cluster.pace_info.probe_cluster_min_probes,
         cluster.pace_info.probe_cluster_min_bytes));
+  }
 
   RTC_LOG(LS_INFO) << "Probe cluster (bitrate:min bytes:min packets): ("
                    << cluster.pace_info.send_bitrate_bps << ":"
@@ -114,14 +115,16 @@ void BitrateProber::CreateProbeCluster(int bitrate_bps, int64_t now_ms) {
                    << cluster.pace_info.probe_cluster_min_probes << ")";
   // If we are already probing, continue to do so. Otherwise set it to
   // kInactive and wait for OnIncomingPacket to start the probing.
-  if (probing_state_ != ProbingState::kActive)
+  if (probing_state_ != ProbingState::kActive) {
     probing_state_ = ProbingState::kInactive;
+  }
 }
 
 int BitrateProber::TimeUntilNextProbe(int64_t now_ms) {
   // Probing is not active or probing is already complete.
-  if (probing_state_ != ProbingState::kActive || clusters_.empty())
+  if (probing_state_ != ProbingState::kActive || clusters_.empty()) {
     return -1;
+  }
 
   int time_until_probe_ms = 0;
   if (next_probe_time_ms_ >= 0) {
@@ -169,8 +172,9 @@ void BitrateProber::ProbeSent(int64_t now_ms, size_t bytes) {
         cluster->sent_probes >= cluster->pace_info.probe_cluster_min_probes) {
       clusters_.pop();
     }
-    if (clusters_.empty())
+    if (clusters_.empty()) {
       probing_state_ = ProbingState::kSuspended;
+    }
   }
 }
 

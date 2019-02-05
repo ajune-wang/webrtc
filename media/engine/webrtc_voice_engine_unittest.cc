@@ -3545,8 +3545,9 @@ TEST(WebRtcVoiceEngineTest, Has32Channels) {
     cricket::VoiceMediaChannel* channel = engine.CreateMediaChannel(
         call.get(), cricket::MediaConfig(), cricket::AudioOptions(),
         webrtc::CryptoOptions());
-    if (!channel)
+    if (!channel) {
       break;
+    }
     channels[num_channels++] = channel;
   }
 
@@ -3623,8 +3624,9 @@ TEST(WebRtcVoiceEngineTest, CollectRecvCodecs) {
   // check the actual values safely, to provide better test results.
   auto get_codec = [&codecs](size_t index) -> const cricket::AudioCodec& {
     static const cricket::AudioCodec missing_codec(0, "<missing>", 0, 0, 0);
-    if (codecs.size() > index)
+    if (codecs.size() > index) {
       return codecs[index];
+    }
     return missing_codec;
   };
 

@@ -51,16 +51,18 @@ void HistogramTest::VerifyHistogramStats(bool use_rtx,
     }
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      if (MinMetricRunTimePassed() && MinNumberOfFramesReceived())
+      if (MinMetricRunTimePassed() && MinNumberOfFramesReceived()) {
         observation_complete_.Set();
+      }
 
       return SEND_PACKET;
     }
 
     bool MinMetricRunTimePassed() {
       int64_t now_ms = Clock::GetRealTimeClock()->TimeInMilliseconds();
-      if (!start_runtime_ms_)
+      if (!start_runtime_ms_) {
         start_runtime_ms_ = now_ms;
+      }
 
       int64_t elapsed_sec = (now_ms - *start_runtime_ms_) / 1000;
       return elapsed_sec > metrics::kMinRunTimeInSeconds * 2;

@@ -54,11 +54,13 @@ void BitrateEstimator::Update(int64_t now_ms, int bytes) {
   int rate_window_ms = noninitial_window_ms_.Get();
   // We use a larger window at the beginning to get a more stable sample that
   // we can use to initialize the estimate.
-  if (bitrate_estimate_ < 0.f)
+  if (bitrate_estimate_ < 0.f) {
     rate_window_ms = initial_window_ms_.Get();
+  }
   float bitrate_sample = UpdateWindow(now_ms, bytes, rate_window_ms);
-  if (bitrate_sample < 0.0f)
+  if (bitrate_sample < 0.0f) {
     return;
+  }
   if (bitrate_estimate_ < 0.0f) {
     // This is the very first sample we get. Use it to initialize the estimate.
     bitrate_estimate_ = bitrate_sample;
@@ -112,14 +114,16 @@ float BitrateEstimator::UpdateWindow(int64_t now_ms,
 }
 
 absl::optional<uint32_t> BitrateEstimator::bitrate_bps() const {
-  if (bitrate_estimate_ < 0.f)
+  if (bitrate_estimate_ < 0.f) {
     return absl::nullopt;
+  }
   return bitrate_estimate_ * 1000;
 }
 
 absl::optional<uint32_t> BitrateEstimator::PeekBps() const {
-  if (current_window_ms_ > 0)
+  if (current_window_ms_ > 0) {
     return sum_ * 8000 / current_window_ms_;
+  }
   return absl::nullopt;
 }
 

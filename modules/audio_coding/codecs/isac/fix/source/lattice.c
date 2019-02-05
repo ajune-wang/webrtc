@@ -65,7 +65,8 @@ void WebRtcIsacfix_FilterMaLoopC(int16_t input0,  // Filter coefficient
   // low 16 bits), for using LATTICE_MUL_32_32_RSFT16 in the loop.
   int16_t t16a = (int16_t)(input2 >> 16);
   int16_t t16b = (int16_t)input2;
-  if (t16b < 0) t16a++;
+  if (t16b < 0) { t16a++;
+}
 
   // The loop filtering the samples *ptr0, *ptr1, *ptr2 with filter coefficients
   // input0, input1, and input2.
@@ -162,7 +163,8 @@ void WebRtcIsacfix_NormLatticeFilterMa(size_t orderCoef,
       tmp32 = inv_cthQ16[i-1]; //Q16
       t16a = (int16_t)(tmp32 >> 16);
       t16b = (int16_t)(tmp32 - (t16a << 16));
-      if (t16b<0) t16a++;
+      if (t16b<0) { t16a++;
+}
       tmp32 = LATTICE_MUL_32_32_RSFT16(t16a, t16b, tmp32b);
       fQtmp = tmp32; // Q15
 

@@ -43,7 +43,9 @@ CGImageRef CreateScaledCGImage(CGImageRef image, int width, int height) {
                                                colorspace,
                                                CGImageGetBitmapInfo(image));
 
-  if (!context) return nil;
+  if (!context) {
+    return nil;
+  }
 
   // Draw image to context, resizing it.
   CGContextDrawImage(context, CGRectMake(0, 0, width, height), image);
@@ -123,8 +125,9 @@ void MouseCursorMonitorMac::Capture() {
 
   CaptureImage(scale);
 
-  if (mode_ != SHAPE_AND_POSITION)
+  if (mode_ != SHAPE_AND_POSITION) {
     return;
+  }
 
   // Always report cursor position in DIP pixel.
   callback_->OnMouseCursorPosition(
@@ -141,7 +144,9 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
   NSSize nssize = [nsimage size];  // DIP size
 
   // No need to caputre cursor image if it's unchanged since last capture.
-  if ([[nsimage TIFFRepresentation] isEqual:[last_cursor_ TIFFRepresentation]]) return;
+  if ([[nsimage TIFFRepresentation] isEqual:[last_cursor_ TIFFRepresentation]]) {
+    return;
+  }
   last_cursor_ = nsimage;
 
   DesktopSize size(round(nssize.width * scale),
@@ -154,8 +159,9 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
                std::min(size.height(), static_cast<int>(nshotspot.y * scale))));
   CGImageRef cg_image =
       [nsimage CGImageForProposedRect:NULL context:nil hints:nil];
-  if (!cg_image)
+  if (!cg_image) {
     return;
+  }
 
   // Before 10.12, OSX may report 1X cursor on Retina screen. (See
   // crbug.com/632995.) After 10.12, OSX may report 2X cursor on non-Retina
@@ -170,14 +176,18 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
   if (CGImageGetBitsPerPixel(cg_image) != DesktopFrame::kBytesPerPixel * 8 ||
       CGImageGetWidth(cg_image) != static_cast<size_t>(size.width()) ||
       CGImageGetBitsPerComponent(cg_image) != 8) {
-    if (scaled_cg_image != nil) CGImageRelease(scaled_cg_image);
+    if (scaled_cg_image != nil) {
+      CGImageRelease(scaled_cg_image);
+    }
     return;
   }
 
   CGDataProviderRef provider = CGImageGetDataProvider(cg_image);
   CFDataRef image_data_ref = CGDataProviderCopyData(provider);
   if (image_data_ref == NULL) {
-    if (scaled_cg_image != nil) CGImageRelease(scaled_cg_image);
+    if (scaled_cg_image != nil) {
+      CGImageRelease(scaled_cg_image);
+    }
     return;
   }
 
@@ -193,7 +203,9 @@ void MouseCursorMonitorMac::CaptureImage(float scale) {
   image->CopyPixelsFrom(src_data, src_stride, DesktopRect::MakeSize(size));
 
   CFRelease(image_data_ref);
-  if (scaled_cg_image != nil) CGImageRelease(scaled_cg_image);
+  if (scaled_cg_image != nil) {
+    CGImageRelease(scaled_cg_image);
+  }
 
   std::unique_ptr<MouseCursor> cursor(
       new MouseCursor(image.release(), hotspot));

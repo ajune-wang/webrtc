@@ -147,8 +147,9 @@ TEST(SparseFIRFilterTest, VerifySampleBasedVsBlockBasedFiltering) {
   float output_sample_based[arraysize(kInput)];
   SparseFIRFilter filter_sample(kCoeffs, arraysize(kCoeffs), kSparsity,
                                 kOffset);
-  for (size_t i = 0; i < arraysize(kInput); ++i)
+  for (size_t i = 0; i < arraysize(kInput); ++i) {
     filter_sample.Filter(&kInput[i], 1, &output_sample_based[i]);
+  }
   VerifyOutput(output_block_based, output_sample_based);
 }
 
@@ -165,8 +166,9 @@ TEST(SparseFIRFilterTest, SimpleHighPassFilter) {
   EXPECT_FLOAT_EQ(0.f, output[1]);
   EXPECT_FLOAT_EQ(1.f, output[2]);
   EXPECT_FLOAT_EQ(1.f, output[3]);
-  for (size_t i = kSparsity + kOffset; i < arraysize(kConstantInput); ++i)
+  for (size_t i = kSparsity + kOffset; i < arraysize(kConstantInput); ++i) {
     EXPECT_FLOAT_EQ(0.f, output[i]);
+  }
 }
 
 TEST(SparseFIRFilterTest, SimpleLowPassFilter) {
@@ -182,8 +184,10 @@ TEST(SparseFIRFilterTest, SimpleLowPassFilter) {
   EXPECT_FLOAT_EQ(0.f, output[1]);
   EXPECT_FLOAT_EQ(1.f, output[2]);
   EXPECT_FLOAT_EQ(1.f, output[3]);
-  for (size_t i = kSparsity + kOffset; i < arraysize(kHighFrequencyInput); ++i)
+  for (size_t i = kSparsity + kOffset; i < arraysize(kHighFrequencyInput);
+       ++i) {
     EXPECT_FLOAT_EQ(0.f, output[i]);
+  }
 }
 
 TEST(SparseFIRFilterTest, SameOutputWhenSwappedCoefficientsAndInput) {

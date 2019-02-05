@@ -59,8 +59,9 @@ StreamStatisticianImpl::~StreamStatisticianImpl() = default;
 
 void StreamStatisticianImpl::OnRtpPacket(const RtpPacketReceived& packet) {
   StreamDataCounters counters = UpdateCounters(packet);
-  if (rtp_callback_)
+  if (rtp_callback_) {
     rtp_callback_->DataCountersUpdated(counters, ssrc_);
+  }
 }
 
 bool StreamStatisticianImpl::UpdateOutOfOrder(const RtpPacketReceived& packet,
@@ -92,12 +93,14 @@ bool StreamStatisticianImpl::UpdateOutOfOrder(const RtpPacketReceived& packet,
     return true;
   }
 
-  if (sequence_number > received_seq_max_)
+  if (sequence_number > received_seq_max_) {
     return false;
+  }
 
   // Old out of order packet, may be retransmit.
-  if (enable_retransmit_detection_ && IsRetransmitOfOldPacket(packet, now_ms))
+  if (enable_retransmit_detection_ && IsRetransmitOfOldPacket(packet, now_ms)) {
     receive_counters_.retransmitted.AddPacket(packet);
+  }
   return true;
 }
 
@@ -164,8 +167,9 @@ void StreamStatisticianImpl::FecPacketReceived(
     receive_counters_.fec.AddPacket(packet);
     counters = receive_counters_;
   }
-  if (rtp_callback_)
+  if (rtp_callback_) {
     rtp_callback_->DataCountersUpdated(counters, ssrc_);
+  }
 }
 
 void StreamStatisticianImpl::SetMaxReorderingThreshold(
@@ -200,8 +204,9 @@ bool StreamStatisticianImpl::GetStatistics(RtcpStatistics* statistics,
     *statistics = CalculateRtcpStatistics();
   }
 
-  if (rtcp_callback_)
+  if (rtcp_callback_) {
     rtcp_callback_->StatisticsUpdated(*statistics, ssrc_);
+  }
   return true;
 }
 
@@ -221,8 +226,9 @@ bool StreamStatisticianImpl::GetActiveStatisticsAndReset(
     *statistics = CalculateRtcpStatistics();
   }
 
-  if (rtcp_callback_)
+  if (rtcp_callback_) {
     rtcp_callback_->StatisticsUpdated(*statistics, ssrc_);
+  }
   return true;
 }
 
@@ -393,8 +399,9 @@ void ReceiveStatisticsImpl::FecPacketReceived(const RtpPacketReceived& packet) {
     rtc::CritScope cs(&receive_statistics_lock_);
     auto it = statisticians_.find(packet.Ssrc());
     // Ignore FEC if it is the first packet.
-    if (it == statisticians_.end())
+    if (it == statisticians_.end()) {
       return;
+    }
     impl = it->second;
   }
   impl->FecPacketReceived(packet);
@@ -404,8 +411,9 @@ StreamStatistician* ReceiveStatisticsImpl::GetStatistician(
     uint32_t ssrc) const {
   rtc::CritScope cs(&receive_statistics_lock_);
   auto it = statisticians_.find(ssrc);
-  if (it == statisticians_.end())
+  if (it == statisticians_.end()) {
     return NULL;
+  }
   return it->second;
 }
 
@@ -452,8 +460,9 @@ std::vector<rtcp::ReportBlock> ReceiveStatisticsImpl::RtcpReportBlocks(
                                     StreamStatisticianImpl* statistician) {
     // Do we have receive statistics to send?
     RtcpStatistics stats;
-    if (!statistician->GetActiveStatisticsAndReset(&stats))
+    if (!statistician->GetActiveStatisticsAndReset(&stats)) {
       return;
+    }
     result.emplace_back();
     rtcp::ReportBlock& block = result.back();
     block.SetMediaSsrc(media_ssrc);
@@ -469,14 +478,17 @@ std::vector<rtcp::ReportBlock> ReceiveStatisticsImpl::RtcpReportBlocks(
 
   const auto start_it = statisticians.upper_bound(last_returned_ssrc_);
   for (auto it = start_it;
-       result.size() < max_blocks && it != statisticians.end(); ++it)
+       result.size() < max_blocks && it != statisticians.end(); ++it) {
     add_report_block(it->first, it->second);
+  }
   for (auto it = statisticians.begin();
-       result.size() < max_blocks && it != start_it; ++it)
+       result.size() < max_blocks && it != start_it; ++it) {
     add_report_block(it->first, it->second);
+  }
 
-  if (!result.empty())
+  if (!result.empty()) {
     last_returned_ssrc_ = result.back().source_ssrc();
+  }
   return result;
 }
 

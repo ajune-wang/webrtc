@@ -153,10 +153,12 @@ class SSLDummyStreamBase : public rtc::StreamInterface,
     rtc::StreamResult r;
 
     r = in_->Read(buffer, buffer_len, read, error);
-    if (r == rtc::SR_BLOCK)
+    if (r == rtc::SR_BLOCK) {
       return rtc::SR_BLOCK;
-    if (r == rtc::SR_EOS)
+    }
+    if (r == rtc::SR_EOS) {
       return rtc::SR_EOS;
+    }
 
     if (r != rtc::SR_SUCCESS) {
       ADD_FAILURE();
@@ -444,8 +446,9 @@ class SSLStreamAdapterTestBase : public testing::Test,
       RTC_CHECK(!lose_first_packet_);
     }
 
-    if (!identities_set_)
+    if (!identities_set_) {
       SetPeerIdentitiesByDigest(true, true);
+    }
 
     // Start the handshake
     int rv;
@@ -570,40 +573,45 @@ class SSLStreamAdapterTestBase : public testing::Test,
   void SetHandshakeWait(int wait) { handshake_wait_ = wait; }
 
   void SetDtlsSrtpCryptoSuites(const std::vector<int>& ciphers, bool client) {
-    if (client)
+    if (client) {
       client_ssl_->SetDtlsSrtpCryptoSuites(ciphers);
-    else
+    } else {
       server_ssl_->SetDtlsSrtpCryptoSuites(ciphers);
+    }
   }
 
   bool GetDtlsSrtpCryptoSuite(bool client, int* retval) {
-    if (client)
+    if (client) {
       return client_ssl_->GetDtlsSrtpCryptoSuite(retval);
-    else
+    } else {
       return server_ssl_->GetDtlsSrtpCryptoSuite(retval);
+    }
   }
 
   std::unique_ptr<rtc::SSLCertificate> GetPeerCertificate(bool client) {
     std::unique_ptr<rtc::SSLCertChain> chain;
-    if (client)
+    if (client) {
       chain = client_ssl_->GetPeerSSLCertChain();
-    else
+    } else {
       chain = server_ssl_->GetPeerSSLCertChain();
+    }
     return (chain && chain->GetSize()) ? chain->Get(0).Clone() : nullptr;
   }
 
   bool GetSslCipherSuite(bool client, int* retval) {
-    if (client)
+    if (client) {
       return client_ssl_->GetSslCipherSuite(retval);
-    else
+    } else {
       return server_ssl_->GetSslCipherSuite(retval);
+    }
   }
 
   int GetSslVersion(bool client) {
-    if (client)
+    if (client) {
       return client_ssl_->GetSslVersion();
-    else
+    } else {
       return server_ssl_->GetSslVersion();
+    }
   }
 
   bool ExportKeyingMaterial(const char* label,
@@ -613,12 +621,13 @@ class SSLStreamAdapterTestBase : public testing::Test,
                             bool client,
                             unsigned char* result,
                             size_t result_len) {
-    if (client)
+    if (client) {
       return client_ssl_->ExportKeyingMaterial(label, context, context_len,
                                                use_context, result, result_len);
-    else
+    } else {
       return server_ssl_->ExportKeyingMaterial(label, context, context_len,
                                                use_context, result, result_len);
+    }
   }
 
   // To be implemented by subclasses.
@@ -704,8 +713,9 @@ class SSLStreamAdapterTestTLS
     char block[kBlockSize];
 
     send_stream_.GetSize(&size);
-    if (!size)
+    if (!size) {
       return;
+    }
 
     for (;;) {
       send_stream_.GetPosition(&position);
@@ -749,8 +759,9 @@ class SSLStreamAdapterTestTLS
         return;
       }
 
-      if (r == rtc::SR_BLOCK)
+      if (r == rtc::SR_BLOCK) {
         break;
+      }
 
       ASSERT_EQ(rtc::SR_SUCCESS, r);
       RTC_LOG(LS_VERBOSE) << "Read " << bread;
@@ -843,8 +854,9 @@ class SSLStreamAdapterTestDTLS
         return;
       }
 
-      if (r == rtc::SR_BLOCK)
+      if (r == rtc::SR_BLOCK) {
         break;
+      }
 
       ASSERT_EQ(rtc::SR_SUCCESS, r);
       RTC_LOG(LS_VERBOSE) << "Read " << bread;

@@ -106,8 +106,9 @@ void StunRequestManager::Remove(StunRequest* request) {
 
 void StunRequestManager::Clear() {
   std::vector<StunRequest*> requests;
-  for (RequestMap::iterator i = requests_.begin(); i != requests_.end(); ++i)
+  for (RequestMap::iterator i = requests_.begin(); i != requests_.end(); ++i) {
     requests.push_back(i->second);
+  }
 
   for (uint32_t i = 0; i < requests.size(); ++i) {
     // StunRequest destructor calls Remove() which deletes requests
@@ -144,8 +145,9 @@ bool StunRequestManager::CheckResponse(const char* data, size_t size) {
   // Check the appropriate bytes of the stream to see if they match the
   // transaction ID of a response we are expecting.
 
-  if (size < 20)
+  if (size < 20) {
     return false;
+  }
 
   std::string id;
   id.append(data + kStunTransactionIdOffset, kStunTransactionIdLength);

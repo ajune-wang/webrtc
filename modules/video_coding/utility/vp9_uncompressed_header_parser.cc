@@ -115,8 +115,9 @@ bool Vp9ReadFrameSizeFromRefs(rtc::BitBuffer* br) {
   for (size_t i = 0; i < kVp9NumRefsPerFrame; i++) {
     // Size in refs.
     RETURN_FALSE_IF_ERROR(br->ReadBits(&found_ref, 1));
-    if (found_ref)
+    if (found_ref) {
       break;
+    }
   }
 
   if (!found_ref) {
@@ -130,8 +131,9 @@ bool Vp9ReadFrameSizeFromRefs(rtc::BitBuffer* br) {
 bool Vp9ReadInterpolationFilter(rtc::BitBuffer* br) {
   uint32_t bit;
   RETURN_FALSE_IF_ERROR(br->ReadBits(&bit, 1));
-  if (bit)
+  if (bit) {
     return true;
+  }
 
   return br->ConsumeBits(2);
 }
@@ -179,14 +181,16 @@ bool GetQp(const uint8_t* buf, size_t length, int* qp) {
 
   // Profile.
   uint8_t profile;
-  if (!Vp9ReadProfile(&br, &profile))
+  if (!Vp9ReadProfile(&br, &profile)) {
     return false;
+  }
 
   // Show existing frame.
   uint32_t show_existing_frame;
   RETURN_FALSE_IF_ERROR(br.ReadBits(&show_existing_frame, 1));
-  if (show_existing_frame)
+  if (show_existing_frame) {
     return false;
+  }
 
   // Frame type: KEY_FRAME(0), INTER_FRAME(1).
   uint32_t frame_type;
@@ -197,36 +201,46 @@ bool GetQp(const uint8_t* buf, size_t length, int* qp) {
   RETURN_FALSE_IF_ERROR(br.ReadBits(&error_resilient, 1));
 
   if (!frame_type) {
-    if (!Vp9ReadSyncCode(&br))
+    if (!Vp9ReadSyncCode(&br)) {
       return false;
-    if (!Vp9ReadColorConfig(&br, profile))
+    }
+    if (!Vp9ReadColorConfig(&br, profile)) {
       return false;
-    if (!Vp9ReadFrameSize(&br))
+    }
+    if (!Vp9ReadFrameSize(&br)) {
       return false;
-    if (!Vp9ReadRenderSize(&br))
+    }
+    if (!Vp9ReadRenderSize(&br)) {
       return false;
+    }
 
   } else {
     uint32_t intra_only = 0;
-    if (!show_frame)
+    if (!show_frame) {
       RETURN_FALSE_IF_ERROR(br.ReadBits(&intra_only, 1));
-    if (!error_resilient)
+    }
+    if (!error_resilient) {
       RETURN_FALSE_IF_ERROR(br.ConsumeBits(2));  // Reset frame context.
+    }
 
     if (intra_only) {
-      if (!Vp9ReadSyncCode(&br))
+      if (!Vp9ReadSyncCode(&br)) {
         return false;
+      }
 
       if (profile > 0) {
-        if (!Vp9ReadColorConfig(&br, profile))
+        if (!Vp9ReadColorConfig(&br, profile)) {
           return false;
+        }
       }
       // Refresh frame flags.
       RETURN_FALSE_IF_ERROR(br.ConsumeBits(8));
-      if (!Vp9ReadFrameSize(&br))
+      if (!Vp9ReadFrameSize(&br)) {
         return false;
-      if (!Vp9ReadRenderSize(&br))
+      }
+      if (!Vp9ReadRenderSize(&br)) {
         return false;
+      }
     } else {
       // Refresh frame flags.
       RETURN_FALSE_IF_ERROR(br.ConsumeBits(8));
@@ -237,14 +251,16 @@ bool GetQp(const uint8_t* buf, size_t length, int* qp) {
         RETURN_FALSE_IF_ERROR(br.ConsumeBits(4));
       }
 
-      if (!Vp9ReadFrameSizeFromRefs(&br))
+      if (!Vp9ReadFrameSizeFromRefs(&br)) {
         return false;
+      }
 
       // Allow high precision mv.
       RETURN_FALSE_IF_ERROR(br.ConsumeBits(1));
       // Interpolation filter.
-      if (!Vp9ReadInterpolationFilter(&br))
+      if (!Vp9ReadInterpolationFilter(&br)) {
         return false;
+      }
     }
   }
 
@@ -257,8 +273,9 @@ bool GetQp(const uint8_t* buf, size_t length, int* qp) {
   // Frame context index.
   RETURN_FALSE_IF_ERROR(br.ConsumeBits(2));
 
-  if (!Vp9ReadLoopfilter(&br))
+  if (!Vp9ReadLoopfilter(&br)) {
     return false;
+  }
 
   // Base QP.
   uint8_t base_q0;

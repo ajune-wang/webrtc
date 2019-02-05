@@ -170,21 +170,24 @@ static void CalcCorrelation(int32_t *PSpecQ12, int32_t *CorrQ7)
   }
 
   sum = 2;
-  for (n = 0; n < FRAMESAMPLES/8; n++)
+  for (n = 0; n < FRAMESAMPLES/8; n++) {
     sum += summ[n];
+}
   CorrQ7[0] = sum;
 
   for (k = 0; k < AR_ORDER; k += 2) {
     sum = 0;
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       sum += (WebRtcIsacfix_kCos[k][n] * diff[n] + 256) >> 9;
+}
     CorrQ7[k+1] = sum;
   }
 
   for (k=1; k<AR_ORDER; k+=2) {
     sum = 0;
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       sum += (WebRtcIsacfix_kCos[k][n] * summ[n] + 256) >> 9;
+}
     CorrQ7[k+1] = sum;
   }
 }
@@ -219,8 +222,9 @@ static void CalcInvArSpec(const int16_t *ARCoefQ12,
   int16_t round, shftVal = 0, sh;
 
   sum = 0;
-  for (n = 0; n < AR_ORDER+1; n++)
+  for (n = 0; n < AR_ORDER+1; n++) {
     sum += WEBRTC_SPL_MUL(ARCoefQ12[n], ARCoefQ12[n]);    /* Q24 */
+}
   sum = ((sum >> 6) * 65 + 32768) >> 16;  /* Result in Q8. */
   CorrQ11[0] = (sum * gainQ10 + 256) >> 9;
 
@@ -237,41 +241,48 @@ static void CalcInvArSpec(const int16_t *ARCoefQ12,
 
   for (k = 1; k < AR_ORDER+1; k++) {
     sum = 16384;
-    for (n = k; n < AR_ORDER+1; n++)
+    for (n = k; n < AR_ORDER+1; n++) {
       sum += WEBRTC_SPL_MUL(ARCoefQ12[n-k], ARCoefQ12[n]);  /* Q24 */
+}
     sum >>= 15;
     CorrQ11[k] = (sum * tmpGain + round) >> shftVal;
   }
   sum = CorrQ11[0] << 7;
-  for (n = 0; n < FRAMESAMPLES/8; n++)
+  for (n = 0; n < FRAMESAMPLES/8; n++) {
     CurveQ16[n] = sum;
+}
 
   for (k = 1; k < AR_ORDER; k += 2) {
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       CurveQ16[n] +=
           (OverflowingMulS16S32ToS32(WebRtcIsacfix_kCos[k][n], CorrQ11[k + 1]) +
            2) >>
           2;
+}
   }
 
   CS_ptrQ9 = WebRtcIsacfix_kCos[0];
 
   /* If CorrQ11[1] too large we avoid getting overflow in the calculation by shifting */
   sh=WebRtcSpl_NormW32(CorrQ11[1]);
-  if (CorrQ11[1]==0) /* Use next correlation */
+  if (CorrQ11[1]==0) { /* Use next correlation */
     sh=WebRtcSpl_NormW32(CorrQ11[2]);
+}
 
-  if (sh<9)
+  if (sh<9) {
     shftVal = 9 - sh;
-  else
+  } else {
     shftVal = 0;
+}
 
-  for (n = 0; n < FRAMESAMPLES/8; n++)
+  for (n = 0; n < FRAMESAMPLES/8; n++) {
     diffQ16[n] = (CS_ptrQ9[n] * (CorrQ11[1] >> shftVal) + 2) >> 2;
+}
   for (k = 2; k < AR_ORDER; k += 2) {
     CS_ptrQ9 = WebRtcIsacfix_kCos[k];
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       diffQ16[n] += (CS_ptrQ9[n] * (CorrQ11[k + 1] >> shftVal) + 2) >> 2;
+}
   }
 
   for (k=0; k<FRAMESAMPLES/8; k++) {
@@ -297,8 +308,9 @@ static void CalcRootInvArSpec(const int16_t *ARCoefQ12,
   int32_t res, in_sqrt, newRes;
 
   sum = 0;
-  for (n = 0; n < AR_ORDER+1; n++)
+  for (n = 0; n < AR_ORDER+1; n++) {
     sum += WEBRTC_SPL_MUL(ARCoefQ12[n], ARCoefQ12[n]);    /* Q24 */
+}
   sum = ((sum >> 6) * 65 + 32768) >> 16;  /* Result in Q8. */
   CorrQ11[0] = (sum * gainQ10 + 256) >> 9;
 
@@ -315,38 +327,45 @@ static void CalcRootInvArSpec(const int16_t *ARCoefQ12,
 
   for (k = 1; k < AR_ORDER+1; k++) {
     sum = 16384;
-    for (n = k; n < AR_ORDER+1; n++)
+    for (n = k; n < AR_ORDER+1; n++) {
       sum += WEBRTC_SPL_MUL(ARCoefQ12[n-k], ARCoefQ12[n]);  /* Q24 */
+}
     sum >>= 15;
     CorrQ11[k] = (sum * tmpGain + round) >> shftVal;
   }
   sum = CorrQ11[0] << 7;
-  for (n = 0; n < FRAMESAMPLES/8; n++)
+  for (n = 0; n < FRAMESAMPLES/8; n++) {
     summQ16[n] = sum;
+}
 
   for (k = 1; k < (AR_ORDER); k += 2) {
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       summQ16[n] += ((CorrQ11[k + 1] * WebRtcIsacfix_kCos[k][n]) + 2) >> 2;
+}
   }
 
   CS_ptrQ9 = WebRtcIsacfix_kCos[0];
 
   /* If CorrQ11[1] too large we avoid getting overflow in the calculation by shifting */
   sh=WebRtcSpl_NormW32(CorrQ11[1]);
-  if (CorrQ11[1]==0) /* Use next correlation */
+  if (CorrQ11[1]==0) { /* Use next correlation */
     sh=WebRtcSpl_NormW32(CorrQ11[2]);
+}
 
-  if (sh<9)
+  if (sh<9) {
     shftVal = 9 - sh;
-  else
+  } else {
     shftVal = 0;
+}
 
-  for (n = 0; n < FRAMESAMPLES/8; n++)
+  for (n = 0; n < FRAMESAMPLES/8; n++) {
     diffQ16[n] = (CS_ptrQ9[n] * (CorrQ11[1] >> shftVal) + 2) >> 2;
+}
   for (k = 2; k < AR_ORDER; k += 2) {
     CS_ptrQ9 = WebRtcIsacfix_kCos[k];
-    for (n = 0; n < FRAMESAMPLES/8; n++)
+    for (n = 0; n < FRAMESAMPLES/8; n++) {
       diffQ16[n] += (CS_ptrQ9[n] * (CorrQ11[k + 1] >> shftVal) + 2) >> 2;
+}
   }
 
   in_sqrt = summQ16[0] + (diffQ16[0] << shftVal);
@@ -360,8 +379,9 @@ static void CalcRootInvArSpec(const int16_t *ARCoefQ12,
     i = 10;
 
     /* make in_sqrt positive to prohibit sqrt of negative values */
-    if(in_sqrt<0)
+    if(in_sqrt<0) {
       in_sqrt=-in_sqrt;
+}
 
     newRes = (in_sqrt / res + res) >> 1;
     do
@@ -379,8 +399,9 @@ static void CalcRootInvArSpec(const int16_t *ARCoefQ12,
     i = 10;
 
     /* make in_sqrt positive to prohibit sqrt of negative values */
-    if(in_sqrt<0)
+    if(in_sqrt<0) {
       in_sqrt=-in_sqrt;
+}
 
     newRes = (in_sqrt / res + res) >> 1;
     do
@@ -489,14 +510,16 @@ int WebRtcIsacfix_DecodeSpec(Bitstr_dec *streamdata,
   GenerateDitherQ7(data, streamdata->W_upper, FRAMESAMPLES, AvgPitchGain_Q12); /* Dither is output in vector 'Data' */
 
   /* decode model parameters */
-  if (WebRtcIsacfix_DecodeRcCoef(streamdata, RCQ15) < 0)
+  if (WebRtcIsacfix_DecodeRcCoef(streamdata, RCQ15) < 0) {
     return -ISAC_RANGE_ERROR_DECODE_SPECTRUM;
+}
 
 
   WebRtcSpl_ReflCoefToLpc(RCQ15, AR_ORDER, ARCoefQ12);
 
-  if (WebRtcIsacfix_DecodeGain2(streamdata, &gain2_Q10) < 0)
+  if (WebRtcIsacfix_DecodeGain2(streamdata, &gain2_Q10) < 0) {
     return -ISAC_RANGE_ERROR_DECODE_SPECTRUM;
+}
 
   /* compute inverse AR power spectrum */
   CalcInvArSpec(ARCoefQ12, gain2_Q10, invARSpec2_Q16);
@@ -505,8 +528,9 @@ int WebRtcIsacfix_DecodeSpec(Bitstr_dec *streamdata,
   /* 'data' input and output. Input = Dither */
   len = WebRtcIsacfix_DecLogisticMulti2(data, streamdata, invARSpec2_Q16, (int16_t)FRAMESAMPLES);
 
-  if (len<1)
+  if (len<1) {
     return -ISAC_RANGE_ERROR_DECODE_SPECTRUM;
+}
 
   /* subtract dither and scale down spectral samples with low SNR */
   if (AvgPitchGain_Q12 <= 614)
@@ -594,11 +618,13 @@ int WebRtcIsacfix_EncodeSpec(const int16_t *fr,
   lft_shft = WebRtcSpl_NormW32(CorrQ7[0]) - 18;
 
   if (lft_shft > 0) {
-    for (k=0; k<AR_ORDER+1; k++)
+    for (k=0; k<AR_ORDER+1; k++) {
       CorrQ7_norm[k] = CorrQ7[k] << lft_shft;
+}
   } else {
-    for (k=0; k<AR_ORDER+1; k++)
+    for (k=0; k<AR_ORDER+1; k++) {
       CorrQ7_norm[k] = CorrQ7[k] >> -lft_shft;
+}
   }
 
   /* find RC coefficients */
@@ -616,27 +642,32 @@ int WebRtcIsacfix_EncodeSpec(const int16_t *fr,
   /* compute ARCoef' * Corr * ARCoef in Q19 */
   nrg = 0;
   for (j = 0; j <= AR_ORDER; j++) {
-    for (n = 0; n <= j; n++)
+    for (n = 0; n <= j; n++) {
       nrg += (ARCoefQ12[j] * ((CorrQ7_norm[j - n] * ARCoefQ12[n] + 256) >> 9) +
           4) >> 3;
-    for (n = j+1; n <= AR_ORDER; n++)
+}
+    for (n = j+1; n <= AR_ORDER; n++) {
       nrg += (ARCoefQ12[j] * ((CorrQ7_norm[n - j] * ARCoefQ12[n] + 256) >> 9) +
           4) >> 3;
+}
   }
 
-  if (lft_shft > 0)
+  if (lft_shft > 0) {
     nrg >>= lft_shft;
-  else
+  } else {
     nrg <<= -lft_shft;
+}
 
-  if(nrg>131072)
+  if(nrg>131072) {
     gain2_Q10 = WebRtcSpl_DivResultInQ31(FRAMESAMPLES >> 2, nrg);  /* also shifts 31 bits to the left! */
-  else
+  } else {
     gain2_Q10 = FRAMESAMPLES >> 2;
+}
 
   /* quantize & code gain2_Q10 */
-  if (WebRtcIsacfix_EncodeGain2(&gain2_Q10, streamdata))
+  if (WebRtcIsacfix_EncodeGain2(&gain2_Q10, streamdata)) {
     return -1;
+}
 
   /* compute inverse AR magnitude spectrum */
   CalcRootInvArSpec(ARCoefQ12, gain2_Q10, invARSpecQ8);
@@ -644,8 +675,9 @@ int WebRtcIsacfix_EncodeSpec(const int16_t *fr,
 
   /* arithmetic coding of spectrum */
   status = WebRtcIsacfix_EncLogisticMulti2(streamdata, dataQ7, invARSpecQ8, (int16_t)FRAMESAMPLES);
-  if ( status )
+  if ( status ) {
     return( status );
+}
 
   return 0;
 }
@@ -773,13 +805,15 @@ static void Poly2LarFix(int16_t *lowbandQ15,
 
     Rc2LarFix(lowbandQ15, larQ17, orderLo);
 
-    for (n = 0; n < orderLo; n++)
+    for (n = 0; n < orderLo; n++) {
       outpQ17[n] = larQ17[n]; //Q17
+}
 
     Rc2LarFix(hibandQ15, larQ17, orderHi);
 
-    for (n = 0; n < orderHi; n++)
+    for (n = 0; n < orderHi; n++) {
       outpQ17[n + orderLo] = larQ17[n]; //Q17;
+}
 
     outpQ17 += orderTot;
     lowbandQ15 += orderLo;
@@ -811,13 +845,15 @@ static void Lar2polyFix(int32_t *larsQ17,
 
     /* Low band */
     Lar2RcFix(&inpQ17[0], rcQ15, orderLo);
-    for (n = 0; n < orderLo; n++)
+    for (n = 0; n < orderLo; n++) {
       outplQ15[n] = rcQ15[n]; // Refl. coeffs
+}
 
     /* High band */
     Lar2RcFix(&inpQ17[orderLo], rcQ15, orderHi);
-    for (n = 0; n < orderHi; n++)
+    for (n = 0; n < orderHi; n++) {
       outphQ15[n] = rcQ15[n]; // Refl. coeffs
+}
 
     inpQ17 += orderTot;
     outplQ15 += orderLo;
@@ -944,8 +980,9 @@ int WebRtcIsacfix_DecodeLpc(int32_t *gain_lo_hiQ17,
   int err;
 
   err = WebRtcIsacfix_DecodeLpcCoef(streamdata, larsQ17, gain_lo_hiQ17, outmodel);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return -ISAC_RANGE_ERROR_DECODE_LPC;
+}
 
   Lar2polyFix(larsQ17, LPCCoef_loQ15, ORDERLO, LPCCoef_hiQ15, ORDERHI, SUBFRAMES);
 
@@ -977,21 +1014,24 @@ int WebRtcIsacfix_DecodeLpcCoef(Bitstr_dec *streamdata,
 
   /* entropy decoding of model number */
   err = WebRtcIsacfix_DecHistOneStepMulti(&model, streamdata, WebRtcIsacfix_kModelCdfPtr, WebRtcIsacfix_kModelInitIndex, 1);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   /* entropy decoding of quantization indices */
   err = WebRtcIsacfix_DecHistOneStepMulti(index_QQ, streamdata, WebRtcIsacfix_kCdfShapePtr[model], WebRtcIsacfix_kInitIndexShape[model], KLT_ORDER_SHAPE);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
   /* find quantization levels for coefficients */
   for (k=0; k<KLT_ORDER_SHAPE; k++) {
     tmpcoeffs_sQ10[WebRtcIsacfix_kSelIndShape[k]] = WebRtcIsacfix_kLevelsShapeQ10[WebRtcIsacfix_kOfLevelsShape[model]+WebRtcIsacfix_kOffsetShape[model][k] + index_QQ[k]];
   }
 
   err = WebRtcIsacfix_DecHistOneStepMulti(index_QQ, streamdata, WebRtcIsacfix_kCdfGainPtr[model], WebRtcIsacfix_kInitIndexGain[model], KLT_ORDER_GAIN);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
   /* find quantization levels for coefficients */
   for (k=0; k<KLT_ORDER_GAIN; k++) {
     tmpcoeffs_gQ17[WebRtcIsacfix_kSelIndGain[k]] = WebRtcIsacfix_kLevelsGainQ17[WebRtcIsacfix_kOfLevelsGain[model]+ WebRtcIsacfix_kOffsetGain[model][k] + index_QQ[k]];
@@ -1213,10 +1253,11 @@ static int EstCodeLpcCoef(int32_t *LPCCoefQ17,
   {
     index_sQQ[k] = (int16_t)(CalcLrIntQ(tmpcoeffs_sQ17[WebRtcIsacfix_kSelIndShape[k]], 17) + WebRtcIsacfix_kQuantMinShape[k]); //ATTN: ok?
 
-    if (index_sQQ[k] < 0)
+    if (index_sQQ[k] < 0) {
       index_sQQ[k] = 0;
-    else if (index_sQQ[k] > WebRtcIsacfix_kMaxIndShape[k])
+    } else if (index_sQQ[k] > WebRtcIsacfix_kMaxIndShape[k]) {
       index_sQQ[k] = WebRtcIsacfix_kMaxIndShape[k];
+}
     index_ovr_sQQ[k] = WebRtcIsacfix_kOffsetShape[0][k]+index_sQQ[k];
 
     posQQ = WebRtcIsacfix_kOfLevelsShape[0] + index_ovr_sQQ[k];
@@ -1485,8 +1526,9 @@ int WebRtcIsacfix_DecodeRcCoef(Bitstr_dec *streamdata, int16_t *RCQ15)
 
   /* entropy decoding of quantization indices */
   err = WebRtcIsacfix_DecHistOneStepMulti(index, streamdata, WebRtcIsacfix_kRcCdfPtr, WebRtcIsacfix_kRcInitInd, AR_ORDER);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   /* find quantization levels for reflection coefficients */
   for (k=0; k<AR_ORDER; k++)
@@ -1513,12 +1555,14 @@ int WebRtcIsacfix_EncodeRcCoef(int16_t *RCQ15, Bitstr_enc *streamdata)
 
     if (RCQ15[k] > WebRtcIsacfix_kRcBound[index[k]])
     {
-      while (RCQ15[k] > WebRtcIsacfix_kRcBound[index[k] + 1])
+      while (RCQ15[k] > WebRtcIsacfix_kRcBound[index[k] + 1]) {
         index[k]++;
+}
     }
     else
     {
-      while (RCQ15[k] < WebRtcIsacfix_kRcBound[--index[k]]) ;
+      while (RCQ15[k] < WebRtcIsacfix_kRcBound[--index[k]]) { ;
+}
     }
 
     RCQ15[k] = *(WebRtcIsacfix_kRcLevPtr[k] + index[k]);
@@ -1569,12 +1613,14 @@ int WebRtcIsacfix_EncodeGain2(int32_t *gainQ10, Bitstr_enc *streamdata)
   index = WebRtcIsacfix_kGainInitInd[0];
   if (*gainQ10 > WebRtcIsacfix_kGain2Bound[index])
   {
-    while (*gainQ10 > WebRtcIsacfix_kGain2Bound[index + 1])
+    while (*gainQ10 > WebRtcIsacfix_kGain2Bound[index + 1]) {
       index++;
+}
   }
   else
   {
-    while (*gainQ10 < WebRtcIsacfix_kGain2Bound[--index]) ;
+    while (*gainQ10 < WebRtcIsacfix_kGain2Bound[--index]) { ;
+}
   }
 
   /* dequantize */
@@ -1601,8 +1647,9 @@ int WebRtcIsacfix_DecodePitchGain(Bitstr_dec *streamdata, int16_t *PitchGains_Q1
   *pitch_gain_cdf_ptr = WebRtcIsacfix_kPitchGainCdf;
   err = WebRtcIsacfix_DecHistBisectMulti(&index_comb, streamdata, pitch_gain_cdf_ptr, WebRtcIsacfix_kCdfTableSizeGain, 1);
   /* error check, Q_mean_Gain.. tables are of size 144 */
-  if ((err < 0) || (index_comb < 0) || (index_comb >= 144))
+  if ((err < 0) || (index_comb < 0) || (index_comb >= 144)) {
     return -ISAC_RANGE_ERROR_DECODE_PITCH_GAIN;
+}
 
   /* unquantize back to pitch gains by table look-up */
   PitchGains_Q12[0] = WebRtcIsacfix_kPitchGain1[index_comb];
@@ -1628,8 +1675,9 @@ int WebRtcIsacfix_EncodePitchGain(int16_t* PitchGains_Q12,
 
 
   /* get the approximate arcsine (almost linear)*/
-  for (k=0; k<PITCH_SUBFRAMES; k++)
+  for (k=0; k<PITCH_SUBFRAMES; k++) {
     SQ15[k] = (int16_t)(PitchGains_Q12[k] * 33 >> 2);  // Q15
+}
 
 
   /* find quantization index; only for the first three transform coefficients */
@@ -1644,8 +1692,9 @@ int WebRtcIsacfix_EncodePitchGain(int16_t* PitchGains_Q12,
     index[k] = (int16_t)((CQ17 + 8192)>>14); // Rounding and scaling with stepsize (=1/0.125=8)
 
     /* check that the index is not outside the boundaries of the table */
-    if (index[k] < WebRtcIsacfix_kLowerlimiGain[k]) index[k] = WebRtcIsacfix_kLowerlimiGain[k];
-    else if (index[k] > WebRtcIsacfix_kUpperlimitGain[k]) index[k] = WebRtcIsacfix_kUpperlimitGain[k];
+    if (index[k] < WebRtcIsacfix_kLowerlimiGain[k]) { index[k] = WebRtcIsacfix_kLowerlimiGain[k];
+    } else if (index[k] > WebRtcIsacfix_kUpperlimitGain[k]) { index[k] = WebRtcIsacfix_kUpperlimitGain[k];
+}
     index[k] -= WebRtcIsacfix_kLowerlimiGain[k];
   }
 
@@ -1700,8 +1749,9 @@ int WebRtcIsacfix_DecodePitchLag(Bitstr_dec *streamdata,
   int16_t shft;
 
   meangainQ12=0;
-  for (k = 0; k < 4; k++)
+  for (k = 0; k < 4; k++) {
     meangainQ12 += PitchGain_Q12[k];
+}
 
   meangainQ12 >>= 2;  // Get average.
 
@@ -1734,12 +1784,14 @@ int WebRtcIsacfix_DecodePitchLag(Bitstr_dec *streamdata,
 
   /* entropy decoding of quantization indices */
   err = WebRtcIsacfix_DecHistBisectMulti(index, streamdata, cdf, cdf_size, 1);
-  if ((err<0) || (index[0]<0))  // error check
+  if ((err<0) || (index[0]<0)) {  // error check
     return -ISAC_RANGE_ERROR_DECODE_PITCH_LAG;
+}
 
   err = WebRtcIsacfix_DecHistOneStepMulti(index+1, streamdata, cdf+1, init_index, 3);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return -ISAC_RANGE_ERROR_DECODE_PITCH_LAG;
+}
 
 
   /* unquantize back to transform coefficients and do the inverse transform: S = T'*C */
@@ -1786,8 +1838,9 @@ int WebRtcIsacfix_EncodePitchLag(int16_t* PitchLagsQ7,
 
   /* compute mean pitch gain */
   meangainQ12=0;
-  for (k = 0; k < 4; k++)
+  for (k = 0; k < 4; k++) {
     meangainQ12 += PitchGain_Q12[k];
+}
 
   meangainQ12 >>= 2;
 
@@ -1825,8 +1878,9 @@ int WebRtcIsacfix_EncodePitchLag(int16_t* PitchLagsQ7,
   {
     /*  transform */
     CQ17=0;
-    for (j=0; j<PITCH_SUBFRAMES; j++)
+    for (j=0; j<PITCH_SUBFRAMES; j++) {
       CQ17 += WebRtcIsacfix_kTransform[k][j] * PitchLagsQ7[j] >> 2;  // Q17
+}
 
     CQ17 = WEBRTC_SPL_SHIFT_W32(CQ17,shft); // Scale with StepSize
 
@@ -1835,8 +1889,9 @@ int WebRtcIsacfix_EncodePitchLag(int16_t* PitchLagsQ7,
     index[k] =  tmp16b;
 
     /* check that the index is not outside the boundaries of the table */
-    if (index[k] < lower_limit[k]) index[k] = lower_limit[k];
-    else if (index[k] > upper_limit[k]) index[k] = upper_limit[k];
+    if (index[k] < lower_limit[k]) { index[k] = lower_limit[k];
+    } else if (index[k] > upper_limit[k]) { index[k] = upper_limit[k];
+}
     index[k] -= lower_limit[k];
 
     /* Save data for creation of multiple bitstreams */
@@ -1901,8 +1956,9 @@ int WebRtcIsacfix_DecodeFrameLen(Bitstr_dec *streamdata,
   err = 0;
   /* entropy decoding of frame length [1:30ms,2:60ms] */
   err = WebRtcIsacfix_DecHistOneStepMulti(&frame_mode, streamdata, kFrameLenCdfPtr, kFrameLenInitIndex, 1);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return -ISAC_RANGE_ERROR_DECODE_FRAME_LENGTH;
+}
 
   switch(frame_mode) {
     case 1:
@@ -1938,8 +1994,9 @@ int WebRtcIsacfix_EncodeFrameLen(int16_t framesamples, Bitstr_enc *streamdata) {
       status = - ISAC_DISALLOWED_FRAME_MODE_ENCODER;
   }
 
-  if (status < 0)
+  if (status < 0) {
     return status;
+}
 
   status = WebRtcIsacfix_EncHistMulti(streamdata, &frame_mode, kFrameLenCdfPtr, 1);
 
@@ -1966,8 +2023,9 @@ int WebRtcIsacfix_DecodeSendBandwidth(Bitstr_dec *streamdata, int16_t *BWno) {
 
   /* entropy decoding of sender's BW estimation [0..23] */
   err = WebRtcIsacfix_DecHistOneStepMulti(&BWno32, streamdata, kBwCdfPtr, kBwInitIndex, 1);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return -ISAC_RANGE_ERROR_DECODE_BANDWIDTH;
+}
   *BWno = (int16_t)BWno32;
   return err;
 

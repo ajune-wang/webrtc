@@ -62,8 +62,9 @@ class TestBuffer : public webrtc::I420Buffer {
  private:
   friend class rtc::RefCountedObject<TestBuffer>;
   ~TestBuffer() override {
-    if (event_)
+    if (event_) {
       event_->Set();
+    }
   }
   rtc::Event* const event_;
 };
@@ -241,15 +242,17 @@ class MockableSendStatisticsProxy : public SendStatisticsProxy {
 
   VideoSendStream::Stats GetStats() override {
     rtc::CritScope cs(&lock_);
-    if (mock_stats_)
+    if (mock_stats_) {
       return *mock_stats_;
+    }
     return SendStatisticsProxy::GetStats();
   }
 
   int GetInputFrameRate() const override {
     rtc::CritScope cs(&lock_);
-    if (mock_stats_)
+    if (mock_stats_) {
       return mock_stats_->input_frame_rate;
+    }
     return SendStatisticsProxy::GetInputFrameRate();
   }
   void SetMockStats(const VideoSendStream::Stats& stats) {
@@ -318,8 +321,9 @@ class VideoStreamEncoderTest : public ::testing::Test {
   }
 
   void ConfigureEncoder(VideoEncoderConfig video_encoder_config) {
-    if (video_stream_encoder_)
+    if (video_stream_encoder_) {
       video_stream_encoder_->Stop();
+    }
     video_stream_encoder_.reset(new VideoStreamEncoderUnderTest(
         stats_proxy_.get(), video_send_config_.encoder_settings));
     video_stream_encoder_->SetSink(&sink_, false /* rotation_applied */);
@@ -592,8 +596,9 @@ class VideoStreamEncoderTest : public ::testing::Test {
       }
       int32_t result =
           FakeEncoder::Encode(input_image, codec_specific_info, frame_types);
-      if (block_encode)
+      if (block_encode) {
         EXPECT_TRUE(continue_encode_event_.Wait(kDefaultTimeoutMs));
+      }
       return result;
     }
 
@@ -613,8 +618,9 @@ class VideoStreamEncoderTest : public ::testing::Test {
                                       config->VP8().numberOfTemporalLayers));
         }
       }
-      if (force_init_encode_failed_)
+      if (force_init_encode_failed_) {
         return -1;
+      }
 
       initialized_ = true;
       return res;
@@ -669,8 +675,9 @@ class VideoStreamEncoderTest : public ::testing::Test {
     bool TimedWaitForEncodedFrame(int64_t expected_ntp_time,
                                   int64_t timeout_ms) {
       uint32_t timestamp = 0;
-      if (!encoded_frame_event_.Wait(timeout_ms))
+      if (!encoded_frame_event_.Wait(timeout_ms)) {
         return false;
+      }
       {
         rtc::CritScope lock(&crit_);
         timestamp = last_timestamp_;
@@ -1816,8 +1823,10 @@ TEST_F(VideoStreamEncoderTest, DoesNotScaleBelowSetResolutionLimit) {
     video_stream_encoder_->TriggerQualityLow();
     EXPECT_GE(video_source_.sink_wants().max_pixel_count, kMinPixelsPerFrame);
 
-    if (video_source_.sink_wants().max_pixel_count < last_wants.max_pixel_count)
+    if (video_source_.sink_wants().max_pixel_count <
+        last_wants.max_pixel_count) {
       ++downscales;
+    }
 
     EXPECT_TRUE(stats_proxy_->GetStats().bw_limited_resolution);
     EXPECT_EQ(downscales,

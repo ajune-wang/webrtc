@@ -37,8 +37,9 @@ ChannelController::~ChannelController() = default;
 
 void ChannelController::UpdateNetworkMetrics(
     const NetworkMetrics& network_metrics) {
-  if (network_metrics.uplink_bandwidth_bps)
+  if (network_metrics.uplink_bandwidth_bps) {
     uplink_bandwidth_bps_ = network_metrics.uplink_bandwidth_bps;
+  }
 }
 
 void ChannelController::MakeDecision(AudioEncoderRuntimeConfig* config) {

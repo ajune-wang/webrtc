@@ -181,8 +181,9 @@ void ModuleRtpRtcpImpl::Process() {
         max_rtt = (rtt > max_rtt) ? rtt : max_rtt;
       }
       // Report the rtt.
-      if (rtt_stats_ && max_rtt != 0)
+      if (rtt_stats_ && max_rtt != 0) {
         rtt_stats_->OnRttUpdate(max_rtt);
+      }
     }
 
     // Verify receiver reports are delivered and the reported sequence number
@@ -222,13 +223,15 @@ void ModuleRtpRtcpImpl::Process() {
     if (rtt_stats_) {
       // Make sure we have a valid RTT before setting.
       int64_t last_rtt = rtt_stats_->LastProcessedRtt();
-      if (last_rtt >= 0)
+      if (last_rtt >= 0) {
         set_rtt_ms(last_rtt);
+      }
     }
   }
 
-  if (rtcp_sender_.TimeToSendRTCPReport())
+  if (rtcp_sender_.TimeToSendRTCPReport()) {
     rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
+  }
 
   if (TMMBR() && rtcp_receiver_.UpdateTmmbrTimers()) {
     rtcp_receiver_.NotifyTmmbrUpdated();
@@ -253,8 +256,9 @@ void ModuleRtpRtcpImpl::SetRtxSendPayloadType(int payload_type,
 }
 
 absl::optional<uint32_t> ModuleRtpRtcpImpl::FlexfecSsrc() const {
-  if (rtp_sender_)
+  if (rtp_sender_) {
     return rtp_sender_->FlexfecSsrc();
+  }
   return absl::nullopt;
 }
 
@@ -478,8 +482,9 @@ void ModuleRtpRtcpImpl::SetMaxRtpPacketSize(size_t rtp_packet_size) {
       << "rtp packet size too small: " << rtp_packet_size;
 
   rtcp_sender_.SetMaxRtpPacketSize(rtp_packet_size);
-  if (rtp_sender_)
+  if (rtp_sender_) {
     rtp_sender_->SetMaxRtpPacketSize(rtp_packet_size);
+  }
 }
 
 RtcpMode ModuleRtpRtcpImpl::RTCP() const {
@@ -596,8 +601,9 @@ void ModuleRtpRtcpImpl::GetRtpPacketLossStats(
     bool outgoing,
     uint32_t ssrc,
     struct RtpPacketLossStats* loss_stats) const {
-  if (!loss_stats)
+  if (!loss_stats) {
     return;
+  }
   const PacketLossStats* stats_source = NULL;
   if (outgoing) {
     if (SSRC() == ssrc) {
@@ -824,8 +830,9 @@ void ModuleRtpRtcpImpl::OnRequestSendReport() {
 
 void ModuleRtpRtcpImpl::OnReceivedNack(
     const std::vector<uint16_t>& nack_sequence_numbers) {
-  if (!rtp_sender_)
+  if (!rtp_sender_) {
     return;
+  }
 
   for (uint16_t nack_sequence_number : nack_sequence_numbers) {
     send_loss_stats_.AddLostPacket(nack_sequence_number);
@@ -843,8 +850,9 @@ void ModuleRtpRtcpImpl::OnReceivedNack(
 
 void ModuleRtpRtcpImpl::OnReceivedRtcpReportBlocks(
     const ReportBlockList& report_blocks) {
-  if (rtp_sender_)
+  if (rtp_sender_) {
     rtp_sender_->OnReceivedRtcpReportBlocks(report_blocks);
+  }
 }
 
 bool ModuleRtpRtcpImpl::LastReceivedNTP(
@@ -872,19 +880,22 @@ std::vector<rtcp::TmmbItem> ModuleRtpRtcpImpl::BoundingSet(bool* tmmbr_owner) {
 void ModuleRtpRtcpImpl::SetRtcpReceiverSsrcs(uint32_t main_ssrc) {
   std::set<uint32_t> ssrcs;
   ssrcs.insert(main_ssrc);
-  if (RtxSendStatus() != kRtxOff)
+  if (RtxSendStatus() != kRtxOff) {
     ssrcs.insert(rtp_sender_->RtxSsrc());
+  }
   absl::optional<uint32_t> flexfec_ssrc = FlexfecSsrc();
-  if (flexfec_ssrc)
+  if (flexfec_ssrc) {
     ssrcs.insert(*flexfec_ssrc);
+  }
   rtcp_receiver_.SetSsrcs(main_ssrc, ssrcs);
 }
 
 void ModuleRtpRtcpImpl::set_rtt_ms(int64_t rtt_ms) {
   rtc::CritScope cs(&critical_section_rtt_);
   rtt_ms_ = rtt_ms;
-  if (rtp_sender_)
+  if (rtp_sender_) {
     rtp_sender_->SetRtt(rtt_ms);
+  }
 }
 
 int64_t ModuleRtpRtcpImpl::rtt_ms() const {

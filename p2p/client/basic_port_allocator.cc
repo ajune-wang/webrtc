@@ -277,8 +277,9 @@ BasicPortAllocatorSession::BasicPortAllocatorSession(
 BasicPortAllocatorSession::~BasicPortAllocatorSession() {
   RTC_DCHECK_RUN_ON(network_thread_);
   allocator_->network_manager()->StopUpdating();
-  if (network_thread_ != NULL)
+  if (network_thread_ != NULL) {
     network_thread_->Clear(this);
+  }
 
   for (uint32_t i = 0; i < sequences_.size(); ++i) {
     // AllocationSequence should clear it's map entry for turn ports before
@@ -287,14 +288,17 @@ BasicPortAllocatorSession::~BasicPortAllocatorSession() {
   }
 
   std::vector<PortData>::iterator it;
-  for (it = ports_.begin(); it != ports_.end(); it++)
+  for (it = ports_.begin(); it != ports_.end(); it++) {
     delete it->port();
+  }
 
-  for (uint32_t i = 0; i < configs_.size(); ++i)
+  for (uint32_t i = 0; i < configs_.size(); ++i) {
     delete configs_[i];
+  }
 
-  for (uint32_t i = 0; i < sequences_.size(); ++i)
+  for (uint32_t i = 0; i < sequences_.size(); ++i) {
     delete sequences_[i];
+  }
 }
 
 BasicPortAllocator* BasicPortAllocatorSession::allocator() {
@@ -869,15 +873,17 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
                                                  AllocationSequence* seq,
                                                  bool prepare_address) {
   RTC_DCHECK_RUN_ON(network_thread_);
-  if (!port)
+  if (!port) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << "Adding allocated port for " << content_name();
   port->set_content_name(content_name());
   port->set_component(component());
   port->set_generation(generation());
-  if (allocator_->proxy().type != rtc::PROXY_NONE)
+  if (allocator_->proxy().type != rtc::PROXY_NONE) {
     port->set_proxy(allocator_->user_agent(), allocator_->proxy());
+  }
   port->set_send_retransmit_count_attribute(
       (flags() & PORTALLOCATOR_ENABLE_STUN_RETRANSMIT_ATTRIBUTE) != 0);
 
@@ -893,8 +899,9 @@ void BasicPortAllocatorSession::AddAllocatedPort(Port* port,
   port->SignalPortError.connect(this, &BasicPortAllocatorSession::OnPortError);
   RTC_LOG(LS_INFO) << port->ToString() << ": Added port to allocator";
 
-  if (prepare_address)
+  if (prepare_address) {
     port->PrepareAddress();
+  }
 }
 
 void BasicPortAllocatorSession::OnAllocationSequenceObjectsCreated() {
@@ -1631,16 +1638,18 @@ PortConfiguration::PortConfiguration(const rtc::SocketAddress& stun_address,
                                      const std::string& username,
                                      const std::string& password)
     : stun_address(stun_address), username(username), password(password) {
-  if (!stun_address.IsNil())
+  if (!stun_address.IsNil()) {
     stun_servers.insert(stun_address);
+  }
 }
 
 PortConfiguration::PortConfiguration(const ServerAddresses& stun_servers,
                                      const std::string& username,
                                      const std::string& password)
     : stun_servers(stun_servers), username(username), password(password) {
-  if (!stun_servers.empty())
+  if (!stun_servers.empty()) {
     stun_address = *(stun_servers.begin());
+  }
 }
 
 PortConfiguration::~PortConfiguration() = default;
@@ -1669,8 +1678,9 @@ bool PortConfiguration::SupportsProtocol(const RelayServerConfig& relay,
   PortList::const_iterator relay_port;
   for (relay_port = relay.ports.begin(); relay_port != relay.ports.end();
        ++relay_port) {
-    if (relay_port->proto == type)
+    if (relay_port->proto == type) {
       return true;
+    }
   }
   return false;
 }
@@ -1678,8 +1688,9 @@ bool PortConfiguration::SupportsProtocol(const RelayServerConfig& relay,
 bool PortConfiguration::SupportsProtocol(RelayType turn_type,
                                          ProtocolType type) const {
   for (size_t i = 0; i < relays.size(); ++i) {
-    if (relays[i].type == turn_type && SupportsProtocol(relays[i], type))
+    if (relays[i].type == turn_type && SupportsProtocol(relays[i], type)) {
       return true;
+    }
   }
   return false;
 }

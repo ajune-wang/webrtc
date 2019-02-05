@@ -140,8 +140,9 @@ AudioProcessingSimulator::AudioProcessingSimulator(
     WriteEchoLikelihoodGraphFileHeader(&residual_echo_likelihood_graph_writer_);
   }
 
-  if (settings_.simulate_mic_gain)
+  if (settings_.simulate_mic_gain) {
     RTC_LOG(LS_VERBOSE) << "Simulating analog mic gain";
+  }
 }
 
 AudioProcessingSimulator::~AudioProcessingSimulator() {

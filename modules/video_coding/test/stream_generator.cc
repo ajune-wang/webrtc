@@ -64,39 +64,46 @@ VCMPacket StreamGenerator::GeneratePacket(uint16_t sequence_number,
   packet.markerBit = marker_bit;
   packet.sizeBytes = size;
   packet.dataPtr = packet_buffer_;
-  if (packet.is_first_packet_in_frame)
+  if (packet.is_first_packet_in_frame) {
     packet.completeNALU = kNaluStart;
-  else if (packet.markerBit)
+  } else if (packet.markerBit) {
     packet.completeNALU = kNaluEnd;
-  else
+  } else {
     packet.completeNALU = kNaluIncomplete;
+  }
   return packet;
 }
 
 bool StreamGenerator::PopPacket(VCMPacket* packet, int index) {
   std::list<VCMPacket>::iterator it = GetPacketIterator(index);
-  if (it == packets_.end())
+  if (it == packets_.end()) {
     return false;
-  if (packet)
+  }
+  if (packet) {
     *packet = (*it);
+  }
   packets_.erase(it);
   return true;
 }
 
 bool StreamGenerator::GetPacket(VCMPacket* packet, int index) {
   std::list<VCMPacket>::iterator it = GetPacketIterator(index);
-  if (it == packets_.end())
+  if (it == packets_.end()) {
     return false;
-  if (packet)
+  }
+  if (packet) {
     *packet = (*it);
+  }
   return true;
 }
 
 bool StreamGenerator::NextPacket(VCMPacket* packet) {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return false;
-  if (packet != NULL)
+  }
+  if (packet != NULL) {
     *packet = packets_.front();
+  }
   packets_.pop_front();
   return true;
 }
@@ -106,8 +113,9 @@ void StreamGenerator::DropLastPacket() {
 }
 
 uint16_t StreamGenerator::NextSequenceNumber() const {
-  if (packets_.empty())
+  if (packets_.empty()) {
     return sequence_number_;
+  }
   return packets_.front().seqNum;
 }
 
@@ -119,8 +127,9 @@ std::list<VCMPacket>::iterator StreamGenerator::GetPacketIterator(int index) {
   std::list<VCMPacket>::iterator it = packets_.begin();
   for (int i = 0; i < index; ++i) {
     ++it;
-    if (it == packets_.end())
+    if (it == packets_.end()) {
       break;
+    }
   }
   return it;
 }

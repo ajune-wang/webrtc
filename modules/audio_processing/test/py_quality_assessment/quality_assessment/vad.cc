@@ -31,8 +31,9 @@ WEBRTC_DEFINE_string(i, "", "Input wav file");
 WEBRTC_DEFINE_string(o, "", "VAD output file");
 
 int main(int argc, char* argv[]) {
-  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true))
+  if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
     return 1;
+  }
 
   // Open wav input file and check properties.
   WavReader wav_reader(FLAG_i);
@@ -66,8 +67,9 @@ int main(int argc, char* argv[]) {
     // Process frame.
     const auto read_samples =
         wav_reader.ReadSamples(audio_frame_length, samples.data());
-    if (read_samples < audio_frame_length)
+    if (read_samples < audio_frame_length) {
       break;
+    }
     const auto is_speech = vad->VoiceActivity(
         samples.data(), audio_frame_length, wav_reader.sample_rate());
 

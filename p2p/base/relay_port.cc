@@ -208,8 +208,9 @@ RelayPort::RelayPort(rtc::Thread* thread,
 }
 
 RelayPort::~RelayPort() {
-  for (size_t i = 0; i < entries_.size(); ++i)
+  for (size_t i = 0; i < entries_.size(); ++i) {
     delete entries_[i];
+  }
   thread()->Clear(this);
 }
 
@@ -255,8 +256,9 @@ void RelayPort::SetReady() {
 }
 
 const ProtocolAddress* RelayPort::ServerAddress(size_t index) const {
-  if (index < server_addr_.size())
+  if (index < server_addr_.size()) {
     return &server_addr_[index];
+  }
   return NULL;
 }
 
@@ -485,8 +487,9 @@ RelayEntry::~RelayEntry() {
 
 void RelayEntry::Connect() {
   // If we're already connected, return.
-  if (connected_)
+  if (connected_) {
     return;
+  }
 
   // If we've exhausted all options, bail out.
   const ProtocolAddress* ra = port()->ServerAddress(server_index_);
@@ -582,8 +585,9 @@ int RelayEntry::SendTo(const void* data,
                        const rtc::PacketOptions& options) {
   // If this connection is locked to the address given, then we can send the
   // packet with no wrapper.
-  if (locked_ && (ext_addr_ == addr))
+  if (locked_ && (ext_addr_ == addr)) {
     return SendPacket(data, size, options);
+  }
 
   // Otherwise, we must wrap the given data in a STUN SEND request so that we
   // can communicate the destination address to the server.
@@ -650,8 +654,9 @@ void RelayEntry::HandleConnectFailure(rtc::AsyncPacketSocket* socket) {
   // be an old socked that has not yet been disposed.
   if (!socket ||
       (current_connection_ && socket == current_connection_->socket())) {
-    if (current_connection_)
+    if (current_connection_) {
       port()->SignalConnectFailure(current_connection_->protocol_address());
+    }
 
     // Try to connect to the next server address.
     server_index_ += 1;
@@ -806,8 +811,9 @@ void AllocateRequest::Prepare(StunMessage* request) {
 
 void AllocateRequest::OnSent() {
   count_ += 1;
-  if (count_ == 5)
+  if (count_ == 5) {
     timeout_ = true;
+  }
 }
 
 int AllocateRequest::resend_delay() {
@@ -843,8 +849,9 @@ void AllocateRequest::OnErrorResponse(StunMessage* response) {
                   << " reason=" << attr->reason();
   }
 
-  if (rtc::TimeMillis() - start_time_ <= kRetryTimeout)
+  if (rtc::TimeMillis() - start_time_ <= kRetryTimeout) {
     entry_->ScheduleKeepAlive();
+  }
 }
 
 void AllocateRequest::OnTimeout() {

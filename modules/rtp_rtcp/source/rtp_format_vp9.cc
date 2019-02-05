@@ -52,8 +52,9 @@ int16_t Tl0PicIdxField(const RTPVideoHeaderVP9& hdr, uint8_t def) {
 //      +-+-+-+-+-+-+-+-+
 //
 size_t PictureIdLength(const RTPVideoHeaderVP9& hdr) {
-  if (hdr.picture_id == kNoPictureId)
+  if (hdr.picture_id == kNoPictureId) {
     return 0;
+  }
   return (hdr.max_picture_id == kMaxOneBytePictureId) ? 1 : 2;
 }
 
@@ -90,8 +91,9 @@ bool LayerInfoPresent(const RTPVideoHeaderVP9& hdr) {
 //                                                current P_DIFF.
 //
 size_t RefIndicesLength(const RTPVideoHeaderVP9& hdr) {
-  if (!hdr.inter_pic_predicted || !hdr.flexible_mode)
+  if (!hdr.inter_pic_predicted || !hdr.flexible_mode) {
     return 0;
+  }
 
   RTC_DCHECK_GT(hdr.num_ref_pics, 0U);
   RTC_DCHECK_LE(hdr.num_ref_pics, kMaxVp9RefPics);
@@ -119,8 +121,9 @@ size_t RefIndicesLength(const RTPVideoHeaderVP9& hdr) {
 //      +-+-+-+-+-+-+-+-+              -|           -|
 //
 size_t SsDataLength(const RTPVideoHeaderVP9& hdr) {
-  if (!hdr.ss_data_available)
+  if (!hdr.ss_data_available) {
     return 0;
+  }
 
   RTC_DCHECK_GT(hdr.num_spatial_layers, 0U);
   RTC_DCHECK_LE(hdr.num_spatial_layers, kMaxVp9NumberOfSpatialLayers);
@@ -196,11 +199,13 @@ bool WriteLayerInfoNonFlexibleMode(const RTPVideoHeaderVP9& vp9,
 
 bool WriteLayerInfo(const RTPVideoHeaderVP9& vp9,
                     rtc::BitBufferWriter* writer) {
-  if (!WriteLayerInfoCommon(vp9, writer))
+  if (!WriteLayerInfoCommon(vp9, writer)) {
     return false;
+  }
 
-  if (vp9.flexible_mode)
+  if (vp9.flexible_mode) {
     return true;
+  }
 
   return WriteLayerInfoNonFlexibleMode(vp9, writer);
 }
@@ -339,11 +344,13 @@ bool ParseLayerInfoNonFlexibleMode(rtc::BitBuffer* parser,
 }
 
 bool ParseLayerInfo(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
-  if (!ParseLayerInfoCommon(parser, vp9))
+  if (!ParseLayerInfoCommon(parser, vp9)) {
     return false;
+  }
 
-  if (vp9->flexible_mode)
+  if (vp9->flexible_mode) {
     return true;
+  }
 
   return ParseLayerInfoNonFlexibleMode(parser, vp9);
 }
@@ -356,14 +363,16 @@ bool ParseLayerInfo(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
 //                                                current P_DIFF.
 //
 bool ParseRefIndices(rtc::BitBuffer* parser, RTPVideoHeaderVP9* vp9) {
-  if (vp9->picture_id == kNoPictureId)
+  if (vp9->picture_id == kNoPictureId) {
     return false;
+  }
 
   vp9->num_ref_pics = 0;
   uint32_t n_bit;
   do {
-    if (vp9->num_ref_pics == kMaxVp9RefPics)
+    if (vp9->num_ref_pics == kMaxVp9RefPics) {
       return false;
+    }
 
     uint32_t p_diff;
     RETURN_FALSE_ON_ERROR(parser->ReadBits(&p_diff, 7));
@@ -475,15 +484,17 @@ bool RtpPacketizerVp9::NextPacket(RtpPacketToSend* packet) {
   bool layer_end = current_packet_ == payload_sizes_.end();
 
   int header_size = header_size_;
-  if (layer_begin)
+  if (layer_begin) {
     header_size += first_packet_extra_header_size_;
+  }
 
   uint8_t* buffer = packet->AllocatePayload(header_size + packet_payload_len);
   RTC_CHECK(buffer);
 
   if (!WriteHeader(layer_begin, layer_end,
-                   rtc::MakeArrayView(buffer, header_size)))
+                   rtc::MakeArrayView(buffer, header_size))) {
     return false;
+  }
 
   memcpy(buffer + header_size, remaining_payload_.data(), packet_payload_len);
   remaining_payload_ = remaining_payload_.subview(packet_payload_len);

@@ -66,8 +66,9 @@ TEST_F(TestVCMJitterEstimator, TestLowRate) {
   for (int i = 0; i < 60; ++i) {
     estimator_->UpdateEstimate(gen.Delay(), gen.FrameSize());
     AdvanceClock(time_delta_us);
-    if (i > 2)
+    if (i > 2) {
       EXPECT_EQ(estimator_->GetJitterEstimate(0), 0);
+    }
     gen.Advance();
   }
 }

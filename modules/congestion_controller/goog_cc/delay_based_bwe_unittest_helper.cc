@@ -202,8 +202,9 @@ void DelayBasedBweTest::IncomingFeedback(int64_t arrival_time_ms,
   std::vector<PacketFeedback> packets;
   packets.push_back(packet);
   if (packet.send_time_ms != PacketFeedback::kNoSendTime &&
-      packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe)
+      packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe) {
     probe_bitrate_estimator_->HandleProbeAndEstimateBitrate(packet);
+  }
 
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(packets);
   DelayBasedBwe::Result result =
@@ -230,8 +231,9 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
   std::vector<PacketFeedback> packets;
   int64_t next_time_us =
       stream_generator_->GenerateFrame(&packets, clock_.TimeInMicroseconds());
-  if (packets.empty())
+  if (packets.empty()) {
     return false;
+  }
 
   bool overuse = false;
   bitrate_observer_.Reset();
@@ -242,8 +244,9 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
     packet.arrival_time_ms += arrival_time_offset_ms_;
 
     if (packet.send_time_ms != PacketFeedback::kNoSendTime &&
-        packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe)
+        packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe) {
       probe_bitrate_estimator_->HandleProbeAndEstimateBitrate(packet);
+    }
   }
 
   acknowledged_bitrate_estimator_->IncomingPacketFeedbackVector(packets);
@@ -256,8 +259,9 @@ bool DelayBasedBweTest::GenerateAndProcessFrame(uint32_t ssrc,
   if (result.updated) {
     bitrate_observer_.OnReceiveBitrateChanged({kDummySsrc},
                                               result.target_bitrate.bps());
-    if (!first_update_ && result.target_bitrate.bps() < bitrate_bps)
+    if (!first_update_ && result.target_bitrate.bps() < bitrate_bps) {
       overuse = true;
+    }
     first_update_ = false;
   }
 
@@ -465,8 +469,9 @@ void DelayBasedBweTest::CapacityDropTestHelper(
         bitrate_observer_.latest_bitrate() <= kReducedCapacityBps) {
       bitrate_drop_time = clock_.TimeInMilliseconds();
     }
-    if (bitrate_observer_.updated())
+    if (bitrate_observer_.updated()) {
       bitrate_bps = bitrate_observer_.latest_bitrate();
+    }
   }
 
   EXPECT_NEAR(expected_bitrate_drop_delta,

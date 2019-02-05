@@ -44,8 +44,9 @@ class VadImpl final : public Vad {
   }
 
   void Reset() override {
-    if (handle_)
+    if (handle_) {
       WebRtcVad_Free(handle_);
+    }
     handle_ = WebRtcVad_Create();
     RTC_CHECK(handle_);
     RTC_CHECK_EQ(WebRtcVad_Init(handle_), 0);

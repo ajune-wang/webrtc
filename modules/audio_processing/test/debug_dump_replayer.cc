@@ -40,8 +40,9 @@ DebugDumpReplayer::DebugDumpReplayer()
       debug_file_(nullptr) {}
 
 DebugDumpReplayer::~DebugDumpReplayer() {
-  if (debug_file_)
+  if (debug_file_) {
     fclose(debug_file_);
+  }
 }
 
 bool DebugDumpReplayer::SetDumpFile(const std::string& filename) {
@@ -52,16 +53,18 @@ bool DebugDumpReplayer::SetDumpFile(const std::string& filename) {
 
 // Get next event that has not run.
 absl::optional<audioproc::Event> DebugDumpReplayer::GetNextEvent() const {
-  if (!has_next_event_)
+  if (!has_next_event_) {
     return absl::nullopt;
-  else
+  } else {
     return next_event_;
+  }
 }
 
 // Run the next event. Returns the event type.
 bool DebugDumpReplayer::RunNextEvent() {
-  if (!has_next_event_)
+  if (!has_next_event_) {
     return false;
+  }
   switch (next_event_.type()) {
     case audioproc::Event::INIT:
       OnInitEvent(next_event_.init());

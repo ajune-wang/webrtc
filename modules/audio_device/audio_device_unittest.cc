@@ -289,22 +289,25 @@ class LatencyAudioStream : public AudioStream {
 
   int min_latency() const {
     RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
-    if (latencies_.empty())
+    if (latencies_.empty()) {
       return 0;
+    }
     return *std::min_element(latencies_.begin(), latencies_.end());
   }
 
   int max_latency() const {
     RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
-    if (latencies_.empty())
+    if (latencies_.empty()) {
       return 0;
+    }
     return *std::max_element(latencies_.begin(), latencies_.end());
   }
 
   int average_latency() const {
     RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
-    if (latencies_.empty())
+    if (latencies_.empty()) {
       return 0;
+    }
     return 0.5 + static_cast<double>(
                      std::accumulate(latencies_.begin(), latencies_.end(), 0)) /
                      latencies_.size();

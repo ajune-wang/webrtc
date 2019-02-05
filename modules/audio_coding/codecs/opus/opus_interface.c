@@ -75,8 +75,9 @@ int16_t WebRtcOpus_EncoderCreate(OpusEncInst** inst,
                                  size_t channels,
                                  int32_t application) {
   int opus_app;
-  if (!inst)
+  if (!inst) {
     return -1;
+}
 
   switch (application) {
     case 0:
@@ -212,8 +213,9 @@ int16_t WebRtcOpus_SetPacketLossRate(OpusEncInst* inst, int32_t loss_rate) {
 int16_t WebRtcOpus_SetMaxPlaybackRate(OpusEncInst* inst, int32_t frequency_hz) {
   opus_int32 set_bandwidth;
 
-  if (!inst)
+  if (!inst) {
     return -1;
+}
 
   if (frequency_hz <= 8000) {
     set_bandwidth = OPUS_BANDWIDTH_NARROWBAND;
@@ -252,15 +254,19 @@ int16_t WebRtcOpus_GetMaxPlaybackRate(OpusEncInst* const inst,
     opus_int32 bandwidth;
 
     ret = ENCODER_CTL(inst, OPUS_MULTISTREAM_GET_ENCODER_STATE(s, &enc));
-    if (ret == OPUS_BAD_ARG)
+    if (ret == OPUS_BAD_ARG) {
       break;
-    if (ret != OPUS_OK)
+}
+    if (ret != OPUS_OK) {
       return -1;
-    if (opus_encoder_ctl(enc, OPUS_GET_MAX_BANDWIDTH(&bandwidth)) != OPUS_OK)
+}
+    if (opus_encoder_ctl(enc, OPUS_GET_MAX_BANDWIDTH(&bandwidth)) != OPUS_OK) {
       return -1;
+}
 
-    if (max_bandwidth != 0 && max_bandwidth != bandwidth)
+    if (max_bandwidth != 0 && max_bandwidth != bandwidth) {
       return -1;
+}
 
     max_bandwidth = bandwidth;
     s++;
@@ -297,8 +303,9 @@ int16_t WebRtcOpus_EnableDtx(OpusEncInst* inst) {
   // without it.
   int ret = ENCODER_CTL(inst,
                         OPUS_SET_SIGNAL(OPUS_SIGNAL_VOICE));
-  if (ret != OPUS_OK)
+  if (ret != OPUS_OK) {
     return ret;
+}
 
   return ENCODER_CTL(inst, OPUS_SET_DTX(1));
 }
@@ -307,8 +314,9 @@ int16_t WebRtcOpus_DisableDtx(OpusEncInst* inst) {
   if (inst) {
     int ret = ENCODER_CTL(inst,
                           OPUS_SET_SIGNAL(OPUS_AUTO));
-    if (ret != OPUS_OK)
+    if (ret != OPUS_OK) {
       return ret;
+}
     return ENCODER_CTL(inst, OPUS_SET_DTX(0));
   } else {
     return -1;
@@ -364,8 +372,9 @@ int16_t WebRtcOpus_SetBandwidth(OpusEncInst* inst, int32_t bandwidth) {
 }
 
 int16_t WebRtcOpus_SetForceChannels(OpusEncInst* inst, size_t num_channels) {
-  if (!inst)
+  if (!inst) {
     return -1;
+}
   if (num_channels == 0) {
     return ENCODER_CTL(inst,
                             OPUS_SET_FORCE_CHANNELS(OPUS_AUTO));
@@ -499,8 +508,9 @@ static int DecodeNative(OpusDecInst* inst, const uint8_t* encoded,
         (opus_int16*)decoded, frame_size, decode_fec);
   }
 
-  if (res <= 0)
+  if (res <= 0) {
     return -1;
+}
 
   *audio_type = DetermineAudioType(inst, encoded_bytes);
 
@@ -630,16 +640,19 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
   opus_int16 frame_sizes[48];
   const unsigned char *frame_data[48];
 
-  if (payload == NULL || payload_length_bytes == 0)
+  if (payload == NULL || payload_length_bytes == 0) {
     return 0;
+}
 
   /* In CELT_ONLY mode, packets should not have FEC. */
-  if (payload[0] & 0x80)
+  if (payload[0] & 0x80) {
     return 0;
+}
 
   payload_length_ms = opus_packet_get_samples_per_frame(payload, 48000) / 48;
-  if (10 > payload_length_ms)
+  if (10 > payload_length_ms) {
     payload_length_ms = 10;
+}
 
   channels = opus_packet_get_nb_channels(payload);
 
@@ -673,8 +686,9 @@ int WebRtcOpus_PacketHasFec(const uint8_t* payload,
   }
 
   for (n = 0; n < channels; n++) {
-    if (frame_data[0][0] & (0x80 >> ((n + 1) * (frames + 1) - 1)))
+    if (frame_data[0][0] & (0x80 >> ((n + 1) * (frames + 1) - 1))) {
       return 1;
+}
   }
 
   return 0;

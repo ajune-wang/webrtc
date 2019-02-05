@@ -83,14 +83,18 @@ int WebRtcIlbcfix_DecodeImpl(
 #endif
 
     /* Check for bit errors */
-    if (iLBCbits_inst->startIdx<1)
+    if (iLBCbits_inst->startIdx<1) {
       mode = 0;
-    if ((iLBCdec_inst->mode==20) && (iLBCbits_inst->startIdx>3))
+}
+    if ((iLBCdec_inst->mode==20) && (iLBCbits_inst->startIdx>3)) {
       mode = 0;
-    if ((iLBCdec_inst->mode==30) && (iLBCbits_inst->startIdx>5))
+}
+    if ((iLBCdec_inst->mode==30) && (iLBCbits_inst->startIdx>5)) {
       mode = 0;
-    if (last_bit==1)
+}
+    if (last_bit==1) {
       mode = 0;
+}
 
     if (mode) { /* No bit errors was detected, continue decoding */
       /* Stack based */
@@ -108,8 +112,9 @@ int WebRtcIlbcfix_DecodeImpl(
 
       /* Decode the residual using the cb and gain indexes */
       if (!WebRtcIlbcfix_DecodeResidual(iLBCdec_inst, iLBCbits_inst,
-                                        decresidual, syntdenum))
+                                        decresidual, syntdenum)) {
         goto error;
+}
 
       /* preparing the plc for a future loss! */
       WebRtcIlbcfix_DoThePlc(

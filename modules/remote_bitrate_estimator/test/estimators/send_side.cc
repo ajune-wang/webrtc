@@ -62,8 +62,9 @@ int SendSideBweSender::GetFeedbackIntervalMs() const {
 void SendSideBweSender::GiveFeedback(const FeedbackPacket& feedback) {
   const SendSideBweFeedback& fb =
       static_cast<const SendSideBweFeedback&>(feedback);
-  if (fb.packet_feedback_vector().empty())
+  if (fb.packet_feedback_vector().empty()) {
     return;
+  }
   std::vector<PacketFeedback> packet_feedback_vector(
       fb.packet_feedback_vector());
   for (PacketFeedback& packet_feedback : packet_feedback_vector) {
@@ -87,15 +88,17 @@ void SendSideBweSender::GiveFeedback(const FeedbackPacket& feedback) {
       packet_feedback_vector);
   for (PacketFeedback& packet : packet_feedback_vector) {
     if (packet.send_time_ms != PacketFeedback::kNoSendTime &&
-        packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe)
+        packet.pacing_info.probe_cluster_id != PacedPacketInfo::kNotAProbe) {
       probe_bitrate_estimator_->HandleProbeAndEstimateBitrate(packet);
+    }
   }
   DelayBasedBwe::Result result = bwe_->IncomingPacketFeedbackVector(
       packet_feedback_vector, acknowledged_bitrate_estimator_->bitrate(),
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate(), false,
       Timestamp::ms(clock_->TimeInMilliseconds()));
-  if (result.updated)
+  if (result.updated) {
     bitrate_controller_->OnDelayBasedBweResult(result);
+  }
 
   if (has_received_ack_) {
     int expected_packets = fb.packet_feedback_vector().back().sequence_number -
@@ -173,8 +176,9 @@ void SendSideBweReceiver::ReceivePacket(int64_t arrival_time_ms,
 }
 
 FeedbackPacket* SendSideBweReceiver::GetFeedback(int64_t now_ms) {
-  if (now_ms - last_feedback_ms_ < kFeedbackIntervalMs)
+  if (now_ms - last_feedback_ms_ < kFeedbackIntervalMs) {
     return NULL;
+  }
   last_feedback_ms_ = now_ms;
   int64_t corrected_send_time_ms =
       packet_feedback_vector_.back().send_time_ms + now_ms -

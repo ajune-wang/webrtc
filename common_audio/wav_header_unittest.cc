@@ -28,14 +28,16 @@ class ReadableWavBuffer : public ReadableWav {
 
   ~ReadableWavBuffer() override {
     // Verify the entire buffer has been read.
-    if (check_read_size_)
+    if (check_read_size_) {
       EXPECT_EQ(size_, pos_);
+    }
   }
 
   size_t Read(void* buf, size_t num_bytes) override {
     // Verify we don't try to read outside of a properly sized header.
-    if (size_ >= kWavHeaderSize)
+    if (size_ >= kWavHeaderSize) {
       EXPECT_GE(size_, pos_ + num_bytes);
+    }
     EXPECT_FALSE(buf_exhausted_);
 
     const size_t bytes_remaining = size_ - pos_;
@@ -55,8 +57,9 @@ class ReadableWavBuffer : public ReadableWav {
 
   bool SeekForward(uint32_t num_bytes) override {
     // Verify we don't try to read outside of a properly sized header.
-    if (size_ >= kWavHeaderSize)
+    if (size_ >= kWavHeaderSize) {
       EXPECT_GE(size_, pos_ + num_bytes);
+    }
     EXPECT_FALSE(buf_exhausted_);
 
     const size_t bytes_remaining = size_ - pos_;

@@ -2228,8 +2228,9 @@ class FakeRTCStatsCollector : public RTCStatsCollector,
   bool HasVerifiedResults() {
     EXPECT_TRUE(signaling_thread_->IsCurrent());
     rtc::CritScope cs(&lock_);
-    if (!delivered_report_)
+    if (!delivered_report_) {
       return false;
+    }
     EXPECT_EQ(produced_on_signaling_thread_, 1);
     EXPECT_EQ(produced_on_network_thread_, 1);
 

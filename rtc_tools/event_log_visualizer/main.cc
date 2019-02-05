@@ -246,8 +246,9 @@ int main(int argc, char* argv[]) {
   if (argc != 2 || FLAG_help) {
     // Print usage information.
     std::cout << usage;
-    if (FLAG_help)
+    if (FLAG_help) {
       rtc::FlagList::Print(nullptr, false);
+    }
     return 0;
   }
 

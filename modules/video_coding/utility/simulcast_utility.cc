@@ -60,8 +60,9 @@ bool SimulcastUtility::ValidSimulcastTemporalLayers(const VideoCodec& codec,
                                                     int num_streams) {
   for (int i = 0; i < num_streams - 1; ++i) {
     if (codec.simulcastStream[i].numberOfTemporalLayers !=
-        codec.simulcastStream[i + 1].numberOfTemporalLayers)
+        codec.simulcastStream[i + 1].numberOfTemporalLayers) {
       return false;
+    }
   }
   return true;
 }

@@ -79,8 +79,9 @@ ForwardErrorCorrection::PacketList MediaPacketGenerator::ConstructMediaPackets(
     webrtc::ByteWriter<uint32_t>::WriteBigEndian(&media_packet->data[8], ssrc_);
 
     // Generate random values for payload.
-    for (size_t j = 12; j < media_packet->length; ++j)
+    for (size_t j = 12; j < media_packet->length; ++j) {
       media_packet->data[j] = random_->Rand<uint8_t>();
+    }
     seq_num++;
     media_packets.push_back(std::move(media_packet));
   }
@@ -120,8 +121,9 @@ std::unique_ptr<AugmentedPacket> AugmentedPacketGenerator::NextPacket(
     size_t length) {
   std::unique_ptr<AugmentedPacket> packet(new AugmentedPacket());
 
-  for (size_t i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i) {
     packet->data[i + kRtpHeaderSize] = offset + i;
+  }
   packet->length = length + kRtpHeaderSize;
   packet->header.frameType = kVideoFrameDelta;
   packet->header.header.headerLength = kRtpHeaderSize;

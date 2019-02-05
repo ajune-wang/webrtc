@@ -70,8 +70,9 @@ inline long double StrToT(const char* str, char** str_end) {
 template <typename T>
 absl::optional<T> ParseFloatingPoint(const char* str) {
   RTC_DCHECK(str);
-  if (*str == '\0')
+  if (*str == '\0') {
     return absl::nullopt;
+  }
   char* end = nullptr;
   errno = 0;
   const T value = StrToT<T>(str, &end);

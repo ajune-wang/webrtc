@@ -62,10 +62,11 @@ void WebRtcSpl_GetHanningWindow(int16_t *v, size_t size)
     int32_t factor = ((int32_t)0x40000000);
 
     factor = WebRtcSpl_DivW32W16(factor, (int16_t)size);
-    if (size < 513)
+    if (size < 513) {
         index = (int32_t)-0x200000;
-    else
+    } else {
         index = (int32_t)-0x100000;
+}
     vptr1 = v;
 
     for (jj = 0; jj < size; jj++)

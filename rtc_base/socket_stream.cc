@@ -24,8 +24,9 @@ SocketStream::~SocketStream() {
 }
 
 void SocketStream::Attach(AsyncSocket* socket) {
-  if (socket_)
+  if (socket_) {
     delete socket_;
+  }
   socket_ = socket;
   if (socket_) {
     socket_->SignalConnectEvent.connect(this, &SocketStream::OnConnectEvent);
@@ -67,15 +68,18 @@ StreamResult SocketStream::Read(void* buffer,
   RTC_DCHECK(socket_ != nullptr);
   int result = socket_->Recv(buffer, buffer_len, nullptr);
   if (result < 0) {
-    if (socket_->IsBlocking())
+    if (socket_->IsBlocking()) {
       return SR_BLOCK;
-    if (error)
+    }
+    if (error) {
       *error = socket_->GetError();
+    }
     return SR_ERROR;
   }
   if ((result > 0) || (buffer_len == 0)) {
-    if (read)
+    if (read) {
       *read = result;
+    }
     return SR_SUCCESS;
   }
   return SR_EOS;
@@ -88,14 +92,17 @@ StreamResult SocketStream::Write(const void* data,
   RTC_DCHECK(socket_ != nullptr);
   int result = socket_->Send(data, data_len);
   if (result < 0) {
-    if (socket_->IsBlocking())
+    if (socket_->IsBlocking()) {
       return SR_BLOCK;
-    if (error)
+    }
+    if (error) {
       *error = socket_->GetError();
+    }
     return SR_ERROR;
   }
-  if (written)
+  if (written) {
     *written = result;
+  }
   return SR_SUCCESS;
 }
 

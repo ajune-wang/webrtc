@@ -48,8 +48,9 @@ void SetupEventTracer(GetCategoryEnabledPtr get_category_enabled_ptr,
 }
 
 const unsigned char* EventTracer::GetCategoryEnabled(const char* name) {
-  if (g_get_category_enabled_ptr)
+  if (g_get_category_enabled_ptr) {
     return g_get_category_enabled_ptr(name);
+  }
 
   // A string with null terminator means category is disabled.
   return reinterpret_cast<const unsigned char*>("\0");
@@ -146,8 +147,9 @@ class EventLogger final {
           args_str += ", \"args\": {";
           bool is_first_argument = true;
           for (TraceArg& arg : e.args) {
-            if (!is_first_argument)
+            if (!is_first_argument) {
               args_str += ",";
+            }
             is_first_argument = false;
             args_str += " \"";
             args_str += arg.name;
@@ -179,12 +181,14 @@ class EventLogger final {
                 e.phase, e.timestamp, e.pid, e.tid, args_str.c_str());
         has_logged_event = true;
       }
-      if (shutting_down)
+      if (shutting_down) {
         break;
+      }
     }
     fprintf(output_file_, "]}\n");
-    if (output_file_owned_)
+    if (output_file_owned_) {
       fclose(output_file_);
+    }
     output_file_ = nullptr;
   }
 
@@ -216,8 +220,9 @@ class EventLogger final {
     RTC_DCHECK(thread_checker_.CalledOnValidThread());
     TRACE_EVENT_INSTANT0("webrtc", "EventLogger::Stop");
     // Try to stop. Abort if we're not currently logging.
-    if (rtc::AtomicOps::CompareAndSwap(&g_event_logging_active, 1, 0) == 0)
+    if (rtc::AtomicOps::CompareAndSwap(&g_event_logging_active, 1, 0) == 0) {
       return;
+    }
 
     // Wake up logging thread to finish writing.
     shutdown_event_.Set();
@@ -353,8 +358,9 @@ void InternalAddTraceEvent(char phase,
                            const unsigned long long* arg_values,
                            unsigned char flags) {
   // Fast path for when event tracing is inactive.
-  if (rtc::AtomicOps::AcquireLoad(&g_event_logging_active) == 0)
+  if (rtc::AtomicOps::AcquireLoad(&g_event_logging_active) == 0) {
     return;
+  }
 
   g_event_logger->AddTraceEvent(name, category_enabled, phase, num_args,
                                 arg_names, arg_types, arg_values,
@@ -377,8 +383,9 @@ void StartInternalCaptureToFile(FILE* file) {
 }
 
 bool StartInternalCapture(const char* filename) {
-  if (!g_event_logger)
+  if (!g_event_logger) {
     return false;
+  }
 
   FILE* file = fopen(filename, "w");
   if (!file) {

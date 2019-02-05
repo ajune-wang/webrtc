@@ -114,8 +114,9 @@ size_t WavReader::ReadSamples(size_t num_samples, float* samples) {
     int16_t isamples[kChunksize];
     size_t chunk = std::min(kChunksize, num_samples - i);
     chunk = ReadSamples(chunk, isamples);
-    for (size_t j = 0; j < chunk; ++j)
+    for (size_t j = 0; j < chunk; ++j) {
       samples[i + j] = isamples[j];
+    }
     read += chunk;
   }
   return read;

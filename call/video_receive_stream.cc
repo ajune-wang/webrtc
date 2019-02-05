@@ -23,8 +23,9 @@ std::string VideoReceiveStream::Decoder::ToString() const {
   ss << "{payload_type: " << payload_type;
   ss << ", payload_name: " << video_format.name;
   ss << ", codec_params: {";
-  for (const auto& it : video_format.parameters)
+  for (const auto& it : video_format.parameters) {
     ss << it.first << ": " << it.second;
+  }
   ss << '}';
   ss << '}';
 
@@ -84,15 +85,17 @@ std::string VideoReceiveStream::Config::ToString() const {
   ss << "{decoders: [";
   for (size_t i = 0; i < decoders.size(); ++i) {
     ss << decoders[i].ToString();
-    if (i != decoders.size() - 1)
+    if (i != decoders.size() - 1) {
       ss << ", ";
+    }
   }
   ss << ']';
   ss << ", rtp: " << rtp.ToString();
   ss << ", renderer: " << (renderer ? "(renderer)" : "nullptr");
   ss << ", render_delay_ms: " << render_delay_ms;
-  if (!sync_group.empty())
+  if (!sync_group.empty()) {
     ss << ", sync_group: " << sync_group;
+  }
   ss << ", target_delay_ms: " << target_delay_ms;
   ss << '}';
 
@@ -129,8 +132,9 @@ std::string VideoReceiveStream::Config::Rtp::ToString() const {
   ss << ", extensions: [";
   for (size_t i = 0; i < extensions.size(); ++i) {
     ss << extensions[i].ToString();
-    if (i != extensions.size() - 1)
+    if (i != extensions.size() - 1) {
       ss << ", ";
+    }
   }
   ss << ']';
   ss << '}';

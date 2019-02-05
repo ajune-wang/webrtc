@@ -67,8 +67,9 @@ void DisableRtcUseH264() {
 }
 
 std::vector<SdpVideoFormat> SupportedH264Codecs() {
-  if (!IsH264CodecSupported())
+  if (!IsH264CodecSupported()) {
     return std::vector<SdpVideoFormat>();
+  }
   // We only support encoding Constrained Baseline Profile (CBP), but the
   // decoder supports more profiles. We can list all profiles here that are
   // supported by the decoder and that are also supersets of CBP, i.e. the

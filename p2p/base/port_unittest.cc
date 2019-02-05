@@ -903,8 +903,9 @@ void PortTest::TestConnectivity(const char* name1,
 
     // Ensure the ping came from the same address used for src.
     // This is the case unless the source NAT was symmetric.
-    if (same_addr1)
+    if (same_addr1) {
       EXPECT_EQ(ch2.remote_address(), GetAddress(ch1.port()));
+    }
     EXPECT_TRUE(same_addr2);
 
     // Send a ping from dst to src.

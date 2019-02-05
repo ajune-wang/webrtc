@@ -70,8 +70,9 @@ class PacketContainer : public rtcp::CompoundPacket {
   PacketContainer(Transport* transport, RtcEventLog* event_log)
       : transport_(transport), event_log_(event_log) {}
   ~PacketContainer() override {
-    for (RtcpPacket* packet : appended_packets_)
+    for (RtcpPacket* packet : appended_packets_) {
       delete packet;
+    }
   }
 
   size_t SendPackets(size_t max_payload_length) {
@@ -206,8 +207,9 @@ int32_t RTCPSender::SetSendingStatus(const FeedbackState& feedback_state,
     }
     sending_ = sending;
   }
-  if (sendRTCPBye)
+  if (sendRTCPBye) {
     return SendRTCP(feedback_state, kRtcpBye);
+  }
   return 0;
 }
 
@@ -299,8 +301,9 @@ void RTCPSender::SetRemoteSSRC(uint32_t ssrc) {
 }
 
 int32_t RTCPSender::SetCNAME(const char* c_name) {
-  if (!c_name)
+  if (!c_name) {
     return -1;
+  }
 
   RTC_DCHECK_LT(strlen(c_name), RTCP_CNAME_SIZE);
   rtc::CritScope lock(&critical_section_rtcp_sender_);
@@ -315,8 +318,9 @@ int32_t RTCPSender::AddMixedCNAME(uint32_t SSRC, const char* c_name) {
   // One spot is reserved for ssrc_/cname_.
   // TODO(danilchap): Add support for more than 30 contributes by sending
   // several sdes packets.
-  if (csrc_cnames_.size() >= rtcp::Sdes::kMaxNumberOfChunks - 1)
+  if (csrc_cnames_.size() >= rtcp::Sdes::kMaxNumberOfChunks - 1) {
     return -1;
+  }
 
   csrc_cnames_[SSRC] = c_name;
   return 0;
@@ -326,8 +330,9 @@ int32_t RTCPSender::RemoveMixedCNAME(uint32_t SSRC) {
   rtc::CritScope lock(&critical_section_rtcp_sender_);
   auto it = csrc_cnames_.find(SSRC);
 
-  if (it == csrc_cnames_.end())
+  if (it == csrc_cnames_.end()) {
     return -1;
+  }
 
   csrc_cnames_.erase(it);
   return 0;
@@ -396,8 +401,9 @@ bool RTCPSender::TimeToSendRTCPReport(bool sendKeyframeBeforeRTP) const {
 
   rtc::CritScope lock(&critical_section_rtcp_sender_);
 
-  if (method_ == RtcpMode::kOff)
+  if (method_ == RtcpMode::kOff) {
     return false;
+  }
 
   if (!audio_ && sendKeyframeBeforeRTP) {
     // for video key-frames we want to send the RTCP before the large key-frame
@@ -453,8 +459,9 @@ std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildSDES(
   rtcp::Sdes* sdes = new rtcp::Sdes();
   sdes->AddCName(ssrc_, cname_);
 
-  for (const auto& it : csrc_cnames_)
+  for (const auto& it : csrc_cnames_) {
     RTC_CHECK(sdes->AddCName(it.first, it.second));
+  }
 
   return std::unique_ptr<rtcp::RtcpPacket>(sdes);
 }
@@ -506,8 +513,9 @@ void RTCPSender::SetTargetBitrate(unsigned int target_bitrate) {
 
 std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildTMMBR(
     const RtcpContext& ctx) {
-  if (ctx.feedback_state_.module == nullptr)
+  if (ctx.feedback_state_.module == nullptr) {
     return nullptr;
+  }
   // Before sending the TMMBR check the received TMMBN, only an owner is
   // allowed to raise the bitrate:
   // * If the sender is an owner of the TMMBN -> send TMMBR
@@ -546,8 +554,9 @@ std::unique_ptr<rtcp::RtcpPacket> RTCPSender::BuildTMMBR(
     }
   }
 
-  if (!tmmbr_send_bps_)
+  if (!tmmbr_send_bps_) {
     return nullptr;
+  }
 
   rtcp::Tmmbr* tmmbr = new rtcp::Tmmbr();
   tmmbr->SetSenderSsrc(ssrc_);
@@ -687,8 +696,9 @@ int32_t RTCPSender::SendCompoundRTCP(
       }
     }
 
-    if (packet_type_counter_.first_packet_time_ms == -1)
+    if (packet_type_counter_.first_packet_time_ms == -1) {
       packet_type_counter_.first_packet_time_ms = clock_->TimeInMilliseconds();
+    }
 
     // We need to send our NTP even if we haven't received any reports.
     RtcpContext context(feedback_state, nack_size, nack_list,
@@ -711,8 +721,9 @@ int32_t RTCPSender::SendCompoundRTCP(
 
       BuilderFunc func = builder_it->second;
       std::unique_ptr<rtcp::RtcpPacket> packet = (this->*func)(context);
-      if (packet.get() == nullptr)
+      if (packet.get() == nullptr) {
         return -1;
+      }
       // If there is a BYE, don't append now - save it and append it
       // at the end later.
       if (builder_it->first == kRtcpBye) {
@@ -750,12 +761,14 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
     generate_report =
         (ConsumeFlag(kRtcpReport) && method_ == RtcpMode::kReducedSize) ||
         method_ == RtcpMode::kCompound;
-    if (generate_report)
+    if (generate_report) {
       SetFlag(sending_ ? kRtcpSr : kRtcpRr, true);
+    }
   }
 
-  if (IsFlagPresent(kRtcpSr) || (IsFlagPresent(kRtcpRr) && !cname_.empty()))
+  if (IsFlagPresent(kRtcpSr) || (IsFlagPresent(kRtcpRr) && !cname_.empty())) {
     SetFlag(kRtcpSdes, true);
+  }
 
   if (generate_report) {
     if ((!sending_ && xr_send_receiver_reference_time_enabled_) ||
@@ -793,8 +806,9 @@ void RTCPSender::PrepareReport(const FeedbackState& feedback_state) {
 std::vector<rtcp::ReportBlock> RTCPSender::CreateReportBlocks(
     const FeedbackState& feedback_state) {
   std::vector<rtcp::ReportBlock> result;
-  if (!receive_statistics_)
+  if (!receive_statistics_) {
     return result;
+  }
 
   // TODO(danilchap): Support sending more than |RTCP_MAX_REPORT_BLOCKS| per
   // compound rtcp packet when single rtcp module is used for multiple media
@@ -873,8 +887,9 @@ void RTCPSender::SetFlag(uint32_t type, bool is_volatile) {
 
 void RTCPSender::SetFlags(const std::set<RTCPPacketType>& types,
                           bool is_volatile) {
-  for (RTCPPacketType type : types)
+  for (RTCPPacketType type : types) {
     SetFlag(type, is_volatile);
+  }
 }
 
 bool RTCPSender::IsFlagPresent(uint32_t type) const {
@@ -883,17 +898,20 @@ bool RTCPSender::IsFlagPresent(uint32_t type) const {
 
 bool RTCPSender::ConsumeFlag(uint32_t type, bool forced) {
   auto it = report_flags_.find(ReportFlag(type, false));
-  if (it == report_flags_.end())
+  if (it == report_flags_.end()) {
     return false;
-  if (it->is_volatile || forced)
+  }
+  if (it->is_volatile || forced) {
     report_flags_.erase((it));
+  }
   return true;
 }
 
 bool RTCPSender::AllVolatileFlagsConsumed() const {
   for (const ReportFlag& flag : report_flags_) {
-    if (flag.is_volatile)
+    if (flag.is_volatile) {
       return false;
+    }
   }
   return true;
 }
@@ -944,8 +962,9 @@ bool RTCPSender::SendFeedbackPacket(const rtcp::TransportFeedback& packet) {
   size_t max_packet_size;
   {
     rtc::CritScope lock(&critical_section_rtcp_sender_);
-    if (method_ == RtcpMode::kOff)
+    if (method_ == RtcpMode::kOff) {
       return false;
+    }
     max_packet_size = max_packet_size_;
   }
 
@@ -953,8 +972,9 @@ bool RTCPSender::SendFeedbackPacket(const rtcp::TransportFeedback& packet) {
   bool send_failure = false;
   auto callback = [&](rtc::ArrayView<const uint8_t> packet) {
     if (transport_->SendRtcp(packet.data(), packet.size())) {
-      if (event_log_)
+      if (event_log_) {
         event_log_->Log(absl::make_unique<RtcEventRtcpPacketOutgoing>(packet));
+      }
     } else {
       send_failure = true;
     }

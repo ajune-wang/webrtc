@@ -48,13 +48,15 @@ void TestSequenceBufferPushOp() {
   // Check that the last item moves left by N positions after a push op.
   if (S > N) {
     // Fill in with non-zero values.
-    for (size_t i = 0; i < N; ++i)
+    for (size_t i = 0; i < N; ++i) {
       chunk[i] = static_cast<T>(i + 1);
+    }
     seq_buf.Push(chunk);
     // With the next Push(), |last| will be moved left by N positions.
     const T last = chunk[N - 1];
-    for (size_t i = 0; i < N; ++i)
+    for (size_t i = 0; i < N; ++i) {
       chunk[i] = static_cast<T>(last + i + 1);
+    }
     seq_buf.Push(chunk);
     EXPECT_EQ(last, seq_buf_view[S - N - 1]);
   }

@@ -44,8 +44,9 @@ enum {
 
 size_t Word32Align(size_t size) {
   uint32_t remainder = size % 4;
-  if (remainder != 0)
+  if (remainder != 0) {
     return size + 4 - remainder;
+  }
   return size;
 }
 
@@ -283,8 +284,9 @@ bool RtpHeaderParser::Parse(
     }
     header->headerLength += XLen;
   }
-  if (header->headerLength > static_cast<size_t>(length))
+  if (header->headerLength > static_cast<size_t>(length)) {
     return false;
+  }
 
   if (P) {
     // Packet has padding.
@@ -299,8 +301,9 @@ bool RtpHeaderParser::Parse(
   }
 
   if (header->headerLength + header->paddingLength >
-      static_cast<size_t>(length))
+      static_cast<size_t>(length)) {
     return false;
+  }
   return true;
 }
 

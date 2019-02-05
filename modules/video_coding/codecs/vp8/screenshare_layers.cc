@@ -108,8 +108,9 @@ Vp8FrameConfig ScreenshareLayers::UpdateLayerConfig(uint32_t timestamp) {
     // If input frame rate exceeds target frame rate, either over a one second
     // averaging window, or if frame interval is below 90% of desired value,
     // drop frame.
-    if (encode_framerate_.Rate(now_ms).value_or(0) > *target_framerate_)
+    if (encode_framerate_.Rate(now_ms).value_or(0) > *target_framerate_) {
       return Vp8FrameConfig(kNone, kNone, kNone);
+    }
 
     // Primarily check if frame interval is too short using frame timestamps,
     // as if they are correct they won't be affected by queuing in webrtc.
@@ -130,8 +131,9 @@ Vp8FrameConfig ScreenshareLayers::UpdateLayerConfig(uint32_t timestamp) {
     }
   }
 
-  if (stats_.first_frame_time_ms_ == -1)
+  if (stats_.first_frame_time_ms_ == -1) {
     stats_.first_frame_time_ms_ = now_ms;
+  }
 
   // Make sure both frame droppers leak out bits.
   layers_[0].UpdateDebt(ts_diff / 90);
@@ -328,16 +330,18 @@ void ScreenshareLayers::OnEncodeDone(uint32_t rtp_timestamp,
 
   encode_framerate_.Update(1, clock_->TimeInMilliseconds());
 
-  if (number_of_temporal_layers_ == 1)
+  if (number_of_temporal_layers_ == 1) {
     return;
+  }
 
   RTC_DCHECK_NE(-1, active_layer_);
   if (layers_[active_layer_].state == TemporalLayer::State::kDropped) {
     layers_[active_layer_].state = TemporalLayer::State::kQualityBoost;
   }
 
-  if (qp != -1)
+  if (qp != -1) {
     layers_[active_layer_].last_qp = qp;
+  }
 
   if (active_layer_ == 0) {
     layers_[0].debt_bytes_ += size_bytes;
@@ -373,8 +377,9 @@ bool ScreenshareLayers::TimeToSync(int64_t timestamp) const {
   }
   // Issue a sync frame if difference in quality between TL0 and TL1 isn't too
   // large.
-  if (layers_[0].last_qp - layers_[1].last_qp < kQpDeltaThresholdForSync)
+  if (layers_[0].last_qp - layers_[1].last_qp < kQpDeltaThresholdForSync) {
     return true;
+  }
   return false;
 }
 
@@ -455,11 +460,13 @@ bool ScreenshareLayers::UpdateConfiguration(Vp8EncoderConfig* cfg) {
   }
 
   // Don't try to update boosts state if not active yet.
-  if (active_layer_ == -1)
+  if (active_layer_ == -1) {
     return cfg_updated;
+  }
 
-  if (max_qp_ == -1 || number_of_temporal_layers_ <= 1)
+  if (max_qp_ == -1 || number_of_temporal_layers_ <= 1) {
     return cfg_updated;
+  }
 
   // If layer is in the quality boost state (following a dropped frame), update
   // the configuration with the adjusted (lower) qp and set the state back to
@@ -474,8 +481,9 @@ bool ScreenshareLayers::UpdateConfiguration(Vp8EncoderConfig* cfg) {
     layers_[active_layer_].state = TemporalLayer::State::kNormal;
   }
 
-  if (adjusted_max_qp == cfg->rc_max_quantizer)
+  if (adjusted_max_qp == cfg->rc_max_quantizer) {
     return cfg_updated;
+  }
 
   cfg->rc_max_quantizer = adjusted_max_qp;
   cfg_updated = true;
@@ -493,8 +501,9 @@ void ScreenshareLayers::TemporalLayer::UpdateDebt(int64_t delta_ms) {
 }
 
 void ScreenshareLayers::UpdateHistograms() {
-  if (stats_.first_frame_time_ms_ == -1)
+  if (stats_.first_frame_time_ms_ == -1) {
     return;
+  }
   int64_t duration_sec =
       (clock_->TimeInMilliseconds() - stats_.first_frame_time_ms_ + 500) / 1000;
   if (duration_sec >= metrics::kMinRunTimeInSeconds) {

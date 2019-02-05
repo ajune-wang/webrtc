@@ -95,10 +95,11 @@ TEST_F(ResamplerTest, Reset) {
         ss << "Input rate: " << kRates[i] << ", output rate: " << kRates[j]
            << ", channels: " << kNumChannels[k];
         SCOPED_TRACE(ss.str());
-        if (ValidRates(kRates[i], kRates[j]))
+        if (ValidRates(kRates[i], kRates[j])) {
           EXPECT_EQ(0, rs_.Reset(kRates[i], kRates[j], kNumChannels[k]));
-        else
+        } else {
           EXPECT_EQ(-1, rs_.Reset(kRates[i], kRates[j], kNumChannels[k]));
+        }
       }
     }
   }

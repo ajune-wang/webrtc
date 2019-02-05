@@ -42,14 +42,16 @@ void SampleCounter::Add(const SampleCounter& other) {
   RTC_DCHECK_LE(other.num_samples_,
                 std::numeric_limits<int64_t>::max() - num_samples_);
   num_samples_ += other.num_samples_;
-  if (other.max_ && (!max_ || *max_ < *other.max_))
+  if (other.max_ && (!max_ || *max_ < *other.max_)) {
     max_ = other.max_;
+  }
 }
 
 absl::optional<int> SampleCounter::Avg(int64_t min_required_samples) const {
   RTC_DCHECK_GT(min_required_samples, 0);
-  if (num_samples_ < min_required_samples)
+  if (num_samples_ < min_required_samples) {
     return absl::nullopt;
+  }
   return rtc::dchecked_cast<int>(sum_ / num_samples_);
 }
 
@@ -59,8 +61,9 @@ absl::optional<int> SampleCounter::Max() const {
 
 absl::optional<int64_t> SampleCounter::Sum(int64_t min_required_samples) const {
   RTC_DCHECK_GT(min_required_samples, 0);
-  if (num_samples_ < min_required_samples)
+  if (num_samples_ < min_required_samples) {
     return absl::nullopt;
+  }
   return sum_;
 }
 
@@ -78,8 +81,9 @@ SampleCounterWithVariance::~SampleCounterWithVariance() = default;
 absl::optional<int64_t> SampleCounterWithVariance::Variance(
     int64_t min_required_samples) const {
   RTC_DCHECK_GT(min_required_samples, 0);
-  if (num_samples_ < min_required_samples)
+  if (num_samples_ < min_required_samples) {
     return absl::nullopt;
+  }
   // E[(x-mean)^2] = E[x^2] - mean^2
   int64_t mean = sum_ / num_samples_;
   return sum_squared_ / num_samples_ - mean * mean;

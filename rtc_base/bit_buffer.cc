@@ -303,8 +303,9 @@ bool BitBufferWriter::WriteSignedExponentialGolomb(int32_t val) {
     uint32_t signed_val = val;
     return WriteExponentialGolomb((signed_val * 2) - 1);
   } else {
-    if (val == std::numeric_limits<int32_t>::min())
+    if (val == std::numeric_limits<int32_t>::min()) {
       return false;  // Not supported, would cause overflow.
+    }
     uint32_t signed_val = -val;
     return WriteExponentialGolomb(signed_val * 2);
   }

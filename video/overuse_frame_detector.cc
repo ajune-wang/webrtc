@@ -103,8 +103,9 @@ class SendProcessingUsage1 : public OveruseFrameDetector::ProcessingUsage {
   void FrameCaptured(const VideoFrame& frame,
                      int64_t time_when_first_seen_us,
                      int64_t last_capture_time_us) override {
-    if (last_capture_time_us != -1)
+    if (last_capture_time_us != -1) {
       AddCaptureSample(1e-3 * (time_when_first_seen_us - last_capture_time_us));
+    }
 
     frame_timing_.push_back(FrameTiming(frame.timestamp_us(), frame.timestamp(),
                                         time_when_first_seen_us));
@@ -470,10 +471,11 @@ CpuOveruseOptions::CpuOveruseOptions()
   // hardware encoding. Since we don't affect the incoming stream here, we only
   // control about 1/2 of the total processing needs, but this is not taken into
   // account.
-  if (n_physical_cores == 1)
+  if (n_physical_cores == 1) {
     high_encode_usage_threshold_percent = 20;  // Roughly 1/4 of 100%.
-  else if (n_physical_cores == 2)
+  } else if (n_physical_cores == 2) {
     high_encode_usage_threshold_percent = 40;  // Roughly 1/4 of 200%.
+  }
 #endif  // defined(WEBRTC_MAC) && !defined(WEBRTC_IOS)
 
   // Note that we make the interval 2x+epsilon wide, since libyuv scaling steps
@@ -574,8 +576,9 @@ bool OveruseFrameDetector::FrameSizeChanged(int num_pixels) const {
 
 bool OveruseFrameDetector::FrameTimeoutDetected(int64_t now_us) const {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&task_checker_);
-  if (last_capture_time_us_ == -1)
+  if (last_capture_time_us_ == -1) {
     return false;
+  }
   return (now_us - last_capture_time_us_) >
          options_.frame_timeout_interval_ms * rtc::kNumMicrosecsPerMillisec;
 }
@@ -633,8 +636,9 @@ void OveruseFrameDetector::CheckForOveruse(
   RTC_DCHECK(observer);
   ++num_process_times_;
   if (num_process_times_ <= options_.min_process_count ||
-      !encode_usage_percent_)
+      !encode_usage_percent_) {
     return;
+  }
 
   int64_t now_ms = rtc::TimeMillis();
 
@@ -648,8 +652,9 @@ void OveruseFrameDetector::CheckForOveruse(
           num_overuse_detections_ > kMaxOverusesBeforeApplyRampupDelay) {
         // Going up was not ok for very long, back off.
         current_rampup_delay_ms_ *= kRampUpBackoffFactor;
-        if (current_rampup_delay_ms_ > kMaxRampUpDelayMs)
+        if (current_rampup_delay_ms_ > kMaxRampUpDelayMs) {
           current_rampup_delay_ms_ = kMaxRampUpDelayMs;
+        }
       } else {
         // Not currently backing off, reset rampup delay.
         current_rampup_delay_ms_ = kStandardRampUpDelayMs;
@@ -700,8 +705,9 @@ bool OveruseFrameDetector::IsOverusing(int usage_percent) {
 bool OveruseFrameDetector::IsUnderusing(int usage_percent, int64_t time_now) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&task_checker_);
   int delay = in_quick_rampup_ ? kQuickRampUpDelayMs : current_rampup_delay_ms_;
-  if (time_now < last_rampup_time_ms_ + delay)
+  if (time_now < last_rampup_time_ms_ + delay) {
     return false;
+  }
 
   return usage_percent < options_.low_encode_usage_threshold_percent;
 }

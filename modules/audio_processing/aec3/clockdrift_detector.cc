@@ -22,8 +22,9 @@ void ClockdriftDetector::Update(int delay_estimate) {
   if (delay_estimate == delay_history_[0]) {
     // Reset clockdrift level if delay estimate is stable for 7500 blocks (30
     // seconds).
-    if (++stability_counter_ > 7500)
+    if (++stability_counter_ > 7500) {
       level_ = Level::kNone;
+    }
     return;
   }
 

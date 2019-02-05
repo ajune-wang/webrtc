@@ -217,8 +217,9 @@ OpenSSLIdentity* OpenSSLIdentity::GenerateInternal(
   if (key_pair) {
     std::unique_ptr<OpenSSLCertificate> certificate(
         OpenSSLCertificate::Generate(key_pair.get(), params));
-    if (certificate != nullptr)
+    if (certificate != nullptr) {
       return new OpenSSLIdentity(std::move(key_pair), std::move(certificate));
+    }
   }
   RTC_LOG(LS_INFO) << "Identity generation failed";
   return nullptr;
@@ -234,8 +235,9 @@ OpenSSLIdentity* OpenSSLIdentity::GenerateWithExpiration(
   time_t now = time(nullptr);
   params.not_before = now + kCertificateWindowInSeconds;
   params.not_after = now + certificate_lifetime;
-  if (params.not_before > params.not_after)
+  if (params.not_before > params.not_after) {
     return nullptr;
+  }
   return GenerateInternal(params);
 }
 
@@ -268,8 +270,9 @@ SSLIdentity* OpenSSLIdentity::FromPEMChainStrings(
     const std::string& certificate_chain) {
   BIO* bio = BIO_new_mem_buf(certificate_chain.data(),
                              rtc::dchecked_cast<int>(certificate_chain.size()));
-  if (!bio)
+  if (!bio) {
     return nullptr;
+  }
   BIO_set_mem_eof_return(bio, 0);
   std::vector<std::unique_ptr<SSLCertificate>> certs;
   while (true) {

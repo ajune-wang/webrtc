@@ -33,8 +33,9 @@ std::unique_ptr<FileLogWriterFactory> GetScenarioLogManager(
     std::string file_name) {
   if (FLAG_scenario_logs && !file_name.empty()) {
     std::string output_root = FLAG_out_root;
-    if (output_root.empty())
+    if (output_root.empty()) {
       output_root = OutputPath() + "output_data/";
+    }
 
     auto base_filename = output_root + file_name + ".";
     RTC_LOG(LS_INFO) << "Saving scenario logs to: " << base_filename;
@@ -93,10 +94,12 @@ Scenario::Scenario(
 }
 
 Scenario::~Scenario() {
-  if (start_time_.IsFinite())
+  if (start_time_.IsFinite()) {
     Stop();
-  if (!real_time_mode_)
+  }
+  if (!real_time_mode_) {
     rtc::SetClockForTesting(nullptr);
+  }
 }
 
 ColumnPrinter Scenario::TimePrinter() {
@@ -112,13 +115,15 @@ StatesPrinter* Scenario::CreatePrinter(std::string name,
                                        TimeDelta interval,
                                        std::vector<ColumnPrinter> printers) {
   std::vector<ColumnPrinter> all_printers{TimePrinter()};
-  for (auto& printer : printers)
+  for (auto& printer : printers) {
     all_printers.push_back(printer);
+  }
   StatesPrinter* printer = new StatesPrinter(GetLogWriter(name), all_printers);
   printers_.emplace_back(printer);
   printer->PrintHeaders();
-  if (interval.IsFinite())
+  if (interval.IsFinite()) {
     Every(interval, [printer] { printer->PrintRow(); });
+  }
   return printer;
 }
 
@@ -239,10 +244,11 @@ void Scenario::TriggerPacketBurst(std::vector<EmulatedNetworkNode*> over_nodes,
                                   size_t packet_size) {
   uint64_t route_id = next_route_id_++;
   EmulatedNetworkNode::CreateRoute(route_id, over_nodes, &null_receiver_);
-  for (size_t i = 0; i < num_packets; ++i)
+  for (size_t i = 0; i < num_packets; ++i) {
     over_nodes[0]->OnPacketReceived(EmulatedIpPacket(
         rtc::SocketAddress() /*from*/, rtc::SocketAddress(), /*to*/
         route_id, rtc::CopyOnWriteBuffer(packet_size), Now()));
+  }
 }
 
 void Scenario::NetworkDelayedAction(
@@ -291,8 +297,9 @@ VideoStreamPair* Scenario::CreateVideoStream(
     std::pair<CallClient*, CallClient*> clients,
     VideoStreamConfig config) {
   std::unique_ptr<RtcEventLogOutput> quality_logger;
-  if (config.analyzer.log_to_file)
+  if (config.analyzer.log_to_file) {
     quality_logger = clients.first->GetLogWriter(".video_quality.txt");
+  }
   video_streams_.emplace_back(new VideoStreamPair(
       clients.first, clients.second, config, std::move(quality_logger)));
   return video_streams_.back().get();
@@ -350,8 +357,9 @@ void Scenario::RunUntil(TimeDelta max_duration) {
 void Scenario::RunUntil(TimeDelta max_duration,
                         TimeDelta poll_interval,
                         std::function<bool()> exit_function) {
-  if (start_time_.IsInfinite())
+  if (start_time_.IsInfinite()) {
     Start();
+  }
 
   rtc::Event done_;
   while (!exit_function() && Duration() < max_duration) {
@@ -376,9 +384,10 @@ void Scenario::RunUntil(TimeDelta max_duration,
       sim_clock_.AdvanceTimeMicroseconds(wait_time.us());
       // The fake clock is quite slow to update, we only update it if logging is
       // turned on to save time.
-      if (log_writer_factory_)
+      if (log_writer_factory_) {
         event_log_fake_clock_.SetTimeNanos(sim_clock_.TimeInMicroseconds() *
                                            1000);
+      }
     }
   }
 }
@@ -389,10 +398,12 @@ void Scenario::Start() {
     activity->SetStartTime(start_time_);
   }
 
-  for (auto& stream_pair : video_streams_)
+  for (auto& stream_pair : video_streams_) {
     stream_pair->receive()->Start();
-  for (auto& stream_pair : audio_streams_)
+  }
+  for (auto& stream_pair : audio_streams_) {
     stream_pair->receive()->Start();
+  }
   for (auto& stream_pair : video_streams_) {
     if (stream_pair->config_.autostart) {
       stream_pair->send()->Start();
@@ -410,12 +421,15 @@ void Scenario::Stop() {
   for (auto& stream_pair : video_streams_) {
     stream_pair->send()->send_stream_->Stop();
   }
-  for (auto& stream_pair : audio_streams_)
+  for (auto& stream_pair : audio_streams_) {
     stream_pair->send()->send_stream_->Stop();
-  for (auto& stream_pair : video_streams_)
+  }
+  for (auto& stream_pair : video_streams_) {
     stream_pair->receive()->receive_stream_->Stop();
-  for (auto& stream_pair : audio_streams_)
+  }
+  for (auto& stream_pair : audio_streams_) {
     stream_pair->receive()->receive_stream_->Stop();
+  }
   start_time_ = Timestamp::PlusInfinity();
 }
 
@@ -424,8 +438,9 @@ Timestamp Scenario::Now() {
 }
 
 TimeDelta Scenario::Duration() {
-  if (start_time_.IsInfinite())
+  if (start_time_.IsInfinite()) {
     return TimeDelta::Zero();
+  }
   return Now() - start_time_;
 }
 

@@ -46,8 +46,9 @@ TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesIdentity) {
       FindMatchingFrameIndices(reference_video, reference_video);
 
   EXPECT_EQ(indices.size(), reference_video->number_of_frames());
-  for (size_t i = 0; i < indices.size(); ++i)
+  for (size_t i = 0; i < indices.size(); ++i) {
     EXPECT_EQ(i, indices[i]);
+  }
 }
 
 TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesDuplicateFrames) {
@@ -64,8 +65,9 @@ TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesDuplicateFrames) {
 
 TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesLoopAround) {
   std::vector<size_t> indices;
-  for (size_t i = 0; i < reference_video->number_of_frames() * 2; ++i)
+  for (size_t i = 0; i < reference_video->number_of_frames() * 2; ++i) {
     indices.push_back(i % reference_video->number_of_frames());
+  }
 
   // Generate a test video based on this sequence.
   rtc::scoped_refptr<Video> test_video = ReorderVideo(reference_video, indices);
@@ -73,8 +75,9 @@ TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesLoopAround) {
   const std::vector<size_t> matched_indices =
       FindMatchingFrameIndices(reference_video, test_video);
 
-  for (size_t i = 0; i < matched_indices.size(); ++i)
+  for (size_t i = 0; i < matched_indices.size(); ++i) {
     EXPECT_EQ(i, matched_indices[i]);
+  }
 }
 
 TEST_F(VideoTemporalAlignerTest, FindMatchingFrameIndicesStressTest) {

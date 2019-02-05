@@ -73,14 +73,16 @@ static int socket_new(BIO* b) {
 }
 
 static int socket_free(BIO* b) {
-  if (b == nullptr)
+  if (b == nullptr) {
     return 0;
+  }
   return 1;
 }
 
 static int socket_read(BIO* b, char* out, int outl) {
-  if (!out)
+  if (!out) {
     return -1;
+  }
   rtc::AsyncSocket* socket = static_cast<rtc::AsyncSocket*>(BIO_get_data(b));
   BIO_clear_retry_flags(b);
   int result = socket->Recv(out, outl, nullptr);
@@ -93,8 +95,9 @@ static int socket_read(BIO* b, char* out, int outl) {
 }
 
 static int socket_write(BIO* b, const char* in, int inl) {
-  if (!in)
+  if (!in) {
     return -1;
+  }
   rtc::AsyncSocket* socket = static_cast<rtc::AsyncSocket*>(BIO_get_data(b));
   BIO_clear_retry_flags(b);
   int result = socket->Send(in, inl);
@@ -151,8 +154,9 @@ static void LogSslError() {
 namespace rtc {
 
 bool OpenSSLAdapter::InitializeSSL() {
-  if (!SSL_library_init())
+  if (!SSL_library_init()) {
     return false;
+  }
 #if !defined(ADDRESS_SANITIZER) || !defined(WEBRTC_MAC) || defined(WEBRTC_IOS)
   // Loading the error strings crashes mac_asan.  Omit this debugging aid there.
   SSL_load_error_strings();
@@ -247,8 +251,9 @@ AsyncSocket* OpenSSLAdapter::Accept(SocketAddress* paddr) {
 }
 
 int OpenSSLAdapter::StartSSL(const char* hostname, bool restartable) {
-  if (state_ != SSL_NONE)
+  if (state_ != SSL_NONE) {
     return -1;
+  }
 
   ssl_host_name_ = hostname;
   restartable_ = restartable;

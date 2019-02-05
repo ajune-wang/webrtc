@@ -93,7 +93,8 @@ int WebRtcIsacfix_EncHistMulti(Bitstr_enc *streamData,
           *streamPtrCarry = negCarry;
         }
       } else {
-        while ( !(++(*--streamPtrCarry)) );
+        while ( !(++(*--streamPtrCarry)) ) {;
+}
       }
     }
 

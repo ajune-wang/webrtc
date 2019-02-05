@@ -27,8 +27,9 @@ VideoQualityAnalyzer::VideoQualityAnalyzer(
     frame_info_handlers_.push_back(
         [this](const VideoFrameQualityInfo& info) { PrintFrameInfo(info); });
   }
-  if (frame_info_handler)
+  if (frame_info_handler) {
     frame_info_handlers_.push_back(frame_info_handler);
+  }
 }
 
 VideoQualityAnalyzer::~VideoQualityAnalyzer() {
@@ -40,8 +41,9 @@ VideoQualityAnalyzer::~VideoQualityAnalyzer() {
 void VideoQualityAnalyzer::OnCapturedFrame(const VideoFrame& frame) {
   VideoFrame copy = frame;
   task_queue_.PostTask([this, copy]() mutable {
-    if (!first_capture_ntp_time_ms_)
+    if (!first_capture_ntp_time_ms_) {
       first_capture_ntp_time_ms_ = copy.ntp_time_ms();
+    }
     captured_frames_.push_back(std::move(copy));
   });
 }
@@ -53,8 +55,9 @@ void VideoQualityAnalyzer::OnDecodedFrame(const VideoFrame& frame) {
   task_queue_.PostTask([this, decoded] {
     // If first frame never is received, this value will be wrong. However, that
     // is something that is very unlikely to happen.
-    if (!first_decode_rtp_timestamp_)
+    if (!first_decode_rtp_timestamp_) {
       first_decode_rtp_timestamp_ = decoded.timestamp();
+    }
     RTC_CHECK(!captured_frames_.empty());
     int64_t decoded_capture_time_ms = DecodedFrameCaptureTimeOffsetMs(decoded);
     while (CapturedFrameCaptureTimeOffsetMs(captured_frames_.front()) <
@@ -68,8 +71,9 @@ void VideoQualityAnalyzer::OnDecodedFrame(const VideoFrame& frame) {
                                 lost.width(),
                                 lost.height(),
                                 NAN};
-      for (auto& handler : frame_info_handlers_)
+      for (auto& handler : frame_info_handlers_) {
         handler(lost_info);
+      }
       RTC_CHECK(!captured_frames_.empty());
     }
     RTC_CHECK(!captured_frames_.empty());
@@ -85,8 +89,9 @@ void VideoQualityAnalyzer::OnDecodedFrame(const VideoFrame& frame) {
                               decoded.width(),
                               decoded.height(),
                               I420PSNR(&captured, &decoded)};
-    for (auto& handler : frame_info_handlers_)
+    for (auto& handler : frame_info_handlers_) {
       handler(decoded_info);
+    }
   });
 }
 
@@ -144,8 +149,9 @@ ForwardingCapturedFrameTap::~ForwardingCapturedFrameTap() {}
 void ForwardingCapturedFrameTap::OnFrame(const VideoFrame& frame) {
   RTC_CHECK(sink_);
   VideoFrame copy = frame;
-  if (frame.ntp_time_ms() == 0)
+  if (frame.ntp_time_ms() == 0) {
     copy.set_ntp_time_ms(clock_->CurrentNtpInMilliseconds());
+  }
   copy.set_timestamp(copy.ntp_time_ms() * 90);
   analyzer_->OnCapturedFrame(copy);
   sink_->OnFrame(copy);

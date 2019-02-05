@@ -153,16 +153,19 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
       received_size += last_received_packets_[i].sent_packet.size;
     }
     TimeDelta sending_time = TimeDelta::Zero();
-    if (last_received_packets_.size() > 0)
+    if (last_received_packets_.size() > 0) {
       sending_time = last_received_packets_.back().receive_time -
                      last_received_packets_.front().receive_time;
+    }
     DataRate receiving_rate = bandwidth_estimate_;
-    if (sending_time > TimeDelta::Zero())
+    if (sending_time > TimeDelta::Zero()) {
       receiving_rate = received_size / sending_time;
+    }
     bandwidth_estimate_ =
         std::min<DataRate>(bandwidth_estimate_ * 0.5, receiving_rate);
-    if (mode_ == Mode::kSlowStart)
+    if (mode_ == Mode::kSlowStart) {
       mode_ = Mode::kOnlineLearning;
+    }
   }
   if (mode_ == Mode::kStartup &&
       msg.send_time - start_time_ >= kStartupDuration) {
@@ -171,12 +174,14 @@ NetworkControlUpdate PccNetworkController::OnSentPacket(SentPacket msg) {
       received_size += last_received_packets_[i].sent_packet.size;
     }
     TimeDelta sending_time = TimeDelta::Zero();
-    if (last_received_packets_.size() > 0)
+    if (last_received_packets_.size() > 0) {
       sending_time = last_received_packets_.back().receive_time -
                      last_received_packets_.front().receive_time;
+    }
     DataRate receiving_rate = bandwidth_estimate_;
-    if (sending_time > TimeDelta::Zero())
+    if (sending_time > TimeDelta::Zero()) {
       receiving_rate = received_size / sending_time;
+    }
     bandwidth_estimate_ = receiving_rate;
     monitor_intervals_.clear();
     mode_ = Mode::kSlowStart;
@@ -262,8 +267,9 @@ bool PccNetworkController::IsFeedbackCollectionDone() const {
 
 NetworkControlUpdate PccNetworkController::OnTransportPacketsFeedback(
     TransportPacketsFeedback msg) {
-  if (msg.packet_feedbacks.empty())
+  if (msg.packet_feedbacks.empty()) {
     return NetworkControlUpdate();
+  }
   // Save packets to last_received_packets_ array.
   for (const PacketResult& packet_result : msg.ReceivedWithSendInfo()) {
     last_received_packets_.push_back(packet_result);
@@ -284,8 +290,9 @@ NetworkControlUpdate PccNetworkController::OnTransportPacketsFeedback(
       monitor_intervals_[complete_feedback_monitor_interval_number_]
           .OnPacketsFeedback(msg.PacketsWithFeedback());
       if (!monitor_intervals_[complete_feedback_monitor_interval_number_]
-               .IsFeedbackCollectionDone())
+               .IsFeedbackCollectionDone()) {
         break;
+      }
       ++complete_feedback_monitor_interval_number_;
     }
   }
@@ -295,8 +302,9 @@ NetworkControlUpdate PccNetworkController::OnTransportPacketsFeedback(
     } else if (NeedDoubleCheckMeasurments()) {
       mode_ = Mode::kDoubleCheck;
     }
-    if (mode_ != Mode::kDoubleCheck)
+    if (mode_ != Mode::kDoubleCheck) {
       UpdateSendingRateAndMode();
+    }
   }
   return NetworkControlUpdate();
 }
@@ -327,8 +335,9 @@ void PccNetworkController::UpdateSendingRateAndMode() {
         bitrate_controller_
             .ComputeRateUpdateForSlowStartMode(monitor_intervals_[0])
             .value_or(bandwidth_estimate_);
-    if (bandwidth_estimate_ <= old_bandwidth_estimate)
+    if (bandwidth_estimate_ <= old_bandwidth_estimate) {
       mode_ = Mode::kOnlineLearning;
+    }
   } else {
     RTC_DCHECK(mode_ == Mode::kOnlineLearning);
     bandwidth_estimate_ =

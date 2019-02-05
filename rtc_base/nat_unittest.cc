@@ -79,8 +79,9 @@ void TestSend(SocketServer* internal,
 
   TestClient* in = CreateTestClient(natsf, internal_addr);
   TestClient* out[4];
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 4; i++) {
     out[i] = CreateTestClient(external, external_addrs[i]);
+  }
 
   th_int.Start();
   th_ext.Start();
@@ -108,8 +109,9 @@ void TestSend(SocketServer* internal,
   delete nat;
   delete natsf;
   delete in;
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 4; i++) {
     delete out[i];
+  }
 }
 
 // Tests that when sending from external_addrs to internal_addr, the packet
@@ -133,8 +135,9 @@ void TestRecv(SocketServer* internal,
 
   TestClient* in = CreateTestClient(natsf, internal_addr);
   TestClient* out[4];
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 4; i++) {
     out[i] = CreateTestClient(external, external_addrs[i]);
+  }
 
   th_int.Start();
   th_ext.Start();
@@ -161,8 +164,9 @@ void TestRecv(SocketServer* internal,
   delete nat;
   delete natsf;
   delete in;
-  for (int i = 0; i < 4; i++)
+  for (int i = 0; i < 4; i++) {
     delete out[i];
+  }
 }
 
 // Tests that NATServer allocates bindings properly.

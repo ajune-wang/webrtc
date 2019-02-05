@@ -235,8 +235,9 @@ bool Thread::SetName(const std::string& name, const void* obj) {
 bool Thread::Start(Runnable* runnable) {
   RTC_DCHECK(!IsRunning());
 
-  if (IsRunning())
+  if (IsRunning()) {
     return false;
+  }
 
   Restart();  // reset IsQuitting() if the thread is being restarted
 
@@ -295,8 +296,9 @@ void Thread::SafeWrapCurrent() {
 }
 
 void Thread::Join() {
-  if (!IsRunning())
+  if (!IsRunning()) {
     return;
+  }
 
   RTC_DCHECK(!IsCurrent());
   if (Current() && !Current()->blocking_calls_allowed_) {
@@ -375,8 +377,9 @@ void Thread::Send(const Location& posted_from,
                   MessageHandler* phandler,
                   uint32_t id,
                   MessageData* pdata) {
-  if (IsQuitting())
+  if (IsQuitting()) {
     return;
+  }
 
   // Sent messages are sent to the MessageHandler directly, in the context
   // of "thread", like Win32 SendMessage. If in the right context,
@@ -532,14 +535,16 @@ bool Thread::ProcessMessages(int cmsLoop) {
     ScopedAutoReleasePool pool;
 #endif
     Message msg;
-    if (!Get(&msg, cmsNext))
+    if (!Get(&msg, cmsNext)) {
       return !IsQuitting();
+    }
     Dispatch(&msg);
 
     if (cmsLoop != kForever) {
       cmsNext = static_cast<int>(TimeUntil(msEnd));
-      if (cmsNext < 0)
+      if (cmsNext < 0) {
         return true;
+      }
     }
   }
 }

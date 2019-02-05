@@ -135,12 +135,15 @@ class TmToSeconds : public testing::Test {
       int year = rtc::CreateRandomId() % 400 + 1970;
 
       bool leap_year = false;
-      if (year % 4 == 0)
+      if (year % 4 == 0) {
         leap_year = true;
-      if (year % 100 == 0)
+      }
+      if (year % 100 == 0) {
         leap_year = false;
-      if (year % 400 == 0)
+      }
+      if (year % 400 == 0) {
         leap_year = true;
+      }
 
       std::tm tm;
       tm.tm_year = year - 1900;  // std::tm is year 1900 based.

@@ -136,8 +136,9 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
       RTC_LOG(LS_ERROR) << "Could not read header line";
       return nullptr;
     }
-    if (c == '\n')
+    if (c == '\n') {
       break;
+    }
     header_line.push_back(static_cast<char>(c));
   }
 
@@ -174,8 +175,9 @@ rtc::scoped_refptr<Video> OpenY4mFile(const std::string& file_name) {
               rtc::StringToNumber<int>(fraction[0]);
           const absl::optional<int> denominator =
               rtc::StringToNumber<int>(fraction[1]);
-          if (numerator && denominator && *denominator != 0)
+          if (numerator && denominator && *denominator != 0) {
             fps = *numerator / static_cast<float>(*denominator);
+          }
           break;
         }
       }
@@ -270,10 +272,12 @@ rtc::scoped_refptr<Video> OpenYuvFile(const std::string& file_name,
 rtc::scoped_refptr<Video> OpenYuvOrY4mFile(const std::string& file_name,
                                            int width,
                                            int height) {
-  if (absl::EndsWith(file_name, ".yuv"))
+  if (absl::EndsWith(file_name, ".yuv")) {
     return OpenYuvFile(file_name, width, height);
-  if (absl::EndsWith(file_name, ".y4m"))
+  }
+  if (absl::EndsWith(file_name, ".y4m")) {
     return OpenY4mFile(file_name);
+  }
 
   RTC_LOG(LS_ERROR) << "Video file does not end in either .yuv or .y4m: "
                     << file_name;

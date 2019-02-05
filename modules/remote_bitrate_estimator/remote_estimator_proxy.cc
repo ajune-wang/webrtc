@@ -70,8 +70,9 @@ int64_t RemoteEstimatorProxy::TimeUntilNextProcess() {
   if (last_process_time_ms_ != -1) {
     rtc::CritScope cs(&lock_);
     int64_t now = clock_->TimeInMilliseconds();
-    if (now - last_process_time_ms_ < send_interval_ms_)
+    if (now - last_process_time_ms_ < send_interval_ms_) {
       time_until_next = (last_process_time_ms_ + send_interval_ms_ - now);
+    }
   }
   return time_until_next;
 }
@@ -149,8 +150,9 @@ void RemoteEstimatorProxy::OnPacketArrival(uint16_t sequence_number,
   }
 
   // We are only interested in the first time a packet is received.
-  if (packet_arrival_times_.find(seq) != packet_arrival_times_.end())
+  if (packet_arrival_times_.find(seq) != packet_arrival_times_.end()) {
     return;
+  }
 
   packet_arrival_times_[seq] = arrival_time;
 }

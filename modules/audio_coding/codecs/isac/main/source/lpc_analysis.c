@@ -205,8 +205,9 @@ void WebRtcIsac_GetLpcCoefLb(double *inLo, double *inHi, MaskFiltstr *maskdata,
   aa = 0.35 * (0.5 + 0.5 * varscale);
 
   /* replace data in buffer by new look-ahead data */
-  for (pos1 = 0; pos1 < QLOOKAHEAD; pos1++)
+  for (pos1 = 0; pos1 < QLOOKAHEAD; pos1++) {
     maskdata->DataBufferLo[pos1 + WINLEN - QLOOKAHEAD] = inLo[pos1];
+}
 
   for (k = 0; k < SUBFRAMES; k++) {
 

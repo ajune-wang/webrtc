@@ -267,14 +267,16 @@ bool RemoteBitrateEstimatorTest::GenerateAndProcessFrame(uint32_t ssrc,
                    (packet->arrival_time + 500) / 1000, packet->rtp_timestamp,
                    AbsSendTime(packet->send_time, 1000000));
     if (bitrate_observer_->updated()) {
-      if (bitrate_observer_->latest_bitrate() < bitrate_bps)
+      if (bitrate_observer_->latest_bitrate() < bitrate_bps) {
         overuse = true;
+      }
     }
     delete packet;
     packets.pop_front();
   }
-  if (bitrate_estimator_->TimeUntilNextProcess() <= 0)
+  if (bitrate_estimator_->TimeUntilNextProcess() <= 0) {
     bitrate_estimator_->Process();
+  }
   clock_.AdvanceTimeMicroseconds(next_time_us - clock_.TimeInMicroseconds());
   return overuse;
 }
@@ -499,8 +501,9 @@ void RemoteBitrateEstimatorTest::CapacityDropTestHelper(
         bitrate_observer_->latest_bitrate() <= kReducedCapacityBps) {
       bitrate_drop_time = clock_.TimeInMilliseconds();
     }
-    if (bitrate_observer_->updated())
+    if (bitrate_observer_->updated()) {
       bitrate_bps = bitrate_observer_->latest_bitrate();
+    }
   }
 
   EXPECT_NEAR(expected_bitrate_drop_delta,

@@ -175,8 +175,9 @@ class FunctorB {
  public:
   explicit FunctorB(AtomicBool* flag) : flag_(flag) {}
   void operator()() {
-    if (flag_)
+    if (flag_) {
       *flag_ = true;
+    }
   }
 
  private:
@@ -194,8 +195,9 @@ struct FunctorD {
   FunctorD(FunctorD&&) = default;
   FunctorD& operator=(FunctorD&&) = default;
   void operator()() {
-    if (flag_)
+    if (flag_) {
       *flag_ = true;
+    }
   }
 
  private:

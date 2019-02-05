@@ -90,8 +90,9 @@ AsyncPacketSocket* BasicPacketSocketFactory::CreateServerTcpSocket(
   // See http://go/gtalktcpnodelayexperiment
   socket->SetOption(Socket::OPT_NODELAY, 1);
 
-  if (opts & PacketSocketFactory::OPT_STUN)
+  if (opts & PacketSocketFactory::OPT_STUN) {
     return new cricket::AsyncStunTCPSocket(socket, true);
+  }
 
   return new AsyncTCPSocket(socket, true);
 }

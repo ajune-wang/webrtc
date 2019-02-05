@@ -114,10 +114,11 @@ TEST(ControllerManagerTest, GetControllersReturnAllControllers) {
   // Verify that controllers in |check| are one-to-one mapped to those in
   // |mock_controllers_|.
   EXPECT_EQ(states.mock_controllers.size(), check.size());
-  for (auto& controller : check)
+  for (auto& controller : check) {
     EXPECT_NE(states.mock_controllers.end(),
               std::find(states.mock_controllers.begin(),
                         states.mock_controllers.end(), controller));
+  }
 }
 
 TEST(ControllerManagerTest, ControllersInDefaultOrderOnEmptyNetworkMetrics) {

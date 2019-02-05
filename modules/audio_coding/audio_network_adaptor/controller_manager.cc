@@ -152,8 +152,9 @@ std::unique_ptr<FrameLengthController> CreateFrameLengthController(
       config.fl_decreasing_packet_loss_fraction(), fl_increase_overhead_offset,
       fl_decrease_overhead_offset, std::move(fl_changing_bandwidths_bps));
 
-  for (auto frame_length : encoder_frame_lengths_ms)
+  for (auto frame_length : encoder_frame_lengths_ms) {
     ctor_config.encoder_frame_lengths_ms.insert(frame_length);
+  }
 
   return std::unique_ptr<FrameLengthController>(
       new FrameLengthController(ctor_config));
@@ -242,9 +243,10 @@ std::unique_ptr<ControllerManager> ControllerManagerImpl::Create(
 #if WEBRTC_ENABLE_PROTOBUF
   audio_network_adaptor::config::ControllerManager controller_manager_config;
   RTC_CHECK(controller_manager_config.ParseFromString(config_string));
-  if (debug_dump_writer)
+  if (debug_dump_writer) {
     debug_dump_writer->DumpControllerManagerConfig(controller_manager_config,
                                                    rtc::TimeMillis());
+  }
 
   std::vector<std::unique_ptr<Controller>> controllers;
   std::map<const Controller*, std::pair<int, float>> scoring_points;
@@ -329,8 +331,9 @@ ControllerManagerImpl::ControllerManagerImpl(
       controllers_(std::move(controllers)),
       last_reordering_time_ms_(absl::nullopt),
       last_scoring_point_(0, 0.0) {
-  for (auto& controller : controllers_)
+  for (auto& controller : controllers_) {
     default_sorted_controllers_.push_back(controller.get());
+  }
   sorted_controllers_ = default_sorted_controllers_;
   for (auto& controller_point : scoring_points) {
     controller_scoring_points_.insert(std::make_pair(
@@ -343,24 +346,28 @@ ControllerManagerImpl::~ControllerManagerImpl() = default;
 
 std::vector<Controller*> ControllerManagerImpl::GetSortedControllers(
     const Controller::NetworkMetrics& metrics) {
-  if (controller_scoring_points_.size() == 0)
+  if (controller_scoring_points_.size() == 0) {
     return default_sorted_controllers_;
+  }
 
-  if (!metrics.uplink_bandwidth_bps || !metrics.uplink_packet_loss_fraction)
+  if (!metrics.uplink_bandwidth_bps || !metrics.uplink_packet_loss_fraction) {
     return sorted_controllers_;
+  }
 
   const int64_t now_ms = rtc::TimeMillis();
   if (last_reordering_time_ms_ &&
-      now_ms - *last_reordering_time_ms_ < config_.min_reordering_time_ms)
+      now_ms - *last_reordering_time_ms_ < config_.min_reordering_time_ms) {
     return sorted_controllers_;
+  }
 
   ScoringPoint scoring_point(*metrics.uplink_bandwidth_bps,
                              *metrics.uplink_packet_loss_fraction);
 
   if (last_reordering_time_ms_ &&
       last_scoring_point_.SquaredDistanceTo(scoring_point) <
-          config_.min_reordering_squared_distance)
+          config_.min_reordering_squared_distance) {
     return sorted_controllers_;
+  }
 
   // Sort controllers according to the distances of |scoring_point| to the
   // scoring points of controllers.
@@ -377,11 +384,13 @@ std::vector<Controller*> ControllerManagerImpl::GetSortedControllers(
         auto lhs_scoring_point = controller_scoring_points_.find(lhs);
         auto rhs_scoring_point = controller_scoring_points_.find(rhs);
 
-        if (lhs_scoring_point == controller_scoring_points_.end())
+        if (lhs_scoring_point == controller_scoring_points_.end()) {
           return false;
+        }
 
-        if (rhs_scoring_point == controller_scoring_points_.end())
+        if (rhs_scoring_point == controller_scoring_points_.end()) {
           return true;
+        }
 
         return lhs_scoring_point->second.SquaredDistanceTo(scoring_point) <
                rhs_scoring_point->second.SquaredDistanceTo(scoring_point);

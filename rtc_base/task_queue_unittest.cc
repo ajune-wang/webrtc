@@ -54,8 +54,9 @@ class EnableHighResTimers {
 
 void CheckCurrent(Event* signal, TaskQueue* queue) {
   EXPECT_TRUE(queue->IsCurrent());
-  if (signal)
+  if (signal) {
     signal->Set();
+  }
 }
 
 }  // namespace
@@ -173,8 +174,9 @@ TEST(TaskQueueTest, PostMultipleDelayed) {
     queue.PostDelayedTask(Bind(&CheckCurrent, events.back().get(), &queue), i);
   }
 
-  for (const auto& e : events)
+  for (const auto& e : events) {
     EXPECT_TRUE(e->Wait(1000));
+  }
 }
 
 TEST(TaskQueueTest, PostDelayedAfterDestruct) {
@@ -357,9 +359,10 @@ TEST(TaskQueueTest, PostALot) {
     // case inside of the libevent queue implementation.
 
     queue.PostTask([&event]() { event.Wait(Event::kForever); });
-    for (int i = 0; i < kTaskCount; ++i)
+    for (int i = 0; i < kTaskCount; ++i) {
       queue.PostTask(NewClosure([&tasks_executed]() { ++tasks_executed; },
                                 [&tasks_cleaned_up]() { ++tasks_cleaned_up; }));
+    }
     event.Set();  // Unblock the first task.
   }
 

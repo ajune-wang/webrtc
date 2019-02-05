@@ -127,14 +127,16 @@ class CachedVideo : public rtc::RefCountedObject<Video> {
   rtc::scoped_refptr<I420BufferInterface> GetFrame(
       size_t index) const override {
     for (const CachedFrame& cached_frame : cache_) {
-      if (cached_frame.index == index)
+      if (cached_frame.index == index) {
         return cached_frame.frame;
+      }
     }
 
     rtc::scoped_refptr<I420BufferInterface> frame = video_->GetFrame(index);
     cache_.push_front({index, frame});
-    if (cache_.size() > max_cache_size_)
+    if (cache_.size() > max_cache_size_) {
       cache_.pop_back();
+    }
 
     return frame;
   }
@@ -155,8 +157,9 @@ class CachedVideo : public rtc::RefCountedObject<Video> {
 size_t FindBestMatch(const rtc::scoped_refptr<I420BufferInterface>& test_frame,
                      const Video& reference_video) {
   std::vector<double> ssim;
-  for (const auto& ref_frame : reference_video)
+  for (const auto& ref_frame : reference_video) {
     ssim.push_back(Ssim(test_frame, ref_frame));
+  }
   return std::distance(ssim.begin(),
                        std::max_element(ssim.begin(), ssim.end()));
 }
@@ -172,8 +175,9 @@ size_t FindNextMatch(const rtc::scoped_refptr<I420BufferInterface>& test_frame,
   for (int i = 1; i < kNumberOfFramesLookAhead; ++i) {
     const size_t next_index = start_index + i;
     // If we find a better match, restart the search at that point.
-    if (start_ssim < Ssim(test_frame, reference_video.GetFrame(next_index)))
+    if (start_ssim < Ssim(test_frame, reference_video.GetFrame(next_index))) {
       return FindNextMatch(test_frame, reference_video, next_index);
+    }
   }
   // The starting index was the best match.
   return start_index;

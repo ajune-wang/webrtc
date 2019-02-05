@@ -101,8 +101,9 @@ class TurnServerAllocation::Channel : public rtc::MessageHandler {
 
 static bool InitResponse(const StunMessage* req, StunMessage* resp) {
   int resp_type = (req) ? GetStunSuccessResponseType(req->type()) : -1;
-  if (resp_type == -1)
+  if (resp_type == -1) {
     return false;
+  }
   resp->SetType(resp_type);
   resp->SetTransactionID(req->transaction_id());
   return true;
@@ -111,8 +112,9 @@ static bool InitResponse(const StunMessage* req, StunMessage* resp) {
 static bool InitErrorResponse(const StunMessage* req, int code,
                               const std::string& reason, StunMessage* resp) {
   int resp_type = (req) ? GetStunErrorResponseType(req->type()) : -1;
-  if (resp_type == -1)
+  if (resp_type == -1) {
     return false;
+  }
   resp->SetType(resp_type);
   resp->SetTransactionID(req->transaction_id());
   resp->AddAttribute(absl::make_unique<cricket::StunErrorCodeAttribute>(
@@ -906,8 +908,9 @@ TurnServerAllocation::Permission* TurnServerAllocation::FindPermission(
     const rtc::IPAddress& addr) const {
   for (PermissionList::const_iterator it = perms_.begin();
        it != perms_.end(); ++it) {
-    if ((*it)->peer() == addr)
+    if ((*it)->peer() == addr) {
       return *it;
+    }
   }
   return NULL;
 }
@@ -916,8 +919,9 @@ TurnServerAllocation::Channel* TurnServerAllocation::FindChannel(
     int channel_id) const {
   for (ChannelList::const_iterator it = channels_.begin();
        it != channels_.end(); ++it) {
-    if ((*it)->id() == channel_id)
+    if ((*it)->id() == channel_id) {
       return *it;
+    }
   }
   return NULL;
 }
@@ -926,8 +930,9 @@ TurnServerAllocation::Channel* TurnServerAllocation::FindChannel(
     const rtc::SocketAddress& addr) const {
   for (ChannelList::const_iterator it = channels_.begin();
        it != channels_.end(); ++it) {
-    if ((*it)->peer() == addr)
+    if ((*it)->peer() == addr) {
       return *it;
+    }
   }
   return NULL;
 }

@@ -49,8 +49,9 @@ size_t InsecureCryptStringImpl::GetLength() const {
 
 void InsecureCryptStringImpl::CopyTo(char* dest, bool nullterminate) const {
   memcpy(dest, password_.data(), password_.size());
-  if (nullterminate)
+  if (nullterminate) {
     dest[password_.size()] = 0;
+  }
 }
 
 std::string InsecureCryptStringImpl::UrlEncode() const {

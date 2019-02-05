@@ -63,17 +63,20 @@ srtp_err_status_t external_hmac_alloc(srtp_auth_t** a,
 
   // Check key length - note that we don't support keys larger
   // than 20 bytes yet
-  if (key_len > 20)
+  if (key_len > 20) {
     return srtp_err_status_bad_param;
+  }
 
   // Check output length - should be less than 20 bytes/
-  if (out_len > 20)
+  if (out_len > 20) {
     return srtp_err_status_bad_param;
+  }
 
   // Allocate memory for auth and hmac_ctx_t structures.
   pointer = new uint8_t[(sizeof(ExternalHmacContext) + sizeof(srtp_auth_t))];
-  if (pointer == NULL)
+  if (pointer == NULL) {
     return srtp_err_status_alloc_fail;
+  }
 
   // Set pointers
   *a = reinterpret_cast<srtp_auth_t*>(pointer);
@@ -101,8 +104,9 @@ srtp_err_status_t external_hmac_dealloc(srtp_auth_t* a) {
 srtp_err_status_t external_hmac_init(void* state,
                                      const uint8_t* key,
                                      int key_len) {
-  if (key_len > HMAC_KEY_LENGTH)
+  if (key_len > HMAC_KEY_LENGTH) {
     return srtp_err_status_bad_param;
+  }
 
   ExternalHmacContext* context = static_cast<ExternalHmacContext*>(state);
   memcpy(context->key, key, key_len);

@@ -31,8 +31,9 @@ FecControllerRplrBased::~FecControllerRplrBased() = default;
 
 void FecControllerRplrBased::UpdateNetworkMetrics(
     const NetworkMetrics& network_metrics) {
-  if (network_metrics.uplink_bandwidth_bps)
+  if (network_metrics.uplink_bandwidth_bps) {
     uplink_bandwidth_bps_ = network_metrics.uplink_bandwidth_bps;
+  }
   if (network_metrics.uplink_recoverable_packet_loss_fraction) {
     uplink_recoverable_packet_loss_ =
         network_metrics.uplink_recoverable_packet_loss_fraction;

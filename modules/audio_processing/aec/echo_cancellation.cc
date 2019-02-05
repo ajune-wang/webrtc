@@ -252,15 +252,18 @@ int32_t WebRtcAec_GetBufferFarendError(void* aecInst,
                                        size_t nrOfSamples) {
   Aec* aecpc = reinterpret_cast<Aec*>(aecInst);
 
-  if (!farend)
+  if (!farend) {
     return AEC_NULL_POINTER_ERROR;
+  }
 
-  if (aecpc->initFlag != initCheck)
+  if (aecpc->initFlag != initCheck) {
     return AEC_UNINITIALIZED_ERROR;
+  }
 
   // number of samples == 160 for SWB input
-  if (nrOfSamples != 80 && nrOfSamples != 160)
+  if (nrOfSamples != 80 && nrOfSamples != 160) {
     return AEC_BAD_PARAMETER_ERROR;
+  }
 
   return 0;
 }
@@ -278,8 +281,9 @@ int32_t WebRtcAec_BufferFarend(void* aecInst,
   int32_t error_code =
       WebRtcAec_GetBufferFarendError(aecInst, farend, nrOfSamples);
 
-  if (error_code != 0)
+  if (error_code != 0) {
     return error_code;
+  }
 
   if (aecpc->skewMode == kAecTrue && aecpc->resample == kAecTrue) {
     // Resample and get a new number of samples

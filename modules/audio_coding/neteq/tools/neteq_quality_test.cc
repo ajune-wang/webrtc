@@ -41,8 +41,9 @@ const std::string& DefaultOutFilename() {
 // Common validator for file names.
 static bool ValidateFilename(const std::string& value, bool write) {
   FILE* fid = write ? fopen(value.c_str(), "wb") : fopen(value.c_str(), "rb");
-  if (fid == nullptr)
+  if (fid == nullptr) {
     return false;
+  }
   fclose(fid);
   return true;
 }
@@ -97,8 +98,9 @@ WEBRTC_DEFINE_string(
 static double ProbTrans00Solver(int units,
                                 double loss_rate,
                                 double prob_trans_10) {
-  if (units == 1)
+  if (units == 1) {
     return prob_trans_10 / (1.0f - loss_rate) - prob_trans_10;
+  }
   // 0 == prob_trans_00 ^ (units - 1) + (1 - loss_rate) / prob_trans_10 *
   //     prob_trans_00 - (1 - loss_rate) * (1 + 1 / prob_trans_10).
   // There is a unique solution between 0.0 and 1.0, due to the monotonicity and
@@ -375,8 +377,9 @@ int NetEqQualityTest::Transmit() {
           rtp_header_,
           rtc::ArrayView<const uint8_t>(payload_.data(), payload_size_bytes_),
           packet_input_time_ms * in_sampling_khz_);
-      if (ret != NetEq::kOK)
+      if (ret != NetEq::kOK) {
         return -1;
+      }
       Log() << "was sent.";
     } else {
       Log() << "was lost.";

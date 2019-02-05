@@ -151,8 +151,9 @@ int32_t VideoSender::SetChannelParameters(
         // No frame rate estimate available, use default.
         framerate_fps = current_codec_.maxFramerate;
       }
-      if (_encoder != nullptr)
+      if (_encoder != nullptr) {
         _encoder->SetEncoderParameters(bitrate_allocation, framerate_fps);
+      }
     }
   }
 
@@ -172,8 +173,9 @@ int32_t VideoSender::AddVideoFrame(
     encoder_has_internal_source = encoder_has_internal_source_;
   }
   rtc::CritScope lock(&encoder_crit_);
-  if (_encoder == nullptr)
+  if (_encoder == nullptr) {
     return VCM_UNINITIALIZED;
+  }
   // TODO(pbos): Make sure setting send codec is synchronized with video
   // processing so frame size always matches.
   if (!_codecDataBase.MatchesCurrentResolution(videoFrame.width(),
@@ -220,8 +222,9 @@ int32_t VideoSender::AddVideoFrame(
     for (size_t i = 0; i < next_frame_types_.size(); ++i) {
       // Check for equality (same requested as before encoding) to not
       // accidentally drop a keyframe request while encoding.
-      if (next_frame_types[i] == next_frame_types_[i])
+      if (next_frame_types[i] == next_frame_types_[i]) {
         next_frame_types_[i] = kVideoFrameDelta;
+      }
     }
   }
   return VCM_OK;
@@ -234,8 +237,9 @@ int32_t VideoSender::IntraFrameRequest(size_t stream_index) {
       return -1;
     }
     next_frame_types_[stream_index] = kVideoFrameKey;
-    if (!encoder_has_internal_source_)
+    if (!encoder_has_internal_source_) {
       return VCM_OK;
+    }
   }
   // TODO(pbos): Remove when InternalSource() is gone. Both locks have to be
   // held here for internal consistency, since _encoder could be removed while
@@ -244,8 +248,9 @@ int32_t VideoSender::IntraFrameRequest(size_t stream_index) {
   // encoder_crit_.
   rtc::CritScope lock(&encoder_crit_);
   rtc::CritScope params_lock(&params_crit_);
-  if (stream_index >= next_frame_types_.size())
+  if (stream_index >= next_frame_types_.size()) {
     return -1;
+  }
   if (_encoder != nullptr && _encoder->InternalSource()) {
     // Try to request the frame if we have an external encoder with
     // internal source since AddVideoFrame never will be called.

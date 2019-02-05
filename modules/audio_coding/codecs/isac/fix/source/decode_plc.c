@@ -76,8 +76,9 @@ static int16_t plc_filterma_Fast(
 
     /* change the decay */
     decay -= reduceDecay;
-    if( decay < 0 )
+    if( decay < 0 ) {
       decay = 0;
+}
   }
   return( decay );
 }
@@ -107,10 +108,11 @@ static __inline int16_t  exp2_Q10_T(int16_t x) { // Both in and out in Q10
 
   tmp16_2=(int16_t)(0x0400|(x&0x03FF));
   tmp16_1 = -(x >> 10);
-  if(tmp16_1>0)
+  if(tmp16_1>0) {
     return tmp16_2 >> tmp16_1;
-  else
+  } else {
     return tmp16_2 << -tmp16_1;
+}
 
 }
 
@@ -387,8 +389,9 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
       tmp16 = exp2_Q10_T( tmp16 );
       tmp16 >>= 6;
     }
-    else
+    else {
       tmp16 = exp2_Q10_T( tmp16 )>>10;
+}
 
     (ISACdec_obj->plcstr_obj).std = tmp16 - 4;
 
@@ -516,8 +519,9 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
         (ISACdec_obj->plcstr_obj).decayCoeffNoise,
         (int16_t) (7) );
 
-    for( i = 0; i < FRAMESAMPLES_HALF; i++ )
+    for( i = 0; i < FRAMESAMPLES_HALF; i++ ) {
       Vector_Word32_2[i] = Vector_Word16_Extended_2[i] << rshift;
+}
 
     Vector_Word16_1 = Vector_Word16_Extended_1;
   }
@@ -541,8 +545,9 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
 
         /* --- lower the muliplier (more decay at next sample) --- */
         (ISACdec_obj->plcstr_obj).decayCoeffPriodic -= (myDecayRate);
-        if( (ISACdec_obj->plcstr_obj).decayCoeffPriodic < 0 )
+        if( (ISACdec_obj->plcstr_obj).decayCoeffPriodic < 0 ) {
           (ISACdec_obj->plcstr_obj).decayCoeffPriodic = 0;
+}
 
         (ISACdec_obj->plcstr_obj).pitchIndex++;
 
@@ -641,8 +646,9 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
 
         /* --- lower the muliplier (more decay at next sample) --- */
         (ISACdec_obj->plcstr_obj).decayCoeffNoise -= (myDecayRate);
-        if( (ISACdec_obj->plcstr_obj).decayCoeffNoise < 0 )
+        if( (ISACdec_obj->plcstr_obj).decayCoeffNoise < 0 ) {
           (ISACdec_obj->plcstr_obj).decayCoeffNoise = 0;
+}
 
         /* ------ Periodic Vector ---                                */
         /* --- Lowpass                                               */
@@ -680,10 +686,11 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
           (ISACdec_obj->plcstr_obj).pitchIndex = 0;
           (ISACdec_obj->plcstr_obj).pitchCycles++;
 
-          if( (ISACdec_obj->plcstr_obj).stretchLag != (lag0 + 1) )
+          if( (ISACdec_obj->plcstr_obj).stretchLag != (lag0 + 1) ) {
             (ISACdec_obj->plcstr_obj).stretchLag = lag0 + 1;
-          else
+          } else {
             (ISACdec_obj->plcstr_obj).stretchLag = lag0;
+}
 
           (ISACdec_obj->plcstr_obj).stretchLag = (
               (ISACdec_obj->plcstr_obj).stretchLag > PITCH_MAX_LAG
@@ -769,8 +776,9 @@ void WebRtcIsacfix_DecodePlcImpl(int16_t *signal_out16,
   gainQ13 = (int16_t) (tmp32b >> 5); // Q13
 
   /* perceptual post-filtering (using normalized lattice filter) */
-  for (k = 0; k < FRAMESAMPLES_HALF; k++)
+  for (k = 0; k < FRAMESAMPLES_HALF; k++) {
     Vector_Word32_1[k] = (Vector_Word16_2[k] * gainQ13) << 3;  // Q25
+}
 
 
   WebRtcIsacfix_NormLatticeFilterAr(ORDERLO,

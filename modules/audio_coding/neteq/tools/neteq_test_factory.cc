@@ -50,29 +50,34 @@ namespace {
 // valid SSRC is found, it is written to the output variable |ssrc|, and true is
 // returned. Otherwise, false is returned.
 bool ParseSsrc(const std::string& str, uint32_t* ssrc) {
-  if (str.empty())
+  if (str.empty()) {
     return true;
+  }
   int base = 10;
   // Look for "0x" or "0X" at the start and change base to 16 if found.
-  if ((str.compare(0, 2, "0x") == 0) || (str.compare(0, 2, "0X") == 0))
+  if ((str.compare(0, 2, "0x") == 0) || (str.compare(0, 2, "0X") == 0)) {
     base = 16;
+  }
   errno = 0;
   char* end_ptr;
   unsigned long value = strtoul(str.c_str(), &end_ptr, base);  // NOLINT
-  if (value == ULONG_MAX && errno == ERANGE)
+  if (value == ULONG_MAX && errno == ERANGE) {
     return false;  // Value out of range for unsigned long.
+  }
   if (sizeof(unsigned long) > sizeof(uint32_t) && value > 0xFFFFFFFF)  // NOLINT
     return false;  // Value out of range for uint32_t.
-  if (end_ptr - str.c_str() < static_cast<ptrdiff_t>(str.length()))
+  if (end_ptr - str.c_str() < static_cast<ptrdiff_t>(str.length())) {
     return false;  // Part of the string was not parsed.
+  }
   *ssrc = static_cast<uint32_t>(value);
   return true;
 }
 
 // Flag validators.
 bool ValidatePayloadType(int value) {
-  if (value >= 0 && value <= 127)  // Value is ok.
+  if (value >= 0 && value <= 127) {  // Value is ok.
     return true;
+  }
   printf("Payload type must be between 0 and 127, not %d\n",
          static_cast<int>(value));
   return false;
@@ -80,15 +85,17 @@ bool ValidatePayloadType(int value) {
 
 bool ValidateSsrcValue(const std::string& str) {
   uint32_t dummy_ssrc;
-  if (ParseSsrc(str, &dummy_ssrc))  // Value is ok.
+  if (ParseSsrc(str, &dummy_ssrc)) {  // Value is ok.
     return true;
+  }
   printf("Invalid SSRC: %s\n", str.c_str());
   return false;
 }
 
 static bool ValidateExtensionId(int value) {
-  if (value > 0 && value <= 255)  // Value is ok.
+  if (value > 0 && value <= 255) {  // Value is ok.
     return true;
+  }
   printf("Extension ID must be between 1 and 255, not %d\n",
          static_cast<int>(value));
   return false;
@@ -184,20 +191,25 @@ void PrintCodecMapping() {
 absl::optional<int> CodecSampleRate(uint8_t payload_type) {
   if (payload_type == FLAG_pcmu || payload_type == FLAG_pcma ||
       payload_type == FLAG_ilbc || payload_type == FLAG_pcm16b ||
-      payload_type == FLAG_cn_nb || payload_type == FLAG_avt)
+      payload_type == FLAG_cn_nb || payload_type == FLAG_avt) {
     return 8000;
+  }
   if (payload_type == FLAG_isac || payload_type == FLAG_pcm16b_wb ||
       payload_type == FLAG_g722 || payload_type == FLAG_cn_wb ||
-      payload_type == FLAG_avt_16)
+      payload_type == FLAG_avt_16) {
     return 16000;
+  }
   if (payload_type == FLAG_isac_swb || payload_type == FLAG_pcm16b_swb32 ||
-      payload_type == FLAG_cn_swb32 || payload_type == FLAG_avt_32)
+      payload_type == FLAG_cn_swb32 || payload_type == FLAG_avt_32) {
     return 32000;
+  }
   if (payload_type == FLAG_opus || payload_type == FLAG_pcm16b_swb48 ||
-      payload_type == FLAG_cn_swb48 || payload_type == FLAG_avt_48)
+      payload_type == FLAG_cn_swb48 || payload_type == FLAG_avt_48) {
     return 48000;
-  if (payload_type == FLAG_red)
+  }
+  if (payload_type == FLAG_red) {
     return 0;
+  }
   return absl::nullopt;
 }
 

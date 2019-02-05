@@ -316,8 +316,9 @@ void VCMJitterEstimator::EstimateRandomJitter(double d_dT,
   double alpha =
       static_cast<double>(_alphaCount - 1) / static_cast<double>(_alphaCount);
   _alphaCount++;
-  if (_alphaCount > _alphaCountMax)
+  if (_alphaCount > _alphaCountMax) {
     _alphaCount = _alphaCountMax;
+  }
 
   // In order to avoid a low frame rate stream to react slower to changes,
   // scale the alpha weight relative a 30 fps stream.
@@ -396,13 +397,16 @@ int VCMJitterEstimator::GetJitterEstimate(double rttMultiplier) {
   double jitterMS = CalculateEstimate() + OPERATING_SYSTEM_JITTER;
   uint64_t now = clock_->TimeInMicroseconds();
 
-  if (now - _latestNackTimestamp > kNackCountTimeoutMs * 1000)
+  if (now - _latestNackTimestamp > kNackCountTimeoutMs * 1000) {
     _nackCount = 0;
+  }
 
-  if (_filterJitterEstimate > jitterMS)
+  if (_filterJitterEstimate > jitterMS) {
     jitterMS = _filterJitterEstimate;
-  if (_nackCount >= _nackLimit)
+  }
+  if (_nackCount >= _nackLimit) {
     jitterMS += _rttFilter.RttMs() * rttMultiplier;
+  }
 
   static const double kJitterScaleLowThreshold = 5.0;
   static const double kJitterScaleHighThreshold = 10.0;
@@ -426,8 +430,9 @@ int VCMJitterEstimator::GetJitterEstimate(double rttMultiplier) {
 }
 
 double VCMJitterEstimator::GetFrameRate() const {
-  if (fps_counter_.ComputeMean() == 0.0)
+  if (fps_counter_.ComputeMean() == 0.0) {
     return 0;
+  }
 
   double fps = 1000000.0 / fps_counter_.ComputeMean();
   // Sanity check.

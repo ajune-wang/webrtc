@@ -37,8 +37,9 @@ int WebRtcSpl_ComplexFFT(int16_t frfi[], int stages, int mode)
      * and should not be changed depending on the input parameter 'stages'
      */
     n = 1 << stages;
-    if (n > 1024)
+    if (n > 1024) {
         return -1;
+}
 
     l = 1;
     k = 10 - 1; /* Constant for given kSinTable1024[]. Do not change
@@ -168,8 +169,9 @@ int WebRtcSpl_ComplexIFFT(int16_t frfi[], int stages, int mode)
      * and should not be changed depending on the input parameter 'stages'
      */
     n = ((size_t)1) << stages;
-    if (n > 1024)
+    if (n > 1024) {
         return -1;
+}
 
     scale = 0;
 

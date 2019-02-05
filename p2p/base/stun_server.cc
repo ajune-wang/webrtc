@@ -79,8 +79,9 @@ void StunServer::SendResponse(const StunMessage& msg,
   rtc::ByteBufferWriter buf;
   msg.Write(&buf);
   rtc::PacketOptions options;
-  if (socket_->SendTo(buf.Data(), buf.Length(), addr, options) < 0)
+  if (socket_->SendTo(buf.Data(), buf.Length(), addr, options) < 0) {
     RTC_LOG_ERR(LS_ERROR) << "sendto";
+  }
 }
 
 void StunServer::GetStunBindReqponse(StunMessage* request,

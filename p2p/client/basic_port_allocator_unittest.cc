@@ -466,8 +466,9 @@ class BasicPortAllocatorTestBase : public testing::Test,
       for (relay_port = server_config.ports.begin();
            relay_port != server_config.ports.end(); ++relay_port) {
         if (proto_addr.address == relay_port->address &&
-            proto_addr.proto == relay_port->proto)
+            proto_addr.proto == relay_port->proto) {
           return true;
+        }
       }
     }
     return false;

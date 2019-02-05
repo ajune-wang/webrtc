@@ -58,12 +58,14 @@ void FlexfecReceiver::OnRtpPacket(const RtpPacketReceived& packet) {
   // |recovered_packets_|, we therefore break the cycle here.
   // This might reduce decoding efficiency a bit, since we can't disambiguate
   // recovered packets by RTX from recovered packets by FlexFEC.
-  if (packet.recovered())
+  if (packet.recovered()) {
     return;
+  }
 
   std::unique_ptr<ReceivedPacket> received_packet = AddReceivedPacket(packet);
-  if (!received_packet)
+  if (!received_packet) {
     return;
+  }
 
   ProcessReceivedPacket(*received_packet);
 }

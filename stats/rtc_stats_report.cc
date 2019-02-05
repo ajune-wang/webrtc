@@ -84,15 +84,17 @@ void RTCStatsReport::AddStats(std::unique_ptr<const RTCStats> stats) {
 
 const RTCStats* RTCStatsReport::Get(const std::string& id) const {
   StatsMap::const_iterator it = stats_.find(id);
-  if (it != stats_.cend())
+  if (it != stats_.cend()) {
     return it->second.get();
+  }
   return nullptr;
 }
 
 std::unique_ptr<const RTCStats> RTCStatsReport::Take(const std::string& id) {
   StatsMap::iterator it = stats_.find(id);
-  if (it == stats_.end())
+  if (it == stats_.end()) {
     return nullptr;
+  }
   std::unique_ptr<const RTCStats> stats = std::move(it->second);
   stats_.erase(it);
   return stats;

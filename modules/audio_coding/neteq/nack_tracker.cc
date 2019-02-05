@@ -64,15 +64,17 @@ void NackTracker::UpdateLastReceivedPacket(uint16_t sequence_number,
     return;
   }
 
-  if (sequence_number == sequence_num_last_received_rtp_)
+  if (sequence_number == sequence_num_last_received_rtp_) {
     return;
+  }
 
   // Received RTP should not be in the list.
   nack_list_.erase(sequence_number);
 
   // If this is an old sequence number, no more action is required, return.
-  if (IsNewerSequenceNumber(sequence_num_last_received_rtp_, sequence_number))
+  if (IsNewerSequenceNumber(sequence_num_last_received_rtp_, sequence_number)) {
     return;
+  }
 
   UpdateSamplesPerPacket(sequence_number, timestamp);
 
@@ -99,8 +101,9 @@ void NackTracker::UpdateList(uint16_t sequence_number_current_received_rtp) {
   ChangeFromLateToMissing(sequence_number_current_received_rtp);
 
   if (IsNewerSequenceNumber(sequence_number_current_received_rtp,
-                            sequence_num_last_received_rtp_ + 1))
+                            sequence_num_last_received_rtp_ + 1)) {
     AddToList(sequence_number_current_received_rtp);
+  }
 }
 
 void NackTracker::ChangeFromLateToMissing(
@@ -109,8 +112,9 @@ void NackTracker::ChangeFromLateToMissing(
       nack_list_.lower_bound(static_cast<uint16_t>(
           sequence_number_current_received_rtp - nack_threshold_packets_));
 
-  for (NackList::iterator it = nack_list_.begin(); it != lower_bound; ++it)
+  for (NackList::iterator it = nack_list_.begin(); it != lower_bound; ++it) {
     it->second.is_missing = true;
+  }
 }
 
 uint32_t NackTracker::EstimateTimestamp(uint16_t sequence_num) {
@@ -139,11 +143,14 @@ void NackTracker::AddToList(uint16_t sequence_number_current_received_rtp) {
 
 void NackTracker::UpdateEstimatedPlayoutTimeBy10ms() {
   while (!nack_list_.empty() &&
-         nack_list_.begin()->second.time_to_play_ms <= 10)
+         nack_list_.begin()->second.time_to_play_ms <= 10) {
     nack_list_.erase(nack_list_.begin());
+  }
 
-  for (NackList::iterator it = nack_list_.begin(); it != nack_list_.end(); ++it)
+  for (NackList::iterator it = nack_list_.begin(); it != nack_list_.end();
+       ++it) {
     it->second.time_to_play_ms -= 10;
+  }
 }
 
 void NackTracker::UpdateLastDecodedPacket(uint16_t sequence_number,
@@ -160,8 +167,9 @@ void NackTracker::UpdateLastDecodedPacket(uint16_t sequence_number,
 
     // Update estimated time-to-play.
     for (NackList::iterator it = nack_list_.begin(); it != nack_list_.end();
-         ++it)
+         ++it) {
       it->second.time_to_play_ms = TimeToPlay(it->second.estimated_timestamp);
+    }
   } else {
     assert(sequence_number == sequence_num_last_decoded_rtp_);
 
@@ -222,8 +230,9 @@ std::vector<uint16_t> NackTracker::GetNackList(
   for (NackList::const_iterator it = nack_list_.begin(); it != nack_list_.end();
        ++it) {
     if (it->second.is_missing &&
-        it->second.time_to_play_ms > round_trip_time_ms)
+        it->second.time_to_play_ms > round_trip_time_ms) {
       sequence_numbers.push_back(it->first);
+    }
   }
   return sequence_numbers;
 }

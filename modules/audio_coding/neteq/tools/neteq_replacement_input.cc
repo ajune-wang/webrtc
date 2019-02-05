@@ -44,8 +44,9 @@ std::unique_ptr<NetEqInput::PacketData> NetEqReplacementInput::PopPacket() {
   std::unique_ptr<PacketData> to_return = std::move(packet_);
   while (true) {
     packet_ = source_->PopPacket();
-    if (!packet_)
+    if (!packet_) {
       break;
+    }
     if (packet_->payload.size() > packet_->header.paddingLength) {
       // Not padding only. Good to go. Skip this packet otherwise.
       break;

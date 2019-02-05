@@ -92,14 +92,18 @@ RelayServer::RelayServer(rtc::Thread* thread)
 
 RelayServer::~RelayServer() {
   // Deleting the binding will cause it to be removed from the map.
-  while (!bindings_.empty())
+  while (!bindings_.empty()) {
     delete bindings_.begin()->second;
-  for (size_t i = 0; i < internal_sockets_.size(); ++i)
+  }
+  for (size_t i = 0; i < internal_sockets_.size(); ++i) {
     delete internal_sockets_[i];
-  for (size_t i = 0; i < external_sockets_.size(); ++i)
+  }
+  for (size_t i = 0; i < external_sockets_.size(); ++i) {
     delete external_sockets_[i];
-  for (size_t i = 0; i < removed_sockets_.size(); ++i)
+  }
+  for (size_t i = 0; i < removed_sockets_.size(); ++i) {
     delete removed_sockets_[i];
+  }
   while (!server_sockets_.empty()) {
     rtc::AsyncSocket* socket = server_sockets_.begin()->first;
     server_sockets_.erase(server_sockets_.begin()->first);
@@ -313,8 +317,9 @@ bool RelayServer::HandleStun(const char* bytes,
   }
 
   // Record the username if requested.
-  if (username)
+  if (username) {
     username->append(username_attr->bytes(), username_attr->length());
+  }
 
   // TODO(?): Check for unknown attributes (<= 0x7fff)
 
@@ -328,8 +333,9 @@ void RelayServer::HandleStunAllocate(const char* bytes,
   // Make sure this is a valid STUN request.
   RelayMessage request;
   std::string username;
-  if (!HandleStun(bytes, size, ap.source(), socket, &username, &request))
+  if (!HandleStun(bytes, size, ap.source(), socket, &username, &request)) {
     return;
+  }
 
   // Make sure this is a an allocate request.
   if (request.type() != STUN_ALLOCATE_REQUEST) {
@@ -355,9 +361,10 @@ void RelayServer::HandleStunAllocate(const char* bytes,
     int lifetime = MAX_LIFETIME;
     const StunUInt32Attribute* lifetime_attr =
         request.GetUInt32(STUN_ATTR_LIFETIME);
-    if (lifetime_attr)
+    if (lifetime_attr) {
       lifetime =
           std::min(lifetime, static_cast<int>(lifetime_attr->value() * 1000));
+    }
 
     binding = new RelayServerBinding(this, username, "0", lifetime);
     binding->SignalTimeout.connect(this, &RelayServer::OnTimeout);
@@ -386,8 +393,9 @@ void RelayServer::HandleStun(RelayServerConnection* int_conn,
   RelayMessage request;
   std::string username;
   if (!HandleStun(bytes, size, int_conn->addr_pair().source(),
-                  int_conn->socket(), &username, &request))
+                  int_conn->socket(), &username, &request)) {
     return;
+  }
 
   // Make sure the username is the one were were expecting.
   if (username != int_conn->binding()->username()) {
@@ -398,12 +406,13 @@ void RelayServer::HandleStun(RelayServerConnection* int_conn,
   // TODO(?): Check the HMAC.
 
   // Send this request to the appropriate handler.
-  if (request.type() == STUN_SEND_REQUEST)
+  if (request.type() == STUN_SEND_REQUEST) {
     HandleStunSend(int_conn, request);
-  else if (request.type() == STUN_ALLOCATE_REQUEST)
+  } else if (request.type() == STUN_ALLOCATE_REQUEST) {
     HandleStunAllocate(int_conn, request);
-  else
+  } else {
     int_conn->SendStunError(request, 600, "Operation Not Supported");
+  }
 }
 
 void RelayServer::HandleStunAllocate(RelayServerConnection* int_conn,
@@ -473,8 +482,9 @@ void RelayServer::HandleStunSend(RelayServerConnection* int_conn,
   }
 
   // If this connection has pinged us, then allow outgoing traffic.
-  if (ext_conn->locked())
+  if (ext_conn->locked()) {
     ext_conn->Send(data_attr->bytes(), data_attr->length());
+  }
 
   const StunUInt32Attribute* options_attr =
       request.GetUInt32(STUN_ATTR_OPTIONS);
@@ -667,10 +677,12 @@ RelayServerBinding::~RelayServerBinding() {
   server_->thread()->Clear(this);
 
   // Clean up all of the connections.
-  for (size_t i = 0; i < internal_connections_.size(); ++i)
+  for (size_t i = 0; i < internal_connections_.size(); ++i) {
     delete internal_connections_[i];
-  for (size_t i = 0; i < external_connections_.size(); ++i)
+  }
+  for (size_t i = 0; i < external_connections_.size(); ++i) {
     delete external_connections_[i];
+  }
 
   // Remove this binding from the server's map.
   server_->RemoveBinding(this);
@@ -701,8 +713,9 @@ RelayServerConnection* RelayServerBinding::GetInternalConnection(
   // Look for an internal connection that is locked to this address.
   for (size_t i = 0; i < internal_connections_.size(); ++i) {
     if (internal_connections_[i]->locked() &&
-        (ext_addr == internal_connections_[i]->default_destination()))
+        (ext_addr == internal_connections_[i]->default_destination())) {
       return internal_connections_[i];
+    }
   }
 
   // If one was not found, we send to the first connection.
@@ -713,8 +726,9 @@ RelayServerConnection* RelayServerBinding::GetInternalConnection(
 RelayServerConnection* RelayServerBinding::GetExternalConnection(
     const rtc::SocketAddress& ext_addr) {
   for (size_t i = 0; i < external_connections_.size(); ++i) {
-    if (ext_addr == external_connections_[i]->addr_pair().source())
+    if (ext_addr == external_connections_[i]->addr_pair().source()) {
       return external_connections_[i];
+    }
   }
   return 0;
 }

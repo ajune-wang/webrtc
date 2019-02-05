@@ -165,8 +165,9 @@ bool PeerConnectionWrapper::SetRemoteDescription(
   pc()->SetRemoteDescription(std::move(desc), observer);
   EXPECT_EQ_WAIT(true, observer->called(), kDefaultTimeout);
   bool ok = observer->error().ok();
-  if (error_out)
+  if (error_out) {
     *error_out = std::move(observer->error());
+  }
   return ok;
 }
 

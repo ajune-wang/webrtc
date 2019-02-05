@@ -26,8 +26,9 @@
 /* function for reading audio data from PCM file */
 bool readframe(int16_t* data, FILE* inp, size_t length) {
   size_t rlen = fread(data, sizeof(int16_t), length, inp);
-  if (rlen >= length)
+  if (rlen >= length) {
     return false;
+  }
   memset(data + rlen, 0, (length - rlen) * sizeof(int16_t));
   return true;
 }

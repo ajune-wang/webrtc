@@ -59,8 +59,9 @@ void ParseFieldTrial(
     int val_begin = key_end + 1;
     std::string key = trial_string.substr(i, key_end - i);
     absl::optional<std::string> opt_value;
-    if (val_end >= val_begin)
+    if (val_end >= val_begin) {
       opt_value = trial_string.substr(val_begin, val_end - val_begin);
+    }
     i = val_end + 1;
     auto field = field_map.find(key);
     if (field != field_map.end()) {
@@ -95,8 +96,9 @@ absl::optional<double> ParseTypedParameter<double>(std::string str) {
   double value;
   char unit[2]{0, 0};
   if (sscanf(str.c_str(), "%lf%1s", &value, unit) >= 1) {
-    if (unit[0] == '%')
+    if (unit[0] == '%') {
       return value / 100;
+    }
     return value;
   } else {
     return absl::nullopt;
@@ -135,8 +137,9 @@ bool FieldTrialFlag::Parse(absl::optional<std::string> str_value) {
   // Only set the flag if there is no argument provided.
   if (str_value) {
     absl::optional<bool> opt_value = ParseTypedParameter<bool>(*str_value);
-    if (!opt_value)
+    if (!opt_value) {
       return false;
+    }
     value_ = *opt_value;
   } else {
     value_ = true;
@@ -151,8 +154,9 @@ AbstractFieldTrialEnum::AbstractFieldTrialEnum(
     : FieldTrialParameterInterface(key),
       value_(default_value),
       enum_mapping_(mapping) {
-  for (auto& key_val : enum_mapping_)
+  for (auto& key_val : enum_mapping_) {
     valid_values_.insert(key_val.second);
+  }
 }
 AbstractFieldTrialEnum::AbstractFieldTrialEnum(const AbstractFieldTrialEnum&) =
     default;

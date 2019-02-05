@@ -75,8 +75,9 @@ StunMessage::StunMessage()
 StunMessage::~StunMessage() = default;
 
 bool StunMessage::IsLegacy() const {
-  if (transaction_id_.size() == kStunLegacyTransactionIdLength)
+  if (transaction_id_.size() == kStunLegacyTransactionIdLength) {
     return true;
+  }
   RTC_DCHECK(transaction_id_.size() == kStunTransactionIdLength);
   return false;
 }
@@ -140,8 +141,9 @@ const StunAddressAttribute* StunMessage::GetAddress(int type) const {
       // missing.
       const StunAttribute* mapped_address =
           GetAttribute(STUN_ATTR_MAPPED_ADDRESS);
-      if (!mapped_address)
+      if (!mapped_address) {
         mapped_address = GetAttribute(STUN_ATTR_XOR_MAPPED_ADDRESS);
+      }
       return reinterpret_cast<const StunAddressAttribute*>(mapped_address);
     }
 
@@ -249,8 +251,9 @@ bool StunMessage::ValidateMessageIntegrity(const char* data,
       rtc::ComputeHmac(rtc::DIGEST_SHA_1, password.c_str(), password.size(),
                        temp_data.get(), mi_pos, hmac, sizeof(hmac));
   RTC_DCHECK(ret == sizeof(hmac));
-  if (ret != sizeof(hmac))
+  if (ret != sizeof(hmac)) {
     return false;
+  }
 
   // Comparing the calculated HMAC with the one present in the message.
   return memcmp(data + current_pos + kStunAttributeHeaderSize, hmac,
@@ -271,8 +274,9 @@ bool StunMessage::AddMessageIntegrity(const char* key, size_t keylen) {
 
   // Calculate the HMAC for the message.
   ByteBufferWriter buf;
-  if (!Write(&buf))
+  if (!Write(&buf)) {
     return false;
+  }
 
   int msg_len_for_hmac = static_cast<int>(
       buf.Length() - kStunAttributeHeaderSize - msg_integrity_attr->length());
@@ -298,21 +302,24 @@ bool StunMessage::ValidateFingerprint(const char* data, size_t size) {
   // Check the message length.
   size_t fingerprint_attr_size =
       kStunAttributeHeaderSize + StunUInt32Attribute::SIZE;
-  if (size % 4 != 0 || size < kStunHeaderSize + fingerprint_attr_size)
+  if (size % 4 != 0 || size < kStunHeaderSize + fingerprint_attr_size) {
     return false;
+  }
 
   // Skip the rest if the magic cookie isn't present.
   const char* magic_cookie =
       data + kStunTransactionIdOffset - kStunMagicCookieLength;
-  if (rtc::GetBE32(magic_cookie) != kStunMagicCookie)
+  if (rtc::GetBE32(magic_cookie) != kStunMagicCookie) {
     return false;
+  }
 
   // Check the fingerprint type and length.
   const char* fingerprint_attr_data = data + size - fingerprint_attr_size;
   if (rtc::GetBE16(fingerprint_attr_data) != STUN_ATTR_FINGERPRINT ||
       rtc::GetBE16(fingerprint_attr_data + sizeof(uint16_t)) !=
-          StunUInt32Attribute::SIZE)
+          StunUInt32Attribute::SIZE) {
     return false;
+  }
 
   // Check the fingerprint value.
   uint32_t fingerprint =
@@ -331,8 +338,9 @@ bool StunMessage::AddFingerprint() {
 
   // Calculate the CRC-32 for the message and insert it.
   ByteBufferWriter buf;
-  if (!Write(&buf))
+  if (!Write(&buf)) {
     return false;
+  }
 
   int msg_len_for_crc32 = static_cast<int>(
       buf.Length() - kStunAttributeHeaderSize - fingerprint_attr->length());
@@ -344,8 +352,9 @@ bool StunMessage::AddFingerprint() {
 }
 
 bool StunMessage::Read(ByteBufferReader* buf) {
-  if (!buf->ReadUInt16(&type_))
+  if (!buf->ReadUInt16(&type_)) {
     return false;
+  }
 
   if (type_ & 0x8000) {
     // RTP and RTCP set the MSB of first byte, since first two bits are version,
@@ -353,16 +362,19 @@ bool StunMessage::Read(ByteBufferReader* buf) {
     return false;
   }
 
-  if (!buf->ReadUInt16(&length_))
+  if (!buf->ReadUInt16(&length_)) {
     return false;
+  }
 
   std::string magic_cookie;
-  if (!buf->ReadString(&magic_cookie, kStunMagicCookieLength))
+  if (!buf->ReadString(&magic_cookie, kStunMagicCookieLength)) {
     return false;
+  }
 
   std::string transaction_id;
-  if (!buf->ReadString(&transaction_id, kStunTransactionIdLength))
+  if (!buf->ReadString(&transaction_id, kStunTransactionIdLength)) {
     return false;
+  }
 
   uint32_t magic_cookie_int =
       *reinterpret_cast<const uint32_t*>(magic_cookie.data());
@@ -375,18 +387,21 @@ bool StunMessage::Read(ByteBufferReader* buf) {
   transaction_id_ = transaction_id;
   reduced_transaction_id_ = ReduceTransactionId(transaction_id_);
 
-  if (length_ != buf->Length())
+  if (length_ != buf->Length()) {
     return false;
+  }
 
   attrs_.resize(0);
 
   size_t rest = buf->Length() - length_;
   while (buf->Length() > rest) {
     uint16_t attr_type, attr_length;
-    if (!buf->ReadUInt16(&attr_type))
+    if (!buf->ReadUInt16(&attr_type)) {
       return false;
-    if (!buf->ReadUInt16(&attr_length))
+    }
+    if (!buf->ReadUInt16(&attr_length)) {
       return false;
+    }
 
     std::unique_ptr<StunAttribute> attr(
         CreateAttribute(attr_type, attr_length));
@@ -395,11 +410,13 @@ bool StunMessage::Read(ByteBufferReader* buf) {
       if ((attr_length % 4) != 0) {
         attr_length += (4 - (attr_length % 4));
       }
-      if (!buf->Consume(attr_length))
+      if (!buf->Consume(attr_length)) {
         return false;
+      }
     } else {
-      if (!attr->Read(buf))
+      if (!attr->Read(buf)) {
         return false;
+      }
       attrs_.push_back(std::move(attr));
     }
   }
@@ -411,8 +428,9 @@ bool StunMessage::Read(ByteBufferReader* buf) {
 bool StunMessage::Write(ByteBufferWriter* buf) const {
   buf->WriteUInt16(type_);
   buf->WriteUInt16(length_);
-  if (!IsLegacy())
+  if (!IsLegacy()) {
     buf->WriteUInt32(stun_magic_cookie_);
+  }
   buf->WriteString(transaction_id_);
 
   for (const auto& attr : attrs_) {
@@ -590,16 +608,18 @@ StunAttributeValueType StunAddressAttribute::value_type() const {
 
 bool StunAddressAttribute::Read(ByteBufferReader* buf) {
   uint8_t dummy;
-  if (!buf->ReadUInt8(&dummy))
+  if (!buf->ReadUInt8(&dummy)) {
     return false;
+  }
 
   uint8_t stun_family;
   if (!buf->ReadUInt8(&stun_family)) {
     return false;
   }
   uint16_t port;
-  if (!buf->ReadUInt16(&port))
+  if (!buf->ReadUInt16(&port)) {
     return false;
+  }
   if (stun_family == STUN_ADDRESS_IPV4) {
     in_addr v4addr;
     if (length() != SIZE_IP4) {
@@ -704,8 +724,9 @@ rtc::IPAddress StunXorAddressAttribute::GetXoredIP() const {
 }
 
 bool StunXorAddressAttribute::Read(ByteBufferReader* buf) {
-  if (!StunAddressAttribute::Read(buf))
+  if (!StunAddressAttribute::Read(buf)) {
     return false;
+  }
   uint16_t xoredport = port() ^ (kStunMagicCookie >> 16);
   rtc::IPAddress xored_ip = GetXoredIP();
   SetAddress(rtc::SocketAddress(xored_ip, xoredport));
@@ -762,8 +783,9 @@ void StunUInt32Attribute::SetBit(size_t index, bool value) {
 }
 
 bool StunUInt32Attribute::Read(ByteBufferReader* buf) {
-  if (length() != SIZE || !buf->ReadUInt32(&bits_))
+  if (length() != SIZE || !buf->ReadUInt32(&bits_)) {
     return false;
+  }
   return true;
 }
 
@@ -783,8 +805,9 @@ StunAttributeValueType StunUInt64Attribute::value_type() const {
 }
 
 bool StunUInt64Attribute::Read(ByteBufferReader* buf) {
-  if (length() != SIZE || !buf->ReadUInt64(&bits_))
+  if (length() != SIZE || !buf->ReadUInt64(&bits_)) {
     return false;
+  }
   return true;
 }
 
@@ -899,17 +922,20 @@ void StunErrorCodeAttribute::SetReason(const std::string& reason) {
 
 bool StunErrorCodeAttribute::Read(ByteBufferReader* buf) {
   uint32_t val;
-  if (length() < MIN_SIZE || !buf->ReadUInt32(&val))
+  if (length() < MIN_SIZE || !buf->ReadUInt32(&val)) {
     return false;
+  }
 
-  if ((val >> 11) != 0)
+  if ((val >> 11) != 0) {
     RTC_LOG(LS_ERROR) << "error-code bits not zero";
+  }
 
   class_ = ((val >> 8) & 0x7);
   number_ = (val & 0xff);
 
-  if (!buf->ReadString(&reason_, length() - 4))
+  if (!buf->ReadString(&reason_, length() - 4)) {
     return false;
+  }
 
   ConsumePadding(buf);
   return true;
@@ -953,13 +979,15 @@ void StunUInt16ListAttribute::AddType(uint16_t value) {
 }
 
 bool StunUInt16ListAttribute::Read(ByteBufferReader* buf) {
-  if (length() % 2)
+  if (length() % 2) {
     return false;
+  }
 
   for (size_t i = 0; i < length() / 2; i++) {
     uint16_t attr;
-    if (!buf->ReadUInt16(&attr))
+    if (!buf->ReadUInt16(&attr)) {
       return false;
+    }
     attr_types_->push_back(attr);
   }
   // Padding of these attributes is done in RFC 5389 style. This is

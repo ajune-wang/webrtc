@@ -51,8 +51,9 @@ class IvfFileWriterTest : public ::testing::Test {
       } else {
         frame.SetTimestamp(i);
       }
-      if (!file_writer_->WriteFrame(frame, codec_type))
+      if (!file_writer_->WriteFrame(frame, codec_type)) {
         return false;
+      }
     }
     return true;
   }

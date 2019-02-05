@@ -190,8 +190,9 @@ PeerConnectionFactory::~PeerConnectionFactory() {
   default_socket_factory_ = nullptr;
   default_network_manager_ = nullptr;
 
-  if (wraps_current_thread_)
+  if (wraps_current_thread_) {
     rtc::ThreadManager::Instance()->UnwrapCurrentThread();
+  }
 }
 
 bool PeerConnectionFactory::Initialize() {
@@ -439,8 +440,9 @@ std::unique_ptr<RtcEventLog> PeerConnectionFactory::CreateRtcEventLog_w() {
   RTC_DCHECK_RUN_ON(worker_thread_);
 
   auto encoding_type = RtcEventLog::EncodingType::Legacy;
-  if (field_trial::IsEnabled("WebRTC-RtcEventLogNewFormat"))
+  if (field_trial::IsEnabled("WebRTC-RtcEventLogNewFormat")) {
     encoding_type = RtcEventLog::EncodingType::NewFormat;
+  }
   return event_log_factory_
              ? event_log_factory_->CreateRtcEventLog(encoding_type)
              : absl::make_unique<RtcEventLogNullImpl>();

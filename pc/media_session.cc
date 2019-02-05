@@ -598,8 +598,9 @@ static void PruneCryptos(const CryptoParamsVec& filter,
                      // found in |filter|.
                      [&filter](const CryptoParams& crypto) {
                        for (const CryptoParams& entry : filter) {
-                         if (entry.cipher_suite == crypto.cipher_suite)
+                         if (entry.cipher_suite == crypto.cipher_suite) {
                            return false;
+                         }
                        }
                        return true;
                      }),
@@ -1209,12 +1210,13 @@ static bool IsMediaProtocolSupported(MediaType type,
 
 static void SetMediaProtocol(bool secure_transport,
                              MediaContentDescription* desc) {
-  if (!desc->cryptos().empty())
+  if (!desc->cryptos().empty()) {
     desc->set_protocol(kMediaProtocolSavpf);
-  else if (secure_transport)
+  } else if (secure_transport) {
     desc->set_protocol(kMediaProtocolDtlsSavpf);
-  else
+  } else {
     desc->set_protocol(kMediaProtocolAvpf);
+  }
 }
 
 // Gets the TransportInfo of the given |content_name| from the
@@ -1899,8 +1901,9 @@ bool MediaSessionDescriptionFactory::AddTransportOffer(
     const SessionDescription* current_desc,
     SessionDescription* offer_desc,
     IceCredentialsIterator* ice_credentials) const {
-  if (!transport_desc_factory_)
+  if (!transport_desc_factory_) {
     return false;
+  }
   const TransportDescription* current_tdesc =
       GetTransportDescription(content_name, current_desc);
   std::unique_ptr<TransportDescription> new_tdesc(
@@ -1922,8 +1925,9 @@ MediaSessionDescriptionFactory::CreateTransportAnswer(
     const SessionDescription* current_desc,
     bool require_transport_attributes,
     IceCredentialsIterator* ice_credentials) const {
-  if (!transport_desc_factory_)
+  if (!transport_desc_factory_) {
     return NULL;
+  }
   const TransportDescription* offer_tdesc =
       GetTransportDescription(content_name, offer_desc);
   const TransportDescription* current_tdesc =

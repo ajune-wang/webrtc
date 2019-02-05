@@ -109,8 +109,9 @@ LocalAudioSinkAdapter::LocalAudioSinkAdapter() : sink_(nullptr) {}
 
 LocalAudioSinkAdapter::~LocalAudioSinkAdapter() {
   rtc::CritScope lock(&lock_);
-  if (sink_)
+  if (sink_) {
     sink_->OnClose();
+  }
 }
 
 void LocalAudioSinkAdapter::OnData(const void* audio_data,

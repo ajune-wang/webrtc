@@ -25,8 +25,9 @@ RaceChecker::RaceChecker() {}
 bool RaceChecker::Acquire() const {
   const PlatformThreadRef current_thread = CurrentThreadRef();
   // Set new accessing thread if this is a new use.
-  if (access_count_++ == 0)
+  if (access_count_++ == 0) {
     accessing_thread_ = current_thread;
+  }
   // If this is being used concurrently this check will fail for the second
   // thread entering since it won't set the thread. Recursive use of checked
   // methods are OK since the accessing thread remains the same.

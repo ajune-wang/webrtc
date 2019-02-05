@@ -280,8 +280,9 @@ void PseudoTcp::NotifyMTU(uint16_t mtu) {
 }
 
 void PseudoTcp::NotifyClock(uint32_t now) {
-  if (m_state == TCP_CLOSED)
+  if (m_state == TCP_CLOSED) {
     return;
+  }
 
   // Check if it's time to retransmit a segment
   if (m_rto_base && (rtc::TimeDiff32(m_rto_base + m_rx_rto, now) <= 0)) {
@@ -553,8 +554,9 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
   // for those, and thus we won't retry.  So go ahead and treat the packet as a
   // success (basically simulate as if it were dropped), which will prevent our
   // timers from being messed up.
-  if ((wres != IPseudoTcpNotify::WR_SUCCESS) && (0 != len))
+  if ((wres != IPseudoTcpNotify::WR_SUCCESS) && (0 != len)) {
     return wres;
+  }
 
   m_t_ack = 0;
   if (len > 0) {
@@ -567,8 +569,9 @@ IPseudoTcpNotify::WriteResult PseudoTcp::packet(uint32_t seq,
 }
 
 bool PseudoTcp::parse(const uint8_t* buffer, uint32_t size) {
-  if (size < HEADER_SIZE)
+  if (size < HEADER_SIZE) {
     return false;
+  }
 
   Segment seg;
   seg.conv = bytes_to_long(buffer);
@@ -597,8 +600,9 @@ bool PseudoTcp::parse(const uint8_t* buffer, uint32_t size) {
 }
 
 bool PseudoTcp::clock_check(uint32_t now, long& nTimeout) {
-  if (m_shutdown == SD_FORCEFUL)
+  if (m_shutdown == SD_FORCEFUL) {
     return false;
+  }
 
   size_t snd_buffered = 0;
   m_sbuf.GetBuffered(&snd_buffered);
@@ -1003,8 +1007,9 @@ bool PseudoTcp::transmit(const SList::iterator& seg, uint32_t now) {
     IPseudoTcpNotify::WriteResult wres =
         packet(seq, flags, seg->seq - m_snd_una, nTransmit);
 
-    if (wres == IPseudoTcpNotify::WR_SUCCESS)
+    if (wres == IPseudoTcpNotify::WR_SUCCESS) {
       break;
+    }
 
     if (wres == IPseudoTcpNotify::WR_FAIL) {
       RTC_LOG_F(LS_VERBOSE) << "packet failed";
@@ -1107,8 +1112,9 @@ void PseudoTcp::attemptSend(SendFlags sflags) {
 #endif  // _DEBUGMSG
 
     if (nAvailable == 0) {
-      if (sflags == sfNone)
+      if (sflags == sfNone) {
         return;
+      }
 
       // If this is an immediate ack, or the second delayed ack
       if ((sflags == sfImmediateAck) || m_t_ack) {

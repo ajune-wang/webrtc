@@ -44,8 +44,9 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
   bool bitrate_changed = false;
   s.Every(TimeDelta::ms(10), [alice, bob, &bitrate_changed] {
     if (alice->GetStats().send_bandwidth_bps != 300000 &&
-        bob->GetStats().send_bandwidth_bps != 300000)
+        bob->GetStats().send_bandwidth_bps != 300000) {
       bitrate_changed = true;
+    }
   });
   s.RunUntil(TimeDelta::seconds(2), TimeDelta::ms(5),
              [&bitrate_changed, &packet_received] {

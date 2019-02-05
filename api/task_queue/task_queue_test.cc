@@ -117,8 +117,9 @@ TEST_P(TaskQueueTest, PostMultipleDelayed) {
                            i);
   }
 
-  for (rtc::Event& e : events)
+  for (rtc::Event& e : events) {
     EXPECT_TRUE(e.Wait(1000));
+  }
 }
 
 TEST_P(TaskQueueTest, PostDelayedAfterDestruct) {
@@ -197,10 +198,11 @@ TEST_P(TaskQueueTest, PostALot) {
 
     queue->PostTask(
         rtc::NewClosure([&event] { event.Wait(rtc::Event::kForever); }));
-    for (int i = 0; i < kTaskCount; ++i)
+    for (int i = 0; i < kTaskCount; ++i) {
       queue->PostTask(
           rtc::NewClosure([&tasks_executed] { ++tasks_executed; },
                           [&tasks_cleaned_up] { ++tasks_cleaned_up; }));
+    }
     event.Set();  // Unblock the first task.
   }
 

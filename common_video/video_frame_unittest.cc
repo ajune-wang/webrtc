@@ -149,8 +149,9 @@ rtc::scoped_refptr<PlanarYuvBuffer> CreateGradient(VideoFrameBuffer::Type type,
           255 * y / (chroma_height - 1);
     }
   }
-  if (type == VideoFrameBuffer::Type::kI420)
+  if (type == VideoFrameBuffer::Type::kI420) {
     return buffer;
+  }
 
   RTC_DCHECK(type == VideoFrameBuffer::Type::kI010);
   return I010Buffer::Copy(*buffer);

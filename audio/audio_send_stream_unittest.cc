@@ -228,8 +228,9 @@ struct ConfigHelper {
         .WillRepeatedly(
             [this](rtc::FunctionView<void(std::unique_ptr<AudioEncoder>*)>
                        modifier) {
-              if (this->audio_encoder_)
+              if (this->audio_encoder_) {
                 modifier(&this->audio_encoder_);
+              }
             });
   }
 

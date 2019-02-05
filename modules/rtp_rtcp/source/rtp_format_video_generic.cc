@@ -43,8 +43,9 @@ size_t RtpPacketizerGeneric::NumPackets() const {
 
 bool RtpPacketizerGeneric::NextPacket(RtpPacketToSend* packet) {
   RTC_DCHECK(packet);
-  if (current_packet_ == payload_sizes_.end())
+  if (current_packet_ == payload_sizes_.end()) {
     return false;
+  }
 
   size_t next_packet_payload_len = *current_packet_;
 

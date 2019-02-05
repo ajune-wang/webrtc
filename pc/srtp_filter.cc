@@ -127,8 +127,9 @@ bool SrtpFilter::DoSetAnswer(const std::vector<CryptoParams>& answer_params,
     }
   }
   CryptoParams selected_params;
-  if (!NegotiateParams(answer_params, &selected_params))
+  if (!NegotiateParams(answer_params, &selected_params)) {
     return false;
+  }
 
   const CryptoParams& new_send_params =
       (source == CS_REMOTE) ? selected_params : answer_params[0];

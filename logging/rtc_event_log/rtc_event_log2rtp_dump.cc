@@ -79,22 +79,27 @@ absl::optional<uint32_t> ParseSsrc(std::string str) {
   }
   std::stringstream ss(str);
   ss >> read_mode >> ssrc;
-  if (str.empty() || (!ss.fail() && ss.eof()))
+  if (str.empty() || (!ss.fail() && ss.eof())) {
     return ssrc;
+  }
   return absl::nullopt;
 }
 
 bool ShouldSkipStream(MediaType media_type,
                       uint32_t ssrc,
                       absl::optional<uint32_t> ssrc_filter) {
-  if (!FLAG_audio && media_type == MediaType::AUDIO)
+  if (!FLAG_audio && media_type == MediaType::AUDIO) {
     return true;
-  if (!FLAG_video && media_type == MediaType::VIDEO)
+  }
+  if (!FLAG_video && media_type == MediaType::VIDEO) {
     return true;
-  if (!FLAG_data && media_type == MediaType::DATA)
+  }
+  if (!FLAG_data && media_type == MediaType::DATA) {
     return true;
-  if (ssrc_filter.has_value() && ssrc != *ssrc_filter)
+  }
+  if (ssrc_filter.has_value() && ssrc != *ssrc_filter) {
     return true;
+  }
   return false;
 }
 
@@ -118,28 +123,35 @@ void ConvertRtpPacket(
   }
 
   // Set extensions.
-  if (incoming.rtp.header.extension.hasTransmissionTimeOffset)
+  if (incoming.rtp.header.extension.hasTransmissionTimeOffset) {
     reconstructed_packet.SetExtension<webrtc::TransmissionOffset>(
         incoming.rtp.header.extension.transmissionTimeOffset);
-  if (incoming.rtp.header.extension.hasAbsoluteSendTime)
+  }
+  if (incoming.rtp.header.extension.hasAbsoluteSendTime) {
     reconstructed_packet.SetExtension<webrtc::AbsoluteSendTime>(
         incoming.rtp.header.extension.absoluteSendTime);
-  if (incoming.rtp.header.extension.hasTransportSequenceNumber)
+  }
+  if (incoming.rtp.header.extension.hasTransportSequenceNumber) {
     reconstructed_packet.SetExtension<webrtc::TransportSequenceNumber>(
         incoming.rtp.header.extension.transportSequenceNumber);
-  if (incoming.rtp.header.extension.hasAudioLevel)
+  }
+  if (incoming.rtp.header.extension.hasAudioLevel) {
     reconstructed_packet.SetExtension<webrtc::AudioLevel>(
         incoming.rtp.header.extension.voiceActivity,
         incoming.rtp.header.extension.audioLevel);
-  if (incoming.rtp.header.extension.hasVideoRotation)
+  }
+  if (incoming.rtp.header.extension.hasVideoRotation) {
     reconstructed_packet.SetExtension<webrtc::VideoOrientation>(
         incoming.rtp.header.extension.videoRotation);
-  if (incoming.rtp.header.extension.hasVideoContentType)
+  }
+  if (incoming.rtp.header.extension.hasVideoContentType) {
     reconstructed_packet.SetExtension<webrtc::VideoContentTypeExtension>(
         incoming.rtp.header.extension.videoContentType);
-  if (incoming.rtp.header.extension.has_video_timing)
+  }
+  if (incoming.rtp.header.extension.has_video_timing) {
     reconstructed_packet.SetExtension<webrtc::VideoTimingExtension>(
         incoming.rtp.header.extension.video_timing);
+  }
 
   RTC_DCHECK_EQ(reconstructed_packet.size(), incoming.rtp.header_length);
   RTC_DCHECK_EQ(reconstructed_packet.headers_size(),
@@ -150,8 +162,9 @@ void ConvertRtpPacket(
   packet->original_length = incoming.rtp.total_length;
   packet->time_ms = incoming.log_time_ms();
   // Set padding bit.
-  if (incoming.rtp.header.paddingLength > 0)
+  if (incoming.rtp.header.paddingLength > 0) {
     packet->data[0] = packet->data[0] | 0x20;
+  }
 }
 
 }  // namespace
@@ -234,8 +247,9 @@ int main(int argc, char* argv[]) {
   for (const auto& stream : parsed_stream.incoming_rtp_packets_by_ssrc()) {
     MediaType media_type =
         parsed_stream.GetMediaType(stream.ssrc, webrtc::kIncomingPacket);
-    if (ShouldSkipStream(media_type, stream.ssrc, ssrc_filter))
+    if (ShouldSkipStream(media_type, stream.ssrc, ssrc_filter)) {
       continue;
+    }
     event_processor.AddEvents(stream.incoming_packets, handle_rtp);
   }
   // Note that |packet_ssrc| is the sender SSRC. An RTCP message may contain

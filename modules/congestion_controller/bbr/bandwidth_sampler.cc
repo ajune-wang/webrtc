@@ -67,10 +67,11 @@ void BandwidthSampler::OnPacketSent(Timestamp sent_time,
 
   bool success =
       connection_state_map_.Emplace(packet_number, sent_time, data_size, *this);
-  if (!success)
+  if (!success) {
     RTC_LOG(LS_WARNING) << "BandwidthSampler failed to insert the packet "
                            "into the map, most likely because it's already "
                            "in it.";
+  }
 }
 
 BandwidthSample BandwidthSampler::OnPacketAcknowledged(Timestamp ack_time,

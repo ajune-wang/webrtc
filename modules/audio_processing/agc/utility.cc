@@ -21,8 +21,9 @@ double Loudness2Db(double loudness) {
 }
 
 double Linear2Loudness(double rms) {
-  if (rms == 0)
+  if (rms == 0) {
     return -15;
+  }
   return kLinear2LoudnessScale * log(rms);
 }
 

@@ -48,19 +48,23 @@ void GetPostProcParamsFromFieldTrialGroup(
     LibvpxVp8Decoder::DeblockParams* deblock_params) {
   std::string group =
       webrtc::field_trial::FindFullName(kVp8PostProcArmFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return;
+  }
 
   LibvpxVp8Decoder::DeblockParams params;
   if (sscanf(group.c_str(), "Enabled-%d,%d,%d", &params.max_level,
-             &params.min_qp, &params.degrade_qp) != 3)
+             &params.min_qp, &params.degrade_qp) != 3) {
     return;
+  }
 
-  if (params.max_level < 0 || params.max_level > 16)
+  if (params.max_level < 0 || params.max_level > 16) {
     return;
+  }
 
-  if (params.min_qp < 0 || params.degrade_qp <= params.min_qp)
+  if (params.min_qp < 0 || params.degrade_qp <= params.min_qp) {
     return;
+  }
 
   *deblock_params = params;
 }
@@ -107,8 +111,9 @@ LibvpxVp8Decoder::LibvpxVp8Decoder()
       last_frame_height_(0),
       key_frame_required_(true),
       qp_smoother_(use_postproc_arm_ ? new QpSmoother() : nullptr) {
-  if (use_postproc_arm_)
+  if (use_postproc_arm_) {
     GetPostProcParamsFromFieldTrialGroup(&deblock_);
+  }
 }
 
 LibvpxVp8Decoder::~LibvpxVp8Decoder() {
@@ -163,8 +168,9 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
   }
   if (input_image.data() == NULL && input_image.size() > 0) {
     // Reset to avoid requesting key frames too often.
-    if (propagation_cnt_ > 0)
+    if (propagation_cnt_ > 0) {
       propagation_cnt_ = 0;
+    }
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
   }
 
@@ -209,8 +215,9 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
 
   // Always start with a complete key frame.
   if (key_frame_required_) {
-    if (input_image._frameType != kVideoFrameKey)
+    if (input_image._frameType != kVideoFrameKey) {
       return WEBRTC_VIDEO_CODEC_ERROR;
+    }
     // We have a key frame - is it complete?
     if (input_image._completeFrame) {
       key_frame_required_ = false;
@@ -240,8 +247,9 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
     // Call decoder with zero data length to signal missing frames.
     if (vpx_codec_decode(decoder_, NULL, 0, 0, kDecodeDeadlineRealtime)) {
       // Reset to avoid requesting key frames too often.
-      if (propagation_cnt_ > 0)
+      if (propagation_cnt_ > 0) {
         propagation_cnt_ = 0;
+      }
       return WEBRTC_VIDEO_CODEC_ERROR;
     }
     img = vpx_codec_get_frame(decoder_, &iter);
@@ -270,8 +278,9 @@ int LibvpxVp8Decoder::Decode(const EncodedImage& input_image,
                     input_image.ColorSpace());
   if (ret != 0) {
     // Reset to avoid requesting key frames too often.
-    if (ret < 0 && propagation_cnt_ > 0)
+    if (ret < 0 && propagation_cnt_ > 0) {
       propagation_cnt_ = 0;
+    }
     return ret;
   }
   // Check Vs. threshold

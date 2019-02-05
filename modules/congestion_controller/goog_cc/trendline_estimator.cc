@@ -41,8 +41,9 @@ absl::optional<double> LinearFitSlope(
     numerator += (point.first - x_avg) * (point.second - y_avg);
     denominator += (point.first - x_avg) * (point.first - x_avg);
   }
-  if (denominator == 0)
+  if (denominator == 0) {
     return absl::nullopt;
+  }
   return numerator / denominator;
 }
 
@@ -83,8 +84,9 @@ void TrendlineEstimator::Update(double recv_delta_ms,
   const double delta_ms = recv_delta_ms - send_delta_ms;
   ++num_of_deltas_;
   num_of_deltas_ = std::min(num_of_deltas_, kDeltaCounterMax);
-  if (first_arrival_time_ms_ == -1)
+  if (first_arrival_time_ms_ == -1) {
     first_arrival_time_ms_ = arrival_time_ms;
+  }
 
   // Exponential backoff filter.
   accumulated_delay_ += delta_ms;
@@ -99,8 +101,9 @@ void TrendlineEstimator::Update(double recv_delta_ms,
   delay_hist_.push_back(std::make_pair(
       static_cast<double>(arrival_time_ms - first_arrival_time_ms_),
       smoothed_delay_));
-  if (delay_hist_.size() > window_size_)
+  if (delay_hist_.size() > window_size_) {
     delay_hist_.pop_front();
+  }
   double trend = prev_trend_;
   if (delay_hist_.size() == window_size_) {
     // Update trend_ if it is possible to fit a line to the data. The delay
@@ -163,8 +166,9 @@ void TrendlineEstimator::Detect(double trend, double ts_delta, int64_t now_ms) {
 
 void TrendlineEstimator::UpdateThreshold(double modified_trend,
                                          int64_t now_ms) {
-  if (last_update_ms_ == -1)
+  if (last_update_ms_ == -1) {
     last_update_ms_ = now_ms;
+  }
 
   if (fabs(modified_trend) > threshold_ + kMaxAdaptOffsetMs) {
     // Avoid adapting the threshold to big latency spikes, caused e.g.,

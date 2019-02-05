@@ -659,8 +659,9 @@ TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsAvSyncOffset) {
 TEST_F(ReceiveStatisticsProxyTest, AvSyncOffsetHistogramIsUpdated) {
   const int64_t kSyncOffsetMs = 22;
   const double kFreqKhz = 90.0;
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnSyncOffsetUpdated(kSyncOffsetMs, kFreqKhz);
+  }
   // Histograms are updated when the statistics_proxy_ is deleted.
   statistics_proxy_.reset();
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.AVSyncOffsetInMs"));
@@ -690,8 +691,9 @@ TEST_F(ReceiveStatisticsProxyTest, RtpToNtpFrequencyOffsetHistogramIsUpdated) {
 TEST_F(ReceiveStatisticsProxyTest, Vp8QpHistogramIsUpdated) {
   const int kQp = 22;
 
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnPreDecode(kVideoCodecVP8, kQp);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.Decoded.Vp8.Qp"));
@@ -701,16 +703,18 @@ TEST_F(ReceiveStatisticsProxyTest, Vp8QpHistogramIsUpdated) {
 TEST_F(ReceiveStatisticsProxyTest, Vp8QpHistogramIsNotUpdatedForTooFewSamples) {
   const int kQp = 22;
 
-  for (int i = 0; i < kMinRequiredSamples - 1; ++i)
+  for (int i = 0; i < kMinRequiredSamples - 1; ++i) {
     statistics_proxy_->OnPreDecode(kVideoCodecVP8, kQp);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(0, metrics::NumSamples("WebRTC.Video.Decoded.Vp8.Qp"));
 }
 
 TEST_F(ReceiveStatisticsProxyTest, Vp8QpHistogramIsNotUpdatedIfNoQpValue) {
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnPreDecode(kVideoCodecVP8, -1);
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(0, metrics::NumSamples("WebRTC.Video.Decoded.Vp8.Qp"));
@@ -721,9 +725,10 @@ TEST_F(ReceiveStatisticsProxyTest,
   const bool kIsKeyFrame = false;
   const int kFrameSizeBytes = 1000;
 
-  for (int i = 0; i < kMinRequiredSamples - 1; ++i)
+  for (int i = 0; i < kMinRequiredSamples - 1; ++i) {
     statistics_proxy_->OnCompleteFrame(kIsKeyFrame, kFrameSizeBytes,
                                        VideoContentType::UNSPECIFIED);
+  }
 
   EXPECT_EQ(0, statistics_proxy_->GetStats().frame_counts.key_frames);
   EXPECT_EQ(kMinRequiredSamples - 1,
@@ -738,9 +743,10 @@ TEST_F(ReceiveStatisticsProxyTest,
   const bool kIsKeyFrame = false;
   const int kFrameSizeBytes = 1000;
 
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnCompleteFrame(kIsKeyFrame, kFrameSizeBytes,
                                        VideoContentType::UNSPECIFIED);
+  }
 
   EXPECT_EQ(0, statistics_proxy_->GetStats().frame_counts.key_frames);
   EXPECT_EQ(kMinRequiredSamples,
@@ -755,13 +761,15 @@ TEST_F(ReceiveStatisticsProxyTest,
 TEST_F(ReceiveStatisticsProxyTest, KeyFrameHistogramIsUpdated) {
   const int kFrameSizeBytes = 1000;
 
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnCompleteFrame(true, kFrameSizeBytes,
                                        VideoContentType::UNSPECIFIED);
+  }
 
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnCompleteFrame(false, kFrameSizeBytes,
                                        VideoContentType::UNSPECIFIED);
+  }
 
   EXPECT_EQ(kMinRequiredSamples,
             statistics_proxy_->GetStats().frame_counts.key_frames);
@@ -867,8 +875,9 @@ TEST_F(ReceiveStatisticsProxyTest, GetStatsReportsReceivedFrameStats) {
 
 TEST_F(ReceiveStatisticsProxyTest,
        ReceivedFrameHistogramsAreNotUpdatedForTooFewSamples) {
-  for (int i = 0; i < kMinRequiredSamples - 1; ++i)
+  for (int i = 0; i < kMinRequiredSamples - 1; ++i) {
     statistics_proxy_->OnRenderedFrame(CreateFrame(kWidth, kHeight));
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(0, metrics::NumSamples("WebRTC.Video.ReceivedWidthInPixels"));
@@ -878,8 +887,9 @@ TEST_F(ReceiveStatisticsProxyTest,
 }
 
 TEST_F(ReceiveStatisticsProxyTest, ReceivedFrameHistogramsAreUpdated) {
-  for (int i = 0; i < kMinRequiredSamples; ++i)
+  for (int i = 0; i < kMinRequiredSamples; ++i) {
     statistics_proxy_->OnRenderedFrame(CreateFrame(kWidth, kHeight));
+  }
 
   statistics_proxy_.reset();
   EXPECT_EQ(1, metrics::NumSamples("WebRTC.Video.ReceivedWidthInPixels"));

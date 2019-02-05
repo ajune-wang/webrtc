@@ -71,8 +71,9 @@ void NetEqStatsPlotter::SimulationEnded(int64_t simulation_time_ms) {
   printf("  preferred_buffer_size_ms: %f ms\n", stats.preferred_buffer_size_ms);
   if (show_concealment_events_) {
     printf(" concealment_events_ms:\n");
-    for (auto concealment_event : stats_getter_->concealment_events())
+    for (auto concealment_event : stats_getter_->concealment_events()) {
       printf("%s\n", concealment_event.ToString().c_str());
+    }
     printf(" end of concealment_events_ms\n");
   }
 }

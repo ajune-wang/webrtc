@@ -340,9 +340,11 @@ size_t RefinePitchPeriod48kHz(
     return ((i > j) ? (i - j) : (j - i)) <= 2;
   };
   for (size_t inv_lag = 0; inv_lag < auto_corr.size(); ++inv_lag) {
-    if (is_neighbor(inv_lag, inv_lags[0]) || is_neighbor(inv_lag, inv_lags[1]))
+    if (is_neighbor(inv_lag, inv_lags[0]) ||
+        is_neighbor(inv_lag, inv_lags[1])) {
       auto_corr[inv_lag] =
           ComputeAutoCorrelationCoeff(pitch_buf, inv_lag, kMaxPitch24kHz);
+    }
   }
   // Find best pitch at 24 kHz.
   const auto pitch_candidates_inv_lags = FindBestPitchPeriods(

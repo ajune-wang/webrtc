@@ -912,8 +912,9 @@ void VirtualSocketServer::SendTcp(VirtualSocket* socket) {
     size_t max_data_size =
         std::min<size_t>(available, TCP_MSS - TCP_HEADER_SIZE);
     size_t data_size = std::min(socket->send_buffer_.size(), max_data_size);
-    if (0 == data_size)
+    if (0 == data_size) {
       break;
+    }
 
     AddPacketToNetwork(socket, recipient, cur_time, &socket->send_buffer_[0],
                        data_size, TCP_HEADER_SIZE, true);
@@ -989,10 +990,11 @@ void VirtualSocketServer::PurgeNetworkPackets(VirtualSocket* socket,
 }
 
 uint32_t VirtualSocketServer::SendDelay(uint32_t size) {
-  if (bandwidth_ == 0)
+  if (bandwidth_ == 0) {
     return 0;
-  else
+  } else {
     return 1000 * size / bandwidth_;
+  }
 }
 
 #if 0
@@ -1052,8 +1054,9 @@ VirtualSocketServer::Function* VirtualSocketServer::CreateDistribution(
     f->push_back(Point(mean, 1.0));
   } else {
     double start = 0;
-    if (mean >= 4 * static_cast<double>(stddev))
+    if (mean >= 4 * static_cast<double>(stddev)) {
       start = mean - 4 * static_cast<double>(stddev);
+    }
     double end = mean + 4 * static_cast<double>(stddev);
 
     for (uint32_t i = 0; i < samples; i++) {
@@ -1105,8 +1108,9 @@ VirtualSocketServer::Function* VirtualSocketServer::Accumulate(Function* f) {
 }
 
 VirtualSocketServer::Function* VirtualSocketServer::Invert(Function* f) {
-  for (Function::size_type i = 0; i < f->size(); ++i)
+  for (Function::size_type i = 0; i < f->size(); ++i) {
     std::swap((*f)[i].first, (*f)[i].second);
+  }
 
   std::sort(f->begin(), f->end(), FunctionDomainCmp());
   return f;

@@ -440,8 +440,9 @@ void AgcManagerDirect::UpdateGain() {
   RTC_DLOG(LS_INFO) << "[agc] rms_error=" << rms_error
                     << ", target_compression=" << target_compression_
                     << ", residual_gain=" << residual_gain;
-  if (residual_gain == 0)
+  if (residual_gain == 0) {
     return;
+  }
 
   int old_level = level_;
   SetLevel(LevelFromGainError(residual_gain, level_));

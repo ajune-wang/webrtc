@@ -66,8 +66,9 @@ void AudioFrame::UpdateFrame(uint32_t timestamp,
 }
 
 void AudioFrame::CopyFrom(const AudioFrame& src) {
-  if (this == &src)
+  if (this == &src) {
     return;
+  }
 
   timestamp_ = src.timestamp_;
   elapsed_time_ms_ = src.elapsed_time_ms_;

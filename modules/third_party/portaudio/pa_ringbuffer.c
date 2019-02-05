@@ -67,7 +67,8 @@ PaRingBufferSize PaUtil_InitializeRingBuffer(PaUtilRingBuffer* rbuf,
                                              PaRingBufferSize elementSizeBytes,
                                              PaRingBufferSize elementCount,
                                              void* dataPtr) {
-    if( ((elementCount-1) & elementCount) != 0) return -1; /* Not Power of two. */
+    if( ((elementCount-1) & elementCount) != 0) { return -1; /* Not Power of two. */
+}
     rbuf->bufferSize = elementCount;
     rbuf->buffer = (char *)dataPtr;
     PaUtil_FlushRingBuffer( rbuf );
@@ -113,7 +114,8 @@ PaRingBufferSize PaUtil_GetRingBufferWriteRegions(PaUtilRingBuffer* rbuf,
                                                   PaRingBufferSize* sizePtr2) {
     PaRingBufferSize   index;
     PaRingBufferSize   available = PaUtil_GetRingBufferWriteAvailable( rbuf );
-    if( elementCount > available ) elementCount = available;
+    if( elementCount > available ) { elementCount = available;
+}
     /* Check to see if write is not contiguous. */
     index = rbuf->writeIndex & rbuf->smallMask;
     if( (index + elementCount) > rbuf->bufferSize )
@@ -160,7 +162,8 @@ PaRingBufferSize PaUtil_GetRingBufferReadRegions(PaUtilRingBuffer* rbuf,
                                                  PaRingBufferSize* sizePtr2) {
     PaRingBufferSize   index;
     PaRingBufferSize   available = PaUtil_GetRingBufferReadAvailable( rbuf );
-    if( elementCount > available ) elementCount = available;
+    if( elementCount > available ) { elementCount = available;
+}
     /* Check to see if read is not contiguous. */
     index = rbuf->readIndex & rbuf->smallMask;
     if( (index + elementCount) > rbuf->bufferSize )

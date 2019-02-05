@@ -114,13 +114,16 @@ void FindWaveChunk(ChunkHeader* chunk_header,
   RTC_DCHECK_EQ(sought_chunk_id.size(), 4);
   while (!readable->Eof()) {
     if (readable->Read(chunk_header, sizeof(*chunk_header)) !=
-        sizeof(*chunk_header))
+        sizeof(*chunk_header)) {
       return;  // EOF.
-    if (ReadFourCC(chunk_header->ID) == sought_chunk_id)
+    }
+    if (ReadFourCC(chunk_header->ID) == sought_chunk_id) {
       return;  // Sought chunk found.
+    }
     // Ignore current chunk by skipping its payload.
-    if (!readable->SeekForward(chunk_header->Size))
+    if (!readable->SeekForward(chunk_header->Size)) {
       return;  // EOF or error.
+    }
   }
   return;  // EOF.
 }
@@ -128,19 +131,23 @@ void FindWaveChunk(ChunkHeader* chunk_header,
 bool ReadFmtChunkData(FmtSubchunk* fmt_subchunk, ReadableWav* readable) {
   // Reads "fmt " chunk payload.
   if (readable->Read(&(fmt_subchunk->AudioFormat), kFmtSubchunkSize) !=
-      kFmtSubchunkSize)
+      kFmtSubchunkSize) {
     return false;
+  }
   const uint32_t fmt_size = ReadLE32(fmt_subchunk->header.Size);
   if (fmt_size != kFmtSubchunkSize) {
     // There is an optional two-byte extension field permitted to be present
     // with PCM, but which must be zero.
     int16_t ext_size;
-    if (kFmtSubchunkSize + sizeof(ext_size) != fmt_size)
+    if (kFmtSubchunkSize + sizeof(ext_size) != fmt_size) {
       return false;
-    if (readable->Read(&ext_size, sizeof(ext_size)) != sizeof(ext_size))
+    }
+    if (readable->Read(&ext_size, sizeof(ext_size)) != sizeof(ext_size)) {
       return false;
-    if (ext_size != 0)
+    }
+    if (ext_size != 0) {
       return false;
+    }
   }
   return true;
 }
@@ -155,30 +162,38 @@ bool CheckWavParameters(size_t num_channels,
   // num_channels, sample_rate, and bytes_per_sample must be positive, must fit
   // in their respective fields, and their product must fit in the 32-bit
   // ByteRate field.
-  if (num_channels == 0 || sample_rate <= 0 || bytes_per_sample == 0)
+  if (num_channels == 0 || sample_rate <= 0 || bytes_per_sample == 0) {
     return false;
-  if (static_cast<uint64_t>(sample_rate) > std::numeric_limits<uint32_t>::max())
+  }
+  if (static_cast<uint64_t>(sample_rate) >
+      std::numeric_limits<uint32_t>::max()) {
     return false;
-  if (num_channels > std::numeric_limits<uint16_t>::max())
+  }
+  if (num_channels > std::numeric_limits<uint16_t>::max()) {
     return false;
+  }
   if (static_cast<uint64_t>(bytes_per_sample) * 8 >
-      std::numeric_limits<uint16_t>::max())
+      std::numeric_limits<uint16_t>::max()) {
     return false;
+  }
   if (static_cast<uint64_t>(sample_rate) * num_channels * bytes_per_sample >
-      std::numeric_limits<uint32_t>::max())
+      std::numeric_limits<uint32_t>::max()) {
     return false;
+  }
 
   // format and bytes_per_sample must agree.
   switch (format) {
     case kWavFormatPcm:
       // Other values may be OK, but for now we're conservative:
-      if (bytes_per_sample != 1 && bytes_per_sample != 2)
+      if (bytes_per_sample != 1 && bytes_per_sample != 2) {
         return false;
+      }
       break;
     case kWavFormatALaw:
     case kWavFormatMuLaw:
-      if (bytes_per_sample != 1)
+      if (bytes_per_sample != 1) {
         return false;
+      }
       break;
     default:
       return false;
@@ -189,12 +204,14 @@ bool CheckWavParameters(size_t num_channels,
   const size_t header_size = kWavHeaderSize - sizeof(ChunkHeader);
   const size_t max_samples =
       (std::numeric_limits<uint32_t>::max() - header_size) / bytes_per_sample;
-  if (num_samples > max_samples)
+  if (num_samples > max_samples) {
     return false;
+  }
 
   // Each channel must have the same number of samples.
-  if (num_samples % num_channels != 0)
+  if (num_samples % num_channels != 0) {
     return false;
+  }
 
   return true;
 }
@@ -243,12 +260,16 @@ bool ReadWavHeader(ReadableWav* readable,
   auto header = rtc::MsanUninitialized<WavHeader>({});
 
   // Read RIFF chunk.
-  if (readable->Read(&header.riff, sizeof(header.riff)) != sizeof(header.riff))
+  if (readable->Read(&header.riff, sizeof(header.riff)) !=
+      sizeof(header.riff)) {
     return false;
-  if (ReadFourCC(header.riff.header.ID) != "RIFF")
+  }
+  if (ReadFourCC(header.riff.header.ID) != "RIFF") {
     return false;
-  if (ReadFourCC(header.riff.Format) != "WAVE")
+  }
+  if (ReadFourCC(header.riff.Format) != "WAVE") {
     return false;
+  }
 
   // Find "fmt " and "data" chunks. While the official Wave file specification
   // does not put requirements on the chunks order, it is uncommon to find the
@@ -279,18 +300,22 @@ bool ReadWavHeader(ReadableWav* readable,
   *sample_rate = ReadLE32(header.fmt.SampleRate);
   *bytes_per_sample = ReadLE16(header.fmt.BitsPerSample) / 8;
   const size_t bytes_in_payload = ReadLE32(header.data.header.Size);
-  if (*bytes_per_sample == 0)
+  if (*bytes_per_sample == 0) {
     return false;
+  }
   *num_samples = bytes_in_payload / *bytes_per_sample;
 
-  if (ReadLE32(header.riff.header.Size) < RiffChunkSize(bytes_in_payload))
+  if (ReadLE32(header.riff.header.Size) < RiffChunkSize(bytes_in_payload)) {
     return false;
+  }
   if (ReadLE32(header.fmt.ByteRate) !=
-      ByteRate(*num_channels, *sample_rate, *bytes_per_sample))
+      ByteRate(*num_channels, *sample_rate, *bytes_per_sample)) {
     return false;
+  }
   if (ReadLE16(header.fmt.BlockAlign) !=
-      BlockAlign(*num_channels, *bytes_per_sample))
+      BlockAlign(*num_channels, *bytes_per_sample)) {
     return false;
+  }
 
   return CheckWavParameters(*num_channels, *sample_rate, *format,
                             *bytes_per_sample, *num_samples);

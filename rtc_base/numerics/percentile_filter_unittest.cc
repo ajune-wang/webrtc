@@ -118,8 +118,9 @@ TEST_P(PercentileFilterTest, InsertAndEraseTenValuesInRandomOrder) {
   for (int i = 0; i < 2; ++i) {
     std::shuffle(zero_to_nine, zero_to_nine + 10,
                  std::mt19937(std::random_device()()));
-    for (int64_t value : zero_to_nine)
+    for (int64_t value : zero_to_nine) {
       filter_.Insert(value);
+    }
     // After inserting a full set of |zero_to_nine|, the percentile should
     // stay constant.
     EXPECT_EQ(expected_value, filter_.GetPercentileValue());
@@ -129,13 +130,15 @@ TEST_P(PercentileFilterTest, InsertAndEraseTenValuesInRandomOrder) {
   for (int i = 0; i < 3; ++i) {
     std::shuffle(zero_to_nine, zero_to_nine + 10,
                  std::mt19937(std::random_device()()));
-    for (int64_t value : zero_to_nine)
+    for (int64_t value : zero_to_nine) {
       filter_.Erase(value);
+    }
     EXPECT_EQ(expected_value, filter_.GetPercentileValue());
     std::shuffle(zero_to_nine, zero_to_nine + 10,
                  std::mt19937(std::random_device()()));
-    for (int64_t value : zero_to_nine)
+    for (int64_t value : zero_to_nine) {
       filter_.Insert(value);
+    }
     EXPECT_EQ(expected_value, filter_.GetPercentileValue());
   }
 }

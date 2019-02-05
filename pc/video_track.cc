@@ -61,8 +61,9 @@ VideoTrackInterface::ContentHint VideoTrack::content_hint() const {
 
 void VideoTrack::set_content_hint(ContentHint hint) {
   RTC_DCHECK_RUN_ON(&signaling_thread_checker_);
-  if (content_hint_ == hint)
+  if (content_hint_ == hint) {
     return;
+  }
   content_hint_ = hint;
   Notifier<VideoTrackInterface>::FireOnChanged();
 }

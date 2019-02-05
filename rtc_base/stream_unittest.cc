@@ -34,8 +34,9 @@ class TestStream : public StreamInterface {
     for (size_t i = 0; i < buffer_len; ++i) {
       uc_buffer[i] = static_cast<unsigned char>(pos_++);
     }
-    if (read)
+    if (read) {
       *read = buffer_len;
+    }
     return SR_SUCCESS;
   }
 
@@ -43,8 +44,9 @@ class TestStream : public StreamInterface {
                      size_t data_len,
                      size_t* written,
                      int* error) override {
-    if (error)
+    if (error) {
       *error = -1;
+    }
     return SR_ERROR;
   }
 

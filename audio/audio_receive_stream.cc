@@ -267,8 +267,9 @@ absl::optional<Syncable::Info> AudioReceiveStream::GetInfo() const {
   RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
   absl::optional<Syncable::Info> info = channel_receive_->GetSyncInfo();
 
-  if (!info)
+  if (!info) {
     return absl::nullopt;
+  }
 
   info->current_delay_ms = channel_receive_->GetDelayEstimate();
   return info;

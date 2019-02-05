@@ -281,8 +281,9 @@ AsyncSocket::ConnState PhysicalSocket::GetState() const {
 int PhysicalSocket::GetOption(Option opt, int* value) {
   int slevel;
   int sopt;
-  if (TranslateOption(opt, &slevel, &sopt) == -1)
+  if (TranslateOption(opt, &slevel, &sopt) == -1) {
     return -1;
+  }
   socklen_t optlen = sizeof(*value);
   int ret = ::getsockopt(s_, slevel, sopt, (SockOptArg)value, &optlen);
   if (ret != -1 && opt == OPT_DONTFRAGMENT) {
@@ -296,8 +297,9 @@ int PhysicalSocket::GetOption(Option opt, int* value) {
 int PhysicalSocket::SetOption(Option opt, int value) {
   int slevel;
   int sopt;
-  if (TranslateOption(opt, &slevel, &sopt) == -1)
+  if (TranslateOption(opt, &slevel, &sopt) == -1) {
     return -1;
+  }
   if (opt == OPT_DONTFRAGMENT) {
 #if defined(WEBRTC_LINUX) && !defined(WEBRTC_ANDROID)
     value = (value) ? IP_PMTUDISC_DO : IP_PMTUDISC_DONT;
@@ -398,8 +400,9 @@ int PhysicalSocket::RecvFrom(void* buffer,
     *timestamp = GetSocketRecvTimestamp(s_);
   }
   UpdateLastError();
-  if ((received >= 0) && (out_addr != nullptr))
+  if ((received >= 0) && (out_addr != nullptr)) {
     SocketAddressFromSockAddrStorage(addr_storage, out_addr);
+  }
   int error = GetError();
   bool success = (received >= 0) || IsBlockingError(error);
   if (udp_ || success) {
@@ -434,16 +437,19 @@ AsyncSocket* PhysicalSocket::Accept(SocketAddress* out_addr) {
   sockaddr* addr = reinterpret_cast<sockaddr*>(&addr_storage);
   SOCKET s = DoAccept(s_, addr, &addr_len);
   UpdateLastError();
-  if (s == INVALID_SOCKET)
+  if (s == INVALID_SOCKET) {
     return nullptr;
-  if (out_addr != nullptr)
+  }
+  if (out_addr != nullptr) {
     SocketAddressFromSockAddrStorage(addr_storage, out_addr);
+  }
   return ss_->WrapSocket(s);
 }
 
 int PhysicalSocket::Close() {
-  if (s_ == INVALID_SOCKET)
+  if (s_ == INVALID_SOCKET) {
     return 0;
+  }
   int err = ::closesocket(s_);
   UpdateLastError();
   s_ = INVALID_SOCKET;
@@ -615,11 +621,13 @@ bool SocketDispatcher::Create(int type) {
 
 bool SocketDispatcher::Create(int family, int type) {
   // Change the socket to be non-blocking.
-  if (!PhysicalSocket::Create(family, type))
+  if (!PhysicalSocket::Create(family, type)) {
     return false;
+  }
 
-  if (!Initialize())
+  if (!Initialize()) {
     return false;
+  }
 
 #if defined(WEBRTC_WIN)
   do {
@@ -715,14 +723,16 @@ uint32_t SocketDispatcher::GetRequestedEvents() {
 }
 
 void SocketDispatcher::OnPreEvent(uint32_t ff) {
-  if ((ff & DE_CONNECT) != 0)
+  if ((ff & DE_CONNECT) != 0) {
     state_ = CS_CONNECTED;
+  }
 
 #if defined(WEBRTC_WIN)
 // We set CS_CLOSED from CheckSignalClose.
 #elif defined(WEBRTC_POSIX)
-  if ((ff & DE_CLOSE) != 0)
+  if ((ff & DE_CLOSE) != 0) {
     state_ = CS_CLOSED;
+  }
 #endif
 }
 
@@ -854,8 +864,9 @@ void SocketDispatcher::DisableEvents(uint8_t events) {
 #endif  // WEBRTC_USE_EPOLL
 
 int SocketDispatcher::Close() {
-  if (s_ == INVALID_SOCKET)
+  if (s_ == INVALID_SOCKET) {
     return 0;
+  }
 
 #if defined(WEBRTC_WIN)
   id_ = 0;
@@ -869,8 +880,9 @@ int SocketDispatcher::Close() {
 class EventDispatcher : public Dispatcher {
  public:
   EventDispatcher(PhysicalSocketServer* ss) : ss_(ss), fSignaled_(false) {
-    if (pipe(afd_) < 0)
+    if (pipe(afd_) < 0) {
       RTC_LOG(LERROR) << "pipe failed";
+    }
     ss_->Add(this);
   }
 
@@ -1156,8 +1168,9 @@ class Signaler : public EventDispatcher {
   ~Signaler() override {}
 
   void OnEvent(uint32_t ff, int err) override {
-    if (pf_)
+    if (pf_) {
       *pf_ = false;
+    }
   }
 
  private:
@@ -1418,20 +1431,24 @@ bool PhysicalSocketServer::WaitSelect(int cmsWait, bool process_io) {
       for (Dispatcher* pdispatcher : dispatchers_) {
         // Query dispatchers for read and write wait state
         RTC_DCHECK(pdispatcher);
-        if (!process_io && (pdispatcher != signal_wakeup_))
+        if (!process_io && (pdispatcher != signal_wakeup_)) {
           continue;
+        }
         int fd = pdispatcher->GetDescriptor();
         // "select"ing a file descriptor that is equal to or larger than
         // FD_SETSIZE will result in undefined behavior.
         RTC_DCHECK_LT(fd, FD_SETSIZE);
-        if (fd > fdmax)
+        if (fd > fdmax) {
           fdmax = fd;
+        }
 
         uint32_t ff = pdispatcher->GetRequestedEvents();
-        if (ff & (DE_READ | DE_ACCEPT))
+        if (ff & (DE_READ | DE_ACCEPT)) {
           FD_SET(fd, &fdsRead);
-        if (ff & (DE_WRITE | DE_CONNECT))
+        }
+        if (ff & (DE_WRITE | DE_CONNECT)) {
           FD_SET(fd, &fdsWrite);
+        }
       }
     }
 

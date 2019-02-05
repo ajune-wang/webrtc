@@ -28,12 +28,14 @@ int NumSamples(
     const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
         histograms) {
   const auto it = histograms.find(name);
-  if (it == histograms.end())
+  if (it == histograms.end()) {
     return 0;
+  }
 
   int num_samples = 0;
-  for (const auto& sample : it->second->samples)
+  for (const auto& sample : it->second->samples) {
     num_samples += sample.second;
+  }
 
   return num_samples;
 }
@@ -43,12 +45,14 @@ int NumEvents(const std::string& name,
               const std::map<std::string, std::unique_ptr<metrics::SampleInfo>>&
                   histograms) {
   const auto it = histograms.find(name);
-  if (it == histograms.end())
+  if (it == histograms.end()) {
     return 0;
+  }
 
   const auto it_sample = it->second->samples.find(sample);
-  if (it_sample == it->second->samples.end())
+  if (it_sample == it->second->samples.end()) {
     return 0;
+  }
 
   return it_sample->second;
 }

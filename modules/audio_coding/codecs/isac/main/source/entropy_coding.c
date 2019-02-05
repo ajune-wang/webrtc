@@ -76,16 +76,18 @@ static void FindCorrelation(int32_t* PSpecQ12, int32_t* CorrQ7) {
   for (k = 0; k < AR_ORDER; k += 2) {
     sum = 0;
     CS_ptrQ9 = WebRtcIsac_kCos[k];
-    for (n = 0; n < FRAMESAMPLES / 8; n++)
+    for (n = 0; n < FRAMESAMPLES / 8; n++) {
       sum += (CS_ptrQ9[n] * diff[n] + 256) >> 9;
+}
     CorrQ7[k + 1] = sum;
   }
 
   for (k = 1; k < AR_ORDER; k += 2) {
     sum = 0;
     CS_ptrQ9 = WebRtcIsac_kCos[k];
-    for (n = 0; n < FRAMESAMPLES / 8; n++)
+    for (n = 0; n < FRAMESAMPLES / 8; n++) {
       sum += (CS_ptrQ9[n] * summ[n] + 256) >> 9;
+}
     CorrQ7[k + 1] = sum;
   }
 }
@@ -123,8 +125,9 @@ static void FindInvArSpec(const int16_t* ARCoefQ12,
 
   for (k = 1; k < AR_ORDER + 1; k++) {
     sum = 16384;
-    for (n = k; n < AR_ORDER + 1; n++)
+    for (n = k; n < AR_ORDER + 1; n++) {
       sum += WEBRTC_SPL_MUL(ARCoefQ12[n - k], ARCoefQ12[n]); /* Q24 */
+}
     sum >>= 15;
     CorrQ11[k] = (sum * tmpGain + round) >> shftVal;
   }
@@ -293,13 +296,15 @@ int WebRtcIsac_DecodeSpec(Bitstr* streamdata, int16_t AvgPitchGain_Q12,
   }
 
   /* Decode model parameters. */
-  if (WebRtcIsac_DecodeRc(streamdata, RCQ15) < 0)
+  if (WebRtcIsac_DecodeRc(streamdata, RCQ15) < 0) {
     return -ISAC_RANGE_ERROR_DECODE_SPECTRUM;
+}
 
   WebRtcSpl_ReflCoefToLpc(RCQ15, AR_ORDER, ARCoefQ12);
 
-  if (WebRtcIsac_DecodeGain2(streamdata, &gain2_Q10) < 0)
+  if (WebRtcIsac_DecodeGain2(streamdata, &gain2_Q10) < 0) {
     return -ISAC_RANGE_ERROR_DECODE_SPECTRUM;
+}
 
   /* Compute inverse AR power spectrum. */
   FindInvArSpec(ARCoefQ12, gain2_Q10, invARSpec2_Q16);
@@ -312,8 +317,9 @@ int WebRtcIsac_DecodeSpec(Bitstr* streamdata, int16_t AvgPitchGain_Q12,
     i = 10;
 
     /* Negative values make no sense for a real sqrt-function. */
-    if (in_sqrt < 0)
+    if (in_sqrt < 0) {
       in_sqrt = -in_sqrt;
+}
 
     newRes = (in_sqrt / res + res) >> 1;
     do {
@@ -1324,8 +1330,9 @@ void WebRtcIsac_EncodeLpcGainLb(double* LPCCoef_lo, double* LPCCoef_hi,
       sum = 0;
       pos = offsg;
       pos2 = offs2;
-      for (n = 0; n < LPC_GAIN_ORDER; n++)
+      for (n = 0; n < LPC_GAIN_ORDER; n++) {
         sum += tmpcoeffs_g[pos++] * WebRtcIsac_kKltT1Gain[pos2++];
+}
       tmpcoeffs2_g[posg++] = sum;
       offs2 += LPC_GAIN_ORDER;
     }
@@ -1425,8 +1432,9 @@ int WebRtcIsac_DecodeRc(Bitstr* streamdata, int16_t* RCQ15) {
   err = WebRtcIsac_DecHistOneStepMulti(index, streamdata,
                                        WebRtcIsac_kQArRcCdfPtr,
                                        WebRtcIsac_kQArRcInitIndex, AR_ORDER);
-  if (err < 0)
+  if (err < 0) {
     return err;
+}
 
   /* find quantization levels for reflection coefficients */
   for (k = 0; k < AR_ORDER; k++) {
@@ -1455,7 +1463,8 @@ void WebRtcIsac_EncodeRc(int16_t* RCQ15, Bitstr* streamdata) {
       }
     } else {
       while (index[k] > 0 &&
-        RCQ15[k] < WebRtcIsac_kQArBoundaryLevels[--index[k]]) ;
+        RCQ15[k] < WebRtcIsac_kQArBoundaryLevels[--index[k]]) { ;
+}
     }
     RCQ15[k] = *(WebRtcIsac_kQArRcLevelsPtr[k] + index[k]);
   }
@@ -1493,7 +1502,8 @@ int WebRtcIsac_EncodeGain2(int32_t* gainQ10, Bitstr* streamdata) {
       index++;
     }
   } else {
-    while (*gainQ10 < WebRtcIsac_kQGain2BoundaryLevels[--index]) ;
+    while (*gainQ10 < WebRtcIsac_kQGain2BoundaryLevels[--index]) { ;
+}
   }
   /* De-quantize */
   *gainQ10 = WebRtcIsac_kQGain2Levels[index];
@@ -1740,7 +1750,8 @@ void WebRtcIsac_EncodePitchLag(double* PitchLags, int16_t* PitchGain_Q12,
     /* check that the index is not outside the boundaries of the table */
     if (index[k] < lower_limit[k]) {
       index[k] = lower_limit[k];
-    } else if (index[k] > upper_limit[k]) index[k] = upper_limit[k]; {
+    } else if (index[k] > upper_limit[k]) { index[k] = upper_limit[k]; 
+}{
       index[k] -= lower_limit[k];
     }
     /* Save data for creation of multiple bit streams */
@@ -1795,8 +1806,9 @@ int WebRtcIsac_DecodeFrameLen(Bitstr* streamdata, int16_t* framesamples) {
   err = WebRtcIsac_DecHistOneStepMulti(&frame_mode, streamdata,
                                        WebRtcIsac_kFrameLengthCdf_ptr,
                                        WebRtcIsac_kFrameLengthInitIndex, 1);
-  if (err < 0)
+  if (err < 0) {
     return -ISAC_RANGE_ERROR_DECODE_FRAME_LENGTH;
+}
 
   switch (frame_mode) {
     case 1:
@@ -1828,8 +1840,9 @@ int WebRtcIsac_EncodeFrameLen(int16_t framesamples, Bitstr* streamdata) {
       status = - ISAC_DISALLOWED_FRAME_MODE_ENCODER;
   }
 
-  if (status < 0)
+  if (status < 0) {
     return status;
+}
 
   WebRtcIsac_EncHistMulti(streamdata, &frame_mode,
                           WebRtcIsac_kFrameLengthCdf_ptr, 1);

@@ -55,8 +55,9 @@ bool JsepIceCandidate::Initialize(const std::string& sdp, SdpParseError* err) {
 }
 
 bool JsepIceCandidate::ToString(std::string* out) const {
-  if (!out)
+  if (!out) {
     return false;
+  }
   *out = SdpSerializeCandidate(*this);
   return !out->empty();
 }

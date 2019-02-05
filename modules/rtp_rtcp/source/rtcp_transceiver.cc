@@ -33,8 +33,9 @@ RtcpTransceiver::RtcpTransceiver(const RtcpTransceiverConfig& config)
 }
 
 RtcpTransceiver::~RtcpTransceiver() {
-  if (!rtcp_transceiver_)
+  if (!rtcp_transceiver_) {
     return;
+  }
   task_queue_->PostTask(Destructor{std::move(rtcp_transceiver_)});
   RTC_DCHECK(!rtcp_transceiver_);
 }

@@ -29,8 +29,9 @@ MultiEndCall::MultiEndCall(
       wavreader_abstract_factory_(std::move(wavreader_abstract_factory)),
       valid_(false) {
   FindSpeakerNames();
-  if (CreateAudioTrackReaders())
+  if (CreateAudioTrackReaders()) {
     valid_ = CheckTiming();
+  }
 }
 
 MultiEndCall::~MultiEndCall() = default;
@@ -47,8 +48,9 @@ bool MultiEndCall::CreateAudioTrackReaders() {
   sample_rate_hz_ = 0;  // Sample rate will be set when reading the first track.
   for (const Turn& turn : timing_) {
     auto it = audiotrack_readers_.find(turn.audiotrack_file_name);
-    if (it != audiotrack_readers_.end())
+    if (it != audiotrack_readers_.end()) {
       continue;
+    }
 
     const std::string audiotrack_file_path =
         test::JoinFilename(audiotracks_path_, turn.audiotrack_file_name);
@@ -148,8 +150,9 @@ bool MultiEndCall::CheckTiming() {
     speaking_turn_indices[turn.speaker_name].push_back(turn_index);
 
     // Update total duration of the consversational speech.
-    if (total_duration_samples_ < end_timestamp)
+    if (total_duration_samples_ < end_timestamp) {
       total_duration_samples_ = end_timestamp;
+    }
 
     // Update and continue with next turn.
     second_last_turn = last_turn;

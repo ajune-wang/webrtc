@@ -266,8 +266,9 @@ int main(int argc, char* argv[]) {
       if (streamLen_int > 0) {
         if ((WebRtcIsac_ReadFrameLen(
                 codecInstance[receiverIdx],
-                reinterpret_cast<const uint8_t*>(bitStream), &ggg)) < 0)
+                reinterpret_cast<const uint8_t*>(bitStream), &ggg)) < 0) {
           printf("ERROR\n");
+        }
       }
 
       // Sanity check

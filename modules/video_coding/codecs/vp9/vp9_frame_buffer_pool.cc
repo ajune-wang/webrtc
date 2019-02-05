@@ -92,8 +92,9 @@ int Vp9FrameBufferPool::GetNumBuffersInUse() const {
   int num_buffers_in_use = 0;
   rtc::CritScope cs(&buffers_lock_);
   for (const auto& buffer : allocated_buffers_) {
-    if (!buffer->HasOneRef())
+    if (!buffer->HasOneRef()) {
       ++num_buffers_in_use;
+    }
   }
   return num_buffers_in_use;
 }

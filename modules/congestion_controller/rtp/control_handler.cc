@@ -60,8 +60,9 @@ void CongestionControlHandler::SetPacerQueue(TimeDelta expected_queue_time) {
 
 absl::optional<TargetTransferRate> CongestionControlHandler::GetUpdate() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&sequenced_checker_);
-  if (!last_incoming_.has_value())
+  if (!last_incoming_.has_value()) {
     return absl::nullopt;
+  }
   TargetTransferRate new_outgoing = *last_incoming_;
   DataRate log_target_rate = new_outgoing.target_rate;
   bool pause_encoding = false;
@@ -78,14 +79,16 @@ absl::optional<TargetTransferRate> CongestionControlHandler::GetUpdate() {
     }
     new_outgoing.target_rate = new_outgoing.target_rate * encoding_rate_ratio_;
     log_target_rate = new_outgoing.target_rate;
-    if (new_outgoing.target_rate < DataRate::kbps(50))
+    if (new_outgoing.target_rate < DataRate::kbps(50)) {
       pause_encoding = true;
+    }
   } else if (!disable_pacer_emergency_stop_ &&
              pacer_expected_queue_ms_ > PacedSender::kMaxQueueLengthMs) {
     pause_encoding = true;
   }
-  if (pause_encoding)
+  if (pause_encoding) {
     new_outgoing.target_rate = DataRate::Zero();
+  }
   if (!last_reported_ ||
       last_reported_->target_rate != new_outgoing.target_rate ||
       (!new_outgoing.target_rate.IsZero() &&
@@ -93,9 +96,10 @@ absl::optional<TargetTransferRate> CongestionControlHandler::GetUpdate() {
             new_outgoing.network_estimate.loss_rate_ratio ||
         last_reported_->network_estimate.round_trip_time !=
             new_outgoing.network_estimate.round_trip_time))) {
-    if (encoder_paused_in_last_report_ != pause_encoding)
+    if (encoder_paused_in_last_report_ != pause_encoding) {
       RTC_LOG(LS_INFO) << "Bitrate estimate state changed, BWE: "
                        << ToString(log_target_rate) << ".";
+    }
     encoder_paused_in_last_report_ = pause_encoding;
     last_reported_ = new_outgoing;
     return new_outgoing;

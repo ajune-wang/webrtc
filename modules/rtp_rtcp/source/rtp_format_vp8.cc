@@ -37,15 +37,17 @@ int ParseVP8PictureID(RTPVideoHeaderVP8* vp8,
                       const uint8_t** data,
                       size_t* data_length,
                       size_t* parsed_bytes) {
-  if (*data_length == 0)
+  if (*data_length == 0) {
     return -1;
+  }
 
   vp8->pictureId = (**data & 0x7F);
   if (**data & 0x80) {
     (*data)++;
     (*parsed_bytes)++;
-    if (--(*data_length) == 0)
+    if (--(*data_length) == 0) {
       return -1;
+    }
     // PictureId is 15 bits
     vp8->pictureId = (vp8->pictureId << 8) + **data;
   }
@@ -59,8 +61,9 @@ int ParseVP8Tl0PicIdx(RTPVideoHeaderVP8* vp8,
                       const uint8_t** data,
                       size_t* data_length,
                       size_t* parsed_bytes) {
-  if (*data_length == 0)
+  if (*data_length == 0) {
     return -1;
+  }
 
   vp8->tl0PicIdx = **data;
   (*data)++;
@@ -75,8 +78,9 @@ int ParseVP8TIDAndKeyIdx(RTPVideoHeaderVP8* vp8,
                          size_t* parsed_bytes,
                          bool has_tid,
                          bool has_key_idx) {
-  if (*data_length == 0)
+  if (*data_length == 0) {
     return -1;
+  }
 
   if (has_tid) {
     vp8->temporalIdx = ((**data >> 6) & 0x03);
@@ -229,20 +233,26 @@ RtpPacketizerVp8::RawHeader RtpPacketizerVp8::BuildHeader(
   bool tl0_pid_present = header.tl0PicIdx != kNoTl0PicIdx;
   bool pid_present = header.pictureId != kNoPictureId;
   uint8_t x_field = 0;
-  if (pid_present)
+  if (pid_present) {
     x_field |= kIBit;
-  if (tl0_pid_present)
+  }
+  if (tl0_pid_present) {
     x_field |= kLBit;
-  if (tid_present)
+  }
+  if (tid_present) {
     x_field |= kTBit;
-  if (keyid_present)
+  }
+  if (keyid_present) {
     x_field |= kKBit;
+  }
 
   uint8_t flags = 0;
-  if (x_field != 0)
+  if (x_field != 0) {
     flags |= kXBit;
-  if (header.nonReference)
+  }
+  if (header.nonReference) {
     flags |= kNBit;
+  }
   // Create header as first packet in the frame. NextPacket() will clear it
   // after first use.
   flags |= kSBit;
@@ -263,8 +273,9 @@ RtpPacketizerVp8::RawHeader RtpPacketizerVp8::BuildHeader(
     uint8_t data_field = 0;
     if (tid_present) {
       data_field |= header.temporalIdx << 6;
-      if (header.layerSync)
+      if (header.layerSync) {
         data_field |= kYBit;
+      }
     }
     if (keyid_present) {
       data_field |= (header.keyIdx & kKeyIdxField);
@@ -345,8 +356,9 @@ bool RtpDepacketizerVp8::Parse(ParsedPayload* parsed_payload,
   if (extension) {
     const int parsed_bytes =
         ParseVP8Extension(&vp8_header, payload_data, payload_data_length);
-    if (parsed_bytes < 0)
+    if (parsed_bytes < 0) {
       return false;
+    }
     payload_data += parsed_bytes;
     payload_data_length -= parsed_bytes;
     if (payload_data_length == 0) {

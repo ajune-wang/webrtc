@@ -47,12 +47,15 @@ static void ClampBitrates(int* bitrate_bps,
   // TODO(holmer): We should make sure the default bitrates are set to 10 kbps,
   // and that we don't try to set the min bitrate to 0 from any applications.
   // The congestion controller should allow a min bitrate of 0.
-  if (*min_bitrate_bps < congestion_controller::GetMinBitrateBps())
+  if (*min_bitrate_bps < congestion_controller::GetMinBitrateBps()) {
     *min_bitrate_bps = congestion_controller::GetMinBitrateBps();
-  if (*max_bitrate_bps > 0)
+  }
+  if (*max_bitrate_bps > 0) {
     *max_bitrate_bps = std::max(*min_bitrate_bps, *max_bitrate_bps);
-  if (*bitrate_bps > 0)
+  }
+  if (*bitrate_bps > 0) {
     *bitrate_bps = std::max(*min_bitrate_bps, *bitrate_bps);
+  }
 }
 
 std::vector<webrtc::PacketFeedback> ReceivedPacketFeedbackVector(
@@ -205,8 +208,9 @@ void DEPRECATED_SendSideCongestionController::SetBweBitrates(
 
   {
     rtc::CritScope cs(&bwe_lock_);
-    if (start_bitrate_bps > 0)
+    if (start_bitrate_bps > 0) {
       delay_based_bwe_->SetStartBitrate(DataRate::bps(start_bitrate_bps));
+    }
     min_bitrate_bps_ = min_bitrate_bps;
     delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps_));
   }
@@ -320,12 +324,14 @@ void DEPRECATED_SendSideCongestionController::OnSentPacket(
     const rtc::SentPacket& sent_packet) {
   // We're not interested in packets without an id, which may be stun packets,
   // etc, sent on the same transport.
-  if (sent_packet.packet_id == -1)
+  if (sent_packet.packet_id == -1) {
     return;
+  }
   transport_feedback_adapter_.OnSentPacket(sent_packet.packet_id,
                                            sent_packet.send_time_ms);
-  if (cwnd_experiment_parameter_)
+  if (cwnd_experiment_parameter_) {
     LimitOutstandingBytes(transport_feedback_adapter_.GetOutstandingBytes());
+  }
 }
 
 void DEPRECATED_SendSideCongestionController::OnRttUpdate(int64_t avg_rtt_ms,
@@ -445,8 +451,9 @@ void DEPRECATED_SendSideCongestionController::LimitOutstandingBytes(
       transport_feedback_adapter_.GetMinFeedbackLoopRtt();
   // No valid RTT. Could be because send-side BWE isn't used, in which case
   // we don't try to limit the outstanding packets.
-  if (!min_rtt_ms)
+  if (!min_rtt_ms) {
     return;
+  }
   const size_t kMinCwndBytes = 2 * 1500;
   size_t max_outstanding_bytes =
       std::max<size_t>((*min_rtt_ms + *cwnd_experiment_parameter_) *

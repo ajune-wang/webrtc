@@ -60,8 +60,9 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
       {
         rtc::CritScope cs(&lock_);
 
-        if (IsDone())
+        if (IsDone()) {
           return false;
+        }
 
         if (started_) {
           RTPHeader header;
@@ -105,11 +106,13 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
             streams_observed_.insert(header.ssrc);
           }
 
-          if (IsDone())
+          if (IsDone()) {
             done_.Set();
+          }
 
-          if (drop_packet)
+          if (drop_packet) {
             return true;
+          }
         }
       }
 
@@ -120,8 +123,9 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
       bool observed_types_ok =
           streams_observed_.size() == MultiStreamTester::kNumStreams &&
           retransmit_observed_ && rtx_padding_observed_;
-      if (!observed_types_ok)
+      if (!observed_types_ok) {
         return false;
+      }
       // We should not have any gaps in the sequence number range.
       size_t seqno_range =
           *received_packed_ids_.rbegin() - *received_packed_ids_.begin() + 1;
@@ -192,8 +196,9 @@ TEST_F(TransportFeedbackEndToEndTest, AssignsTransportSequenceNumbers) {
       rtx_to_media_ssrcs_[kSendRtxSsrcs[stream_index]] =
           send_config->rtp.ssrcs[0];
 
-      if (stream_index == 0)
+      if (stream_index == 0) {
         first_media_ssrc_ = send_config->rtp.ssrcs[0];
+      }
     }
 
     void UpdateReceiveConfig(
@@ -253,8 +258,9 @@ class TransportFeedbackTester : public test::EndToEndTest {
   }
 
   Action OnReceiveRtcp(const uint8_t* data, size_t length) override {
-    if (HasTransportFeedback(data, length))
+    if (HasTransportFeedback(data, length)) {
       observation_complete_.Set();
+    }
     return SEND_PACKET;
   }
 
@@ -458,10 +464,12 @@ TEST_F(TransportFeedbackEndToEndTest, TransportSeqNumOnAudioAndVideo) {
           unwrapper_.Unwrap(header.extension.transportSequenceNumber);
       EXPECT_TRUE(received_packet_ids_.insert(packet_id).second);
 
-      if (header.ssrc == kVideoSendSsrcs[0])
+      if (header.ssrc == kVideoSendSsrcs[0]) {
         video_observed_ = true;
-      if (header.ssrc == kAudioSendSsrc)
+      }
+      if (header.ssrc == kAudioSendSsrc) {
         audio_observed_ = true;
+      }
       if (audio_observed_ && video_observed_ &&
           received_packet_ids_.size() >= kMinPacketsToWaitFor) {
         size_t packet_id_range =

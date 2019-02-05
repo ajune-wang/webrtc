@@ -36,10 +36,12 @@ VCMDecoderDataBase::VCMDecoderDataBase()
 
 VCMDecoderDataBase::~VCMDecoderDataBase() {
   ptr_decoder_.reset();
-  for (auto& kv : dec_map_)
+  for (auto& kv : dec_map_) {
     delete kv.second;
-  for (auto& kv : dec_external_map_)
+  }
+  for (auto& kv : dec_external_map_) {
     delete kv.second;
+  }
 }
 
 bool VCMDecoderDataBase::DeregisterExternalDecoder(uint8_t payload_type) {
@@ -156,8 +158,9 @@ std::unique_ptr<VCMGenericDecoder> VCMDecoderDataBase::CreateAndInitDecoder(
   } else {
     RTC_LOG(LS_ERROR) << "No decoder of this type exists.";
   }
-  if (!ptr_decoder)
+  if (!ptr_decoder) {
     return nullptr;
+  }
 
   // Copy over input resolutions to prevent codec reinitialization due to
   // the first frame being of a different resolution than the database values.

@@ -40,14 +40,16 @@ H264BitstreamParser::Result H264BitstreamParser::ParseNonParameterSetNalu(
     const uint8_t* source,
     size_t source_length,
     uint8_t nalu_type) {
-  if (!sps_ || !pps_)
+  if (!sps_ || !pps_) {
     return kInvalidStream;
+  }
 
   last_slice_qp_delta_ = absl::nullopt;
   const std::vector<uint8_t> slice_rbsp =
       H264::ParseRbsp(source, source_length);
-  if (slice_rbsp.size() < H264::kNaluTypeSize)
+  if (slice_rbsp.size() < H264::kNaluTypeSize) {
     return kInvalidStream;
+  }
 
   rtc::BitBuffer slice_reader(slice_rbsp.data() + H264::kNaluTypeSize,
                               slice_rbsp.size() - H264::kNaluTypeSize);
@@ -271,15 +273,17 @@ void H264BitstreamParser::ParseSlice(const uint8_t* slice, size_t length) {
     case H264::NaluType::kSps: {
       sps_ = SpsParser::ParseSps(slice + H264::kNaluTypeSize,
                                  length - H264::kNaluTypeSize);
-      if (!sps_)
+      if (!sps_) {
         RTC_LOG(LS_WARNING) << "Unable to parse SPS from H264 bitstream.";
+      }
       break;
     }
     case H264::NaluType::kPps: {
       pps_ = PpsParser::ParsePps(slice + H264::kNaluTypeSize,
                                  length - H264::kNaluTypeSize);
-      if (!pps_)
+      if (!pps_) {
         RTC_LOG(LS_WARNING) << "Unable to parse PPS from H264 bitstream.";
+      }
       break;
     }
     case H264::NaluType::kAud:
@@ -287,8 +291,9 @@ void H264BitstreamParser::ParseSlice(const uint8_t* slice, size_t length) {
       break;  // Ignore these nalus, as we don't care about their contents.
     default:
       Result res = ParseNonParameterSetNalu(slice, length, nalu_type);
-      if (res != kOk)
+      if (res != kOk) {
         RTC_LOG(LS_INFO) << "Failed to parse bitstream. Error: " << res;
+      }
       break;
   }
 }
@@ -297,13 +302,15 @@ void H264BitstreamParser::ParseBitstream(const uint8_t* bitstream,
                                          size_t length) {
   std::vector<H264::NaluIndex> nalu_indices =
       H264::FindNaluIndices(bitstream, length);
-  for (const H264::NaluIndex& index : nalu_indices)
+  for (const H264::NaluIndex& index : nalu_indices) {
     ParseSlice(&bitstream[index.payload_start_offset], index.payload_size);
+  }
 }
 
 bool H264BitstreamParser::GetLastSliceQp(int* qp) const {
-  if (!last_slice_qp_delta_ || !pps_)
+  if (!last_slice_qp_delta_ || !pps_) {
     return false;
+  }
   const int parsed_qp = 26 + pps_->pic_init_qp_minus26 + *last_slice_qp_delta_;
   if (parsed_qp < kMinQpValue || parsed_qp > kMaxQpValue) {
     RTC_LOG(LS_ERROR) << "Parsed invalid QP from bitstream.";

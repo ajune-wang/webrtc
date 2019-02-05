@@ -33,8 +33,9 @@ class TestSessionInfo : public ::testing::Test {
   }
 
   void FillPacket(uint8_t start_value) {
-    for (size_t i = 0; i < packet_buffer_size(); ++i)
+    for (size_t i = 0; i < packet_buffer_size(); ++i) {
       packet_buffer_[i] = start_value + i;
+    }
   }
 
   void VerifyPacket(uint8_t* start_ptr, uint8_t start_value) {
@@ -104,8 +105,9 @@ class TestNackList : public TestSessionInfo {
   }
 
   void VerifyAll(int value) {
-    for (int i = 0; i < seq_num_list_length_; ++i)
+    for (int i = 0; i < seq_num_list_length_; ++i) {
       EXPECT_EQ(seq_num_list_[i], value);
+    }
   }
 
   int seq_num_list_[kMaxSeqNumListLength];

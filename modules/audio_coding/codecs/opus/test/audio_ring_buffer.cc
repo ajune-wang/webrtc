@@ -19,13 +19,15 @@ namespace webrtc {
 
 AudioRingBuffer::AudioRingBuffer(size_t channels, size_t max_frames) {
   buffers_.reserve(channels);
-  for (size_t i = 0; i < channels; ++i)
+  for (size_t i = 0; i < channels; ++i) {
     buffers_.push_back(WebRtc_CreateBuffer(max_frames, sizeof(float)));
+  }
 }
 
 AudioRingBuffer::~AudioRingBuffer() {
-  for (auto* buf : buffers_)
+  for (auto* buf : buffers_) {
     WebRtc_FreeBuffer(buf);
+  }
 }
 
 void AudioRingBuffer::Write(const float* const* data,

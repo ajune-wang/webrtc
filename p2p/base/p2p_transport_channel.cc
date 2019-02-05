@@ -45,12 +45,13 @@ bool IsUdp(cricket::Connection* conn) {
 
 cricket::PortInterface::CandidateOrigin GetOrigin(cricket::PortInterface* port,
                                          cricket::PortInterface* origin_port) {
-  if (!origin_port)
+  if (!origin_port) {
     return cricket::PortInterface::ORIGIN_MESSAGE;
-  else if (port == origin_port)
+  } else if (port == origin_port) {
     return cricket::PortInterface::ORIGIN_THIS_PORT;
-  else
+  } else {
     return cricket::PortInterface::ORIGIN_OTHER_PORT;
+  }
 }
 
 // TODO(qingsi) Use an enum to replace the following constants for all
@@ -407,18 +408,20 @@ webrtc::IceTransportState P2PTransportChannel::ComputeIceTransportState()
   }
 
   if (!writable() && has_been_writable_) {
-    if (has_connection)
+    if (has_connection) {
       return webrtc::IceTransportState::kDisconnected;
-    else
+    } else {
       return webrtc::IceTransportState::kFailed;
+    }
   }
 
-  if (gathering_state_ == kIceGatheringNew)
+  if (gathering_state_ == kIceGatheringNew) {
     return webrtc::IceTransportState::kNew;
-  else if (has_connection)
+  } else if (has_connection) {
     return webrtc::IceTransportState::kConnected;
-  else
+  } else {
     return webrtc::IceTransportState::kChecking;
+  }
 }
 
 void P2PTransportChannel::SetIceParameters(const IceParameters& ice_params) {
@@ -1210,14 +1213,16 @@ bool P2PTransportChannel::CreateConnections(const Candidate& remote_candidate,
   std::vector<PortInterface *>::reverse_iterator it;
   for (it = ports_.rbegin(); it != ports_.rend(); ++it) {
     if (CreateConnection(*it, remote_candidate, origin_port)) {
-      if (*it == origin_port)
+      if (*it == origin_port) {
         created = true;
+      }
     }
   }
 
   if ((origin_port != NULL) && !absl::c_linear_search(ports_, origin_port)) {
-    if (CreateConnection(origin_port, remote_candidate, origin_port))
+    if (CreateConnection(origin_port, remote_candidate, origin_port)) {
       created = true;
+    }
   }
 
   // Remember this remote candidate so that we can add it to future ports.
@@ -2380,8 +2385,9 @@ void P2PTransportChannel::OnReadPacket(Connection* connection,
   RTC_DCHECK(network_thread_ == rtc::Thread::Current());
 
   // Do not deliver, if packet doesn't belong to the correct transport channel.
-  if (!FindConnection(connection))
+  if (!FindConnection(connection)) {
     return;
+  }
 
   // Let the client know of an incoming packet
   SignalReadPacket(this, data, len, packet_time_us, 0);

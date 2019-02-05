@@ -108,8 +108,9 @@ float OptimizePacketLossRate(float new_loss_rate, float old_loss_rate) {
 absl::optional<std::string> GetFormatParameter(const SdpAudioFormat& format,
                                                const std::string& param) {
   auto it = format.parameters.find(param);
-  if (it == format.parameters.end())
+  if (it == format.parameters.end()) {
     return absl::nullopt;
+  }
 
   return it->second;
 }
@@ -581,8 +582,9 @@ void AudioEncoderOpusImpl::OnReceivedUplinkPacketLossFraction(
 
 void AudioEncoderOpusImpl::OnReceivedUplinkRecoverablePacketLossFraction(
     float uplink_recoverable_packet_loss_fraction) {
-  if (!audio_network_adaptor_)
+  if (!audio_network_adaptor_) {
     return;
+  }
   audio_network_adaptor_->SetUplinkRecoverablePacketLossFraction(
       uplink_recoverable_packet_loss_fraction);
   ApplyAudioNetworkAdaptor();
@@ -605,12 +607,14 @@ void AudioEncoderOpusImpl::OnReceivedUplinkBandwidth(
     // the next BWE update, we would choose a time constant that fulfills
     // 1 - e^(-bwe_period_ms / time_constant) < 0.25
     // Then 4 * bwe_period_ms is a good choice.
-    if (bwe_period_ms)
+    if (bwe_period_ms) {
       bitrate_smoother_->SetTimeConstantMs(*bwe_period_ms * 4);
+    }
     bitrate_smoother_->AddSample(target_audio_bitrate_bps);
 
-    if (link_capacity_allocation_bps)
+    if (link_capacity_allocation_bps) {
       link_capacity_allocation_bps_ = link_capacity_allocation_bps;
+    }
 
     ApplyAudioNetworkAdaptor();
   } else if (send_side_bwe_with_overhead_) {
@@ -644,8 +648,9 @@ void AudioEncoderOpusImpl::OnReceivedUplinkAllocation(
 }
 
 void AudioEncoderOpusImpl::OnReceivedRtt(int rtt_ms) {
-  if (!audio_network_adaptor_)
+  if (!audio_network_adaptor_) {
     return;
+  }
   audio_network_adaptor_->SetRtt(rtt_ms);
   ApplyAudioNetworkAdaptor();
 }
@@ -677,8 +682,9 @@ AudioEncoder::EncodedInfo AudioEncoderOpusImpl::EncodeImpl(
     rtc::Buffer* encoded) {
   MaybeUpdateUplinkBandwidth();
 
-  if (input_buffer_.empty())
+  if (input_buffer_.empty()) {
     first_timestamp_in_buffer_ = rtp_timestamp;
+  }
 
   input_buffer_.insert(input_buffer_.end(), audio.cbegin(), audio.cend());
   if (input_buffer_.size() <
@@ -754,11 +760,13 @@ size_t AudioEncoderOpusImpl::SufficientOutputBufferSize() const {
 // false.
 bool AudioEncoderOpusImpl::RecreateEncoderInstance(
     const AudioEncoderOpusConfig& config) {
-  if (!config.IsOk())
+  if (!config.IsOk()) {
     return false;
+  }
   config_ = config;
-  if (inst_)
+  if (inst_) {
     RTC_CHECK_EQ(0, WebRtcOpus_EncoderFree(inst_));
+  }
   input_buffer_.clear();
   input_buffer_.reserve(Num10msFramesPerPacket() * SamplesPer10msFrame());
   RTC_CHECK_EQ(0, WebRtcOpus_EncoderCreate(
@@ -809,8 +817,9 @@ void AudioEncoderOpusImpl::SetNumChannelsToEncode(
   RTC_DCHECK_GT(num_channels_to_encode, 0);
   RTC_DCHECK_LE(num_channels_to_encode, config_.num_channels);
 
-  if (num_channels_to_encode_ == num_channels_to_encode)
+  if (num_channels_to_encode_ == num_channels_to_encode) {
     return;
+  }
 
   RTC_CHECK_EQ(0, WebRtcOpus_SetForceChannels(inst_, num_channels_to_encode));
   num_channels_to_encode_ = num_channels_to_encode;
@@ -854,18 +863,24 @@ void AudioEncoderOpusImpl::SetTargetBitrate(int bits_per_second) {
 void AudioEncoderOpusImpl::ApplyAudioNetworkAdaptor() {
   auto config = audio_network_adaptor_->GetEncoderRuntimeConfig();
 
-  if (config.bitrate_bps)
+  if (config.bitrate_bps) {
     SetTargetBitrate(*config.bitrate_bps);
-  if (config.frame_length_ms)
+  }
+  if (config.frame_length_ms) {
     SetFrameLength(*config.frame_length_ms);
-  if (config.enable_fec)
+  }
+  if (config.enable_fec) {
     SetFec(*config.enable_fec);
-  if (config.uplink_packet_loss_fraction)
+  }
+  if (config.uplink_packet_loss_fraction) {
     SetProjectedPacketLossRate(*config.uplink_packet_loss_fraction);
-  if (config.enable_dtx)
+  }
+  if (config.enable_dtx) {
     SetDtx(*config.enable_dtx);
-  if (config.num_channels)
+  }
+  if (config.num_channels) {
     SetNumChannelsToEncode(*config.num_channels);
+  }
 }
 
 std::unique_ptr<AudioNetworkAdaptor>
@@ -894,8 +909,9 @@ void AudioEncoderOpusImpl::MaybeUpdateUplinkBandwidth() {
               config_.uplink_bandwidth_update_interval_ms) {
         absl::optional<float> smoothed_bitrate =
             bitrate_smoother_->GetAverage();
-        if (smoothed_bitrate)
+        if (smoothed_bitrate) {
           audio_network_adaptor_->SetUplinkBandwidth(*smoothed_bitrate);
+        }
         bitrate_smoother_last_update_time_ = now_ms;
       }
     }

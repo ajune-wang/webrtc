@@ -55,8 +55,9 @@ class OpusFrame : public AudioDecoder::EncodedAudioFrame {
           decoded.size() * sizeof(int16_t), decoded.data(), &speech_type);
     }
 
-    if (ret < 0)
+    if (ret < 0) {
       return absl::nullopt;
+    }
 
     return DecodeResult{static_cast<size_t>(ret), speech_type};
   }
@@ -110,8 +111,9 @@ int AudioDecoderOpusImpl::DecodeInternal(const uint8_t* encoded,
   int16_t temp_type = 1;  // Default is speech.
   int ret =
       WebRtcOpus_Decode(dec_state_, encoded, encoded_len, decoded, &temp_type);
-  if (ret > 0)
+  if (ret > 0) {
     ret *= static_cast<int>(channels_);  // Return total number of samples.
+  }
   *speech_type = ConvertSpeechType(temp_type);
   return ret;
 }
@@ -131,8 +133,9 @@ int AudioDecoderOpusImpl::DecodeRedundantInternal(const uint8_t* encoded,
   int16_t temp_type = 1;  // Default is speech.
   int ret = WebRtcOpus_DecodeFec(dec_state_, encoded, encoded_len, decoded,
                                  &temp_type);
-  if (ret > 0)
+  if (ret > 0) {
     ret *= static_cast<int>(channels_);  // Return total number of samples.
+  }
   *speech_type = ConvertSpeechType(temp_type);
   return ret;
 }

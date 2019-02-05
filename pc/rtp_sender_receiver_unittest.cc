@@ -204,8 +204,9 @@ class RtpSenderReceiverTest : public testing::Test,
       int num_layers = kVideoSimulcastLayerCount) {
     std::vector<uint32_t> ssrcs;
     ssrcs.reserve(num_layers);
-    for (int i = 0; i < num_layers; ++i)
+    for (int i = 0; i < num_layers; ++i) {
       ssrcs.push_back(kVideoSsrcSimulcast + i);
+    }
     cricket::StreamParams stream_params =
         cricket::CreateSimStreamParams("cname", ssrcs);
     video_media_channel_->AddSendStream(stream_params);
@@ -262,8 +263,9 @@ class RtpSenderReceiverTest : public testing::Test,
       int num_layers = kVideoSimulcastLayerCount) {
     std::vector<uint32_t> ssrcs;
     ssrcs.reserve(num_layers);
-    for (int i = 0; i < num_layers; ++i)
+    for (int i = 0; i < num_layers; ++i) {
       ssrcs.push_back(kVideoSsrcSimulcast + i);
+    }
     cricket::StreamParams stream_params =
         cricket::CreateSimStreamParams("cname", ssrcs);
     video_media_channel_->AddRecvStream(stream_params);
@@ -941,8 +943,9 @@ TEST_F(RtpSenderReceiverTest, VideoSenderInitParametersMovedAfterNegotiation) {
   // Simulate the setLocalDescription call
   std::vector<uint32_t> ssrcs;
   ssrcs.reserve(2);
-  for (int i = 0; i < 2; ++i)
+  for (int i = 0; i < 2; ++i) {
     ssrcs.push_back(kVideoSsrcSimulcast + i);
+  }
   cricket::StreamParams stream_params =
       cricket::CreateSimStreamParams("cname", ssrcs);
   video_media_channel_->AddSendStream(stream_params);
@@ -977,8 +980,9 @@ TEST_F(RtpSenderReceiverTest,
   // to enable simulcast
   std::vector<uint32_t> ssrcs;
   ssrcs.reserve(2);
-  for (int i = 0; i < 2; ++i)
+  for (int i = 0; i < 2; ++i) {
     ssrcs.push_back(kVideoSsrcSimulcast + i);
+  }
   cricket::StreamParams stream_params =
       cricket::CreateSimStreamParams("cname", ssrcs);
   video_media_channel_->AddSendStream(stream_params);

@@ -100,8 +100,9 @@ void QualityScalingTest::RunTest(VideoEncoderFactory* encoder_factory,
     // Called when FrameGeneratorCapturer::AddOrUpdateSink is called.
     void OnSinkWantsChanged(rtc::VideoSinkInterface<VideoFrame>* sink,
                             const rtc::VideoSinkWants& wants) override {
-      if (wants.max_pixel_count < kWidth * kHeight)
+      if (wants.max_pixel_count < kWidth * kHeight) {
         observation_complete_.Set();
+      }
     }
     void ModifySenderBitrateConfig(
         BitrateConstraints* bitrate_config) override {

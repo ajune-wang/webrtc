@@ -84,8 +84,9 @@ class TaskQueue::Impl : public RefCountInterface {
       std::unique_ptr<TaskContext> tc(static_cast<TaskContext*>(context));
       if (tc->queue_ctx->is_active) {
         AutoSetCurrentQueuePtr set_current(tc->queue_ctx->queue);
-        if (!tc->task->Run())
+        if (!tc->task->Run()) {
           tc->task.release();
+        }
       }
     }
 

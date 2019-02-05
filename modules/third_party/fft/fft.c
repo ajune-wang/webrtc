@@ -230,19 +230,22 @@ int  WebRtcIsac_Fftns(unsigned int ndim, const int dims[],
     ret = FFTRADIX (Re, Im, nTotal, nSpan, nPass, iSign,
                     max_factors, max_perm, fftstate);
     /* exit, clean-up already done */
-    if (ret)
+    if (ret) {
       return ret;
+}
   }
 
   /* Divide through by the normalizing constant: */
   if (scaling && scaling != 1.0)
   {
-    if (iSign < 0) iSign = -iSign;
+    if (iSign < 0) { iSign = -iSign;
+}
     if (scaling < 0.0)
     {
       scaling = (double)nTotal;
-      if (scaling < -1.0)
+      if (scaling < -1.0) {
         scaling = sqrt (scaling);
+}
     }
     scaling = 1.0 / scaling; /* multiply is often faster */
     for (i = 0; i < nTotal; i += iSign)
@@ -297,8 +300,9 @@ static int   FFTRADIX (REAL Re[],
   // initialize to avoid warnings
   k3 = c2 = c3 = s2 = s3 = 0.0;
 
-  if (nPass < 2)
+  if (nPass < 2) {
     return 0;
+}
 
   /*  allocate storage */
   if (fftstate->SpaceAlloced < max_factors * sizeof (REAL))
@@ -386,8 +390,9 @@ static int   FFTRADIX (REAL Re[],
   if (k <= 4) {
     kt = mfactor;
     fftstate->factor [mfactor] = k;
-    if (k != 1)
+    if (k != 1) {
       mfactor++;
+}
   } else {
     if (k - (k / 4 << 2) == 0) {
       mfactor++;
@@ -447,8 +452,9 @@ static int   FFTRADIX (REAL Re[],
           } while (kk < nn);
           kk -= nn;
         } while (kk < jc);
-        if (kk >= kspan)
+        if (kk >= kspan) {
           goto Permute_Results_Label;  /* exit infinite loop */
+}
         do {
           c1 = 1.0 - cd;
           s1 = sd;
@@ -548,8 +554,9 @@ static int   FFTRADIX (REAL Re[],
           } while (kk < kspan);
           kk = kk - kspan + inc;
         } while (kk < jc);
-        if (kspan == jc)
+        if (kspan == jc) {
           goto Permute_Results_Label;  /* exit infinite loop */
+}
         break;
 
       default:
@@ -713,8 +720,9 @@ static int   FFTRADIX (REAL Re[],
         }
 
         /*  multiply by rotation factor (except for factors of 2 and 4) */
-        if (ii == mfactor)
+        if (ii == mfactor) {
           goto Permute_Results_Label;  /* exit infinite loop */
+}
         kk = jc;
         do {
           c2 = 1.0 - cd;
@@ -755,8 +763,9 @@ Permute_Results_Label:
   fftstate->Perm [0] = ns;
   if (kt) {
     k = kt + kt + 1;
-    if (mfactor < k)
+    if (mfactor < k) {
       k--;
+}
     j = 1;
     fftstate->Perm [k] = jc;
     do {
@@ -797,8 +806,9 @@ Permute_Results_Label:
         } while (k2 > fftstate->Perm [j - 1]);
         j = 1;
         do {
-          if (kk < (k2-1))
+          if (kk < (k2-1)) {
             goto Permute_Multi_Label;
+}
           kk += jc;
           k2 += kspan;
         } while (k2 < (ns-1));
@@ -821,8 +831,9 @@ Permute_Results_Label:
         } while (k2 >= fftstate->Perm [j - 1]);
         j = 1;
         do {
-          if (kk < k2)
+          if (kk < k2) {
             goto Permute_Single_Label;
+}
           kk += inc;
           k2 += kspan;
         } while (k2 < (ns-1));
@@ -831,8 +842,9 @@ Permute_Results_Label:
     jc = k3;
   }
 
-  if ((kt << 1) + 1 >= mfactor)
+  if ((kt << 1) + 1 >= mfactor) {
     return 0;
+}
   ispan = fftstate->Perm [kt];
   /* permutation for square-free factors of n */
   j = mfactor - kt;
@@ -852,8 +864,9 @@ Permute_Results_Label:
     k2 = fftstate->factor [kt - 1];
     kk = fftstate->factor [k - 1];
     j++;
-    if (j > nn)
+    if (j > nn) {
       break;    /* exit infinite loop */
+}
     jj += kk;
     while (jj >= k2) {
       jj -= k2;
@@ -880,8 +893,9 @@ Permute_Results_Label:
       k3 = kk;
     } else {
       fftstate->Perm [j - 1] = -j;
-      if (j == nn)
+      if (j == nn) {
         break;  /* exit infinite loop */
+}
     }
   }
   max_factors *= inc;
@@ -890,8 +904,9 @@ Permute_Results_Label:
     j = k3 + 1;
     nt -= ispan;
     ii = nt - inc + 1;
-    if (nt < 0)
+    if (nt < 0) {
       break;   /* exit infinite loop */
+}
     do {
       do {
         j--;

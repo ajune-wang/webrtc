@@ -56,24 +56,27 @@ bool MediaStream::RemoveTrack(VideoTrackInterface* track) {
 rtc::scoped_refptr<AudioTrackInterface> MediaStream::FindAudioTrack(
     const std::string& track_id) {
   AudioTrackVector::iterator it = FindTrack(&audio_tracks_, track_id);
-  if (it == audio_tracks_.end())
+  if (it == audio_tracks_.end()) {
     return NULL;
+  }
   return *it;
 }
 
 rtc::scoped_refptr<VideoTrackInterface> MediaStream::FindVideoTrack(
     const std::string& track_id) {
   VideoTrackVector::iterator it = FindTrack(&video_tracks_, track_id);
-  if (it == video_tracks_.end())
+  if (it == video_tracks_.end()) {
     return NULL;
+  }
   return *it;
 }
 
 template <typename TrackVector, typename Track>
 bool MediaStream::AddTrack(TrackVector* tracks, Track* track) {
   typename TrackVector::iterator it = FindTrack(tracks, track->id());
-  if (it != tracks->end())
+  if (it != tracks->end()) {
     return false;
+  }
   tracks->push_back(track);
   FireOnChanged();
   return true;
@@ -83,11 +86,13 @@ template <typename TrackVector>
 bool MediaStream::RemoveTrack(TrackVector* tracks,
                               MediaStreamTrackInterface* track) {
   RTC_DCHECK(tracks != NULL);
-  if (!track)
+  if (!track) {
     return false;
+  }
   typename TrackVector::iterator it = FindTrack(tracks, track->id());
-  if (it == tracks->end())
+  if (it == tracks->end()) {
     return false;
+  }
   tracks->erase(it);
   FireOnChanged();
   return true;

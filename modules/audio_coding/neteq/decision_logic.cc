@@ -32,8 +32,9 @@ constexpr char kPostponeDecodingFieldTrial[] =
 int GetPostponeDecodingLevel() {
   const bool enabled =
       webrtc::field_trial::IsEnabled(kPostponeDecodingFieldTrial);
-  if (!enabled)
+  if (!enabled) {
     return 0;
+  }
 
   constexpr int kDefaultPostponeDecodingLevel = 50;
   const std::string field_trial_string =
@@ -309,13 +310,16 @@ Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
     // Check criterion for time-stretching.
     int low_limit, high_limit;
     delay_manager_->BufferLimits(&low_limit, &high_limit);
-    if (buffer_level_filter_->filtered_current_level() >= high_limit << 2)
+    if (buffer_level_filter_->filtered_current_level() >= high_limit << 2) {
       return kFastAccelerate;
+    }
     if (TimescaleAllowed()) {
-      if (buffer_level_filter_->filtered_current_level() >= high_limit)
+      if (buffer_level_filter_->filtered_current_level() >= high_limit) {
         return kAccelerate;
-      if (buffer_level_filter_->filtered_current_level() < low_limit)
+      }
+      if (buffer_level_filter_->filtered_current_level() < low_limit) {
         return kPreemptiveExpand;
+      }
     }
   }
   return kNormal;

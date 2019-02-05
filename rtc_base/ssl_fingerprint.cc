@@ -59,17 +59,20 @@ SSLFingerprint* SSLFingerprint::CreateFromRfc4572(
 std::unique_ptr<SSLFingerprint> SSLFingerprint::CreateUniqueFromRfc4572(
     const std::string& algorithm,
     const std::string& fingerprint) {
-  if (algorithm.empty() || !rtc::IsFips180DigestAlgorithm(algorithm))
+  if (algorithm.empty() || !rtc::IsFips180DigestAlgorithm(algorithm)) {
     return nullptr;
+  }
 
-  if (fingerprint.empty())
+  if (fingerprint.empty()) {
     return nullptr;
+  }
 
   char value[rtc::MessageDigest::kMaxSize];
   size_t value_len = rtc::hex_decode_with_delimiter(
       value, sizeof(value), fingerprint.c_str(), fingerprint.length(), ':');
-  if (!value_len)
+  if (!value_len) {
     return nullptr;
+  }
 
   return absl::make_unique<SSLFingerprint>(
       algorithm,

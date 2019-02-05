@@ -183,8 +183,9 @@ TEST(WavWriterTest, LargeFile) {
 
     float read_samples[kNumSamples];
     EXPECT_EQ(kNumSamples, r.ReadSamples(kNumSamples, read_samples));
-    for (size_t i = 0; i < kNumSamples; ++i)
+    for (size_t i = 0; i < kNumSamples; ++i) {
       EXPECT_NEAR(samples[i], read_samples[i], 1);
+    }
 
     EXPECT_EQ(0u, r.ReadSamples(kNumSamples, read_samples));
   }

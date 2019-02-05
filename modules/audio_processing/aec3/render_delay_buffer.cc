@@ -257,8 +257,9 @@ RenderDelayBufferImpl::PrepareCaptureProcessing() {
     IncrementReadIndices();
     // Incrementing the buffer index without increasing the low rate buffer
     // index means that the delay is reduced by one.
-    if (delay_ && *delay_ > 0)
+    if (delay_ && *delay_ > 0) {
       delay_ = *delay_ - 1;
+    }
     event = BufferingEvent::kRenderUnderrun;
   } else {
     // Increment the read indices in the render buffers to point to the most

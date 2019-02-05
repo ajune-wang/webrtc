@@ -43,8 +43,9 @@ TEST(RtcpPacketReportBlockTest, ParseAnyData) {
   uint8_t buffer[kBufferLength];
   // Fill buffer with semi-random data.
   Random generator(0x256F8A285EC829ull);
-  for (size_t i = 0; i < kBufferLength; ++i)
+  for (size_t i = 0; i < kBufferLength; ++i) {
     buffer[i] = static_cast<uint8_t>(generator.Rand(0, 0xff));
+  }
 
   ReportBlock rb;
   EXPECT_TRUE(rb.Parse(buffer, kBufferLength));

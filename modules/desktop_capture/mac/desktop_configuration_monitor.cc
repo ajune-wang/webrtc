@@ -19,8 +19,9 @@ namespace webrtc {
 DesktopConfigurationMonitor::DesktopConfigurationMonitor() {
   CGError err = CGDisplayRegisterReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
-  if (err != kCGErrorSuccess)
+  if (err != kCGErrorSuccess) {
     RTC_LOG(LS_ERROR) << "CGDisplayRegisterReconfigurationCallback " << err;
+  }
   rtc::CritScope cs(&desktop_configuration_lock_);
   desktop_configuration_ = MacDesktopConfiguration::GetCurrent(
       MacDesktopConfiguration::TopLeftOrigin);
@@ -29,8 +30,9 @@ DesktopConfigurationMonitor::DesktopConfigurationMonitor() {
 DesktopConfigurationMonitor::~DesktopConfigurationMonitor() {
   CGError err = CGDisplayRemoveReconfigurationCallback(
       DesktopConfigurationMonitor::DisplaysReconfiguredCallback, this);
-  if (err != kCGErrorSuccess)
+  if (err != kCGErrorSuccess) {
     RTC_LOG(LS_ERROR) << "CGDisplayRemoveReconfigurationCallback " << err;
+  }
 }
 
 MacDesktopConfiguration DesktopConfigurationMonitor::desktop_configuration() {

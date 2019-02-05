@@ -81,8 +81,9 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
     {
       rtc::CritScope lock(&crit_);
       new_continuous_frame_event_.Reset();
-      if (stopped_)
+      if (stopped_) {
         return kStopped;
+      }
 
       wait_ms = max_wait_time_ms;
 
@@ -104,8 +105,9 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
 
         EncodedFrame* frame = frame_it->second.frame.get();
 
-        if (keyframe_required && !frame->is_keyframe())
+        if (keyframe_required && !frame->is_keyframe()) {
           continue;
+        }
 
         auto last_decoded_frame_timestamp =
             decoded_frames_history_.GetLastDecodedFrameTimestamp();
@@ -176,8 +178,9 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
         // enough and the stream has multiple spatial and temporal layers.
         // For multiple temporal layers it may cause non-base layer frames to be
         // skipped if they are late.
-        if (wait_ms < -kMaxAllowedFrameDelayMs)
+        if (wait_ms < -kMaxAllowedFrameDelayMs) {
           continue;
+        }
 
         break;
       }
@@ -243,8 +246,9 @@ FrameBuffer::ReturnReason FrameBuffer::NextFrame(
         timing_->SetJitterDelay(jitter_estimator_->GetJitterEstimate(rtt_mult));
         timing_->UpdateCurrentDelay(render_time_ms, now_ms);
       } else {
-        if (RttMultExperiment::RttMultEnabled() || add_rtt_to_playout_delay_)
+        if (RttMultExperiment::RttMultEnabled() || add_rtt_to_playout_delay_) {
           jitter_estimator_->FrameNacked();
+        }
       }
 
       UpdateJitterDelay();
@@ -328,21 +332,25 @@ void FrameBuffer::UpdateRtt(int64_t rtt_ms) {
 }
 
 bool FrameBuffer::ValidReferences(const EncodedFrame& frame) const {
-  if (frame.id.picture_id < 0)
+  if (frame.id.picture_id < 0) {
     return false;
+  }
 
   for (size_t i = 0; i < frame.num_references; ++i) {
-    if (frame.references[i] < 0 || frame.references[i] >= frame.id.picture_id)
+    if (frame.references[i] < 0 || frame.references[i] >= frame.id.picture_id) {
       return false;
+    }
 
     for (size_t j = i + 1; j < frame.num_references; ++j) {
-      if (frame.references[i] == frame.references[j])
+      if (frame.references[i] == frame.references[j]) {
         return false;
+      }
     }
   }
 
-  if (frame.inter_layer_predicted && frame.id.spatial_layer == 0)
+  if (frame.inter_layer_predicted && frame.id.spatial_layer == 0) {
     return false;
+  }
 
   return true;
 }
@@ -350,22 +358,26 @@ bool FrameBuffer::ValidReferences(const EncodedFrame& frame) const {
 void FrameBuffer::UpdatePlayoutDelays(const EncodedFrame& frame) {
   TRACE_EVENT0("webrtc", "FrameBuffer::UpdatePlayoutDelays");
   PlayoutDelay playout_delay = frame.EncodedImage().playout_delay_;
-  if (playout_delay.min_ms >= 0)
+  if (playout_delay.min_ms >= 0) {
     timing_->set_min_playout_delay(playout_delay.min_ms);
+  }
 
-  if (playout_delay.max_ms >= 0)
+  if (playout_delay.max_ms >= 0) {
     timing_->set_max_playout_delay(playout_delay.max_ms);
+  }
 
-  if (!frame.delayed_by_retransmission())
+  if (!frame.delayed_by_retransmission()) {
     timing_->IncomingTimestamp(frame.Timestamp(), frame.ReceivedTime());
+  }
 }
 
 int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
   TRACE_EVENT0("webrtc", "FrameBuffer::InsertFrame");
   RTC_DCHECK(frame);
-  if (stats_callback_)
+  if (stats_callback_) {
     stats_callback_->OnCompleteFrame(frame->is_keyframe(), frame->size(),
                                      frame->contentType());
+  }
   const VideoLayerFrameId& id = frame->id;
 
   rtc::CritScope lock(&crit_);
@@ -447,8 +459,9 @@ int64_t FrameBuffer::InsertFrame(std::unique_ptr<EncodedFrame> frame) {
     return last_continuous_picture_id;
   }
 
-  if (!UpdateFrameInfoWithIncomingFrame(*frame, info))
+  if (!UpdateFrameInfoWithIncomingFrame(*frame, info)) {
     return last_continuous_picture_id;
+  }
   UpdatePlayoutDelays(*frame);
 
   info->second.frame = std::move(frame);
@@ -584,8 +597,9 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
   info->second.num_missing_decodable = not_yet_fulfilled_dependencies.size();
 
   for (const Dependency& dep : not_yet_fulfilled_dependencies) {
-    if (dep.continuous)
+    if (dep.continuous) {
       --info->second.num_missing_continuous;
+    }
 
     frames_[dep.id].dependent_frames.push_back(id);
   }
@@ -595,8 +609,9 @@ bool FrameBuffer::UpdateFrameInfoWithIncomingFrame(const EncodedFrame& frame,
 
 void FrameBuffer::UpdateJitterDelay() {
   TRACE_EVENT0("webrtc", "FrameBuffer::UpdateJitterDelay");
-  if (!stats_callback_)
+  if (!stats_callback_) {
     return;
+  }
 
   int decode_ms;
   int max_decode_ms;
@@ -617,8 +632,9 @@ void FrameBuffer::UpdateJitterDelay() {
 void FrameBuffer::UpdateTimingFrameInfo() {
   TRACE_EVENT0("webrtc", "FrameBuffer::UpdateTimingFrameInfo");
   absl::optional<TimingFrameInfo> info = timing_->GetTimingFrameInfo();
-  if (info && stats_callback_)
+  if (info && stats_callback_) {
     stats_callback_->OnTimingFrameInfoUpdated(*info);
+  }
 }
 
 void FrameBuffer::ClearFramesAndHistory() {

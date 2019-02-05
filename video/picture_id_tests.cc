@@ -181,8 +181,9 @@ class PictureIdObserver : public test::RtpRtcpObserver {
     rtc::CritScope lock(&crit_);
 
     ParsedPacket parsed;
-    if (!ParsePayload(packet, length, &parsed))
+    if (!ParsePayload(packet, length, &parsed)) {
       return SEND_PACKET;
+    }
 
     uint32_t ssrc = parsed.ssrc;
     if (last_observed_packet_.find(ssrc) != last_observed_packet_.end()) {

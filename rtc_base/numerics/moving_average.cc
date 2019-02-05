@@ -25,27 +25,31 @@ MovingAverage::~MovingAverage() = default;
 void MovingAverage::AddSample(int sample) {
   count_++;
   size_t index = count_ % history_.size();
-  if (count_ > history_.size())
+  if (count_ > history_.size()) {
     sum_ -= history_[index];
+  }
   sum_ += sample;
   history_[index] = sample;
 }
 
 absl::optional<int> MovingAverage::GetAverageRoundedDown() const {
-  if (count_ == 0)
+  if (count_ == 0) {
     return absl::nullopt;
+  }
   return sum_ / Size();
 }
 
 absl::optional<int> MovingAverage::GetAverageRoundedToClosest() const {
-  if (count_ == 0)
+  if (count_ == 0) {
     return absl::nullopt;
+  }
   return (sum_ + Size() / 2) / Size();
 }
 
 absl::optional<double> MovingAverage::GetUnroundedAverage() const {
-  if (count_ == 0)
+  if (count_ == 0) {
     return absl::nullopt;
+  }
   return sum_ / static_cast<double>(Size());
 }
 

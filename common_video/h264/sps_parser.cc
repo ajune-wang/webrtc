@@ -125,8 +125,9 @@ absl::optional<SpsParser::SpsState> SpsParser::ParseSpsUpToVui(
                                    delta_scale <= kScaldingDeltaMax);
               next_scale = (last_scale + delta_scale + 256) % 256;
             }
-            if (next_scale != 0)
+            if (next_scale != 0) {
               last_scale = next_scale;
+            }
           }
         }
       }

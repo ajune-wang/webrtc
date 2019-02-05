@@ -50,8 +50,9 @@ void RateStatistics::Reset() {
   oldest_time_ = -max_window_size_ms_;
   oldest_index_ = 0;
   current_window_size_ms_ = max_window_size_ms_;
-  for (int64_t i = 0; i < max_window_size_ms_; i++)
+  for (int64_t i = 0; i < max_window_size_ms_; i++) {
     buckets_[i] = Bucket();
+  }
 }
 
 void RateStatistics::Update(size_t count, int64_t now_ms) {
@@ -63,14 +64,16 @@ void RateStatistics::Update(size_t count, int64_t now_ms) {
   EraseOld(now_ms);
 
   // First ever sample, reset window to start now.
-  if (!IsInitialized())
+  if (!IsInitialized()) {
     oldest_time_ = now_ms;
+  }
 
   uint32_t now_offset = static_cast<uint32_t>(now_ms - oldest_time_);
   RTC_DCHECK_LT(now_offset, max_window_size_ms_);
   uint32_t index = oldest_index_ + now_offset;
-  if (index >= max_window_size_ms_)
+  if (index >= max_window_size_ms_) {
     index -= max_window_size_ms_;
+  }
   buckets_[index].sum += count;
   ++buckets_[index].samples;
   accumulated_count_ += count;
@@ -95,15 +98,17 @@ absl::optional<uint32_t> RateStatistics::Rate(int64_t now_ms) const {
 }
 
 void RateStatistics::EraseOld(int64_t now_ms) {
-  if (!IsInitialized())
+  if (!IsInitialized()) {
     return;
+  }
 
   // New oldest time that is included in data set.
   int64_t new_oldest_time = now_ms - current_window_size_ms_ + 1;
 
   // New oldest time is older than the current one, no need to cull data.
-  if (new_oldest_time <= oldest_time_)
+  if (new_oldest_time <= oldest_time_) {
     return;
+  }
 
   // Loop over buckets and remove too old data points.
   while (num_samples_ > 0 && oldest_time_ < new_oldest_time) {
@@ -113,16 +118,18 @@ void RateStatistics::EraseOld(int64_t now_ms) {
     accumulated_count_ -= oldest_bucket.sum;
     num_samples_ -= oldest_bucket.samples;
     buckets_[oldest_index_] = Bucket();
-    if (++oldest_index_ >= max_window_size_ms_)
+    if (++oldest_index_ >= max_window_size_ms_) {
       oldest_index_ = 0;
+    }
     ++oldest_time_;
   }
   oldest_time_ = new_oldest_time;
 }
 
 bool RateStatistics::SetWindowSize(int64_t window_size_ms, int64_t now_ms) {
-  if (window_size_ms <= 0 || window_size_ms > max_window_size_ms_)
+  if (window_size_ms <= 0 || window_size_ms > max_window_size_ms_) {
     return false;
+  }
 
   current_window_size_ms_ = window_size_ms;
   EraseOld(now_ms);

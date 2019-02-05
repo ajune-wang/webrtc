@@ -115,10 +115,12 @@ void WebRtcIsacfix_InitPitchFilter(PitchFiltstr *pitchfiltdata)
 {
   int k;
 
-  for (k = 0; k < PITCH_BUFFSIZE; k++)
+  for (k = 0; k < PITCH_BUFFSIZE; k++) {
     pitchfiltdata->ubufQQ[k] = 0;
-  for (k = 0; k < (PITCH_DAMPORDER); k++)
+}
+  for (k = 0; k < (PITCH_DAMPORDER); k++) {
     pitchfiltdata->ystateQQ[k] = 0;
+}
 
   pitchfiltdata->oldlagQ7 = 6400; /* 50.0 in Q7 */
   pitchfiltdata->oldgainQ12 = 0;
@@ -135,8 +137,9 @@ void WebRtcIsacfix_InitPitchAnalysis(PitchAnalysisStruct *State)
     State->decimator_state32[k] = 0;
   }
 
-  for (k = 0; k < QLOOKAHEAD; k++)
+  for (k = 0; k < QLOOKAHEAD; k++) {
     State->inbuf[k] = 0;
+}
 
   WebRtcIsacfix_InitPitchFilter(&(State->PFstr_wght));
 

@@ -173,8 +173,9 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
       rtc::CritScope lock(&test_crit_);
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
-      if (length == header.headerLength + header.paddingLength)
+      if (length == header.headerLength + header.paddingLength) {
         ++sender_padding_;
+      }
       ++sender_rtp_;
       packet_event_.Set();
       return SEND_PACKET;
@@ -276,8 +277,9 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
           ++down_frames_;
           EXPECT_LE(down_frames_, 1)
               << "Encoding more than one frame while network is down.";
-          if (down_frames_ > 1)
+          if (down_frames_ > 1) {
             encoded_frames_.Set();
+          }
         } else {
           encoded_frames_.Set();
         }
@@ -316,8 +318,9 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
             sender_done = true;
           }
         } else {
-          if (sender_rtp_ > initial_sender_rtp + kNumAcceptedDowntimeRtp)
+          if (sender_rtp_ > initial_sender_rtp + kNumAcceptedDowntimeRtp) {
             sender_done = true;
+          }
         }
         if (receiver_down) {
           ASSERT_LE(receiver_rtcp_ - initial_receiver_rtcp,
@@ -328,8 +331,10 @@ TEST_F(NetworkStateEndToEndTest, RespectsNetworkState) {
             receiver_done = true;
           }
         } else {
-          if (receiver_rtcp_ > initial_receiver_rtcp + kNumAcceptedDowntimeRtcp)
+          if (receiver_rtcp_ >
+              initial_receiver_rtcp + kNumAcceptedDowntimeRtcp) {
             receiver_done = true;
+          }
         }
       }
     }

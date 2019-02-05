@@ -1561,8 +1561,9 @@ class WebRtcSdpTest : public testing::Test {
     EXPECT_EQ(desc1.session_id(), desc2.session_id());
     EXPECT_EQ(desc1.session_version(), desc2.session_version());
     CompareSessionDescription(*desc1.description(), *desc2.description());
-    if (desc1.number_of_mediasections() != desc2.number_of_mediasections())
+    if (desc1.number_of_mediasections() != desc2.number_of_mediasections()) {
       return false;
+    }
     for (size_t i = 0; i < desc1.number_of_mediasections(); ++i) {
       const IceCandidateCollection* cc1 = desc1.candidates(i);
       const IceCandidateCollection* cc2 = desc2.candidates(i);
@@ -3517,8 +3518,9 @@ TEST_F(WebRtcSdpTest, MediaContentOrderMaintainedRoundTrip) {
     media_content_in_sdp[2] = (media_content_in_sdp[0] + (i + 1) % 2 + 1) % 3;
 
     std::string sdp_string = kSdpSessionString;
-    for (size_t i = 0; i < 3; ++i)
+    for (size_t i = 0; i < 3; ++i) {
       sdp_string += media_content_sdps[media_content_in_sdp[i]];
+    }
 
     EXPECT_TRUE(SdpDeserialize(sdp_string, &jdesc));
     cricket::SessionDescription* desc = jdesc.description();

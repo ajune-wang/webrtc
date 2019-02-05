@@ -42,10 +42,11 @@ void TestEstimator(double slope, double jitter_stddev, double tolerance) {
     double recv_delta = recv_times[i] - recv_times[i - 1];
     double send_delta = send_times[i] - send_times[i - 1];
     estimator.Update(recv_delta, send_delta, recv_times[i]);
-    if (i < kWindowSize)
+    if (i < kWindowSize) {
       EXPECT_NEAR(estimator.modified_trend(), 0, 0.001);
-    else
+    } else {
       EXPECT_NEAR(estimator.modified_trend(), slope, tolerance);
+    }
   }
 }
 }  // namespace

@@ -47,8 +47,9 @@ TEST_F(RateStatisticsTest, TestStrictMode) {
 
   const int kInterval = 10;
   for (int i = 0; i < 100000; ++i) {
-    if (i % kInterval == 0)
+    if (i % kInterval == 0) {
       stats_.Update(kPacketSize, now_ms);
+    }
 
     // Approximately 1200 kbps expected. Not exact since when packets
     // are removed we will jump 10 ms to the next packet.
@@ -178,8 +179,9 @@ TEST_F(RateStatisticsTest, HandlesChangingWindowSize) {
 
   // Fill the buffer at a rate of 1 byte / millisecond (8 kbps).
   const int kBatchSize = 10;
-  for (int i = 0; i <= kWindowMs; i += kBatchSize)
+  for (int i = 0; i <= kWindowMs; i += kBatchSize) {
     stats_.Update(kBatchSize, now_ms += kBatchSize);
+  }
   EXPECT_EQ(static_cast<uint32_t>(8000), *stats_.Rate(now_ms));
 
   // Halve the window size, rate should stay the same.
@@ -192,8 +194,9 @@ TEST_F(RateStatisticsTest, HandlesChangingWindowSize) {
   EXPECT_EQ(static_cast<uint32_t>(8000), *stats_.Rate(now_ms));
 
   // Fill the now empty half with bits it twice the rate.
-  for (int i = 0; i < kWindowMs / 2; i += kBatchSize)
+  for (int i = 0; i < kWindowMs / 2; i += kBatchSize) {
     stats_.Update(kBatchSize * 2, now_ms += kBatchSize);
+  }
 
   // Rate should have increase be 50%.
   EXPECT_EQ(static_cast<uint32_t>((8000 * 3) / 2), *stats_.Rate(now_ms));

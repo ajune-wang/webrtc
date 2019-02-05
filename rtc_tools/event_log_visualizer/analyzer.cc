@@ -87,8 +87,9 @@ std::string SsrcToString(uint32_t ssrc) {
 // Checks whether an SSRC is contained in the list of desired SSRCs.
 // Note that an empty SSRC list matches every SSRC.
 bool MatchingSsrc(uint32_t ssrc, const std::vector<uint32_t>& desired_ssrc) {
-  if (desired_ssrc.size() == 0)
+  if (desired_ssrc.size() == 0) {
     return true;
+  }
   return std::find(desired_ssrc.begin(), desired_ssrc.end(), ssrc) !=
          desired_ssrc.end();
 }
@@ -145,8 +146,9 @@ absl::optional<uint32_t> EstimateRtpClockFrequency(
   uint64_t last_rtp_timestamp = first_rtp_timestamp;
   int64_t last_log_timestamp = first_log_timestamp;
   for (size_t i = 1; i < packets.size(); i++) {
-    if (packets[i].log_time_us() > end_time_us)
+    if (packets[i].log_time_us() > end_time_us) {
       break;
+    }
     last_rtp_timestamp = unwrapper.Unwrap(packets[i].rtp.header.timestamp);
     last_log_timestamp = packets[i].log_time_us();
   }
@@ -238,8 +240,9 @@ void ProcessPoints(rtc::FunctionView<float(const DataType&)> fx,
     const DataType& elem = data_view[i];
     float x = fx(elem);
     absl::optional<float> y = fy(elem);
-    if (y)
+    if (y) {
       result->points.emplace_back(x, *y);
+    }
   }
 }
 
@@ -256,8 +259,9 @@ void ProcessPairs(
   for (size_t i = 1; i < data.size(); i++) {
     float x = fx(data[i]);
     absl::optional<ResultType> y = fy(data[i - 1], data[i]);
-    if (y)
+    if (y) {
       result->points.emplace_back(x, static_cast<float>(*y));
+    }
   }
 }
 
@@ -304,16 +308,18 @@ void MovingAverage(
     while (window_index_end < data_view.size() &&
            data_view[window_index_end].log_time_us() < t) {
       absl::optional<ResultType> value = fy(data_view[window_index_end]);
-      if (value)
+      if (value) {
         sum_in_window += *value;
+      }
       ++window_index_end;
     }
     while (window_index_begin < data_view.size() &&
            data_view[window_index_begin].log_time_us() <
                t - window_duration_us) {
       absl::optional<ResultType> value = fy(data_view[window_index_begin]);
-      if (value)
+      if (value) {
         sum_in_window -= *value;
+      }
       ++window_index_begin;
     }
     float window_duration_s =
@@ -468,8 +474,9 @@ EventLogAnalyzer::EventLogAnalyzer(const ParsedRtcEventLog& log,
     int64_t start = start_iter->log_time_us();
     ++start_iter;
     absl::optional<int64_t> next_start;
-    if (start_iter != log_start_events.end())
+    if (start_iter != log_start_events.end()) {
       next_start.emplace(start_iter->log_time_us());
+    }
     if (end_iter != log_end_events.end() &&
         end_iter->log_time_us() <=
             next_start.value_or(std::numeric_limits<int64_t>::max())) {
@@ -570,8 +577,9 @@ void EventLogAnalyzer::CreateAccumulatedPacketsTimeSeries(
 void EventLogAnalyzer::CreateAccumulatedPacketsGraph(PacketDirection direction,
                                                      Plot* plot) {
   for (const auto& stream : parsed_log_.rtp_packets_by_ssrc(direction)) {
-    if (!MatchingSsrc(stream.ssrc, desired_ssrc_))
+    if (!MatchingSsrc(stream.ssrc, desired_ssrc_)) {
       continue;
+    }
     std::string label =
         std::string("RTP ") + GetStreamName(direction, stream.ssrc);
     CreateAccumulatedPacketsTimeSeries(plot, stream.packet_view, label);
@@ -597,8 +605,9 @@ void EventLogAnalyzer::CreateAccumulatedPacketsGraph(PacketDirection direction,
 void EventLogAnalyzer::CreatePlayoutGraph(Plot* plot) {
   for (const auto& playout_stream : parsed_log_.audio_playout_events()) {
     uint32_t ssrc = playout_stream.first;
-    if (!MatchingSsrc(ssrc, desired_ssrc_))
+    if (!MatchingSsrc(ssrc, desired_ssrc_)) {
       continue;
+    }
     absl::optional<int64_t> last_playout_ms;
     TimeSeries time_series(SsrcToString(ssrc), LineStyle::kBar);
     for (const auto& playout_event : playout_stream.second) {
@@ -623,8 +632,9 @@ void EventLogAnalyzer::CreatePlayoutGraph(Plot* plot) {
 void EventLogAnalyzer::CreateAudioLevelGraph(PacketDirection direction,
                                              Plot* plot) {
   for (const auto& stream : parsed_log_.rtp_packets_by_ssrc(direction)) {
-    if (!IsAudioSsrc(direction, stream.ssrc))
+    if (!IsAudioSsrc(direction, stream.ssrc)) {
       continue;
+    }
     TimeSeries time_series(GetStreamName(direction, stream.ssrc),
                            LineStyle::kLine);
     for (auto& packet : stream.packet_view) {
@@ -757,8 +767,9 @@ void EventLogAnalyzer::CreateIncomingDelayGraph(Plot* plot) {
                               : log_segments_.front().second;
     absl::optional<uint32_t> estimated_frequency =
         EstimateRtpClockFrequency(packets, end_time_us);
-    if (!estimated_frequency)
+    if (!estimated_frequency) {
       continue;
+    }
     const double frequency_hz = *estimated_frequency;
     if (IsVideoSsrc(kIncomingPacket, stream.ssrc) && frequency_hz != 90000) {
       RTC_LOG(LS_WARNING)
@@ -820,9 +831,10 @@ void EventLogAnalyzer::CreateTotalIncomingBitrateGraph(Plot* plot) {
   // TODO(terelius): This could be provided by the parser.
   std::multimap<int64_t, size_t> packets_in_order;
   for (const auto& stream : parsed_log_.incoming_rtp_packets_by_ssrc()) {
-    for (const LoggedRtpPacketIncoming& packet : stream.incoming_packets)
+    for (const LoggedRtpPacketIncoming& packet : stream.incoming_packets) {
       packets_in_order.insert(
           std::make_pair(packet.rtp.log_time_us(), packet.rtp.total_length));
+    }
   }
 
   auto window_begin = packets_in_order.begin();
@@ -872,9 +884,10 @@ void EventLogAnalyzer::CreateTotalOutgoingBitrateGraph(Plot* plot,
   // TODO(terelius): This could be provided by the parser.
   std::multimap<int64_t, size_t> packets_in_order;
   for (const auto& stream : parsed_log_.outgoing_rtp_packets_by_ssrc()) {
-    for (const LoggedRtpPacketOutgoing& packet : stream.outgoing_packets)
+    for (const LoggedRtpPacketOutgoing& packet : stream.outgoing_packets) {
       packets_in_order.insert(
           std::make_pair(packet.rtp.log_time_us(), packet.rtp.total_length));
+    }
   }
 
   auto window_begin = packets_in_order.begin();
@@ -1062,9 +1075,10 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   // TODO(terelius): This could be provided by the parser.
   std::multimap<int64_t, const RtpPacketType*> outgoing_rtp;
   for (const auto& stream : parsed_log_.outgoing_rtp_packets_by_ssrc()) {
-    for (const RtpPacketType& rtp_packet : stream.outgoing_packets)
+    for (const RtpPacketType& rtp_packet : stream.outgoing_packets) {
       outgoing_rtp.insert(
           std::make_pair(rtp_packet.rtp.log_time_us(), &rtp_packet));
+    }
   }
 
   const std::vector<TransportFeedbackType>& incoming_rtcp =
@@ -1096,14 +1110,16 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   auto rtcp_iterator = incoming_rtcp.begin();
 
   auto NextRtpTime = [&]() {
-    if (rtp_iterator != outgoing_rtp.end())
+    if (rtp_iterator != outgoing_rtp.end()) {
       return static_cast<int64_t>(rtp_iterator->first);
+    }
     return std::numeric_limits<int64_t>::max();
   };
 
   auto NextRtcpTime = [&]() {
-    if (rtcp_iterator != incoming_rtcp.end())
+    if (rtcp_iterator != incoming_rtcp.end()) {
       return static_cast<int64_t>(rtcp_iterator->log_time_us());
+    }
     return std::numeric_limits<int64_t>::max();
   };
   int64_t next_process_time_us_ = std::min({NextRtpTime(), NextRtcpTime()});
@@ -1149,8 +1165,9 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
             rtp_packet.rtp.header.extension.transportSequenceNumber,
             rtp_packet.rtp.log_time_us() / 1000);
         auto sent_msg = transport_feedback.ProcessSentPacket(sent_packet);
-        if (sent_msg)
+        if (sent_msg) {
           observer.Update(goog_cc->OnSentPacket(*sent_msg));
+        }
       }
       ++rtp_iterator;
     }
@@ -1170,8 +1187,9 @@ void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
 #if !(BWE_TEST_LOGGING_COMPILE_TIME_ENABLE)
           acknowledged_bitrate_estimator.IncomingPacketFeedbackVector(feedback);
 #endif  // !(BWE_TEST_LOGGING_COMPILE_TIME_ENABLE)
-          for (const PacketFeedback& packet : feedback)
+          for (const PacketFeedback& packet : feedback) {
             acked_bitrate.Update(packet.payload_size, packet.arrival_time_ms);
+          }
           bitrate_bps = acked_bitrate.Rate(feedback.back().arrival_time_ms);
         }
       }
@@ -1238,9 +1256,10 @@ void EventLogAnalyzer::CreateReceiveSideBweSimulationGraph(Plot* plot) {
 
   for (const auto& stream : parsed_log_.incoming_rtp_packets_by_ssrc()) {
     if (IsVideoSsrc(kIncomingPacket, stream.ssrc)) {
-      for (const auto& rtp_packet : stream.incoming_packets)
+      for (const auto& rtp_packet : stream.incoming_packets) {
         incoming_rtp.insert(
             std::make_pair(rtp_packet.rtp.log_time_us(), &rtp_packet));
+      }
     }
   }
 
@@ -1301,8 +1320,9 @@ void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
 
   int64_t prev_y = 0;
   for (auto packet : GetNetworkTrace(parsed_log_)) {
-    if (packet.arrival_time_ms == PacketFeedback::kNotReceived)
+    if (packet.arrival_time_ms == PacketFeedback::kNotReceived) {
       continue;
+    }
     float x = ToCallTimeSec(1000 * packet.feedback_arrival_time_ms);
     if (packet.send_time_ms == PacketFeedback::kNoSendTime) {
       late_feedback_series.points.emplace_back(x, prev_y);
@@ -1321,10 +1341,12 @@ void EventLogAnalyzer::CreateNetworkDelayFeedbackGraph(Plot* plot) {
   // observed 1-ways delay and add half the minumum RTT.
   const int64_t estimated_clock_offset_ms =
       min_send_receive_diff_ms - min_rtt_ms / 2;
-  for (TimeSeriesPoint& point : time_series.points)
+  for (TimeSeriesPoint& point : time_series.points) {
     point.y -= estimated_clock_offset_ms;
-  for (TimeSeriesPoint& point : late_feedback_series.points)
+  }
+  for (TimeSeriesPoint& point : late_feedback_series.points) {
     point.y -= estimated_clock_offset_ms;
+  }
 
   // Add the data set to the plot.
   plot->AppendTimeSeriesIfNotEmpty(std::move(time_series));
@@ -1352,8 +1374,9 @@ void EventLogAnalyzer::CreatePacerDelayGraph(Plot* plot) {
                               : log_segments_.front().second;
     absl::optional<uint32_t> estimated_frequency =
         EstimateRtpClockFrequency(packets, end_time_us);
-    if (!estimated_frequency)
+    if (!estimated_frequency) {
       continue;
+    }
     if (IsVideoSsrc(kOutgoingPacket, stream.ssrc) &&
         *estimated_frequency != 90000) {
       RTC_LOG(LS_WARNING)
@@ -1411,8 +1434,9 @@ void EventLogAnalyzer::CreateTimestampGraph(PacketDirection direction,
     // TODO(terelius): Why only sender reports?
     const auto& sender_reports = parsed_log_.sender_reports(direction);
     for (const auto& rtcp : sender_reports) {
-      if (rtcp.sr.sender_ssrc() != stream.ssrc)
+      if (rtcp.sr.sender_ssrc() != stream.ssrc) {
         continue;
+      }
       float x = ToCallTimeSec(rtcp.log_time_us());
       float y = rtcp.sr.rtp_timestamp();
       rtcp_timestamps.points.emplace_back(x, y);
@@ -1486,9 +1510,10 @@ void EventLogAnalyzer::CreateAudioEncoderTargetBitrateGraph(Plot* plot) {
                          PointStyle::kHighlight);
   auto GetAnaBitrateBps = [](const LoggedAudioNetworkAdaptationEvent& ana_event)
       -> absl::optional<float> {
-    if (ana_event.config.bitrate_bps)
+    if (ana_event.config.bitrate_bps) {
       return absl::optional<float>(
           static_cast<float>(*ana_event.config.bitrate_bps));
+    }
     return absl::nullopt;
   };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1509,9 +1534,10 @@ void EventLogAnalyzer::CreateAudioEncoderFrameLengthGraph(Plot* plot) {
                          PointStyle::kHighlight);
   auto GetAnaFrameLengthMs =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
-        if (ana_event.config.frame_length_ms)
+        if (ana_event.config.frame_length_ms) {
           return absl::optional<float>(
               static_cast<float>(*ana_event.config.frame_length_ms));
+        }
         return absl::optional<float>();
       };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1532,9 +1558,10 @@ void EventLogAnalyzer::CreateAudioEncoderPacketLossGraph(Plot* plot) {
                          LineStyle::kLine, PointStyle::kHighlight);
   auto GetAnaPacketLoss =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
-        if (ana_event.config.uplink_packet_loss_fraction)
+        if (ana_event.config.uplink_packet_loss_fraction) {
           return absl::optional<float>(static_cast<float>(
               *ana_event.config.uplink_packet_loss_fraction));
+        }
         return absl::optional<float>();
       };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1556,9 +1583,10 @@ void EventLogAnalyzer::CreateAudioEncoderEnableFecGraph(Plot* plot) {
                          PointStyle::kHighlight);
   auto GetAnaFecEnabled =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
-        if (ana_event.config.enable_fec)
+        if (ana_event.config.enable_fec) {
           return absl::optional<float>(
               static_cast<float>(*ana_event.config.enable_fec));
+        }
         return absl::optional<float>();
       };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1579,9 +1607,10 @@ void EventLogAnalyzer::CreateAudioEncoderEnableDtxGraph(Plot* plot) {
                          PointStyle::kHighlight);
   auto GetAnaDtxEnabled =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
-        if (ana_event.config.enable_dtx)
+        if (ana_event.config.enable_dtx) {
           return absl::optional<float>(
               static_cast<float>(*ana_event.config.enable_dtx));
+        }
         return absl::optional<float>();
       };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1602,9 +1631,10 @@ void EventLogAnalyzer::CreateAudioEncoderNumChannelsGraph(Plot* plot) {
                          PointStyle::kHighlight);
   auto GetAnaNumChannels =
       [](const LoggedAudioNetworkAdaptationEvent& ana_event) {
-        if (ana_event.config.num_channels)
+        if (ana_event.config.num_channels) {
           return absl::optional<float>(
               static_cast<float>(*ana_event.config.num_channels));
+        }
         return absl::optional<float>();
       };
   auto ToCallTime = [this](const LoggedAudioNetworkAdaptationEvent& packet) {
@@ -1788,8 +1818,9 @@ EventLogAnalyzer::NetEqStatsGetterMap EventLogAnalyzer::SimulateNetEq(
 
   for (const auto& stream : parsed_log_.incoming_rtp_packets_by_ssrc()) {
     const uint32_t ssrc = stream.ssrc;
-    if (!IsAudioSsrc(kIncomingPacket, ssrc))
+    if (!IsAudioSsrc(kIncomingPacket, ssrc)) {
       continue;
+    }
     const std::vector<LoggedRtpPacketIncoming>* audio_packets =
         &stream.incoming_packets;
     if (audio_packets == nullptr) {
@@ -2136,8 +2167,9 @@ void EventLogAnalyzer::CreateTransmissionGapAlerts(PacketDirection direction) {
   // by time, for each direction.
   std::multimap<int64_t, const LoggedRtpPacket*> rtp_in_direction;
   for (const auto& stream : parsed_log_.rtp_packets_by_ssrc(direction)) {
-    for (const LoggedRtpPacket& rtp_packet : stream.packet_view)
+    for (const LoggedRtpPacket& rtp_packet : stream.packet_view) {
       rtp_in_direction.emplace(rtp_packet.log_time_us(), &rtp_packet);
+    }
   }
   absl::optional<int64_t> last_rtp_time;
   for (const auto& kv : rtp_in_direction) {

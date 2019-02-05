@@ -72,8 +72,9 @@ class SendTransport : public Transport {
     std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
     EXPECT_TRUE(parser->Parse(static_cast<const uint8_t*>(data), len, &header));
     ++rtp_packets_sent_;
-    if (header.payloadType == keepalive_payload_type_)
+    if (header.payloadType == keepalive_payload_type_) {
       ++num_keepalive_sent_;
+    }
     last_rtp_header_ = header;
     return true;
   }

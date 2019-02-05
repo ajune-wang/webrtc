@@ -77,8 +77,9 @@ bool WebRtcIlbcfix_DecodeResidual(
     if (!WebRtcIlbcfix_CbConstruct(
             &decresidual[start_pos + iLBCdec_inst->state_short_len],
             iLBC_encbits->cb_index, iLBC_encbits->gain_index,
-            mem + CB_MEML - ST_MEM_L_TBL, ST_MEM_L_TBL, diff))
+            mem + CB_MEML - ST_MEM_L_TBL, ST_MEM_L_TBL, diff)) {
       return false;  // Error.
+}
 
   }
   else {/* put adaptive part in the beginning */
@@ -95,8 +96,9 @@ bool WebRtcIlbcfix_DecodeResidual(
     if (!WebRtcIlbcfix_CbConstruct(reverseDecresidual, iLBC_encbits->cb_index,
                                    iLBC_encbits->gain_index,
                                    mem + CB_MEML - ST_MEM_L_TBL, ST_MEM_L_TBL,
-                                   diff))
+                                   diff)) {
       return false;  // Error.
+}
 
     /* get decoded residual from reversed vector */
 
@@ -127,8 +129,9 @@ bool WebRtcIlbcfix_DecodeResidual(
               &decresidual[(iLBC_encbits->startIdx + 1 + subframe) * SUBL],
               iLBC_encbits->cb_index + subcount * CB_NSTAGES,
               iLBC_encbits->gain_index + subcount * CB_NSTAGES, mem, MEM_LF_TBL,
-              SUBL))
+              SUBL)) {
         return false;  // Error;
+}
 
       /* update memory */
       memmove(mem, mem + SUBL, (CB_MEML - SUBL) * sizeof(*mem));
@@ -165,8 +168,9 @@ bool WebRtcIlbcfix_DecodeResidual(
               &reverseDecresidual[subframe * SUBL],
               iLBC_encbits->cb_index + subcount * CB_NSTAGES,
               iLBC_encbits->gain_index + subcount * CB_NSTAGES, mem, MEM_LF_TBL,
-              SUBL))
+              SUBL)) {
         return false;  // Error.
+}
 
       /* update memory */
       memmove(mem, mem + SUBL, (CB_MEML - SUBL) * sizeof(*mem));

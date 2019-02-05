@@ -136,15 +136,17 @@ bool Event::Wait(int milliseconds) {
 #endif
     }
   } else {
-    while (!event_status_ && error == 0)
+    while (!event_status_ && error == 0) {
       error = pthread_cond_wait(&event_cond_, &event_mutex_);
+    }
   }
 
   // NOTE(liulk): Exactly one thread will auto-reset this event. All
   // the other threads will think it's unsignaled.  This seems to be
   // consistent with auto-reset events in WEBRTC_WIN
-  if (error == 0 && !is_manual_reset_)
+  if (error == 0 && !is_manual_reset_) {
     event_status_ = false;
+  }
 
   pthread_mutex_unlock(&event_mutex_);
 

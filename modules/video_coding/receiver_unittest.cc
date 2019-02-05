@@ -42,8 +42,9 @@ class TestVCMReceiver : public ::testing::Test {
     VCMPacket packet;
     bool packet_available = stream_generator_->GetPacket(&packet, index);
     EXPECT_TRUE(packet_available);
-    if (!packet_available)
+    if (!packet_available) {
       return kGeneralError;  // Return here to avoid crashes below.
+    }
     return receiver_.InsertPacket(packet);
   }
 
@@ -51,8 +52,9 @@ class TestVCMReceiver : public ::testing::Test {
     VCMPacket packet;
     bool packet_available = stream_generator_->PopPacket(&packet, index);
     EXPECT_TRUE(packet_available);
-    if (!packet_available)
+    if (!packet_available) {
       return kGeneralError;  // Return here to avoid crashes below.
+    }
     return receiver_.InsertPacket(packet);
   }
 
@@ -73,8 +75,9 @@ class TestVCMReceiver : public ::testing::Test {
 
   bool DecodeNextFrame() {
     VCMEncodedFrame* frame = receiver_.FrameForDecoding(0, false);
-    if (!frame)
+    if (!frame) {
       return false;
+    }
     receiver_.ReleaseFrame(frame);
     return true;
   }
@@ -284,8 +287,9 @@ class SimulatedClockWithFrames : public SimulatedClock {
       timestamps_.pop();
       frame_injected = true;
 
-      if (stop_on_frame)
+      if (stop_on_frame) {
         return frame_injected;
+      }
     }
 
     if (TimeInMicroseconds() < end_time) {
@@ -329,8 +333,9 @@ class SimulatedClockWithFrames : public SimulatedClock {
 
     bool packet_available = stream_generator_->PopPacket(&packet, 0);
     EXPECT_TRUE(packet_available);
-    if (!packet_available)
+    if (!packet_available) {
       return;  // Return here to avoid crashes below.
+    }
     receiver_->InsertPacket(packet);
   }
 

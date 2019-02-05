@@ -872,8 +872,9 @@ int WebRtcIsac_GetMinBytes(
     if (State->PrevExceed) {
       /* bottle_neck exceded twice in a row, decrease ExceedAgo */
       State->ExceedAgo -= /*BURST_INTERVAL*/ burstInterval / (BURST_LEN - 1);
-      if (State->ExceedAgo < 0)
+      if (State->ExceedAgo < 0) {
         State->ExceedAgo = 0;
+}
     }
     else
     {
@@ -933,8 +934,9 @@ void WebRtcIsac_UpdateRateModel(
   TransmissionTime = StreamSize * 8.0 * 1000.0 / BottleNeck;  /* ms */
   State->StillBuffered += TransmissionTime;
   State->StillBuffered -= (FrameSamples * 1000) / FS;     /* ms */
-  if (State->StillBuffered < 0.0)
+  if (State->StillBuffered < 0.0) {
     State->StillBuffered = 0.0;
+}
 
 }
 
@@ -971,18 +973,21 @@ int WebRtcIsac_GetNewFrameLength(
   /* find new framelength */
   switch(current_framesamples) {
     case 320:
-      if (bottle_neck < Thld_20_30)
+      if (bottle_neck < Thld_20_30) {
         new_framesamples = 480;
+}
       break;
     case 480:
-      if (bottle_neck < Thld_30_60)
+      if (bottle_neck < Thld_30_60) {
         new_framesamples = 960;
-      else if (bottle_neck > Thld_30_20)
+      } else if (bottle_neck > Thld_30_20) {
         new_framesamples = 320;
+}
       break;
     case 960:
-      if (bottle_neck >= Thld_60_30)
+      if (bottle_neck >= Thld_60_30) {
         new_framesamples = 480;
+}
       break;
   }
 

@@ -76,8 +76,9 @@ absl::optional<DelayEstimate> EchoPathDelayEstimator::EstimateDelay(
   // Run clockdrift detection.
   if (aggregated_matched_filter_lag &&
       (*aggregated_matched_filter_lag).quality ==
-          DelayEstimate::Quality::kRefined)
+          DelayEstimate::Quality::kRefined) {
     clockdrift_detector_.Update((*aggregated_matched_filter_lag).delay);
+  }
 
   // TODO(peah): Move this logging outside of this class once EchoCanceller3
   // development is done.

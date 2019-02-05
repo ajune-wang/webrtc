@@ -61,8 +61,9 @@ void WebRtcIlbcfix_GetSyncSeq(
     size_t period_q = period[lagBlock[q]];
     /* Stop if this sequence would be outside the buffer; that means all
        further-past sequences would also be outside the buffer. */
-    if (blockStartPos[q] < period_q + (4 * ENH_OVERHANG))
+    if (blockStartPos[q] < period_q + (4 * ENH_OVERHANG)) {
       break;
+}
     blockStartPos[qq] = blockStartPos[q] - period_q;
 
     size_t value = blockStartPos[qq] + 4 * ENH_BLOCKL_HALF;

@@ -295,12 +295,14 @@ class P2PTransportChannelTestBase : public testing::Test,
       return (transport == cd1_.ch_.get() || transport == cd2_.ch_.get());
     }
     ChannelData* GetChannelData(rtc::PacketTransportInternal* transport) {
-      if (!HasTransport(transport))
+      if (!HasTransport(transport)) {
         return NULL;
-      if (cd1_.ch_.get() == transport)
+      }
+      if (cd1_.ch_.get() == transport) {
         return &cd1_;
-      else
+      } else {
         return &cd2_;
+      }
     }
 
     void SetIceRole(IceRole role) { role_ = role; }
@@ -339,10 +341,11 @@ class P2PTransportChannelTestBase : public testing::Test,
   };
 
   ChannelData* GetChannelData(rtc::PacketTransportInternal* transport) {
-    if (ep1_.HasTransport(transport))
+    if (ep1_.HasTransport(transport)) {
       return ep1_.GetChannelData(transport);
-    else
+    } else {
       return ep2_.GetChannelData(transport);
+    }
   }
 
   IceParameters IceParamsWithRenomination(const IceParameters& ice,
@@ -708,8 +711,9 @@ class P2PTransportChannelTestBase : public testing::Test,
 
   // We pass the candidates directly to the other side.
   void OnCandidateGathered(IceTransportInternal* ch, const Candidate& c) {
-    if (force_relay_ && c.type() != RELAY_PORT_TYPE)
+    if (force_relay_ && c.type() != RELAY_PORT_TYPE) {
       return;
+    }
 
     if (GetEndpoint(ch)->save_candidates_) {
       GetEndpoint(ch)->saved_candidates_.push_back(
@@ -859,16 +863,17 @@ class P2PTransportChannelTestBase : public testing::Test,
     }
   }
   P2PTransportChannel* GetRemoteChannel(IceTransportInternal* ch) {
-    if (ch == ep1_ch1())
+    if (ch == ep1_ch1()) {
       return ep2_ch1();
-    else if (ch == ep1_ch2())
+    } else if (ch == ep1_ch2()) {
       return ep2_ch2();
-    else if (ch == ep2_ch1())
+    } else if (ch == ep2_ch1()) {
       return ep1_ch1();
-    else if (ch == ep2_ch2())
+    } else if (ch == ep2_ch2()) {
       return ep1_ch2();
-    else
+    } else {
       return NULL;
+    }
   }
   std::list<std::string>& GetPacketList(
       rtc::PacketTransportInternal* transport) {

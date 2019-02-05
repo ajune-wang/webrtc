@@ -44,8 +44,9 @@ void IncomingVideoStream::OnFrame(const VideoFrame& video_frame) {
   struct NewFrameTask {
     void operator()() {
       RTC_DCHECK(stream->incoming_render_queue_.IsCurrent());
-      if (stream->render_buffers_.AddFrame(std::move(frame)) == 1)
+      if (stream->render_buffers_.AddFrame(std::move(frame)) == 1) {
         stream->Dequeue();
+      }
     }
     IncomingVideoStream* stream;
     VideoFrame frame;
@@ -57,8 +58,9 @@ void IncomingVideoStream::Dequeue() {
   TRACE_EVENT0("webrtc", "IncomingVideoStream::Dequeue");
   RTC_DCHECK(incoming_render_queue_.IsCurrent());
   absl::optional<VideoFrame> frame_to_render = render_buffers_.FrameToRender();
-  if (frame_to_render)
+  if (frame_to_render) {
     callback_->OnFrame(*frame_to_render);
+  }
 
   if (render_buffers_.HasPendingFrames()) {
     uint32_t wait_time = render_buffers_.TimeToNextFrameRelease();

@@ -61,15 +61,17 @@ int AsyncStunTCPSocket::Send(const void* pv,
   }
 
   // If we are blocking on send, then silently drop this packet
-  if (!IsOutBufferEmpty())
+  if (!IsOutBufferEmpty()) {
     return static_cast<int>(cb);
+  }
 
   int pad_bytes;
   size_t expected_pkt_len = GetExpectedLength(pv, cb, &pad_bytes);
 
   // Accepts only complete STUN/ChannelData packets.
-  if (cb != expected_pkt_len)
+  if (cb != expected_pkt_len) {
     return -1;
+  }
 
   AppendToOutBuffer(pv, cb);
 
@@ -105,8 +107,9 @@ void AsyncStunTCPSocket::ProcessInput(char* data, size_t* len) {
 
   while (true) {
     // We need at least 4 bytes to read the STUN or ChannelData packet length.
-    if (*len < kPacketLenOffset + kPacketLenSize)
+    if (*len < kPacketLenOffset + kPacketLenSize) {
       return;
+    }
 
     int pad_bytes;
     size_t expected_pkt_len = GetExpectedLength(data, *len, &pad_bytes);
@@ -152,8 +155,9 @@ size_t AsyncStunTCPSocket::GetExpectedLength(const void* data,
     // message (including padding) is (4 + Length) rounded up to the nearest
     // multiple of 4.  Over UDP, the padding is not required but MAY be
     // included.
-    if (expected_pkt_len % 4)
+    if (expected_pkt_len % 4) {
       *pad_bytes = 4 - (expected_pkt_len % 4);
+    }
   }
   return expected_pkt_len;
 }

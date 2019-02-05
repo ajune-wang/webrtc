@@ -38,8 +38,9 @@ DeviceInfoImpl::~DeviceInfoImpl(void) {
 }
 
 int32_t DeviceInfoImpl::NumberOfCapabilities(const char* deviceUniqueIdUTF8) {
-  if (!deviceUniqueIdUTF8)
+  if (!deviceUniqueIdUTF8) {
     return -1;
+  }
 
   _apiLock.AcquireLockShared();
 
@@ -95,8 +96,9 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
     const char* deviceUniqueIdUTF8,
     const VideoCaptureCapability& requested,
     VideoCaptureCapability& resulting) {
-  if (!deviceUniqueIdUTF8)
+  if (!deviceUniqueIdUTF8) {
     return -1;
+  }
 
   ReadLockScoped cs(_apiLock);
   if (!absl::EqualsIgnoreCase(
@@ -214,8 +216,9 @@ int32_t DeviceInfoImpl::GetBestMatchedCapability(
                       << static_cast<int>(bestVideoType);
 
   // Copy the capability
-  if (bestformatIndex < 0)
+  if (bestformatIndex < 0) {
     return -1;
+  }
   resulting = _captureCapabilities[bestformatIndex];
   return bestformatIndex;
 }

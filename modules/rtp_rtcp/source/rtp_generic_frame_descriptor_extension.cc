@@ -90,28 +90,32 @@ bool RtpGenericFrameDescriptorExtension::Parse(
     offset += 4;
   }
   while (has_more_dependencies) {
-    if (data.size() == offset)
+    if (data.size() == offset) {
       return false;
+    }
     has_more_dependencies = (data[offset] & kFlagMoreDependencies) != 0;
     bool extended = (data[offset] & kFlageXtendedOffset) != 0;
     uint16_t fdiff = data[offset] >> 2;
     offset++;
     if (extended) {
-      if (data.size() == offset)
+      if (data.size() == offset) {
         return false;
+      }
       fdiff |= (data[offset] << 6);
       offset++;
     }
-    if (!descriptor->AddFrameDependencyDiff(fdiff))
+    if (!descriptor->AddFrameDependencyDiff(fdiff)) {
       return false;
+    }
   }
   return true;
 }
 
 size_t RtpGenericFrameDescriptorExtension::ValueSize(
     const RtpGenericFrameDescriptor& descriptor) {
-  if (!descriptor.FirstPacketInSubFrame())
+  if (!descriptor.FirstPacketInSubFrame()) {
     return 1;
+  }
 
   size_t size = 4;
   for (uint16_t fdiff : descriptor.FrameDependenciesDiffs()) {

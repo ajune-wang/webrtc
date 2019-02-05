@@ -41,12 +41,14 @@ StreamResult StreamInterface::WriteAll(const void* data,
   while (total_written < data_len) {
     result = Write(static_cast<const char*>(data) + total_written,
                    data_len - total_written, &current_written, error);
-    if (result != SR_SUCCESS)
+    if (result != SR_SUCCESS) {
       break;
+    }
     total_written += current_written;
   }
-  if (written)
+  if (written) {
     *written = total_written;
+  }
   return result;
 }
 
@@ -59,12 +61,14 @@ StreamResult StreamInterface::ReadAll(void* buffer,
   while (total_read < buffer_len) {
     result = Read(static_cast<char*>(buffer) + total_read,
                   buffer_len - total_read, &current_read, error);
-    if (result != SR_SUCCESS)
+    if (result != SR_SUCCESS) {
       break;
+    }
     total_read += current_read;
   }
-  if (read)
+  if (read) {
     *read = total_read;
+  }
   return result;
 }
 
@@ -98,8 +102,9 @@ void StreamInterface::OnMessage(Message* msg) {
 StreamAdapterInterface::StreamAdapterInterface(StreamInterface* stream,
                                                bool owned)
     : stream_(stream), owned_(owned) {
-  if (nullptr != stream_)
+  if (nullptr != stream_) {
     stream_->SignalEvent.connect(this, &StreamAdapterInterface::OnEvent);
+  }
 }
 
 StreamState StreamAdapterInterface::GetState() const {
@@ -126,27 +131,32 @@ bool StreamAdapterInterface::Flush() {
 }
 
 void StreamAdapterInterface::Attach(StreamInterface* stream, bool owned) {
-  if (nullptr != stream_)
+  if (nullptr != stream_) {
     stream_->SignalEvent.disconnect(this);
-  if (owned_)
+  }
+  if (owned_) {
     delete stream_;
+  }
   stream_ = stream;
   owned_ = owned;
-  if (nullptr != stream_)
+  if (nullptr != stream_) {
     stream_->SignalEvent.connect(this, &StreamAdapterInterface::OnEvent);
+  }
 }
 
 StreamInterface* StreamAdapterInterface::Detach() {
-  if (nullptr != stream_)
+  if (nullptr != stream_) {
     stream_->SignalEvent.disconnect(this);
+  }
   StreamInterface* stream = stream_;
   stream_ = nullptr;
   return stream;
 }
 
 StreamAdapterInterface::~StreamAdapterInterface() {
-  if (owned_)
+  if (owned_) {
     delete stream_;
+  }
 }
 
 void StreamAdapterInterface::OnEvent(StreamInterface* stream,
@@ -214,8 +224,9 @@ bool FileStream::OpenShare(const std::string& filename,
 }
 
 bool FileStream::DisableBuffering() {
-  if (!file_)
+  if (!file_) {
     return false;
+  }
   return (setvbuf(file_, nullptr, _IONBF, 0) == 0);
 }
 
@@ -227,18 +238,22 @@ StreamResult FileStream::Read(void* buffer,
                               size_t buffer_len,
                               size_t* read,
                               int* error) {
-  if (!file_)
+  if (!file_) {
     return SR_EOS;
+  }
   size_t result = fread(buffer, 1, buffer_len, file_);
   if ((result == 0) && (buffer_len > 0)) {
-    if (feof(file_))
+    if (feof(file_)) {
       return SR_EOS;
-    if (error)
+    }
+    if (error) {
       *error = errno;
+    }
     return SR_ERROR;
   }
-  if (read)
+  if (read) {
     *read = result;
+  }
   return SR_SUCCESS;
 }
 
@@ -246,16 +261,19 @@ StreamResult FileStream::Write(const void* data,
                                size_t data_len,
                                size_t* written,
                                int* error) {
-  if (!file_)
+  if (!file_) {
     return SR_EOS;
+  }
   size_t result = fwrite(data, 1, data_len, file_);
   if ((result == 0) && (data_len > 0)) {
-    if (error)
+    if (error) {
       *error = errno;
+    }
     return SR_ERROR;
   }
-  if (written)
+  if (written) {
     *written = result;
+  }
   return SR_SUCCESS;
 }
 
@@ -267,8 +285,9 @@ void FileStream::Close() {
 }
 
 bool FileStream::SetPosition(size_t position) {
-  if (!file_)
+  if (!file_) {
     return false;
+  }
   return (fseek(file_, static_cast<int>(position), SEEK_SET) == 0);
 }
 

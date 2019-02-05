@@ -38,14 +38,18 @@ EventLogWriter::~EventLogWriter() = default;
 
 void EventLogWriter::MaybeLogEncoderConfig(
     const AudioEncoderRuntimeConfig& config) {
-  if (last_logged_config_.num_channels != config.num_channels)
+  if (last_logged_config_.num_channels != config.num_channels) {
     return LogEncoderConfig(config);
-  if (last_logged_config_.enable_dtx != config.enable_dtx)
+  }
+  if (last_logged_config_.enable_dtx != config.enable_dtx) {
     return LogEncoderConfig(config);
-  if (last_logged_config_.enable_fec != config.enable_fec)
+  }
+  if (last_logged_config_.enable_fec != config.enable_fec) {
     return LogEncoderConfig(config);
-  if (last_logged_config_.frame_length_ms != config.frame_length_ms)
+  }
+  if (last_logged_config_.frame_length_ms != config.frame_length_ms) {
     return LogEncoderConfig(config);
+  }
   if ((!last_logged_config_.bitrate_bps && config.bitrate_bps) ||
       (last_logged_config_.bitrate_bps && config.bitrate_bps &&
        std::abs(*last_logged_config_.bitrate_bps - *config.bitrate_bps) >=

@@ -20,8 +20,9 @@ bool AudioLoop::Init(const std::string file_name,
                      size_t max_loop_length_samples,
                      size_t block_length_samples) {
   FILE* fp = fopen(file_name.c_str(), "rb");
-  if (!fp)
+  if (!fp) {
     return false;
+  }
 
   audio_array_.reset(
       new int16_t[max_loop_length_samples + block_length_samples]);
@@ -30,8 +31,9 @@ bool AudioLoop::Init(const std::string file_name,
   fclose(fp);
 
   // Block length must be shorter than the loop length.
-  if (block_length_samples > samples_read)
+  if (block_length_samples > samples_read) {
     return false;
+  }
 
   // Add an extra block length of samples to the end of the array, starting
   // over again from the beginning of the array. This is done to simplify
@@ -47,8 +49,9 @@ bool AudioLoop::Init(const std::string file_name,
 
 rtc::ArrayView<const int16_t> AudioLoop::GetNextBlock() {
   // Check that the AudioLoop is initialized.
-  if (block_length_samples_ == 0)
+  if (block_length_samples_ == 0) {
     return rtc::ArrayView<const int16_t>();
+  }
 
   const int16_t* output_ptr = &audio_array_[next_index_];
   next_index_ = (next_index_ + block_length_samples_) % loop_length_samples_;

@@ -89,10 +89,12 @@ struct CallTestConfig {
     trial << "encoder_rate_gain_in_probe_rtt:0.5";
     trial.AppendFormat(",encoder_rate_gain:%.1lf",
                        tuning.bbr_encoder_gain.Get());
-    if (tuning.bbr_no_target_rate)
+    if (tuning.bbr_no_target_rate) {
       trial << ",pacing_rate_as_target:1";
-    if (tuning.bbr_initial_window)
+    }
+    if (tuning.bbr_initial_window) {
       trial << ",initial_cwin:" << tuning.bbr_initial_window->bytes();
+    }
     trial << "/";
     return trial.str();
   }
@@ -204,8 +206,9 @@ TEST_P(BbrScenarioTest, ReceivesVideo) {
   std::vector<ColumnPrinter> return_printers{
       bob->StatsPrinter(), ColumnPrinter::Fixed("cross_traffic_rate", "0"),
       ret_net->ConfigPrinter()};
-  if (bob_video)
+  if (bob_video) {
     return_printers.push_back(bob_video->send()->StatsPrinter());
+  }
   s.CreatePrinter("return.stats.txt", TimeDelta::ms(100), return_printers);
 
   s.RunFor(TimeDelta::ms(kRunTimeMs));

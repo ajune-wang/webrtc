@@ -253,8 +253,9 @@ class TestBasicJitterBuffer : public ::testing::TestWithParam<std::string>,
 
   VCMEncodedFrame* DecodeCompleteFrame() {
     VCMEncodedFrame* found_frame = jitter_buffer_->NextCompleteFrame(10);
-    if (!found_frame)
+    if (!found_frame) {
       return nullptr;
+    }
     return jitter_buffer_->ExtractAndSetDecode(found_frame->Timestamp());
   }
 
@@ -345,8 +346,9 @@ class TestRunningJitterBuffer : public ::testing::TestWithParam<std::string>,
     packet.dataPtr = data_buffer_;
     bool packet_available = stream_generator_->PopPacket(&packet, index);
     EXPECT_TRUE(packet_available);
-    if (!packet_available)
+    if (!packet_available) {
       return kGeneralError;  // Return here to avoid crashes below.
+    }
     bool retransmitted = false;
     return jitter_buffer_->InsertPacket(packet, &retransmitted);
   }
@@ -356,8 +358,9 @@ class TestRunningJitterBuffer : public ::testing::TestWithParam<std::string>,
     packet.dataPtr = data_buffer_;
     bool packet_available = stream_generator_->GetPacket(&packet, index);
     EXPECT_TRUE(packet_available);
-    if (!packet_available)
+    if (!packet_available) {
       return kGeneralError;  // Return here to avoid crashes below.
+    }
     bool retransmitted = false;
     return jitter_buffer_->InsertPacket(packet, &retransmitted);
   }
@@ -387,15 +390,17 @@ class TestRunningJitterBuffer : public ::testing::TestWithParam<std::string>,
   void DropFrame(int num_packets) {
     stream_generator_->GenerateFrame(kVideoFrameDelta, num_packets, 0,
                                      clock_->TimeInMilliseconds());
-    for (int i = 0; i < num_packets; ++i)
+    for (int i = 0; i < num_packets; ++i) {
       stream_generator_->DropLastPacket();
+    }
     clock_->AdvanceTimeMilliseconds(kDefaultFramePeriodMs);
   }
 
   bool DecodeCompleteFrame() {
     VCMEncodedFrame* found_frame = jitter_buffer_->NextCompleteFrame(0);
-    if (!found_frame)
+    if (!found_frame) {
       return false;
+    }
 
     VCMEncodedFrame* frame =
         jitter_buffer_->ExtractAndSetDecode(found_frame->Timestamp());
@@ -2028,8 +2033,9 @@ TEST_F(TestJitterBufferNack, NormalOperation) {
       jitter_buffer_->GetNackList(&request_key_frame);
   const size_t kExpectedNackSize = 9;
   ASSERT_EQ(kExpectedNackSize, nack_list.size());
-  for (size_t i = 0; i < nack_list.size(); ++i)
+  for (size_t i = 0; i < nack_list.size(); ++i) {
     EXPECT_EQ((1 + i) * 10, nack_list[i]);
+  }
 }
 
 TEST_F(TestJitterBufferNack, NormalOperationWrap) {
@@ -2062,8 +2068,9 @@ TEST_F(TestJitterBufferNack, NormalOperationWrap) {
   // Verify the NACK list.
   const size_t kExpectedNackSize = 10;
   ASSERT_EQ(kExpectedNackSize, nack_list.size());
-  for (size_t i = 0; i < nack_list.size(); ++i)
+  for (size_t i = 0; i < nack_list.size(); ++i) {
     EXPECT_EQ(i * 10, nack_list[i]);
+  }
 }
 
 TEST_F(TestJitterBufferNack, NormalOperationWrap2) {

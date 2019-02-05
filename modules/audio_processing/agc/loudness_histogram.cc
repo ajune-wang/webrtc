@@ -88,8 +88,9 @@ LoudnessHistogram::~LoudnessHistogram() {}
 
 void LoudnessHistogram::Update(double rms, double activity_probaility) {
   // If circular histogram is activated then remove the oldest entry.
-  if (len_circular_buffer_ > 0)
+  if (len_circular_buffer_ > 0) {
     RemoveOldestEntryAndUpdate();
+  }
 
   // Find the corresponding bin.
   int hist_index = GetBinIndex(rms);
@@ -103,8 +104,9 @@ void LoudnessHistogram::Update(double rms, double activity_probaility) {
 void LoudnessHistogram::RemoveOldestEntryAndUpdate() {
   RTC_DCHECK_GT(len_circular_buffer_, 0);
   // Do nothing if circular buffer is not full.
-  if (!buffer_is_full_)
+  if (!buffer_is_full_) {
     return;
+  }
 
   int oldest_prob = activity_probability_[buffer_index_];
   int oldest_hist_index = hist_bin_index_[buffer_index_];
@@ -134,8 +136,9 @@ void LoudnessHistogram::InsertNewestEntryAndUpdate(int activity_prob_q10,
       // Lower than threshold probability, set it to zero.
       activity_prob_q10 = 0;
       // Check if this has been a transient.
-      if (len_high_activity_ <= kTransientWidthThreshold)
+      if (len_high_activity_ <= kTransientWidthThreshold) {
         RemoveTransient();  // Remove this transient.
+      }
       len_high_activity_ = 0;
     } else if (len_high_activity_ <= kTransientWidthThreshold) {
       len_high_activity_++;
@@ -152,8 +155,9 @@ void LoudnessHistogram::InsertNewestEntryAndUpdate(int activity_prob_q10,
   }
 
   num_updates_++;
-  if (num_updates_ < 0)
+  if (num_updates_ < 0) {
     num_updates_--;
+  }
 
   UpdateHist(activity_prob_q10, hist_index);
 }
@@ -172,8 +176,9 @@ LoudnessHistogram* LoudnessHistogram::Create() {
 }
 
 LoudnessHistogram* LoudnessHistogram::Create(int window_size) {
-  if (window_size < 0)
+  if (window_size < 0) {
     return NULL;
+  }
   return new LoudnessHistogram(window_size);
 }
 

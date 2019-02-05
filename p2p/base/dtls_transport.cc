@@ -71,10 +71,12 @@ rtc::StreamResult StreamInterfaceChannel::Read(void* buffer,
                                                size_t buffer_len,
                                                size_t* read,
                                                int* error) {
-  if (state_ == rtc::SS_CLOSED)
+  if (state_ == rtc::SS_CLOSED) {
     return rtc::SR_EOS;
-  if (state_ == rtc::SS_OPENING)
+  }
+  if (state_ == rtc::SS_OPENING) {
     return rtc::SR_BLOCK;
+  }
 
   if (!packets_.ReadFront(buffer, buffer_len, read)) {
     return rtc::SR_BLOCK;
@@ -724,12 +726,14 @@ bool DtlsTransport::HandleDtlsPacket(const char* data, size_t size) {
   const uint8_t* tmp_data = reinterpret_cast<const uint8_t*>(data);
   size_t tmp_size = size;
   while (tmp_size > 0) {
-    if (tmp_size < kDtlsRecordHeaderLen)
+    if (tmp_size < kDtlsRecordHeaderLen) {
       return false;  // Too short for the header
+    }
 
     size_t record_len = (tmp_data[11] << 8) | (tmp_data[12]);
-    if ((record_len + kDtlsRecordHeaderLen) > tmp_size)
+    if ((record_len + kDtlsRecordHeaderLen) > tmp_size) {
       return false;  // Body too short
+    }
 
     tmp_data += record_len + kDtlsRecordHeaderLen;
     tmp_size -= record_len + kDtlsRecordHeaderLen;

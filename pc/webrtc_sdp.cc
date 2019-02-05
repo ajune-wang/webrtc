@@ -465,8 +465,9 @@ static bool ParseFailedExpectLine(const std::string& message,
 }
 
 static bool AddLine(const std::string& line, std::string* message) {
-  if (!message)
+  if (!message) {
     return false;
+  }
 
   message->append(line);
   message->append(kLineBreak);
@@ -557,8 +558,9 @@ static bool GetLineWithType(const std::string& message,
     return false;
   }
 
-  if (!GetLine(message, pos, line))
+  if (!GetLine(message, pos, line)) {
     return false;
+  }
 
   return true;
 }
@@ -890,12 +892,14 @@ std::string SdpSerialize(const JsepSessionDescription& jdesc) {
 
   std::set<std::string> media_stream_ids;
   const ContentInfo* audio_content = GetFirstAudioContent(desc);
-  if (audio_content)
+  if (audio_content) {
     GetMediaStreamIds(audio_content, &media_stream_ids);
+  }
 
   const ContentInfo* video_content = GetFirstVideoContent(desc);
-  if (video_content)
+  if (video_content) {
     GetMediaStreamIds(video_content, &media_stream_ids);
+  }
 
   for (const std::string& id : media_stream_ids) {
     os << " " << id;
@@ -1300,14 +1304,15 @@ void BuildMediaDescription(const ContentInfo* content_info,
   // m=<media> <port> <proto> <fmt>
   // fmt is a list of payload type numbers that MAY be used in the session.
   const char* type = NULL;
-  if (media_type == cricket::MEDIA_TYPE_AUDIO)
+  if (media_type == cricket::MEDIA_TYPE_AUDIO) {
     type = kMediaTypeAudio;
-  else if (media_type == cricket::MEDIA_TYPE_VIDEO)
+  } else if (media_type == cricket::MEDIA_TYPE_VIDEO) {
     type = kMediaTypeVideo;
-  else if (media_type == cricket::MEDIA_TYPE_DATA)
+  } else if (media_type == cricket::MEDIA_TYPE_DATA) {
     type = kMediaTypeData;
-  else
+  } else {
     RTC_NOTREACHED();
+  }
 
   std::string fmt;
   if (media_type == cricket::MEDIA_TYPE_VIDEO) {
@@ -2769,8 +2774,9 @@ void AddFeedbackParameters(const cricket::FeedbackParams& feedback_params,
 template <class T>
 T GetCodecWithPayloadType(const std::vector<T>& codecs, int payload_type) {
   const T* codec = FindCodecById(codecs, payload_type);
-  if (codec)
+  if (codec) {
     return *codec;
+  }
   // Return empty codec with |payload_type|.
   T ret_val;
   ret_val.id = payload_type;
@@ -3096,8 +3102,9 @@ bool ParseContent(const std::string& message,
         if (!GetValue(line, kAttributeXGoogleFlag, &flag_value, error)) {
           return false;
         }
-        if (flag_value.compare(kValueConference) == 0)
+        if (flag_value.compare(kValueConference) == 0) {
           media_desc->set_conference_mode(true);
+        }
       } else if (HasAttribute(line, kAttributeMsid)) {
         if (!ParseMsidAttribute(line, &stream_ids, &track_id, error)) {
           return false;

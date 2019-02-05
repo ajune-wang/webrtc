@@ -20,8 +20,9 @@ namespace webrtc {
 
 AudioMultiVector::AudioMultiVector(size_t N) {
   assert(N > 0);
-  if (N < 1)
+  if (N < 1) {
     N = 1;
+  }
   for (size_t n = 0; n < N; ++n) {
     channels_.push_back(new AudioVector);
   }
@@ -30,8 +31,9 @@ AudioMultiVector::AudioMultiVector(size_t N) {
 
 AudioMultiVector::AudioMultiVector(size_t N, size_t initial_size) {
   assert(N > 0);
-  if (N < 1)
+  if (N < 1) {
     N = 1;
+  }
   for (size_t n = 0; n < N; ++n) {
     channels_.push_back(new AudioVector(initial_size));
   }

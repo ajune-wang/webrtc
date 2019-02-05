@@ -120,8 +120,9 @@ bool UpdateVpxConfiguration(Vp8TemporalLayers* temporal_layers,
                             vpx_codec_enc_cfg_t* cfg) {
   Vp8EncoderConfig config = GetEncoderConfig(cfg);
   const bool res = temporal_layers->UpdateConfiguration(&config);
-  if (res)
+  if (res) {
     FillInEncoderConfig(cfg, config);
+  }
   return res;
 }
 
@@ -138,24 +139,32 @@ vpx_enc_frame_flags_t LibvpxVp8Encoder::EncodeFlags(
   vpx_enc_frame_flags_t flags = 0;
 
   if ((references.last_buffer_flags &
-       Vp8FrameConfig::BufferFlags::kReference) == 0)
+       Vp8FrameConfig::BufferFlags::kReference) == 0) {
     flags |= VP8_EFLAG_NO_REF_LAST;
+  }
   if ((references.last_buffer_flags & Vp8FrameConfig::BufferFlags::kUpdate) ==
-      0)
+      0) {
     flags |= VP8_EFLAG_NO_UPD_LAST;
+  }
   if ((references.golden_buffer_flags &
-       Vp8FrameConfig::BufferFlags::kReference) == 0)
+       Vp8FrameConfig::BufferFlags::kReference) == 0) {
     flags |= VP8_EFLAG_NO_REF_GF;
+  }
   if ((references.golden_buffer_flags & Vp8FrameConfig::BufferFlags::kUpdate) ==
-      0)
+      0) {
     flags |= VP8_EFLAG_NO_UPD_GF;
+  }
   if ((references.arf_buffer_flags & Vp8FrameConfig::BufferFlags::kReference) ==
-      0)
+      0) {
     flags |= VP8_EFLAG_NO_REF_ARF;
-  if ((references.arf_buffer_flags & Vp8FrameConfig::BufferFlags::kUpdate) == 0)
+  }
+  if ((references.arf_buffer_flags & Vp8FrameConfig::BufferFlags::kUpdate) ==
+      0) {
     flags |= VP8_EFLAG_NO_UPD_ARF;
-  if (references.freeze_entropy)
+  }
+  if (references.freeze_entropy) {
     flags |= VP8_EFLAG_NO_UPD_ENTROPY;
+  }
 
   return flags;
 }
@@ -221,29 +230,35 @@ int LibvpxVp8Encoder::Release() {
 
 int LibvpxVp8Encoder::SetRateAllocation(const VideoBitrateAllocation& bitrate,
                                         uint32_t new_framerate) {
-  if (!inited_)
+  if (!inited_) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  }
 
-  if (encoders_[0].err)
+  if (encoders_[0].err) {
     return WEBRTC_VIDEO_CODEC_ERROR;
+  }
 
-  if (new_framerate < 1)
+  if (new_framerate < 1) {
     return WEBRTC_VIDEO_CODEC_ERR_PARAMETER;
+  }
 
   if (bitrate.get_sum_bps() == 0) {
     // Encoder paused, turn off all encoding.
     const int num_streams = static_cast<size_t>(encoders_.size());
-    for (int i = 0; i < num_streams; ++i)
+    for (int i = 0; i < num_streams; ++i) {
       SetStreamState(false, i);
+    }
     return WEBRTC_VIDEO_CODEC_OK;
   }
 
   // At this point, bitrate allocation should already match codec settings.
-  if (codec_.maxBitrate > 0)
+  if (codec_.maxBitrate > 0) {
     RTC_DCHECK_LE(bitrate.get_sum_kbps(), codec_.maxBitrate);
+  }
   RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.minBitrate);
-  if (codec_.numberOfSimulcastStreams > 0)
+  if (codec_.numberOfSimulcastStreams > 0) {
     RTC_DCHECK_GE(bitrate.get_sum_kbps(), codec_.simulcastStream[0].minBitrate);
+  }
 
   codec_.maxFramerate = new_framerate;
 
@@ -267,8 +282,9 @@ int LibvpxVp8Encoder::SetRateAllocation(const VideoBitrateAllocation& bitrate,
         bitrate.GetSpatialLayerSum(stream_idx) / 1000;
 
     bool send_stream = target_bitrate_kbps > 0;
-    if (send_stream || encoders_.size() > 1)
+    if (send_stream || encoders_.size() > 1) {
       SetStreamState(send_stream, stream_idx);
+    }
 
     configurations_[i].rc_target_bitrate = target_bitrate_kbps;
     if (send_stream) {
@@ -553,10 +569,11 @@ int LibvpxVp8Encoder::GetCpuSpeed(int width, int height) {
   // For non-ARM, increase encoding complexity (i.e., use lower speed setting)
   // if resolution is below CIF. Otherwise, keep the default/user setting
   // (|cpu_speed_default_|) set on InitEncode via VP8().complexity.
-  if (width * height < 352 * 288)
+  if (width * height < 352 * 288) {
     return (cpu_speed_default_ < -4) ? -4 : cpu_speed_default_;
-  else
+  } else {
     return cpu_speed_default_;
+  }
 #endif
 }
 
@@ -704,10 +721,12 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
   RTC_DCHECK_EQ(frame.width(), codec_.width);
   RTC_DCHECK_EQ(frame.height(), codec_.height);
 
-  if (!inited_)
+  if (!inited_) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
-  if (encoded_complete_callback_ == NULL)
+  }
+  if (encoded_complete_callback_ == NULL) {
     return WEBRTC_VIDEO_CODEC_UNINITIALIZED;
+  }
 
   rtc::scoped_refptr<I420BufferInterface> input_image =
       frame.video_frame_buffer()->ToI420();
@@ -805,8 +824,9 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
     memcpy(&temp_config, &configurations_[i], sizeof(vpx_codec_enc_cfg_t));
     if (UpdateVpxConfiguration(temporal_layers_[stream_idx].get(),
                                &temp_config)) {
-      if (libvpx_->codec_enc_config_set(&encoders_[i], &temp_config))
+      if (libvpx_->codec_enc_config_set(&encoders_[i], &temp_config)) {
         return WEBRTC_VIDEO_CODEC_ERROR;
+      }
     }
 
     libvpx_->codec_control(&encoders_[i], VP8E_SET_FRAME_FLAGS,
@@ -841,8 +861,9 @@ int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
       libvpx_->codec_control(&(encoders_[0]), VP8E_SET_MAX_INTRA_BITRATE_PCT,
                              rc_max_intra_target_);
     }
-    if (error)
+    if (error) {
       return WEBRTC_VIDEO_CODEC_ERROR;
+    }
     // Examines frame timestamps only.
     error = GetEncodedPartitions(frame);
   }

@@ -92,8 +92,9 @@ void VideoReceiver::Process() {
       rtc::CritScope cs(&process_crit_);
       request_key_frame = _scheduleKeyRequest;
     }
-    if (request_key_frame)
+    if (request_key_frame) {
       RequestKeyFrame();
+    }
   }
 
   // Packet retransmission requests
@@ -279,8 +280,9 @@ int32_t VideoReceiver::Decode(uint16_t maxWaitTimeMs) {
   VCMEncodedFrame* frame = _receiver.FrameForDecoding(
       maxWaitTimeMs, _codecDataBase.PrefersLateDecoding());
 
-  if (!frame)
+  if (!frame) {
     return VCM_FRAME_NOT_READY;
+  }
 
   bool drop_frame = false;
   {

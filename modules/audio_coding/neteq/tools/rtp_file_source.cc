@@ -88,8 +88,9 @@ RtpFileSource::RtpFileSource(absl::optional<uint32_t> ssrc_filter)
 
 bool RtpFileSource::OpenFile(const std::string& file_name) {
   rtp_reader_.reset(RtpFileReader::Create(RtpFileReader::kRtpDump, file_name));
-  if (rtp_reader_)
+  if (rtp_reader_) {
     return true;
+  }
   rtp_reader_.reset(RtpFileReader::Create(RtpFileReader::kPcap, file_name));
   if (!rtp_reader_) {
     FATAL() << "Couldn't open input file as either a rtpdump or .pcap. Note "

@@ -216,8 +216,9 @@ SendVideoStream::SendVideoStream(CallClient* sender,
               auto encoder =
                   absl::make_unique<test::FakeEncoder>(sender_->clock_);
               fake_encoders_.push_back(encoder.get());
-              if (config_.encoder.fake.max_rate.IsFinite())
+              if (config_.encoder.fake.max_rate.IsFinite()) {
                 encoder->SetMaxBitrate(config_.encoder.fake.max_rate.kbps());
+              }
               return encoder;
             });
       } else {
@@ -248,8 +249,9 @@ SendVideoStream::SendVideoStream(CallClient* sender,
       std::move(send_config), std::move(encoder_config));
   std::vector<std::function<void(const VideoFrameQualityInfo&)> >
       frame_info_handlers;
-  if (config.analyzer.frame_quality_handler)
+  if (config.analyzer.frame_quality_handler) {
     frame_info_handlers.push_back(config.analyzer.frame_quality_handler);
+  }
 
   if (analyzer->Active()) {
     frame_tap_.reset(new ForwardingCapturedFrameTap(sender_->clock_, analyzer,
@@ -388,8 +390,9 @@ ReceiveVideoStream::ReceiveVideoStream(CallClient* receiver,
 
 ReceiveVideoStream::~ReceiveVideoStream() {
   receiver_->call_->DestroyVideoReceiveStream(receive_stream_);
-  if (flecfec_stream_)
+  if (flecfec_stream_) {
     receiver_->call_->DestroyFlexfecReceiveStream(flecfec_stream_);
+  }
 }
 
 void ReceiveVideoStream::Start() {

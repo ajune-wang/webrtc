@@ -183,8 +183,9 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateRawExtension(int id, size_t length) {
   const ExtensionInfo* extension_entry = FindExtensionInfo(id);
   if (extension_entry != nullptr) {
     // Extension already reserved. Check if same length is used.
-    if (extension_entry->length == length)
+    if (extension_entry->length == length) {
       return rtc::MakeArrayView(WriteAt(extension_entry->offset), length);
+    }
 
     RTC_LOG(LS_ERROR) << "Length mismatch for extension id " << id
                       << ": expected "

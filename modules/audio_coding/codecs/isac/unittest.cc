@@ -51,8 +51,9 @@ int EncodePacket(typename T::instance_type* inst,
                  rtc::Buffer* output) {
   output->SetSize(1000);
   for (int duration_ms = 10;; duration_ms += 10) {
-    if (bi)
+    if (bi) {
       T::SetBandwidthInfo(inst, bi);
+    }
     int encoded_bytes = T::Encode(inst, speech_data, output->data());
     if (encoded_bytes > 0 || duration_ms >= 60) {
       EXPECT_GT(encoded_bytes, 0);
@@ -114,20 +115,22 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
   ASSERT_EQ(0, T::EncoderInit(encdec, adaptive ? 0 : 1));
   T::DecoderInit(encdec);
   ASSERT_EQ(0, T::SetEncSampRate(encdec, sample_rate_hz));
-  if (adaptive)
+  if (adaptive) {
     ASSERT_EQ(0, T::ControlBwe(encdec, bit_rate, frame_size_ms, false));
-  else
+  } else {
     ASSERT_EQ(0, T::Control(encdec, bit_rate, frame_size_ms));
+  }
 
   // Disjoint encoder/decoder pair:
   typename T::instance_type* enc;
   ASSERT_EQ(0, T::Create(&enc));
   ASSERT_EQ(0, T::EncoderInit(enc, adaptive ? 0 : 1));
   ASSERT_EQ(0, T::SetEncSampRate(enc, sample_rate_hz));
-  if (adaptive)
+  if (adaptive) {
     ASSERT_EQ(0, T::ControlBwe(enc, bit_rate, frame_size_ms, false));
-  else
+  } else {
     ASSERT_EQ(0, T::Control(enc, bit_rate, frame_size_ms));
+  }
   typename T::instance_type* dec;
   ASSERT_EQ(0, T::Create(&dec));
   T::DecoderInit(dec);
@@ -153,10 +156,11 @@ void TestGetSetBandwidthInfo(const int16_t* speech_data,
         EncodePacket<T>(encdec, nullptr, speech_data, &bitstream1);
     int duration2_ms = EncodePacket<T>(enc, &bi, speech_data, &bitstream2);
     EXPECT_EQ(duration1_ms, duration2_ms);
-    if (adaptive)
+    if (adaptive) {
       EXPECT_TRUE(duration1_ms == 30 || duration1_ms == 60);
-    else
+    } else {
       EXPECT_EQ(frame_size_ms, duration1_ms);
+    }
     ASSERT_EQ(bitstream1.size(), bitstream2.size());
     EXPECT_EQ(bitstream1, bitstream2);
 
@@ -218,15 +222,17 @@ TEST_P(IsacCommonTest, GetSetBandwidthInfo) {
   auto p = GetParam();
   auto test_fun = [p] {
     if (p.isac_type == IsacType::Fix) {
-      if (p.adaptive)
+      if (p.adaptive) {
         return TestGetSetBandwidthInfo<IsacFix, true>;
-      else
+      } else {
         return TestGetSetBandwidthInfo<IsacFix, false>;
+      }
     } else {
-      if (p.adaptive)
+      if (p.adaptive) {
         return TestGetSetBandwidthInfo<IsacFloat, true>;
-      else
+      } else {
         return TestGetSetBandwidthInfo<IsacFloat, false>;
+      }
     }
   }();
   test_fun(LoadSpeechData().data(), p.channel_rate_bits_per_second,
@@ -240,18 +246,19 @@ std::vector<IsacTestParam> TestCases() {
   static const int sample_rates[] = {16000, 32000};
   static const int frame_sizes[] = {30, 60};
   std::vector<IsacTestParam> cases;
-  for (IsacType type : types)
-    for (bool adaptive : adaptives)
-      for (int channel_rate : channel_rates)
-        for (int sample_rate : sample_rates)
-          if (!(type == IsacType::Fix && sample_rate == 32000))
-            for (int frame_size : frame_sizes)
-              if (!(sample_rate == 32000 && frame_size == 60))
+  for (IsacType type : types) {
+    for (bool adaptive : adaptives) {
+      for (int channel_rate : channel_rates) {
+        for (int sample_rate : sample_rates) {
+          if (!(type == IsacType::Fix && sample_rate == 32000)) {
+            for (int frame_size : frame_sizes) {
+              if (!(sample_rate == 32000 && frame_size == 60)) {
                 cases.push_back(
                     {type, adaptive, channel_rate, sample_rate, frame_size});
+              }
   return cases;
-}
+            }
 
 INSTANTIATE_TEST_SUITE_P(, IsacCommonTest, testing::ValuesIn(TestCases()));
 
-}  // namespace webrtc
+          }  // namespace webrtc

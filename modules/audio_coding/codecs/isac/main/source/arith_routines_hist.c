@@ -57,7 +57,8 @@ void WebRtcIsac_EncHistMulti(Bitstr *streamdata, /* in-/output struct containing
     {
       /* propagate carry */
       stream_ptr_carry = stream_ptr;
-      while (!(++(*--stream_ptr_carry)));
+      while (!(++(*--stream_ptr_carry))) {;
+}
     }
 
     /* renormalize interval, store most significant byte of streamval and update streamval */
@@ -100,9 +101,10 @@ int WebRtcIsac_DecHistBisectMulti(int *data,     /* output: data vector */
   W_lower = 0; //to remove warning -DH
   stream_ptr = streamdata->stream + streamdata->stream_index;
   W_upper = streamdata->W_upper;
-  if (W_upper == 0)
+  if (W_upper == 0) {
     /* Should not be possible in normal operation */
     return -2;
+}
 
   if (streamdata->stream_index == 0)   /* first time decoder is called for this stream */
   {
@@ -131,7 +133,8 @@ int WebRtcIsac_DecHistBisectMulti(int *data,     /* output: data vector */
       W_tmp = W_upper_MSB * *cdf_ptr;
       W_tmp += (W_upper_LSB * *cdf_ptr) >> 16;
       size_tmp >>= 1;
-      if (size_tmp == 0) break;
+      if (size_tmp == 0) { break;
+}
       if (streamval > W_tmp)
       {
         W_lower = W_tmp;
@@ -164,9 +167,10 @@ int WebRtcIsac_DecHistBisectMulti(int *data,     /* output: data vector */
       W_upper <<= 8;
     }
 
-    if (W_upper == 0)
+    if (W_upper == 0) {
       /* Should not be possible in normal operation */
       return -2;
+}
 
 
   }
@@ -177,10 +181,11 @@ int WebRtcIsac_DecHistBisectMulti(int *data,     /* output: data vector */
 
 
   /* find number of bytes in original stream (determined by current interval width) */
-  if ( W_upper > 0x01FFFFFF )
+  if ( W_upper > 0x01FFFFFF ) {
     return streamdata->stream_index - 2;
-  else
+  } else {
     return streamdata->stream_index - 1;
+}
 }
 
 
@@ -207,9 +212,10 @@ int WebRtcIsac_DecHistOneStepMulti(int *data,        /* output: data vector */
 
   stream_ptr = streamdata->stream + streamdata->stream_index;
   W_upper = streamdata->W_upper;
-  if (W_upper == 0)
+  if (W_upper == 0) {
     /* Should not be possible in normal operation */
     return -2;
+}
 
   if (streamdata->stream_index == 0)   /* first time decoder is called for this stream */
   {
@@ -238,12 +244,14 @@ int WebRtcIsac_DecHistOneStepMulti(int *data,        /* output: data vector */
       for ( ;; )
       {
         W_lower = W_tmp;
-        if (cdf_ptr[0]==65535)
+        if (cdf_ptr[0]==65535) {
           /* range check */
           return -3;
+}
         W_tmp = W_upper_MSB * *++cdf_ptr;
         W_tmp += (W_upper_LSB * *cdf_ptr) >> 16;
-        if (streamval <= W_tmp) break;
+        if (streamval <= W_tmp) { break;
+}
       }
       W_upper = W_tmp;
       *data++ = (int)(cdf_ptr - *cdf++ - 1);
@@ -258,7 +266,8 @@ int WebRtcIsac_DecHistOneStepMulti(int *data,        /* output: data vector */
         }
         W_tmp = W_upper_MSB * *cdf_ptr;
         W_tmp += (W_upper_LSB * *cdf_ptr) >> 16;
-        if (streamval > W_tmp) break;
+        if (streamval > W_tmp) { break;
+}
       }
       W_lower = W_tmp;
       *data++ = (int)(cdf_ptr - *cdf++);
@@ -284,8 +293,9 @@ int WebRtcIsac_DecHistOneStepMulti(int *data,        /* output: data vector */
 
 
   /* find number of bytes in original stream (determined by current interval width) */
-  if ( W_upper > 0x01FFFFFF )
+  if ( W_upper > 0x01FFFFFF ) {
     return streamdata->stream_index - 2;
-  else
+  } else {
     return streamdata->stream_index - 1;
+}
 }

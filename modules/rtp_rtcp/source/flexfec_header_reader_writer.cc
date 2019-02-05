@@ -275,8 +275,9 @@ void FlexfecHeaderWriter::FinalizeFecHeader(
     ByteWriter<uint32_t>::WriteBigEndian(&written_packet_mask[2],
                                          tmp_mask_part1);
     bool bit15 = (packet_mask[1] & 0x01) != 0;
-    if (bit15)
+    if (bit15) {
       written_packet_mask[2] |= 0x40;  // Set bit 15.
+    }
     bool bit46 = (packet_mask[5] & 0x02) != 0;
     bool bit47 = (packet_mask[5] & 0x01) != 0;
     if (!bit46 && !bit47) {
@@ -284,10 +285,12 @@ void FlexfecHeaderWriter::FinalizeFecHeader(
     } else {
       memset(&written_packet_mask[6], 0, 8);  // Clear all trailing bits.
       written_packet_mask[6] |= 0x80;         // Set K-bit 2.
-      if (bit46)
+      if (bit46) {
         written_packet_mask[6] |= 0x40;  // Set bit 46.
-      if (bit47)
+      }
+      if (bit47) {
         written_packet_mask[6] |= 0x20;  // Set bit 47.
+      }
     }
   } else if (packet_mask_size == kUlpfecPacketMaskSizeLBitClear) {
     // The packet mask is 16 bits long.

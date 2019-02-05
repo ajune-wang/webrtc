@@ -204,8 +204,9 @@ DenoiserDecision DenoiserFilterSSE2::MbDenoise(const uint8_t* mc_running_avg_y,
   unsigned int abs_sum_diff = AbsSumDiff16x1(acc_diff);
   sum_diff_thresh =
       increase_denoising ? kSumDiffThresholdHigh : kSumDiffThreshold;
-  if (abs_sum_diff > sum_diff_thresh)
+  if (abs_sum_diff > sum_diff_thresh) {
     decision = COPY_BLOCK;
+  }
   return decision;
 }
 

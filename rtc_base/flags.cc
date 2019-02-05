@@ -153,8 +153,9 @@ void FlagList::Print(const char* file, bool print_current_value) {
 
 Flag* FlagList::Lookup(const char* name) {
   Flag* f = list_;
-  while (f != nullptr && !FlagEq(name, f->name()))
+  while (f != nullptr && !FlagEq(name, f->name())) {
     f = f->next();
+  }
   return f;
 }
 
@@ -171,8 +172,9 @@ void FlagList::SplitArgument(const char* arg,
   if (*arg == '-') {
     // find the begin of the flag name
     arg++;  // remove 1st '-'
-    if (*arg == '-')
+    if (*arg == '-') {
       arg++;  // remove 2nd '-'
+    }
     if (arg[0] == 'n' && arg[1] == 'o' && Lookup(arg + 2)) {
       arg += 2;  // remove "no"
       *is_bool = true;
@@ -180,8 +182,9 @@ void FlagList::SplitArgument(const char* arg,
     *name = arg;
 
     // find the end of the flag name
-    while (*arg != '\0' && *arg != '=')
+    while (*arg != '\0' && *arg != '=') {
       arg++;
+    }
 
     // get the value if any
     if (*arg == '=') {
@@ -258,18 +261,20 @@ int FlagList::SetFlagsFromCommandLine(int* argc,
       }
 
       // remove the flag & value from the command
-      if (remove_flags)
-        while (j < i)
+      if (remove_flags) {
+        while (j < i) {
           argv[j++] = nullptr;
-    }
+        }
+      }
   }
 
   // shrink the argument list
   if (remove_flags) {
     int j = 1;
     for (int i = 1; i < *argc; i++) {
-      if (argv[i] != nullptr)
+      if (argv[i] != nullptr) {
         argv[j++] = argv[i];
+      }
     }
     *argc = j;
   }

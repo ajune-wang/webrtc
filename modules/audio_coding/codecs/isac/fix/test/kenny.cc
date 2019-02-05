@@ -36,8 +36,9 @@ int readframe(int16_t* data, FILE* inp, int length) {
 
   rlen = fread(data, sizeof(int16_t), length, inp);
   if (rlen < length) {
-    for (k = rlen; k < length; k++)
+    for (k = rlen; k < length; k++) {
       data[k] = 0;
+    }
     status = 1;
   }
 
@@ -73,8 +74,9 @@ void get_arrival_time(int current_framesamples, /* samples */
       ((packet_size + HeaderSize) * 8 * FS) / (bottleneck + HeaderRate));
   BN_data->send_time += current_framesamples;
 
-  if (BN_data->arrival_time < BN_data->sample_count)
+  if (BN_data->arrival_time < BN_data->sample_count) {
     BN_data->arrival_time = BN_data->sample_count;
+  }
 
   BN_data->rtp_number++;
 }
@@ -715,8 +717,9 @@ TEST(IsacFixTest, Kenny) {
       }
 
       /* exit encoder loop if the encoder returned a bitstream */
-      if (stream_len != 0)
+      if (stream_len != 0) {
         break;
+      }
     }
 
     /* make coded sequence to short be inreasing */

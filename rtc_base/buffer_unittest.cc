@@ -229,8 +229,9 @@ TEST(BufferTest, TestClear) {
 
 TEST(BufferTest, TestLambdaSetAppend) {
   auto setter = [](rtc::ArrayView<uint8_t> av) {
-    for (int i = 0; i != 15; ++i)
+    for (int i = 0; i != 15; ++i) {
       av[i] = kTestData[i];
+    }
     return 15;
   };
 
@@ -249,8 +250,9 @@ TEST(BufferTest, TestLambdaSetAppend) {
 
 TEST(BufferTest, TestLambdaSetAppendSigned) {
   auto setter = [](rtc::ArrayView<int8_t> av) {
-    for (int i = 0; i != 15; ++i)
+    for (int i = 0; i != 15; ++i) {
       av[i] = kTestData[i];
+    }
     return 15;
   };
 
@@ -269,8 +271,9 @@ TEST(BufferTest, TestLambdaSetAppendSigned) {
 
 TEST(BufferTest, TestLambdaAppendEmpty) {
   auto setter = [](rtc::ArrayView<uint8_t> av) {
-    for (int i = 0; i != 15; ++i)
+    for (int i = 0; i != 15; ++i) {
       av[i] = kTestData[i];
+    }
     return 15;
   };
 
@@ -287,8 +290,9 @@ TEST(BufferTest, TestLambdaAppendEmpty) {
 
 TEST(BufferTest, TestLambdaAppendPartial) {
   auto setter = [](rtc::ArrayView<uint8_t> av) {
-    for (int i = 0; i != 7; ++i)
+    for (int i = 0; i != 7; ++i) {
       av[i] = kTestData[i];
+    }
     return 7;
   };
 
@@ -480,8 +484,9 @@ TEST(ZeroOnFreeBufferTest, TestZeroOnSetData) {
 TEST(ZeroOnFreeBufferTest, TestZeroOnSetDataFromSetter) {
   static constexpr size_t offset = 1;
   const auto setter = [](rtc::ArrayView<uint8_t> av) {
-    for (int i = 0; i != 2; ++i)
+    for (int i = 0; i != 2; ++i) {
       av[i] = kTestData[offset + i];
+    }
     return 2;
   };
 

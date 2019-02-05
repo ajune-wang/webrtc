@@ -52,23 +52,27 @@ absl::optional<uint32_t> HistogramPercentileCounter::GetPercentile(
     float fraction) {
   RTC_CHECK_LE(fraction, 1.0);
   RTC_CHECK_GE(fraction, 0.0);
-  if (total_elements_ == 0)
+  if (total_elements_ == 0) {
     return absl::nullopt;
+  }
   size_t elements_to_skip = static_cast<size_t>(
       std::max(0.0f, std::ceil(total_elements_ * fraction) - 1));
-  if (elements_to_skip >= total_elements_)
+  if (elements_to_skip >= total_elements_) {
     elements_to_skip = total_elements_ - 1;
+  }
   if (elements_to_skip < total_elements_low_) {
     for (uint32_t value = 0; value < long_tail_boundary_; ++value) {
-      if (elements_to_skip < histogram_low_[value])
+      if (elements_to_skip < histogram_low_[value]) {
         return value;
+      }
       elements_to_skip -= histogram_low_[value];
     }
   } else {
     elements_to_skip -= total_elements_low_;
     for (const auto& it : histogram_high_) {
-      if (elements_to_skip < it.second)
+      if (elements_to_skip < it.second) {
         return it.first;
+      }
       elements_to_skip -= it.second;
     }
   }

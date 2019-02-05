@@ -62,8 +62,9 @@ template <>
 absl::optional<DataSize> ParseTypedParameter<DataSize>(std::string str) {
   absl::optional<ValueWithUnit> result = ParseValueWithUnit(str);
   if (result) {
-    if (result->unit.empty() || result->unit == "bytes")
+    if (result->unit.empty() || result->unit == "bytes") {
       return DataSize::bytes(result->value);
+    }
   }
   return absl::nullopt;
 }

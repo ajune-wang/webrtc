@@ -289,12 +289,15 @@ std::string VideoQualityTest::GenerateGraphTitle() const {
   ss << params_.video[0].codec;
   ss << " (" << params_.video[0].target_bitrate_bps / 1000 << "kbps";
   ss << ", " << params_.video[0].fps << " FPS";
-  if (params_.screenshare[0].scroll_duration)
+  if (params_.screenshare[0].scroll_duration) {
     ss << ", " << params_.screenshare[0].scroll_duration << "s scroll";
-  if (params_.ss[0].streams.size() > 1)
+  }
+  if (params_.ss[0].streams.size() > 1) {
     ss << ", Stream #" << params_.ss[0].selected_stream;
-  if (params_.ss[0].num_spatial_layers > 1)
+  }
+  if (params_.ss[0].num_spatial_layers > 1) {
     ss << ", Layer #" << params_.ss[0].selected_sl;
+  }
   ss << ")";
   return ss.Release();
 }
@@ -314,14 +317,17 @@ void VideoQualityTest::CheckParamsAndInjectionComponents() {
        injection_components_->receiver_network != nullptr));
   for (size_t video_idx = 0; video_idx < num_video_streams_; ++video_idx) {
     // Iterate over primary and secondary video streams.
-    if (!params_.video[video_idx].enabled)
+    if (!params_.video[video_idx].enabled) {
       return;
+    }
     // Add a default stream in none specified.
-    if (params_.ss[video_idx].streams.empty())
+    if (params_.ss[video_idx].streams.empty()) {
       params_.ss[video_idx].streams.push_back(
           VideoQualityTest::DefaultVideoStream(params_, video_idx));
-    if (params_.ss[video_idx].num_spatial_layers == 0)
+    }
+    if (params_.ss[video_idx].num_spatial_layers == 0) {
       params_.ss[video_idx].num_spatial_layers = 1;
+    }
 
     if (params_.config) {
       if (params_.config->loss_percent != 0 ||
@@ -388,8 +394,9 @@ std::vector<int> VideoQualityTest::ParseCSV(const std::string& str) {
   // E.g. "10,-20,,30,40" --> {10, 20, -1, 30,40}
   // E.g. ",,10,,20," --> {-1, -1, 10, -1, 20, -1}
   std::vector<int> result;
-  if (str.empty())
+  if (str.empty()) {
     return result;
+  }
 
   const char* p = str.c_str();
   int value = -1;
@@ -478,25 +485,33 @@ void VideoQualityTest::FillScalabilitySettings(
     // Validity checks performed in CheckParamsAndInjectionComponents.
     RTC_CHECK(params->ss[video_idx].streams.empty());
     for (const auto& descriptor : stream_descriptors) {
-      if (descriptor.empty())
+      if (descriptor.empty()) {
         continue;
+      }
       VideoStream stream =
           VideoQualityTest::DefaultVideoStream(*params, video_idx);
       std::vector<int> v = VideoQualityTest::ParseCSV(descriptor);
-      if (v[0] != -1)
+      if (v[0] != -1) {
         stream.width = static_cast<size_t>(v[0]);
-      if (v[1] != -1)
+      }
+      if (v[1] != -1) {
         stream.height = static_cast<size_t>(v[1]);
-      if (v[2] != -1)
+      }
+      if (v[2] != -1) {
         stream.max_framerate = v[2];
-      if (v[3] != -1)
+      }
+      if (v[3] != -1) {
         stream.min_bitrate_bps = v[3];
-      if (v[4] != -1)
+      }
+      if (v[4] != -1) {
         stream.target_bitrate_bps = v[4];
-      if (v[5] != -1)
+      }
+      if (v[5] != -1) {
         stream.max_bitrate_bps = v[5];
-      if (v.size() > 6 && v[6] != -1)
+      }
+      if (v.size() > 6 && v[6] != -1) {
         stream.max_qp = v[6];
+      }
       if (v.size() > 7 && v[7] != -1) {
         stream.num_temporal_layers = v[7];
       } else {
@@ -514,8 +529,9 @@ void VideoQualityTest::FillScalabilitySettings(
   params->ss[video_idx].inter_layer_pred = inter_layer_pred;
   RTC_CHECK(params->ss[video_idx].spatial_layers.empty());
   for (const auto& descriptor : sl_descriptors) {
-    if (descriptor.empty())
+    if (descriptor.empty()) {
       continue;
+    }
     std::vector<int> v = VideoQualityTest::ParseCSV(descriptor);
     RTC_CHECK_EQ(v.size(), 7);
 
@@ -548,9 +564,10 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     video_encoder_configs_.push_back(VideoEncoderConfig());
     num_video_substreams = params_.ss[video_idx].streams.size();
     RTC_CHECK_GT(num_video_substreams, 0);
-    for (size_t i = 0; i < num_video_substreams; ++i)
+    for (size_t i = 0; i < num_video_substreams; ++i) {
       video_send_configs_[video_idx].rtp.ssrcs.push_back(
           kVideoSendSsrcs[total_streams_used + i]);
+    }
 
     int payload_type;
     if (params_.video[video_idx].codec == "H264") {
@@ -647,8 +664,9 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     decode_all_receive_streams = params_.ss[video_idx].selected_stream ==
                                  params_.ss[video_idx].streams.size();
     absl::optional<int> decode_sub_stream;
-    if (!decode_all_receive_streams)
+    if (!decode_all_receive_streams) {
       decode_sub_stream = params_.ss[video_idx].selected_stream;
+    }
     CreateMatchingVideoReceiveConfigs(
         video_send_configs_[video_idx], recv_transport,
         params_.call.send_side_bwe, &video_decoder_factory_, decode_sub_stream,
@@ -966,22 +984,27 @@ void VideoQualityTest::CreateCapturers() {
 
 void VideoQualityTest::StartAudioStreams() {
   audio_send_stream_->Start();
-  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
+  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_) {
     audio_recv_stream->Start();
+  }
 }
 
 void VideoQualityTest::StartThumbnails() {
-  for (VideoSendStream* send_stream : thumbnail_send_streams_)
+  for (VideoSendStream* send_stream : thumbnail_send_streams_) {
     send_stream->Start();
-  for (VideoReceiveStream* receive_stream : thumbnail_receive_streams_)
+  }
+  for (VideoReceiveStream* receive_stream : thumbnail_receive_streams_) {
     receive_stream->Start();
+  }
 }
 
 void VideoQualityTest::StopThumbnails() {
-  for (VideoReceiveStream* receive_stream : thumbnail_receive_streams_)
+  for (VideoReceiveStream* receive_stream : thumbnail_receive_streams_) {
     receive_stream->Stop();
-  for (VideoSendStream* send_stream : thumbnail_send_streams_)
+  }
+  for (VideoSendStream* send_stream : thumbnail_send_streams_) {
     send_stream->Stop();
+  }
 }
 
 std::unique_ptr<test::LayerFilteringTransport>
@@ -1066,9 +1089,10 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
 
   task_queue_.SendTask([this, &send_call_config, &recv_call_config,
                         &send_transport, &recv_transport]() {
-    if (params_.audio.enabled)
+    if (params_.audio.enabled) {
       InitializeAudioDevice(
           &send_call_config, &recv_call_config, params_.audio.use_real_adm);
+    }
 
     CreateCalls(send_call_config, recv_call_config);
     send_transport = CreateSendTransport();
@@ -1076,8 +1100,9 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
   });
 
   std::string graph_title = params_.analyzer.graph_title;
-  if (graph_title.empty())
+  if (graph_title.empty()) {
     graph_title = VideoQualityTest::GenerateGraphTitle();
+  }
   bool is_quick_test_enabled = field_trial::IsEnabled("WebRTC-QuickPerfTest");
   analyzer_ = absl::make_unique<VideoAnalyzer>(
       send_transport.get(), params_.analyzer.test_label,
@@ -1146,8 +1171,9 @@ void VideoQualityTest::RunWithAnalyzer(const Params& params) {
     DestroyStreams();
     DestroyThumbnailStreams();
 
-    if (graph_data_output_file)
+    if (graph_data_output_file) {
       fclose(graph_data_output_file);
+    }
 
     video_sources_.clear();
     send_transport.reset();
@@ -1242,8 +1268,9 @@ void VideoQualityTest::SetupAudio(Transport* transport) {
   SetAudioConfig(audio_send_config);
 
   std::string sync_group;
-  if (params_.video[0].enabled && params_.audio.sync_video)
+  if (params_.video[0].enabled && params_.audio.sync_video) {
     sync_group = kSyncGroup;
+  }
 
   CreateMatchingAudioConfigs(transport, sync_group);
   CreateAudioStreams();
@@ -1289,9 +1316,10 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
     send_call_config.bitrate_config = params_.call.call_bitrate_config;
     Call::Config recv_call_config(recv_event_log_.get());
 
-    if (params_.audio.enabled)
+    if (params_.audio.enabled) {
       InitializeAudioDevice(
           &send_call_config, &recv_call_config, params_.audio.use_real_adm);
+    }
 
     CreateCalls(send_call_config, recv_call_config);
 
@@ -1325,9 +1353,10 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
                 params_.ss[video_idx].streams[stream_id].height));
             video_receive_configs_[stream_id + num_streams_processed].renderer =
                 loopback_renderers.back().get();
-            if (params_.audio.enabled && params_.audio.sync_video)
+            if (params_.audio.enabled && params_.audio.sync_video) {
               video_receive_configs_[stream_id + num_streams_processed]
                   .sync_group = kSyncGroup;
+            }
           }
         } else {
           rtc::StringBuilder oss;
@@ -1338,9 +1367,10 @@ void VideoQualityTest::RunWithRenderers(const Params& params) {
               params_.ss[video_idx].streams[selected_stream_id].height));
           video_receive_configs_[selected_stream_id + num_streams_processed]
               .renderer = loopback_renderers.back().get();
-          if (params_.audio.enabled && params_.audio.sync_video)
+          if (params_.audio.enabled && params_.audio.sync_video) {
             video_receive_configs_[num_streams_processed + selected_stream_id]
                 .sync_group = kSyncGroup;
+          }
         }
         num_streams_processed += num_streams;
       }

@@ -73,8 +73,9 @@ RemoteBitrateEstimatorAbsSendTime::~RemoteBitrateEstimatorAbsSendTime() =
 bool RemoteBitrateEstimatorAbsSendTime::IsWithinClusterBounds(
     int send_delta_ms,
     const Cluster& cluster_aggregate) {
-  if (cluster_aggregate.count == 0)
+  if (cluster_aggregate.count == 0) {
     return true;
+  }
   float cluster_mean = cluster_aggregate.send_mean_ms /
                        static_cast<float>(cluster_aggregate.count);
   return fabs(static_cast<float>(send_delta_ms) - cluster_mean) < 2.5f;
@@ -148,8 +149,9 @@ RemoteBitrateEstimatorAbsSendTime::FindBestProbe(
   std::list<Cluster>::const_iterator best_it = clusters.end();
   for (std::list<Cluster>::const_iterator it = clusters.begin();
        it != clusters.end(); ++it) {
-    if (it->send_mean_ms == 0 || it->recv_mean_ms == 0)
+    if (it->send_mean_ms == 0 || it->recv_mean_ms == 0) {
       continue;
+    }
     if (it->num_above_min_delta > it->count / 2 &&
         (it->recv_mean_ms - it->send_mean_ms <= 2.0f &&
          it->send_mean_ms - it->recv_mean_ms <= 5.0f)) {
@@ -180,8 +182,9 @@ RemoteBitrateEstimatorAbsSendTime::ProcessClusters(int64_t now_ms) {
   if (clusters.empty()) {
     // If we reach the max number of probe packets and still have no clusters,
     // we will remove the oldest one.
-    if (probes_.size() >= kMaxProbePackets)
+    if (probes_.size() >= kMaxProbePackets) {
       probes_.pop_front();
+    }
     return ProbeResult::kNoUpdate;
   }
 
@@ -206,8 +209,9 @@ RemoteBitrateEstimatorAbsSendTime::ProcessClusters(int64_t now_ms) {
 
   // Not probing and received non-probe packet, or finished with current set
   // of probes.
-  if (clusters.size() >= kExpectedNumberOfProbes)
+  if (clusters.size() >= kExpectedNumberOfProbes) {
     probes_.clear();
+  }
   return ProbeResult::kNoUpdate;
 }
 
@@ -269,8 +273,9 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
   }
   incoming_bitrate_.Update(payload_size, arrival_time_ms);
 
-  if (first_packet_time_ms_ == -1)
+  if (first_packet_time_ms_ == -1) {
     first_packet_time_ms_ = now_ms;
+  }
 
   uint32_t ts_delta = 0;
   int64_t t_delta = 0;
@@ -310,8 +315,9 @@ void RemoteBitrateEstimatorAbsSendTime::IncomingPacketInfo(
       ++total_probes_received_;
       // Make sure that a probe which updated the bitrate immediately has an
       // effect by calling the OnReceiveBitrateChanged callback.
-      if (ProcessClusters(now_ms) == ProbeResult::kBitrateUpdated)
+      if (ProcessClusters(now_ms) == ProbeResult::kBitrateUpdated) {
         update_estimate = true;
+      }
     }
     if (inter_arrival_->ComputeDeltas(timestamp, arrival_time_ms, now_ms,
                                       payload_size, &ts_delta, &t_delta,

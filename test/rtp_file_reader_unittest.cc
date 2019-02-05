@@ -33,10 +33,11 @@ class TestRtpFileReader : public ::testing::Test {
     test::RtpPacket packet;
     int c = 0;
     while (rtp_packet_source_->NextPacket(&packet)) {
-      if (headers_only_file_)
+      if (headers_only_file_) {
         EXPECT_LT(packet.length, packet.original_length);
-      else
+      } else {
         EXPECT_EQ(packet.length, packet.original_length);
+      }
       c++;
     }
     return c;

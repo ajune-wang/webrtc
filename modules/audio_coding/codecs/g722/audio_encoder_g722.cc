@@ -75,22 +75,25 @@ int AudioEncoderG722Impl::GetTargetBitrate() const {
 
 void AudioEncoderG722Impl::Reset() {
   num_10ms_frames_buffered_ = 0;
-  for (size_t i = 0; i < num_channels_; ++i)
+  for (size_t i = 0; i < num_channels_; ++i) {
     RTC_CHECK_EQ(0, WebRtcG722_EncoderInit(encoders_[i].encoder));
+  }
 }
 
 AudioEncoder::EncodedInfo AudioEncoderG722Impl::EncodeImpl(
     uint32_t rtp_timestamp,
     rtc::ArrayView<const int16_t> audio,
     rtc::Buffer* encoded) {
-  if (num_10ms_frames_buffered_ == 0)
+  if (num_10ms_frames_buffered_ == 0) {
     first_timestamp_in_buffer_ = rtp_timestamp;
+  }
 
   // Deinterleave samples and save them in each channel's buffer.
   const size_t start = kSampleRateHz / 100 * num_10ms_frames_buffered_;
-  for (size_t i = 0; i < kSampleRateHz / 100; ++i)
-    for (size_t j = 0; j < num_channels_; ++j)
+  for (size_t i = 0; i < kSampleRateHz / 100; ++i) {
+    for (size_t j = 0; j < num_channels_; ++j) {
       encoders_[j].speech_buffer[start + i] = audio[i * num_channels_ + j];
+    }
 
   // If we don't yet have enough samples for a packet, we're done for now.
   if (++num_10ms_frames_buffered_ < num_10ms_frames_per_packet_) {
@@ -121,10 +124,11 @@ AudioEncoder::EncodedInfo AudioEncoderG722Impl::EncodeImpl(
             interleave_buffer_.data()[j] = two_samples >> 4;
             interleave_buffer_.data()[num_channels_ + j] = two_samples & 0xf;
           }
-          for (size_t j = 0; j < num_channels_; ++j)
+          for (size_t j = 0; j < num_channels_; ++j) {
             encoded[i * num_channels_ + j] =
                 interleave_buffer_.data()[2 * j] << 4 |
                 interleave_buffer_.data()[2 * j + 1];
+          }
         }
 
         return bytes_to_encode;
@@ -133,14 +137,13 @@ AudioEncoder::EncodedInfo AudioEncoderG722Impl::EncodeImpl(
   info.payload_type = payload_type_;
   info.encoder_type = CodecType::kG722;
   return info;
-}
+  }
 
-AudioEncoderG722Impl::EncoderState::EncoderState() {
-  RTC_CHECK_EQ(0, WebRtcG722_CreateEncoder(&encoder));
-}
+  AudioEncoderG722Impl::EncoderState::EncoderState();
+  { RTC_CHECK_EQ(0, WebRtcG722_CreateEncoder(&encoder)); }
 
-AudioEncoderG722Impl::EncoderState::~EncoderState() {
-  RTC_CHECK_EQ(0, WebRtcG722_FreeEncoder(encoder));
+  AudioEncoderG722Impl::EncoderState::~EncoderState() {
+    RTC_CHECK_EQ(0, WebRtcG722_FreeEncoder(encoder));
 }
 
 size_t AudioEncoderG722Impl::SamplesPerChannel() const {

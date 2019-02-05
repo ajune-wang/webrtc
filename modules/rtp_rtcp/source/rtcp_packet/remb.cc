@@ -108,8 +108,9 @@ bool Remb::Create(uint8_t* packet,
                   size_t max_length,
                   PacketReadyCallback callback) const {
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(packet, index, callback)) {
       return false;
+    }
   }
   size_t index_end = *index + BlockLength();
   CreateHeader(kFeedbackMessageType, kPacketType, HeaderLength(), packet,

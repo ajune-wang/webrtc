@@ -34,8 +34,9 @@ ConfigReader::~ConfigReader() = default;
 
 absl::optional<ConfigReader::Config> ConfigReader::GetNextConfig() {
 #ifdef WEBRTC_NETWORK_TESTER_PROTO
-  if (proto_config_index_ >= proto_all_configs_.configs_size())
+  if (proto_config_index_ >= proto_all_configs_.configs_size()) {
     return absl::nullopt;
+  }
   auto proto_config = proto_all_configs_.configs(proto_config_index_++);
   RTC_DCHECK(proto_config.has_packet_send_interval_ms());
   RTC_DCHECK(proto_config.has_packet_size());

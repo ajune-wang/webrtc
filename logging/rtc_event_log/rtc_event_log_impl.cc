@@ -234,8 +234,9 @@ void RtcEventLogImpl::Log(std::unique_ptr<RtcEvent> event) {
   auto event_handler = [this](std::unique_ptr<RtcEvent> unencoded_event) {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     LogToMemory(std::move(unencoded_event));
-    if (event_output_)
+    if (event_output_) {
       ScheduleOutput();
+    }
   };
 
   task_queue_->PostTask(absl::make_unique<ResourceOwningTask<RtcEvent>>(

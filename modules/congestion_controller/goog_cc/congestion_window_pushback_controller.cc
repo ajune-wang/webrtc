@@ -60,11 +60,13 @@ void CongestionWindowPushbackController::SetDataWindow(DataSize data_window) {
 
 uint32_t CongestionWindowPushbackController::UpdateTargetBitrate(
     uint32_t bitrate_bps) {
-  if (!current_data_window_ || current_data_window_->IsZero())
+  if (!current_data_window_ || current_data_window_->IsZero()) {
     return bitrate_bps;
+  }
   int64_t total_bytes = outstanding_bytes_;
-  if (add_pacing_)
+  if (add_pacing_) {
     total_bytes += pacing_bytes_;
+  }
   double fill_ratio =
       total_bytes / static_cast<double>(current_data_window_->bytes());
   if (fill_ratio > 1.5) {

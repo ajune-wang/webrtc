@@ -28,8 +28,9 @@ readframe(
 
     rlen = (short)fread(data, sizeof(short), length, inp);
     if (rlen < length) {
-        for (k = rlen; k < length; k++)
+        for (k = rlen; k < length; k++) {
             data[k] = 0;
+}
         status = 1;
     }
 

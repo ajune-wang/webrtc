@@ -40,8 +40,9 @@ template <typename R, typename T>
 Matrix<R> MatrixMultiply(const Matrix<T>& a, const Matrix<T>& b) {
   Matrix<R> result(std::valarray<R>(a.size()), b.size());
   for (size_t i = 0; i < a.size(); ++i) {
-    for (size_t j = 0; j < b.size(); ++j)
+    for (size_t j = 0; j < b.size(); ++j) {
       result[j][i] = DotProduct<R>(a[i], b[j]);
+    }
   }
 
   return result;
@@ -49,15 +50,17 @@ Matrix<R> MatrixMultiply(const Matrix<T>& a, const Matrix<T>& b) {
 
 template <typename T>
 Matrix<T> Transpose(const Matrix<T>& matrix) {
-  if (matrix.size() == 0)
+  if (matrix.size() == 0) {
     return Matrix<T>();
+  }
   const size_t rows = matrix.size();
   const size_t columns = matrix[0].size();
   Matrix<T> result(std::valarray<T>(rows), columns);
 
   for (size_t i = 0; i < rows; ++i) {
-    for (size_t j = 0; j < columns; ++j)
+    for (size_t j = 0; j < columns; ++j) {
       result[j][i] = matrix[i][j];
+    }
   }
 
   return result;
@@ -67,8 +70,9 @@ Matrix<T> Transpose(const Matrix<T>& matrix) {
 template <typename R, typename T>
 std::valarray<R> ConvertTo(const std::valarray<T>& v) {
   std::valarray<R> result(v.size());
-  for (size_t i = 0; i < v.size(); ++i)
+  for (size_t i = 0; i < v.size(); ++i) {
     result[i] = static_cast<R>(v[i]);
+  }
   return result;
 }
 
@@ -76,8 +80,9 @@ std::valarray<R> ConvertTo(const std::valarray<T>& v) {
 template <typename R, typename T>
 Matrix<R> ConvertTo(const Matrix<T>& mat) {
   Matrix<R> result(mat.size());
-  for (size_t i = 0; i < mat.size(); ++i)
+  for (size_t i = 0; i < mat.size(); ++i) {
     result[i] = ConvertTo<R>(mat[i]);
+  }
   return result;
 }
 
@@ -85,8 +90,9 @@ Matrix<R> ConvertTo(const Matrix<T>& mat) {
 template <typename T>
 std::vector<std::vector<T>> ToVectorMatrix(const Matrix<T>& m) {
   std::vector<std::vector<T>> result;
-  for (const std::valarray<T>& v : m)
+  for (const std::valarray<T>& v : m) {
     result.emplace_back(std::begin(v), std::end(v));
+  }
   return result;
 }
 
@@ -94,8 +100,9 @@ std::vector<std::vector<T>> ToVectorMatrix(const Matrix<T>& m) {
 template <typename T>
 Matrix<T> FromVectorMatrix(const std::vector<std::vector<T>>& mat) {
   Matrix<T> result(mat.size());
-  for (size_t i = 0; i < mat.size(); ++i)
+  for (size_t i = 0; i < mat.size(); ++i) {
     result[i] = std::valarray<T>(mat[i].data(), mat[i].size());
+  }
   return result;
 }
 
@@ -106,11 +113,13 @@ Matrix<double> GaussianElimination(Matrix<double> matrix_to_invert,
   // |n| is the width/height of |matrix_to_invert|.
   const size_t n = matrix_to_invert.size();
   // Make sure |matrix_to_invert| has square size.
-  for (const std::valarray<double>& column : matrix_to_invert)
+  for (const std::valarray<double>& column : matrix_to_invert) {
     RTC_CHECK_EQ(n, column.size());
+  }
   // Make sure |right_hand_matrix| has correct size.
-  for (const std::valarray<double>& column : right_hand_matrix)
+  for (const std::valarray<double>& column : right_hand_matrix) {
     RTC_CHECK_EQ(n, column.size());
+  }
 
   // Transpose the matrices before and after so that we can perform Gaussian
   // elimination on the columns instead of the rows, since that is easier with
@@ -147,8 +156,9 @@ Matrix<double> GaussianElimination(Matrix<double> matrix_to_invert,
 
     // Eliminate the other entries in row |diagonal_index| by making them zero.
     for (size_t column = 0; column < n; ++column) {
-      if (column == diagonal_index)
+      if (column == diagonal_index) {
         continue;
+      }
       const double row_element = matrix_to_invert[column][diagonal_index];
       matrix_to_invert[column] -=
           row_element * matrix_to_invert[diagonal_index];
@@ -169,14 +179,17 @@ IncrementalLinearLeastSquares::~IncrementalLinearLeastSquares() = default;
 void IncrementalLinearLeastSquares::AddObservations(
     const std::vector<std::vector<uint8_t>>& x,
     const std::vector<std::vector<uint8_t>>& y) {
-  if (x.empty() || y.empty())
+  if (x.empty() || y.empty()) {
     return;
+  }
   // Make sure all columns are the same size.
   const size_t n = x[0].size();
-  for (const std::vector<uint8_t>& column : x)
+  for (const std::vector<uint8_t>& column : x) {
     RTC_CHECK_EQ(n, column.size());
-  for (const std::vector<uint8_t>& column : y)
+  }
+  for (const std::vector<uint8_t>& column : y) {
     RTC_CHECK_EQ(n, column.size());
+  }
 
   // We will multiply the uint8_t values together, so we need to expand to a
   // type that can safely store those values, i.e. uint16_t.

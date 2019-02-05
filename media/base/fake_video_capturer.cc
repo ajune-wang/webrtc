@@ -137,8 +137,9 @@ bool FakeVideoCapturer::GetPreferredFourccs(std::vector<uint32_t>* fourccs) {
 
 void FakeVideoCapturer::SetRotation(webrtc::VideoRotation rotation) {
   rotation_ = rotation;
-  if (frame_source_)
+  if (frame_source_) {
     frame_source_->SetRotation(rotation_);
+  }
 }
 
 webrtc::VideoRotation FakeVideoCapturer::GetRotation() {
@@ -152,8 +153,9 @@ FakeVideoCapturerWithTaskQueue::FakeVideoCapturerWithTaskQueue(
 FakeVideoCapturerWithTaskQueue::FakeVideoCapturerWithTaskQueue() {}
 
 bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
-  if (task_queue_.IsCurrent())
+  if (task_queue_.IsCurrent()) {
     return FakeVideoCapturer::CaptureFrame();
+  }
   bool ret = false;
   task_queue_.SendTask(
       [this, &ret]() { ret = FakeVideoCapturer::CaptureFrame(); });
@@ -161,8 +163,9 @@ bool FakeVideoCapturerWithTaskQueue::CaptureFrame() {
 }
 
 bool FakeVideoCapturerWithTaskQueue::CaptureCustomFrame(int width, int height) {
-  if (task_queue_.IsCurrent())
+  if (task_queue_.IsCurrent()) {
     return FakeVideoCapturer::CaptureCustomFrame(width, height);
+  }
   bool ret = false;
   task_queue_.SendTask([this, &ret, width, height]() {
     ret = FakeVideoCapturer::CaptureCustomFrame(width, height);

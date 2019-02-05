@@ -28,10 +28,12 @@ namespace {
 bool ShouldSkipStream(ParsedRtcEventLog::MediaType media_type,
                       uint32_t ssrc,
                       absl::optional<uint32_t> ssrc_filter) {
-  if (media_type != ParsedRtcEventLog::MediaType::AUDIO)
+  if (media_type != ParsedRtcEventLog::MediaType::AUDIO) {
     return true;
-  if (ssrc_filter.has_value() && ssrc != *ssrc_filter)
+  }
+  if (ssrc_filter.has_value() && ssrc != *ssrc_filter) {
     return true;
+  }
   return false;
 }
 }  // namespace
@@ -47,16 +49,18 @@ RtcEventLogSource* RtcEventLogSource::Create(
 RtcEventLogSource::~RtcEventLogSource() {}
 
 std::unique_ptr<Packet> RtcEventLogSource::NextPacket() {
-  if (rtp_packet_index_ >= rtp_packets_.size())
+  if (rtp_packet_index_ >= rtp_packets_.size()) {
     return nullptr;
+  }
 
   std::unique_ptr<Packet> packet = std::move(rtp_packets_[rtp_packet_index_++]);
   return packet;
 }
 
 int64_t RtcEventLogSource::NextAudioOutputEventMs() {
-  if (audio_output_index_ >= audio_outputs_.size())
+  if (audio_output_index_ >= audio_outputs_.size()) {
     return std::numeric_limits<int64_t>::max();
+  }
 
   int64_t output_time_ms = audio_outputs_[audio_output_index_++];
   return output_time_ms;
@@ -67,8 +71,9 @@ RtcEventLogSource::RtcEventLogSource() : PacketSource() {}
 bool RtcEventLogSource::OpenFile(const std::string& file_name,
                                  absl::optional<uint32_t> ssrc_filter) {
   ParsedRtcEventLog parsed_log;
-  if (!parsed_log.ParseFile(file_name))
+  if (!parsed_log.ParseFile(file_name)) {
     return false;
+  }
 
   const auto first_log_end_time_us =
       parsed_log.stop_log_events().empty()
@@ -114,8 +119,9 @@ bool RtcEventLogSource::OpenFile(const std::string& file_name,
   }
 
   for (const auto& audio_playouts : parsed_log.audio_playout_events()) {
-    if (ssrc_filter.has_value() && audio_playouts.first != *ssrc_filter)
+    if (ssrc_filter.has_value() && audio_playouts.first != *ssrc_filter) {
       continue;
+    }
     event_processor.AddEvents(audio_playouts.second, handle_audio_playout);
   }
 

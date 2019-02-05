@@ -199,8 +199,9 @@ bool SsrcUsed(
     uint32_t ssrc,
     const std::vector<std::pair<uint32_t, RtpHeaderExtensionMap>>& streams) {
   for (const auto& kv : streams) {
-    if (kv.first == ssrc)
+    if (kv.first == ssrc) {
       return true;
+    }
   }
   return false;
 }

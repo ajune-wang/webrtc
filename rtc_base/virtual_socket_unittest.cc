@@ -73,8 +73,9 @@ struct Sender : public MessageHandler {
   void OnMessage(Message* pmsg) override {
     ASSERT_EQ(1u, pmsg->message_id);
 
-    if (done)
+    if (done) {
       return;
+    }
 
     int64_t cur_time = rtc::TimeMillis();
     int64_t delay = cur_time - last_send;
@@ -139,13 +140,15 @@ struct Receiver : public MessageHandler, public sigslot::has_slots<> {
   void OnMessage(Message* pmsg) override {
     ASSERT_EQ(1u, pmsg->message_id);
 
-    if (done)
+    if (done) {
       return;
+    }
 
     // It is always possible for us to receive more than expected because
     // packets can be further delayed in delivery.
-    if (bandwidth > 0)
+    if (bandwidth > 0) {
       ASSERT_TRUE(sec_count <= 5 * bandwidth / 4);
+    }
     sec_count = 0;
     thread->PostDelayed(RTC_FROM_HERE, 1000, this, 1);
   }
@@ -539,8 +542,9 @@ class VirtualSocketServerTest : public testing::Test {
 
     const size_t kDataSize = 5000;
     char send_buffer[kDataSize], recv_buffer[kDataSize];
-    for (size_t i = 0; i < kDataSize; ++i)
+    for (size_t i = 0; i < kDataSize; ++i) {
       send_buffer[i] = static_cast<char>(i % 256);
+    }
     memset(recv_buffer, 0, sizeof(recv_buffer));
     size_t send_pos = 0, recv_pos = 0;
 

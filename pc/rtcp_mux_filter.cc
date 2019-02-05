@@ -62,18 +62,20 @@ bool RtcpMuxFilter::SetProvisionalAnswer(bool answer_enable,
 
   if (offer_enable_) {
     if (answer_enable) {
-      if (src == CS_REMOTE)
+      if (src == CS_REMOTE) {
         state_ = ST_RECEIVEDPRANSWER;
-      else  // CS_LOCAL
+      } else {  // CS_LOCAL
         state_ = ST_SENTPRANSWER;
+      }
     } else {
       // The provisional answer doesn't want to use RTCP mux.
       // Go back to the original state after the offer was set and wait for next
       // provisional or final answer.
-      if (src == CS_REMOTE)
+      if (src == CS_REMOTE) {
         state_ = ST_SENTOFFER;
-      else  // CS_LOCAL
+      } else {  // CS_LOCAL
         state_ = ST_RECEIVEDOFFER;
+      }
     }
   } else if (answer_enable) {
     // If the offer didn't specify RTCP mux, the answer shouldn't either.

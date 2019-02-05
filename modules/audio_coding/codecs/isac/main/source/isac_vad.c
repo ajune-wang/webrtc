@@ -30,8 +30,9 @@ static void WebRtcIsac_InitWeightingFilter(WeightFiltstr* wfdata) {
   int k;
   double t, dtmp, dtmp2, denum, denum2;
 
-  for (k = 0; k < PITCH_WLPCBUFLEN; k++)
+  for (k = 0; k < PITCH_WLPCBUFLEN; k++) {
     wfdata->buffer[k] = 0.0;
+}
 
   for (k = 0; k < PITCH_WLPCORDER; k++) {
     wfdata->istate[k] = 0.0;
@@ -57,16 +58,21 @@ void WebRtcIsac_InitPitchAnalysis(PitchAnalysisStruct* State) {
 
   for (k = 0; k < PITCH_CORR_LEN2 + PITCH_CORR_STEP2 + PITCH_MAX_LAG / 2 -
                       PITCH_FRAME_LEN / 2 + 2;
-       k++)
+       k++) {
     State->dec_buffer[k] = 0.0;
-  for (k = 0; k < 2 * ALLPASSSECTIONS + 1; k++)
+}
+  for (k = 0; k < 2 * ALLPASSSECTIONS + 1; k++) {
     State->decimator_state[k] = 0.0;
-  for (k = 0; k < 2; k++)
+}
+  for (k = 0; k < 2; k++) {
     State->hp_state[k] = 0.0;
-  for (k = 0; k < QLOOKAHEAD; k++)
+}
+  for (k = 0; k < QLOOKAHEAD; k++) {
     State->whitened_buf[k] = 0.0;
-  for (k = 0; k < QLOOKAHEAD; k++)
+}
+  for (k = 0; k < QLOOKAHEAD; k++) {
     State->inbuf[k] = 0.0;
+}
 
   WebRtcIsac_InitPitchFilter(&(State->PFstr_wght));
 

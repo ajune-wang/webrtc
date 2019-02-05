@@ -79,8 +79,9 @@ SpsVuiRewriter::ParseResult SpsVuiRewriter::ParseAndRewriteSps(
   rtc::BitBuffer source_buffer(rbsp_buffer.data(), rbsp_buffer.size());
   absl::optional<SpsParser::SpsState> sps_state =
       SpsParser::ParseSpsUpToVui(&source_buffer);
-  if (!sps_state)
+  if (!sps_state) {
     return ParseResult::kFailure;
+  }
 
   *sps = sps_state;
 

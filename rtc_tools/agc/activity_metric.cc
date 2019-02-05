@@ -74,11 +74,13 @@ static void DitherSilence(AudioFrame* frame) {
       kRmsSilence * kRmsSilence * frame->samples_per_channel_;
   double sum_squared = 0;
   int16_t* frame_data = frame->mutable_data();
-  for (size_t n = 0; n < frame->samples_per_channel_; n++)
+  for (size_t n = 0; n < frame->samples_per_channel_; n++) {
     sum_squared += frame_data[n] * frame_data[n];
+  }
   if (sum_squared <= sum_squared_silence) {
-    for (size_t n = 0; n < frame->samples_per_channel_; n++)
+    for (size_t n = 0; n < frame->samples_per_channel_; n++) {
       frame_data[n] = (rand() & 0xF) - 8;  // NOLINT: ignore non-threadsafe.
+    }
   }
 }
 
@@ -92,8 +94,9 @@ class AgcStat {
         vad_(new PitchBasedVad()),
         standalone_vad_(StandaloneVad::Create()),
         audio_content_fid_(NULL) {
-    for (size_t n = 0; n < kMaxNumFrames; n++)
+    for (size_t n = 0; n < kMaxNumFrames; n++) {
       video_vad_[n] = 0.5;
+    }
   }
 
   ~AgcStat() {
@@ -109,8 +112,9 @@ class AgcStat {
   int AddAudio(const AudioFrame& frame, double p_video, int* combined_vad) {
     if (frame.num_channels_ != 1 ||
         frame.samples_per_channel_ != kSampleRateHz / 100 ||
-        frame.sample_rate_hz_ != kSampleRateHz)
+        frame.sample_rate_hz_ != kSampleRateHz) {
       return -1;
+    }
     video_vad_[video_index_++] = p_video;
     AudioFeatures features;
     const int16_t* frame_data = frame.data();
@@ -132,8 +136,9 @@ class AgcStat {
         double p_passive = (1 - p[n]) * (1 - video_vad_[n]);
         p[n] = rtc::SafeClamp(p_active / (p_active + p_passive), 0.01, 0.99);
       }
-      if (vad_->VoicingProbability(features, p) < 0)
+      if (vad_->VoicingProbability(features, p) < 0) {
         return -1;
+      }
       for (size_t n = 0; n < features.num_frames; n++) {
         audio_content_->Update(features.rms[n], p[n]);
         double ac = audio_content_->AudioContent();
@@ -312,8 +317,9 @@ void void_main(int argc, char* argv[]) {
           }
           if (agc_vad[n] == 0) {
             total_missed_detection++;
-            if (onset)
+            if (onset) {
               onset_adaptation++;
+            }
           } else {
             in_false_positive_region = false;
             onset = false;
@@ -321,8 +327,9 @@ void void_main(int argc, char* argv[]) {
         } else if (true_vad[n] == 0) {
           // Check if |on_set| flag is still up. If so it means that we totally
           // missed an active region
-          if (onset)
+          if (onset) {
             num_not_adapted++;
+          }
           onset = false;
 
           total_passive++;

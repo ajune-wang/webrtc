@@ -103,8 +103,9 @@ TEST_F(PayloadTypeMapperTest, ValidDynamicPayloadTypes) {
       EXPECT_GE(payload_type, 0) << "Negative payload types are invalid";
       EXPECT_LE(payload_type, 127) << "Payload types above 127 are invalid";
       EXPECT_FALSE(payload_type >= 96 && has_been_below_96);
-      if (payload_type < 96)
+      if (payload_type < 96) {
         has_been_below_96 = true;
+      }
 
       EXPECT_EQ(payload_type, mapper_.FindMappingFor(format))
           << "Mapping must be permanent after successful call to "

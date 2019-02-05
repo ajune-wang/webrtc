@@ -116,10 +116,12 @@ void CallTest::RunBaseTest(BaseTest* test) {
     if (test->ShouldCreateReceivers()) {
       send_transport_->SetReceiver(receiver_call_->Receiver());
       receive_transport_->SetReceiver(sender_call_->Receiver());
-      if (num_video_streams_ > 0)
+      if (num_video_streams_ > 0) {
         receiver_call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
-      if (num_audio_streams_ > 0)
+      }
+      if (num_audio_streams_ > 0) {
         receiver_call_->SignalChannelNetworkState(MediaType::AUDIO, kNetworkUp);
+      }
     } else {
       // Sender-only call delivers to itself.
       send_transport_->SetReceiver(sender_call_->Receiver());
@@ -248,8 +250,9 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                              &video_encoder_configs_.back());
   }
 
-  for (size_t i = 0; i < num_video_streams; ++i)
+  for (size_t i = 0; i < num_video_streams; ++i) {
     video_config->rtp.ssrcs.push_back(kVideoSendSsrcs[num_used_ssrcs + i]);
+  }
   video_config->rtp.extensions.push_back(
       RtpExtension(RtpExtension::kVideoRotationUri, kVideoRotationExtensionId));
   video_config->rtp.extensions.push_back(
@@ -351,8 +354,9 @@ void CallTest::AddMatchingVideoReceiveConfigs(
   default_config.rtp.remb = !send_side_bwe;
   default_config.rtp.transport_cc = send_side_bwe;
   default_config.rtp.local_ssrc = kReceiverLocalVideoSsrc;
-  for (const RtpExtension& extension : video_send_config.rtp.extensions)
+  for (const RtpExtension& extension : video_send_config.rtp.extensions) {
     default_config.rtp.extensions.push_back(extension);
+  }
   default_config.rtp.nack.rtp_history_ms = rtp_history_ms;
   // Enable RTT calculation so NTP time estimator will work.
   default_config.rtp.rtcp_xr.receiver_reference_time_report =
@@ -394,8 +398,9 @@ void CallTest::CreateMatchingAudioAndFecConfigs(
   RTC_DCHECK(num_flexfec_streams_ <= 1);
   if (num_flexfec_streams_ == 1) {
     CreateMatchingFecConfig(rtcp_send_transport, *GetVideoSendConfig());
-    for (const RtpExtension& extension : GetVideoSendConfig()->rtp.extensions)
+    for (const RtpExtension& extension : GetVideoSendConfig()->rtp.extensions) {
       GetFlexFecConfig()->rtp_header_extensions.push_back(extension);
+    }
   }
 }
 
@@ -433,8 +438,9 @@ void CallTest::CreateMatchingFecConfig(
   config.remote_ssrc = send_config.rtp.flexfec.ssrc;
   config.protected_media_ssrcs = send_config.rtp.flexfec.protected_media_ssrcs;
   config.local_ssrc = kReceiverLocalVideoSsrc;
-  if (!video_receive_configs_.empty())
+  if (!video_receive_configs_.empty()) {
     video_receive_configs_[0].rtp.protected_by_flexfec = true;
+  }
   flexfec_receive_configs_.push_back(config);
 }
 
@@ -553,9 +559,10 @@ void CallTest::CreateFlexfecStreams() {
 }
 
 void CallTest::ConnectVideoSourcesToStreams() {
-  for (size_t i = 0; i < video_sources_.size(); ++i)
+  for (size_t i = 0; i < video_sources_.size(); ++i) {
     video_send_streams_[i]->SetSource(video_sources_[i].get(),
                                       degradation_preference_);
+  }
 }
 
 void CallTest::AssociateFlexfecStreamsWithVideoStreams() {
@@ -580,20 +587,24 @@ void CallTest::Start() {
   if (audio_send_stream_) {
     audio_send_stream_->Start();
   }
-  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
+  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_) {
     audio_recv_stream->Start();
+  }
 }
 
 void CallTest::StartVideoStreams() {
-  for (VideoSendStream* video_send_stream : video_send_streams_)
+  for (VideoSendStream* video_send_stream : video_send_streams_) {
     video_send_stream->Start();
-  for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
+  }
+  for (VideoReceiveStream* video_recv_stream : video_receive_streams_) {
     video_recv_stream->Start();
+  }
 }
 
 void CallTest::Stop() {
-  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
+  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_) {
     audio_recv_stream->Stop();
+  }
   if (audio_send_stream_) {
     audio_send_stream_->Stop();
   }
@@ -601,35 +612,42 @@ void CallTest::Stop() {
 }
 
 void CallTest::StopVideoStreams() {
-  for (VideoSendStream* video_send_stream : video_send_streams_)
+  for (VideoSendStream* video_send_stream : video_send_streams_) {
     video_send_stream->Stop();
-  for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
+  }
+  for (VideoReceiveStream* video_recv_stream : video_receive_streams_) {
     video_recv_stream->Stop();
+  }
 }
 
 void CallTest::DestroyStreams() {
   DissociateFlexfecStreamsFromVideoStreams();
 
-  if (audio_send_stream_)
+  if (audio_send_stream_) {
     sender_call_->DestroyAudioSendStream(audio_send_stream_);
+  }
   audio_send_stream_ = nullptr;
-  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_)
+  for (AudioReceiveStream* audio_recv_stream : audio_receive_streams_) {
     receiver_call_->DestroyAudioReceiveStream(audio_recv_stream);
+  }
 
   DestroyVideoSendStreams();
 
-  for (VideoReceiveStream* video_recv_stream : video_receive_streams_)
+  for (VideoReceiveStream* video_recv_stream : video_receive_streams_) {
     receiver_call_->DestroyVideoReceiveStream(video_recv_stream);
+  }
 
-  for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_)
+  for (FlexfecReceiveStream* flexfec_recv_stream : flexfec_receive_streams_) {
     receiver_call_->DestroyFlexfecReceiveStream(flexfec_recv_stream);
+  }
 
   video_receive_streams_.clear();
 }
 
 void CallTest::DestroyVideoSendStreams() {
-  for (VideoSendStream* video_send_stream : video_send_streams_)
+  for (VideoSendStream* video_send_stream : video_send_streams_) {
     sender_call_->DestroyVideoSendStream(video_send_stream);
+  }
   video_send_streams_.clear();
 }
 

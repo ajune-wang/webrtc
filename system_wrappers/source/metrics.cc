@@ -49,8 +49,9 @@ class RtcHistogram {
   // Returns a copy (or nullptr if there are no samples) and clears samples.
   std::unique_ptr<SampleInfo> GetAndReset() {
     rtc::CritScope cs(&crit_);
-    if (info_.samples.empty())
+    if (info_.samples.empty()) {
       return nullptr;
+    }
 
     SampleInfo* copy =
         new SampleInfo(info_.name, info_.min, info_.max, info_.bucket_count);
@@ -108,8 +109,9 @@ class RtcHistogramMap {
                                 int bucket_count) {
     rtc::CritScope cs(&crit_);
     const auto& it = map_.find(name);
-    if (it != map_.end())
+    if (it != map_.end()) {
       return reinterpret_cast<Histogram*>(it->second.get());
+    }
 
     RtcHistogram* hist = new RtcHistogram(name, min, max, bucket_count);
     map_[name].reset(hist);
@@ -119,8 +121,9 @@ class RtcHistogramMap {
   Histogram* GetEnumerationHistogram(const std::string& name, int boundary) {
     rtc::CritScope cs(&crit_);
     const auto& it = map_.find(name);
-    if (it != map_.end())
+    if (it != map_.end()) {
       return reinterpret_cast<Histogram*>(it->second.get());
+    }
 
     RtcHistogram* hist = new RtcHistogram(name, 1, boundary, boundary + 1);
     map_[name].reset(hist);
@@ -132,16 +135,18 @@ class RtcHistogramMap {
     rtc::CritScope cs(&crit_);
     for (const auto& kv : map_) {
       std::unique_ptr<SampleInfo> info = kv.second->GetAndReset();
-      if (info)
+      if (info) {
         histograms->insert(std::make_pair(kv.first, std::move(info)));
+      }
     }
   }
 
   // Functions only for testing.
   void Reset() {
     rtc::CritScope cs(&crit_);
-    for (const auto& kv : map_)
+    for (const auto& kv : map_) {
       kv.second->Reset();
+    }
   }
 
   int NumEvents(const std::string& name, int sample) const {
@@ -182,8 +187,9 @@ void CreateMap() {
     RtcHistogramMap* new_map = new RtcHistogramMap();
     RtcHistogramMap* old_map = rtc::AtomicOps::CompareAndSwapPtr(
         &g_rtc_histogram_map, static_cast<RtcHistogramMap*>(nullptr), new_map);
-    if (old_map != nullptr)
+    if (old_map != nullptr) {
       delete new_map;
+    }
   }
 }
 
@@ -228,8 +234,9 @@ Histogram* HistogramFactoryGetCountsLinear(const std::string& name,
                                            int max,
                                            int bucket_count) {
   RtcHistogramMap* map = GetMap();
-  if (!map)
+  if (!map) {
     return nullptr;
+  }
 
   return map->GetCountsHistogram(name, min, max, bucket_count);
 }
@@ -241,8 +248,9 @@ Histogram* HistogramFactoryGetCountsLinear(const std::string& name,
 Histogram* HistogramFactoryGetEnumeration(const std::string& name,
                                           int boundary) {
   RtcHistogramMap* map = GetMap();
-  if (!map)
+  if (!map) {
     return nullptr;
+  }
 
   return map->GetEnumerationHistogram(name, boundary);
 }
@@ -282,14 +290,16 @@ void GetAndReset(
     std::map<std::string, std::unique_ptr<SampleInfo>>* histograms) {
   histograms->clear();
   RtcHistogramMap* map = GetMap();
-  if (map)
+  if (map) {
     map->GetAndReset(histograms);
+  }
 }
 
 void Reset() {
   RtcHistogramMap* map = GetMap();
-  if (map)
+  if (map) {
     map->Reset();
+  }
 }
 
 int NumEvents(const std::string& name, int sample) {

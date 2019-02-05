@@ -106,14 +106,16 @@ std::vector<int> RtpPacketizer::SplitAboutEqually(
   while (remaining_data > 0) {
     // Last num_larger_packets are 1 byte wider than the rest. Increase
     // per-packet payload size when needed.
-    if (num_packets_left == num_larger_packets)
+    if (num_packets_left == num_larger_packets) {
       ++bytes_per_packet;
+    }
     int current_packet_bytes = bytes_per_packet;
     if (first_packet) {
-      if (current_packet_bytes > limits.first_packet_reduction_len + 1)
+      if (current_packet_bytes > limits.first_packet_reduction_len + 1) {
         current_packet_bytes -= limits.first_packet_reduction_len;
-      else
+      } else {
         current_packet_bytes = 1;
+      }
     }
     if (current_packet_bytes > remaining_data) {
       current_packet_bytes = remaining_data;

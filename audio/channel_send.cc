@@ -311,15 +311,17 @@ class TransportFeedbackProxy : public TransportFeedbackObserver {
                  const PacedPacketInfo& pacing_info) override {
     RTC_DCHECK(pacer_thread_.CalledOnValidThread());
     rtc::CritScope lock(&crit_);
-    if (feedback_observer_)
+    if (feedback_observer_) {
       feedback_observer_->AddPacket(ssrc, sequence_number, length, pacing_info);
+    }
   }
 
   void OnTransportFeedback(const rtcp::TransportFeedback& feedback) override {
     RTC_DCHECK(network_thread_.CalledOnValidThread());
     rtc::CritScope lock(&crit_);
-    if (feedback_observer_)
+    if (feedback_observer_) {
       feedback_observer_->OnTransportFeedback(feedback);
+    }
   }
 
  private:
@@ -347,8 +349,9 @@ class TransportSequenceNumberProxy : public TransportSequenceNumberAllocator {
   uint16_t AllocateSequenceNumber() override {
     RTC_DCHECK(pacer_thread_.CalledOnValidThread());
     rtc::CritScope lock(&crit_);
-    if (!seq_num_allocator_)
+    if (!seq_num_allocator_) {
       return 0;
+    }
     return seq_num_allocator_->AllocateSequenceNumber();
   }
 
@@ -424,8 +427,9 @@ class VoERtcpObserver : public RtcpBandwidthObserver {
     // TODO(mflodman): Do we need to aggregate reports here or can we jut send
     // what we get? I.e. do we ever get multiple reports bundled into one RTCP
     // report for VoiceEngine?
-    if (report_blocks.empty())
+    if (report_blocks.empty()) {
       return;
+    }
 
     int fraction_lost_aggregate = 0;
     int total_number_of_packets = 0;
@@ -726,8 +730,9 @@ ChannelSend::~ChannelSend() {
   int error = audio_coding_->RegisterTransportCallback(NULL);
   RTC_DCHECK_EQ(0, error);
 
-  if (_moduleProcessThreadPtr)
+  if (_moduleProcessThreadPtr) {
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
+  }
 }
 
 void ChannelSend::StartSend() {
@@ -836,8 +841,9 @@ int ChannelSend::GetBitrate() const {
 
 void ChannelSend::OnTwccBasedUplinkPacketLossRate(float packet_loss_rate) {
   RTC_DCHECK_RUN_ON(&worker_thread_checker_);
-  if (!use_twcc_plr_for_ana_)
+  if (!use_twcc_plr_for_ana_) {
     return;
+  }
   audio_coding_->ModifyEncoder([&](std::unique_ptr<AudioEncoder>* encoder) {
     if (*encoder) {
       (*encoder)->OnReceivedUplinkPacketLossFraction(packet_loss_rate);
@@ -857,8 +863,9 @@ void ChannelSend::OnRecoverableUplinkPacketLossRate(
 }
 
 void ChannelSend::OnUplinkPacketLossRate(float packet_loss_rate) {
-  if (use_twcc_plr_for_ana_)
+  if (use_twcc_plr_for_ana_) {
     return;
+  }
   audio_coding_->ModifyEncoder([&](std::unique_ptr<AudioEncoder>* encoder) {
     if (*encoder) {
       (*encoder)->OnReceivedUplinkPacketLossFraction(packet_loss_rate);

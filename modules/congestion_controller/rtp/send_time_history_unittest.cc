@@ -140,9 +140,10 @@ TEST_F(SendTimeHistoryTest, AddThenRemoveOutOfOrder) {
     packet.send_time_ms = PacketFeedback::kNoSendTime;
     history_.AddAndRemoveOld(packet, clock_.TimeInMilliseconds());
   }
-  for (size_t i = 0; i < num_items; ++i)
+  for (size_t i = 0; i < num_items; ++i) {
     history_.OnSentPacket(sent_packets[i].sequence_number,
                           sent_packets[i].send_time_ms);
+  }
   std::shuffle(received_packets.begin(), received_packets.end(),
                std::mt19937(std::random_device()()));
   for (size_t i = 0; i < num_items; ++i) {
@@ -153,8 +154,9 @@ TEST_F(SendTimeHistoryTest, AddThenRemoveOutOfOrder) {
     EXPECT_EQ(sent_packet, packet);
     EXPECT_TRUE(history_.GetFeedback(&packet, true));
   }
-  for (PacketFeedback packet : sent_packets)
+  for (PacketFeedback packet : sent_packets) {
     EXPECT_FALSE(history_.GetFeedback(&packet, false));
+  }
 }
 
 TEST_F(SendTimeHistoryTest, HistorySize) {

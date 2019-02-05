@@ -80,8 +80,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
   }
   // Set active for the entire video codec for the non simulcast case.
   video_codec.active = codec_active;
-  if (video_codec.minBitrate < kEncoderMinBitrateKbps)
+  if (video_codec.minBitrate < kEncoderMinBitrateKbps) {
     video_codec.minBitrate = kEncoderMinBitrateKbps;
+  }
   video_codec.timing_frame_thresholds = {kDefaultTimingFramesDelayMs,
                                          kDefaultOutlierFrameSizePercent};
   RTC_DCHECK_LE(streams.size(), kMaxSimulcastStreams);
@@ -131,15 +132,17 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
         (video_codec.width * video_codec.height * video_codec.maxFramerate) /
         1000;
   }
-  if (video_codec.maxBitrate < kEncoderMinBitrateKbps)
+  if (video_codec.maxBitrate < kEncoderMinBitrateKbps) {
     video_codec.maxBitrate = kEncoderMinBitrateKbps;
+  }
 
   RTC_DCHECK_GT(streams[0].max_framerate, 0);
   video_codec.maxFramerate = streams[0].max_framerate;
 
   // Set codec specific options
-  if (config.encoder_specific_settings)
+  if (config.encoder_specific_settings) {
     config.encoder_specific_settings->FillEncoderSpecificSettings(&video_codec);
+  }
 
   switch (video_codec.codecType) {
     case kVideoCodecVP8: {
@@ -223,8 +226,9 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       break;
     }
     case kVideoCodecH264: {
-      if (!config.encoder_specific_settings)
+      if (!config.encoder_specific_settings) {
         *video_codec.H264() = VideoEncoder::GetDefaultH264Settings();
+      }
       break;
     }
     default:

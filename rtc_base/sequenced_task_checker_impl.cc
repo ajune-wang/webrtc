@@ -30,16 +30,18 @@ bool SequencedTaskCheckerImpl::CalledSequentially() const {
 #if defined(WEBRTC_MAC)
   // If we're not running on a TaskQueue, use the system dispatch queue
   // label as an identifier.
-  if (current_queue == nullptr)
+  if (current_queue == nullptr) {
     current_queue = dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL);
+  }
 #endif
   CritScope scoped_lock(&lock_);
   if (!attached_) {  // true if previously detached.
     valid_queue_ = current_queue;
     attached_ = true;
   }
-  if (!valid_queue_)
+  if (!valid_queue_) {
     return thread_checker_.CalledOnValidThread();
+  }
   return valid_queue_ == current_queue;
 }
 

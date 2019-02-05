@@ -22,13 +22,15 @@
 namespace webrtc {
 namespace {
 absl::optional<DataRate> ToOptionalDataRate(int send_bitrate_bps) {
-  if (send_bitrate_bps > 0)
+  if (send_bitrate_bps > 0) {
     return DataRate::bps(send_bitrate_bps);
+  }
   return absl::nullopt;
 }
 DataRate MaxRate(int max_bitrate_bps) {
-  if (max_bitrate_bps == -1)
+  if (max_bitrate_bps == -1) {
     return DataRate::Infinity();
+  }
   return DataRate::bps(max_bitrate_bps);
 }
 }  // namespace
@@ -147,8 +149,9 @@ void BitrateControllerImpl::OnReceivedEstimatedBitrate(uint32_t bitrate) {
 
 void BitrateControllerImpl::OnDelayBasedBweResult(
     const DelayBasedBwe::Result& result) {
-  if (!result.updated)
+  if (!result.updated) {
     return;
+  }
   {
     rtc::CritScope cs(&critsect_);
     if (result.probe) {
@@ -186,8 +189,9 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
     const ReportBlockList& report_blocks,
     int64_t rtt,
     int64_t now_ms) {
-  if (report_blocks.empty())
+  if (report_blocks.empty()) {
     return;
+  }
 
   {
     rtc::CritScope cs(&critsect_);
@@ -220,14 +224,16 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
              "number goes backwards, ignoring.";
       return;
     }
-    if (total_number_of_packets == 0)
+    if (total_number_of_packets == 0) {
       fraction_lost_aggregate = 0;
-    else
+    } else {
       fraction_lost_aggregate =
           (fraction_lost_aggregate + total_number_of_packets / 2) /
           total_number_of_packets;
-    if (fraction_lost_aggregate > 255)
+    }
+    if (fraction_lost_aggregate > 255) {
       return;
+    }
 
     RTC_DCHECK_GE(total_number_of_packets, 0);
 
@@ -239,15 +245,17 @@ void BitrateControllerImpl::OnReceivedRtcpReceiverReport(
 }
 
 void BitrateControllerImpl::MaybeTriggerOnNetworkChanged() {
-  if (!observer_)
+  if (!observer_) {
     return;
+  }
 
   uint32_t bitrate_bps;
   uint8_t fraction_loss;
   int64_t rtt;
 
-  if (GetNetworkParameters(&bitrate_bps, &fraction_loss, &rtt))
+  if (GetNetworkParameters(&bitrate_bps, &fraction_loss, &rtt)) {
     observer_->OnNetworkChanged(bitrate_bps, fraction_loss, rtt);
+  }
 }
 
 bool BitrateControllerImpl::GetNetworkParameters(uint32_t* bitrate,

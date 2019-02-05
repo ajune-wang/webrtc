@@ -28,8 +28,9 @@ size_t File::Write(const uint8_t* data, size_t length) {
     do {
       written = ::write(file_, data + total_written, length - total_written);
     } while (written == -1 && errno == EINTR);
-    if (written == -1)
+    if (written == -1) {
       break;
+    }
     total_written += written;
   } while (total_written < length);
   return total_written;
@@ -42,8 +43,9 @@ size_t File::Read(uint8_t* buffer, size_t length) {
     do {
       read = ::read(file_, buffer + total_read, length - total_read);
     } while (read == -1 && errno == EINTR);
-    if (read == -1)
+    if (read == -1) {
       break;
+    }
     total_read += read;
   } while (total_read < length);
   return total_read;
@@ -57,8 +59,9 @@ size_t File::WriteAt(const uint8_t* data, size_t length, size_t offset) {
       written = ::pwrite(file_, data + total_written, length - total_written,
                          offset + total_written);
     } while (written == -1 && errno == EINTR);
-    if (written == -1)
+    if (written == -1) {
       break;
+    }
     total_written += written;
   } while (total_written < length);
   return total_written;
@@ -72,8 +75,9 @@ size_t File::ReadAt(uint8_t* buffer, size_t length, size_t offset) {
       read = ::pread(file_, buffer + total_read, length - total_read,
                      offset + total_read);
     } while (read == -1 && errno == EINTR);
-    if (read == -1)
+    if (read == -1) {
       break;
+    }
     total_read += read;
   } while (total_read < length);
   return total_read;
@@ -85,8 +89,9 @@ bool File::Seek(size_t offset) {
 }
 
 bool File::Close() {
-  if (file_ == rtc::kInvalidPlatformFileValue)
+  if (file_ == rtc::kInvalidPlatformFileValue) {
     return false;
+  }
   bool ret = close(file_) == 0;
   file_ = rtc::kInvalidPlatformFileValue;
   return ret;

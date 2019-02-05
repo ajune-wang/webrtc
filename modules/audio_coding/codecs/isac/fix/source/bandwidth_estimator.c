@@ -623,8 +623,9 @@ uint16_t WebRtcIsacfix_GetDownlinkBwIndexImpl(BwEstimatorstr *bweStr)
   int32_t  tempMin;
   int32_t  tempMax;
 
-  if (bweStr->external_bw_info.in_use)
+  if (bweStr->external_bw_info.in_use) {
     return bweStr->external_bw_info.bottleneck_idx;
+}
 
   /* Get Rate Index */
 

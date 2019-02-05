@@ -143,11 +143,13 @@ VCMEncodedFrame* VCMReceiver::FrameForDecoding(uint16_t max_wait_time_ms,
     return nullptr;
   }
 
-  if (min_playout_delay_ms >= 0)
+  if (min_playout_delay_ms >= 0) {
     timing_->set_min_playout_delay(min_playout_delay_ms);
+  }
 
-  if (max_playout_delay_ms >= 0)
+  if (max_playout_delay_ms >= 0) {
     timing_->set_max_playout_delay(max_playout_delay_ms);
+  }
 
   // We have a frame - Set timing and render timestamp.
   timing_->SetJitterDelay(jitter_buffer_.EstimatedJitterMs());

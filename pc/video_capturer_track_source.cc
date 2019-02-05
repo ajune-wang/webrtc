@@ -58,8 +58,9 @@ MediaSourceInterface::SourceState GetReadyState(cricket::CaptureState state) {
 }
 
 void SetUpperLimit(int new_limit, int* original_limit) {
-  if (*original_limit < 0 || new_limit < *original_limit)
+  if (*original_limit < 0 || new_limit < *original_limit) {
     *original_limit = new_limit;
+  }
 }
 
 // Updates |format_upper_limit| from |constraint|.
@@ -86,13 +87,16 @@ void FromConstraintsForScreencast(
 
   cricket::VideoFormat upper_limit(-1, -1, 0, 0);
   for (ConstraintsIterator constraints_it = constraints.begin();
-       constraints_it != constraints.end(); ++constraints_it)
+       constraints_it != constraints.end(); ++constraints_it) {
     SetUpperLimitFromConstraint(*constraints_it, &upper_limit);
+  }
 
-  if (upper_limit.width >= 0)
+  if (upper_limit.width >= 0) {
     format_out->width = upper_limit.width;
-  if (upper_limit.height >= 0)
+  }
+  if (upper_limit.height >= 0) {
     format_out->height = upper_limit.height;
+  }
 }
 
 // Returns true if |constraint| is fulfilled. |format_out| can differ from
@@ -132,8 +136,9 @@ bool NewFormatWithConstraints(
         value = 1;
       }
     }
-    if (value <= cricket::VideoFormat::IntervalToFps(format_in.interval))
+    if (value <= cricket::VideoFormat::IntervalToFps(format_in.interval)) {
       format_out->interval = cricket::VideoFormat::FpsToInterval(value);
+    }
     return true;
   } else if (constraint.key == MediaConstraintsInterface::kMinAspectRatio) {
     double value = rtc::FromString<double>(constraint.value);
@@ -189,11 +194,13 @@ std::vector<cricket::VideoFormat> FilterFormats(
   std::vector<cricket::VideoFormat> candidates = supported_formats;
 
   for (ConstraintsIterator constraints_it = mandatory.begin();
-       constraints_it != mandatory.end(); ++constraints_it)
+       constraints_it != mandatory.end(); ++constraints_it) {
     FilterFormatsByConstraint(*constraints_it, true, &candidates);
+  }
 
-  if (candidates.size() == 0)
+  if (candidates.size() == 0) {
     return candidates;
+  }
 
   // Ok - all mandatory checked and we still have a candidate.
   // Let's try filtering using the optional constraints.

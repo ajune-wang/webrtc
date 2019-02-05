@@ -25,12 +25,14 @@ constexpr int kMaxSetting = -1;
 
 absl::optional<std::vector<CpuSpeedExperiment::Config>>
 CpuSpeedExperiment::GetConfigs() {
-  if (!webrtc::field_trial::IsEnabled(kFieldTrial))
+  if (!webrtc::field_trial::IsEnabled(kFieldTrial)) {
     return absl::nullopt;
+  }
 
   const std::string group = webrtc::field_trial::FindFullName(kFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return absl::nullopt;
+  }
 
   std::vector<Config> configs(3);
   if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d,%d,%d", &(configs[0].pixels),
@@ -62,8 +64,9 @@ CpuSpeedExperiment::GetConfigs() {
 int CpuSpeedExperiment::GetValue(int pixels,
                                  const std::vector<Config>& configs) {
   for (const auto& config : configs) {
-    if (pixels <= config.pixels)
+    if (pixels <= config.pixels) {
       return config.cpu_speed;
+    }
   }
   return kMinSetting;
 }

@@ -32,7 +32,8 @@ int WebRtcIsac_EncTerminate(Bitstr *streamdata) /* in-/output struct containing 
     if (streamdata->streamval < 0x01000000)
     {
       /* propagate carry */
-      while ( !(++(*--stream_ptr)) );
+      while ( !(++(*--stream_ptr)) ) {;
+}
       /* put pointer back to the old value */
       stream_ptr = streamdata->stream + streamdata->stream_index;
     }
@@ -46,7 +47,8 @@ int WebRtcIsac_EncTerminate(Bitstr *streamdata) /* in-/output struct containing 
     if (streamdata->streamval < 0x00010000)
     {
       /* propagate carry */
-      while ( !(++(*--stream_ptr)) );
+      while ( !(++(*--stream_ptr)) ) {;
+}
       /* put pointer back to the old value */
       stream_ptr = streamdata->stream + streamdata->stream_index;
     }

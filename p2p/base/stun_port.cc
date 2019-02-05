@@ -123,8 +123,9 @@ UDPPort::AddressResolver::~AddressResolver() {
 }
 
 void UDPPort::AddressResolver::Resolve(const rtc::SocketAddress& address) {
-  if (resolvers_.find(address) != resolvers_.end())
+  if (resolvers_.find(address) != resolvers_.end()) {
     return;
+  }
 
   rtc::AsyncResolverInterface* resolver =
       socket_factory_->CreateAsyncResolver();
@@ -142,8 +143,9 @@ bool UDPPort::AddressResolver::GetResolvedAddress(
     int family,
     rtc::SocketAddress* output) const {
   ResolverMap::const_iterator it = resolvers_.find(input);
-  if (it == resolvers_.end())
+  if (it == resolvers_.end()) {
     return false;
+  }
 
   return it->second->GetResolvedAddress(family, output);
 }
@@ -225,8 +227,9 @@ bool UDPPort::Init() {
 }
 
 UDPPort::~UDPPort() {
-  if (!SharedSocket())
+  if (!SharedSocket()) {
     delete socket_;
+  }
 }
 
 void UDPPort::PrepareAddress() {
@@ -567,8 +570,9 @@ bool UDPPort::HasCandidateWithAddress(const rtc::SocketAddress& addr) const {
   const std::vector<Candidate>& existing_candidates = Candidates();
   std::vector<Candidate>::const_iterator it = existing_candidates.begin();
   for (; it != existing_candidates.end(); ++it) {
-    if (it->address() == addr)
+    if (it->address() == addr) {
       return true;
+    }
   }
   return false;
 }

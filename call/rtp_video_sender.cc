@@ -306,20 +306,23 @@ void RtpVideoSender::RegisterProcessThread(
   RTC_DCHECK(!module_process_thread_);
   module_process_thread_ = module_process_thread;
 
-  for (auto& rtp_rtcp : rtp_modules_)
+  for (auto& rtp_rtcp : rtp_modules_) {
     module_process_thread_->RegisterModule(rtp_rtcp.get(), RTC_FROM_HERE);
+  }
 }
 
 void RtpVideoSender::DeRegisterProcessThread() {
   RTC_DCHECK_RUN_ON(&module_process_thread_checker_);
-  for (auto& rtp_rtcp : rtp_modules_)
+  for (auto& rtp_rtcp : rtp_modules_) {
     module_process_thread_->DeRegisterModule(rtp_rtcp.get());
+  }
 }
 
 void RtpVideoSender::SetActive(bool active) {
   rtc::CritScope lock(&crit_);
-  if (active_ == active)
+  if (active_ == active) {
     return;
+  }
   const std::vector<bool> active_modules(rtp_modules_.size(), active);
   SetActiveModules(active_modules);
 }
@@ -352,8 +355,9 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
                                          encoded_image._frameType);
   rtc::CritScope lock(&crit_);
   RTC_DCHECK(!rtp_modules_.empty());
-  if (!active_)
+  if (!active_) {
     return Result(Result::ERROR_SEND_FAILED);
+  }
 
   shared_frame_id_++;
   size_t stream_index = 0;
@@ -391,8 +395,9 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     frame_count_observer_->FrameCountUpdated(counts,
                                              rtp_config_.ssrcs[stream_index]);
   }
-  if (!send_result)
+  if (!send_result) {
     return Result(Result::ERROR_SEND_FAILED);
+  }
 
   return Result(Result::OK, frame_id);
 }
@@ -507,8 +512,9 @@ uint32_t RtpVideoSender::GetPacketizationOverheadRate() const {
 
 void RtpVideoSender::DeliverRtcp(const uint8_t* packet, size_t length) {
   // Runs on a network thread.
-  for (auto& rtp_rtcp : rtp_modules_)
+  for (auto& rtp_rtcp : rtp_modules_) {
     rtp_rtcp->IncomingRtcpPacket(packet, length);
+  }
 }
 
 void RtpVideoSender::ConfigureSsrcs(const RtpConfig& rtp_config) {
@@ -520,13 +526,15 @@ void RtpVideoSender::ConfigureSsrcs(const RtpConfig& rtp_config) {
 
     // Restore RTP state if previous existed.
     auto it = suspended_ssrcs_.find(ssrc);
-    if (it != suspended_ssrcs_.end())
+    if (it != suspended_ssrcs_.end()) {
       rtp_rtcp->SetRtpState(it->second);
+    }
   }
 
   // Set up RTX if available.
-  if (rtp_config.rtx.ssrcs.empty())
+  if (rtp_config.rtx.ssrcs.empty()) {
     return;
+  }
 
   // Configure RTX SSRCs.
   RTC_DCHECK_EQ(rtp_config.rtx.ssrcs.size(), rtp_config.ssrcs.size());
@@ -535,8 +543,9 @@ void RtpVideoSender::ConfigureSsrcs(const RtpConfig& rtp_config) {
     RtpRtcp* const rtp_rtcp = rtp_modules_[i].get();
     rtp_rtcp->SetRtxSsrc(ssrc);
     auto it = suspended_ssrcs_.find(ssrc);
-    if (it != suspended_ssrcs_.end())
+    if (it != suspended_ssrcs_.end()) {
       rtp_rtcp->SetRtxState(it->second);
+    }
   }
 
   // Configure RTX payload types.

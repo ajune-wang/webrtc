@@ -16,8 +16,9 @@ size_t strcpyn(char* buffer,
                size_t buflen,
                const char* source,
                size_t srclen /* = SIZE_UNKNOWN */) {
-  if (buflen <= 0)
+  if (buflen <= 0) {
     return 0;
+  }
 
   if (srclen == SIZE_UNKNOWN) {
     srclen = strlen(source);
@@ -63,8 +64,9 @@ std::string ToHex(const int i) {
 }
 
 std::string LeftPad(char padding, unsigned length, std::string s) {
-  if (s.length() >= length)
+  if (s.length() >= length) {
     return s;
+  }
   return std::string(length - s.length(), padding) + s;
 }
 

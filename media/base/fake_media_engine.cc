@@ -117,14 +117,16 @@ bool FakeVoiceMediaChannel::HasSource(uint32_t ssrc) const {
   return local_sinks_.find(ssrc) != local_sinks_.end();
 }
 bool FakeVoiceMediaChannel::AddRecvStream(const StreamParams& sp) {
-  if (!RtpHelper<VoiceMediaChannel>::AddRecvStream(sp))
+  if (!RtpHelper<VoiceMediaChannel>::AddRecvStream(sp)) {
     return false;
+  }
   output_scalings_[sp.first_ssrc()] = 1.0;
   return true;
 }
 bool FakeVoiceMediaChannel::RemoveRecvStream(uint32_t ssrc) {
-  if (!RtpHelper<VoiceMediaChannel>::RemoveRecvStream(ssrc))
+  if (!RtpHelper<VoiceMediaChannel>::RemoveRecvStream(ssrc)) {
     return false;
+  }
   output_scalings_.erase(ssrc);
   return true;
 }
@@ -158,8 +160,9 @@ bool FakeVoiceMediaChannel::SetOutputVolume(uint32_t ssrc, double volume) {
   return false;
 }
 bool FakeVoiceMediaChannel::GetOutputVolume(uint32_t ssrc, double* volume) {
-  if (output_scalings_.find(ssrc) == output_scalings_.end())
+  if (output_scalings_.find(ssrc) == output_scalings_.end()) {
     return false;
+  }
   *volume = output_scalings_[ssrc];
   return true;
 }
@@ -319,14 +322,16 @@ bool FakeVideoMediaChannel::HasSource(uint32_t ssrc) const {
   return sources_.find(ssrc) != sources_.end() && sources_.at(ssrc) != nullptr;
 }
 bool FakeVideoMediaChannel::AddRecvStream(const StreamParams& sp) {
-  if (!RtpHelper<VideoMediaChannel>::AddRecvStream(sp))
+  if (!RtpHelper<VideoMediaChannel>::AddRecvStream(sp)) {
     return false;
+  }
   sinks_[sp.first_ssrc()] = NULL;
   return true;
 }
 bool FakeVideoMediaChannel::RemoveRecvStream(uint32_t ssrc) {
-  if (!RtpHelper<VideoMediaChannel>::RemoveRecvStream(ssrc))
+  if (!RtpHelper<VideoMediaChannel>::RemoveRecvStream(ssrc)) {
     return false;
+  }
   sinks_.erase(ssrc);
   return true;
 }
@@ -400,13 +405,15 @@ bool FakeDataMediaChannel::SetReceive(bool receive) {
   return true;
 }
 bool FakeDataMediaChannel::AddRecvStream(const StreamParams& sp) {
-  if (!RtpHelper<DataMediaChannel>::AddRecvStream(sp))
+  if (!RtpHelper<DataMediaChannel>::AddRecvStream(sp)) {
     return false;
+  }
   return true;
 }
 bool FakeDataMediaChannel::RemoveRecvStream(uint32_t ssrc) {
-  if (!RtpHelper<DataMediaChannel>::RemoveRecvStream(ssrc))
+  if (!RtpHelper<DataMediaChannel>::RemoveRecvStream(ssrc)) {
     return false;
+  }
   return true;
 }
 bool FakeDataMediaChannel::SendData(const SendDataParams& params,

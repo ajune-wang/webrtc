@@ -61,33 +61,37 @@ RtpHeaderExtensionMap::RtpHeaderExtensionMap() : RtpHeaderExtensionMap(false) {}
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap(bool extmap_allow_mixed)
     : extmap_allow_mixed_(extmap_allow_mixed) {
-  for (auto& id : ids_)
+  for (auto& id : ids_) {
     id = kInvalidId;
+  }
 }
 
 RtpHeaderExtensionMap::RtpHeaderExtensionMap(
     rtc::ArrayView<const RtpExtension> extensions)
     : RtpHeaderExtensionMap(false) {
-  for (const RtpExtension& extension : extensions)
+  for (const RtpExtension& extension : extensions) {
     RegisterByUri(extension.id, extension.uri);
+  }
 }
 
 bool RtpHeaderExtensionMap::RegisterByType(int id, RTPExtensionType type) {
-  for (const ExtensionInfo& extension : kExtensions)
-    if (type == extension.type)
+  for (const ExtensionInfo& extension : kExtensions) {
+    if (type == extension.type) {
       return Register(id, extension.type, extension.uri);
+    }
   RTC_NOTREACHED();
   return false;
-}
+  }
 
 bool RtpHeaderExtensionMap::RegisterByUri(int id, const std::string& uri) {
-  for (const ExtensionInfo& extension : kExtensions)
-    if (uri == extension.uri)
+  for (const ExtensionInfo& extension : kExtensions) {
+    if (uri == extension.uri) {
       return Register(id, extension.type, extension.uri);
+    }
   RTC_LOG(LS_WARNING) << "Unknown extension uri:'" << uri << "', id: " << id
                       << '.';
   return false;
-}
+  }
 
 RTPExtensionType RtpHeaderExtensionMap::GetType(int id) const {
   RTC_DCHECK_GE(id, RtpExtension::kMinId);

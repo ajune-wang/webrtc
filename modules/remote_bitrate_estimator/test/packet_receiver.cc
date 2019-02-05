@@ -99,8 +99,9 @@ void PacketReceiver::RunFor(int64_t time_ms, Packets* in_out) {
 
       bwe_receiver_->ReceivePacket(arrival_time_ms, *media_packet);
       FeedbackPacket* fb = bwe_receiver_->GetFeedback(arrival_time_ms);
-      if (fb)
+      if (fb) {
         feedback.push_back(fb);
+      }
       delete media_packet;
       it = in_out->erase(it);
     } else {

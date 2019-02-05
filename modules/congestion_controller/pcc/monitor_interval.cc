@@ -91,8 +91,9 @@ double PccMonitorInterval::ComputeDelayGradient(
   }
   double rtt_gradient =
       sum_scaled_time_delta_dot_delay / sum_squared_scaled_time_deltas;
-  if (std::abs(rtt_gradient) < delay_gradient_threshold)
+  if (std::abs(rtt_gradient) < delay_gradient_threshold) {
     rtt_gradient = 0;
+  }
   return rtt_gradient;
 }
 
@@ -107,8 +108,9 @@ Timestamp PccMonitorInterval::GetEndTime() const {
 double PccMonitorInterval::GetLossRate() const {
   size_t packets_lost = lost_packets_sent_time_.size();
   size_t packets_received = received_packets_.size();
-  if (packets_lost == 0)
+  if (packets_lost == 0) {
     return 0;
+  }
   return static_cast<double>(packets_lost) / (packets_lost + packets_received);
 }
 

@@ -110,8 +110,9 @@ class AcmReceiverTestOldApi : public AudioPacketizationCallback,
                const uint8_t* payload_data,
                size_t payload_len_bytes,
                const RTPFragmentationHeader* fragmentation) override {
-    if (frame_type == kEmptyFrame)
+    if (frame_type == kEmptyFrame) {
       return 0;
+    }
 
     rtp_header_.header.payloadType = payload_type;
     rtp_header_.frameType = frame_type;

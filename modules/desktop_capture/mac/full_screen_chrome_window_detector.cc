@@ -37,8 +37,9 @@ std::string GetWindowTitle(CGWindowID id) {
     CFStringRef title_ref = reinterpret_cast<CFStringRef>(
         CFDictionaryGetValue(window, kCGWindowName));
 
-    if (title_ref)
+    if (title_ref) {
       rtc::ToUtf8(title_ref, &title);
+    }
   }
   CFRelease(window_id_array);
   CFRelease(window_array);
@@ -59,8 +60,9 @@ int GetWindowOwnerPid(CGWindowID id) {
     CFNumberRef pid_ref = reinterpret_cast<CFNumberRef>(
         CFDictionaryGetValue(window, kCGWindowOwnerPID));
 
-    if (pid_ref)
+    if (pid_ref) {
       CFNumberGetValue(pid_ref, kCFNumberIntType, &pid);
+    }
   }
   CFRelease(window_id_array);
   CFRelease(window_array);
@@ -78,8 +80,9 @@ CGWindowID FindFullScreenWindowWithSamePidAndTitle(CGWindowID id) {
   CFArrayRef window_array = CGWindowListCopyWindowInfo(
       kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements,
       kCGNullWindowID);
-  if (!window_array)
+  if (!window_array) {
     return kCGNullWindowID;
+  }
 
   CGWindowID full_screen_window = kCGNullWindowID;
 
@@ -99,13 +102,15 @@ CGWindowID FindFullScreenWindowWithSamePidAndTitle(CGWindowID id) {
     CFNumberRef window_pid_ref = reinterpret_cast<CFNumberRef>(
         CFDictionaryGetValue(window, kCGWindowOwnerPID));
 
-    if (!window_title_ref || !window_id_ref || !window_pid_ref)
+    if (!window_title_ref || !window_id_ref || !window_pid_ref) {
       continue;
+    }
 
     int window_pid = 0;
     CFNumberGetValue(window_pid_ref, kCFNumberIntType, &window_pid);
-    if (window_pid != pid)
+    if (window_pid != pid) {
       continue;
+    }
 
     std::string window_title;
     if (!rtc::ToUtf8(window_title_ref, &window_title) ||
@@ -129,8 +134,9 @@ bool IsChromeWindow(CGWindowID id) {
   int pid = GetWindowOwnerPid(id);
   char buffer[PROC_PIDPATHINFO_MAXSIZE];
   int path_length = proc_pidpath(pid, buffer, sizeof(buffer));
-  if (path_length <= 0)
+  if (path_length <= 0) {
     return false;
+  }
 
   const char* last_slash = strrchr(buffer, '/');
   std::string name(last_slash ? last_slash + 1 : buffer);
@@ -146,18 +152,21 @@ FullScreenChromeWindowDetector::~FullScreenChromeWindowDetector() {}
 
 CGWindowID FullScreenChromeWindowDetector::FindFullScreenWindow(
     CGWindowID original_window) {
-  if (!IsChromeWindow(original_window) || IsWindowOnScreen(original_window))
+  if (!IsChromeWindow(original_window) || IsWindowOnScreen(original_window)) {
     return kCGNullWindowID;
+  }
 
   CGWindowID full_screen_window_id =
       FindFullScreenWindowWithSamePidAndTitle(original_window);
 
-  if (full_screen_window_id == kCGNullWindowID)
+  if (full_screen_window_id == kCGNullWindowID) {
     return kCGNullWindowID;
+  }
 
   for (const auto& window : previous_window_list_) {
-    if (static_cast<CGWindowID>(window.id) != full_screen_window_id)
+    if (static_cast<CGWindowID>(window.id) != full_screen_window_id) {
       continue;
+    }
 
     RTC_LOG(LS_WARNING) << "The full-screen window exists in the list.";
     return kCGNullWindowID;

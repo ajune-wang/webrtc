@@ -228,8 +228,9 @@ TEST_F(AudioEncoderCopyRedTest, CheckPayloads) {
 
   for (int j = 0; j < 5; ++j) {
     // Increment all values of the payload by 10.
-    for (size_t i = 0; i < kPayloadLenBytes; ++i)
+    for (size_t i = 0; i < kPayloadLenBytes; ++i) {
       payload[i] += 10;
+    }
 
     Encode();
     ASSERT_EQ(2u, encoded_info_.redundant.size());

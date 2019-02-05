@@ -31,8 +31,9 @@ AudioEncoder::CodecType AudioEncoderPcm16B::GetCodecType() const {
 
 bool AudioEncoderPcm16B::Config::IsOk() const {
   if ((sample_rate_hz != 8000) && (sample_rate_hz != 16000) &&
-      (sample_rate_hz != 32000) && (sample_rate_hz != 48000))
+      (sample_rate_hz != 32000) && (sample_rate_hz != 48000)) {
     return false;
+  }
   return AudioEncoderPcm::Config::IsOk();
 }
 

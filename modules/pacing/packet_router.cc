@@ -151,8 +151,9 @@ size_t PacketRouter::TimeToSendPadding(size_t bytes_to_send,
       size_t bytes_sent = module->TimeToSendPadding(
           bytes_to_send - total_bytes_sent, pacing_info);
       total_bytes_sent += bytes_sent;
-      if (total_bytes_sent >= bytes_to_send)
+      if (total_bytes_sent >= bytes_to_send) {
         break;
+      }
     }
   }
   return total_bytes_sent;

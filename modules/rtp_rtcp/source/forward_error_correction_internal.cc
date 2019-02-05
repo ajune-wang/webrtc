@@ -419,8 +419,9 @@ rtc::ArrayView<const uint8_t> LookUpInFecTable(const uint8_t* table,
 
   // Hop over un-interesting array entries.
   for (int i = 0; i < media_packet_index; ++i) {
-    if (i == 16)
+    if (i == 16) {
       entry_size_increment = 6;
+    }
     uint8_t count = entry[0];
     ++entry;  // skip over the count.
     for (int j = 0; j < count; ++j) {
@@ -428,8 +429,9 @@ rtc::ArrayView<const uint8_t> LookUpInFecTable(const uint8_t* table,
     }
   }
 
-  if (media_packet_index == 16)
+  if (media_packet_index == 16) {
     entry_size_increment = 6;
+  }
 
   RTC_DCHECK_LT(fec_index, entry[0]);
   ++entry;  // Skip over the size.
@@ -437,8 +439,9 @@ rtc::ArrayView<const uint8_t> LookUpInFecTable(const uint8_t* table,
   // Find the appropriate data in the second dimension.
 
   // Find the specific data we're looking for.
-  for (int i = 0; i < fec_index; ++i)
+  for (int i = 0; i < fec_index; ++i) {
     entry += entry_size_increment * (i + 1);  // skip over the data.
+  }
 
   size_t size = entry_size_increment * (fec_index + 1);
   return {&entry[0], size};

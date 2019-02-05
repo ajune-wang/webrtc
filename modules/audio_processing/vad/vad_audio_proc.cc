@@ -125,8 +125,9 @@ void VadAudioProc::SubframeCorrelation(double* corr,
   double windowed_audio[kNumSubframeSamples + kNumPastSignalSamples];
   size_t buffer_index = subframe_index * kNumSubframeSamples;
 
-  for (size_t n = 0; n < kNumSubframeSamples + kNumPastSignalSamples; n++)
+  for (size_t n = 0; n < kNumSubframeSamples + kNumPastSignalSamples; n++) {
     windowed_audio[n] = audio_buffer_[buffer_index++] * kLpcAnalWin[n];
+  }
 
   WebRtcIsac_AutoCorr(corr, windowed_audio,
                       kNumSubframeSamples + kNumPastSignalSamples, kLpcOrder);
@@ -266,8 +267,9 @@ void VadAudioProc::Rms(double* rms, size_t length_rms) {
   size_t offset = kNumPastSignalSamples;
   for (size_t i = 0; i < kNum10msSubframes; i++) {
     rms[i] = 0;
-    for (size_t n = 0; n < kNumSubframeSamples; n++, offset++)
+    for (size_t n = 0; n < kNumSubframeSamples; n++, offset++) {
       rms[i] += audio_buffer_[offset] * audio_buffer_[offset];
+    }
     rms[i] = sqrt(rms[i] / kNumSubframeSamples);
   }
 }

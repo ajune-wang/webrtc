@@ -54,11 +54,13 @@ DataTransferTracker::Result DataTransferTracker::GetRatesByAckTime(
   // Sample at end time or first sample after end time-
   const Sample* window_end = nullptr;
   // To handle the case when the first sample is after covered_start.
-  if (samples_.front().ack_time < including_end)
+  if (samples_.front().ack_time < including_end) {
     window_begin = &samples_.front();
+  }
   // To handle the case when the last sample is before including_end.
-  if (samples_.back().ack_time > covered_start)
+  if (samples_.back().ack_time > covered_start) {
     window_end = &samples_.back();
+  }
   for (const auto& sample : samples_) {
     if (sample.ack_time < covered_start) {
       window_begin = &sample;

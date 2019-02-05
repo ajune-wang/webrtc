@@ -92,8 +92,9 @@ int main(int argc, char* argv[]) {
     // Process frame.
     const auto read_samples =
         wav_reader.ReadSamples(audio_frame_length, samples.data());
-    if (read_samples < audio_frame_length)
+    if (read_samples < audio_frame_length) {
       break;  // EOF.
+    }
 
     // Frame peak level.
     std::transform(samples.begin(), samples.begin() + audio_frame_length,

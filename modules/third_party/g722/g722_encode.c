@@ -49,10 +49,12 @@ static __inline int16_t saturate(int32_t amp)
 
     /* Hopefully this is optimised for the common case - not clipping */
     amp16 = (int16_t) amp;
-    if (amp == amp16)
+    if (amp == amp16) {
         return amp16;
-    if (amp > WEBRTC_INT16_MAX)
+}
+    if (amp > WEBRTC_INT16_MAX) {
         return  WEBRTC_INT16_MAX;
+}
     return  WEBRTC_INT16_MIN;
 }
 /*- End of function --------------------------------------------------------*/
@@ -72,19 +74,22 @@ static void block4(G722EncoderState *s, int band, int d)
     s->band[band].p[0] = saturate(s->band[band].sz + d);
 
     /* Block 4, UPPOL2 */
-    for (i = 0;  i < 3;  i++)
+    for (i = 0;  i < 3;  i++) {
         s->band[band].sg[i] = s->band[band].p[i] >> 15;
+}
     wd1 = saturate(s->band[band].a[1] << 2);
 
     wd2 = (s->band[band].sg[0] == s->band[band].sg[1])  ?  -wd1  :  wd1;
-    if (wd2 > 32767)
+    if (wd2 > 32767) {
         wd2 = 32767;
+}
     wd3 = (wd2 >> 7) + ((s->band[band].sg[0] == s->band[band].sg[2])  ?  128  :  -128);
     wd3 += (s->band[band].a[2]*32512) >> 15;
-    if (wd3 > 12288)
+    if (wd3 > 12288) {
         wd3 = 12288;
-    else if (wd3 < -12288)
+    } else if (wd3 < -12288) {
         wd3 = -12288;
+}
     s->band[band].ap[2] = wd3;
 
     /* Block 4, UPPOL1 */
@@ -95,10 +100,11 @@ static void block4(G722EncoderState *s, int band, int d)
 
     s->band[band].ap[1] = saturate(wd1 + wd2);
     wd3 = saturate(15360 - s->band[band].ap[2]);
-    if (s->band[band].ap[1] > wd3)
+    if (s->band[band].ap[1] > wd3) {
         s->band[band].ap[1] = wd3;
-    else if (s->band[band].ap[1] < -wd3)
+    } else if (s->band[band].ap[1] < -wd3) {
         s->band[band].ap[1] = -wd3;
+}
 
     /* Block 4, UPZERO */
     wd1 = (d == 0)  ?  0  :  128;
@@ -151,22 +157,26 @@ G722EncoderState* WebRtc_g722_encode_init(G722EncoderState* s,
                                           int options) {
     if (s == NULL)
     {
-        if ((s = (G722EncoderState *) malloc(sizeof(*s))) == NULL)
+        if ((s = (G722EncoderState *) malloc(sizeof(*s))) == NULL) {
             return NULL;
+}
     }
     memset(s, 0, sizeof(*s));
-    if (rate == 48000)
+    if (rate == 48000) {
         s->bits_per_sample = 6;
-    else if (rate == 56000)
+    } else if (rate == 56000) {
         s->bits_per_sample = 7;
-    else
+    } else {
         s->bits_per_sample = 8;
-    if ((options & G722_SAMPLE_RATE_8000))
+}
+    if ((options & G722_SAMPLE_RATE_8000)) {
         s->eight_k = TRUE;
-    if ((options & G722_PACKED)  &&  s->bits_per_sample != 8)
+}
+    if ((options & G722_PACKED)  &&  s->bits_per_sample != 8) {
         s->packed = TRUE;
-    else
+    } else {
         s->packed = FALSE;
+}
     s->band[0].det = 32;
     s->band[1].det = 8;
     return s;
@@ -302,8 +312,9 @@ size_t WebRtc_g722_encode(G722EncoderState *s, uint8_t g722_data[],
             {
                 /* Apply the transmit QMF */
                 /* Shuffle the buffer down */
-                for (i = 0;  i < 22;  i++)
+                for (i = 0;  i < 22;  i++) {
                     s->x[i] = s->x[i + 2];
+}
                 s->x[22] = amp[j++];
                 s->x[23] = amp[j++];
 
@@ -340,8 +351,9 @@ size_t WebRtc_g722_encode(G722EncoderState *s, uint8_t g722_data[],
         for (i = 1;  i < 30;  i++)
         {
             wd1 = (q6[i]*s->band[0].det) >> 12;
-            if (wd < wd1)
+            if (wd < wd1) {
                 break;
+}
         }
         ilow = (el < 0)  ?  iln[i]  :  ilp[i];
 
@@ -354,10 +366,11 @@ size_t WebRtc_g722_encode(G722EncoderState *s, uint8_t g722_data[],
         il4 = rl42[ril];
         wd = (s->band[0].nb*127) >> 7;
         s->band[0].nb = wd + wl[il4];
-        if (s->band[0].nb < 0)
+        if (s->band[0].nb < 0) {
             s->band[0].nb = 0;
-        else if (s->band[0].nb > 18432)
+        } else if (s->band[0].nb > 18432) {
             s->band[0].nb = 18432;
+}
 
         /* Block 3L, SCALEL */
         wd1 = (s->band[0].nb >> 6) & 31;
@@ -391,10 +404,11 @@ size_t WebRtc_g722_encode(G722EncoderState *s, uint8_t g722_data[],
             ih2 = rh2[ihigh];
             wd = (s->band[1].nb*127) >> 7;
             s->band[1].nb = wd + wh[ih2];
-            if (s->band[1].nb < 0)
+            if (s->band[1].nb < 0) {
                 s->band[1].nb = 0;
-            else if (s->band[1].nb > 22528)
+            } else if (s->band[1].nb > 22528) {
                 s->band[1].nb = 22528;
+}
 
             /* Block 3H, SCALEH */
             wd1 = (s->band[1].nb >> 6) & 31;

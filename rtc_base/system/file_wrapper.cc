@@ -99,8 +99,9 @@ bool FileWrapper::Write(const void* buf, size_t length) {
 }
 
 bool FileWrapper::Close() {
-  if (file_ == nullptr)
+  if (file_ == nullptr) {
     return true;
+  }
 
   bool success = fclose(file_) == 0;
   file_ = nullptr;

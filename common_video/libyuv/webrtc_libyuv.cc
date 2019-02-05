@@ -62,8 +62,9 @@ static int PrintPlane(const uint8_t* buf,
                       int stride,
                       FILE* file) {
   for (int i = 0; i < height; i++, buf += stride) {
-    if (fwrite(buf, 1, width, file) != static_cast<unsigned int>(width))
+    if (fwrite(buf, 1, width, file) != static_cast<unsigned int>(width)) {
       return -1;
+    }
   }
   return 0;
 }
@@ -97,8 +98,9 @@ int ExtractBuffer(const rtc::scoped_refptr<I420BufferInterface>& input_frame,
                   size_t size,
                   uint8_t* buffer) {
   RTC_DCHECK(buffer);
-  if (!input_frame)
+  if (!input_frame) {
     return -1;
+  }
   int width = input_frame->width();
   int height = input_frame->height();
   size_t length = CalcBufferSize(VideoType::kI420, width, height);
@@ -237,8 +239,9 @@ double I420APSNR(const I420ABufferInterface& ref_buffer,
 
 // Compute PSNR for an I420A frame (all planes)
 double I420APSNR(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
-  if (!ref_frame || !test_frame)
+  if (!ref_frame || !test_frame) {
     return -1;
+  }
   RTC_DCHECK(ref_frame->video_frame_buffer()->type() ==
              VideoFrameBuffer::Type::kI420A);
   RTC_DCHECK(test_frame->video_frame_buffer()->type() ==
@@ -272,8 +275,9 @@ double I420PSNR(const I420BufferInterface& ref_buffer,
 
 // Compute PSNR for an I420 frame (all planes)
 double I420PSNR(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
-  if (!ref_frame || !test_frame)
+  if (!ref_frame || !test_frame) {
     return -1;
+  }
   return I420PSNR(*ref_frame->video_frame_buffer()->ToI420(),
                   *test_frame->video_frame_buffer()->ToI420());
 }
@@ -303,8 +307,9 @@ double I420ASSIM(const I420ABufferInterface& ref_buffer,
 
 // Compute SSIM for an I420A frame (all planes)
 double I420ASSIM(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
-  if (!ref_frame || !test_frame)
+  if (!ref_frame || !test_frame) {
     return -1;
+  }
   RTC_DCHECK(ref_frame->video_frame_buffer()->type() ==
              VideoFrameBuffer::Type::kI420A);
   RTC_DCHECK(test_frame->video_frame_buffer()->type() ==
@@ -334,8 +339,9 @@ double I420SSIM(const I420BufferInterface& ref_buffer,
 }
 
 double I420SSIM(const VideoFrame* ref_frame, const VideoFrame* test_frame) {
-  if (!ref_frame || !test_frame)
+  if (!ref_frame || !test_frame) {
     return -1;
+  }
   return I420SSIM(*ref_frame->video_frame_buffer()->ToI420(),
                   *test_frame->video_frame_buffer()->ToI420());
 }

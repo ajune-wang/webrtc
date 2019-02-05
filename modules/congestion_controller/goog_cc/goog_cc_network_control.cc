@@ -49,12 +49,15 @@ static void ClampBitrates(int64_t* bitrate_bps,
   // TODO(holmer): We should make sure the default bitrates are set to 10 kbps,
   // and that we don't try to set the min bitrate to 0 from any applications.
   // The congestion controller should allow a min bitrate of 0.
-  if (*min_bitrate_bps < congestion_controller::GetMinBitrateBps())
+  if (*min_bitrate_bps < congestion_controller::GetMinBitrateBps()) {
     *min_bitrate_bps = congestion_controller::GetMinBitrateBps();
-  if (*max_bitrate_bps > 0)
+  }
+  if (*max_bitrate_bps > 0) {
     *max_bitrate_bps = std::max(*min_bitrate_bps, *max_bitrate_bps);
-  if (*bitrate_bps > 0)
+  }
+  if (*bitrate_bps > 0) {
     *bitrate_bps = std::max(*min_bitrate_bps, *bitrate_bps);
+  }
 }
 
 std::vector<PacketFeedback> ReceivedPacketsFeedbackAsRtp(
@@ -131,8 +134,9 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
   ParseFieldTrial(
       {&safe_reset_on_route_change_, &safe_reset_acknowledged_rate_},
       key_value_config_->Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
-  if (delay_based_bwe_)
+  if (delay_based_bwe_) {
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
+  }
 }
 
 GoogCcNetworkController::~GoogCcNetworkController() {}
@@ -157,8 +161,9 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
     absl::optional<uint32_t> estimated_bitrate_bps;
     if (safe_reset_acknowledged_rate_) {
       estimated_bitrate_bps = acknowledged_bitrate_estimator_->bitrate_bps();
-      if (!estimated_bitrate_bps)
+      if (!estimated_bitrate_bps) {
         estimated_bitrate_bps = acknowledged_bitrate_estimator_->PeekBps();
+      }
     } else {
       int32_t target_bitrate_bps;
       uint8_t fraction_loss;
@@ -179,8 +184,9 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
 
     delay_based_bwe_.reset(new DelayBasedBwe(key_value_config_, event_log_));
-    if (msg.constraints.starting_rate)
+    if (msg.constraints.starting_rate) {
       delay_based_bwe_->SetStartBitrate(*msg.constraints.starting_rate);
+    }
     // TODO(srte): Use original values instead of converted.
     delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps));
 
@@ -255,11 +261,13 @@ NetworkControlUpdate GoogCcNetworkController::OnRemoteBitrateReport(
 
 NetworkControlUpdate GoogCcNetworkController::OnRoundTripTimeUpdate(
     RoundTripTimeUpdate msg) {
-  if (packet_feedback_only_)
+  if (packet_feedback_only_) {
     return NetworkControlUpdate();
+  }
   if (msg.smoothed) {
-    if (delay_based_bwe_)
+    if (delay_based_bwe_) {
       delay_based_bwe_->OnRttUpdate(msg.round_trip_time);
+    }
   } else {
     bandwidth_estimation_->UpdateRtt(msg.round_trip_time, msg.receive_time);
   }
@@ -319,8 +327,9 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     pacing_changed = true;
   }
 
-  if (pacing_changed)
+  if (pacing_changed) {
     update.pacer_config = GetPacingRates(msg.at_time);
+  }
   return update;
 }
 
@@ -351,16 +360,18 @@ GoogCcNetworkController::UpdateBitrateConstraints(
       starting_rate, DataRate::bps(min_bitrate_bps),
       constraints.max_data_rate.value_or(DataRate::Infinity()),
       constraints.at_time);
-    if (starting_rate)
-      delay_based_bwe_->SetStartBitrate(*starting_rate);
+  if (starting_rate) {
+    delay_based_bwe_->SetStartBitrate(*starting_rate);
+  }
     delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps));
   return probes;
 }
 
 NetworkControlUpdate GoogCcNetworkController::OnTransportLossReport(
     TransportLossReport msg) {
-  if (packet_feedback_only_)
+  if (packet_feedback_only_) {
     return NetworkControlUpdate();
+  }
   int64_t total_packets_delta =
       msg.packets_received_delta + msg.packets_lost_delta;
   bandwidth_estimation_->UpdatePacketsLost(
@@ -385,8 +396,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   Timestamp max_recv_time = Timestamp::MinusInfinity();
 
   std::vector<PacketResult> feedbacks = report.ReceivedWithSendInfo();
-  for (const auto& feedback : feedbacks)
+  for (const auto& feedback : feedbacks) {
     max_recv_time = std::max(max_recv_time, feedback.receive_time);
+  }
 
   for (const auto& feedback : feedbacks) {
     TimeDelta feedback_rtt =
@@ -400,8 +412,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   if (max_feedback_rtt.IsFinite()) {
     feedback_max_rtts_.push_back(max_feedback_rtt.ms());
     const size_t kMaxFeedbackRttWindow = 32;
-    if (feedback_max_rtts_.size() > kMaxFeedbackRttWindow)
+    if (feedback_max_rtts_.size() > kMaxFeedbackRttWindow) {
       feedback_max_rtts_.pop_front();
+    }
     // TODO(srte): Use time since last unacknowledged packet.
     bandwidth_estimation_->UpdatePropagationRtt(report.feedback_time,
                                                 min_propagation_rtt);
@@ -411,8 +424,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
       int64_t sum_rtt_ms = std::accumulate(feedback_max_rtts_.begin(),
                                            feedback_max_rtts_.end(), 0);
       int64_t mean_rtt_ms = sum_rtt_ms / feedback_max_rtts_.size();
-      if (delay_based_bwe_)
+      if (delay_based_bwe_) {
         delay_based_bwe_->OnRttUpdate(TimeDelta::ms(mean_rtt_ms));
+      }
     }
 
     TimeDelta feedback_min_rtt = TimeDelta::PlusInfinity();
@@ -430,8 +444,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     expected_packets_since_last_loss_update_ +=
         report.PacketsWithFeedback().size();
     for (const auto& packet_feedback : report.PacketsWithFeedback()) {
-      if (packet_feedback.receive_time.IsInfinite())
+      if (packet_feedback.receive_time.IsInfinite()) {
         lost_packets_since_last_loss_update_ += 1;
+      }
     }
     if (report.feedback_time > next_loss_update_) {
       next_loss_update_ = report.feedback_time + kLossUpdateInterval;
@@ -466,8 +481,9 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
 
   absl::optional<DataRate> probe_bitrate =
       probe_bitrate_estimator_->FetchAndResetLastEstimatedBitrate();
-  if (fall_back_to_probe_rate_ && !acknowledged_bitrate)
+  if (fall_back_to_probe_rate_ && !acknowledged_bitrate) {
     acknowledged_bitrate = probe_bitrate_estimator_->last_estimate();
+  }
   bandwidth_estimation_->SetAcknowledgedRate(acknowledged_bitrate,
                                              report.feedback_time);
   bandwidth_estimation_->IncomingPacketFeedbackVector(report);

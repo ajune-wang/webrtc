@@ -53,18 +53,24 @@ AudioEncoderOpusConfig& AudioEncoderOpusConfig::operator=(
     const AudioEncoderOpusConfig&) = default;
 
 bool AudioEncoderOpusConfig::IsOk() const {
-  if (frame_size_ms <= 0 || frame_size_ms % 10 != 0)
+  if (frame_size_ms <= 0 || frame_size_ms % 10 != 0) {
     return false;
-  if (num_channels != 1 && num_channels != 2)
+  }
+  if (num_channels != 1 && num_channels != 2) {
     return false;
-  if (!bitrate_bps)
+  }
+  if (!bitrate_bps) {
     return false;
-  if (*bitrate_bps < kMinBitrateBps || *bitrate_bps > kMaxBitrateBps)
+  }
+  if (*bitrate_bps < kMinBitrateBps || *bitrate_bps > kMaxBitrateBps) {
     return false;
-  if (complexity < 0 || complexity > 10)
+  }
+  if (complexity < 0 || complexity > 10) {
     return false;
-  if (low_rate_complexity < 0 || low_rate_complexity > 10)
+  }
+  if (low_rate_complexity < 0 || low_rate_complexity > 10) {
     return false;
+  }
   return true;
 }
 }  // namespace webrtc

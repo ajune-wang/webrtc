@@ -28,8 +28,9 @@ TEST(StandaloneVadTest, Api) {
 
   const size_t kMaxNumFrames = 3;
   double p[kMaxNumFrames];
-  for (size_t n = 0; n < kMaxNumFrames; n++)
+  for (size_t n = 0; n < kMaxNumFrames; n++) {
     EXPECT_EQ(0, vad->AddAudio(data, kLength10Ms));
+  }
 
   // Pretend |p| is shorter that it should be.
   EXPECT_EQ(-1, vad->GetActivity(p, kMaxNumFrames - 1));
@@ -40,8 +41,9 @@ TEST(StandaloneVadTest, Api) {
   EXPECT_EQ(-1, vad->GetActivity(p, kMaxNumFrames));
 
   // Should reset and result in one buffer.
-  for (size_t n = 0; n < kMaxNumFrames + 1; n++)
+  for (size_t n = 0; n < kMaxNumFrames + 1; n++) {
     EXPECT_EQ(0, vad->AddAudio(data, kLength10Ms));
+  }
   EXPECT_EQ(0, vad->GetActivity(p, 1));
 
   // Wrong modes
@@ -92,12 +94,14 @@ TEST(StandaloneVadTest, ActivityDetection) {
       EXPECT_EQ(referece_activity, activity);
       if (activity != 0) {
         // When active, probabilities are set to 0.5.
-        for (int n = 0; n < kNumVadFramesToProcess; n++)
+        for (int n = 0; n < kNumVadFramesToProcess; n++) {
           EXPECT_EQ(0.5, p[n]);
+        }
       } else {
         // When inactive, probabilities are set to 0.01.
-        for (int n = 0; n < kNumVadFramesToProcess; n++)
+        for (int n = 0; n < kNumVadFramesToProcess; n++) {
           EXPECT_EQ(0.01, p[n]);
+        }
       }
     }
   }

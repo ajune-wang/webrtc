@@ -42,8 +42,9 @@ inline bool TooManyFailures(
     int rtt_estimate,
     int64_t now) {
   // If we haven't sent that many pings, then we can't have failed that many.
-  if (pings_since_last_response.size() < maximum_failures)
+  if (pings_since_last_response.size() < maximum_failures) {
     return false;
+  }
 
   // Check if the window in which we would expect a response to the ping has
   // already elapsed.
@@ -57,8 +58,9 @@ inline bool TooLongWithoutResponse(
     const std::vector<cricket::Connection::SentPing>& pings_since_last_response,
     int64_t maximum_time,
     int64_t now) {
-  if (pings_since_last_response.size() == 0)
+  if (pings_since_last_response.size() == 0) {
     return false;
+  }
 
   auto first = pings_since_last_response[0];
   return now > (first.sent_time + maximum_time);
@@ -331,8 +333,9 @@ Port::~Port() {
     ++iter;
   }
 
-  for (uint32_t i = 0; i < list.size(); i++)
+  for (uint32_t i = 0; i < list.size(); i++) {
     delete list[i];
+  }
 }
 
 const std::string& Port::Type() const {
@@ -380,10 +383,11 @@ const std::vector<Candidate>& Port::Candidates() const {
 
 Connection* Port::GetConnection(const rtc::SocketAddress& remote_addr) {
   AddressMap::const_iterator iter = connections_.find(remote_addr);
-  if (iter != connections_.end())
+  if (iter != connections_.end()) {
     return iter->second;
-  else
+  } else {
     return NULL;
+  }
 }
 
 void Port::AddAddress(const rtc::SocketAddress& address,
@@ -697,8 +701,9 @@ bool Port::ParseStunUsername(const StunMessage* stun_msg,
   remote_ufrag->clear();
   const StunByteStringAttribute* username_attr =
       stun_msg->GetByteString(STUN_ATTR_USERNAME);
-  if (username_attr == NULL)
+  if (username_attr == NULL) {
     return false;
+  }
 
   // RFRAG:LFRAG
   const std::string username = username_attr->GetString();
@@ -882,8 +887,9 @@ void Port::SendBindingErrorResponse(StunMessage* request,
   // Per Section 10.1.2, certain error cases don't get a MESSAGE-INTEGRITY,
   // because we don't have enough information to determine the shared secret.
   if (error_code != STUN_ERROR_BAD_REQUEST &&
-      error_code != STUN_ERROR_UNAUTHORIZED)
+      error_code != STUN_ERROR_UNAUTHORIZED) {
     response.AddMessageIntegrity(password_);
+  }
   response.AddFingerprint();
 
   // Send the response message.

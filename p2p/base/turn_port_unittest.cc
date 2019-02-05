@@ -169,8 +169,9 @@ class TurnPortTest : public testing::Test,
 
   virtual void OnMessage(rtc::Message* msg) {
     RTC_CHECK(msg->message_id == MSG_TESTFINISH);
-    if (msg->message_id == MSG_TESTFINISH)
+    if (msg->message_id == MSG_TESTFINISH) {
       test_finish_ = true;
+    }
   }
 
   void OnTurnPortComplete(Port* port) { turn_ready_ = true; }

@@ -48,31 +48,38 @@ std::string FlexfecReceiveStream::Config::ToString() const {
   ss << ", local_ssrc: " << local_ssrc;
   ss << ", protected_media_ssrcs: [";
   size_t i = 0;
-  for (; i + 1 < protected_media_ssrcs.size(); ++i)
+  for (; i + 1 < protected_media_ssrcs.size(); ++i) {
     ss << protected_media_ssrcs[i] << ", ";
-  if (!protected_media_ssrcs.empty())
+  }
+  if (!protected_media_ssrcs.empty()) {
     ss << protected_media_ssrcs[i];
+  }
   ss << "], transport_cc: " << (transport_cc ? "on" : "off");
   ss << ", rtp_header_extensions: [";
   i = 0;
-  for (; i + 1 < rtp_header_extensions.size(); ++i)
+  for (; i + 1 < rtp_header_extensions.size(); ++i) {
     ss << rtp_header_extensions[i].ToString() << ", ";
-  if (!rtp_header_extensions.empty())
+  }
+  if (!rtp_header_extensions.empty()) {
     ss << rtp_header_extensions[i].ToString();
+  }
   ss << "]}";
   return ss.str();
 }
 
 bool FlexfecReceiveStream::Config::IsCompleteAndEnabled() const {
   // Check if FlexFEC is enabled.
-  if (payload_type < 0)
+  if (payload_type < 0) {
     return false;
+  }
   // Do we have the necessary SSRC information?
-  if (remote_ssrc == 0)
+  if (remote_ssrc == 0) {
     return false;
+  }
   // TODO(brandtr): Update this check when we support multistream protection.
-  if (protected_media_ssrcs.size() != 1u)
+  if (protected_media_ssrcs.size() != 1u) {
     return false;
+  }
   return true;
 }
 
@@ -176,8 +183,9 @@ FlexfecReceiveStreamImpl::~FlexfecReceiveStreamImpl() {
 }
 
 void FlexfecReceiveStreamImpl::OnRtpPacket(const RtpPacketReceived& packet) {
-  if (!receiver_)
+  if (!receiver_) {
     return;
+  }
 
   receiver_->OnRtpPacket(packet);
 

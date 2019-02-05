@@ -25,8 +25,9 @@ bool EqualPlane(const uint8_t* data1,
                 int width,
                 int height) {
   for (int y = 0; y < height; ++y) {
-    if (memcmp(data1, data2, width) != 0)
+    if (memcmp(data1, data2, width) != 0) {
       return false;
+    }
     data1 += stride1;
     data2 += stride2;
   }
@@ -77,12 +78,15 @@ rtc::scoped_refptr<I420Buffer> ReadI420Buffer(int width, int height, FILE* f) {
   size_t size_y = static_cast<size_t>(width) * height;
   size_t size_uv = static_cast<size_t>(half_width) * ((height + 1) / 2);
 
-  if (fread(buffer->MutableDataY(), 1, size_y, f) < size_y)
+  if (fread(buffer->MutableDataY(), 1, size_y, f) < size_y) {
     return nullptr;
-  if (fread(buffer->MutableDataU(), 1, size_uv, f) < size_uv)
+  }
+  if (fread(buffer->MutableDataU(), 1, size_uv, f) < size_uv) {
     return nullptr;
-  if (fread(buffer->MutableDataV(), 1, size_uv, f) < size_uv)
+  }
+  if (fread(buffer->MutableDataV(), 1, size_uv, f) < size_uv) {
     return nullptr;
+  }
   return buffer;
 }
 

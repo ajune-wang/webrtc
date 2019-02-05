@@ -59,13 +59,15 @@ const char kForcedFallbackFieldTrial[] =
     "WebRTC-VP8-Forced-Fallback-Encoder-v2";
 
 absl::optional<int> GetFallbackMinBpsFromFieldTrial() {
-  if (!webrtc::field_trial::IsEnabled(kForcedFallbackFieldTrial))
+  if (!webrtc::field_trial::IsEnabled(kForcedFallbackFieldTrial)) {
     return absl::nullopt;
+  }
 
   std::string group =
       webrtc::field_trial::FindFullName(kForcedFallbackFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return absl::nullopt;
+  }
 
   int min_pixels;
   int max_pixels;
@@ -75,8 +77,9 @@ absl::optional<int> GetFallbackMinBpsFromFieldTrial() {
     return absl::nullopt;
   }
 
-  if (min_bps <= 0)
+  if (min_bps <= 0) {
     return absl::nullopt;
+  }
 
   return min_bps;
 }
@@ -98,8 +101,9 @@ int CalculateMaxPadBitrateBps(const std::vector<VideoStream>& streams,
   // Filter out only the active streams;
   std::vector<VideoStream> active_streams;
   for (const VideoStream& stream : streams) {
-    if (stream.active)
+    if (stream.active) {
       active_streams.emplace_back(stream);
+    }
   }
 
   if (active_streams.size() > 1) {
@@ -376,8 +380,9 @@ void VideoSendStreamImpl::UpdateActiveSimulcastLayers(
 void VideoSendStreamImpl::Start() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
-  if (rtp_video_sender_->IsActive())
+  if (rtp_video_sender_->IsActive()) {
     return;
+  }
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Start");
   rtp_video_sender_->SetActive(true);
   StartupVideoSendStream();
@@ -421,8 +426,9 @@ void VideoSendStreamImpl::StartupVideoSendStream() {
 void VideoSendStreamImpl::Stop() {
   RTC_DCHECK_RUN_ON(worker_queue_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Stop";
-  if (!rtp_video_sender_->IsActive())
+  if (!rtp_video_sender_->IsActive()) {
     return;
+  }
   TRACE_EVENT_INSTANT0("webrtc", "VideoSendStream::Stop");
   rtp_video_sender_->SetActive(false);
   StopVideoSendStream();
@@ -451,8 +457,9 @@ void VideoSendStreamImpl::OnBitrateAllocationUpdated(
   if (!worker_queue_->IsCurrent()) {
     auto ptr = weak_ptr_;
     worker_queue_->PostTask([=] {
-      if (!ptr.get())
+      if (!ptr.get()) {
         return;
+      }
       ptr->OnBitrateAllocationUpdated(allocation);
     });
     return;

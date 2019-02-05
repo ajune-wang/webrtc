@@ -64,14 +64,16 @@ bool Dlrr::Parse(const uint8_t* buffer, uint16_t block_length_32bits) {
 }
 
 size_t Dlrr::BlockLength() const {
-  if (sub_blocks_.empty())
+  if (sub_blocks_.empty()) {
     return 0;
+  }
   return kBlockHeaderLength + kSubBlockLength * sub_blocks_.size();
 }
 
 void Dlrr::Create(uint8_t* buffer) const {
-  if (sub_blocks_.empty())  // No subblocks, no need to write header either.
+  if (sub_blocks_.empty()) {  // No subblocks, no need to write header either.
     return;
+  }
   // Create block header.
   const uint8_t kReserved = 0;
   buffer[0] = kBlockType;

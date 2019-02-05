@@ -25,8 +25,9 @@ template <typename T>
 T fdiv_remainder(T x, T n) {
   RTC_CHECK_GE(n, 0);
   T remainder = x % n;
-  if (remainder < 0)
+  if (remainder < 0) {
     remainder += n;
+  }
   return remainder;
 }
 }  // namespace

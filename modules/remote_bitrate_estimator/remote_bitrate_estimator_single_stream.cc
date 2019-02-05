@@ -85,8 +85,9 @@ void RemoteBitrateEstimatorSingleStream::IncomingPacket(
     const RTPHeader& header) {
   if (!uma_recorded_) {
     BweNames type = BweNames::kReceiverTOffset;
-    if (!header.extension.hasTransmissionTimeOffset)
+    if (!header.extension.hasTransmissionTimeOffset) {
       type = BweNames::kReceiverNoExtension;
+    }
     RTC_HISTOGRAM_ENUMERATION(kBweTypeHistogram, type, BweNames::kBweNamesMax);
     uma_recorded_ = true;
   }
@@ -207,8 +208,9 @@ void RemoteBitrateEstimatorSingleStream::UpdateEstimate(int64_t now_ms) {
     RTC_DCHECK_GT(process_interval_ms_, 0);
     std::vector<uint32_t> ssrcs;
     GetSsrcs(&ssrcs);
-    if (observer_)
+    if (observer_) {
       observer_->OnReceiveBitrateChanged(ssrcs, target_bitrate);
+    }
   }
 }
 
@@ -236,10 +238,11 @@ bool RemoteBitrateEstimatorSingleStream::LatestEstimate(
     return false;
   }
   GetSsrcs(ssrcs);
-  if (ssrcs->empty())
+  if (ssrcs->empty()) {
     *bitrate_bps = 0;
-  else
+  } else {
     *bitrate_bps = remote_rate_->LatestEstimate().bps<uint32_t>();
+  }
   return true;
 }
 
@@ -255,8 +258,9 @@ void RemoteBitrateEstimatorSingleStream::GetSsrcs(
 }
 
 AimdRateControl* RemoteBitrateEstimatorSingleStream::GetRemoteRate() {
-  if (!remote_rate_)
+  if (!remote_rate_) {
     remote_rate_.reset(new AimdRateControl());
+  }
   return remote_rate_.get();
 }
 

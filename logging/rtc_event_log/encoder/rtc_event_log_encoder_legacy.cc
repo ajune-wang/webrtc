@@ -388,21 +388,26 @@ std::string RtcEventLogEncoderLegacy::EncodeAudioNetworkAdaptation(
 
   auto* audio_network_adaptation =
       rtclog_event.mutable_audio_network_adaptation();
-  if (event.config().bitrate_bps)
+  if (event.config().bitrate_bps) {
     audio_network_adaptation->set_bitrate_bps(*event.config().bitrate_bps);
-  if (event.config().frame_length_ms)
+  }
+  if (event.config().frame_length_ms) {
     audio_network_adaptation->set_frame_length_ms(
         *event.config().frame_length_ms);
+  }
   if (event.config().uplink_packet_loss_fraction) {
     audio_network_adaptation->set_uplink_packet_loss_fraction(
         *event.config().uplink_packet_loss_fraction);
   }
-  if (event.config().enable_fec)
+  if (event.config().enable_fec) {
     audio_network_adaptation->set_enable_fec(*event.config().enable_fec);
-  if (event.config().enable_dtx)
+  }
+  if (event.config().enable_dtx) {
     audio_network_adaptation->set_enable_dtx(*event.config().enable_dtx);
-  if (event.config().num_channels)
+  }
+  if (event.config().num_channels) {
     audio_network_adaptation->set_num_channels(*event.config().num_channels);
+  }
 
   return Serialize(&rtclog_event);
 }

@@ -144,8 +144,9 @@ std::string PerfResultsLogger::ToJSON() const {
   rtc::CritScope lock(&crit_);
   for (auto graphs_it = graphs_.begin(); graphs_it != graphs_.end();
        ++graphs_it) {
-    if (graphs_it != graphs_.begin())
+    if (graphs_it != graphs_.begin()) {
       json_stream << ',';
+    }
     json_stream << '"' << graphs_it->first << "\":";
     json_stream << '{';
     OutputListToStream(&json_stream, graphs_it->second);

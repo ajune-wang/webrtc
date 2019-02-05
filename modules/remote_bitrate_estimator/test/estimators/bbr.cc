@@ -173,8 +173,9 @@ void BbrBweSender::HandleLoss(uint64_t last_acked_packet,
 
 void BbrBweSender::AddToPastRtts(int64_t rtt_sample_ms) {
   uint64_t last_round = 0;
-  if (!past_rtts_.empty())
+  if (!past_rtts_.empty()) {
     last_round = past_rtts_.back().round;
+  }
 
   // Try to add the sample to the last round.
   if (last_round == round_count_ && !past_rtts_.empty()) {
@@ -183,8 +184,9 @@ void BbrBweSender::AddToPastRtts(int64_t rtt_sample_ms) {
   } else {
     // If the sample belongs to a new round, keep number of rounds in the window
     // equal to |kPastRttsFilterSize|.
-    if (past_rtts_.size() == kPastRttsFilterSize)
+    if (past_rtts_.size() == kPastRttsFilterSize) {
       past_rtts_.pop_front();
+    }
     past_rtts_.push_back(
         BbrBweSender::AverageRtt(rtt_sample_ms, 1, round_count_));
   }
@@ -229,8 +231,9 @@ void BbrBweSender::GiveFeedback(const FeedbackPacket& feedback) {
     // Logic for wrapping sequence numbers. If round started with packet number
     // x, it can never end on y, if x > y. That could happen when sequence
     // numbers are wrapped after some point.
-    if (packet->sequence_number == 0)
+    if (packet->sequence_number == 0) {
       round_trip_end_ = 0;
+    }
   }
   // Check if new round started for the connection.
   bool new_round_started = false;
@@ -267,35 +270,41 @@ void BbrBweSender::GiveFeedback(const FeedbackPacket& feedback) {
   }
   TryEnteringRecovery(new_round_started);  // Comment this line to disable
                                            // entering Recovery mode.
-  for (uint16_t f : feedback_vector)
+  for (uint16_t f : feedback_vector) {
     AddToPastRtts(packet_stats_[f].ack_time_ms - packet_stats_[f].send_time_ms);
+  }
   CalculatePacingRate();
   size_t cwnd = congestion_window_->GetCongestionWindow(
       mode_, max_bandwidth_filter_->max_bandwidth_estimate_bps(),
       min_rtt_filter_->min_rtt_ms(), congestion_window_gain_);
   // Make sure we don't get stuck when pacing_rate is 0, because of simulation
   // tool specifics.
-  if (!pacing_rate_bps_)
+  if (!pacing_rate_bps_) {
     pacing_rate_bps_ = 100;
+  }
   BWE_TEST_LOGGING_PLOT(1, "SendRate", now_ms, pacing_rate_bps_ / 1000);
   int64_t rate_for_pacer_bps = pacing_rate_bps_;
   int64_t rate_for_encoder_bps = pacing_rate_bps_;
-  if (congestion_window_->data_inflight() >= cwnd * kCongestionWindowThreshold)
+  if (congestion_window_->data_inflight() >=
+      cwnd * kCongestionWindowThreshold) {
     rate_for_encoder_bps = 0;
+  }
   // We dont completely stop sending during PROBE_RTT, so we need encoder to
   // produce something, another way of doing this would be telling encoder to
   // stop and send padding instead of actual data.
-  if (mode_ == PROBE_RTT)
+  if (mode_ == PROBE_RTT) {
     rate_for_encoder_bps = rate_for_pacer_bps * kEncoderRateGainForProbeRtt;
+  }
   // Send for 300 kbps for first 200 ms, so that BBR has data to work with.
-  if (now_ms <= kDefaultDurationMs)
+  if (now_ms <= kDefaultDurationMs) {
     observer_->OnNetworkChanged(
         kDefaultRatebps, kDefaultRatebps, false,
         clock_->TimeInMicroseconds() + kFeedbackIntervalsMs * 1000, cwnd);
-  else
+  } else {
     observer_->OnNetworkChanged(
         rate_for_encoder_bps, rate_for_pacer_bps, mode_ == PROBE_RTT,
         clock_->TimeInMicroseconds() + kFeedbackIntervalsMs * 1000, cwnd);
+  }
 }
 
 size_t BbrBweSender::TargetCongestionWindow(float gain) {
@@ -312,23 +321,28 @@ absl::optional<int64_t> BbrBweSender::CalculateBandwidthSample(
     size_t data_acked_bytes,
     int64_t ack_time_delta_ms) {
   absl::optional<int64_t> bandwidth_sample;
-  if (send_time_delta_ms > 0)
+  if (send_time_delta_ms > 0) {
     bandwidth_sample.emplace(data_sent_bytes * 8000 / send_time_delta_ms);
+  }
   absl::optional<int64_t> ack_rate;
-  if (ack_time_delta_ms > 0)
+  if (ack_time_delta_ms > 0) {
     ack_rate.emplace(data_acked_bytes * 8000 / ack_time_delta_ms);
+  }
   // If send rate couldn't be calculated automaticaly set |bandwidth_sample| to
   // ack_rate.
-  if (!bandwidth_sample)
+  if (!bandwidth_sample) {
     bandwidth_sample = ack_rate;
-  if (bandwidth_sample && ack_rate)
+  }
+  if (bandwidth_sample && ack_rate) {
     bandwidth_sample.emplace(std::min(*bandwidth_sample, *ack_rate));
+  }
   return bandwidth_sample;
 }
 
 void BbrBweSender::AddSampleForHighGain() {
-  if (!high_gain_over_)
+  if (!high_gain_over_) {
     return;
+  }
   high_gain_over_ = false;
   // Calculate data sent/acked and time elapsed only for packets sent during
   // high gain phase.
@@ -342,8 +356,9 @@ void BbrBweSender::AddSampleForHighGain() {
                               first_packet_ack_time_during_high_gain_ms_;
   absl::optional<int64_t> bandwidth_sample = CalculateBandwidthSample(
       data_sent_bytes, send_time_delta_ms, data_acked_bytes, ack_time_delta_ms);
-  if (bandwidth_sample)
+  if (bandwidth_sample) {
     max_bandwidth_filter_->AddBandwidthSample(*bandwidth_sample, round_count_);
+  }
   first_packet_send_time_during_high_gain_ms_.reset();
 }
 
@@ -365,15 +380,17 @@ void BbrBweSender::UpdateBandwidthAndMinRtt(
     absl::optional<int64_t> bandwidth_sample =
         CalculateBandwidthSample(data_sent_bytes, send_time_delta_ms,
                                  data_acked_bytes, ack_time_delta_ms);
-    if (bandwidth_sample)
+    if (bandwidth_sample) {
       max_bandwidth_filter_->AddBandwidthSample(*bandwidth_sample,
                                                 round_count_);
+    }
     // AddSampleForHighGain();  // Comment to disable bucket for high gain.
-    if (!min_rtt_sample_ms)
+    if (!min_rtt_sample_ms) {
       min_rtt_sample_ms.emplace(packet.ack_time_ms - packet.send_time_ms);
-    else
+    } else {
       *min_rtt_sample_ms = std::min(*min_rtt_sample_ms,
                                     packet.ack_time_ms - packet.send_time_ms);
+    }
     BWE_TEST_LOGGING_PLOT(1, "MinRtt", now_ms,
                           packet.ack_time_ms - packet.send_time_ms);
   }
@@ -382,8 +399,9 @@ void BbrBweSender::UpdateBandwidthAndMinRtt(
   // rtt sample from 1.1 gain phase improves the current estimate then we should
   // make it as a new best estimate.
   if (pacing_gain_ <= 1.0f || !min_rtt_filter_->min_rtt_ms() ||
-      *min_rtt_filter_->min_rtt_ms() >= *min_rtt_sample_ms)
+      *min_rtt_filter_->min_rtt_ms() >= *min_rtt_sample_ms) {
     min_rtt_filter_->AddRttSample(*min_rtt_sample_ms, now_ms);
+  }
 }
 
 void BbrBweSender::EnterStartup() {
@@ -402,8 +420,9 @@ void BbrBweSender::TryExitingStartup() {
 
 void BbrBweSender::TryExitingDrain(int64_t now_ms) {
   if (congestion_window_->data_inflight() <=
-      TargetCongestionWindow(kTargetCongestionWindowGain))
+      TargetCongestionWindow(kTargetCongestionWindowGain)) {
     EnterProbeBw(now_ms);
+  }
 }
 
 // Start probing with a random gain value, which is different form 0.75,
@@ -413,8 +432,9 @@ void BbrBweSender::EnterProbeBw(int64_t now_ms) {
   mode_ = PROBE_BW;
   congestion_window_gain_ = kCruisingCongestionWindowGain;
   int index = rand_->Rand(kGainCycleLength - 2);
-  if (index == 1)
+  if (index == 1) {
     index = kGainCycleLength - 1;
+  }
   pacing_gain_ = kPacingGain[index];
   cycle_start_time_ms_ = now_ms;
   cycle_index_ = index;
@@ -423,21 +443,24 @@ void BbrBweSender::EnterProbeBw(int64_t now_ms) {
 void BbrBweSender::TryUpdatingCyclePhase(int64_t now_ms) {
   // Each phase should last rougly min_rtt ms time.
   bool advance_cycle_phase = false;
-  if (min_rtt_filter_->min_rtt_ms())
+  if (min_rtt_filter_->min_rtt_ms()) {
     advance_cycle_phase =
         now_ms - cycle_start_time_ms_ > *min_rtt_filter_->min_rtt_ms();
+  }
   // If BBR was probing and it couldn't increase data inflight sufficiently in
   // one min_rtt time, continue probing. BBR design doc isn't clear about this,
   // but condition helps in quicker ramp-up and performs better.
   if (pacing_gain_ > 1.0 &&
       congestion_window_->data_inflight() <
-          TargetCongestionWindow(kTargetCongestionWindowGainForHighGain))
+          TargetCongestionWindow(kTargetCongestionWindowGainForHighGain)) {
     advance_cycle_phase = false;
+  }
   // If BBR has already drained queues there is no point in continuing draining
   // phase.
   if (pacing_gain_ < 1.0 &&
-      congestion_window_->data_inflight() <= TargetCongestionWindow(1))
+      congestion_window_->data_inflight() <= TargetCongestionWindow(1)) {
     advance_cycle_phase = true;
+  }
   if (advance_cycle_phase) {
     cycle_index_++;
     cycle_index_ %= kGainCycleLength;
@@ -479,26 +502,30 @@ void BbrBweSender::TryExitingProbeRtt(int64_t now_ms, int64_t round) {
 
 void BbrBweSender::TryEnteringRecovery(bool new_round_started) {
   if (mode_ == RECOVERY || !new_round_started || !full_bandwidth_reached_ ||
-      !min_rtt_filter_->min_rtt_ms())
+      !min_rtt_filter_->min_rtt_ms()) {
     return;
+  }
   uint64_t increased_rtt_round_counter = 0;
   // If average RTT for past |kPastRttsFilterSize| rounds has been more than
   // some multiplier of min_rtt_ms enter Recovery.
   for (BbrBweSender::AverageRtt i : past_rtts_) {
     if (i.sum_of_rtts_ms / (int64_t)i.num_samples >=
-        *min_rtt_filter_->min_rtt_ms() * kRttIncreaseThreshold)
+        *min_rtt_filter_->min_rtt_ms() * kRttIncreaseThreshold) {
       increased_rtt_round_counter++;
+    }
   }
-  if (increased_rtt_round_counter < kPastRttsFilterSize)
+  if (increased_rtt_round_counter < kPastRttsFilterSize) {
     return;
+  }
   mode_ = RECOVERY;
   pacing_gain_ = kRecoveryPacingGain;
   congestion_window_gain_ = kRecoveryCongestionWindowGain;
 }
 
 void BbrBweSender::TryExitingRecovery(bool new_round_started) {
-  if (mode_ != RECOVERY || !new_round_started || !full_bandwidth_reached_)
+  if (mode_ != RECOVERY || !new_round_started || !full_bandwidth_reached_) {
     return;
+  }
   // If average RTT for the past round has decreased sufficiently exit Recovery.
   if (!past_rtts_.empty()) {
     BbrBweSender::AverageRtt last_round_sample = past_rtts_.back();

@@ -834,8 +834,9 @@ void BasicNetworkManager::StartUpdating() {
     // If network interfaces are already discovered and signal is sent,
     // we should trigger network signal immediately for the new clients
     // to start allocating ports.
-    if (sent_first_update_)
+    if (sent_first_update_) {
       thread_->Post(RTC_FROM_HERE, this, kSignalNetworksMessage);
+    }
   } else {
     thread_->Post(RTC_FROM_HERE, this, kUpdateNetworksMessage);
     StartNetworkMonitor();
@@ -845,8 +846,9 @@ void BasicNetworkManager::StartUpdating() {
 
 void BasicNetworkManager::StopUpdating() {
   RTC_DCHECK(Thread::Current() == thread_);
-  if (!start_count_)
+  if (!start_count_) {
     return;
+  }
 
   --start_count_;
   if (!start_count_) {
@@ -921,8 +923,9 @@ IPAddress BasicNetworkManager::QueryDefaultLocalAddress(int family) const {
 }
 
 void BasicNetworkManager::UpdateNetworksOnce() {
-  if (!start_count_)
+  if (!start_count_) {
     return;
+  }
 
   RTC_DCHECK(Thread::Current() == thread_);
 
@@ -1025,8 +1028,9 @@ IPAddress Network::GetBestIP() const {
 
   for (const InterfaceAddress& ip : ips_) {
     // Ignore any address which has been deprecated already.
-    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_DEPRECATED)
+    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_DEPRECATED) {
       continue;
+    }
 
     // ULA address should only be returned when we have no other
     // global IP.
@@ -1037,8 +1041,9 @@ IPAddress Network::GetBestIP() const {
     selected_ip = ip;
 
     // Search could stop once a temporary non-deprecated one is found.
-    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_TEMPORARY)
+    if (ip.ipv6_flags() & IPV6_ADDRESS_FLAG_TEMPORARY) {
       break;
+    }
   }
 
   // No proper global IPv6 address found, use ULA instead.

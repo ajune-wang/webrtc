@@ -91,8 +91,9 @@ PayloadTypeMapper::~PayloadTypeMapper() = default;
 absl::optional<int> PayloadTypeMapper::GetMappingFor(
     const webrtc::SdpAudioFormat& format) {
   auto iter = mappings_.find(format);
-  if (iter != mappings_.end())
+  if (iter != mappings_.end()) {
     return iter->second;
+  }
 
   for (; next_unused_payload_type_ <= max_payload_type_;
        ++next_unused_payload_type_) {
@@ -111,8 +112,9 @@ absl::optional<int> PayloadTypeMapper::GetMappingFor(
 absl::optional<int> PayloadTypeMapper::FindMappingFor(
     const webrtc::SdpAudioFormat& format) const {
   auto iter = mappings_.find(format);
-  if (iter != mappings_.end())
+  if (iter != mappings_.end()) {
     return iter->second;
+  }
 
   return absl::nullopt;
 }
@@ -142,8 +144,9 @@ bool PayloadTypeMapper::SdpAudioFormatOrdering::operator()(
     if (a.num_channels == b.num_channels) {
       int name_cmp =
           absl::AsciiStrToLower(a.name).compare(absl::AsciiStrToLower(b.name));
-      if (name_cmp == 0)
+      if (name_cmp == 0) {
         return a.parameters < b.parameters;
+      }
       return name_cmp < 0;
     }
     return a.num_channels < b.num_channels;

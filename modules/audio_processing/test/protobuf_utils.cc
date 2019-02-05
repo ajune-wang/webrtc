@@ -20,10 +20,12 @@ size_t ReadMessageBytesFromFile(FILE* file, std::unique_ptr<uint8_t[]>* bytes) {
 #error "Need to convert messsage from little-endian."
 #endif
   int32_t size = 0;
-  if (fread(&size, sizeof(size), 1, file) != 1)
+  if (fread(&size, sizeof(size), 1, file) != 1) {
     return 0;
-  if (size <= 0)
+  }
+  if (size <= 0) {
     return 0;
+  }
 
   bytes->reset(new uint8_t[size]);
   return fread(bytes->get(), sizeof((*bytes)[0]), size, file);
@@ -33,8 +35,9 @@ size_t ReadMessageBytesFromFile(FILE* file, std::unique_ptr<uint8_t[]>* bytes) {
 bool ReadMessageFromFile(FILE* file, MessageLite* msg) {
   std::unique_ptr<uint8_t[]> bytes;
   size_t size = ReadMessageBytesFromFile(file, &bytes);
-  if (!size)
+  if (!size) {
     return false;
+  }
 
   msg->Clear();
   return msg->ParseFromArray(bytes.get(), size);

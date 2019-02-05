@@ -88,8 +88,9 @@ CropRegion CalculateCropRegion(
       CropRegion test_region = prev_best_region;
       ++(test_region.*crop_parameter);
 
-      if (!IsValidRegion(test_region, reference_frame))
+      if (!IsValidRegion(test_region, reference_frame)) {
         continue;
+      }
 
       const double ssim =
           Ssim(CropAndZoom(test_region, reference_frame), test_frame);
@@ -102,8 +103,9 @@ CropRegion CalculateCropRegion(
     }
 
     // No improvement among any direction, stop iteration.
-    if (best_parameter == nullptr)
+    if (best_parameter == nullptr) {
       break;
+    }
 
     // Iterate in the best direction as long as it improves SSIM.
     for (CropRegion test_region = best_region;
@@ -111,8 +113,9 @@ CropRegion CalculateCropRegion(
          ++(test_region.*best_parameter)) {
       const double ssim =
           Ssim(CropAndZoom(test_region, reference_frame), test_frame);
-      if (ssim <= best_ssim)
+      if (ssim <= best_ssim) {
         break;
+      }
 
       best_ssim = ssim;
       best_region = test_region;

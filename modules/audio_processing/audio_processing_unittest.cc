@@ -115,14 +115,16 @@ int TruncateToMultipleOf10(int value) {
 
 void MixStereoToMono(const float* stereo, float* mono,
                      size_t samples_per_channel) {
-  for (size_t i = 0; i < samples_per_channel; ++i)
+  for (size_t i = 0; i < samples_per_channel; ++i) {
     mono[i] = (stereo[i * 2] + stereo[i * 2 + 1]) / 2;
+  }
 }
 
 void MixStereoToMono(const int16_t* stereo, int16_t* mono,
                      size_t samples_per_channel) {
-  for (size_t i = 0; i < samples_per_channel; ++i)
+  for (size_t i = 0; i < samples_per_channel; ++i) {
     mono[i] = (stereo[i * 2] + stereo[i * 2 + 1]) >> 1;
+  }
 }
 
 void CopyLeftToRightChannel(int16_t* stereo, size_t samples_per_channel) {
@@ -281,14 +283,16 @@ std::string OutputFilePath(const std::string& name,
   ss << "_d" << file_direction << "_pcm";
 
   std::string filename = ss.str();
-  if (temp_filenames[filename].empty())
+  if (temp_filenames[filename].empty()) {
     temp_filenames[filename] = test::TempFilename(test::OutputPath(), filename);
+  }
   return temp_filenames[filename];
 }
 
 void ClearTempFiles() {
-  for (auto& kv : temp_filenames)
+  for (auto& kv : temp_filenames) {
     remove(kv.second.c_str());
+  }
 }
 
 // Only remove "out" files. Keep "ref" files.
@@ -1694,8 +1698,9 @@ TEST_F(ApmTest, FloatAndIntInterfacesGiveSimilarResults) {
 
     audioproc::Test* test = ref_data.mutable_test(i);
     // TODO(ajm): Restore downmixing test cases.
-    if (test->num_input_channels() != test->num_output_channels())
+    if (test->num_input_channels() != test->num_output_channels()) {
       continue;
+    }
 
     const size_t num_render_channels =
         static_cast<size_t>(test->num_reverse_channels());
@@ -1827,8 +1832,9 @@ TEST_F(ApmTest, Process) {
     audioproc::Test* test = ref_data.mutable_test(i);
     // TODO(ajm): We no longer allow different input and output channels. Skip
     // these tests for now, but they should be removed from the set.
-    if (test->num_input_channels() != test->num_output_channels())
+    if (test->num_input_channels() != test->num_output_channels()) {
       continue;
+    }
 
     Config config;
     config.Set<ExperimentalAgc>(new ExperimentalAgc(false));

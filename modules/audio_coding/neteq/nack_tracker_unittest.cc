@@ -30,11 +30,13 @@ const int64_t kShortRoundTripTimeMs = 1;
 bool IsNackListCorrect(const std::vector<uint16_t>& nack_list,
                        const uint16_t* lost_sequence_numbers,
                        size_t num_lost_packets) {
-  if (nack_list.size() != num_lost_packets)
+  if (nack_list.size() != num_lost_packets) {
     return false;
+  }
 
-  if (num_lost_packets == 0)
+  if (num_lost_packets == 0) {
     return true;
+  }
 
   for (size_t k = 0; k < nack_list.size(); ++k) {
     int seq_num = nack_list[k];
@@ -45,8 +47,9 @@ bool IsNackListCorrect(const std::vector<uint16_t>& nack_list,
         break;
       }
     }
-    if (!seq_num_matched)
+    if (!seq_num_matched) {
       return false;
+    }
   }
   return true;
 }
@@ -176,8 +179,9 @@ TEST(NackTrackerTest, ArrivedPacketsAreRemovedFromNackList) {
       // Number of lost packets does not change for the first
       // |kNackThreshold + 1| packets, one is added to the list and one is
       // removed. Thereafter, the list shrinks every iteration.
-      if (n >= kNackThreshold + 1)
+      if (n >= kNackThreshold + 1) {
         num_lost_packets--;
+      }
 
       nack->UpdateLastReceivedPacket(seq_num, timestamp);
       nack_list = nack->GetNackList(kShortRoundTripTimeMs);

@@ -120,8 +120,9 @@ class AudioEncoderCngTest : public ::testing::Test {
       Encode();
       EXPECT_EQ(0u, encoded_info_.encoded_bytes);
     }
-    if (active_speech)
+    if (active_speech) {
       ExpectEncodeCalls(blocks_per_frame);
+    }
     Encode();
     if (active_speech) {
       EXPECT_EQ(kMockReturnEncodedBytes, encoded_info_.encoded_bytes);
@@ -495,8 +496,9 @@ TEST_F(AudioEncoderCngDeathTest, EncoderFrameSizeTooLarge) {
   CreateCng(MakeCngConfig());
   EXPECT_CALL(*mock_encoder_, Num10MsFramesInNextPacket())
       .WillRepeatedly(Return(7U));
-  for (int i = 0; i < 6; ++i)
+  for (int i = 0; i < 6; ++i) {
     Encode();
+  }
   EXPECT_DEATH(Encode(),
                "Frame size cannot be larger than 60 ms when using VAD/CNG.");
 }

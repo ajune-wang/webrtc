@@ -43,8 +43,9 @@ class VerifyingMediaStream : public RtpPacketSinkInterface {
   VerifyingMediaStream() {}
 
   void OnRtpPacket(const RtpPacketReceived& packet) override {
-    if (!sequence_numbers_.empty())
+    if (!sequence_numbers_.empty()) {
       EXPECT_EQ(kTestSsrc, packet.Ssrc());
+    }
 
     sequence_numbers_.push_back(packet.SequenceNumber());
   }
@@ -77,8 +78,9 @@ class RtxLoopBackTransport : public webrtc::Transport {
                const PacketOptions& options) override {
     count_++;
     RtpPacketReceived packet;
-    if (!packet.Parse(data, len))
+    if (!packet.Parse(data, len)) {
       return false;
+    }
     if (packet.Ssrc() == rtx_ssrc_) {
       count_rtx_ssrc_++;
     } else {
@@ -209,8 +211,9 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
       // Min required delay until retransmit = 5 + RTT ms (RTT = 0).
       fake_clock.AdvanceTimeMilliseconds(5);
       int length = BuildNackList(nack_list);
-      if (length > 0)
+      if (length > 0) {
         rtp_rtcp_module_->SendNACK(nack_list, length);
+      }
       fake_clock.AdvanceTimeMilliseconds(28);  //  33ms - 5ms delay.
       rtp_rtcp_module_->Process();
       // Prepare next frame.

@@ -66,8 +66,9 @@ class RtpDumpWriter : public RtpFileWriter {
     // Loop through shifts = {24, 16, 8, 0}.
     for (int shifts = 24; shifts >= 0; shifts -= 8) {
       uint8_t tmp = static_cast<uint8_t>((in >> shifts) & 0xFF);
-      if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1)
+      if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1) {
         return false;
+      }
     }
     return true;
   }
@@ -75,12 +76,14 @@ class RtpDumpWriter : public RtpFileWriter {
   bool WriteUint16(uint16_t in) {
     // Write 8 MSBs.
     uint8_t tmp = static_cast<uint8_t>((in >> 8) & 0xFF);
-    if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1)
+    if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1) {
       return false;
+    }
     // Write 8 LSBs.
     tmp = static_cast<uint8_t>(in & 0xFF);
-    if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1)
+    if (fwrite(&tmp, sizeof(uint8_t), 1, file_) != 1) {
       return false;
+    }
     return true;
   }
 

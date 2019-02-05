@@ -108,8 +108,9 @@ void TransportFeedbackPacketLossTracker::OnPacketFeedbackVector(
 
     // Packets which aren't at least marked as unacked either do not belong to
     // this media stream, or have been shifted out of window.
-    if (it == packet_status_window_.end())
+    if (it == packet_status_window_.end()) {
       continue;
+    }
 
     const bool lost = packet.arrival_time_ms == PacketFeedback::kNotReceived;
     const PacketStatus packet_status =
@@ -316,8 +317,9 @@ void TransportFeedbackPacketLossTracker::Validate() const {  // Testing only!
       }
 
       auto next = std::next(it);
-      if (next == packet_status_window_.end())
+      if (next == packet_status_window_.end()) {
         next = packet_status_window_.begin();
+      }
 
       if (next != ref_packet_status_) {  // If we have a next packet...
         RTC_CHECK_GE(next->second.send_time_ms, it->second.send_time_ms);

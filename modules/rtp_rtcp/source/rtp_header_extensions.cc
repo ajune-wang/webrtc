@@ -42,8 +42,9 @@ constexpr const char AbsoluteSendTime::kUri[];
 
 bool AbsoluteSendTime::Parse(rtc::ArrayView<const uint8_t> data,
                              uint32_t* time_24bits) {
-  if (data.size() != 3)
+  if (data.size() != 3) {
     return false;
+  }
   *time_24bits = ByteReader<uint32_t, 3>::ReadBigEndian(data.data());
   return true;
 }
@@ -75,8 +76,9 @@ constexpr const char AudioLevel::kUri[];
 bool AudioLevel::Parse(rtc::ArrayView<const uint8_t> data,
                        bool* voice_activity,
                        uint8_t* audio_level) {
-  if (data.size() != 1)
+  if (data.size() != 1) {
     return false;
+  }
   *voice_activity = (data[0] & 0x80) != 0;
   *audio_level = data[0] & 0x7F;
   return true;
@@ -113,8 +115,9 @@ constexpr const char TransmissionOffset::kUri[];
 
 bool TransmissionOffset::Parse(rtc::ArrayView<const uint8_t> data,
                                int32_t* rtp_time) {
-  if (data.size() != 3)
+  if (data.size() != 3) {
     return false;
+  }
   *rtp_time = ByteReader<int32_t, 3>::ReadBigEndian(data.data());
   return true;
 }
@@ -137,8 +140,9 @@ constexpr const char TransportSequenceNumber::kUri[];
 
 bool TransportSequenceNumber::Parse(rtc::ArrayView<const uint8_t> data,
                                     uint16_t* value) {
-  if (data.size() != 2)
+  if (data.size() != 2) {
     return false;
+  }
   *value = ByteReader<uint16_t>::ReadBigEndian(data.data());
   return true;
 }
@@ -167,8 +171,9 @@ constexpr const char VideoOrientation::kUri[];
 
 bool VideoOrientation::Parse(rtc::ArrayView<const uint8_t> data,
                              VideoRotation* rotation) {
-  if (data.size() != 1)
+  if (data.size() != 1) {
     return false;
+  }
   *rotation = ConvertCVOByteToVideoRotation(data[0]);
   return true;
 }
@@ -182,8 +187,9 @@ bool VideoOrientation::Write(rtc::ArrayView<uint8_t> data,
 
 bool VideoOrientation::Parse(rtc::ArrayView<const uint8_t> data,
                              uint8_t* value) {
-  if (data.size() != 1)
+  if (data.size() != 1) {
     return false;
+  }
   *value = data[0];
   return true;
 }
@@ -206,13 +212,15 @@ constexpr const char PlayoutDelayLimits::kUri[];
 bool PlayoutDelayLimits::Parse(rtc::ArrayView<const uint8_t> data,
                                PlayoutDelay* playout_delay) {
   RTC_DCHECK(playout_delay);
-  if (data.size() != 3)
+  if (data.size() != 3) {
     return false;
+  }
   uint32_t raw = ByteReader<uint32_t, 3>::ReadBigEndian(data.data());
   uint16_t min_raw = (raw >> 12);
   uint16_t max_raw = (raw & 0xfff);
-  if (min_raw > max_raw)
+  if (min_raw > max_raw) {
     return false;
+  }
   playout_delay->min_ms = min_raw * kGranularityMs;
   playout_delay->max_ms = max_raw * kGranularityMs;
   return true;
@@ -386,8 +394,9 @@ bool FrameMarkingExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                   FrameMarking* frame_marking) {
   RTC_DCHECK(frame_marking);
 
-  if (data.size() != 1 && data.size() != 3)
+  if (data.size() != 1 && data.size() != 3) {
     return false;
+  }
 
   frame_marking->start_of_frame = (data[0] & 0x80) != 0;
   frame_marking->end_of_frame = (data[0] & 0x40) != 0;
@@ -410,10 +419,11 @@ bool FrameMarkingExtension::Parse(rtc::ArrayView<const uint8_t> data,
 }
 
 size_t FrameMarkingExtension::ValueSize(const FrameMarking& frame_marking) {
-  if (IsScalable(frame_marking.temporal_id, frame_marking.layer_id))
+  if (IsScalable(frame_marking.temporal_id, frame_marking.layer_id)) {
     return 3;
-  else
+  } else {
     return 1;
+  }
 }
 
 bool FrameMarkingExtension::Write(rtc::ArrayView<uint8_t> data,
@@ -479,27 +489,35 @@ bool ColorSpaceExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                 ColorSpace* color_space) {
   RTC_DCHECK(color_space);
   if (data.size() != kValueSizeBytes &&
-      data.size() != kValueSizeBytesWithoutHdrMetadata)
+      data.size() != kValueSizeBytesWithoutHdrMetadata) {
     return false;
+  }
 
   size_t offset = 0;
   // Read color space information.
-  if (!color_space->set_primaries_from_uint8(data[offset++]))
+  if (!color_space->set_primaries_from_uint8(data[offset++])) {
     return false;
-  if (!color_space->set_transfer_from_uint8(data[offset++]))
+  }
+  if (!color_space->set_transfer_from_uint8(data[offset++])) {
     return false;
-  if (!color_space->set_matrix_from_uint8(data[offset++]))
+  }
+  if (!color_space->set_matrix_from_uint8(data[offset++])) {
     return false;
+  }
 
   uint8_t range_and_chroma_siting = data[offset++];
-  if (!color_space->set_range_from_uint8((range_and_chroma_siting >> 4) & 0x03))
+  if (!color_space->set_range_from_uint8((range_and_chroma_siting >> 4) &
+                                         0x03)) {
     return false;
+  }
   if (!color_space->set_chroma_siting_horizontal_from_uint8(
-          (range_and_chroma_siting >> 2) & 0x03))
+          (range_and_chroma_siting >> 2) & 0x03)) {
     return false;
+  }
   if (!color_space->set_chroma_siting_vertical_from_uint8(
-          range_and_chroma_siting & 0x03))
+          range_and_chroma_siting & 0x03)) {
     return false;
+  }
 
   // Read HDR metadata if it exists, otherwise clear it.
   if (data.size() == kValueSizeBytesWithoutHdrMetadata) {
@@ -507,8 +525,9 @@ bool ColorSpaceExtension::Parse(rtc::ArrayView<const uint8_t> data,
   } else {
     HdrMetadata hdr_metadata;
     offset += ParseHdrMetadata(data.subview(offset), &hdr_metadata);
-    if (!hdr_metadata.Validate())
+    if (!hdr_metadata.Validate()) {
       return false;
+    }
     color_space->set_hdr_metadata(&hdr_metadata);
   }
   RTC_DCHECK_EQ(ValueSize(*color_space), offset);
@@ -656,8 +675,9 @@ size_t ColorSpaceExtension::WriteLuminance(uint8_t* data,
 
 bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                    StringRtpHeaderExtension* str) {
-  if (data.empty() || data[0] == 0)  // Valid string extension can't be empty.
+  if (data.empty() || data[0] == 0) {  // Valid string extension can't be empty.
     return false;
+  }
   str->Set(data);
   RTC_DCHECK(!str->empty());
   return true;
@@ -674,8 +694,9 @@ bool BaseRtpStringExtension::Write(rtc::ArrayView<uint8_t> data,
 
 bool BaseRtpStringExtension::Parse(rtc::ArrayView<const uint8_t> data,
                                    std::string* str) {
-  if (data.empty() || data[0] == 0)  // Valid string extension can't be empty.
+  if (data.empty() || data[0] == 0) {  // Valid string extension can't be empty.
     return false;
+  }
   const char* cstr = reinterpret_cast<const char*>(data.data());
   // If there is a \0 character in the middle of the |data|, treat it as end
   // of the string. Well-formed string extensions shouldn't contain it.

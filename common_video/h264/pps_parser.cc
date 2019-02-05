@@ -64,15 +64,18 @@ absl::optional<uint32_t> PpsParser::ParsePpsIdFromSlice(const uint8_t* data,
 
   uint32_t golomb_tmp;
   // first_mb_in_slice: ue(v)
-  if (!slice_reader.ReadExponentialGolomb(&golomb_tmp))
+  if (!slice_reader.ReadExponentialGolomb(&golomb_tmp)) {
     return absl::nullopt;
+  }
   // slice_type: ue(v)
-  if (!slice_reader.ReadExponentialGolomb(&golomb_tmp))
+  if (!slice_reader.ReadExponentialGolomb(&golomb_tmp)) {
     return absl::nullopt;
+  }
   // pic_parameter_set_id: ue(v)
   uint32_t slice_pps_id;
-  if (!slice_reader.ReadExponentialGolomb(&slice_pps_id))
+  if (!slice_reader.ReadExponentialGolomb(&slice_pps_id)) {
     return absl::nullopt;
+  }
   return slice_pps_id;
 }
 
@@ -139,8 +142,9 @@ absl::optional<PpsParser::PpsState> PpsParser::ParseInternal(
       uint32_t num_slice_groups = num_slice_groups_minus1 + 1;
       // If num_slice_groups is not a power of two an additional bit is required
       // to account for the ceil() of log2() below.
-      if ((num_slice_groups & (num_slice_groups - 1)) != 0)
+      if ((num_slice_groups & (num_slice_groups - 1)) != 0) {
         ++slice_group_id_bits;
+      }
       while (num_slice_groups > 0) {
         num_slice_groups >>= 1;
         ++slice_group_id_bits;
@@ -190,11 +194,13 @@ bool PpsParser::ParsePpsIdsInternal(rtc::BitBuffer* bit_buffer,
                                     uint32_t* pps_id,
                                     uint32_t* sps_id) {
   // pic_parameter_set_id: ue(v)
-  if (!bit_buffer->ReadExponentialGolomb(pps_id))
+  if (!bit_buffer->ReadExponentialGolomb(pps_id)) {
     return false;
+  }
   // seq_parameter_set_id: ue(v)
-  if (!bit_buffer->ReadExponentialGolomb(sps_id))
+  if (!bit_buffer->ReadExponentialGolomb(sps_id)) {
     return false;
+  }
   return true;
 }
 

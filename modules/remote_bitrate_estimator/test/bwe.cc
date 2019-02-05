@@ -256,8 +256,9 @@ void LossAccount::Subtract(LossAccount rhs) {
 }
 
 float LossAccount::LossRatio() {
-  if (num_total == 0)
+  if (num_total == 0) {
     return 0.0f;
+  }
   return static_cast<float>(num_lost) / num_total;
 }
 

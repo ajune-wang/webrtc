@@ -127,14 +127,18 @@ const char* CodecTypeToPayloadString(VideoCodecType type) {
 }
 
 VideoCodecType PayloadStringToCodecType(const std::string& name) {
-  if (absl::EqualsIgnoreCase(name, kPayloadNameVp8))
+  if (absl::EqualsIgnoreCase(name, kPayloadNameVp8)) {
     return kVideoCodecVP8;
-  if (absl::EqualsIgnoreCase(name, kPayloadNameVp9))
+  }
+  if (absl::EqualsIgnoreCase(name, kPayloadNameVp9)) {
     return kVideoCodecVP9;
-  if (absl::EqualsIgnoreCase(name, kPayloadNameH264))
+  }
+  if (absl::EqualsIgnoreCase(name, kPayloadNameH264)) {
     return kVideoCodecH264;
-  if (absl::EqualsIgnoreCase(name, kPayloadNameMultiplex))
+  }
+  if (absl::EqualsIgnoreCase(name, kPayloadNameMultiplex)) {
     return kVideoCodecMultiplex;
+  }
   return kVideoCodecGeneric;
 }
 

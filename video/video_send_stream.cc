@@ -55,8 +55,9 @@ size_t CalculateMaxHeaderSize(const RtpConfig& config) {
     }
   }
   // Additional room for Rtx.
-  if (config.rtx.payload_type >= 0)
+  if (config.rtx.payload_type >= 0) {
     header_size += kRtxHeaderSize;
+  }
   return header_size;
 }
 

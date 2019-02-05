@@ -72,8 +72,9 @@ void DecodedFramesHistory::InsertDecoded(const VideoLayerFrameId& frameid,
 
 bool DecodedFramesHistory::WasDecoded(const VideoLayerFrameId& frameid) {
   // Unseen before spatial layer.
-  if (static_cast<int>(layers_.size()) < frameid.spatial_layer + 1)
+  if (static_cast<int>(layers_.size()) < frameid.spatial_layer + 1) {
     return false;
+  }
 
   LayerHistory& history = layers_[frameid.spatial_layer];
 
@@ -84,8 +85,9 @@ bool DecodedFramesHistory::WasDecoded(const VideoLayerFrameId& frameid) {
     return false;
   }
 
-  if (frameid.picture_id > history.last_stored_index)
+  if (frameid.picture_id > history.last_stored_index) {
     return false;
+  }
 
   return history.buffer[frameid.picture_id % window_size_];
 }

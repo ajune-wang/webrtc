@@ -110,8 +110,9 @@ TCPPort::TCPPort(rtc::Thread* thread,
 TCPPort::~TCPPort() {
   delete socket_;
   std::list<Incoming>::iterator it;
-  for (it = incoming_.begin(); it != incoming_.end(); ++it)
+  for (it = incoming_.begin(); it != incoming_.end(); ++it) {
     delete it->socket;
+  }
   incoming_.clear();
 }
 
@@ -129,8 +130,9 @@ Connection* TCPPort::CreateConnection(const Candidate& address,
   }
 
   // We can't accept TCP connections incoming on other ports
-  if (origin == ORIGIN_OTHER_PORT)
+  if (origin == ORIGIN_OTHER_PORT) {
     return NULL;
+  }
 
   // We don't know how to act as an ssl server yet
   if ((address.protocol() == SSLTCP_PROTOCOL_NAME) &&
@@ -170,11 +172,12 @@ void TCPPort::PrepareAddress() {
     RTC_LOG(LS_VERBOSE) << "Preparing TCP address, current state: "
                         << socket_->GetState();
     if (socket_->GetState() == rtc::AsyncPacketSocket::STATE_BOUND ||
-        socket_->GetState() == rtc::AsyncPacketSocket::STATE_CLOSED)
+        socket_->GetState() == rtc::AsyncPacketSocket::STATE_CLOSED) {
       AddAddress(socket_->GetLocalAddress(), socket_->GetLocalAddress(),
                  rtc::SocketAddress(), TCP_PROTOCOL_NAME, "",
                  TCPTYPE_PASSIVE_STR, LOCAL_PORT_TYPE,
                  ICE_TYPE_PREFERENCE_HOST_TCP, 0, "", true);
+    }
   } else {
     RTC_LOG(LS_INFO) << ToString()
                      << ": Not listening due to firewall restrictions.";
@@ -298,8 +301,9 @@ rtc::AsyncPacketSocket* TCPPort::GetIncoming(const rtc::SocketAddress& addr,
        it != incoming_.end(); ++it) {
     if (it->addr == addr) {
       socket = it->socket;
-      if (remove)
+      if (remove) {
         incoming_.erase(it);
+      }
       break;
     }
   }

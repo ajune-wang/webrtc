@@ -68,14 +68,17 @@ const char* kPathDelimiter = "/";
 #endif
 
 std::string DirName(const std::string& path) {
-  if (path.empty())
+  if (path.empty()) {
     return "";
-  if (path == kPathDelimiter)
+  }
+  if (path == kPathDelimiter) {
     return path;
+  }
 
   std::string result = path;
-  if (result.back() == *kPathDelimiter)
+  if (result.back() == *kPathDelimiter) {
     result.pop_back();  // Remove trailing separator.
+  }
 
   return result.substr(0, result.find_last_of(kPathDelimiter));
 }
@@ -134,8 +137,9 @@ std::string GenerateTempFilename(const std::string& dir,
 }
 
 absl::optional<std::vector<std::string>> ReadDirectory(std::string path) {
-  if (path.length() == 0)
+  if (path.length() == 0) {
     return absl::optional<std::vector<std::string>>();
+  }
 
 #if defined(WEBRTC_WIN)
   // Append separator character if needed.
@@ -161,20 +165,23 @@ absl::optional<std::vector<std::string>> ReadDirectory(std::string path) {
     ::FindClose(handle);
 #else
   // Append separator character if needed.
-  if (path.back() != '/')
+  if (path.back() != '/') {
     path += '/';
+  }
 
   // Init.
   DIR* dir = ::opendir(path.c_str());
-  if (dir == nullptr)
+  if (dir == nullptr) {
     return absl::optional<std::vector<std::string>>();
+  }
 
   // Populate output.
   std::vector<std::string> found_entries;
   while (dirent* dirent = readdir(dir)) {
     const std::string& name = dirent->d_name;
-    if (name != "." && name != "..")
+    if (name != "." && name != "..") {
       found_entries.emplace_back(path + name);
+    }
   }
 
   // Release resources.

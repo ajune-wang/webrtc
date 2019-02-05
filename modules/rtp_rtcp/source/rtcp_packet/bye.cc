@@ -65,8 +65,9 @@ bool Bye::Parse(const CommonHeader& packet) {
   } else {
     sender_ssrc_ = ByteReader<uint32_t>::ReadBigEndian(payload);
     csrcs_.resize(src_count - 1);
-    for (size_t i = 1; i < src_count; ++i)
+    for (size_t i = 1; i < src_count; ++i) {
       csrcs_[i - 1] = ByteReader<uint32_t>::ReadBigEndian(&payload[4 * i]);
+    }
   }
 
   if (has_reason) {
@@ -84,8 +85,9 @@ bool Bye::Create(uint8_t* packet,
                  size_t max_length,
                  PacketReadyCallback callback) const {
   while (*index + BlockLength() > max_length) {
-    if (!OnBufferFull(packet, index, callback))
+    if (!OnBufferFull(packet, index, callback)) {
       return false;
+    }
   }
   const size_t index_end = *index + BlockLength();
 

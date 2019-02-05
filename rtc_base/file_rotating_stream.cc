@@ -123,8 +123,9 @@ std::vector<std::string> GetFilesWithPrefix(const std::string& directory,
                                             const std::string& prefix) {
   RTC_DCHECK(absl::EndsWith(directory, "/"));
   DIR* dir = ::opendir(directory.c_str());
-  if (dir == nullptr)
-    return {};
+  if (dir == nullptr) {
+    return {}
+  };
   std::vector<std::string> file_list;
   for (struct dirent* dirent = ::readdir(dir); dirent;
        dirent = ::readdir(dir)) {
@@ -160,8 +161,9 @@ bool IsFolder(const std::string& file) {
 
 absl::optional<size_t> GetFileSize(const std::string& file) {
   struct stat st;
-  if (::stat(file.c_str(), &st) != 0)
+  if (::stat(file.c_str(), &st) != 0) {
     return absl::nullopt;
+  }
   return st.st_size;
 }
 

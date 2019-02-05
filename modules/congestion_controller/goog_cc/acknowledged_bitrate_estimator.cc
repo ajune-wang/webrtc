@@ -64,14 +64,16 @@ absl::optional<uint32_t> AcknowledgedBitrateEstimator::PeekBps() const {
 }
 
 absl::optional<DataRate> AcknowledgedBitrateEstimator::bitrate() const {
-  if (bitrate_bps())
+  if (bitrate_bps()) {
     return DataRate::bps(*bitrate_bps());
+  }
   return absl::nullopt;
 }
 
 absl::optional<DataRate> AcknowledgedBitrateEstimator::PeekRate() const {
-  if (PeekBps())
+  if (PeekBps()) {
     return DataRate::bps(*PeekBps());
+  }
   return absl::nullopt;
 }
 

@@ -126,14 +126,16 @@ bool PacketBuffer::InsertPacket(VCMPacket* packet) {
 
     int64_t now_ms = clock_->TimeInMilliseconds();
     last_received_packet_ms_ = now_ms;
-    if (packet->frameType == kVideoFrameKey)
+    if (packet->frameType == kVideoFrameKey) {
       last_received_keyframe_packet_ms_ = now_ms;
+    }
 
     found_frames = FindFrames(seq_num);
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  for (std::unique_ptr<RtpFrameObject>& frame : found_frames) {
     received_frame_callback_->OnReceivedFrame(std::move(frame));
+  }
 
   return true;
 }
@@ -147,8 +149,9 @@ void PacketBuffer::ClearTo(uint16_t seq_num) {
   }
 
   // If the packet buffer was cleared between a frame was created and returned.
-  if (!first_packet_received_)
+  if (!first_packet_received_) {
     return;
+  }
 
   // Avoid iterating over the buffer more than once by capping the number of
   // iterations to the |size_| of the buffer.
@@ -202,8 +205,9 @@ void PacketBuffer::PaddingReceived(uint16_t seq_num) {
     found_frames = FindFrames(static_cast<uint16_t>(seq_num + 1));
   }
 
-  for (std::unique_ptr<RtpFrameObject>& frame : found_frames)
+  for (std::unique_ptr<RtpFrameObject>& frame : found_frames) {
     received_frame_callback_->OnReceivedFrame(std::move(frame));
+  }
 }
 
 absl::optional<int64_t> PacketBuffer::LastReceivedPacketMs() const {
@@ -250,26 +254,34 @@ bool PacketBuffer::PotentialNewFrame(uint16_t seq_num) const {
   size_t index = seq_num % size_;
   int prev_index = index > 0 ? index - 1 : size_ - 1;
 
-  if (!sequence_buffer_[index].used)
+  if (!sequence_buffer_[index].used) {
     return false;
-  if (sequence_buffer_[index].seq_num != seq_num)
+  }
+  if (sequence_buffer_[index].seq_num != seq_num) {
     return false;
-  if (sequence_buffer_[index].frame_created)
+  }
+  if (sequence_buffer_[index].frame_created) {
     return false;
-  if (sequence_buffer_[index].frame_begin)
+  }
+  if (sequence_buffer_[index].frame_begin) {
     return true;
-  if (!sequence_buffer_[prev_index].used)
+  }
+  if (!sequence_buffer_[prev_index].used) {
     return false;
-  if (sequence_buffer_[prev_index].frame_created)
+  }
+  if (sequence_buffer_[prev_index].frame_created) {
     return false;
+  }
   if (sequence_buffer_[prev_index].seq_num !=
       static_cast<uint16_t>(sequence_buffer_[index].seq_num - 1)) {
     return false;
   }
-  if (data_buffer_[prev_index].timestamp != data_buffer_[index].timestamp)
+  if (data_buffer_[prev_index].timestamp != data_buffer_[index].timestamp) {
     return false;
-  if (sequence_buffer_[prev_index].continuous)
+  }
+  if (sequence_buffer_[prev_index].continuous) {
     return true;
+  }
 
   return false;
 }
@@ -315,14 +327,16 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
         max_recv_time =
             std::max(max_recv_time, data_buffer_[start_index].receive_time_ms);
 
-        if (!is_h264 && sequence_buffer_[start_index].frame_begin)
+        if (!is_h264 && sequence_buffer_[start_index].frame_begin) {
           break;
+        }
 
         if (is_h264 && !is_h264_keyframe) {
           const auto* h264_header = absl::get_if<RTPVideoHeaderH264>(
               &data_buffer_[start_index].video_header.video_type_header);
-          if (!h264_header || h264_header->nalus_length >= kMaxNalusPerPacket)
+          if (!h264_header || h264_header->nalus_length >= kMaxNalusPerPacket) {
             return found_frames;
+          }
 
           for (size_t j = 0; j < h264_header->nalus_length; ++j) {
             if (h264_header->nalus[j].type == H264::NaluType::kSps) {
@@ -340,8 +354,9 @@ std::vector<std::unique_ptr<RtpFrameObject>> PacketBuffer::FindFrames(
           }
         }
 
-        if (tested_packets == size_)
+        if (tested_packets == size_) {
           break;
+        }
 
         start_index = start_index > 0 ? start_index - 1 : size_ - 1;
 
@@ -490,8 +505,9 @@ int PacketBuffer::Release() const {
 }
 
 void PacketBuffer::UpdateMissingPackets(uint16_t seq_num) {
-  if (!newest_inserted_seq_num_)
+  if (!newest_inserted_seq_num_) {
     newest_inserted_seq_num_ = seq_num;
+  }
 
   const int kMaxPaddingAge = 1000;
   if (AheadOf(seq_num, *newest_inserted_seq_num_)) {
@@ -501,8 +517,9 @@ void PacketBuffer::UpdateMissingPackets(uint16_t seq_num) {
 
     // Guard against inserting a large amount of missing packets if there is a
     // jump in the sequence number.
-    if (AheadOf(old_seq_num, *newest_inserted_seq_num_))
+    if (AheadOf(old_seq_num, *newest_inserted_seq_num_)) {
       *newest_inserted_seq_num_ = old_seq_num;
+    }
 
     ++*newest_inserted_seq_num_;
     while (AheadOf(seq_num, *newest_inserted_seq_num_)) {

@@ -24,8 +24,9 @@ int RtpHeaderExtensionSize(rtc::ArrayView<const RtpExtensionSize> extensions,
   int each_extension_header_size = 1;
   for (const RtpExtensionSize& extension : extensions) {
     int id = registered_extensions.GetId(extension.type);
-    if (id == RtpHeaderExtensionMap::kInvalidId)
+    if (id == RtpHeaderExtensionMap::kInvalidId) {
       continue;
+    }
     // All extensions should use same size header. Check if the |extension|
     // forces to switch to two byte header that allows larger id and value size.
     if (id > RtpExtension::kOneByteHeaderExtensionMaxId ||
@@ -36,8 +37,9 @@ int RtpHeaderExtensionSize(rtc::ArrayView<const RtpExtensionSize> extensions,
     values_size += extension.value_size;
     num_extensions++;
   }
-  if (values_size == 0)
+  if (values_size == 0) {
     return 0;
+  }
   int size = kExtensionBlockHeaderSize +
              each_extension_header_size * num_extensions + values_size;
   // Extension size specified in 32bit words,

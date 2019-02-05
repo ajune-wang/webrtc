@@ -287,8 +287,9 @@ TEST_P(AudioMultiVectorTest, OverwriteAt) {
 // Test the CopyChannel method, when the test is instantiated with at least two
 // channels.
 TEST_P(AudioMultiVectorTest, CopyChannel) {
-  if (num_channels_ < 2)
+  if (num_channels_ < 2) {
     return;
+  }
 
   AudioMultiVector vec(num_channels_);
   vec.PushBackInterleaved(array_interleaved_);

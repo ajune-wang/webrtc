@@ -118,8 +118,9 @@ ColorTransformationMatrix VectorToColorMatrix(
     const std::vector<std::vector<double>>& v) {
   ColorTransformationMatrix color_transformation;
   for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 4; ++j)
+    for (int j = 0; j < 4; ++j) {
       color_transformation[i][j] = v[i][j];
+    }
   }
   return color_transformation;
 }

@@ -32,8 +32,9 @@ std::string VP9ProfileToString(VP9Profile profile) {
 
 absl::optional<VP9Profile> StringToVP9Profile(const std::string& str) {
   const absl::optional<int> i = rtc::StringToNumber<int>(str);
-  if (!i.has_value())
+  if (!i.has_value()) {
     return absl::nullopt;
+  }
 
   switch (i.value()) {
     case 0:
@@ -49,8 +50,9 @@ absl::optional<VP9Profile> StringToVP9Profile(const std::string& str) {
 absl::optional<VP9Profile> ParseSdpForVP9Profile(
     const SdpVideoFormat::Parameters& params) {
   const auto profile_it = params.find(kVP9FmtpProfileId);
-  if (profile_it == params.end())
+  if (profile_it == params.end()) {
     return VP9Profile::kProfile0;
+  }
   const std::string& profile_str = profile_it->second;
   return StringToVP9Profile(profile_str);
 }

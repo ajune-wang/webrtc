@@ -316,34 +316,48 @@ IceCandidatePairType GetIceCandidatePairCounter(
       }
     }
   }
-  if (l == host && r == srflx)
+  if (l == host && r == srflx) {
     return kIceCandidatePairHostSrflx;
-  if (l == host && r == relay)
+  }
+  if (l == host && r == relay) {
     return kIceCandidatePairHostRelay;
-  if (l == host && r == prflx)
+  }
+  if (l == host && r == prflx) {
     return kIceCandidatePairHostPrflx;
-  if (l == srflx && r == host)
+  }
+  if (l == srflx && r == host) {
     return kIceCandidatePairSrflxHost;
-  if (l == srflx && r == srflx)
+  }
+  if (l == srflx && r == srflx) {
     return kIceCandidatePairSrflxSrflx;
-  if (l == srflx && r == relay)
+  }
+  if (l == srflx && r == relay) {
     return kIceCandidatePairSrflxRelay;
-  if (l == srflx && r == prflx)
+  }
+  if (l == srflx && r == prflx) {
     return kIceCandidatePairSrflxPrflx;
-  if (l == relay && r == host)
+  }
+  if (l == relay && r == host) {
     return kIceCandidatePairRelayHost;
-  if (l == relay && r == srflx)
+  }
+  if (l == relay && r == srflx) {
     return kIceCandidatePairRelaySrflx;
-  if (l == relay && r == relay)
+  }
+  if (l == relay && r == relay) {
     return kIceCandidatePairRelayRelay;
-  if (l == relay && r == prflx)
+  }
+  if (l == relay && r == prflx) {
     return kIceCandidatePairRelayPrflx;
-  if (l == prflx && r == host)
+  }
+  if (l == prflx && r == host) {
     return kIceCandidatePairPrflxHost;
-  if (l == prflx && r == srflx)
+  }
+  if (l == prflx && r == srflx) {
     return kIceCandidatePairPrflxSrflx;
-  if (l == prflx && r == relay)
+  }
+  if (l == prflx && r == relay) {
     return kIceCandidatePairPrflxRelay;
+  }
   return kIceCandidatePairMax;
 }
 
@@ -676,10 +690,11 @@ class PeerConnection::SetRemoteDescriptionObserverAdapter
 
   // SetRemoteDescriptionObserverInterface implementation.
   void OnSetRemoteDescriptionComplete(RTCError error) override {
-    if (error.ok())
+    if (error.ok()) {
       pc_->PostSetSessionDescriptionSuccess(wrapper_);
-    else
+    } else {
       pc_->PostSetSessionDescriptionFailure(wrapper_, std::move(error));
+    }
   }
 
  private:
@@ -1732,8 +1747,9 @@ void PeerConnection::GetStats(
           break;
         }
       }
-      if (internal_sender)
+      if (internal_sender) {
         break;
+      }
     }
   }
   // If there is no |internal_sender| then |selector| is either null or does not
@@ -1760,8 +1776,9 @@ void PeerConnection::GetStats(
           break;
         }
       }
-      if (internal_receiver)
+      if (internal_receiver) {
         break;
+      }
     }
   }
   // If there is no |internal_receiver| then |selector| is either null or does
@@ -3885,10 +3902,12 @@ void PeerConnection::SetIceConnectionState(IceConnectionState new_state) {
 void PeerConnection::SetStandardizedIceConnectionState(
     PeerConnectionInterface::IceConnectionState new_state) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
-  if (standardized_ice_connection_state_ == new_state)
+  if (standardized_ice_connection_state_ == new_state) {
     return;
-  if (IsClosed())
+  }
+  if (IsClosed()) {
     return;
+  }
   standardized_ice_connection_state_ = new_state;
   Observer()->OnStandardizedIceConnectionChange(new_state);
 }
@@ -3896,10 +3915,12 @@ void PeerConnection::SetStandardizedIceConnectionState(
 void PeerConnection::SetConnectionState(
     PeerConnectionInterface::PeerConnectionState new_state) {
   RTC_DCHECK(signaling_thread()->IsCurrent());
-  if (connection_state_ == new_state)
+  if (connection_state_ == new_state) {
     return;
-  if (IsClosed())
+  }
+  if (IsClosed()) {
     return;
+  }
   connection_state_ = new_state;
   Observer()->OnConnectionChange(new_state);
 }
@@ -6309,8 +6330,9 @@ void PeerConnection::OnMediaTransportStateChanged_n() {
 // Returns false if bundle is enabled and rtcp_mux is disabled.
 bool PeerConnection::ValidateBundleSettings(const SessionDescription* desc) {
   bool bundle_enabled = desc->HasGroup(cricket::GROUP_TYPE_BUNDLE);
-  if (!bundle_enabled)
+  if (!bundle_enabled) {
     return true;
+  }
 
   const cricket::ContentGroup* bundle_group =
       desc->GetGroupByName(cricket::GROUP_TYPE_BUNDLE);
@@ -6323,8 +6345,9 @@ bool PeerConnection::ValidateBundleSettings(const SessionDescription* desc) {
     RTC_DCHECK(content != NULL);
     if (bundle_group->HasContentName(content->name) && !content->rejected &&
         content->type == MediaProtocolType::kRtp) {
-      if (!HasRtcpMuxEnabled(content))
+      if (!HasRtcpMuxEnabled(content)) {
         return false;
+      }
     }
   }
   // RTCP-MUX is enabled in all the contents.

@@ -392,8 +392,9 @@ TEST_F(FakeNetworkPipeTest, BurstLoss) {
   for (size_t i = 0; i < received_packets - 1; ++i) {
     int diff = receiver.delivered_sequence_numbers_[i + 1] -
                receiver.delivered_sequence_numbers_[i];
-    if (diff > 1)
+    if (diff > 1) {
       ++num_bursts;
+    }
   }
 
   double average_burst_length = static_cast<double>(lost_packets) / num_bursts;

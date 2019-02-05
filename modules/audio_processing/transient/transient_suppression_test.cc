@@ -94,16 +94,19 @@ bool ReadBuffers(FILE* in_file,
   if (detection_file) {
     std::unique_ptr<int16_t[]> ibuf(new int16_t[detection_buffer_size]);
     if (fread(ibuf.get(), sizeof(ibuf[0]), detection_buffer_size,
-              detection_file) != detection_buffer_size)
+              detection_file) != detection_buffer_size) {
       return false;
-    for (size_t i = 0; i < detection_buffer_size; ++i)
+    }
+    for (size_t i = 0; i < detection_buffer_size; ++i) {
       detection_buffer[i] = ibuf[i];
+    }
   }
   if (reference_file) {
     std::unique_ptr<int16_t[]> ibuf(new int16_t[audio_buffer_size]);
     if (fread(ibuf.get(), sizeof(ibuf[0]), audio_buffer_size, reference_file) !=
-        audio_buffer_size)
+        audio_buffer_size) {
       return false;
+    }
     S16ToFloat(ibuf.get(), audio_buffer_size, reference_buffer);
   }
   return true;
@@ -176,10 +179,12 @@ void void_main() {
 
   std::unique_ptr<float[]> detection_buffer, reference_buffer;
 
-  if (detection_file)
+  if (detection_file) {
     detection_buffer.reset(new float[detection_buffer_size]);
-  if (reference_file)
+  }
+  if (reference_file) {
     reference_buffer.reset(new float[audio_buffer_size]);
+  }
 
   while (ReadBuffers(in_file, audio_buffer_size, FLAG_num_channels,
                      audio_buffer_i.get(), detection_file,

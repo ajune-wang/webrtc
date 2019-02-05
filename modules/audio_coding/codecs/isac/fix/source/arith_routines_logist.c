@@ -176,7 +176,8 @@ int WebRtcIsacfix_EncLogisticMulti2(Bitstr_enc *streamData,
           *streamPtrCarry = negcarry;
         }
       } else {
-        while (!(++(*--streamPtrCarry)));
+        while (!(++(*--streamPtrCarry))) {;
+}
       }
     }
 
@@ -194,8 +195,9 @@ int WebRtcIsacfix_EncLogisticMulti2(Bitstr_enc *streamData,
         streamData->full = 0;
       }
 
-      if( streamPtr > maxStreamPtr )
+      if( streamPtr > maxStreamPtr ) {
         return -ISAC_DISALLOWED_BITSTREAM_LENGTH;
+}
 
       streamData->streamval <<= 8;
     }
@@ -277,8 +279,9 @@ int WebRtcIsacfix_DecLogisticMulti2(int16_t *dataQ7,
     i = 10;
 
     /* For safty reasons */
-    if (inSqrt < 0)
+    if (inSqrt < 0) {
       inSqrt=-inSqrt;
+}
 
     newRes = (inSqrt / res + res) >> 1;
     do
@@ -406,8 +409,9 @@ int WebRtcIsacfix_DecLogisticMulti2(int16_t *dataQ7,
   streamData->streamval = streamVal;
 
   /* find number of bytes in original stream (determined by current interval width) */
-  if ( W_upper > 0x01FFFFFF )
+  if ( W_upper > 0x01FFFFFF ) {
     return (streamData->stream_index*2 - 3 + !streamData->full);
-  else
+  } else {
     return (streamData->stream_index*2 - 2 + !streamData->full);
+}
 }

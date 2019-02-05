@@ -79,15 +79,17 @@ void MemoryStream::Close() {
 }
 
 bool MemoryStream::SetPosition(size_t position) {
-  if (position > data_length_)
+  if (position > data_length_) {
     return false;
+  }
   seek_position_ = position;
   return true;
 }
 
 bool MemoryStream::GetPosition(size_t* position) const {
-  if (position)
+  if (position) {
     *position = seek_position_;
+  }
   return true;
 }
 
@@ -96,8 +98,9 @@ void MemoryStream::Rewind() {
 }
 
 bool MemoryStream::GetSize(size_t* size) const {
-  if (size)
+  if (size) {
     *size = data_length_;
+  }
   return true;
 }
 
@@ -130,8 +133,9 @@ void MemoryStream::SetData(const void* data, size_t length) {
 }
 
 StreamResult MemoryStream::DoReserve(size_t size, int* error) {
-  if (buffer_length_ >= size)
+  if (buffer_length_ >= size) {
     return SR_SUCCESS;
+  }
 
   if (char* new_buffer = new char[size]) {
     memcpy(new_buffer, buffer_, data_length_);

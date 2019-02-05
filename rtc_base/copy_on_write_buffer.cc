@@ -88,8 +88,9 @@ void CopyOnWriteBuffer::EnsureCapacity(size_t capacity) {
 }
 
 void CopyOnWriteBuffer::Clear() {
-  if (!buffer_)
+  if (!buffer_) {
     return;
+  }
 
   if (buffer_->HasOneRef()) {
     buffer_->Clear();

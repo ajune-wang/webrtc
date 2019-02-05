@@ -66,13 +66,15 @@ bool ParseStapAStartOffsets(const uint8_t* nalu_ptr,
   size_t offset = 0;
   while (length_remaining > 0) {
     // Buffer doesn't contain room for additional nalu length.
-    if (length_remaining < sizeof(uint16_t))
+    if (length_remaining < sizeof(uint16_t)) {
       return false;
+    }
     uint16_t nalu_size = ByteReader<uint16_t>::ReadBigEndian(nalu_ptr);
     nalu_ptr += sizeof(uint16_t);
     length_remaining -= sizeof(uint16_t);
-    if (nalu_size > length_remaining)
+    if (nalu_size > length_remaining) {
       return false;
+    }
     nalu_ptr += nalu_size;
     length_remaining -= nalu_size;
 
@@ -147,8 +149,9 @@ RtpPacketizerH264::RtpPacketizerH264(
       }
     }
 
-    if (!updated_sps)
+    if (!updated_sps) {
       input_fragments_.push_back(Fragment(buffer, length));
+    }
   }
   if (!GeneratePackets(packetization_mode)) {
     // If failed to generate all the packets, discard already generated
@@ -179,23 +182,26 @@ bool RtpPacketizerH264::GeneratePackets(
   for (size_t i = 0; i < input_fragments_.size();) {
     switch (packetization_mode) {
       case H264PacketizationMode::SingleNalUnit:
-        if (!PacketizeSingleNalu(i))
+        if (!PacketizeSingleNalu(i)) {
           return false;
+        }
         ++i;
         break;
       case H264PacketizationMode::NonInterleaved:
         int fragment_len = input_fragments_[i].length;
         int single_packet_capacity = limits_.max_payload_len;
-        if (input_fragments_.size() == 1)
+        if (input_fragments_.size() == 1) {
           single_packet_capacity -= limits_.single_packet_reduction_len;
-        else if (i == 0)
+        } else if (i == 0) {
           single_packet_capacity -= limits_.first_packet_reduction_len;
-        else if (i + 1 == input_fragments_.size())
+        } else if (i + 1 == input_fragments_.size()) {
           single_packet_capacity -= limits_.last_packet_reduction_len;
+        }
 
         if (fragment_len > single_packet_capacity) {
-          if (!PacketizeFuA(i))
+          if (!PacketizeFuA(i)) {
             return false;
+          }
           ++i;
         } else {
           i = PacketizeStapA(i);
@@ -226,18 +232,21 @@ bool RtpPacketizerH264::PacketizeFuA(size_t fragment_index) {
       limits.single_packet_reduction_len = 0;
     }
   }
-  if (fragment_index != 0)
+  if (fragment_index != 0) {
     limits.first_packet_reduction_len = 0;
-  if (fragment_index != input_fragments_.size() - 1)
+  }
+  if (fragment_index != input_fragments_.size() - 1) {
     limits.last_packet_reduction_len = 0;
+  }
 
   // Strip out the original header.
   size_t payload_left = fragment.length - kNalHeaderSize;
   int offset = kNalHeaderSize;
 
   std::vector<int> payload_sizes = SplitAboutEqually(payload_left, limits);
-  if (payload_sizes.empty())
+  if (payload_sizes.empty()) {
     return false;
+  }
 
   for (size_t i = 0; i < payload_sizes.size(); ++i) {
     int packet_length = payload_sizes[i];
@@ -257,10 +266,11 @@ bool RtpPacketizerH264::PacketizeFuA(size_t fragment_index) {
 size_t RtpPacketizerH264::PacketizeStapA(size_t fragment_index) {
   // Aggregate fragments into one packet (STAP-A).
   size_t payload_size_left = limits_.max_payload_len;
-  if (input_fragments_.size() == 1)
+  if (input_fragments_.size() == 1) {
     payload_size_left -= limits_.single_packet_reduction_len;
-  else if (fragment_index == 0)
+  } else if (fragment_index == 0) {
     payload_size_left -= limits_.first_packet_reduction_len;
+  }
   int aggregated_fragments = 0;
   size_t fragment_headers_length = 0;
   const Fragment* fragment = &input_fragments_[fragment_index];
@@ -292,14 +302,16 @@ size_t RtpPacketizerH264::PacketizeStapA(size_t fragment_index) {
     // If we are going to try to aggregate more fragments into this packet
     // we need to add the STAP-A NALU header and a length field for the first
     // NALU of this packet.
-    if (aggregated_fragments == 0)
+    if (aggregated_fragments == 0) {
       fragment_headers_length += kNalHeaderSize + kLengthFieldSize;
+    }
     ++aggregated_fragments;
 
     // Next fragment.
     ++fragment_index;
-    if (fragment_index == input_fragments_.size())
+    if (fragment_index == input_fragments_.size()) {
       break;
+    }
     fragment = &input_fragments_[fragment_index];
   }
   RTC_CHECK_GT(aggregated_fragments, 0);
@@ -310,12 +322,13 @@ size_t RtpPacketizerH264::PacketizeStapA(size_t fragment_index) {
 bool RtpPacketizerH264::PacketizeSingleNalu(size_t fragment_index) {
   // Add a single NALU to the queue, no aggregation.
   size_t payload_size_left = limits_.max_payload_len;
-  if (input_fragments_.size() == 1)
+  if (input_fragments_.size() == 1) {
     payload_size_left -= limits_.single_packet_reduction_len;
-  else if (fragment_index == 0)
+  } else if (fragment_index == 0) {
     payload_size_left -= limits_.first_packet_reduction_len;
-  else if (fragment_index + 1 == input_fragments_.size())
+  } else if (fragment_index + 1 == input_fragments_.size()) {
     payload_size_left -= limits_.last_packet_reduction_len;
+  }
   const Fragment* fragment = &input_fragments_[fragment_index];
   if (payload_size_left < fragment->length) {
     RTC_LOG(LS_ERROR) << "Failed to fit a fragment to packet in SingleNalu "
@@ -379,8 +392,9 @@ void RtpPacketizerH264::NextAggregatePacket(RtpPacketToSend* rtp_packet) {
     index += fragment.length;
     packets_.pop();
     input_fragments_.pop_front();
-    if (is_last_fragment)
+    if (is_last_fragment) {
       break;
+    }
     packet = &packets_.front();
     is_last_fragment = packet->last_fragment;
   }
@@ -408,8 +422,9 @@ void RtpPacketizerH264::NextFragmentPacket(RtpPacketToSend* rtp_packet) {
   buffer[0] = fu_indicator;
   buffer[1] = fu_header;
   memcpy(buffer + kFuAHeaderSize, fragment.buffer, fragment.length);
-  if (packet->last_fragment)
+  if (packet->last_fragment) {
     input_fragments_.pop_front();
+  }
   packets_.pop();
 }
 
@@ -434,14 +449,16 @@ bool RtpDepacketizerH264::Parse(ParsedPayload* parsed_payload,
       .video_type_header.emplace<RTPVideoHeaderH264>();
   if (nal_type == H264::NaluType::kFuA) {
     // Fragmented NAL units (FU-A).
-    if (!ParseFuaNalu(parsed_payload, payload_data))
+    if (!ParseFuaNalu(parsed_payload, payload_data)) {
       return false;
+    }
   } else {
     // We handle STAP-A and single NALU's the same way here. The jitter buffer
     // will depacketize the STAP-A into NAL units later.
     // TODO(sprang): Parse STAP-A offsets here and store in fragmentation vec.
-    if (!ProcessStapAOrSingleNalu(parsed_payload, payload_data))
+    if (!ProcessStapAOrSingleNalu(parsed_payload, payload_data)) {
       return false;
+    }
   }
 
   const uint8_t* payload =
@@ -513,8 +530,9 @@ bool RtpDepacketizerH264::ProcessStapAOrSingleNalu(
 
         // Copy any previous data first (likely just the first header).
         std::unique_ptr<rtc::Buffer> output_buffer(new rtc::Buffer());
-        if (start_offset)
+        if (start_offset) {
           output_buffer->AppendData(payload_data, start_offset);
+        }
 
         absl::optional<SpsParser::SpsState> sps;
 

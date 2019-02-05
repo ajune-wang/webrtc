@@ -171,10 +171,11 @@ TEST_F(TestVideoReceiver, PaddingOnlyAndVideo) {
   for (int i = 0; i < 3; ++i) {
     // Insert 2 video frames.
     for (int j = 0; j < 2; ++j) {
-      if (i == 0 && j == 0)  // First frame should be a key frame.
+      if (i == 0 && j == 0) {  // First frame should be a key frame.
         header.frameType = kVideoFrameKey;
-      else
+      } else {
         header.frameType = kVideoFrameDelta;
+      }
       header.video_header().is_first_packet_in_frame = true;
       header.header.markerBit = true;
       InsertAndVerifyDecodableFrame(kPayload, kFrameSize, &header);

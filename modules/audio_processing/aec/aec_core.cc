@@ -46,8 +46,9 @@ constexpr int kMaxDelayLogValue = 200;
 constexpr int kNumDelayLogBuckets = 100;
 
 void MaybeLogDelayAdjustment(int moved_ms, DelaySource source) {
-  if (moved_ms == 0)
+  if (moved_ms == 0) {
     return;
+  }
   switch (source) {
     case DelaySource::kSystemDelay:
       RTC_HISTOGRAM_COUNTS("WebRTC.Audio.AecDelayAdjustmentMsSystemValue",
@@ -255,8 +256,10 @@ void DivergentFilterFraction::AddObservation(const PowerLevel& nearlevel,
   // does not diverge. Here we allow some margin (0.01 * near end level) and
   // numerical error (1.0). We count divergence only when the AEC output
   // signal is active.
-  if (output_signal_active && level_increase > std::max(0.01 * near_level, 1.0))
+  if (output_signal_active &&
+      level_increase > std::max(0.01 * near_level, 1.0)) {
     occurrence_++;
+  }
   ++count_;
   if (count_ == kDivergentFilterFractionAggregationWindowSize) {
     fraction_ = static_cast<float>(occurrence_) /
@@ -451,12 +454,14 @@ static void UpdateLogRatioMetric(Stats* metric,
   metric->instant = 10.0f * (log_numerator - log_denominator);
 
   // Max.
-  if (metric->instant > metric->max)
+  if (metric->instant > metric->max) {
     metric->max = metric->instant;
+  }
 
   // Min.
-  if (metric->instant < metric->min)
+  if (metric->instant < metric->min) {
     metric->min = metric->instant;
+  }
 
   // Average.
   metric->counter++;
@@ -819,8 +824,9 @@ static void UpdateDelayMetrics(AecCore* self) {
     const int histogram_length =
         sizeof(self->delay_histogram) / sizeof(self->delay_histogram[0]);
     for (i = lookahead; i < lookahead + self->num_partitions; ++i) {
-      if (i < histogram_length)
+      if (i < histogram_length) {
         num_delays_out_of_bounds -= self->delay_histogram[i];
+      }
     }
     self->fraction_poor_delays =
         static_cast<float>(num_delays_out_of_bounds) / self->num_delay_values;

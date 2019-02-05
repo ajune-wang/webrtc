@@ -144,8 +144,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest,
   packets.push_back(PacketFeedback(130, 230, 3, 1500, kPacingInfo1));
   packets.push_back(PacketFeedback(140, 240, 4, 1500, kPacingInfo1));
 
-  for (const PacketFeedback& packet : packets)
+  for (const PacketFeedback& packet : packets) {
     OnSentPacket(packet);
+  }
 
   rtcp::TransportFeedback feedback;
   feedback.SetBase(packets[0].sequence_number,
@@ -172,8 +173,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest, FeedbackVectorReportsUnreceived) {
       PacketFeedback(150, 250, 5, 1500, kPacingInfo0),
       PacketFeedback(160, 260, 6, 1500, kPacingInfo0)};
 
-  for (const PacketFeedback& packet : sent_packets)
+  for (const PacketFeedback& packet : sent_packets) {
     OnSentPacket(packet);
+  }
 
   // Note: Important to include the last packet, as only unreceived packets in
   // between received packets can be inferred.
@@ -208,8 +210,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest, HandlesDroppedPackets) {
   const uint16_t kReceiveSideDropAfter = 3;
 
   for (const PacketFeedback& packet : packets) {
-    if (packet.sequence_number >= kSendSideDropBefore)
+    if (packet.sequence_number >= kSendSideDropBefore) {
       OnSentPacket(packet);
+    }
   }
 
   rtcp::TransportFeedback feedback;
@@ -252,8 +255,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest, SendTimeWrapsBothWays) {
   packets.push_back(
       PacketFeedback(kHighArrivalTimeMs, 220, 2, 1500, PacedPacketInfo()));
 
-  for (const PacketFeedback& packet : packets)
+  for (const PacketFeedback& packet : packets) {
     OnSentPacket(packet);
+  }
 
   for (size_t i = 0; i < packets.size(); ++i) {
     std::unique_ptr<rtcp::TransportFeedback> feedback(
@@ -283,8 +287,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest, HandlesArrivalReordering) {
   packets.push_back(PacketFeedback(110, 210, 1, 1500, kPacingInfo0));
   packets.push_back(PacketFeedback(100, 220, 2, 1500, kPacingInfo0));
 
-  for (const PacketFeedback& packet : packets)
+  for (const PacketFeedback& packet : packets) {
     OnSentPacket(packet);
+  }
 
   rtcp::TransportFeedback feedback;
   feedback.SetBase(packets[0].sequence_number,
@@ -340,8 +345,9 @@ TEST_F(LegacyTransportFeedbackAdapterTest, TimestampDeltas) {
   ++packet_feedback.sequence_number;
 
   // Packets will be added to send history.
-  for (const PacketFeedback& packet : sent_packets)
+  for (const PacketFeedback& packet : sent_packets) {
     OnSentPacket(packet);
+  }
   OnSentPacket(packet_feedback);
 
   // Create expected feedback and send into adapter.

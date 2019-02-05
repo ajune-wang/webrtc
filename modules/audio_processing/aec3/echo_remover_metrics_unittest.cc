@@ -112,8 +112,9 @@ TEST(DbMetric, UpdateInstant) {
   constexpr float kMinValue = -77.f;
   constexpr float kMaxValue = 33.f;
   constexpr float kLastValue = (kMinValue + kMaxValue) / 2.0f;
-  for (float value = kMinValue; value <= kMaxValue; value++)
+  for (float value = kMinValue; value <= kMaxValue; value++) {
     metric.UpdateInstant(value);
+  }
   metric.UpdateInstant(kLastValue);
   EXPECT_FLOAT_EQ(kLastValue, metric.sum_value);
   EXPECT_FLOAT_EQ(kMaxValue, metric.ceil_value);

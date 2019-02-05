@@ -346,8 +346,9 @@ TEST_F(AudioCodingModuleTestOldApi, TransportCallbackIsInvokedForEachPacket) {
   const int kLoops = 10;
   for (int i = 0; i < kLoops; ++i) {
     EXPECT_EQ(i / k10MsBlocksPerPacket, packet_cb_.num_calls());
-    if (packet_cb_.num_calls() > 0)
+    if (packet_cb_.num_calls() > 0) {
       EXPECT_EQ(kAudioFrameSpeech, packet_cb_.last_frame_type());
+    }
     InsertAudioAndVerifyEncoding();
   }
   EXPECT_EQ(kLoops / k10MsBlocksPerPacket, packet_cb_.num_calls());
@@ -1215,8 +1216,9 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
   // Inherited from test::PacketSource.
   std::unique_ptr<test::Packet> NextPacket() override {
     auto packet = send_test_->NextPacket();
-    if (!packet)
+    if (!packet) {
       return NULL;
+    }
 
     VerifyPacket(packet.get());
     // TODO(henrik.lundin) Save the packet to file as well.
@@ -1699,14 +1701,16 @@ class AcmChangeBitRateOldApi : public AcmSetBitRateOldApi {
     int packet_counter = 0;
     while (std::unique_ptr<test::Packet> next_packet =
                send_test_->NextPacket()) {
-      if (packet_counter == nr_packets / 2)
+      if (packet_counter == nr_packets / 2) {
         send_test_->acm()->SetBitRate(target_bitrate_bps);
-      if (packet_counter < nr_packets / 2)
+      }
+      if (packet_counter < nr_packets / 2) {
         nr_bytes_before +=
             rtc::checked_cast<int>(next_packet->payload_length_bytes());
-      else
+      } else {
         nr_bytes_after +=
             rtc::checked_cast<int>(next_packet->payload_length_bytes());
+      }
       packet_counter++;
     }
     // Check that bitrate is 80-120 percent of expected value.
@@ -1861,8 +1865,9 @@ class AcmSwitchingOutputFrequencyOldApi : public ::testing::Test,
       EXPECT_EQ(kSampleValue, audio[i]);
     }
     if (num_samples ==
-        static_cast<size_t>(output_freq_2_ / 100))  // Size of 10 ms frame.
+        static_cast<size_t>(output_freq_2_ / 100)) {  // Size of 10 ms frame.
       has_toggled_ = true;
+    }
     // The return value does not say if the values match the expectation, just
     // that the method could process the samples.
     return true;

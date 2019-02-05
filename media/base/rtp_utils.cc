@@ -208,21 +208,25 @@ bool GetRtpSsrc(const void* data, size_t len, uint32_t* value) {
 }
 
 bool GetRtpHeaderLen(const void* data, size_t len, size_t* value) {
-  if (!data || len < kMinRtpPacketLen || !value)
+  if (!data || len < kMinRtpPacketLen || !value) {
     return false;
+  }
   const uint8_t* header = static_cast<const uint8_t*>(data);
   // Get base header size + length of CSRCs (not counting extension yet).
   size_t header_size = kMinRtpPacketLen + (header[0] & 0xF) * sizeof(uint32_t);
-  if (len < header_size)
+  if (len < header_size) {
     return false;
+  }
   // If there's an extension, read and add in the extension size.
   if (header[0] & 0x10) {
-    if (len < header_size + sizeof(uint32_t))
+    if (len < header_size + sizeof(uint32_t)) {
       return false;
+    }
     header_size +=
         ((rtc::GetBE16(header + header_size + 2) + 1) * sizeof(uint32_t));
-    if (len < header_size)
+    if (len < header_size) {
       return false;
+    }
   }
   *value = header_size;
   return true;
@@ -247,14 +251,17 @@ bool GetRtcpType(const void* data, size_t len, int* value) {
 // to send non-compound packets only to feedback messages.
 bool GetRtcpSsrc(const void* data, size_t len, uint32_t* value) {
   // Packet should be at least of 8 bytes, to get SSRC from a RTCP packet.
-  if (!data || len < kMinRtcpPacketLen + 4 || !value)
+  if (!data || len < kMinRtcpPacketLen + 4 || !value) {
     return false;
+  }
   int pl_type;
-  if (!GetRtcpType(data, len, &pl_type))
+  if (!GetRtcpType(data, len, &pl_type)) {
     return false;
+  }
   // SDES packet parsing is not supported.
-  if (pl_type == kRtcpTypeSDES)
+  if (pl_type == kRtcpTypeSDES) {
     return false;
+  }
   *value = rtc::GetBE32(static_cast<const uint8_t*>(data) + 4);
   return true;
 }
@@ -278,8 +285,9 @@ bool SetRtpHeader(void* data, size_t len, const RtpHeader& header) {
 }
 
 bool IsRtpPacket(const void* data, size_t len) {
-  if (len < kMinRtpPacketLen)
+  if (len < kMinRtpPacketLen) {
     return false;
+  }
 
   return (static_cast<const uint8_t*>(data)[0] >> 6) == kRtpVersion;
 }
@@ -333,8 +341,9 @@ bool ValidateRtpHeader(const uint8_t* rtp,
   // If extension bit is not set, we are done with header processing, as input
   // length is verified above.
   if (!(rtp[0] & 0x10)) {
-    if (header_length)
+    if (header_length) {
       *header_length = header_length_without_extension;
+    }
 
     return true;
   }

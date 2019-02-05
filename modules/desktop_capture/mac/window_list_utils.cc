@@ -75,8 +75,9 @@ bool GetWindowList(rtc::FunctionView<bool(CFDictionaryRef)> on_window,
   CFArrayRef window_array = CGWindowListCopyWindowInfo(
       kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements,
       kCGNullWindowID);
-  if (!window_array)
+  if (!window_array) {
     return false;
+  }
 
   MacDesktopConfiguration desktop_config;
   if (ignore_minimized) {

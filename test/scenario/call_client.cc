@@ -95,13 +95,15 @@ LoggingNetworkControllerFactory::LoggingNetworkControllerFactory(
       break;
     case TransportControllerConfig::CongestionController::kInjected:
       cc_factory_ = config.cc_factory;
-      if (cc_out)
+      if (cc_out) {
         RTC_LOG(LS_WARNING)
             << "Can't log controller state for injected network controllers";
+      }
       break;
   }
-  if (cc_printer_)
+  if (cc_printer_) {
     cc_printer_->PrintHeaders();
+  }
   if (owned_cc_factory_) {
     RTC_DCHECK(!cc_factory_);
     cc_factory_ = owned_cc_factory_.get();
@@ -113,8 +115,9 @@ LoggingNetworkControllerFactory::~LoggingNetworkControllerFactory() {
 
 void LoggingNetworkControllerFactory::LogCongestionControllerStats(
     Timestamp at_time) {
-  if (cc_printer_)
+  if (cc_printer_) {
     cc_printer_->PrintState(at_time);
+  }
 }
 
 RtcEventLog* LoggingNetworkControllerFactory::GetEventLog() const {
@@ -186,8 +189,9 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
 }
 
 std::unique_ptr<RtcEventLogOutput> CallClient::GetLogWriter(std::string name) {
-  if (!log_writer_factory_ || name.empty())
+  if (!log_writer_factory_ || name.empty()) {
     return nullptr;
+  }
   return log_writer_factory_->Create(name);
 }
 
@@ -213,8 +217,9 @@ std::string CallClient::GetNextPriorityId() {
 }
 
 void CallClient::AddExtensions(std::vector<RtpExtension> extensions) {
-  for (const auto& extension : extensions)
+  for (const auto& extension : extensions) {
     header_parser_->RegisterRtpHeaderExtension(extension);
+  }
 }
 
 CallClientPair::~CallClientPair() = default;

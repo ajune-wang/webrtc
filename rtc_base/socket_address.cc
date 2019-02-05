@@ -138,8 +138,9 @@ uint16_t SocketAddress::port() const {
 std::string SocketAddress::HostAsURIString() const {
   // If the hostname was a literal IP string, it may need to have square
   // brackets added (for SocketAddress::ToString()).
-  if (!literal_ && !hostname_.empty())
+  if (!literal_ && !hostname_.empty()) {
     return hostname_;
+  }
   if (ip_.family() == AF_INET6) {
     return "[" + ip_.ToString() + "]";
   } else {
@@ -150,8 +151,9 @@ std::string SocketAddress::HostAsURIString() const {
 std::string SocketAddress::HostAsSensitiveURIString() const {
   // If the hostname was a literal IP string, it may need to have square
   // brackets added (for SocketAddress::ToString()).
-  if (!literal_ && !hostname_.empty())
+  if (!literal_ && !hostname_.empty()) {
     return hostname_;
+  }
   if (ip_.family() == AF_INET6) {
     return "[" + ip_.ToSensitiveString() + "]";
   } else {
@@ -191,8 +193,9 @@ bool SocketAddress::FromString(const std::string& str) {
     }
   } else {
     std::string::size_type pos = str.find(':');
-    if (std::string::npos == pos)
+    if (std::string::npos == pos) {
       return false;
+    }
     SetPort(strtoul(str.substr(pos + 1).c_str(), nullptr, 10));
     SetIP(str.substr(0, pos));
   }
@@ -221,13 +224,15 @@ bool SocketAddress::operator==(const SocketAddress& addr) const {
 }
 
 bool SocketAddress::operator<(const SocketAddress& addr) const {
-  if (ip_ != addr.ip_)
+  if (ip_ != addr.ip_) {
     return ip_ < addr.ip_;
+  }
 
   // We only check hostnames if both IPs are ANY or unspecified.  This matches
   // EqualIPs().
-  if ((IPIsAny(ip_) || IPIsUnspec(ip_)) && hostname_ != addr.hostname_)
+  if ((IPIsAny(ip_) || IPIsUnspec(ip_)) && hostname_ != addr.hostname_) {
     return hostname_ < addr.hostname_;
+  }
 
   return port_ < addr.port_;
 }
@@ -264,8 +269,9 @@ void SocketAddress::ToSockAddr(sockaddr_in* saddr) const {
 }
 
 bool SocketAddress::FromSockAddr(const sockaddr_in& saddr) {
-  if (saddr.sin_family != AF_INET)
+  if (saddr.sin_family != AF_INET) {
     return false;
+  }
   SetIP(NetworkToHost32(saddr.sin_addr.s_addr));
   SetPort(NetworkToHost16(saddr.sin_port));
   literal_ = false;

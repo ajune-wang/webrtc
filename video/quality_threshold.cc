@@ -65,12 +65,14 @@ void QualityThreshold::AddMeasurement(int measurement) {
     is_high_ = false;
   }
 
-  if (until_full_ > 0)
+  if (until_full_ > 0) {
     --until_full_;
+  }
 
   if (is_high_) {
-    if (*is_high_)
+    if (*is_high_) {
       ++num_high_states_;
+    }
     ++num_certain_states_;
   }
 }
@@ -95,8 +97,9 @@ absl::optional<double> QualityThreshold::CalculateVariance() const {
 absl::optional<double> QualityThreshold::FractionHigh(
     int min_required_samples) const {
   RTC_DCHECK_GT(min_required_samples, 0);
-  if (num_certain_states_ < min_required_samples)
+  if (num_certain_states_ < min_required_samples) {
     return absl::nullopt;
+  }
 
   return static_cast<double>(num_high_states_) / num_certain_states_;
 }

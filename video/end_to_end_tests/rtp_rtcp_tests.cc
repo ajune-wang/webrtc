@@ -38,8 +38,9 @@ void RtpRtcpEndToEndTest::RespectsRtcpMode(RtcpMode rtcp_mode) {
    private:
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
       rtc::CritScope lock(&crit_);
-      if (++sent_rtp_ % 3 == 0)
+      if (++sent_rtp_ % 3 == 0) {
         return DROP_PACKET;
+      }
 
       return SEND_PACKET;
     }
@@ -63,13 +64,15 @@ void RtpRtcpEndToEndTest::RespectsRtcpMode(RtcpMode rtcp_mode) {
             observation_complete_.Set();
           }
 
-          if (sent_rtcp_ >= kNumCompoundRtcpPacketsToObserve)
+          if (sent_rtcp_ >= kNumCompoundRtcpPacketsToObserve) {
             observation_complete_.Set();
+          }
 
           break;
         case RtcpMode::kReducedSize:
-          if (parser.receiver_report()->num_packets() == 0)
+          if (parser.receiver_report()->num_packets() == 0) {
             observation_complete_.Set();
+          }
           break;
         case RtcpMode::kOff:
           RTC_NOTREACHED();
@@ -161,8 +164,9 @@ void RtpRtcpEndToEndTest::TestRtpStatePreservation(
           ssrcs_to_observe_(kNumSimulcastStreams) {
       for (size_t i = 0; i < kNumSimulcastStreams; ++i) {
         ssrc_is_rtx_[kVideoSendSsrcs[i]] = false;
-        if (use_rtx)
+        if (use_rtx) {
           ssrc_is_rtx_[kSendRtxSsrcs[i]] = true;
+        }
       }
     }
 
@@ -238,8 +242,9 @@ void RtpRtcpEndToEndTest::TestRtpStatePreservation(
         // Wait for media packets on all ssrcs.
         if (!ssrc_observed_[ssrc] && !only_padding) {
           ssrc_observed_[ssrc] = true;
-          if (--ssrcs_to_observe_ == 0)
+          if (--ssrcs_to_observe_ == 0) {
             observation_complete_.Set();
+          }
         }
       }
 

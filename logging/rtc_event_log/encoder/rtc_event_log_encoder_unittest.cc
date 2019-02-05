@@ -54,10 +54,11 @@ class RtcEventLogEncoderTest
         gen_(seed_ * 880001UL),
         verifier_(new_encoding_ ? RtcEventLog::EncodingType::NewFormat
                                 : RtcEventLog::EncodingType::Legacy) {
-    if (new_encoding_)
+    if (new_encoding_) {
       encoder_ = absl::make_unique<RtcEventLogEncoderNewFormat>();
-    else
+    } else {
       encoder_ = absl::make_unique<RtcEventLogEncoderLegacy>();
+    }
   }
   ~RtcEventLogEncoderTest() override = default;
 

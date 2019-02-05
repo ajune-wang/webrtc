@@ -202,10 +202,11 @@ size_t  // (o) Estimated lag in end of in[]
 
     /* scaling */
     max16 = WebRtcSpl_MaxAbsValueW16(regressor, plc_blockl + 3 - 1);
-    if (max16>5000)
+    if (max16>5000) {
       shifts=2;
-    else
+    } else {
       shifts=0;
+}
 
     /* compute cross correlation */
     WebRtcSpl_CrossCorrelation(corr32, target, regressor, plc_blockl, 3, shifts,

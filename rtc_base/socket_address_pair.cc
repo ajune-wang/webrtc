@@ -21,14 +21,18 @@ bool SocketAddressPair::operator==(const SocketAddressPair& p) const {
 }
 
 bool SocketAddressPair::operator<(const SocketAddressPair& p) const {
-  if (src_ < p.src_)
+  if (src_ < p.src_) {
     return true;
-  if (p.src_ < src_)
+  }
+  if (p.src_ < src_) {
     return false;
-  if (dest_ < p.dest_)
+  }
+  if (dest_ < p.dest_) {
     return true;
-  if (p.dest_ < dest_)
+  }
+  if (p.dest_ < dest_) {
     return false;
+  }
   return false;
 }
 

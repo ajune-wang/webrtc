@@ -114,8 +114,9 @@ class FakeMouseMonitor : public MouseCursorMonitor {
   }
 
   void SetHotspot(const DesktopVector& hotspot) {
-    if (!hotspot_.equals(hotspot))
+    if (!hotspot_.equals(hotspot)) {
       changed_ = true;
+    }
     hotspot_ = hotspot;
   }
 

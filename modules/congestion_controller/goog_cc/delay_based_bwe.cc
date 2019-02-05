@@ -56,8 +56,9 @@ size_t ReadTrendlineFilterWindowSize(
   int parsed_values =
       sscanf(experiment_string.c_str(), "Enabled-%zu", &window_size);
   if (parsed_values == 1) {
-    if (window_size > 1)
+    if (window_size > 1) {
       return window_size;
+    }
     RTC_LOG(WARNING) << "Window size must be greater than 1.";
   }
   RTC_LOG(LS_WARNING) << "Failed to parse parameters for BweWindowSizeInPackets"
@@ -140,8 +141,9 @@ DelayBasedBwe::Result DelayBasedBwe::IncomingPacketFeedbackVector(
   bool recovered_from_overuse = false;
   BandwidthUsage prev_detector_state = delay_detector_->State();
   for (const auto& packet_feedback : packet_feedback_vector) {
-    if (packet_feedback.send_time_ms < 0)
+    if (packet_feedback.send_time_ms < 0) {
       continue;
+    }
     delayed_feedback = false;
     IncomingPacketFeedback(packet_feedback, at_time);
     if (prev_detector_state == BandwidthUsage::kBwUnderusing &&
@@ -278,8 +280,9 @@ bool DelayBasedBwe::LatestEstimate(std::vector<uint32_t>* ssrcs,
   // thread.
   RTC_DCHECK(ssrcs);
   RTC_DCHECK(bitrate);
-  if (!rate_control_.ValidEstimate())
+  if (!rate_control_.ValidEstimate()) {
     return false;
+  }
 
   *ssrcs = {kFixedSsrc};
   *bitrate = rate_control_.LatestEstimate();

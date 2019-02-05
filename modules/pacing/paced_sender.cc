@@ -90,31 +90,35 @@ void PacedSender::CreateProbeCluster(int bitrate_bps) {
 void PacedSender::Pause() {
   {
     rtc::CritScope cs(&critsect_);
-    if (!paused_)
+    if (!paused_) {
       RTC_LOG(LS_INFO) << "PacedSender paused.";
+    }
     paused_ = true;
     packets_.SetPauseState(true, TimeMilliseconds());
   }
   rtc::CritScope cs(&process_thread_lock_);
   // Tell the process thread to call our TimeUntilNextProcess() method to get
   // a new (longer) estimate for when to call Process().
-  if (process_thread_)
+  if (process_thread_) {
     process_thread_->WakeUp(this);
+  }
 }
 
 void PacedSender::Resume() {
   {
     rtc::CritScope cs(&critsect_);
-    if (paused_)
+    if (paused_) {
       RTC_LOG(LS_INFO) << "PacedSender resumed.";
+    }
     paused_ = false;
     packets_.SetPauseState(false, TimeMilliseconds());
   }
   rtc::CritScope cs(&process_thread_lock_);
   // Tell the process thread to call our TimeUntilNextProcess() method to
   // refresh the estimate for when to call Process().
-  if (process_thread_)
+  if (process_thread_) {
     process_thread_->WakeUp(this);
+  }
 }
 
 void PacedSender::SetCongestionWindow(int64_t congestion_window_bytes) {
@@ -128,8 +132,9 @@ void PacedSender::UpdateOutstandingData(int64_t outstanding_bytes) {
 }
 
 bool PacedSender::Congested() const {
-  if (congestion_window_bytes_ == kNoCongestionWindow)
+  if (congestion_window_bytes_ == kNoCongestionWindow) {
     return false;
+  }
   return outstanding_bytes_ >= congestion_window_bytes_;
 }
 
@@ -153,8 +158,9 @@ void PacedSender::SetProbingEnabled(bool enabled) {
 }
 
 void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
-  if (bitrate_bps == 0)
+  if (bitrate_bps == 0) {
     RTC_LOG(LS_ERROR) << "PacedSender is not designed to handle 0 bitrate.";
+  }
   rtc::CritScope cs(&critsect_);
   estimated_bitrate_bps_ = bitrate_bps;
   padding_budget_.set_target_rate_kbps(
@@ -162,8 +168,9 @@ void PacedSender::SetEstimatedBitrate(uint32_t bitrate_bps) {
   pacing_bitrate_kbps_ =
       std::max(min_send_bitrate_kbps_, estimated_bitrate_bps_ / 1000) *
       pacing_factor_;
-  if (!alr_detector_)
+  if (!alr_detector_) {
     alr_detector_ = absl::make_unique<AlrDetector>(nullptr /*event_log*/);
+  }
   alr_detector_->SetEstimatedBitrate(bitrate_bps);
 }
 
@@ -200,8 +207,9 @@ void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
   int64_t now_ms = TimeMilliseconds();
   prober_.OnIncomingPacket(bytes);
 
-  if (capture_time_ms < 0)
+  if (capture_time_ms < 0) {
     capture_time_ms = now_ms;
+  }
 
   packets_.Push(RoundRobinPacketQueue::Packet(
       priority, ssrc, sequence_number, capture_time_ms, now_ms, bytes,
@@ -222,8 +230,9 @@ int64_t PacedSender::ExpectedQueueTimeMs() const {
 
 absl::optional<int64_t> PacedSender::GetApplicationLimitedRegionStartTime() {
   rtc::CritScope cs(&critsect_);
-  if (!alr_detector_)
+  if (!alr_detector_) {
     alr_detector_ = absl::make_unique<AlrDetector>(nullptr /*event_log*/);
+  }
   return alr_detector_->GetApplicationLimitedRegionStartTime();
 }
 
@@ -246,8 +255,9 @@ int64_t PacedSender::QueueInMs() const {
   rtc::CritScope cs(&critsect_);
 
   int64_t oldest_packet = packets_.OldestEnqueueTimeMs();
-  if (oldest_packet == 0)
+  if (oldest_packet == 0) {
     return 0;
+  }
 
   return TimeMilliseconds() - oldest_packet;
 }
@@ -259,13 +269,15 @@ int64_t PacedSender::TimeUntilNextProcess() {
   int64_t elapsed_time_ms = (elapsed_time_us + 500) / 1000;
   // When paused we wake up every 500 ms to send a padding packet to ensure
   // we won't get stuck in the paused state due to no feedback being received.
-  if (paused_)
+  if (paused_) {
     return std::max<int64_t>(kPausedProcessIntervalMs - elapsed_time_ms, 0);
+  }
 
   if (prober_.IsProbing()) {
     int64_t ret = prober_.TimeUntilNextProbe(TimeMilliseconds());
-    if (ret > 0 || (ret == 0 && !probing_send_failure_))
+    if (ret > 0 || (ret == 0 && !probing_send_failure_)) {
       return ret;
+    }
   }
   return std::max<int64_t>(min_packet_limit_ms_ - elapsed_time_ms, 0);
 }
@@ -307,12 +319,14 @@ void PacedSender::Process() {
     size_t bytes_sent = packet_sender_->TimeToSendPadding(1, PacedPacketInfo());
     critsect_.Enter();
     OnPaddingSent(bytes_sent);
-    if (alr_detector_)
+    if (alr_detector_) {
       alr_detector_->OnBytesSent(bytes_sent, now_us / 1000);
+    }
   }
 
-  if (paused_)
+  if (paused_) {
     return;
+  }
 
   if (elapsed_time_ms > 0) {
     int target_bitrate_kbps = pacing_bitrate_kbps_;
@@ -327,8 +341,9 @@ void PacedSender::Process() {
             1, queue_time_limit - packets_.AverageQueueTimeMs());
         int min_bitrate_needed_kbps =
             static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
-        if (min_bitrate_needed_kbps > target_bitrate_kbps)
+        if (min_bitrate_needed_kbps > target_bitrate_kbps) {
           target_bitrate_kbps = min_bitrate_needed_kbps;
+        }
       }
     }
 
@@ -348,8 +363,9 @@ void PacedSender::Process() {
   // section allowing the paused state to be changed from other code.
   while (!packets_.Empty() && !paused_) {
     const auto* packet = GetPendingPacket(pacing_info);
-    if (packet == nullptr)
+    if (packet == nullptr) {
       break;
+    }
 
     critsect_.Leave();
     bool success = packet_sender_->TimeToSendPacket(
@@ -360,8 +376,9 @@ void PacedSender::Process() {
       bytes_sent += packet->bytes;
       // Send succeeded, remove it from the queue.
       OnPacketSent(packet);
-      if (is_probing && bytes_sent > recommended_probe_size)
+      if (is_probing && bytes_sent > recommended_probe_size) {
         break;
+      }
     } else {
       // Send failed, put it back into the queue.
       packets_.CancelPop(*packet);
@@ -388,11 +405,13 @@ void PacedSender::Process() {
   }
   if (is_probing) {
     probing_send_failure_ = bytes_sent == 0;
-    if (!probing_send_failure_)
+    if (!probing_send_failure_) {
       prober_.ProbeSent(TimeMilliseconds(), bytes_sent);
+    }
   }
-  if (alr_detector_)
+  if (alr_detector_) {
     alr_detector_->OnBytesSent(bytes_sent, now_us / 1000);
+  }
 }
 
 void PacedSender::ProcessThreadAttached(ProcessThread* process_thread) {
@@ -419,8 +438,9 @@ const RoundRobinPacketQueue::Packet* PacedSender::GetPendingPacket(
 }
 
 void PacedSender::OnPacketSent(const RoundRobinPacketQueue::Packet* packet) {
-  if (first_sent_packet_ms_ == -1)
+  if (first_sent_packet_ms_ == -1) {
     first_sent_packet_ms_ = TimeMilliseconds();
+  }
   bool audio_packet = packet->priority == kHighPriority;
   if (!audio_packet || account_for_audio_) {
     // Update media bytes sent.

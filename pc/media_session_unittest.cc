@@ -431,15 +431,17 @@ class MediaSessionDescriptionFactoryTest : public testing::Test {
 
   bool CompareCryptoParams(const CryptoParamsVec& c1,
                            const CryptoParamsVec& c2) {
-    if (c1.size() != c2.size())
+    if (c1.size() != c2.size()) {
       return false;
-    for (size_t i = 0; i < c1.size(); ++i)
+    }
+    for (size_t i = 0; i < c1.size(); ++i) {
       if (c1[i].tag != c2[i].tag || c1[i].cipher_suite != c2[i].cipher_suite ||
           c1[i].key_params != c2[i].key_params ||
-          c1[i].session_params != c2[i].session_params)
+          c1[i].session_params != c2[i].session_params) {
         return false;
+      }
     return true;
-  }
+    }
 
   // Returns true if the transport info contains "renomination" as an
   // ICE option.
@@ -4250,8 +4252,9 @@ template <typename T, int IDXS>
 std::vector<T> VectorFromIndices(const T* array, const int (&indices)[IDXS]) {
   std::vector<T> out;
   out.reserve(IDXS);
-  for (int idx : indices)
+  for (int idx : indices) {
     out.push_back(array[idx]);
+  }
 
   return out;
 }

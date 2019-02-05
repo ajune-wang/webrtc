@@ -64,8 +64,9 @@ class SimulcastRateAllocatorTest : public ::testing::TestWithParam<bool> {
   void ExpectEqual(uint32_t (&expected)[S],
                    const std::vector<uint32_t>& actual) {
     EXPECT_EQ(S, actual.size());
-    for (size_t i = 0; i < S; ++i)
+    for (size_t i = 0; i < S; ++i) {
       EXPECT_EQ(expected[i], actual[i]) << "Mismatch at index " << i;
+    }
   }
 
   template <size_t S>

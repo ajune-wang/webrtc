@@ -183,8 +183,9 @@ bool JsepSessionDescription::Initialize(
     cricket::SessionDescription* description,
     const std::string& session_id,
     const std::string& session_version) {
-  if (!description)
+  if (!description) {
     return false;
+  }
 
   session_id_ = session_id;
   session_version_ = session_version;
@@ -195,14 +196,16 @@ bool JsepSessionDescription::Initialize(
 
 bool JsepSessionDescription::AddCandidate(
     const IceCandidateInterface* candidate) {
-  if (!candidate || candidate->sdp_mline_index() < 0)
+  if (!candidate || candidate->sdp_mline_index() < 0) {
     return false;
+  }
   size_t mediasection_index = 0;
   if (!GetMediasectionIndex(candidate, &mediasection_index)) {
     return false;
   }
-  if (mediasection_index >= number_of_mediasections())
+  if (mediasection_index >= number_of_mediasections()) {
     return false;
+  }
   const std::string& content_name =
       description_->contents()[mediasection_index].name;
   const cricket::TransportInfo* transport_info =
@@ -253,15 +256,17 @@ size_t JsepSessionDescription::RemoveCandidates(
 }
 
 size_t JsepSessionDescription::number_of_mediasections() const {
-  if (!description_)
+  if (!description_) {
     return 0;
+  }
   return description_->contents().size();
 }
 
 const IceCandidateCollection* JsepSessionDescription::candidates(
     size_t mediasection_index) const {
-  if (mediasection_index >= candidate_collection_.size())
+  if (mediasection_index >= candidate_collection_.size()) {
     return NULL;
+  }
   return &candidate_collection_[mediasection_index];
 }
 

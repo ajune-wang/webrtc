@@ -94,8 +94,9 @@ class SquareGenerator : public FrameGenerator {
       }
     }
 
-    for (const auto& square : squares_)
+    for (const auto& square : squares_) {
       square->Draw(buffer);
+    }
 
     if (type_ == OutputType::I010) {
       buffer = I010Buffer::Copy(*buffer->ToI420());
@@ -144,8 +145,9 @@ class SquareGenerator : public FrameGenerator {
         memset(pos_v, yuv_v_, length_ / 2);
       }
 
-      if (frame_buffer->type() == VideoFrameBuffer::Type::kI420)
+      if (frame_buffer->type() == VideoFrameBuffer::Type::kI420) {
         return;
+      }
 
       // Optionally draw on alpha plane if given.
       const webrtc::I420ABufferInterface* yuva_buffer =
@@ -198,15 +200,18 @@ class YuvFileGenerator : public FrameGenerator {
   }
 
   ~YuvFileGenerator() override {
-    for (FILE* file : files_)
+    for (FILE* file : files_) {
       fclose(file);
+    }
   }
 
   VideoFrame* NextFrame() override {
-    if (current_display_count_ == 0)
+    if (current_display_count_ == 0) {
       ReadNextFrame();
-    if (++current_display_count_ >= frame_display_count_)
+    }
+    if (++current_display_count_ >= frame_display_count_) {
       current_display_count_ = 0;
+    }
 
     temp_frame_ = absl::make_unique<VideoFrame>(
         VideoFrame::Builder()
@@ -264,10 +269,12 @@ class SlideGenerator : public FrameGenerator {
   }
 
   VideoFrame* NextFrame() override {
-    if (current_display_count_ == 0)
+    if (current_display_count_ == 0) {
       GenerateNewFrame();
-    if (++current_display_count_ >= frame_display_count_)
+    }
+    if (++current_display_count_ >= frame_display_count_) {
       current_display_count_ = 0;
+    }
 
     frame_ = absl::make_unique<VideoFrame>(
         VideoFrame::Builder()
@@ -439,8 +446,9 @@ FrameForwarder::~FrameForwarder() {}
 
 void FrameForwarder::IncomingCapturedFrame(const VideoFrame& video_frame) {
   rtc::CritScope lock(&crit_);
-  if (sink_)
+  if (sink_) {
     sink_->OnFrame(video_frame);
+  }
 }
 
 void FrameForwarder::AddOrUpdateSink(rtc::VideoSinkInterface<VideoFrame>* sink,

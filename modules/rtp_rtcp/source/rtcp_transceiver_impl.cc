@@ -117,22 +117,26 @@ void RtcpTransceiverImpl::RemoveMediaReceiverRtcpObserver(
     uint32_t remote_ssrc,
     MediaReceiverRtcpObserver* observer) {
   auto remote_sender_it = remote_senders_.find(remote_ssrc);
-  if (remote_sender_it == remote_senders_.end())
+  if (remote_sender_it == remote_senders_.end()) {
     return;
+  }
   auto& stored = remote_sender_it->second.observers;
   auto it = std::find(stored.begin(), stored.end(), observer);
-  if (it == stored.end())
+  if (it == stored.end()) {
     return;
+  }
   stored.erase(it);
 }
 
 void RtcpTransceiverImpl::SetReadyToSend(bool ready) {
   if (config_.schedule_periodic_compound_packets) {
-    if (ready_to_send_ && !ready)
+    if (ready_to_send_ && !ready) {
       periodic_task_handle_.Stop();
+    }
 
-    if (!ready_to_send_ && ready)  // Restart periodic sending.
+    if (!ready_to_send_ && ready) {  // Restart periodic sending.
       SchedulePeriodicCompoundPackets(config_.report_period_ms / 2);
+    }
   }
   ready_to_send_ = ready;
 }
@@ -141,8 +145,9 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
                                         int64_t now_us) {
   while (!packet.empty()) {
     rtcp::CommonHeader rtcp_block;
-    if (!rtcp_block.Parse(packet.data(), packet.size()))
+    if (!rtcp_block.Parse(packet.data(), packet.size())) {
       return;
+    }
 
     HandleReceivedPacket(rtcp_block, now_us);
 
@@ -152,8 +157,9 @@ void RtcpTransceiverImpl::ReceivePacket(rtc::ArrayView<const uint8_t> packet,
 }
 
 void RtcpTransceiverImpl::SendCompoundPacket() {
-  if (!ready_to_send_)
+  if (!ready_to_send_) {
     return;
+  }
   SendPeriodicCompoundPacket();
   ReschedulePeriodicCompoundPackets();
 }
@@ -174,8 +180,9 @@ void RtcpTransceiverImpl::UnsetRemb() {
 }
 
 void RtcpTransceiverImpl::SendRawPacket(rtc::ArrayView<const uint8_t> packet) {
-  if (!ready_to_send_)
+  if (!ready_to_send_) {
     return;
+  }
   // Unlike other senders, this functions just tries to send packet away and
   // disregard rtcp_mode, max_packet_size or anything else.
   // TODO(bugs.webrtc.org/8239): respect config_ by creating the
@@ -186,8 +193,9 @@ void RtcpTransceiverImpl::SendRawPacket(rtc::ArrayView<const uint8_t> packet) {
 void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
                                    std::vector<uint16_t> sequence_numbers) {
   RTC_DCHECK(!sequence_numbers.empty());
-  if (!ready_to_send_)
+  if (!ready_to_send_) {
     return;
+  }
   rtcp::Nack nack;
   nack.SetSenderSsrc(config_.feedback_ssrc);
   nack.SetMediaSsrc(ssrc);
@@ -196,8 +204,9 @@ void RtcpTransceiverImpl::SendNack(uint32_t ssrc,
 }
 
 void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
-  if (!ready_to_send_)
+  if (!ready_to_send_) {
     return;
+  }
   rtcp::Pli pli;
   pli.SetSenderSsrc(config_.feedback_ssrc);
   pli.SetMediaSsrc(ssrc);
@@ -207,13 +216,15 @@ void RtcpTransceiverImpl::SendPictureLossIndication(uint32_t ssrc) {
 void RtcpTransceiverImpl::SendFullIntraRequest(
     rtc::ArrayView<const uint32_t> ssrcs) {
   RTC_DCHECK(!ssrcs.empty());
-  if (!ready_to_send_)
+  if (!ready_to_send_) {
     return;
+  }
   rtcp::Fir fir;
   fir.SetSenderSsrc(config_.feedback_ssrc);
-  for (uint32_t media_ssrc : ssrcs)
+  for (uint32_t media_ssrc : ssrcs) {
     fir.AddRequestTo(media_ssrc,
                      remote_senders_[media_ssrc].fir_sequence_number++);
+  }
   SendImmediateFeedback(fir);
 }
 
@@ -236,21 +247,26 @@ void RtcpTransceiverImpl::HandleReceivedPacket(
 void RtcpTransceiverImpl::HandleBye(
     const rtcp::CommonHeader& rtcp_packet_header) {
   rtcp::Bye bye;
-  if (!bye.Parse(rtcp_packet_header))
+  if (!bye.Parse(rtcp_packet_header)) {
     return;
+  }
   auto remote_sender_it = remote_senders_.find(bye.sender_ssrc());
-  if (remote_sender_it == remote_senders_.end())
+  if (remote_sender_it == remote_senders_.end()) {
     return;
-  for (MediaReceiverRtcpObserver* observer : remote_sender_it->second.observers)
+  }
+  for (MediaReceiverRtcpObserver* observer :
+       remote_sender_it->second.observers) {
     observer->OnBye(bye.sender_ssrc());
+  }
 }
 
 void RtcpTransceiverImpl::HandleSenderReport(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
   rtcp::SenderReport sender_report;
-  if (!sender_report.Parse(rtcp_packet_header))
+  if (!sender_report.Parse(rtcp_packet_header)) {
     return;
+  }
   RemoteSenderState& remote_sender =
       remote_senders_[sender_report.sender_ssrc()];
   absl::optional<SenderReportTimes>& last =
@@ -259,36 +275,42 @@ void RtcpTransceiverImpl::HandleSenderReport(
   last->local_received_time_us = now_us;
   last->remote_sent_time = sender_report.ntp();
 
-  for (MediaReceiverRtcpObserver* observer : remote_sender.observers)
+  for (MediaReceiverRtcpObserver* observer : remote_sender.observers) {
     observer->OnSenderReport(sender_report.sender_ssrc(), sender_report.ntp(),
                              sender_report.rtp_timestamp());
+  }
 }
 
 void RtcpTransceiverImpl::HandleExtendedReports(
     const rtcp::CommonHeader& rtcp_packet_header,
     int64_t now_us) {
   rtcp::ExtendedReports extended_reports;
-  if (!extended_reports.Parse(rtcp_packet_header))
+  if (!extended_reports.Parse(rtcp_packet_header)) {
     return;
+  }
 
-  if (extended_reports.dlrr())
+  if (extended_reports.dlrr()) {
     HandleDlrr(extended_reports.dlrr(), now_us);
+  }
 
-  if (extended_reports.target_bitrate())
+  if (extended_reports.target_bitrate()) {
     HandleTargetBitrate(*extended_reports.target_bitrate(),
                         extended_reports.sender_ssrc());
+  }
 }
 
 void RtcpTransceiverImpl::HandleDlrr(const rtcp::Dlrr& dlrr, int64_t now_us) {
-  if (!config_.non_sender_rtt_measurement || config_.rtt_observer == nullptr)
+  if (!config_.non_sender_rtt_measurement || config_.rtt_observer == nullptr) {
     return;
+  }
 
   // Delay and last_rr are transferred using 32bit compact ntp resolution.
   // Convert packet arrival time to same format through 64bit ntp format.
   uint32_t receive_time_ntp = CompactNtp(TimeMicrosToNtp(now_us));
   for (const rtcp::ReceiveTimeInfo& rti : dlrr.sub_blocks()) {
-    if (rti.ssrc != config_.feedback_ssrc)
+    if (rti.ssrc != config_.feedback_ssrc) {
       continue;
+    }
     uint32_t rtt_ntp = receive_time_ntp - rti.delay_since_last_rr - rti.last_rr;
     int64_t rtt_ms = CompactNtpRttToMs(rtt_ntp);
     config_.rtt_observer->OnRttUpdate(rtt_ms);
@@ -300,8 +322,9 @@ void RtcpTransceiverImpl::HandleTargetBitrate(
     uint32_t remote_ssrc) {
   auto remote_sender_it = remote_senders_.find(remote_ssrc);
   if (remote_sender_it == remote_senders_.end() ||
-      remote_sender_it->second.observers.empty())
+      remote_sender_it->second.observers.empty()) {
     return;
+  }
 
   // Convert rtcp::TargetBitrate to VideoBitrateAllocation.
   VideoBitrateAllocation bitrate_allocation;
@@ -319,13 +342,16 @@ void RtcpTransceiverImpl::HandleTargetBitrate(
                                   item.target_bitrate_kbps * 1000);
   }
 
-  for (MediaReceiverRtcpObserver* observer : remote_sender_it->second.observers)
+  for (MediaReceiverRtcpObserver* observer :
+       remote_sender_it->second.observers) {
     observer->OnBitrateAllocation(remote_ssrc, bitrate_allocation);
+  }
 }
 
 void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {
-  if (!config_.schedule_periodic_compound_packets)
+  if (!config_.schedule_periodic_compound_packets) {
     return;
+  }
   periodic_task_handle_.Stop();
   RTC_DCHECK(ready_to_send_);
   SchedulePeriodicCompoundPackets(config_.report_period_ms);
@@ -393,21 +419,24 @@ void RtcpTransceiverImpl::SendImmediateFeedback(
   PacketSender sender(send_packet, config_.max_packet_size);
   // Compound mode requires every sent rtcp packet to be compound, i.e. start
   // with a sender or receiver report.
-  if (config_.rtcp_mode == RtcpMode::kCompound)
+  if (config_.rtcp_mode == RtcpMode::kCompound) {
     CreateCompoundPacket(&sender);
+  }
 
   sender.AppendPacket(rtcp_packet);
   sender.Send();
 
   // If compound packet was sent, delay (reschedule) the periodic one.
-  if (config_.rtcp_mode == RtcpMode::kCompound)
+  if (config_.rtcp_mode == RtcpMode::kCompound) {
     ReschedulePeriodicCompoundPackets();
+  }
 }
 
 std::vector<rtcp::ReportBlock> RtcpTransceiverImpl::CreateReportBlocks(
     int64_t now_us) {
-  if (!config_.receive_statistics)
-    return {};
+  if (!config_.receive_statistics) {
+    return {}
+  };
   // TODO(danilchap): Support sending more than
   // |ReceiverReport::kMaxNumberOfReportBlocks| per compound rtcp packet.
   std::vector<rtcp::ReportBlock> report_blocks =

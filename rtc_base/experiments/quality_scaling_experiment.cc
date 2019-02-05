@@ -27,8 +27,9 @@ constexpr int kMaxGenericQp = 255;
 absl::optional<VideoEncoder::QpThresholds> GetThresholds(int low,
                                                          int high,
                                                          int max) {
-  if (low < kMinQp || high > max || high < low)
+  if (low < kMinQp || high > max || high < low) {
     return absl::nullopt;
+  }
 
   RTC_LOG(LS_INFO) << "QP thresholds: low: " << low << ", high: " << high;
   return absl::optional<VideoEncoder::QpThresholds>(
@@ -43,8 +44,9 @@ bool QualityScalingExperiment::Enabled() {
 absl::optional<QualityScalingExperiment::Settings>
 QualityScalingExperiment::ParseSettings() {
   const std::string group = webrtc::field_trial::FindFullName(kFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return absl::nullopt;
+  }
 
   Settings s;
   if (sscanf(group.c_str(), "Enabled-%d,%d,%d,%d,%d,%d,%d,%d,%f,%f,%d",
@@ -60,8 +62,9 @@ QualityScalingExperiment::ParseSettings() {
 absl::optional<VideoEncoder::QpThresholds>
 QualityScalingExperiment::GetQpThresholds(VideoCodecType codec_type) {
   const auto settings = ParseSettings();
-  if (!settings)
+  if (!settings) {
     return absl::nullopt;
+  }
 
   switch (codec_type) {
     case kVideoCodecVP8:
@@ -80,8 +83,9 @@ QualityScalingExperiment::GetQpThresholds(VideoCodecType codec_type) {
 
 QualityScalingExperiment::Config QualityScalingExperiment::GetConfig() {
   const auto settings = ParseSettings();
-  if (!settings)
+  if (!settings) {
     return Config();
+  }
 
   Config config;
   config.use_all_drop_reasons = settings->drop > 0;

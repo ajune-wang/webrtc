@@ -396,8 +396,9 @@ class MultithreadedFakeH264Encoder::EncodeTask : public rtc::QueuedTask {
         input_image_(input_image),
         codec_specific_info_(),
         frame_types_(*frame_types) {
-    if (codec_specific_info)
+    if (codec_specific_info) {
       codec_specific_info_ = *codec_specific_info;
+    }
   }
 
  private:

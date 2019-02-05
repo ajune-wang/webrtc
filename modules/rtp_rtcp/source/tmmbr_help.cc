@@ -21,14 +21,16 @@ std::vector<rtcp::TmmbItem> TMMBRHelp::FindBoundingSet(
     std::vector<rtcp::TmmbItem> candidates) {
   // Filter out candidates with 0 bitrate.
   for (auto it = candidates.begin(); it != candidates.end();) {
-    if (!it->bitrate_bps())
+    if (!it->bitrate_bps()) {
       it = candidates.erase(it);
-    else
+    } else {
       ++it;
+    }
   }
 
-  if (candidates.size() <= 1)
+  if (candidates.size() <= 1) {
     return candidates;
+  }
 
   size_t num_candidates = candidates.size();
 
@@ -175,9 +177,10 @@ uint64_t TMMBRHelp::CalcMinBitrateBps(
     const std::vector<rtcp::TmmbItem>& candidates) {
   RTC_DCHECK(!candidates.empty());
   uint64_t min_bitrate_bps = std::numeric_limits<uint64_t>::max();
-  for (const rtcp::TmmbItem& item : candidates)
-    if (item.bitrate_bps() < min_bitrate_bps)
+  for (const rtcp::TmmbItem& item : candidates) {
+    if (item.bitrate_bps() < min_bitrate_bps) {
       min_bitrate_bps = item.bitrate_bps();
+    }
   return min_bitrate_bps;
-}
+  }
 }  // namespace webrtc

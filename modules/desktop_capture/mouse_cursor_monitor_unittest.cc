@@ -91,8 +91,9 @@ TEST_F(MouseCursorMonitorTest, MAYBE(FromWindow)) {
       DesktopCapturer::CreateWindowCapturer(options));
 
   // If window capturing is not supported then skip this test.
-  if (!window_capturer.get())
+  if (!window_capturer.get()) {
     return;
+  }
 
   DesktopCapturer::SourceList sources;
   EXPECT_TRUE(window_capturer->GetSourceList(&sources));

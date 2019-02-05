@@ -33,8 +33,9 @@ RTCCertificate::~RTCCertificate() {}
 
 uint64_t RTCCertificate::Expires() const {
   int64_t expires = GetSSLCertificate().CertificateExpirationTime();
-  if (expires != -1)
+  if (expires != -1) {
     return static_cast<uint64_t>(expires) * kNumMillisecsPerSec;
+  }
   // If the expiration time could not be retrieved return an expired timestamp.
   return 0;  // = 1970-01-01
 }
@@ -65,8 +66,9 @@ scoped_refptr<RTCCertificate> RTCCertificate::FromPEM(
     const RTCCertificatePEM& pem) {
   std::unique_ptr<SSLIdentity> identity(
       SSLIdentity::FromPEMStrings(pem.private_key(), pem.certificate()));
-  if (!identity)
+  if (!identity) {
     return nullptr;
+  }
   return new RefCountedObject<RTCCertificate>(identity.release());
 }
 

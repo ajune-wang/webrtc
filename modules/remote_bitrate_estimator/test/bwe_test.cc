@@ -44,8 +44,9 @@ PacketProcessorRunner::PacketProcessorRunner(
     const PacketProcessorRunner& runner) = default;
 
 PacketProcessorRunner::~PacketProcessorRunner() {
-  for (Packet* packet : queue_)
+  for (Packet* packet : queue_) {
     delete packet;
+  }
 }
 
 bool PacketProcessorRunner::RunsProcessor(
@@ -115,8 +116,9 @@ BweTest::BweTest(bool plot_capacity)
 }
 
 BweTest::~BweTest() {
-  for (Packet* packet : packets_)
+  for (Packet* packet : packets_) {
     delete packet;
+  }
 }
 
 void BweTest::SetUp() {
@@ -193,8 +195,9 @@ void BweTest::RunFor(int64_t time_ms) {
     // PacketProcessors and PacketReceivers. The PacketReceivers produces
     // FeedbackPackets which are then processed by the next link, where they
     // at some point will be consumed by a PacketSender.
-    for (Link* link : links_)
+    for (Link* link : links_) {
       link->Run(simulation_interval_ms_, time_now_ms_, &packets_);
+    }
   }
 }
 
@@ -408,16 +411,21 @@ void BweTest::RunFairnessTest(BandwidthEstimatorType bwe_type,
     }
   }
 
-  for (VideoSource* source : sources)
+  for (VideoSource* source : sources) {
     delete source;
-  for (PacketSender* sender : senders)
+  }
+  for (PacketSender* sender : senders) {
     delete sender;
-  for (RateCounterFilter* rate_counter : rate_counters)
+  }
+  for (RateCounterFilter* rate_counter : rate_counters) {
     delete rate_counter;
-  for (PacketReceiver* receiver : receivers)
+  }
+  for (PacketReceiver* receiver : receivers) {
     delete receiver;
-  for (MetricRecorder* recorder : metric_recorders)
+  }
+  for (MetricRecorder* recorder : metric_recorders) {
     delete recorder;
+  }
 }
 
 void BweTest::RunChoke(BandwidthEstimatorType bwe_type,
@@ -561,14 +569,18 @@ void BweTest::RunVariableCapacity2MultipleFlows(BandwidthEstimatorType bwe_type,
     BWE_TEST_LOGGING_BASELINEBAR(5, bwe_names[bwe_type], kOneWayDelayMs, i);
   }
 
-  for (VideoSource* source : sources)
+  for (VideoSource* source : sources) {
     delete source;
-  for (PacketSender* sender : senders)
+  }
+  for (PacketSender* sender : senders) {
     delete sender;
-  for (MetricRecorder* recorder : metric_recorders)
+  }
+  for (MetricRecorder* recorder : metric_recorders) {
     delete recorder;
-  for (PacketReceiver* receiver : receivers)
+  }
+  for (PacketReceiver* receiver : receivers) {
     delete receiver;
+  }
 }
 
 // 5.3. Bi-directional RMCAT flows.

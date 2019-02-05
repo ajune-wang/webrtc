@@ -51,14 +51,16 @@ int CongestionWindow::GetTargetCongestionWindow(
     absl::optional<int64_t> min_rtt_ms,
     float gain) {
   // If we have no rtt sample yet, return the starting congestion window size.
-  if (!min_rtt_ms)
+  if (!min_rtt_ms) {
     return gain * kStartingCongestionWindowBytes;
+  }
   int bdp = *min_rtt_ms * bandwidth_estimate_bps / 8000;
   int congestion_window = bdp * gain;
   // Congestion window could be zero in rare cases, when either no bandwidth
   // estimate is available, or path's min_rtt value is zero.
-  if (!congestion_window)
+  if (!congestion_window) {
     congestion_window = gain * kStartingCongestionWindowBytes;
+  }
   return congestion_window;
 }
 }  // namespace bwe

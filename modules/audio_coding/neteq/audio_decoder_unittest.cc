@@ -61,9 +61,10 @@ void CompareTwoChannels(const std::vector<int16_t>& output,
                         int tolerance) {
   ASSERT_GE(channels, 2u);
   ASSERT_LE(samples_per_channel * channels, output.size());
-  for (unsigned int n = 0; n < samples_per_channel; ++n)
+  for (unsigned int n = 0; n < samples_per_channel; ++n) {
     ASSERT_NEAR(output[channels * n], output[channels * n + 1], tolerance)
         << "Stereo samples differ.";
+  }
 }
 
 // Calculates mean-squared error between input and output (the first channel).
@@ -76,8 +77,9 @@ double MseInputOutput(const std::vector<int16_t>& input,
   assert(delay < static_cast<int>(num_samples));
   assert(num_samples <= input.size());
   assert(num_samples * channels <= output.size());
-  if (num_samples == 0)
+  if (num_samples == 0) {
     return 0.0;
+  }
   double squared_sum = 0.0;
   for (unsigned int n = 0; n < num_samples - delay; ++n) {
     squared_sum += (input[n] - output[channels * n + delay]) *
@@ -103,8 +105,9 @@ class AudioDecoderTest : public ::testing::Test {
   ~AudioDecoderTest() override {}
 
   void SetUp() override {
-    if (audio_encoder_)
+    if (audio_encoder_) {
       codec_input_rate_hz_ = audio_encoder_->SampleRateHz();
+    }
     // Create arrays.
     ASSERT_GT(data_length_, 0u) << "The test must set data_length_ > 0";
   }
@@ -195,9 +198,10 @@ class AudioDecoderTest : public ::testing::Test {
     }
     CompareInputOutput(input, decoded, processed_samples, channels_, tolerance,
                        delay);
-    if (channels_ == 2)
+    if (channels_ == 2) {
       CompareTwoChannels(decoded, processed_samples, channels_,
                          channel_diff_tolerance);
+    }
     EXPECT_LE(
         MseInputOutput(input, decoded, processed_samples, channels_, delay),
         mse);

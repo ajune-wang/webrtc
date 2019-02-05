@@ -94,8 +94,9 @@ int ProbeBitrateEstimator::HandleProbeAndEstimateBitrate(
                    kMinReceivedProbesPercent / 100;
   int min_bytes = packet_feedback.pacing_info.probe_cluster_min_bytes *
                   kMinReceivedBytesPercent / 100;
-  if (cluster->num_probes < min_probes || cluster->size_total < min_bytes * 8)
+  if (cluster->num_probes < min_probes || cluster->size_total < min_bytes * 8) {
     return -1;
+  }
 
   float send_interval_ms = cluster->last_send_ms - cluster->first_send_ms;
   float receive_interval_ms =
@@ -175,8 +176,9 @@ absl::optional<DataRate>
 ProbeBitrateEstimator::FetchAndResetLastEstimatedBitrate() {
   absl::optional<int> estimated_bitrate_bps = estimated_bitrate_bps_;
   estimated_bitrate_bps_.reset();
-  if (estimated_bitrate_bps)
+  if (estimated_bitrate_bps) {
     return DataRate::bps(*estimated_bitrate_bps);
+  }
   return absl::nullopt;
 }
 

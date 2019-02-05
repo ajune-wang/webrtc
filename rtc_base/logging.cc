@@ -59,10 +59,11 @@ static LoggingSeverity g_dbg_sev = LS_NONE;
 const char* FilenameFromPath(const char* file) {
   const char* end1 = ::strrchr(file, '/');
   const char* end2 = ::strrchr(file, '\\');
-  if (!end1 && !end2)
+  if (!end1 && !end2) {
     return file;
-  else
+  } else {
     return (end1 > end2) ? end1 + 1 : end2 + 1;
+  }
 }
 
 // Global lock for log subsystem, only needed to serialize access to streams_.
@@ -298,8 +299,9 @@ void LogMessage::ConfigureLogging(const char* params) {
   tokenize(params, ' ', &tokens);
 
   for (const std::string& token : tokens) {
-    if (token.empty())
+    if (token.empty()) {
       continue;
+    }
 
     // Logging features
     if (token == "tstamp") {
@@ -443,22 +445,25 @@ void LogMessage::OutputToDebug(const std::string& str,
 
 // static
 bool LogMessage::IsNoop(LoggingSeverity severity) {
-  if (severity >= g_dbg_sev || severity >= g_min_sev)
+  if (severity >= g_dbg_sev || severity >= g_min_sev) {
     return false;
+  }
 
   // TODO(tommi): We're grabbing this lock for every LogMessage instance that
   // is going to be logged. This introduces unnecessary synchronization for
   // a feature that's mostly used for testing.
   CritScope cs(&g_log_crit);
-  if (streams_.size() > 0)
+  if (streams_.size() > 0) {
     return false;
+  }
 
   return true;
 }
 
 void LogMessage::FinishPrintStream() {
-  if (!extra_.empty())
+  if (!extra_.empty()) {
     print_stream_ << " : " << extra_;
+  }
   print_stream_ << "\n";
 }
 

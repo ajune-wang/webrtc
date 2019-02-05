@@ -52,15 +52,17 @@ WebRtcSpl_DownBy2IntToShort(int32_t *in, int32_t len, int16_t *out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -82,15 +84,17 @@ WebRtcSpl_DownBy2IntToShort(int32_t *in, int32_t len, int16_t *out,
         diff = tmp1 - state[6];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -106,15 +110,19 @@ WebRtcSpl_DownBy2IntToShort(int32_t *in, int32_t len, int16_t *out,
         // divide by two, add both allpass outputs and round
         tmp0 = (in[i << 1] + in[(i << 1) + 1]) >> 15;
         tmp1 = (in[(i << 1) + 2] + in[(i << 1) + 3]) >> 15;
-        if (tmp0 > (int32_t)0x00007FFF)
+        if (tmp0 > (int32_t)0x00007FFF) {
             tmp0 = 0x00007FFF;
-        if (tmp0 < (int32_t)0xFFFF8000)
+}
+        if (tmp0 < (int32_t)0xFFFF8000) {
             tmp0 = 0xFFFF8000;
+}
         out[i] = (int16_t)tmp0;
-        if (tmp1 > (int32_t)0x00007FFF)
+        if (tmp1 > (int32_t)0x00007FFF) {
             tmp1 = 0x00007FFF;
-        if (tmp1 < (int32_t)0xFFFF8000)
+}
+        if (tmp1 < (int32_t)0xFFFF8000) {
             tmp1 = 0xFFFF8000;
+}
         out[i + 1] = (int16_t)tmp1;
     }
 }
@@ -150,15 +158,17 @@ WebRtcSpl_DownBy2ShortToInt(const int16_t *in,
 
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -180,15 +190,17 @@ WebRtcSpl_DownBy2ShortToInt(const int16_t *in,
         diff = tmp1 - state[6];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -222,15 +234,17 @@ void WebRtcSpl_UpBy2ShortToInt(const int16_t *in, int32_t len, int32_t *out,
         diff = tmp1 - state[6];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -252,15 +266,17 @@ void WebRtcSpl_UpBy2ShortToInt(const int16_t *in, int32_t len, int32_t *out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -292,15 +308,17 @@ void WebRtcSpl_UpBy2IntToInt(const int32_t *in, int32_t len, int32_t *out,
         diff = tmp1 - state[6];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -322,15 +340,17 @@ void WebRtcSpl_UpBy2IntToInt(const int32_t *in, int32_t len, int32_t *out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -362,24 +382,28 @@ void WebRtcSpl_UpBy2IntToShort(const int32_t *in, int32_t len, int16_t *out,
         diff = tmp1 - state[6];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
         // scale down, saturate and store
         tmp1 = state[7] >> 15;
-        if (tmp1 > (int32_t)0x00007FFF)
+        if (tmp1 > (int32_t)0x00007FFF) {
             tmp1 = 0x00007FFF;
-        if (tmp1 < (int32_t)0xFFFF8000)
+}
+        if (tmp1 < (int32_t)0xFFFF8000) {
             tmp1 = 0xFFFF8000;
+}
         out[i << 1] = (int16_t)tmp1;
     }
 
@@ -397,24 +421,28 @@ void WebRtcSpl_UpBy2IntToShort(const int32_t *in, int32_t len, int16_t *out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
         // scale down, saturate and store
         tmp1 = state[3] >> 15;
-        if (tmp1 > (int32_t)0x00007FFF)
+        if (tmp1 > (int32_t)0x00007FFF) {
             tmp1 = 0x00007FFF;
-        if (tmp1 < (int32_t)0xFFFF8000)
+}
+        if (tmp1 < (int32_t)0xFFFF8000) {
             tmp1 = 0xFFFF8000;
+}
         out[i << 1] = (int16_t)tmp1;
     }
 }
@@ -445,15 +473,17 @@ void WebRtcSpl_LPBy2ShortToInt(const int16_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -475,15 +505,17 @@ void WebRtcSpl_LPBy2ShortToInt(const int16_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[6];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -506,15 +538,17 @@ void WebRtcSpl_LPBy2ShortToInt(const int16_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[10];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[9] + diff * kResampleAllpass[1][1];
         state[9] = tmp1;
         diff = tmp0 - state[11];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[11] = state[10] + diff * kResampleAllpass[1][2];
         state[10] = tmp0;
 
@@ -535,15 +569,17 @@ void WebRtcSpl_LPBy2ShortToInt(const int16_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[14];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[13] + diff * kResampleAllpass[0][1];
         state[13] = tmp1;
         diff = tmp0 - state[15];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[15] = state[14] + diff * kResampleAllpass[0][2];
         state[14] = tmp0;
 
@@ -579,15 +615,17 @@ WebRtcSpl_LPBy2IntToInt(const int32_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[2];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[1] + diff * kResampleAllpass[1][1];
         state[1] = tmp1;
         diff = tmp0 - state[3];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[3] = state[2] + diff * kResampleAllpass[1][2];
         state[2] = tmp0;
 
@@ -611,15 +649,17 @@ WebRtcSpl_LPBy2IntToInt(const int32_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[6];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[5] + diff * kResampleAllpass[0][1];
         state[5] = tmp1;
         diff = tmp0 - state[7];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[7] = state[6] + diff * kResampleAllpass[0][2];
         state[6] = tmp0;
 
@@ -642,15 +682,17 @@ WebRtcSpl_LPBy2IntToInt(const int32_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[10];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[9] + diff * kResampleAllpass[1][1];
         state[9] = tmp1;
         diff = tmp0 - state[11];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[11] = state[10] + diff * kResampleAllpass[1][2];
         state[10] = tmp0;
 
@@ -671,15 +713,17 @@ WebRtcSpl_LPBy2IntToInt(const int32_t* in, int32_t len, int32_t* out,
         diff = tmp1 - state[14];
         // scale down and round
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         tmp0 = state[13] + diff * kResampleAllpass[0][1];
         state[13] = tmp1;
         diff = tmp0 - state[15];
         // scale down and truncate
         diff = diff >> 14;
-        if (diff < 0)
+        if (diff < 0) {
             diff += 1;
+}
         state[15] = state[14] + diff * kResampleAllpass[0][2];
         state[14] = tmp0;
 

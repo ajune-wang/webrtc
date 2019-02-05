@@ -38,8 +38,9 @@ int main(int argc, char* argv[]) {
     printf("Input RTP file: %s\n", argv[i]);
 
     webrtc::test::RtpPacket packet;
-    while (input->NextPacket(&packet))
+    while (input->NextPacket(&packet)) {
       RTC_CHECK(output->WritePacket(&packet));
+    }
   }
   return 0;
 }

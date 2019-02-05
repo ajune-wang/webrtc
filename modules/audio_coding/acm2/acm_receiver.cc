@@ -45,15 +45,17 @@ AcmReceiver::AcmReceiver(const AudioCodingModule::Config& config)
 AcmReceiver::~AcmReceiver() = default;
 
 int AcmReceiver::SetMinimumDelay(int delay_ms) {
-  if (neteq_->SetMinimumDelay(delay_ms))
+  if (neteq_->SetMinimumDelay(delay_ms)) {
     return 0;
+  }
   RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }
 
 int AcmReceiver::SetMaximumDelay(int delay_ms) {
-  if (neteq_->SetMaximumDelay(delay_ms))
+  if (neteq_->SetMaximumDelay(delay_ms)) {
     return 0;
+  }
   RTC_LOG(LERROR) << "AcmReceiver::SetExtraDelay " << delay_ms;
   return -1;
 }

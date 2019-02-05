@@ -533,8 +533,9 @@ ChannelReceive::~ChannelReceive() {
   int error = audio_coding_->RegisterTransportCallback(NULL);
   RTC_DCHECK_EQ(0, error);
 
-  if (_moduleProcessThreadPtr)
+  if (_moduleProcessThreadPtr) {
     _moduleProcessThreadPtr->DeRegisterModule(_rtpRtcpModule.get());
+  }
 }
 
 void ChannelReceive::SetSink(AudioSinkInterface* sink) {
@@ -601,8 +602,9 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
     rtc::CritScope cs(&rtp_sources_lock_);
     last_received_rtp_timestamp_ = packet.Timestamp();
     last_received_rtp_system_time_ms_ = now_ms;
-    if (has_audio_level)
+    if (has_audio_level) {
       last_received_rtp_audio_level_ = audio_level;
+    }
     std::vector<uint32_t> csrcs = packet.Csrcs();
     contributing_sources_.Update(
         now_ms, csrcs,
@@ -613,8 +615,9 @@ void ChannelReceive::OnRtpPacket(const RtpPacketReceived& packet) {
   UpdatePlayoutTimestamp(false);
 
   const auto& it = payload_type_frequencies_.find(packet.PayloadType());
-  if (it == payload_type_frequencies_.end())
+  if (it == payload_type_frequencies_.end()) {
     return;
+  }
   // TODO(nisse): Set payload_type_frequency earlier, when packet is parsed.
   RtpPacketReceived packet_copy(packet);
   packet_copy.set_payload_type_frequency(it->second);

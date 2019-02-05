@@ -117,8 +117,9 @@ bool StationarityEstimator::EstimateBandStationarity(
 
 bool StationarityEstimator::AreAllBandsStationary() {
   for (auto b : stationarity_flags_) {
-    if (!b)
+    if (!b) {
       return false;
+    }
   }
   return true;
 }

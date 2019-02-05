@@ -123,12 +123,14 @@ TEST_F(MessageQueueTest, DiposeHandlerWithPostedMessagePending) {
 
 struct UnwrapMainThreadScope {
   UnwrapMainThreadScope() : rewrap_(Thread::Current() != nullptr) {
-    if (rewrap_)
+    if (rewrap_) {
       ThreadManager::Instance()->UnwrapCurrentThread();
+    }
   }
   ~UnwrapMainThreadScope() {
-    if (rewrap_)
+    if (rewrap_) {
       ThreadManager::Instance()->WrapCurrentThread();
+    }
   }
 
  private:

@@ -149,8 +149,9 @@ TEST(VideoDenoiserTest, Denoiser) {
   for (;;) {
     rtc::scoped_refptr<I420BufferInterface> video_frame_buffer(
         test::ReadI420Buffer(kWidth, kHeight, source_file));
-    if (!video_frame_buffer)
+    if (!video_frame_buffer) {
       break;
+    }
 
     rtc::scoped_refptr<I420BufferInterface> denoised_frame_c(
         denoiser_c.DenoiseFrame(video_frame_buffer, false));

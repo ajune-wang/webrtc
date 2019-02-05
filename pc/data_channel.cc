@@ -214,8 +214,9 @@ uint64_t DataChannel::buffered_amount() const {
 }
 
 void DataChannel::Close() {
-  if (state_ == kClosed)
+  if (state_ == kClosed) {
     return;
+  }
   send_ssrc_ = 0;
   send_ssrc_set_ = false;
   SetState(kClosing);
@@ -521,8 +522,9 @@ void DataChannel::SetState(DataState state) {
 }
 
 void DataChannel::DisconnectFromProvider() {
-  if (!connected_to_provider_)
+  if (!connected_to_provider_) {
     return;
+  }
 
   provider_->DisconnectDataChannel(this);
   connected_to_provider_ = false;

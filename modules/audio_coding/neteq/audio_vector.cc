@@ -48,8 +48,9 @@ void AudioVector::CopyTo(AudioVector* copy_to) const {
 void AudioVector::CopyTo(size_t length,
                          size_t position,
                          int16_t* copy_to) const {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   length = std::min(length, Size() - position);
   const size_t copy_index = (begin_index_ + position) % capacity_;
   const size_t first_chunk_length = std::min(length, capacity_ - copy_index);
@@ -63,8 +64,9 @@ void AudioVector::CopyTo(size_t length,
 
 void AudioVector::PushFront(const AudioVector& prepend_this) {
   const size_t length = prepend_this.Size();
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
 
   // Although the subsequent calling to PushFront does Reserve in it, it is
   // always more efficient to do a big Reserve first.
@@ -73,15 +75,17 @@ void AudioVector::PushFront(const AudioVector& prepend_this) {
   const size_t first_chunk_length =
       std::min(length, prepend_this.capacity_ - prepend_this.begin_index_);
   const size_t remaining_length = length - first_chunk_length;
-  if (remaining_length > 0)
+  if (remaining_length > 0) {
     PushFront(prepend_this.array_.get(), remaining_length);
+  }
   PushFront(&prepend_this.array_[prepend_this.begin_index_],
             first_chunk_length);
 }
 
 void AudioVector::PushFront(const int16_t* prepend_this, size_t length) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   Reserve(Size() + length);
   const size_t first_chunk_length = std::min(length, begin_index_);
   memcpy(&array_[begin_index_ - first_chunk_length],
@@ -105,8 +109,9 @@ void AudioVector::PushBack(const AudioVector& append_this,
   RTC_DCHECK_LE(position, append_this.Size());
   RTC_DCHECK_LE(length, append_this.Size() - position);
 
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
 
   // Although the subsequent calling to PushBack does Reserve in it, it is
   // always more efficient to do a big Reserve first.
@@ -119,13 +124,15 @@ void AudioVector::PushBack(const AudioVector& append_this,
   PushBack(&append_this.array_[start_index], first_chunk_length);
 
   const size_t remaining_length = length - first_chunk_length;
-  if (remaining_length > 0)
+  if (remaining_length > 0) {
     PushBack(append_this.array_.get(), remaining_length);
+  }
 }
 
 void AudioVector::PushBack(const int16_t* append_this, size_t length) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   Reserve(Size() + length);
   const size_t first_chunk_length = std::min(length, capacity_ - end_index_);
   memcpy(&array_[end_index_], append_this,
@@ -139,31 +146,35 @@ void AudioVector::PushBack(const int16_t* append_this, size_t length) {
 }
 
 void AudioVector::PopFront(size_t length) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   length = std::min(length, Size());
   begin_index_ = (begin_index_ + length) % capacity_;
 }
 
 void AudioVector::PopBack(size_t length) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   // Never remove more than what is in the array.
   length = std::min(length, Size());
   end_index_ = (end_index_ + capacity_ - length) % capacity_;
 }
 
 void AudioVector::Extend(size_t extra_length) {
-  if (extra_length == 0)
+  if (extra_length == 0) {
     return;
+  }
   InsertZerosByPushBack(extra_length, Size());
 }
 
 void AudioVector::InsertAt(const int16_t* insert_this,
                            size_t length,
                            size_t position) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   // Cap the insert position at the current array length.
   position = std::min(Size(), position);
 
@@ -178,8 +189,9 @@ void AudioVector::InsertAt(const int16_t* insert_this,
 }
 
 void AudioVector::InsertZerosAt(size_t length, size_t position) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   // Cap the insert position at the current array length.
   position = std::min(Size(), position);
 
@@ -197,8 +209,9 @@ void AudioVector::OverwriteAt(const AudioVector& insert_this,
                               size_t length,
                               size_t position) {
   RTC_DCHECK_LE(length, insert_this.Size());
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
 
   // Cap the insert position at the current array length.
   position = std::min(Size(), position);
@@ -222,8 +235,9 @@ void AudioVector::OverwriteAt(const AudioVector& insert_this,
 void AudioVector::OverwriteAt(const int16_t* insert_this,
                               size_t length,
                               size_t position) {
-  if (length == 0)
+  if (length == 0) {
     return;
+  }
   // Cap the insert position at the current array length.
   position = std::min(Size(), position);
 
@@ -268,8 +282,9 @@ void AudioVector::CrossFade(const AudioVector& append_this,
   assert(alpha >= 0);  // Verify that the slope was correct.
   // Append what is left of |append_this|.
   size_t samples_to_push_back = append_this.Size() - fade_length;
-  if (samples_to_push_back > 0)
+  if (samples_to_push_back > 0) {
     PushBack(append_this, samples_to_push_back, fade_length);
+  }
 }
 
 // Returns the number of elements in this AudioVector.
@@ -283,8 +298,9 @@ bool AudioVector::Empty() const {
 }
 
 void AudioVector::Reserve(size_t n) {
-  if (capacity_ > n)
+  if (capacity_ > n) {
     return;
+  }
   const size_t length = Size();
   // Reserve one more sample to remove the ambiguity between empty vector and
   // full vector. Therefore |begin_index_| == |end_index_| indicates empty
@@ -312,8 +328,9 @@ void AudioVector::InsertByPushBack(const int16_t* insert_this,
 
   Reserve(Size() + length + move_chunk_length);
   PushBack(insert_this, length);
-  if (move_chunk_length > 0)
+  if (move_chunk_length > 0) {
     PushBack(temp_array.get(), move_chunk_length);
+  }
 }
 
 void AudioVector::InsertByPushFront(const int16_t* insert_this,
@@ -329,8 +346,9 @@ void AudioVector::InsertByPushFront(const int16_t* insert_this,
 
   Reserve(Size() + length + position);
   PushFront(insert_this, length);
-  if (position > 0)
+  if (position > 0) {
     PushFront(temp_array.get(), position);
+  }
 }
 
 void AudioVector::InsertZerosByPushBack(size_t length, size_t position) {
@@ -348,12 +366,14 @@ void AudioVector::InsertZerosByPushBack(size_t length, size_t position) {
       std::min(length, capacity_ - end_index_);
   memset(&array_[end_index_], 0, first_zero_chunk_length * sizeof(int16_t));
   const size_t remaining_zero_length = length - first_zero_chunk_length;
-  if (remaining_zero_length > 0)
+  if (remaining_zero_length > 0) {
     memset(array_.get(), 0, remaining_zero_length * sizeof(int16_t));
+  }
   end_index_ = (end_index_ + length) % capacity_;
 
-  if (move_chunk_length > 0)
+  if (move_chunk_length > 0) {
     PushBack(temp_array.get(), move_chunk_length);
+  }
 }
 
 void AudioVector::InsertZerosByPushFront(size_t length, size_t position) {
@@ -370,13 +390,15 @@ void AudioVector::InsertZerosByPushFront(size_t length, size_t position) {
   memset(&array_[begin_index_ - first_zero_chunk_length], 0,
          first_zero_chunk_length * sizeof(int16_t));
   const size_t remaining_zero_length = length - first_zero_chunk_length;
-  if (remaining_zero_length > 0)
+  if (remaining_zero_length > 0) {
     memset(&array_[capacity_ - remaining_zero_length], 0,
            remaining_zero_length * sizeof(int16_t));
+  }
   begin_index_ = (begin_index_ + capacity_ - length) % capacity_;
 
-  if (position > 0)
+  if (position > 0) {
     PushFront(temp_array.get(), position);
+  }
 }
 
 }  // namespace webrtc

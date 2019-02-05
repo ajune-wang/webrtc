@@ -37,8 +37,9 @@ bool AdaptiveThresholdExperimentIsDisabled() {
   std::string experiment_string =
       webrtc::field_trial::FindFullName(kAdaptiveThresholdExperiment);
   const size_t kMinExperimentLength = kDisabledPrefixLength;
-  if (experiment_string.length() < kMinExperimentLength)
+  if (experiment_string.length() < kMinExperimentLength) {
     return false;
+  }
   return experiment_string.substr(0, kDisabledPrefixLength) == kDisabledPrefix;
 }
 
@@ -49,8 +50,9 @@ bool ReadExperimentConstants(double* k_up, double* k_down) {
       webrtc::field_trial::FindFullName(kAdaptiveThresholdExperiment);
   const size_t kMinExperimentLength = kEnabledPrefixLength + 3;
   if (experiment_string.length() < kMinExperimentLength ||
-      experiment_string.substr(0, kEnabledPrefixLength) != kEnabledPrefix)
+      experiment_string.substr(0, kEnabledPrefixLength) != kEnabledPrefix) {
     return false;
+  }
   return sscanf(experiment_string.substr(kEnabledPrefixLength + 1).c_str(),
                 "%lf,%lf", k_up, k_down) == 2;
 }
@@ -68,8 +70,9 @@ OveruseDetector::OveruseDetector()
       time_over_using_(-1),
       overuse_counter_(0),
       hypothesis_(BandwidthUsage::kBwNormal) {
-  if (!AdaptiveThresholdExperimentIsDisabled())
+  if (!AdaptiveThresholdExperimentIsDisabled()) {
     InitializeExperiment();
+  }
 }
 
 OveruseDetector::~OveruseDetector() {}
@@ -123,11 +126,13 @@ BandwidthUsage OveruseDetector::Detect(double offset,
 }
 
 void OveruseDetector::UpdateThreshold(double modified_offset, int64_t now_ms) {
-  if (!in_experiment_)
+  if (!in_experiment_) {
     return;
+  }
 
-  if (last_update_ms_ == -1)
+  if (last_update_ms_ == -1) {
     last_update_ms_ = now_ms;
+  }
 
   if (fabs(modified_offset) > threshold_ + kMaxAdaptOffsetMs) {
     // Avoid adapting the threshold to big latency spikes, caused e.g.,

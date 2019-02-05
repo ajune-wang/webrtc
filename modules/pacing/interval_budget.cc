@@ -55,8 +55,9 @@ size_t IntervalBudget::bytes_remaining() const {
 }
 
 int IntervalBudget::budget_level_percent() const {
-  if (max_bytes_in_budget_ == 0)
+  if (max_bytes_in_budget_ == 0) {
     return 0;
+  }
   return rtc::dchecked_cast<int>(int64_t{bytes_remaining_} * 100 /
                                  max_bytes_in_budget_);
 }

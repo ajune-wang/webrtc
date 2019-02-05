@@ -861,16 +861,18 @@ void RtcEventLogEncoderNewFormat::EncodeAlrState(
 void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
     rtc::ArrayView<const RtcEventAudioNetworkAdaptation*> batch,
     rtclog2::EventStream* event_stream) {
-  if (batch.size() == 0)
+  if (batch.size() == 0) {
     return;
+  }
 
   // Base event
   const RtcEventAudioNetworkAdaptation* const base_event = batch[0];
   rtclog2::AudioNetworkAdaptations* proto_batch =
       event_stream->add_audio_network_adaptations();
   proto_batch->set_timestamp_ms(base_event->timestamp_ms());
-  if (base_event->config().bitrate_bps.has_value())
+  if (base_event->config().bitrate_bps.has_value()) {
     proto_batch->set_bitrate_bps(base_event->config().bitrate_bps.value());
+  }
   if (base_event->config().frame_length_ms.has_value()) {
     proto_batch->set_frame_length_ms(
         base_event->config().frame_length_ms.value());
@@ -882,18 +884,22 @@ void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
     proto_batch->set_uplink_packet_loss_fraction(
         base_uplink_packet_loss_fraction.value());
   }
-  if (base_event->config().enable_fec.has_value())
+  if (base_event->config().enable_fec.has_value()) {
     proto_batch->set_enable_fec(base_event->config().enable_fec.value());
-  if (base_event->config().enable_dtx.has_value())
+  }
+  if (base_event->config().enable_dtx.has_value()) {
     proto_batch->set_enable_dtx(base_event->config().enable_dtx.value());
+  }
   // Note that |num_channels_deltas| encodes N as N-1, to keep deltas smaller,
   // but there's no reason to do the same for the base event's value, since
   // no bits will be spared.
-  if (base_event->config().num_channels.has_value())
+  if (base_event->config().num_channels.has_value()) {
     proto_batch->set_num_channels(base_event->config().num_channels.value());
+  }
 
-  if (batch.size() == 1)
+  if (batch.size() == 1) {
     return;
+  }
 
   // Delta encoding
   proto_batch->set_number_of_deltas(batch.size() - 1);
@@ -1013,8 +1019,9 @@ void RtcEventLogEncoderNewFormat::EncodeAudioNetworkAdaptation(
 void RtcEventLogEncoderNewFormat::EncodeAudioPlayout(
     rtc::ArrayView<const RtcEventAudioPlayout*> batch,
     rtclog2::EventStream* event_stream) {
-  if (batch.size() == 0)
+  if (batch.size() == 0) {
     return;
+  }
 
   // Base event
   const RtcEventAudioPlayout* const base_event = batch[0];
@@ -1023,8 +1030,9 @@ void RtcEventLogEncoderNewFormat::EncodeAudioPlayout(
   proto_batch->set_timestamp_ms(base_event->timestamp_ms());
   proto_batch->set_local_ssrc(base_event->ssrc());
 
-  if (batch.size() == 1)
+  if (batch.size() == 1) {
     return;
+  }
 
   // Delta encoding
   proto_batch->set_number_of_deltas(batch.size() - 1);
@@ -1066,8 +1074,9 @@ void RtcEventLogEncoderNewFormat::EncodeAudioRecvStreamConfig(
         proto_batch->mutable_header_extensions();
     bool has_recognized_extensions =
         ConvertToProtoFormat(base_event->config().rtp_extensions, proto_config);
-    if (!has_recognized_extensions)
+    if (!has_recognized_extensions) {
       proto_batch->clear_header_extensions();
+    }
   }
 }
 
@@ -1084,16 +1093,18 @@ void RtcEventLogEncoderNewFormat::EncodeAudioSendStreamConfig(
         proto_batch->mutable_header_extensions();
     bool has_recognized_extensions =
         ConvertToProtoFormat(base_event->config().rtp_extensions, proto_config);
-    if (!has_recognized_extensions)
+    if (!has_recognized_extensions) {
       proto_batch->clear_header_extensions();
+    }
   }
 }
 
 void RtcEventLogEncoderNewFormat::EncodeBweUpdateDelayBased(
     rtc::ArrayView<const RtcEventBweUpdateDelayBased*> batch,
     rtclog2::EventStream* event_stream) {
-  if (batch.size() == 0)
+  if (batch.size() == 0) {
     return;
+  }
 
   // Base event
   const RtcEventBweUpdateDelayBased* const base_event = batch[0];
@@ -1104,8 +1115,9 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateDelayBased(
   proto_batch->set_detector_state(
       ConvertToProtoFormat(base_event->detector_state()));
 
-  if (batch.size() == 1)
+  if (batch.size() == 1) {
     return;
+  }
 
   // Delta encoding
   proto_batch->set_number_of_deltas(batch.size() - 1);
@@ -1149,8 +1161,9 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateDelayBased(
 void RtcEventLogEncoderNewFormat::EncodeBweUpdateLossBased(
     rtc::ArrayView<const RtcEventBweUpdateLossBased*> batch,
     rtclog2::EventStream* event_stream) {
-  if (batch.size() == 0)
+  if (batch.size() == 0) {
     return;
+  }
 
   // Base event
   const RtcEventBweUpdateLossBased* const base_event = batch[0];
@@ -1161,8 +1174,9 @@ void RtcEventLogEncoderNewFormat::EncodeBweUpdateLossBased(
   proto_batch->set_fraction_loss(base_event->fraction_loss());
   proto_batch->set_total_packets(base_event->total_packets());
 
-  if (batch.size() == 1)
+  if (batch.size() == 1) {
     return;
+  }
 
   // Delta encoding
   proto_batch->set_number_of_deltas(batch.size() - 1);
@@ -1326,8 +1340,9 @@ void RtcEventLogEncoderNewFormat::EncodeVideoRecvStreamConfig(
         proto_batch->mutable_header_extensions();
     bool has_recognized_extensions =
         ConvertToProtoFormat(base_event->config().rtp_extensions, proto_config);
-    if (!has_recognized_extensions)
+    if (!has_recognized_extensions) {
       proto_batch->clear_header_extensions();
+    }
   }
 }
 
@@ -1345,8 +1360,9 @@ void RtcEventLogEncoderNewFormat::EncodeVideoSendStreamConfig(
         proto_batch->mutable_header_extensions();
     bool has_recognized_extensions =
         ConvertToProtoFormat(base_event->config().rtp_extensions, proto_config);
-    if (!has_recognized_extensions)
+    if (!has_recognized_extensions) {
       proto_batch->clear_header_extensions();
+    }
   }
 }
 

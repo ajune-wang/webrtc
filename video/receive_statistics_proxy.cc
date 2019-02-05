@@ -58,8 +58,9 @@ const int kRateStatisticsWindowSizeMs = 1000;
 const int kMaxCommonInterframeDelayMs = 500;
 
 const char* UmaPrefixForContentType(VideoContentType content_type) {
-  if (videocontenttypehelpers::IsScreenshare(content_type))
+  if (videocontenttypehelpers::IsScreenshare(content_type)) {
     return "WebRTC.Video.Screenshare";
+  }
   return "WebRTC.Video";
 }
 
@@ -269,8 +270,9 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
     log_stream << "WebRTC.Video.CurrentDelayInMs " << *current_delay_ms << '\n';
   }
   absl::optional<int> delay_ms = delay_counter_.Avg(kMinRequiredSamples);
-  if (delay_ms)
+  if (delay_ms) {
     RTC_HISTOGRAM_COUNTS_10000("WebRTC.Video.OnewayDelayInMs", *delay_ms);
+  }
 
   // Aggregate content_specific_stats_ by removing experiment or simulcast
   // information;
@@ -413,8 +415,9 @@ void ReceiveStatisticsProxy::UpdateHistograms() {
 
   StreamDataCounters rtp = stats_.rtp_stats;
   StreamDataCounters rtx;
-  for (auto it : rtx_stats_)
+  for (auto it : rtx_stats_) {
     rtx.Add(it.second);
+  }
   StreamDataCounters rtp_rtx = rtp;
   rtp_rtx.Add(rtx);
   int64_t elapsed_sec =
@@ -491,8 +494,9 @@ void ReceiveStatisticsProxy::QualitySample() {
   RTC_DCHECK_RUN_ON(&network_thread_);
 
   int64_t now = clock_->TimeInMilliseconds();
-  if (last_sample_time_ + kMinSampleLengthMs > now)
+  if (last_sample_time_ + kMinSampleLengthMs > now) {
     return;
+  }
 
   double fps =
       render_fps_tracker_.ComputeRateForInterval(now - last_sample_time_);
@@ -504,8 +508,9 @@ void ReceiveStatisticsProxy::QualitySample() {
   bool prev_any_bad = prev_fps_bad || prev_qp_bad || prev_variance_bad;
 
   fps_threshold_.AddMeasurement(static_cast<int>(fps));
-  if (qp)
+  if (qp) {
     qp_threshold_.AddMeasurement(*qp);
+  }
   absl::optional<double> fps_variance_opt = fps_threshold_.CalculateVariance();
   double fps_variance = fps_variance_opt.value_or(0);
   if (fps_variance_opt) {
@@ -552,8 +557,9 @@ void ReceiveStatisticsProxy::QualitySample() {
 
   if (fps_threshold_.IsHigh() || variance_threshold_.IsHigh() ||
       qp_threshold_.IsHigh()) {
-    if (any_bad)
+    if (any_bad) {
       ++num_bad_states_;
+    }
     ++num_certain_states_;
   }
 }
@@ -611,8 +617,9 @@ void ReceiveStatisticsProxy::OnIncomingRate(unsigned int framerate,
                                             unsigned int bitrate_bps) {
   RTC_DCHECK_RUN_ON(&network_thread_);
   rtc::CritScope lock(&crit_);
-  if (stats_.rtp_stats.first_packet_time_ms != -1)
+  if (stats_.rtp_stats.first_packet_time_ms != -1) {
     QualitySample();
+  }
 }
 
 void ReceiveStatisticsProxy::OnFrameBufferTimingsUpdated(
@@ -669,8 +676,9 @@ void ReceiveStatisticsProxy::RtcpPacketTypesCounterUpdated(
     uint32_t ssrc,
     const RtcpPacketTypeCounter& packet_counter) {
   rtc::CritScope lock(&crit_);
-  if (stats_.ssrc != ssrc)
+  if (stats_.ssrc != ssrc) {
     return;
+  }
   stats_.rtcp_packet_type_counts = packet_counter;
 }
 
@@ -680,21 +688,24 @@ void ReceiveStatisticsProxy::StatisticsUpdated(
   rtc::CritScope lock(&crit_);
   // TODO(pbos): Handle both local and remote ssrcs here and RTC_DCHECK that we
   // receive stats from one of them.
-  if (stats_.ssrc != ssrc)
+  if (stats_.ssrc != ssrc) {
     return;
+  }
   stats_.rtcp_stats = statistics;
   report_block_stats_.Store(statistics, ssrc, 0);
 
-  if (first_report_block_time_ms_ == -1)
+  if (first_report_block_time_ms_ == -1) {
     first_report_block_time_ms_ = clock_->TimeInMilliseconds();
+  }
 }
 
 void ReceiveStatisticsProxy::CNameChanged(const char* cname, uint32_t ssrc) {
   rtc::CritScope lock(&crit_);
   // TODO(pbos): Handle both local and remote ssrcs here and RTC_DCHECK that we
   // receive stats from one of them.
-  if (stats_.ssrc != ssrc)
+  if (stats_.ssrc != ssrc) {
     return;
+  }
   stats_.c_name = cname;
 }
 
@@ -718,8 +729,9 @@ void ReceiveStatisticsProxy::DataCountersUpdated(
       RTC_NOTREACHED() << "Unexpected stream ssrc: " << ssrc;
     }
   }
-  if (total_bytes > last_total_bytes)
+  if (total_bytes > last_total_bytes) {
     total_byte_tracker_.AddSamples(total_bytes - last_total_bytes);
+  }
 }
 
 void ReceiveStatisticsProxy::OnDecodedFrame(const VideoFrame& frame,
@@ -819,8 +831,9 @@ void ReceiveStatisticsProxy::OnSyncOffsetUpdated(int64_t sync_offset_ms,
   const double kMaxFreqKhz = 10000.0;
   int offset_khz = kMaxFreqKhz;
   // Should not be zero or negative. If so, report max.
-  if (estimated_freq_khz < kMaxFreqKhz && estimated_freq_khz > 0.0)
+  if (estimated_freq_khz < kMaxFreqKhz && estimated_freq_khz > 0.0) {
     offset_khz = static_cast<int>(std::fabs(estimated_freq_khz - 90.0) + 0.5);
+  }
 
   freq_offset_counter_.Add(offset_khz);
 }

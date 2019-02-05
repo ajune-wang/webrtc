@@ -41,10 +41,12 @@ BitrateController::~BitrateController() = default;
 
 void BitrateController::UpdateNetworkMetrics(
     const NetworkMetrics& network_metrics) {
-  if (network_metrics.target_audio_bitrate_bps)
+  if (network_metrics.target_audio_bitrate_bps) {
     target_audio_bitrate_bps_ = network_metrics.target_audio_bitrate_bps;
-  if (network_metrics.overhead_bytes_per_packet)
+  }
+  if (network_metrics.overhead_bytes_per_packet) {
     overhead_bytes_per_packet_ = network_metrics.overhead_bytes_per_packet;
+  }
 }
 
 void BitrateController::MakeDecision(AudioEncoderRuntimeConfig* config) {
@@ -56,8 +58,9 @@ void BitrateController::MakeDecision(AudioEncoderRuntimeConfig* config) {
     // currently governed by the following field trial.
     RTC_DCHECK(
         webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead"));
-    if (config->frame_length_ms)
+    if (config->frame_length_ms) {
       frame_length_ms_ = *config->frame_length_ms;
+    }
     int offset = config->last_fl_change_increase
                      ? config_.fl_increase_overhead_offset
                      : config_.fl_decrease_overhead_offset;

@@ -180,8 +180,9 @@ TEST(AudioNetworkAdaptorImplTest, UpdateNetworkMetricsIsCalledOnSetOverhead) {
 TEST(AudioNetworkAdaptorImplTest,
      MakeDecisionIsCalledOnGetEncoderRuntimeConfig) {
   auto states = CreateAudioNetworkAdaptor();
-  for (auto& mock_controller : states.mock_controllers)
+  for (auto& mock_controller : states.mock_controllers) {
     EXPECT_CALL(*mock_controller, MakeDecision(_));
+  }
   states.audio_network_adaptor->GetEncoderRuntimeConfig();
 }
 

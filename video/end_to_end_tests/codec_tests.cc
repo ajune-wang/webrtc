@@ -90,8 +90,9 @@ class CodecObserver : public test::EndToEndTest,
                     ? absl::make_optional(*video_frame.color_space())
                     : absl::nullopt);
     }
-    if (++frame_counter_ == no_frames_to_wait_for_)
+    if (++frame_counter_ == no_frames_to_wait_for_) {
       observation_complete_.Set();
+    }
   }
 
   void OnFrameGeneratorCapturerCreated(

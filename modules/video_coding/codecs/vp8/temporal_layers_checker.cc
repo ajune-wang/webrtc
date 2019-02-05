@@ -62,8 +62,9 @@ bool TemporalLayersChecker::CheckAndUpdateBufferState(
     state->sequence_number = sequence_number;
     state->is_keyframe = frame_is_keyframe;
   }
-  if (frame_is_keyframe)
+  if (frame_is_keyframe) {
     state->is_keyframe = true;
+  }
   return true;
 }
 

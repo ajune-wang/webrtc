@@ -142,7 +142,8 @@ int WebRtcIsac_EncLogisticMulti2(
     {
       /* propagate carry */
       stream_ptr_carry = stream_ptr;
-      while (!(++(*--stream_ptr_carry)));
+      while (!(++(*--stream_ptr_carry))) {;
+}
     }
 
     /* renormalize interval, store most significant byte of streamval and update streamval */
@@ -195,8 +196,9 @@ int WebRtcIsac_DecLogisticMulti2(
   if (streamdata->stream_index == 0)   /* first time decoder is called for this stream */
   {
     /* read first word from bytestream */
-    if (stream_ptr + 3 >= stream_end)
+    if (stream_ptr + 3 >= stream_end) {
       return -1;  // Would read out of bounds. Malformed input?
+}
     streamval = *stream_ptr << 24;
     streamval |= *++stream_ptr << 16;
     streamval |= *++stream_ptr << 8;
@@ -236,7 +238,8 @@ int WebRtcIsac_DecLogisticMulti2(
         W_tmp += (W_upper_LSB * cdf_tmp) >> 16;
 
         /* error check */
-        if (W_lower == W_tmp) return -1;
+        if (W_lower == W_tmp) { return -1;
+}
       }
       W_upper = W_tmp;
 
@@ -261,7 +264,8 @@ int WebRtcIsac_DecLogisticMulti2(
         W_tmp += (W_upper_LSB * cdf_tmp) >> 16;
 
         /* error check */
-        if (W_upper == W_tmp) return -1;
+        if (W_upper == W_tmp) { return -1;
+}
       }
       W_lower = W_tmp;
 
@@ -284,8 +288,9 @@ int WebRtcIsac_DecLogisticMulti2(
     while ( !(W_upper & 0xFF000000) )    /* W_upper < 2^24 */
     {
       /* read next byte from stream */
-      if (stream_ptr + 1 >= stream_end)
+      if (stream_ptr + 1 >= stream_end) {
         return -1;  // Would read out of bounds. Malformed input?
+}
       streamval = (streamval << 8) | *++stream_ptr;
       W_upper <<= 8;
     }
@@ -296,8 +301,9 @@ int WebRtcIsac_DecLogisticMulti2(
   streamdata->streamval = streamval;
 
   /* find number of bytes in original stream (determined by current interval width) */
-  if ( W_upper > 0x01FFFFFF )
+  if ( W_upper > 0x01FFFFFF ) {
     return streamdata->stream_index - 2;
-  else
+  } else {
     return streamdata->stream_index - 1;
+}
 }

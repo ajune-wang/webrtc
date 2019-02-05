@@ -38,8 +38,9 @@ struct RawFeedbackReportPacket {
 PacketStream::PacketStream(PacketStreamConfig config) : config_(config) {}
 
 std::vector<int64_t> PacketStream::PullPackets(Timestamp at_time) {
-  if (next_frame_time_.IsInfinite())
+  if (next_frame_time_.IsInfinite()) {
     next_frame_time_ = at_time;
+  }
 
   TimeDelta frame_interval = TimeDelta::seconds(1) / config_.frame_rate;
   int64_t frame_allowance = (frame_interval * target_rate_).bytes();
@@ -65,8 +66,9 @@ std::vector<int64_t> PacketStream::PullPackets(Timestamp at_time) {
     }
     packets.push_back(packet_budget);
   }
-  for (int64_t& packet : packets)
+  for (int64_t& packet : packets) {
     packet += config_.packet_overhead.bytes();
+  }
   return packets;
 }
 
@@ -83,11 +85,12 @@ SimpleFeedbackReportPacket FeedbackFromBuffer(
   SimpleFeedbackReportPacket packet;
   packet.receive_times.emplace_back(SimpleFeedbackReportPacket::ReceiveInfo{
       raw_packet.first_seq_num, Timestamp::ms(raw_packet.first_recv_time_ms)});
-  for (int i = 1; i < raw_packet.count; ++i)
+  for (int i = 1; i < raw_packet.count; ++i) {
     packet.receive_times.emplace_back(SimpleFeedbackReportPacket::ReceiveInfo{
         raw_packet.first_seq_num + raw_packet.feedbacks[i - 1].seq_offset,
         Timestamp::ms(raw_packet.first_recv_time_ms +
                       raw_packet.feedbacks[i - 1].recv_offset_ms)});
+  }
   return packet;
 }
 
@@ -144,8 +147,9 @@ TransportPacketsFeedback SimulatedSender::PullFeedbackReport(
       for (auto it = sent_packets_.begin(); it != sent_packets_.end(); ++it) {
         if (it->sequence_number == next_feedback_seq_num_) {
           feedback.sent_packet = *it;
-          if (feedback.receive_time.IsFinite())
+          if (feedback.receive_time.IsFinite()) {
             sent_packets_.erase(it);
+          }
           break;
         }
       }
@@ -196,10 +200,12 @@ SimulatedSender::PaceAndPullSendPackets(Timestamp at_time) {
 }
 
 void SimulatedSender::Update(NetworkControlUpdate update) {
-  if (update.pacer_config)
+  if (update.pacer_config) {
     pacer_config_ = *update.pacer_config;
-  if (update.congestion_window)
+  }
+  if (update.congestion_window) {
     max_in_flight_ = *update.congestion_window;
+  }
 }
 
 SimulatedFeedback::SimulatedFeedback(SimulatedTimeClientConfig config,
@@ -215,8 +221,9 @@ void SimulatedFeedback::OnPacketReceived(EmulatedIpPacket packet) {
   int64_t sequence_number;
   memcpy(&sequence_number, packet.cdata(), sizeof(sequence_number));
   receive_times_.insert({sequence_number, packet.arrival_time});
-  if (last_feedback_time_.IsInfinite())
+  if (last_feedback_time_.IsInfinite()) {
     last_feedback_time_ = packet.arrival_time;
+  }
   if (packet.arrival_time >= last_feedback_time_ + config_.feedback.interval) {
     SimpleFeedbackReportPacket report;
     for (; next_feedback_seq_num_ <= sequence_number;
@@ -236,10 +243,11 @@ void SimulatedFeedback::OnPacketReceived(EmulatedIpPacket packet) {
         report = SimpleFeedbackReportPacket();
       }
     }
-    if (!report.receive_times.empty())
+    if (!report.receive_times.empty()) {
       return_node_->OnPacketReceived(
           EmulatedIpPacket(packet.to, packet.from, return_receiver_id_,
                            FeedbackToBuffer(report), packet.arrival_time));
+    }
     last_feedback_time_ = packet.arrival_time;
   }
 }
@@ -268,8 +276,9 @@ SimulatedTimeClient::SimulatedTimeClient(
   initial_config.stream_based_config.max_padding_rate =
       config.transport.rates.max_padding_rate;
   congestion_controller_ = network_controller_factory_.Create(initial_config);
-  for (auto& stream_config : stream_configs)
+  for (auto& stream_config : stream_configs) {
     packet_streams_.emplace_back(new PacketStream(stream_config));
+  }
   EmulatedNetworkNode::CreateRoute(send_receiver_id, send_link, &feedback_);
   EmulatedNetworkNode::CreateRoute(return_receiver_id, return_link, this);
 
@@ -288,7 +297,7 @@ void SimulatedTimeClient::OnPacketReceived(EmulatedIpPacket packet) {
   auto report = sender_.PullFeedbackReport(FeedbackFromBuffer(packet.data),
                                            packet.arrival_time);
   for (PacketResult& feedback : report.packet_feedbacks) {
-    if (packet_log_)
+    if (packet_log_) {
       LogWriteFormat(packet_log_.get(),
                      "%" PRId64 " %" PRId64 " %.3lf %.3lf %.3lf\n",
                      feedback.sent_packet.sequence_number,
@@ -296,6 +305,7 @@ void SimulatedTimeClient::OnPacketReceived(EmulatedIpPacket packet) {
                      feedback.sent_packet.send_time.seconds<double>(),
                      feedback.receive_time.seconds<double>(),
                      packet.arrival_time.seconds<double>());
+    }
   }
   Update(congestion_controller_->OnTransportPacketsFeedback(report));
 }
@@ -313,8 +323,9 @@ void SimulatedTimeClient::Update(NetworkControlUpdate update) {
         update.target_rate->target_rate * ratio_per_stream;
     target_rate_ = update.target_rate->target_rate;
     link_capacity_ = update.target_rate->network_estimate.bandwidth;
-    for (auto& stream : packet_streams_)
+    for (auto& stream : packet_streams_) {
       stream->OnTargetRateUpdate(rate_per_stream);
+    }
   }
 }
 

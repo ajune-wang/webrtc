@@ -67,9 +67,10 @@ TEST_P(AudioRingBufferTest, ReadDataMatchesWrittenData) {
 
   // Initialize the input data to an increasing sequence.
   ChannelBuffer<float> input(kFrames, static_cast<int>(num_channels));
-  for (size_t i = 0; i < num_channels; ++i)
-    for (size_t j = 0; j < kFrames; ++j)
+  for (size_t i = 0; i < num_channels; ++i) {
+    for (size_t j = 0; j < kFrames; ++j) {
       input.channels()[i][j] = (i + 1) * (j + 1);
+    }
 
   ChannelBuffer<float> output(kFrames, static_cast<int>(num_channels));
   ReadAndWriteTest(input, ::testing::get<0>(GetParam()),
@@ -77,10 +78,11 @@ TEST_P(AudioRingBufferTest, ReadDataMatchesWrittenData) {
                    &output);
 
   // Verify the read data matches the input.
-  for (size_t i = 0; i < num_channels; ++i)
-    for (size_t j = 0; j < kFrames; ++j)
+  for (size_t i = 0; i < num_channels; ++i) {
+    for (size_t j = 0; j < kFrames; ++j) {
       EXPECT_EQ(input.channels()[i][j], output.channels()[i][j]);
-}
+    }
+  }
 
 INSTANTIATE_TEST_SUITE_P(
     AudioRingBufferTest,
@@ -108,4 +110,4 @@ TEST_F(AudioRingBufferTest, MoveReadPosition) {
   EXPECT_EQ(2, output.channels()[0][0]);
 }
 
-}  // namespace webrtc
+  }  // namespace webrtc

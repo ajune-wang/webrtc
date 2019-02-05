@@ -209,8 +209,9 @@ std::unique_ptr<std::map<std::string, SpeakerOutputFilePaths>> Simulate(
 
     // Write active speaker's chunk to other participants' far-ends.
     for (const std::string& speaker_name : speaker_names) {
-      if (speaker_name == active_speaker_name)
+      if (speaker_name == active_speaker_name) {
         continue;
+      }
       PadLeftWriteChunk(
           scaled_audiotrack, speaking_turn.begin,
           speakers_wav_writers->at(speaker_name).far_end_wav_writer());

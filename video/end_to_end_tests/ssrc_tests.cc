@@ -135,8 +135,9 @@ void SsrcEndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
           ssrcs_to_observe_(num_ssrcs),
           expect_single_ssrc_(send_single_ssrc_first),
           send_stream_(nullptr) {
-      for (size_t i = 0; i < num_ssrcs; ++i)
+      for (size_t i = 0; i < num_ssrcs; ++i) {
         valid_ssrcs_[ssrcs[i]] = true;
+      }
     }
 
    private:
@@ -147,8 +148,9 @@ void SsrcEndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
       EXPECT_TRUE(valid_ssrcs_[header.ssrc])
           << "Received unknown SSRC: " << header.ssrc;
 
-      if (!valid_ssrcs_[header.ssrc])
+      if (!valid_ssrcs_[header.ssrc]) {
         observation_complete_.Set();
+      }
 
       if (!is_observed_[header.ssrc]) {
         is_observed_[header.ssrc] = true;
@@ -159,8 +161,9 @@ void SsrcEndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
         }
       }
 
-      if (ssrcs_to_observe_ == 0)
+      if (ssrcs_to_observe_ == 0) {
         observation_complete_.Set();
+      }
 
       return SEND_PACKET;
     }
@@ -200,8 +203,9 @@ void SsrcEndToEndTest::TestSendsSetSsrcs(size_t num_ssrcs,
       encoder_config->video_stream_factory =
           new rtc::RefCountedObject<VideoStreamFactory>();
       video_encoder_config_all_streams_ = encoder_config->Copy();
-      if (send_single_ssrc_first_)
+      if (send_single_ssrc_first_) {
         encoder_config->number_of_streams = 1;
+      }
     }
 
     void OnVideoStreamsCreated(
@@ -268,20 +272,23 @@ TEST_F(SsrcEndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
       RTPHeader header;
       EXPECT_TRUE(parser_->Parse(packet, length, &header));
 
-      if (!registered_rtx_ssrc_[header.ssrc])
+      if (!registered_rtx_ssrc_[header.ssrc]) {
         return SEND_PACKET;
+      }
 
       EXPECT_LE(header.headerLength + header.paddingLength, length);
       const bool packet_is_redundant_payload =
           header.headerLength + header.paddingLength < length;
 
-      if (!packet_is_redundant_payload)
+      if (!packet_is_redundant_payload) {
         return SEND_PACKET;
+      }
 
       if (!observed_redundant_retransmission_[header.ssrc]) {
         observed_redundant_retransmission_[header.ssrc] = true;
-        if (--ssrcs_to_observe_ == 0)
+        if (--ssrcs_to_observe_ == 0) {
           observation_complete_.Set();
+        }
       }
 
       return SEND_PACKET;
@@ -324,8 +331,9 @@ TEST_F(SsrcEndToEndTest, DISABLED_RedundantPayloadsTransmittedOnAllSsrcs) {
           new rtc::RefCountedObject<VideoStreamFactory>();
       send_config->rtp.rtx.payload_type = kSendRtxPayloadType;
 
-      for (size_t i = 0; i < kNumSimulcastStreams; ++i)
+      for (size_t i = 0; i < kNumSimulcastStreams; ++i) {
         send_config->rtp.rtx.ssrcs.push_back(kSendRtxSsrcs[i]);
+      }
 
       // Significantly higher than max bitrates for all video streams -> forcing
       // padding to trigger redundant padding on all RTX SSRCs.

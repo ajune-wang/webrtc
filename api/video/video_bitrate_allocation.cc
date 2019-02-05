@@ -33,8 +33,9 @@ bool VideoBitrateAllocation::SetBitrate(size_t spatial_index,
     new_bitrate_sum_bps -= *layer_bitrate;
   }
   new_bitrate_sum_bps += bitrate_bps;
-  if (new_bitrate_sum_bps > kMaxBitrateBps)
+  if (new_bitrate_sum_bps > kMaxBitrateBps) {
     return false;
+  }
 
   layer_bitrate = bitrate_bps;
   sum_ = rtc::dchecked_cast<uint32_t>(new_bitrate_sum_bps);
@@ -60,8 +61,9 @@ uint32_t VideoBitrateAllocation::GetBitrate(size_t spatial_index,
 bool VideoBitrateAllocation::IsSpatialLayerUsed(size_t spatial_index) const {
   RTC_CHECK_LT(spatial_index, kMaxSpatialLayers);
   for (size_t i = 0; i < kMaxTemporalStreams; ++i) {
-    if (bitrates_[spatial_index][i].has_value())
+    if (bitrates_[spatial_index][i].has_value()) {
       return true;
+    }
   }
   return false;
 }
@@ -114,8 +116,9 @@ VideoBitrateAllocation::GetSimulcastAllocations() const {
     if (IsSpatialLayerUsed(si)) {
       layer_bitrate = VideoBitrateAllocation();
       for (int tl = 0; tl < kMaxTemporalStreams; ++tl) {
-        if (HasBitrate(si, tl))
+        if (HasBitrate(si, tl)) {
           layer_bitrate->SetBitrate(0, tl, GetBitrate(si, tl));
+        }
       }
     }
     bitrates.push_back(layer_bitrate);
@@ -127,16 +130,18 @@ bool VideoBitrateAllocation::operator==(
     const VideoBitrateAllocation& other) const {
   for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
     for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
-      if (bitrates_[si][ti] != other.bitrates_[si][ti])
+      if (bitrates_[si][ti] != other.bitrates_[si][ti]) {
         return false;
+      }
     }
   }
   return true;
 }
 
 std::string VideoBitrateAllocation::ToString() const {
-  if (sum_ == 0)
+  if (sum_ == 0) {
     return "VideoBitrateAllocation [ [] ]";
+  }
 
   // Max string length in practice is 260, but let's have some overhead and
   // round up to nearest power of two.
@@ -147,15 +152,17 @@ std::string VideoBitrateAllocation::ToString() const {
   uint32_t spatial_cumulator = 0;
   for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
     RTC_DCHECK_LE(spatial_cumulator, sum_);
-    if (spatial_cumulator == sum_)
+    if (spatial_cumulator == sum_) {
       break;
+    }
 
     const uint32_t layer_sum = GetSpatialLayerSum(si);
     if (layer_sum == sum_) {
       ssb << " [";
     } else {
-      if (si > 0)
+      if (si > 0) {
         ssb << ",";
+      }
       ssb << '\n' << "  [";
     }
     spatial_cumulator += layer_sum;
@@ -163,11 +170,13 @@ std::string VideoBitrateAllocation::ToString() const {
     uint32_t temporal_cumulator = 0;
     for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
       RTC_DCHECK_LE(temporal_cumulator, layer_sum);
-      if (temporal_cumulator == layer_sum)
+      if (temporal_cumulator == layer_sum) {
         break;
+      }
 
-      if (ti > 0)
+      if (ti > 0) {
         ssb << ", ";
+      }
 
       uint32_t bitrate = bitrates_[si][ti].value_or(0);
       ssb << bitrate;

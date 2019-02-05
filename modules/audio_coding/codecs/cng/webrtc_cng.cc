@@ -59,14 +59,18 @@ void ComfortNoiseDecoder::Reset() {
   dec_seed_ = 7777; /* For debugging only. */
   dec_target_energy_ = 0;
   dec_used_energy_ = 0;
-  for (auto& c : dec_target_reflCoefs_)
+  for (auto& c : dec_target_reflCoefs_) {
     c = 0;
-  for (auto& c : dec_used_reflCoefs_)
+  }
+  for (auto& c : dec_used_reflCoefs_) {
     c = 0;
-  for (auto& c : dec_filtstate_)
+  }
+  for (auto& c : dec_filtstate_) {
     c = 0;
-  for (auto& c : dec_filtstateLow_)
+  }
+  for (auto& c : dec_filtstateLow_) {
     c = 0;
+  }
   dec_order_ = 5;
   dec_target_scale_factor_ = 0;
   dec_used_scale_factor_ = 0;
@@ -77,8 +81,9 @@ void ComfortNoiseDecoder::UpdateSid(rtc::ArrayView<const uint8_t> sid) {
   int32_t targetEnergy;
   size_t length = sid.size();
   /* Throw away reflection coefficients of higher order than we can handle. */
-  if (length > (WEBRTC_CNG_MAX_LPC_ORDER + 1))
+  if (length > (WEBRTC_CNG_MAX_LPC_ORDER + 1)) {
     length = WEBRTC_CNG_MAX_LPC_ORDER + 1;
+  }
 
   dec_order_ = static_cast<uint16_t>(length - 1);
 
@@ -229,10 +234,12 @@ void ComfortNoiseEncoder::Reset(int fs, int interval, int quality) {
   enc_interval_ = interval;
   enc_msSinceSid_ = 0;
   enc_Energy_ = 0;
-  for (auto& c : enc_reflCoefs_)
+  for (auto& c : enc_reflCoefs_) {
     c = 0;
-  for (auto& c : enc_corrVector_)
+  }
+  for (auto& c : enc_corrVector_) {
     c = 0;
+  }
   enc_seed_ = 7777; /* For debugging only. */
 }
 
@@ -285,8 +292,9 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
   if (outEnergy > 1) {
     /* Create Hanning Window. */
     WebRtcSpl_GetHanningWindow(hanningW, num_samples / 2);
-    for (i = 0; i < (num_samples / 2); i++)
+    for (i = 0; i < (num_samples / 2); i++) {
       hanningW[num_samples - i - 1] = hanningW[i];
+    }
 
     WebRtcSpl_ElementwiseVectorMult(speechBuf, hanningW, speechBuf, num_samples,
                                     14);
@@ -294,8 +302,9 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
     WebRtcSpl_AutoCorrelation(speechBuf, num_samples, enc_nrOfCoefs_,
                               corrVector, &acorrScale);
 
-    if (*corrVector == 0)
+    if (*corrVector == 0) {
       *corrVector = WEBRTC_SPL_WORD16_MAX;
+    }
 
     /* Adds the bandwidth expansion. */
     aptr = WebRtcCng_kCorrWindow;
@@ -306,8 +315,9 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
       /* The below code multiplies the 16 b corrWindow values (Q15) with
        * the 32 b corrvector (Q0) and shifts the result down 15 steps. */
       negate = *bptr < 0;
-      if (negate)
+      if (negate) {
         *bptr = -*bptr;
+      }
 
       blo = (int32_t)*aptr * (*bptr & 0xffff);
       bhi = ((blo >> 16) & 0xffff) +
@@ -315,8 +325,9 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
       blo = (blo & 0xffff) | ((bhi & 0xffff) << 16);
 
       *bptr = (((bhi >> 16) & 0x7fff) << 17) | ((uint32_t)blo >> 15);
-      if (negate)
+      if (negate) {
         *bptr = -*bptr;
+      }
       bptr++;
     }
     /* End of bandwidth expansion. */
@@ -329,14 +340,16 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
     }
 
   } else {
-    for (i = 0; i < enc_nrOfCoefs_; i++)
+    for (i = 0; i < enc_nrOfCoefs_; i++) {
       refCs[i] = 0;
+    }
   }
 
   if (force_sid) {
     /* Read instantaneous values instead of averaged. */
-    for (i = 0; i < enc_nrOfCoefs_; i++)
+    for (i = 0; i < enc_nrOfCoefs_; i++) {
       enc_reflCoefs_[i] = refCs[i];
+    }
     enc_Energy_ = outEnergy;
   } else {
     /* Average history with new values. */
@@ -363,8 +376,9 @@ size_t ComfortNoiseEncoder::Encode(rtc::ArrayView<const int16_t> speech,
         break;
       }
     }
-    if ((i == 93) && (index == 0))
+    if ((i == 93) && (index == 0)) {
       index = 94;
+    }
 
     const size_t output_coefs = enc_nrOfCoefs_ + 1;
     output->AppendData(output_coefs, [&](rtc::ArrayView<uint8_t> output) {

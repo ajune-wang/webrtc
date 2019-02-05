@@ -169,8 +169,9 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
   }
   if (network_behavior_->NextDeliveryTimeUs()) {
     rtc::CritScope crit(&process_thread_lock_);
-    if (process_thread_)
+    if (process_thread_) {
       process_thread_->WakeUp(nullptr);
+    }
   }
 
   return sent;
@@ -178,8 +179,9 @@ bool FakeNetworkPipe::EnqueuePacket(rtc::CopyOnWriteBuffer packet,
 
 float FakeNetworkPipe::PercentageLoss() {
   rtc::CritScope crit(&process_lock_);
-  if (sent_packets_ == 0)
+  if (sent_packets_ == 0) {
     return 0;
+  }
 
   return static_cast<float>(dropped_packets_) /
          (sent_packets_ + dropped_packets_);
@@ -187,8 +189,9 @@ float FakeNetworkPipe::PercentageLoss() {
 
 int FakeNetworkPipe::AverageDelay() {
   rtc::CritScope crit(&process_lock_);
-  if (sent_packets_ == 0)
+  if (sent_packets_ == 0) {
     return 0;
+  }
 
   return static_cast<int>(total_packet_delay_us_ /
                           (1000 * static_cast<int64_t>(sent_packets_)));
@@ -212,9 +215,10 @@ void FakeNetworkPipe::Process() {
     time_now_us = clock_->TimeInMicroseconds();
     if (time_now_us - last_log_time_us_ > kLogIntervalMs * 1000) {
       int64_t queueing_delay_us = 0;
-      if (!packets_in_flight_.empty())
+      if (!packets_in_flight_.empty()) {
         queueing_delay_us =
             time_now_us - packets_in_flight_.front().packet.send_time();
+      }
 
       RTC_LOG(LS_INFO) << "Network queue: " << queueing_delay_us / 1000
                        << " ms.";

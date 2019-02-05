@@ -28,8 +28,9 @@ VideoBitrateAllocation DefaultVideoBitrateAllocator::GetAllocation(
     uint32_t total_bitrate_bps,
     uint32_t framerate) {
   VideoBitrateAllocation allocation;
-  if (total_bitrate_bps == 0 || !codec_.active)
+  if (total_bitrate_bps == 0 || !codec_.active) {
     return allocation;
+  }
 
   uint32_t allocated_bitrate_bps = total_bitrate_bps;
   allocated_bitrate_bps =

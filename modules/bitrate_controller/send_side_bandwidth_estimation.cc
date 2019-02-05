@@ -120,8 +120,9 @@ void LinkCapacityTracker::OnOveruse(DataRate acknowledged_rate,
 }
 
 void LinkCapacityTracker::OnStartingRate(DataRate start_rate) {
-  if (last_link_capacity_update_.IsInfinite())
+  if (last_link_capacity_update_.IsInfinite()) {
     capacity_estimate_bps_ = start_rate.bps<double>();
+  }
 }
 
 void LinkCapacityTracker::OnRateUpdate(DataRate acknowledged,
@@ -360,8 +361,9 @@ void SendSideBandwidthEstimation::UpdatePacketsLost(int packets_lost,
                                                     int number_of_packets,
                                                     Timestamp at_time) {
   last_loss_feedback_ = at_time;
-  if (first_report_time_.IsInfinite())
+  if (first_report_time_.IsInfinite()) {
     first_report_time_ = at_time;
+  }
 
   // Check sequence number diff and weight loss report
   if (number_of_packets > 0) {
@@ -370,8 +372,9 @@ void SendSideBandwidthEstimation::UpdatePacketsLost(int packets_lost,
     expected_packets_since_last_loss_update_ += number_of_packets;
 
     // Don't generate a loss rate until it can be based on enough packets.
-    if (expected_packets_since_last_loss_update_ < kLimitNumPackets)
+    if (expected_packets_since_last_loss_update_ < kLimitNumPackets) {
       return;
+    }
 
     has_decreased_since_last_fraction_loss_ = false;
     int64_t lost_q8 = lost_packets_since_last_loss_update_ << 8;
@@ -421,8 +424,9 @@ void SendSideBandwidthEstimation::UpdateUmaStatsPacketsLost(Timestamp at_time,
 void SendSideBandwidthEstimation::UpdateRtt(TimeDelta rtt, Timestamp at_time) {
   // Update RTT if we were able to compute an RTT based on this RTCP.
   // FlexFEC doesn't send RTCP SR, which means we won't be able to compute RTT.
-  if (rtt > TimeDelta::Zero())
+  if (rtt > TimeDelta::Zero()) {
     last_round_trip_time_ = rtt;
+  }
 
   if (!IsInStartPhase(at_time) && uma_rtt_state_ == kNoUpdate) {
     uma_rtt_state_ = kDone;

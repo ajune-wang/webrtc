@@ -76,8 +76,9 @@ VcmCapturer* VcmCapturer::Create(size_t width,
 }
 
 void VcmCapturer::Destroy() {
-  if (!vcm_)
+  if (!vcm_) {
     return;
+  }
 
   vcm_->StopCapture();
   vcm_->DeRegisterCaptureDataCallback();

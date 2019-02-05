@@ -37,8 +37,9 @@ class MultiplexDecoderAdapter::AdapterDecodedImageCallback
   void Decoded(VideoFrame& decoded_image,
                absl::optional<int32_t> decode_time_ms,
                absl::optional<uint8_t> qp) override {
-    if (!adapter_)
+    if (!adapter_) {
       return;
+    }
     adapter_->Decoded(stream_idx_, &decoded_image, decode_time_ms, qp);
   }
   int32_t Decoded(VideoFrame& decoded_image) override {
@@ -116,8 +117,9 @@ int32_t MultiplexDecoderAdapter::InitDecode(const VideoCodec* codec_settings,
     std::unique_ptr<VideoDecoder> decoder =
         factory_->CreateVideoDecoder(associated_format_);
     const int32_t rv = decoder->InitDecode(&settings, number_of_cores);
-    if (rv)
+    if (rv) {
       return rv;
+    }
     adapter_callbacks_.emplace_back(
         new MultiplexDecoderAdapter::AdapterDecodedImageCallback(
             this, static_cast<AlphaCodecStream>(i)));
@@ -156,8 +158,9 @@ int32_t MultiplexDecoderAdapter::Decode(
     rv = decoders_[image.image_components[i].component_index]->Decode(
         image.image_components[i].encoded_image, missing_frames, nullptr,
         render_time_ms);
-    if (rv != WEBRTC_VIDEO_CODEC_OK)
+    if (rv != WEBRTC_VIDEO_CODEC_OK) {
       return rv;
+    }
   }
   return rv;
 }
@@ -171,8 +174,9 @@ int32_t MultiplexDecoderAdapter::RegisterDecodeCompleteCallback(
 int32_t MultiplexDecoderAdapter::Release() {
   for (auto& decoder : decoders_) {
     const int32_t rv = decoder->Release();
-    if (rv)
+    if (rv) {
       return rv;
+    }
   }
   decoders_.clear();
   adapter_callbacks_.clear();

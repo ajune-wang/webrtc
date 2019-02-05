@@ -51,8 +51,9 @@ void GetForcedFallbackParamsFromFieldTrialGroup(int* param_min_pixels,
   RTC_DCHECK(param_max_pixels);
   std::string group =
       webrtc::field_trial::FindFullName(kVp8ForceFallbackEncoderFieldTrial);
-  if (group.empty())
+  if (group.empty()) {
     return;
+  }
 
   int min_pixels;
   int max_pixels;
@@ -181,10 +182,12 @@ bool VideoEncoderSoftwareFallbackWrapper::InitFallbackEncoder() {
     return false;
   }
   // Replay callback, rates, and channel parameters.
-  if (callback_)
+  if (callback_) {
     fallback_encoder_->RegisterEncodeCompleteCallback(callback_);
-  if (rates_set_)
+  }
+  if (rates_set_) {
     fallback_encoder_->SetRateAllocation(bitrate_allocation_, framerate_);
+  }
 
   // Since we're switching to the fallback encoder, Release the real encoder. It
   // may be re-initialized via InitEncode later, and it will continue to get
@@ -225,8 +228,9 @@ int32_t VideoEncoderSoftwareFallbackWrapper::InitEncode(
       fallback_encoder_->Release();
       use_fallback_encoder_ = false;
     }
-    if (callback_)
+    if (callback_) {
       encoder_->RegisterEncodeCompleteCallback(callback_);
+    }
     return ret;
   }
   // Try to instantiate software codec.
@@ -241,8 +245,9 @@ int32_t VideoEncoderSoftwareFallbackWrapper::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   callback_ = callback;
   int32_t ret = encoder_->RegisterEncodeCompleteCallback(callback);
-  if (use_fallback_encoder_)
+  if (use_fallback_encoder_) {
     return fallback_encoder_->RegisterEncodeCompleteCallback(callback);
+  }
   return ret;
 }
 
@@ -255,8 +260,9 @@ int32_t VideoEncoderSoftwareFallbackWrapper::Encode(
     const VideoFrame& frame,
     const CodecSpecificInfo* codec_specific_info,
     const std::vector<FrameType>* frame_types) {
-  if (use_fallback_encoder_)
+  if (use_fallback_encoder_) {
     return fallback_encoder_->Encode(frame, codec_specific_info, frame_types);
+  }
   int32_t ret = encoder_->Encode(frame, codec_specific_info, frame_types);
   // If requested, try a software fallback.
   bool fallback_requested = (ret == WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE);
@@ -274,8 +280,9 @@ int32_t VideoEncoderSoftwareFallbackWrapper::SetRateAllocation(
   bitrate_allocation_ = bitrate_allocation;
   framerate_ = framerate;
   int32_t ret = encoder_->SetRateAllocation(bitrate_allocation_, framerate);
-  if (use_fallback_encoder_)
+  if (use_fallback_encoder_) {
     return fallback_encoder_->SetRateAllocation(bitrate_allocation_, framerate);
+  }
   return ret;
 }
 
@@ -347,8 +354,9 @@ bool VideoEncoderSoftwareFallbackWrapper::TryReInitForcedFallbackEncoder() {
 }
 
 void VideoEncoderSoftwareFallbackWrapper::ValidateSettingsForForcedFallback() {
-  if (!forced_fallback_possible_)
+  if (!forced_fallback_possible_) {
     return;
+  }
 
   if (!IsForcedFallbackPossible(codec_settings_)) {
     if (IsForcedFallbackActive()) {

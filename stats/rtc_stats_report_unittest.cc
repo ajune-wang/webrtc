@@ -71,15 +71,17 @@ TEST(RTCStatsReport, AddAndGetStats) {
   std::vector<const RTCTestStats1*> a = report->GetStatsOfType<RTCTestStats1>();
   EXPECT_EQ(a.size(), static_cast<size_t>(3));
   int64_t mask = 0;
-  for (const RTCTestStats1* stats : a)
+  for (const RTCTestStats1* stats : a) {
     mask |= stats->timestamp_us();
+  }
   EXPECT_EQ(mask, static_cast<int64_t>(1 | 2 | 16));
 
   std::vector<const RTCTestStats2*> b = report->GetStatsOfType<RTCTestStats2>();
   EXPECT_EQ(b.size(), static_cast<size_t>(3));
   mask = 0;
-  for (const RTCTestStats2* stats : b)
+  for (const RTCTestStats2* stats : b) {
     mask |= stats->timestamp_us();
+  }
   EXPECT_EQ(mask, static_cast<int64_t>(4 | 8 | 32));
 
   EXPECT_EQ(report->GetStatsOfType<RTCTestStats3>().size(),

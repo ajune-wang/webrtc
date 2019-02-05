@@ -86,8 +86,9 @@ void DesktopRegion::SetRect(const DesktopRect& rect) {
 }
 
 void DesktopRegion::AddRect(const DesktopRect& rect) {
-  if (rect.is_empty())
+  if (rect.is_empty()) {
     return;
+  }
 
   // Top of the part of the |rect| that hasn't been inserted yet. Increased as
   // we iterate over the rows until it reaches |rect.bottom()|.
@@ -101,8 +102,9 @@ void DesktopRegion::AddRect(const DesktopRect& rect) {
       // If |top| is above the top of the current |row| then add a new row above
       // the current one.
       int32_t bottom = rect.bottom();
-      if (row != rows_.end() && row->second->top < bottom)
+      if (row != rows_.end() && row->second->top < bottom) {
         bottom = row->second->top;
+      }
       row = rows_.insert(row, Rows::value_type(bottom, new Row(top, bottom)));
     } else if (top > row->second->top) {
       // If the |top| falls in the middle of the |row| then split |row| into
@@ -136,8 +138,9 @@ void DesktopRegion::AddRect(const DesktopRect& rect) {
     ++row;
   }
 
-  if (row != rows_.end())
+  if (row != rows_.end()) {
     MergeWithPrecedingRow(row);
+  }
 }
 
 void DesktopRegion::AddRects(const DesktopRect* rects, int count) {
@@ -180,8 +183,9 @@ void DesktopRegion::Intersect(const DesktopRegion& region1,
   Rows::const_iterator end1 = region1.rows_.end();
   Rows::const_iterator it2 = region2.rows_.begin();
   Rows::const_iterator end2 = region2.rows_.end();
-  if (it1 == end1 || it2 == end2)
+  if (it1 == end1 || it2 == end2) {
     return;
+  }
 
   while (it1 != end1 && it2 != end2) {
     // Arrange for |it1| to always be the top-most of the rows.
@@ -213,11 +217,13 @@ void DesktopRegion::Intersect(const DesktopRegion& region1,
     }
 
     // If |it1| was completely consumed, move to the next one.
-    if (it1->second->bottom == bottom)
+    if (it1->second->bottom == bottom) {
       ++it1;
+    }
     // If |it2| was completely consumed, move to the next one.
-    if (it2->second->bottom == bottom)
+    if (it2->second->bottom == bottom) {
       ++it2;
+    }
   }
 }
 
@@ -251,11 +257,13 @@ void DesktopRegion::IntersectRows(const RowSpanSet& set1,
     output->push_back(RowSpan(left, right));
 
     // If |it1| was completely consumed, move to the next one.
-    if (it1->right == right)
+    if (it1->right == right) {
       ++it1;
+    }
     // If |it2| was completely consumed, move to the next one.
-    if (it2->right == right)
+    if (it2->right == right) {
       ++it2;
+    }
   } while (it1 != end1 && it2 != end2);
 }
 
@@ -272,8 +280,9 @@ void DesktopRegion::IntersectWith(const DesktopRect& rect) {
 }
 
 void DesktopRegion::Subtract(const DesktopRegion& region) {
-  if (region.rows_.empty())
+  if (region.rows_.empty()) {
     return;
+  }
 
   // |row_b| refers to the current row being subtracted.
   Rows::const_iterator row_b = region.rows_.begin();
@@ -312,8 +321,9 @@ void DesktopRegion::Subtract(const DesktopRegion& region) {
       top = row_a->second->top;
       if (top >= row_b->second->bottom) {
         ++row_b;
-        if (row_b != region.rows_.end())
+        if (row_b != region.rows_.end()) {
           top = row_b->second->top;
+        }
         continue;
       }
     }
@@ -339,8 +349,9 @@ void DesktopRegion::Subtract(const DesktopRegion& region) {
 
     if (top >= row_b->second->bottom) {
       ++row_b;
-      if (row_b != region.rows_.end())
+      if (row_b != region.rows_.end()) {
         top = row_b->second->top;
+      }
     }
 
     // Check if the row is empty after subtraction and delete it. Otherwise move
@@ -356,8 +367,9 @@ void DesktopRegion::Subtract(const DesktopRegion& region) {
     }
   }
 
-  if (row_a != rows_.end())
+  if (row_a != rows_.end()) {
     MergeWithPrecedingRow(row_a);
+  }
 }
 
 void DesktopRegion::Subtract(const DesktopRect& rect) {
@@ -384,12 +396,14 @@ void DesktopRegion::Translate(int32_t dx, int32_t dy) {
       }
     }
 
-    if (dy != 0)
+    if (dy != 0) {
       new_rows.insert(new_rows.end(), Rows::value_type(row->bottom, row));
+    }
   }
 
-  if (dy != 0)
+  if (dy != 0) {
     new_rows.swap(rows_);
+  }
 }
 
 void DesktopRegion::Swap(DesktopRegion* region) {
@@ -449,8 +463,9 @@ void DesktopRegion::AddSpanToRow(Row* row, int left, int right) {
   *start = RowSpan(left, right);
   ++start;
   ++end;
-  if (start < end)
+  if (start < end) {
     row->spans.erase(start, end);
+  }
 }
 
 // static
@@ -483,17 +498,20 @@ void DesktopRegion::SubtractRows(const RowSpanSet& set_a,
     // Iterate over |set_b| spans that may intersect with |it_a|.
     int pos = it_a->left;
     while (it_b != set_b.end() && it_b->left < it_a->right) {
-      if (it_b->left > pos)
+      if (it_b->left > pos) {
         output->push_back(RowSpan(pos, it_b->left));
+      }
       if (it_b->right > pos) {
         pos = it_b->right;
-        if (pos >= it_a->right)
+        if (pos >= it_a->right) {
           break;
+        }
       }
       ++it_b;
     }
-    if (pos < it_a->right)
+    if (pos < it_a->right) {
       output->push_back(RowSpan(pos, it_a->right));
+    }
   }
 }
 
@@ -528,8 +546,9 @@ void DesktopRegion::Iterator::Advance() {
       }
     }
 
-    if (IsAtEnd())
+    if (IsAtEnd()) {
       return;
+    }
 
     // If the same span exists on the previous row then skip it, as we've
     // already returned this span merged into the previous one, via

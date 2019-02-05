@@ -137,8 +137,9 @@ TransportFeedbackAdapter::ProcessTransportFeedback(
   }
 
   std::vector<PacketFeedback> feedback_vector = last_packet_feedback_vector_;
-  if (feedback_vector.empty())
+  if (feedback_vector.empty()) {
     return absl::nullopt;
+  }
 
   TransportPacketsFeedback msg;
   for (const PacketFeedback& rtp_feedback : feedback_vector) {
@@ -156,8 +157,9 @@ TransportFeedbackAdapter::ProcessTransportFeedback(
     rtc::CritScope cs(&lock_);
     absl::optional<int64_t> first_unacked_send_time_ms =
         send_time_history_.GetFirstUnackedSendTime();
-    if (first_unacked_send_time_ms)
+    if (first_unacked_send_time_ms) {
       msg.first_unacked_send_time = Timestamp::ms(*first_unacked_send_time_ms);
+    }
   }
   msg.feedback_time = feedback_receive_time;
   msg.prior_in_flight = prior_in_flight;
@@ -220,8 +222,9 @@ std::vector<PacketFeedback> TransportFeedbackAdapter::GetPacketFeedbackVector(
         PacketFeedback packet_feedback(PacketFeedback::kNotReceived, seq_num);
         // Note: Element not removed from history because it might be reported
         // as received by another feedback.
-        if (!send_time_history_.GetFeedback(&packet_feedback, false))
+        if (!send_time_history_.GetFeedback(&packet_feedback, false)) {
           ++failed_lookups;
+        }
         if (packet_feedback.local_net_id == local_net_id_ &&
             packet_feedback.remote_net_id == remote_net_id_) {
           packet_feedback_vector.push_back(packet_feedback);
@@ -232,8 +235,9 @@ std::vector<PacketFeedback> TransportFeedbackAdapter::GetPacketFeedbackVector(
       offset_us += packet.delta_us();
       timestamp_ms = current_offset_ms_ + (offset_us / 1000);
       PacketFeedback packet_feedback(timestamp_ms, packet.sequence_number());
-      if (!send_time_history_.GetFeedback(&packet_feedback, true))
+      if (!send_time_history_.GetFeedback(&packet_feedback, true)) {
         ++failed_lookups;
+      }
       if (packet_feedback.local_net_id == local_net_id_ &&
           packet_feedback.remote_net_id == remote_net_id_) {
         packet_feedback_vector.push_back(packet_feedback);

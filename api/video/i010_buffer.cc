@@ -94,8 +94,9 @@ rtc::scoped_refptr<I010Buffer> I010Buffer::Copy(
 rtc::scoped_refptr<I010Buffer> I010Buffer::Rotate(
     const I010BufferInterface& src,
     VideoRotation rotation) {
-  if (rotation == webrtc::kVideoRotation_0)
+  if (rotation == webrtc::kVideoRotation_0) {
     return Copy(src);
+  }
 
   RTC_CHECK(src.DataY());
   RTC_CHECK(src.DataU());

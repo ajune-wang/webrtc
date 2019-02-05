@@ -41,8 +41,9 @@ absl::optional<unsigned int> GetScreenshareBoostedQpValue() {
   std::string experiment_group =
       webrtc::field_trial::FindFullName("WebRTC-BoostedScreenshareQp");
   unsigned int qp;
-  if (sscanf(experiment_group.c_str(), "%u", &qp) != 1)
+  if (sscanf(experiment_group.c_str(), "%u", &qp) != 1) {
     return absl::nullopt;
+  }
   qp = std::min(qp, 63u);
   qp = std::max(qp, 1u);
   return qp;

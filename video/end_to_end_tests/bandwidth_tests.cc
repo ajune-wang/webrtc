@@ -97,11 +97,13 @@ class BandwidthStatsTest : public test::EndToEndTest {
   Action OnSendRtp(const uint8_t* packet, size_t length) override {
     Call::Stats sender_stats = sender_call_->GetStats();
     Call::Stats receiver_stats = receiver_call_->GetStats();
-    if (!has_seen_pacer_delay_)
+    if (!has_seen_pacer_delay_) {
       has_seen_pacer_delay_ = sender_stats.pacer_delay_ms > 0;
+    }
     if (sender_stats.send_bandwidth_bps > 0 && has_seen_pacer_delay_) {
-      if (send_side_bwe_ || receiver_stats.recv_bandwidth_bps > 0)
+      if (send_side_bwe_ || receiver_stats.recv_bandwidth_bps > 0) {
         observation_complete_.Set();
+      }
     }
     return SEND_PACKET;
   }
@@ -299,8 +301,9 @@ TEST_F(BandwidthEndToEndTest, ReportsSetEncoderRates) {
     int32_t SetRateAllocation(const VideoBitrateAllocation& rate_allocation,
                               uint32_t framerate) override {
       // Make sure not to trigger on any default zero bitrates.
-      if (rate_allocation.get_sum_bps() == 0)
+      if (rate_allocation.get_sum_bps() == 0) {
         return 0;
+      }
       rtc::CritScope lock(&crit_);
       bitrate_kbps_ = rate_allocation.get_sum_kbps();
       observation_complete_.Set();

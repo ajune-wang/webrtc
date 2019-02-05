@@ -71,8 +71,9 @@ void ExpectNearRelative(rtc::ArrayView<const float> expected,
   for (size_t i = 0; i < expected.size(); ++i) {
     const float abs_diff = std::fabs(expected[i] - computed[i]);
     // No failure when the values are equal.
-    if (abs_diff == 0.f)
+    if (abs_diff == 0.f) {
       continue;
+    }
     SCOPED_TRACE(i);
     SCOPED_TRACE(expected[i]);
     SCOPED_TRACE(computed[i]);

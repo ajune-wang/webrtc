@@ -336,8 +336,9 @@ int32_t AudioCodingModuleImpl::Encode(const InputData& input_data) {
   uint8_t previous_pltype;
 
   // Check if there is an encoder before.
-  if (!HaveValidEncoder("Process"))
+  if (!HaveValidEncoder("Process")) {
     return -1;
+  }
 
   if (!first_frame_) {
     RTC_DCHECK(IsNewerTimestamp(input_data.input_timestamp, last_timestamp_))
@@ -499,11 +500,13 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
 
   if (!same_num_channels) {
     if (ptr_frame->num_channels_ == 1) {
-      if (UpMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0)
+      if (UpMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0) {
         return -1;
+      }
     } else {
-      if (DownMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0)
+      if (DownMix(*ptr_frame, WEBRTC_10MS_PCM_AUDIO, input_data->buffer) < 0) {
         return -1;
+      }
     }
   }
 
@@ -512,8 +515,9 @@ int AudioCodingModuleImpl::Add10MsDataInternal(const AudioFrame& audio_frame,
   const int16_t* ptr_audio = ptr_frame->data();
 
   // For pushing data to primary, point the |ptr_audio| to correct buffer.
-  if (!same_num_channels)
+  if (!same_num_channels) {
     ptr_audio = input_data->buffer;
+  }
 
   // TODO(yujo): Skip encode of muted frames.
   input_data->input_timestamp = ptr_frame->timestamp_;
@@ -584,8 +588,9 @@ int AudioCodingModuleImpl::PreprocessToAddData(const AudioFrame& in_frame,
     // local buffer, otherwise, it will be written to the output frame.
     int16_t* dest_ptr_audio =
         resample ? audio : preprocess_frame_.mutable_data();
-    if (DownMix(in_frame, WEBRTC_10MS_PCM_AUDIO, dest_ptr_audio) < 0)
+    if (DownMix(in_frame, WEBRTC_10MS_PCM_AUDIO, dest_ptr_audio) < 0) {
       return -1;
+    }
     preprocess_frame_.num_channels_ = 1;
     // Set the input of the resampler is the down-mixed signal.
     src_ptr_audio = audio;
@@ -646,8 +651,9 @@ int AudioCodingModuleImpl::InitializeReceiverSafe() {
   // If the receiver is already initialized then we want to destroy any
   // existing decoders. After a call to this function, we should have a clean
   // start-up.
-  if (receiver_initialized_)
+  if (receiver_initialized_) {
     receiver_.RemoveAllCodecs();
+  }
   receiver_.ResetInitialDelay();
   receiver_.SetMinimumDelay(0);
   receiver_.SetMaximumDelay(0);
@@ -805,8 +811,9 @@ void AudioCodingModuleImpl::GetDecodingCallStatistics(
 
 ANAStats AudioCodingModuleImpl::GetANAStats() const {
   rtc::CritScope lock(&acm_crit_sect_);
-  if (encoder_stack_)
+  if (encoder_stack_) {
     return encoder_stack_->GetANAStats();
+  }
   // If no encoder is set, return default stats.
   return ANAStats();
 }

@@ -43,8 +43,9 @@ int RemoveOlderOrEqual(uint32_t timestamp, std::vector<uint32_t>* timestamps) {
   int num_removed = 0;
   while (!timestamps->empty()) {
     auto it = timestamps->begin();
-    if (IsNewerTimestamp(*it, timestamp))
+    if (IsNewerTimestamp(*it, timestamp)) {
       break;
+    }
 
     timestamps->erase(it);
     ++num_removed;
@@ -72,8 +73,9 @@ class FrameObserver : public test::RtpRtcpObserver,
     EXPECT_TRUE(parser_->Parse(packet, length, &header));
     EXPECT_EQ(header.ssrc, test::CallTest::kVideoSendSsrcs[0]);
     EXPECT_GE(length, header.headerLength + header.paddingLength);
-    if ((length - header.headerLength) == header.paddingLength)
+    if ((length - header.headerLength) == header.paddingLength) {
       return SEND_PACKET;  // Skip padding, may be sent after OnFrame is called.
+    }
 
     if (!last_timestamp_ || header.timestamp != *last_timestamp_) {
       // New frame.
@@ -83,8 +85,9 @@ class FrameObserver : public test::RtpRtcpObserver,
             << "Payload type should change after reset.";
       }
       // Sent enough frames?
-      if (num_sent_frames_ >= kFramesToObserve)
+      if (num_sent_frames_ >= kFramesToObserve) {
         return DROP_PACKET;
+      }
 
       ++num_sent_frames_;
       sent_timestamps_.push_back(header.timestamp);
@@ -177,13 +180,14 @@ void MultiCodecReceiveTest::ConfigureDecoders(
   video_receive_configs_[0].decoders.clear();
   // Placing the payload names in a std::set retains the unique names only.
   std::set<std::string> unique_payload_names;
-  for (const auto& config : configs)
+  for (const auto& config : configs) {
     if (unique_payload_names.insert(config.payload_name).second) {
       VideoReceiveStream::Decoder decoder = test::CreateMatchingDecoder(
           PayloadNameToPayloadType(config.payload_name), config.payload_name);
       decoder.decoder_factory = config.decoder_factory;
 
       video_receive_configs_[0].decoders.push_back(decoder);
+  }
   }
 }
 

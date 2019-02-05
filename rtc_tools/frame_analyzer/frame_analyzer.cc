@@ -152,8 +152,9 @@ int main(int argc, char* argv[]) {
   rtc::SimpleStringBuilder string_builder(buf);
   for (int i = 0; i < 3; ++i) {
     string_builder << "\n";
-    for (int j = 0; j < 4; ++j)
+    for (int j = 0; j < 4; ++j) {
       string_builder.AppendFormat("%6.2f ", color_transformation[i][j]);
+    }
   }
   printf("Adjusting test video with color transformation: %s\n",
          string_builder.str());

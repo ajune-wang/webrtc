@@ -27,12 +27,15 @@ class RtpBitrateConfiguratorTest : public testing::Test {
     absl::optional<BitrateConstraints> result =
         configurator_->UpdateWithSdpParameters(bitrate_config);
     EXPECT_TRUE(result.has_value());
-    if (start_bitrate_bps.has_value())
+    if (start_bitrate_bps.has_value()) {
       EXPECT_EQ(result->start_bitrate_bps, start_bitrate_bps);
-    if (min_bitrate_bps.has_value())
+    }
+    if (min_bitrate_bps.has_value()) {
       EXPECT_EQ(result->min_bitrate_bps, min_bitrate_bps);
-    if (max_bitrate_bps.has_value())
+    }
+    if (max_bitrate_bps.has_value()) {
       EXPECT_EQ(result->max_bitrate_bps, max_bitrate_bps);
+    }
   }
 
   void UpdateMaskMatches(BitrateSettings bitrate_mask,
@@ -42,12 +45,15 @@ class RtpBitrateConfiguratorTest : public testing::Test {
     absl::optional<BitrateConstraints> result =
         configurator_->UpdateWithClientPreferences(bitrate_mask);
     EXPECT_TRUE(result.has_value());
-    if (start_bitrate_bps.has_value())
+    if (start_bitrate_bps.has_value()) {
       EXPECT_EQ(result->start_bitrate_bps, start_bitrate_bps);
-    if (min_bitrate_bps.has_value())
+    }
+    if (min_bitrate_bps.has_value()) {
       EXPECT_EQ(result->min_bitrate_bps, min_bitrate_bps);
-    if (max_bitrate_bps.has_value())
+    }
+    if (max_bitrate_bps.has_value()) {
       EXPECT_EQ(result->max_bitrate_bps, max_bitrate_bps);
+    }
   }
 };
 

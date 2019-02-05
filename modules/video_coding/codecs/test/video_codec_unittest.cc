@@ -104,8 +104,9 @@ bool VideoCodecUnitTest::WaitForEncodedFrame(
     CodecSpecificInfo* codec_specific_info) {
   std::vector<EncodedImage> frames;
   std::vector<CodecSpecificInfo> codec_specific_infos;
-  if (!WaitForEncodedFrames(&frames, &codec_specific_infos))
+  if (!WaitForEncodedFrames(&frames, &codec_specific_infos)) {
     return false;
+  }
   EXPECT_EQ(frames.size(), static_cast<size_t>(1));
   EXPECT_EQ(frames.size(), codec_specific_infos.size());
   *frame = frames[0];

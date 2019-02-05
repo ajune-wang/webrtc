@@ -44,8 +44,9 @@ FeaturesExtractor::~FeaturesExtractor() = default;
 void FeaturesExtractor::Reset() {
   pitch_buf_24kHz_.Reset();
   spectral_features_extractor_.Reset();
-  if (use_high_pass_filter_)
+  if (use_high_pass_filter_) {
     hpf_.Reset();
+  }
 }
 
 bool FeaturesExtractor::CheckSilenceComputeFeatures(

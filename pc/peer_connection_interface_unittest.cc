@@ -940,8 +940,9 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
     rtc::scoped_refptr<MockStatsObserver> observer(
         new rtc::RefCountedObject<MockStatsObserver>());
     if (!pc_->GetStats(observer, track,
-                       PeerConnectionInterface::kStatsOutputLevelStandard))
+                       PeerConnectionInterface::kStatsOutputLevelStandard)) {
       return false;
+    }
     EXPECT_TRUE_WAIT(observer->called(), kTimeout);
     return observer->called();
   }

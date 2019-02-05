@@ -328,8 +328,9 @@ class DtlsTransportTestBase {
                                    client2_.dtls_transport()->writable(),
                                kTimeout, fake_clock_);
     if (!client1_.dtls_transport()->writable() ||
-        !client2_.dtls_transport()->writable())
+        !client2_.dtls_transport()->writable()) {
       return false;
+    }
 
     // Check that we used the right roles.
     if (use_dtls_) {

@@ -187,17 +187,20 @@ class FileRenderPassthrough : public rtc::VideoSinkInterface<VideoFrame> {
       : basename_(basename), renderer_(renderer), file_(nullptr), count_(0) {}
 
   ~FileRenderPassthrough() override {
-    if (file_)
+    if (file_) {
       fclose(file_);
+    }
   }
 
  private:
   void OnFrame(const VideoFrame& video_frame) override {
-    if (renderer_)
+    if (renderer_) {
       renderer_->OnFrame(video_frame);
+    }
 
-    if (basename_.empty())
+    if (basename_.empty()) {
       return;
+    }
 
     std::stringstream filename;
     filename << basename_ << count_++ << "_" << video_frame.timestamp()
@@ -447,8 +450,9 @@ class RtpReplayer final {
           RTPHeader header;
           std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
           parser->Parse(packet.data, packet.length, &header);
-          if (unknown_packets[header.ssrc] == 0)
+          if (unknown_packets[header.ssrc] == 0) {
             fprintf(stderr, "Unknown SSRC: %u!\n", header.ssrc);
+          }
           ++unknown_packets[header.ssrc];
           break;
         }

@@ -47,8 +47,9 @@ DataMediaChannel* RtpDataEngine::CreateChannel(const MediaConfig& config) {
 static const DataCodec* FindCodecByName(const std::vector<DataCodec>& codecs,
                                         const std::string& name) {
   for (const DataCodec& codec : codecs) {
-    if (absl::EqualsIgnoreCase(name, codec.name))
+    if (absl::EqualsIgnoreCase(name, codec.name)) {
       return &codec;
+    }
   }
   return nullptr;
 }

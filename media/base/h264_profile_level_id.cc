@@ -74,10 +74,12 @@ constexpr ProfilePattern kProfilePatterns[] = {
 
 // Compare H264 levels and handle the level 1b case.
 bool IsLess(Level a, Level b) {
-  if (a == kLevel1_b)
+  if (a == kLevel1_b) {
     return b != kLevel1 && b != kLevel1_b;
-  if (b == kLevel1_b)
+  }
+  if (b == kLevel1_b) {
     return a == kLevel1;
+  }
   return a < b;
 }
 
@@ -121,11 +123,13 @@ static constexpr LevelConstraint kLevelConstraints[] = {
 
 absl::optional<ProfileLevelId> ParseProfileLevelId(const char* str) {
   // The string should consist of 3 bytes in hexadecimal format.
-  if (strlen(str) != 6u)
+  if (strlen(str) != 6u) {
     return absl::nullopt;
+  }
   const uint32_t profile_level_id_numeric = strtol(str, nullptr, 16);
-  if (profile_level_id_numeric == 0)
+  if (profile_level_id_numeric == 0) {
     return absl::nullopt;
+  }
 
   // Separate into three bytes.
   const uint8_t level_idc =

@@ -248,8 +248,9 @@ TEST_F(LegacySendSideCongestionControllerTest, OldFeedback) {
   packets.push_back(PacketFeedback(30, 30, 3, 1500, kPacingInfo1));
   packets.push_back(PacketFeedback(40, 40, 4, 1500, kPacingInfo1));
 
-  for (const PacketFeedback& packet : packets)
+  for (const PacketFeedback& packet : packets) {
     OnSentPacket(packet);
+  }
 
   // Change route and then insert a number of feedback packets.
   rtc::NetworkRoute route;

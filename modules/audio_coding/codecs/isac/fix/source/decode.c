@@ -73,14 +73,16 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
 
   /* decode framelength and BW estimation - not used, only for stream pointer*/
   err = WebRtcIsacfix_DecodeFrameLen(&ISACdec_obj->bitstr_obj, current_framesamples);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   frame_mode = *current_framesamples / MAX_FRAMESAMPLES;  /* 0, or 1 */
 
   err = WebRtcIsacfix_DecodeSendBandwidth(&ISACdec_obj->bitstr_obj, &BWno);
-  if (err<0)  // error check
+  if (err<0) {  // error check
     return err;
+}
 
   /* one loop if it's one frame (30ms), two loops if two frames bundled together
    * (60ms) */
@@ -88,12 +90,14 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
 
     /* decode & dequantize pitch parameters */
     err = WebRtcIsacfix_DecodePitchGain(&(ISACdec_obj->bitstr_obj), PitchGains_Q12);
-    if (err<0)  // error check
+    if (err<0) {  // error check
       return err;
+}
 
     err = WebRtcIsacfix_DecodePitchLag(&ISACdec_obj->bitstr_obj, PitchGains_Q12, PitchLags_Q7);
-    if (err<0)  // error check
+    if (err<0) {  // error check
       return err;
+}
 
     AvgPitchGain_Q12 = (int16_t)(((int32_t)PitchGains_Q12[0] + PitchGains_Q12[1] + PitchGains_Q12[2] + PitchGains_Q12[3])>>2);
 
@@ -101,13 +105,15 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
     err = WebRtcIsacfix_DecodeLpc(gain_lo_hiQ17, lofilt_coefQ15, hifilt_coefQ15,
                                   &ISACdec_obj->bitstr_obj, &model);
 
-    if (err<0)  // error check
+    if (err<0) {  // error check
       return err;
+}
 
     /* decode & dequantize spectrum */
     len = WebRtcIsacfix_DecodeSpec(&ISACdec_obj->bitstr_obj, Vector_Word16_1, Vector_Word16_2, AvgPitchGain_Q12);
-    if (len < 0)  // error check
+    if (len < 0) {  // error check
       return len;
+}
 
     // Why does this need Q16 in and out? /JS
     WebRtcIsacfix_Spec2Time(Vector_Word16_1, Vector_Word16_2, Vector_Word32_1, Vector_Word32_2);
@@ -134,11 +140,12 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
 
       /* ---- Add-overlap ---- */
       WebRtcSpl_GetHanningWindow( overlapWin, RECOVERY_OVERLAP );
-      for( k = 0; k < RECOVERY_OVERLAP; k++ )
+      for( k = 0; k < RECOVERY_OVERLAP; k++ ) {
         Vector_Word16_1[k] = WebRtcSpl_AddSatW16(
             (int16_t)(ISACdec_obj->plcstr_obj.overlapLP[k] *
                 overlapWin[RECOVERY_OVERLAP - k - 1] >> 14),
             (int16_t)(Vector_Word16_1[k] * overlapWin[k] >> 14));
+}
 
 
 
@@ -158,8 +165,9 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
       (ISACdec_obj->plcstr_obj).lastPitchGain_Q12 = PitchGains_Q12[3];
       (ISACdec_obj->plcstr_obj).lastPitchLag_Q7 = PitchLags_Q7[3];
 
-      if( PitchLags_Q7[3] < 3000 )
+      if( PitchLags_Q7[3] < 3000 ) {
         (ISACdec_obj->plcstr_obj).lastPitchLag_Q7 += PitchLags_Q7[3];
+}
 
       WEBRTC_SPL_MEMCPY_W16( (ISACdec_obj->plcstr_obj).prevPitchInvIn, Vector_Word16_1, FRAMESAMPLES/2 );
 
@@ -191,11 +199,13 @@ int WebRtcIsacfix_DecodeImpl(int16_t* signal_out16,
                                       Vector_Word32_1, lofilt_coefQ15, gain_lo_hiQ17, 0, Vector_Word16_1);
 
     /* --- Store Highpass Residual --- */
-    for (k = 0; k < FRAMESAMPLES/2; k++)
+    for (k = 0; k < FRAMESAMPLES/2; k++) {
       Vector_Word32_1[k] = Vector_Word32_2[k] * (1 << 9);  // Q16 -> Q25
+}
 
-    for( k = 0; k < PITCH_MAX_LAG + 10; k++ )
+    for( k = 0; k < PITCH_MAX_LAG + 10; k++ ) {
       (ISACdec_obj->plcstr_obj).prevHP[k] = Vector_Word32_1[FRAMESAMPLES/2 - (PITCH_MAX_LAG + 10) + k];
+}
 
 
     WebRtcIsacfix_NormLatticeFilterAr(ORDERHI, (ISACdec_obj->maskfiltstr_obj).PostStateHiGQ0,

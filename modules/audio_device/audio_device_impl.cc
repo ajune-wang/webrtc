@@ -324,8 +324,9 @@ int32_t AudioDeviceModuleImpl::ActiveAudioLayer(AudioLayer* audioLayer) const {
 
 int32_t AudioDeviceModuleImpl::Init() {
   RTC_LOG(INFO) << __FUNCTION__;
-  if (initialized_)
+  if (initialized_) {
     return 0;
+  }
   RTC_CHECK(audio_device_);
   AudioDeviceGeneric::InitStatus status = audio_device_->Init();
   RTC_HISTOGRAM_ENUMERATION(
@@ -341,8 +342,9 @@ int32_t AudioDeviceModuleImpl::Init() {
 
 int32_t AudioDeviceModuleImpl::Terminate() {
   RTC_LOG(INFO) << __FUNCTION__;
-  if (!initialized_)
+  if (!initialized_) {
     return 0;
+  }
   if (audio_device_->Terminate() == -1) {
     return -1;
   }

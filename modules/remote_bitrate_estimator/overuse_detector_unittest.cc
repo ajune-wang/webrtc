@@ -123,8 +123,9 @@ TEST_F(OveruseDetectorTest, GaussianRandom) {
   memset(buckets, 0, sizeof(buckets));
   for (int i = 0; i < 100000; ++i) {
     int index = random_.Gaussian(49, 10);
-    if (index >= 0 && index < 100)
+    if (index >= 0 && index < 100) {
       buckets[index]++;
+    }
   }
   for (int n = 0; n < 100; ++n) {
     printf("Bucket n:%d, %d\n", n, buckets[n]);

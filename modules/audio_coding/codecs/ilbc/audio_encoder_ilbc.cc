@@ -81,8 +81,9 @@ AudioEncoder::EncodedInfo AudioEncoderIlbcImpl::EncodeImpl(
     rtc::ArrayView<const int16_t> audio,
     rtc::Buffer* encoded) {
   // Save timestamp if starting a new packet.
-  if (num_10ms_frames_buffered_ == 0)
+  if (num_10ms_frames_buffered_ == 0) {
     first_timestamp_in_buffer_ = rtp_timestamp;
+  }
 
   // Buffer input.
   std::copy(audio.cbegin(), audio.cend(),
@@ -118,8 +119,9 @@ AudioEncoder::EncodedInfo AudioEncoderIlbcImpl::EncodeImpl(
 }
 
 void AudioEncoderIlbcImpl::Reset() {
-  if (encoder_)
+  if (encoder_) {
     RTC_CHECK_EQ(0, WebRtcIlbcfix_EncoderFree(encoder_));
+  }
   RTC_CHECK_EQ(0, WebRtcIlbcfix_EncoderCreate(&encoder_));
   const int encoder_frame_size_ms =
       frame_size_ms_ > 30 ? frame_size_ms_ / 2 : frame_size_ms_;

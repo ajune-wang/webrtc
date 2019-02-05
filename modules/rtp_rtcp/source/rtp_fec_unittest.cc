@@ -141,8 +141,9 @@ void RtpFecTest<ForwardErrorCorrectionType>::ReceivedPackets(
     packet_idx++;
     // Sequence number of FEC packets are defined as increment by 1 from
     // last media packet in frame.
-    if (is_fec)
+    if (is_fec) {
       fec_seq_num++;
+    }
   }
 }
 

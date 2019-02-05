@@ -151,8 +151,9 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateLimitsTheNumberOfDlrrSubBlocks) {
   const ReceiveTimeInfo kTimeInfo = Rand<ReceiveTimeInfo>();
   ExtendedReports xr;
 
-  for (size_t i = 0; i < ExtendedReports::kMaxNumberOfDlrrItems; ++i)
+  for (size_t i = 0; i < ExtendedReports::kMaxNumberOfDlrrItems; ++i) {
     EXPECT_TRUE(xr.AddDlrrItem(kTimeInfo));
+  }
   EXPECT_FALSE(xr.AddDlrrItem(kTimeInfo));
 
   EXPECT_THAT(xr.dlrr().sub_blocks(),
@@ -165,8 +166,9 @@ TEST_F(RtcpPacketExtendedReportsTest, CreateAndParseWithMaximumReportBlocks) {
   ExtendedReports xr;
   xr.SetSenderSsrc(kSenderSsrc);
   xr.SetRrtr(kRrtr);
-  for (size_t i = 0; i < ExtendedReports::kMaxNumberOfDlrrItems; ++i)
+  for (size_t i = 0; i < ExtendedReports::kMaxNumberOfDlrrItems; ++i) {
     xr.AddDlrrItem(Rand<ReceiveTimeInfo>());
+  }
 
   rtc::Buffer packet = xr.Build();
 

@@ -64,8 +64,9 @@ bool GetStream(const StreamParamsVec& streams,
                const StreamSelector& selector,
                StreamParams* stream_out) {
   const StreamParams* found = GetStream(streams, selector);
-  if (found && stream_out)
+  if (found && stream_out) {
     *stream_out = *found;
+  }
   return found != nullptr;
 }
 

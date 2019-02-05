@@ -20,8 +20,9 @@ std::map<std::string, std::string> ReadAuthFile(std::istream* s) {
   std::map<std::string, std::string> name_to_key;
   for (std::string line; std::getline(*s, line);) {
     const size_t sep = line.find('=');
-    if (sep == std::string::npos)
+    if (sep == std::string::npos) {
       continue;
+    }
     char buf[32];
     size_t len = rtc::hex_decode(buf, sizeof(buf), line.data() + sep + 1,
                                  line.size() - sep - 1);

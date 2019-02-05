@@ -84,8 +84,9 @@ void WritePps(const PpsParser::PpsState& pps,
         // If num_slice_groups is not a power of two an additional bit is
         // required
         // to account for the ceil() of log2() below.
-        if ((num_slice_groups & (num_slice_groups - 1)) != 0)
+        if ((num_slice_groups & (num_slice_groups - 1)) != 0) {
           ++slice_group_id_bits;
+        }
         while (num_slice_groups > 0) {
           num_slice_groups >>= 1;
           ++slice_group_id_bits;
@@ -157,8 +158,9 @@ class PpsParserTest : public ::testing::Test {
           continue;
         } else if (map_type == 6) {
           int max_pic_size = 1 << slice_group_bits;
-          for (int pic_size = 1; pic_size < max_pic_size; ++pic_size)
+          for (int pic_size = 1; pic_size < max_pic_size; ++pic_size) {
             VerifyParsing(generated_pps_, map_type, slice_group, pic_size);
+          }
         } else {
           VerifyParsing(generated_pps_, map_type, slice_group, 0);
         }

@@ -242,8 +242,9 @@ void TaskQueue::Impl::PostTaskAndReply(std::unique_ptr<QueuedTask> task,
   QueuedTask* task_ptr = task.release();
   QueuedTask* reply_task_ptr = reply.release();
   PostTask([task_ptr, reply_task_ptr, reply_queue]() {
-    if (task_ptr->Run())
+    if (task_ptr->Run()) {
       delete task_ptr;
+    }
 
     reply_queue->PostTask(std::unique_ptr<QueuedTask>(reply_task_ptr));
   });
@@ -307,23 +308,26 @@ void TaskQueue::Impl::ProcessTasks() {
   while (true) {
     auto task = GetNextTask();
 
-    if (task.final_task_)
+    if (task.final_task_) {
       break;
+    }
 
     if (task.run_task_) {
       // process entry immediately then try again
       QueuedTask* release_ptr = task.run_task_.release();
-      if (release_ptr->Run())
+      if (release_ptr->Run()) {
         delete release_ptr;
+      }
 
       // attempt to sleep again
       continue;
     }
 
-    if (0 == task.sleep_time_ms_)
+    if (0 == task.sleep_time_ms_) {
       flag_notify_.Wait(Event::kForever);
-    else
+    } else {
       flag_notify_.Wait(task.sleep_time_ms_);
+    }
   }
 
   stopped_.Set();

@@ -47,8 +47,9 @@ const int kMaxBufferedInputFrames = 20;
 
 size_t GetMaxNaluSizeBytes(const EncodedImage& encoded_frame,
                            const VideoCodecTestFixture::Config& config) {
-  if (config.codec_settings.codecType != kVideoCodecH264)
+  if (config.codec_settings.codecType != kVideoCodecH264) {
     return 0;
+  }
 
   std::vector<webrtc::H264::NaluIndex> nalu_indices =
       webrtc::H264::FindNaluIndices(encoded_frame.data(), encoded_frame.size());
@@ -56,8 +57,9 @@ size_t GetMaxNaluSizeBytes(const EncodedImage& encoded_frame,
   RTC_CHECK(!nalu_indices.empty());
 
   size_t max_size = 0;
-  for (const webrtc::H264::NaluIndex& index : nalu_indices)
+  for (const webrtc::H264::NaluIndex& index : nalu_indices) {
     max_size = std::max(max_size, index.payload_size);
+  }
 
   return max_size;
 }

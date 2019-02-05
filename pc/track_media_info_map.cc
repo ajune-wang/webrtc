@@ -143,8 +143,9 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         audio_track_by_sender_info_[&sender_info] = associated_track;
         voice_infos_by_local_track_[associated_track].push_back(&sender_info);
       }
-      if (sender_info.ssrc() == 0)
+      if (sender_info.ssrc() == 0) {
         continue;  // Unconnected SSRC. bugs.webrtc.org/8673
+      }
       RTC_CHECK(voice_info_by_sender_ssrc_.count(sender_info.ssrc()) == 0)
           << "Duplicate voice sender SSRC: " << sender_info.ssrc();
       voice_info_by_sender_ssrc_[sender_info.ssrc()] = &sender_info;
@@ -178,8 +179,9 @@ TrackMediaInfoMap::TrackMediaInfoMap(
         video_track_by_sender_info_[&sender_info] = associated_track;
         video_infos_by_local_track_[associated_track].push_back(&sender_info);
       }
-      if (sender_info.ssrc() == 0)
+      if (sender_info.ssrc() == 0) {
         continue;  // Unconnected SSRC. bugs.webrtc.org/8673
+      }
       RTC_DCHECK(video_info_by_sender_ssrc_.count(sender_info.ssrc()) == 0)
           << "Duplicate video sender SSRC: " << sender_info.ssrc();
       video_info_by_sender_ssrc_[sender_info.ssrc()] = &sender_info;

@@ -76,8 +76,9 @@ TEST(RtcpPacketDlrrTest, CreateAndParseManySubBlocks) {
 
   // Create.
   Dlrr dlrr;
-  for (size_t i = 1; i <= kManyDlrrItems; ++i)
+  for (size_t i = 1; i <= kManyDlrrItems; ++i) {
     dlrr.AddDlrrItem(ReceiveTimeInfo(kSsrc + i, kLastRR + i, kDelay + i));
+  }
   size_t used_buffer_size = dlrr.BlockLength();
   ASSERT_LE(used_buffer_size, kBufferSize);
   dlrr.Create(buffer);

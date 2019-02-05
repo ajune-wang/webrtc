@@ -213,11 +213,13 @@ void PushSincResamplerTest::ResampleTest(bool int_format) {
     double error = fabs(resampled_destination[i] - pure_destination[i]);
 
     if (pure_source.Frequency(i) < low_frequency_range) {
-      if (error > low_freq_max_error)
+      if (error > low_freq_max_error) {
         low_freq_max_error = error;
+      }
     } else if (pure_source.Frequency(i) < high_frequency_range) {
-      if (error > high_freq_max_error)
+      if (error > high_freq_max_error) {
         high_freq_max_error = error;
+      }
     }
     // TODO(dalecurtis): Sanity check frequencies > kHighFrequencyNyquistRange.
 

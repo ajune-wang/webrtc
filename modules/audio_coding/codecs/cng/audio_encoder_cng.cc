@@ -140,8 +140,9 @@ AudioEncoder::EncodedInfo AudioEncoderCng::EncodeImpl(
   // 40 ms = 20 + 20 ms; 50 ms = 30 + 20 ms; 60 ms = 30 + 30 ms.
   size_t blocks_in_first_vad_call =
       (frames_to_encode > 3 ? 3 : frames_to_encode);
-  if (frames_to_encode == 4)
+  if (frames_to_encode == 4) {
     blocks_in_first_vad_call = 2;
+  }
   RTC_CHECK_GE(frames_to_encode, blocks_in_first_vad_call);
   const size_t blocks_in_second_vad_call =
       frames_to_encode - blocks_in_first_vad_call;
@@ -300,18 +301,23 @@ AudioEncoderCngConfig::AudioEncoderCngConfig(AudioEncoderCngConfig&&) = default;
 AudioEncoderCngConfig::~AudioEncoderCngConfig() = default;
 
 bool AudioEncoderCngConfig::IsOk() const {
-  if (num_channels != 1)
+  if (num_channels != 1) {
     return false;
-  if (!speech_encoder)
+  }
+  if (!speech_encoder) {
     return false;
-  if (num_channels != speech_encoder->NumChannels())
+  }
+  if (num_channels != speech_encoder->NumChannels()) {
     return false;
+  }
   if (sid_frame_interval_ms <
-      static_cast<int>(speech_encoder->Max10MsFramesInAPacket() * 10))
+      static_cast<int>(speech_encoder->Max10MsFramesInAPacket() * 10)) {
     return false;
+  }
   if (num_cng_coefficients > WEBRTC_CNG_MAX_LPC_ORDER ||
-      num_cng_coefficients <= 0)
+      num_cng_coefficients <= 0) {
     return false;
+  }
   return true;
 }
 

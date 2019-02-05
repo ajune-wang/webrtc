@@ -67,14 +67,17 @@ class FrameGeneratorTest : public ::testing::Test {
         frame->video_frame_buffer()->ToI420();
     const uint8_t* buffer;
     buffer = i420_buffer->DataY();
-    for (int i = 0; i < y_size; ++i)
+    for (int i = 0; i < y_size; ++i) {
       ASSERT_EQ(y, buffer[i]);
+    }
     buffer = i420_buffer->DataU();
-    for (int i = 0; i < uv_size; ++i)
+    for (int i = 0; i < uv_size; ++i) {
       ASSERT_EQ(u, buffer[i]);
+    }
     buffer = i420_buffer->DataV();
-    for (int i = 0; i < uv_size; ++i)
+    for (int i = 0; i < uv_size; ++i) {
       ASSERT_EQ(v, buffer[i]);
+    }
     EXPECT_EQ(0, frame->ntp_time_ms());
     EXPECT_EQ(0, frame->render_time_ms());
     EXPECT_EQ(0u, frame->timestamp());
@@ -146,10 +149,12 @@ TEST_F(FrameGeneratorTest, TwoFrameFileWithRepeat) {
   std::unique_ptr<FrameGenerator> generator(FrameGenerator::CreateFromYuvFile(
       std::vector<std::string>(1, two_frame_filename_), kFrameWidth,
       kFrameHeight, kRepeatCount));
-  for (int i = 0; i < kRepeatCount; ++i)
+  for (int i = 0; i < kRepeatCount; ++i) {
     CheckFrameAndMutate(generator->NextFrame(), 0, 0, 0);
-  for (int i = 0; i < kRepeatCount; ++i)
+  }
+  for (int i = 0; i < kRepeatCount; ++i) {
     CheckFrameAndMutate(generator->NextFrame(), 127, 127, 127);
+  }
   CheckFrameAndMutate(generator->NextFrame(), 0, 0, 0);
 }
 
@@ -160,12 +165,15 @@ TEST_F(FrameGeneratorTest, MultipleFrameFilesWithRepeat) {
   files.push_back(one_frame_filename_);
   std::unique_ptr<FrameGenerator> generator(FrameGenerator::CreateFromYuvFile(
       files, kFrameWidth, kFrameHeight, kRepeatCount));
-  for (int i = 0; i < kRepeatCount; ++i)
+  for (int i = 0; i < kRepeatCount; ++i) {
     CheckFrameAndMutate(generator->NextFrame(), 0, 0, 0);
-  for (int i = 0; i < kRepeatCount; ++i)
+  }
+  for (int i = 0; i < kRepeatCount; ++i) {
     CheckFrameAndMutate(generator->NextFrame(), 127, 127, 127);
-  for (int i = 0; i < kRepeatCount; ++i)
+  }
+  for (int i = 0; i < kRepeatCount; ++i) {
     CheckFrameAndMutate(generator->NextFrame(), 255, 255, 255);
+  }
   CheckFrameAndMutate(generator->NextFrame(), 0, 0, 0);
 }
 

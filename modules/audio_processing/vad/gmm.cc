@@ -20,8 +20,9 @@ static void RemoveMean(const double* in,
                        const double* mean_vec,
                        int dimension,
                        double* out) {
-  for (int n = 0; n < dimension; ++n)
+  for (int n = 0; n < dimension; ++n) {
     out[n] = in[n] - mean_vec[n];
+  }
 }
 
 static double ComputeExponent(const double* in,
@@ -30,8 +31,9 @@ static double ComputeExponent(const double* in,
   double q = 0;
   for (int i = 0; i < dimension; ++i) {
     double v = 0;
-    for (int j = 0; j < dimension; j++)
+    for (int j = 0; j < dimension; j++) {
       v += (*covar_inv++) * in[j];
+    }
     q += v * in[i];
   }
   q *= -0.5;

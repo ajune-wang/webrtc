@@ -445,8 +445,9 @@ uint32_t AudioSendStream::OnBitrateUpdated(BitrateAllocationUpdate update) {
   // The bitrate allocator might allocate an higher than max configured bitrate
   // if there is room, to allow for, as example, extra FEC. Ignore that for now.
   const DataRate max_bitrate = DataRate::bps(config_.max_bitrate_bps);
-  if (update.target_bitrate > max_bitrate)
+  if (update.target_bitrate > max_bitrate) {
     update.target_bitrate = max_bitrate;
+  }
 
   channel_send_->OnBitrateAllocation(update);
 

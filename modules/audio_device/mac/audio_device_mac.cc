@@ -664,19 +664,21 @@ int32_t AudioDeviceMac::StereoRecordingIsAvailable(bool& available) {
 }
 
 int32_t AudioDeviceMac::SetStereoRecording(bool enable) {
-  if (enable)
+  if (enable) {
     _recChannels = 2;
-  else
+  } else {
     _recChannels = 1;
+  }
 
   return 0;
 }
 
 int32_t AudioDeviceMac::StereoRecording(bool& enabled) const {
-  if (_recChannels == 2)
+  if (_recChannels == 2) {
     enabled = true;
-  else
+  } else {
     enabled = false;
+  }
 
   return 0;
 }
@@ -706,19 +708,21 @@ int32_t AudioDeviceMac::StereoPlayoutIsAvailable(bool& available) {
 }
 
 int32_t AudioDeviceMac::SetStereoPlayout(bool enable) {
-  if (enable)
+  if (enable) {
     _playChannels = 2;
-  else
+  } else {
     _playChannels = 1;
+  }
 
   return 0;
 }
 
 int32_t AudioDeviceMac::StereoPlayout(bool& enabled) const {
-  if (_playChannels == 2)
+  if (_playChannels == 2) {
     enabled = true;
-  else
+  } else {
     enabled = false;
+  }
 
   return 0;
 }

@@ -386,9 +386,10 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
   bool SendFinalAnswer() {
     bool result = channel2_->SetLocalContent(&local_media_content2_,
                                              SdpType::kAnswer, NULL);
-    if (result)
+    if (result) {
       result = channel1_->SetRemoteContent(&remote_media_content2_,
                                            SdpType::kAnswer, NULL);
+    }
     return result;
   }
 
@@ -1180,8 +1181,9 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
     int pl_type1 = pl_types[0];
     int pl_type2 = pl_types[1];
     int flags = SSRC_MUX;
-    if (secure)
+    if (secure) {
       flags |= DTLS;
+    }
     if (rtcp_mux) {
       flags |= RTCP_MUX;
     }

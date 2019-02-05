@@ -123,8 +123,9 @@ PlatformThreadRef PlatformThread::GetThreadRef() const {
 
 void PlatformThread::Stop() {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
-  if (!IsRunning())
+  if (!IsRunning()) {
     return;
+  }
 
 #if defined(WEBRTC_WIN)
   // Set stop_ to |true| on the worker thread.
@@ -136,11 +137,13 @@ void PlatformThread::Stop() {
   thread_ = nullptr;
   thread_id_ = 0;
 #else
-  if (!run_function_)
+  if (!run_function_) {
     RTC_CHECK_EQ(1, AtomicOps::Increment(&stop_flag_));
+  }
   RTC_CHECK_EQ(0, pthread_join(thread_, nullptr));
-  if (!run_function_)
+  if (!run_function_) {
     AtomicOps::ReleaseStore(&stop_flag_, 0);
+  }
   thread_ = 0;
 #endif  // defined(WEBRTC_WIN)
   spawned_thread_checker_.DetachFromThread();
@@ -180,8 +183,9 @@ void PlatformThread::Run() {
     // The interface contract of Start/Stop is that for a successful call to
     // Start, there should be at least one call to the run function.  So we
     // call the function before checking |stop_|.
-    if (!run_function_deprecated_(obj_))
+    if (!run_function_deprecated_(obj_)) {
       break;
+    }
 #if RTC_DCHECK_IS_ON
     auto id = sequence_nr % kMaxLoopCount;
     loop_stamps[id] = rtc::TimeMillis();
@@ -245,8 +249,9 @@ bool PlatformThread::SetPriority(ThreadPriority priority) {
     return false;
   }
 
-  if (max_prio - min_prio <= 2)
+  if (max_prio - min_prio <= 2) {
     return false;
+  }
 
   // Convert webrtc priority to system priorities:
   sched_param param;

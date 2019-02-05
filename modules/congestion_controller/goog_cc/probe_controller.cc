@@ -114,8 +114,9 @@ std::vector<ProbeClusterConfig> ProbeController::SetBitrates(
 
   switch (state_) {
     case State::kInit:
-      if (network_available_)
+      if (network_available_) {
         return InitiateExponentialProbing(at_time_ms);
+      }
       break;
 
     case State::kWaitingForProbingResult:
@@ -173,8 +174,9 @@ std::vector<ProbeClusterConfig> ProbeController::OnNetworkAvailability(
     min_bitrate_to_probe_further_bps_ = kExponentialProbingDisabled;
   }
 
-  if (network_available_ && state_ == State::kInit && start_bitrate_bps_ > 0)
+  if (network_available_ && state_ == State::kInit && start_bitrate_bps_ > 0) {
     return InitiateExponentialProbing(msg.at_time.ms());
+  }
   return std::vector<ProbeClusterConfig>();
 }
 

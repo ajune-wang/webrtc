@@ -134,8 +134,9 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
         }
       }
 
-      if (spatial_idx == kNoSpatialIdx)
+      if (spatial_idx == kNoSpatialIdx) {
         num_active_spatial_layers_ = 1;
+      }
 
       RTC_CHECK_GT(num_active_spatial_layers_, 0);
 
@@ -180,8 +181,9 @@ bool LayerFilteringTransport::SendRtp(const uint8_t* packet,
   // We are discarding some of the packets (specifically, whole layers), so
   // make sure the marker bit is set properly, and that sequence numbers are
   // continuous.
-  if (set_marker_bit)
+  if (set_marker_bit) {
     temp_buffer[1] |= kRtpMarkerBitMask;
+  }
 
   return test::DirectTransport::SendRtp(temp_buffer, length, options);
 }

@@ -181,8 +181,9 @@ void TwoWayCommunication::Perform() {
           payload_type2, format2, absl::nullopt));
     }
     // Initialize receiver on side A.
-    if (((secPassed % 7) == 6) && (msecPassed == 0))
+    if (((secPassed % 7) == 6) && (msecPassed == 0)) {
       EXPECT_EQ(0, _acmA->InitializeReceiver());
+    }
     // Re-register codec on side A.
     if (((secPassed % 7) == 6) && (msecPassed >= 990)) {
       _acmA->SetReceiveCodecs({{payload_type2, format2}});

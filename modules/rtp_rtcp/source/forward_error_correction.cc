@@ -41,8 +41,9 @@ int32_t ForwardErrorCorrection::Packet::AddRef() {
 int32_t ForwardErrorCorrection::Packet::Release() {
   int32_t ref_count;
   ref_count = --ref_count_;
-  if (ref_count == 0)
+  if (ref_count == 0) {
     delete this;
+  }
   return ref_count;
 }
 

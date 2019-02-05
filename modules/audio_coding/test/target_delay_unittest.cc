@@ -46,8 +46,9 @@ class TargetDelayTest : public ::testing::Test {
 
     int16_t audio[kFrameSizeSamples];
     const int kRange = 0x7FF;  // 2047, easy for masking.
-    for (size_t n = 0; n < kFrameSizeSamples; ++n)
+    for (size_t n = 0; n < kFrameSizeSamples; ++n) {
       audio[n] = (rand() & kRange) - kRange / 2;
+    }
     WebRtcPcm16b_Encode(audio, kFrameSizeSamples, payload_);
   }
 
@@ -61,8 +62,9 @@ class TargetDelayTest : public ::testing::Test {
     const int kTargetDelayMs =
         (kInterarrivalJitterPacket + 1) * kNum10msPerFrame * 10;
     ASSERT_EQ(0, SetMinimumDelay(kTargetDelayMs));
-    for (int n = 0; n < 30; ++n)  // Run enough iterations to fill the buffer.
+    for (int n = 0; n < 30; ++n) {  // Run enough iterations to fill the buffer.
       Run(true);
+    }
     int clean_optimal_delay = GetCurrentOptimalDelayMs();
     EXPECT_EQ(kTargetDelayMs, clean_optimal_delay);
     Run(false);  // Run with jitter.
@@ -73,15 +75,17 @@ class TargetDelayTest : public ::testing::Test {
   void TargetDelayBufferMinMax() {
     const int kTargetMinDelayMs = kNum10msPerFrame * 10;
     ASSERT_EQ(0, SetMinimumDelay(kTargetMinDelayMs));
-    for (int m = 0; m < 30; ++m)  // Run enough iterations to fill the buffer.
+    for (int m = 0; m < 30; ++m) {  // Run enough iterations to fill the buffer.
       Run(true);
+    }
     int clean_optimal_delay = GetCurrentOptimalDelayMs();
     EXPECT_EQ(kTargetMinDelayMs, clean_optimal_delay);
 
     const int kTargetMaxDelayMs = 2 * (kNum10msPerFrame * 10);
     ASSERT_EQ(0, SetMaximumDelay(kTargetMaxDelayMs));
-    for (int n = 0; n < 30; ++n)  // Run enough iterations to fill the buffer.
+    for (int n = 0; n < 30; ++n) {  // Run enough iterations to fill the buffer.
       Run(false);
+    }
 
     int capped_optimal_delay = GetCurrentOptimalDelayMs();
     EXPECT_EQ(kTargetMaxDelayMs, capped_optimal_delay);
@@ -128,8 +132,9 @@ class TargetDelayTest : public ::testing::Test {
       if (!clean) {
         for (int m = 0; m < 10; ++m) {  // Long enough to trigger delay change.
           Push();
-          for (int n = 0; n < kInterarrivalJitterPacket; ++n)
+          for (int n = 0; n < kInterarrivalJitterPacket; ++n) {
             Pull();
+          }
         }
       }
     }

@@ -743,39 +743,43 @@ void CaptureProcessor::ApplyRuntimeSettingScheme() {
   // permutation scheme in the parameter setting changes.
   switch (test_config_->runtime_parameter_setting_scheme) {
     case RuntimeParameterSettingScheme::SparseStreamMetadataChangeScheme:
-      if (capture_count_local == 0)
+      if (capture_count_local == 0) {
         frame_data_.input_sample_rate_hz = 16000;
-      else if (capture_count_local % 11 == 0)
+      } else if (capture_count_local % 11 == 0) {
         frame_data_.input_sample_rate_hz = 32000;
-      else if (capture_count_local % 73 == 0)
+      } else if (capture_count_local % 73 == 0) {
         frame_data_.input_sample_rate_hz = 48000;
-      else if (capture_count_local % 89 == 0)
+      } else if (capture_count_local % 89 == 0) {
         frame_data_.input_sample_rate_hz = 16000;
-      else if (capture_count_local % 97 == 0)
+      } else if (capture_count_local % 97 == 0) {
         frame_data_.input_sample_rate_hz = 8000;
+      }
 
-      if (capture_count_local == 0)
+      if (capture_count_local == 0) {
         frame_data_.input_number_of_channels = 1;
-      else if (capture_count_local % 4 == 0)
+      } else if (capture_count_local % 4 == 0) {
         frame_data_.input_number_of_channels =
             (frame_data_.input_number_of_channels == 1 ? 2 : 1);
+      }
 
-      if (capture_count_local == 0)
+      if (capture_count_local == 0) {
         frame_data_.output_sample_rate_hz = 16000;
-      else if (capture_count_local % 5 == 0)
+      } else if (capture_count_local % 5 == 0) {
         frame_data_.output_sample_rate_hz = 32000;
-      else if (capture_count_local % 47 == 0)
+      } else if (capture_count_local % 47 == 0) {
         frame_data_.output_sample_rate_hz = 48000;
-      else if (capture_count_local % 53 == 0)
+      } else if (capture_count_local % 53 == 0) {
         frame_data_.output_sample_rate_hz = 16000;
-      else if (capture_count_local % 71 == 0)
+      } else if (capture_count_local % 71 == 0) {
         frame_data_.output_sample_rate_hz = 8000;
+      }
 
-      if (capture_count_local == 0)
+      if (capture_count_local == 0) {
         frame_data_.output_number_of_channels = 1;
-      else if (capture_count_local % 8 == 0)
+      } else if (capture_count_local % 8 == 0) {
         frame_data_.output_number_of_channels =
             (frame_data_.output_number_of_channels == 1 ? 2 : 1);
+      }
       break;
     case RuntimeParameterSettingScheme::ExtremeStreamMetadataChangeScheme:
       if (capture_count_local % 2 == 0) {
@@ -786,25 +790,27 @@ void CaptureProcessor::ApplyRuntimeSettingScheme() {
       } else {
         frame_data_.input_number_of_channels =
             (frame_data_.input_number_of_channels == 1 ? 2 : 1);
-        if (frame_data_.input_sample_rate_hz == 8000)
+        if (frame_data_.input_sample_rate_hz == 8000) {
           frame_data_.input_sample_rate_hz = 16000;
-        else if (frame_data_.input_sample_rate_hz == 16000)
+        } else if (frame_data_.input_sample_rate_hz == 16000) {
           frame_data_.input_sample_rate_hz = 32000;
-        else if (frame_data_.input_sample_rate_hz == 32000)
+        } else if (frame_data_.input_sample_rate_hz == 32000) {
           frame_data_.input_sample_rate_hz = 48000;
-        else if (frame_data_.input_sample_rate_hz == 48000)
+        } else if (frame_data_.input_sample_rate_hz == 48000) {
           frame_data_.input_sample_rate_hz = 8000;
+        }
 
         frame_data_.output_number_of_channels =
             (frame_data_.output_number_of_channels == 1 ? 2 : 1);
-        if (frame_data_.output_sample_rate_hz == 8000)
+        if (frame_data_.output_sample_rate_hz == 8000) {
           frame_data_.output_sample_rate_hz = 16000;
-        else if (frame_data_.output_sample_rate_hz == 16000)
+        } else if (frame_data_.output_sample_rate_hz == 16000) {
           frame_data_.output_sample_rate_hz = 32000;
-        else if (frame_data_.output_sample_rate_hz == 32000)
+        } else if (frame_data_.output_sample_rate_hz == 32000) {
           frame_data_.output_sample_rate_hz = 48000;
-        else if (frame_data_.output_sample_rate_hz == 48000)
+        } else if (frame_data_.output_sample_rate_hz == 48000) {
           frame_data_.output_sample_rate_hz = 8000;
+        }
       }
       break;
     case RuntimeParameterSettingScheme::FixedMonoStreamMetadataScheme:
@@ -1010,39 +1016,43 @@ void RenderProcessor::ApplyRuntimeSettingScheme() {
   // permutation scheme in the parameter setting changes.
   switch (test_config_->runtime_parameter_setting_scheme) {
     case RuntimeParameterSettingScheme::SparseStreamMetadataChangeScheme:
-      if (render_count_local == 0)
+      if (render_count_local == 0) {
         frame_data_.input_sample_rate_hz = 16000;
-      else if (render_count_local % 47 == 0)
+      } else if (render_count_local % 47 == 0) {
         frame_data_.input_sample_rate_hz = 32000;
-      else if (render_count_local % 71 == 0)
+      } else if (render_count_local % 71 == 0) {
         frame_data_.input_sample_rate_hz = 48000;
-      else if (render_count_local % 79 == 0)
+      } else if (render_count_local % 79 == 0) {
         frame_data_.input_sample_rate_hz = 16000;
-      else if (render_count_local % 83 == 0)
+      } else if (render_count_local % 83 == 0) {
         frame_data_.input_sample_rate_hz = 8000;
+      }
 
-      if (render_count_local == 0)
+      if (render_count_local == 0) {
         frame_data_.input_number_of_channels = 1;
-      else if (render_count_local % 4 == 0)
+      } else if (render_count_local % 4 == 0) {
         frame_data_.input_number_of_channels =
             (frame_data_.input_number_of_channels == 1 ? 2 : 1);
+      }
 
-      if (render_count_local == 0)
+      if (render_count_local == 0) {
         frame_data_.output_sample_rate_hz = 16000;
-      else if (render_count_local % 17 == 0)
+      } else if (render_count_local % 17 == 0) {
         frame_data_.output_sample_rate_hz = 32000;
-      else if (render_count_local % 19 == 0)
+      } else if (render_count_local % 19 == 0) {
         frame_data_.output_sample_rate_hz = 48000;
-      else if (render_count_local % 29 == 0)
+      } else if (render_count_local % 29 == 0) {
         frame_data_.output_sample_rate_hz = 16000;
-      else if (render_count_local % 61 == 0)
+      } else if (render_count_local % 61 == 0) {
         frame_data_.output_sample_rate_hz = 8000;
+      }
 
-      if (render_count_local == 0)
+      if (render_count_local == 0) {
         frame_data_.output_number_of_channels = 1;
-      else if (render_count_local % 8 == 0)
+      } else if (render_count_local % 8 == 0) {
         frame_data_.output_number_of_channels =
             (frame_data_.output_number_of_channels == 1 ? 2 : 1);
+      }
       break;
     case RuntimeParameterSettingScheme::ExtremeStreamMetadataChangeScheme:
       if (render_count_local == 0) {
@@ -1053,25 +1063,27 @@ void RenderProcessor::ApplyRuntimeSettingScheme() {
       } else {
         frame_data_.input_number_of_channels =
             (frame_data_.input_number_of_channels == 1 ? 2 : 1);
-        if (frame_data_.input_sample_rate_hz == 8000)
+        if (frame_data_.input_sample_rate_hz == 8000) {
           frame_data_.input_sample_rate_hz = 16000;
-        else if (frame_data_.input_sample_rate_hz == 16000)
+        } else if (frame_data_.input_sample_rate_hz == 16000) {
           frame_data_.input_sample_rate_hz = 32000;
-        else if (frame_data_.input_sample_rate_hz == 32000)
+        } else if (frame_data_.input_sample_rate_hz == 32000) {
           frame_data_.input_sample_rate_hz = 48000;
-        else if (frame_data_.input_sample_rate_hz == 48000)
+        } else if (frame_data_.input_sample_rate_hz == 48000) {
           frame_data_.input_sample_rate_hz = 8000;
+        }
 
         frame_data_.output_number_of_channels =
             (frame_data_.output_number_of_channels == 1 ? 2 : 1);
-        if (frame_data_.output_sample_rate_hz == 8000)
+        if (frame_data_.output_sample_rate_hz == 8000) {
           frame_data_.output_sample_rate_hz = 16000;
-        else if (frame_data_.output_sample_rate_hz == 16000)
+        } else if (frame_data_.output_sample_rate_hz == 16000) {
           frame_data_.output_sample_rate_hz = 32000;
-        else if (frame_data_.output_sample_rate_hz == 32000)
+        } else if (frame_data_.output_sample_rate_hz == 32000) {
           frame_data_.output_sample_rate_hz = 48000;
-        else if (frame_data_.output_sample_rate_hz == 48000)
+        } else if (frame_data_.output_sample_rate_hz == 48000) {
           frame_data_.output_sample_rate_hz = 8000;
+        }
       }
       break;
     case RuntimeParameterSettingScheme::FixedMonoStreamMetadataScheme:

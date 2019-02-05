@@ -93,8 +93,9 @@ bool SpectralFeaturesExtractor::CheckSilenceComputeFeatures(
   const float tot_energy =
       std::accumulate(reference_frame_energy_coeffs_.begin(),
                       reference_frame_energy_coeffs_.end(), 0.f);
-  if (tot_energy < kSilenceThreshold)
+  if (tot_energy < kSilenceThreshold) {
     return true;
+  }
   // Analyze lagged frame.
   fft_.ForwardFft(lagged_frame, lagged_frame_fft_);
   ComputeBandEnergies(lagged_frame_fft_, band_boundaries_,
@@ -183,8 +184,9 @@ float SpectralFeaturesExtractor::ComputeVariability() {
   for (size_t delay1 = 0; delay1 < kSpectralCoeffsHistorySize; ++delay1) {
     float min_dist = std::numeric_limits<float>::max();
     for (size_t delay2 = 0; delay2 < kSpectralCoeffsHistorySize; ++delay2) {
-      if (delay1 == delay2)  // The distance would be 0.
+      if (delay1 == delay2) {  // The distance would be 0.
         continue;
+      }
       min_dist =
           std::min(min_dist, spectral_diffs_buf_.GetValue(delay1, delay2));
     }

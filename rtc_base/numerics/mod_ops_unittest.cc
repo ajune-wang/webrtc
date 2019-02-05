@@ -26,8 +26,9 @@ TEST_F(TestModOps, Add) {
   const int D = 100;
   ASSERT_EQ(1u, Add<D>(0, 1));
   ASSERT_EQ(0u, Add<D>(0, D));
-  for (int i = 0; i < D; ++i)
+  for (int i = 0; i < D; ++i) {
     ASSERT_EQ(0u, Add<D>(i, D - i));
+  }
 
   int t = 37;
   uint8_t a = t;
@@ -50,8 +51,9 @@ TEST_F(TestModOps, Subtract) {
   const int D = 100;
   ASSERT_EQ(99u, Subtract<D>(0, 1));
   ASSERT_EQ(0u, Subtract<D>(0, D));
-  for (int i = 0; i < D; ++i)
+  for (int i = 0; i < D; ++i) {
     ASSERT_EQ(0u, Subtract<D>(i, D + i));
+  }
 
   int t = 37;
   uint8_t a = t;
@@ -132,11 +134,13 @@ TEST_F(TestModOps, MinDiff) {
     ASSERT_EQ(1, MinDiff<uint8_t>(i + 1, i));
   }
 
-  for (uint8_t i = 0; i < 128; ++i)
+  for (uint8_t i = 0; i < 128; ++i) {
     ASSERT_EQ(i, MinDiff<uint8_t>(0, i));
+  }
 
-  for (uint8_t i = 0; i < 128; ++i)
+  for (uint8_t i = 0; i < 128; ++i) {
     ASSERT_EQ(128 - i, MinDiff<uint8_t>(0, 128 + i));
+  }
 }
 
 TEST_F(TestModOps, MinDiffWitDivisor) {
@@ -147,13 +151,15 @@ TEST_F(TestModOps, MinDiffWitDivisor) {
 
   const uint16_t D = 4711;
 
-  for (uint16_t i = 0; i < D / 2; ++i)
+  for (uint16_t i = 0; i < D / 2; ++i) {
     ASSERT_EQ(i, (MinDiff<uint16_t, D>(0, i)));
+  }
 
   ASSERT_EQ(D / 2, (MinDiff<uint16_t, D>(0, D / 2)));
 
-  for (uint16_t i = 0; i < D / 2; ++i)
+  for (uint16_t i = 0; i < D / 2; ++i) {
     ASSERT_EQ(D / 2 - i, (MinDiff<uint16_t, D>(0, D / 2 - i)));
+  }
 }
 
 }  // namespace webrtc

@@ -22,21 +22,26 @@ RouteCmp::RouteCmp(NAT* nat) : symmetric(nat->IsSymmetric()) {}
 
 size_t RouteCmp::operator()(const SocketAddressPair& r) const {
   size_t h = r.source().Hash();
-  if (symmetric)
+  if (symmetric) {
     h ^= r.destination().Hash();
+  }
   return h;
 }
 
 bool RouteCmp::operator()(const SocketAddressPair& r1,
                           const SocketAddressPair& r2) const {
-  if (r1.source() < r2.source())
+  if (r1.source() < r2.source()) {
     return true;
-  if (r2.source() < r1.source())
+  }
+  if (r2.source() < r1.source()) {
     return false;
-  if (symmetric && (r1.destination() < r2.destination()))
+  }
+  if (symmetric && (r1.destination() < r2.destination())) {
     return true;
-  if (symmetric && (r2.destination() < r1.destination()))
+  }
+  if (symmetric && (r2.destination() < r1.destination())) {
     return false;
+  }
   return false;
 }
 
@@ -45,23 +50,29 @@ AddrCmp::AddrCmp(NAT* nat)
 
 size_t AddrCmp::operator()(const SocketAddress& a) const {
   size_t h = 0;
-  if (use_ip)
+  if (use_ip) {
     h ^= HashIP(a.ipaddr());
-  if (use_port)
+  }
+  if (use_port) {
     h ^= a.port() | (a.port() << 16);
+  }
   return h;
 }
 
 bool AddrCmp::operator()(const SocketAddress& a1,
                          const SocketAddress& a2) const {
-  if (use_ip && (a1.ipaddr() < a2.ipaddr()))
+  if (use_ip && (a1.ipaddr() < a2.ipaddr())) {
     return true;
-  if (use_ip && (a2.ipaddr() < a1.ipaddr()))
+  }
+  if (use_ip && (a2.ipaddr() < a1.ipaddr())) {
     return false;
-  if (use_port && (a1.port() < a2.port()))
+  }
+  if (use_port && (a1.port() < a2.port())) {
     return true;
-  if (use_port && (a2.port() < a1.port()))
+  }
+  if (use_port && (a2.port() < a1.port())) {
     return false;
+  }
   return false;
 }
 
@@ -144,8 +155,9 @@ NATServer::NATServer(NATType type,
 
 NATServer::~NATServer() {
   for (InternalMap::iterator iter = int_map_->begin(); iter != int_map_->end();
-       iter++)
+       iter++) {
     delete iter->second;
+  }
 
   delete nat_;
   delete udp_server_socket_;

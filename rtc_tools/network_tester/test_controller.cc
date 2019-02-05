@@ -60,8 +60,9 @@ void TestController::SendData(const NetworkTesterPacket& packet,
   send_data_[0] = packet_size;
   packet_size++;
   packet.SerializeToArray(&send_data_[1], std::numeric_limits<char>::max());
-  if (data_size && *data_size > packet_size)
+  if (data_size && *data_size > packet_size) {
     packet_size = *data_size;
+  }
   udp_socket_->SendTo((const void*)send_data_.data(), packet_size,
                       remote_address_, rtc::PacketOptions());
 }

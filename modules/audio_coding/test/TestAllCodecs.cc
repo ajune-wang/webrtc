@@ -406,8 +406,9 @@ void TestAllCodecs::Run(TestPack* channel) {
       timestamp_diff = channel->timestamp_diff();
       if ((counter > 10) &&
           (static_cast<int>(timestamp_diff) != packet_size_samples_) &&
-          (packet_size_samples_ > -1))
+          (packet_size_samples_ > -1)) {
         error_count++;
+      }
     }
 
     // Run received side of ACM.

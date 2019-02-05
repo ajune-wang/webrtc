@@ -66,8 +66,9 @@ FecControllerPlrBased::~FecControllerPlrBased() = default;
 
 void FecControllerPlrBased::UpdateNetworkMetrics(
     const NetworkMetrics& network_metrics) {
-  if (network_metrics.uplink_bandwidth_bps)
+  if (network_metrics.uplink_bandwidth_bps) {
     uplink_bandwidth_bps_ = network_metrics.uplink_bandwidth_bps;
+  }
   if (network_metrics.uplink_packet_loss_fraction) {
     packet_loss_smoother_->AddSample(
         *network_metrics.uplink_packet_loss_fraction);

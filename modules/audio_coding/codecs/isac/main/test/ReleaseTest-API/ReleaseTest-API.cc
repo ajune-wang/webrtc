@@ -510,8 +510,9 @@ int main(int argc, char* argv[]) {
       return 0;
     }
   }
-  if (testNum != 2)
+  if (testNum != 2) {
     WebRtcIsac_DecoderInit(ISAC_main_inst);
+  }
   if (CodingMode == 1) {
     err = WebRtcIsac_Control(ISAC_main_inst, bottleneck, framesize);
     if (err < 0) {
@@ -676,8 +677,9 @@ int main(int argc, char* argv[]) {
 
       cur_framesmpls += samplesIn10Ms;
       /* exit encoder loop if the encoder returned a bitstream */
-      if (stream_len != 0)
+      if (stream_len != 0) {
         break;
+      }
     }
 
     /* read next bottleneck rate */

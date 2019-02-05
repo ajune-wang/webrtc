@@ -243,8 +243,9 @@ int64_t TimestampWrapAroundHandler::Unwrap(uint32_t ts) {
   }
 
   if (ts < last_ts_) {
-    if (last_ts_ >= 0xf0000000 && ts < 0x0fffffff)
+    if (last_ts_ >= 0xf0000000 && ts < 0x0fffffff) {
       ++num_wrap_;
+    }
   } else if ((ts - last_ts_) > 0xf0000000) {
     // Backwards wrap. Unwrap with last wrap count and don't update last_ts_.
     return ts + ((num_wrap_ - 1) << 32);
@@ -268,18 +269,25 @@ int64_t TmToSeconds(const tm& tm) {
   bool expiry_in_leap_year =
       (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 
-  if (year < 1970)
+  if (year < 1970) {
     return -1;
-  if (month < 0 || month > 11)
+  }
+  if (month < 0 || month > 11) {
     return -1;
-  if (day < 0 || day >= mdays[month] + (expiry_in_leap_year && month == 2 - 1))
+  }
+  if (day < 0 ||
+      day >= mdays[month] + (expiry_in_leap_year && month == 2 - 1)) {
     return -1;
-  if (hour < 0 || hour > 23)
+  }
+  if (hour < 0 || hour > 23) {
     return -1;
-  if (min < 0 || min > 59)
+  }
+  if (min < 0 || min > 59) {
     return -1;
-  if (sec < 0 || sec > 59)
+  }
+  if (sec < 0 || sec > 59) {
     return -1;
+  }
 
   day += cumul_mdays[month];
 
@@ -289,8 +297,9 @@ int64_t TmToSeconds(const tm& tm) {
 
   // We will have added one day too much above if expiration is during a leap
   // year, and expiration is in January or February.
-  if (expiry_in_leap_year && month <= 2 - 1)  // |month| is zero based.
+  if (expiry_in_leap_year && month <= 2 - 1) {  // |month| is zero based.
     day -= 1;
+  }
 
   // Combine all variables into seconds from 1970-01-01 00:00 (except |month|
   // which was accumulated into |day| above).

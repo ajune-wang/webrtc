@@ -73,8 +73,9 @@ bool VCMEncoderDataBase::SetSendCodec(const VideoCodec* send_codec,
     }
   }
 
-  if (new_send_codec.startBitrate > new_send_codec.maxBitrate)
+  if (new_send_codec.startBitrate > new_send_codec.maxBitrate) {
     new_send_codec.startBitrate = new_send_codec.maxBitrate;
+  }
 
   if (!reset_required) {
     reset_required = RequiresEncoderReset(new_send_codec);
@@ -122,8 +123,9 @@ void VCMEncoderDataBase::RegisterExternalEncoder(VideoEncoder* external_encoder,
 
 bool VCMEncoderDataBase::RequiresEncoderReset(
     const VideoCodec& new_send_codec) {
-  if (!ptr_encoder_)
+  if (!ptr_encoder_) {
     return true;
+  }
 
   // Does not check startBitrate, maxFramerate or plType
   if (new_send_codec.codecType != send_codec_.codecType ||
@@ -162,8 +164,9 @@ bool VCMEncoderDataBase::RequiresEncoderReset(
   }
 
   for (unsigned char i = 0; i < new_send_codec.numberOfSimulcastStreams; ++i) {
-    if (new_send_codec.simulcastStream[i] != send_codec_.simulcastStream[i])
+    if (new_send_codec.simulcastStream[i] != send_codec_.simulcastStream[i]) {
       return true;
+    }
   }
   return false;
 }
@@ -173,8 +176,9 @@ VCMGenericEncoder* VCMEncoderDataBase::GetEncoder() {
 }
 
 void VCMEncoderDataBase::DeleteEncoder() {
-  if (!ptr_encoder_)
+  if (!ptr_encoder_) {
     return;
+  }
   ptr_encoder_->Release();
   ptr_encoder_.reset();
 }

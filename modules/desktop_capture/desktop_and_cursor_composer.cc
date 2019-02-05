@@ -95,8 +95,9 @@ DesktopFrameWithCursor::DesktopFrameWithCursor(
   DesktopVector target_origin = target_rect.top_left();
   target_rect.IntersectWith(DesktopRect::MakeSize(size()));
 
-  if (target_rect.is_empty())
+  if (target_rect.is_empty()) {
     return;
+  }
 
   // Copy original screen content under cursor to |restore_frame_|.
   restore_position_ = target_rect.top_left();
@@ -145,8 +146,9 @@ DesktopAndCursorComposer::~DesktopAndCursorComposer() = default;
 
 void DesktopAndCursorComposer::Start(DesktopCapturer::Callback* callback) {
   callback_ = callback;
-  if (mouse_monitor_)
+  if (mouse_monitor_) {
     mouse_monitor_->Init(this, MouseCursorMonitor::SHAPE_AND_POSITION);
+  }
   desktop_capturer_->Start(this);
 }
 
@@ -156,8 +158,9 @@ void DesktopAndCursorComposer::SetSharedMemoryFactory(
 }
 
 void DesktopAndCursorComposer::CaptureFrame() {
-  if (mouse_monitor_)
+  if (mouse_monitor_) {
     mouse_monitor_->Capture();
+  }
   desktop_capturer_->CaptureFrame();
 }
 

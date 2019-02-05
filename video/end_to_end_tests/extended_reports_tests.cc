@@ -80,8 +80,9 @@ class RtcpXrObserver : public test::EndToEndTest {
     EXPECT_EQ(0, parser.sender_report()->num_packets());
     EXPECT_GE(1, parser.xr()->num_packets());
     if (parser.xr()->num_packets() > 0) {
-      if (parser.xr()->rrtr())
+      if (parser.xr()->rrtr()) {
         ++sent_rtcp_rrtr_;
+      }
       EXPECT_FALSE(parser.xr()->dlrr());
     }
 
@@ -105,8 +106,9 @@ class RtcpXrObserver : public test::EndToEndTest {
     EXPECT_LE(parser.xr()->num_packets(), 1);
     if (parser.xr()->num_packets() > 0) {
       EXPECT_FALSE(parser.xr()->rrtr());
-      if (parser.xr()->dlrr())
+      if (parser.xr()->dlrr()) {
         ++sent_rtcp_dlrr_;
+      }
       if (parser.xr()->target_bitrate()) {
         sent_rtcp_target_bitrate_ = true;
         auto target_bitrates =

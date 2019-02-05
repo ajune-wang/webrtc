@@ -114,8 +114,9 @@ void AudioNetworkAdaptorImpl::SetOverhead(size_t overhead_bytes_per_packet) {
 AudioEncoderRuntimeConfig AudioNetworkAdaptorImpl::GetEncoderRuntimeConfig() {
   AudioEncoderRuntimeConfig config;
   for (auto& controller :
-       controller_manager_->GetSortedControllers(last_metrics_))
+       controller_manager_->GetSortedControllers(last_metrics_)) {
     controller->MakeDecision(&config);
+  }
 
   // Update ANA stats.
   auto increment_opt = [](absl::optional<uint32_t>& a) {
@@ -147,11 +148,13 @@ AudioEncoderRuntimeConfig AudioNetworkAdaptorImpl::GetEncoderRuntimeConfig() {
   }
   prev_config_ = config;
 
-  if (debug_dump_writer_)
+  if (debug_dump_writer_) {
     debug_dump_writer_->DumpEncoderRuntimeConfig(config, rtc::TimeMillis());
+  }
 
-  if (event_log_writer_)
+  if (event_log_writer_) {
     event_log_writer_->MaybeLogEncoderConfig(config);
+  }
 
   return config;
 }
@@ -169,14 +172,16 @@ ANAStats AudioNetworkAdaptorImpl::GetStats() const {
 }
 
 void AudioNetworkAdaptorImpl::DumpNetworkMetrics() {
-  if (debug_dump_writer_)
+  if (debug_dump_writer_) {
     debug_dump_writer_->DumpNetworkMetrics(last_metrics_, rtc::TimeMillis());
+  }
 }
 
 void AudioNetworkAdaptorImpl::UpdateNetworkMetrics(
     const Controller::NetworkMetrics& network_metrics) {
-  for (auto& controller : controller_manager_->GetControllers())
+  for (auto& controller : controller_manager_->GetControllers()) {
     controller->UpdateNetworkMetrics(network_metrics);
+  }
 }
 
 }  // namespace webrtc

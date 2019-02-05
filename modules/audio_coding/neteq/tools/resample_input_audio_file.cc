@@ -24,8 +24,9 @@ bool ResampleInputAudioFile::Read(size_t samples,
   RTC_CHECK_EQ(samples_to_read * output_rate_hz, samples * file_rate_hz_)
       << "Frame size and sample rates don't add up to an integer.";
   std::unique_ptr<int16_t[]> temp_destination(new int16_t[samples_to_read]);
-  if (!InputAudioFile::Read(samples_to_read, temp_destination.get()))
+  if (!InputAudioFile::Read(samples_to_read, temp_destination.get())) {
     return false;
+  }
   resampler_.ResetIfNeeded(file_rate_hz_, output_rate_hz, 1);
   size_t output_length = 0;
   RTC_CHECK_EQ(resampler_.Push(temp_destination.get(), samples_to_read,

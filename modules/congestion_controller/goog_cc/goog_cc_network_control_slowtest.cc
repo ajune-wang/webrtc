@@ -21,8 +21,9 @@ namespace {
 // Count dips from a constant high bandwidth level within a short window.
 int CountBandwidthDips(std::queue<DataRate> bandwidth_history,
                        DataRate threshold) {
-  if (bandwidth_history.empty())
+  if (bandwidth_history.empty()) {
     return true;
+  }
   DataRate first = bandwidth_history.front();
   bandwidth_history.pop();
 
@@ -201,8 +202,9 @@ TEST(GoogCcNetworkControllerTest, NoBandwidthTogglingInLossControlTrial) {
        time += step) {
     s.RunFor(step);
     const TimeDelta window = TimeDelta::ms(500);
-    if (bandwidth_history.size() >= window / step)
+    if (bandwidth_history.size() >= window / step) {
       bandwidth_history.pop();
+    }
     bandwidth_history.push(client->send_bandwidth());
     EXPECT_LT(CountBandwidthDips(bandwidth_history, DataRate::kbps(100)), 2);
   }

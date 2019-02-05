@@ -551,8 +551,9 @@ void BaseChannel::ProcessPacket(bool rtcp,
 
 void BaseChannel::EnableMedia_w() {
   RTC_DCHECK(worker_thread_ == rtc::Thread::Current());
-  if (enabled_)
+  if (enabled_) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << "Channel enabled";
   enabled_ = true;
@@ -561,8 +562,9 @@ void BaseChannel::EnableMedia_w() {
 
 void BaseChannel::DisableMedia_w() {
   RTC_DCHECK(worker_thread_ == rtc::Thread::Current());
-  if (!enabled_)
+  if (!enabled_) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << "Channel disabled";
   enabled_ = false;
@@ -594,8 +596,9 @@ void BaseChannel::ChannelWritable_n() {
 
 void BaseChannel::ChannelNotWritable_n() {
   RTC_DCHECK(network_thread_->IsCurrent());
-  if (!writable_)
+  if (!writable_) {
     return;
+  }
 
   RTC_LOG(LS_INFO) << "Channel not writable (" << content_name_ << ")";
   writable_ = false;

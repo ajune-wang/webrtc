@@ -158,8 +158,10 @@ TEST_F(StatsEndToEndTest, GetStats) {
       for (std::map<uint32_t, VideoSendStream::StreamStats>::const_iterator it =
                stats.substreams.begin();
            it != stats.substreams.end(); ++it) {
-        if (expected_send_ssrcs_.find(it->first) == expected_send_ssrcs_.end())
+        if (expected_send_ssrcs_.find(it->first) ==
+            expected_send_ssrcs_.end()) {
           continue;  // Probably RTX.
+        }
 
         send_stats_filled_[CompoundKey("CapturedFrameRate", it->first)] |=
             stats.input_frame_rate != 0;
@@ -216,8 +218,9 @@ TEST_F(StatsEndToEndTest, GetStats) {
 
     bool AllStatsFilled(const std::map<std::string, bool>& stats_map) {
       for (const auto& stat : stats_map) {
-        if (!stat.second)
+        if (!stat.second) {
           return false;
+        }
       }
       return true;
     }
@@ -291,8 +294,9 @@ TEST_F(StatsEndToEndTest, GetStats) {
             kFakeVideoSendPayloadType;
       }
 
-      for (size_t i = 0; i < kNumSimulcastStreams; ++i)
+      for (size_t i = 0; i < kNumSimulcastStreams; ++i) {
         send_config->rtp.rtx.ssrcs.push_back(kSendRtxSsrcs[i]);
+      }
 
       // Use a delayed encoder to make sure we see CpuOveruseMetrics stats that
       // are non-zero.
@@ -316,17 +320,21 @@ TEST_F(StatsEndToEndTest, GetStats) {
       bool send_ok = false;
 
       while (now < stop_time) {
-        if (!receive_ok)
+        if (!receive_ok) {
           receive_ok = CheckReceiveStats();
-        if (!send_ok)
+        }
+        if (!send_ok) {
           send_ok = CheckSendStats();
+        }
 
-        if (receive_ok && send_ok)
+        if (receive_ok && send_ok) {
           return;
+        }
 
         int64_t time_until_timout_ = stop_time - now;
-        if (time_until_timout_ > 0)
+        if (time_until_timout_ > 0) {
           check_stats_event_.Wait(time_until_timout_);
+        }
         now = clock->TimeInMilliseconds();
       }
 
@@ -480,8 +488,9 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
     }
 
     Action OnSendRtp(const uint8_t* packet, size_t length) override {
-      if (MinNumberOfFramesReceived())
+      if (MinNumberOfFramesReceived()) {
         observation_complete_.Set();
+      }
       return SEND_PACKET;
     }
 
@@ -625,8 +634,9 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
     }
 
     void VerifyStats() RTC_EXCLUSIVE_LOCKS_REQUIRED(&crit_) {
-      if (!dropped_rtp_packet_requested_)
+      if (!dropped_rtp_packet_requested_) {
         return;
+      }
       int send_stream_nack_packets = 0;
       int receive_stream_nack_packets = 0;
       VideoSendStream::Stats stats = send_stream_->GetStats();
@@ -644,8 +654,9 @@ TEST_F(StatsEndToEndTest, VerifyNackStats) {
       }
       if (send_stream_nack_packets >= 1 && receive_stream_nack_packets >= 1) {
         // NACK packet sent on receive stream and received on sent stream.
-        if (MinMetricRunTimePassed())
+        if (MinMetricRunTimePassed()) {
           observation_complete_.Set();
+        }
       }
     }
 

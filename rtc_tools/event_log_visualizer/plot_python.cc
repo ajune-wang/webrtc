@@ -38,18 +38,22 @@ void PythonPlot::Draw() {
       printf("\n# === Series: %s ===\n", series_list_[i].label.c_str());
       // List x coordinates
       printf("x%zu = [", i);
-      if (series_list_[i].points.size() > 0)
+      if (series_list_[i].points.size() > 0) {
         printf("%.3f", series_list_[i].points[0].x);
-      for (size_t j = 1; j < series_list_[i].points.size(); j++)
+      }
+      for (size_t j = 1; j < series_list_[i].points.size(); j++) {
         printf(", %.3f", series_list_[i].points[j].x);
+      }
       printf("]\n");
 
       // List y coordinates
       printf("y%zu = [", i);
-      if (series_list_[i].points.size() > 0)
+      if (series_list_[i].points.size() > 0) {
         printf("%G", series_list_[i].points[0].y);
-      for (size_t j = 1; j < series_list_[i].points.size(); j++)
+      }
+      for (size_t j = 1; j < series_list_[i].points.size(); j++) {
         printf(", %G", series_list_[i].points[j].y);
+      }
       printf("]\n");
 
       if (series_list_[i].line_style == LineStyle::kBar) {

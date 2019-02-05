@@ -58,8 +58,9 @@ void AudioLevel::ComputeLevel(const AudioFrame& audioFrame, double duration) {
   // dedicated audio thread in the RecordedDataIsAvailable() callback.
   rtc::CritScope cs(&crit_sect_);
 
-  if (abs_value > abs_max_)
+  if (abs_value > abs_max_) {
     abs_max_ = abs_value;
+  }
 
   // Update level approximately 10 times per second
   if (count_++ == kUpdateFrequency) {

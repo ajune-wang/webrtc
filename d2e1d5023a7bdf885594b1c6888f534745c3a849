@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e85c90d_44e651c6",
+        "filename": "modules/audio_coding/acm2/acm_receiver.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T11:31:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "70662d63_0499ddcc",
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e914b7f5_e42e5b29",
         "filename": "modules/audio_coding/acm2/acm_receiver.h",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6b13dd_20d90716",
+        "filename": "modules/audio_coding/acm2/acm_receiver.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T11:31:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e914b7f5_e42e5b29",
+      "range": {
+        "startLine": 124,
+        "startChar": 6,
+        "endLine": 124,
+        "endChar": 25
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "8e217ed8_3adc87e4",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T11:31:19Z",
+      "side": 1,
+      "message": "The base minimum delay is lower bound on usual minimum delay (it is tightly related to neteq implementation). The usual minimum delay (which is set via SetMinimumDelay) can\u0027t be lower than base_minimum_delay.\n\nNow I have reflected this in the function comment.",
+      "parentUuid": "b09ee36b_7b8089bf",
+      "range": {
+        "startLine": 197,
+        "startChar": 65,
+        "endLine": 198,
+        "endChar": 44
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8d60647_9a49c902",
         "filename": "modules/audio_coding/neteq/include/neteq.h",
         "patchSetId": 1
@@ -76,6 +142,30 @@
       "writtenOn": "2019-02-05T10:25:16Z",
       "side": 1,
       "message": "Add an \"Ms\" suffix to these two methods?",
+      "range": {
+        "startLine": 204,
+        "startChar": 14,
+        "endLine": 204,
+        "endChar": 33
+      },
+      "revId": "d2e1d5023a7bdf885594b1c6888f534745c3a849",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd00982c_1cb3222e",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-05T11:31:19Z",
+      "side": 1,
+      "message": "Do you want me to add Ms suffix to setters as well?",
+      "parentUuid": "d8d60647_9a49c902",
       "range": {
         "startLine": 204,
         "startChar": 14,

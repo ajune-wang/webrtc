@@ -97,7 +97,8 @@ VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
       timestamp_rtp_(0),
       ntp_time_ms_(0),
       timestamp_us_(timestamp_us),
-      rotation_(rotation) {}
+      rotation_(rotation),
+      cache_buffer_for_partial_updates_(false) {}
 
 VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
                        uint32_t timestamp_rtp,
@@ -107,7 +108,8 @@ VideoFrame::VideoFrame(const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
       timestamp_rtp_(timestamp_rtp),
       ntp_time_ms_(0),
       timestamp_us_(render_time_ms * rtc::kNumMicrosecsPerMillisec),
-      rotation_(rotation) {
+      rotation_(rotation),
+      cache_buffer_for_partial_updates_(false) {
   RTC_DCHECK(buffer);
 }
 

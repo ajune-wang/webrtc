@@ -34,6 +34,285 @@
       "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "638bf62c_e92c00d4",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3048,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "associated",
+      "range": {
+        "startLine": 3048,
+        "startChar": 60,
+        "endLine": 3048,
+        "endChar": 68
+      },
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86c89ec8_8047ecee",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "What do you think about an std::vector of std::pair?",
+      "range": {
+        "startLine": 74,
+        "startChar": 43,
+        "endLine": 75,
+        "endChar": 74
+      },
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c3299bd_34abbe5d",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "up to you: another option is to define a custom PeerConnectionWrapper with your overload of AddTransceiver.",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3278b690_739e2773",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "A pattern I sometimes use is to return a boolean then EXPECT_TRUE in the actual test so if you have two calls to this function you can tell which one failed.",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31606e4b_1983a2d0",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "unused",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec1e6265_2258b1e4",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "Verify the error type?",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89620d5e_62f652fd",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a03ea257_8ba841d6",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "Don\u0027t really have to check this tbh",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "953ac511_503b95fb",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "or this",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dfbd43f_5545cc1b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "Convention in other tests is caller/callee.\n\nI don\u0027t really like either of the options.\n\nPerhaps the lesser of evils is \"local/remote\". What do you think?",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53ddb235_7485e034",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "Should this happen before SLD?",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b6306de_932083a0",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "EXPECT_TRUE?",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b3ba2cc_1ffb52be",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "it\u0027s not really recycling but rather associating",
+      "range": {
+        "startLine": 355,
+        "startChar": 55,
+        "endLine": 355,
+        "endChar": 62
+      },
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc165485_8bdfeb19",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "expect that size is 2",
+      "range": {
+        "startLine": 371,
+        "startChar": 32,
+        "endLine": 371,
+        "endChar": 47
+      },
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2386a36e_727fee30",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-05T02:21:05Z",
+      "side": 1,
+      "message": "EXPECT_TRUE?",
+      "revId": "71701bb533d2cb9686cb2d57106cf9bf8be1e544",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

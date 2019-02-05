@@ -94,6 +94,30 @@
       "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd2f3833_f1907559",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-05T12:38:32Z",
+      "side": 1,
+      "message": "Added a maximum number of consecutive reordered packets (10) before we reset the state.",
+      "parentUuid": "3ed36422_a8adb033",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "14995da714f5c9b891bede59ba26ca9b5f1586e2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

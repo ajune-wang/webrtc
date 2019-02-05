@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb7f9ea5_11f7c9e1",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-05T17:44:14Z",
+      "side": 1,
+      "message": "Question to self: Does rtc::Bind with \"this\" keep the report alive or does it have to be explicitly wrapped in an rtc::scoped_refptr?",
+      "revId": "cf7ab913655893525d6eafd1600996606d472034",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

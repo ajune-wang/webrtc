@@ -34,6 +34,23 @@
       "revId": "cf7ab913655893525d6eafd1600996606d472034",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ff79abf_e82beb62",
+        "filename": "rtc_base/async_invoker.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-05T17:56:34Z",
+      "side": 1,
+      "message": "Remove this.",
+      "revId": "cf7ab913655893525d6eafd1600996606d472034",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

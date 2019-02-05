@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b2e6def_718677e3",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5684,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-05T12:04:32Z",
+      "side": 1,
+      "message": "It took me some time to understand, where exponent 3 comes from. Usually it\u0027s rounded to 2^(num_layers-1). Please add a comment, that 2^3 comes from the field trial set at the beginning of the test.",
+      "range": {
+        "startLine": 5684,
+        "startChar": 74,
+        "endLine": 5684,
+        "endChar": 77
+      },
+      "revId": "a9553ee90ca7127651676902eddb7144d839b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b1087fd_f23fc73f",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5817,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-05T12:04:32Z",
+      "side": 1,
+      "message": "You probably need to add here: \nencoder_factory_-\u003eAddSupportedVideoCodecType(\"H264\");\n\nlook at this test:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/media/engine/webrtc_video_engine_unittest.cc?q\u003dmedia/engine/webrtc_video_engine_unittest.cc\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d5656",
+      "revId": "a9553ee90ca7127651676902eddb7144d839b5e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e63675af_7a5a7773",
+        "filename": "pc/rtc_stats_collector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-05T18:05:16Z",
+      "side": 1,
+      "message": "Note: I had to change from AsyncInvoker to PostMessageWithFunctor because otherwise the AsyncInvoker could be destroyed inside of the task that was queued, resulting in the infinite wait time that PostMessageWithFunctor gets around. I think it is nicer to use regardless.",
+      "revId": "a2a6e9686787f0c4572ad6905a33a1be24bdaff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

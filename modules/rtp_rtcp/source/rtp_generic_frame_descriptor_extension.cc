@@ -13,19 +13,26 @@
 #include "rtc_base/checks.h"
 
 namespace webrtc {
-namespace {
 
+namespace {
 constexpr uint8_t kFlagBeginOfSubframe = 0x80;
 constexpr uint8_t kFlagEndOfSubframe = 0x40;
-constexpr uint8_t kFlagFirstSubframe = 0x20;
-constexpr uint8_t kFlagLastSubframe = 0x10;
+
+// In version 00, the flags F and L in the first byte correspond to
+// kFlagFirstSubframe_v00 and kFlagLastSubframe_v00. In practice, they were
+// always set to |true|. In version 01, these flags are deprecated, and we use
+// one of their bits for the discardability flag.
+constexpr uint8_t kFlagFirstSubframe_v00 = 0x20;
+constexpr uint8_t kFlagLastSubframe_v00 = 0x10;
+constexpr uint8_t kFlagDiscardable_v01 = 0x10;
+
 constexpr uint8_t kFlagDependencies = 0x08;
 constexpr uint8_t kMaskTemporalLayer = 0x07;
 
 constexpr uint8_t kFlagMoreDependencies = 0x01;
 constexpr uint8_t kFlageXtendedOffset = 0x02;
-
 }  // namespace
+
 //       0 1 2 3 4 5 6 7
 //      +-+-+-+-+-+-+-+-+
 //      |B|E|F|L|D|  T  |
@@ -52,12 +59,30 @@ constexpr uint8_t kFlageXtendedOffset = 0x02;
 //      +---------------+
 //      |      ...      |
 //      +-+-+-+-+-+-+-+-+
-constexpr RTPExtensionType RtpGenericFrameDescriptorExtension::kId;
-constexpr char RtpGenericFrameDescriptorExtension::kUri[];
 
-bool RtpGenericFrameDescriptorExtension::Parse(
-    rtc::ArrayView<const uint8_t> data,
-    RtpGenericFrameDescriptor* descriptor) {
+// Just a convenient way to limit the friendship-access of
+// SetFirstSubFrameInFrame() and SetLastSubFrameInFrame().
+class RtpGenericFrameDescriptorExtension {
+ public:
+  static bool RtpGenericFrameDescriptorExtensionParse(
+      size_t version,
+      rtc::ArrayView<const uint8_t> data,
+      RtpGenericFrameDescriptor* descriptor);
+
+  static size_t RtpGenericFrameDescriptorExtensionValueSize(
+      const RtpGenericFrameDescriptor& descriptor);
+
+  static bool RtpGenericFrameDescriptorExtensionWrite(
+      size_t version,
+      rtc::ArrayView<uint8_t> data,
+      const RtpGenericFrameDescriptor& descriptor);
+};
+
+bool RtpGenericFrameDescriptorExtension::
+    RtpGenericFrameDescriptorExtensionParse(
+        size_t version,
+        rtc::ArrayView<const uint8_t> data,
+        RtpGenericFrameDescriptor* descriptor) {
   if (data.empty()) {
     return false;
   }
@@ -65,10 +90,18 @@ bool RtpGenericFrameDescriptorExtension::Parse(
   bool begins_subframe = (data[0] & kFlagBeginOfSubframe) != 0;
   descriptor->SetFirstPacketInSubFrame(begins_subframe);
   descriptor->SetLastPacketInSubFrame((data[0] & kFlagEndOfSubframe) != 0);
-  descriptor->SetFirstSubFrameInFrame((data[0] & kFlagFirstSubframe) != 0);
-  descriptor->SetLastSubFrameInFrame((data[0] & kFlagLastSubframe) != 0);
 
-  // Parse Subframe details provided in 1st packet of subframe.
+  if (version == 0) {
+    descriptor->SetFirstSubFrameInFrame((data[0] & kFlagFirstSubframe_v00) !=
+                                        0);
+    descriptor->SetLastSubFrameInFrame((data[0] & kFlagLastSubframe_v00) != 0);
+  } else if (version == 1) {
+    descriptor->SetDiscardable((data[0] & kFlagDiscardable_v01) != 0);
+  } else {
+    RTC_NOTREACHED() << "Unknown version (" << version << ").";
+  }
+
+  // Parse Subframe details provided in 1st packet of frame.
   if (!begins_subframe) {
     return data.size() == 1;
   }
@@ -108,7 +141,8 @@ bool RtpGenericFrameDescriptorExtension::Parse(
   return true;
 }
 
-size_t RtpGenericFrameDescriptorExtension::ValueSize(
+size_t
+RtpGenericFrameDescriptorExtension::RtpGenericFrameDescriptorExtensionValueSize(
     const RtpGenericFrameDescriptor& descriptor) {
   if (!descriptor.FirstPacketInSubFrame())
     return 1;
@@ -125,15 +159,28 @@ size_t RtpGenericFrameDescriptorExtension::ValueSize(
   return size;
 }
 
-bool RtpGenericFrameDescriptorExtension::Write(
-    rtc::ArrayView<uint8_t> data,
-    const RtpGenericFrameDescriptor& descriptor) {
-  RTC_CHECK_EQ(data.size(), ValueSize(descriptor));
+bool RtpGenericFrameDescriptorExtension::
+    RtpGenericFrameDescriptorExtensionWrite(
+        size_t version,
+        rtc::ArrayView<uint8_t> data,
+        const RtpGenericFrameDescriptor& descriptor) {
+  RTC_CHECK_EQ(data.size(),
+               RtpGenericFrameDescriptorExtension::
+                   RtpGenericFrameDescriptorExtensionValueSize(descriptor));
   uint8_t base_header =
       (descriptor.FirstPacketInSubFrame() ? kFlagBeginOfSubframe : 0) |
-      (descriptor.LastPacketInSubFrame() ? kFlagEndOfSubframe : 0) |
-      (descriptor.FirstSubFrameInFrame() ? kFlagFirstSubframe : 0) |
-      (descriptor.LastSubFrameInFrame() ? kFlagLastSubframe : 0);
+      (descriptor.LastPacketInSubFrame() ? kFlagEndOfSubframe : 0);
+  if (version == 0) {
+    base_header |=
+        (descriptor.FirstSubFrameInFrame() ? kFlagFirstSubframe_v00 : 0);
+    base_header |=
+        (descriptor.LastSubFrameInFrame() ? kFlagLastSubframe_v00 : 0);
+  } else if (version == 1) {
+    base_header |= (descriptor.Discardable() ? kFlagDiscardable_v01 : 0);
+  } else {
+    RTC_NOTREACHED() << "Unknown version (" << version << ").";
+  }
+
   if (!descriptor.FirstPacketInSubFrame()) {
     data[0] = base_header;
     return true;
@@ -166,6 +213,54 @@ bool RtpGenericFrameDescriptorExtension::Write(
     }
   }
   return true;
+}
+
+constexpr RTPExtensionType RtpGenericFrameDescriptorExtension00::kId;
+constexpr char RtpGenericFrameDescriptorExtension00::kUri[];
+
+bool RtpGenericFrameDescriptorExtension00::Parse(
+    rtc::ArrayView<const uint8_t> data,
+    RtpGenericFrameDescriptor* descriptor) {
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionParse(0, data, descriptor);
+}
+
+size_t RtpGenericFrameDescriptorExtension00::ValueSize(
+    const RtpGenericFrameDescriptor& descriptor) {
+  // No difference between existing versions.
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionValueSize(descriptor);
+}
+
+bool RtpGenericFrameDescriptorExtension00::Write(
+    rtc::ArrayView<uint8_t> data,
+    const RtpGenericFrameDescriptor& descriptor) {
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionWrite(0, data, descriptor);
+}
+
+constexpr RTPExtensionType RtpGenericFrameDescriptorExtension01::kId;
+constexpr char RtpGenericFrameDescriptorExtension01::kUri[];
+
+bool RtpGenericFrameDescriptorExtension01::Parse(
+    rtc::ArrayView<const uint8_t> data,
+    RtpGenericFrameDescriptor* descriptor) {
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionParse(1, data, descriptor);
+}
+
+size_t RtpGenericFrameDescriptorExtension01::ValueSize(
+    const RtpGenericFrameDescriptor& descriptor) {
+  // No difference between existing versions.
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionValueSize(descriptor);
+}
+
+bool RtpGenericFrameDescriptorExtension01::Write(
+    rtc::ArrayView<uint8_t> data,
+    const RtpGenericFrameDescriptor& descriptor) {
+  return RtpGenericFrameDescriptorExtension::
+      RtpGenericFrameDescriptorExtensionWrite(1, data, descriptor);
 }
 
 }  // namespace webrtc

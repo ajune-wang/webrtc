@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "924c0475_713be302",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-06T13:41:50Z",
+      "side": 1,
+      "message": "could we change this to \"late\" as well? also the name inside peak detector",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 152,
+        "endChar": 16
+      },
+      "revId": "a4df9199f43d20c0eaaaf8bba6876a2db3718022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -78,6 +78,30 @@ enum VideoFormat {
   kGeneric,
   kVP8,
 };
+
+int FindLowestUnusedId(const std::vector<RtpExtension>& extensions) {
+  std::vector<int> used_ids;
+  used_ids.reserve(extensions.size());
+  for (const RtpExtension& extension : extensions) {
+    used_ids.push_back(extension.id);
+  }
+
+  std::sort(used_ids.begin(), used_ids.end());
+
+  int id = 1;
+  for (size_t i = 0; i < used_ids.size(); ++i, ++id) {
+    // RTC_DCHECKs demonstrate that used IDs are strictly increasing,
+    // beginning with 1, and therefore if there is a gap, it will be found,
+    // and if there is no gap, |id| will be set to used_ids.size() at the end.
+    RTC_DCHECK(i + 1 == used_ids.size() || used_ids[i] != used_ids[i + 1]);
+    RTC_DCHECK_LE(id, used_ids[i]);
+    if (id < used_ids[i]) {
+      break;
+    }
+  }
+
+  return id;
+}
 }  // namespace
 
 VideoFrame CreateVideoFrame(int width, int height, uint8_t data);
@@ -3754,7 +3778,7 @@ class PacingFactorObserver : public test::SendTest {
       // Want send side, not present by default, so add it.
       send_config->rtp.extensions.emplace_back(
           RtpExtension::kTransportSequenceNumberUri,
-          RtpExtension::kTransportSequenceNumberDefaultId);
+          FindLowestUnusedId(send_config->rtp.extensions));
     }
 
     // ALR only enabled for screenshare.

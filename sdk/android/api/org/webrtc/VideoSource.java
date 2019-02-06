@@ -30,15 +30,28 @@ public class VideoSource extends MediaSource {
   }
 
   private final NativeAndroidVideoTrackSource nativeAndroidVideoTrackSource;
+  @Nullable private volatile VideoProcessor videoProcessor;
+  private boolean isCapturerRunning;
+
   private final CapturerObserver capturerObserver = new CapturerObserver() {
     @Override
     public void onCapturerStarted(boolean success) {
+      isCapturerRunning = success;
       nativeAndroidVideoTrackSource.setState(success);
+      final VideoProcessor videoProcessor = VideoSource.this.videoProcessor;
+      if (videoProcessor != null) {
+        videoProcessor.onCapturerStarted(success);
+      }
     }
 
     @Override
     public void onCapturerStopped() {
+      isCapturerRunning = false;
       nativeAndroidVideoTrackSource.setState(/* isLive= */ false);
+      final VideoProcessor videoProcessor = VideoSource.this.videoProcessor;
+      if (videoProcessor != null) {
+        videoProcessor.onCapturerStopped();
+      }
     }
 
     @Override
@@ -53,9 +66,16 @@ public class VideoSource extends MediaSource {
       final VideoFrame.Buffer adaptedBuffer =
           frame.getBuffer().cropAndScale(parameters.cropX, parameters.cropY, parameters.cropWidth,
               parameters.cropHeight, parameters.scaleWidth, parameters.scaleHeight);
-      // TODO(magjed): Add video processing hook here.
-      nativeAndroidVideoTrackSource.onFrameCaptured(
-          new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs));
+      final VideoFrame adaptedFrame =
+          new VideoFrame(adaptedBuffer, frame.getRotation(), parameters.timestampNs);
+
+      final VideoProcessor videoProcessor = VideoSource.this.videoProcessor;
+      if (videoProcessor != null) {
+        videoProcessor.onFrameCaptured(adaptedFrame);
+      } else {
+        nativeAndroidVideoTrackSource.onFrameCaptured(adaptedFrame);
+      }
+
       adaptedBuffer.release();
     }
   };
@@ -96,6 +116,29 @@ public class VideoSource extends MediaSource {
       @Nullable Integer maxPortraitPixelCount, @Nullable Integer maxFps) {
     nativeAndroidVideoTrackSource.adaptOutputFormat(targetLandscapeAspectRatio,
         maxLandscapePixelCount, targetPortraitAspectRatio, maxPortraitPixelCount, maxFps);
+  }
+
+  /**
+   * Hook for injecting a custom video processor before frames are passed onto WebRTC. The frames
+   * will be cropped and scaled depending on CPU and network conditions before they are passed to
+   * the video processor. Frames will be delivered to the video processor on the same thread they
+   * are passed to this object. The video processor is allowed to deliver the processed frames
+   * back on any thread. The caller is responsible of ensuring that the video processor is not
+   * delivering frames after VideoSource.dispose() has been called.
+   */
+  public void setVideoProcessor(@Nullable VideoProcessor newVideoProcessor) {
+    final VideoProcessor oldVideoProcessor = this.videoProcessor;
+    if (oldVideoProcessor != null) {
+      oldVideoProcessor.setSink(/* sink= */ null);
+    }
+
+    this.videoProcessor = newVideoProcessor;
+    if (newVideoProcessor != null) {
+      newVideoProcessor.setSink(nativeAndroidVideoTrackSource::onFrameCaptured);
+      if (isCapturerRunning) {
+        newVideoProcessor.onCapturerStarted(/* success= */ true);
+      }
+    }
   }
 
   public CapturerObserver getCapturerObserver() {

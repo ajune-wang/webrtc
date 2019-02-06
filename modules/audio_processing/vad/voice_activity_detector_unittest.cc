@@ -40,8 +40,8 @@ TEST(VoiceActivityDetectorTest, ConstructorSetsDefaultValues) {
 
   VoiceActivityDetector vad;
 
-  std::vector<double> p = vad.chunkwise_voice_probabilities();
-  std::vector<double> rms = vad.chunkwise_rms();
+  const std::vector<double>& p = vad.chunkwise_voice_probabilities();
+  const std::vector<double>& rms = vad.chunkwise_rms();
 
   EXPECT_EQ(p.size(), 0u);
   EXPECT_EQ(rms.size(), 0u);

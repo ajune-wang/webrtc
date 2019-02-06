@@ -238,7 +238,7 @@ void TestPhysicalInternal(const SocketAddress& int_addr) {
     return;
   }
 
-  SocketAddress ext_addr1(int_addr);
+  const SocketAddress& ext_addr1(int_addr);
   SocketAddress ext_addr2;
   // Find an available IP with matching family. The test breaks if int_addr
   // can't talk to ip, so check for connectivity as well.

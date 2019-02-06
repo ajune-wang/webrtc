@@ -364,7 +364,7 @@ const std::string& ProduceIceCandidateStats(
       candidate_stats->network_type =
           NetworkAdapterTypeToStatsType(candidate.network_type());
       if (candidate.type() == cricket::RELAY_PORT_TYPE) {
-        std::string relay_protocol = candidate.relay_protocol();
+        const std::string& relay_protocol = candidate.relay_protocol();
         RTC_DCHECK(relay_protocol.compare("udp") == 0 ||
                    relay_protocol.compare("tcp") == 0 ||
                    relay_protocol.compare("tls") == 0);

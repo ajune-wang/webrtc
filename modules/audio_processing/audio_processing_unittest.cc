@@ -1455,7 +1455,7 @@ void ApmTest::ProcessDebugDump(const std::string& in_filename,
 
   while (ReadMessageFromFile(in_file, &event_msg)) {
     if (event_msg.type() == audioproc::Event::INIT) {
-      const audioproc::Init msg = event_msg.init();
+      const audioproc::Init& msg = event_msg.init();
       int reverse_sample_rate = msg.sample_rate();
       if (msg.has_reverse_sample_rate()) {
         reverse_sample_rate = msg.reverse_sample_rate();
@@ -1483,7 +1483,7 @@ void ApmTest::ProcessDebugDump(const std::string& in_filename,
       }
 
     } else if (event_msg.type() == audioproc::Event::REVERSE_STREAM) {
-      const audioproc::ReverseStream msg = event_msg.reverse_stream();
+      const audioproc::ReverseStream& msg = event_msg.reverse_stream();
 
       if (msg.channel_size() > 0) {
         ASSERT_EQ(revframe_->num_channels_,
@@ -1503,7 +1503,7 @@ void ApmTest::ProcessDebugDump(const std::string& in_filename,
       AnalyzeReverseStreamChooser(format);
 
     } else if (event_msg.type() == audioproc::Event::STREAM) {
-      const audioproc::Stream msg = event_msg.stream();
+      const audioproc::Stream& msg = event_msg.stream();
       // ProcessStream could have changed this for the output frame.
       frame_->num_channels_ = apm_->num_input_channels();
 

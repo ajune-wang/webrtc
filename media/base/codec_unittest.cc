@@ -150,7 +150,7 @@ TEST(CodecTest, TestVideoCodecOperators) {
 
   VideoCodec c7;
   VideoCodec c8(0, "");
-  VideoCodec c9 = c0;
+  const VideoCodec& c9 = c0;
   EXPECT_TRUE(c8 == c7);
   EXPECT_TRUE(c9 != c7);
   EXPECT_TRUE(c9 == c0);

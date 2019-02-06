@@ -821,7 +821,7 @@ void TurnPort::OnAllocateSuccess(const rtc::SocketAddress& address,
                                  const rtc::SocketAddress& stun_address) {
   state_ = STATE_READY;
 
-  rtc::SocketAddress related_address = stun_address;
+  const rtc::SocketAddress& related_address = stun_address;
 
   // For relayed candidate, Base is the candidate itself.
   AddAddress(address,          // Candidate address.

@@ -153,7 +153,7 @@ int do_main(int argc, char* argv[]) {
         return 1;
       }
 
-      const ReverseStream msg = event_msg.reverse_stream();
+      const ReverseStream& msg = event_msg.reverse_stream();
       if (msg.has_data()) {
         if (FLAG_raw && !reverse_raw_file) {
           reverse_raw_file.reset(
@@ -193,7 +193,7 @@ int do_main(int argc, char* argv[]) {
         return 1;
       }
 
-      const Stream msg = event_msg.stream();
+      const Stream& msg = event_msg.stream();
       if (msg.has_input_data()) {
         if (FLAG_raw && !input_raw_file) {
           input_raw_file.reset(
@@ -292,7 +292,7 @@ int do_main(int argc, char* argv[]) {
         printf("Corrupt input file: Config missing.\n");
         return 1;
       }
-      const audioproc::Config msg = event_msg.config();
+      const audioproc::Config& msg = event_msg.config();
 
       fprintf(settings_file, "APM re-config at frame: %d\n", frame_count);
 
@@ -325,7 +325,7 @@ int do_main(int argc, char* argv[]) {
         return 1;
       }
 
-      const Init msg = event_msg.init();
+      const Init& msg = event_msg.init();
       // These should print out zeros if they're missing.
       fprintf(settings_file, "Init at frame: %d\n", frame_count);
       int input_sample_rate = msg.sample_rate();

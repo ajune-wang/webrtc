@@ -1259,7 +1259,7 @@ void JsepTransportController::OnTransportCandidateGathered_n(
     RTC_NOTREACHED();
     return;
   }
-  std::string transport_name = transport->transport_name();
+  const std::string& transport_name = transport->transport_name();
   invoker_.AsyncInvoke<void>(
       RTC_FROM_HERE, signaling_thread_, [this, transport_name, candidate] {
         SignalIceCandidatesGathered(transport_name, {candidate});

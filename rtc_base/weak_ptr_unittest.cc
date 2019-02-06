@@ -50,7 +50,7 @@ TEST(WeakPtrFactoryTest, Comparison) {
   int data;
   WeakPtrFactory<int> factory(&data);
   WeakPtr<int> ptr = factory.GetWeakPtr();
-  WeakPtr<int> ptr2 = ptr;
+  const WeakPtr<int>& ptr2 = ptr;
   EXPECT_EQ(ptr.get(), ptr2.get());
 }
 

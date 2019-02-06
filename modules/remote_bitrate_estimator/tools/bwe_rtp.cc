@@ -53,7 +53,7 @@ std::set<uint32_t> SsrcFilter() {
   if (ssrc_filter_string.empty())
     return std::set<uint32_t>();
   std::stringstream ss;
-  std::string ssrc_filter = ssrc_filter_string;
+  const std::string& ssrc_filter = ssrc_filter_string;
   std::set<uint32_t> ssrcs;
 
   // Parse the ssrcs in hexadecimal format.

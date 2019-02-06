@@ -91,7 +91,7 @@ TEST(SocketAddressTest, TestHostnamePortCtor) {
 
 TEST(SocketAddressTest, TestCopyCtor) {
   SocketAddress from("1.2.3.4", 5678);
-  SocketAddress addr(from);
+  const SocketAddress& addr(from);
   EXPECT_FALSE(addr.IsUnresolvedIP());
   EXPECT_EQ(IPAddress(0x01020304U), addr.ipaddr());
   EXPECT_EQ(5678, addr.port());

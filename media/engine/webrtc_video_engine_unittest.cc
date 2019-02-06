@@ -5687,7 +5687,7 @@ TEST_F(WebRtcVideoChannelTest,
   frame_forwarder.IncomingCapturedFrame(frame_source.GetFrame());
 
   // Ensure the scaling is correct.
-  const auto video_streams = stream->GetVideoStreams();
+  const auto& video_streams = stream->GetVideoStreams();
   ASSERT_EQ(video_streams.size(), 3u);
   // Ensure that we round the capture resolution down for the top layer...
   EXPECT_EQ(video_streams[0].width, 2000u);
@@ -5843,7 +5843,7 @@ TEST_F(WebRtcVideoChannelTest,
   frame_forwarder.IncomingCapturedFrame(frame_source.GetFrame());
 
   // Ensure the scaling is correct.
-  const auto video_streams = stream->GetVideoStreams();
+  const auto& video_streams = stream->GetVideoStreams();
   ASSERT_EQ(video_streams.size(), 3u);
   // Ensure that we round the capture resolution down for the top layer...
   EXPECT_EQ(video_streams[0].width, 2000u);

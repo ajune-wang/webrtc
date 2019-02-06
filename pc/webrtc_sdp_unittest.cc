@@ -1498,8 +1498,8 @@ class WebRtcSdpTest : public testing::Test {
     }
 
     // group
-    const cricket::ContentGroups groups1 = desc1.groups();
-    const cricket::ContentGroups groups2 = desc2.groups();
+    const cricket::ContentGroups& groups1 = desc1.groups();
+    const cricket::ContentGroups& groups2 = desc2.groups();
     EXPECT_EQ(groups1.size(), groups1.size());
     if (groups1.size() != groups2.size()) {
       ADD_FAILURE();
@@ -1509,8 +1509,8 @@ class WebRtcSdpTest : public testing::Test {
       const cricket::ContentGroup group1 = groups1.at(i);
       const cricket::ContentGroup group2 = groups2.at(i);
       EXPECT_EQ(group1.semantics(), group2.semantics());
-      const cricket::ContentNames names1 = group1.content_names();
-      const cricket::ContentNames names2 = group2.content_names();
+      const cricket::ContentNames& names1 = group1.content_names();
+      const cricket::ContentNames& names2 = group2.content_names();
       EXPECT_EQ(names1.size(), names2.size());
       if (names1.size() != names2.size()) {
         ADD_FAILURE();
@@ -1524,8 +1524,8 @@ class WebRtcSdpTest : public testing::Test {
     }
 
     // transport info
-    const cricket::TransportInfos transports1 = desc1.transport_infos();
-    const cricket::TransportInfos transports2 = desc2.transport_infos();
+    const cricket::TransportInfos& transports1 = desc1.transport_infos();
+    const cricket::TransportInfos& transports2 = desc2.transport_infos();
     EXPECT_EQ(transports1.size(), transports2.size());
     if (transports1.size() != transports2.size()) {
       ADD_FAILURE();

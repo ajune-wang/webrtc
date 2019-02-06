@@ -122,7 +122,7 @@ bool SrtpTransport::SendRtpPacket(rtc::CopyOnWriteBuffer* packet,
         << "Failed to send the packet because SRTP transport is inactive.";
     return false;
   }
-  rtc::PacketOptions updated_options = options;
+  const rtc::PacketOptions& updated_options = options;
   TRACE_EVENT0("webrtc", "SRTP Encode");
   bool res;
   uint8_t* data = packet->data();

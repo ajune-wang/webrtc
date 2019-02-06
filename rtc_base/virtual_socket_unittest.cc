@@ -173,8 +173,8 @@ class VirtualSocketServerTest : public testing::Test {
   void CheckPortIncrementalization(const SocketAddress& post,
                                    const SocketAddress& pre) {
     EXPECT_EQ(post.port(), pre.port() + 1);
-    IPAddress post_ip = post.ipaddr();
-    IPAddress pre_ip = pre.ipaddr();
+    const IPAddress& post_ip = post.ipaddr();
+    const IPAddress& pre_ip = pre.ipaddr();
     EXPECT_EQ(pre_ip.family(), post_ip.family());
     if (post_ip.family() == AF_INET) {
       in_addr pre_ipv4 = pre_ip.ipv4_address();

@@ -48,7 +48,7 @@ EncodedImage SingleProcessEncodedImageIdInjector::InjectId(
     ev.infos[info.sub_id] = info;
   }
 
-  EncodedImage out = source;
+  const EncodedImage& out = source;
   out.data()[0] = id & 0x00ff;
   out.data()[1] = (id & 0xff00) >> 8;
   out.data()[2] = info.sub_id;

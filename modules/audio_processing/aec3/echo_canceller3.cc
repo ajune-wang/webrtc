@@ -33,7 +33,7 @@ bool DetectSaturation(rtc::ArrayView<const float> y) {
 
 // Method for adjusting config parameter dependencies..
 EchoCanceller3Config AdjustConfig(const EchoCanceller3Config& config) {
-  EchoCanceller3Config adjusted_cfg = config;
+  const EchoCanceller3Config& adjusted_cfg = config;
   return adjusted_cfg;
 }
 

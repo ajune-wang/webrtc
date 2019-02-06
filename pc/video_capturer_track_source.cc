@@ -323,7 +323,7 @@ void VideoCapturerTrackSource::Initialize(
   }
 
   if (constraints) {
-    MediaConstraintsInterface::Constraints mandatory_constraints =
+    const MediaConstraintsInterface::Constraints& mandatory_constraints =
         constraints->GetMandatory();
     MediaConstraintsInterface::Constraints optional_constraints;
     optional_constraints = constraints->GetOptional();

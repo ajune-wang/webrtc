@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "205a0c13_825fdf9d",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T15:25:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c9dfaef_bd1c44ed",
+      "range": {
+        "startLine": 127,
+        "startChar": 9,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "02d5ae120ffa43313e682b5f6b89cde2a6719e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4954fdd9_8712f73a",
         "filename": "sdk/android/api/org/webrtc/VideoSource.java",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "02d5ae120ffa43313e682b5f6b89cde2a6719e26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a410ea0_c6c3e5da",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T15:25:56Z",
+      "side": 1,
+      "message": "That\u0027s a good question, but it\u0027s hard to solve perfectly. I guess it\u0027s better to try to call \nonCapturerStarted immediately if the capturer is already running, but I\u0027m not trying to solve any possible race here, so it\u0027s a best effort. Either the VideoProcessor should only rely on these callbacks for non-critical things, such as starting/stopping statistics logging, or the client is responsible for synchronizing this, by e.g. calling setVideoProcessor() before attaching the VideoSource to the capturer.",
+      "parentUuid": "4954fdd9_8712f73a",
+      "range": {
+        "startLine": 129,
+        "startChar": 21,
+        "endLine": 129,
+        "endChar": 28
+      },
+      "revId": "02d5ae120ffa43313e682b5f6b89cde2a6719e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

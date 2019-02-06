@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f2cc34a_642f0de8",
+        "filename": "api/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-06T17:19:22Z",
+      "side": 0,
+      "message": "maybe we should keep it here. :D instead of adding and removing it all the time.",
+      "revId": "fe6e50f0af98f54afe9a1865324b645745240c84",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

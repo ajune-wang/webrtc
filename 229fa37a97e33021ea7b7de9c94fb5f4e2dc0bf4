@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13187472_cbe20d03",
+        "filename": "api/DEPS",
+        "patchSetId": 3
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-06T13:01:56Z",
+      "side": 1,
+      "message": "+kwiberg",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 4
+      },
+      "revId": "229fa37a97e33021ea7b7de9c94fb5f4e2dc0bf4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

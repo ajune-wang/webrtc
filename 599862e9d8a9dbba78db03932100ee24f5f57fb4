@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "464fbf20_96bb1c1b",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-06T12:27:40Z",
+      "side": 1,
+      "message": "++num_reordered_packets_;",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 26
+      },
+      "revId": "599862e9d8a9dbba78db03932100ee24f5f57fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd114a49_e92906ef",
+        "filename": "modules/audio_coding/neteq/delay_manager.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-06T12:27:40Z",
+      "side": 1,
+      "message": "I think \"consecutive reordered\" can be confusing.\n\nI makes me think something like\n10 9 8 7 6\n\nbut actually, we also count\n10 6 7 8 9\n\nCan we call them late packets? If the word works, could you change \"reorder\" to \"late\" in all relevant places.",
+      "range": {
+        "startLine": 175,
+        "startChar": 48,
+        "endLine": 175,
+        "endChar": 78
+      },
+      "revId": "599862e9d8a9dbba78db03932100ee24f5f57fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f116d6_c910e69b",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-06T12:27:40Z",
+      "side": 1,
+      "message": "I think using detector_ to test target level is rather indirect. Can we use dm_-\u003eTargetLevel() instead?",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 45
+      },
+      "revId": "599862e9d8a9dbba78db03932100ee24f5f57fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db60313c_e62d32c5",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-06T12:27:40Z",
+      "side": 1,
+      "message": "I was me who suggested to propagate enable_rtx_handling to DelayPeakDetector, I think it now makes sense to take it out. In general, I would not like a setting to distribute unnecessarily widely.",
+      "range": {
+        "startLine": 68,
+        "startChar": 44,
+        "endLine": 68,
+        "endChar": 63
+      },
+      "revId": "599862e9d8a9dbba78db03932100ee24f5f57fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

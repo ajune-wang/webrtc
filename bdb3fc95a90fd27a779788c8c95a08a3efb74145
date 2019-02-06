@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bdccb78_b6227456",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T12:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd6fa62c_61f902a6",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cb783c0_30c84ee6",
         "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21dfbffb_9b7a3613",
+        "filename": "sdk/android/src/java/org/webrtc/NativeCapturerObserver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T12:10:09Z",
+      "side": 1,
+      "message": "Done in separate CL that already landed. This CL has been rebased on top of that.",
+      "parentUuid": "4cb783c0_30c84ee6",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 27
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a3d12df1_0887b289",
+        "filename": "sdk/android/src/jni/android_video_track_source.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T12:10:09Z",
+      "side": 1,
+      "message": "I agree, added a TODO to get back to this.",
+      "parentUuid": "92882ac6_f391f932",
+      "range": {
+        "startLine": 82,
+        "startChar": 2,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fab80b5_f3196ce4",
         "filename": "sdk/android/src/jni/android_video_track_source.h",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f64ec72d_10d4417b",
+        "filename": "sdk/android/src/jni/android_video_track_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T12:10:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fab80b5_f3196ce4",
+      "range": {
+        "startLine": 62,
+        "startChar": 44,
+        "endLine": 62,
+        "endChar": 72
+      },
+      "revId": "bdb3fc95a90fd27a779788c8c95a08a3efb74145",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

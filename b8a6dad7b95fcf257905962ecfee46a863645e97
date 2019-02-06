@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c11c84ad_5378f470",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "Inline UpdatePendingSize (in both classes)",
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bbacd93_a3c1ecfc",
+        "filename": "test/scenario/network/cross_traffic.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "Could this be moved to a separate file, to clarify that it\u0027s not directly coupled to the cross traffic generators?",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41131f49_18eb5515",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "See comment for the other test below.",
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d7eea2a_7822c357",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "If you want this, use DataRate::bytes_per_sec, or use something even in bps and follow the suggestion below.",
+      "range": {
+        "startLine": 140,
+        "startChar": 36,
+        "endLine": 140,
+        "endChar": 41
+      },
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25cdf179_6e1884b5",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "I suggest increasing the margin in the EXPECT_NEAR below instead.",
+      "range": {
+        "startLine": 153,
+        "startChar": 13,
+        "endLine": 153,
+        "endChar": 17
+      },
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe28f68_de228877",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "Compute this based on a constant for wait time and a constant for peak rate, that way you don\u0027t need to choose magical values that happen to round nicely.",
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d53aff6_27fac9e7",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "EXPECT_NEAR",
+      "range": {
+        "startLine": 160,
+        "startChar": 2,
+        "endLine": 160,
+        "endChar": 13
+      },
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ced4af6e_238c8dc5",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-06T18:03:50Z",
+      "side": 1,
+      "message": "traffic_route (goes for other places as well)",
+      "range": {
+        "startLine": 112,
+        "startChar": 18,
+        "endLine": 112,
+        "endChar": 31
+      },
+      "revId": "b8a6dad7b95fcf257905962ecfee46a863645e97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

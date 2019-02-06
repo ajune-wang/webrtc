@@ -20,10 +20,36 @@ constexpr int RtpGenericFrameDescriptor::kMaxNumFrameDependencies;
 constexpr int RtpGenericFrameDescriptor::kMaxTemporalLayers;
 constexpr int RtpGenericFrameDescriptor::kMaxSpatialLayers;
 
-RtpGenericFrameDescriptor::RtpGenericFrameDescriptor() = default;
+RtpGenericFrameDescriptor::RtpGenericFrameDescriptor()
+    : RtpGenericFrameDescriptor(false) {}
+
+RtpGenericFrameDescriptor::RtpGenericFrameDescriptor(bool use_discardable)
+    : use_discardable_(use_discardable) {}
+
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor(
     const RtpGenericFrameDescriptor&) = default;
+
 RtpGenericFrameDescriptor::~RtpGenericFrameDescriptor() = default;
+
+bool RtpGenericFrameDescriptor::FirstSubFrameInFrame() const {
+  RTC_DCHECK(!use_discardable_);
+  return beginning_of_frame_;
+}
+
+bool RtpGenericFrameDescriptor::LastSubFrameInFrame() const {
+  RTC_DCHECK(!use_discardable_);
+  return end_of_frame_;
+}
+
+bool RtpGenericFrameDescriptor::Discardable() const {
+  RTC_DCHECK(use_discardable_);
+  return discardable_;
+}
+
+void RtpGenericFrameDescriptor::SetDiscardable(bool discardable) {
+  RTC_DCHECK(use_discardable_);
+  discardable_ = discardable;
+}
 
 int RtpGenericFrameDescriptor::TemporalLayer() const {
   RTC_DCHECK(FirstPacketInSubFrame());

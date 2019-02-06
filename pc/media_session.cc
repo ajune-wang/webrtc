@@ -10,6 +10,7 @@
 
 #include "pc/media_session.h"
 
+#include <algorithm>
 #include <functional>
 #include <map>
 #include <memory>
@@ -51,6 +52,31 @@ void GetSupportedSdesCryptoSuiteNames(
     names->push_back(rtc::SrtpCryptoSuiteToName(crypto));
   }
 }
+
+int FindLowestUnusedId(const std::vector<webrtc::RtpExtension>& extensions) {
+  std::vector<int> used_ids;
+  used_ids.reserve(extensions.size());
+  for (const webrtc::RtpExtension& extension : extensions) {
+    used_ids.push_back(extension.id);
+  }
+
+  std::sort(used_ids.begin(), used_ids.end());
+
+  int id = 1;
+  for (size_t i = 0; i < used_ids.size(); ++i, ++id) {
+    // RTC_DCHECKs demonstrate that used IDs are strictly increasing,
+    // beginning with 1, and therefore if there is a gap, it will be found,
+    // and if there is no gap, |id| will be set to used_ids.size() at the end.
+    RTC_DCHECK(i + 1 == used_ids.size() || used_ids[i] != used_ids[i + 1]);
+    RTC_DCHECK_LE(id, used_ids[i]);
+    if (id < used_ids[i]) {
+      break;
+    }
+  }
+
+  return id;
+}
+
 }  // namespace
 
 namespace cricket {
@@ -1348,13 +1374,12 @@ void MediaSessionDescriptionFactory::set_audio_codecs(
 static void AddUnifiedPlanExtensions(RtpHeaderExtensions* extensions) {
   RTC_DCHECK(extensions);
   // Unified Plan also offers the MID and RID header extensions.
+  extensions->push_back(webrtc::RtpExtension(webrtc::RtpExtension::kMidUri,
+                                             FindLowestUnusedId(*extensions)));
+  extensions->push_back(webrtc::RtpExtension(webrtc::RtpExtension::kRidUri,
+                                             FindLowestUnusedId(*extensions)));
   extensions->push_back(webrtc::RtpExtension(
-      webrtc::RtpExtension::kMidUri, webrtc::RtpExtension::kMidDefaultId));
-  extensions->push_back(webrtc::RtpExtension(
-      webrtc::RtpExtension::kRidUri, webrtc::RtpExtension::kRidDefaultId));
-  extensions->push_back(
-      webrtc::RtpExtension(webrtc::RtpExtension::kRepairedRidUri,
-                           webrtc::RtpExtension::kRepairedRidDefaultId));
+      webrtc::RtpExtension::kRepairedRidUri, FindLowestUnusedId(*extensions)));
 }
 
 RtpHeaderExtensions

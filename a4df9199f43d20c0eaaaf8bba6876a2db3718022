@@ -22,6 +22,30 @@
       "revId": "a4df9199f43d20c0eaaaf8bba6876a2db3718022",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a7c79bb_e46f30c8",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-06T14:19:12Z",
+      "side": 1,
+      "message": "I think late is more ambiguous than reordered. Late could be that the packet was delayed more than expected even though it was not reordered, right?",
+      "parentUuid": "924c0475_713be302",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 152,
+        "endChar": 16
+      },
+      "revId": "a4df9199f43d20c0eaaaf8bba6876a2db3718022",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

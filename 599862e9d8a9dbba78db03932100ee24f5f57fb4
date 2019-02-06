@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "3d9116a9_fab490fe",
+        "filename": "modules/audio_coding/neteq/delay_manager_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-06T14:19:12Z",
+      "side": 1,
+      "message": "My plan is to refactor the histogram when implementing the new delay manager logic, and mocking it then. Added a comment to rewrite the test then.",
+      "parentUuid": "beb117fa_f19c5127",
+      "range": {
+        "startLine": 289,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 45
+      },
+      "revId": "599862e9d8a9dbba78db03932100ee24f5f57fb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db60313c_e62d32c5",
         "filename": "modules/audio_coding/neteq/neteq_impl.cc",
         "patchSetId": 6

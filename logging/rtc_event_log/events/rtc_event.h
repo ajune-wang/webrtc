@@ -49,7 +49,9 @@ class RtcEvent {
     RtpPacketIncoming,
     RtpPacketOutgoing,
     VideoReceiveStreamConfig,
-    VideoSendStreamConfig
+    VideoSendStreamConfig,
+    GenericPacketSent,
+    GenericPacketReceived
   };
 
   RtcEvent() : timestamp_us_(rtc::TimeMicros()) {}

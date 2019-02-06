@@ -1348,13 +1348,12 @@ void MediaSessionDescriptionFactory::set_audio_codecs(
 static void AddUnifiedPlanExtensions(RtpHeaderExtensions* extensions) {
   RTC_DCHECK(extensions);
   // Unified Plan also offers the MID and RID header extensions.
+  extensions->push_back(webrtc::RtpExtension(webrtc::RtpExtension::kMidUri,
+                                             extensions->size() + 1));
+  extensions->push_back(webrtc::RtpExtension(webrtc::RtpExtension::kRidUri,
+                                             extensions->size() + 1));
   extensions->push_back(webrtc::RtpExtension(
-      webrtc::RtpExtension::kMidUri, webrtc::RtpExtension::kMidDefaultId));
-  extensions->push_back(webrtc::RtpExtension(
-      webrtc::RtpExtension::kRidUri, webrtc::RtpExtension::kRidDefaultId));
-  extensions->push_back(
-      webrtc::RtpExtension(webrtc::RtpExtension::kRepairedRidUri,
-                           webrtc::RtpExtension::kRepairedRidDefaultId));
+      webrtc::RtpExtension::kRepairedRidUri, extensions->size() + 1));
 }
 
 RtpHeaderExtensions

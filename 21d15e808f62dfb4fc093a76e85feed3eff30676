@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e15578cf_c01ca909",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: It looks like this should be a DCHECK instead. How could an overshoot_detector not be created at L67-71?",
+      "range": {
+        "startLine": 153,
+        "startChar": 10,
+        "endLine": 153,
+        "endChar": 38
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2a9efbe_de91fb72",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: here too, maybe replace with DCHECK.",
+      "range": {
+        "startLine": 169,
+        "startChar": 14,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c813e84f_23c2a32f",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Could this cause inconsistency with adjusted bitrate fed to overshoot_detectors_? I should be some small error, which can be ignored right? Otherwise you should move this TL0 adjustment to both branches of the if at L145-184 above and do it after bitrate is adjusted but before it\u0027s passed to SetBitrate().",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 31
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3433bd90_86b42f44",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Should this also be a DCHECK()? Otherwise, you might want to issue a warning, if there\u0027s a frame for a layer which we didn\u0027t configure for yet, or reset frames_since_layout_change_ to 0.",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 3
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e4cc33_c6c470ec",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: add comment why is AdjustRateAllocation triggered here.",
+      "range": {
+        "startLine": 232,
+        "startChar": 2,
+        "endLine": 232,
+        "endChar": 22
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b12d336e_5f3d4ed3",
+        "filename": "video/encoder_bitrate_adjuster_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "This really looks like a typo. Should it be 1 \u003c\u003c si here and everywhere below?\n\nIf not, consider rewriting as |si * (1 \u003c\u003c si)| for more clarity.",
+      "range": {
+        "startLine": 45,
+        "startChar": 53,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8101e12c_3c90b597",
+        "filename": "video/encoder_bitrate_adjuster_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "shouldn\u0027t extra \u00273\u0027 be here at the end?",
+      "range": {
+        "startLine": 192,
+        "startChar": 26,
+        "endLine": 192,
+        "endChar": 27
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dc4276b_2b1b6e4c",
+        "filename": "video/encoder_bitrate_adjuster_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit, explicitly state all temporal layers here for clarity:\n0.2 * 1.2 + 0.2 * 1.2",
+      "range": {
+        "startLine": 288,
+        "startChar": 18,
+        "endLine": 288,
+        "endChar": 31
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7ed8ca0_fbee9c46",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "... is done, so a ...",
+      "range": {
+        "startLine": 59,
+        "startChar": 38,
+        "endLine": 59,
+        "endChar": 44
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d2f1c4d_dd0c136f",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: pre-compute\n\nconst int64_t window_cutoff_time_ms \u003d time_ms - window_size_ms_;\n\nand replace this condition with\n\nutilization_fators_.front().update_time_ms \u003c window_cutoff_time_ms",
+      "range": {
+        "startLine": 94,
+        "startChar": 10,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afc53b87_1e619698",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: .has_value()",
+      "range": {
+        "startLine": 74,
+        "startChar": 64,
+        "endLine": 74,
+        "endChar": 65
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0aa856e7_c86337b7",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": ".has_value()",
+      "range": {
+        "startLine": 78,
+        "startChar": 63,
+        "endLine": 78,
+        "endChar": 64
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb1c83b7_b3de9a75",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Nit: is this a reasonably cheap operation for ReconfigureEncoder()? Consider caching field trial in the constructor.",
+      "range": {
+        "startLine": 650,
+        "startChar": 27,
+        "endLine": 650,
+        "endChar": 49
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db1b53db_69940585",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T12:46:13Z",
+      "side": 1,
+      "message": "Is it some kind of security risk? Why even bother with it?",
+      "range": {
+        "startLine": 1047,
+        "startChar": 2,
+        "endLine": 1051,
+        "endChar": 0
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

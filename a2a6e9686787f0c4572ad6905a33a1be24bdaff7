@@ -16,6 +16,52 @@
       "revId": "a2a6e9686787f0c4572ad6905a33a1be24bdaff7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26a67c9f_b8f5afa8",
+        "filename": "pc/rtc_stats_collector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-06T22:46:21Z",
+      "side": 1,
+      "message": "but they are not",
+      "range": {
+        "startLine": 215,
+        "startChar": 45,
+        "endLine": 215,
+        "endChar": 52
+      },
+      "revId": "a2a6e9686787f0c4572ad6905a33a1be24bdaff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc94b33_032142d7",
+        "filename": "pc/rtc_stats_collector.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-06T22:46:21Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 237,
+        "startChar": 60,
+        "endLine": 237,
+        "endChar": 67
+      },
+      "revId": "a2a6e9686787f0c4572ad6905a33a1be24bdaff7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -111,7 +111,8 @@ void AddRtpHeaderExtensions(const RTPVideoHeader& video_header,
                                          video_header.height);
       }
     }
-    packet->SetExtension<RtpGenericFrameDescriptorExtension>(
+    // TODO(eladalon): Choose between 00 and 01.
+    packet->SetExtension<RtpGenericFrameDescriptorExtension00>(
         generic_descriptor);
   }
 }
@@ -479,8 +480,21 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
 
   RTPVideoHeader minimized_video_header;
   const RTPVideoHeader* packetize_video_header = video_header;
+
+  rtc::ArrayView<const uint8_t> generic_descriptor_raw_00 =
+      first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension00>();
+  rtc::ArrayView<const uint8_t> generic_descriptor_raw_01 =
+      first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension01>();
+
+  if (!generic_descriptor_raw_00.empty() &&
+      !generic_descriptor_raw_01.empty()) {
+    RTC_LOG(LS_WARNING) << "Two versions of GFD extension used.";
+    return false;
+  }
+
   rtc::ArrayView<const uint8_t> generic_descriptor_raw =
-      first_packet->GetRawExtension<RtpGenericFrameDescriptorExtension>();
+      !generic_descriptor_raw_01.empty() ? generic_descriptor_raw_01
+                                         : generic_descriptor_raw_00;
   if (!generic_descriptor_raw.empty()) {
     if (MinimizeDescriptor(*video_header, &minimized_video_header)) {
       packetize_video_header = &minimized_video_header;

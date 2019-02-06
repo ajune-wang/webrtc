@@ -523,19 +523,36 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
   } else if (last_color_space_) {
     webrtc_rtp_header.video_header().color_space = last_color_space_;
   }
+
+  // TODO: !!!!!!!!!!!!!!
+
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor_wire;
   generic_descriptor_wire.emplace();
-  if (packet.GetExtension<RtpGenericFrameDescriptorExtension>(
-          &generic_descriptor_wire.value())) {
-    generic_descriptor_wire->SetByteRepresentation(
-        packet.GetRawExtension<RtpGenericFrameDescriptorExtension>());
+  const bool generic_desc_v00 =
+      packet.GetExtension<RtpGenericFrameDescriptorExtension00>(
+          &generic_descriptor_wire.value());
+  const bool generic_desc_v01 =
+      packet.GetExtension<RtpGenericFrameDescriptorExtension01>(
+          &generic_descriptor_wire.value());
+  if (generic_desc_v00 && generic_desc_v01) {
+    RTC_LOG(LS_WARNING) << "Payload had two different GFD versions.";
+    return;
+  }
+
+  if (generic_desc_v00 || generic_desc_v01) {
+    if (generic_desc_v00) {
+      generic_descriptor_wire->SetByteRepresentation(
+          packet.GetRawExtension<RtpGenericFrameDescriptorExtension00>());
+    } else {
+      generic_descriptor_wire->SetByteRepresentation(
+          packet.GetRawExtension<RtpGenericFrameDescriptorExtension01>());
+    }
+
     webrtc_rtp_header.video_header().is_first_packet_in_frame =
-        generic_descriptor_wire->FirstSubFrameInFrame() &&
         generic_descriptor_wire->FirstPacketInSubFrame();
     webrtc_rtp_header.video_header().is_last_packet_in_frame =
         webrtc_rtp_header.header.markerBit ||
-        (generic_descriptor_wire->LastSubFrameInFrame() &&
-         generic_descriptor_wire->LastPacketInSubFrame());
+        generic_descriptor_wire->LastPacketInSubFrame();
 
     if (generic_descriptor_wire->FirstPacketInSubFrame()) {
       webrtc_rtp_header.frameType =

@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright (c) 2012 The WebRTC project authors. All Rights Reserved.
  *
@@ -2154,3 +2155,4 @@ INSTANTIATE_TEST_SUITE_P(WithAndWithoutOverhead,
                          ::testing::Bool());
 
 }  // namespace webrtc
+#endif

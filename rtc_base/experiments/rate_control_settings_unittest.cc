@@ -50,6 +50,20 @@ TEST(RateControlSettingsTest, GetSimulcastHysteresisFactor) {
             1.4);
 }
 
+TEST(RateControlSettingsTest, UseEncoderBitrateAdjuster) {
+  // Should be off by default.
+  EXPECT_FALSE(
+      RateControlSettings::ParseFromFieldTrials().UseEncoderBitrateAdjuster());
+
+  {
+    // Can be turned on via field trial.
+    test::ScopedFieldTrials field_trials(
+        "WebRTC-VideoRateControl/bitrate_adjuster:true/");
+    EXPECT_TRUE(RateControlSettings::ParseFromFieldTrials()
+                    .UseEncoderBitrateAdjuster());
+  }
+}
+
 }  // namespace
 
 }  // namespace webrtc

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e1f4a00_8b82428e",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-06T16:07:28Z",
+      "side": 1,
+      "message": "Did you test libvpx encoder with arbitrary scaled streams?",
+      "revId": "18bf8f4cfff8accdcedb33977d7cd5d9f6ed30e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

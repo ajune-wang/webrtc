@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c1c1cd87_69f09d1f",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Done. Tried to do it consistently for all flexfec-related tests.",
+      "parentUuid": "977648b4_74ce80ee",
+      "range": {
+        "startLine": 1087,
+        "startChar": 20,
+        "endLine": 1087,
+        "endChar": 32
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45bce3d5_8f118d43",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ea92e13c_1055a388",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45bce3d5_8f118d43",
+      "range": {
+        "startLine": 1157,
+        "startChar": 20,
+        "endLine": 1157,
+        "endChar": 32
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e3fd382_f923a53a",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-06T10:18:15Z",
       "side": 1,
       "message": "may be constexpr [to strictly follow style guide that require all static constants be either constexpr or have ABSL_CONST_INIT attribute]",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d703d4e9_a2facd2a",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3fd382_f923a53a",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "015fcd14_434ae4de",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd8ab6b8_69561a81",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 0
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea5161b2_80186ee4",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-06T10:18:15Z",
       "side": 1,
       "message": "may be move to private and instead of accessing it directly use packets_sent and last_sent_packet accessors",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24cb60a7_35386221",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea5161b2_80186ee4",
       "range": {
         "startLine": 80,
         "startChar": 33,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "e5e5ab0a_39feefc2",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "Made everything but the constructor protected. (BTW, I get compile failures if I make members private. Unclear to me why, but I guess does the TEST macros expand to a subclass of the test fixture?)",
+      "parentUuid": "bf784cfa_1c0bdce1",
+      "range": {
+        "startLine": 106,
+        "startChar": 1,
+        "endLine": 106,
+        "endChar": 7
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51ff34d6_15d2be91",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 3
@@ -151,6 +295,24 @@
       "writtenOn": "2019-02-06T10:18:15Z",
       "side": 1,
       "message": "I haven\u0027t check individual tests assuming they are direct move from the rtp_sender_unittests",
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aaa7505_60f94a6e",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-06T17:24:37Z",
+      "side": 1,
+      "message": "I\u0027ve double checked, only changes are that rtp_sender_ and rtp_sender_video_ now are direct members rather than pointer, and then the changes you suggested.",
+      "parentUuid": "51ff34d6_15d2be91",
       "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false

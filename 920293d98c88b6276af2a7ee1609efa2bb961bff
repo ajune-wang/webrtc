@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4340ae3a_c32d497f",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-02-06T14:08:59Z",
+      "side": 1,
+      "message": "If this method isn\u0027t overridden we get crashes, but I don\u0027t understand why. Shouldn\u0027t we hit the empty default implementation from PeerConnection.java?",
+      "range": {
+        "startLine": 1280,
+        "startChar": 4,
+        "endLine": 1283,
+        "endChar": 5
+      },
+      "revId": "920293d98c88b6276af2a7ee1609efa2bb961bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -26,8 +26,8 @@ class rtc::TaskQueue::Impl {
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
 
-  void AddRef();
-  void Release();
+  void AddRef() {}
+  void Release() {}
 
  protected:
   virtual ~Impl() = default;

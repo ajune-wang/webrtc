@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10b5bc69_48126895",
+        "filename": "video/encoder_overshoot_detector.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "Since we return a utilization factor (double), I think this class is more of an estimator than a detector? (To me, a detector is like a classifier that returns something from a bounded discrete set.)",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "3a4b886b7990921b7d79cee038a861c103db3a77",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

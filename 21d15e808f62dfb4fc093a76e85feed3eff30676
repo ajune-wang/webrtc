@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "69da3697_94efd639",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "What does this mean?",
+      "range": {
+        "startLine": 93,
+        "startChar": 26,
+        "endLine": 93,
+        "endChar": 46
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b21e9ccc_5d98b29a",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "By doing this, we account for different type of TL rate allocations?",
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e0bdadb_5d474066",
+        "filename": "video/encoder_bitrate_adjuster.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "HW :(",
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e15578cf_c01ca909",
         "filename": "video/encoder_bitrate_adjuster.cc",
         "patchSetId": 28
@@ -209,6 +266,23 @@
     },
     {
       "key": {
+        "uuid": "86056d92_13a959b5",
+        "filename": "video/encoder_overshoot_detector.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "\"so that a\" ?",
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d2f1c4d_dd0c136f",
         "filename": "video/encoder_overshoot_detector.cc",
         "patchSetId": 28
@@ -229,6 +303,23 @@
       "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4b844cd_04fa23dd",
+        "filename": "video/encoder_overshoot_detector_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "Utilization",
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -317,6 +408,52 @@
         "startChar": 2,
         "endLine": 1051,
         "endChar": 0
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29d13ba8_5f4079d2",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "Move down to closer where they are used.",
+      "range": {
+        "startLine": 1412,
+        "startChar": 2,
+        "endLine": 1415,
+        "endChar": 69
+      },
+      "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20c1d94f_6387f884",
+        "filename": "video/video_stream_encoder_unittest.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 3305,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-06T12:54:03Z",
+      "side": 1,
+      "message": "Any reason to not use the RateControlSettings class? To avoid misspellings of the field trials, etc.?",
+      "range": {
+        "startLine": 3305,
+        "startChar": 20,
+        "endLine": 3305,
+        "endChar": 30
       },
       "revId": "21d15e808f62dfb4fc093a76e85feed3eff30676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

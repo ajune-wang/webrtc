@@ -22,6 +22,30 @@
       "revId": "a91d1936f31c326d795d25466ebf77030574bde2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d3eb6a_dd0cfe54",
+        "filename": "sdk/android/src/java/org/webrtc/NativeAndroidVideoTrackSource.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-06T13:50:43Z",
+      "side": 1,
+      "message": "I updated the comment. The raw frames and adapted frames just need to be passed in the same order basically.",
+      "parentUuid": "fee4657a_1473f2c2",
+      "range": {
+        "startLine": 21,
+        "startChar": 75,
+        "endLine": 22,
+        "endChar": 29
+      },
+      "revId": "a91d1936f31c326d795d25466ebf77030574bde2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

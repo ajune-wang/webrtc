@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c9dfaef_bd1c44ed",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-06T15:04:02Z",
+      "side": 1,
+      "message": "Should we unset the sink on existing processor?",
+      "range": {
+        "startLine": 127,
+        "startChar": 9,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "02d5ae120ffa43313e682b5f6b89cde2a6719e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4954fdd9_8712f73a",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-06T15:04:02Z",
+      "side": 1,
+      "message": "Do we want to propagate the current state of capturing? i.e. call onCapturerStarted immediately if the capturing has already began?",
+      "range": {
+        "startLine": 129,
+        "startChar": 21,
+        "endLine": 129,
+        "endChar": 28
+      },
+      "revId": "02d5ae120ffa43313e682b5f6b89cde2a6719e26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

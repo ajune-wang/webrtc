@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "689e69c5_f094ac80",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-06T17:37:27Z",
+      "side": 1,
+      "message": "yes, individual tests are subclasses of the fixture.\n\nhttps://google.github.io/styleguide/cppguide.html#Access_Control\nexplicitly mention protected members are allowed in tests.",
+      "parentUuid": "e5e5ab0a_39feefc2",
+      "range": {
+        "startLine": 106,
+        "startChar": 1,
+        "endLine": 106,
+        "endChar": 7
+      },
+      "revId": "dbf21712667bc8d04a4c2f2d17e6cba95086dbbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51ff34d6_15d2be91",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video_unittest.cc",
         "patchSetId": 3

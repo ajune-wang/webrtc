@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fedf90ac_1a7865f9",
+        "filename": "api/rtp_parameters.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-06T12:33:09Z",
+      "side": 1,
+      "message": "Is it possible to mark this as RTC_DEPRECATED?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 77
+      },
+      "revId": "ee3a5ff77941c64396bd78dce54f6caca9b0650a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "36b4a416_34952108",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 2

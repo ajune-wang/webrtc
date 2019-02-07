@@ -83,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "05268539_cdb15985",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-07T15:40:27Z",
+      "side": 1,
+      "message": "But what if the target rate is the same, but something else changed instead? Or is target rate affected by any of those ratios changing?",
+      "parentUuid": "20ac09c5_d845a674",
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40b792fa_5a71c32b",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -94,6 +112,30 @@
       "writtenOn": "2019-02-07T14:54:30Z",
       "side": 1,
       "message": "Why not bps? Seems safer as a default.",
+      "range": {
+        "startLine": 595,
+        "startChar": 28,
+        "endLine": 595,
+        "endChar": 54
+      },
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da03b5ad_b49b52f3",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-07T15:40:27Z",
+      "side": 1,
+      "message": "Could be, just trying to reduce frequency but I think it won\u0027t make a difference",
+      "parentUuid": "40b792fa_5a71c32b",
       "range": {
         "startLine": 595,
         "startChar": 28,

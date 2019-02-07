@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0e132c5a_2840bc5c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-07T21:59:20Z",
+      "side": 1,
+      "message": "probably because it countns logical cores as cores (I would only count physical cores :P)",
+      "parentUuid": "5519a8d5_106fab17",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 33
+      },
+      "revId": "36c6cab408622794cd3e69ec22aed2dce603e517",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ab4c45d_dbb0b583",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1

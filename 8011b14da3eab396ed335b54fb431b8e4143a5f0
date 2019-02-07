@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7860656c_e9638172",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-07T21:59:20Z",
+      "side": 1,
+      "message": "I don\u0027t remember evaluation rules, I am going to assume here that you can subtract int from uint, and that the result will be stored in the int \u003d)",
+      "range": {
+        "startLine": 130,
+        "startChar": 6,
+        "endLine": 130,
+        "endChar": 15
+      },
+      "revId": "8011b14da3eab396ed335b54fb431b8e4143a5f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -151,6 +151,7 @@ class Scenario {
                 std::function<bool()> exit_function);
   void Start();
   void Stop();
+  void StopVideoSend();
 
   // Triggers sending of dummy packets over the given nodes.
   void TriggerPacketBurst(std::vector<EmulatedNetworkNode*> over_nodes,

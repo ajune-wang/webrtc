@@ -413,6 +413,12 @@ void Scenario::Stop() {
   start_time_ = Timestamp::PlusInfinity();
 }
 
+void Scenario::StopVideoSend() {
+  for (auto& stream_pair : video_streams_) {
+    stream_pair->send()->send_stream_->Stop();
+  }
+}
+
 Timestamp Scenario::Now() {
   return Timestamp::us(clock_->TimeInMicroseconds());
 }

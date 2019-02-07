@@ -998,33 +998,6 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
           rtp_parameters_.encodings[0].max_bitrate_bps
               ? *rtp_parameters_.encodings[0].max_bitrate_bps
               : kOpusBitrateFbBps;
-
-      // TODO(mflodman): Keep testing this and set proper values.
-      // Note: This is an early experiment currently only supported by Opus.
-      if (send_side_bwe_with_overhead_) {
-        const int max_packet_size_ms =
-            WEBRTC_OPUS_SUPPORT_120MS_PTIME ? 120 : 60;
-
-        // OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
-        constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
-
-        int min_overhead_bps =
-            kOverheadPerPacket * 8 * 1000 / max_packet_size_ms;
-
-        // We assume that |config_.max_bitrate_bps| before the next line is
-        // a hard limit on the payload bitrate, so we add min_overhead_bps to
-        // it to ensure that, when overhead is deducted, the payload rate
-        // never goes beyond the limit.
-        // Note: this also means that if a higher overhead is forced, we
-        // cannot reach the limit.
-        // TODO(minyue): Reconsider this when the signaling to BWE is done
-        // through a dedicated API.
-        config_.max_bitrate_bps += min_overhead_bps;
-
-        // In contrast to max_bitrate_bps, we let min_bitrate_bps always be
-        // reachable.
-        config_.min_bitrate_bps += min_overhead_bps;
-      }
     }
   }
 

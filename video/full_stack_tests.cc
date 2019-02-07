@@ -365,6 +365,7 @@ TEST(FullStackTest, ForemanCifWithoutPacketlossH264) {
   foreman_cif.analyzer = {"foreman_cif_net_delay_0_0_plr_0_H264", 0.0, 0.0,
                           kFullStackTestDurationSecs};
   fixture->RunWithAnalyzer(foreman_cif);
+  EXPECT_FALSE(true);
 }
 
 TEST(FullStackTest, ForemanCif30kbpsWithoutPacketlossH264) {

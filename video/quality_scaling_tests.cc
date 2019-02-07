@@ -258,6 +258,7 @@ TEST_F(QualityScalingTest, AdaptsDownForHighQp_H264) {
       []() { return H264Encoder::Create(cricket::VideoCodec("H264")); });
   RunTest(&encoder_factory, "H264", kHighStartBps, kAutomaticResize,
           kFrameDropping, kExpectAdapt);
+  EXPECT_FALSE(true);
 }
 #endif  // defined(WEBRTC_USE_H264)
 

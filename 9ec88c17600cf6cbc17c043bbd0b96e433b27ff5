@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ef81a67_41109c31",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-07T15:05:43Z",
+      "side": 1,
+      "message": "any context when or why it should be removed? I tried to check the mentioned bug, but it reference back to the TODO.\n\nMay be something like \u0027Remove when downstream projects stop using RtpGenericFrameDescriptorExtension name\u0027",
+      "range": {
+        "startLine": 22,
+        "startChar": 32,
+        "endLine": 22,
+        "endChar": 39
+      },
+      "revId": "9ec88c17600cf6cbc17c043bbd0b96e433b27ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19cf362b_c2fb02f6",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-07T15:05:43Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#Aliases\n\"In new code, using is preferable to typedef\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 7
+      },
+      "revId": "9ec88c17600cf6cbc17c043bbd0b96e433b27ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6066598_5e7aa8d8",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-07T15:05:43Z",
+      "side": 1,
+      "message": "shouldn\u0027t this line be after RtpGenericFrameDescriptorExtension is introduced?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 80
+      },
+      "revId": "9ec88c17600cf6cbc17c043bbd0b96e433b27ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

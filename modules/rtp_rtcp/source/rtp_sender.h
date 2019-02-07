@@ -24,6 +24,7 @@
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
 #include "modules/rtp_rtcp/include/rtp_header_extension_map.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_history.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
@@ -42,7 +43,7 @@ class RateLimiter;
 class RtcEventLog;
 class RtpPacketToSend;
 
-class RTPSender {
+class RTPSender : public RtpRtcpSenderInterface {
  public:
   RTPSender(bool audio,
             Clock* clock,
@@ -62,7 +63,7 @@ class RTPSender {
             bool require_frame_encryption,
             bool extmap_allow_mixed);
 
-  ~RTPSender();
+  ~RTPSender() override;
 
   void ProcessBitrate();
 
@@ -121,7 +122,7 @@ class RTPSender {
 
   // RTX.
   void SetRtxStatus(int mode);
-  int RtxStatus() const;
+  int RtxStatus() const override;
 
   uint32_t RtxSsrc() const;
   void SetRtxSsrc(uint32_t ssrc);
@@ -136,26 +137,26 @@ class RTPSender {
 
   // Create empty packet, fills ssrc, csrcs and reserve place for header
   // extensions RtpSender updates before sending.
-  std::unique_ptr<RtpPacketToSend> AllocatePacket() const;
+  std::unique_ptr<RtpPacketToSend> AllocatePacket() const override;
   // Allocate sequence number for provided packet.
   // Save packet's fields to generate padding that doesn't break media stream.
   // Return false if sending was turned off.
-  bool AssignSequenceNumber(RtpPacketToSend* packet);
+  bool AssignSequenceNumber(RtpPacketToSend* packet) override;
 
   // Used for padding and FEC packets only.
-  size_t RtpHeaderLength() const;
-  uint16_t AllocateSequenceNumber(uint16_t packets_to_send);
+  size_t RtpHeaderLength() const override;
+  uint16_t AllocateSequenceNumber(uint16_t packets_to_send) override;
   // Including RTP headers.
-  size_t MaxRtpPacketSize() const;
+  size_t MaxRtpPacketSize() const override;
 
-  uint32_t SSRC() const;
+  uint32_t SSRC() const override;
 
   absl::optional<uint32_t> FlexfecSsrc() const;
 
   // Sends packet to |transport_| or to the pacer, depending on configuration.
   bool SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
                      StorageType storage,
-                     RtpPacketSender::Priority priority);
+                     RtpPacketSender::Priority priority) override;
 
   // Called on update of RTP statistics.
   void RegisterRtpStatisticsCallback(StreamDataCountersCallback* callback);

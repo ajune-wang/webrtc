@@ -18,10 +18,10 @@
 #include "absl/types/optional.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
+#include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/playout_delay_oracle.h"
 #include "modules/rtp_rtcp/source/rtp_rtcp_config.h"
-#include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "modules/rtp_rtcp/source/ulpfec_generator.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/one_time_event.h"
@@ -51,7 +51,7 @@ class RTPSenderVideo {
   static constexpr int64_t kTLRateWindowSizeMs = 2500;
 
   RTPSenderVideo(Clock* clock,
-                 RTPSender* rtpSender,
+                 RtpRtcpSenderInterface* rtp_sender,
                  FlexfecSender* flexfec_sender,
                  FrameEncryptorInterface* frame_encryptor,
                  bool require_frame_encryption);
@@ -139,7 +139,7 @@ class RTPSenderVideo {
                                    int64_t expected_retransmission_time_ms)
       RTC_EXCLUSIVE_LOCKS_REQUIRED(stats_crit_);
 
-  RTPSender* const rtp_sender_;
+  RtpRtcpSenderInterface* const rtp_sender_;
   Clock* const clock_;
 
   // Maps payload type to codec type, for packetization.

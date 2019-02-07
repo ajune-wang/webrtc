@@ -170,7 +170,7 @@ const char* FrameTypeToString(FrameType frame_type) {
 }  // namespace
 
 RTPSenderVideo::RTPSenderVideo(Clock* clock,
-                               RTPSender* rtp_sender,
+                               RtpRtcpSenderInterface* rtp_sender,
                                FlexfecSender* flexfec_sender,
                                FrameEncryptorInterface* frame_encryptor,
                                bool require_frame_encryption)

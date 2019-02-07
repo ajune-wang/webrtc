@@ -18,8 +18,8 @@
 
 #include "absl/strings/string_view.h"
 #include "common_types.h"  // NOLINT(build/include)
+#include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/source/dtmf_queue.h"
-#include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/one_time_event.h"
@@ -30,7 +30,7 @@ namespace webrtc {
 
 class RTPSenderAudio {
  public:
-  RTPSenderAudio(Clock* clock, RTPSender* rtp_sender);
+  RTPSenderAudio(Clock* clock, RtpRtcpSenderInterface* rtp_sender);
   ~RTPSenderAudio();
 
   int32_t RegisterAudioPayload(absl::string_view payload_name,
@@ -68,7 +68,7 @@ class RTPSenderAudio {
                            RtpPacketSender::Priority priority);
 
   Clock* const clock_ = nullptr;
-  RTPSender* const rtp_sender_ = nullptr;
+  RtpRtcpSenderInterface* const rtp_sender_ = nullptr;
 
   rtc::CriticalSection send_audio_critsect_;
 

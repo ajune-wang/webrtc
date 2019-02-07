@@ -46,7 +46,7 @@ const char* FrameTypeToString(FrameType frame_type) {
 
 }  // namespace
 
-RTPSenderAudio::RTPSenderAudio(Clock* clock, RTPSender* rtp_sender)
+RTPSenderAudio::RTPSenderAudio(Clock* clock, RtpRtcpSenderInterface* rtp_sender)
     : clock_(clock), rtp_sender_(rtp_sender) {}
 
 RTPSenderAudio::~RTPSenderAudio() {}

@@ -11,6 +11,7 @@
 #ifndef MODULES_RTP_RTCP_INCLUDE_RTP_RTCP_H_
 #define MODULES_RTP_RTCP_INCLUDE_RTP_RTCP_H_
 
+#include <memory>
 #include <set>
 #include <string>
 #include <utility>
@@ -41,6 +42,35 @@ class VideoBitrateAllocationObserver;
 namespace rtcp {
 class TransportFeedback;
 }
+
+// Send interface used by packetization.
+class RtpRtcpSenderInterface {
+ public:
+  // Used for padding and FEC packets only.
+  virtual size_t RtpHeaderLength() const = 0;
+  virtual uint16_t AllocateSequenceNumber(uint16_t packets_to_send) = 0;
+  // Including RTP headers.
+  virtual size_t MaxRtpPacketSize() const = 0;
+  virtual uint32_t SSRC() const = 0;
+  virtual int RtxStatus() const = 0;
+
+  // Create empty packet, fills ssrc, csrcs and reserve place for header
+  // extensions RtpSender updates before sending.
+  virtual std::unique_ptr<RtpPacketToSend> AllocatePacket() const = 0;
+
+  // Allocate sequence number for provided packet.
+  // Save packet's fields to generate padding that doesn't break media stream.
+  // Return false if sending was turned off.
+  virtual bool AssignSequenceNumber(RtpPacketToSend* packet) = 0;
+
+  // Sends packet to |transport_| or to the pacer, depending on configuration.
+  virtual bool SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
+                             StorageType storage,
+                             RtpPacketSender::Priority priority) = 0;
+
+ protected:
+  virtual ~RtpRtcpSenderInterface() = default;
+};
 
 class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
  public:

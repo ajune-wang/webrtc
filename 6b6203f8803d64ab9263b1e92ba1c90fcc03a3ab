@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07a665ea_5800a5d0",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-07T13:55:35Z",
+      "side": 1,
+      "message": "This is a common pattern in the codebase but I am starting to think that we should add this conditional define in //:common_config (https://cs.chromium.org/chromium/src/third_party/webrtc/BUILD.gn?rcl\u003d0774bd9583a3a8a8efa80820ba01ee75c02e5677\u0026l\u003d216) and remove the explicit definition of WEBRTC_USE_H264 in all the other places.",
+      "range": {
+        "startLine": 764,
+        "startChar": 4,
+        "endLine": 766,
+        "endChar": 5
+      },
+      "revId": "6b6203f8803d64ab9263b1e92ba1c90fcc03a3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

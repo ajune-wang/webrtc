@@ -366,6 +366,29 @@ rtc_source_set("rate_limiter") {
   ]
 }
 
+rtc_source_set("helpers") {
+  sources = [
+    "helpers.cc",
+    "helpers.h",
+  ]
+  deps = [
+    ":checks",
+    ":logging",
+  ]
+}
+
+rtc_source_set("unique_id_generator") {
+  sources = [
+    "unique_id_generator.cc",
+    "unique_id_generator.h",
+  ]
+  deps = [
+    ":helpers",
+    ":stringutils",
+    "../api:array_view",
+  ]
+}
+
 rtc_source_set("sanitizer") {
   sources = [
     "sanitizer.h",
@@ -849,7 +872,9 @@ rtc_static_library("rtc_base") {
     "//third_party/abseil-cpp/absl/types:optional",
   ]
   public_deps = [
+    ":helpers",
     ":rtc_base_approved",
+    ":unique_id_generator",
   ]
   public_configs = []
 
@@ -879,8 +904,6 @@ rtc_static_library("rtc_base") {
     "file_rotating_stream.cc",
     "file_rotating_stream.h",
     "gunit_prod.h",
-    "helpers.cc",
-    "helpers.h",
     "http_common.cc",
     "http_common.h",
     "ip_address.cc",
@@ -959,8 +982,6 @@ rtc_static_library("rtc_base") {
     "stream.h",
     "thread.cc",
     "thread.h",
-    "unique_id_generator.cc",
-    "unique_id_generator.h",
   ]
 
   if (build_with_chromium) {
@@ -1448,6 +1469,7 @@ if (rtc_include_tests) {
     deps = [
       ":checks",
       ":gunit_helpers",
+      ":helpers",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
       ":stringutils",

@@ -590,6 +590,11 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     target_rate = DataRate::bps(pushback_rate);
   }
 
+  if (RTC_LOG_CHECK_LEVEL(LS_VERBOSE) &&
+      target_rate.kbps() != last_pushback_target_rate_.kbps())
+    RTC_LOG(LS_VERBOSE) << "bwe:final_target_rate_kbps" << ' ' << at_time.ms()
+                        << ' ' << target_rate.kbps();
+
   if ((estimated_bitrate_bps != last_estimated_bitrate_bps_) ||
       (fraction_loss != last_estimated_fraction_loss_) ||
       (rtt_ms != last_estimated_rtt_ms_) ||

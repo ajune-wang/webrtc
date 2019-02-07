@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "aeca0f68_afe282d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-07T15:02:19Z",
+      "side": 1,
+      "message": "This is a bit vague and is a bit hard to read. I suggest:\n\"Adds LS_VERBOSE logging of target bitrate in GoogCC\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bb337ff_731c829a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-07T15:02:19Z",
+      "side": 1,
+      "message": "I don\u0027t think you need this. A short motivation is enough, something like:\n\n\"\"\"\nThis will be used to investigate the behavior of the congestion\nwindow based pushback. The event logs currently does not contain\nthe target rates after the pushback.\n\"\"\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0d6130b9_8f7b2fee",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -13,6 +59,24 @@
       "writtenOn": "2019-02-07T14:54:30Z",
       "side": 1,
       "message": "Remove the kbps conversions here, unless you specifically want to avoid logging for smaller changes. (if you do, add a comment with a motivation)",
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ac09c5_d845a674",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-07T15:02:19Z",
+      "side": 1,
+      "message": "Just realized, you don\u0027t need this check at all, move the RTC_LOG line inside the if below instead.",
+      "parentUuid": "0d6130b9_8f7b2fee",
       "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

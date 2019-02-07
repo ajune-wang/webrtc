@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a6494a2_2cb313f1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-07T20:56:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2210f203_e1848599",
+      "range": {
+        "startLine": 880,
+        "startChar": 10,
+        "endLine": 880,
+        "endChar": 16
+      },
+      "revId": "92c9f6497f74d11d1f278625f2a2809f72af3051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1196a02d_ade8fa29",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-07T19:01:50Z",
       "side": 1,
       "message": "Code search is not updated yet, but I\u0027m assuming that Allocate is a noop if size \u003d\u003d new_size?",
+      "range": {
+        "startLine": 882,
+        "startChar": 39,
+        "endLine": 882,
+        "endChar": 47
+      },
+      "revId": "92c9f6497f74d11d1f278625f2a2809f72af3051",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "075432c5_1ded3350",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-07T20:56:51Z",
+      "side": 1,
+      "message": "Allocate just boils down to std::vector::resize.",
+      "parentUuid": "1196a02d_ade8fa29",
       "range": {
         "startLine": 882,
         "startChar": 39,

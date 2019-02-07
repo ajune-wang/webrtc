@@ -150,6 +150,7 @@ TEST_F(TestH264Impl, MAYBE_DecodedColorSpaceEqualsEncodedColorSpace) {
   ASSERT_TRUE(decoded_frame);
   ASSERT_TRUE(decoded_frame->color_space());
   EXPECT_EQ(color_space, *decoded_frame->color_space());
+  EXPECT_FALSE(true);
 }
 
 }  // namespace webrtc

@@ -29,7 +29,7 @@
 #include "rtc_base/message_digest.h"
 #include "rtc_base/ssl_adapter.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 #include "test/gmock.h"
 
 #define ASSERT_CRYPTO(cd, s, cs)      \

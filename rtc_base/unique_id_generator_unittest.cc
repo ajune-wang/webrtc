@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2019 The WebRTC project authors. All Rights Reserved.
  *
  *  Use of this source code is governed by a BSD-style license
  *  that can be found in the LICENSE file in the root of the source
@@ -15,7 +15,8 @@
 #include "api/array_view.h"
 #include "rtc_base/gunit.h"
 #include "rtc_base/helpers.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_number_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 #include "test/gmock.h"
 
 using ::testing::IsEmpty;

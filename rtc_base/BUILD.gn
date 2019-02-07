@@ -456,6 +456,15 @@ rtc_source_set("type_traits") {
   ]
 }
 
+rtc_source_set("unique_number_generator") {
+  sources = [
+    "unique_number_generator.h",
+  ]
+  deps = [
+    "../api:array_view",
+  ]
+}
+
 rtc_source_set("deprecation") {
   sources = [
     "deprecation.h",
@@ -837,6 +846,7 @@ rtc_static_library("rtc_base") {
   deps = [
     ":checks",
     ":stringutils",
+    ":unique_number_generator",
     "..:webrtc_common",
     "../api:array_view",
     "../api:scoped_refptr",
@@ -959,8 +969,8 @@ rtc_static_library("rtc_base") {
     "stream.h",
     "thread.cc",
     "thread.h",
-    "unique_id_generator.cc",
-    "unique_id_generator.h",
+    "unique_random_id_generator.cc",
+    "unique_random_id_generator.h",
   ]
 
   if (build_with_chromium) {
@@ -1426,6 +1436,9 @@ if (rtc_include_tests) {
       "stream_unittest.cc",
       "test_client_unittest.cc",
       "thread_unittest.cc",
+
+      # The following tests both |unique_number_generator| as well as
+      # |unique_random_id_generator|.
       "unique_id_generator_unittest.cc",
     ]
     if (is_win) {
@@ -1452,6 +1465,7 @@ if (rtc_include_tests) {
       ":rtc_base_tests_utils",
       ":stringutils",
       ":testclient",
+      ":unique_number_generator",
       "../api:array_view",
       "../test:fileutils",
       "../test:test_support",

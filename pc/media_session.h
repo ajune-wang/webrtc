@@ -25,7 +25,7 @@
 #include "p2p/base/transport_description_factory.h"
 #include "pc/jsep_transport.h"
 #include "pc/session_description.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 
 namespace cricket {
 

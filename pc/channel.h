@@ -41,7 +41,7 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/network.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 
 namespace webrtc {
 class AudioSinkInterface;

@@ -29,7 +29,7 @@
 #include "pc/stats_collector.h"
 #include "pc/stream_collection.h"
 #include "pc/webrtc_session_description_factory.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 
 namespace webrtc {
 

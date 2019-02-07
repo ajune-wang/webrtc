@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a105da8_c384322b",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cfd8e77_0ba6c1c7",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "577f8343_152a523a",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "I think we might want to split the packet size into overhead, payload, padding, ack(?) just as for GenericPacketSent. The user might not have logs from both endpoints, and it would be nice to  still be able to analyze the call.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4794d1de_81e2858a",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6d10af_06c7370d",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cc692e_976b0064",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "audio/video/data",
+      "range": {
+        "startLine": 39,
+        "startChar": 47,
+        "endLine": 39,
+        "endChar": 51
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "293a93b1_12671535",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "Skip?",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43758601_2d33c44c",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "I\u0027d prefer to store\noverhead_length \u003d packet_length - payload_length - padding_length,\nsince this value will presumably be constant a lot of the time.",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 29
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fdc3373_770c7989",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-07T16:25:20Z",
+      "side": 1,
+      "message": "I don\u0027t understand the meaning of this. Discuss offline?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 16
+      },
+      "revId": "005961370ce39a92d095ac484de3d9fb38d95a3b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

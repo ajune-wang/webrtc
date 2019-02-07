@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "16581def_6f383df8",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-07T15:17:37Z",
+      "side": 1,
+      "message": "I\u0027m not sure it would compile if you try to use RtpGenericFrameDescriptorExtension00 name (since then it would refer to symbol that is not yet declared.\n\nBut compilers are better judges on this topic.",
+      "parentUuid": "467c5783_5d0aefba",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 80
+      },
+      "revId": "9ec88c17600cf6cbc17c043bbd0b96e433b27ff5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d08f23f_d77168a1",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.h",
         "patchSetId": 1

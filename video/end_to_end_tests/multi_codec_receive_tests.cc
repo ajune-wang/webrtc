@@ -279,6 +279,7 @@ TEST_F(MultiCodecReceiveTest, SingleStreamReceivesVp8H264) {
   RunTestWithCodecs({{"VP8", &vp8_encoder_factory, &vp8_decoder_factory, 1},
                      {"H264", &h264_encoder_factory, &h264_decoder_factory, 1},
                      {"VP8", &vp8_encoder_factory, &vp8_decoder_factory, 1}});
+  EXPECT_FALSE(true);
 }
 
 TEST_F(MultiCodecReceiveTest, SingleStreamReceivesVp8H264WithTl) {

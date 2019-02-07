@@ -6760,6 +6760,7 @@ TEST_F(WebRtcVideoChannelTest, DISABLED_GetRtpReceiveFmtpSprop) {
       cfg.decoders[1].video_format.parameters.find(kH264FmtpSpropParameterSets);
   ASSERT_TRUE(it1 != cfg.decoders[1].video_format.parameters.end());
   EXPECT_EQ("xyz", it1->second);
+  EXPECT_FALSE(true);
 }
 
 // Test that RtpParameters for receive stream has one encoding and it has

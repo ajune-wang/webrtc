@@ -278,6 +278,7 @@ TEST_P(EndToEndTestH264, SendsAndReceivesH264PacketizationMode1) {
   CodecObserver test(500, kVideoRotation_0, absl::nullopt, "H264",
                      &encoder_factory, &decoder_factory);
   RunBaseTest(&test);
+  EXPECT_FALSE(true);
 }
 #endif  // defined(WEBRTC_USE_H264)
 

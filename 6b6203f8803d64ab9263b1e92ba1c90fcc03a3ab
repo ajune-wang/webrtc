@@ -70,6 +70,30 @@
       "revId": "6b6203f8803d64ab9263b1e92ba1c90fcc03a3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d8cf8d0_b1791ed9",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-07T15:54:37Z",
+      "side": 1,
+      "message": "Is common_config included for all modules?\nI\u0027m wondering about the defines variable. If I set it here, can I be sure that it\u0027s set when I get to the video modules? I see that there are many places in the BUILD.gn files where it\u0027s redefined as: defines \u003d []",
+      "parentUuid": "076e7808_40b565d0",
+      "range": {
+        "startLine": 764,
+        "startChar": 4,
+        "endLine": 766,
+        "endChar": 5
+      },
+      "revId": "6b6203f8803d64ab9263b1e92ba1c90fcc03a3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

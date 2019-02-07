@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "4d10c4cd_8519826e",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-07T15:49:27Z",
+      "side": 1,
+      "message": "Generally it would be, for the exceptions, the overhead of printing the same value again should be practically none.",
+      "parentUuid": "05268539_cdb15985",
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "40b792fa_5a71c32b",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -136,6 +154,30 @@
       "side": 1,
       "message": "Could be, just trying to reduce frequency but I think it won\u0027t make a difference",
       "parentUuid": "40b792fa_5a71c32b",
+      "range": {
+        "startLine": 595,
+        "startChar": 28,
+        "endLine": 595,
+        "endChar": 54
+      },
+      "revId": "5fa9df9a71dc1662143463ba4da6c437d9a2e684",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "024431d4_f4b3a202",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-07T15:49:27Z",
+      "side": 1,
+      "message": "I\u0027d recommend using bps then, as it\u0027s a safe default and it\u0027s good to be consistent.",
+      "parentUuid": "da03b5ad_b49b52f3",
       "range": {
         "startLine": 595,
         "startChar": 28,

@@ -17,6 +17,7 @@
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 #include "modules/audio_coding/acm2/acm_receive_test.h"
 #include "modules/audio_coding/acm2/acm_send_test.h"
@@ -1504,7 +1505,7 @@ TEST_F(AcmSenderBitExactnessNewApi, MAYBE_OpusFromFormat_stereo_20ms) {
 TEST_F(AcmSenderBitExactnessNewApi, OpusManyChannels) {
   constexpr int kNumChannels = 4;
   constexpr int kOpusPayloadType = 120;
-  constexpr int kBitrateBps = 128000;
+  // constexpr int kBitrateBps = 128000;
 
   // Read a 4 channel file at 48kHz.
   ASSERT_TRUE(
@@ -1512,22 +1513,20 @@ TEST_F(AcmSenderBitExactnessNewApi, OpusManyChannels) {
                       "audio_coding/speech_4_channels_48k_one_second", "wav"),
                   48000));
 
-  // TODO(webrtc:8649): change to higher level
-  // AudioEncoderOpus::MakeAudioEncoder once a multistream encoder can be set up
-  // from SDP.
-  AudioEncoderOpusConfig config = *AudioEncoderOpus::SdpToConfig(
-      SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
-  config.num_channels = kNumChannels;
-  config.bitrate_bps = kBitrateBps;
+  const auto sdp_format = SdpAudioFormat("opus", 48000, kNumChannels, {});
+  const auto encoder_config = AudioEncoderOpus::SdpToConfig(sdp_format);
 
   ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
-      absl::make_unique<AudioEncoderOpusImpl>(config, kOpusPayloadType),
+      AudioEncoderOpus::MakeAudioEncoder(*encoder_config, kOpusPayloadType),
       kOpusPayloadType));
 
-  AudioDecoderOpusImpl opus_decoder(kNumChannels);
+  // Similarly here:
+  const auto decoder_config = AudioDecoderOpus::SdpToConfig(sdp_format);
+  auto opus_decoder = AudioDecoderOpus::MakeAudioDecoder(*decoder_config);
 
   rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
-      new rtc::RefCountedObject<test::AudioDecoderProxyFactory>(&opus_decoder);
+      new rtc::RefCountedObject<test::AudioDecoderProxyFactory>(
+          opus_decoder.get());
 
   // Set up an EXTERNAL DECODER to parse 4 channels.
   Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(  // audio checksum

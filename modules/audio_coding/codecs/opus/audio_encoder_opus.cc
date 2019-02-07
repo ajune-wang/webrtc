@@ -163,6 +163,9 @@ int CalculateBitrate(int max_playback_rate_hz,
 }
 
 int GetChannelCount(const SdpAudioFormat& format) {
+  if (format.num_channels > 2) {
+    return format.num_channels;
+  }
   const auto param = GetFormatParameter(format, "stereo");
   if (param == "1") {
     return 2;
@@ -336,7 +339,9 @@ absl::optional<AudioCodecInfo> AudioEncoderOpusImpl::QueryAudioEncoder(
 absl::optional<AudioEncoderOpusConfig> AudioEncoderOpusImpl::SdpToConfig(
     const SdpAudioFormat& format) {
   if (!absl::EqualsIgnoreCase(format.name, "opus") ||
-      format.clockrate_hz != 48000 || format.num_channels != 2) {
+      format.clockrate_hz != 48000 ||
+      (format.num_channels != 2 && format.num_channels != 4 &&
+       format.num_channels != 6 && format.num_channels != 8)) {
     return absl::nullopt;
   }
 

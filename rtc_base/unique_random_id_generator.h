@@ -8,49 +8,17 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef RTC_BASE_UNIQUE_ID_GENERATOR_H_
-#define RTC_BASE_UNIQUE_ID_GENERATOR_H_
+#ifndef RTC_BASE_UNIQUE_RANDOM_ID_GENERATOR_H_
+#define RTC_BASE_UNIQUE_RANDOM_ID_GENERATOR_H_
 
 #include <limits>
 #include <set>
 #include <string>
 
 #include "api/array_view.h"
+#include "rtc_base/unique_number_generator.h"
 
 namespace rtc {
-
-// This class will generate numbers. A common use case is for identifiers.
-// The generated numbers will be unique, in the local scope of the generator.
-// This means that a generator will never generate the same number twice.
-// The generator can also be initialized with a sequence of known ids.
-// In such a case, it will never generate an id from that list.
-// Recommendedations:
-//  * Prefer unsigned types.
-//  * Prefer larger types (uint8_t will run out quickly).
-template <typename TIntegral>
-class UniqueNumberGenerator {
- public:
-  typedef TIntegral value_type;
-  UniqueNumberGenerator();
-  // Creates a generator that will never return any value from the given list.
-  explicit UniqueNumberGenerator(ArrayView<TIntegral> known_ids);
-  ~UniqueNumberGenerator();
-
-  // Generates a number that this generator has never produced before.
-  // If there are no available numbers to generate, this method will fail
-  // with an |RTC_CHECK|.
-  TIntegral GenerateNumber();
-  TIntegral operator()() { return GenerateNumber(); }
-
-  // Adds an id that this generator should no longer generate.
-  // Return value indicates whether the ID was hitherto unknown.
-  bool AddKnownId(TIntegral value);
-
- private:
-  static_assert(std::is_integral<TIntegral>::value, "Must be integral type.");
-  TIntegral counter_;
-  std::set<TIntegral> known_ids_;
-};
 
 // This class will generate unique ids. Ids are 32 bit unsigned integers.
 // The generated ids will be unique, in the local scope of the generator.
@@ -103,32 +71,6 @@ class UniqueStringGenerator {
   UniqueNumberGenerator<uint32_t> unique_number_generator_;
 };
 
-template <typename TIntegral>
-UniqueNumberGenerator<TIntegral>::UniqueNumberGenerator() : counter_(0) {}
-
-template <typename TIntegral>
-UniqueNumberGenerator<TIntegral>::UniqueNumberGenerator(
-    ArrayView<TIntegral> known_ids)
-    : counter_(0), known_ids_(known_ids.begin(), known_ids.end()) {}
-
-template <typename TIntegral>
-UniqueNumberGenerator<TIntegral>::~UniqueNumberGenerator() {}
-
-template <typename TIntegral>
-TIntegral UniqueNumberGenerator<TIntegral>::GenerateNumber() {
-  while (true) {
-    RTC_CHECK_LT(counter_, std::numeric_limits<TIntegral>::max());
-    auto pair = known_ids_.insert(counter_++);
-    if (pair.second) {
-      return *pair.first;
-    }
-  }
-}
-
-template <typename TIntegral>
-bool UniqueNumberGenerator<TIntegral>::AddKnownId(TIntegral value) {
-  return known_ids_.insert(value).second;
-}
 }  // namespace rtc
 
-#endif  // RTC_BASE_UNIQUE_ID_GENERATOR_H_
+#endif  // RTC_BASE_UNIQUE_RANDOM_ID_GENERATOR_H_

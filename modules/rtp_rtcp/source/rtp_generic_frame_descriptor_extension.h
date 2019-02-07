@@ -19,6 +19,9 @@
 
 namespace webrtc {
 
+// TODO(bugs.webrtc.org/10243): Remove.
+typedef RtpGenericFrameDescriptorExtension RtpGenericFrameDescriptorExtension00;
+
 class RtpGenericFrameDescriptorExtension {
  public:
   using value_type = RtpGenericFrameDescriptor;

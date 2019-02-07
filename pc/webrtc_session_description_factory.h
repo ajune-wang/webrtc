@@ -30,7 +30,7 @@
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
 #include "rtc_base/thread.h"
-#include "rtc_base/unique_id_generator.h"
+#include "rtc_base/unique_random_id_generator.h"
 
 namespace webrtc {
 

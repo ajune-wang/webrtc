@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b6b1d2ec_c80ebd2c",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-07T23:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33d03223_78e536e1",
+      "revId": "6f9310d71592d55a3e0ca1727c2fadd96a310ace",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "192b5957_5488ebbb",
         "filename": "api/transport/media/BUILD.gn",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-07T22:27:37Z",
       "side": 1,
       "message": "It was agreed that \n  suppressed_configs +\u003d [ \"//build/config/clang:find_bad_constructs\" ]\nis now a new default.\n\nWhile is not yet automatic, feel free to add this and remove unnecessary constructors.",
+      "revId": "6f9310d71592d55a3e0ca1727c2fadd96a310ace",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0cdbb53_20b01d3b",
+        "filename": "api/transport/media/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-07T23:34:25Z",
+      "side": 1,
+      "message": "Tried, but it turned out it\u0027s not sufficient to add it to this target, it has to be added to all build targets including the new header file. So prefer to leave that for later.",
+      "parentUuid": "192b5957_5488ebbb",
       "revId": "6f9310d71592d55a3e0ca1727c2fadd96a310ace",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -56,6 +92,30 @@
       "revId": "6f9310d71592d55a3e0ca1727c2fadd96a310ace",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "788ecdc8_67442f63",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-07T23:34:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd2a765e_0fc8fd89",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 55
+      },
+      "revId": "6f9310d71592d55a3e0ca1727c2fadd96a310ace",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

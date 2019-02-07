@@ -16,6 +16,29 @@
       "revId": "8a641d2bcd432bbb27636c7e5f4aec59759937ee",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ed1b7f5_b30e17e0",
+        "filename": "rtc_base/unique_id_generator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-07T17:50:48Z",
+      "side": 1,
+      "message": "worth adding a test for adding an id that was generated. Current test cases only look at when the known id was given to generator in either ctor or AddId, but never implicitly by being generated:\n\nGenerator generator;\nid \u003d generator();\nEXPECT_FALSE(generator.AddKnownId(id))",
+      "range": {
+        "startLine": 137,
+        "startChar": 11,
+        "endLine": 137,
+        "endChar": 58
+      },
+      "revId": "8a641d2bcd432bbb27636c7e5f4aec59759937ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

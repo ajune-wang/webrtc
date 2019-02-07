@@ -624,6 +624,9 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
+
+    RTC_LOG(LS_VERBOSE) << "bwe:final_target_rate_bps" << ' ' << at_time.ms()
+                        << ' ' << target_rate.bps();
   }
 }
 

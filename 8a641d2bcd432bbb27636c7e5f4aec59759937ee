@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "672c37e9_4fddb75b",
+        "filename": "rtc_base/unique_id_generator_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-07T10:49:24Z",
+      "side": 1,
+      "message": "I\u0027ve piggy-backed this change on this CL. This CL was motivated by https://webrtc-review.googlesource.com/c/src/+/121646, which also requires using UniqueIdGeneratorTest with an unsigned type, so might as well make this change here, too.",
+      "revId": "8a641d2bcd432bbb27636c7e5f4aec59759937ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

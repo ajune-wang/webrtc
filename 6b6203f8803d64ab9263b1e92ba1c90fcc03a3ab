@@ -94,6 +94,30 @@
       "revId": "6b6203f8803d64ab9263b1e92ba1c90fcc03a3ab",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5126141_7233ced2",
+        "filename": "modules/video_coding/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 766,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-07T16:02:08Z",
+      "side": 1,
+      "message": "\u003e Is common_config included for all modules?\n\nIf the build target is an rtc_* (rtc_static_library, rtc_source_set, etc..) yes. See: https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d253-304\u0026rcl\u003d68d58602e275294746217f60f64f6eeee6c9591e.\n\n\u003e I\u0027m wondering about the defines variable. If I set it here, can I be sure that it\u0027s set when I get to the video modules? I see that there are many places in the BUILD.gn files where it\u0027s redefined as: defines \u003d []\n\nI should be ok since configs are applied in this order: https://gn.googlesource.com/gn/+/master/docs/reference.md#func_config.\n\nBut you can try and see if that is the case with:\n\n$ gn desc out/Debug modules/video_coding:video_coding_modules_tests defines",
+      "parentUuid": "9d8cf8d0_b1791ed9",
+      "range": {
+        "startLine": 764,
+        "startChar": 4,
+        "endLine": 766,
+        "endChar": 5
+      },
+      "revId": "6b6203f8803d64ab9263b1e92ba1c90fcc03a3ab",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

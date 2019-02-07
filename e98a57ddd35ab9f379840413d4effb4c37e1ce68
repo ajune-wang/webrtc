@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1a15e69_f9a62cc1",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2334,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-07T18:38:47Z",
+      "side": 1,
+      "message": "Logic is getting complicated, in this case you are adding the assumption that previous remote contents have mid. this is not an unreasonable assumption, as they would have gotten one from this method. my suggestion would be to add a DCHECK for !remote_contents[i].name.empty()\nor better, add DCHECK that !new_mid.empty() after all of the cases.",
+      "range": {
+        "startLine": 2334,
+        "startChar": 18,
+        "endLine": 2334,
+        "endChar": 41
+      },
+      "revId": "e98a57ddd35ab9f379840413d4effb4c37e1ce68",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

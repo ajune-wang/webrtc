@@ -142,6 +142,30 @@
       "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b7bb370_ab1f8b2a",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-08T15:12:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the test explicitly export the values though? I think that makes sense for readability, as that would be the main expected purpose of the test right?\n\nWhy is the local scope a problem?",
+      "parentUuid": "76cd53eb_85975a2d",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,3 +1,5 @@
+#include <utility>
+
 /*
  *  Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
  *
@@ -16,6 +18,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/cpu_info.h"
@@ -48,6 +51,42 @@ std::string VideoConfigSourcePresenceToString(const VideoConfig& video_config) {
           << video_config.screen_share_config.has_value() << ";";
   return builder.str();
 }
+
+class FixturePeerConnectionObserver : public MockPeerConnectionObserver {
+ public:
+  FixturePeerConnectionObserver(
+      std::function<void()> on_connected_callback,
+      std::function<void(rtc::scoped_refptr<RtpTransceiverInterface>)>
+          on_track_callback)
+      : on_connected_callback_(std::move(on_connected_callback)),
+        on_track_callback_(std::move(on_track_callback)) {}
+
+  void OnTrack(
+      rtc::scoped_refptr<RtpTransceiverInterface> transceiver) override {
+    MockPeerConnectionObserver::OnTrack(transceiver);
+    on_track_callback_(transceiver);
+  }
+
+  void OnStandardizedIceConnectionChange(
+      PeerConnectionInterface::IceConnectionState new_state) override {
+    PeerConnectionObserver::OnStandardizedIceConnectionChange(new_state);
+    RTC_DCHECK(pc_);
+    RTC_DCHECK(pc_->standardized_ice_connection_state() == new_state);
+    // When ICE is finished, the caller will get to a kIceConnectionCompleted
+    // state, because it has the ICE controlling role, while the callee
+    // will get to a kIceConnectionConnected state. This means that both ICE
+    // and DTLS are connected.
+    if ((new_state == PeerConnectionInterface::kIceConnectionConnected) ||
+        (new_state == PeerConnectionInterface::kIceConnectionCompleted)) {
+      on_connected_callback_();
+    }
+  }
+
+ private:
+  std::function<void()> on_connected_callback_;
+  std::function<void(rtc::scoped_refptr<RtpTransceiverInterface>)>
+      on_track_callback_;
+};
 
 }  // namespace
 
@@ -102,6 +141,9 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
   // Audio streams are intercepted in AudioDeviceModule, so if it is required to
   // catch output of Alice's stream, Alice's output_dump_file_name should be
   // passed to Bob's TestPeer setup as audio output file name.
+  SetMissedVideoStreamLabels({alice_params.get(), bob_params.get()});
+  ValidateParams({alice_params.get(), bob_params.get()});
+
   absl::optional<std::string> alice_audio_output_dump_file_name =
       bob_params->audio_config ? bob_params->audio_config->output_dump_file_name
                                : absl::nullopt;
@@ -109,12 +151,23 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
       alice_params->audio_config
           ? alice_params->audio_config->output_dump_file_name
           : absl::nullopt;
+
   alice_ = TestPeer::CreateTestPeer(
       std::move(alice_components), std::move(alice_params),
+      absl::make_unique<FixturePeerConnectionObserver>(
+          [this]() { StartVideo(alice_video_sources_); },
+          [this](rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
+            SetupVideoSink(transceiver);
+          }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread_.get(),
       alice_audio_output_dump_file_name);
   bob_ = TestPeer::CreateTestPeer(
       std::move(bob_components), std::move(bob_params),
+      absl::make_unique<FixturePeerConnectionObserver>(
+          [this]() { StartVideo(bob_video_sources_); },
+          [this](rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
+            SetupVideoSink(transceiver);
+          }),
       video_quality_analyzer_injection_helper_.get(), signaling_thread_.get(),
       bob_audio_output_dump_file_name);
 }
@@ -197,18 +250,47 @@ void PeerConnectionE2EQualityTest::ValidateParams(std::vector<Params*> params) {
   }
 }
 
+void PeerConnectionE2EQualityTest::SetupVideoSink(
+    rtc::scoped_refptr<RtpTransceiverInterface> transceiver) {
+  const rtc::scoped_refptr<MediaStreamTrackInterface>& track =
+      transceiver->receiver()->track();
+  if (track->kind() != MediaStreamTrackInterface::kVideoKind) {
+    return;
+  }
+
+  VideoConfig* video_config = nullptr;
+  for (auto& config : alice_->params()->video_configs) {
+    if (config.stream_label == track->id()) {
+      video_config = &config;
+      break;
+    }
+  }
+  if (video_config == nullptr) {
+    for (auto& config : bob_->params()->video_configs) {
+      if (config.stream_label == track->id()) {
+        video_config = &config;
+        break;
+      }
+    }
+  }
+  RTC_CHECK(video_config);
+
+  VideoFrameWriter* writer = MaybeCreateVideoWriter(
+      video_config->output_dump_file_name, *video_config);
+  // It is safe to cast here, because it is checked above that
+  // track->kind() is kVideoKind.
+  auto* video_track = static_cast<VideoTrackInterface*>(track.get());
+  std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>> video_sink =
+      video_quality_analyzer_injection_helper_->CreateVideoSink(writer);
+  video_track->AddOrUpdateSink(video_sink.get(), rtc::VideoSinkWants());
+  output_video_sinks_.push_back(std::move(video_sink));
+}
+
 void PeerConnectionE2EQualityTest::RunOnSignalingThread(RunParams run_params) {
-  AddMedia(alice_.get());
-  AddMedia(bob_.get());
+  alice_video_sources_ = AddMedia(alice_.get());
+  bob_video_sources_ = AddMedia(bob_.get());
 
   SetupCall(alice_.get(), bob_.get());
-
-  WaitForTransceiversSetup(alice_->params(), bob_.get());
-  WaitForTransceiversSetup(bob_->params(), alice_.get());
-  SetupVideoSink(alice_->params(), bob_.get());
-  SetupVideoSink(bob_->params(), alice_.get());
-
-  StartVideo();
 
   rtc::Event done;
   done.Wait(static_cast<int>(run_params.run_duration.ms()));
@@ -216,16 +298,19 @@ void PeerConnectionE2EQualityTest::RunOnSignalingThread(RunParams run_params) {
   TearDownCall();
 }
 
-void PeerConnectionE2EQualityTest::AddMedia(TestPeer* peer) {
-  AddVideo(peer);
+std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
+PeerConnectionE2EQualityTest::AddMedia(TestPeer* peer) {
   if (peer->params()->audio_config) {
     AddAudio(peer);
   }
+  return AddVideo(peer);
 }
 
-void PeerConnectionE2EQualityTest::AddVideo(TestPeer* peer) {
+std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
+PeerConnectionE2EQualityTest::AddVideo(TestPeer* peer) {
   // Params here valid because of pre-run validation.
   Params* params = peer->params();
+  std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>> out;
   for (auto video_config : params->video_configs) {
     // Create video generator.
     std::unique_ptr<FrameGenerator> frame_generator =
@@ -247,7 +332,7 @@ void PeerConnectionE2EQualityTest::AddVideo(TestPeer* peer) {
     rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource> source =
         new rtc::RefCountedObject<FrameGeneratorCapturerVideoTrackSource>(
             move(capturer));
-    video_sources_.push_back(source);
+    out.push_back(source);
     RTC_LOG(INFO) << "Adding video with video_config.stream_label="
                   << video_config.stream_label.value();
     rtc::scoped_refptr<VideoTrackInterface> track =
@@ -255,6 +340,7 @@ void PeerConnectionE2EQualityTest::AddVideo(TestPeer* peer) {
                                              source);
     peer->AddTransceiver(track);
   }
+  return out;
 }
 
 std::unique_ptr<FrameGenerator>
@@ -318,58 +404,19 @@ void PeerConnectionE2EQualityTest::SetupCall(TestPeer* alice, TestPeer* bob) {
   ASSERT_TRUE_WAIT(alice->IsIceConnected(), kDefaultTimeoutMs);
 }
 
-void PeerConnectionE2EQualityTest::WaitForTransceiversSetup(
-    Params* params,
-    TestPeer* remote_peer) {
-  uint64_t expected_remote_transceivers =
-      params->video_configs.size() + (params->audio_config ? 1 : 0);
-  ASSERT_EQ_WAIT(remote_peer->observer()->on_track_transceivers_.size(),
-                 expected_remote_transceivers, kDefaultTimeoutMs);
-}
-
-void PeerConnectionE2EQualityTest::SetupVideoSink(Params* params,
-                                                  TestPeer* remote_peer) {
-  if (params->video_configs.empty()) {
-    return;
-  }
-  std::map<std::string, VideoConfig*> video_configs_by_label;
-  for (auto& video_config : params->video_configs) {
-    video_configs_by_label.insert(std::pair<std::string, VideoConfig*>(
-        video_config.stream_label.value(), &video_config));
-  }
-
-  for (const auto& transceiver :
-       remote_peer->observer()->on_track_transceivers_) {
-    const rtc::scoped_refptr<MediaStreamTrackInterface>& track =
-        transceiver->receiver()->track();
-    if (track->kind() != MediaStreamTrackInterface::kVideoKind) {
-      continue;
-    }
-
-    auto it = video_configs_by_label.find(track->id());
-    RTC_CHECK(it != video_configs_by_label.end());
-    VideoConfig* video_config = it->second;
-
-    VideoFrameWriter* writer = MaybeCreateVideoWriter(
-        video_config->output_dump_file_name, *video_config);
-    // It is safe to cast here, because it is checked above that track->kind()
-    // is kVideoKind.
-    auto* video_track = static_cast<VideoTrackInterface*>(track.get());
-    std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>> video_sink =
-        video_quality_analyzer_injection_helper_->CreateVideoSink(writer);
-    video_track->AddOrUpdateSink(video_sink.get(), rtc::VideoSinkWants());
-    output_video_sinks_.push_back(std::move(video_sink));
-  }
-}
-
-void PeerConnectionE2EQualityTest::StartVideo() {
-  for (const auto& video_source : video_sources_) {
-    video_source->Start();
+void PeerConnectionE2EQualityTest::StartVideo(
+    const std::vector<
+        rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>& sources) {
+  for (auto& source : sources) {
+    source->Start();
   }
 }
 
 void PeerConnectionE2EQualityTest::TearDownCall() {
-  for (const auto& video_source : video_sources_) {
+  for (const auto& video_source : alice_video_sources_) {
+    video_source->Stop();
+  }
+  for (const auto& video_source : bob_video_sources_) {
     video_source->Stop();
   }
 

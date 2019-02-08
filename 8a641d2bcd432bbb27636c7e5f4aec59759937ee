@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "89fc8108_765a92bc",
+        "filename": "rtc_base/unique_id_generator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-08T01:03:58Z",
+      "side": 1,
+      "message": "By the way:\n1. We probably don\u0027t want to do this at every iteration?\n2. s/CHECK/DCHECK?\n3. Although mathematically correct so long as even a single ID is unknown, perhaps it would be better to not let the CPU churn away looking for that last entry? It should be possible to DCHECK we\u0027ve not exceeded half of max. Or better, maybe use a polynomial counter, and then we always run in constant time, and know exactly when the cycle has been completed, and the last unique ID produced? (Out of scope for this CL, but we can put a TODO.)",
+      "revId": "8a641d2bcd432bbb27636c7e5f4aec59759937ee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "672c37e9_4fddb75b",
         "filename": "rtc_base/unique_id_generator_unittest.cc",
         "patchSetId": 2

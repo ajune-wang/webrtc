@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442b0590_9805635e",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-08T01:56:23Z",
+      "side": 1,
+      "message": "Please add a test for this.",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7010ed5a_d69d8761",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4003,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-08T01:56:23Z",
+      "side": 1,
+      "message": "Also check that the parsed connection_address is equal to example.local",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91872a0f_c9dadd38",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4067,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-08T01:56:23Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

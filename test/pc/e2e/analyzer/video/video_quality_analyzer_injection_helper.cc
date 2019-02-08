@@ -87,10 +87,10 @@ class AnalyzingVideoSink : public rtc::VideoSinkInterface<VideoFrame> {
 }  // namespace
 
 VideoQualityAnalyzerInjectionHelper::VideoQualityAnalyzerInjectionHelper(
-    std::unique_ptr<VideoQualityAnalyzerInterface> analyzer,
+    VideoQualityAnalyzerInterface* analyzer,
     EncodedImageIdInjector* injector,
     EncodedImageIdExtractor* extractor)
-    : analyzer_(std::move(analyzer)),
+    : analyzer_(analyzer),
       injector_(injector),
       extractor_(extractor),
       encoding_entities_id_generator_(absl::make_unique<IntIdGenerator>(1)) {
@@ -105,7 +105,7 @@ VideoQualityAnalyzerInjectionHelper::WrapVideoEncoderFactory(
     std::unique_ptr<VideoEncoderFactory> delegate) const {
   return absl::make_unique<QualityAnalyzingVideoEncoderFactory>(
       std::move(delegate), encoding_entities_id_generator_.get(), injector_,
-      analyzer_.get());
+      analyzer_);
 }
 
 std::unique_ptr<VideoDecoderFactory>
@@ -113,7 +113,7 @@ VideoQualityAnalyzerInjectionHelper::WrapVideoDecoderFactory(
     std::unique_ptr<VideoDecoderFactory> delegate) const {
   return absl::make_unique<QualityAnalyzingVideoDecoderFactory>(
       std::move(delegate), encoding_entities_id_generator_.get(), extractor_,
-      analyzer_.get());
+      analyzer_);
 }
 
 std::unique_ptr<FrameGenerator>
@@ -122,13 +122,13 @@ VideoQualityAnalyzerInjectionHelper::WrapFrameGenerator(
     std::unique_ptr<FrameGenerator> delegate,
     VideoFrameWriter* writer) const {
   return absl::make_unique<InterceptingFrameGenerator>(
-      std::move(stream_label), std::move(delegate), analyzer_.get(), writer);
+      std::move(stream_label), std::move(delegate), analyzer_, writer);
 }
 
 std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>
 VideoQualityAnalyzerInjectionHelper::CreateVideoSink(
     VideoFrameWriter* writer) const {
-  return absl::make_unique<AnalyzingVideoSink>(analyzer_.get(), writer);
+  return absl::make_unique<AnalyzingVideoSink>(analyzer_, writer);
 }
 
 void VideoQualityAnalyzerInjectionHelper::Start(int max_threads_count) {

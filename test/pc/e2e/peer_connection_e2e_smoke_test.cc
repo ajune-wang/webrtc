@@ -65,55 +65,55 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
       /*input_dump_file_name=*/absl::nullopt,
       /*output_dump_file_name=*/absl::nullopt, cricket::AudioOptions()};
 
-  // Setup emulated network
-  NetworkEmulationManager network_emulation_manager(Clock::GetRealTimeClock());
-
-  EmulatedNetworkNode* alice_node =
-      network_emulation_manager.CreateEmulatedNode(
-          absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
-  EmulatedNetworkNode* bob_node = network_emulation_manager.CreateEmulatedNode(
-      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
-  EndpointNode* alice_endpoint =
-      network_emulation_manager.CreateEndpoint(rtc::IPAddress(1));
-  EndpointNode* bob_endpoint =
-      network_emulation_manager.CreateEndpoint(rtc::IPAddress(2));
-  network_emulation_manager.CreateRoute(alice_endpoint, {alice_node},
-                                        bob_endpoint);
-  network_emulation_manager.CreateRoute(bob_endpoint, {bob_node},
-                                        alice_endpoint);
-
-  rtc::Thread* alice_network_thread =
-      network_emulation_manager.CreateNetworkThread({alice_endpoint});
-  rtc::Thread* bob_network_thread =
-      network_emulation_manager.CreateNetworkThread({bob_endpoint});
-
-  // Setup components. We need to provide rtc::NetworkManager compatible with
-  // emulated network layer.
-  auto alice_components =
-      absl::make_unique<InjectableComponents>(alice_network_thread);
-  alice_components->pc_dependencies->network_manager =
-      CreateFakeNetworkManager({alice_endpoint});
-  auto bob_components =
-      absl::make_unique<InjectableComponents>(bob_network_thread);
-  bob_components->pc_dependencies->network_manager =
-      CreateFakeNetworkManager({bob_endpoint});
-
   // Create analyzers.
   auto analyzers = absl::make_unique<Analyzers>();
   analyzers->video_quality_analyzer =
       absl::make_unique<ExampleVideoQualityAnalyzer>();
   auto* video_analyzer = static_cast<ExampleVideoQualityAnalyzer*>(
       analyzers->video_quality_analyzer.get());
+  {
+    // Setup emulated network
+    NetworkEmulationManager network_emulation_manager;
 
-  network_emulation_manager.Start();
+    EmulatedNetworkNode* alice_node =
+        network_emulation_manager.CreateEmulatedNode(
+            absl::make_unique<SimulatedNetwork>(
+                BuiltInNetworkBehaviorConfig()));
+    EmulatedNetworkNode* bob_node =
+        network_emulation_manager.CreateEmulatedNode(
+            absl::make_unique<SimulatedNetwork>(
+                BuiltInNetworkBehaviorConfig()));
+    EndpointNode* alice_endpoint =
+        network_emulation_manager.CreateEndpoint(rtc::IPAddress(1));
+    EndpointNode* bob_endpoint =
+        network_emulation_manager.CreateEndpoint(rtc::IPAddress(2));
+    network_emulation_manager.CreateRoute(alice_endpoint, {alice_node},
+                                          bob_endpoint);
+    network_emulation_manager.CreateRoute(bob_endpoint, {bob_node},
+                                          alice_endpoint);
 
-  auto fixture = CreatePeerConnectionE2EQualityTestFixture(
-      std::move(alice_components), std::move(alice_params),
-      std::move(bob_components), absl::make_unique<Params>(),
-      std::move(analyzers));
-  fixture->Run(RunParams{TimeDelta::seconds(5)});
+    rtc::Thread* alice_network_thread =
+        network_emulation_manager.CreateNetworkThread({alice_endpoint});
+    rtc::Thread* bob_network_thread =
+        network_emulation_manager.CreateNetworkThread({bob_endpoint});
 
-  network_emulation_manager.Stop();
+    // Setup components. We need to provide rtc::NetworkManager compatible with
+    // emulated network layer.
+    auto alice_components =
+        absl::make_unique<InjectableComponents>(alice_network_thread);
+    alice_components->pc_dependencies->network_manager =
+        CreateFakeNetworkManager({alice_endpoint});
+    auto bob_components =
+        absl::make_unique<InjectableComponents>(bob_network_thread);
+    bob_components->pc_dependencies->network_manager =
+        CreateFakeNetworkManager({bob_endpoint});
+
+    auto fixture = CreatePeerConnectionE2EQualityTestFixture(
+        std::move(alice_components), std::move(alice_params),
+        std::move(bob_components), absl::make_unique<Params>(),
+        analyzers.get());
+    fixture->Run(RunParams{TimeDelta::seconds(5)});
+  }
 
   RTC_LOG(INFO) << "Captured: " << video_analyzer->frames_captured();
   RTC_LOG(INFO) << "Sent    : " << video_analyzer->frames_sent();

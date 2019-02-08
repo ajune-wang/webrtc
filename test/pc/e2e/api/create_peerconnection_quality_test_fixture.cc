@@ -25,10 +25,10 @@ CreatePeerConnectionE2EQualityTestFixture(
     std::unique_ptr<PeerConnectionE2EQualityTestFixture::InjectableComponents>
         bob_components,
     std::unique_ptr<PeerConnectionE2EQualityTestFixture::Params> bob_params,
-    std::unique_ptr<PeerConnectionE2EQualityTestFixture::Analyzers> analyzers) {
+    PeerConnectionE2EQualityTestFixture::Analyzers* analyzers) {
   return absl::make_unique<webrtc::test::PeerConnectionE2EQualityTest>(
       std::move(alice_components), std::move(alice_params),
-      std::move(bob_components), std::move(bob_params), std::move(analyzers));
+      std::move(bob_components), std::move(bob_params), analyzers);
 }
 
 }  // namespace webrtc

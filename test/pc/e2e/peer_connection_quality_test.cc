@@ -56,7 +56,7 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
     std::unique_ptr<Params> alice_params,
     std::unique_ptr<InjectableComponents> bob_components,
     std::unique_ptr<Params> bob_params,
-    std::unique_ptr<Analyzers> analyzers)
+    Analyzers* analyzers)
     : clock_(Clock::GetRealTimeClock()),
       signaling_thread_(rtc::Thread::Create()) {
   RTC_CHECK(alice_components);
@@ -94,7 +94,7 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
       absl::make_unique<SingleProcessEncodedImageIdInjector>();
   video_quality_analyzer_injection_helper_ =
       absl::make_unique<VideoQualityAnalyzerInjectionHelper>(
-          std::move(analyzers->video_quality_analyzer),
+          analyzers->video_quality_analyzer.get(),
           encoded_image_id_controller_.get(),
           encoded_image_id_controller_.get());
 

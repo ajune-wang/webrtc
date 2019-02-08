@@ -22,6 +22,30 @@
       "revId": "7f1f62f3a7bcc67dd863a8c4b7acce39368a2c11",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e245ecaf_3360be66",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T01:29:20Z",
+      "side": 1,
+      "message": "Yeah. Good catch.",
+      "parentUuid": "5edb0107_a33b03ef",
+      "range": {
+        "startLine": 694,
+        "startChar": 22,
+        "endLine": 694,
+        "endChar": 51
+      },
+      "revId": "7f1f62f3a7bcc67dd863a8c4b7acce39368a2c11",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

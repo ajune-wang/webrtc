@@ -118,6 +118,30 @@
       "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76cd53eb_85975a2d",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T15:01:52Z",
+      "side": 1,
+      "message": "Usually values not checked in the test, but exported to the dashboard.\nUnique pointer can help you delete network layer without having local scope",
+      "parentUuid": "24b81dcc_cffeeb35",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

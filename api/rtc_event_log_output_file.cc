@@ -10,12 +10,18 @@
 
 #include <limits>
 
-#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
-#include "logging/rtc_event_log/rtc_event_log.h"
+#include "api/rtc_event_log_output_file.h"
+
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 
 namespace webrtc {
+
+namespace {
+
+size_t kUnlimitedOutput = 0;
+
+}  // namespace
 
 // Together with the assumption of no single Write() would ever be called on
 // an input with length greater-than-or-equal-to (max(size_t) / 2), this
@@ -25,7 +31,7 @@ const size_t RtcEventLogOutputFile::kMaxReasonableFileSize =
     std::numeric_limits<size_t>::max() / 2;
 
 RtcEventLogOutputFile::RtcEventLogOutputFile(const std::string& file_name)
-    : RtcEventLogOutputFile(file_name, RtcEventLog::kUnlimitedOutput) {}
+    : RtcEventLogOutputFile(file_name, kUnlimitedOutput) {}
 
 RtcEventLogOutputFile::RtcEventLogOutputFile(const std::string& file_name,
                                              size_t max_size_bytes)
@@ -36,7 +42,7 @@ RtcEventLogOutputFile::RtcEventLogOutputFile(const std::string& file_name,
                             max_size_bytes) {}
 
 RtcEventLogOutputFile::RtcEventLogOutputFile(rtc::PlatformFile file)
-    : RtcEventLogOutputFile(file, RtcEventLog::kUnlimitedOutput) {}
+    : RtcEventLogOutputFile(file, kUnlimitedOutput) {}
 
 RtcEventLogOutputFile::RtcEventLogOutputFile(rtc::PlatformFile platform_file,
                                              size_t max_size_bytes)
@@ -75,7 +81,7 @@ bool RtcEventLogOutputFile::Write(const std::string& output) {
   // calculation of (written_bytes_ + output.length()).
   RTC_DCHECK_LT(output.length(), kMaxReasonableFileSize);
 
-  if (max_size_bytes_ == RtcEventLog::kUnlimitedOutput ||
+  if (max_size_bytes_ == kUnlimitedOutput ||
       written_bytes_ + output.length() <= max_size_bytes_) {
     if (fwrite(output.c_str(), 1, output.size(), file_) == output.size()) {
       written_bytes_ += output.size();

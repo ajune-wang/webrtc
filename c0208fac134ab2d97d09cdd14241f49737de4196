@@ -22,6 +22,30 @@
       "revId": "c0208fac134ab2d97d09cdd14241f49737de4196",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add4ca7f_8de831b0",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-02-08T15:19:54Z",
+      "side": 1,
+      "message": "Thank you! Updated the CL (and tested that it works).",
+      "parentUuid": "e2697b93_f558f742",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 62
+      },
+      "revId": "c0208fac134ab2d97d09cdd14241f49737de4196",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

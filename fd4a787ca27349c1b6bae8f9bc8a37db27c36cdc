@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ea2ba5a8_4bdba5aa",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_ack_received.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T18:33:20Z",
+      "side": 1,
+      "message": "I know, that\u0027s fine. This is what the rtc log expects in the constructor, and what it uses itself:\n\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/logging/rtc_event_log/events/rtc_event.h?l\u003d55\u0026rcl\u003d59ab1cf081967353c1ae31f9d8111ec9b17284b2\n\nso I just did the same here?",
+      "parentUuid": "752d0945_6b32310e",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01f03fe8_c0ab4ec3",
         "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fada2546_f9f3ccb1",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T18:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01f03fe8_c0ab4ec3",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5725fdcc_4ff4f1d5",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T18:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80c676c2_5ded8718",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 40,
+        "endChar": 14
+      },
+      "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad2cb2d8_c4629a60",
         "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
         "patchSetId": 7
@@ -91,6 +163,30 @@
       "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54dce84_57456817",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T18:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad2cb2d8_c4629a60",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 10
+      },
+      "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "063fc274_159b3d46",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-08T07:59:03Z",
+      "side": 1,
+      "message": "You need to figure this out first. I\u0027m sorry I don\u0027t why it\u0027s happening, and I agree it looks like it shouldn\u0027t. I added Sami as a reviewer, he might know immediately what\u0027s wrong, but otherwise we don\u0027t have time right now to help with this.",
+      "parentUuid": "7b43166b_5c56d2f1",
+      "range": {
+        "startLine": 1280,
+        "startChar": 4,
+        "endLine": 1283,
+        "endChar": 5
+      },
+      "revId": "920293d98c88b6276af2a7ee1609efa2bb961bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0088257a_f4d316d5",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 5

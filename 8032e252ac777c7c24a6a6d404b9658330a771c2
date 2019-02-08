@@ -70,6 +70,30 @@
       "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aeeea66_bda66922",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T14:41:23Z",
+      "side": 1,
+      "message": "One more option is to wrap NetworkEmulationManager with unique_ptr and reset it instead of stop. In such case it will solve both issues and won\u0027t affect ownership of analyzers.",
+      "parentUuid": "945422a5_943a6332",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

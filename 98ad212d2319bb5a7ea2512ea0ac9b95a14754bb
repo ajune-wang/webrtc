@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b334035a_4eeaf26b",
+        "filename": "rtc_base/unique_id_generator.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-08T10:27:34Z",
+      "side": 1,
+      "message": "I\u0027ve piggy-backed this change. Amit, I\u0027ll wait for your re-approval of the CL before I land it.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 16
+      },
+      "revId": "98ad212d2319bb5a7ea2512ea0ac9b95a14754bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

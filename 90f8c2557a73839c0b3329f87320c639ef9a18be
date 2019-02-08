@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "299dcbdf_b7c53a26",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-08T18:13:09Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "90f8c2557a73839c0b3329f87320c639ef9a18be",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

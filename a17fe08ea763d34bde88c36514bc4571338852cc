@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a995171f_840cf8e6",
+        "filename": "pc/jsep_session_description.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2019-02-08T22:29:30Z",
+      "side": 1,
+      "message": "Good point. Done in JsepSessionDescriptionTest.",
+      "parentUuid": "442b0590_9805635e",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7010ed5a_d69d8761",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d31ed2a8_06800f3a",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4003,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2019-02-08T22:29:30Z",
+      "side": 1,
+      "message": "Done. Switched to kSdpString that has no candidates so that the connection address is actually parsed from the c\u003d line.",
+      "parentUuid": "7010ed5a_d69d8761",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91872a0f_c9dadd38",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 2
@@ -50,6 +86,24 @@
       "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfbf71ba_a06d941f",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4067,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2019-02-08T22:29:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91872a0f_c9dadd38",
+      "revId": "a17fe08ea763d34bde88c36514bc4571338852cc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

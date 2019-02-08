@@ -20,6 +20,9 @@
 #include <vector>
 
 #include "api/array_view.h"
+// TODO(nisse): If we use RTCError here, api/rtc_error should move to a smaller
+// build target, to avoid circular dependencies.
+#include "api/rtc_error.h"  // nogncheck
 
 namespace webrtc {
 
@@ -111,9 +114,27 @@ class MediaTransportAudioSinkInterface {
  public:
   virtual ~MediaTransportAudioSinkInterface() = default;
 
-  // Called when new encoded audio frame is received.
+  // Called when new encoded audio frame is received, and no receiver is
+  // registered. Deprecated.
   virtual void OnData(uint64_t channel_id,
                       MediaTransportEncodedAudioFrame frame) = 0;
+
+  // Called when new encoded audio frame is received.
+  virtual void OnData(MediaTransportEncodedAudioFrame frame) = 0;
+};
+
+class MediaTransportAudioSender {
+ public:
+  virtual ~MediaTransportAudioSender() = default;
+
+  virtual RTCError SendAudioFrame(MediaTransportEncodedAudioFrame frame) = 0;
+};
+
+// Similar to RtpStreamReceiverInterface, only owns the association with the
+// demuxer.
+class MediaTransportAudioReceiver {
+ public:
+  virtual ~MediaTransportAudioReceiver() = default;
 };
 
 }  // namespace webrtc

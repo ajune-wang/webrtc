@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "defc0a90_2107a02b",
+        "filename": "logging/rtc_event_log/events/rtc_event_generic_ack_received.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-08T18:39:05Z",
+      "side": 1,
+      "message": "Yeah. Just making sure we\u0027re in agreement about what the proto will contain and that this call will change once we\u0027ve removed the old log format.",
+      "parentUuid": "ea2ba5a8_4bdba5aa",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "fd4a787ca27349c1b6bae8f9bc8a37db27c36cdc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "01f03fe8_c0ab4ec3",
         "filename": "logging/rtc_event_log/events/rtc_event_generic_packet_received.cc",
         "patchSetId": 7

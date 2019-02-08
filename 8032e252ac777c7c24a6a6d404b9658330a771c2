@@ -46,6 +46,30 @@
       "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "945422a5_943a6332",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T14:31:21Z",
+      "side": 1,
+      "message": "Peer connection will be destroyed before checking analyzers results. Also by default analyzer won\u0027t be passed by user in the future, so it is why fixture owning an analyzer.\n\nBut the interesting question will be collecting network stats and for it we should be able to define clear points when test was started and ended",
+      "parentUuid": "d782ed66_dbeac12b",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 0
+      },
+      "revId": "8032e252ac777c7c24a6a6d404b9658330a771c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

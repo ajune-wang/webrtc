@@ -36,6 +36,7 @@ class SendVideoStream {
   VideoSendStream::Stats GetStats() const;
   ColumnPrinter StatsPrinter();
   void Start();
+  void Stop();
   void UpdateConfig(std::function<void(VideoStreamConfig*)> modifier);
 
  private:
@@ -70,6 +71,7 @@ class ReceiveVideoStream {
   RTC_DISALLOW_COPY_AND_ASSIGN(ReceiveVideoStream);
   ~ReceiveVideoStream();
   void Start();
+  void Stop();
 
  private:
   friend class Scenario;

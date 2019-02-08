@@ -271,6 +271,10 @@ void SendVideoStream::Start() {
   sender_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
 }
 
+void SendVideoStream::Stop() {
+  send_stream_->Stop();
+}
+
 void SendVideoStream::UpdateConfig(
     std::function<void(VideoStreamConfig*)> modifier) {
   rtc::CritScope cs(&crit_);
@@ -395,6 +399,10 @@ ReceiveVideoStream::~ReceiveVideoStream() {
 void ReceiveVideoStream::Start() {
   receive_stream_->Start();
   receiver_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+}
+
+void ReceiveVideoStream::Stop() {
+  receive_stream_->Stop();
 }
 
 VideoStreamPair::~VideoStreamPair() = default;

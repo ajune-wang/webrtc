@@ -34,6 +34,24 @@
       "revId": "4444583807ce66aab2c7b7c9b397205b05b1ad97",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf8f729e_cdb46500",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-08T11:03:59Z",
+      "side": 1,
+      "message": "Yes, this dependency is fine. LGTM (bonus if you follow kwiberg\u0027s advice about the label).",
+      "parentUuid": "05c52977_124ad8e8",
+      "revId": "4444583807ce66aab2c7b7c9b397205b05b1ad97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

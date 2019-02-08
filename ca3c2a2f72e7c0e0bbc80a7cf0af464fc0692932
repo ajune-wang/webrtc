@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b479173_f18db12d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T10:09:47Z",
+      "side": 1,
+      "message": "If there is only one event rate is also empty, because we can\u0027t say how many events in the period of time, because there is no a real period.",
+      "parentUuid": "13cf81bc_c834829e",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a7e96cb_4ff85666",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8e83c9f_f417cc2a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T10:09:47Z",
+      "side": 1,
+      "message": "Comment updated.",
+      "parentUuid": "1a7e96cb_4ff85666",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 18
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a385475f_757cdac7",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T10:09:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8373216_512325c0",
+      "range": {
+        "startLine": 133,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 22
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e4c8fcc_b7eeeef4",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a01fc1d_296c2a1b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-08T10:09:47Z",
+      "side": 1,
+      "message": "I duplicated it there. Here it is required to explain why we have optional here.",
+      "parentUuid": "9e4c8fcc_b7eeeef4",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 13
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

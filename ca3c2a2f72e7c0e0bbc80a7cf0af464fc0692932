@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13cf81bc_c834829e",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-08T09:25:36Z",
+      "side": 1,
+      "message": "Isn\u0027t it better to do:\n\n  event_first_time \u003d\u003d Timestamp::MinusInfinity()\n\n?\n\nThey can be identical also after the first event has been added, hence it should not be empty.",
+      "range": {
+        "startLine": 46,
+        "startChar": 32,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7e96cb_4ff85666",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-08T09:25:36Z",
+      "side": 1,
+      "message": "Is this a \"sum of time\" or \"A sum of how many times the video was frozen over 200ms\"?",
+      "range": {
+        "startLine": 91,
+        "startChar": 2,
+        "endLine": 92,
+        "endChar": 18
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8373216_512325c0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-08T09:25:36Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 133,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 22
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4c8fcc_b7eeeef4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-08T09:25:36Z",
+      "side": 1,
+      "message": "I think this comment should be moved somewhere else, like for example DefaultVideoQualityAnalyzer::AddComparison. WDYT?",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 13
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

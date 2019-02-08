@@ -2,6 +2,420 @@
   "comments": [
     {
       "key": {
+        "uuid": "62a28652_ae6d4be6",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "Maybe add here a comment that it\u0027s atomic. Otherwise this code looks like there\u0027s a race here.",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 36
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b25b8269_3f9c6b23",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "captured. This way time before the first freeze would be counted as time between freezes.",
+      "range": {
+        "startLine": 61,
+        "startChar": 68,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "570e663d_16e94b4f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "This is related to the comment below. You might want to limit the number of frames stored per stream.\n\nE.g. if there are too many frames in stream_frame_id_list_ already, remove the oldest one together with the frame itself from |captured_frames_in_flight_|.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 60
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac7a5cc3_ce036766",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "I can\u0027t see where is\u0027t counted as such. In OnFrameRendered() if the frame is deemed as dropped it\u0027s removed from captured_frames_in_flight_.\n\nThe only way we can have such an old frame in flight is that some of the streams is completely stopped somehow. So there\u0027s no rendering there. In that case you could either count all the frames in flight for that stream as dropped here and remove them from frames-in-flight, or you could remove then one-by-one when you encounter IDs again. Alternatively, you can decide not count these as dropped, since the stream would have 0 rendered frames either way. This way the code is correct already.\n\nHowever, this comment is wrong in all cases, please update it.",
+      "range": {
+        "startLine": 75,
+        "startChar": 21,
+        "endLine": 75,
+        "endChar": 55
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba64f461_121cb9ce",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "I think, for simulcast it should be AnalyzingEncoder responsibility to call OnFrameEncoded on the correct one. For VP9 SVC, the AnalyzingEncoder should also pass only several first layers, as configured to OnFrameEncoded().\n\nThen simply take the last encoded_time and sum encoded_frame_size here.\n\nEither way, please remove this discussion from the comment. It should be in some design doc or in your personal notes, not in the code (but leave a TODO here).",
+      "range": {
+        "startLine": 107,
+        "startChar": 22,
+        "endLine": 107,
+        "endChar": 62
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9f42bc0_06209295",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "Again, these comments are for design doc, not for the code.",
+      "range": {
+        "startLine": 144,
+        "startChar": 22,
+        "endLine": 149,
+        "endChar": 61
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "918dbc70_d3de89fd",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "counters.",
+      "range": {
+        "startLine": 181,
+        "startChar": 19,
+        "endLine": 181,
+        "endChar": 27
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de638955_8cad9a96",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": ". at the end.",
+      "range": {
+        "startLine": 185,
+        "startChar": 26,
+        "endLine": 185,
+        "endChar": 31
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb1378b1_87ed800d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 190,
+        "startChar": 33,
+        "endLine": 190,
+        "endChar": 38
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99359e2e_895b3376",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "check if there are",
+      "range": {
+        "startLine": 195,
+        "startChar": 51,
+        "endLine": 195,
+        "endChar": 54
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea835209_6235b747",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "rendered",
+      "range": {
+        "startLine": 196,
+        "startChar": 45,
+        "endLine": 196,
+        "endChar": 53
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6bb90ef_a0f79d0b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be called all the time?",
+      "range": {
+        "startLine": 237,
+        "startChar": 4,
+        "endLine": 240,
+        "endChar": 3
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "567bb802_05163ed3",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "Better, IMHO:\n\nCount time since the last freeze towards time between freezes.",
+      "range": {
+        "startLine": 304,
+        "startChar": 10,
+        "endLine": 305,
+        "endChar": 36
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc66f953_03641c8d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "dB",
+      "range": {
+        "startLine": 344,
+        "startChar": 23,
+        "endLine": 344,
+        "endChar": 31
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5c2d14a_28d2e0b1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "Currently, ProcessComparisons may build some backlog and not catch up with it at all.\n\nIf new comparisons are inserted as often as num_treads per second, then, if several comparisons are inserted while all the treads are busy, the comparison_avaiable_event_ would be set once, and some thread would take one comparison to work on. All other would be sleeping. But the queue would never be empty.\n\nYou should add here, after you popped comparisons_\n\nif (!comparisons_.empty())\n   comparison_available_event_.Set();",
+      "range": {
+        "startLine": 408,
+        "startChar": 0,
+        "endLine": 408,
+        "endChar": 7
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe50f1b8_76aa3e8f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "Probably not. We don\u0027t want analyzer to be affected by bugs in metric calculations in other places, if we can avoid this.",
+      "range": {
+        "startLine": 479,
+        "startChar": 24,
+        "endLine": 480,
+        "endChar": 62
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1e2caf_fcf1a56c",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "These/The following\n\nOr remove this comment, it\u0027s stating the obvious.",
+      "range": {
+        "startLine": 485,
+        "startChar": 9,
+        "endLine": 485,
+        "endChar": 13
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7e890b6_f1b5d0f5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "This should always happen, as you add artificial freeze at the beginning of the call.\n\nReplace with DCHECK() and add comment here.",
+      "range": {
+        "startLine": 498,
+        "startChar": 12,
+        "endLine": 498,
+        "endChar": 63
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13cf81bc_c834829e",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 1
@@ -187,6 +601,53 @@
       "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c59d5f64_d91d0b98",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "It also makes sense here, as it describes why |captured| and |rendered| are optional.",
+      "parentUuid": "9e4c8fcc_b7eeeef4",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 167,
+        "endChar": 13
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "113f8b2d_c62a55e9",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-08T10:44:38Z",
+      "side": 1,
+      "message": "or deemed dropped.",
+      "range": {
+        "startLine": 204,
+        "startChar": 11,
+        "endLine": 204,
+        "endChar": 12
+      },
+      "revId": "ca3c2a2f72e7c0e0bbc80a7cf0af464fc0692932",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

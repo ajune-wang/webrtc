@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "a9312d81_d395cc52",
+        "filename": "examples/androidapp/src/org/appspot/apprtc/PeerConnectionClient.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-08T08:39:30Z",
+      "side": 1,
+      "message": "My theory would be that because the default method support relies on bytecode rewriting, it doesn\u0027t work when called through JNI.",
+      "parentUuid": "063fc274_159b3d46",
+      "range": {
+        "startLine": 1280,
+        "startChar": 4,
+        "endLine": 1283,
+        "endChar": 5
+      },
+      "revId": "920293d98c88b6276af2a7ee1609efa2bb961bff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0088257a_f4d316d5",
         "filename": "sdk/android/api/org/webrtc/PeerConnection.java",
         "patchSetId": 5

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3caa588e_ff8a2564",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-08T09:43:45Z",
+      "side": 1,
+      "message": "RTPSender doesn\u0027t manage rtcp (much)\nmay bay RtpPacketSender[Interface]\n(opposed to RtpMedia/RtpFrame Sender)",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "e12cb15a970abfe73d4d225252f3de31c493609c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

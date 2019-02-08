@@ -43,7 +43,7 @@ class PeerConnectionE2EQualityTest
       std::unique_ptr<Params> alice_params,
       std::unique_ptr<InjectableComponents> bob_components,
       std::unique_ptr<Params> bob_params,
-      std::unique_ptr<Analyzers> analyzers);
+      Analyzers* analyzers);
 
   ~PeerConnectionE2EQualityTest() override = default;
 

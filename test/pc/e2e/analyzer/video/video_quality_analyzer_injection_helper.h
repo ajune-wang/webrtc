@@ -31,10 +31,9 @@ namespace test {
 // VideoQualityAnalyzerInterface into PeerConnection pipeline.
 class VideoQualityAnalyzerInjectionHelper {
  public:
-  VideoQualityAnalyzerInjectionHelper(
-      std::unique_ptr<VideoQualityAnalyzerInterface> analyzer,
-      EncodedImageIdInjector* injector,
-      EncodedImageIdExtractor* extractor);
+  VideoQualityAnalyzerInjectionHelper(VideoQualityAnalyzerInterface* analyzer,
+                                      EncodedImageIdInjector* injector,
+                                      EncodedImageIdExtractor* extractor);
   ~VideoQualityAnalyzerInjectionHelper();
 
   // Wraps video encoder factory to give video quality analyzer access to frames
@@ -63,7 +62,7 @@ class VideoQualityAnalyzerInjectionHelper {
   void Stop();
 
  private:
-  std::unique_ptr<VideoQualityAnalyzerInterface> analyzer_;
+  VideoQualityAnalyzerInterface* analyzer_;
   EncodedImageIdInjector* injector_;
   EncodedImageIdExtractor* extractor_;
 

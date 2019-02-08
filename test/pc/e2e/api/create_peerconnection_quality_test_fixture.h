@@ -27,7 +27,7 @@ CreatePeerConnectionE2EQualityTestFixture(
     std::unique_ptr<PeerConnectionE2EQualityTestFixture::InjectableComponents>
         bob_components,
     std::unique_ptr<PeerConnectionE2EQualityTestFixture::Params> bob_params,
-    std::unique_ptr<PeerConnectionE2EQualityTestFixture::Analyzers> analyzers);
+    PeerConnectionE2EQualityTestFixture::Analyzers* analyzers);
 
 }  // namespace webrtc
 

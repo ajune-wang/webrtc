@@ -30,7 +30,7 @@ namespace test {
 
 class NetworkEmulationManager {
  public:
-  explicit NetworkEmulationManager(Clock* clock);
+  NetworkEmulationManager();
   ~NetworkEmulationManager();
 
   EmulatedNetworkNode* CreateEmulatedNode(
@@ -48,9 +48,6 @@ class NetworkEmulationManager {
                   EndpointNode* to);
 
   rtc::Thread* CreateNetworkThread(std::vector<EndpointNode*> endpoints);
-
-  void Start();
-  void Stop();
 
  private:
   FakeNetworkSocketServer* CreateSocketServer(

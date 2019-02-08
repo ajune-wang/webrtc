@@ -89,7 +89,9 @@ class LoopbackTransportTest : public webrtc::Transport {
     receivers_extensions_.Register(kRtpExtensionVideoTiming,
                                    kVideoTimingExtensionId);
     receivers_extensions_.Register(kRtpExtensionMid, kMidExtensionId);
-    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor,
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor00,
+                                   kGenericDescriptorId);
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor01,
                                    kGenericDescriptorId);
     receivers_extensions_.Register(kRtpExtensionRtpStreamId, kRidExtensionId);
     receivers_extensions_.Register(kRtpExtensionRepairedRtpStreamId,

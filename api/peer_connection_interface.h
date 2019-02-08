@@ -1071,8 +1071,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
                                 int64_t output_period_ms);
 
   // Stops logging the RtcEventLog.
-  // TODO(ivoc): Make this pure virtual when Chrome is updated.
-  virtual void StopRtcEventLog() {}
+  virtual void StopRtcEventLog() = 0;
 
   // Terminates all media, closes the transports, and in general releases any
   // resources used by the PeerConnection. This is an irreversible operation.

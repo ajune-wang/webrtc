@@ -3991,7 +3991,19 @@ TEST_F(WebRtcSdpTest, ParseConnectionDataIPv6) {
             content2.media_description()->connection_address().ToString());
 }
 
-// Test that the invalid or unsupprted connection data cannot be parsed.
+// Test that a c= line that contains a hostname connection address can be
+// parsed.
+TEST_F(WebRtcSdpTest, ParseConnectionDataWithHostnameConnectionAddress) {
+  JsepSessionDescription jsep_desc(kDummyType);
+  std::string sdp = kSdpString;
+  EXPECT_TRUE(SdpDeserialize(sdp, &jsep_desc));
+
+  sdp = kSdpFullString;
+  Replace("c=IN IP4 74.125.224.39\r\n", "c=IN IP4 example.local\r\n", &sdp);
+  EXPECT_TRUE(SdpDeserialize(sdp, &jsep_desc));
+}
+
+// Test that the invalid or unsupported connection data cannot be parsed.
 TEST_F(WebRtcSdpTest, ParseConnectionDataFailure) {
   JsepSessionDescription jsep_desc(kDummyType);
   std::string sdp = kSdpString;
@@ -4036,6 +4048,31 @@ TEST_F(WebRtcSdpTest, SerializeAndDeserializeWithConnectionAddress) {
             audio_desc->connection_address().ToString());
   EXPECT_EQ(video_desc_->connection_address().ToString(),
             video_desc->connection_address().ToString());
+}
+
+// Test that a media description that contains a hostname connection address can
+// be correctly serialized.
+TEST_F(WebRtcSdpTest, SerializeAndDeserializeWithHostnameConnectionAddress) {
+  JsepSessionDescription expected_jsep(kDummyType);
+  cricket::Candidate c;
+  const rtc::SocketAddress hostname_addr("example.local", 1234);
+  audio_desc_->set_connection_address(hostname_addr);
+  video_desc_->set_connection_address(hostname_addr);
+  ASSERT_TRUE(
+      expected_jsep.Initialize(desc_.Copy(), kSessionId, kSessionVersion));
+  // Serialization.
+  std::string message = webrtc::SdpSerialize(expected_jsep);
+  // Deserialization.
+  JsepSessionDescription jdesc(kDummyType);
+  EXPECT_TRUE(SdpDeserialize(message, &jdesc));
+  auto audio_desc = jdesc.description()
+                        ->GetContentByName(kAudioContentName)
+                        ->media_description();
+  auto video_desc = jdesc.description()
+                        ->GetContentByName(kVideoContentName)
+                        ->media_description();
+  EXPECT_EQ(hostname_addr, audio_desc->connection_address());
+  EXPECT_EQ(hostname_addr, video_desc->connection_address());
 }
 
 // RFC4566 says "If a session has no meaningful name, the value "s= " SHOULD be

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8b5f8c8_456b7a45",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-08T08:14:24Z",
+      "side": 1,
+      "message": "There\u0027s a lot of time deltas and reference times going around in this functions, is it possible that we could simplify this? I\u0027m thinking that we should only need the member variables last_update_time_ and last_send_time_. With the rest calculated based on those (possibly with a slight change in behavior for the pending_size_ calculation, but that\u0027s fine.\n\n(To a lesser extent athis might apply to the random walk process as well.",
+      "revId": "d3ea44d240babcc942f3ef2bf285ff784119c340",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483c7bc9_29b9ace5",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-08T08:14:24Z",
+      "side": 1,
+      "message": "I think this can be made more clear: (applies for the other test as well)\nconst auto kRunTime \u003d TimeDelta::seconds(1);\n...\nevent.Wait(kRunTime.ms());\n...\n// Using 50% duty cycle.\nconst auto kExpectedDataSent \u003d kRunTime*config.peak_rate*0.5;\nEXPECT_NEAR(counter-\u003etotal_packets_size(),\n     kExpectedDataSent.bytes(), \n     kExpectedDataSent.bytes()*0.1);",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 55
+      },
+      "revId": "d3ea44d240babcc942f3ef2bf285ff784119c340",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

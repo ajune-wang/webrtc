@@ -1,0 +1,652 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "564eea2b_d7892bb5",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "int",
+      "range": {
+        "startLine": 27,
+        "startChar": 10,
+        "endLine": 27,
+        "endChar": 18
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59da25ea_11716a49",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "stream_label\u003d",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ff3144_1385fd4d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457637c2_0f93bc0f",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "nit, consider consistently with other places (here and below): for frame, frame.id\u003d5, code\u003d-1",
+      "range": {
+        "startLine": 275,
+        "startChar": 42,
+        "endLine": 275,
+        "endChar": 51
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0201440f_518ded41",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "ok, this is why you don\u0027t return a reference; disregard my comment in the header.",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a59b4d72_5d82a208",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "bug?",
+      "range": {
+        "startLine": 338,
+        "startChar": 43,
+        "endLine": 338,
+        "endChar": 47
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c262ae5a_035178b1",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "/*whats_that?\u003d*/",
+      "range": {
+        "startLine": 348,
+        "startChar": 32,
+        "endLine": 348,
+        "endChar": 37
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fceb8e6c_561d8429",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "framerate\u0027s unit is fps, no?",
+      "range": {
+        "startLine": 348,
+        "startChar": 21,
+        "endLine": 348,
+        "endChar": 29
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51358b71_c49de0e2",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "not sure why the timeout of 1 second was chosen. Is this the time you are waiting for the frame to be delivered?",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e55e4b6_320a4f94",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "It\u0027s not clear how checking for the rendered width and height implies that it was received on the remote side.\n\nInstead, consider removing the comment above, and changing the if here to look more like:\nif(comparison.frame_was_rendered_remotely()) {\n}\n\nor something similar",
+      "range": {
+        "startLine": 482,
+        "startChar": 7,
+        "endLine": 483,
+        "endChar": 53
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513dba2b_a44c9d6d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "interesting: so this averages all of the events, not \u0027last 3 seconds\u0027 or \u0027last n seconds\u0027. Is the current solution good enough for our needs? :)",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "768731db_5e991d9b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "nit: wasn\u0027t there some style rule in WebRTC that forbids implementing methods in the header, and requires the implementation to be put in cc?\n\nI think it\u0027s also a general rule of thumb, that simple accessors can be defined in the header, but longer methods should be declared in the header, but defined in the cc.",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b731d8ad_8eb40484",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "nit: prefer signed integers for everything other than bitfields. do not use unsigned integers to mean \"never less than 0\".\n\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#types\n\n(here and the event_count above)",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 10
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d33f403_8c4fe822",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "this should maybe be configurable. If you have 7fps video in the low bitrate call you would expect 143ms between frames.",
+      "range": {
+        "startLine": 87,
+        "startChar": 29,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4adfa796_c681bec0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "interesting, in the time_between_freezes we assume 150ms is a freeze, but here 200ms. I think you are just moving existing code, so feel free to do improvements separately.\n\nI would suggest\n1) Call the variable \u0027sum_of_freezes\u0027 (instead of having 200_ms in a name)\n2) Make the freeze time configurable, with the default of 150ms or 200\n3) let\u0027s stick to one \u0027freeze\u0027 definition in a test, not two different ones, for the \"short\" freeze.\n4) I think it\u0027s ok to keep a separate long freeze.",
+      "range": {
+        "startLine": 91,
+        "startChar": 61,
+        "endLine": 91,
+        "endChar": 66
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dff049e_f63d80f2",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "stats counter contains all of the values, not just the mean value.",
+      "range": {
+        "startLine": 97,
+        "startChar": 7,
+        "endLine": 97,
+        "endChar": 11
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c23b4fd_b8254edd",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "resolution_of_encoded_image ?\n\nor encoded_pixel_count",
+      "range": {
+        "startLine": 98,
+        "startChar": 22,
+        "endLine": 98,
+        "endChar": 33
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf9ed300_401542e0",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "document.",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 27
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe3ac395_9b5494f4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "nit: document. when I read this for the first time, I have no idea what is the overloaded comparison",
+      "range": {
+        "startLine": 102,
+        "startChar": 11,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30880150_341b5cca",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "is added",
+      "range": {
+        "startLine": 108,
+        "startChar": 5,
+        "endLine": 108,
+        "endChar": 10
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e1adcb1_304a933a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "consider const std::set\u0026\n\ndo you want to return a copy, or the const reference to the set? (it depends if you are locking to get it, whether you are modifying collection in a separate thread, etc.)",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b3e1756_c5c97a55",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "I don\u0027t know what is \"a standard way\". :) and its not obvious here. (callback? which one?)",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcb00928_fb99aadd",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "consider const std::map\u0026",
+      "range": {
+        "startLine": 143,
+        "startChar": 7,
+        "endLine": 143,
+        "endChar": 10
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dbe2e65_1f8c69ae",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 145,
+        "startChar": 7,
+        "endLine": 145,
+        "endChar": 10
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d22e9821_86f62dd7",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "doco what is the key (stream label probable). How do I know what stream labels are valid?",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe09258d_028d8df4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "in some places qp is defined as int, not uint. I don\u0027t know what\u0027s the right thing here.",
+      "range": {
+        "startLine": 165,
+        "startChar": 19,
+        "endLine": 165,
+        "endChar": 26
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92f5ff9a_cfd09916",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "isn\u0027t dropped implied by having captured but not rendered? If so, maybe remove bool member, and add a method instead?",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 16
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9f61b3f_3279d64d",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "what is the trace name? please document what\u0027s the output of this method. (filename?)",
+      "range": {
+        "startLine": 206,
+        "startChar": 14,
+        "endLine": 206,
+        "endChar": 26
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aecbedf1_7b2df6b6",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "int?",
+      "range": {
+        "startLine": 212,
+        "startChar": 14,
+        "endLine": 212,
+        "endChar": 22
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9be0d75_302b95d3",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-08T15:32:39Z",
+      "side": 1,
+      "message": "instead of having a set of collections with different fields, it may be better to have\n\nstruct VideoFrameStatus {\n  VideoFrame frame;\n  Timestamp ;\n  list\u003cint\u003e frame_id;\n}\n\nmaybe not, but consider it. :)",
+      "range": {
+        "startLine": 243,
+        "startChar": 35,
+        "endLine": 243,
+        "endChar": 67
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

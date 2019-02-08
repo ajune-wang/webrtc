@@ -1,3 +1,4 @@
+#if 0
 /*
  *  Copyright 2017 The WebRTC Project Authors. All rights reserved.
  *
@@ -629,3 +630,4 @@ TEST(WebRtcRTPHeader, DefaultPlayoutDelayIsUnspecified) {
 }
 
 }  // namespace webrtc
+#endif

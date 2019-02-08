@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3f8c0f_0d4580b5",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-08T09:28:36Z",
+      "side": 1,
+      "message": "`push_back` instead, since you\u0027re just invoking the move constructor anyway?",
+      "range": {
+        "startLine": 212,
+        "startChar": 10,
+        "endLine": 212,
+        "endChar": 22
+      },
+      "revId": "bd65c0862d1f70da671ed8bdd8d020e1f9cfdb45",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

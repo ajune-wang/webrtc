@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2697b93_f558f742",
+        "filename": "modules/audio_processing/aec3/matched_filter_lag_aggregator.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-02-08T15:06:05Z",
+      "side": 1,
+      "message": "I think that\ndata_dumper_-\u003eDumpRaw(\"aec3_echo_path_delay_estimator_histogram\",\n                        histogram_);\nshould work (and maybe be safer).",
+      "range": {
+        "startLine": 60,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 62
+      },
+      "revId": "c0208fac134ab2d97d09cdd14241f49737de4196",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

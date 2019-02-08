@@ -68,23 +68,24 @@ DtlsTransportInformation DtlsTransport::Information() {
 }
 
 void DtlsTransport::RegisterObserver(DtlsTransportObserverInterface* observer) {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(observer);
   observer_ = observer;
 }
 
 void DtlsTransport::UnregisterObserver() {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   observer_ = nullptr;
 }
 
 rtc::scoped_refptr<IceTransportInterface> DtlsTransport::ice_transport() {
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   return ice_transport_;
 }
 
 // Internal functions
 void DtlsTransport::Clear() {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(internal());
   if (internal()->dtls_state() != cricket::DTLS_TRANSPORT_CLOSED) {
     internal_dtls_transport_.reset();
@@ -100,7 +101,7 @@ void DtlsTransport::Clear() {
 void DtlsTransport::OnInternalDtlsState(
     cricket::DtlsTransportInternal* transport,
     cricket::DtlsTransportState state) {
-  RTC_DCHECK(signaling_thread_->IsCurrent());
+  RTC_DCHECK_RUN_ON(signaling_thread_);
   RTC_DCHECK(transport == internal());
   RTC_DCHECK(state == internal()->dtls_state());
   if (observer_) {

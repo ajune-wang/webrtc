@@ -18,6 +18,7 @@
 #include "api/scoped_refptr.h"
 #include "p2p/base/dtls_transport.h"
 #include "rtc_base/async_invoker.h"
+#include "rtc_base/thread_checker.h"
 
 namespace webrtc {
 
@@ -39,10 +40,12 @@ class DtlsTransport : public DtlsTransportInterface,
   void Clear();
 
   cricket::DtlsTransportInternal* internal() {
+    RTC_DCHECK_RUN_ON(signaling_thread_);
     return internal_dtls_transport_.get();
   }
 
   const cricket::DtlsTransportInternal* internal() const {
+    RTC_DCHECK_RUN_ON(signaling_thread_);
     return internal_dtls_transport_.get();
   }
 
@@ -55,8 +58,10 @@ class DtlsTransport : public DtlsTransportInterface,
 
   DtlsTransportObserverInterface* observer_ = nullptr;
   rtc::Thread* signaling_thread_;
-  std::unique_ptr<cricket::DtlsTransportInternal> internal_dtls_transport_;
-  rtc::scoped_refptr<IceTransportWithPointer> ice_transport_;
+  std::unique_ptr<cricket::DtlsTransportInternal> internal_dtls_transport_
+      RTC_GUARDED_BY(signaling_thread_);
+  rtc::scoped_refptr<IceTransportWithPointer> ice_transport_
+      RTC_GUARDED_BY(signaling_thread_);
 };
 
 }  // namespace webrtc

@@ -21,8 +21,10 @@ constexpr int RtpGenericFrameDescriptor::kMaxTemporalLayers;
 constexpr int RtpGenericFrameDescriptor::kMaxSpatialLayers;
 
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor() = default;
+
 RtpGenericFrameDescriptor::RtpGenericFrameDescriptor(
     const RtpGenericFrameDescriptor&) = default;
+
 RtpGenericFrameDescriptor::~RtpGenericFrameDescriptor() = default;
 
 int RtpGenericFrameDescriptor::TemporalLayer() const {

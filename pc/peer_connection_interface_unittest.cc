@@ -732,7 +732,7 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
                                          const std::string& password) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
-    server.uri = uri;
+    server.urls = {uri};
     server.password = password;
     config.servers.push_back(server);
     CreatePeerConnection(config);
@@ -764,7 +764,7 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   void CreatePeerConnectionExpectFail(const std::string& uri) {
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer server;
-    server.uri = uri;
+    server.urls = {uri};
     config.servers.push_back(server);
     config.sdp_semantics = sdp_semantics_;
     rtc::scoped_refptr<PeerConnectionInterface> pc =
@@ -775,7 +775,7 @@ class PeerConnectionInterfaceBaseTest : public testing::Test {
   void CreatePeerConnectionExpectFail(
       PeerConnectionInterface::RTCConfiguration config) {
     PeerConnectionInterface::IceServer server;
-    server.uri = kTurnIceServerUri;
+    server.urls = {kTurnIceServerUri};
     server.password = kTurnPassword;
     config.servers.push_back(server);
     config.sdp_semantics = sdp_semantics_;
@@ -1337,7 +1337,7 @@ TEST_P(PeerConnectionInterfaceTest,
 TEST_P(PeerConnectionInterfaceTest, CreatePeerConnectionWithPooledCandidates) {
   PeerConnectionInterface::RTCConfiguration config;
   PeerConnectionInterface::IceServer server;
-  server.uri = kStunAddressOnly;
+  server.urls = {kStunAddressOnly};
   config.servers.push_back(server);
   config.type = PeerConnectionInterface::kRelay;
   config.disable_ipv6 = true;
@@ -2423,7 +2423,7 @@ TEST_P(PeerConnectionInterfaceTest, SetConfigurationChangesIceServers) {
 
   PeerConnectionInterface::RTCConfiguration config = pc_->GetConfiguration();
   PeerConnectionInterface::IceServer server;
-  server.uri = "stun:test_hostname";
+  server.urls = {"stun:test_hostname"};
   config.servers.push_back(server);
   EXPECT_TRUE(pc_->SetConfiguration(config));
 
@@ -2475,7 +2475,7 @@ TEST_P(PeerConnectionInterfaceTest,
   PeerConnectionInterface::RTCConfiguration config = pc_->GetConfiguration();
   config.ice_candidate_pool_size = 1;
   PeerConnectionInterface::IceServer server;
-  server.uri = kStunAddressOnly;
+  server.urls = {kStunAddressOnly};
   config.servers.push_back(server);
   config.type = PeerConnectionInterface::kRelay;
   EXPECT_TRUE(pc_->SetConfiguration(config));
@@ -2608,7 +2608,7 @@ TEST_P(PeerConnectionInterfaceTest,
   config = pc_->GetConfiguration();
 
   PeerConnectionInterface::IceServer bad_server;
-  bad_server.uri = "stunn:www.example.com";
+  bad_server.urls = {"stunn:www.example.com"};
   config.servers.push_back(bad_server);
   RTCError error;
   EXPECT_FALSE(pc_->SetConfiguration(config, &error));
@@ -2624,7 +2624,7 @@ TEST_P(PeerConnectionInterfaceTest,
   config = pc_->GetConfiguration();
 
   PeerConnectionInterface::IceServer bad_server;
-  bad_server.uri = "turn:www.example.com";
+  bad_server.urls = {"turn:www.example.com"};
   // Missing password.
   bad_server.username = "foo";
   config.servers.push_back(bad_server);

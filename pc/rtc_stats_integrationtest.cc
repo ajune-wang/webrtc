@@ -124,7 +124,7 @@ class RTCStatsIntegrationTest : public testing::Test {
     // Create PeerConnections and "connect" sigslots
     PeerConnectionInterface::RTCConfiguration config;
     PeerConnectionInterface::IceServer ice_server;
-    ice_server.uri = "stun:1.1.1.1:3478";
+    ice_server.urls = {"stun:1.1.1.1:3478"};
     config.servers.push_back(ice_server);
     EXPECT_TRUE(caller_->CreatePc(config, CreateBuiltinAudioEncoderFactory(),
                                   CreateBuiltinAudioDecoderFactory()));

@@ -65,7 +65,7 @@ class PeerConnectionEndToEndBaseTest : public sigslot::has_slots<>,
     callee_ = new rtc::RefCountedObject<PeerConnectionTestWrapper>(
         "callee", network_thread_.get(), worker_thread_.get());
     webrtc::PeerConnectionInterface::IceServer ice_server;
-    ice_server.uri = "stun:stun.l.google.com:19302";
+    ice_server.urls = {"stun:stun.l.google.com:19302"};
     config_.servers.push_back(ice_server);
     config_.sdp_semantics = sdp_semantics;
 

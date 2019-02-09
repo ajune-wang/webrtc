@@ -99,7 +99,8 @@ JsepTransport::JsepTransport(
     std::unique_ptr<DtlsTransportInternal> rtp_dtls_transport,
     std::unique_ptr<DtlsTransportInternal> rtcp_dtls_transport,
     std::unique_ptr<webrtc::MediaTransportInterface> media_transport)
-    : mid_(mid),
+    : owning_thread_(rtc::Thread::Current()),
+      mid_(mid),
       local_certificate_(local_certificate),
       rtp_dtls_transport_(
           rtp_dtls_transport ? new rtc::RefCountedObject<webrtc::DtlsTransport>(
@@ -152,6 +153,7 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
     SdpType type) {
   webrtc::RTCError error;
 
+  RTC_DCHECK_RUN_ON(owning_thread_);
   if (!VerifyIceParams(jsep_description)) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "Invalid ice-ufrag or ice-pwd length.");
@@ -164,22 +166,24 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
   }
 
   // If doing SDES, setup the SDES crypto parameters.
-  if (sdes_transport_) {
-    RTC_DCHECK(!unencrypted_rtp_transport_);
-    RTC_DCHECK(!dtls_srtp_transport_);
-    if (!SetSdes(jsep_description.cryptos,
-                 jsep_description.encrypted_header_extension_ids, type,
-                 ContentSource::CS_LOCAL)) {
-      return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
-                              "Failed to setup SDES crypto parameters.");
+  {
+    rtc::CritScope scope(&accessor_lock_);
+    if (sdes_transport_) {
+      RTC_DCHECK(!unencrypted_rtp_transport_);
+      RTC_DCHECK(!dtls_srtp_transport_);
+      if (!SetSdes(jsep_description.cryptos,
+                   jsep_description.encrypted_header_extension_ids, type,
+                   ContentSource::CS_LOCAL)) {
+        return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
+                                "Failed to setup SDES crypto parameters.");
+      }
+    } else if (dtls_srtp_transport_) {
+      RTC_DCHECK(!unencrypted_rtp_transport_);
+      RTC_DCHECK(!sdes_transport_);
+      dtls_srtp_transport_->UpdateRecvEncryptedHeaderExtensionIds(
+          jsep_description.encrypted_header_extension_ids);
     }
-  } else if (dtls_srtp_transport_) {
-    RTC_DCHECK(!unencrypted_rtp_transport_);
-    RTC_DCHECK(!sdes_transport_);
-    dtls_srtp_transport_->UpdateRecvEncryptedHeaderExtensionIds(
-        jsep_description.encrypted_header_extension_ids);
   }
-
   bool ice_restarting =
       local_description_ != nullptr &&
       IceCredentialsChanged(local_description_->transport_desc.ice_ufrag,
@@ -200,15 +204,16 @@ webrtc::RTCError JsepTransport::SetLocalJsepTransportDescription(
       return error;
     }
   }
+  {
+    rtc::CritScope scope(&accessor_lock_);
+    RTC_DCHECK(rtp_dtls_transport_->internal());
+    SetLocalIceParameters(rtp_dtls_transport_->internal()->ice_transport());
 
-  RTC_DCHECK(rtp_dtls_transport_->internal());
-  SetLocalIceParameters(rtp_dtls_transport_->internal()->ice_transport());
-
-  if (rtcp_dtls_transport_) {
-    RTC_DCHECK(rtcp_dtls_transport_->internal());
-    SetLocalIceParameters(rtcp_dtls_transport_->internal()->ice_transport());
+    if (rtcp_dtls_transport_) {
+      RTC_DCHECK(rtcp_dtls_transport_->internal());
+      SetLocalIceParameters(rtcp_dtls_transport_->internal()->ice_transport());
+    }
   }
-
   // If PRANSWER/ANSWER is set, we should decide transport protocol type.
   if (type == SdpType::kPrAnswer || type == SdpType::kAnswer) {
     error = NegotiateAndSetDtlsParameters(type);
@@ -232,6 +237,8 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
     webrtc::SdpType type) {
   webrtc::RTCError error;
 
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   if (!VerifyIceParams(jsep_description)) {
     remote_description_.reset();
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
@@ -287,6 +294,7 @@ webrtc::RTCError JsepTransport::SetRemoteJsepTransportDescription(
 
 webrtc::RTCError JsepTransport::AddRemoteCandidates(
     const Candidates& candidates) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   if (!local_description_ || !remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             mid() +
@@ -319,6 +327,8 @@ void JsepTransport::SetNeedsIceRestartFlag() {
 }
 
 absl::optional<rtc::SSLRole> JsepTransport::GetDtlsRole() const {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   RTC_DCHECK(rtp_dtls_transport_);
   RTC_DCHECK(rtp_dtls_transport_->internal());
   rtc::SSLRole dtls_role;
@@ -330,6 +340,8 @@ absl::optional<rtc::SSLRole> JsepTransport::GetDtlsRole() const {
 }
 
 bool JsepTransport::GetStats(TransportStats* stats) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   stats->transport_name = mid();
   stats->channel_stats.clear();
   RTC_DCHECK(rtp_dtls_transport_->internal());
@@ -344,6 +356,7 @@ bool JsepTransport::GetStats(TransportStats* stats) {
 webrtc::RTCError JsepTransport::VerifyCertificateFingerprint(
     const rtc::RTCCertificate* certificate,
     const rtc::SSLFingerprint* fingerprint) const {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   if (!fingerprint) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_PARAMETER,
                             "No fingerprint");
@@ -369,6 +382,8 @@ webrtc::RTCError JsepTransport::VerifyCertificateFingerprint(
 }
 
 void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   if (dtls_srtp_transport_) {
     RTC_LOG(INFO)
         << "Setting active_reset_srtp_params of DtlsSrtpTransport to: "
@@ -378,6 +393,7 @@ void JsepTransport::SetActiveResetSrtpParams(bool active_reset_srtp_params) {
 }
 
 void JsepTransport::SetLocalIceParameters(IceTransportInternal* ice_transport) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   RTC_DCHECK(ice_transport);
   RTC_DCHECK(local_description_);
   ice_transport->SetIceParameters(
@@ -386,6 +402,7 @@ void JsepTransport::SetLocalIceParameters(IceTransportInternal* ice_transport) {
 
 void JsepTransport::SetRemoteIceParameters(
     IceTransportInternal* ice_transport) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   RTC_DCHECK(ice_transport);
   RTC_DCHECK(remote_description_);
   ice_transport->SetRemoteIceParameters(
@@ -397,6 +414,7 @@ webrtc::RTCError JsepTransport::SetNegotiatedDtlsParameters(
     DtlsTransportInternal* dtls_transport,
     absl::optional<rtc::SSLRole> dtls_role,
     rtc::SSLFingerprint* remote_fingerprint) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   RTC_DCHECK(dtls_transport);
   // Set SSL role. Role must be set before fingerprint is applied, which
   // initiates DTLS setup.
@@ -419,6 +437,7 @@ webrtc::RTCError JsepTransport::SetNegotiatedDtlsParameters(
 bool JsepTransport::SetRtcpMux(bool enable,
                                webrtc::SdpType type,
                                ContentSource source) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
   bool ret = false;
   switch (type) {
     case SdpType::kOffer:
@@ -449,6 +468,8 @@ bool JsepTransport::SetRtcpMux(bool enable,
 }
 
 void JsepTransport::ActivateRtcpMux() {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   if (unencrypted_rtp_transport_) {
     RTC_DCHECK(!sdes_transport_);
     RTC_DCHECK(!dtls_srtp_transport_);
@@ -473,6 +494,8 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
                             const std::vector<int>& encrypted_extension_ids,
                             webrtc::SdpType type,
                             ContentSource source) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   bool ret = false;
   ret = sdes_negotiator_.Process(cryptos, type, source);
   if (!ret) {
@@ -515,6 +538,8 @@ bool JsepTransport::SetSdes(const std::vector<CryptoParams>& cryptos,
 
 webrtc::RTCError JsepTransport::NegotiateAndSetDtlsParameters(
     SdpType local_description_type) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   if (!local_description_ || !remote_description_) {
     return webrtc::RTCError(webrtc::RTCErrorType::INVALID_STATE,
                             "Applying an answer transport description "
@@ -596,6 +621,7 @@ webrtc::RTCError JsepTransport::NegotiateDtlsRole(
   // ClientHello over each flow (host/port quartet).
   // IOW - actpass and passive modes should be treated as server and
   // active as client.
+  RTC_DCHECK_RUN_ON(owning_thread_);
   bool is_remote_server = false;
   if (local_description_type == SdpType::kOffer) {
     if (local_connection_role != CONNECTIONROLE_ACTPASS) {
@@ -658,6 +684,8 @@ webrtc::RTCError JsepTransport::NegotiateDtlsRole(
 
 bool JsepTransport::GetTransportStats(DtlsTransportInternal* dtls_transport,
                                       TransportStats* stats) {
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  rtc::CritScope scope(&accessor_lock_);
   RTC_DCHECK(dtls_transport);
   TransportChannelStats substats;
   if (rtcp_dtls_transport_) {
@@ -682,7 +710,11 @@ void JsepTransport::OnStateChanged(webrtc::MediaTransportState state) {
   // TODO(bugs.webrtc.org/9719) This method currently fires on the network
   // thread, but media transport does not make such guarantees. We need to make
   // sure this callback is guaranteed to be executed on the network thread.
-  media_transport_state_ = state;
+  RTC_DCHECK_RUN_ON(owning_thread_);
+  {
+    rtc::CritScope scope(&accessor_lock_);
+    media_transport_state_ = state;
+  }
   SignalMediaTransportStateChanged();
 }
 

@@ -19,10 +19,10 @@
 #include "absl/types/optional.h"
 #include "p2p/base/stun.h"
 #include "rtc_base/async_packet_socket.h"
+#include "rtc_base/async_resolver.h"
 #include "rtc_base/byte_order.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
-#include "rtc_base/net_helpers.h"
 #include "rtc_base/socket_address.h"
 #include "rtc_base/strings/string_builder.h"
 

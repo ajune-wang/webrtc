@@ -87,8 +87,12 @@ class QualityTestVideoEncoder : public VideoEncoder,
  public:
   QualityTestVideoEncoder(std::unique_ptr<VideoEncoder> encoder,
                           VideoAnalyzer* analyzer,
-                          std::vector<FileWrapper> files)
-      : encoder_(std::move(encoder)), analyzer_(analyzer) {
+                          std::vector<FileWrapper> files,
+                          double overshoot_factor)
+      : encoder_(std::move(encoder)),
+        overshoot_factor_(overshoot_factor),
+        analyzer_(analyzer),
+        max_bitrate_bps_(0) {
     for (FileWrapper& file : files) {
       writers_.push_back(
           IvfFileWriter::Wrap(std::move(file), /* byte_limit= */ 100000000));
@@ -98,6 +102,7 @@ class QualityTestVideoEncoder : public VideoEncoder,
   int32_t InitEncode(const VideoCodec* codec_settings,
                      int32_t number_of_cores,
                      size_t max_payload_size) override {
+    max_bitrate_bps_ = codec_settings->maxBitrate * 1000;
     return encoder_->InitEncode(codec_settings, number_of_cores,
                                 max_payload_size);
   }
@@ -115,15 +120,42 @@ class QualityTestVideoEncoder : public VideoEncoder,
     }
     return encoder_->Encode(frame, codec_specific_info, frame_types);
   }
-  int32_t SetRates(uint32_t bitrate, uint32_t framerate) override {
-    return encoder_->SetRates(bitrate, framerate);
-  }
   int32_t SetRateAllocation(const VideoBitrateAllocation& allocation,
                             uint32_t framerate) override {
-    return encoder_->SetRateAllocation(allocation, framerate);
+    if (overshoot_factor_ <= 1.0) {
+      return encoder_->SetRateAllocation(allocation, framerate);
+    }
+    // Simulating encoder overshooting target bitrate, by configuring actual
+    // encoder too high. Take care not to adjust past max bitrate of config.
+    double overshoot_factor = overshoot_factor_;
+    if (max_bitrate_bps_ > 0 &&
+        allocation.get_sum_bps() * overshoot_factor_ > max_bitrate_bps_) {
+      overshoot_factor =
+          static_cast<double>(max_bitrate_bps_) / allocation.get_sum_bps();
+    }
+
+    VideoBitrateAllocation overshot_allocation;
+    for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
+      for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
+        if (allocation.HasBitrate(si, ti)) {
+          overshot_allocation.SetBitrate(
+              si, ti,
+              static_cast<uint32_t>(overshoot_factor *
+                                    allocation.GetBitrate(si, ti)));
+        }
+      }
+    }
+
+    return encoder_->SetRateAllocation(overshot_allocation, framerate);
   }
   EncoderInfo GetEncoderInfo() const override {
-    return encoder_->GetEncoderInfo();
+    EncoderInfo info = encoder_->GetEncoderInfo();
+    if (overshoot_factor_ > 1.0) {
+      // We're simulating bad encoder, don't forward trusted setting
+      // from eg libvpx.
+      info.has_trusted_rate_controller = false;
+    }
+    return info;
   }
 
  private:
@@ -157,10 +189,12 @@ class QualityTestVideoEncoder : public VideoEncoder,
     callback_->OnDroppedFrame(reason);
   }
 
-  std::unique_ptr<VideoEncoder> encoder_;
-  EncodedImageCallback* callback_ = nullptr;
+  const std::unique_ptr<VideoEncoder> encoder_;
+  const double overshoot_factor_;
   VideoAnalyzer* const analyzer_;
   std::vector<std::unique_ptr<IvfFileWriter>> writers_;
+  EncodedImageCallback* callback_ = nullptr;
+  uint32_t max_bitrate_bps_;
 };
 
 }  // namespace
@@ -202,22 +236,35 @@ std::unique_ptr<VideoEncoder> VideoQualityTest::CreateVideoEncoder(
   } else {
     encoder = internal_encoder_factory_.CreateVideoEncoder(format);
   }
+
+  std::vector<FileWrapper> encoded_frame_dump_files;
   if (!params_.logging.encoded_frame_base_path.empty()) {
     char ss_buf[100];
     rtc::SimpleStringBuilder sb(ss_buf);
     sb << send_logs_++;
     std::string prefix =
         params_.logging.encoded_frame_base_path + "." + sb.str() + ".send.";
-    std::vector<FileWrapper> files;
-    files.push_back(FileWrapper::OpenWriteOnly(prefix + "1.ivf"));
-    files.push_back(FileWrapper::OpenWriteOnly(prefix + "2.ivf"));
-    files.push_back(FileWrapper::OpenWriteOnly(prefix + "3.ivf"));
+    encoded_frame_dump_files.push_back(
+        FileWrapper::OpenWriteOnly(prefix + "1.ivf"));
+    encoded_frame_dump_files.push_back(
+        FileWrapper::OpenWriteOnly(prefix + "2.ivf"));
+    encoded_frame_dump_files.push_back(
+        FileWrapper::OpenWriteOnly(prefix + "3.ivf"));
+  }
 
+  double overshoot_factor = 1.0;
+  if (format ==
+      SdpVideoFormat(params_.video[0].codec, params_.video[0].sdp_params)) {
+    overshoot_factor = params_.video[0].encoder_overshoot_factor;
+  } else if (format == SdpVideoFormat(params_.video[1].codec,
+                                      params_.video[1].sdp_params)) {
+    overshoot_factor = params_.video[1].encoder_overshoot_factor;
+  }
+
+  if (analyzer || !encoded_frame_dump_files.empty() || overshoot_factor > 1.0) {
     encoder = absl::make_unique<QualityTestVideoEncoder>(
-        std::move(encoder), analyzer, std::move(files));
-  } else if (analyzer) {
-    encoder = absl::make_unique<QualityTestVideoEncoder>(
-        std::move(encoder), analyzer, std::vector<FileWrapper>());
+        std::move(encoder), analyzer, std::move(encoded_frame_dump_files),
+        overshoot_factor);
   }
 
   return encoder;
@@ -263,10 +310,10 @@ VideoQualityTest::VideoQualityTest(
 
 VideoQualityTest::Params::Params()
     : call({false, false, BitrateConstraints(), 0}),
-      video{{false, 640, 480, 30, 50, 800, 800, false, "VP8", 1, -1, 0, false,
-             false, false, ""},
-            {false, 640, 480, 30, 50, 800, 800, false, "VP8", 1, -1, 0, false,
-             false, false, ""}},
+      video{{false, 640, 480,   30,    50,    800, 800, false, "VP8", 1,
+             -1,    0,   false, false, false, "",  0,   {},    false, 1.0},
+            {false, 640, 480,   30,    50,    800, 800, false, "VP8", 1,
+             -1,    0,   false, false, false, "",  0,   {},    false, 1.0}},
       audio({false, false, false, false}),
       screenshare{{false, false, 10, 0}, {false, false, 10, 0}},
       analyzer({"", 0.0, 0.0, 0, "", ""}),

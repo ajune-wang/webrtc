@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f8a8606_c9781272",
+        "filename": "api/video/i010_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-11T09:27:06Z",
+      "side": 0,
+      "message": "I think this and the below fix are still right. Without them, it\u0027s not possible to paste at the right or bottom edges of an odd-sized frame, right?\n\nWould be nice to also have a test for this case (unless you plan to also delete the PasteFrom methods completely? I don\u0027t have the full overview of the reverts).",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 55
+      },
+      "revId": "12e5d392cc8fc0ba7a04587c190daa4232e412bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

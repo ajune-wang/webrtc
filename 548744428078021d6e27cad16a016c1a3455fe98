@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dba8e3ab_948c6ff4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-11T14:30:52Z",
+      "side": 1,
+      "message": "to me a \"dropped\" frame are ones that didn\u0027t make it through (due to a packet loss for example).\nConsider: \"or skipped (because of comparison queue length)\"",
+      "range": {
+        "startLine": 211,
+        "startChar": 15,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "548744428078021d6e27cad16a016c1a3455fe98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

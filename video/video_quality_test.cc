@@ -600,8 +600,11 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       RTC_CHECK(field_trial::IsEnabled("WebRTC-GenericDescriptor"));
 
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
-          RtpExtension::kGenericFrameDescriptorUri,
-          test::kGenericDescriptorExtensionId);
+          RtpExtension::kGenericFrameDescriptorUri00,
+          test::kGenericDescriptorExtensionId00);
+      video_send_configs_[video_idx].rtp.extensions.emplace_back(
+          RtpExtension::kGenericFrameDescriptorUri01,
+          test::kGenericDescriptorExtensionId01);
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(

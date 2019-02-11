@@ -26,6 +26,9 @@
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_ack_received.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_packet_received.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
@@ -73,13 +76,18 @@ struct EventCounts {
   size_t outgoing_rtp_packets = 0;
   size_t incoming_rtcp_packets = 0;
   size_t outgoing_rtcp_packets = 0;
+  size_t generic_packets_sent = 0;
+  size_t generic_packets_received = 0;
+  size_t generic_acks_received = 0;
 
   size_t total_nonconfig_events() const {
     return alr_states + audio_playouts + ana_configs + bwe_loss_events +
            bwe_delay_events + dtls_transport_states + dtls_writable_states +
            probe_creations + probe_successes + probe_failures + ice_configs +
            ice_events + incoming_rtp_packets + outgoing_rtp_packets +
-           incoming_rtcp_packets + outgoing_rtcp_packets;
+           incoming_rtcp_packets + outgoing_rtcp_packets +
+           generic_packets_sent + generic_packets_received +
+           generic_acks_received;
   }
 
   size_t total_config_events() const {
@@ -119,6 +127,10 @@ class RtcEventLogSession
   // write the remaining non-config events.
   void WriteLog(EventCounts count, size_t num_events_before_log_start);
   void ReadAndVerifyLog();
+
+  bool IsNewFormat() {
+    return encoding_type_ == RtcEventLog::EncodingType::NewFormat;
+  }
 
  private:
   void WriteAudioRecvConfigs(size_t audio_recv_streams, RtcEventLog* event_log);
@@ -163,6 +175,9 @@ class RtcEventLogSession
       outgoing_rtp_map_;  // Groups outgoing RTP by SSRC.
   std::vector<std::unique_ptr<RtcEventRtcpPacketIncoming>> incoming_rtcp_list_;
   std::vector<std::unique_ptr<RtcEventRtcpPacketOutgoing>> outgoing_rtcp_list_;
+  std::vector<RtcEventGenericPacketSent> generic_packets_sent;
+  std::vector<RtcEventGenericPacketReceived> generic_packets_received;
+  std::vector<RtcEventGenericAckReceived> generic_acks_received;
 
   int64_t start_time_us_;
   int64_t utc_start_time_us_;
@@ -471,6 +486,33 @@ void RtcEventLogSession::WriteLog(EventCounts count,
     }
     selection -= count.outgoing_rtcp_packets;
 
+    if (selection < count.generic_packets_sent) {
+      auto event = gen_.NewGenericPacketSent();
+      generic_packets_sent.push_back(*event);
+      event_log->Log(std::move(event));
+      count.generic_packets_sent--;
+      continue;
+    }
+    selection -= count.generic_packets_sent;
+
+    if (selection < count.generic_packets_received) {
+      auto event = gen_.NewGenericPacketReceived();
+      generic_packets_received.push_back(*event);
+      event_log->Log(std::move(event));
+      count.generic_packets_received--;
+      continue;
+    }
+    selection -= count.generic_packets_received;
+
+    if (selection < count.generic_acks_received) {
+      auto event = gen_.NewGenericAckReceived();
+      generic_acks_received.push_back(*event);
+      event_log->Log(std::move(event));
+      count.generic_acks_received--;
+      continue;
+    }
+    selection -= count.generic_acks_received;
+
     RTC_NOTREACHED();
   }
 
@@ -679,6 +721,11 @@ TEST_P(RtcEventLogSession, StartLoggingFromBeginning) {
   count.outgoing_rtp_packets = 100;
   count.incoming_rtcp_packets = 20;
   count.outgoing_rtcp_packets = 20;
+  if (IsNewFormat()) {
+    count.generic_packets_sent = 100;
+    count.generic_packets_received = 100;
+    count.generic_acks_received = 20;
+  }
 
   WriteLog(count, 0);
   ReadAndVerifyLog();
@@ -706,6 +753,11 @@ TEST_P(RtcEventLogSession, StartLoggingInTheMiddle) {
   count.outgoing_rtp_packets = 500;
   count.incoming_rtcp_packets = 50;
   count.outgoing_rtcp_packets = 50;
+  if (IsNewFormat()) {
+    count.generic_packets_sent = 500;
+    count.generic_packets_received = 500;
+    count.generic_acks_received = 50;
+  }
 
   WriteLog(count, 500);
   ReadAndVerifyLog();

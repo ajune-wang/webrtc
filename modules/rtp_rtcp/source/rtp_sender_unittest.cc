@@ -32,6 +32,7 @@
 #include "modules/rtp_rtcp/source/rtp_utility.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/rate_limiter.h"
+#include "test/constants.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -40,16 +41,19 @@
 namespace webrtc {
 
 namespace {
-const int kTransmissionTimeOffsetExtensionId = 1;
-const int kAbsoluteSendTimeExtensionId = 14;
-const int kTransportSequenceNumberExtensionId = 13;
-const int kVideoTimingExtensionId = 12;
-const int kMidExtensionId = 11;
-const int kGenericDescriptorId = 10;
-const int kAudioLevelExtensionId = 9;
-const int kRidExtensionId = 8;
-const int kRepairedRidExtensionId = 7;
-const int kVideoRotationExtensionId = 5;
+const int kTransmissionTimeOffsetExtensionId =
+    test::kTimestampOffsetExtensionId;
+const int kAbsoluteSendTimeExtensionId = test::kAbsSendTimeExtensionId;
+const int kTransportSequenceNumberExtensionId =
+    test::kTransportSequenceNumberExtensionId;
+const int kVideoTimingExtensionId = test::kVideoTimingExtensionId;
+const int kMidExtensionId = test::kMidExtensionId;
+const int kGenericDescriptorId =
+    test::kGenericFrameDescriptorExtensionId01;  // TODO: !!!
+const int kAudioLevelExtensionId = test::kAudioLevelExtensionId;
+const int kRidExtensionId = test::kRidExtensionId;
+const int kRepairedRidExtensionId = test::kRepairedRidExtensionId;
+const int kVideoRotationExtensionId = test::kVideoRotationExtensionId;
 const int kPayload = 100;
 const int kRtxPayload = 98;
 const uint32_t kTimestamp = 10;
@@ -89,7 +93,9 @@ class LoopbackTransportTest : public webrtc::Transport {
     receivers_extensions_.Register(kRtpExtensionVideoTiming,
                                    kVideoTimingExtensionId);
     receivers_extensions_.Register(kRtpExtensionMid, kMidExtensionId);
-    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor,
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor00,
+                                   kGenericDescriptorId);
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor01,
                                    kGenericDescriptorId);
     receivers_extensions_.Register(kRtpExtensionRtpStreamId, kRidExtensionId);
     receivers_extensions_.Register(kRtpExtensionRepairedRtpStreamId,

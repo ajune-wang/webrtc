@@ -73,7 +73,7 @@ class RtpRtcpObserver {
   explicit RtpRtcpObserver(int event_timeout_ms)
       : parser_(RtpHeaderParser::Create()), timeout_ms_(event_timeout_ms) {
     parser_->RegisterRtpHeaderExtension(kRtpExtensionTransmissionTimeOffset,
-                                        kTOffsetExtensionId);
+                                        kTimestampOffsetExtensionId);
     parser_->RegisterRtpHeaderExtension(kRtpExtensionAbsoluteSendTime,
                                         kAbsSendTimeExtensionId);
     parser_->RegisterRtpHeaderExtension(kRtpExtensionTransportSequenceNumber,

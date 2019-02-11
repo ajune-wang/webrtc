@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30f36e75_29fc24ea",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-11T08:22:22Z",
+      "side": 1,
+      "message": "It seems a bit questionable to me use use RTCError here; it seems intended for errors to be propagated to the javascript api. I would suggest either no return value, to make the method fire-and-forget, or a bool (true for success), if there\u0027s any use for reporting early failure, e.g., from packetization. \n\nI expect the typical implementation will at most do packetization before returning, and post the interesting part of the work to some network thread.",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

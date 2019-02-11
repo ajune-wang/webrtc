@@ -34,6 +34,9 @@ message EventStream {
   repeated IceCandidatePairEvent ice_candidate_events = 26;
   repeated DtlsTransportStateEvent dtls_transport_state_events = 27;
   repeated DtlsWritableState dtls_writable_states = 28;
+  repeated GenericPacketSent generic_packets_sent = 29;
+  repeated GenericPacketReceived generic_packets_received = 30;
+  repeated GenericAckReceived generic_acks_received = 31;
 
   repeated AudioRecvStreamConfig audio_recv_stream_configs = 101;
   repeated AudioSendStreamConfig audio_send_stream_configs = 102;
@@ -44,6 +47,48 @@ message EventStream {
 // DEPRECATED.
 message Event {
   // TODO(terelius): Do we want to preserve the old Event definition here?
+}
+
+message GenericPacketReceived {
+  optional int64 timestamp_ms = 1;
+  optional int64 packet_number = 2;
+  optional int32 packet_length = 3;
+
+  optional bytes timestamp_ms_deltas = 4;
+  optional bytes packet_number_deltas = 5;
+  optional bytes packet_length_deltas = 6;
+
+  optional uint32 number_of_deltas = 7;
+}
+
+message GenericPacketSent {
+  optional int64 timestamp_ms = 1;
+  optional int64 packet_number = 2;
+  optional int32 overhead_length = 3;
+  optional int32 payload_length = 4;
+  optional int32 padding_length = 5;
+
+  optional bytes timestamp_ms_deltas = 6;
+  optional bytes packet_number_deltas = 7;
+  optional bytes overhead_length_deltas = 8;
+  optional bytes payload_length_deltas = 9;
+  optional bytes padding_length_deltas = 10;
+
+  optional uint32 number_of_deltas = 11;
+}
+
+message GenericAckReceived {
+  optional int64 timestamp_ms = 1;
+  optional int64 packet_number = 2;
+  optional int64 acked_packet_number = 3;
+  optional int64 receive_timestamp_ms = 4;
+
+  optional bytes timestamp_ms_deltas = 5;
+  optional bytes packet_number_deltas = 6;
+  optional bytes acked_packet_number_deltas = 7;
+  optional bytes receive_timestamp_ms_deltas = 8;
+
+  optional uint32 number_of_deltas = 9;
 }
 
 message IncomingRtpPackets {

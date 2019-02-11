@@ -2122,6 +2122,12 @@ void ParsedRtcEventLog::StoreParsedNewFormatEvent(
     StoreVideoRecvConfig(stream.video_recv_stream_configs(0));
   } else if (stream.video_send_stream_configs_size() == 1) {
     StoreVideoSendConfig(stream.video_send_stream_configs(0));
+  } else if (stream.generic_packets_received_size() == 1) {
+    StoreGenericPacketReceivedEvent(stream.generic_packets_received(0));
+  } else if (stream.generic_packets_sent_size() == 1) {
+    StoreGenericPacketSentEvent(stream.generic_packets_sent(0));
+  } else if (stream.generic_acks_received_size() == 1) {
+    StoreGenericAckReceivedEvent(stream.generic_acks_received(0));
   } else {
     RTC_NOTREACHED();
   }
@@ -2392,6 +2398,181 @@ void ParsedRtcEventLog::StoreBweProbeFailureEvent(
   bwe_probe_failure_events_.push_back(probe_result);
 
   // TODO(terelius): Should we delta encode this event type?
+}
+
+void ParsedRtcEventLog::StoreGenericAckReceivedEvent(
+    const rtclog2::GenericAckReceived& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+  RTC_CHECK(proto.has_packet_number());
+  RTC_CHECK(proto.has_acked_packet_number());
+  // receive_timestamp_ms is optional.
+
+  generic_acks_received.push_back({proto.timestamp_ms(), proto.packet_number(),
+                                   proto.acked_packet_number(),
+                                   proto.receive_timestamp_ms()});
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  // timestamp_ms
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(proto.timestamp_ms_deltas(),
+                   ToUnsigned(proto.timestamp_ms()), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // packet_number
+  std::vector<absl::optional<uint64_t>> packet_number_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.packet_number()), number_of_deltas);
+  RTC_CHECK_EQ(packet_number_values.size(), number_of_deltas);
+
+  // acked_packet_number
+  std::vector<absl::optional<uint64_t>> acked_packet_number_values =
+      DecodeDeltas(proto.acked_packet_number_deltas(),
+                   ToUnsigned(proto.acked_packet_number()), number_of_deltas);
+  RTC_CHECK_EQ(acked_packet_number_values.size(), number_of_deltas);
+
+  // optional receive_timestamp_ms
+  const absl::optional<uint64_t> unsigned_receive_timestamp_ms_base =
+      proto.has_receive_timestamp_ms()
+          ? absl::optional<uint64_t>(ToUnsigned(proto.receive_timestamp_ms()))
+          : absl::optional<uint64_t>();
+  std::vector<absl::optional<uint64_t>> receive_timestamp_ms_values =
+      DecodeDeltas(proto.receive_timestamp_ms_deltas(),
+                   unsigned_receive_timestamp_ms_base, number_of_deltas);
+  RTC_CHECK_EQ(receive_timestamp_ms_values.size(), number_of_deltas);
+
+  for (size_t i = 0; i < number_of_deltas; i++) {
+    int64_t timestamp_ms;
+    RTC_CHECK(ToSigned(timestamp_ms_values[i].value(), &timestamp_ms));
+    int64_t packet_number;
+    RTC_CHECK(ToSigned(packet_number_values[i].value(), &packet_number));
+    int64_t acked_packet_number;
+    RTC_CHECK(
+        ToSigned(acked_packet_number_values[i].value(), &acked_packet_number));
+    absl::optional<int64_t> receive_timestamp_ms;
+    if (receive_timestamp_ms_values[i].has_value()) {
+      int64_t value;
+      RTC_CHECK(ToSigned(receive_timestamp_ms_values[i].value(), &value));
+      receive_timestamp_ms = value;
+    }
+    generic_acks_received.push_back({timestamp_ms, packet_number,
+                                     acked_packet_number,
+                                     receive_timestamp_ms});
+  }
+}
+
+void ParsedRtcEventLog::StoreGenericPacketSentEvent(
+    const rtclog2::GenericPacketSent& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+
+  // Base event
+  RTC_CHECK(proto.has_packet_number());
+  RTC_CHECK(proto.has_overhead_length());
+  RTC_CHECK(proto.has_payload_length());
+  RTC_CHECK(proto.has_padding_length());
+
+  generic_packets_sent.push_back(
+      {proto.timestamp_ms(), proto.packet_number(), proto.overhead_length(),
+       proto.payload_length(), proto.padding_length()});
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  // timestamp_ms
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(proto.timestamp_ms_deltas(),
+                   ToUnsigned(proto.timestamp_ms()), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // packet_number
+  std::vector<absl::optional<uint64_t>> packet_number_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.packet_number()), number_of_deltas);
+  RTC_CHECK_EQ(packet_number_values.size(), number_of_deltas);
+
+  std::vector<absl::optional<uint64_t>> overhead_length_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.overhead_length()), number_of_deltas);
+  RTC_CHECK_EQ(overhead_length_values.size(), number_of_deltas);
+
+  std::vector<absl::optional<uint64_t>> payload_length_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.payload_length()), number_of_deltas);
+  RTC_CHECK_EQ(payload_length_values.size(), number_of_deltas);
+
+  std::vector<absl::optional<uint64_t>> padding_length_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.padding_length()), number_of_deltas);
+  RTC_CHECK_EQ(padding_length_values.size(), number_of_deltas);
+
+  for (size_t i = 0; i < number_of_deltas; i++) {
+    int64_t timestamp_ms;
+    RTC_CHECK(ToSigned(timestamp_ms_values[i].value(), &timestamp_ms));
+    int64_t packet_number;
+    RTC_CHECK(ToSigned(packet_number_values[i].value(), &packet_number));
+    int32_t overhead_length;
+    RTC_CHECK(ToSigned(overhead_length_values[i].value(), &overhead_length));
+    int32_t payload_length;
+    RTC_CHECK(ToSigned(payload_length_values[i].value(), &payload_length));
+    int32_t padding_length;
+    RTC_CHECK(ToSigned(padding_length_values[i].value(), &padding_length));
+    generic_packets_sent.push_back({timestamp_ms, packet_number,
+                                    overhead_length, payload_length,
+                                    padding_length});
+  }
+}
+
+void ParsedRtcEventLog::StoreGenericPacketReceivedEvent(
+    const rtclog2::GenericPacketReceived& proto) {
+  RTC_CHECK(proto.has_timestamp_ms());
+
+  // Base event
+  RTC_CHECK(proto.packet_number());
+  RTC_CHECK(proto.packet_length());
+
+  generic_packets_received.push_back(
+      {proto.timestamp_ms(), proto.packet_number(), proto.packet_length()});
+
+  const size_t number_of_deltas =
+      proto.has_number_of_deltas() ? proto.number_of_deltas() : 0u;
+  if (number_of_deltas == 0) {
+    return;
+  }
+
+  // timestamp_ms
+  std::vector<absl::optional<uint64_t>> timestamp_ms_values =
+      DecodeDeltas(proto.timestamp_ms_deltas(),
+                   ToUnsigned(proto.timestamp_ms()), number_of_deltas);
+  RTC_CHECK_EQ(timestamp_ms_values.size(), number_of_deltas);
+
+  // packet_number
+  std::vector<absl::optional<uint64_t>> packet_number_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.packet_number()), number_of_deltas);
+  RTC_CHECK_EQ(packet_number_values.size(), number_of_deltas);
+
+  std::vector<absl::optional<uint64_t>> packet_length_values =
+      DecodeDeltas(proto.packet_number_deltas(),
+                   ToUnsigned(proto.packet_length()), number_of_deltas);
+  RTC_CHECK_EQ(packet_length_values.size(), number_of_deltas);
+
+  for (size_t i = 0; i < number_of_deltas; i++) {
+    int64_t timestamp_ms;
+    RTC_CHECK(ToSigned(timestamp_ms_values[i].value(), &timestamp_ms));
+    int64_t packet_number;
+    RTC_CHECK(ToSigned(packet_number_values[i].value(), &packet_number));
+    int32_t packet_length;
+    RTC_CHECK(ToSigned(packet_length_values[i].value(), &packet_length));
+    generic_packets_received.push_back(
+        {timestamp_ms, packet_number, packet_length});
+  }
 }
 
 void ParsedRtcEventLog::StoreAudioNetworkAdaptationEvent(

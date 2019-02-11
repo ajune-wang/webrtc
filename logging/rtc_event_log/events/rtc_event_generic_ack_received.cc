@@ -13,10 +13,11 @@
 #include <vector>
 
 namespace webrtc {
+
 std::vector<std::unique_ptr<RtcEventGenericAckReceived>>
 RtcEventGenericAckReceived::CreateLogs(
     int64_t packet_number,
-    const std::vector<AckedPacket> acked_packets) {
+    const std::vector<AckedPacket>& acked_packets) {
   std::vector<std::unique_ptr<RtcEventGenericAckReceived>> result;
   int64_t time_us = rtc::TimeMicros();
   for (const AckedPacket& packet : acked_packets) {
@@ -36,6 +37,9 @@ RtcEventGenericAckReceived::RtcEventGenericAckReceived(
       packet_number_(packet_number),
       acked_packet_number_(acked_packet_number),
       receive_timestamp_ms_(receive_timestamp_ms) {}
+
+RtcEventGenericAckReceived::RtcEventGenericAckReceived(
+    const RtcEventGenericAckReceived& packet) = default;
 
 RtcEventGenericAckReceived::~RtcEventGenericAckReceived() = default;
 

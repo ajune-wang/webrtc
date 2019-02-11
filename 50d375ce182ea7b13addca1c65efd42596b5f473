@@ -429,6 +429,30 @@
     },
     {
       "key": {
+        "uuid": "ddebefbb_00463652",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-11T12:55:05Z",
+      "side": 1,
+      "message": "For the purpose of the quality performance test, the average for whole call is most interesting.\n\nThe idea is to get some single value which can be monitored. If we report many averages for \u0027last n seconds\u0027 it will be very difficult to monitor changes in time.\n\nThis is what we have in webrtc_perf_tests now.",
+      "parentUuid": "513dba2b_a44c9d6d",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "768731db_5e991d9b",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 3

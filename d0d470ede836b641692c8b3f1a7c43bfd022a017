@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0271bf1_56adcbce",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T13:35:54Z",
+      "side": 1,
+      "message": "nit: config_.peak_rate\n\n(could change name to send_rate now since it\u0027s not shared with random walk, not important though)",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 43
+      },
+      "revId": "d0d470ede836b641692c8b3f1a7c43bfd022a017",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a8d36ba_2d293164",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T13:35:54Z",
+      "side": 1,
+      "message": "nit: at_time \u003e\u003d last_send_time_ + config_.min_packet_interval",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 64
+      },
+      "revId": "d0d470ede836b641692c8b3f1a7c43bfd022a017",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "484302a9_9825d31d",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T13:35:54Z",
+      "side": 1,
+      "message": "nit: return sending_?config_.peak_rate:DataRate::Zero();",
+      "range": {
+        "startLine": 97,
+        "startChar": 1,
+        "endLine": 100,
+        "endChar": 28
+      },
+      "revId": "d0d470ede836b641692c8b3f1a7c43bfd022a017",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

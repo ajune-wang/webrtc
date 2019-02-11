@@ -395,8 +395,7 @@ AudioProcessingImpl::AudioProcessingImpl(
     capture_nonlocked_.echo_controller_enabled =
         static_cast<bool>(echo_control_factory_);
 
-    public_submodules_->gain_control.reset(
-        new GainControlImpl(&crit_render_, &crit_capture_));
+    public_submodules_->gain_control.reset(new GainControlImpl(&crit_capture_));
     public_submodules_->level_estimator.reset(
         new LevelEstimatorImpl(&crit_capture_));
     public_submodules_->noise_suppression.reset(

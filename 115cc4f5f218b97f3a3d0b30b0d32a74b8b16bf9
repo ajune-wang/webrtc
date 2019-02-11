@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbf17492_51746ba1",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": "may be remove Zero prefix.\nWhen I read ZeroPaddingLength() function I\u0027m not sure if it is\nbool LengthOfPaddingIsZero\nor is it\nsize_t NumberOfZeroBytesToPadWith()  // btw, is it including or excluding last byte that not zero, but length of the padding?",
+      "range": {
+        "startLine": 524,
+        "startChar": 26,
+        "endLine": 524,
+        "endChar": 30
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0fa490_f84abf32",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": "Not using this helper seems more readable:\nif (zero_padding_length \u003e 0) {\n ...\n}\nexplains why is it safe to compute (zero_padding_length - 1)",
+      "range": {
+        "startLine": 579,
+        "startChar": 6,
+        "endLine": 579,
+        "endChar": 22
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de35f9bb_b17b4f4b",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": ".data() is redundant:\nrtc::Buffer has well-behaved operator[]:\n\npacket[kExpectedSizeWords * 4 - 1]",
+      "range": {
+        "startLine": 425,
+        "startChar": 18,
+        "endLine": 425,
+        "endChar": 25
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad4b0c5_57da0ba1",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": "Remove underscore\nhttps://github.com/google/googletest/blob/master/googletest/docs/faq.md#why-should-test-suite-names-and-test-names-not-contain-underscore",
+      "range": {
+        "startLine": 450,
+        "startChar": 38,
+        "endLine": 450,
+        "endChar": 39
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53be4774_a17dca80",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": "packet[i]",
+      "range": {
+        "startLine": 465,
+        "startChar": 18,
+        "endLine": 465,
+        "endChar": 34
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3038532d_fc4f6693",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:28:13Z",
+      "side": 1,
+      "message": ".get() is redundant, either\nASSERT_TRUE(parsed_packet !\u003d nullptr);\nor\nASSERT_TRUE(parsed_packet);",
+      "range": {
+        "startLine": 482,
+        "startChar": 27,
+        "endLine": 482,
+        "endChar": 33
+      },
+      "revId": "115cc4f5f218b97f3a3d0b30b0d32a74b8b16bf9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

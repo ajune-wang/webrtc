@@ -25,10 +25,10 @@ TaskQueueFactory* GlobalOrDefault(TaskQueueFactory* global) {
 }  // namespace
 
 void SetGlobalTaskQueueFactory(std::unique_ptr<TaskQueueFactory> factory) {
-  RTC_CHECK(factory) << "Can't set nullptr TaskQueueFactory";
+  RTC_DCHECK(factory) << "Can't set nullptr TaskQueueFactory";
   // Own, but never delete the global factory.
   TaskQueueFactory* global = factory.release();
-  RTC_CHECK(GlobalOrDefault(global) == global)
+  RTC_DCHECK(GlobalOrDefault(global) == global)
       << "Task queue factory set after another SetFactory or after a task "
          "queue was created";
 }

@@ -19,13 +19,13 @@ void TaskQueue::Impl::AddRef() {
   // AddRef should be called exactly once by rtc::TaskQueue constructor when
   // raw pointer converted into scoped_refptr<Impl>,
   // just before TaskQueue constructor assign task_queue_ member.
-  RTC_CHECK(task_queue_ == nullptr);
+  RTC_DCHECK(task_queue_ == nullptr);
 }
 
 void TaskQueue::Impl::Release() {
   // TaskQueue destructor manually destroyes this object, thus Release should
   // never be called.
-  RTC_CHECK(false);
+  RTC_DCHECK(false);
 }
 
 }  // namespace rtc

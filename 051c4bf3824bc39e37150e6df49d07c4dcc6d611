@@ -22,6 +22,30 @@
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "747017dd_a00fdfa2",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-11T14:33:14Z",
+      "side": 1,
+      "message": "I think in principle I disagree with having methods that silently drop errors (fire and forget), except for the top-level ones (but even those should log warnings).\n\nIs there a better error type? Worst case we can use \u0027boolean\u0027.",
+      "parentUuid": "30f36e75_29fc24ea",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

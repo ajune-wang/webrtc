@@ -62,10 +62,15 @@ enum RTPExtensionType : int {
   kRtpExtensionRtpStreamId,
   kRtpExtensionRepairedRtpStreamId,
   kRtpExtensionMid,
-  kRtpExtensionGenericFrameDescriptor,
+  kRtpExtensionGenericFrameDescriptor00,
+  kRtpExtensionGenericFrameDescriptor01,
   kRtpExtensionColorSpace,
   kRtpExtensionNumberOfExtensions  // Must be the last entity in the enum.
 };
+
+// TODO(bugs.webrtc.org/10243): Remove after updating downstream projects.
+const int kRtpExtensionGenericFrameDescriptor =
+    kRtpExtensionGenericFrameDescriptor00;
 
 enum RTCPAppSubTypes { kAppSubtypeBwe = 0x00 };
 

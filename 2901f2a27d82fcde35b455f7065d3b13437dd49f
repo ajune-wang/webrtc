@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "276782f8_68d58267",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "add this line inside enum instead: \nkRtpExtensionGenericFrameDescriptor expected to be of enum, not int type:\n\nkRtpExtensionGenericFrameDescriptor00,\nkRtpExtensionGenericFrameDescriptor \u003d kRtpExtensionGenericFrameDescriptor00,\nkRtpExtensionGenericFrameDescriptor01,\nkRtpExtensionColorSpace,",
+      "range": {
+        "startLine": 72,
+        "startChar": 10,
+        "endLine": 73,
+        "endChar": 42
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f67729_b4ec0b00",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "please add some context, either in code or to the linked bug.\n(e.g. when should it be removed)",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbfed937_a363ff4b",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "Is there code that behaves differently when values are absl::nullopt and false?\nif not, may be avoid type absl::optional\u003cbool\u003e by returning instead discardable_.value_or(false);",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74d6087c_4fcf174c",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "do not mix naming styles, this is constants, so no underscores:\nkFlagFirstSubframeV00",
+      "range": {
+        "startLine": 25,
+        "startChar": 36,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d927b6a_e1b036ed",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "but these two accessors are currently public.",
+      "range": {
+        "startLine": 64,
+        "startChar": 3,
+        "endLine": 65,
+        "endChar": 58
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c48f6ac_0484f607",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-11T15:50:58Z",
+      "side": 1,
+      "message": "optional suggestion, instead of run-time branch, set this flag in caller functions:\n\nbool RtpGenericFrameDescriptorExtension00::Write(\n    rtc::ArrayView\u003cuint8_t\u003e data,\n    const RtpGenericFrameDescriptor\u0026 descriptor) {\n  bool ok \u003d RtpGenericFrameDescriptorExtension::\n      RtpGenericFrameDescriptorExtensionWrite(data, descriptor);\n  if (ok) {\n    data[0] |\u003d kFlagFirstAndLastSubFrame;\n  }\n  return ok;\n}\n\nbool RtpGenericFrameDescriptorExtension01::Write(\n    rtc::ArrayView\u003cuint8_t\u003e data,\n    const RtpGenericFrameDescriptor\u0026 descriptor) {\n  bool ok \u003d RtpGenericFrameDescriptorExtension::\n      RtpGenericFrameDescriptorExtensionWrite(data, descriptor);\n  if (ok) {\n    data[0] |\u003d (descriptor.Discardable().value_or(false) ? kFlagDiscardable : 0);\n  }\n  return ok;\n}",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 3
+      },
+      "revId": "2901f2a27d82fcde35b455f7065d3b13437dd49f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

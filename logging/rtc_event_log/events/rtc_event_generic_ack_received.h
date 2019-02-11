@@ -33,7 +33,7 @@ class RtcEventGenericAckReceived final : public RtcEvent {
   // the same timestamp.
   static std::vector<std::unique_ptr<RtcEventGenericAckReceived>> CreateLogs(
       int64_t packet_number,
-      const std::vector<AckedPacket> acked_packets);
+      const std::vector<AckedPacket>& acked_packets);
 
   RtcEventGenericAckReceived(const RtcEventGenericAckReceived& packet);
   ~RtcEventGenericAckReceived() override;

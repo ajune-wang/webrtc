@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78ca0b2c_aa1da99c",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T12:59:54Z",
+      "side": 1,
+      "message": "Missed this before, but this calculation is actually wrong. It should be * sqrt(time_since_last_update). Otherwise the behavior will be highly dependent on the update interval. The error will usually be small but it might be nice to make it future proof by correcting it.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 66
+      },
+      "revId": "ff0b39069ffb84d2006bf13520da0b7066d2de7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05ffc85a_8a79e29f",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T12:59:54Z",
+      "side": 1,
+      "message": "Could be simplified:\ntime_since_toggle \u003d at_time-last_toggle_time_;\nif(time_since_toggle.IsInfinite() || (sending \u0026\u0026 time_since_toggle \u003e send_duration)) {\n sending \u003d false;\n last_update_time_ \u003d at_time;\n} else if (!sending \u0026\u0026 time_since_toggle \u003e hold_duration) {\n sending \u003d true;\n last_update_time_ \u003d at_time;\n last_send_time \u003d at_time;\n}\n\nif(sending) {\n// calculate and maybe send packet ... (no call to TrafficRate())\n}",
+      "revId": "ff0b39069ffb84d2006bf13520da0b7066d2de7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611df5da_25228e75",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T12:59:54Z",
+      "side": 1,
+      "message": "Nit: Not really \"Assume\", if it was an assumption it would be obviously wrong \u003d\u003d a bug.\n\nMaybe: \"Start send period.\" or something?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 68
+      },
+      "revId": "ff0b39069ffb84d2006bf13520da0b7066d2de7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c6830d1_837fe164",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T12:59:54Z",
+      "side": 1,
+      "message": "Can be removed per suggestion above.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 90,
+        "endChar": 3
+      },
+      "revId": "ff0b39069ffb84d2006bf13520da0b7066d2de7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512e88be_c077cd38",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-11T12:59:54Z",
+      "side": 1,
+      "message": "Nit: \"Sending at peak rate since bias \u003d 1.\"",
+      "range": {
+        "startLine": 155,
+        "startChar": 5,
+        "endLine": 155,
+        "endChar": 27
+      },
+      "revId": "ff0b39069ffb84d2006bf13520da0b7066d2de7c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

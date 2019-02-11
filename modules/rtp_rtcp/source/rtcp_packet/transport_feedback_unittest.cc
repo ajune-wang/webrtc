@@ -408,6 +408,8 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
   const size_t kExpectedSizeBytes =
       kHeaderSize + kStatusChunkSize + kSmallDeltaSize;
   const size_t kExpectedSizeWords = (kExpectedSizeBytes + 3) / 4;
+  const size_t kExpectedPaddingSizeBytes =
+      4 * kExpectedSizeWords - kExpectedSizeBytes;
 
   TransportFeedback feedback;
   feedback.SetBase(0, 0);
@@ -416,8 +418,11 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
   rtc::Buffer packet = feedback.Build();
   EXPECT_EQ(kExpectedSizeWords * 4, packet.size());
   ASSERT_GT(kExpectedSizeWords * 4, kExpectedSizeBytes);
-  for (size_t i = kExpectedSizeBytes; i < kExpectedSizeWords * 4; ++i)
+  for (size_t i = kExpectedSizeBytes; i < (kExpectedSizeWords * 4 - 1); ++i)
     EXPECT_EQ(0u, packet.data()[i]);
+
+  EXPECT_EQ(kExpectedPaddingSizeBytes,
+            packet.data()[kExpectedSizeWords * 4 - 1]);
 
   // Modify packet by adding 4 bytes of padding at the end. Not currently used
   // when we're sending, but need to be able to handle it when receiving.
@@ -428,7 +433,8 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
   uint8_t mod_buffer[kExpectedSizeWithPadding];
   memcpy(mod_buffer, packet.data(), kExpectedSizeWords * 4);
   memset(&mod_buffer[kExpectedSizeWords * 4], 0, kPaddingBytes - 1);
-  mod_buffer[kExpectedSizeWithPadding - 1] = kPaddingBytes;
+  mod_buffer[kExpectedSizeWithPadding - 1] =
+      kPaddingBytes + kExpectedPaddingSizeBytes;
   const uint8_t padding_flag = 1 << 5;
   mod_buffer[0] |= padding_flag;
   ByteWriter<uint16_t>::WriteBigEndian(
@@ -439,6 +445,42 @@ TEST(RtcpPacketTest, TransportFeedback_Padding) {
       TransportFeedback::ParseFrom(mod_buffer, kExpectedSizeWithPadding));
   ASSERT_TRUE(parsed_packet.get() != nullptr);
   EXPECT_EQ(kExpectedSizeWords * 4, packet.size());  // Padding not included.
+}
+
+TEST(RtcpPacketTest, TransportFeedback_PaddingBackwardsCompatibility) {
+  const size_t kExpectedSizeBytes =
+      kHeaderSize + kStatusChunkSize + kSmallDeltaSize;
+  const size_t kExpectedSizeWords = (kExpectedSizeBytes + 3) / 4;
+  const size_t kExpectedPaddingSizeBytes =
+      4 * kExpectedSizeWords - kExpectedSizeBytes;
+
+  TransportFeedback feedback;
+  feedback.SetBase(0, 0);
+  EXPECT_TRUE(feedback.AddReceivedPacket(0, 0));
+
+  rtc::Buffer packet = feedback.Build();
+  EXPECT_EQ(kExpectedSizeWords * 4, packet.size());
+  ASSERT_GT(kExpectedSizeWords * 4, kExpectedSizeBytes);
+  for (size_t i = kExpectedSizeBytes; i < (kExpectedSizeWords * 4 - 1); ++i)
+    EXPECT_EQ(0u, packet.data()[i]);
+
+  EXPECT_GT(kExpectedPaddingSizeBytes, 0u);
+  EXPECT_EQ(kExpectedPaddingSizeBytes,
+            packet.data()[kExpectedSizeWords * 4 - 1]);
+
+  // Modify packet by removing padding bit and writing zero at the last padding
+  // byte to verify that we can parse packets from old clients, where zero
+  // padding of up to three bytes was used without the padding bit being set.
+  uint8_t mod_buffer[kExpectedSizeWords * 4];
+  memcpy(mod_buffer, packet.data(), kExpectedSizeWords * 4);
+  mod_buffer[kExpectedSizeWords * 4 - 1] = 0;
+  const uint8_t padding_flag = 1 << 5;
+  mod_buffer[0] &= ~padding_flag;  // Unset padding flag.
+
+  std::unique_ptr<TransportFeedback> parsed_packet(
+      TransportFeedback::ParseFrom(mod_buffer, kExpectedSizeWords * 4));
+  ASSERT_TRUE(parsed_packet.get() != nullptr);
+  EXPECT_EQ(kExpectedSizeWords * 4, packet.size());
 }
 
 TEST(RtcpPacketTest, TransportFeedback_CorrectlySplitsVectorChunks) {

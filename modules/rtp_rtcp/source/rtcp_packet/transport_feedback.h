@@ -73,6 +73,7 @@ class TransportFeedback : public Rtpfb {
   bool IsConsistent() const;
 
   size_t BlockLength() const override;
+  size_t ZeroPaddingLength() const;
 
   bool Create(uint8_t* packet,
               size_t* position,

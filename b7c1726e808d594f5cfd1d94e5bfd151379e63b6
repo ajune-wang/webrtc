@@ -22,6 +22,30 @@
       "revId": "b7c1726e808d594f5cfd1d94e5bfd151379e63b6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8cd1b65_e3b421e2",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-11T10:52:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "974db6ea_ef23953a",
+      "range": {
+        "startLine": 132,
+        "startChar": 26,
+        "endLine": 132,
+        "endChar": 28
+      },
+      "revId": "b7c1726e808d594f5cfd1d94e5bfd151379e63b6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

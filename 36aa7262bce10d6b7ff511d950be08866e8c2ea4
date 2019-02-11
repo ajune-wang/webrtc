@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e3b920b1_579e9cdb",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-02-11T12:41:12Z",
+      "side": 1,
+      "message": "It seems like we could have removed this all along, and it does not have to do with the AGC... I\u0027ll update the CL. Thank you!\n\nhttps://clang.llvm.org/docs/ThreadSafetyAnalysis.html#no-checking-inside-constructors-and-destructors\n\"[..] during initialization, only one thread typically has access to the object which is being initialized, and it is thus safe (and common practice) to initialize guarded members without acquiring any locks.\"",
+      "parentUuid": "b55c3901_20f26a7b",
+      "range": {
+        "startLine": 391,
+        "startChar": 4,
+        "endLine": 391,
+        "endChar": 44
+      },
+      "revId": "36aa7262bce10d6b7ff511d950be08866e8c2ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce200812_949ea9d1",
         "filename": "modules/audio_processing/gain_control_impl.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "36aa7262bce10d6b7ff511d950be08866e8c2ea4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaa0cd44_232084e5",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-02-11T12:41:12Z",
+      "side": 1,
+      "message": "I think so too, in theory, but our annotations are not entirely up-to-date. RTC_REQUIRES is not in here:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/thread_annotations.h\n\n..so I assume EXCLUSIVE_LOCKS_REQUIRED is used everywhere else in WebRTC. Since they are equivalent, and it is so easy to update all of WebRTC once we do have an RTC_REQUIRES, we may as well use EXCLUSIVE_LOCKS_REQUIRED here, too, for consistency.",
+      "parentUuid": "ce200812_949ea9d1",
+      "range": {
+        "startLine": 69,
+        "startChar": 18,
+        "endLine": 69,
+        "endChar": 46
+      },
+      "revId": "36aa7262bce10d6b7ff511d950be08866e8c2ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

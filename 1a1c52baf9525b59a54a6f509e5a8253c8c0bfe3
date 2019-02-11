@@ -22,6 +22,30 @@
       "revId": "1a1c52baf9525b59a54a6f509e5a8253c8c0bfe3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f48d3c_1c099022",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-02-11T12:41:12Z",
+      "side": 0,
+      "message": "The annotation on Configure() requires that any caller must hold crit_capture_, so we are guaranteed that the lock is already held when someone calls Configure(). If not, there would be a compile error.\n\nThis reduces the number of times we take the locks, and eliminates theoretical race conditions like in enable_limiter():\n\n  {\n    rtc::CritScope cs(crit_capture_);\n    limiter_enabled_ \u003d enable;\n  }\n  // No lock is held here! Any function calls may happen until we enter Configure() and take the crit_capture lock again.\n  return Configure();\n\nIn short, I think it simplifies the code.\n\nhttps://clang.llvm.org/docs/ThreadSafetyAnalysis.html#requires-requires-shared\n\"..declares that the calling thread must have exclusive access to the given capabilities. [...] The capabilities must be held on entry to the function, and must still be held on exit.\"",
+      "parentUuid": "e62e8fdb_3a17e992",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 43
+      },
+      "revId": "1a1c52baf9525b59a54a6f509e5a8253c8c0bfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

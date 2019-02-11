@@ -21,6 +21,8 @@ RtcEventGenericPacketSent::RtcEventGenericPacketSent(int64_t packet_number,
       payload_length_(payload_length),
       padding_length_(padding_length) {}
 
+RtcEventGenericPacketSent::RtcEventGenericPacketSent(
+    const RtcEventGenericPacketSent& packet) = default;
 RtcEventGenericPacketSent::~RtcEventGenericPacketSent() = default;
 
 RtcEvent::Type RtcEventGenericPacketSent::GetType() const {

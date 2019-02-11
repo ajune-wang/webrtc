@@ -61,6 +61,7 @@ class VideoQualityTestFixtureInterface {
       size_t capture_device_index;
       SdpVideoFormat::Parameters sdp_params;
       bool partial_updates;
+      double encoder_overshoot_factor;
     } video[2];
     struct Audio {
       bool enabled;

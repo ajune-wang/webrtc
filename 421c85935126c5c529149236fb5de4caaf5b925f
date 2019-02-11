@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9226ad8a_56ff4dcc",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5501
+      },
+      "writtenOn": "2019-02-11T21:03:16Z",
+      "side": 1,
+      "message": "explicit GainControlImpl",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "421c85935126c5c529149236fb5de4caaf5b925f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

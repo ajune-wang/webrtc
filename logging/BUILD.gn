@@ -347,6 +347,10 @@ if (rtc_enable_protobuf) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
+    if (!build_with_chromium && is_clang) {
+      suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
   }
 
   if (rtc_include_tests) {

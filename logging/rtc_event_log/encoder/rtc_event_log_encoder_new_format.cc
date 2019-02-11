@@ -867,6 +867,7 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     EncodeVideoSendStreamConfig(video_send_stream_configs, &event_stream);
     EncodeIceCandidatePairConfig(ice_candidate_configs, &event_stream);
     EncodeIceCandidatePairEvent(ice_candidate_events, &event_stream);
+    EncodeGenericPacketsReceived(generic_packets_received, &event_stream);
   }  // Deallocate the temporary vectors.
 
   return event_stream.SerializeAsString();
@@ -1323,6 +1324,43 @@ void RtcEventLogEncoderNewFormat::EncodeRtpPacketIncoming(
   for (const auto& it : batch) {
     RTC_DCHECK(!it.second.empty());
     EncodeRtpPacket(it.second, event_stream->add_incoming_rtp_packets());
+  }
+}
+
+void RtcEventLogEncoderNewFormat::EncodeGenericPacketsReceived(
+    rtc::ArrayView<const RtcEventGenericPacketReceived*> batch,
+    rtclog2::EventStream* event_stream) {
+  const RtcEventGenericPacketReceived* const base_event = batch[0];
+  rtclog2::GenericPacketReceived* proto_batch =
+      event_stream->add_generic_packets_received();
+  proto_batch->set_timestamp_ms(base_event->timestamp_ms());
+  proto_batch->set_packet_number(base_event->packet_number());
+  proto_batch->set_packet_length(base_event->packet_length());
+
+  // Delta encoding
+  proto_batch->set_number_of_deltas(batch.size() - 1);
+  std::vector<absl::optional<uint64_t>> values(batch.size() - 1);
+  std::string encoded_deltas;
+
+  // timestamp_ms
+  for (size_t i = 0; i < values.size(); ++i) {
+    const RtcEventGenericPacketReceived* event = batch[i + 1];
+    values[i] = ToUnsigned(event->timestamp_ms());
+  }
+  encoded_deltas = EncodeDeltas(ToUnsigned(base_event->timestamp_ms()), values);
+  if (!encoded_deltas.empty()) {
+    proto_batch->set_timestamp_ms_deltas(encoded_deltas);
+  }
+
+  // packet_number
+  for (size_t i = 0; i < values.size(); ++i) {
+    const RtcEventGenericPacketReceived* event = batch[i + 1];
+    values[i] = ToUnsigned(event->packet_number());
+  }
+  encoded_deltas =
+      EncodeDeltas(ToUnsigned(base_event->packet_number()), values);
+  if (!encoded_deltas.empty()) {
+    proto_batch->set_packet_number_deltas(encoded_deltas);
   }
 }
 

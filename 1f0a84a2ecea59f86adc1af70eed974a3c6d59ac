@@ -22,6 +22,30 @@
       "revId": "1f0a84a2ecea59f86adc1af70eed974a3c6d59ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e54e29e4_0455843b",
+        "filename": "video/screenshare_loopback.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-11T09:40:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "b7576062_a873a23c",
+      "range": {
+        "startLine": 341,
+        "startChar": 21,
+        "endLine": 343,
+        "endChar": 50
+      },
+      "revId": "1f0a84a2ecea59f86adc1af70eed974a3c6d59ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

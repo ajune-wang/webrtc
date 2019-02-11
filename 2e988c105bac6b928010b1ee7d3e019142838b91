@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "741ca8a8_aa106296",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-02-11T12:58:45Z",
+      "side": 1,
+      "message": "checked_cast?",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 21
+      },
+      "revId": "2e988c105bac6b928010b1ee7d3e019142838b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3a499d_5d4c440d",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-02-11T12:58:45Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 178,
+        "startChar": 14,
+        "endLine": 178,
+        "endChar": 25
+      },
+      "revId": "2e988c105bac6b928010b1ee7d3e019142838b91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

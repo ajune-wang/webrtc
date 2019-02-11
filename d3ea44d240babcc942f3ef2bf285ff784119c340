@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1c45439f_4eed6451",
+        "filename": "test/scenario/network/cross_traffic.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-11T12:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8b5f8c8_456b7a45",
+      "revId": "d3ea44d240babcc942f3ef2bf285ff784119c340",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "483c7bc9_29b9ace5",
         "filename": "test/scenario/network/cross_traffic_unittest.cc",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "d3ea44d240babcc942f3ef2bf285ff784119c340",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3d3ad71_1da18e46",
+        "filename": "test/scenario/network/cross_traffic_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-11T12:29:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "483c7bc9_29b9ace5",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 55
+      },
+      "revId": "d3ea44d240babcc942f3ef2bf285ff784119c340",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

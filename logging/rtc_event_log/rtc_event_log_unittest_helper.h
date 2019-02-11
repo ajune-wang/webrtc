@@ -24,6 +24,9 @@
 #include "logging/rtc_event_log/events/rtc_event_bwe_update_loss_based.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_transport_state.h"
 #include "logging/rtc_event_log/events/rtc_event_dtls_writable_state.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_ack_received.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_packet_received.h"
+#include "logging/rtc_event_log/events/rtc_event_generic_packet_sent.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair.h"
 #include "logging/rtc_event_log/events/rtc_event_ice_candidate_pair_config.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
@@ -196,6 +199,18 @@ class EventVerifier {
   void VerifyLoggedRtpPacketOutgoing(
       const RtcEventRtpPacketOutgoing& original_event,
       const LoggedRtpPacketOutgoing& logged_event) const;
+
+  void VerifyLoggedGenericPacketSent(
+      const RtcEventGenericPacketSent& original_event,
+      const LoggedGenericPacketSent& logged_event) const;
+
+  void VerifyLoggedGenericPacketReceived(
+      const RtcEventGenericPacketReceived& original_event,
+      const LoggedGenericPacketReceived& logged_event) const;
+
+  void VerifyLoggedGenericAckReceived(
+      const RtcEventGenericAckReceived& original_event,
+      const LoggedGenericAckReceived& logged_event) const;
 
   template <typename EventType, typename ParsedType>
   void VerifyLoggedRtpPacket(const EventType& original_event,

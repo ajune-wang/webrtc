@@ -857,6 +857,27 @@ void EventVerifier::VerifyLoggedRtpPacketOutgoing(
   VerifyLoggedRtpHeader(original_event.header(), logged_event.rtp.header);
 }
 
+void EventVerifier::VerifyLoggedGenericPacketSent(
+    const RtcEventGenericPacketSent& original_event,
+    const LoggedGenericPacketSent& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
+}
+
+void EventVerifier::VerifyLoggedGenericPacketReceived(
+    const RtcEventGenericPacketReceived& original_event,
+    const LoggedGenericPacketReceived& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
+}
+
+void EventVerifier::VerifyLoggedGenericAckReceived(
+    const RtcEventGenericAckReceived& original_event,
+    const LoggedGenericAckReceived& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
+}
+
 void EventVerifier::VerifyLoggedRtcpPacketIncoming(
     const RtcEventRtcpPacketIncoming& original_event,
     const LoggedRtcpPacketIncoming& logged_event) const {

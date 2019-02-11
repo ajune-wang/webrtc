@@ -1074,6 +1074,29 @@
     },
     {
       "key": {
+        "uuid": "453b158e_b73d076a",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-11T13:03:32Z",
+      "side": 1,
+      "message": "These 3 are not needed:\n\nencoded_size can be used to infer media bandwidth used, but as you are planning to use GetStats to get bitrates, and it\u0027s a bad approximation, you can skip it.\n\nDecoder_reported_time_ms is replaced by your calculation. It depends on decoder implementation, and isn\u0027t trusted generally.\n\ndecoder_reported_qp is used to infer picture quality, but if you calculate PSNR and SSIM, its completely useless. It\u0027s also implementation dependent, so we can\u0027t compare it between tests.",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 64
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92f5ff9a_cfd09916",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 3

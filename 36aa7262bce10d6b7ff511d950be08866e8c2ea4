@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b55c3901_20f26a7b",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-02-11T12:09:18Z",
+      "side": 1,
+      "message": "can we delete this line now?",
+      "range": {
+        "startLine": 391,
+        "startChar": 4,
+        "endLine": 391,
+        "endChar": 44
+      },
+      "revId": "36aa7262bce10d6b7ff511d950be08866e8c2ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce200812_949ea9d1",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-02-11T12:09:18Z",
+      "side": 1,
+      "message": "Maybe just RTC_REQUIRES()? See https://clang.llvm.org/docs/ThreadSafetyAnalysis.html#requires-requires-shared",
+      "range": {
+        "startLine": 69,
+        "startChar": 18,
+        "endLine": 69,
+        "endChar": 46
+      },
+      "revId": "36aa7262bce10d6b7ff511d950be08866e8c2ea4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

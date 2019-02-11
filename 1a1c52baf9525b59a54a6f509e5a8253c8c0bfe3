@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e62e8fdb_3a17e992",
+        "filename": "modules/audio_processing/gain_control_impl.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-02-11T12:09:18Z",
+      "side": 0,
+      "message": "You declared int Configure() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_); - i.e., with a thread annotation. But you don\u0027t acquire the capture lock anymore. Why?",
+      "range": {
+        "startLine": 419,
+        "startChar": 2,
+        "endLine": 419,
+        "endChar": 43
+      },
+      "revId": "1a1c52baf9525b59a54a6f509e5a8253c8c0bfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

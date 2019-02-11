@@ -397,6 +397,28 @@ EventGenerator::NewRtcpPacketOutgoing() {
   }
 }
 
+std::unique_ptr<RtcEventGenericPacketSent>
+EventGenerator::NewGenericPacketSent() {
+  return absl::make_unique<RtcEventGenericPacketSent>(
+      sent_packet_number_++, prng_.Rand(40, 50), prng_.Rand(0, 150),
+      prng_.Rand(0, 1000));
+}
+std::unique_ptr<RtcEventGenericPacketReceived>
+EventGenerator::NewGenericPacketReceived() {
+  return absl::make_unique<RtcEventGenericPacketReceived>(
+      received_packet_number_++, prng_.Rand(40, 250));
+}
+std::unique_ptr<RtcEventGenericAckReceived>
+EventGenerator::NewGenericAckReceived() {
+  absl::optional<int64_t> receive_timestamp = absl::nullopt;
+  if (prng_.Rand(0, 2) > 0) {
+    receive_timestamp = prng_.Rand(0, 100000);
+  }
+  AckedPacket packet = {prng_.Rand(40, 250), receive_timestamp};
+  return std::move(RtcEventGenericAckReceived::CreateLogs(
+      received_packet_number_++, std::vector<AckedPacket>{packet})[0]);
+}
+
 void EventGenerator::RandomizeRtpPacket(
     size_t payload_size,
     size_t padding_size,
@@ -855,6 +877,27 @@ void EventVerifier::VerifyLoggedRtpPacketOutgoing(
   // someone has a strong reason to keep it, it'll be removed.
 
   VerifyLoggedRtpHeader(original_event.header(), logged_event.rtp.header);
+}
+
+void EventVerifier::VerifyLoggedGenericPacketSent(
+    const RtcEventGenericPacketSent& original_event,
+    const LoggedGenericPacketSent& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
+}
+
+void EventVerifier::VerifyLoggedGenericPacketReceived(
+    const RtcEventGenericPacketReceived& original_event,
+    const LoggedGenericPacketReceived& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
+}
+
+void EventVerifier::VerifyLoggedGenericAckReceived(
+    const RtcEventGenericAckReceived& original_event,
+    const LoggedGenericAckReceived& logged_event) const {
+  EXPECT_EQ(original_event.timestamp_ms(), logged_event.log_time_ms());
+  EXPECT_EQ(original_event.packet_number(), logged_event.packet_number);
 }
 
 void EventVerifier::VerifyLoggedRtcpPacketIncoming(

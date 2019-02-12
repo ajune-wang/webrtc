@@ -25,6 +25,13 @@ namespace webrtc {
 
 class RTC_EXPORT VideoFrame {
  public:
+  struct UpdateRect {
+    int offset_x;
+    int offset_y;
+    int width;
+    int height;
+  };
+
   // Preferred way of building VideoFrame objects.
   class Builder {
    public:
@@ -42,6 +49,7 @@ class RTC_EXPORT VideoFrame {
     Builder& set_color_space(const absl::optional<ColorSpace>& color_space);
     Builder& set_color_space(const ColorSpace* color_space);
     Builder& set_id(uint16_t id);
+    Builder& set_update_rect(const UpdateRect& update_rect);
 
    private:
     uint16_t id_ = 0;
@@ -51,6 +59,7 @@ class RTC_EXPORT VideoFrame {
     int64_t ntp_time_ms_ = 0;
     VideoRotation rotation_ = kVideoRotation_0;
     absl::optional<ColorSpace> color_space_;
+    absl::optional<UpdateRect> update_rect_;
   };
 
   // To be deprecated. Migrate all use to Builder.
@@ -145,6 +154,13 @@ class RTC_EXPORT VideoFrame {
     return video_frame_buffer()->type() == VideoFrameBuffer::Type::kNative;
   }
 
+  // Always initialized to whole frame update, can be set by Builder or manually
+  // by |set_update_rect|.
+  UpdateRect update_rect() const { return update_rect_; }
+  void set_update_rect(const VideoFrame::UpdateRect& update_rect) {
+    update_rect_ = update_rect;
+  }
+
  private:
   VideoFrame(uint16_t id,
              const rtc::scoped_refptr<VideoFrameBuffer>& buffer,
@@ -152,7 +168,8 @@ class RTC_EXPORT VideoFrame {
              uint32_t timestamp_rtp,
              int64_t ntp_time_ms,
              VideoRotation rotation,
-             const absl::optional<ColorSpace>& color_space);
+             const absl::optional<ColorSpace>& color_space,
+             const absl::optional<UpdateRect>& update_rect);
 
   uint16_t id_;
   // An opaque reference counted handle that stores the pixel data.
@@ -162,6 +179,9 @@ class RTC_EXPORT VideoFrame {
   int64_t timestamp_us_;
   VideoRotation rotation_;
   absl::optional<ColorSpace> color_space_;
+  // Updated since the last frame area. Unless set explicitly, will always be
+  // a full frame rectangle.
+  UpdateRect update_rect_;
 };
 
 }  // namespace webrtc

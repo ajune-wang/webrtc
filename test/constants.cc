@@ -13,15 +13,20 @@
 namespace webrtc {
 namespace test {
 
-const int kAudioLevelExtensionId = 5;
-const int kTOffsetExtensionId = 6;
-const int kAbsSendTimeExtensionId = 7;
-const int kTransportSequenceNumberExtensionId = 8;
-const int kVideoRotationExtensionId = 9;
-const int kVideoContentTypeExtensionId = 10;
-const int kVideoTimingExtensionId = 11;
-const int kGenericDescriptorExtensionId = 12;
-const int kColorSpaceExtensionId = 13;
+const int kAudioLevelExtensionId = 1;
+const int kTimestampOffsetExtensionId = 2;
+const int kAbsSendTimeExtensionId = 3;
+const int kVideoRotationExtensionId = 4;
+const int kTransportSequenceNumberExtensionId = 5;
+const int kPlayoutDelayExtensionId = 6;
+const int kVideoContentTypeExtensionId = 7;
+const int kVideoTimingExtensionId = 8;
+const int kMidExtensionId = 9;
+const int kFrameMarkingExtensionId = 10;
+const int kGenericFrameDescriptorExtensionId = 11;
+const int kColorSpaceExtensionId = 12;
+const int kRidExtensionId = 13;
+const int kRepairedRidExtensionId = 14;
 
 }  // namespace test
 }  // namespace webrtc

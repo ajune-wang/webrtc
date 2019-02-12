@@ -215,7 +215,8 @@ TEST_F(VideoSendStreamTest, SupportsTransmissionTimeOffset) {
                 Clock::GetRealTimeClock(), kEncodeDelayMs);
           }) {
       EXPECT_TRUE(parser_->RegisterRtpHeaderExtension(
-          kRtpExtensionTransmissionTimeOffset, test::kTOffsetExtensionId));
+          kRtpExtensionTransmissionTimeOffset,
+          test::kTimestampOffsetExtensionId));
     }
 
    private:
@@ -238,8 +239,9 @@ TEST_F(VideoSendStreamTest, SupportsTransmissionTimeOffset) {
         VideoEncoderConfig* encoder_config) override {
       send_config->encoder_settings.encoder_factory = &encoder_factory_;
       send_config->rtp.extensions.clear();
-      send_config->rtp.extensions.push_back(RtpExtension(
-          RtpExtension::kTimestampOffsetUri, test::kTOffsetExtensionId));
+      send_config->rtp.extensions.push_back(
+          RtpExtension(RtpExtension::kTimestampOffsetUri,
+                       test::kTimestampOffsetExtensionId));
     }
 
     void PerformTest() override {
@@ -753,8 +755,9 @@ class FlexfecObserver : public test::EndToEndTest {
     if (header_extensions_enabled_) {
       send_config->rtp.extensions.push_back(RtpExtension(
           RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId));
-      send_config->rtp.extensions.push_back(RtpExtension(
-          RtpExtension::kTimestampOffsetUri, test::kTOffsetExtensionId));
+      send_config->rtp.extensions.push_back(
+          RtpExtension(RtpExtension::kTimestampOffsetUri,
+                       test::kTimestampOffsetExtensionId));
     } else {
       send_config->rtp.extensions.clear();
     }

@@ -24,6 +24,7 @@
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/rate_limiter.h"
+#include "test/constants.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -34,13 +35,16 @@ namespace {
 
 using ::testing::ElementsAre;
 
-constexpr int kTransmissionTimeOffsetExtensionId = 1;
-constexpr int kAbsoluteSendTimeExtensionId = 14;
-constexpr int kTransportSequenceNumberExtensionId = 13;
-constexpr int kVideoTimingExtensionId = 12;
-constexpr int kGenericDescriptorId = 10;
-constexpr int kFrameMarkingExtensionId = 6;
-constexpr int kVideoRotationExtensionId = 5;
+const int kTransmissionTimeOffsetExtensionId =
+    test::kTimestampOffsetExtensionId;
+const int kAbsoluteSendTimeExtensionId = test::kAbsSendTimeExtensionId;
+const int kTransportSequenceNumberExtensionId =
+    test::kTransportSequenceNumberExtensionId;
+const int kVideoTimingExtensionId = test::kVideoTimingExtensionId;
+const int kGenericDescriptorId = test::kGenericFrameDescriptorExtensionId;
+const int kFrameMarkingExtensionId = test::kFrameMarkingExtensionId;
+const int kVideoRotationExtensionId = test::kVideoRotationExtensionId;
+
 constexpr int kPayload = 100;
 constexpr uint32_t kTimestamp = 10;
 constexpr uint16_t kSeqNum = 33;

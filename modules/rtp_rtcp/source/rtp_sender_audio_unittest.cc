@@ -16,13 +16,13 @@
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
 #include "modules/rtp_rtcp/source/rtp_sender_audio.h"
+#include "test/constants.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
 namespace webrtc {
 
 namespace {
-const int kAudioLevelExtensionId = 9;
 const uint16_t kSeqNum = 33;
 const uint32_t kSsrc = 725242;
 const uint8_t kAudioLevel = 0x5a;
@@ -35,7 +35,7 @@ class LoopbackTransportTest : public webrtc::Transport {
  public:
   LoopbackTransportTest() {
     receivers_extensions_.Register(kRtpExtensionAudioLevel,
-                                   kAudioLevelExtensionId);
+                                   test::kAudioLevelExtensionId);
   }
 
   bool SendRtp(const uint8_t* data,
@@ -104,8 +104,8 @@ TEST_F(RtpSenderAudioTest, SendAudio) {
 
 TEST_F(RtpSenderAudioTest, SendAudioWithAudioLevelExtension) {
   EXPECT_EQ(0, rtp_sender_audio_.SetAudioLevel(kAudioLevel));
-  EXPECT_EQ(0, rtp_sender_.RegisterRtpHeaderExtension(kRtpExtensionAudioLevel,
-                                                      kAudioLevelExtensionId));
+  EXPECT_EQ(0, rtp_sender_.RegisterRtpHeaderExtension(
+                   kRtpExtensionAudioLevel, test::kAudioLevelExtensionId));
 
   const char payload_name[] = "PAYLOAD_NAME";
   const uint8_t payload_type = 127;

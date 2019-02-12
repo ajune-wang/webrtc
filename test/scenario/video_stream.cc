@@ -27,8 +27,11 @@
 namespace webrtc {
 namespace test {
 namespace {
+constexpr int kTransportSequenceNumberExtensionId = 1;
+constexpr int kVideoContentTypeExtensionId = 2;
+constexpr int kVideoRotationRtpExtensionId = 3;
+
 constexpr int kDefaultMaxQp = cricket::WebRtcVideoChannel::kDefaultQpMax;
-const int kVideoRotationRtpExtensionId = 4;
 uint8_t CodecTypeToPayloadType(VideoCodecType codec_type) {
   switch (codec_type) {
     case VideoCodecType::kVideoCodecGeneric:

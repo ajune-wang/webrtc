@@ -47,6 +47,12 @@
 namespace webrtc {
 
 namespace {
+constexpr int kAbsSendTimeExtensionId = 1;
+constexpr int kGenericFrameDescriptorExtensionId = 2;
+constexpr int kTransportSequenceNumberExtensionId = 3;
+constexpr int kVideoContentTypeExtensionId = 4;
+constexpr int kVideoTimingExtensionId = 5;
+
 constexpr char kSyncGroup[] = "av_sync";
 constexpr int kOpusMinBitrateBps = 6000;
 constexpr int kOpusBitrateFbBps = 32000;
@@ -587,10 +593,10 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     if (params_.call.send_side_bwe) {
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
           RtpExtension::kTransportSequenceNumberUri,
-          test::kTransportSequenceNumberExtensionId);
+          kTransportSequenceNumberExtensionId);
     } else {
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
-          RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId);
+          RtpExtension::kAbsSendTimeUri, kAbsSendTimeExtensionId);
     }
 
     if (params_.call.generic_descriptor) {
@@ -601,13 +607,13 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
 
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
           RtpExtension::kGenericFrameDescriptorUri,
-          test::kGenericDescriptorExtensionId);
+          kGenericFrameDescriptorExtensionId);
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(
-        RtpExtension::kVideoContentTypeUri, test::kVideoContentTypeExtensionId);
+        RtpExtension::kVideoContentTypeUri, kVideoContentTypeExtensionId);
     video_send_configs_[video_idx].rtp.extensions.emplace_back(
-        RtpExtension::kVideoTimingUri, test::kVideoTimingExtensionId);
+        RtpExtension::kVideoTimingUri, kVideoTimingExtensionId);
 
     video_encoder_configs_[video_idx].video_format.name =
         params_.video[video_idx].codec;
@@ -755,10 +761,10 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
     if (params_.call.send_side_bwe) {
       GetFlexFecConfig()->rtp_header_extensions.push_back(
           RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                       test::kTransportSequenceNumberExtensionId));
+                       kTransportSequenceNumberExtensionId));
     } else {
-      GetFlexFecConfig()->rtp_header_extensions.push_back(RtpExtension(
-          RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId));
+      GetFlexFecConfig()->rtp_header_extensions.push_back(
+          RtpExtension(RtpExtension::kAbsSendTimeUri, kAbsSendTimeExtensionId));
     }
   }
 
@@ -796,10 +802,10 @@ void VideoQualityTest::SetupThumbnails(Transport* send_transport,
     if (params_.call.send_side_bwe) {
       thumbnail_send_config.rtp.extensions.push_back(
           RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                       test::kTransportSequenceNumberExtensionId));
+                       kTransportSequenceNumberExtensionId));
     } else {
-      thumbnail_send_config.rtp.extensions.push_back(RtpExtension(
-          RtpExtension::kAbsSendTimeUri, test::kAbsSendTimeExtensionId));
+      thumbnail_send_config.rtp.extensions.push_back(
+          RtpExtension(RtpExtension::kAbsSendTimeUri, kAbsSendTimeExtensionId));
     }
 
     VideoEncoderConfig thumbnail_encoder_config;
@@ -1232,7 +1238,7 @@ void VideoQualityTest::SetupAudio(Transport* transport) {
   if (params_.call.send_side_bwe) {
     audio_send_config.rtp.extensions.push_back(
         webrtc::RtpExtension(webrtc::RtpExtension::kTransportSequenceNumberUri,
-                             test::kTransportSequenceNumberExtensionId));
+                             kTransportSequenceNumberExtensionId));
     audio_send_config.min_bitrate_bps = kOpusMinBitrateBps;
     audio_send_config.max_bitrate_bps = kOpusBitrateFbBps;
     audio_send_config.send_codec_spec->transport_cc_enabled = true;

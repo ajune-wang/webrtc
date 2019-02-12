@@ -28,6 +28,13 @@
 
 namespace webrtc {
 namespace test {
+namespace {
+constexpr int kColorSpaceExtensionId = 1;
+constexpr int kGenericFrameDescriptorExtensionId = 2;
+constexpr int kTransportSequenceNumberExtensionId = 3;
+constexpr int kVideoContentTypeExtensionId = 4;
+constexpr int kVideoRotationExtensionId = 5;
+}  // namespace
 
 CallTest::CallTest()
     : clock_(Clock::GetRealTimeClock()),
@@ -240,8 +247,9 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
                    kTransportSequenceNumberExtensionId));
   video_config->rtp.extensions.push_back(RtpExtension(
       RtpExtension::kVideoContentTypeUri, kVideoContentTypeExtensionId));
-  video_config->rtp.extensions.push_back(RtpExtension(
-      RtpExtension::kGenericFrameDescriptorUri, kGenericDescriptorExtensionId));
+  video_config->rtp.extensions.push_back(
+      RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
+                   kGenericFrameDescriptorExtensionId));
   if (video_encoder_configs_.empty()) {
     video_encoder_configs_.emplace_back();
     FillEncoderConfiguration(kVideoCodecGeneric, num_video_streams,

@@ -21,7 +21,6 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
 #include "system_wrappers/include/field_trial.h"
-#include "test/constants.h"
 #include "test/direct_transport.h"
 #include "test/gtest.h"
 
@@ -72,8 +71,12 @@ class RtpRtcpObserver {
   RtpRtcpObserver() : RtpRtcpObserver(0) {}
   explicit RtpRtcpObserver(int event_timeout_ms)
       : parser_(RtpHeaderParser::Create()), timeout_ms_(event_timeout_ms) {
+    // TODO: !!!
+    const int kTimestampOffsetExtensionId = 1;
+    const int kAbsSendTimeExtensionId = 2;
+    const int kTransportSequenceNumberExtensionId = 3;
     parser_->RegisterRtpHeaderExtension(kRtpExtensionTransmissionTimeOffset,
-                                        kTOffsetExtensionId);
+                                        kTimestampOffsetExtensionId);
     parser_->RegisterRtpHeaderExtension(kRtpExtensionAbsoluteSendTime,
                                         kAbsSendTimeExtensionId);
     parser_->RegisterRtpHeaderExtension(kRtpExtensionTransportSequenceNumber,

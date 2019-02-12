@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a4bcf9c_ca5996d6",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "Should packet_number be unsigned, or is there a use case for negative numbers?",
+      "range": {
+        "startLine": 1369,
+        "startChar": 34,
+        "endLine": 1369,
+        "endChar": 47
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9287934d_bb1ce542",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "padding_length",
+      "range": {
+        "startLine": 1397,
+        "startChar": 5,
+        "endLine": 1397,
+        "endChar": 19
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "895ec65f_b9f3ed81",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "I assume this block should be removed in a follow up CL? Please add a TODO.",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 3
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bfbd14a_3300f43f",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "ToUnsigned?",
+      "range": {
+        "startLine": 1525,
+        "startChar": 16,
+        "endLine": 1525,
+        "endChar": 45
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deec672b_84333626",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "Documentation about whether the field de facto is required or whether it actually can be missing would be good. Also documentation about the contents, when not obvious. E.g lengths are in bytes, receive time refers to the receive time of the media packet rather than the ack.",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bec5f1bc_a7111cbc",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "I\u0027d prefer acked_packet_receive_time_ms to emphasize the difference from timestamp_ms.",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26057c24_fdccdffc",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "I suggest reserving the small field numbers (\u003c15) for future use. Most of the other classes use field numbers starting at 101 for the deltas. If you want to avoid the additional 1 byte overhead for the higher field numbers, I\u0027d still suggest using the numbers [15-#fields, 15] for the deltas.\n\nRationale: When not delta encoding (or encoding with small batch sizes) there will be a lot of base events without deltas. Field numbers above 15 require an additional byte for each field. When delta encoding with large batch sizes, the additional overhead is likely less important.",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 40
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af5eb5b6_212430ad",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "The convention in other event types is to place the number of deltas before the delta encodings.",
+      "range": {
+        "startLine": 91,
+        "startChar": 18,
+        "endLine": 91,
+        "endChar": 34
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7072dbc_7ec27897",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "It should CHECK that these values exist, right?",
+      "range": {
+        "startLine": 2536,
+        "startChar": 29,
+        "endLine": 2538,
+        "endChar": 61
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9c888e4_697bb819",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "Afaik, we deleted the copy constructor and used an explicit Copy() to avoid accidental copying in production code.",
+      "range": {
+        "startLine": 500,
+        "startChar": 42,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3866b48b_d6f766ac",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-12T16:19:59Z",
+      "side": 1,
+      "message": "EXPECT_EQ(original_event.receive_time, logged_event.receive_time) or TODO?",
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

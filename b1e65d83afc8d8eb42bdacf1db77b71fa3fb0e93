@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66cbb893_c01ce97b",
+        "filename": "call/call_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T09:02:29Z",
+      "side": 1,
+      "message": "Is this a reasonable location for this function? Or should it (and declaration) move to api/call/ ?",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 39
+      },
+      "revId": "b1e65d83afc8d8eb42bdacf1db77b71fa3fb0e93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -201,6 +201,29 @@
     },
     {
       "key": {
+        "uuid": "19157a33_cdd5924b",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T05:01:31Z",
+      "side": 1,
+      "message": "I think we discussed it offline, so I am just writing it down for posterity:\nThis currently does two things: prints the results, and reports the results. \nIt may be beneficial to separate them.\n\nSecond of all, I think we should have a method that takes StreamStats and prints them (e.g. ReportResults(StreamStats stats) that is a standalone method (in the future maybe even an interface) that reports the results.\n\nSuch method shouldn\u0027t need to access private stream_stats_, and wouldn\u0027t need to aquire any locks.\n\nSo at least consider a static ReportResutls(StreamStats stats, string trace_name) and make the current method wrap around the other static method.",
+      "range": {
+        "startLine": 330,
+        "startChar": 34,
+        "endLine": 330,
+        "endChar": 47
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a59b4d72_5d82a208",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
         "patchSetId": 3
@@ -421,6 +444,29 @@
       "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0c37915_9e720b37",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T05:01:31Z",
+      "side": 1,
+      "message": "this can be static, right? It doesn\u0027t depend on any instance fields, does it? (other than maybe gettracename, but arguably, this could be passed in the parameter)",
+      "range": {
+        "startLine": 531,
+        "startChar": 34,
+        "endLine": 531,
+        "endChar": 46
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

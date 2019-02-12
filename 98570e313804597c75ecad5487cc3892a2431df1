@@ -46,6 +46,30 @@
       "revId": "98570e313804597c75ecad5487cc3892a2431df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d0fd01_f326135e",
+        "filename": "rtc_base/thread_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-12T16:56:09Z",
+      "side": 1,
+      "message": "Rather than \"fix\" this class, you can add a default member initializer to the class that has a `const ThreadCheckerDoNothing` member. IMO that\u0027s somewhat less ugly, since it puts the workaround closer to the actual problem. https://godbolt.org/z/cOFt_n",
+      "parentUuid": "00a149f8_abe35729",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "98570e313804597c75ecad5487cc3892a2431df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

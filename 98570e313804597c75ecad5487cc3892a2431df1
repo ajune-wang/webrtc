@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b12e4375_a48515e0",
+        "filename": "rtc_base/thread_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-12T16:30:34Z",
+      "side": 1,
+      "message": "Can you say \u003ddefault here instead? So that the compiler will consider the type trivially default constructible.",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "98570e313804597c75ecad5487cc3892a2431df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

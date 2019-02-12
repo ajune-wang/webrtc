@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6018554_a89a915a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-12T17:27:31Z",
+      "side": 1,
+      "message": "I have changed maximum delay to 0 so it becomes unconstrained as it was effectively for the last years as it is the safest option. But I wonder can I also delete receiver_.RemoveAllCodecs(); and  receiver_.FlushBuffers(); as NetEq shouldn\u0027t have packets initially and DecoderDatabase\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/neteq/decoder_database.cc?dr\u0026g\u003d0\u0026l\u003d27\nseems to have no decoders on its creation? Because if we can remove them then we can delete entire method from implementation and interface.",
+      "revId": "cee61309e0d4302605800c76812bc3969ca97d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

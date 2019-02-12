@@ -12,6 +12,7 @@
 
 #include <map>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "api/test/simulated_network.h"
@@ -21,7 +22,6 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/event.h"
 #include "system_wrappers/include/field_trial.h"
-#include "test/constants.h"
 #include "test/direct_transport.h"
 #include "test/gtest.h"
 
@@ -43,6 +43,23 @@ class RtpRtcpObserver {
   };
 
   virtual ~RtpRtcpObserver() {}
+
+  void RegisterRtpHeaderExtension(
+      const std::vector<std::pair<RTPExtensionType, uint8_t>>& extensions) {
+    for (const auto& extension : extensions) {
+      parser_->RegisterRtpHeaderExtension(extension.first, extension.second);
+    }
+    // // TODO: !!!
+    // const int kTimestampOffsetExtensionId = 14;
+    // const int kAbsSendTimeExtensionId = 13;
+    // const int kTransportSequenceNumberExtensionId = 12;
+    // parser_->RegisterRtpHeaderExtension(kRtpExtensionTransmissionTimeOffset,
+    //                                     kTimestampOffsetExtensionId);
+    // parser_->RegisterRtpHeaderExtension(kRtpExtensionAbsoluteSendTime,
+    //                                     kAbsSendTimeExtensionId);
+    // parser_->RegisterRtpHeaderExtension(kRtpExtensionTransportSequenceNumber,
+    //                                     kTransportSequenceNumberExtensionId);
+  }
 
   virtual bool Wait() {
     if (field_trial::IsEnabled("WebRTC-QuickPerfTest")) {
@@ -71,14 +88,7 @@ class RtpRtcpObserver {
  protected:
   RtpRtcpObserver() : RtpRtcpObserver(0) {}
   explicit RtpRtcpObserver(int event_timeout_ms)
-      : parser_(RtpHeaderParser::Create()), timeout_ms_(event_timeout_ms) {
-    parser_->RegisterRtpHeaderExtension(kRtpExtensionTransmissionTimeOffset,
-                                        kTOffsetExtensionId);
-    parser_->RegisterRtpHeaderExtension(kRtpExtensionAbsoluteSendTime,
-                                        kAbsSendTimeExtensionId);
-    parser_->RegisterRtpHeaderExtension(kRtpExtensionTransportSequenceNumber,
-                                        kTransportSequenceNumberExtensionId);
-  }
+      : parser_(RtpHeaderParser::Create()), timeout_ms_(event_timeout_ms) {}
 
   rtc::Event observation_complete_;
   const std::unique_ptr<RtpHeaderParser> parser_;

@@ -40,16 +40,17 @@
 namespace webrtc {
 
 namespace {
-const int kTransmissionTimeOffsetExtensionId = 1;
-const int kAbsoluteSendTimeExtensionId = 14;
-const int kTransportSequenceNumberExtensionId = 13;
-const int kVideoTimingExtensionId = 12;
-const int kMidExtensionId = 11;
-const int kGenericDescriptorId = 10;
-const int kAudioLevelExtensionId = 9;
-const int kRidExtensionId = 8;
-const int kRepairedRidExtensionId = 7;
-const int kVideoRotationExtensionId = 5;
+constexpr int kAbsoluteSendTimeExtensionId = 1;
+constexpr int kAudioLevelExtensionId = 2;
+constexpr int kGenericDescriptorId = 3;
+constexpr int kMidExtensionId = 4;
+constexpr int kRepairedRidExtensionId = 5;
+constexpr int kRidExtensionId = 6;
+constexpr int kTransmissionTimeOffsetExtensionId = 7;
+constexpr int kTransportSequenceNumberExtensionId = 8;
+constexpr int kVideoRotationExtensionId = 9;
+constexpr int kVideoTimingExtensionId = 10;
+
 const int kPayload = 100;
 const int kRtxPayload = 98;
 const uint32_t kTimestamp = 10;

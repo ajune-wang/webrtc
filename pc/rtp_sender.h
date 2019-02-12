@@ -59,6 +59,10 @@ class RtpSenderInternal : public RtpSenderInterface {
   // otherwise remains constant. Used to generate IDs for stats.
   // The special value zero means that no track is attached.
   virtual int AttachmentId() const = 0;
+
+  // Disables the layers identified by the specified RIDs.
+  virtual RTCError DisableEncodingLayers(
+      const std::vector<std::string>& rid) = 0;
 };
 
 // LocalAudioSinkAdapter receives data callback as a sink to the local
@@ -163,6 +167,8 @@ class AudioRtpSender : public DtmfProviderInterface,
 
   void SetMediaChannel(cricket::MediaChannel* media_channel) override;
 
+  RTCError DisableEncodingLayers(const std::vector<std::string>& rids) override;
+
  private:
   // TODO(nisse): Since SSRC == 0 is technically valid, figure out
   // some other way to test if we have a valid SSRC.
@@ -262,6 +268,8 @@ class VideoRtpSender : public ObserverInterface,
 
   void SetMediaChannel(cricket::MediaChannel* media_channel) override;
 
+  RTCError DisableEncodingLayers(const std::vector<std::string>& rids) override;
+
  private:
   bool can_send_track() const { return track_ && ssrc_; }
   // Helper function to construct options for
@@ -284,6 +292,7 @@ class VideoRtpSender : public ObserverInterface,
   int attachment_id_ = 0;
   rtc::scoped_refptr<FrameEncryptorInterface> frame_encryptor_;
   rtc::scoped_refptr<DtlsTransportInterface> dtls_transport_;
+  std::vector<std::string> disabled_rids_;
 };
 
 }  // namespace webrtc

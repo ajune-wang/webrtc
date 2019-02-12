@@ -40,6 +40,13 @@ webrtc::RtpParameters CreateRtpParametersWithEncodings(StreamParams sp) {
   for (size_t i = 0; i < encodings.size(); ++i) {
     encodings[i].ssrc = primary_ssrcs[i];
   }
+
+  const std::vector<RidDescription>& rids = sp.rids();
+  RTC_DCHECK(rids.size() == 0 || rids.size() == encoding_count);
+  for (size_t i = 0; i < rids.size(); ++i) {
+    encodings[i].rid = rids[i].rid;
+  }
+
   webrtc::RtpParameters parameters;
   parameters.encodings = encodings;
   parameters.rtcp.cname = sp.cname;
@@ -95,6 +102,25 @@ webrtc::RTCError CheckRtpParametersValues(
   return webrtc::RTCError::OK();
 }
 
+// Verifies that the values of the property accessed via the |PropertyAccessor|
+// have not changed between the two vectors.
+// The order that the property is specified is also checked.
+// Entries can be removed from |old_encodings| but not added.
+template <typename PropertyAccessor>
+static bool VerifyPropertiesHaveNotChanged(
+    const std::vector<webrtc::RtpEncodingParameters>& old_encodings,
+    const std::vector<webrtc::RtpEncodingParameters>& encodings,
+    PropertyAccessor accessor) {
+  size_t index = 0;
+  for (const webrtc::RtpEncodingParameters& encoding : old_encodings) {
+    if (index < encodings.size() &&
+        accessor(encoding) == accessor(encodings[index])) {
+      ++index;
+    }
+  }
+  return index == encodings.size();
+}
+
 webrtc::RTCError CheckRtpParametersInvalidModificationAndValues(
     const webrtc::RtpParameters& old_rtp_parameters,
     const webrtc::RtpParameters& rtp_parameters) {
@@ -103,6 +129,13 @@ webrtc::RTCError CheckRtpParametersInvalidModificationAndValues(
     LOG_AND_RETURN_ERROR(
         RTCErrorType::INVALID_MODIFICATION,
         "Attempted to set RtpParameters with different encoding count");
+  }
+  if (!VerifyPropertiesHaveNotChanged(
+          old_rtp_parameters.encodings, rtp_parameters.encodings,
+          [](const webrtc::RtpEncodingParameters& encoding)
+              -> const std::string& { return encoding.rid; })) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
+                         "Attempted to change RID values in the encodings.");
   }
   if (rtp_parameters.rtcp != old_rtp_parameters.rtcp) {
     LOG_AND_RETURN_ERROR(
@@ -115,13 +148,13 @@ webrtc::RTCError CheckRtpParametersInvalidModificationAndValues(
         RTCErrorType::INVALID_MODIFICATION,
         "Attempted to set RtpParameters with modified header extensions");
   }
-
-  for (size_t i = 0; i < rtp_parameters.encodings.size(); ++i) {
-    if (rtp_parameters.encodings[i].ssrc !=
-        old_rtp_parameters.encodings[i].ssrc) {
-      LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
-                           "Attempted to set RtpParameters with modified SSRC");
-    }
+  if (!VerifyPropertiesHaveNotChanged(
+          old_rtp_parameters.encodings, rtp_parameters.encodings,
+          [](const webrtc::RtpEncodingParameters& encoding) {
+            return encoding.ssrc;
+          })) {
+    LOG_AND_RETURN_ERROR(RTCErrorType::INVALID_MODIFICATION,
+                         "Attempted to set RtpParameters with modified SSRC");
   }
 
   return CheckRtpParametersValues(rtp_parameters);

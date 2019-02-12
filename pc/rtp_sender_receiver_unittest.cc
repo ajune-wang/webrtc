@@ -1110,20 +1110,6 @@ TEST_F(RtpSenderReceiverTest,
   DestroyVideoRtpSender();
 }
 
-TEST_F(RtpSenderReceiverTest, VideoSenderCanSetRid) {
-  CreateVideoRtpSender();
-  RtpParameters params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  const std::string rid = "dummy_rid";
-  params.encodings[0].rid = rid;
-  EXPECT_TRUE(video_rtp_sender_->SetParameters(params).ok());
-  params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  EXPECT_EQ(rid, params.encodings[0].rid);
-
-  DestroyVideoRtpSender();
-}
-
 TEST_F(RtpSenderReceiverTest, VideoSenderCanSetScaleResolutionDownBy) {
   CreateVideoRtpSender();
 

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ca77fae_c08aedd5",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T10:29:01Z",
+      "side": 1,
+      "message": "Added TODOs. Should be pure virtual whn downstream implementation is updated.",
+      "parentUuid": "de9ef9de_14d554c9",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a68f36a0_45a72c0b",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-12T09:49:50Z",
       "side": 1,
       "message": "What\u0027s the rationale for having these objects? The impls currently look like lambdas binding channel_id to a transport.",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cf0668d_1fcc473e",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T10:29:01Z",
+      "side": 1,
+      "message": "They\u0027re intended to encapsulate everything an audio send stream (or receive stream) needs from the MediaTransport.\n\nFor audio, they\u0027re expected to be quite thin, but for video and rtp, implementation is going to be similar to the current RtpVideoSender class.",
+      "parentUuid": "a68f36a0_45a72c0b",
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "996d87bf_d5808d4c",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T10:29:01Z",
+      "side": 1,
+      "message": "The expectation is the the AudioSender will be owned by AudioSendStream, and that one mustn\u0027t delete the MediaTransport under the feet of live streams.\n\nAny concrete suggestion? It\u0027s possible to add a count of sender objects in the MediaTransport and DCHECK that it\u0027s zero on destruction. But not sure if it\u0027s worth the effort.",
+      "parentUuid": "3cbe5ee9_bfd25411",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3cdfb0d0_616e242e",
         "filename": "api/test/loopback_media_transport.h",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-12T09:49:50Z",
       "side": 1,
       "message": "Is the audio_sink_ in audio_sinks_ ?",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b634667_c0d36d7a",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T10:29:01Z",
+      "side": 1,
+      "message": "No, it\u0027s a fallback for code not yet converted to use CreateAudioReceiver. Added TODO.",
+      "parentUuid": "3cdfb0d0_616e242e",
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -153,6 +225,30 @@
       "side": 1,
       "message": "+1, do we need the error code? If this function is called in a way where the transport can\u0027t work with the data, that\u0027s a programming error -\u003e DCHECK.",
       "parentUuid": "56876a45_04ae60f8",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05a96ec8_bb5cae18",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T10:29:01Z",
+      "side": 1,
+      "message": "I think I\u0027ll delete the return value. Rationale:\n\n1. Early errors, e.g., in packetization, is a sign of programming error, and should log and/or crash, with no error handling required in the caller.\n\n2. The interesting measure of success is whether or not the frame made it to the remote side. Proper handling of lost data is the responsibility of code quite far away from the direct caller of SendAudioFrame, e.g., retransmission and adjusting bandwidth estimate or FEC parameters. So a return value at this point isn\u0027t very useful.",
+      "parentUuid": "37431dc3_5aa7d5d7",
       "range": {
         "startLine": 130,
         "startChar": 10,

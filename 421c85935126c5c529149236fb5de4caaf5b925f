@@ -22,6 +22,30 @@
       "revId": "421c85935126c5c529149236fb5de4caaf5b925f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78a089f1_f3a93c13",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-02-12T09:29:44Z",
+      "side": 1,
+      "message": "Thank you! Fix incoming: https://webrtc-review.googlesource.com/c/src/+/122460",
+      "parentUuid": "9226ad8a_56ff4dcc",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "421c85935126c5c529149236fb5de4caaf5b925f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

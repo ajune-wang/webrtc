@@ -28,6 +28,18 @@
 
 namespace webrtc {
 
+namespace {
+std::unique_ptr<webrtc::Call> CreateCall(webrtc::RtcEventLog* event_log) {
+  webrtc::Call::Config config(event_log);
+  config.rtp_transport_send =
+      absl::make_unique<webrtc::RtpTransportControllerSend>(
+          webrtc::Clock::GetRealTimeClock(), event_log,
+          /*network_controller_factory=*/nullptr, BitrateConstraints());
+  return absl::WrapUnique(webrtc::Call::Create(std::move(config)));
+}
+
+}  // namespace
+
 MultiStreamTester::MultiStreamTester(
     test::SingleThreadedTaskQueueForTesting* task_queue)
     : task_queue_(task_queue) {
@@ -45,7 +57,6 @@ MultiStreamTester::~MultiStreamTester() {}
 
 void MultiStreamTester::RunTest() {
   webrtc::RtcEventLogNullImpl event_log;
-  Call::Config config(&event_log);
   std::unique_ptr<Call> sender_call;
   std::unique_ptr<Call> receiver_call;
   std::unique_ptr<test::DirectTransport> sender_transport;
@@ -61,8 +72,8 @@ void MultiStreamTester::RunTest() {
   InternalDecoderFactory decoder_factory;
 
   task_queue_->SendTask([&]() {
-    sender_call = absl::WrapUnique(Call::Create(config));
-    receiver_call = absl::WrapUnique(Call::Create(config));
+    sender_call = CreateCall(&event_log);
+    receiver_call = CreateCall(&event_log);
     sender_transport =
         absl::WrapUnique(CreateSendTransport(task_queue_, sender_call.get()));
     receiver_transport = absl::WrapUnique(

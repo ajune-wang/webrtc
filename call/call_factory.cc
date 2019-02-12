@@ -13,11 +13,14 @@
 #include <stdio.h>
 #include <memory>
 #include <string>
+#include <utility>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
 #include "call/call.h"
 #include "call/degraded_call.h"
+#include "call/rtp_transport_controller_send.h"
 #include "rtc_base/checks.h"
 #include "system_wrappers/include/field_trial.h"
 
@@ -69,23 +72,33 @@ absl::optional<webrtc::BuiltInNetworkBehaviorConfig> ParseDegradationConfig(
 }
 }  // namespace
 
-Call* CallFactory::CreateCall(const Call::Config& config) {
+Call* CallFactory::CreateCall(Call::Config config) {
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig> send_degradation_config =
       ParseDegradationConfig(true);
   absl::optional<webrtc::BuiltInNetworkBehaviorConfig>
       receive_degradation_config = ParseDegradationConfig(false);
 
   if (send_degradation_config || receive_degradation_config) {
-    return new DegradedCall(std::unique_ptr<Call>(Call::Create(config)),
-                            send_degradation_config,
-                            receive_degradation_config);
+    return new DegradedCall(
+        std::unique_ptr<Call>(Call::Create(std::move(config))),
+        send_degradation_config, receive_degradation_config);
   }
 
-  return Call::Create(config);
+  return Call::Create(std::move(config));
 }
 
 std::unique_ptr<CallFactoryInterface> CreateCallFactory() {
   return std::unique_ptr<CallFactoryInterface>(new CallFactory());
+}
+
+std::unique_ptr<RtpTransportControllerSendInterface>
+CreateDefaultRtpTransportControllerSend(
+    Clock* clock,
+    RtcEventLog* event_log,
+    NetworkControllerFactoryInterface* network_controller_factory,
+    const BitrateConstraints& bitrate_config) {
+  return absl::make_unique<RtpTransportControllerSend>(
+      clock, event_log, network_controller_factory, bitrate_config);
 }
 
 }  // namespace webrtc

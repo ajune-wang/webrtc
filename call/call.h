@@ -48,12 +48,7 @@ class Call {
     int64_t rtt_ms = -1;
   };
 
-  static Call* Create(const Call::Config& config);
-
-  // Allows mocking |transport_send| for testing.
-  static Call* Create(
-      const Call::Config& config,
-      std::unique_ptr<RtpTransportControllerSendInterface> transport_send);
+  static Call* Create(Call::Config config);
 
   virtual AudioSendStream* CreateAudioSendStream(
       const AudioSendStream::Config& config) = 0;

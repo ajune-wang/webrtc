@@ -509,16 +509,18 @@ TEST_F(StatsEndToEndTest, MAYBE_ContentTypeSwitches) {
   metrics::Reset();
 
   Call::Config send_config(send_event_log_.get());
-  test.ModifySenderBitrateConfig(&send_config.bitrate_config);
+  BitrateConstraints send_bitrates;
+  test.ModifySenderBitrateConfig(&send_bitrates);
   Call::Config recv_config(recv_event_log_.get());
-  test.ModifyReceiverBitrateConfig(&recv_config.bitrate_config);
+  BitrateConstraints recv_bitrates;
+  test.ModifyReceiverBitrateConfig(&recv_bitrates);
 
   VideoEncoderConfig encoder_config_with_screenshare;
 
-  task_queue_.SendTask([this, &test, &send_config, &recv_config,
-                        &encoder_config_with_screenshare]() {
-    CreateSenderCall(send_config);
-    CreateReceiverCall(recv_config);
+  task_queue_.SendTask([this, &test, &send_config, &send_bitrates, &recv_config,
+                        &recv_bitrates, &encoder_config_with_screenshare]() {
+    CreateSenderCall(std::move(send_config), send_bitrates);
+    CreateReceiverCall(std::move(recv_config), recv_bitrates);
 
     receive_transport_.reset(test.CreateReceiveTransport(&task_queue_));
     send_transport_.reset(

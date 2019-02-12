@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "dee24fcf_a48e7916",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:31:48Z",
+      "side": 1,
+      "message": "Fixed in the new iteration. Added asserts \u0026 encoding/decoding works. I don\u0027t know what was happening, but it works now \u003d)",
+      "parentUuid": "cc483334_fcded125",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 3
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bfbd14a_3300f43f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 18

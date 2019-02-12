@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86c5a4e8_00a6ad17",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T22:14:06Z",
+      "side": 1,
+      "message": "Basically mock observer is a default one for testing peer connection as I understand. I don\u0027t know why it is mock... Also PeerConnectionWrapper requires it and I want to keep signaling part of PeerConnectionWrapper. It will simplify test fixture implementation a lot for now.",
+      "parentUuid": "ebd42fd8_0492b21d",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87d7661d_6902e453",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8b8659b6_f637ee20",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T22:14:06Z",
+      "side": 1,
+      "message": "OnTrack will be called first when we will exchange offer/answer and then we will connect",
+      "parentUuid": "87d7661d_6902e453",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f56cf5f1_fe6fe4f4",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afeed58c_006c05d0",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T22:14:06Z",
+      "side": 1,
+      "message": "I think we will be able to put metric cals into callback implementation, so should get what we need.",
+      "parentUuid": "f56cf5f1_fe6fe4f4",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -108,6 +180,24 @@
       "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d26535a_a73cbe6f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T22:14:06Z",
+      "side": 1,
+      "message": "Add doc on callback and protection into passed method (actually it was protected by implementation implicitly, but I put explicit in case if implementation will be changed)",
+      "parentUuid": "1138b57d_5e39f65c",
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

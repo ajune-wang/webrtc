@@ -61,7 +61,10 @@ rtc_source_set("task_queue_test") {
 rtc_source_set("default_task_queue_factory") {
   # TODO(bugs.webrtc.org/10191): Make public when implemented for all
   # supported platforms.
-  visibility = [ ":global_task_queue_factory" ]
+  visibility = [
+    ":global_task_queue_factory",
+    ":task_queue_default_unittests",
+  ]
   sources = [
     "default_task_queue_factory.h",
   ]
@@ -93,11 +96,37 @@ rtc_source_set("default_task_queue_factory_impl") {
       "default_task_queue_factory_libevent.cc",
     ]
     deps += [ "../../rtc_base:rtc_task_queue_libevent" ]
+  } else if (is_mac || is_ios) {
+    sources = [
+      "default_task_queue_factory_gcd.cc",
+    ]
+    deps += [ "../../rtc_base:rtc_task_queue_gcd" ]
+  } else if (is_win && current_os != "winuwp") {
+    sources = [
+      "default_task_queue_factory_win.cc",
+    ]
+    deps += [ "../../rtc_base:rtc_task_queue_win" ]
   } else {
     sources = [
-      "default_task_queue_factory_unimplemented.cc",
+      "default_task_queue_factory_stdlib.cc",
     ]
-    deps += [ "../../rtc_base:checks" ]
+    deps += [ "../../rtc_base:rtc_task_queue_stdlib" ]
+  }
+}
+
+if (rtc_include_tests) {
+  rtc_source_set("task_queue_default_unittests") {
+    testonly = true
+    if (rtc_enable_libevent || is_mac || is_ios) {
+      sources = [
+        "default_task_queue_unittest.cc",
+      ]
+      deps = [
+        ":default_task_queue_factory",
+        ":task_queue_test",
+        "../../test:test_support",
+      ]
+    }
   }
 }
 

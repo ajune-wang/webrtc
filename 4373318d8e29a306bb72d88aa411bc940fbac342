@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a245122_5c539074",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "in our case packet number is \u003c\u003d 2^62-1. Since this is supposed to be \"generic\" descriptor, either works.",
+      "parentUuid": "1a4bcf9c_ca5996d6",
+      "range": {
+        "startLine": 1369,
+        "startChar": 34,
+        "endLine": 1369,
+        "endChar": 47
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9287934d_bb1ce542",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 18
@@ -45,6 +69,30 @@
       "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59d11df7_355d0cd1",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9287934d_bb1ce542",
+      "range": {
+        "startLine": 1397,
+        "startChar": 5,
+        "endLine": 1397,
+        "endChar": 19
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cc483334_fcded125",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "The encoding might change -- I think the encoding here is correct, but then it fails decoding.\n\nSo ideally I don\u0027t want to change this -- the fix must probably be done on the decoding side.",
+      "parentUuid": "895ec65f_b9f3ed81",
+      "range": {
+        "startLine": 1474,
+        "startChar": 0,
+        "endLine": 1479,
+        "endChar": 3
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bfbd14a_3300f43f",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 18
@@ -91,6 +163,30 @@
       "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9dd6a77_6baee9e5",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0bfbd14a_3300f43f",
+      "range": {
+        "startLine": 1525,
+        "startChar": 16,
+        "endLine": 1525,
+        "endChar": 45
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "77d02217_8f1fb18c",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "deec672b_84333626",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 10
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bec5f1bc_a7111cbc",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 18
@@ -128,6 +248,30 @@
       "writtenOn": "2019-02-12T16:19:59Z",
       "side": 1,
       "message": "I\u0027d prefer acked_packet_receive_time_ms to emphasize the difference from timestamp_ms.",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7b469bc_a70fc049",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "I would rather be consistent with the event log. I added a comment. If you prefer, I can also rename it in the RtcEventGenericAckReceived too.",
+      "parentUuid": "bec5f1bc_a7111cbc",
       "range": {
         "startLine": 84,
         "startChar": 17,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "dc28b839_e964c29b",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "I understand that. I just assumed that we almost always ecnode batches, so all fields are present.\n\nDone.",
+      "parentUuid": "26057c24_fdccdffc",
+      "range": {
+        "startLine": 86,
+        "startChar": 39,
+        "endLine": 86,
+        "endChar": 40
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af5eb5b6_212430ad",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 18
@@ -183,6 +351,30 @@
       "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e07df2b_aec85bda",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af5eb5b6_212430ad",
+      "range": {
+        "startLine": 91,
+        "startChar": 18,
+        "endLine": 91,
+        "endChar": 34
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "b787abef_539aeb5b",
+        "filename": "logging/rtc_event_log/rtc_event_log_parser.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2538,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "ah, you are right.",
+      "parentUuid": "c7072dbc_7ec27897",
+      "range": {
+        "startLine": 2536,
+        "startChar": 29,
+        "endLine": 2538,
+        "endChar": 61
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9c888e4_697bb819",
         "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
         "patchSetId": 18
@@ -220,6 +436,30 @@
       "writtenOn": "2019-02-12T16:19:59Z",
       "side": 1,
       "message": "Afaik, we deleted the copy constructor and used an explicit Copy() to avoid accidental copying in production code.",
+      "range": {
+        "startLine": 500,
+        "startChar": 42,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5670740_63ed809f",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "I don\u0027t quite understand that. This is exactly what the copy constructor is for. In production you generally won\u0027t accidentally copy it, because you use unique_ptr\u003cRtcEventLog\u003e, and you can\u0027t copy a unique ptr.",
+      "parentUuid": "a9c888e4_697bb819",
       "range": {
         "startLine": 500,
         "startChar": 42,
@@ -246,6 +486,24 @@
       "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c981a74b_dc779adc",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest_helper.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T18:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3866b48b_d6f766ac",
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -32,6 +32,7 @@ namespace rtc {
 // right version for your build configuration.
 class ThreadCheckerDoNothing {
  public:
+  ThreadCheckerDoNothing() {}
   bool CalledOnValidThread() const { return true; }
 
   void DetachFromThread() {}

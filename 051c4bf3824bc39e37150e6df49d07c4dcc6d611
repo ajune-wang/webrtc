@@ -329,6 +329,30 @@
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5af3c5dc_54c7d952",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T15:26:28Z",
+      "side": 1,
+      "message": "I have no problems with removing the error here, it wasn\u0027t checking for all errors anyway (and we now reschedule validation to network thread, so are not returning the errors anyway).\n\n\u003e Early errors, e.g., in packetization, is a sign of programming error, and should log and/or crash, with no error handling required in the caller.\nI guess that depends if you are running this on the server or client. If you are running it on the server, you shouldn\u0027t crash \u003d) But arguably, it shouldn\u0027t crash the client either.\n\nExample of errors currently implemented (we log them, but don\u0027t return RTCError right now).\n* On video side, if a new frame is sent but a keyframe was requested. The frame will be ignored, and non-keyframe won\u0027t be sent.\n* Error in serialization/packetization (this can happen only in very limited circumstances)",
+      "parentUuid": "05a96ec8_bb5cae18",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

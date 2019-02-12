@@ -22,6 +22,30 @@
       "revId": "548744428078021d6e27cad16a016c1a3455fe98",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72bd2d25_39af9486",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T00:59:59Z",
+      "side": 1,
+      "message": "It is wrong. They were dropped, not skipped. I added more explanation in the doc for comparison class.",
+      "parentUuid": "dba8e3ab_948c6ff4",
+      "range": {
+        "startLine": 211,
+        "startChar": 15,
+        "endLine": 211,
+        "endChar": 29
+      },
+      "revId": "548744428078021d6e27cad16a016c1a3455fe98",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

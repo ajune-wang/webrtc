@@ -359,6 +359,24 @@
     },
     {
       "key": {
+        "uuid": "73e69f10_ff8caed2",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T00:59:59Z",
+      "side": 1,
+      "message": "Actually just from head. It will be used when there will a pause in rendering and actually shouldn\u0027t happen. So wait is to prevent burning CPU when there are no frames.",
+      "parentUuid": "51358b71_c49de0e2",
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e55e4b6_320a4f94",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
         "patchSetId": 3
@@ -570,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "544fdfd7_b0dc5edb",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T00:59:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d33f403_8c4fe822",
+      "range": {
+        "startLine": 87,
+        "startChar": 29,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4adfa796_c681bec0",
         "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
         "patchSetId": 3
@@ -590,6 +632,30 @@
       "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35f041fe_f3467736",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T00:59:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4adfa796_c681bec0",
+      "range": {
+        "startLine": 91,
+        "startChar": 61,
+        "endLine": 91,
+        "endChar": 66
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -1189,6 +1255,30 @@
       "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a489434_7ea70381",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-12T00:59:59Z",
+      "side": 1,
+      "message": "It isn\u0027t skipped. It is exactly dropped. Added doc.",
+      "parentUuid": "af841ad3_2322000c",
+      "range": {
+        "startLine": 181,
+        "startChar": 9,
+        "endLine": 181,
+        "endChar": 16
+      },
+      "revId": "50d375ce182ea7b13addca1c65efd42596b5f473",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

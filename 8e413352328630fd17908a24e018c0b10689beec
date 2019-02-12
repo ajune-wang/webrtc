@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0a8de08_1f623e7a",
+        "filename": "api/task_queue/global_task_queue_factory.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-12T09:40:24Z",
+      "side": 1,
+      "message": "Normally, I tend to advise people to use more DCHECKs and fewer CHECKs, but here I\u0027d actually argue that CHECK is the right choice---especially for the second one. Calling this function twice can cause serious confusion, and there will be no immediate crash to call attention to it.",
+      "revId": "8e413352328630fd17908a24e018c0b10689beec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7865590_394ee966",
+        "filename": "api/task_queue/task_queue_impl.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-12T09:40:24Z",
+      "side": 1,
+      "message": "Here too (both 22 and 28). You\u0027re doing something really unobvious with the reference counting, so there\u0027s a very real chance that someone will write code that makes these two trigger.",
+      "revId": "8e413352328630fd17908a24e018c0b10689beec",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

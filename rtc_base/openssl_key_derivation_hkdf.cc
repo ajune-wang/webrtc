@@ -10,16 +10,49 @@
 
 #include "rtc_base/openssl_key_derivation_hkdf.h"
 
-#include <openssl/digest.h>
 #include <openssl/err.h>
-#include <openssl/hkdf.h>
+#include <openssl/ossl_typ.h>
 #include <openssl/sha.h>
+
+#ifdef OPENSSL_IS_BORINGSSL
+#include <openssl/digest.h>
+#include <openssl/hkdf.h>
+#else
+#include <openssl/evp.h>
+#include <openssl/kdf.h>
+#endif
 
 #include <algorithm>
 #include <utility>
 
 #include "rtc_base/buffer.h"
 #include "rtc_base/openssl.h"
+
+#ifndef OPENSSL_IS_BORINGSSL
+
+static int HKDF(uint8_t* out_key,
+                size_t out_len,
+                const EVP_MD* digest,
+                const uint8_t* secret,
+                size_t secret_len,
+                const uint8_t* salt,
+                size_t salt_len,
+                const uint8_t* info,
+                size_t info_len) {
+  EVP_PKEY_CTX* pctx = EVP_PKEY_CTX_new_id(EVP_PKEY_HKDF, nullptr);
+  if (!EVP_PKEY_derive_init(pctx) || !EVP_PKEY_CTX_set_hkdf_md(pctx, digest) ||
+      !EVP_PKEY_CTX_set1_hkdf_salt(pctx, salt, salt_len) ||
+      !EVP_PKEY_CTX_set1_hkdf_key(pctx, secret, secret_len) ||
+      !EVP_PKEY_CTX_add1_hkdf_info(pctx, info, info_len) ||
+      !EVP_PKEY_derive(pctx, out_key, &out_len)) {
+    EVP_PKEY_CTX_free(pctx);
+    return 0;
+  }
+  EVP_PKEY_CTX_free(pctx);
+  return 1;
+}
+
+#endif
 
 namespace rtc {
 

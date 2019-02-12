@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "de9ef9de_14d554c9",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T09:49:50Z",
+      "side": 1,
+      "message": "Why the default impls? Add TODO: to remove them if it is scaffolding.",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a68f36a0_45a72c0b",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T09:49:50Z",
+      "side": 1,
+      "message": "What\u0027s the rationale for having these objects? The impls currently look like lambdas binding channel_id to a transport.",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cbe5ee9_bfd25411",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T09:49:50Z",
+      "side": 1,
+      "message": "...but we\u0027ll never know when an AudioSender has a dead pointer to the transport. :/",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cdfb0d0_616e242e",
+        "filename": "api/test/loopback_media_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T09:49:50Z",
+      "side": 1,
+      "message": "Is the audio_sink_ in audio_sinks_ ?",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "30f36e75_29fc24ea",
         "filename": "api/transport/media/audio_transport.h",
         "patchSetId": 2
@@ -61,6 +129,30 @@
       "side": 1,
       "message": "We chose RTCError because it seemed like the cleanest abstraction for an error code (it\u0027s got a nice wrapper class, it lets us specify an error message, and you can have an RTCErrorOr if there\u0027s either a return value or error).\n\nIf the caller is never going to be able to do anything with an error (other than log and continue), we might as well do that in the implementation.  The only issue is that it becomes harder to test the implementation.  If there are incomplete frames we can\u0027t packetize, parameters we need to validate, or other synchronous failure modes, we can no longer test them directly.\n\nWe could return an int/bool, but we lose any error message associated with it.\n\nAnother option would be to define an error callback.  This could be a function pointer that gives full error details for a particular frame, and defaults to nullptr if production code doesn\u0027t need to know about errors.  Something like this:\n\nvoid SendAudioFrame(MediaTransportEncodedAudioFrame frame, void(*on_error)(int, string) \u003d nullptr);\n\nThat would even let us capture and test certain error cases in the async part of media transport.  However, it might be overkill.\n\nDo you think the callee ever needs to know about errors?  Does it ever do anything with them?",
       "parentUuid": "747017dd_a00fdfa2",
+      "range": {
+        "startLine": 130,
+        "startChar": 10,
+        "endLine": 130,
+        "endChar": 18
+      },
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37431dc3_5aa7d5d7",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T09:49:50Z",
+      "side": 1,
+      "message": "+1, do we need the error code? If this function is called in a way where the transport can\u0027t work with the data, that\u0027s a programming error -\u003e DCHECK.",
+      "parentUuid": "56876a45_04ae60f8",
       "range": {
         "startLine": 130,
         "startChar": 10,

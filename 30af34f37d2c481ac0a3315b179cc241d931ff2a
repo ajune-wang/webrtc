@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "4420c73a_0175163f",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-12T09:02:31Z",
+      "side": 1,
+      "message": "I think it is safer to print the timestamp here based on the fact that it was done previously above. From what I see the logging could be plumbed through and batched which skews the timestamps, but I am not 100% sure.",
+      "parentUuid": "c7221650_e7b2e04b",
+      "range": {
+        "startLine": 628,
+        "startChar": 65,
+        "endLine": 628,
+        "endChar": 72
+      },
+      "revId": "30af34f37d2c481ac0a3315b179cc241d931ff2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c41cef_315aae29",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-12T09:02:31Z",
+      "side": 1,
+      "message": "This should be fine though, we will want that information when doing verbose logging. Unless I should be adding some connection id or something?",
+      "parentUuid": "bb776271_f2a84a7e",
+      "range": {
+        "startLine": 628,
+        "startChar": 28,
+        "endLine": 628,
+        "endChar": 53
+      },
+      "revId": "30af34f37d2c481ac0a3315b179cc241d931ff2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b718439_2f7793ff",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-08T21:44:52Z",
       "side": 1,
       "message": "What will we plot this against to see if congestion-window messed with this value?\nAlso, should we log if congestion window was enabled in the first place?",
+      "range": {
+        "startLine": 629,
+        "startChar": 34,
+        "endLine": 629,
+        "endChar": 45
+      },
+      "revId": "30af34f37d2c481ac0a3315b179cc241d931ff2a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b4af1df_f7cbfe25",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-12T09:02:31Z",
+      "side": 1,
+      "message": "Good question! Another log could be done above, or I can add more information to this line. Thoughts?",
+      "parentUuid": "0b718439_2f7793ff",
       "range": {
         "startLine": 629,
         "startChar": 34,

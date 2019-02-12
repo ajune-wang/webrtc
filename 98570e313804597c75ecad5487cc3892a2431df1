@@ -70,6 +70,30 @@
       "revId": "98570e313804597c75ecad5487cc3892a2431df1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf79611_980e56de",
+        "filename": "rtc_base/thread_checker.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5748
+      },
+      "writtenOn": "2019-02-12T17:47:57Z",
+      "side": 1,
+      "message": "I also considered doing that, but feared it\u0027d lead to the bug showing up again when someone creates another const ThreadChecker. I\u0027ll switch to that solution tomorrow if that\u0027s preferred then.",
+      "parentUuid": "d4d0fd01_f326135e",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 29
+      },
+      "revId": "98570e313804597c75ecad5487cc3892a2431df1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

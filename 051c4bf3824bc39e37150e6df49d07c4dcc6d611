@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4b7f9f9f_42eea594",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T14:46:57Z",
+      "side": 1,
+      "message": "Do you want me to change this to DCHECKs, even though this file is test-only code? I was thinking that for tests, it\u0027s always preferable to crash as soon as possible.",
+      "parentUuid": "7ec8f363_3acc3b79",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3cbe5ee9_bfd25411",
         "filename": "api/test/loopback_media_transport.cc",
         "patchSetId": 2
@@ -136,6 +154,24 @@
       "side": 1,
       "message": "Sorry if I\u0027m missing the high level goal here and making you repeat it. I\u0027ve probably missed a design doc or two on the topic. Please point me there.\n\nWith the support for pluggable transports it seems to me that configuring the transport should not happen through the current stream objects. There has to be a switch at the SDP parsing or API level, so then that layer should route the settings directly to the RTP or QUIC transport instances.\n\nThe \"streams\" will then just handle code/encode tasks, making the stream concept somewhat redundant (at least for audio, which I admittedly know better than video). With the \"streams\" becoming essentially live encoders and decoders, it doesn\u0027t seem right that they are tightly coupled with the \"transport\" concept. Rather, the entity receiving the PCM data to encode should know where the encoded payload should be forwarded (the transport sender).",
       "parentUuid": "996d87bf_d5808d4c",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77f1b21f_ac748879",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-12T14:46:57Z",
+      "side": 1,
+      "message": "The idea is precisely that the MediaTransportAudioSender represents \"where the encoded payload should be forwarded\". In principle, this objects could be created by Call and passed to the AudioSendStream constructor. \n\nBut I\u0027m leaning towards letting the AudioSendStream create it by calling CreateAudioSender on the transport. Main advantage is that any callbacks the send stream needs can be passed on construction, so we eliminate methods like RegisterFooCallback and related synchronization. For AudioSendStream, the callback of interest (to be added in a later cl) is for reporting the stream\u0027s transport overhead.\n\nRegarding configuration, the current plan is that the transport should be configured with an internal mapping from an abstract \"channel id\" to transport-specific config like ssrcs and rtp header extensions, based on the sdp. The stream should only see the channel id (and it wouldn\u0027t even need that, if creating the AudioSender was moved up to Call).",
+      "parentUuid": "5f617ec4_7bd855cd",
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

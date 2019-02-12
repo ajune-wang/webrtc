@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86a5dd95_dd7f227c",
+        "filename": "test/constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-12T07:49:56Z",
+      "side": 1,
+      "message": "nit: Since you\u0027re renaming, would prefer the full kTransmissionTimeOffsetExtensionId\niirc that\u0027s what toffset is short for.\nOr is this to rename it what it\u0027s called elsewhere in the code? If so please ignore this comment.\n\nThanks for cleaning up this file.",
+      "range": {
+        "startLine": 15,
+        "startChar": 17,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "40f44e02add5587a8c714469b4c3c5918f45f9f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

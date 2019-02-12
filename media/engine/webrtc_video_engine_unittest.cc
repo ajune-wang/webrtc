@@ -32,6 +32,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "call/flexfec_receive_stream.h"
+#include "call/rtp_transport_controller_send.h"
 #include "common_video/h264/profile_level_id.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "media/base/fake_frame_source.h"
@@ -193,6 +194,15 @@ class MockVideoSource : public rtc::VideoSourceInterface<webrtc::VideoFrame> {
                void(rtc::VideoSinkInterface<webrtc::VideoFrame>* sink));
 };
 
+std::unique_ptr<webrtc::Call> CreateCall(webrtc::RtcEventLog* event_log) {
+  webrtc::Call::Config config(event_log);
+  config.rtp_transport_send =
+      absl::make_unique<webrtc::RtpTransportControllerSend>(
+          webrtc::Clock::GetRealTimeClock(), event_log,
+          /*network_controller_factory=*/nullptr, BitrateConstraints());
+  return absl::WrapUnique(webrtc::Call::Create(std::move(config)));
+}
+
 }  // namespace
 
 #define EXPECT_FRAME_WAIT(c, w, h, t)                        \
@@ -213,7 +223,7 @@ class WebRtcVideoEngineTest : public ::testing::Test {
   WebRtcVideoEngineTest() : WebRtcVideoEngineTest("") {}
   explicit WebRtcVideoEngineTest(const char* field_trials)
       : override_field_trials_(field_trials),
-        call_(webrtc::Call::Create(webrtc::Call::Config(&event_log_))),
+        call_(CreateCall(&event_log_)),
         encoder_factory_(new cricket::FakeWebRtcVideoEncoderFactory),
         decoder_factory_(new cricket::FakeWebRtcVideoDecoderFactory),
         engine_(std::unique_ptr<cricket::FakeWebRtcVideoEncoderFactory>(
@@ -1106,8 +1116,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, Vp8) {
 
   // Create a call.
   webrtc::RtcEventLogNullImpl event_log;
-  std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+  std::unique_ptr<webrtc::Call> call = CreateCall(&event_log);
 
   // Create send channel.
   const int send_ssrc = 123;
@@ -1173,8 +1182,7 @@ TEST(WebRtcVideoEngineNewVideoCodecFactoryTest, NullDecoder) {
 
   // Create a call.
   webrtc::RtcEventLogNullImpl event_log;
-  std::unique_ptr<webrtc::Call> call(
-      webrtc::Call::Create(webrtc::Call::Config(&event_log)));
+  std::unique_ptr<webrtc::Call> call = CreateCall(&event_log);
 
   // Create recv channel.
   const int recv_ssrc = 321;
@@ -1260,7 +1268,7 @@ class WebRtcVideoChannelBaseTest : public testing::Test {
   virtual void SetUp() {
     // One testcase calls SetUp in a loop, only create call_ once.
     if (!call_) {
-      call_.reset(webrtc::Call::Create(webrtc::Call::Config(&event_log_)));
+      call_ = CreateCall(&event_log_);
     }
     cricket::MediaConfig media_config;
     // Disabling cpu overuse detection actually disables quality scaling too; it

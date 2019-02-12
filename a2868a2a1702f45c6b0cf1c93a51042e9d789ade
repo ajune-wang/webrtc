@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "953a5c33_a5b1968a",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-12T20:02:37Z",
+      "side": 1,
+      "message": "RTC_DCHECK_RUN_ON holds a lock. It turns out that some of the Set*Transport* methods called below call back into JsepTransport after picking up another lock, thereby calling RTC_DCHECK_RUN_ON again - which tsan detects as a lock cycle.\n\nAdded a comment about that.",
+      "parentUuid": "25c8f4ba_cb4614d0",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "627ec1c9_3c109651",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 8
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "85b81067_eac815ab",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-12T20:02:37Z",
+      "side": 1,
+      "message": "I\u0027ll see what the call graph says. It would be nice if this method could be owning thread only.\nThe pointers are all const std::unique_ptr, so they\u0027re guaranteed to stay around until the JsepTransport object dies.\n\nUPDATE: The pointer is not only returned to the signaling thread (in setLocalDescription and friends), it\u0027s stored in the BaseChannel as a raw pointer via a blocking Invoke() to the networking thread. Doesn\u0027t leave me with a good feeling. I filed a bug on it.",
+      "parentUuid": "627ec1c9_3c109651",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d0182a5_7b76948c",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 8
@@ -47,6 +83,24 @@
       "writtenOn": "2019-02-12T18:46:15Z",
       "side": 1,
       "message": "Can this be signaling_thread_ or network_thread_? It\u0027s hard to follow code that is vague about which thread it is intended to be used on, so documenting it is a good idea.",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0acea392_799c49b7",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-12T20:02:37Z",
+      "side": 1,
+      "message": "Since the doc calls it network thread, I can call it network thread too. What\u0027s even more confusing is the case where the name says one thing and the content is another..... all the code can check is that it\u0027s the same thread that constructed the object.",
+      "parentUuid": "7d0182a5_7b76948c",
       "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -133,6 +133,10 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
       key_value_config_->Lookup("WebRTC-Bwe-SafeResetOnRouteChange"));
   if (delay_based_bwe_)
     delay_based_bwe_->SetMinBitrate(congestion_controller::GetMinBitrate());
+
+  RTC_LOG(LS_INFO) << "bwe:congestion_window_pushback "
+                   << (congestion_window_pushback_controller_ ? "enabled"
+                                                              : "disabled");
 }
 
 GoogCcNetworkController::~GoogCcNetworkController() {}
@@ -624,6 +628,9 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
+
+    RTC_LOG(LS_VERBOSE) << "bwe:final_target_rate_bps" << ' ' << at_time.ms()
+                        << ' ' << target_rate.bps();
   }
 }
 

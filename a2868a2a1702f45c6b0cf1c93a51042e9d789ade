@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25c8f4ba_cb4614d0",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-12T18:46:15Z",
+      "side": 1,
+      "message": "Why the {}?",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "627ec1c9_3c109651",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-12T18:46:15Z",
+      "side": 1,
+      "message": "Because the return value is a raw pointer and not a scoped_refptr, this could be racy. After the lock is released, but before the caller does anything with the pointer (whether that is invoking on it or wrapping it in a scoped_refptr) another thread could clear the last scoped_refptr to it, deleting the object. The caller of this method now has a dangling pointer.",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0182a5_7b76948c",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-12T18:46:15Z",
+      "side": 1,
+      "message": "Can this be signaling_thread_ or network_thread_? It\u0027s hard to follow code that is vague about which thread it is intended to be used on, so documenting it is a good idea.",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

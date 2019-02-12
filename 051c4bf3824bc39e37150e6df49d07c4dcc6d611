@@ -72,6 +72,23 @@
     },
     {
       "key": {
+        "uuid": "7ec8f363_3acc3b79",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T14:02:57Z",
+      "side": 1,
+      "message": "These should be DCHECKs. These are programming errors.",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3cbe5ee9_bfd25411",
         "filename": "api/test/loopback_media_transport.cc",
         "patchSetId": 2
@@ -101,6 +118,24 @@
       "side": 1,
       "message": "The expectation is the the AudioSender will be owned by AudioSendStream, and that one mustn\u0027t delete the MediaTransport under the feet of live streams.\n\nAny concrete suggestion? It\u0027s possible to add a count of sender objects in the MediaTransport and DCHECK that it\u0027s zero on destruction. But not sure if it\u0027s worth the effort.",
       "parentUuid": "3cbe5ee9_bfd25411",
+      "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f617ec4_7bd855cd",
+        "filename": "api/test/loopback_media_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-12T14:02:57Z",
+      "side": 1,
+      "message": "Sorry if I\u0027m missing the high level goal here and making you repeat it. I\u0027ve probably missed a design doc or two on the topic. Please point me there.\n\nWith the support for pluggable transports it seems to me that configuring the transport should not happen through the current stream objects. There has to be a switch at the SDP parsing or API level, so then that layer should route the settings directly to the RTP or QUIC transport instances.\n\nThe \"streams\" will then just handle code/encode tasks, making the stream concept somewhat redundant (at least for audio, which I admittedly know better than video). With the \"streams\" becoming essentially live encoders and decoders, it doesn\u0027t seem right that they are tightly coupled with the \"transport\" concept. Rather, the entity receiving the PCM data to encode should know where the encoded payload should be forwarded (the transport sender).",
+      "parentUuid": "996d87bf_d5808d4c",
       "revId": "051c4bf3824bc39e37150e6df49d07c4dcc6d611",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -45,6 +45,7 @@ class TransportFeedback : public Rtpfb {
   static constexpr size_t kMaxReportedPackets = 0xffff;
 
   TransportFeedback();
+  explicit TransportFeedback(bool include_timestamps);
   TransportFeedback(const TransportFeedback&);
   TransportFeedback(TransportFeedback&&);
 
@@ -141,6 +142,7 @@ class TransportFeedback : public Rtpfb {
   uint16_t num_seq_no_;
   int32_t base_time_ticks_;
   uint8_t feedback_seq_;
+  bool include_timestamps_;
 
   int64_t last_timestamp_us_;
   std::vector<ReceivedPacket> packets_;

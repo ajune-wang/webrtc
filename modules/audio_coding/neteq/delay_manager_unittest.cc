@@ -308,6 +308,8 @@ TEST_F(DelayManagerTest, BaseMinDelayGreaterThanMaxDelayIsInvalid) {
 TEST_F(DelayManagerTest, BaseMinDelayGreaterThanQ75MaxPacketsIsInvalid) {
   // .75 of |max_packets_in_buffer|, + 1 to ensure that |kBaseMinDelayMs| is
   // greater.
+  SetPacketAudioLength(kFrameSizeMs);
+
   int kBaseMinDelayMs = (3 * kMaxNumberOfPackets * kFrameSizeMs / 4) + 1;
   EXPECT_FALSE(dm_->SetBaseMinimumDelay(kBaseMinDelayMs));
 }

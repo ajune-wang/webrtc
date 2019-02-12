@@ -13,7 +13,12 @@
 #include <memory>
 
 #include "api/task_queue/queued_task.h"
-#include "api/task_queue/task_queue_impl.h"
+
+// TODO(bugs.webrtc.org/10191): Remove when
+// rtc::TaskQueue* rtc::TaskQueue::Current() is unused.
+namespace rtc {
+class TaskQueue;
+}  // namespace rtc
 
 namespace webrtc {
 
@@ -24,7 +29,7 @@ namespace webrtc {
 // TODO(bugs.webrtc.org/10191): Remove inheritence from rtc::TaskQueue::Impl
 // when all implementations switch to use TaskQueueFactory instead of link-time
 // injection.
-class TaskQueueBase : public rtc::TaskQueue::Impl {
+class TaskQueueBase {
  public:
   // Starts destruction of the task queue.
   // On return ensures no task are running and no new tasks are able to start
@@ -35,7 +40,7 @@ class TaskQueueBase : public rtc::TaskQueue::Impl {
   // TaskQueue is deallocated and thus should not call any methods after Delete.
   // Code running on the TaskQueue should not call Delete, but can assume
   // TaskQueue still exists and may call other methods, e.g. PostTask.
-  void Delete() override = 0;
+  virtual void Delete() = 0;
 
   // Schedules a task to execute. Tasks are executed in FIFO order.
   // If |task->Run()| returns true, task is deleted on the task queue
@@ -45,14 +50,14 @@ class TaskQueueBase : public rtc::TaskQueue::Impl {
   // TaskQueue or it may happen asynchronously after TaskQueue is deleted.
   // This may vary from one implementation to the next so assumptions about
   // lifetimes of pending tasks should not be made.
-  void PostTask(std::unique_ptr<QueuedTask> task) override = 0;
+  virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds.
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task,
-                       uint32_t milliseconds) override = 0;
+  virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
+                               uint32_t milliseconds) = 0;
 
   // Until all TaskQueue implementations switch to  using CurrentTaskQueueSetter
   // below, this function may return nullptr even if code is executed by a
@@ -75,7 +80,11 @@ class TaskQueueBase : public rtc::TaskQueue::Impl {
 
   // Users of the TaskQueue should call Delete instead of directly deleting
   // this object.
-  ~TaskQueueBase() override = default;
+  virtual ~TaskQueueBase() = default;
+
+ private:
+  friend class rtc::TaskQueue;
+  rtc::TaskQueue* task_queue_ = nullptr;
 };
 
 struct TaskQueueDeleter {

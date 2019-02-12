@@ -468,14 +468,17 @@ if (is_mac && !build_with_chromium) {
 
 rtc_source_set("rtc_task_queue") {
   visibility = [ "*" ]
-  deps = []
-  public_deps = [
-    ":rtc_task_queue_api",
+  sources = [
+    "task_queue.cc",
+    "task_queue.h",
   ]
-
-  if (rtc_link_task_queue_impl) {
-    deps += [ ":rtc_task_queue_impl" ]
-  }
+  deps = [
+    ":macromagic",
+    "../api/task_queue",
+    "../api/task_queue:global_task_queue_factory",
+    "system:rtc_export",
+    "//third_party/abseil-cpp/absl/memory",
+  ]
 }
 
 # WebRTC targets must not directly depend on rtc_task_queue_api or
@@ -507,7 +510,7 @@ rtc_source_set("rtc_task_queue_api") {
 
 if (rtc_enable_libevent) {
   rtc_source_set("rtc_task_queue_libevent") {
-    visibility = [ "../api/task_queue:default_task_queue_factory_impl" ]
+    visibility = [ "../api/task_queue:default_task_queue_factory" ]
     sources = [
       "task_queue_libevent.cc",
       "task_queue_libevent.h",
@@ -596,7 +599,6 @@ rtc_source_set("rtc_task_queue_impl") {
   visibility = [ "*" ]
   if (rtc_enable_libevent) {
     deps = [
-      "../api/task_queue:default_task_queue_factory_impl",
       "../api/task_queue:global_task_queue_factory",
     ]
   } else {

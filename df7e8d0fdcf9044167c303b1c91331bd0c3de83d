@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebd42fd8_0492b21d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:15:17Z",
+      "side": 1,
+      "message": "why does it inherit from mock? \u003cconfused\u003e",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87d7661d_6902e453",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:15:17Z",
+      "side": 1,
+      "message": "which one fires first? I would suggest ordering them in order of firing.",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56cf5f1_fe6fe4f4",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:15:17Z",
+      "side": 1,
+      "message": "ideally we would want to get a metric out of it (how long did it take to connect)",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048bd530_cc096497",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:15:17Z",
+      "side": 1,
+      "message": "Can you check with Jonas if it uses media transport? I know there were some issues with this standardized event.",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1138b57d_5e39f65c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-12T20:15:17Z",
+      "side": 1,
+      "message": "you could call it multiple times, no? Do you want to put some kind of protection?\n(technically ice can disconnect and reconnect)",
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

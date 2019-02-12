@@ -241,8 +241,11 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
   video_config->rtp.extensions.push_back(RtpExtension(
       RtpExtension::kVideoContentTypeUri, kVideoContentTypeExtensionId));
   video_config->rtp.extensions.push_back(
-      RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
-                   kGenericFrameDescriptorExtensionId));
+      RtpExtension(RtpExtension::kGenericFrameDescriptorUri00,
+                   kGenericFrameDescriptorExtensionId00));
+  video_config->rtp.extensions.push_back(
+      RtpExtension(RtpExtension::kGenericFrameDescriptorUri01,
+                   kGenericFrameDescriptorExtensionId01));
   if (video_encoder_configs_.empty()) {
     video_encoder_configs_.emplace_back();
     FillEncoderConfiguration(kVideoCodecGeneric, num_video_streams,

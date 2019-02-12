@@ -48,7 +48,8 @@ const int kTransportSequenceNumberExtensionId =
     test::kTransportSequenceNumberExtensionId;
 const int kVideoTimingExtensionId = test::kVideoTimingExtensionId;
 const int kMidExtensionId = test::kMidExtensionId;
-const int kGenericDescriptorId = test::kGenericFrameDescriptorExtensionId;
+const int kGenericDescriptorId00 = test::kGenericFrameDescriptorExtensionId00;
+const int kGenericDescriptorId01 = test::kGenericFrameDescriptorExtensionId01;
 const int kAudioLevelExtensionId = test::kAudioLevelExtensionId;
 const int kRidExtensionId = test::kRidExtensionId;
 const int kRepairedRidExtensionId = test::kRepairedRidExtensionId;
@@ -92,8 +93,10 @@ class LoopbackTransportTest : public webrtc::Transport {
     receivers_extensions_.Register(kRtpExtensionVideoTiming,
                                    kVideoTimingExtensionId);
     receivers_extensions_.Register(kRtpExtensionMid, kMidExtensionId);
-    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor,
-                                   kGenericDescriptorId);
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor00,
+                                   kGenericDescriptorId00);
+    receivers_extensions_.Register(kRtpExtensionGenericFrameDescriptor01,
+                                   kGenericDescriptorId01);
     receivers_extensions_.Register(kRtpExtensionRtpStreamId, kRidExtensionId);
     receivers_extensions_.Register(kRtpExtensionRepairedRtpStreamId,
                                    kRepairedRidExtensionId);

@@ -35,7 +35,6 @@
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
 #include "rtc_base/strings/string_builder.h"
-#include "test/constants.h"
 #include "test/run_loop.h"
 #include "test/testsupport/file_utils.h"
 #include "test/vcm_capturer.h"
@@ -601,8 +600,11 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       RTC_CHECK(field_trial::IsEnabled("WebRTC-GenericDescriptor"));
 
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
-          RtpExtension::kGenericFrameDescriptorUri,
-          test::kGenericFrameDescriptorExtensionId);
+          RtpExtension::kGenericFrameDescriptorUri00,
+          test::kGenericFrameDescriptorExtensionId00);
+      video_send_configs_[video_idx].rtp.extensions.emplace_back(
+          RtpExtension::kGenericFrameDescriptorUri01,
+          test::kGenericFrameDescriptorExtensionId01);
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(

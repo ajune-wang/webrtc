@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76ba1250_34cfe5c7",
+        "filename": "rtc_base/network.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-02-13T23:39:52Z",
+      "side": 1,
+      "message": "!mdns_responder_provider_",
+      "revId": "b6eab2dbec5a7676e9d3614ca01ef23629b2fc59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45bbd96_e3c662e3",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-02-13T23:39:52Z",
+      "side": 1,
+      "message": "nit: add empty line here please",
+      "range": {
+        "startLine": 69,
+        "startChar": 1,
+        "endLine": 69,
+        "endChar": 32
+      },
+      "revId": "b6eab2dbec5a7676e9d3614ca01ef23629b2fc59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d42aaf_9ed109ef",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6254
+      },
+      "writtenOn": "2019-02-13T23:39:52Z",
+      "side": 1,
+      "message": "s/override/interface/ since this is an interface implementation.",
+      "range": {
+        "startLine": 153,
+        "startChar": 27,
+        "endLine": 153,
+        "endChar": 35
+      },
+      "revId": "b6eab2dbec5a7676e9d3614ca01ef23629b2fc59",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

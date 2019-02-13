@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "943d1391_1447c60a",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T08:44:36Z",
+      "side": 1,
+      "message": "I don\u0027t like an idea of intersection, since it may mask some errors.\n\nI\u0027ve added DCHECKs.",
+      "parentUuid": "871eb0a6_4885713a",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "ac62e8b0c17ca2d8ab624d320ce5ed785dea988f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f19a5fce_9a77bbf8",
         "filename": "api/video/video_frame.h",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "ac62e8b0c17ca2d8ab624d320ce5ed785dea988f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7b1838a_548c781f",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T08:44:36Z",
+      "side": 1,
+      "message": "Yes, this is intended to mean strictly no changes outside of the rectangle. If needed we can generalize it later by adding an extra \"mode\" parameter, which would change how the rect is treated.",
+      "parentUuid": "f19a5fce_9a77bbf8",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 26
+      },
+      "revId": "ac62e8b0c17ca2d8ab624d320ce5ed785dea988f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

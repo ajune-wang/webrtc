@@ -24,7 +24,32 @@
 #include "test/rtcp_packet_parser.h"
 
 namespace webrtc {
-class StatsEndToEndTest : public test::CallTest {};
+namespace {
+// TODO: !!! Prune
+enum ExtensionId : int {  // The first valid value is 1.
+  kColorSpaceExtensionId = 1,
+  kGenericDescriptorExtensionId,
+  kTransportSequenceNumberExtensionId,
+  kVideoContentTypeExtensionId,
+  kVideoRotationExtensionId
+};
+}  // namespace
+
+class StatsEndToEndTest : public test::CallTest {
+ public:
+  StatsEndToEndTest() {
+    RegisterRtpExtension(
+        RtpExtension(RtpExtension::kColorSpaceUri, kColorSpaceExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
+                                      kGenericDescriptorExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                                      kTransportSequenceNumberExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoContentTypeUri,
+                                      kVideoContentTypeExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoRotationUri,
+                                      kVideoRotationExtensionId));
+  }
+};
 
 TEST_F(StatsEndToEndTest, GetStats) {
   static const int kStartBitrateBps = 3000000;

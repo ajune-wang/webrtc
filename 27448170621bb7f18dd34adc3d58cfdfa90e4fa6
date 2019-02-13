@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b084f66_d43f7383",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-13T08:32:56Z",
+      "side": 1,
+      "message": "These are also called in PeerConnectionE2EQualityTest::Run and after https://webrtc-review.googlesource.com/c/src/+/122301 I think we should not call them here.",
+      "range": {
+        "startLine": 151,
+        "startChar": 2,
+        "endLine": 152,
+        "endChar": 57
+      },
+      "revId": "27448170621bb7f18dd34adc3d58cfdfa90e4fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b53033f_f22ec0f7",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-13T08:32:56Z",
+      "side": 1,
+      "message": "It feels a bit strange that a callback invoked by alice_\u0027s FixturePeerConnectionObserver has to go through all bob_\u0027s video_configs. Is it possible to store a pointer to the TestPeer into FixturePeerConnectionObserver and pass it to SetupVideoSink?",
+      "range": {
+        "startLine": 268,
+        "startChar": 2,
+        "endLine": 282,
+        "endChar": 3
+      },
+      "revId": "27448170621bb7f18dd34adc3d58cfdfa90e4fa6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

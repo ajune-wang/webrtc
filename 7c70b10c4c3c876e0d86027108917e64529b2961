@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8cbb28b_44399bc8",
+        "filename": "rtc_tools/video_file_reader.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-13T09:13:14Z",
+      "side": 1,
+      "message": "Oh, so \"%n\" doesn\u0027t increment the assignment count that\u0027s why trybots were not happy with \"!\u003d 1\". :)",
+      "range": {
+        "startLine": 128,
+        "startChar": 62,
+        "endLine": 128,
+        "endChar": 66
+      },
+      "revId": "7c70b10c4c3c876e0d86027108917e64529b2961",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

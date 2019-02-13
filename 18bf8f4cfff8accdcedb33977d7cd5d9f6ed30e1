@@ -16,6 +16,24 @@
       "revId": "18bf8f4cfff8accdcedb33977d7cd5d9f6ed30e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fde3e72_145f729a",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-13T14:48:16Z",
+      "side": 1,
+      "message": "I have tested with scaling factors (1.0, 1.0), (2.0, 1.0) and (4.0, 1.0) and that worked fine.\n\nThe check above this one does not really allow arbitrarily scaled streams, but even with that check removed, libvpx encoder still seems to accept weird simulcast resolutions like (80x44, 160x89) and (96x53, 240x134) - not sure how well it works.\n\nBased on that, this change should be fine. Do you know if there is any documentation around this?",
+      "parentUuid": "3e1f4a00_8b82428e",
+      "revId": "18bf8f4cfff8accdcedb33977d7cd5d9f6ed30e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

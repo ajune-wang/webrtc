@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a829f44_56da7714",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-13T11:22:36Z",
+      "side": 1,
+      "message": "nit: This comment applies to all of these methods, right? Place it above to make that more clear.",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dc4d2cd_da599dac",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-13T11:22:36Z",
+      "side": 1,
+      "message": "Pardon if this is the same question as before, but while I see the purpose of the locks for the media_transport_state_, I\u0027m having trouble seeing it for foo_transport_.\n\nWhat is the purpose of the lock here? Because I see foo_transport()-\u003eSetBlah() all over the place with no locks. It looks like only rtcp_dtls_transport_ is reset, and if it is we have the bug, so I\u0027m not sure the lock achieves much.",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c21ca7bc_0b0198c0",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-13T11:22:36Z",
+      "side": 1,
+      "message": "media_transport_ is not GUARDED_BY accessor_lock_, and I don\u0027t recon it should? It\u0027s essentially const like the other transports, except that it is reset in one place - but that is in the destructor, only to ensure that it is destroyed before ICE. In the destructor nobody else is touching this object anyway (unless we have a bug).\n\nRemove the CritScope or add GUARDED_BY",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3267706_5c82196c",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-13T11:22:36Z",
+      "side": 1,
+      "message": "Why are accessors needed? Can\u0027t we just use \"unencrypted_rtp_transport_-\u003eFoo()\" directly? Without DCHECKing or locking anything, more methods is not preferred IMO.",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

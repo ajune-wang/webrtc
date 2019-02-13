@@ -22,6 +22,30 @@
       "revId": "93a4f2a903319989f6c87556ccabccd56b6e00e3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "351b686b_29a6982e",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T10:55:55Z",
+      "side": 1,
+      "message": "Good catch. Removed.",
+      "parentUuid": "ab1b2f7e_a0d80814",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "93a4f2a903319989f6c87556ccabccd56b6e00e3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

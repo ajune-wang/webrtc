@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8af81f93_742afbfb",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-13T15:50:50Z",
+      "side": 1,
+      "message": "nit: Maybe restore old formatting",
+      "range": {
+        "startLine": 355,
+        "startChar": 13,
+        "endLine": 357,
+        "endChar": 17
+      },
+      "revId": "82937e24e39dbc16f028140b10caa92e2fa98908",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -55,6 +55,8 @@ class EventLogAnalyzer {
                                        bool show_alr_state = false);
 
   void CreateStreamBitrateGraph(PacketDirection direction, Plot* plot);
+  void CreateGenericPacketsIncomingBitrateGraph(Plot* plot);
+  void CreateGenericPacketsOutgoingBitrateGraph(Plot* plot);
 
   void CreateSendSideBweSimulationGraph(Plot* plot);
   void CreateReceiveSideBweSimulationGraph(Plot* plot);

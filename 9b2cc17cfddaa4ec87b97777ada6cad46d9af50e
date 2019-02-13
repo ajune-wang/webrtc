@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec222af6_4771bcf1",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-13T10:40:25Z",
+      "side": 1,
+      "message": "I don\u0027t think \"Union\" is the right name; the union of two rectangles is in general a more complicated shape than a rectangle.\n\nMaybe UnionBoundingBox?\n\nBut might be best to postpone this addition, and do it in a cl together with real usage (and test) of this method.",
+      "range": {
+        "startLine": 20,
+        "startChar": 47,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "9b2cc17cfddaa4ec87b97777ada6cad46d9af50e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4229207_b9276700",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-13T10:40:25Z",
+      "side": 1,
+      "message": "Could put the call to I420Buffer::Create here, eliminating the local variable.",
+      "range": {
+        "startLine": 607,
+        "startChar": 51,
+        "endLine": 607,
+        "endChar": 57
+      },
+      "revId": "9b2cc17cfddaa4ec87b97777ada6cad46d9af50e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

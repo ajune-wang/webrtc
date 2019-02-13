@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bb59c5cf_30d83090",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-13T15:26:30Z",
+      "side": 1,
+      "message": "We represent the packet as a custom type... :) So we need to cast it anyway. I tried to make a change but downstream dependency already passes an int.",
+      "parentUuid": "f1bf0cb0_789432f8",
+      "range": {
+        "startLine": 1369,
+        "startChar": 34,
+        "endLine": 1369,
+        "endChar": 47
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9287934d_bb1ce542",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 18
@@ -356,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "1043a969_9b511624",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-13T15:26:30Z",
+      "side": 1,
+      "message": "Changed to receive_acked_packet_time :)\n\nIt\u0027s called  receive_packet_time",
+      "parentUuid": "038cfded_a14b0853",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26057c24_fdccdffc",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 18
@@ -565,6 +613,30 @@
       "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1480b1f0_1a24125d",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-13T15:26:30Z",
+      "side": 1,
+      "message": "Done.\n\nAgreed that could be a problem (though Event is an abstract type, so unless we are referring to the specific type, this wouldn\u0027t work anyway).\n\nIf the performance is so critical, then there should probably be tests that verify performance?\n\nIt seems however that you have a strong preference to Copy(), so changed. (but it\u0027s more code that is not really necessary).",
+      "parentUuid": "2db8b806_b2aec5a5",
+      "range": {
+        "startLine": 500,
+        "startChar": 42,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

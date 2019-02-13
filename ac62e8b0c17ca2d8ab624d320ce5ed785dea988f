@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "871eb0a6_4885713a",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-13T08:12:06Z",
+      "side": 1,
+      "message": "DCHECK that rect is inside the frame? Alternatively, if we allow an arbitrary rectangle and expect encoders to implicitly intersect it with the frame size, we could use constant default value of MAXINT for width and height of the rectangle.\n\nI don\u0027t have a strong opinion on how this is organized, but choice should be clearly documented. And it would be nice if the Builder could use constant defaults with no optional (without lots of extra complexity elsewhere).",
+      "range": {
+        "startLine": 160,
+        "startChar": 7,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "ac62e8b0c17ca2d8ab624d320ce5ed785dea988f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f19a5fce_9a77bbf8",
+        "filename": "api/video/video_frame.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-13T08:12:06Z",
+      "side": 1,
+      "message": "Does this imply a strict promise that no pixels outside the rectangle are changed at all? Could it be generalized to a \"rect of interest\"?",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 26
+      },
+      "revId": "ac62e8b0c17ca2d8ab624d320ce5ed785dea988f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

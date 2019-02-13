@@ -33,9 +33,11 @@ static const int64_t kDeltaLimit = 0xFF * TransportFeedback::kDeltaScaleFactor;
 
 class FeedbackTester {
  public:
-  FeedbackTester()
+  FeedbackTester() : FeedbackTester(true) {}
+  explicit FeedbackTester(bool include_timestamps)
       : expected_size_(kAnySize),
-        default_delta_(TransportFeedback::kDeltaScaleFactor * 4) {}
+        default_delta_(TransportFeedback::kDeltaScaleFactor * 4),
+        include_timestamps_(include_timestamps) {}
 
   void WithExpectedSize(size_t expected_size) {
     expected_size_ = expected_size;
@@ -55,7 +57,7 @@ class FeedbackTester {
 
     expected_seq_.clear();
     expected_deltas_.clear();
-    feedback_.reset(new TransportFeedback());
+    feedback_.reset(new TransportFeedback(include_timestamps_));
     feedback_->SetBase(received_seq[0], received_ts[0]);
     ASSERT_TRUE(feedback_->IsConsistent());
 
@@ -82,6 +84,7 @@ class FeedbackTester {
     feedback_ =
         TransportFeedback::ParseFrom(serialized_.data(), serialized_.size());
     ASSERT_TRUE(feedback_->IsConsistent());
+    EXPECT_EQ(include_timestamps_, feedback_->IncludeTimestamps());
     ASSERT_NE(nullptr, feedback_);
     VerifyInternal();
   }
@@ -104,7 +107,9 @@ class FeedbackTester {
       actual_deltas_us.push_back(packet.delta_us());
     }
     EXPECT_THAT(actual_seq_nos, ElementsAreArray(expected_seq_));
-    EXPECT_THAT(actual_deltas_us, ElementsAreArray(expected_deltas_));
+    if (include_timestamps_) {
+      EXPECT_THAT(actual_deltas_us, ElementsAreArray(expected_deltas_));
+    }
   }
 
   void GenerateDeltas(const uint16_t seq[],
@@ -128,6 +133,7 @@ class FeedbackTester {
   int64_t default_delta_;
   std::unique_ptr<TransportFeedback> feedback_;
   rtc::Buffer serialized_;
+  bool include_timestamps_;
 };
 
 TEST(RtcpPacketTest, TransportFeedbackOneBitVector) {
@@ -137,6 +143,17 @@ TEST(RtcpPacketTest, TransportFeedbackOneBitVector) {
       kHeaderSize + kStatusChunkSize + (kLength * kSmallDeltaSize);
 
   FeedbackTester test;
+  test.WithExpectedSize(kExpectedSizeBytes);
+  test.WithInput(kReceived, nullptr, kLength);
+  test.VerifyPacket();
+}
+
+TEST(RtcpPacketTest, TransportFeedbackOneBitVectorNoRecvDelta) {
+  const uint16_t kReceived[] = {1, 2, 7, 8, 9, 10, 13};
+  const size_t kLength = sizeof(kReceived) / sizeof(uint16_t);
+  const size_t kExpectedSizeBytes = kHeaderSize + kStatusChunkSize;
+
+  FeedbackTester test(/*include_timestamps=*/false);
   test.WithExpectedSize(kExpectedSizeBytes);
   test.WithInput(kReceived, nullptr, kLength);
   test.VerifyPacket();

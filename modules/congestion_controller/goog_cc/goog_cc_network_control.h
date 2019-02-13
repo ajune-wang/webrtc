@@ -69,6 +69,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   void MaybeTriggerOnNetworkChanged(NetworkControlUpdate* update,
                                     Timestamp at_time);
   PacerConfig GetPacingRates(Timestamp at_time) const;
+  // Logs newly created probe clusters to rtc event log.
+  void LogNewProbeClusters(const NetworkControlUpdate& update);
   const FieldTrialBasedConfig trial_based_config_;
 
   const WebRtcKeyValueConfig* const key_value_config_;
@@ -115,6 +117,8 @@ class GoogCcNetworkController : public NetworkControllerInterface {
   bool previously_in_alr = false;
 
   absl::optional<DataSize> current_data_window_;
+
+  int32_t probe_cluster_id_ = 0;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(GoogCcNetworkController);
 };

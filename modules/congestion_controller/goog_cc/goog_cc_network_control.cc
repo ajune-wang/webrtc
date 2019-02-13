@@ -20,9 +20,12 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/transport/network_control.h"
 #include "api/units/time_delta.h"
+#include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
+#include "modules/congestion_controller/goog_cc/goog_cc_network_control.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -141,6 +144,7 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkAvailability(
     NetworkAvailability msg) {
   NetworkControlUpdate update;
   update.probe_cluster_configs = probe_controller_->OnNetworkAvailability(msg);
+  LogNewProbeClusters(update);
   return update;
 }
 
@@ -195,7 +199,24 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   update.probe_cluster_configs = probe_controller_->SetBitrates(
       min_bitrate_bps, start_bitrate_bps, max_bitrate_bps, msg.at_time.ms());
   MaybeTriggerOnNetworkChanged(&update, msg.at_time);
+  LogNewProbeClusters(update);
   return update;
+}
+
+void GoogCcNetworkController::LogNewProbeClusters(
+    const NetworkControlUpdate& update) {
+  if (!event_log_) {
+    return;
+  }
+
+  for (const auto& probe : update.probe_cluster_configs) {
+    size_t min_bytes = static_cast<int32_t>(probe.target_data_rate.bps() *
+                                            probe.target_duration.ms() / 8000);
+    event_log_->Log(absl::make_unique<RtcEventProbeClusterCreated>(
+        probe_cluster_id_, probe.target_data_rate.bps(),
+        probe.target_probe_count, min_bytes));
+    probe_cluster_id_++;
+  }
 }
 
 NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
@@ -216,6 +237,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     if (total_bitrate) {
       auto probes = probe_controller_->OnMaxTotalAllocatedBitrate(
           total_bitrate->bps(), msg.at_time.ms());
+
       update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                           probes.begin(), probes.end());
 
@@ -237,6 +259,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
                                       probes.begin(), probes.end());
 
   MaybeTriggerOnNetworkChanged(&update, msg.at_time);
+  LogNewProbeClusters(update);
   return update;
 }
 
@@ -320,8 +343,11 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     pacing_changed = true;
   }
 
-  if (pacing_changed)
+  if (pacing_changed) {
     update.pacer_config = GetPacingRates(msg.at_time);
+  }
+
+  LogNewProbeClusters(update);
   return update;
 }
 
@@ -331,6 +357,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTargetRateConstraints(
   update.probe_cluster_configs =
       UpdateBitrateConstraints(constraints, constraints.starting_rate);
   MaybeTriggerOnNetworkChanged(&update, constraints.at_time);
+  LogNewProbeClusters(update);
   return update;
 }
 
@@ -536,6 +563,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
     update.congestion_window = current_data_window_;
   }
 
+  LogNewProbeClusters(update);
   return update;
 }
 

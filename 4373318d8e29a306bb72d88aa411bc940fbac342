@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "f1bf0cb0_789432f8",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-13T12:33:51Z",
+      "side": 1,
+      "message": "Do you represent the packet number as a signed value (outside of the event log code)? To me, it seems a bit strange to represent a counter using a signed type, but let\u0027s use whatever type avoids extra (implicit or explicit) casts when creating a RtcEventGenericPacketSent.",
+      "parentUuid": "7a245122_5c539074",
+      "range": {
+        "startLine": 1369,
+        "startChar": 34,
+        "endLine": 1369,
+        "endChar": 47
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9287934d_bb1ce542",
         "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.cc",
         "patchSetId": 18
@@ -308,6 +332,30 @@
     },
     {
       "key": {
+        "uuid": "038cfded_a14b0853",
+        "filename": "logging/rtc_event_log/rtc_event_log2.proto",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-13T12:33:51Z",
+      "side": 1,
+      "message": "I see. Yes, I would still prefer renaming to avoid the \"timestamp\" ambiguity. Btw, what\u0027s the variable called in your generic transport?",
+      "parentUuid": "c7b469bc_a70fc049",
+      "range": {
+        "startLine": 84,
+        "startChar": 17,
+        "endLine": 84,
+        "endChar": 37
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "26057c24_fdccdffc",
         "filename": "logging/rtc_event_log/rtc_event_log2.proto",
         "patchSetId": 18
@@ -484,6 +532,30 @@
       "side": 1,
       "message": "I don\u0027t quite understand that. This is exactly what the copy constructor is for. In production you generally won\u0027t accidentally copy it, because you use unique_ptr\u003cRtcEventLog\u003e, and you can\u0027t copy a unique ptr.",
       "parentUuid": "a9c888e4_697bb819",
+      "range": {
+        "startLine": 500,
+        "startChar": 42,
+        "endLine": 500,
+        "endChar": 48
+      },
+      "revId": "4373318d8e29a306bb72d88aa411bc940fbac342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2db8b806_b2aec5a5",
+        "filename": "logging/rtc_event_log/rtc_event_log_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-13T12:33:51Z",
+      "side": 1,
+      "message": "True, but for example when you dereference the unique pointer and pass it to a function, then the effect depends on the function declaration. E.g., calling foo(*event) would create a copy if foo was declared as\nvoid foo(const Event e);\ninstead of\nvoid foo(const Event\u0026 e);\nThis 1 character typo would compile, pass all tests and would be quite hard to find, but could still affect performance since the event log handles quite a lot of events.",
+      "parentUuid": "a5670740_63ed809f",
       "range": {
         "startLine": 500,
         "startChar": 42,

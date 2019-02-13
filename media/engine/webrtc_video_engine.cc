@@ -2746,10 +2746,15 @@ std::vector<webrtc::VideoStream> EncoderStreamFactory::CreateEncoderStreams(
   }
 
   // For unset max bitrates set default bitrate for non-simulcast.
-  int max_bitrate_bps =
-      (encoder_config.max_bitrate_bps > 0)
-          ? encoder_config.max_bitrate_bps
-          : GetMaxDefaultVideoBitrateKbps(width, height) * 1000;
+  int max_bitrate_bps = GetMaxDefaultVideoBitrateKbps(width, height) * 1000;
+  if (is_screenshare_ && encoder_config.max_bitrate_bps <= 0) {
+    // Allow enough bandwidth to enable high-fps screenshare.
+    max_bitrate_bps = std::max(max_bitrate_bps, 1000000);
+  }
+  // Overwrite default values if max_bitrate_bps is provided.
+  if (encoder_config.max_bitrate_bps > 0) {
+    max_bitrate_bps = encoder_config.max_bitrate_bps;
+  }
 
   int min_bitrate_bps = GetMinVideoBitrateBps();
   if (encoder_config.simulcast_layers[0].min_bitrate_bps > 0) {

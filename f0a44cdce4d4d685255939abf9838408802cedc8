@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "325a9228_bc467002",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2019-02-13T20:50:03Z",
+      "side": 1,
+      "message": "Yes, good point, and the provider must guarantee to outlive the responder. I edited the comment.",
+      "parentUuid": "8a3b3622_0714a87e",
+      "revId": "f0a44cdce4d4d685255939abf9838408802cedc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78c088c4_7358f5ed",
         "filename": "rtc_base/network.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "f0a44cdce4d4d685255939abf9838408802cedc8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88fdd157_14ce5d2f",
+        "filename": "rtc_base/network.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5887
+      },
+      "writtenOn": "2019-02-13T20:50:03Z",
+      "side": 1,
+      "message": "This is Network::GetMdnsResponder, which delegates to provider-\u003eGetMdnsResponder.",
+      "parentUuid": "78c088c4_7358f5ed",
+      "revId": "f0a44cdce4d4d685255939abf9838408802cedc8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

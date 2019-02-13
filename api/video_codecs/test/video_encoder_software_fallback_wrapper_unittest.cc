@@ -602,6 +602,7 @@ TEST(SoftwareFallbackEncoderTest, HwRateControllerTrusted) {
   // Trigger fallback to software.
   EXPECT_CALL(*hw_encoder, Encode)
       .WillOnce(Return(WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE));
+  rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(100, 100);
   VideoFrame frame = VideoFrame::Builder().build();
   wrapper->Encode(frame, nullptr, nullptr);
 
@@ -640,6 +641,7 @@ TEST(SoftwareFallbackEncoderTest, ReportsHardwareAccelerated) {
   // Trigger fallback to software.
   EXPECT_CALL(*hw_encoder, Encode)
       .WillOnce(Return(WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE));
+  rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(100, 100);
   VideoFrame frame = VideoFrame::Builder().build();
   wrapper->Encode(frame, nullptr, nullptr);
   EXPECT_FALSE(wrapper->GetEncoderInfo().is_hardware_accelerated);
@@ -662,7 +664,9 @@ TEST(SoftwareFallbackEncoderTest, ReportsInternalSource) {
   // Trigger fallback to software.
   EXPECT_CALL(*hw_encoder, Encode)
       .WillOnce(Return(WEBRTC_VIDEO_CODEC_FALLBACK_SOFTWARE));
-  VideoFrame frame = VideoFrame::Builder().build();
+  rtc::scoped_refptr<I420Buffer> buffer = I420Buffer::Create(100, 100);
+  VideoFrame frame =
+      VideoFrame::Builder().set_video_frame_buffer(buffer).build();
   wrapper->Encode(frame, nullptr, nullptr);
   EXPECT_FALSE(wrapper->GetEncoderInfo().has_internal_source);
 }

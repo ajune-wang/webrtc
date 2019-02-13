@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a5b43c9f_97e90281",
+        "filename": "api/video/video_frame.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T10:46:30Z",
+      "side": 1,
+      "message": "Removed. \n\nThe name convention is copied from gfx::Rect::Union\nhttps://cs.chromium.org/chromium/src/ui/gfx/geometry/rect.h?q\u003dgfx::Rect\u0026sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026l\u003d181\n\nI believe it\u0027s clear from the return type that union is a bounding box in this case.",
+      "parentUuid": "ec222af6_4771bcf1",
+      "range": {
+        "startLine": 20,
+        "startChar": 47,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "9b2cc17cfddaa4ec87b97777ada6cad46d9af50e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4229207_b9276700",
         "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "9b2cc17cfddaa4ec87b97777ada6cad46d9af50e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5546791_8cf2b238",
+        "filename": "api/video_codecs/test/video_encoder_software_fallback_wrapper_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T10:46:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4229207_b9276700",
+      "range": {
+        "startLine": 607,
+        "startChar": 51,
+        "endLine": 607,
+        "endChar": 57
+      },
+      "revId": "9b2cc17cfddaa4ec87b97777ada6cad46d9af50e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

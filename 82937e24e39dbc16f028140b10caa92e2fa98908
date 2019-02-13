@@ -22,6 +22,30 @@
       "revId": "82937e24e39dbc16f028140b10caa92e2fa98908",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57819b55_c5b7da03",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-13T15:57:27Z",
+      "side": 1,
+      "message": "then we\u0027ll get warnings from then formatter, not sure this constructor is worth adding an exception for",
+      "parentUuid": "8af81f93_742afbfb",
+      "range": {
+        "startLine": 355,
+        "startChar": 13,
+        "endLine": 357,
+        "endChar": 17
+      },
+      "revId": "82937e24e39dbc16f028140b10caa92e2fa98908",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

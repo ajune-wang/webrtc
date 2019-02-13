@@ -34,6 +34,24 @@
       "revId": "18bf8f4cfff8accdcedb33977d7cd5d9f6ed30e1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82cb4ab6_8e4989ce",
+        "filename": "modules/video_coding/utility/simulcast_utility.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-13T14:57:09Z",
+      "side": 1,
+      "message": "Not really. Sometimes you can find some bits of relevant info in comments in libvpx headers. Usually, we just ask marpan@.",
+      "parentUuid": "9fde3e72_145f729a",
+      "revId": "18bf8f4cfff8accdcedb33977d7cd5d9f6ed30e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

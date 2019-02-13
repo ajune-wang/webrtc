@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "725c78bc_69a5feab",
+        "filename": "modules/audio_coding/audio_network_adaptor/controller_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-13T00:39:10Z",
+      "side": 1,
+      "message": "Would it be a good idea to change it to string_view instead, in all the places where you now have const string\u0026 function arguments?",
+      "revId": "85670f2df2c56799e44f0d315cec13563e10cf81",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

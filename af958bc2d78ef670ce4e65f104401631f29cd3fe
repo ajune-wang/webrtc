@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cef4eb8_87d59adb",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-13T15:05:45Z",
+      "side": 1,
+      "message": "may be explain relation between delta size and adding seq_no to packets_:\n\u0027Use delta sizes to detect if packet was received\u0027",
+      "revId": "af958bc2d78ef670ce4e65f104401631f29cd3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d24706_48661fef",
+        "filename": "modules/rtp_rtcp/source/rtcp_packet/transport_feedback_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-13T15:05:45Z",
+      "side": 1,
+      "message": "this test is consistent with nearby test,\nbut I do not understand what exactly it is testing... [nearby tests are as cryptic]\n\nCan you see an easy way to explain what is verified in this test?",
+      "range": {
+        "startLine": 151,
+        "startChar": 21,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "af958bc2d78ef670ce4e65f104401631f29cd3fe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

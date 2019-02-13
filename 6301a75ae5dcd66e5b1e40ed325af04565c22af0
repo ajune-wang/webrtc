@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62a6861f_b6a35017",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-13T14:24:41Z",
+      "side": 1,
+      "message": "Always offer",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "6301a75ae5dcd66e5b1e40ed325af04565c22af0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f407fa51_8b9401f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-13T14:24:41Z",
+      "side": 1,
+      "message": "extension",
+      "range": {
+        "startLine": 7,
+        "startChar": 39,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "6301a75ae5dcd66e5b1e40ed325af04565c22af0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65b3c927_5e647ce5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-13T14:24:41Z",
+      "side": 1,
+      "message": "\u003cDue to MOTIVATION\u003e, the extension will only be added to audio packets if the WebRTC-Audio-SendSideBwe field trial is enabled.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 50
+      },
+      "revId": "6301a75ae5dcd66e5b1e40ed325af04565c22af0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a7228ea_0d32e84d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-13T14:24:41Z",
+      "side": 1,
+      "message": "Does this reference add any value for future readers? I think it\u0027s enough that it\u0027s mentioned to reviewers. I suggest removing it.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 93
+      },
+      "revId": "6301a75ae5dcd66e5b1e40ed325af04565c22af0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6b7f08_2d3b5a6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-13T14:24:41Z",
+      "side": 1,
+      "message": "Bug:",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 4
+      },
+      "revId": "6301a75ae5dcd66e5b1e40ed325af04565c22af0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

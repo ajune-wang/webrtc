@@ -313,19 +313,30 @@ int main(int argc, char* argv[]) {
   if (FLAG_plot_incoming_loss_rate) {
     analyzer.CreateIncomingPacketLossGraph(collection->AppendNewPlot());
   }
-  if (FLAG_plot_incoming_bitrate) {
+  if (FLAG_plot_incoming_bitrate &&
+      !parsed_log.incoming_rtp_packets_by_ssrc().empty()) {
     analyzer.CreateTotalIncomingBitrateGraph(collection->AppendNewPlot());
   }
-  if (FLAG_plot_outgoing_bitrate) {
-    analyzer.CreateTotalOutgoingBitrateGraph(collection->AppendNewPlot(),
-                                             FLAG_show_detector_state,
-                                             FLAG_show_alr_state);
+  if (FLAG_plot_incoming_bitrate &&
+      !parsed_log.generic_packets_received().empty()) {
+    analyzer.CreateGenericPacketsIncomingBitrateGraph(
+        collection->AppendNewPlot());
   }
-  if (FLAG_plot_incoming_stream_bitrate) {
+  if (FLAG_plot_outgoing_bitrate) {
+    webrtc::Plot* new_plot = collection->AppendNewPlot();
+    analyzer.CreateTotalOutgoingBitrateGraph(new_plot, FLAG_show_detector_state,
+                                             FLAG_show_alr_state);
+    if (!parsed_log.generic_packets_sent().empty()) {
+      analyzer.CreateGenericPacketsOutgoingBitrateGraph(new_plot);
+    }
+  }
+  if (FLAG_plot_incoming_stream_bitrate &&
+      !parsed_log.rtp_packets_by_ssrc(webrtc::kIncomingPacket).empty()) {
     analyzer.CreateStreamBitrateGraph(webrtc::kIncomingPacket,
                                       collection->AppendNewPlot());
   }
-  if (FLAG_plot_outgoing_stream_bitrate) {
+  if (FLAG_plot_outgoing_stream_bitrate &&
+      !parsed_log.rtp_packets_by_ssrc(webrtc::kOutgoingPacket).empty()) {
     analyzer.CreateStreamBitrateGraph(webrtc::kOutgoingPacket,
                                       collection->AppendNewPlot());
   }

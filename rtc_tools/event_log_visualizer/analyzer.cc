@@ -1055,6 +1055,54 @@ void EventLogAnalyzer::CreateStreamBitrateGraph(PacketDirection direction,
   plot->SetTitle(GetDirectionAsString(direction) + " bitrate per stream");
 }
 
+void EventLogAnalyzer::CreateGenericPacketsIncomingBitrateGraph(Plot* plot) {
+  {
+    TimeSeries time_series("Incoming bitrate", LineStyle::kLine);
+    auto GetPacketSizeKilobits = [](const LoggedGenericPacketReceived& packet) {
+      return packet.packet_length * 8.0 / 1000.0;
+    };
+    auto ToCallTime = [this](int64_t time) {
+      return this->ToCallTimeSec(time);
+    };
+    MovingAverage<LoggedGenericPacketReceived, double>(
+        ToCallTime, GetPacketSizeKilobits,
+        parsed_log_.generic_packets_received(), begin_time_, end_time_,
+        window_duration_, step_, &time_series);
+    plot->AppendTimeSeries(std::move(time_series));
+  }
+
+  plot->SetXAxis(ToCallTimeSec(begin_time_), call_duration_s_, "Time (s)",
+                 kLeftMargin, kRightMargin);
+  plot->SetSuggestedYAxis(0, 1, "Bitrate (kbps)", kBottomMargin, kTopMargin);
+  plot->SetTitle("Generic packets incoming bitrate");
+}
+
+void EventLogAnalyzer::CreateGenericPacketsOutgoingBitrateGraph(Plot* plot) {
+  auto ToCallTime = [this](int64_t time) { return this->ToCallTimeSec(time); };
+  {
+    TimeSeries time_series("Outgoing generic total bitrate", LineStyle::kLine);
+    auto GetPacketSizeKilobits = [](const LoggedGenericPacketSent& packet) {
+      return packet.packet_length() * 8.0 / 1000.0;
+    };
+    MovingAverage<LoggedGenericPacketSent, double>(
+        ToCallTime, GetPacketSizeKilobits, parsed_log_.generic_packets_sent(),
+        begin_time_, end_time_, window_duration_, step_, &time_series);
+    plot->AppendTimeSeries(std::move(time_series));
+  }
+
+  {
+    TimeSeries time_series("Outgoing generic payload bitrate",
+                           LineStyle::kLine);
+    auto GetPacketSizeKilobits = [](const LoggedGenericPacketSent& packet) {
+      return packet.payload_length * 8.0 / 1000.0;
+    };
+    MovingAverage<LoggedGenericPacketSent, double>(
+        ToCallTime, GetPacketSizeKilobits, parsed_log_.generic_packets_sent(),
+        begin_time_, end_time_, window_duration_, step_, &time_series);
+    plot->AppendTimeSeries(std::move(time_series));
+  }
+}
+
 void EventLogAnalyzer::CreateSendSideBweSimulationGraph(Plot* plot) {
   using RtpPacketType = LoggedRtpPacketOutgoing;
   using TransportFeedbackType = LoggedRtcpPacketTransportFeedback;

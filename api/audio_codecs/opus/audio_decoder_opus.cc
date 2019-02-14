@@ -23,6 +23,9 @@ namespace webrtc {
 absl::optional<AudioDecoderOpus::Config> AudioDecoderOpus::SdpToConfig(
     const SdpAudioFormat& format) {
   const auto num_channels = [&]() -> absl::optional<int> {
+    if (format.num_channels > 2) {
+      return format.num_channels;
+    }
     auto stereo = format.parameters.find("stereo");
     if (stereo != format.parameters.end()) {
       if (stereo->second == "0") {
@@ -36,7 +39,9 @@ absl::optional<AudioDecoderOpus::Config> AudioDecoderOpus::SdpToConfig(
     return 1;  // Default to mono.
   }();
   if (absl::EqualsIgnoreCase(format.name, "opus") &&
-      format.clockrate_hz == 48000 && format.num_channels == 2 &&
+      format.clockrate_hz == 48000 &&
+      (format.num_channels == 2 || format.num_channels == 4 ||
+       format.num_channels == 6 || format.num_channels == 8) &&
       num_channels) {
     return Config{*num_channels};
   } else {

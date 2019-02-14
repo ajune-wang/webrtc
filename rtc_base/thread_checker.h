@@ -164,8 +164,14 @@ class RTC_SCOPED_LOCKABLE AnnounceOnThread {
 #define RTC_RUN_ON(x) \
   RTC_THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
 
+#if RTC_DCHECK_IS_ON
 #define RTC_DCHECK_RUN_ON(thread_like_object)                           \
   rtc::internal::AnnounceOnThread thread_announcer(thread_like_object); \
   RTC_DCHECK(rtc::internal::AnnounceOnThread::IsCurrent(thread_like_object))
+#else
+#define RTC_DCHECK_RUN_ON(thread_like_object) \
+  do {                                        \
+  } while (0)
+#endif
 
 #endif  // RTC_BASE_THREAD_CHECKER_H_

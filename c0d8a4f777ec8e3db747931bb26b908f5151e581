@@ -163,6 +163,30 @@
       "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89eb1044_3c585a89",
+        "filename": "test/call_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T15:13:56Z",
+      "side": 1,
+      "message": "Correction - I\u0027ve added a check for encryption status.",
+      "parentUuid": "a7071a6d_ceb79275",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

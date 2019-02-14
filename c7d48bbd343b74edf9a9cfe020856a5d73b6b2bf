@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a7e5345c_c185e85d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2753,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-14T12:44:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a169410_1a83484d",
+      "range": {
+        "startLine": 2750,
+        "startChar": 2,
+        "endLine": 2753,
+        "endChar": 3
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca9f4c8e_e501f95a",
         "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abba2470_691e96a5",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-14T12:44:28Z",
+      "side": 1,
+      "message": "Yes, bumped bitrates up and reduced high layer to reduce total uplink/downlink requirements.\n\nNow receiver could choose from 150, 500 and 900-1400 kbps.",
+      "parentUuid": "ca9f4c8e_e501f95a",
+      "range": {
+        "startLine": 28,
+        "startChar": 60,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "58ed9e1c_35937f39",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-14T12:44:28Z",
+      "side": 1,
+      "message": "Bumped up a little. It now is 500-650kbps, and compared to 600 kbps SL1 TL0 for VP9 it\u0027s fine",
+      "parentUuid": "aef82b0c_930874df",
+      "range": {
+        "startLine": 29,
+        "startChar": 57,
+        "endLine": 29,
+        "endChar": 60
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50952e3c_e78fa7af",
         "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-02-14T09:44:09Z",
       "side": 1,
       "message": "can this be implemented with single for/while loop?\n- first, iterate over layers and allocate up to their target.\n- then add leftover bitrate to the latest allocated layer (cap to its max).",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 71
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36ea17c7_bd0b91f5",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-14T12:44:28Z",
+      "side": 1,
+      "message": "I tried to do so, but i find the code more easy to understand like it\u0027s now. First find out how many layers are enabled, then allocate bitrate to them. \n\nSingle loop would require checking of currently spent target bitrate + min bitrate of next layer while putting target bitrate to this layer. And Bumping up to max will have to be made at the en anyways.\n\nI\u0027ve added more comments, PTAL.",
+      "parentUuid": "50952e3c_e78fa7af",
       "range": {
         "startLine": 199,
         "startChar": 0,

@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7645a84_fd051581",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus_config.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-02-14T09:08:09Z",
+      "side": 1,
+      "message": "Is it required to be an even number of channels, unless mono? Why don\u0027t we allow any set of channels between, say, 1 and 8?",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7155108f_e72ff736",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-02-14T09:08:09Z",
+      "side": 1,
+      "message": "Left in while testing?",
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9582bde_f5889942",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-02-14T09:08:09Z",
+      "side": 1,
+      "message": "Since this is reused in several places now, you should probably turn it into a global constant and reference that.",
+      "range": {
+        "startLine": 1496,
+        "startChar": 30,
+        "endLine": 1496,
+        "endChar": 71
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5de4feb_c40b708f",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-02-14T09:08:09Z",
+      "side": 1,
+      "message": "CHECKing for this seems a bit harsh - how was failure handled before? Was it at all? :)",
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

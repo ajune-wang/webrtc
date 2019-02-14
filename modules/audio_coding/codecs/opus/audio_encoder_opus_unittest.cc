@@ -38,8 +38,9 @@ constexpr int kDefaultOpusPacSize = 960;
 constexpr int64_t kInitialTimeUs = 12345678;
 
 AudioEncoderOpusConfig CreateConfigWithParameters(
-    const SdpAudioFormat::Parameters& params) {
-  const SdpAudioFormat format("opus", 48000, 2, params);
+    const SdpAudioFormat::Parameters& params,
+    int num_channels = 2) {
+  const SdpAudioFormat format("opus", 48000, num_channels, params);
   return *AudioEncoderOpus::SdpToConfig(format);
 }
 
@@ -369,6 +370,7 @@ TEST(AudioEncoderOpusTest, InvokeAudioNetworkAdaptorOnReceivedUplinkBandwidth) {
 }
 
 TEST(AudioEncoderOpusTest, InvokeAudioNetworkAdaptorOnReceivedRtt) {
+  // TODO(webrtc:8649): ANA doesn't work with multi-stream encoding.
   auto states = CreateCodec(2);
   states->encoder->EnableAudioNetworkAdaptor("", nullptr);
 
@@ -385,6 +387,7 @@ TEST(AudioEncoderOpusTest, InvokeAudioNetworkAdaptorOnReceivedRtt) {
 }
 
 TEST(AudioEncoderOpusTest, InvokeAudioNetworkAdaptorOnReceivedOverhead) {
+  // TODO(webrtc:8649): ANA doesn't work with multi-stream encoding.
   auto states = CreateCodec(2);
   states->encoder->EnableAudioNetworkAdaptor("", nullptr);
 
@@ -620,6 +623,7 @@ TEST(AudioEncoderOpusTest, ConfigBandwidthAdaptation) {
 }
 
 TEST(AudioEncoderOpusTest, EmptyConfigDoesNotAffectEncoderSettings) {
+  // TODO(webrtc:8649): ANA doesn't work with multi-stream encoding.
   auto states = CreateCodec(2);
   states->encoder->EnableAudioNetworkAdaptor("", nullptr);
 
@@ -640,6 +644,7 @@ TEST(AudioEncoderOpusTest, EmptyConfigDoesNotAffectEncoderSettings) {
 }
 
 TEST(AudioEncoderOpusTest, UpdateUplinkBandwidthInAudioNetworkAdaptor) {
+  // TODO(webrtc:8649): ANA doesn't work with multi-stream encoding.
   auto states = CreateCodec(2);
   states->encoder->EnableAudioNetworkAdaptor("", nullptr);
   std::array<int16_t, 480 * 2> audio;
@@ -762,6 +767,9 @@ TEST(AudioEncoderOpusTest, TestConfigFromParams) {
 
   const auto config15 = CreateConfigWithParameters({{"ptime", "2000"}});
   EXPECT_EQ(kMaxSupportedFrameLength, config15.frame_size_ms);
+
+  const auto config16 = CreateConfigWithParameters({}, /* num_channels= */ 4);
+  EXPECT_EQ(4ul, config16.num_channels);
 }
 
 TEST(AudioEncoderOpusTest, TestConfigFromInvalidParams) {
@@ -818,12 +826,19 @@ TEST(AudioEncoderOpusTest, TestConfigFromInvalidParams) {
   config = CreateConfigWithParameters({{"ptime", "invalid"}});
   EXPECT_EQ(default_supported_frame_lengths_ms,
             config.supported_frame_lengths_ms);
+
+  absl::optional<AudioEncoderOpusConfig> three_channel_config =
+      AudioEncoderOpus::SdpToConfig(SdpAudioFormat("opus", 48000, 3, {}));
+  EXPECT_EQ(three_channel_config, absl::nullopt);
 }
 
 // Test that bitrate will be overridden by the "maxaveragebitrate" parameter.
 // Also test that the "maxaveragebitrate" can't be set to values outside the
 // range of 6000 and 510000
 TEST(AudioEncoderOpusTest, SetSendCodecOpusMaxAverageBitrate) {
+  // TODO(webrtc:8649): Look into increasing the max rate for multi-channel
+  // encoding.
+
   // Ignore if less than 6000.
   const auto config1 = AudioEncoderOpus::SdpToConfig(
       {"opus", 48000, 2, {{"maxaveragebitrate", "5999"}}});
@@ -900,6 +915,8 @@ TEST(AudioEncoderOpusTest, SetMaxPlaybackRateFb) {
 }
 
 TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
+  // TODO(webrtc:8649): this test fails with multi-channel encoding, because DTX
+  // is not correctly reported.
   // Create encoder with DTX enabled.
   AudioEncoderOpusConfig config;
   config.dtx_enabled = true;

@@ -184,28 +184,53 @@ VideoBitrateAllocation SvcRateAllocator::GetAllocationNormalVideo(
   return bitrate_allocation;
 }
 
+// Bit-rate is allocated in such a way, that the highest enabled layer will have
+// between min and max bitrate, and all others will have exactly target
+// bit-rate allocated.
 VideoBitrateAllocation SvcRateAllocator::GetAllocationScreenSharing(
     uint32_t total_bitrate_bps,
     size_t num_spatial_layers) const {
+  if (num_spatial_layers == 0 ||
+      total_bitrate_bps < codec_.spatialLayers[0].minBitrate * 1000) {
+    return VideoBitrateAllocation();
+  }
   VideoBitrateAllocation bitrate_allocation;
 
-  // Add next layer after bitrate of previous layer has reached its maximum.
-  size_t left_bitrate_bps = total_bitrate_bps;
-  for (size_t sl_idx = 0; sl_idx < num_spatial_layers; ++sl_idx) {
-    const size_t min_bitrate_bps =
-        codec_.spatialLayers[sl_idx].minBitrate * 1000;
-    const size_t max_bitrate_bps =
-        codec_.spatialLayers[sl_idx].maxBitrate * 1000;
+  size_t sum_target_bitrates = 0;
+  size_t sl_idx;
+  for (sl_idx = 0; sl_idx < num_spatial_layers - 1; ++sl_idx) {
+    sum_target_bitrates += codec_.spatialLayers[sl_idx].targetBitrate * 1000;
+  }
 
-    const size_t bitrate_bps = std::min(left_bitrate_bps, max_bitrate_bps);
-    if (bitrate_bps >= min_bitrate_bps) {
-      bitrate_allocation.SetBitrate(sl_idx, 0, bitrate_bps);
-    } else {
+  size_t highest_enabled_layer = num_spatial_layers - 1;
+  while (true) {
+    // Check if there's enough bitrate for enabling up-to current layer.
+    if (total_bitrate_bps >=
+        sum_target_bitrates +
+            codec_.spatialLayers[highest_enabled_layer].minBitrate * 1000) {
       break;
     }
-
-    left_bitrate_bps -= bitrate_bps;
+    // There should always be enough bitrate at least for the lowest layer.
+    RTC_CHECK_GT(highest_enabled_layer, 0);
+    // Disable current layer. Reduce bandwidth requirements.
+    --highest_enabled_layer;
+    sum_target_bitrates -=
+        codec_.spatialLayers[highest_enabled_layer].targetBitrate * 1000;
   }
+
+  // All layers, except the highest are allocated target bitrate.
+  for (sl_idx = 0; sl_idx < highest_enabled_layer; ++sl_idx) {
+    bitrate_allocation.SetBitrate(
+        sl_idx, 0, codec_.spatialLayers[sl_idx].targetBitrate * 1000);
+  }
+
+  size_t bitrate_left_bps = total_bitrate_bps - sum_target_bitrates;
+  if (bitrate_left_bps >
+      codec_.spatialLayers[highest_enabled_layer].maxBitrate * 1000) {
+    bitrate_left_bps =
+        codec_.spatialLayers[highest_enabled_layer].maxBitrate * 1000;
+  }
+  bitrate_allocation.SetBitrate(highest_enabled_layer, 0, bitrate_left_bps);
 
   return bitrate_allocation;
 }
@@ -245,7 +270,7 @@ uint32_t SvcRateAllocator::GetPaddingBitrateBps(const VideoCodec& codec) {
 
   uint32_t min_bitrate_kbps = 0;
   for (size_t sl_idx = 0; sl_idx < num_spatial_layers - 1; ++sl_idx) {
-    min_bitrate_kbps += codec.spatialLayers[sl_idx].maxBitrate;
+    min_bitrate_kbps += codec.spatialLayers[sl_idx].targetBitrate;
   }
   min_bitrate_kbps += codec.spatialLayers[num_spatial_layers - 1].minBitrate;
 

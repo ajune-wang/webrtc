@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a169410_1a83484d",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2753,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-02-14T09:44:09Z",
+      "side": 1,
+      "message": "Maybe move this logic to GetMaxDefaultVideoBitrateKbps?",
+      "range": {
+        "startLine": 2750,
+        "startChar": 2,
+        "endLine": 2753,
+        "endChar": 3
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca9f4c8e_e501f95a",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-02-14T09:44:09Z",
+      "side": 1,
+      "message": "Is this what receiver with limited BW will get when high frame rate layer is enabled on sender? Is not this is quite low bitrate?",
+      "range": {
+        "startLine": 28,
+        "startChar": 60,
+        "endLine": 28,
+        "endChar": 63
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef82b0c_930874df",
+        "filename": "modules/video_coding/codecs/vp9/svc_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-02-14T09:44:09Z",
+      "side": 1,
+      "message": "Would be interesting to see data that supports this change. Do we still get same/better quality than VP8 provides at 1Mbps (max bitrate for 2 temporal layers)?",
+      "range": {
+        "startLine": 29,
+        "startChar": 57,
+        "endLine": 29,
+        "endChar": 60
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50952e3c_e78fa7af",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-02-14T09:44:09Z",
+      "side": 1,
+      "message": "can this be implemented with single for/while loop?\n- first, iterate over layers and allocate up to their target.\n- then add leftover bitrate to the latest allocated layer (cap to its max).",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 71
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

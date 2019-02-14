@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5712171e_7742f877",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T13:03:43Z",
+      "side": 1,
+      "message": "* constants.h was indirectly included in this file, defining kAudioLevelExtensionId. Now that constants.h is gone, someone needs to define it.\n* I am defining it in the same way everywhere. In some files it\u0027s an enum with only one value, but that\u0027s better than sometimes defining it as an int, and sometimes as an enum.",
+      "parentUuid": "5f1b96c1_be2d36bf",
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add05c6b_c3603596",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2019-02-14T12:49:47Z",
       "side": 1,
       "message": "I see one upside with this grouping:\nit implicitly guaranteed uniqueness of these ids within this test file.\nAlternative way to make it harder to have accidental duplicates is to reorder (or to reenumerate) extension ids by value.\n\nbut I also see two downsides of this grouping style:\na) when something goes wrong and test show failure about some extension id, you need to manually calculate which extension that id correspond to (where with explicit constants finding correct line is simpler)\nb) Without explicit numbering It is easier to go beyond 14 extensions without noticing that.\n\nIt seems to me there are more downsides than upsides,\nAre there upsides I\u0027m missing?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf7aaea_1c782547",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T13:03:43Z",
+      "side": 1,
+      "message": "1. Please see the mess that was here before this CL, with the completely arbitrary ordering (neither numerical nor alphabetical) of the extension IDs.\n2. When the values are explicitly written, it\u0027s not guaranteed that a committer would know about the limit of 14 for a one-byte extension.\n3. The tests are not necessarily interested in the limitation to 14. If 14 extensions are used, and we don\u0027t support two-byte extensions, the relevant tests will just fail, as they should, and the CL in question would be corrected before it\u0027s committed.\n4. We can add a static_assert that makes sure the last value is \u003c\u003d14. But I think that\u0027s unnecessary, given #3.\n5. If you have a better suggestion, though, I\u0027d love to hear it.",
+      "parentUuid": "add05c6b_c3603596",
       "range": {
         "startLine": 43,
         "startChar": 0,

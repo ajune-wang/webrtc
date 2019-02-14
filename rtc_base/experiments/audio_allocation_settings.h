@@ -20,54 +20,28 @@ class AudioAllocationSettings {
  public:
   AudioAllocationSettings();
   ~AudioAllocationSettings();
-  // Returns true if audio feedback should be force disabled.
-  bool ForceNoAudioFeedback() const;
-  // Returns true if changes in transport sequence number id should be ignored
-  // as a trigger for reconfiguration.
-  bool IgnoreSeqNumIdChange() const;
   // Returns true if the bitrate allocation range should be configured.
   bool ConfigureRateAllocationRange() const;
-  // Returns true if the transport sequence number extension should be enabled.
-  bool EnableTransportSequenceNumberExtension() const;
-  // Returns true if audio traffic should be included in transport wide feedback
-  // packets.
-  // |transport_seq_num_extension_header_id| the extension header id for
-  // transport sequence numbers. Set to 0 if not the extension is not
-  // configured.
-  bool IncludeAudioInFeedback(int transport_seq_num_extension_header_id) const;
-  // Returns true if target bitrate for audio streams should be updated.
-  // |transport_seq_num_extension_header_id| the extension header id for
-  // transport sequence numbers. Set to 0 if not the extension is not
-  // configured.
-  bool UpdateAudioTargetBitrate(
-      int transport_seq_num_extension_header_id) const;
+  // Returns true if audio packets should have transport wide sequence numbers
+  // added to the packets if the extension has been negotiated.
+  bool SendTransportSequenceNumber() const;
   // Returns true if audio should be added to rate allocation when the audio
   // stream is started.
-  // |min_bitrate_bps| the configured min bitrate, set to -1 if unset.
-  // |max_bitrate_bps| the configured max bitrate, set to -1 if unset.
-  // |has_dscp| true is dscp is enabled.
-  // |transport_seq_num_extension_header_id| the extension header id for
-  // transport sequence numbers. Set to 0 if not the extension is not
-  // configured.
-  bool IncludeAudioInAllocationOnStart(
-      int min_bitrate_bps,
-      int max_bitrate_bps,
-      bool has_dscp,
-      int transport_seq_num_extension_header_id) const;
-  // Returns true if audio should be added to rate allocation when the audio
-  // stream is reconfigured.
-  // |min_bitrate_bps| the configured min bitrate, set to -1 if unset.
-  // |max_bitrate_bps| the configured max bitrate, set to -1 if unset.
-  // |has_dscp| true is dscp is enabled.
-  // |transport_seq_num_extension_header_id| the extension header id for
-  // transport sequence numbers. Set to 0 if not the extension is not
-  // configured.
-  bool IncludeAudioInAllocationOnReconfigure(
-      int min_bitrate_bps,
-      int max_bitrate_bps,
-      bool has_dscp,
-      int transport_seq_num_extension_header_id) const;
-
+  bool AlwaysIncludeAudioInAllocation() const;
+  // Used for audio only calls to connect the congestion controller to RTCP
+  // packets. Not required for video calls since the video stream will do the
+  // same.
+  bool RegisterRtcpObserver() const;
+  // Returns true if AudioSendStream should signal to transport controller to
+  // enable probing in Application Limited Regions.
+  bool EnableAlrProbing() const;
+  // Returns the min bitrate for audio rate allocation, excluding overhead.
+  absl::optional<DataRate> DefaultMinBitrate() const;
+  // Returns the max bitrate for audio rate allocation, excluding overhead.
+  absl::optional<DataRate> DefaultMaxBitrate() const;
+  // Indicates that legacy frame length values should be used instead of
+  // accurate values in overhead calculations.
+  bool UseLegacyFrameLengthForOverhead() const;
   // Returns the min bitrate for audio rate allocation, potentially including
   // overhead.
   int MinBitrateBps() const;
@@ -81,16 +55,19 @@ class AudioAllocationSettings {
   DataRate DefaultPriorityBitrate() const;
 
  private:
-  FieldTrialFlag audio_send_side_bwe_;
-  FieldTrialFlag allocate_audio_without_feedback_;
-  FieldTrialFlag force_no_audio_feedback_;
-  FieldTrialFlag audio_feedback_to_improve_video_bwe_;
-  FieldTrialFlag send_side_bwe_with_overhead_;
+  const bool legacy_audio_send_side_bwe_trial_;
+  const bool legacy_allocate_audio_without_feedback_trial_;
+  const bool legacy_audio_only_call_;
+  const bool register_rtcp_observer_;
+  const bool enable_alr_probing_;
+  const bool send_transport_sequence_numbers_;
+  const bool include_in_acknowledged_estimate_;
+  const bool send_side_bwe_with_overhead_;
   int min_overhead_bps_ = 0;
   // Default bitrates to use as range if there's no user configured
   // bitrate range but audio bitrate allocation is enabled.
-  FieldTrialParameter<DataRate> default_min_bitrate_;
-  FieldTrialParameter<DataRate> default_max_bitrate_;
+  FieldTrialOptional<DataRate> default_min_bitrate_;
+  FieldTrialOptional<DataRate> default_max_bitrate_;
   FieldTrialParameter<DataRate> priority_bitrate_;
 };
 }  // namespace webrtc

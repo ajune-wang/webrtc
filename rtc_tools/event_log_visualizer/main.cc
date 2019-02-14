@@ -317,15 +317,17 @@ int main(int argc, char* argv[]) {
     analyzer.CreateTotalIncomingBitrateGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_outgoing_bitrate) {
-    analyzer.CreateTotalOutgoingBitrateGraph(collection->AppendNewPlot(),
-                                             FLAG_show_detector_state,
+    webrtc::Plot* new_plot = collection->AppendNewPlot();
+    analyzer.CreateTotalOutgoingBitrateGraph(new_plot, FLAG_show_detector_state,
                                              FLAG_show_alr_state);
   }
-  if (FLAG_plot_incoming_stream_bitrate) {
+  if (FLAG_plot_incoming_stream_bitrate &&
+      !parsed_log.rtp_packets_by_ssrc(webrtc::kIncomingPacket).empty()) {
     analyzer.CreateStreamBitrateGraph(webrtc::kIncomingPacket,
                                       collection->AppendNewPlot());
   }
-  if (FLAG_plot_outgoing_stream_bitrate) {
+  if (FLAG_plot_outgoing_stream_bitrate &&
+      !parsed_log.rtp_packets_by_ssrc(webrtc::kOutgoingPacket).empty()) {
     analyzer.CreateStreamBitrateGraph(webrtc::kOutgoingPacket,
                                       collection->AppendNewPlot());
   }

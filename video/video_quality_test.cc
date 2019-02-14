@@ -49,7 +49,8 @@ namespace webrtc {
 namespace {
 enum ExtensionId : int {  // The first valid value is 1.
   kAbsSendTimeExtensionId = 1,
-  kGenericFrameDescriptorExtensionId,
+  kGenericFrameDescriptorExtensionId00,
+  kGenericFrameDescriptorExtensionId01,
   kTransportSequenceNumberExtensionId,
   kVideoContentTypeExtensionId,
   kVideoTimingExtensionId,
@@ -731,8 +732,11 @@ void VideoQualityTest::SetupVideo(Transport* send_transport,
       RTC_CHECK(field_trial::IsEnabled("WebRTC-GenericDescriptor"));
 
       video_send_configs_[video_idx].rtp.extensions.emplace_back(
-          RtpExtension::kGenericFrameDescriptorUri,
-          kGenericFrameDescriptorExtensionId);
+          RtpExtension::kGenericFrameDescriptorUri00,
+          kGenericFrameDescriptorExtensionId00);
+      video_send_configs_[video_idx].rtp.extensions.emplace_back(
+          RtpExtension::kGenericFrameDescriptorUri01,
+          kGenericFrameDescriptorExtensionId01);
     }
 
     video_send_configs_[video_idx].rtp.extensions.emplace_back(

@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "42ab018a_46716d90",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T17:37:14Z",
+      "side": 1,
+      "message": "I didn\u0027t call it on purpose: as you can see in the main, I attach this info to the existing graph (with BWE).\n\nIf you prefer, I can call it directly in the CreateTotalOutgoingBitrateGraph",
+      "parentUuid": "8c4ad020_496767e0",
+      "range": {
+        "startLine": 1104,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 1
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "738d6a25_03858dc9",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -82,6 +106,24 @@
       "writtenOn": "2019-02-14T17:23:19Z",
       "side": 1,
       "message": "This will draw both in the same graph. This means that the second call will overwrite the title and axes labels.",
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6475a92_11b6ecba",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T17:37:14Z",
+      "side": 1,
+      "message": "That\u0027s why the the CreateGenericPacketsOutgoingBitrateGraph doesn\u0027t set title and axes label (see your other comment).\n\nI wanted it to be in the same graph (so that we can see probing and BWE and bitrate in the same graph as the outgoing generic bitrate). You do see Outgoing RTP bitrate in the same graph :)",
+      "parentUuid": "6c16667a_363d6043",
       "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

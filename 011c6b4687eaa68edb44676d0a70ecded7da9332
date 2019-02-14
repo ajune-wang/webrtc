@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eedf0c1b_715b41d3",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "The parameters were moved to a config struct, so just pass in config_.",
+      "range": {
+        "startLine": 1069,
+        "startChar": 48,
+        "endLine": 1070,
+        "endChar": 32
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c4ad020_496767e0",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "You will want to call SetXAxis, SetSuggestedYAxis and SetTitle.",
+      "range": {
+        "startLine": 1104,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 1
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "738d6a25_03858dc9",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "I\u0027d prefer if each flag maps to exactly one plot. It becomes more difficult to script if the number and contents of the graphs change depending on the log.\n\nIf you\u0027re worried about getting a bunch of uninteresting graphs, consider adding a plot_profile instead that sets the exactly the flags you\u0027re interested in.",
+      "range": {
+        "startLine": 316,
+        "startChar": 6,
+        "endLine": 316,
+        "endChar": 32
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c16667a_363d6043",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "This will draw both in the same graph. This means that the second call will overwrite the title and axes labels.",
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365e7f27_26d23709",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "I think the stream bitrate graphs can be left unchanged if you add a new plot_profile instead.",
+      "range": {
+        "startLine": 333,
+        "startChar": 40,
+        "endLine": 334,
+        "endChar": 70
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7b2bf98_59241a2d",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T17:23:19Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 338,
+        "startChar": 40,
+        "endLine": 339,
+        "endChar": 70
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

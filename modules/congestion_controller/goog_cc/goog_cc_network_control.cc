@@ -104,7 +104,7 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
               .find("Enabled") == 0),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
-      probe_controller_(new ProbeController(key_value_config_)),
+      probe_controller_(new ProbeController(key_value_config_, event_log)),
       congestion_window_pushback_controller_(
           rate_control_settings_.UseCongestionWindowPushback()
               ? absl::make_unique<CongestionWindowPushbackController>(
@@ -216,6 +216,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     if (total_bitrate) {
       auto probes = probe_controller_->OnMaxTotalAllocatedBitrate(
           total_bitrate->bps(), msg.at_time.ms());
+
       update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                           probes.begin(), probes.end());
 
@@ -322,6 +323,7 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
 
   if (pacing_changed)
     update.pacer_config = GetPacingRates(msg.at_time);
+
   return update;
 }
 

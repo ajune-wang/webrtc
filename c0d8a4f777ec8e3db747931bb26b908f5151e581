@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e996ca7a_2516916f",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T14:11:27Z",
+      "side": 1,
+      "message": "imagine after some coding you see this asserting fail.\nyou\u0027ll see pointer to this line and two numbers. How would you find where exactly you\u0027ve added same uri with different ids?\n\nmay be return false instead (forcing callers to ASSERT_TRUE, so that failure would point to more appropriate line)\nor add extra information to the assert:\nASSERT_EQ(...) \u003c\u003c \"Something wrong with \u003c\u003c extension.uri \u003c\u003c \" and id \" \u003c\u003c extension.id;",
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7b017e4_b645182c",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T14:11:27Z",
+      "side": 1,
+      "message": "should be there also a reverse check?\nif (registered_extension.id \u003d\u003d extension.id)\n  ASSERT_EQ(extension.uri, registered_extension.uri)",
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb3eed14_afaae171",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T14:11:27Z",
+      "side": 1,
+      "message": "alternative way to return no value is to return const pointer to RtpExtension that can be nullptr.",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 28
+      },
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dca4ff8_8cc070b4",
+        "filename": "test/call_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T14:11:27Z",
+      "side": 1,
+      "message": "looking how this function is called, may be \nvoid RegisterRtpExtension(absl::string_view uri, int id);\nwould be a better signature.\n(or\nABSL_MUST_USE_RESULT bool Register... \nsee next comment",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

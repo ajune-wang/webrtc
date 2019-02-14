@@ -176,6 +176,8 @@ rtc_source_set("probe_controller") {
     "../../../rtc_base:rtc_base_approved",
     "../../../rtc_base/system:unused",
     "../../../system_wrappers:metrics",
+    "//logging:rtc_event_bwe",
+    "//third_party/abseil-cpp/absl/memory:memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

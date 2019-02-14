@@ -20,9 +20,11 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/transport/network_control.h"
 #include "api/units/time_delta.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
+#include "modules/congestion_controller/goog_cc/goog_cc_network_control.h"
 #include "modules/congestion_controller/goog_cc/probe_controller.h"
 #include "modules/remote_bitrate_estimator/include/bwe_defines.h"
 #include "modules/remote_bitrate_estimator/test/bwe_test_logging.h"
@@ -104,7 +106,7 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
               .find("Enabled") == 0),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
-      probe_controller_(new ProbeController(key_value_config_)),
+      probe_controller_(new ProbeController(key_value_config_, event_log)),
       congestion_window_pushback_controller_(
           rate_control_settings_.UseCongestionWindowPushback()
               ? absl::make_unique<CongestionWindowPushbackController>(
@@ -216,6 +218,7 @@ NetworkControlUpdate GoogCcNetworkController::OnProcessInterval(
     if (total_bitrate) {
       auto probes = probe_controller_->OnMaxTotalAllocatedBitrate(
           total_bitrate->bps(), msg.at_time.ms());
+
       update.probe_cluster_configs.insert(update.probe_cluster_configs.end(),
                                           probes.begin(), probes.end());
 
@@ -320,8 +323,10 @@ NetworkControlUpdate GoogCcNetworkController::OnStreamsConfig(
     pacing_changed = true;
   }
 
-  if (pacing_changed)
+  if (pacing_changed) {
     update.pacer_config = GetPacingRates(msg.at_time);
+  }
+
   return update;
 }
 

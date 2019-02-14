@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f3a6fa4_c40da9f8",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6977
+      },
+      "writtenOn": "2019-02-14T09:25:56Z",
+      "side": 1,
+      "message": "Perhaps it would be good to add units to variable names?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "da2d20120deff8bdc5b2954808c67bfdf39b140c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

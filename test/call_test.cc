@@ -65,6 +65,15 @@ CallTest::~CallTest() {
   });
 }
 
+void CallTest::RegisterRtpExtension(const RtpExtension& extension) {
+  for (const RtpExtension& registered_extension : rtp_extensions_) {
+    if (registered_extension.uri == extension.uri) {
+      ASSERT_EQ(registered_extension.id, extension.id);
+    }
+  }
+  rtp_extensions_.push_back(extension);
+}
+
 void CallTest::RunBaseTest(BaseTest* test) {
   task_queue_.SendTask([this, test]() {
     num_video_streams_ = test->GetNumVideoStreams();
@@ -235,25 +244,23 @@ void CallTest::CreateVideoSendConfig(VideoSendStream::Config* video_config,
   video_config->rtp.payload_name = "FAKE";
   video_config->rtp.payload_type = kFakeVideoSendPayloadType;
   video_config->rtp.extmap_allow_mixed = true;
-  video_config->rtp.extensions.push_back(
-      RtpExtension(RtpExtension::kTransportSequenceNumberUri,
-                   kTransportSequenceNumberExtensionId));
-  video_config->rtp.extensions.push_back(RtpExtension(
-      RtpExtension::kVideoContentTypeUri, kVideoContentTypeExtensionId));
-  video_config->rtp.extensions.push_back(RtpExtension(
-      RtpExtension::kGenericFrameDescriptorUri, kGenericDescriptorExtensionId));
+  AddRtpExtensionByUri(RtpExtension::kTransportSequenceNumberUri,
+                       &video_config->rtp.extensions);
+  AddRtpExtensionByUri(RtpExtension::kVideoContentTypeUri,
+                       &video_config->rtp.extensions);
+  AddRtpExtensionByUri(RtpExtension::kGenericFrameDescriptorUri,
+                       &video_config->rtp.extensions);
   if (video_encoder_configs_.empty()) {
     video_encoder_configs_.emplace_back();
     FillEncoderConfiguration(kVideoCodecGeneric, num_video_streams,
                              &video_encoder_configs_.back());
   }
-
   for (size_t i = 0; i < num_video_streams; ++i)
     video_config->rtp.ssrcs.push_back(kVideoSendSsrcs[num_used_ssrcs + i]);
-  video_config->rtp.extensions.push_back(
-      RtpExtension(RtpExtension::kVideoRotationUri, kVideoRotationExtensionId));
-  video_config->rtp.extensions.push_back(
-      RtpExtension(RtpExtension::kColorSpaceUri, kColorSpaceExtensionId));
+  AddRtpExtensionByUri(RtpExtension::kVideoRotationUri,
+                       &video_config->rtp.extensions);
+  AddRtpExtensionByUri(RtpExtension::kColorSpaceUri,
+                       &video_config->rtp.extensions);
 }
 
 void CallTest::CreateAudioAndFecSendConfigs(size_t num_audio_streams,
@@ -310,6 +317,8 @@ void CallTest::CreateSendConfig(size_t num_video_streams,
     video_send_configs_.emplace_back(nullptr);
     CreateVideoSendConfig(&video_send_configs_.back(), num_video_streams, 0,
                           send_transport);
+    printf("Created config [%s]\n",
+           video_send_configs_.back().ToString().c_str());
   }
   CreateAudioAndFecSendConfigs(num_audio_streams, num_flexfec_streams,
                                send_transport);
@@ -520,6 +529,7 @@ void CallTest::CreateVideoSendStreams() {
           video_send_configs_[i].Copy(), video_encoder_configs_[i].Copy(),
           fec_controller_factory_->CreateFecController());
     } else {
+      printf("Using [%s\\n", video_send_configs_[i].ToString().c_str());
       video_send_streams_[i] = sender_call_->CreateVideoSendStream(
           video_send_configs_[i].Copy(), video_encoder_configs_[i].Copy());
     }
@@ -646,6 +656,8 @@ VideoSendStream::Config* CallTest::GetVideoSendConfig() {
 }
 
 void CallTest::SetVideoSendConfig(const VideoSendStream::Config& config) {
+  printf("CallTest::SetVideoSendConfig called with [%s]\n",
+         config.ToString().c_str());
   video_send_configs_.clear();
   video_send_configs_.push_back(config.Copy());
 }
@@ -664,6 +676,25 @@ VideoSendStream* CallTest::GetVideoSendStream() {
 }
 FlexfecReceiveStream::Config* CallTest::GetFlexFecConfig() {
   return &flexfec_receive_configs_[0];
+}
+
+absl::optional<RtpExtension> CallTest::GetRtpExtensionByUri(
+    const std::string& uri) const {
+  for (const auto& extension : rtp_extensions_) {
+    if (extension.uri == uri) {
+      return extension;
+    }
+  }
+  return absl::nullopt;
+}
+
+void CallTest::AddRtpExtensionByUri(
+    const std::string& uri,
+    std::vector<RtpExtension>* extensions) const {
+  const absl::optional<RtpExtension> extension = GetRtpExtensionByUri(uri);
+  if (extension) {
+    extensions->push_back(*extension);
+  }
 }
 
 constexpr size_t CallTest::kNumSsrcs;

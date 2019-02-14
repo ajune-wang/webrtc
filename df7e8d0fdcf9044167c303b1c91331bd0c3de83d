@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a2580141_7e5c0cd2",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T22:37:04Z",
+      "side": 1,
+      "message": "ok, the name is probably confusing, it isn\u0027t a gmock per se.",
+      "parentUuid": "86c5a4e8_00a6ad17",
+      "range": {
+        "startLine": 55,
+        "startChar": 45,
+        "endLine": 55,
+        "endChar": 49
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87d7661d_6902e453",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "OnTrack will be called first when we will exchange offer/answer and then we will connect",
       "parentUuid": "87d7661d_6902e453",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e7b09a_485b6e59",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T22:37:04Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "8b8659b6_f637ee20",
       "range": {
         "startLine": 60,
         "startChar": 10,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "e57da89b_5788a98b",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T22:37:04Z",
+      "side": 1,
+      "message": "Ok, I trust you on this ;)",
+      "parentUuid": "afeed58c_006c05d0",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 30
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "048bd530_cc096497",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "Done: switched to OnIceConnectionChange",
       "parentUuid": "048bd530_cc096497",
+      "range": {
+        "startLine": 70,
+        "startChar": 7,
+        "endLine": 70,
+        "endChar": 40
+      },
+      "revId": "df7e8d0fdcf9044167c303b1c91331bd0c3de83d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "155adfeb_1949ba4e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T22:37:04Z",
+      "side": 1,
+      "message": "perfect, thanks!",
+      "parentUuid": "8c2e3ff7_038bc46b",
       "range": {
         "startLine": 70,
         "startChar": 7,

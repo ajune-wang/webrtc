@@ -17,6 +17,7 @@
 #include "api/audio_codecs/audio_encoder.h"
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
+#include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 #include "modules/audio_coding/acm2/acm_receive_test.h"
 #include "modules/audio_coding/acm2/acm_send_test.h"
@@ -24,6 +25,8 @@
 #include "modules/audio_coding/codecs/g711/audio_decoder_pcm.h"
 #include "modules/audio_coding/codecs/g711/audio_encoder_pcm.h"
 #include "modules/audio_coding/codecs/isac/main/include/audio_encoder_isac.h"
+#include "modules/audio_coding/codecs/opus/audio_decoder_opus.h"
+#include "modules/audio_coding/codecs/opus/audio_encoder_opus.h"
 #include "modules/audio_coding/include/audio_coding_module.h"
 #include "modules/audio_coding/include/audio_coding_module_typedefs.h"
 #include "modules/audio_coding/neteq/tools/audio_checksum.h"
@@ -44,6 +47,7 @@
 #include "rtc_base/thread_annotations.h"
 #include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/audio_decoder_proxy_factory.h"
 #include "test/gtest.h"
 #include "test/mock_audio_decoder.h"
 #include "test/mock_audio_encoder.h"
@@ -937,7 +941,7 @@ class AcmReceiverBitExactnessOldApi : public ::testing::Test {
             ->test_case_name() +
         "_" + ::testing::UnitTest::GetInstance()->current_test_info()->name() +
         "_output.wav";
-    test::OutputWavFile output_file(output_file_name, output_freq_hz);
+    test::OutputWavFile output_file(output_file_name, output_freq_hz, 1);
     test::AudioSinkFork output(&checksum, &output_file);
 
     test::AcmReceiveTestOldApi test(
@@ -1118,15 +1122,12 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
 
   // Sets up the test::AcmSendTest object. Returns true on success, otherwise
   // false.
-  bool SetUpSender() {
-    const std::string input_file_name =
-        webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm");
+  bool SetUpSender(std::string input_file_name, int source_rate) {
     // Note that |audio_source_| will loop forever. The test duration is set
     // explicitly by |kTestDurationMs|.
     audio_source_.reset(new test::InputAudioFile(input_file_name));
-    static const int kSourceRateHz = 32000;
-    send_test_.reset(new test::AcmSendTestOldApi(
-        audio_source_.get(), kSourceRateHz, kTestDurationMs));
+    send_test_.reset(new test::AcmSendTestOldApi(audio_source_.get(),
+                                                 source_rate, kTestDurationMs));
     return send_test_.get() != NULL;
   }
 
@@ -1159,7 +1160,11 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
   void Run(const std::string& audio_checksum_ref,
            const std::string& payload_checksum_ref,
            int expected_packets,
-           test::AcmReceiveTestOldApi::NumOutputChannels expected_channels) {
+           test::AcmReceiveTestOldApi::NumOutputChannels expected_channels,
+           rtc::scoped_refptr<AudioDecoderFactory> decoder_factory = nullptr) {
+    if (!decoder_factory) {
+      decoder_factory = CreateBuiltinAudioDecoderFactory();
+    }
     // Set up the receiver used to decode the packets and verify the decoded
     // output.
     test::AudioChecksum audio_checksum;
@@ -1171,12 +1176,12 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
         "_" + ::testing::UnitTest::GetInstance()->current_test_info()->name() +
         "_output.wav";
     const int kOutputFreqHz = 8000;
-    test::OutputWavFile output_file(output_file_name, kOutputFreqHz);
+    test::OutputWavFile output_file(output_file_name, kOutputFreqHz,
+                                    expected_channels);
     // Have the output audio sent both to file and to the checksum calculator.
     test::AudioSinkFork output(&audio_checksum, &output_file);
     test::AcmReceiveTestOldApi receive_test(this, &output, kOutputFreqHz,
-                                            expected_channels,
-                                            CreateBuiltinAudioDecoderFactory());
+                                            expected_channels, decoder_factory);
     ASSERT_NO_FATAL_FAILURE(receive_test.RegisterDefaultCodecs());
 
     // This is where the actual test is executed.
@@ -1197,7 +1202,7 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
     EXPECT_EQ(expected_packets, packet_count_);
 
     // Delete the output file.
-    remove(output_file_name.c_str());
+    // remove(output_file_name.c_str());
   }
 
   // Helper: result must be one the "|"-separated checksums.
@@ -1252,7 +1257,12 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
                  int payload_type,
                  int codec_frame_size_samples,
                  int codec_frame_size_rtp_timestamps) {
-    ASSERT_TRUE(SetUpSender());
+    ASSERT_TRUE(SetUpSender(
+        webrtc::test::ResourcePath(
+            (channels == 1 ? "audio_coding/testfile32kHz"
+                           : "audio_coding/testfile_fake_stereo_32kHz"),
+            "pcm"),
+        32000));
     ASSERT_TRUE(RegisterSendCodec(codec_name, codec_sample_rate_hz, channels,
                                   payload_type, codec_frame_size_samples,
                                   codec_frame_size_rtp_timestamps));
@@ -1261,7 +1271,7 @@ class AcmSenderBitExactnessOldApi : public ::testing::Test,
   void SetUpTestExternalEncoder(
       std::unique_ptr<AudioEncoder> external_speech_encoder,
       int payload_type) {
-    ASSERT_TRUE(SetUpSender());
+    ASSERT_TRUE(send_test_);
     RegisterExternalSendCodec(std::move(external_speech_encoder), payload_type);
   }
 
@@ -1483,10 +1493,54 @@ TEST_F(AcmSenderBitExactnessOldApi, Opus_stereo_20ms) {
 TEST_F(AcmSenderBitExactnessNewApi, MAYBE_OpusFromFormat_stereo_20ms) {
   const auto config = AudioEncoderOpus::SdpToConfig(
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
+  ASSERT_TRUE(SetUpSender(webrtc::test::ResourcePath(
+                              "audio_coding/testfile_fake_stereo_32kHz", "pcm"),
+                          32000));
   ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
       AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
   Run(audio_checksum, payload_checksum, 50,
       test::AcmReceiveTestOldApi::kStereoOutput);
+}
+
+TEST_F(AcmSenderBitExactnessNewApi, OpusManyChannels) {
+  constexpr int kNumChannels = 4;
+  constexpr int kOpusPayloadType = 120;
+  // constexpr int kBitrateBps = 128000;
+
+  // Read a 4 channel file at 48kHz.
+  ASSERT_TRUE(
+      SetUpSender(webrtc::test::ResourcePath(
+                      "audio_coding/speech_4_channels_48k_one_second", "wav"),
+                  48000));
+
+  const auto sdp_format = SdpAudioFormat("opus", 48000, kNumChannels, {});
+  const auto encoder_config = AudioEncoderOpus::SdpToConfig(sdp_format);
+
+  ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
+      AudioEncoderOpus::MakeAudioEncoder(*encoder_config, kOpusPayloadType),
+      kOpusPayloadType));
+
+  // Similarly here:
+  const auto decoder_config = AudioDecoderOpus::SdpToConfig(sdp_format);
+  auto opus_decoder = AudioDecoderOpus::MakeAudioDecoder(*decoder_config);
+
+  rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
+      new rtc::RefCountedObject<test::AudioDecoderProxyFactory>(
+          opus_decoder.get());
+
+  // Set up an EXTERNAL DECODER to parse 4 channels.
+  Run(AcmReceiverBitExactnessOldApi::PlatformChecksum(  // audio checksum
+          "d0a73d377e0ca1be6b06e989e0ad2c35",
+          "d0a73d377e0ca1be6b06e989e0ad2c35",
+          "b45d2ce5fc4723e9eb41350af9c68f56", "android arm64 audio checksum",
+          "1c9a3c9dacdd4b8fc9ff608227e531f2"),
+      // payload_checksum,
+      AcmReceiverBitExactnessOldApi::PlatformChecksum(  // payload checksum
+          "76de0f4992e3937ca60d35bbb0d308d6",
+          "76de0f4992e3937ca60d35bbb0d308d6",
+          "2a310aca965c16c2dfd61a9f9fc0c877", "android arm64 payload checksum",
+          "2294f4b61fb8f174f5196776a0a49be7"),
+      50, test::AcmReceiveTestOldApi::kQuadOutput, decoder_factory);
 }
 
 TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms_voip) {
@@ -1494,6 +1548,9 @@ TEST_F(AcmSenderBitExactnessNewApi, OpusFromFormat_stereo_20ms_voip) {
       SdpAudioFormat("opus", 48000, 2, {{"stereo", "1"}}));
   // If not set, default will be kAudio in case of stereo.
   config->application = AudioEncoderOpusConfig::ApplicationMode::kVoip;
+  ASSERT_TRUE(SetUpSender(webrtc::test::ResourcePath(
+                              "audio_coding/testfile_fake_stereo_32kHz", "pcm"),
+                          32000));
   ASSERT_NO_FATAL_FAILURE(SetUpTestExternalEncoder(
       AudioEncoderOpus::MakeAudioEncoder(*config, 120), 120));
   // Checksum depends on libopus being compiled with or without SSE.
@@ -1777,6 +1834,8 @@ TEST_F(AcmSenderBitExactnessOldApi, External_Pcmu_20ms) {
           &encoder, static_cast<AudioEncoder::EncodedInfo (AudioEncoder::*)(
                         uint32_t, rtc::ArrayView<const int16_t>, rtc::Buffer*)>(
                         &AudioEncoderPcmU::Encode)));
+  ASSERT_TRUE(SetUpSender(
+      webrtc::test::ResourcePath("audio_coding/testfile32kHz", "pcm"), 32000));
   ASSERT_NO_FATAL_FAILURE(
       SetUpTestExternalEncoder(std::move(mock_encoder), config.payload_type));
   Run("81a9d4c0bb72e9becc43aef124c981e9", "8f9b8750bd80fe26b6cbf6659b89f0f9",

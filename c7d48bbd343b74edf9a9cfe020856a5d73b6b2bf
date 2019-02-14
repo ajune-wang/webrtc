@@ -187,6 +187,30 @@
       "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb39a422_c2945589",
+        "filename": "modules/video_coding/codecs/vp9/svc_rate_allocator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5825
+      },
+      "writtenOn": "2019-02-14T13:10:35Z",
+      "side": 1,
+      "message": "\u003e\u003eSingle loop would require checking of currently spent target bitrate + min bitrate of next layer while\nThere is no need to check anything related to next layer.\n\n\u003e\u003eI find the code more easy to understand like it\u0027s now.\nup to you. but here is 1 loop instead of 3:\n\n  size_t left_bitrate_bps \u003d total_bitrate_bps;\n  size_t sl_idx;\n  for (sl_idx \u003d 0; sl_idx \u003c num_spatial_layers; ++sl_idx) {\n    const size_t min_bitrate_bps \u003d\n        codec_.spatialLayers[sl_idx].minBitrate * 1000;\n    const size_t target_bitrate_bps \u003d\n        codec_.spatialLayers[sl_idx].targetBitrate * 1000;\n\n    const size_t bitrate_bps \u003d std::min(left_bitrate_bps, target_bitrate_bps);\n    if (bitrate_bps \u003e\u003d min_bitrate_bps) {\n      bitrate_allocation.SetBitrate(sl_idx, 0, bitrate_bps);\n    } else {\n      break;\n    }\n\n    left_bitrate_bps -\u003d bitrate_bps;\n  }\n\n  if (left_bitrate_bps \u003e 0 \u0026\u0026 sl_idx \u003e 0) {\n    // Add leftover to last allocated layer.\n    const size_t max_bitrate_bps \u003d\n        codec_.spatialLayers[sl_idx - 1].maxBitrate * 1000;\n\n    const size_t bitrate_bps \u003d std::min(\n        bitrate_allocation.GetBitrate(sl_idx - 1, 0) + left_bitrate_bps,\n        max_bitrate_bps);\n    bitrate_allocation.SetBitrate(sl_idx - 1, 0, bitrate_bps);\n  }",
+      "parentUuid": "36ea17c7_bd0b91f5",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 71
+      },
+      "revId": "c7d48bbd343b74edf9a9cfe020856a5d73b6b2bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

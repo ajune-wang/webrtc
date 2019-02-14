@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "768b6d0f_4313893a",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "remove comment and rename to probe_cluster_id",
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f68687a_57333aad",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23c94ea4_66e12ffc",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "redundant",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7488f68d_c2d4d89c",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "No need to change this.",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "391b0cf5_7e99135f",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "Is this only called here? Then inline it.",
+      "range": {
+        "startLine": 372,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 17
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ebc98fb_1fd91d22",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "Move this to top and make the pointer const.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccfdb30b_29b2c453",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "next_probe_cluster_id_ \u003d 1",
+      "range": {
+        "startLine": 122,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76ca7711_1c3f629f",
+        "filename": "modules/pacing/bitrate_prober.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T16:05:26Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 22
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "da2d20120deff8bdc5b2954808c67bfdf39b140c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d0691b5_bcf19502",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T13:00:52Z",
+      "side": 1,
+      "message": "Yes, I thought about it. I\u0027ll do it in a separate CL.",
+      "parentUuid": "9f3a6fa4_c40da9f8",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "da2d20120deff8bdc5b2954808c67bfdf39b140c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

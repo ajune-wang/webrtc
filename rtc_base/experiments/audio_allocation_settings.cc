@@ -12,37 +12,40 @@
 
 namespace webrtc {
 namespace {
-// For SendSideBwe, Opus bitrate should be in the range between 6000 and 32000.
-const int kOpusMinBitrateBps = 6000;
-const int kOpusBitrateFbBps = 32000;
-// OverheadPerPacket = Ipv4(20B) + UDP(8B) + SRTP(10B) + RTP(12)
+// Based on min bitrate for Opus codec.
+constexpr DataRate kDefaultMinEncoderBitrate = DataRate::KilobitsPerSec<6>();
+constexpr DataRate kDefaultMaxEncoderBitrate = DataRate::KilobitsPerSec<32>();
 constexpr int kOverheadPerPacket = 20 + 8 + 10 + 12;
 }  // namespace
-AudioAllocationSettings::AudioAllocationSettings()
-    : audio_send_side_bwe_("Enabled"),
-      allocate_audio_without_feedback_("Enabled"),
-      force_no_audio_feedback_("Enabled"),
-      audio_feedback_to_improve_video_bwe_("Enabled"),
-      send_side_bwe_with_overhead_("Enabled"),
-      default_min_bitrate_("min", DataRate::bps(kOpusMinBitrateBps)),
-      default_max_bitrate_("max", DataRate::bps(kOpusBitrateFbBps)),
-      priority_bitrate_("prio", DataRate::Zero()) {
-  ParseFieldTrial({&audio_send_side_bwe_},
-                  field_trial::FindFullName("WebRTC-Audio-SendSideBwe"));
-  ParseFieldTrial({&allocate_audio_without_feedback_},
-                  field_trial::FindFullName("WebRTC-Audio-ABWENoTWCC"));
-  ParseFieldTrial({&force_no_audio_feedback_},
-                  field_trial::FindFullName("WebRTC-Audio-ForceNoTWCC"));
-  ParseFieldTrial(
-      {&audio_feedback_to_improve_video_bwe_},
-      field_trial::FindFullName("WebRTC-Audio-SendSideBwe-For-Video"));
 
-  ParseFieldTrial({&send_side_bwe_with_overhead_},
-                  field_trial::FindFullName("WebRTC-SendSideBwe-WithOverhead"));
+AudioAllocationSettings::AudioAllocationSettings()
+    : legacy_audio_send_side_bwe_trial_(
+          field_trial::IsEnabled("WebRTC-Audio-SendSideBwe")),
+      legacy_allocate_audio_without_feedback_trial_(
+          field_trial::IsEnabled("WebRTC-Audio-ABWENoTWCC")),
+      legacy_audio_only_call_(legacy_audio_send_side_bwe_trial_ &&
+                              !legacy_allocate_audio_without_feedback_trial_),
+      register_rtcp_observer_(
+          field_trial::IsEnabled("WebRTC-Audio-RegisterRtcpObserver")),
+      enable_alr_probing_(
+          field_trial::IsEnabled("WebRTC-Audio-EnableAlrProbing")),
+      send_transport_sequence_numbers_(
+          field_trial::IsEnabled("WebRTC-Audio-SendTransportSequenceNumbers")),
+      include_in_acknowledged_estimate_(
+          field_trial::IsEnabled("WebRTC-Audio-AddSentToAckedEstimate")),
+      send_side_bwe_with_overhead_(
+          field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")),
+      default_min_bitrate_("min", kDefaultMinEncoderBitrate),
+      default_max_bitrate_("max", kDefaultMaxEncoderBitrate),
+      priority_bitrate_("prio", DataRate::Zero()) {
   ParseFieldTrial(
       {&default_min_bitrate_, &default_max_bitrate_, &priority_bitrate_},
       field_trial::FindFullName("WebRTC-Audio-Allocation"));
-
+  // We can include audio in estimates by sending timestamps for it or by adding
+  // sent audio to the acknowledged estimate, but doing both will make the
+  // acknowledged estimate too high.
+  RTC_DCHECK(
+      !(include_in_acknowledged_estimate_ && send_transport_sequence_numbers_));
   // TODO(mflodman): Keep testing this and set proper values.
   // Note: This is an early experiment currently only supported by Opus.
   if (send_side_bwe_with_overhead_) {
@@ -53,72 +56,29 @@ AudioAllocationSettings::AudioAllocationSettings()
 
 AudioAllocationSettings::~AudioAllocationSettings() {}
 
-bool AudioAllocationSettings::ForceNoAudioFeedback() const {
-  return force_no_audio_feedback_;
+bool AudioAllocationSettings::SendTransportSequenceNumber() const {
+  return legacy_audio_only_call_ || send_transport_sequence_numbers_;
 }
 
-bool AudioAllocationSettings::IgnoreSeqNumIdChange() const {
-  return !audio_send_side_bwe_;
+bool AudioAllocationSettings::AlwaysIncludeAudioInAllocation() const {
+  return legacy_allocate_audio_without_feedback_trial_ ||
+         include_in_acknowledged_estimate_;
 }
 
 bool AudioAllocationSettings::ConfigureRateAllocationRange() const {
-  return audio_send_side_bwe_;
+  return legacy_audio_send_side_bwe_trial_;
 }
 
-bool AudioAllocationSettings::EnableTransportSequenceNumberExtension() const {
-  // TODO(srte): Update this to be more accurate.
-  return audio_send_side_bwe_ && !allocate_audio_without_feedback_;
+bool AudioAllocationSettings::RegisterRtcpObserver() const {
+  return register_rtcp_observer_ || legacy_audio_only_call_;
 }
 
-bool AudioAllocationSettings::IncludeAudioInFeedback(
-    int transport_seq_num_extension_header_id) const {
-  if (force_no_audio_feedback_)
-    return false;
-  return transport_seq_num_extension_header_id != 0;
+bool AudioAllocationSettings::EnableAlrProbing() const {
+  return enable_alr_probing_ || legacy_audio_only_call_;
 }
 
-bool AudioAllocationSettings::UpdateAudioTargetBitrate(
-    int transport_seq_num_extension_header_id) const {
-  // If other side does not support audio TWCC and WebRTC-Audio-ABWENoTWCC is
-  // not enabled, do not update target audio bitrate if we are in
-  // WebRTC-Audio-SendSideBwe-For-Video experiment
-  if (allocate_audio_without_feedback_ ||
-      transport_seq_num_extension_header_id != 0)
-    return true;
-  if (audio_feedback_to_improve_video_bwe_)
-    return false;
-  return true;
-}
-
-bool AudioAllocationSettings::IncludeAudioInAllocationOnStart(
-    int min_bitrate_bps,
-    int max_bitrate_bps,
-    bool has_dscp,
-    int transport_seq_num_extension_header_id) const {
-  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1)
-    return false;
-  if (transport_seq_num_extension_header_id != 0 && !force_no_audio_feedback_)
-    return true;
-  if (allocate_audio_without_feedback_)
-    return true;
-  if (audio_send_side_bwe_)
-    return false;
-  return true;
-}
-
-bool AudioAllocationSettings::IncludeAudioInAllocationOnReconfigure(
-    int min_bitrate_bps,
-    int max_bitrate_bps,
-    bool has_dscp,
-    int transport_seq_num_extension_header_id) const {
-  // TODO(srte): Make this match include_audio_in_allocation_on_start.
-  if (has_dscp || min_bitrate_bps == -1 || max_bitrate_bps == -1)
-    return false;
-  if (transport_seq_num_extension_header_id != 0)
-    return true;
-  if (audio_send_side_bwe_)
-    return false;
-  return true;
+bool AudioAllocationSettings::UseLegacyFrameLengthForOverhead() const {
+  return legacy_audio_send_side_bwe_trial_;
 }
 
 int AudioAllocationSettings::MinBitrateBps() const {
@@ -141,6 +101,7 @@ int AudioAllocationSettings::MaxBitrateBps(
     return *rtp_parameter_max_bitrate_bps + min_overhead_bps_;
   return default_max_bitrate_->bps() + min_overhead_bps_;
 }
+
 DataRate AudioAllocationSettings::DefaultPriorityBitrate() const {
   DataRate max_overhead = DataRate::Zero();
   if (send_side_bwe_with_overhead_) {

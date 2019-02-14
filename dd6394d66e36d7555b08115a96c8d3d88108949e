@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "325e52e4_41c3d367",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T13:35:18Z",
+      "side": 1,
+      "message": "Oh, oops, I had forgotten deleting it, and answered from memory rather than looking at the diff.\nAnyway, I think the argument for using the enum is a solid one.",
+      "parentUuid": "6a3715bf_f3a2aea3",
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "add05c6b_c3603596",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 1
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "I saw that mess, yes, enum addresses one of the issue with it.\nNo, it is not guaranteed committer and reviewer know about limit of 14, but it is _easier_ to spot it when you do know about that limit.\nIf test fails with id\u003e14, it fails, how is it an upside for grouping constants with enum?\n\nI think manually re-enumerating or re-ordering values so that they are written in id order is better.\n\nAnother alternative: do not touch this file. It is not needed for what the change describes it is doing: this file doesn\u0027t include test/constants.h",
       "parentUuid": "adf7aaea_1c782547",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0819b43_277c7107",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T13:35:18Z",
+      "side": 1,
+      "message": "1.  \"If test fails with id\u003e14, it fails, how is it an upside for grouping constants with enum?\"\nIt\u0027s not an upside, but it does partially contradict the downside.\n\n2. One of the benefits of using this enum is that it\u0027s clearer from git-blame which CL introduces which line, even if new lines are introduced.",
+      "parentUuid": "2248b148_4b3c77e0",
       "range": {
         "startLine": 43,
         "startChar": 0,

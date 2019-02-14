@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6c9fdb43_065358e7",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T15:13:19Z",
+      "side": 1,
+      "message": "I think it would be easy for a writer of a test to understand that they are registering the same RTP extension and fix it.\nReturning a value, however, would complicate the test, in a way that would draw attention away from the test\u0027s true focus.",
+      "parentUuid": "e996ca7a_2516916f",
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b7b017e4_b645182c",
         "filename": "test/call_test.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f4b447a_259c1489",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T15:13:19Z",
+      "side": 1,
+      "message": "Done (differently).\nActually, I am not sure whether we care about two extensions with the same URI having different IDs is a problem? But it\u0027s probably indicative of a malformed test, rather than an intention to test that scenario. So I will disallow it, so long as encryption state is not different between the two.",
+      "parentUuid": "b7b017e4_b645182c",
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "96f002fa_11f0400d",
+        "filename": "test/call_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T15:13:19Z",
+      "side": 1,
+      "message": "Returning raw pointers is courting disaster, and I\u0027m already married. Specifically, the lifetime of the object I\u0027d be returning a pointer to would not be clear, given the container it lives in.",
+      "parentUuid": "fb3eed14_afaae171",
+      "range": {
+        "startLine": 676,
+        "startChar": 0,
+        "endLine": 676,
+        "endChar": 28
+      },
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dca4ff8_8cc070b4",
         "filename": "test/call_test.h",
         "patchSetId": 3
@@ -70,6 +130,30 @@
       "writtenOn": "2019-02-14T14:11:27Z",
       "side": 1,
       "message": "looking how this function is called, may be \nvoid RegisterRtpExtension(absl::string_view uri, int id);\nwould be a better signature.\n(or\nABSL_MUST_USE_RESULT bool Register... \nsee next comment",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 59
+      },
+      "revId": "c0d8a4f777ec8e3db747931bb26b908f5151e581",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7071a6d_ceb79275",
+        "filename": "test/call_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-14T15:13:19Z",
+      "side": 1,
+      "message": "IMHO, this is clearer, and not a problem from the point of view of performance. It makes more sense especially given that we can then store as vector\u003cRtpExtension\u003e instead of vector\u003cpair\u003e, and since we can in the future more easily validate over encryption. (For now, we don\u0027t.)",
+      "parentUuid": "3dca4ff8_8cc070b4",
       "range": {
         "startLine": 75,
         "startChar": 2,

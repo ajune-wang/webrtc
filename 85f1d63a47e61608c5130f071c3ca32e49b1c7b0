@@ -234,6 +234,30 @@
       "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5d707770_c5581b2a",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T12:58:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa0e0d60_7f8d4c4e",
+      "range": {
+        "startLine": 253,
+        "startChar": 25,
+        "endLine": 253,
+        "endChar": 57
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

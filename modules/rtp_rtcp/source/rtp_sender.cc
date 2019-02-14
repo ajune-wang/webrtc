@@ -203,11 +203,15 @@ void RTPSender::SetExtmapAllowMixed(bool extmap_allow_mixed) {
 
 int32_t RTPSender::RegisterRtpHeaderExtension(RTPExtensionType type,
                                               uint8_t id) {
+  printf("%p. RTPSender::RegisterRtpHeaderExtension(type = %d, id = %d)\n",
+         this, type, id);
   rtc::CritScope lock(&send_critsect_);
   return rtp_header_extension_map_.RegisterByType(id, type) ? 0 : -1;
 }
 
 bool RTPSender::RegisterRtpHeaderExtension(const std::string& uri, int id) {
+  printf("%p. RTPSender::RegisterRtpHeaderExtension(uri = %s, id = %d)\n", this,
+         uri.c_str(), id);
   rtc::CritScope lock(&send_critsect_);
   return rtp_header_extension_map_.RegisterByUri(id, uri);
 }
@@ -395,6 +399,8 @@ size_t RTPSender::SendPadData(size_t bytes,
     // Padding packets are never retransmissions.
     options.is_retransmit = false;
     bool has_transport_seq_num;
+    printf("%d. sequence_number = %u, audio_configured_ = %d\n", __LINE__,
+           sequence_number, audio_configured_);
     {
       rtc::CritScope lock(&send_critsect_);
       has_transport_seq_num =
@@ -587,7 +593,12 @@ bool RTPSender::PrepareAndSendPacket(std::unique_ptr<RtpPacketToSend> packet,
   // E.g. RTPSender::TrySendRedundantPayloads calls PrepareAndSendPacket with
   // send_over_rtx = true but is_retransmit = false.
   options.is_retransmit = is_retransmit || send_over_rtx;
+
   bool has_transport_seq_num;
+  if (!audio_configured_) {
+    printf("%d. sequence_number = %u, audio_configured_ = %d\n", __LINE__,
+           packet->SequenceNumber(), audio_configured_);
+  }
   {
     rtc::CritScope lock(&send_critsect_);
     has_transport_seq_num =
@@ -700,6 +711,10 @@ bool RTPSender::SendToNetwork(std::unique_ptr<RtpPacketToSend> packet,
   }
   packet->SetExtension<AbsoluteSendTime>(AbsoluteSendTime::MsTo24Bits(now_ms));
 
+  if (!audio_configured_) {
+    printf("%d. sequence_number = %u, audio_configured_ = %d\n", __LINE__,
+           packet->SequenceNumber(), audio_configured_);
+  }
   bool has_transport_seq_num;
   {
     rtc::CritScope lock(&send_critsect_);

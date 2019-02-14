@@ -27,11 +27,32 @@
 #include "test/gtest.h"
 
 namespace webrtc {
+namespace {
+// TODO: !!! ctor
+enum ExtensionId : int {  // The first valid value is 1.
+  kColorSpaceExtensionId = 1,
+  kGenericDescriptorExtensionId,
+  kTransportSequenceNumberExtensionId,
+  kVideoContentTypeExtensionId,
+  kVideoRotationExtensionId
+};
+}  // namespace
 
 class CodecEndToEndTest : public test::CallTest,
                           public testing::WithParamInterface<std::string> {
  public:
-  CodecEndToEndTest() : field_trial_(GetParam()) {}
+  CodecEndToEndTest() : field_trial_(GetParam()) {
+    RegisterRtpExtension(
+        RtpExtension(RtpExtension::kColorSpaceUri, kColorSpaceExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
+                                      kGenericDescriptorExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                                      kTransportSequenceNumberExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoContentTypeUri,
+                                      kVideoContentTypeExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoRotationUri,
+                                      kVideoRotationExtensionId));
+  }
 
  private:
   test::ScopedFieldTrials field_trial_;

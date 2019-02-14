@@ -43,8 +43,32 @@
 #include "test/single_threaded_task_queue.h"
 
 namespace webrtc {
+namespace {
+// TODO: !!! Prune
+enum ExtensionId : int {  // The first valid value is 1.
+  kColorSpaceExtensionId = 1,
+  kGenericDescriptorExtensionId,
+  kTransportSequenceNumberExtensionId,
+  kVideoContentTypeExtensionId,
+  kVideoRotationExtensionId
+};
+}  // namespace
 
-class ExtendedReportsEndToEndTest : public test::CallTest {};
+class ExtendedReportsEndToEndTest : public test::CallTest {
+ public:
+  ExtendedReportsEndToEndTest() {
+    RegisterRtpExtension(
+        RtpExtension(RtpExtension::kColorSpaceUri, kColorSpaceExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
+                                      kGenericDescriptorExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                                      kTransportSequenceNumberExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoContentTypeUri,
+                                      kVideoContentTypeExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoRotationUri,
+                                      kVideoRotationExtensionId));
+  }
+};
 
 class RtcpXrObserver : public test::EndToEndTest {
  public:

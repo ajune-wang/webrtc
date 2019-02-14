@@ -15,9 +15,34 @@
 #include "test/call_test.h"
 #include "test/field_trial.h"
 #include "test/gtest.h"
-namespace webrtc {
 
-class ProbingEndToEndTest : public test::CallTest {};
+namespace webrtc {
+namespace {
+// TODO: !!! Prune
+enum ExtensionId : int {  // The first valid value is 1.
+  kColorSpaceExtensionId = 1,
+  kGenericDescriptorExtensionId,
+  kTransportSequenceNumberExtensionId,
+  kVideoContentTypeExtensionId,
+  kVideoRotationExtensionId
+};
+}  // namespace
+
+class ProbingEndToEndTest : public test::CallTest {
+ public:
+  ProbingEndToEndTest() {
+    RegisterRtpExtension(
+        RtpExtension(RtpExtension::kColorSpaceUri, kColorSpaceExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kGenericFrameDescriptorUri,
+                                      kGenericDescriptorExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kTransportSequenceNumberUri,
+                                      kTransportSequenceNumberExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoContentTypeUri,
+                                      kVideoContentTypeExtensionId));
+    RegisterRtpExtension(RtpExtension(RtpExtension::kVideoRotationUri,
+                                      kVideoRotationExtensionId));
+  }
+};
 
 class ProbingTest : public test::EndToEndTest {
  public:

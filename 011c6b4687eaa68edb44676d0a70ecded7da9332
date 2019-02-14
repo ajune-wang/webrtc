@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6915f92b_2c67afb7",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eedf0c1b_715b41d3",
+      "range": {
+        "startLine": 1069,
+        "startChar": 48,
+        "endLine": 1070,
+        "endChar": 32
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c4ad020_496767e0",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 4
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "07d3d21b_77706f73",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1104,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42ab018a_46716d90",
+      "range": {
+        "startLine": 1104,
+        "startChar": 0,
+        "endLine": 1104,
+        "endChar": 1
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "738d6a25_03858dc9",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -92,6 +140,30 @@
       "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b82f3fbf_68e55954",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Done. I combined incoming graphs.",
+      "parentUuid": "738d6a25_03858dc9",
+      "range": {
+        "startLine": 316,
+        "startChar": 6,
+        "endLine": 316,
+        "endChar": 32
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +202,24 @@
     },
     {
       "key": {
+        "uuid": "122250de_370bdb53",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6475a92_11b6ecba",
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "365e7f27_26d23709",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -153,6 +243,30 @@
     },
     {
       "key": {
+        "uuid": "32da41d9_7d98bf88",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Done. Added to existing graphs.",
+      "parentUuid": "365e7f27_26d23709",
+      "range": {
+        "startLine": 333,
+        "startChar": 40,
+        "endLine": 334,
+        "endChar": 70
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7b2bf98_59241a2d",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 4
@@ -173,6 +287,30 @@
       "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92a7cbad_e2bfb370",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "Added to existing graphs.",
+      "parentUuid": "a7b2bf98_59241a2d",
+      "range": {
+        "startLine": 338,
+        "startChar": 40,
+        "endLine": 339,
+        "endChar": 70
+      },
+      "revId": "011c6b4687eaa68edb44676d0a70ecded7da9332",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

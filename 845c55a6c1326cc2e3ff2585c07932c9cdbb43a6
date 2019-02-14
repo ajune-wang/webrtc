@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d3c5aa7_53c5beb4",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:47:24Z",
+      "side": 1,
+      "message": "FYI these lines are identical as the lines 882+.\nPlus there exists MovingAverage\u003c\u003e, which should probably be used here too.\n\nI am not refactoring this in this change.",
+      "range": {
+        "startLine": 817,
+        "startChar": 4,
+        "endLine": 836,
+        "endChar": 54
+      },
+      "revId": "845c55a6c1326cc2e3ff2585c07932c9cdbb43a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

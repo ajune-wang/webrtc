@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f5629859_d9b57dec",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "It is already in the ProbeClusterConfig.\nprobe_cluser.id is to me better than probe_cluster.probe_cluster_id;, isn\u0027t it?",
+      "parentUuid": "768b6d0f_4313893a",
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f68687a_57333aad",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56603698_d19beca8",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f68687a_57333aad",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d02e3048_aa522336",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c94ea4_66e12ffc",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 74
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7488f68d_c2d4d89c",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "70890edd_c3ce8f2d",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Removed. \n\nI won\u0027t send a separate change to change it, but braces shouldn\u0027t be omitted. Feel free to send a CL that fixes it.",
+      "parentUuid": "7488f68d_c2d4d89c",
+      "range": {
+        "startLine": 326,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 0
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "391b0cf5_7e99135f",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
         "patchSetId": 2
@@ -99,6 +189,30 @@
       "writtenOn": "2019-02-14T16:05:26Z",
       "side": 1,
       "message": "Is this only called here? Then inline it.",
+      "range": {
+        "startLine": 372,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 17
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732fcde2_919adab8",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "I like not inlining it. It makes the method easier to read, and the method is already rather long. If anything, I think there are not enough methods that do one-thing only in rtc codebase, and there are too many too long methods.\n\nDo you think it reduces readability of this method?",
+      "parentUuid": "391b0cf5_7e99135f",
       "range": {
         "startLine": 372,
         "startChar": 4,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "9bf68d8d_493a3669",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Yeah, this change was mainly for the sake of discussion / prototype.\n\nAddressed all of your comments and tests now.",
+      "parentUuid": "4ebc98fb_1fd91d22",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 26
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ccfdb30b_29b2c453",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
         "patchSetId": 2
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "b650fa86_ec1a5ff3",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ccfdb30b_29b2c453",
+      "range": {
+        "startLine": 122,
+        "startChar": 10,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76ca7711_1c3f629f",
         "filename": "modules/pacing/bitrate_prober.h",
         "patchSetId": 2
@@ -177,6 +339,30 @@
       "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4067af8d_277474c3",
+        "filename": "modules/pacing/bitrate_prober.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-14T21:49:03Z",
+      "side": 1,
+      "message": "Done (yeah, this change was just a prototype initially).",
+      "parentUuid": "76ca7711_1c3f629f",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 22
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

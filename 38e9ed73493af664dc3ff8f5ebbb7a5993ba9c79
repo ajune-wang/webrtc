@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cb0bf80_30807276",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus_config.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-14T11:27:35Z",
+      "side": 1,
+      "message": "Only 4, 6 and 8 are allowed. It\u0027s because I use a surround function in Opus: https://mf4.xiph.org/jenkins/view/opus/job/opus/ws/doc/html/group__opus__multistream.html#ga8d87c08ecbe6ed4ce1ede4e58718b621",
+      "parentUuid": "b7645a84_fd051581",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 59,
+        "endChar": 45
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7155108f_e72ff736",
         "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
         "patchSetId": 18
@@ -36,6 +60,24 @@
       "writtenOn": "2019-02-14T09:08:09Z",
       "side": 1,
       "message": "Left in while testing?",
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08fa8ee0_dac7caf3",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-14T11:27:35Z",
+      "side": 1,
+      "message": "Aouch, thanks!",
+      "parentUuid": "7155108f_e72ff736",
       "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "905f4415_526de6d6",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-14T11:27:35Z",
+      "side": 1,
+      "message": "I tried and didn\u0027t like the result. I think the name constant should be kept together with the file extension. You can\u0027t have global std::pair\u003cstd::string, std::string\u003e. A pair\u003cchar[], char[]\u003e also doesn\u0027t work, because the two char[]s are variable size. Also handling the extensions gets messy with the code in #1260. If I put \"testfile_fake_stereo\" in a constant, I should also put the other string literals in constants. I think it\u0027s simpler the way it currently is.",
+      "parentUuid": "d9582bde_f5889942",
+      "range": {
+        "startLine": 1496,
+        "startChar": 30,
+        "endLine": 1496,
+        "endChar": 71
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5de4feb_c40b708f",
         "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
         "patchSetId": 18
@@ -79,6 +145,24 @@
       "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25e14fc_76e6a87f",
+        "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-14T11:27:35Z",
+      "side": 1,
+      "message": "It wasn\u0027t, and in some case, the error was not detected at all because Read() signals a boolean which can be ignored. I thought the target was \u0027testonly\u003dtrue\u0027, but it turns out it wasn\u0027t. It\u0027s used in \"event_log_visualizer_utils\" which is not testonly. Now changed to DCHECKs.",
+      "parentUuid": "e5de4feb_c40b708f",
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

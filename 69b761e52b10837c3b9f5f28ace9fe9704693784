@@ -22,6 +22,30 @@
       "revId": "69b761e52b10837c3b9f5f28ace9fe9704693784",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a11561f8_5cfaed39",
+        "filename": "modules/audio_coding/acm2/acm_send_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-14T11:27:35Z",
+      "side": 0,
+      "message": "No, I want real multi-channel instead of one channel replicated several times. Otherwise I can\u0027t be sure that the encoder/decoder is set up correctly. When developing, I first set up the encoder/decoder pair in a wrong way: the output looked fine if there was one channel replicated 6 times, but it was wrong otherwise.",
+      "parentUuid": "7432d7f7_6325dbb1",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 115,
+        "endChar": 5
+      },
+      "revId": "69b761e52b10837c3b9f5f28ace9fe9704693784",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

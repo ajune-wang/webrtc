@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed397290_35925228",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-14T01:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8520847a_cfafc391",
+      "range": {
+        "startLine": 345,
+        "startChar": 26,
+        "endLine": 345,
+        "endChar": 31
+      },
+      "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94fc4221_374ce35b",
         "filename": "pc/rtp_sender.cc",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3f709794_ec6af716",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-14T01:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94fc4221_374ce35b",
+      "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6a9ae7b_c7710bd1",
         "filename": "pc/rtp_sender.cc",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1414e533_1abb558c",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-14T01:11:43Z",
+      "side": 1,
+      "message": "that was the original implementation but then i came across:\n1. the input RtpParameters object (and hence the encodings) is const, so modifying it in place is not an option and a copy needs to be made.\n2. the shuffling of entries (because layers can be added anywhere) caused the implementation to be more complex.\n\ncopying the RtpParameters is only needed if we execute this method, so it made sense to do the copying here and make the code simple by doing a \u0027list-merge\u0027 rather than finding a way to insert to a specific position in the vector (mostly because vector insert is always before current position and not after it...)",
+      "parentUuid": "f6a9ae7b_c7710bd1",
+      "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7ee23c73_7eb4b4f9",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-14T01:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4f7ace6_caa7eea9",
+      "range": {
+        "startLine": 106,
+        "startChar": 14,
+        "endLine": 106,
+        "endChar": 20
+      },
+      "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c678fb5b_8dc2578f",
         "filename": "pc/rtp_sender.cc",
         "patchSetId": 2
@@ -96,6 +180,24 @@
       "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e0986ee_451d9977",
+        "filename": "pc/rtp_sender.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-02-14T01:11:43Z",
+      "side": 1,
+      "message": "i will, it\u0027s unfortunate that there is no real reason except for our lack of ability to write software correctly. i plan on having this implemented when i try and stick it to the code and refactor this class.",
+      "parentUuid": "c678fb5b_8dc2578f",
+      "revId": "7f374b22d8c46e1d6f3df5fa159965e831795011",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f1b96c1_be2d36bf",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T12:49:47Z",
+      "side": 1,
+      "message": "how this change is related to removing global list of test constants?",
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "add05c6b_c3603596",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-14T12:49:47Z",
+      "side": 1,
+      "message": "I see one upside with this grouping:\nit implicitly guaranteed uniqueness of these ids within this test file.\nAlternative way to make it harder to have accidental duplicates is to reorder (or to reenumerate) extension ids by value.\n\nbut I also see two downsides of this grouping style:\na) when something goes wrong and test show failure about some extension id, you need to manually calculate which extension that id correspond to (where with explicit constants finding correct line is simpler)\nb) Without explicit numbering It is easier to go beyond 14 extensions without noticing that.\n\nIt seems to me there are more downsides than upsides,\nAre there upsides I\u0027m missing?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "dd6394d66e36d7555b08115a96c8d3d88108949e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

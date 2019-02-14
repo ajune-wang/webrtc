@@ -1505,7 +1505,6 @@ TEST_F(AcmSenderBitExactnessNewApi, MAYBE_OpusFromFormat_stereo_20ms) {
 TEST_F(AcmSenderBitExactnessNewApi, OpusManyChannels) {
   constexpr int kNumChannels = 4;
   constexpr int kOpusPayloadType = 120;
-  // constexpr int kBitrateBps = 128000;
 
   // Read a 4 channel file at 48kHz.
   ASSERT_TRUE(

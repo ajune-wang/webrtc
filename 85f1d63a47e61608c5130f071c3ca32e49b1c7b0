@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5e8e4176_290834be",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T12:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f999e153_a60c2d8a",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71825848_7b94c63d",
         "filename": "test/scenario/video_stream.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cfd937c_6c4ab6db",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T12:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71825848_7b94c63d",
+      "range": {
+        "startLine": 200,
+        "startChar": 41,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c53c7a2f_5e107cb8",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T12:19:05Z",
+      "side": 1,
+      "message": "It triggers a DCHECK. The previous DCHECK was redundant.",
+      "parentUuid": "02d2d176_632de3f3",
+      "range": {
+        "startLine": 203,
+        "startChar": 29,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44cd6b54_b0116fb6",
         "filename": "test/scenario/video_stream.cc",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "ad0903f9_c4417bb0",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T12:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44cd6b54_b0116fb6",
+      "range": {
+        "startLine": 205,
+        "startChar": 73,
+        "endLine": 205,
+        "endChar": 74
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "842c5d30_8e5d653b",
         "filename": "test/scenario/video_stream.cc",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0e0d60_7f8d4c4e",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-14T12:19:05Z",
+      "side": 1,
+      "message": "I chose to not remove the code that handles simulcast to make future reintroduction easier. These lines were moved so they use the encoder_config value.",
+      "parentUuid": "842c5d30_8e5d653b",
+      "range": {
+        "startLine": 253,
+        "startChar": 25,
+        "endLine": 253,
+        "endChar": 57
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -42,7 +42,7 @@ class BitrateProber {
 
   // Create a cluster used to probe for |bitrate_bps| with |num_probes| number
   // of probes.
-  void CreateProbeCluster(int bitrate_bps, int64_t now_ms);
+  void CreateProbeCluster(int bitrate_bps, int64_t now_ms, int cluster_id);
 
   // Returns the number of milliseconds until the next probe should be sent to
   // get accurate probing.

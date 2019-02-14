@@ -19,6 +19,7 @@
 #include "absl/types/optional.h"
 #include "api/transport/network_control.h"
 #include "api/transport/webrtc_key_value_config.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/system/unused.h"
 
@@ -31,7 +32,8 @@ class Clock;
 // bitrate is adjusted by an application.
 class ProbeController {
  public:
-  explicit ProbeController(const WebRtcKeyValueConfig* key_value_config);
+  explicit ProbeController(const WebRtcKeyValueConfig* key_value_config,
+                           RtcEventLog* event_log);
   ~ProbeController();
 
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> SetBitrates(
@@ -91,6 +93,9 @@ class ProbeController {
       std::initializer_list<int64_t> bitrates_to_probe,
       bool probe_further);
 
+  // Logs newly created probe clusters to rtc event log.
+  void LogNewCluster(const ProbeClusterConfig& probe);
+
   bool network_available_;
   State state_;
   int64_t min_bitrate_to_probe_further_bps_;
@@ -112,6 +117,9 @@ class ProbeController {
   bool mid_call_probing_waiting_for_result_;
   int64_t mid_call_probing_bitrate_bps_;
   int64_t mid_call_probing_succcess_threshold_;
+  RtcEventLog* event_log_;
+
+  int32_t probe_cluster_id_ = 0;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(ProbeController);
 };

@@ -13,10 +13,12 @@
 #include <algorithm>
 #include <initializer_list>
 #include <string>
+#include "absl/memory/memory.h"
 
 #include "api/units/data_rate.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
+#include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
@@ -82,14 +84,16 @@ constexpr char kCappedProbingFieldTrialName[] = "WebRTC-BweCappedProbing";
 
 }  // namespace
 
-ProbeController::ProbeController(const WebRtcKeyValueConfig* key_value_config)
+ProbeController::ProbeController(const WebRtcKeyValueConfig* key_value_config,
+                                 RtcEventLog* event_log)
     : enable_periodic_alr_probing_(false),
       in_rapid_recovery_experiment_(
           key_value_config->Lookup(kBweRapidRecoveryExperiment)
               .find("Enabled") == 0),
       limit_probes_with_allocateable_rate_(
           key_value_config->Lookup(kCappedProbingFieldTrialName)
-              .find("Disabled") != 0) {
+              .find("Disabled") != 0),
+      event_log_(event_log) {
   Reset(0);
 }
 
@@ -364,6 +368,8 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     config.target_data_rate = DataRate::bps(rtc::dchecked_cast<int>(bitrate));
     config.target_duration = TimeDelta::ms(kMinProbeDurationMs);
     config.target_probe_count = kMinProbePacketsSent;
+    config.id = probe_cluster_id_++;
+    LogNewCluster(config);
     pending_probes.push_back(config);
   }
   time_last_probing_initiated_ms_ = now_ms;
@@ -376,6 +382,14 @@ std::vector<ProbeClusterConfig> ProbeController::InitiateProbing(
     min_bitrate_to_probe_further_bps_ = kExponentialProbingDisabled;
   }
   return pending_probes;
+}
+
+void ProbeController::LogNewCluster(const ProbeClusterConfig& probe) {
+  size_t min_bytes = static_cast<int32_t>(probe.target_data_rate.bps() *
+                                          probe.target_duration.ms() / 8000);
+  event_log_->Log(absl::make_unique<RtcEventProbeClusterCreated>(
+      probe.id, probe.target_data_rate.bps(), probe.target_probe_count,
+      min_bytes));
 }
 
 }  // namespace webrtc

@@ -74,7 +74,7 @@ class PacedSender : public Pacer {
 
   ~PacedSender() override;
 
-  virtual void CreateProbeCluster(int bitrate_bps);
+  virtual void CreateProbeCluster(int bitrate_bps, int cluster_id);
 
   // Temporarily pause all sending.
   void Pause();

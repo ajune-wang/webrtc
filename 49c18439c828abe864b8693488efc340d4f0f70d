@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aca5850_4dd22cc5",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-14T18:47:47Z",
+      "side": 1,
+      "message": "Pacing rate is based on target rate before congestion window pushback.",
+      "range": {
+        "startLine": 636,
+        "startChar": 5,
+        "endLine": 636,
+        "endChar": 7
+      },
+      "revId": "49c18439c828abe864b8693488efc340d4f0f70d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

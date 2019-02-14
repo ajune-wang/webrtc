@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f999e153_a60c2d8a",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T10:52:33Z",
+      "side": 1,
+      "message": "nit: width",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71825848_7b94c63d",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T10:52:33Z",
+      "side": 1,
+      "message": "/*explanation* absl::nullopt/ would be nice.",
+      "range": {
+        "startLine": 200,
+        "startChar": 41,
+        "endLine": 200,
+        "endChar": 54
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02d2d176_632de3f3",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T10:52:33Z",
+      "side": 1,
+      "message": "What happens if it can\u0027t open the file?",
+      "range": {
+        "startLine": 203,
+        "startChar": 29,
+        "endLine": 203,
+        "endChar": 46
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cd6b54_b0116fb6",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T10:52:33Z",
+      "side": 1,
+      "message": "/*explanation 1*/ would be nice.",
+      "range": {
+        "startLine": 205,
+        "startChar": 73,
+        "endLine": 205,
+        "endChar": 74
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "842c5d30_8e5d653b",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-02-14T10:52:33Z",
+      "side": 1,
+      "message": "Considering your TODO and size_t num_streams \u003d 1; above, do we or do we not support multiple streams?",
+      "range": {
+        "startLine": 253,
+        "startChar": 25,
+        "endLine": 253,
+        "endChar": 57
+      },
+      "revId": "85f1d63a47e61608c5130f071c3ca32e49b1c7b0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

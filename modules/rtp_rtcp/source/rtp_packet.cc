@@ -562,6 +562,7 @@ rtc::ArrayView<uint8_t> RtpPacket::AllocateExtension(ExtensionType type,
   }
   if (!extensions_.ExtmapAllowMixed() &&
       id > RtpExtension::kOneByteHeaderExtensionMaxId) {
+    printf("id = %d\n", int(id));
     return nullptr;
   }
   return AllocateRawExtension(id, length);

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71d5b6c5_4696812c",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T15:35:21Z",
+      "side": 1,
+      "message": "Could we make it use realistic/valid addresses? Maybe by default start with something like 192.168.1.100?",
+      "range": {
+        "startLine": 59,
+        "startChar": 39,
+        "endLine": 59,
+        "endChar": 53
+      },
+      "revId": "355f5f253e16f2f69b3efa0fad7b423be9192a97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfc1101b_705f2103",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T15:35:21Z",
+      "side": 1,
+      "message": "1. Fix grammar.\n2. Document the criteria for how the family is chosen as it will impact the behavior (the overhead is different).",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "355f5f253e16f2f69b3efa0fad7b423be9192a97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3933e9_b753ec19",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T15:35:21Z",
+      "side": 1,
+      "message": "Should this be replaced as well?",
+      "range": {
+        "startLine": 68,
+        "startChar": 37,
+        "endLine": 68,
+        "endChar": 54
+      },
+      "revId": "355f5f253e16f2f69b3efa0fad7b423be9192a97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e6bbe3f_75be59f4",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T08:12:51Z",
+      "side": 1,
+      "message": "Will this be removed in a followup CL?",
+      "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a354352_e7021180",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T08:12:51Z",
+      "side": 1,
+      "message": "This is temporary right? Maybe add a TODO about removing it?",
+      "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

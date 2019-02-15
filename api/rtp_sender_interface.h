@@ -67,7 +67,7 @@ class RtpSenderInterface : public rtc::RefCountInterface {
   // TODO(orphis): Make it pure virtual once Chrome has updated
   virtual std::vector<RtpEncodingParameters> init_send_encodings() const;
 
-  virtual RtpParameters GetParameters() = 0;
+  virtual RtpParameters GetParameters() const = 0;
   // Note that only a subset of the parameters can currently be changed. See
   // rtpparameters.h
   // The encodings are in increasing quality order for simulcast.
@@ -104,7 +104,7 @@ PROXY_CONSTMETHOD0(cricket::MediaType, media_type)
 PROXY_CONSTMETHOD0(std::string, id)
 PROXY_CONSTMETHOD0(std::vector<std::string>, stream_ids)
 PROXY_CONSTMETHOD0(std::vector<RtpEncodingParameters>, init_send_encodings)
-PROXY_METHOD0(RtpParameters, GetParameters);
+PROXY_CONSTMETHOD0(RtpParameters, GetParameters);
 PROXY_METHOD1(RTCError, SetParameters, const RtpParameters&)
 PROXY_CONSTMETHOD0(rtc::scoped_refptr<DtmfSenderInterface>, GetDtmfSender);
 PROXY_METHOD1(void,

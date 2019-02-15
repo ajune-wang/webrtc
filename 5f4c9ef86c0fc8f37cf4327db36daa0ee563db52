@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a008a592_ad03803f",
+        "filename": "api/transport/network_types.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T08:08:38Z",
+      "side": 1,
+      "message": "For me, either is fine, but the comment shouldn\u0027t be needed, if it is, then then the name should be changed until it is not and can be removed.",
+      "parentUuid": "f5629859_d9b57dec",
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6f68687a_57333aad",
         "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
         "patchSetId": 2
@@ -213,6 +231,30 @@
       "side": 1,
       "message": "I like not inlining it. It makes the method easier to read, and the method is already rather long. If anything, I think there are not enough methods that do one-thing only in rtc codebase, and there are too many too long methods.\n\nDo you think it reduces readability of this method?",
       "parentUuid": "391b0cf5_7e99135f",
+      "range": {
+        "startLine": 372,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 17
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b09523_b3faea4e",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-15T08:08:38Z",
+      "side": 1,
+      "message": "The problem with short methods is that they require jumping around in the editor to see if there are any side effects. It\u0027s a trade off between saving lines per function and making it easy to follow everything that happens (including side effects).\n\nIn this case there aren\u0027t many side effects and they are clear given the name, but not given the signature (as it takes a raw pointer to ProbeController it could do anything with it). What you can do is make it a locally defined function (in anonymous namespace) that takes the event log pointer and the probe cluster. (Also name it LogProbeClusterCreated to give a hint at what event is logged)",
+      "parentUuid": "732fcde2_919adab8",
       "range": {
         "startLine": 372,
         "startChar": 4,

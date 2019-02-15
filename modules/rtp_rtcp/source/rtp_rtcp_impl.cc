@@ -431,7 +431,7 @@ void ModuleRtpRtcpImpl::SetAsPartOfAllocation(bool part_of_allocation) {
 }
 
 bool ModuleRtpRtcpImpl::SendOutgoingData(
-    FrameType frame_type,
+    FrameTypeDeprecated frame_type,
     int8_t payload_type,
     uint32_t time_stamp,
     int64_t capture_time_ms,

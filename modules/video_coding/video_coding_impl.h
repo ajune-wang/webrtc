@@ -95,7 +95,7 @@ class VideoSender {
 
   rtc::CriticalSection params_crit_;
   bool encoder_has_internal_source_ RTC_GUARDED_BY(params_crit_);
-  std::vector<FrameType> next_frame_types_ RTC_GUARDED_BY(params_crit_);
+  std::vector<VideoFrameType> next_frame_types_ RTC_GUARDED_BY(params_crit_);
 };
 
 class VideoReceiver : public Module {

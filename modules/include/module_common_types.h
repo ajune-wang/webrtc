@@ -30,7 +30,9 @@ struct WebRtcRTPHeader {
   RTPVideoHeader video;
 
   RTPHeader header;
-  FrameType frameType;
+  // TODO(nisse): Doesn't fit at all with the model of separate types for audio
+  // and video frames. Delete this struct.
+  FrameTypeDeprecated frameType;
   // NTP time of the capture time in local timebase in milliseconds.
   int64_t ntp_time_ms;
 };

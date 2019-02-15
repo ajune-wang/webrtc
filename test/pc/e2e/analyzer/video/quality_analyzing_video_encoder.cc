@@ -61,7 +61,7 @@ int32_t QualityAnalyzingVideoEncoder::Release() {
 int32_t QualityAnalyzingVideoEncoder::Encode(
     const VideoFrame& frame,
     const CodecSpecificInfo* codec_specific_info,
-    const std::vector<FrameType>* frame_types) {
+    const std::vector<VideoFrameType>* frame_types) {
   {
     rtc::CritScope crit(&lock_);
     // Store id to be able to retrieve it in analyzing callback.

@@ -243,7 +243,7 @@ class RTC_EXPORT VideoEncoder {
   //                                  WEBRTC_VIDEO_CODEC_ERROR
   virtual int32_t Encode(const VideoFrame& frame,
                          const CodecSpecificInfo* codec_specific_info,
-                         const std::vector<FrameType>* frame_types) = 0;
+                         const std::vector<VideoFrameType>* frame_types) = 0;
 
   // Inform the encoder about the new target bit rate.
   //

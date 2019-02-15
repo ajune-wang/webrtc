@@ -7,9 +7,10 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#include <atomic>
 
-#include "test/scenario/scenario.h"
 #include "test/gtest.h"
+#include "test/scenario/scenario.h"
 namespace webrtc {
 namespace test {
 TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
@@ -53,6 +54,57 @@ TEST(ScenarioTest, StartsAndStopsWithoutErrors) {
              });
   EXPECT_TRUE(packet_received);
   EXPECT_TRUE(bitrate_changed);
+}
+
+TEST(ScenarioTest, ReceivesFramesFromMultipleVideoStreams) {
+  using Src = VideoStreamConfig::Source;
+  using Enc = VideoStreamConfig::Encoder;
+  TimeDelta kRunTime = TimeDelta::ms(500);
+  std::vector<int> kFrameRates = {5, 15};
+
+  std::deque<std::atomic<int>> frame_counts(2);
+  frame_counts[0] = 0;
+  frame_counts[1] = 0;
+  {
+    Scenario s;
+    auto route = s.CreateRoutes(s.CreateClient("caller", CallClientConfig()),
+                                {s.CreateSimulationNode(NetworkNodeConfig())},
+                                s.CreateClient("callee", CallClientConfig()),
+                                {s.CreateSimulationNode(NetworkNodeConfig())});
+
+    s.CreateVideoStream(route->forward(), [&](VideoStreamConfig* c) {
+      c->analyzer.frame_quality_handler = [&](const VideoFrameQualityInfo&) {
+        frame_counts[0]++;
+      };
+      c->source.capture = Src::Capture::kVideoFile;
+      c->source.video_file.name = "foreman_320x240";
+      c->source.video_file.width = 320;
+      c->source.video_file.height = 240;
+      c->encoder.content_type = Enc::ContentType::kScreen;
+      c->source.framerate = kFrameRates[0];
+      c->encoder.implementation = Enc::Implementation::kSoftware;
+      c->encoder.codec = Enc::Codec::kVideoCodecVP8;
+    });
+    s.CreateVideoStream(route->forward(), [&](VideoStreamConfig* c) {
+      c->analyzer.frame_quality_handler = [&](const VideoFrameQualityInfo&) {
+        frame_counts[1]++;
+      };
+      c->source.capture = Src::Capture::kGenerator;
+      c->source.generator.width = 640;
+      c->source.generator.height = 480;
+      c->source.framerate = kFrameRates[1];
+      c->encoder.implementation = Enc::Implementation::kSoftware;
+      c->encoder.codec = Enc::Codec::kVideoCodecVP9;
+    });
+    s.RunFor(kRunTime);
+  }
+  std::vector<int> expected_counts;
+  for (auto fps : kFrameRates)
+    expected_counts.push_back(
+        static_cast<int>(kRunTime.seconds<double>() * fps));
+
+  EXPECT_GE(frame_counts[0], expected_counts[0] - 1);
+  EXPECT_GE(frame_counts[1], expected_counts[1] - 1);
 }
 }  // namespace test
 }  // namespace webrtc

@@ -79,6 +79,19 @@ std::vector<RtpExtension> GetVideoRtpExtensions(
                        kVideoRotationRtpExtensionId)};
 }
 
+std::string TransformFilePath(std::string path) {
+  static const std::string resource_prefix = "res://";
+  int ext_pos = path.rfind(".");
+  if (ext_pos < 0) {
+    return test::ResourcePath(path, "yuv");
+  } else if (path.find(resource_prefix) == 0) {
+    std::string name = path.substr(resource_prefix.length(), ext_pos);
+    std::string ext = path.substr(ext_pos, path.size());
+    return test::ResourcePath(name, ext);
+  }
+  return path;
+}
+
 VideoSendStream::Config CreateVideoSendStreamConfig(VideoStreamConfig config,
                                                     std::vector<uint32_t> ssrcs,
                                                     Transport* send_transport) {
@@ -201,7 +214,7 @@ std::unique_ptr<FrameGenerator> CreateFrameGenerator(
     case Capture::kVideoFile:
       RTC_CHECK(source.video_file.width && source.video_file.height);
       return FrameGenerator::CreateFromYuvFile(
-          {source.video_file.name}, source.video_file.width,
+          {TransformFilePath(source.video_file.name)}, source.video_file.width,
           source.video_file.height, /*frame_repeat_count*/ 1);
   }
 }

@@ -207,11 +207,9 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     IceServer(const IceServer&);
     ~IceServer();
 
-    // TODO(jbauch): Remove uri when all code using it has switched to urls.
     // List of URIs associated with this server. Valid formats are described
     // in RFC7064 and RFC7065, and more may be added in the future. The "host"
     // part of the URI may contain either an IP address or a hostname.
-    std::string uri;
     std::vector<std::string> urls;
     std::string username;
     std::string password;
@@ -227,7 +225,7 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
     std::vector<std::string> tls_elliptic_curves;
 
     bool operator==(const IceServer& o) const {
-      return uri == o.uri && urls == o.urls && username == o.username &&
+      return urls == o.urls && username == o.username &&
              password == o.password && tls_cert_policy == o.tls_cert_policy &&
              hostname == o.hostname &&
              tls_alpn_protocols == o.tls_alpn_protocols &&

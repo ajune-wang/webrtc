@@ -178,7 +178,7 @@ bool Conductor::CreatePeerConnection(bool dtls) {
   config.sdp_semantics = webrtc::SdpSemantics::kUnifiedPlan;
   config.enable_dtls_srtp = dtls;
   webrtc::PeerConnectionInterface::IceServer server;
-  server.uri = GetPeerConnectionString();
+  server.urls = {GetPeerConnectionString()};
   config.servers.push_back(server);
 
   peer_connection_ = peer_connection_factory_->CreatePeerConnection(

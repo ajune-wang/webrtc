@@ -269,12 +269,12 @@ TEST_F(PeerConnectionFactoryTest, CheckRtpReceiverDataCapabilities) {
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingIceServers) {
   PeerConnectionInterface::RTCConfiguration config;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = kStunIceServer;
+  ice_server.urls = {kStunIceServer};
   config.servers.push_back(ice_server);
-  ice_server.uri = kTurnIceServer;
+  ice_server.urls = {kTurnIceServer};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
-  ice_server.uri = kTurnIceServerWithTransport;
+  ice_server.urls = {kTurnIceServerWithTransport};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
   std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(
@@ -330,9 +330,9 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingIceServersUrls) {
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingNoUsernameInUri) {
   PeerConnectionInterface::RTCConfiguration config;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = kStunIceServer;
+  ice_server.urls = {kStunIceServer};
   config.servers.push_back(ice_server);
-  ice_server.uri = kTurnIceServerWithNoUsernameInUri;
+  ice_server.urls = {kTurnIceServerWithNoUsernameInUri};
   ice_server.username = kTurnUsername;
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
@@ -354,7 +354,7 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingNoUsernameInUri) {
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingTurnUrlWithTransportParam) {
   PeerConnectionInterface::RTCConfiguration config;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = kTurnIceServerWithTransport;
+  ice_server.urls = {kTurnIceServerWithTransport};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
   std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(
@@ -373,13 +373,13 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingTurnUrlWithTransportParam) {
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
   PeerConnectionInterface::RTCConfiguration config;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = kSecureTurnIceServer;
+  ice_server.urls = {kSecureTurnIceServer};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
-  ice_server.uri = kSecureTurnIceServerWithoutTransportParam;
+  ice_server.urls = {kSecureTurnIceServerWithoutTransportParam};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
-  ice_server.uri = kSecureTurnIceServerWithoutTransportAndPortParam;
+  ice_server.urls = {kSecureTurnIceServerWithoutTransportAndPortParam};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
   std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(
@@ -406,15 +406,15 @@ TEST_F(PeerConnectionFactoryTest, CreatePCUsingSecureTurnUrl) {
 TEST_F(PeerConnectionFactoryTest, CreatePCUsingIPLiteralAddress) {
   PeerConnectionInterface::RTCConfiguration config;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = kStunIceServerWithIPv4Address;
+  ice_server.urls = {kStunIceServerWithIPv4Address};
   config.servers.push_back(ice_server);
-  ice_server.uri = kStunIceServerWithIPv4AddressWithoutPort;
+  ice_server.urls = {kStunIceServerWithIPv4AddressWithoutPort};
   config.servers.push_back(ice_server);
-  ice_server.uri = kStunIceServerWithIPv6Address;
+  ice_server.urls = {kStunIceServerWithIPv6Address};
   config.servers.push_back(ice_server);
-  ice_server.uri = kStunIceServerWithIPv6AddressWithoutPort;
+  ice_server.urls = {kStunIceServerWithIPv6AddressWithoutPort};
   config.servers.push_back(ice_server);
-  ice_server.uri = kTurnIceServerWithIPv6Address;
+  ice_server.urls = {kTurnIceServerWithIPv6Address};
   ice_server.password = kTurnPassword;
   config.servers.push_back(ice_server);
   std::unique_ptr<FakeRTCCertificateGenerator> cert_generator(

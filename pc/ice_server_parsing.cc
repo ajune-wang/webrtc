@@ -298,13 +298,6 @@ RTCErrorType ParseIceServers(
           return err;
         }
       }
-    } else if (!server.uri.empty()) {
-      // Fallback to old .uri if new .urls isn't present.
-      RTCErrorType err =
-          ParseIceServerUrl(server, server.uri, stun_servers, turn_servers);
-      if (err != RTCErrorType::NONE) {
-        return err;
-      }
     } else {
       RTC_LOG(LS_ERROR) << "Empty uri.";
       return RTCErrorType::SYNTAX_ERROR;

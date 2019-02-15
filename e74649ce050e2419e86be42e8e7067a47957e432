@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a907863_51b87e1d",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "Replace or add:\nRTC_CHECK_LT(source.size(), 1U \u003c\u003c 31);",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d0657b9_91a3e0f3",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "Nit: add\n// Extraction result is discarded only if all encoded partitions are discarded.",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0cd32783_f1456f0c",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "It\u0027s unusual to have only middle layer discarded. I suggest to also discard the last layer.",
+      "range": {
+        "startLine": 126,
+        "startChar": 56,
+        "endLine": 126,
+        "endChar": 61
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62841df6_1051fe03",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "Please add the test like InjectExtractFromConcatenated, but all 3 are discarded.",
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4bb4452_4cf27324",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "You need two modes kSVC and kKSVC.\n\nIn kSVC you always discard images with spatial_id \u003e require_spatial_id.\n\nIn kKSVC you relay ONLY the required spatial id (like in simulcast), unless the frame is key-frame. In that case you do like SVC (relay all layers up-to require one).\n\n\nSo, e.g. if required spatial index is 1, you will relay, in kSVC:\n\nkeyframe - 0, 1; delta frame - 0, 1;\n\nin kKSVC:\n\nkeyframe - 0, 1; delta frame - 1;\n\n\nYou distinguish which one is used by checking \ninst-\u003eVP9().interLayerPred\n\nSee: \nhttps://cs.chromium.org/chromium/src/third_party/webrtc/api/video_codecs/video_codec.h?sq\u003dpackage:chromium\u0026dr\u0026g\u003d0\u0026l\u003d50\n\nNote, in vp9 case if kOff is used, you should set Mode::kSimulcast.",
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c533c5a5_973c11d4",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "in kKSVC mode check if encoded_image._frameType \u003d\u003d kVideoFrameKey, then do discard \u003d ...\u003e... else do discard \u003d ...\u003d\u003d...",
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "444f90cf_93723487",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "SimulcastMode maybe?",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 11
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac00de78_32f6fd9b",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "kSVC",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 8
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8957c3a2_7256d824",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T12:30:46Z",
+      "side": 1,
+      "message": "above",
+      "range": {
+        "startLine": 139,
+        "startChar": 32,
+        "endLine": 139,
+        "endChar": 37
+      },
+      "revId": "e74649ce050e2419e86be42e8e7067a47957e432",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

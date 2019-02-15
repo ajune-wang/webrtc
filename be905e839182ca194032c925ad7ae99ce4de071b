@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2170add0_5ec56886",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "where is it used?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0004cc10_0c791a9a",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "prefer to move these free helper functions in the unnamed namespace since they are not directly called from outside.\n\nhaving it in unnamed namespace would also allow to be less careful about naming, e.g. use shorter names.",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480b7ee5_c543dd60",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "do not change the copyright notice.",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbd7079_7dcaf434",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "ASSERT_FALSE\nor rather\nEXPECT_FALSE",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 17
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9124d287_f8236aea",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "why is it an error?\nif other client doesn\u0027t support the extensions.",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 22
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eec61fe_9749f55b",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "https://google.github.io/styleguide/cppguide.html#General_Naming_Rules\n\"avoid abbreviation.\"",
+      "range": {
+        "startLine": 534,
+        "startChar": 21,
+        "endLine": 534,
+        "endChar": 26
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f7f242_b4f69d06",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "extensions are in rtp header, not payload",
+      "range": {
+        "startLine": 541,
+        "startChar": 28,
+        "endLine": 541,
+        "endChar": 35
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f137365c_46e232aa",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "I do not see a reason to discard a packet with two extensions, just use the newer version.\n(I still see a reason to log a warning. If it can be less often that on every packet, that would be even better)",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 542,
+        "endChar": 10
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e66a9aba_cd8d405d",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T11:55:52Z",
+      "side": 1,
+      "message": "it is probably better to prefer v01 over v00",
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

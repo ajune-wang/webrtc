@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d13ce0df_a1f0f632",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T12:58:16Z",
+      "side": 1,
+      "message": "This look like a call or two to (rtp_module|rtcp_module|rtcp_transceiver)\n-\u003eOnSendingRtpFrame(uint32_t rtp_timestamp, ??? capture_time, uint32_t rtp_timestamp_frequence, bool force_sender_report);\n\nThough... payload_type probably used more than for rtp_timestamp_frequency, it is also used for deciding what to put into payload_type for padding packets. On the other side.... probably anything can be in the payload_type for pure padding packets. so it might not important to pass it.\nAnother thought about it: If pacer is used, it should be able to find out what payload_type to use when it is time to send padding. If pacer is not used, may be some other \u0027pacer with 0-latency\u0027 should be used for same functionality",
+      "range": {
+        "startLine": 398,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 3
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87841c8c_52516ce3",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T12:58:16Z",
+      "side": 1,
+      "message": "this look just like (average?) rtt (with two, no, three ways to extract it that are tried one after another)\nrtcp_module should have accessor to rtt, multiple method for it extraction better be hidden as implementation detail..",
+      "range": {
+        "startLine": 404,
+        "startChar": 2,
+        "endLine": 404,
+        "endChar": 53
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71cc1cff_78aa447c",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-15T12:58:16Z",
+      "side": 1,
+      "message": "moving RTPSenderVideo into RtpVideoSender as member. makes sense :)",
+      "range": {
+        "startLine": 150,
+        "startChar": 36,
+        "endLine": 150,
+        "endChar": 50
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

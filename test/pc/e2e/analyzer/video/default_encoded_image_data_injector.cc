@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "test/pc/e2e/analyzer/video/default_encoded_image_id_injector.h"
+#include "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.h"
 
 #include <cstddef>
 
@@ -32,18 +32,20 @@ constexpr size_t kBuffersPoolPerCodingEntity = 256;
 
 }  // namespace
 
-DefaultEncodedImageIdInjector::DefaultEncodedImageIdInjector() {
+DefaultEncodedImageDataInjector::DefaultEncodedImageDataInjector() {
   for (size_t i = 0;
        i < kPreInitCodingEntitiesCount * kBuffersPoolPerCodingEntity; ++i) {
     bufs_pool_.push_back(
         absl::make_unique<std::vector<uint8_t>>(kInitialBufferSize));
   }
 }
-DefaultEncodedImageIdInjector::~DefaultEncodedImageIdInjector() = default;
+DefaultEncodedImageDataInjector::~DefaultEncodedImageDataInjector() = default;
 
-EncodedImage DefaultEncodedImageIdInjector::InjectId(uint16_t id,
-                                                     const EncodedImage& source,
-                                                     int coding_entity_id) {
+EncodedImage DefaultEncodedImageDataInjector::InjectData(
+    uint16_t id,
+    bool discard,
+    const EncodedImage& source,
+    int coding_entity_id) {
   ExtendIfRequired(coding_entity_id);
 
   EncodedImage out = source;
@@ -64,7 +66,7 @@ EncodedImage DefaultEncodedImageIdInjector::InjectId(uint16_t id,
   return out;
 }
 
-EncodedImageWithId DefaultEncodedImageIdInjector::ExtractId(
+EncodedImageExtractionResult DefaultEncodedImageDataInjector::ExtractData(
     const EncodedImage& source,
     int coding_entity_id) {
   ExtendIfRequired(coding_entity_id);
@@ -100,10 +102,10 @@ EncodedImageWithId DefaultEncodedImageIdInjector::ExtractId(
   }
   out.set_size(out_pos);
 
-  return EncodedImageWithId{id.value(), out};
+  return EncodedImageExtractionResult{id.value(), out, false};
 }
 
-void DefaultEncodedImageIdInjector::ExtendIfRequired(int coding_entity_id) {
+void DefaultEncodedImageDataInjector::ExtendIfRequired(int coding_entity_id) {
   rtc::CritScope crit(&lock_);
   if (coding_entities_.find(coding_entity_id) != coding_entities_.end()) {
     // This entity is already known for this injector, so buffers are allocated.
@@ -124,7 +126,7 @@ void DefaultEncodedImageIdInjector::ExtendIfRequired(int coding_entity_id) {
   }
 }
 
-std::vector<uint8_t>* DefaultEncodedImageIdInjector::NextBuffer() {
+std::vector<uint8_t>* DefaultEncodedImageDataInjector::NextBuffer() {
   rtc::CritScope crit(&lock_);
   // Get buffer from the front of the queue, return it to the caller and
   // put in the back

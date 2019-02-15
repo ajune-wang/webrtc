@@ -28,6 +28,7 @@ constexpr int64_t kPacketProcessingIntervalMs = 1;
 NetworkEmulationManager::NetworkEmulationManager()
     : clock_(Clock::GetRealTimeClock()),
       next_node_id_(1),
+      next_ip_address_(1),
       task_queue_("network_emulation_manager") {
   process_task_handle_ = RepeatingTaskHandle::Start(&task_queue_, [this] {
     ProcessNetworkPackets();
@@ -55,7 +56,20 @@ EmulatedNetworkNode* NetworkEmulationManager::CreateEmulatedNode(
   return out;
 }
 
+EndpointNode* NetworkEmulationManager::CreateEndpoint() {
+  while (next_ip_address_ < std::numeric_limits<uint32_t>::max()) {
+    rtc::IPAddress ip(next_ip_address_);
+    next_ip_address_++;
+    if (used_ip_addresses_.find(ip) == used_ip_addresses_.end()) {
+      return CreateEndpoint(ip);
+    }
+  }
+  RTC_CHECK(false) << "All auto generated IP addresses exhausted";
+}
+
 EndpointNode* NetworkEmulationManager::CreateEndpoint(rtc::IPAddress ip) {
+  bool res = used_ip_addresses_.insert(ip).second;
+  RTC_CHECK(res) << "IP=" << ip.ToString() << " already in use";
   auto node = absl::make_unique<EndpointNode>(next_node_id_++, ip, clock_);
   EndpointNode* out = node.get();
   endpoints_.push_back(std::move(node));

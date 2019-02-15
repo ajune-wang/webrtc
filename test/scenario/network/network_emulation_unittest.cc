@@ -66,8 +66,7 @@ TEST(NetworkEmulationManagerTest, Run) {
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
   EndpointNode* alice_endpoint =
       network_manager.CreateEndpoint(rtc::IPAddress(1));
-  EndpointNode* bob_endpoint =
-      network_manager.CreateEndpoint(rtc::IPAddress(2));
+  EndpointNode* bob_endpoint = network_manager.CreateEndpoint();
   network_manager.CreateRoute(alice_endpoint, {alice_node}, bob_endpoint);
   network_manager.CreateRoute(bob_endpoint, {bob_node}, alice_endpoint);
 

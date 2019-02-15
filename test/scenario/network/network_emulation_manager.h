@@ -39,8 +39,11 @@ class NetworkEmulationManager {
   EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior);
 
-  // TODO(titovartem) add method without IP address, where manager
-  // will provided some unique generated address.
+  // Will create EndpointNode with auto generated IP address. There is no
+  // guarantees will it be IPv4 or IPv6 address. It is guaranteed that this
+  // address will be unique among all nodes created with this network emulation
+  // manager.
+  EndpointNode* CreateEndpoint();
   EndpointNode* CreateEndpoint(rtc::IPAddress ip);
 
   void CreateRoute(EndpointNode* from,
@@ -70,6 +73,9 @@ class NetworkEmulationManager {
   int next_node_id_;
 
   RepeatingTaskHandle process_task_handle_;
+
+  uint32_t next_ip_address_;
+  std::set<rtc::IPAddress> used_ip_addresses_;
 
   // All objects can be added to the manager only when it is idle.
   std::vector<std::unique_ptr<EndpointNode>> endpoints_;

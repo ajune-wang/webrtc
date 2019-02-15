@@ -22,6 +22,30 @@
       "revId": "c2bce7415be61924aacb3edee946557d57e47082",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6243cbee_c0655891",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T15:21:33Z",
+      "side": 1,
+      "message": "The only reason why I added it is that I saw this code:\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/modules/pacing/bitrate_prober.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d48\n\nand I got scared :) (I would expect us to have a \u0027NullRtcEventLog\u0027 implementation to avoid null checks).\n\nI don\u0027t know if higher in the stack we can get a null event log, so I am just being overly cautious here.\n\nRenaming to maybe.",
+      "parentUuid": "67613fbe_a5b5fa5f",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 3
+      },
+      "revId": "c2bce7415be61924aacb3edee946557d57e47082",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

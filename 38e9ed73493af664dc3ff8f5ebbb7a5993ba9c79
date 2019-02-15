@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "c8c0f532_4b4c7c68",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-15T09:46:31Z",
+      "side": 1,
+      "message": "Sorry, mixed up branches",
+      "parentUuid": "0e39b645_f82bc0f5",
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9582bde_f5889942",
         "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
         "patchSetId": 18
@@ -194,6 +212,30 @@
       "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff5ca82f_8a753455",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-15T09:46:31Z",
+      "side": 1,
+      "message": "OK, thanks, I realized that the string doesn\u0027t have to be global and static. It can be a const member variable.",
+      "parentUuid": "5d90148c_264e41e2",
+      "range": {
+        "startLine": 1496,
+        "startChar": 30,
+        "endLine": 1496,
+        "endChar": 71
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

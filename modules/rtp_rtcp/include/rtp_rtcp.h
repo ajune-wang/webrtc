@@ -35,6 +35,7 @@ class RateLimiter;
 class ReceiveStatisticsProvider;
 class RemoteBitrateEstimator;
 class RtcEventLog;
+class RTPSender;
 class Transport;
 class VideoBitrateAllocationObserver;
 
@@ -247,6 +248,8 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // the payload overhead, eg the VP8 payload headers, not the RTP headers
   // or extension/
   virtual uint32_t PacketizationOverheadBps() const = 0;
+
+  virtual RTPSender* rtp_sender() = 0;
 
   // Used by the codec module to deliver a video or audio frame for
   // packetization.

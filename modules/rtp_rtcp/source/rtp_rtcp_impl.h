@@ -313,11 +313,10 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   void SetVideoBitrateAllocation(
       const VideoBitrateAllocation& bitrate) override;
 
+  RTPSender* rtp_sender() override;
+
  protected:
   bool UpdateRTCPReceiveInformationTimers();
-
-  RTPSender* rtp_sender() { return rtp_sender_.get(); }
-  const RTPSender* rtp_sender() const { return rtp_sender_.get(); }
 
   RTCPSender* rtcp_sender() { return &rtcp_sender_; }
   const RTCPSender* rtcp_sender() const { return &rtcp_sender_; }
@@ -339,6 +338,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   std::unique_ptr<RTPSender> rtp_sender_;
   std::unique_ptr<RTPSenderAudio> audio_;
+  // TODO(nisse): Delete.
   std::unique_ptr<RTPSenderVideo> video_;
   RTCPSender rtcp_sender_;
   RTCPReceiver rtcp_receiver_;

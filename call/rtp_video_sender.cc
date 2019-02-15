@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
@@ -103,6 +104,21 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     modules.push_back(std::move(rtp_rtcp));
   }
   return modules;
+}
+
+std::vector<std::unique_ptr<RTPSenderVideo>> CreateRtpPayloadSenders(
+    const std::vector<std::unique_ptr<RtpRtcp>>& modules,
+    FlexfecSender* flexfec_sender,
+    FrameEncryptorInterface* frame_encryptor,
+    const CryptoOptions& crypto_options) {
+  RTC_DCHECK_GT(modules.size(), 0);
+  std::vector<std::unique_ptr<RTPSenderVideo>> senders;
+  for (auto& rtp_rtcp : modules) {
+    senders.push_back(absl::make_unique<RTPSenderVideo>(
+        Clock::GetRealTimeClock(), rtp_rtcp->rtp_sender(), flexfec_sender,
+        frame_encryptor, crypto_options.sframe.require_frame_encryption));
+  }
+  return senders;
 }
 
 bool PayloadTypeSupportsSkippingFecPackets(const std::string& payload_name) {
@@ -216,6 +232,10 @@ RtpVideoSender::RtpVideoSender(
                                         transport->keepalive_config(),
                                         frame_encryptor,
                                         crypto_options)),
+      rtp_payload_senders_(CreateRtpPayloadSenders(rtp_modules_,
+                                                   flexfec_sender_.get(),
+                                                   frame_encryptor,
+                                                   crypto_options)),
       rtp_config_(rtp_config),
       transport_(transport),
       transport_overhead_bytes_per_packet_(0),
@@ -373,12 +393,33 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
+  int64_t expected_retransmission_time_ms = 0;
+#if 0
+  // Part of ModuleRtpRtcpImpl::SendOutgoingData
+  rtcp_sender_.SetLastRtpTime(time_stamp, capture_time_ms, payload_type);
+  // Make sure an RTCP report isn't queued behind a key frame.
+  if (rtcp_sender_.TimeToSendRTCPReport(kVideoFrameKey == frame_type)) {
+    rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
+  }
+  int64_t expected_retransmission_time_ms = rtt_ms();
+  if (expected_retransmission_time_ms == 0) {
+    // No rtt available (|kRtpRtcpRttProcessTimeMs| not yet passed?), so try to
+    // poll avg_rtt_ms directly from rtcp receiver.
+    if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
+                           &expected_retransmission_time_ms, nullptr,
+                           nullptr) == -1) {
+      expected_retransmission_time_ms = kDefaultExpectedRetransmissionTimeMs;
+    }
+  }
+#endif
+
+  bool send_result = rtp_payload_senders_[stream_index]->SendVideo(
       encoded_image._frameType, rtp_config_.payload_type,
       encoded_image.Timestamp(), encoded_image.capture_time_ms_,
       encoded_image.data(), encoded_image.size(), fragmentation,
-      &rtp_video_header, &frame_id);
-
+      &rtp_video_header, expected_retransmission_time_ms);
+  frame_id =
+      encoded_image.Timestamp() + rtp_modules_[stream_index]->StartTimestamp();
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[stream_index];
     if (encoded_image._frameType == kVideoFrameKey) {

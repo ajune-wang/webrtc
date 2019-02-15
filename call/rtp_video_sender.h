@@ -39,6 +39,7 @@ class FrameEncryptorInterface;
 class RTPFragmentationHeader;
 class RtpRtcp;
 class RtpTransportControllerSendInterface;
+class RTPSenderVideo;
 
 // RtpVideoSender routes outgoing data to the correct sending RTP module, based
 // on the simulcast layer in RTPVideoHeader.
@@ -146,6 +147,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   std::unique_ptr<FecController> fec_controller_;
   // Rtp modules are assumed to be sorted in simulcast index order.
   const std::vector<std::unique_ptr<RtpRtcp>> rtp_modules_;
+  const std::vector<std::unique_ptr<RTPSenderVideo>> rtp_payload_senders_;
   const RtpConfig rtp_config_;
   RtpTransportControllerSendInterface* const transport_;
 

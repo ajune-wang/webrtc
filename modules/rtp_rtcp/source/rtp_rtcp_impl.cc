@@ -117,6 +117,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     if (configuration.audio) {
       audio_ = absl::make_unique<RTPSenderAudio>(clock_, rtp_sender_.get());
     } else {
+      // TODO(nisse): Delete this and all code accessing |video_|.
       video_ = absl::make_unique<RTPSenderVideo>(
           clock_, rtp_sender_.get(), configuration.flexfec_sender,
           configuration.frame_encryptor,
@@ -939,4 +940,9 @@ void ModuleRtpRtcpImpl::SetVideoBitrateAllocation(
     const VideoBitrateAllocation& bitrate) {
   rtcp_sender_.SetVideoBitrateAllocation(bitrate);
 }
+
+RTPSender* ModuleRtpRtcpImpl::rtp_sender() {
+  return rtp_sender_.get();
+}
+
 }  // namespace webrtc

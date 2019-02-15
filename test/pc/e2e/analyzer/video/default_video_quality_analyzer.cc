@@ -38,8 +38,12 @@ void RateCounter::AddEvent(Timestamp event_time) {
 
 double RateCounter::GetEventsPerSecond() const {
   RTC_DCHECK(!IsEmpty());
+  // Divide on ms and multiply on 1000 to correctly process cases where there
+  // were too small amount of events, so difference is less then 1 sec. We can
+  // use ms here, because usually video pipeline won't generate data with
+  // time delta less than 1 ms.
   return static_cast<double>(event_count_) /
-         (event_last_time_ - event_first_time_).seconds();
+         (event_last_time_ - event_first_time_).ms() * 1000;
 }
 
 DefaultVideoQualityAnalyzer::DefaultVideoQualityAnalyzer(std::string test_label)

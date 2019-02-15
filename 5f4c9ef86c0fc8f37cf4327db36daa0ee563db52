@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "b7e58630_f8a82257",
+        "filename": "modules/congestion_controller/goog_cc/probe_controller.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T14:59:39Z",
+      "side": 1,
+      "message": "I agree: unless the name of the method clearly describes what it does.\n\nDone using your suggestion of the method in the private namespace.\n\nAnother way is to way a method const, and make RtcEventLogs mutable. Would that be an acceptable solution as well? (I am not going to change it now, but wondering your thoughts)",
+      "parentUuid": "68b09523_b3faea4e",
+      "range": {
+        "startLine": 372,
+        "startChar": 4,
+        "endLine": 372,
+        "endChar": 17
+      },
+      "revId": "5f4c9ef86c0fc8f37cf4327db36daa0ee563db52",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ebc98fb_1fd91d22",
         "filename": "modules/congestion_controller/goog_cc/probe_controller.h",
         "patchSetId": 2

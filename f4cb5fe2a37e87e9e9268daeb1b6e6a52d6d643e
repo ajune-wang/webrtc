@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2fc209a3_65ed3240",
+        "filename": "modules/pacing/bitrate_prober.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T14:59:39Z",
+      "side": 1,
+      "message": "I can certainly remove it in the follow up CL :) I didn\u0027t particularly see  it as a bad thing, but I will send a separate CL to remove it.\n\nAcking. (added todo).",
+      "parentUuid": "4e6bbe3f_75be59f4",
+      "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a354352_e7021180",
         "filename": "modules/pacing/paced_sender.h",
         "patchSetId": 6
@@ -56,6 +74,48 @@
       "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1500c3_b22cd6bc",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T14:59:39Z",
+      "side": 1,
+      "message": "Changed to 1 (srte@ suggested to start at 1, my original change started with 0). Renamed. This will be removed today hopefully :)",
+      "parentUuid": "c55b65b5_3a2efe95",
+      "range": {
+        "startLine": 211,
+        "startChar": 6,
+        "endLine": 211,
+        "endChar": 20
+      },
+      "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b45560c5_f5e3ad14",
+        "filename": "modules/pacing/paced_sender.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T14:59:39Z",
+      "side": 1,
+      "message": "I thought RTC_DEPRECATED on CreateProbeCluster is a strong signal that it\u0027s going to be removed.",
+      "parentUuid": "6a354352_e7021180",
+      "revId": "f4cb5fe2a37e87e9e9268daeb1b6e6a52d6d643e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

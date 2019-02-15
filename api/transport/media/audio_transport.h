@@ -111,9 +111,27 @@ class MediaTransportAudioSinkInterface {
  public:
   virtual ~MediaTransportAudioSinkInterface() = default;
 
-  // Called when new encoded audio frame is received.
+  // Called when new encoded audio frame is received, and no receiver is
+  // registered. Deprecated.
   virtual void OnData(uint64_t channel_id,
-                      MediaTransportEncodedAudioFrame frame) = 0;
+                      MediaTransportEncodedAudioFrame frame);
+
+  // Called when new encoded audio frame is received.
+  virtual void OnData(MediaTransportEncodedAudioFrame frame) = 0;
+};
+
+class MediaTransportAudioSender {
+ public:
+  virtual ~MediaTransportAudioSender() = default;
+
+  virtual void SendAudioFrame(MediaTransportEncodedAudioFrame frame) = 0;
+};
+
+// Similar to RtpStreamReceiverInterface, only owns the association with the
+// demuxer.
+class MediaTransportAudioReceiver {
+ public:
+  virtual ~MediaTransportAudioReceiver() = default;
 };
 
 }  // namespace webrtc

@@ -103,7 +103,6 @@ int32_t AudioTransportImpl::RecordedDataIsAvailable(
     uint32_t& /*new_mic_volume*/) {  // NOLINT: to avoid changing APIs
   RTC_DCHECK(audio_data);
   RTC_DCHECK_GE(number_of_channels, 1);
-  RTC_DCHECK_LE(number_of_channels, 2);
   RTC_DCHECK_EQ(2 * number_of_channels, bytes_per_sample);
   RTC_DCHECK_GE(sample_rate, AudioProcessing::NativeRate::kSampleRate8kHz);
   // 100 = 1 second / data duration (10 ms).
@@ -180,7 +179,6 @@ int32_t AudioTransportImpl::NeedMorePlayData(const size_t nSamples,
                                              int64_t* ntp_time_ms) {
   RTC_DCHECK_EQ(sizeof(int16_t) * nChannels, nBytesPerSample);
   RTC_DCHECK_GE(nChannels, 1);
-  RTC_DCHECK_LE(nChannels, 2);
   RTC_DCHECK_GE(
       samplesPerSec,
       static_cast<uint32_t>(AudioProcessing::NativeRate::kSampleRate8kHz));

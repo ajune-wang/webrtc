@@ -8,10 +8,14 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include "absl/memory/memory.h"
+#include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/test/simulated_network.h"
 #include "audio/test/audio_end_to_end_test.h"
+#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "rtc_base/flags.h"
 #include "system_wrappers/include/sleep.h"
+#include "test/audio_decoder_proxy_factory.h"
 #include "test/testsupport/file_utils.h"
 
 WEBRTC_DEFINE_int(sample_rate_hz,
@@ -98,6 +102,49 @@ class Mobile2GNetworkTest : public AudioQualityTest {
     return pipe_config;
   }
 };
+
+class MultiChannelTest : public AudioQualityTest {
+  std::string AudioInputFile() const {
+    return webrtc::test::ResourcePath(
+        "audio_coding/speech_4_channels_48k_one_second", "wav");
+  }
+
+  std::string AudioOutputFile() const {
+    const ::testing::TestInfo* const test_info =
+        ::testing::UnitTest::GetInstance()->current_test_info();
+    return webrtc::test::OutputPath() + "MultiChannelTest_" +
+           test_info->name() + "_" + "48khz" + ".wav";
+  }
+
+  std::unique_ptr<TestAudioDeviceModule::Capturer> CreateCapturer() override {
+    return TestAudioDeviceModule::CreateWavFileReader(AudioInputFile());
+  }
+
+  std::unique_ptr<TestAudioDeviceModule::Renderer> CreateRenderer() override {
+    return TestAudioDeviceModule::CreateWavFileWriter(AudioOutputFile(), 48000,
+                                                      4);
+  }
+
+  void ModifyAudioConfigs(
+      AudioSendStream::Config* send_config,
+      std::vector<AudioReceiveStream::Config>* receive_configs) override {
+    const auto sdp_format = SdpAudioFormat("opus", 48000, 4, {});
+    send_config->send_codec_spec = AudioSendStream::Config::SendCodecSpec(
+        test::CallTest::kAudioSendPayloadType, sdp_format);
+
+    const auto decoder_config = AudioDecoderOpus::SdpToConfig(sdp_format);
+    opus_decoder_.reset(
+        AudioDecoderOpus::MakeAudioDecoder(*decoder_config).release());
+
+    rtc::scoped_refptr<AudioDecoderFactory> decoder_factory =
+        new rtc::RefCountedObject<test::AudioDecoderProxyFactory>(
+            opus_decoder_.get());
+
+    (*receive_configs)[0].decoder_factory = decoder_factory;
+  }
+  std::unique_ptr<AudioDecoder> opus_decoder_;
+};
+
 }  // namespace
 
 using LowBandwidthAudioTest = CallTest;
@@ -111,5 +158,24 @@ TEST_F(LowBandwidthAudioTest, Mobile2GNetwork) {
   Mobile2GNetworkTest test;
   RunBaseTest(&test);
 }
+
+TEST_F(LowBandwidthAudioTest, MultipleChannelsOpusTest) {
+  send_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::NewFormat);
+  recv_event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::NewFormat);
+  const std::string dump_name = "rtc_event_log";
+  bool event_log_started =
+      send_event_log_->StartLogging(
+          absl::make_unique<RtcEventLogOutputFile>(
+              dump_name + ".send.rtc.dat", RtcEventLog::kUnlimitedOutput),
+          RtcEventLog::kImmediateOutput) &&
+      recv_event_log_->StartLogging(
+          absl::make_unique<RtcEventLogOutputFile>(
+              dump_name + ".recv.rtc.dat", RtcEventLog::kUnlimitedOutput),
+          RtcEventLog::kImmediateOutput);
+  RTC_CHECK(event_log_started);
+  MultiChannelTest test;
+  RunBaseTest(&test);
+}
+
 }  // namespace test
 }  // namespace webrtc

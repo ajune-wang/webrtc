@@ -192,13 +192,17 @@ if (rtc_include_tests) {
       deps = [
         ":audio_end_to_end_test",
         "../api:simulated_network_api",
+        "../api/audio_codecs/opus:audio_decoder_opus",
         "../common_audio",
+        "../logging:rtc_event_log_impl_output",
         "../rtc_base:rtc_base_approved",
         "../system_wrappers",
+        "../test:audio_codec_mocks",
         "../test:fileutils",
         "../test:test_common",
         "../test:test_main",
         "//testing/gtest",
+        "//third_party/abseil-cpp/absl/memory",
       ]
       if (is_android) {
         deps += [ "//testing/android/native_test:native_test_native_code" ]
@@ -207,6 +211,7 @@ if (rtc_include_tests) {
       data = [
         "../resources/voice_engine/audio_tiny16.wav",
         "../resources/voice_engine/audio_tiny48.wav",
+        "../resources/audio_coding/speech_4_channels_48k_one_second.wav",
       ]
 
       if (!build_with_chromium && is_clang) {

@@ -22,6 +22,30 @@
       "revId": "8a98f1fc706acac4011ff190fe1d981cf1f2943d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86765b19_6c86d1c1",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-15T00:49:08Z",
+      "side": 1,
+      "message": "Line 60 of this file. So callback will be tolerant to multiple calls.",
+      "parentUuid": "c797e9ea_403e3b9c",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 28
+      },
+      "revId": "8a98f1fc706acac4011ff190fe1d981cf1f2943d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

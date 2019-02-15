@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0400d2fc_006234b4",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T14:25:00Z",
+      "side": 1,
+      "message": "because Timestamp has us resolution",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "6501db076de83d0be0850799286f642cd3f16b38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ece9cf4_8c6bdde8",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T14:25:00Z",
+      "side": 1,
+      "message": "Name a constant like kMicrosPerSecond.",
+      "range": {
+        "startLine": 46,
+        "startChar": 55,
+        "endLine": 46,
+        "endChar": 62
+      },
+      "revId": "6501db076de83d0be0850799286f642cd3f16b38",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

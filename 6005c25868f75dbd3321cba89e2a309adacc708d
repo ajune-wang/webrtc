@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a8b5351_345004b7",
+        "filename": "common_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-15T12:31:47Z",
+      "side": 1,
+      "message": "A definition with typedef allows the \"deprecated\" attribute; using apparently doesn\u0027t.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "6005c25868f75dbd3321cba89e2a309adacc708d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

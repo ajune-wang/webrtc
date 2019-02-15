@@ -41,7 +41,7 @@ class VCMPacket {
   bool markerBit;
   int timesNacked;
 
-  FrameType frameType;
+  VideoFrameType frameType;
   VideoCodecType codec;
 
   bool is_first_packet_in_frame;

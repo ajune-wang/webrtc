@@ -57,7 +57,7 @@ class RTPSenderVideo {
                  bool require_frame_encryption);
   virtual ~RTPSenderVideo();
 
-  bool SendVideo(FrameType frame_type,
+  bool SendVideo(VideoFrameType frame_type,
                  int8_t payload_type,
                  uint32_t capture_timestamp,
                  int64_t capture_time_ms,

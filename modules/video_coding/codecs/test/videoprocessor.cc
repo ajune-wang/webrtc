@@ -153,7 +153,7 @@ void CalculateFrameQuality(const I420BufferInterface& ref_buffer,
   }
 }
 
-std::vector<FrameType> FrameTypeForFrame(
+std::vector<VideoFrameType> FrameTypeForFrame(
     const VideoCodecTestFixture::Config& config,
     size_t frame_idx) {
   if (config.keyframe_interval > 0 &&
@@ -291,7 +291,7 @@ void VideoProcessor::ProcessFrame() {
   }
 
   // Encode.
-  const std::vector<FrameType> frame_types =
+  const std::vector<VideoFrameType> frame_types =
       FrameTypeForFrame(config_, frame_number);
   const int encode_return_code =
       encoder_->Encode(input_frame, nullptr, &frame_types);

@@ -259,7 +259,8 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   //                   as layers or RED
   // |transport_frame_id_out| - set to RTP timestamp.
   // Returns true on success.
-  virtual bool SendOutgoingData(FrameType frame_type,
+  // TODO(bisse): Delete this method; move packetization out of this class.
+  virtual bool SendOutgoingData(FrameTypeDeprecated frame_type,
                                 int8_t payload_type,
                                 uint32_t timestamp,
                                 int64_t capture_time_ms,

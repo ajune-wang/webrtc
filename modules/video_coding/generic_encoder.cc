@@ -86,14 +86,15 @@ int32_t VCMGenericEncoder::InitEncode(const VideoCodec* settings,
   return 0;
 }
 
-int32_t VCMGenericEncoder::Encode(const VideoFrame& frame,
-                                  const CodecSpecificInfo* codec_specific,
-                                  const std::vector<FrameType>& frame_types) {
+int32_t VCMGenericEncoder::Encode(
+    const VideoFrame& frame,
+    const CodecSpecificInfo* codec_specific,
+    const std::vector<VideoFrameType>& frame_types) {
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
   TRACE_EVENT1("webrtc", "VCMGenericEncoder::Encode", "timestamp",
                frame.timestamp());
 
-  for (FrameType frame_type : frame_types)
+  for (VideoFrameType frame_type : frame_types)
     RTC_DCHECK(frame_type == kVideoFrameKey || frame_type == kVideoFrameDelta);
 
   for (size_t i = 0; i < streams_or_svc_num_; ++i)
@@ -132,7 +133,7 @@ void VCMGenericEncoder::SetEncoderParameters(
 }
 
 int32_t VCMGenericEncoder::RequestFrame(
-    const std::vector<FrameType>& frame_types) {
+    const std::vector<VideoFrameType>& frame_types) {
   RTC_DCHECK_RUNS_SERIALIZED(&race_checker_);
 
   // TODO(nisse): Used only with internal source. Delete as soon as

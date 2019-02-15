@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "791012ff_236eb671",
+        "filename": "test/pc/e2e/analyzer/video/default_video_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-15T14:02:44Z",
+      "side": 1,
+      "message": "Use us() instead, as Timestamp has us resolution. Otherwise, the problem still might occur if two different events were reported during the same ms.",
+      "range": {
+        "startLine": 46,
+        "startChar": 48,
+        "endLine": 46,
+        "endChar": 59
+      },
+      "revId": "c710677e45e361bb82ed36ae8e46d4a459305a8e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

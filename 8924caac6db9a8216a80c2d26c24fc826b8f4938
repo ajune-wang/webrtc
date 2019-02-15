@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "891dfbb4_6a9f62b7",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T20:01:08Z",
+      "side": 1,
+      "message": "is this still accurate? Looks like you added a discard flag.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 22
+      },
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "064c48b6_a167163f",
+        "filename": "test/pc/e2e/analyzer/video/example_video_quality_analyzer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T20:01:08Z",
+      "side": 1,
+      "message": "nit: frames_to_stream_label_ ?",
+      "range": {
+        "startLine": 71,
+        "startChar": 34,
+        "endLine": 71,
+        "endChar": 51
+      },
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153405f7_b7462144",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T20:01:08Z",
+      "side": 1,
+      "message": "consider switch: case, should be more readable.",
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7457af1d_eca0203a",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T20:01:08Z",
+      "side": 1,
+      "message": "consider moving to a separate method\nbool discard \u003d ShouldDiscard(encoded_image, required_spatial_index)",
+      "range": {
+        "startLine": 187,
+        "startChar": 4,
+        "endLine": 220,
+        "endChar": 5
+      },
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffc3c7a4_4c996c8f",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-15T20:01:08Z",
+      "side": 1,
+      "message": "I am probably not the best person to review this change, as I know very little about SVC and Simulcast.\n\nOne thing that I don\u0027t understand is: the receiver in those modes receives the best possible stream, and no layers are discarded. The sender may discard some layers based on the available bandwith.\n\nI couldn\u0027t understand from these comments who is discarding the frames and why.",
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

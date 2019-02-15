@@ -51,7 +51,6 @@ class RateControlSettings final {
       VideoEncoderConfig::ContentType content_type) const;
 
   bool TriggerProbeOnMaxAllocatedBitrateChange() const;
-  bool UseEncoderBitrateAdjuster() const;
 
  private:
   explicit RateControlSettings(
@@ -69,7 +68,6 @@ class RateControlSettings final {
   FieldTrialParameter<double> video_hysteresis_;
   FieldTrialParameter<double> screenshare_hysteresis_;
   FieldTrialParameter<bool> probe_max_allocation_;
-  FieldTrialParameter<bool> bitrate_adjuster_;
   FieldTrialParameter<bool> vp8_s0_boost_;
 };
 

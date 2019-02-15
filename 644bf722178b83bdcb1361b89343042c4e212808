@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ee4dea5_f875345a",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5077
+      },
+      "writtenOn": "2019-02-15T13:43:13Z",
+      "side": 1,
+      "message": "nit: if deprecated, move default impl here so subclasses+mock don\u0027t need to add it",
+      "revId": "644bf722178b83bdcb1361b89343042c4e212808",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

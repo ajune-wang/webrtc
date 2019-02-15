@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "41df20d5_460e5f6f",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-02-15T16:09:28Z",
+      "side": 1,
+      "message": "Can\u0027t it be global and static?",
+      "parentUuid": "ff5ca82f_8a753455",
+      "range": {
+        "startLine": 1496,
+        "startChar": 30,
+        "endLine": 1496,
+        "endChar": 71
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5de4feb_c40b708f",
         "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
         "patchSetId": 18

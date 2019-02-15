@@ -22,7 +22,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "rtc_base/critical_section.h"
-#include "test/pc/e2e/analyzer/video/encoded_image_id_injector.h"
+#include "test/pc/e2e/analyzer/video/encoded_image_data_injector.h"
 #include "test/pc/e2e/analyzer/video/id_generator.h"
 #include "test/pc/e2e/api/video_quality_analyzer_interface.h"
 
@@ -41,7 +41,7 @@ namespace test {
 //
 // When origin encoder encodes the image it will call quality encoder's special
 // callback, where video analyzer will be called again and then frame id will be
-// injected into EncodedImage with passed EncodedImageIdInjector. Then new
+// injected into EncodedImage with passed EncodedImageDataInjector. Then new
 // EncodedImage will be passed to origin callback, provided by user.
 //
 // Quality encoder registers its own callback in origin encoder at the same
@@ -51,11 +51,13 @@ class QualityAnalyzingVideoEncoder : public VideoEncoder,
  public:
   // Creates analyzing encoder. |id| is unique coding entity id, that will
   // be used to distinguish all encoders and decoders inside
-  // EncodedImageIdInjector and EncodedImageIdExtracor.
-  QualityAnalyzingVideoEncoder(int id,
-                               std::unique_ptr<VideoEncoder> delegate,
-                               EncodedImageIdInjector* injector,
-                               VideoQualityAnalyzerInterface* analyzer);
+  // EncodedImageDataInjector and EncodedImageIdExtracor.
+  QualityAnalyzingVideoEncoder(
+      int id,
+      std::unique_ptr<VideoEncoder> delegate,
+      std::map<std::string, absl::optional<int>> stream_required_spatial_index,
+      EncodedImageDataInjector* injector,
+      VideoQualityAnalyzerInterface* analyzer);
   ~QualityAnalyzingVideoEncoder() override;
 
   // Methods of VideoEncoder interface.
@@ -81,9 +83,33 @@ class QualityAnalyzingVideoEncoder : public VideoEncoder,
   void OnDroppedFrame(DropReason reason) override;
 
  private:
+  enum SimulcastMode {
+    // In this mode encoder assumes not more than 1 encoded image per video
+    // frame
+    kNormal,
+    // In this mode encoder assumes that for each frame simulcast encoded
+    // images will be produced. So all simulcast streams except required will
+    // be mark as to be discarded in decoder and won't reach video quality
+    // analyzer.
+    kSimulcast,
+    // In this mode encoder assumes that for each frame encoded images for
+    // different spatial layers will be produced. So all spatial layers above
+    // required will be marked to be discarded in decoder and won't reach
+    // video quality analyzer.
+    kSVC,
+    // In this mode encoder assumes that for each frame encoded images for
+    // different spatial layers will be produced. Comparing to kSVC mode
+    // spatial layers that are above required will be marked to be discarded
+    // only for key frames and for regular frames all except required spatial
+    // layer will be marked as to be discarded in decoder and won't reach video
+    // quality analyzer.
+    kKSVC
+  };
+
   const int id_;
   std::unique_ptr<VideoEncoder> delegate_;
-  EncodedImageIdInjector* const injector_;
+  std::map<std::string, absl::optional<int>> stream_required_spatial_index_;
+  EncodedImageDataInjector* const injector_;
   VideoQualityAnalyzerInterface* const analyzer_;
 
   // VideoEncoder interface assumes async delivery of encoded images.
@@ -91,6 +117,7 @@ class QualityAnalyzingVideoEncoder : public VideoEncoder,
   // from received VideoFrame to resulted EncodedImage.
   rtc::CriticalSection lock_;
 
+  SimulcastMode mode_ RTC_GUARDED_BY(lock_);
   EncodedImageCallback* delegate_callback_ RTC_GUARDED_BY(lock_);
   std::list<std::pair<uint32_t, uint16_t>> timestamp_to_frame_id_list_
       RTC_GUARDED_BY(lock_);
@@ -103,8 +130,9 @@ class QualityAnalyzingVideoEncoderFactory : public VideoEncoderFactory {
  public:
   QualityAnalyzingVideoEncoderFactory(
       std::unique_ptr<VideoEncoderFactory> delegate,
+      std::map<std::string, absl::optional<int>> stream_required_spatial_index,
       IdGenerator<int>* id_generator,
-      EncodedImageIdInjector* injector,
+      EncodedImageDataInjector* injector,
       VideoQualityAnalyzerInterface* analyzer);
   ~QualityAnalyzingVideoEncoderFactory() override;
 
@@ -117,8 +145,9 @@ class QualityAnalyzingVideoEncoderFactory : public VideoEncoderFactory {
 
  private:
   std::unique_ptr<VideoEncoderFactory> delegate_;
+  std::map<std::string, absl::optional<int>> stream_required_spatial_index_;
   IdGenerator<int>* const id_generator_;
-  EncodedImageIdInjector* const injector_;
+  EncodedImageDataInjector* const injector_;
   VideoQualityAnalyzerInterface* const analyzer_;
 };
 

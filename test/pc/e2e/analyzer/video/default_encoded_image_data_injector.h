@@ -8,8 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#ifndef TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_ID_INJECTOR_H_
-#define TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_ID_INJECTOR_H_
+#ifndef TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_DATA_INJECTOR_H_
+#define TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_DATA_INJECTOR_H_
 
 #include <cstdint>
 #include <deque>
@@ -20,7 +20,7 @@
 
 #include "api/video/encoded_image.h"
 #include "rtc_base/critical_section.h"
-#include "test/pc/e2e/analyzer/video/encoded_image_id_injector.h"
+#include "test/pc/e2e/analyzer/video/encoded_image_data_injector.h"
 
 namespace webrtc {
 namespace test {
@@ -67,17 +67,19 @@ namespace test {
 // preallocate buffers for 2 coding entities, so 512 buffers with initial size
 // 2KB. If in some point of time bigger buffer will be required, it will be also
 // extended.
-class DefaultEncodedImageIdInjector : public EncodedImageIdInjector,
-                                      public EncodedImageIdExtractor {
+class DefaultEncodedImageDataInjector : public EncodedImageDataInjector,
+                                        public EncodedImageDataExtractor {
  public:
-  DefaultEncodedImageIdInjector();
-  ~DefaultEncodedImageIdInjector() override;
+  DefaultEncodedImageDataInjector();
+  ~DefaultEncodedImageDataInjector() override;
 
-  EncodedImage InjectId(uint16_t id,
-                        const EncodedImage& source,
-                        int coding_entity_id) override;
-  EncodedImageWithId ExtractId(const EncodedImage& source,
-                               int coding_entity_id) override;
+  // TODO(titovartem) add support for discard injection and update the doc.
+  EncodedImage InjectData(uint16_t id,
+                          bool discard,
+                          const EncodedImage& source,
+                          int coding_entity_id) override;
+  EncodedImageExtractionResult ExtractData(const EncodedImage& source,
+                                           int coding_entity_id) override;
 
  private:
   void ExtendIfRequired(int coding_entity_id) RTC_LOCKS_EXCLUDED(lock_);
@@ -99,4 +101,4 @@ class DefaultEncodedImageIdInjector : public EncodedImageIdInjector,
 }  // namespace test
 }  // namespace webrtc
 
-#endif  // TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_ID_INJECTOR_H_
+#endif  // TEST_PC_E2E_ANALYZER_VIDEO_DEFAULT_ENCODED_IMAGE_DATA_INJECTOR_H_

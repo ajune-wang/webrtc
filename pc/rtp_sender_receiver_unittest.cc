@@ -15,6 +15,7 @@
 #include <utility>
 #include <vector>
 
+#include "absl/algorithm/container.h"
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
 #include "api/audio_options.h"
@@ -62,6 +63,7 @@
 #include "test/gtest.h"
 
 using ::testing::_;
+using ::testing::ContainerEq;
 using ::testing::Exactly;
 using ::testing::InvokeWithoutArgs;
 using ::testing::Return;
@@ -202,17 +204,38 @@ class RtpSenderReceiverTest : public testing::Test,
 
   void CreateVideoRtpSender() { CreateVideoRtpSender(false); }
 
-  void CreateVideoRtpSenderWithSimulcast(
-      int num_layers = kVideoSimulcastLayerCount) {
+  cricket::StreamParams CreateSimulcastStreamParams(int num_layers) {
     std::vector<uint32_t> ssrcs;
     ssrcs.reserve(num_layers);
-    for (int i = 0; i < num_layers; ++i)
+    for (int i = 0; i < num_layers; ++i) {
       ssrcs.push_back(kVideoSsrcSimulcast + i);
-    cricket::StreamParams stream_params =
-        cricket::CreateSimStreamParams("cname", ssrcs);
+    }
+    return cricket::CreateSimStreamParams("cname", ssrcs);
+  }
+
+  uint32_t CreateVideoRtpSender(const cricket::StreamParams& stream_params) {
     video_media_channel_->AddSendStream(stream_params);
     uint32_t primary_ssrc = stream_params.first_ssrc();
     CreateVideoRtpSender(primary_ssrc);
+    return primary_ssrc;
+  }
+
+  uint32_t CreateVideoRtpSenderWithSimulcast(
+      int num_layers = kVideoSimulcastLayerCount) {
+    return CreateVideoRtpSender(CreateSimulcastStreamParams(num_layers));
+  }
+
+  uint32_t CreateVideoRtpSenderWithSimulcast(
+      const std::vector<std::string>& rids) {
+    cricket::StreamParams stream_params =
+        CreateSimulcastStreamParams(rids.size());
+    std::vector<cricket::RidDescription> rid_descriptions;
+    absl::c_transform(
+        rids, std::back_inserter(rid_descriptions), [](const std::string& rid) {
+          return cricket::RidDescription(rid, cricket::RidDirection::kSend);
+        });
+    stream_params.set_rids(rid_descriptions);
+    return CreateVideoRtpSender(stream_params);
   }
 
   void CreateVideoRtpSender(bool is_screencast, uint32_t ssrc = kVideoSsrc) {
@@ -340,6 +363,91 @@ class RtpSenderReceiverTest : public testing::Test,
   void VerifyVideoChannelNoOutput() {
     // Verify that the media channel's sink is reset.
     EXPECT_FALSE(video_media_channel_->HasSink(kVideoSsrc));
+  }
+
+  // Verifies that the encoding layers contain the specified RIDs.
+  bool VerifyEncodingLayers(const VideoRtpSender& sender,
+                            const std::vector<std::string>& rids) {
+    bool has_failure = HasFailure();
+    RtpParameters parameters = sender.GetParameters();
+    std::vector<std::string> encoding_rids;
+    absl::c_transform(
+        parameters.encodings, std::back_inserter(encoding_rids),
+        [](const RtpEncodingParameters& encoding) { return encoding.rid; });
+    EXPECT_THAT(rids, ContainerEq(encoding_rids));
+    return has_failure || !HasFailure();
+  }
+
+  // Runs a test for disabling the encoding layers on the specified sender.
+  void RunDisableEncodingLayersTest(
+      const std::vector<std::string>& all_layers,
+      const std::vector<std::string>& disabled_layers,
+      VideoRtpSender* sender) {
+    std::vector<std::string> expected;
+    absl::c_copy_if(all_layers, std::back_inserter(expected),
+                    [&disabled_layers](const std::string& rid) {
+                      return !absl::c_linear_search(disabled_layers, rid);
+                    });
+
+    EXPECT_TRUE(VerifyEncodingLayers(*sender, all_layers));
+    sender->DisableEncodingLayers(disabled_layers);
+    EXPECT_TRUE(VerifyEncodingLayers(*sender, expected));
+  }
+
+  // Runs a test for setting an encoding layer as inactive.
+  // This test assumes that some layers have already been disabled.
+  void RunSetLastLayerAsInactiveTest(VideoRtpSender* sender) {
+    auto parameters = sender->GetParameters();
+    if (parameters.encodings.size() == 0) {
+      return;
+    }
+
+    RtpEncodingParameters& encoding = parameters.encodings.back();
+    auto rid = encoding.rid;
+    EXPECT_TRUE(encoding.active);
+    encoding.active = false;
+    auto error = sender->SetParameters(parameters);
+    ASSERT_TRUE(error.ok());
+    parameters = sender->GetParameters();
+    RtpEncodingParameters& result_encoding = parameters.encodings.back();
+    EXPECT_EQ(rid, result_encoding.rid);
+    EXPECT_FALSE(result_encoding.active);
+  }
+
+  // Runs a test for disabling the encoding layers on a sender without a media
+  // channel.
+  void RunDisableSimulcastLayersWithoutMediaEngineTest(
+      const std::vector<std::string>& all_layers,
+      const std::vector<std::string>& disabled_layers) {
+    VideoRtpSender sender(rtc::Thread::Current(), "1");
+    RtpParameters parameters;
+    parameters.encodings.resize(all_layers.size());
+    for (size_t i = 0; i < all_layers.size(); ++i) {
+      parameters.encodings[i].rid = all_layers[i];
+    }
+    sender.set_init_send_encodings(parameters.encodings);
+    RunDisableEncodingLayersTest(all_layers, disabled_layers, &sender);
+    RunSetLastLayerAsInactiveTest(&sender);
+  }
+
+  // Runs a test for disabling the encoding layers on a sender with a media
+  // channel.
+  void RunDisableSimulcastLayersWithMediaEngineTest(
+      const std::vector<std::string>& all_layers,
+      const std::vector<std::string>& disabled_layers) {
+    uint32_t ssrc = CreateVideoRtpSenderWithSimulcast(all_layers);
+    RunDisableEncodingLayersTest(all_layers, disabled_layers,
+                                 video_rtp_sender_.get());
+
+    auto channel_parameters = video_media_channel_->GetRtpSendParameters(ssrc);
+    EXPECT_EQ(channel_parameters.encodings.size(), all_layers.size());
+    for (size_t i = 0; i < all_layers.size(); ++i) {
+      EXPECT_EQ(all_layers[i], channel_parameters.encodings[i].rid);
+      bool is_active = !absl::c_linear_search(disabled_layers, all_layers[i]);
+      EXPECT_EQ(is_active, channel_parameters.encodings[i].active);
+    }
+
+    RunSetLastLayerAsInactiveTest(video_rtp_sender_.get());
   }
 
  protected:
@@ -1112,20 +1220,6 @@ TEST_F(RtpSenderReceiverTest,
   DestroyVideoRtpSender();
 }
 
-TEST_F(RtpSenderReceiverTest, VideoSenderCanSetRid) {
-  CreateVideoRtpSender();
-  RtpParameters params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  const std::string rid = "dummy_rid";
-  params.encodings[0].rid = rid;
-  EXPECT_TRUE(video_rtp_sender_->SetParameters(params).ok());
-  params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  EXPECT_EQ(rid, params.encodings[0].rid);
-
-  DestroyVideoRtpSender();
-}
-
 TEST_F(RtpSenderReceiverTest, VideoSenderCanSetScaleResolutionDownBy) {
   CreateVideoRtpSender();
 
@@ -1569,6 +1663,60 @@ TEST_F(RtpSenderReceiverTest, VideoReceiverCannotSetFrameDecryptorAfterStop) {
   video_rtp_receiver_->Stop();
   video_rtp_receiver_->SetFrameDecryptor(fake_frame_decryptor);
   // TODO(webrtc:9926) - Validate media channel not set once fakes updated.
+}
+
+// Tests removing some layers before media channel is created.
+TEST_F(RtpSenderReceiverTest, DisableSimulcastLayersWithoutMediaChannel) {
+  RunDisableSimulcastLayersWithoutMediaEngineTest({"f", "h", "q", "e"},
+                                                  {"h", "e"});
+}
+
+// Tests removing all layers except the first before media channel is created.
+// This is what would happen if simulcast is rejected.
+TEST_F(RtpSenderReceiverTest, DisableSimulcastWithoutMediaChannel) {
+  RunDisableSimulcastLayersWithoutMediaEngineTest({"f", "h", "q", "e"},
+                                                  {"h", "q", "e"});
+}
+
+// Tests removing layers before media channel is created.
+// This removes all the encoding layers.
+TEST_F(RtpSenderReceiverTest, DisableAllSimulcastLayersWithoutMediaChannel) {
+  RunDisableSimulcastLayersWithoutMediaEngineTest({"f", "h", "q", "e"},
+                                                  {"f", "h", "q", "e"});
+}
+
+// Tests removing layers before media channel is created.
+// In this scenario, the first layer is removed.
+TEST_F(RtpSenderReceiverTest, DisableFirstSimulcastLayersWithoutMediaChannel) {
+  RunDisableSimulcastLayersWithoutMediaEngineTest({"f", "h", "q", "e"}, {"f"});
+}
+
+// Tests removing some layers after media channel is created.
+TEST_F(RtpSenderReceiverTest, DisableSimulcastLayersWithMediaChannel) {
+  RunDisableSimulcastLayersWithMediaEngineTest({"f", "h", "q", "e"},
+                                               {"h", "e"});
+}
+
+// Tests removing all layers except the first after media channel is created.
+// This is what would happen if simulcast is rejected.
+TEST_F(RtpSenderReceiverTest, DisableSimulcastWithMediaChannel) {
+  RunDisableSimulcastLayersWithMediaEngineTest({"f", "h", "q", "e"},
+                                               {"h", "q", "e"});
+}
+
+// Tests removing layers before media channel is created.
+// This removes all the encoding layers.
+TEST_F(RtpSenderReceiverTest, DisableAllSimulcastLayersWithMediaChannel) {
+  RunDisableSimulcastLayersWithMediaEngineTest({"f", "h", "q", "e"},
+                                               {"f", "h", "q", "e"});
+}
+
+// Tests removing layers after media channel is created.
+// In this scenario, the first layer is removed. This is a special case because
+// the first layer's SSRC is also the 'primary' SSRC used to associate the
+// parameters to the media channel.
+TEST_F(RtpSenderReceiverTest, DisableFirstSimulcastLayersWithMediaChannel) {
+  RunDisableSimulcastLayersWithMediaEngineTest({"f", "h", "q", "e"}, {"f"});
 }
 
 }  // namespace webrtc

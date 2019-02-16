@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d91ca8ce_f1ecec2b",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5348
+      },
+      "writtenOn": "2019-02-16T00:15:48Z",
+      "side": 1,
+      "message": "This is hard to parse. Can you pull out the subexpressions into named variables to make it easier to read? If I\u0027m understanding the intent correctly, overlaps_hidden_horizontal_taskbar and overlaps_hidden_vertical_taskbar would be good names.",
+      "revId": "c13ffd3272d16a462a9d06c54de1aa555590af95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

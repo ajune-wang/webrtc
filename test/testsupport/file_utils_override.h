@@ -49,6 +49,10 @@ std::string WorkingDir();
 //    extension - File extension, without the dot, i.e. "bmp" or "yuv".
 std::string ResourcePath(const std::string& name, const std::string& extension);
 
+// Returns the absolute path to the OS temporary storage directory, the path
+// has a trailing path delimiter.
+std::string GetOsTempDir();
+
 }  // namespace internal
 }  // namespace test
 }  // namespace webrtc

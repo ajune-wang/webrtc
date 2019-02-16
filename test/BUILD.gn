@@ -342,6 +342,7 @@ if (rtc_include_tests) {
       ":fileutils_unittests",
       ":perf_test",
       ":rtp_test_utils",
+      ":scoped_temp_dir",
       ":test_common",
       ":test_main",
       ":test_support",
@@ -378,6 +379,7 @@ if (rtc_include_tests) {
       "rtp_file_writer_unittest.cc",
       "single_threaded_task_queue_unittest.cc",
       "testsupport/perf_test_unittest.cc",
+      "testsupport/scoped_temp_dir_unittest.cc",
       "testsupport/test_artifacts_unittest.cc",
       "testsupport/video_frame_writer_unittest.cc",
       "testsupport/y4m_frame_reader_unittest.cc",
@@ -927,5 +929,21 @@ rtc_source_set("call_config_utils") {
     "../call:call_interfaces",
     "../call:video_stream_api",
     "../rtc_base:rtc_json",
+  ]
+}
+
+rtc_source_set("scoped_temp_dir") {
+  testonly = true
+  sources = [
+    "testsupport/scoped_temp_dir.cc",
+    "testsupport/scoped_temp_dir.h",
+  ]
+  deps = [
+    ":fileutils",
+    "../rtc_base:logging",
+    "../rtc_base:stringutils",
+    "../rtc_base/system:unused",
+    "../third_party/abseil-cpp/absl/strings",
+    "../third_party/abseil-cpp/absl/types:optional",
   ]
 }

@@ -103,6 +103,10 @@ std::string DirName(const std::string& path);
 // empty or if the file does not exist/is readable.
 size_t GetFileSize(const std::string& filename);
 
+// Returns the absolute path to the OS temporary storage directory, the path
+// has a trailing path delimiter.
+std::string GetOsTempDir();
+
 }  // namespace test
 }  // namespace webrtc
 

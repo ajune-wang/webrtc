@@ -149,6 +149,25 @@ std::string ResourcePath(const std::string& name,
 #endif
 }
 
+std::string GetOsTempDir() {
+#if defined(WEBRTC_WIN)
+#error "Implement GetOsTempDir on Windows"
+#endif
+
+#if defined(WEBRTC_POSIX) || defined(WEBRTC_FUCHSIA)
+  const char* tmp_dir = getenv("TMPDIR");
+  if (tmp_dir) {
+    return tmp_dir;
+  }
+  // TODO(mbonadei): Is this a safe fallback?
+  return "/tmp/";
+#endif
+
+#if !defined(WEBRTC_POSIX) && !defined(WEBRTC_WIN)
+#error "Implement webrtc::test::GetOsTempDir!"
+#endif
+}
+
 }  // namespace internal
 }  // namespace test
 }  // namespace webrtc

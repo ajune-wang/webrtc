@@ -243,5 +243,9 @@ size_t GetFileSize(const std::string& filename) {
   return size;
 }
 
+std::string GetOsTempDir() {
+  return webrtc::test::internal::GetOsTempDir();
+}
+
 }  // namespace test
 }  // namespace webrtc

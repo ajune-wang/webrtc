@@ -16,6 +16,24 @@
       "revId": "c13ffd3272d16a462a9d06c54de1aa555590af95",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d251747_cbd1172b",
+        "filename": "modules/desktop_capture/win/window_capture_utils.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 6175
+      },
+      "writtenOn": "2019-02-16T01:24:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d91ca8ce_f1ecec2b",
+      "revId": "c13ffd3272d16a462a9d06c54de1aa555590af95",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

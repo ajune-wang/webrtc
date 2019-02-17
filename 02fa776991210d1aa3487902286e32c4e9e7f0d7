@@ -87,6 +87,47 @@
       "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43e96310_4a4cc7df",
+        "filename": "test/call_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-17T09:32:00Z",
+      "side": 1,
+      "message": "+1 to extending the error message to make it more useful. Say which uri and why it is malformed.",
+      "parentUuid": "92c0a2ae_63ebca37",
+      "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61acee38_1702a4a7",
+        "filename": "video/end_to_end_tests/extended_reports_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-17T09:32:00Z",
+      "side": 1,
+      "message": "are these actually used here?",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 76
+      },
+      "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

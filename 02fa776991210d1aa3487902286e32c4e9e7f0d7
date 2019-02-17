@@ -69,6 +69,24 @@
       "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c0a2ae_63ebca37",
+        "filename": "test/call_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-17T08:56:02Z",
+      "side": 1,
+      "message": "I\u0027m not aware, nor can imaging such a scenario, thus it doesn\u0027t look realistic to me.\n\nbut my comment is about this line:\nproviding uri would give more context should this assert fails decreasing time of finding out what is wrong. (no matter if it is bad test or bad code)\nI see no value in current message, so suggest to remove it.\nBoth are optional nits, up to your (and /test/ owner) judgements.",
+      "parentUuid": "be7fd85b_b61452c7",
+      "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

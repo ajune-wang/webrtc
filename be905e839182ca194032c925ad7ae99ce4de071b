@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f3722f23_1c5fee5e",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "In PS1. Forgot to remove since. Thanks.",
+      "parentUuid": "2170add0_5ec56886",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0004cc10_0c791a9a",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b909b8d_2ba124f7",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "I did not use shorter names because they clashed with the static method and confused the compiler. Using ::webrtc::Parse seems to me more confusing than a long name, given that it\u0027s actually inside an unnamed namespace inside of ::webrtc. But I did extend the unnamed namespace to include these, just in case.",
+      "parentUuid": "0004cc10_0c791a9a",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "22c04416_db2d6fb1",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "This is a piggy-backed fix. I believe this file was created in 2018, and the copyright notice to have been wrong in the original CL. See your CL from July 2018 - https://webrtc-review.googlesource.com/c/src/+/83622/",
+      "parentUuid": "480b7ee5_c543dd60",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efbd7079_7dcaf434",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "48b261cb_ae577cc8",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "Oops; thanks.",
+      "parentUuid": "efbd7079_7dcaf434",
+      "range": {
+        "startLine": 87,
+        "startChar": 11,
+        "endLine": 87,
+        "endChar": 17
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9124d287_f8236aea",
         "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
         "patchSetId": 6
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-15T11:55:52Z",
       "side": 1,
       "message": "why is it an error?\nif other client doesn\u0027t support the extensions.",
+      "range": {
+        "startLine": 129,
+        "startChar": 14,
+        "endLine": 129,
+        "endChar": 22
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0e7947_71c19c57",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_video.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "When the remote client does not support GFD, should we not avoid setting |video_header.generic| to begin with, thereby saving CPU cycles?",
+      "parentUuid": "9124d287_f8236aea",
       "range": {
         "startLine": 129,
         "startChar": 14,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "870cfb9f_9893e370",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "Done.\nI will, however, still abbreviate \"version\" to \"v\"; I think that\u0027s clear enough. I assume you\u0027re mostly concerned with \"descriptor\" being abbreviated as \"desc\".",
+      "parentUuid": "3eec61fe_9749f55b",
+      "range": {
+        "startLine": 534,
+        "startChar": 21,
+        "endLine": 534,
+        "endChar": 26
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81f7f242_b4f69d06",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -160,6 +304,30 @@
       "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d74e1145_c6fbcd92",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "Right you are. Thanks.\nI corrected to\"RTP packet\", though, as \"header\" seemed too specific. (\"Payload\" was also overly specific, in addition to being incorrect.)",
+      "parentUuid": "81f7f242_b4f69d06",
+      "range": {
+        "startLine": 541,
+        "startChar": 28,
+        "endLine": 541,
+        "endChar": 35
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "823bb1ab_e9279685",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "I think discarding is advisable. Otherwise, we\u0027d have to compare and make sure they do not contradict one another, before we can safely use either, and that seems to me like overkill. Wdyt?",
+      "parentUuid": "f137365c_46e232aa",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 542,
+        "endChar": 10
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e66a9aba_cd8d405d",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -200,6 +392,24 @@
       "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29f32e5d_e06860f9",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:42:02Z",
+      "side": 1,
+      "message": "The code above guaranteed only one of the two is set. For aesthetic reasons, I wrote the handling code in numerical order.\n(If we end up not discarding if multiple versions are used, I will of course change the code here. But please see my comment above; I believe discarding is the right behavior.)",
+      "parentUuid": "e66a9aba_cd8d405d",
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

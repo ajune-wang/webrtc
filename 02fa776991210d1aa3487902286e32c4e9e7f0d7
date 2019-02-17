@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "687b8189_0e31f984",
+        "filename": "test/call_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:17:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e96310_4a4cc7df",
+      "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61acee38_1702a4a7",
         "filename": "video/end_to_end_tests/extended_reports_tests.cc",
         "patchSetId": 5
@@ -128,6 +146,30 @@
       "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a1afa4f_80278bb0",
+        "filename": "video/end_to_end_tests/extended_reports_tests.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-17T21:17:39Z",
+      "side": 1,
+      "message": "1. ColorSpace is indeed unused. Removed. Thanks for catching.\n2. ExtendedReportsEndToEndTest.TestExtendedReportsCanSignalZeroTargetBitrate uses TransportSequenceNumber, and fails without it.",
+      "parentUuid": "61acee38_1702a4a7",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 76
+      },
+      "revId": "02fa776991210d1aa3487902286e32c4e9e7f0d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

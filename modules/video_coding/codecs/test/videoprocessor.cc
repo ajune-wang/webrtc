@@ -246,6 +246,14 @@ VideoProcessor::~VideoProcessor() {
 
   // Sanity check.
   RTC_CHECK_LE(input_frames_.size(), kMaxBufferedInputFrames);
+
+  // Deal with manual memory management of EncodedImage's.
+  for (size_t i = 0; i < num_simulcast_or_spatial_layers_; ++i) {
+    uint8_t* data = merged_encoded_frames_.at(i).data();
+    if (data) {
+      delete[] data;
+    }
+  }
 }
 
 void VideoProcessor::ProcessFrame() {
@@ -563,19 +571,27 @@ const webrtc::EncodedImage* VideoProcessor::BuildAndStoreSuperframe(
   const size_t buffer_size_bytes =
       payload_size_bytes + EncodedImage::GetBufferPaddingBytes(codec);
 
-  EncodedImage copied_image = encoded_image;
-  copied_image.Allocate(buffer_size_bytes);
+  uint8_t* copied_buffer = new uint8_t[buffer_size_bytes];
+  RTC_CHECK(copied_buffer);
+
   if (base_image.size()) {
     RTC_CHECK(base_image.data());
-    memcpy(copied_image.data(), base_image.data(), base_image.size());
+    memcpy(copied_buffer, base_image.data(), base_image.size());
   }
-  memcpy(copied_image.data() + base_image.size(), encoded_image.data(),
+  memcpy(copied_buffer + base_image.size(), encoded_image.data(),
          encoded_image.size());
 
+  EncodedImage copied_image = encoded_image;
+  copied_image = encoded_image;
+  copied_image.set_buffer(copied_buffer, buffer_size_bytes);
   copied_image.set_size(payload_size_bytes);
 
   // Replace previous EncodedImage for this spatial layer.
-  merged_encoded_frames_.at(spatial_idx) = std::move(copied_image);
+  uint8_t* old_buffer = merged_encoded_frames_.at(spatial_idx).buffer();
+  if (old_buffer) {
+    delete[] old_buffer;
+  }
+  merged_encoded_frames_.at(spatial_idx) = copied_image;
 
   return &merged_encoded_frames_.at(spatial_idx);
 }

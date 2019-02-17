@@ -900,6 +900,7 @@ bool PeerConnection::Initialize(
     const PeerConnectionInterface::RTCConfiguration& configuration,
     PeerConnectionDependencies dependencies) {
   RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   TRACE_EVENT0("webrtc", "PeerConnection::Initialize");
 
   RTCError config_error = ValidateConfiguration(configuration);
@@ -1029,6 +1030,7 @@ bool PeerConnection::Initialize(
   stats_collector_ = RTCStatsCollector::Create(this);
 
   configuration_ = configuration;
+  use_media_transport_ = configuration.use_media_transport;
 
   // Obtain a certificate from RTCConfiguration if any were provided (optional).
   rtc::scoped_refptr<rtc::RTCCertificate> certificate;
@@ -1144,6 +1146,7 @@ RTCError PeerConnection::ValidateConfiguration(
 }
 
 rtc::scoped_refptr<StreamCollectionInterface> PeerConnection::local_streams() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_CHECK(!IsUnifiedPlan()) << "local_streams is not available with Unified "
                                  "Plan SdpSemantics. Please use GetSenders "
                                  "instead.";
@@ -1151,6 +1154,7 @@ rtc::scoped_refptr<StreamCollectionInterface> PeerConnection::local_streams() {
 }
 
 rtc::scoped_refptr<StreamCollectionInterface> PeerConnection::remote_streams() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_CHECK(!IsUnifiedPlan()) << "remote_streams is not available with Unified "
                                  "Plan SdpSemantics. Please use GetReceivers "
                                  "instead.";
@@ -1472,50 +1476,23 @@ PeerConnection::AddTransceiver(
                        : cricket::MEDIA_TYPE_VIDEO));
   }
 
-  size_t num_rids = absl::c_count_if(init.send_encodings,
-                                     [](const RtpEncodingParameters& encoding) {
-                                       return !encoding.rid.empty();
-                                     });
-  if (num_rids > 0 && num_rids != init.send_encodings.size()) {
-    LOG_AND_RETURN_ERROR(
-        RTCErrorType::INVALID_PARAMETER,
-        "RIDs must be provided for either all or none of the send encodings.");
-  }
-
-  if (absl::c_any_of(init.send_encodings,
-                     [](const RtpEncodingParameters& encoding) {
-                       return encoding.ssrc.has_value();
-                     })) {
+  // TODO(bugs.webrtc.org/7600): Verify init.
+  if (init.send_encodings.size() > 1) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::UNSUPPORTED_PARAMETER,
-        "Attempted to set an unimplemented parameter of RtpParameters.");
+        "Attempted to create an encoder with more than 1 encoding parameter.");
+  }
+
+  for (const auto& encoding : init.send_encodings) {
+    if (encoding.ssrc.has_value()) {
+      LOG_AND_RETURN_ERROR(
+          RTCErrorType::UNSUPPORTED_PARAMETER,
+          "Attempted to set an unimplemented parameter of RtpParameters.");
+    }
   }
 
   RtpParameters parameters;
   parameters.encodings = init.send_encodings;
-
-  // Encodings are dropped from the tail if too many are provided.
-  if (parameters.encodings.size() > kMaxSimulcastStreams) {
-    parameters.encodings.erase(
-        parameters.encodings.begin() + kMaxSimulcastStreams,
-        parameters.encodings.end());
-  }
-
-  // Single RID should be removed.
-  if (parameters.encodings.size() == 1 &&
-      !parameters.encodings[0].rid.empty()) {
-    RTC_LOG(LS_INFO) << "Removing RID: " << parameters.encodings[0].rid << ".";
-    parameters.encodings[0].rid.clear();
-  }
-
-  // If RIDs were not provided, they are generated for simulcast scenario.
-  if (parameters.encodings.size() > 1 && num_rids == 0) {
-    rtc::UniqueStringGenerator rid_generator;
-    for (RtpEncodingParameters& encoding : parameters.encodings) {
-      encoding.rid = rid_generator();
-    }
-  }
-
   if (UnimplementedRtpParameterHasValue(parameters)) {
     LOG_AND_RETURN_ERROR(
         RTCErrorType::UNSUPPORTED_PARAMETER,
@@ -1535,7 +1512,7 @@ PeerConnection::AddTransceiver(
       (track && !FindSenderById(track->id()) ? track->id()
                                              : rtc::CreateRandomUuid());
   auto sender = CreateSender(media_type, sender_id, track, init.stream_ids,
-                             parameters.encodings);
+                             init.send_encodings);
   auto receiver = CreateReceiver(media_type, rtc::CreateRandomUuid());
   auto transceiver = CreateAndAddTransceiver(sender, receiver);
   transceiver->internal()->set_direction(init.direction);
@@ -1624,6 +1601,7 @@ void PeerConnection::OnNegotiationNeeded() {
 rtc::scoped_refptr<RtpSenderInterface> PeerConnection::CreateSender(
     const std::string& kind,
     const std::string& stream_id) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_CHECK(!IsUnifiedPlan()) << "CreateSender is not available with Unified "
                                  "Plan SdpSemantics. Please use AddTransceiver "
                                  "instead.";
@@ -1714,6 +1692,7 @@ PeerConnection::GetReceiversInternal() const {
 
 std::vector<rtc::scoped_refptr<RtpTransceiverInterface>>
 PeerConnection::GetTransceivers() const {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   RTC_CHECK(IsUnifiedPlan())
       << "GetTransceivers is only supported with Unified Plan SdpSemantics.";
   std::vector<rtc::scoped_refptr<RtpTransceiverInterface>> all_transceivers;
@@ -1867,6 +1846,7 @@ rtc::scoped_refptr<DataChannelInterface> PeerConnection::CreateDataChannel(
 
 void PeerConnection::CreateOffer(CreateSessionDescriptionObserver* observer,
                                  const RTCOfferAnswerOptions& options) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "PeerConnection::CreateOffer");
 
   if (!observer) {
@@ -2023,6 +2003,7 @@ void PeerConnection::CreateAnswer(CreateSessionDescriptionObserver* observer,
 void PeerConnection::SetLocalDescription(
     SetSessionDescriptionObserver* observer,
     SessionDescriptionInterface* desc_ptr) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "PeerConnection::SetLocalDescription");
 
   // The SetLocalDescription contract is that we take ownership of the session
@@ -2382,6 +2363,7 @@ void PeerConnection::SetRemoteDescription(
 void PeerConnection::SetRemoteDescription(
     std::unique_ptr<SessionDescriptionInterface> desc,
     rtc::scoped_refptr<SetRemoteDescriptionObserverInterface> observer) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   TRACE_EVENT0("webrtc", "PeerConnection::SetRemoteDescription");
 
   if (!observer) {
@@ -3086,11 +3068,8 @@ PeerConnection::AssociateTransceiver(cricket::ContentSource source,
     RTC_DCHECK_EQ(source, cricket::CS_REMOTE);
     // If the m= section is sendrecv or recvonly, and there are RtpTransceivers
     // of the same type...
-    // When simulcast is requested, a transceiver cannot be associated because
-    // AddTrack cannot be called to initialize it.
     if (!transceiver &&
-        RtpTransceiverDirectionHasRecv(media_desc->direction()) &&
-        !media_desc->HasSimulcast()) {
+        RtpTransceiverDirectionHasRecv(media_desc->direction())) {
       transceiver = FindAvailableTransceiverToReceive(media_desc->type());
     }
     // If no RtpTransceiver was found in the previous step, create one with a
@@ -3226,11 +3205,14 @@ const cricket::ContentInfo* PeerConnection::FindMediaSectionForTransceiver(
 }
 
 PeerConnectionInterface::RTCConfiguration PeerConnection::GetConfiguration() {
+  RTC_DCHECK_RUN_ON(signaling_thread());
   return configuration_;
 }
 
 bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
                                       RTCError* error) {
+  RTC_DCHECK_RUN_ON(signaling_thread());
+  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   TRACE_EVENT0("webrtc", "PeerConnection::SetConfiguration");
   if (IsClosed()) {
     RTC_LOG(LS_ERROR) << "SetConfiguration: PeerConnection is closed.";
@@ -3386,6 +3368,7 @@ bool PeerConnection::SetConfiguration(const RTCConfiguration& configuration,
   }
 
   configuration_ = modified_config;
+  use_media_transport_ = configuration.use_media_transport;
   return SafeSetError(RTCErrorType::NONE, error);
 }
 
@@ -4676,7 +4659,7 @@ void PeerConnection::UpdateRemoteSendersList(
         FindSenderInfo(*current_senders, kDefaultStreamId, default_sender_id);
     if (!default_sender_info) {
       current_senders->push_back(
-          RtpSenderInfo(kDefaultStreamId, default_sender_id, /*ssrc=*/0));
+          RtpSenderInfo(kDefaultStreamId, default_sender_id, 0));
       OnRemoteSenderAdded(current_senders->back(), media_type);
     }
   }
@@ -6929,6 +6912,7 @@ bool PeerConnection::OnTransportChanged(
     RtpTransportInternal* rtp_transport,
     cricket::DtlsTransportInternal* dtls_transport,
     MediaTransportInterface* media_transport) {
+  RTC_DCHECK_RUNS_SERIALIZED(&use_media_transport_race_checker_);
   bool ret = true;
   auto base_channel = GetChannel(mid);
   if (base_channel) {
@@ -6938,7 +6922,7 @@ bool PeerConnection::OnTransportChanged(
     sctp_transport_->SetDtlsTransport(dtls_transport);
   }
 
-  if (configuration_.use_media_transport) {
+  if (use_media_transport_) {
     // Only pass media transport to call object if media transport is used
     // for media (and not data channel).
     call_->MediaTransportChange(media_transport);

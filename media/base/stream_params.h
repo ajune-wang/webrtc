@@ -122,9 +122,10 @@ struct StreamParams {
     return (get_ssrc_group(semantics) != NULL);
   }
   const SsrcGroup* get_ssrc_group(const std::string& semantics) const {
-    for (const SsrcGroup& ssrc_group : ssrc_groups) {
-      if (ssrc_group.has_semantics(semantics)) {
-        return &ssrc_group;
+    for (std::vector<SsrcGroup>::const_iterator it = ssrc_groups.begin();
+         it != ssrc_groups.end(); ++it) {
+      if (it->has_semantics(semantics)) {
+        return &(*it);
       }
     }
     return NULL;

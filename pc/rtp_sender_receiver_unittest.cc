@@ -48,7 +48,6 @@
 #include "pc/dtls_srtp_transport.h"
 #include "pc/local_audio_source.h"
 #include "pc/media_stream.h"
-#include "pc/remote_audio_source.h"
 #include "pc/rtp_receiver.h"
 #include "pc/rtp_sender.h"
 #include "pc/rtp_transport_internal.h"
@@ -523,103 +522,6 @@ TEST_F(RtpSenderReceiverTest, RemoteAudioTrackSetVolume) {
   DestroyAudioRtpReceiver();
 }
 
-TEST_F(RtpSenderReceiverTest, RemoteAudioSourceLatencyCaching) {
-  absl::optional<int> delay_ms;  // In milliseconds.
-  double latency_s = 0.5;        // In seconds.
-  rtc::scoped_refptr<RemoteAudioSource> source =
-      new rtc::RefCountedObject<RemoteAudioSource>(rtc::Thread::Current());
-
-  // Check default value.
-  EXPECT_DOUBLE_EQ(source->GetLatency(), 0.0);
-
-  // Check caching behaviour.
-  source->SetLatency(latency_s);
-  EXPECT_DOUBLE_EQ(source->GetLatency(), latency_s);
-
-  // Check that cached value applied on the start.
-  source->Start(voice_media_channel_, kAudioSsrc);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // Check that setting latency changes delay.
-  latency_s = 0.8;
-  source->SetLatency(latency_s);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-  EXPECT_DOUBLE_EQ(latency_s, source->GetLatency());
-
-  // Check that if underlying delay is changed then remote source will reflect
-  // it.
-  delay_ms = 300;
-  voice_media_channel_->SetBaseMinimumPlayoutDelayMs(kAudioSsrc,
-                                                     delay_ms.value());
-  EXPECT_DOUBLE_EQ(source->GetLatency(), delay_ms.value() / 1000.0);
-
-  // Check that after stop we get last cached value.
-  source->Stop(voice_media_channel_, kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, source->GetLatency());
-
-  // Check that if we start source again with new ssrc then cached value is
-  // applied.
-  source->Start(voice_media_channel_, kAudioSsrc2);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc2);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // Check rounding behavior.
-  source->SetLatency(2 / 1000.0);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc2);
-  EXPECT_EQ(0, delay_ms.value_or(-1));
-  EXPECT_DOUBLE_EQ(0, source->GetLatency());
-}
-
-TEST_F(RtpSenderReceiverTest, RemoteAudioSourceLatencyNoCaching) {
-  int delay_ms = 300;  // In milliseconds.
-  rtc::scoped_refptr<RemoteAudioSource> source =
-      new rtc::RefCountedObject<RemoteAudioSource>(rtc::Thread::Current());
-
-  // Set it to value different from default zero.
-  voice_media_channel_->SetBaseMinimumPlayoutDelayMs(kAudioSsrc, delay_ms);
-
-  // Check that calling GetLatency on the source that hasn't been started yet
-  // won't trigger caching.
-  EXPECT_DOUBLE_EQ(source->GetLatency(), 0);
-  source->Start(voice_media_channel_, kAudioSsrc);
-  EXPECT_DOUBLE_EQ(source->GetLatency(), delay_ms / 1000.0);
-}
-
-TEST_F(RtpSenderReceiverTest, RemoteAudioTrackSetLatency) {
-  CreateAudioRtpReceiver();
-
-  absl::optional<int> delay_ms;  // In milliseconds.
-  double latency_s = 0.5;        // In seconds.
-  audio_track_->GetSource()->SetLatency(latency_s);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // Disabling the track should take no effect on previously set value.
-  audio_track_->set_enabled(false);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // When the track is disabled, we still should be able to set latency.
-  latency_s = 0.3;
-  audio_track_->GetSource()->SetLatency(latency_s);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // Enabling the track should take no effect on previously set value.
-  audio_track_->set_enabled(true);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-
-  // We still should be able to change latency.
-  latency_s = 0.0;
-  audio_track_->GetSource()->SetLatency(latency_s);
-  delay_ms = voice_media_channel_->GetBaseMinimumPlayoutDelayMs(kAudioSsrc);
-  EXPECT_EQ(0, delay_ms.value_or(-1));
-  EXPECT_DOUBLE_EQ(latency_s, delay_ms.value_or(0) / 1000.0);
-}
-
 // Test that the media channel isn't enabled for sending if the audio sender
 // doesn't have both a track and SSRC.
 TEST_F(RtpSenderReceiverTest, AudioSenderWithoutTrackAndSsrc) {
@@ -910,7 +812,7 @@ TEST_F(RtpSenderReceiverTest,
   EXPECT_EQ(1u, params.encodings.size());
 
   // Unimplemented RtpParameters: codec_payload_type, fec, rtx, dtx, ptime,
-  // scale_framerate_down_by, dependency_rids.
+  // scale_framerate_down_by, rid, dependency_rids.
   params.encodings[0].codec_payload_type = 1;
   EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
             audio_rtp_sender_->SetParameters(params).type());
@@ -932,6 +834,11 @@ TEST_F(RtpSenderReceiverTest,
   params = audio_rtp_sender_->GetParameters();
 
   params.encodings[0].ptime = 1;
+  EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
+            audio_rtp_sender_->SetParameters(params).type());
+  params = audio_rtp_sender_->GetParameters();
+
+  params.encodings[0].rid = "dummy_rid";
   EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
             audio_rtp_sender_->SetParameters(params).type());
   params = audio_rtp_sender_->GetParameters();
@@ -1177,7 +1084,7 @@ TEST_F(RtpSenderReceiverTest,
   EXPECT_EQ(1u, params.encodings.size());
 
   // Unimplemented RtpParameters: codec_payload_type, fec, rtx, dtx, ptime,
-  // scale_framerate_down_by, dependency_rids.
+  // scale_framerate_down_by, rid, dependency_rids.
   params.encodings[0].codec_payload_type = 1;
   EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
             video_rtp_sender_->SetParameters(params).type());
@@ -1203,23 +1110,14 @@ TEST_F(RtpSenderReceiverTest,
             video_rtp_sender_->SetParameters(params).type());
   params = video_rtp_sender_->GetParameters();
 
+  params.encodings[0].rid = "dummy_rid";
+  EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
+            video_rtp_sender_->SetParameters(params).type());
+  params = video_rtp_sender_->GetParameters();
+
   params.encodings[0].dependency_rids.push_back("dummy_rid");
   EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
             video_rtp_sender_->SetParameters(params).type());
-
-  DestroyVideoRtpSender();
-}
-
-TEST_F(RtpSenderReceiverTest, VideoSenderCanSetRid) {
-  CreateVideoRtpSender();
-  RtpParameters params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  const std::string rid = "dummy_rid";
-  params.encodings[0].rid = rid;
-  EXPECT_TRUE(video_rtp_sender_->SetParameters(params).ok());
-  params = video_rtp_sender_->GetParameters();
-  EXPECT_EQ(1u, params.encodings.size());
-  EXPECT_EQ(rid, params.encodings[0].rid);
 
   DestroyVideoRtpSender();
 }
@@ -1255,7 +1153,7 @@ TEST_F(RtpSenderReceiverTest,
   EXPECT_EQ(kVideoSimulcastLayerCount, params.encodings.size());
 
   // Unimplemented RtpParameters: codec_payload_type, fec, rtx, dtx, ptime,
-  // scale_framerate_down_by, dependency_rids.
+  // scale_framerate_down_by, rid, dependency_rids.
   for (size_t i = 0; i < params.encodings.size(); i++) {
     params.encodings[i].codec_payload_type = 1;
     EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
@@ -1278,6 +1176,11 @@ TEST_F(RtpSenderReceiverTest,
     params = video_rtp_sender_->GetParameters();
 
     params.encodings[i].ptime = 1;
+    EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
+              video_rtp_sender_->SetParameters(params).type());
+    params = video_rtp_sender_->GetParameters();
+
+    params.encodings[i].rid = "dummy_rid";
     EXPECT_EQ(RTCErrorType::UNSUPPORTED_PARAMETER,
               video_rtp_sender_->SetParameters(params).type());
     params = video_rtp_sender_->GetParameters();

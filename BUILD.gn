@@ -491,13 +491,11 @@ if (rtc_include_tests) {
       "rtc_base:rtc_base_unittests",
       "rtc_base:rtc_json_unittests",
       "rtc_base:rtc_numerics_unittests",
-      "rtc_base:rtc_post_message_with_functor_unittests",
       "rtc_base:rtc_task_queue_unittests",
       "rtc_base:sequenced_task_checker_unittests",
       "rtc_base:sigslot_unittest",
       "rtc_base:weak_ptr_unittests",
       "rtc_base/experiments:experiments_unittests",
-      "sdk:sdk_tests",
       "test/scenario/network:network_emulation_unittests",
     ]
 

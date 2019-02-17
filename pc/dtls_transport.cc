@@ -43,85 +43,68 @@ DtlsTransportState TranslateState(cricket::DtlsTransportState internal_state) {
 // Implementation of DtlsTransportInterface
 DtlsTransport::DtlsTransport(
     std::unique_ptr<cricket::DtlsTransportInternal> internal)
-    : owner_thread_(rtc::Thread::Current()),
-      info_(DtlsTransportState::kNew),
+    : signaling_thread_(rtc::Thread::Current()),
       internal_dtls_transport_(std::move(internal)) {
   RTC_DCHECK(internal_dtls_transport_.get());
   internal_dtls_transport_->SignalDtlsState.connect(
       this, &DtlsTransport::OnInternalDtlsState);
   ice_transport_ = new rtc::RefCountedObject<IceTransportWithPointer>(
       internal_dtls_transport_->ice_transport());
-  UpdateInformation();
 }
 
 DtlsTransport::~DtlsTransport() {
   // We depend on the signaling thread to call Clear() before dropping
   // its last reference to this object.
-  RTC_DCHECK(owner_thread_->IsCurrent() || !internal_dtls_transport_);
+  RTC_DCHECK(signaling_thread_->IsCurrent() || !internal_dtls_transport_);
 }
 
 DtlsTransportInformation DtlsTransport::Information() {
-  rtc::CritScope scope(&lock_);
-  return info_;
+  RTC_DCHECK(signaling_thread_->IsCurrent());
+  if (internal()) {
+    return DtlsTransportInformation(TranslateState(internal()->dtls_state()));
+  } else {
+    return DtlsTransportInformation(DtlsTransportState::kClosed);
+  }
 }
 
 void DtlsTransport::RegisterObserver(DtlsTransportObserverInterface* observer) {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_DCHECK(signaling_thread_->IsCurrent());
   RTC_DCHECK(observer);
   observer_ = observer;
 }
 
 void DtlsTransport::UnregisterObserver() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_DCHECK(signaling_thread_->IsCurrent());
   observer_ = nullptr;
 }
 
 rtc::scoped_refptr<IceTransportInterface> DtlsTransport::ice_transport() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
-  rtc::CritScope scope(&lock_);
   return ice_transport_;
 }
 
 // Internal functions
 void DtlsTransport::Clear() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_DCHECK(signaling_thread_->IsCurrent());
   RTC_DCHECK(internal());
-  bool must_send_event =
-      (internal()->dtls_state() != cricket::DTLS_TRANSPORT_CLOSED);
-  // The destructor of cricket::DtlsTransportInternal calls back
-  // into DtlsTransport, so we can't hold the lock while releasing.
-  std::unique_ptr<cricket::DtlsTransportInternal> transport_to_release;
-  {
-    rtc::CritScope scope(&lock_);
-    transport_to_release = std::move(internal_dtls_transport_);
-    ice_transport_->Clear();
+  if (internal()->dtls_state() != cricket::DTLS_TRANSPORT_CLOSED) {
+    internal_dtls_transport_.reset();
+    if (observer_) {
+      observer_->OnStateChange(Information());
+    }
+  } else {
+    internal_dtls_transport_.reset();
   }
-  UpdateInformation();
-  if (observer_ && must_send_event) {
-    observer_->OnStateChange(Information());
-  }
+  ice_transport_->Clear();
 }
 
 void DtlsTransport::OnInternalDtlsState(
     cricket::DtlsTransportInternal* transport,
     cricket::DtlsTransportState state) {
-  RTC_DCHECK_RUN_ON(owner_thread_);
+  RTC_DCHECK(signaling_thread_->IsCurrent());
   RTC_DCHECK(transport == internal());
   RTC_DCHECK(state == internal()->dtls_state());
-  UpdateInformation();
   if (observer_) {
     observer_->OnStateChange(Information());
-  }
-}
-
-void DtlsTransport::UpdateInformation() {
-  RTC_DCHECK_RUN_ON(owner_thread_);
-  rtc::CritScope scope(&lock_);
-  if (internal_dtls_transport_) {
-    info_ = DtlsTransportInformation(
-        TranslateState(internal_dtls_transport_->dtls_state()));
-  } else {
-    info_ = DtlsTransportInformation(DtlsTransportState::kClosed);
   }
 }
 

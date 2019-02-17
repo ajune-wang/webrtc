@@ -8,8 +8,11 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "sdk/media_constraints.h"
+#include "api/media_constraints_interface.h"
 
+#include "absl/types/optional.h"
+#include "api/test/fake_constraints.h"
+#include "media/base/media_config.h"
 #include "test/gtest.h"
 
 namespace webrtc {
@@ -30,40 +33,34 @@ bool Matches(const PeerConnectionInterface::RTCConfiguration& a,
          a.media_config == b.media_config;
 }
 
-TEST(MediaConstraints, CopyConstraintsIntoRtcConfiguration) {
-  const MediaConstraints constraints_empty;
+TEST(MediaConstraintsInterface, CopyConstraintsIntoRtcConfiguration) {
+  FakeConstraints constraints;
   PeerConnectionInterface::RTCConfiguration old_configuration;
   PeerConnectionInterface::RTCConfiguration configuration;
 
-  CopyConstraintsIntoRtcConfiguration(&constraints_empty, &configuration);
+  CopyConstraintsIntoRtcConfiguration(&constraints, &configuration);
   EXPECT_TRUE(Matches(old_configuration, configuration));
 
-  const MediaConstraints constraits_enable_ipv6(
-      {MediaConstraints::Constraint(MediaConstraints::kEnableIPv6, "true")},
-      {});
-  CopyConstraintsIntoRtcConfiguration(&constraits_enable_ipv6, &configuration);
+  constraints.SetMandatory(MediaConstraintsInterface::kEnableIPv6, "true");
+  CopyConstraintsIntoRtcConfiguration(&constraints, &configuration);
   EXPECT_FALSE(configuration.disable_ipv6);
-  const MediaConstraints constraints_disable_ipv6(
-      {MediaConstraints::Constraint(MediaConstraints::kEnableIPv6, "false")},
-      {});
-  CopyConstraintsIntoRtcConfiguration(&constraints_disable_ipv6,
-                                      &configuration);
+  constraints.SetMandatory(MediaConstraintsInterface::kEnableIPv6, "false");
+  CopyConstraintsIntoRtcConfiguration(&constraints, &configuration);
   EXPECT_TRUE(configuration.disable_ipv6);
 
-  const MediaConstraints constraints_screencast(
-      {MediaConstraints::Constraint(MediaConstraints::kScreencastMinBitrate,
-                                    "27")},
-      {});
-  CopyConstraintsIntoRtcConfiguration(&constraints_screencast, &configuration);
+  constraints.SetMandatory(MediaConstraintsInterface::kScreencastMinBitrate,
+                           27);
+  CopyConstraintsIntoRtcConfiguration(&constraints, &configuration);
   EXPECT_TRUE(configuration.screencast_min_bitrate);
   EXPECT_EQ(27, *(configuration.screencast_min_bitrate));
 
   // An empty set of constraints will not overwrite
   // values that are already present.
+  constraints = FakeConstraints();
   configuration = old_configuration;
   configuration.enable_dtls_srtp = true;
   configuration.audio_jitter_buffer_max_packets = 34;
-  CopyConstraintsIntoRtcConfiguration(&constraints_empty, &configuration);
+  CopyConstraintsIntoRtcConfiguration(&constraints, &configuration);
   EXPECT_EQ(34, configuration.audio_jitter_buffer_max_packets);
   ASSERT_TRUE(configuration.enable_dtls_srtp);
   EXPECT_TRUE(*(configuration.enable_dtls_srtp));

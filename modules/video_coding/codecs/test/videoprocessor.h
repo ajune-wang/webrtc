@@ -109,9 +109,10 @@ class VideoProcessor {
                          const webrtc::EncodedImage& encoded_image,
                          const webrtc::CodecSpecificInfo* codec_specific_info)
           : video_processor_(video_processor),
+            buffer_(encoded_image.data(), encoded_image.size()),
             encoded_image_(encoded_image),
             codec_specific_info_(*codec_specific_info) {
-        encoded_image_.Retain();
+        encoded_image_.set_buffer(buffer_.data(), buffer_.size());
       }
 
       bool Run() override {
@@ -121,6 +122,7 @@ class VideoProcessor {
 
      private:
       VideoProcessor* const video_processor_;
+      rtc::Buffer buffer_;
       webrtc::EncodedImage encoded_image_;
       const webrtc::CodecSpecificInfo codec_specific_info_;
     };

@@ -33,6 +33,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/media_constraints_interface.h"
 #include "api/peer_connection_interface.h"
 #include "api/rtp_receiver_interface.h"
 #include "api/rtp_sender_interface.h"
@@ -410,7 +411,7 @@ OwnedPeerConnection::OwnedPeerConnection(
 OwnedPeerConnection::OwnedPeerConnection(
     rtc::scoped_refptr<PeerConnectionInterface> peer_connection,
     std::unique_ptr<PeerConnectionObserver> observer,
-    std::unique_ptr<MediaConstraints> constraints)
+    std::unique_ptr<MediaConstraintsInterface> constraints)
     : peer_connection_(peer_connection),
       observer_(std::move(observer)),
       constraints_(std::move(constraints)) {}
@@ -481,7 +482,7 @@ static void JNI_PeerConnection_CreateOffer(
     const JavaParamRef<jobject>& j_pc,
     const JavaParamRef<jobject>& j_observer,
     const JavaParamRef<jobject>& j_constraints) {
-  std::unique_ptr<MediaConstraints> constraints =
+  std::unique_ptr<MediaConstraintsInterface> constraints =
       JavaToNativeMediaConstraints(jni, j_constraints);
   rtc::scoped_refptr<CreateSdpObserverJni> observer(
       new rtc::RefCountedObject<CreateSdpObserverJni>(jni, j_observer,
@@ -496,7 +497,7 @@ static void JNI_PeerConnection_CreateAnswer(
     const JavaParamRef<jobject>& j_pc,
     const JavaParamRef<jobject>& j_observer,
     const JavaParamRef<jobject>& j_constraints) {
-  std::unique_ptr<MediaConstraints> constraints =
+  std::unique_ptr<MediaConstraintsInterface> constraints =
       JavaToNativeMediaConstraints(jni, j_constraints);
   rtc::scoped_refptr<CreateSdpObserverJni> observer(
       new rtc::RefCountedObject<CreateSdpObserverJni>(jni, j_observer,

@@ -104,7 +104,7 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
               .find("Enabled") == 0),
       rate_control_settings_(
           RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
-      probe_controller_(new ProbeController(key_value_config_, event_log)),
+      probe_controller_(new ProbeController(key_value_config_)),
       congestion_window_pushback_controller_(
           rate_control_settings_.UseCongestionWindowPushback()
               ? absl::make_unique<CongestionWindowPushbackController>(
@@ -625,10 +625,6 @@ void GoogCcNetworkController::MaybeTriggerOnNetworkChanged(
     update->probe_cluster_configs.insert(update->probe_cluster_configs.end(),
                                          probes.begin(), probes.end());
     update->pacer_config = GetPacingRates(at_time);
-
-    RTC_LOG(LS_VERBOSE) << "bwe " << at_time.ms() << " pushback_target_bps="
-                        << last_pushback_target_rate_.bps()
-                        << " estimate_bps=" << last_raw_target_rate_.bps();
   }
 }
 

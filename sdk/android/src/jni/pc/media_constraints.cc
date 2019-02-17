@@ -21,10 +21,10 @@ namespace jni {
 namespace {
 
 // Helper for translating a List<Pair<String, String>> to a Constraints.
-MediaConstraints::Constraints PopulateConstraintsFromJavaPairList(
+MediaConstraintsInterface::Constraints PopulateConstraintsFromJavaPairList(
     JNIEnv* env,
     const JavaRef<jobject>& j_list) {
-  MediaConstraints::Constraints constraints;
+  MediaConstraintsInterface::Constraints constraints;
   for (const JavaRef<jobject>& entry : Iterable(env, j_list)) {
     constraints.emplace_back(
         JavaToStdString(env, Java_KeyValuePair_getKey(env, entry)),
@@ -33,17 +33,34 @@ MediaConstraints::Constraints PopulateConstraintsFromJavaPairList(
   return constraints;
 }
 
+// Wrapper for a Java MediaConstraints object.  Copies all needed data so when
+// the constructor returns the Java object is no longer needed.
+class MediaConstraintsJni : public MediaConstraintsInterface {
+ public:
+  MediaConstraintsJni(JNIEnv* env, const JavaRef<jobject>& j_constraints)
+      : mandatory_(PopulateConstraintsFromJavaPairList(
+            env,
+            Java_MediaConstraints_getMandatory(env, j_constraints))),
+        optional_(PopulateConstraintsFromJavaPairList(
+            env,
+            Java_MediaConstraints_getOptional(env, j_constraints))) {}
+  ~MediaConstraintsJni() override = default;
+
+  // MediaConstraintsInterface.
+  const Constraints& GetMandatory() const override { return mandatory_; }
+  const Constraints& GetOptional() const override { return optional_; }
+
+ private:
+  const Constraints mandatory_;
+  const Constraints optional_;
+};
+
 }  // namespace
 
-// Copies all needed data so Java object is no longer needed at return.
-std::unique_ptr<MediaConstraints> JavaToNativeMediaConstraints(
+std::unique_ptr<MediaConstraintsInterface> JavaToNativeMediaConstraints(
     JNIEnv* env,
     const JavaRef<jobject>& j_constraints) {
-  return absl::make_unique<MediaConstraints>(
-      PopulateConstraintsFromJavaPairList(
-          env, Java_MediaConstraints_getMandatory(env, j_constraints)),
-      PopulateConstraintsFromJavaPairList(
-          env, Java_MediaConstraints_getOptional(env, j_constraints)));
+  return absl::make_unique<MediaConstraintsJni>(env, j_constraints);
 }
 
 }  // namespace jni

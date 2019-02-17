@@ -20,46 +20,32 @@
 namespace cricket {
 namespace {
 
-void AppendSsrcs(rtc::ArrayView<const uint32_t> ssrcs,
-                 rtc::SimpleStringBuilder* sb) {
-  *sb << "ssrcs:[";
-  const char* delimiter = "";
-  for (uint32_t ssrc : ssrcs) {
-    *sb << delimiter << ssrc;
-    delimiter = ",";
+std::string SsrcsToString(const std::vector<uint32_t>& ssrcs) {
+  char buf[1024];
+  rtc::SimpleStringBuilder sb(buf);
+  sb << "ssrcs:[";
+  for (std::vector<uint32_t>::const_iterator it = ssrcs.begin();
+       it != ssrcs.end(); ++it) {
+    if (it != ssrcs.begin()) {
+      sb << ",";
+    }
+    sb << *it;
   }
-  *sb << "]";
+  sb << "]";
+  return sb.str();
 }
 
-void AppendSsrcGroups(rtc::ArrayView<const SsrcGroup> ssrc_groups,
-                      rtc::SimpleStringBuilder* sb) {
-  *sb << "ssrc_groups:";
-  const char* delimiter = "";
-  for (const SsrcGroup& ssrc_group : ssrc_groups) {
-    *sb << delimiter << ssrc_group.ToString();
-    delimiter = ",";
-  }
-}
-
-void AppendStreamIds(rtc::ArrayView<const std::string> stream_ids,
-                     rtc::SimpleStringBuilder* sb) {
-  *sb << "stream_ids:";
-  const char* delimiter = "";
-  for (const std::string& stream_id : stream_ids) {
-    *sb << delimiter << stream_id;
-    delimiter = ",";
-  }
-}
-
-void AppendRids(rtc::ArrayView<const RidDescription> rids,
-                rtc::SimpleStringBuilder* sb) {
-  *sb << "rids:[";
+std::string RidsToString(const std::vector<RidDescription>& rids) {
+  char buf[1024];
+  rtc::SimpleStringBuilder sb(buf);
+  sb << "rids:[";
   const char* delimiter = "";
   for (const RidDescription& rid : rids) {
-    *sb << delimiter << rid.rid;
+    sb << delimiter << rid.rid;
     delimiter = ",";
   }
-  *sb << "]";
+  sb << "]";
+  return sb.str();
 }
 
 }  // namespace
@@ -97,7 +83,7 @@ std::string SsrcGroup::ToString() const {
   rtc::SimpleStringBuilder sb(buf);
   sb << "{";
   sb << "semantics:" << semantics << ";";
-  AppendSsrcs(ssrcs, &sb);
+  sb << SsrcsToString(ssrcs);
   sb << "}";
   return sb.str();
 }
@@ -127,18 +113,30 @@ std::string StreamParams::ToString() const {
   if (!id.empty()) {
     sb << "id:" << id << ";";
   }
-  AppendSsrcs(ssrcs, &sb);
-  sb << ";";
-  AppendSsrcGroups(ssrc_groups, &sb);
+  sb << SsrcsToString(ssrcs) << ";";
+  sb << "ssrc_groups:";
+  for (std::vector<SsrcGroup>::const_iterator it = ssrc_groups.begin();
+       it != ssrc_groups.end(); ++it) {
+    if (it != ssrc_groups.begin()) {
+      sb << ",";
+    }
+    sb << it->ToString();
+  }
   sb << ";";
   if (!cname.empty()) {
     sb << "cname:" << cname << ";";
   }
-  AppendStreamIds(stream_ids_, &sb);
+  sb << "stream_ids:";
+  for (std::vector<std::string>::const_iterator it = stream_ids_.begin();
+       it != stream_ids_.end(); ++it) {
+    if (it != stream_ids_.begin()) {
+      sb << ",";
+    }
+    sb << *it;
+  }
   sb << ";";
   if (!rids_.empty()) {
-    AppendRids(rids_, &sb);
-    sb << ";";
+    sb << RidsToString(rids_) << ";";
   }
   sb << "}";
   return sb.str();
@@ -180,16 +178,17 @@ void StreamParams::GetPrimarySsrcs(std::vector<uint32_t>* ssrcs) const {
   if (sim_group == NULL) {
     ssrcs->push_back(first_ssrc());
   } else {
-    ssrcs->insert(ssrcs->end(), sim_group->ssrcs.begin(),
-                  sim_group->ssrcs.end());
+    for (size_t i = 0; i < sim_group->ssrcs.size(); ++i) {
+      ssrcs->push_back(sim_group->ssrcs[i]);
+    }
   }
 }
 
 void StreamParams::GetFidSsrcs(const std::vector<uint32_t>& primary_ssrcs,
                                std::vector<uint32_t>* fid_ssrcs) const {
-  for (uint32_t primary_ssrc : primary_ssrcs) {
+  for (size_t i = 0; i < primary_ssrcs.size(); ++i) {
     uint32_t fid_ssrc;
-    if (GetFidSsrc(primary_ssrc, &fid_ssrc)) {
+    if (GetFidSsrc(primary_ssrcs[i], &fid_ssrc)) {
       fid_ssrcs->push_back(fid_ssrc);
     }
   }
@@ -203,17 +202,22 @@ bool StreamParams::AddSecondarySsrc(const std::string& semantics,
   }
 
   ssrcs.push_back(secondary_ssrc);
-  ssrc_groups.push_back(SsrcGroup(semantics, {primary_ssrc, secondary_ssrc}));
+  std::vector<uint32_t> ssrc_vector;
+  ssrc_vector.push_back(primary_ssrc);
+  ssrc_vector.push_back(secondary_ssrc);
+  SsrcGroup ssrc_group = SsrcGroup(semantics, ssrc_vector);
+  ssrc_groups.push_back(ssrc_group);
   return true;
 }
 
 bool StreamParams::GetSecondarySsrc(const std::string& semantics,
                                     uint32_t primary_ssrc,
                                     uint32_t* secondary_ssrc) const {
-  for (const SsrcGroup& ssrc_group : ssrc_groups) {
-    if (ssrc_group.has_semantics(semantics) && ssrc_group.ssrcs.size() >= 2 &&
-        ssrc_group.ssrcs[0] == primary_ssrc) {
-      *secondary_ssrc = ssrc_group.ssrcs[1];
+  for (std::vector<SsrcGroup>::const_iterator it = ssrc_groups.begin();
+       it != ssrc_groups.end(); ++it) {
+    if (it->has_semantics(semantics) && it->ssrcs.size() >= 2 &&
+        it->ssrcs[0] == primary_ssrc) {
+      *secondary_ssrc = it->ssrcs[1];
       return true;
     }
   }

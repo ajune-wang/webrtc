@@ -133,13 +133,12 @@ class RtpVideoSenderTestFixture {
 }  // namespace
 
 TEST(RtpVideoSenderTest, SendOnOneModule) {
-  constexpr uint8_t kPayload = 'a';
+  uint8_t payload = 'a';
   EncodedImage encoded_image;
   encoded_image.SetTimestamp(1);
   encoded_image.capture_time_ms_ = 2;
   encoded_image._frameType = kVideoFrameKey;
-  encoded_image.Allocate(1);
-  encoded_image.data()[0] = kPayload;
+  encoded_image.set_buffer(&payload, 1);
   encoded_image.set_size(1);
 
   RtpVideoSenderTestFixture test({kSsrc1}, kPayloadType, {});
@@ -164,13 +163,12 @@ TEST(RtpVideoSenderTest, SendOnOneModule) {
 }
 
 TEST(RtpVideoSenderTest, SendSimulcastSetActive) {
-  constexpr uint8_t kPayload = 'a';
+  uint8_t payload = 'a';
   EncodedImage encoded_image_1;
   encoded_image_1.SetTimestamp(1);
   encoded_image_1.capture_time_ms_ = 2;
   encoded_image_1._frameType = kVideoFrameKey;
-  encoded_image_1.Allocate(1);
-  encoded_image_1.data()[0] = kPayload;
+  encoded_image_1.set_buffer(&payload, 1);
   encoded_image_1.set_size(1);
 
   RtpVideoSenderTestFixture test({kSsrc1, kSsrc2}, kPayloadType, {});
@@ -209,13 +207,12 @@ TEST(RtpVideoSenderTest, SendSimulcastSetActive) {
 // that outgoing data can be sent on this module, and checks that no data can
 // be sent if both modules are inactive.
 TEST(RtpVideoSenderTest, SendSimulcastSetActiveModules) {
-  constexpr uint8_t kPayload = 'a';
+  uint8_t payload = 'a';
   EncodedImage encoded_image_1;
   encoded_image_1.SetTimestamp(1);
   encoded_image_1.capture_time_ms_ = 2;
   encoded_image_1._frameType = kVideoFrameKey;
-  encoded_image_1.Allocate(1);
-  encoded_image_1.data()[0] = kPayload;
+  encoded_image_1.set_buffer(&payload, 1);
   encoded_image_1.set_size(1);
 
   EncodedImage encoded_image_2(encoded_image_1);
@@ -299,13 +296,12 @@ TEST(RtpVideoSenderTest, FrameCountCallbacks) {
 
   RtpVideoSenderTestFixture test({kSsrc1}, kPayloadType, {}, &callback);
 
-  constexpr uint8_t kPayload = 'a';
+  uint8_t payload = 'a';
   EncodedImage encoded_image;
   encoded_image.SetTimestamp(1);
   encoded_image.capture_time_ms_ = 2;
   encoded_image._frameType = kVideoFrameKey;
-  encoded_image.Allocate(1);
-  encoded_image.data()[0] = kPayload;
+  encoded_image.set_buffer(&payload, 1);
   encoded_image.set_size(1);
 
   encoded_image._frameType = kVideoFrameKey;

@@ -55,21 +55,17 @@ class PeerConnectionE2EQualityTest
   // Validate peer's parameters, also ensure uniqueness of all video stream
   // labels.
   void ValidateParams(std::vector<Params*> params);
-  void SetupVideoSink(rtc::scoped_refptr<RtpTransceiverInterface> transceiver,
-                      std::vector<VideoConfig> remote_video_configs);
   // Have to be run on the signaling thread.
   void RunOnSignalingThread(RunParams run_params);
-  std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
-  AddMedia(TestPeer* peer);
-  std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
-  AddVideo(TestPeer* peer);
+  void AddMedia(TestPeer* peer);
+  void AddVideo(TestPeer* peer);
   std::unique_ptr<FrameGenerator> CreateFrameGenerator(
       const VideoConfig& video_config);
   void AddAudio(TestPeer* peer);
   void SetupCall();
-  void StartVideo(
-      const std::vector<
-          rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>& sources);
+  void WaitForTransceiversSetup(Params* params, TestPeer* remote_peer);
+  void SetupVideoSink(Params* params, TestPeer* remote_peer);
+  void StartVideo();
   void TearDownCall();
   VideoFrameWriter* MaybeCreateVideoWriter(
       absl::optional<std::string> file_name,
@@ -85,9 +81,7 @@ class PeerConnectionE2EQualityTest
   std::unique_ptr<TestPeer> bob_;
 
   std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
-      alice_video_sources_;
-  std::vector<rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>
-      bob_video_sources_;
+      video_sources_;
   std::vector<std::unique_ptr<VideoFrameWriter>> video_writers_;
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
       output_video_sinks_;

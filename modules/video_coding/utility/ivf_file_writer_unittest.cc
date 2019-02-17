@@ -41,8 +41,7 @@ class IvfFileWriterTest : public ::testing::Test {
                             int num_frames,
                             bool use_capture_tims_ms) {
     EncodedImage frame;
-    frame.Allocate(sizeof(dummy_payload));
-    memcpy(frame.data(), dummy_payload, sizeof(dummy_payload));
+    frame.set_buffer(dummy_payload, sizeof(dummy_payload));
     frame._encodedWidth = width;
     frame._encodedHeight = height;
     for (int i = 1; i <= num_frames; ++i) {

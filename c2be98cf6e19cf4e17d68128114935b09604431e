@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a875149_c8c8dbe6",
+        "filename": "rtc_base/event.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-18T11:42:55Z",
+      "side": 1,
+      "message": "It isn\u0027t correct, because precision of Timestamp is micro seconds. So if we want to have it here, we need support microseconds level delay (but it should be separate CL, I think...), otherwise it\u0027s better to call old Wait(in milliseconds) in the test fixture implementation.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 1
+      },
+      "revId": "c2be98cf6e19cf4e17d68128114935b09604431e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69106986_5f4f6b51",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-18T11:42:55Z",
+      "side": 1,
+      "message": "Should we execute it at least once or not?",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 30
+      },
+      "revId": "c2be98cf6e19cf4e17d68128114935b09604431e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

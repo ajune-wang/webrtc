@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59f23695_cccdc8a7",
+        "filename": "modules/video_coding/codecs/test/videocodec_test_fixture_impl.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-18T08:02:27Z",
+      "side": 1,
+      "message": "Hah, this must be a regression, right? Good catch.",
+      "revId": "b03cd4e68ef5013db60b160b0f76e57a23786eba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

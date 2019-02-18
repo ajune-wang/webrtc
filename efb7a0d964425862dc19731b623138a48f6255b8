@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cb44452_abcf22d4",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T14:06:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d13ce0df_a1f0f632",
+      "range": {
+        "startLine": 398,
+        "startChar": 0,
+        "endLine": 403,
+        "endChar": 3
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87841c8c_52516ce3",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81c36883_cc1fa798",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T14:06:47Z",
+      "side": 1,
+      "message": "Done. I think I\u0027ll make a separate cl to delete set_rtt_ms, which appears unused.",
+      "parentUuid": "87841c8c_52516ce3",
+      "range": {
+        "startLine": 404,
+        "startChar": 2,
+        "endLine": 404,
+        "endChar": 53
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

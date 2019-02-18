@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "06b20a45_24c67e16",
+        "filename": "test/scenario/scenario_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-18T15:55:40Z",
+      "side": 1,
+      "message": "Oh, didn\u0027t even realize that was the case, but that makes sense.",
+      "parentUuid": "ec6021e2_6eb44301",
+      "range": {
+        "startLine": 157,
+        "startChar": 17,
+        "endLine": 157,
+        "endChar": 27
+      },
+      "revId": "6f014bb014cd479ac400f670225a0ede3c23c90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f07e7cd3_b299c63a",
         "filename": "test/scenario/video_stream.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cc9ff936_09e7eece",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-18T15:55:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f07e7cd3_b299c63a",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 70
+      },
+      "revId": "6f014bb014cd479ac400f670225a0ede3c23c90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaa77472_09265331",
         "filename": "test/scenario/video_stream.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "6f014bb014cd479ac400f670225a0ede3c23c90b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40874deb_4a1c547d",
+        "filename": "test/scenario/video_stream.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-18T15:55:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa77472_09265331",
+      "range": {
+        "startLine": 159,
+        "startChar": 2,
+        "endLine": 159,
+        "endChar": 12
+      },
+      "revId": "6f014bb014cd479ac400f670225a0ede3c23c90b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -263,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "c732a3a1_c1e1aa79",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-02-18T15:33:01Z",
+      "side": 1,
+      "message": "nvm, I configured my editor in a wrong way. It said \"warning: declaration requires an exit-time destructor\". I thought it has something to do with something complicated like undefined initialization order of globals. But it seems fine.",
+      "parentUuid": "41df20d5_460e5f6f",
+      "range": {
+        "startLine": 1496,
+        "startChar": 30,
+        "endLine": 1496,
+        "endChar": 71
+      },
+      "revId": "38e9ed73493af664dc3ff8f5ebbb7a5993ba9c79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5de4feb_c40b708f",
         "filename": "modules/audio_coding/neteq/tools/input_audio_file.cc",
         "patchSetId": 18

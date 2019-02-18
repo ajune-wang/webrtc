@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c21d861f_3d939816",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-18T14:12:46Z",
+      "side": 1,
+      "message": "nit: Probably call videoProcessor.onCapturerStopped if isCapturerRunning.",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 22
+      },
+      "revId": "a039b7ee4846c5241f10d2f06e5997e92aad6c97",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

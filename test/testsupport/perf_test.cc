@@ -91,6 +91,7 @@ class PerfResultsLogger {
                      const rtc::ArrayView<const double> values,
                      const std::string& units,
                      const bool important) {
+    RTC_CHECK(!values.empty());
     for (double v : values) {
       RTC_CHECK(std::isfinite(v));
     }

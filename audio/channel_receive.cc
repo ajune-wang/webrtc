@@ -72,8 +72,7 @@ webrtc::FrameType WebrtcFrameTypeForMediaTransportFrameType(
 }
 
 WebRtcRTPHeader CreateWebrtcRTPHeaderForMediaTransportFrame(
-    const MediaTransportEncodedAudioFrame& frame,
-    uint64_t channel_id) {
+    const MediaTransportEncodedAudioFrame& frame) {
   webrtc::WebRtcRTPHeader webrtc_header = {};
   webrtc_header.header.payloadType = frame.payload_type();
   webrtc_header.header.payload_type_frequency = frame.sampling_rate_hz();
@@ -83,7 +82,7 @@ WebRtcRTPHeader CreateWebrtcRTPHeaderForMediaTransportFrame(
   webrtc_header.frameType =
       WebrtcFrameTypeForMediaTransportFrameType(frame.frame_type());
 
-  webrtc_header.header.ssrc = static_cast<uint32_t>(channel_id);
+  // Note: SSRC is no longer used by NetEq, so not set.
 
   // The rest are initialized by the RTPHeader constructor.
   return webrtc_header;
@@ -184,8 +183,12 @@ class ChannelReceive : public ChannelReceiveInterface,
   int64_t GetRTT() const;
 
   // MediaTransportAudioSinkInterface override;
-  void OnData(uint64_t channel_id,
-              MediaTransportEncodedAudioFrame frame) override;
+  void OnData(MediaTransportEncodedAudioFrame frame) override;
+  // TODO(nisse): Deprecated variant. Delete.
+  void OnData(uint64_t /* channel_id */,
+              MediaTransportEncodedAudioFrame frame) override {
+    OnData(std::move(frame));
+  }
 
   int32_t OnReceivedPayloadData(const uint8_t* payloadData,
                                 size_t payloadSize,
@@ -311,8 +314,7 @@ int32_t ChannelReceive::OnReceivedPayloadData(
 }
 
 // MediaTransportAudioSinkInterface override.
-void ChannelReceive::OnData(uint64_t channel_id,
-                            MediaTransportEncodedAudioFrame frame) {
+void ChannelReceive::OnData(MediaTransportEncodedAudioFrame frame) {
   RTC_CHECK(media_transport_);
 
   if (!Playing()) {
@@ -324,8 +326,7 @@ void ChannelReceive::OnData(uint64_t channel_id,
   // Send encoded audio frame to Decoder / NetEq.
   if (audio_coding_->IncomingPacket(
           frame.encoded_data().data(), frame.encoded_data().size(),
-          CreateWebrtcRTPHeaderForMediaTransportFrame(frame, channel_id)) !=
-      0) {
+          CreateWebrtcRTPHeaderForMediaTransportFrame(frame)) != 0) {
     RTC_DLOG(LS_ERROR) << "ChannelReceive::OnData: unable to "
                           "push data to the ACM";
   }

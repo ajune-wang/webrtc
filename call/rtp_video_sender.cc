@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
@@ -103,6 +104,21 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     modules.push_back(std::move(rtp_rtcp));
   }
   return modules;
+}
+
+std::vector<std::unique_ptr<RTPSenderVideo>> CreateRtpPayloadSenders(
+    const std::vector<std::unique_ptr<RtpRtcp>>& modules,
+    FlexfecSender* flexfec_sender,
+    FrameEncryptorInterface* frame_encryptor,
+    const CryptoOptions& crypto_options) {
+  RTC_DCHECK_GT(modules.size(), 0);
+  std::vector<std::unique_ptr<RTPSenderVideo>> senders;
+  for (auto& rtp_rtcp : modules) {
+    senders.push_back(absl::make_unique<RTPSenderVideo>(
+        Clock::GetRealTimeClock(), rtp_rtcp->rtp_sender(), flexfec_sender,
+        frame_encryptor, crypto_options.sframe.require_frame_encryption));
+  }
+  return senders;
 }
 
 bool PayloadTypeSupportsSkippingFecPackets(const std::string& payload_name) {
@@ -216,6 +232,10 @@ RtpVideoSender::RtpVideoSender(
                                         transport->keepalive_config(),
                                         frame_encryptor,
                                         crypto_options)),
+      rtp_payload_senders_(CreateRtpPayloadSenders(rtp_modules_,
+                                                   flexfec_sender_.get(),
+                                                   frame_encryptor,
+                                                   crypto_options)),
       rtp_config_(rtp_config),
       transport_(transport),
       transport_overhead_bytes_per_packet_(0),
@@ -368,17 +388,24 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   RTPVideoHeader rtp_video_header = params_[stream_index].GetRtpVideoHeader(
       encoded_image, codec_specific_info, shared_frame_id_);
 
-  uint32_t frame_id;
-  if (!rtp_modules_[stream_index]->Sending()) {
+  uint32_t rtp_timestamp =
+      encoded_image.Timestamp() + rtp_modules_[stream_index]->StartTimestamp();
+
+  if (!rtp_modules_[stream_index]->OnSendingRtpFrame(
+          rtp_timestamp, encoded_image.capture_time_ms_,
+          rtp_config_.payload_type,
+          encoded_image._frameType == kVideoFrameKey)) {
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
-      encoded_image._frameType, rtp_config_.payload_type,
-      encoded_image.Timestamp(), encoded_image.capture_time_ms_,
-      encoded_image.data(), encoded_image.size(), fragmentation,
-      &rtp_video_header, &frame_id);
+  int64_t expected_retransmission_time_ms =
+      rtp_modules_[stream_index]->ExpectedRetransmissionTimeMs();
 
+  bool send_result = rtp_payload_senders_[stream_index]->SendVideo(
+      encoded_image._frameType, rtp_config_.payload_type, rtp_timestamp,
+      encoded_image.capture_time_ms_, encoded_image.data(),
+      encoded_image.size(), fragmentation, &rtp_video_header,
+      expected_retransmission_time_ms);
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[stream_index];
     if (encoded_image._frameType == kVideoFrameKey) {
@@ -394,7 +421,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   if (!send_result)
     return Result(Result::ERROR_SEND_FAILED);
 
-  return Result(Result::OK, frame_id);
+  return Result(Result::OK, rtp_timestamp);
 }
 
 void RtpVideoSender::OnBitrateAllocationUpdated(

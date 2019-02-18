@@ -149,6 +149,11 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
                         const RTPVideoHeader* rtp_video_header,
                         uint32_t* transport_frame_id_out) override;
 
+  bool OnSendingRtpFrame(uint32_t timestamp,
+                         int64_t capture_time_ms,
+                         int payload_type,
+                         bool force_sender_report) override;
+
   bool TimeToSendPacket(uint32_t ssrc,
                         uint16_t sequence_number,
                         int64_t capture_time_ms,
@@ -192,6 +197,8 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
               int64_t* avg_rtt,
               int64_t* min_rtt,
               int64_t* max_rtt) const override;
+
+  int64_t ExpectedRetransmissionTimeMs() const override;
 
   // Force a send of an RTCP packet.
   // Normal SR and RR are triggered via the process function.
@@ -313,11 +320,11 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
   void SetVideoBitrateAllocation(
       const VideoBitrateAllocation& bitrate) override;
 
+  RTPSender* rtp_sender() override;
+  const RTPSender* rtp_sender() const override;
+
  protected:
   bool UpdateRTCPReceiveInformationTimers();
-
-  RTPSender* rtp_sender() { return rtp_sender_.get(); }
-  const RTPSender* rtp_sender() const { return rtp_sender_.get(); }
 
   RTCPSender* rtcp_sender() { return &rtcp_sender_; }
   const RTCPSender* rtcp_sender() const { return &rtcp_sender_; }
@@ -339,6 +346,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   std::unique_ptr<RTPSender> rtp_sender_;
   std::unique_ptr<RTPSenderAudio> audio_;
+  // TODO(nisse): Delete.
   std::unique_ptr<RTPSenderVideo> video_;
   RTCPSender rtcp_sender_;
   RTCPReceiver rtcp_receiver_;

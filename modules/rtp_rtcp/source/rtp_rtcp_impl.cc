@@ -117,6 +117,7 @@ ModuleRtpRtcpImpl::ModuleRtpRtcpImpl(const Configuration& configuration)
     if (configuration.audio) {
       audio_ = absl::make_unique<RTPSenderAudio>(clock_, rtp_sender_.get());
     } else {
+      // TODO(nisse): Delete this and all code accessing |video_|.
       video_ = absl::make_unique<RTPSenderVideo>(
           clock_, rtp_sender_.get(), configuration.flexfec_sender,
           configuration.frame_encryptor,
@@ -440,21 +441,8 @@ bool ModuleRtpRtcpImpl::SendOutgoingData(
     const RTPFragmentationHeader* fragmentation,
     const RTPVideoHeader* rtp_video_header,
     uint32_t* transport_frame_id_out) {
-  rtcp_sender_.SetLastRtpTime(time_stamp, capture_time_ms, payload_type);
-  // Make sure an RTCP report isn't queued behind a key frame.
-  if (rtcp_sender_.TimeToSendRTCPReport(kVideoFrameKey == frame_type)) {
-    rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
-  }
-  int64_t expected_retransmission_time_ms = rtt_ms();
-  if (expected_retransmission_time_ms == 0) {
-    // No rtt available (|kRtpRtcpRttProcessTimeMs| not yet passed?), so try to
-    // poll avg_rtt_ms directly from rtcp receiver.
-    if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
-                           &expected_retransmission_time_ms, nullptr,
-                           nullptr) == -1) {
-      expected_retransmission_time_ms = kDefaultExpectedRetransmissionTimeMs;
-    }
-  }
+  OnSendingRtpFrame(time_stamp, capture_time_ms, payload_type,
+                    kVideoFrameKey == frame_type);
 
   const uint32_t rtp_timestamp = time_stamp + rtp_sender_->TimestampOffset();
   if (transport_frame_id_out)
@@ -469,8 +457,23 @@ bool ModuleRtpRtcpImpl::SendOutgoingData(
     return video_->SendVideo(frame_type, payload_type, rtp_timestamp,
                              capture_time_ms, payload_data, payload_size,
                              fragmentation, rtp_video_header,
-                             expected_retransmission_time_ms);
+                             ExpectedRetransmissionTimeMs());
   }
+}
+
+bool ModuleRtpRtcpImpl::OnSendingRtpFrame(uint32_t timestamp,
+                                          int64_t capture_time_ms,
+                                          int payload_type,
+                                          bool force_sender_report) {
+  if (!Sending())
+    return false;
+
+  rtcp_sender_.SetLastRtpTime(timestamp, capture_time_ms, payload_type);
+  // Make sure an RTCP report isn't queued behind a key frame.
+  if (rtcp_sender_.TimeToSendRTCPReport(force_sender_report)) {
+    rtcp_sender_.SendRTCP(GetFeedbackState(), kRtcpReport);
+  }
+  return true;
 }
 
 bool ModuleRtpRtcpImpl::TimeToSendPacket(uint32_t ssrc,
@@ -553,6 +556,21 @@ int32_t ModuleRtpRtcpImpl::RTT(const uint32_t remote_ssrc,
     *rtt = rtt_ms();
   }
   return ret;
+}
+
+int64_t ModuleRtpRtcpImpl::ExpectedRetransmissionTimeMs() const {
+  int64_t expected_retransmission_time_ms = rtt_ms();
+  if (expected_retransmission_time_ms > 0) {
+    return expected_retransmission_time_ms;
+  }
+  // No rtt available (|kRtpRtcpRttProcessTimeMs| not yet passed?), so try to
+  // poll avg_rtt_ms directly from rtcp receiver.
+  if (rtcp_receiver_.RTT(rtcp_receiver_.RemoteSSRC(), nullptr,
+                         &expected_retransmission_time_ms, nullptr,
+                         nullptr) == 0) {
+    return expected_retransmission_time_ms;
+  }
+  return kDefaultExpectedRetransmissionTimeMs;
 }
 
 // Force a send of an RTCP packet.
@@ -939,4 +957,13 @@ void ModuleRtpRtcpImpl::SetVideoBitrateAllocation(
     const VideoBitrateAllocation& bitrate) {
   rtcp_sender_.SetVideoBitrateAllocation(bitrate);
 }
+
+RTPSender* ModuleRtpRtcpImpl::rtp_sender() {
+  return rtp_sender_.get();
+}
+
+const RTPSender* ModuleRtpRtcpImpl::rtp_sender() const {
+  return rtp_sender_.get();
+}
+
 }  // namespace webrtc

@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "884ffe84_41ba7e7c",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-18T15:58:02Z",
+      "side": 1,
+      "message": "Note: Possible side-effect is that this can fire the event more often when multiple buffers are queued, but that is more correct. For example, in Chrome, JavaScript\u0027s thread and DataChannel\u0027s thread typically run in parallel.",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5531aee4_130b8fbb",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-18T15:58:02Z",
+      "side": 1,
+      "message": "(Huh, so you\u0027re allowed to queue buffer.size() bytes even if that would exceed kMaxQueuedSendDataBytes? We only check that you\u0027re not already exceeding it when you queue more data?)",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68513e6f_92c903ad",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-18T15:58:02Z",
+      "side": 1,
+      "message": "If you make successful_send_count size_t then you don\u0027t have to cast it in three different places. You can make number_of_packets size_t too.",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

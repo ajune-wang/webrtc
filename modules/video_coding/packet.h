@@ -25,9 +25,15 @@ namespace webrtc {
 class VCMPacket {
  public:
   VCMPacket();
+
+  VCMPacket(const uint8_t* ptr, size_t size, const WebRtcRTPHeader& rtpHeader);
+
   VCMPacket(const uint8_t* ptr,
-            const size_t size,
-            const WebRtcRTPHeader& rtpHeader);
+            size_t size,
+            const RTPHeader& rtp_header,
+            const RTPVideoHeader& video_header,
+            FrameType frame_type,
+            int64_t ntp_time_ms);
 
   ~VCMPacket();
 
@@ -51,6 +57,9 @@ class VCMPacket {
                          // packet.
   int width;
   int height;
+  // TODO(nisse): Several fields duplicate the embedded video_header, including
+  // codec, width, is_first_packet_in_frame, is_last_packet_in_frame. Either
+  // delete the duplicate fields or delete the video_header member.
   RTPVideoHeader video_header;
   absl::optional<RtpGenericFrameDescriptor> generic_descriptor;
 

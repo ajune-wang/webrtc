@@ -38,27 +38,39 @@ VCMPacket::VCMPacket()
 }
 
 VCMPacket::VCMPacket(const uint8_t* ptr,
-                     const size_t size,
+                     size_t size,
                      const WebRtcRTPHeader& rtpHeader)
-    : payloadType(rtpHeader.header.payloadType),
-      timestamp(rtpHeader.header.timestamp),
-      ntp_time_ms_(rtpHeader.ntp_time_ms),
-      seqNum(rtpHeader.header.sequenceNumber),
+    : VCMPacket(ptr,
+                size,
+                rtpHeader.header,
+                rtpHeader.video_header(),
+                rtpHeader.frameType,
+                rtpHeader.ntp_time_ms) {}
+
+VCMPacket::VCMPacket(const uint8_t* ptr,
+                     size_t size,
+                     const RTPHeader& rtp_header,
+                     const RTPVideoHeader& videoHeader,
+                     FrameType frame_type,
+                     int64_t ntp_time_ms)
+    : payloadType(rtp_header.payloadType),
+      timestamp(rtp_header.timestamp),
+      ntp_time_ms_(ntp_time_ms),
+      seqNum(rtp_header.sequenceNumber),
       dataPtr(ptr),
       sizeBytes(size),
-      markerBit(rtpHeader.header.markerBit),
+      markerBit(rtp_header.markerBit),
       timesNacked(-1),
-      frameType(rtpHeader.frameType),
-      codec(rtpHeader.video_header().codec),
-      is_first_packet_in_frame(
-          rtpHeader.video_header().is_first_packet_in_frame),
-      is_last_packet_in_frame(rtpHeader.video_header().is_last_packet_in_frame),
+      frameType(frame_type),
+      codec(videoHeader.codec),
+      is_first_packet_in_frame(videoHeader.is_first_packet_in_frame),
+      is_last_packet_in_frame(videoHeader.is_last_packet_in_frame),
       completeNALU(kNaluIncomplete),
-      insertStartCode(rtpHeader.video_header().codec == kVideoCodecH264 &&
-                      rtpHeader.video_header().is_first_packet_in_frame),
-      width(rtpHeader.video_header().width),
-      height(rtpHeader.video_header().height),
-      video_header(rtpHeader.video_header()) {
+      insertStartCode(videoHeader.codec == kVideoCodecH264 &&
+                      videoHeader.is_first_packet_in_frame),
+      width(videoHeader.width),
+      height(videoHeader.height),
+      video_header(videoHeader) {
   if (is_first_packet_in_frame && markerBit) {
     completeNALU = kNaluComplete;
   } else if (is_first_packet_in_frame) {
@@ -70,11 +82,11 @@ VCMPacket::VCMPacket(const uint8_t* ptr,
   }
 
   if (markerBit) {
-    video_header.rotation = rtpHeader.video_header().rotation;
+    video_header.rotation = videoHeader.rotation;
   }
   // Playout decisions are made entirely based on first packet in a frame.
   if (is_first_packet_in_frame) {
-    video_header.playout_delay = rtpHeader.video_header().playout_delay;
+    video_header.playout_delay = videoHeader.playout_delay;
   } else {
     video_header.playout_delay = {-1, -1};
   }

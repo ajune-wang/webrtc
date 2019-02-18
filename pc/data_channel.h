@@ -269,6 +269,7 @@ class DataChannel : public DataChannelInterface, public sigslot::has_slots<> {
   uint64_t bytes_sent_;
   uint32_t messages_received_;
   uint64_t bytes_received_;
+  uint64_t buffered_amount_;
   cricket::DataChannelType data_channel_type_;
   DataChannelProviderInterface* provider_;
   HandshakeState handshake_state_;

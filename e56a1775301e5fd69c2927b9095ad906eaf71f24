@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5d7a4e60_1d4cc09a",
+        "filename": "test/testsupport/file_utils_override.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T13:24:10Z",
+      "side": 1,
+      "message": "$TMPDIR doesn\u0027t necessarily end with a \u0027/\u0027, so if you want to always have a trailing \u0027/\u0027, you must arrange that here.\n\nIt might make sense to first check some webrtc specific environment variable, say $WEBRTC_TEST_TMPDIR.\n\nBut I\u0027d prefer to not enforce trailing \u0027/\u0027, and instead use JoinFilename where appropriate.",
+      "range": {
+        "startLine": 160,
+        "startChar": 11,
+        "endLine": 160,
+        "endChar": 19
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6ee3d9_aacb6389",
+        "filename": "test/testsupport/scoped_temp_dir.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T13:24:10Z",
+      "side": 1,
+      "message": "CreateDir should probably be split into two functions, with different behavior if the directory already exists. Unless there\u0027s nothing that actually depends on the current behavior?\n\nAnd it would make sense to me to generate a random name or a random suffix here, and retry with a different random name if it collides.",
+      "range": {
+        "startLine": 33,
+        "startChar": 25,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b403af2f_814bb182",
         "filename": "test/testsupport/scoped_temp_dir.h",
         "patchSetId": 1
@@ -42,6 +88,29 @@
         "startChar": 2,
         "endLine": 38,
         "endChar": 29
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9513794_ffa7cea7",
+        "filename": "test/testsupport/scoped_temp_dir_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T13:24:10Z",
+      "side": 1,
+      "message": "file_utils.h declares kPathDelimiter.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 54
       },
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

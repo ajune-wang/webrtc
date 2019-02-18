@@ -22,6 +22,30 @@
       "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba56118e_5291c3b6",
+        "filename": "test/testsupport/scoped_temp_dir.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T12:29:20Z",
+      "side": 1,
+      "message": "Yes please---either a random name, or use some OS facility that makes up a guaranteed-unique name. The caller can\u0027t be expected to provide a collision-free name.",
+      "parentUuid": "b403af2f_814bb182",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

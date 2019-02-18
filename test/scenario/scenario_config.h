@@ -86,9 +86,32 @@ struct VideoStreamConfig {
     enum Capture {
       kGenerator,
       kVideoFile,
-      // Support for still images and explicit frame triggers should be added
-      // here if needed.
+      kGenerateSlides,
+      kImageSlides,
+      // Support for explicit frame triggers should be added here if needed.
     } capture = Capture::kGenerator;
+    struct Slides {
+      TimeDelta change_interval = TimeDelta::seconds(10);
+      struct Generator {
+        int width = 1600;
+        int height = 1200;
+      } generator;
+      struct Images {
+        struct Crop {
+          TimeDelta scroll_duration = TimeDelta::seconds(0);
+          absl::optional<int> width;
+          absl::optional<int> height;
+        } crop;
+        int width = 1850;
+        int height = 1110;
+        std::vector<std::string> paths = {
+            "web_screenshot_1850_1110",
+            "presentation_1850_1110",
+            "photo_1850_1110",
+            "difficult_photo_1850_1110",
+        };
+      } images;
+    } slides;
     struct Generator {
       using PixelFormat = FrameGenerator::OutputType;
       PixelFormat pixel_format = PixelFormat::I420;
@@ -127,6 +150,16 @@ struct VideoStreamConfig {
       bool denoising = true;
       bool automatic_scaling = true;
     } single;
+    struct Layers {
+      int temporal = 1;
+      int spatial = 1;
+      enum class Prediction {
+        kTemporalOnly,
+        kSpatialOnKey,
+        kFull,
+      } prediction = Prediction::kFull;
+    } layers;
+
     using DegradationPreference = DegradationPreference;
     DegradationPreference degradation_preference =
         DegradationPreference::MAINTAIN_FRAMERATE;

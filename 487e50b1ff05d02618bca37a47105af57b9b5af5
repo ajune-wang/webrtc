@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2e8177dd_2d6178d8",
+        "filename": "sdk/android/api/org/webrtc/VideoProcessor.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-18T11:49:24Z",
+      "side": 1,
+      "message": "Good idea, done.",
+      "parentUuid": "a1b621e8_5b1ea2bb",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "487e50b1ff05d02618bca37a47105af57b9b5af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "945d9d6f_e7b50e3e",
         "filename": "sdk/android/api/org/webrtc/VideoSource.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "487e50b1ff05d02618bca37a47105af57b9b5af5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b189afc2_0da4c9fc",
+        "filename": "sdk/android/api/org/webrtc/VideoSource.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-18T11:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "945d9d6f_e7b50e3e",
+      "range": {
+        "startLine": 127,
+        "startChar": 41,
+        "endLine": 127,
+        "endChar": 48
+      },
+      "revId": "487e50b1ff05d02618bca37a47105af57b9b5af5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

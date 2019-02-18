@@ -22,6 +22,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_packet_received.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "rtc_base/rate_limiter.h"
 #include "test/gtest.h"
 
@@ -133,7 +134,8 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     configuration.outgoing_transport = &transport_;
     configuration.retransmission_rate_limiter = &retransmission_rate_limiter_;
     rtp_rtcp_module_ = RtpRtcp::CreateRtpRtcp(configuration);
-
+    RTPSenderVideo rtp_sender_video(&fake_clock, rtp_rtcp_module_->rtp_sender(),
+                                    nullptr, nullptr, false);
     rtp_rtcp_module_->SetSSRC(kTestSsrc);
     rtp_rtcp_module_->SetRTCPStatus(RtcpMode::kCompound);
     rtp_rtcp_module_->SetStorePacketsStatus(true, 600);
@@ -146,7 +148,7 @@ class RtpRtcpRtxNackTest : public ::testing::Test {
     // single rtp_rtcp module for both send and receive side.
     rtp_rtcp_module_->SetRemoteSSRC(kTestSsrc);
 
-    rtp_rtcp_module_->RegisterVideoSendPayload(kPayloadType, "video");
+    rtp_sender_video.RegisterPayloadType(kPayloadType, "video");
     rtp_rtcp_module_->SetRtxSendPayloadType(kRtxPayloadType, kPayloadType);
     transport_.SetSendModule(rtp_rtcp_module_);
     media_receiver_ = transport_.stream_receiver_controller_.CreateReceiver(

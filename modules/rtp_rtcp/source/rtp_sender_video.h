@@ -69,10 +69,15 @@ class RTPSenderVideo {
 
   void RegisterPayloadType(int8_t payload_type, absl::string_view payload_name);
 
-  // ULPFEC.
+  // Set RED and ULPFEC payload types. A payload type of -1 means that the
+  // corresponding feature is turned off. Note that we DO NOT support enabling
+  // ULPFEC without enabling RED, and RED is only ever used when ULPFEC is
+  // enabled.
   void SetUlpfecConfig(int red_payload_type, int ulpfec_payload_type);
 
   // FlexFEC/ULPFEC.
+  // Set FEC rates, max frames before FEC is sent, and type of FEC masks.
+  // Returns false on failure.
   void SetFecParameters(const FecProtectionParams& delta_params,
                         const FecProtectionParams& key_params);
 
@@ -81,6 +86,10 @@ class RTPSenderVideo {
 
   uint32_t VideoBitrateSent() const;
   uint32_t FecOverheadRate() const;
+
+  // Returns the current packetization overhead rate, in bps. Note that this is
+  // the payload overhead, eg the VP8 payload headers, not the RTP headers
+  // or extension/
   uint32_t PacketizationOverheadBps() const;
 
   void OnReceivedAck(int64_t extended_highest_sequence_number) {

@@ -188,7 +188,14 @@ class RtpRtcpModule : public RtcpPacketTypeCounterObserver {
 class RtpRtcpImplTest : public ::testing::Test {
  protected:
   RtpRtcpImplTest()
-      : clock_(133590000000000), sender_(&clock_), receiver_(&clock_) {}
+      : clock_(133590000000000),
+        sender_(&clock_),
+        sender_video_(&clock_,
+                      sender_.impl_->rtp_sender(),
+                      nullptr,
+                      nullptr,
+                      false),
+        receiver_(&clock_) {}
 
   void SetUp() override {
     // Send module.
@@ -203,7 +210,7 @@ class RtpRtcpImplTest : public ::testing::Test {
     codec_.plType = 100;
     codec_.width = 320;
     codec_.height = 180;
-    sender_.impl_->RegisterVideoSendPayload(codec_.plType, "VP8");
+    sender_video_.RegisterPayloadType(codec_.plType, "VP8");
 
     // Receive module.
     EXPECT_EQ(0, receiver_.impl_->SetSendingStatus(false));
@@ -217,10 +224,11 @@ class RtpRtcpImplTest : public ::testing::Test {
 
   SimulatedClock clock_;
   RtpRtcpModule sender_;
+  RTPSenderVideo sender_video_;
   RtpRtcpModule receiver_;
   VideoCodec codec_;
 
-  void SendFrame(const RtpRtcpModule* module, uint8_t tid) {
+  void SendFrame(RTPSenderVideo* sender, uint8_t tid) {
     RTPVideoHeaderVP8 vp8_header = {};
     vp8_header.temporalIdx = tid;
     RTPVideoHeader rtp_video_header;
@@ -236,9 +244,9 @@ class RtpRtcpImplTest : public ::testing::Test {
     rtp_video_header.video_timing = {0u, 0u, 0u, 0u, 0u, 0u, false};
 
     const uint8_t payload[100] = {0};
-    EXPECT_EQ(true, module->impl_->SendOutgoingData(
-                        kVideoFrameKey, codec_.plType, 0, 0, payload,
-                        sizeof(payload), nullptr, &rtp_video_header, nullptr));
+    EXPECT_EQ(true, sender->SendVideo(kVideoFrameKey, codec_.plType, 0, 0,
+                                      payload, sizeof(payload), nullptr,
+                                      &rtp_video_header, 0));
   }
 
   void IncomingRtcpNack(const RtpRtcpModule* module, uint16_t sequence_number) {
@@ -258,9 +266,9 @@ class RtpRtcpImplTest : public ::testing::Test {
 TEST_F(RtpRtcpImplTest, RetransmitsAllLayers) {
   // Send frames.
   EXPECT_EQ(0, sender_.RtpSent());
-  SendFrame(&sender_, kBaseLayerTid);    // kSequenceNumber
-  SendFrame(&sender_, kHigherLayerTid);  // kSequenceNumber + 1
-  SendFrame(&sender_, kNoTemporalIdx);   // kSequenceNumber + 2
+  SendFrame(&sender_video_, kBaseLayerTid);    // kSequenceNumber
+  SendFrame(&sender_video_, kHigherLayerTid);  // kSequenceNumber + 1
+  SendFrame(&sender_video_, kNoTemporalIdx);   // kSequenceNumber + 2
   EXPECT_EQ(3, sender_.RtpSent());
   EXPECT_EQ(kSequenceNumber + 2, sender_.LastRtpSequenceNumber());
 
@@ -290,7 +298,7 @@ TEST_F(RtpRtcpImplTest, Rtt) {
   receiver_.receive_statistics_->OnRtpPacket(packet);
 
   // Send Frame before sending an SR.
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   // Sender module should send an SR.
   EXPECT_EQ(0, sender_.impl_->SendRTCP(kRtcpReport));
 
@@ -338,7 +346,7 @@ TEST_F(RtpRtcpImplTest, RttForReceiverOnly) {
   // Sender module should send a response to the last received RTRR (DLRR).
   clock_.AdvanceTimeMilliseconds(1000);
   // Send Frame before sending a SR.
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   EXPECT_EQ(0, sender_.impl_->SendRTCP(kRtcpReport));
 
   // Verify RTT.
@@ -367,7 +375,7 @@ TEST_F(RtpRtcpImplTest, NoSrBeforeMedia) {
   EXPECT_EQ(-1, sender_.RtcpSent().first_packet_time_ms);
   EXPECT_EQ(receiver_.RtcpSent().first_packet_time_ms, current_time);
 
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   EXPECT_EQ(sender_.RtcpSent().first_packet_time_ms, current_time);
 }
 
@@ -459,7 +467,7 @@ TEST_F(RtpRtcpImplTest, SendsInitialNackList) {
   uint16_t nack_list[kNackLength] = {123};
   EXPECT_EQ(0U, sender_.RtcpSent().nack_packets);
   // Send Frame before sending a compound RTCP that starts with SR.
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   EXPECT_EQ(0, sender_.impl_->SendNACK(nack_list, kNackLength));
   EXPECT_EQ(1U, sender_.RtcpSent().nack_packets);
   EXPECT_THAT(sender_.LastNackListSent(), ElementsAre(123));
@@ -471,7 +479,7 @@ TEST_F(RtpRtcpImplTest, SendsExtendedNackList) {
   uint16_t nack_list[kNackLength] = {123};
   EXPECT_EQ(0U, sender_.RtcpSent().nack_packets);
   // Send Frame before sending a compound RTCP that starts with SR.
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   EXPECT_EQ(0, sender_.impl_->SendNACK(nack_list, kNackLength));
   EXPECT_EQ(1U, sender_.RtcpSent().nack_packets);
   EXPECT_THAT(sender_.LastNackListSent(), ElementsAre(123));
@@ -496,7 +504,7 @@ TEST_F(RtpRtcpImplTest, ReSendsNackListAfterRttMs) {
   uint16_t nack_list[kNackLength] = {123, 125};
   EXPECT_EQ(0U, sender_.RtcpSent().nack_packets);
   // Send Frame before sending a compound RTCP that starts with SR.
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
   EXPECT_EQ(0, sender_.impl_->SendNACK(nack_list, kNackLength));
   EXPECT_EQ(1U, sender_.RtcpSent().nack_packets);
   EXPECT_THAT(sender_.LastNackListSent(), ElementsAre(123, 125));
@@ -593,7 +601,7 @@ TEST_F(RtpRtcpImplTest, SendsKeepaliveAfterTimout) {
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
   // Send actual payload data, no keep-alive expected.
-  SendFrame(&sender_, 0);
+  SendFrame(&sender_video_, 0);
   sender_.impl_->Process();
   EXPECT_EQ(2U, sender_.transport_.NumKeepaliveSent());
 
@@ -615,7 +623,7 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   sender_.SetRtcpReportIntervalAndReset(kVideoReportInterval);
   SetUp();
 
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
 
   // Initial state
   sender_.impl_->Process();
@@ -634,7 +642,7 @@ TEST_F(RtpRtcpImplTest, ConfigurableRtcpReportInterval) {
   EXPECT_GT(sender_.RtcpSent().first_packet_time_ms, -1);
   EXPECT_EQ(sender_.transport_.NumRtcpSent(), 1u);
 
-  SendFrame(&sender_, kBaseLayerTid);
+  SendFrame(&sender_video_, kBaseLayerTid);
 
   // Move ahead to the last possible second before second rtcp is expected.
   clock_.AdvanceTimeMilliseconds(kVideoReportInterval * 1 / 2 - 1);

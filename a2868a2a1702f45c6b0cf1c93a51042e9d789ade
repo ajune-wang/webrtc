@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "12c279f7_91ae84ae",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-18T09:17:57Z",
+      "side": 1,
+      "message": "Filed bugs.webrtc.org/10318 to follow up on the issue. Will cite it here.",
+      "parentUuid": "33d33227_31637569",
+      "revId": "a2868a2a1702f45c6b0cf1c93a51042e9d789ade",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "627ec1c9_3c109651",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 8

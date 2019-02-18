@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba3ca171_d9a36b21",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-18T09:17:57Z",
+      "side": 1,
+      "message": "Done. I don\u0027t know why the compiler lets me get away with taking liberties in the destructor....",
+      "parentUuid": "d9523231_e8e272a7",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a829f44_56da7714",
         "filename": "pc/jsep_transport.h",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-13T11:22:36Z",
       "side": 1,
       "message": "nit: This comment applies to all of these methods, right? Place it above to make that more clear.",
+      "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3752a3f_c236b2ab",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-18T09:17:57Z",
+      "side": 1,
+      "message": "Actually this is the only one that showed up. Running an experimental pass with locking the others on network_thread_.",
+      "parentUuid": "6a829f44_56da7714",
       "revId": "25e96299d0572af0b4fffd4af4cefa41b88fc23c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a6633f62_e941cdbf",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-18T14:25:52Z",
+      "side": 1,
+      "message": "No, it\u0027s not unused. I\u0027ve made a new method ExpectedRetransmissionTimeMs, to keep behavior unchanged in this cl.",
+      "parentUuid": "81c36883_cc1fa798",
+      "range": {
+        "startLine": 404,
+        "startChar": 2,
+        "endLine": 404,
+        "endChar": 53
+      },
+      "revId": "efb7a0d964425862dc19731b623138a48f6255b8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71cc1cff_78aa447c",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 1

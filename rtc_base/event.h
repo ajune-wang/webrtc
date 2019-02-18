@@ -19,6 +19,8 @@
 #error "Must define either WEBRTC_WIN or WEBRTC_POSIX."
 #endif
 
+#include "api/units/time_delta.h"
+
 namespace rtc {
 
 class Event {
@@ -37,6 +39,7 @@ class Event {
   // Wait for the event to become signaled, for the specified number of
   // |milliseconds|.  To wait indefinetly, pass kForever.
   bool Wait(int milliseconds);
+  bool Wait(webrtc::TimeDelta delta);
 
  private:
 #if defined(WEBRTC_WIN)

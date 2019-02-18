@@ -262,6 +262,7 @@ rtc_source_set("rtc_event") {
       "event.cc",
       "event.h",
     ]
+    deps += [ "../api/units:time_delta" ]
   }
 }
 

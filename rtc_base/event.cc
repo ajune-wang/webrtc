@@ -26,6 +26,10 @@ namespace rtc {
 
 Event::Event() : Event(false, false) {}
 
+bool Event::Wait(webrtc::TimeDelta delta) {
+  return Wait(delta.ms());
+}
+
 #if defined(WEBRTC_WIN)
 
 Event::Event(bool manual_reset, bool initially_signaled) {

@@ -11,6 +11,7 @@
  */
 #include "test/pc/e2e/peer_connection_quality_test.h"
 
+#include <algorithm>
 #include <set>
 #include <utility>
 
@@ -19,6 +20,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
@@ -41,6 +43,8 @@ constexpr int kPeerConnectionUsedThreads = 7;
 // connection stats polling.
 constexpr int kFrameworkUsedThreads = 2;
 constexpr int kMaxVideoAnalyzerThreads = 8;
+
+constexpr TimeDelta kStatsUpdateInterval = TimeDelta::Seconds<1>();
 
 std::string VideoConfigSourcePresenceToString(const VideoConfig& video_config) {
   char buf[1024];
@@ -189,8 +193,26 @@ void PeerConnectionE2EQualityTest::Run(
   video_quality_analyzer_injection_helper_->Start(video_analyzer_threads);
   signaling_thread->Invoke<void>(
       RTC_FROM_HERE,
-      rtc::Bind(&PeerConnectionE2EQualityTest::RunOnSignalingThread, this,
-                run_params));
+      rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
+                this));
+
+  Timestamp call_stop_time =
+      Timestamp::ms(clock_->TimeInMilliseconds()) + run_params.run_duration;
+  Timestamp now = Timestamp::ms(clock_->TimeInMilliseconds());
+  while (now < call_stop_time) {
+    // TODO(bugs.webrtc.org/10138): Implement stats collection and send it
+    // to analyzers.
+    TimeDelta remainingTime = call_stop_time - now;
+    rtc::Event sleep;
+    sleep.Wait(std::min(remainingTime, kStatsUpdateInterval));
+    now = Timestamp::ms(clock_->TimeInMilliseconds());
+  }
+
+  signaling_thread->Invoke<void>(
+      RTC_FROM_HERE,
+      rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
+                this));
+
   video_quality_analyzer_injection_helper_->Stop();
 
   // Ensuring that TestPeers have been destroyed in order to correctly close
@@ -296,15 +318,14 @@ void PeerConnectionE2EQualityTest::SetupVideoSink(
   output_video_sinks_.push_back(std::move(video_sink));
 }
 
-void PeerConnectionE2EQualityTest::RunOnSignalingThread(RunParams run_params) {
+void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread() {
   alice_video_sources_ = AddMedia(alice_.get());
   bob_video_sources_ = AddMedia(bob_.get());
 
   SetupCall();
+}
 
-  rtc::Event done;
-  done.Wait(static_cast<int>(run_params.run_duration.ms()));
-
+void PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread() {
   TearDownCall();
 }
 

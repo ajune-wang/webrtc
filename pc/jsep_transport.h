@@ -36,6 +36,7 @@
 #include "rtc_base/rtc_certificate.h"
 #include "rtc_base/ssl_stream_adapter.h"
 #include "rtc_base/third_party/sigslot/sigslot.h"
+#include "rtc_base/thread_checker.h"
 
 namespace cricket {
 
@@ -140,14 +141,21 @@ class JsepTransport : public sigslot::has_slots<>,
   bool GetStats(TransportStats* stats);
 
   const JsepTransportDescription* local_description() const {
+    RTC_DCHECK_RUN_ON(network_thread_);
     return local_description_.get();
   }
 
   const JsepTransportDescription* remote_description() const {
+    RTC_DCHECK_RUN_ON(network_thread_);
     return remote_description_.get();
   }
 
   webrtc::RtpTransportInternal* rtp_transport() const {
+    // This method is called from the signaling thread, which means
+    // that a race is possible, making safety analysis complex.
+    // TODO(https://bugs.webrtc.org/10313): Fix unsafe usage.
+    // After fixing, this method and all others that access these
+    // variables should be marked "network thread only".
     if (dtls_srtp_transport_) {
       return dtls_srtp_transport_.get();
     } else if (sdes_transport_) {
@@ -158,6 +166,7 @@ class JsepTransport : public sigslot::has_slots<>,
   }
 
   const DtlsTransportInternal* rtp_dtls_transport() const {
+    RTC_DCHECK_RUN_ON(network_thread_);
     if (rtp_dtls_transport_) {
       return rtp_dtls_transport_->internal();
     } else {
@@ -174,6 +183,7 @@ class JsepTransport : public sigslot::has_slots<>,
   }
 
   const DtlsTransportInternal* rtcp_dtls_transport() const {
+    RTC_DCHECK_RUN_ON(network_thread_);
     if (rtcp_dtls_transport_) {
       return rtcp_dtls_transport_->internal();
     } else {
@@ -182,6 +192,7 @@ class JsepTransport : public sigslot::has_slots<>,
   }
 
   DtlsTransportInternal* rtcp_dtls_transport() {
+    RTC_DCHECK_RUN_ON(network_thread_);
     if (rtcp_dtls_transport_) {
       return rtcp_dtls_transport_->internal();
     } else {
@@ -202,6 +213,7 @@ class JsepTransport : public sigslot::has_slots<>,
 
   // Returns the latest media transport state.
   webrtc::MediaTransportState media_transport_state() const {
+    RTC_DCHECK_RUN_ON(network_thread_);
     return media_transport_state_;
   }
 
@@ -271,21 +283,40 @@ class JsepTransport : public sigslot::has_slots<>,
   // Invoked whenever the state of the media transport changes.
   void OnStateChanged(webrtc::MediaTransportState state) override;
 
+  // Internal accessors for guarded fields
+  // Since these fields are const, locking is not required.
+  webrtc::RtpTransport* unencrypted_rtp_transport() {
+    return unencrypted_rtp_transport_.get();
+  }
+  webrtc::SrtpTransport* sdes_transport() { return sdes_transport_.get(); }
+  webrtc::DtlsSrtpTransport* dtls_srtp_transport() {
+    return dtls_srtp_transport_.get();
+  }
+  // Owning thread, for safety checks
+  rtc::Thread* network_thread_;
+  // Critical scope for fields accessed off-thread
+  rtc::CriticalSection accessor_lock_;
   const std::string mid_;
   // needs-ice-restart bit as described in JSEP.
   bool needs_ice_restart_ = false;
   rtc::scoped_refptr<rtc::RTCCertificate> local_certificate_;
-  std::unique_ptr<JsepTransportDescription> local_description_;
-  std::unique_ptr<JsepTransportDescription> remote_description_;
+  std::unique_ptr<JsepTransportDescription> local_description_
+      RTC_GUARDED_BY(network_thread_);
+  std::unique_ptr<JsepTransportDescription> remote_description_
+      RTC_GUARDED_BY(network_thread_);
 
   // To avoid downcasting and make it type safe, keep three unique pointers for
   // different SRTP mode and only one of these is non-nullptr.
-  std::unique_ptr<webrtc::RtpTransport> unencrypted_rtp_transport_;
-  std::unique_ptr<webrtc::SrtpTransport> sdes_transport_;
-  std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport_;
+  const std::unique_ptr<webrtc::RtpTransport> unencrypted_rtp_transport_;
+  const std::unique_ptr<webrtc::SrtpTransport> sdes_transport_;
+  const std::unique_ptr<webrtc::DtlsSrtpTransport> dtls_srtp_transport_;
 
+  // The rtp_dtls_transport_ field is accessed off-thread (read only).
+  // Copying a scoped_refptr is assumed to be thread-safe, so this field
+  // is left unlocked. All updates should be on the network thread.
   rtc::scoped_refptr<webrtc::DtlsTransport> rtp_dtls_transport_;
-  rtc::scoped_refptr<webrtc::DtlsTransport> rtcp_dtls_transport_;
+  rtc::scoped_refptr<webrtc::DtlsTransport> rtcp_dtls_transport_
+      RTC_GUARDED_BY(network_thread_);
 
   SrtpFilter sdes_negotiator_;
   RtcpMuxFilter rtcp_mux_negotiator_;
@@ -295,12 +326,14 @@ class JsepTransport : public sigslot::has_slots<>,
   absl::optional<std::vector<int>> recv_extension_ids_;
 
   // Optional media transport (experimental).
+  // The media_transport_ field is accessed off-thread (read-only).
+  // It is only modified in the constructor and destructor of JsepTransport.
   std::unique_ptr<webrtc::MediaTransportInterface> media_transport_;
 
   // If |media_transport_| is provided, this variable represents the state of
   // media transport.
-  webrtc::MediaTransportState media_transport_state_ =
-      webrtc::MediaTransportState::kPending;
+  webrtc::MediaTransportState media_transport_state_
+      RTC_GUARDED_BY(network_thread_) = webrtc::MediaTransportState::kPending;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(JsepTransport);
 };

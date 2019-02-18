@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b403af2f_814bb182",
+        "filename": "test/testsupport/scoped_temp_dir.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-18T10:27:39Z",
+      "side": 1,
+      "message": "As a design choice we can decide to randomly generate the name and expose the path through a getter. This is probably a better choice to avoid flakiness in case the deletion fails for some reason. WDYT?",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

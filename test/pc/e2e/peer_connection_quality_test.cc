@@ -42,6 +42,8 @@ constexpr int kPeerConnectionUsedThreads = 7;
 constexpr int kFrameworkUsedThreads = 2;
 constexpr int kMaxVideoAnalyzerThreads = 8;
 
+constexpr TimeDelta kStatsUpdateInterval = TimeDelta::Seconds<1>();
+
 std::string VideoConfigSourcePresenceToString(const VideoConfig& video_config) {
   char buf[1024];
   rtc::SimpleStringBuilder builder(buf);
@@ -189,8 +191,21 @@ void PeerConnectionE2EQualityTest::Run(
   video_quality_analyzer_injection_helper_->Start(video_analyzer_threads);
   signaling_thread->Invoke<void>(
       RTC_FROM_HERE,
-      rtc::Bind(&PeerConnectionE2EQualityTest::RunOnSignalingThread, this,
+      rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread, this,
                 run_params));
+
+  while (clock_->TimeInMilliseconds() < call_stop_time_) {
+    // TODO(bugs.webrtc.org/10138): Implement stats collection and send it
+    // to analyzers.
+    rtc::Event sleep;
+    sleep.Wait(kStatsUpdateInterval.ms());
+  }
+
+  signaling_thread->Invoke<void>(
+      RTC_FROM_HERE,
+      rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
+                this));
+
   video_quality_analyzer_injection_helper_->Stop();
 
   // Ensuring that TestPeers have been destroyed in order to correctly close
@@ -296,15 +311,15 @@ void PeerConnectionE2EQualityTest::SetupVideoSink(
   output_video_sinks_.push_back(std::move(video_sink));
 }
 
-void PeerConnectionE2EQualityTest::RunOnSignalingThread(RunParams run_params) {
+void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
+    RunParams run_params) {
   alice_video_sources_ = AddMedia(alice_.get());
   bob_video_sources_ = AddMedia(bob_.get());
 
-  SetupCall();
+  SetupCall(run_params.run_duration.ms());
+}
 
-  rtc::Event done;
-  done.Wait(static_cast<int>(run_params.run_duration.ms()));
-
+void PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread() {
   TearDownCall();
 }
 
@@ -397,7 +412,7 @@ void PeerConnectionE2EQualityTest::AddAudio(TestPeer* peer) {
   peer->AddTransceiver(track);
 }
 
-void PeerConnectionE2EQualityTest::SetupCall() {
+void PeerConnectionE2EQualityTest::SetupCall(int64_t call_duration_ms) {
   // Connect peers.
   ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
   // Do the SDP negotiation, and also exchange ice candidates.
@@ -412,6 +427,9 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
+
+  call_start_time_ = clock_->TimeInMilliseconds();
+  call_stop_time_ = call_start_time_ + call_duration_ms;
 }
 
 void PeerConnectionE2EQualityTest::StartVideo(

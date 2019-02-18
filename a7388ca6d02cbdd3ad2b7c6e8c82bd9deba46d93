@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc2d141e_ec8a4d9a",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T16:31:40Z",
+      "side": 1,
+      "message": "checked_cast?",
+      "range": {
+        "startLine": 199,
+        "startChar": 12,
+        "endLine": 199,
+        "endChar": 23
+      },
+      "revId": "a7388ca6d02cbdd3ad2b7c6e8c82bd9deba46d93",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

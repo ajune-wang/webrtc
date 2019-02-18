@@ -35,6 +35,7 @@ class RateLimiter;
 class ReceiveStatisticsProvider;
 class RemoteBitrateEstimator;
 class RtcEventLog;
+class RTPSender;
 class Transport;
 class VideoBitrateAllocationObserver;
 
@@ -248,6 +249,8 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
   // or extension/
   virtual uint32_t PacketizationOverheadBps() const = 0;
 
+  virtual RTPSender* rtp_sender() = 0;
+
   // Used by the codec module to deliver a video or audio frame for
   // packetization.
   // |frame_type|    - type of frame to send
@@ -268,6 +271,13 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
                                 const RTPFragmentationHeader* fragmentation,
                                 const RTPVideoHeader* rtp_video_header,
                                 uint32_t* transport_frame_id_out) = 0;
+
+  // Record that a frame is about to be sent. Returns true on success, and false
+  // if the module isn't ready to send.
+  virtual bool OnSendingRtpFrame(uint32_t timestamp,
+                                 int64_t capture_time_ms,
+                                 int payload_type,
+                                 bool force_sender_report) = 0;
 
   virtual bool TimeToSendPacket(uint32_t ssrc,
                                 uint16_t sequence_number,
@@ -325,6 +335,9 @@ class RtpRtcp : public Module, public RtcpFeedbackSenderInterface {
                       int64_t* avg_rtt,
                       int64_t* min_rtt,
                       int64_t* max_rtt) const = 0;
+
+  // Returns the estimated RTT, with fallback to a default value.
+  virtual int64_t ExpectedRetransmissionTimeMs() const = 0;
 
   // Forces a send of a RTCP packet. Periodic SR and RR are triggered via the
   // process function.

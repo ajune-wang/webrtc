@@ -98,6 +98,7 @@ class MockRtpRtcp : public RtpRtcp {
                     const RTPFragmentationHeader* fragmentation,
                     const RTPVideoHeader* rtp_video_header,
                     uint32_t* frame_id_out));
+  MOCK_METHOD4(OnSendingRtpFrame, bool(uint32_t, int64_t, int, bool));
   MOCK_METHOD5(TimeToSendPacket,
                bool(uint32_t ssrc,
                     uint16_t sequence_number,
@@ -130,6 +131,7 @@ class MockRtpRtcp : public RtpRtcp {
                              int64_t* avg_rtt,
                              int64_t* min_rtt,
                              int64_t* max_rtt));
+  MOCK_CONST_METHOD0(ExpectedRetransmissionTimeMs, int64_t());
   MOCK_METHOD1(SendRTCP, int32_t(RTCPPacketType packet_type));
   MOCK_METHOD1(SendCompoundRTCP,
                int32_t(const std::set<RTCPPacketType>& packet_types));
@@ -178,6 +180,8 @@ class MockRtpRtcp : public RtpRtcp {
   MOCK_CONST_METHOD0(GetSendChannelRtpStatisticsCallback,
                      StreamDataCountersCallback*(void));
   MOCK_METHOD1(SetVideoBitrateAllocation, void(const VideoBitrateAllocation&));
+  MOCK_METHOD0(rtp_sender, RTPSender*());
+
   // Members.
   unsigned int remote_ssrc_;
 

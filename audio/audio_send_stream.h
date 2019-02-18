@@ -125,6 +125,11 @@ class AudioSendStream final : public webrtc::AudioSendStream,
                                 double bitrate_priority);
   void RemoveBitrateObserver();
 
+  static bool AllocationRangeConfigured(const Config& config);
+  static bool ShouldIncludeInBitrateAllocation(
+      const AudioAllocationSettings& settings,
+      const Config& config);
+
   // Sets per-packet overhead on encoded (for ANA) based on current known values
   // of transport and packetization overheads.
   void UpdateOverheadForEncoder()

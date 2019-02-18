@@ -980,7 +980,7 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         config_.send_codec_spec &&
         absl::EqualsIgnoreCase(config_.send_codec_spec->format.name,
                                kOpusCodecName);
-    if (is_opus && allocation_settings_.ConfigureRateAllocationRange()) {
+    if (is_opus) {
       config_.min_bitrate_bps = allocation_settings_.MinBitrateBps();
       config_.max_bitrate_bps = allocation_settings_.MaxBitrateBps(
           rtp_parameters_.encodings[0].max_bitrate_bps);

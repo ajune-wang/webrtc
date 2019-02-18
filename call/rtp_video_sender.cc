@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
@@ -31,13 +32,15 @@
 namespace webrtc {
 
 namespace {
-static const int kMinSendSidePacketHistorySize = 600;
+constexpr int kMinSendSidePacketHistorySize = 600;
 // Assume an average video stream has around 3 packets per frame (1 mbps / 30
 // fps / 1400B) A sequence number set with size 5500 will be able to store
 // packet sequence number for at least last 60 seconds.
-static const int kSendSideSeqNumSetMaxSize = 5500;
+constexpr int kSendSideSeqNumSetMaxSize = 5500;
 // We don't do MTU discovery, so assume that we have the standard ethernet MTU.
-static const size_t kPathMTU = 1500;
+constexpr size_t kPathMTU = 1500;
+
+constexpr int64_t kDefaultExpectedRetransmissionTimeMs = 125;
 
 std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     const RtpConfig& rtp_config,
@@ -103,6 +106,21 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     modules.push_back(std::move(rtp_rtcp));
   }
   return modules;
+}
+
+std::vector<std::unique_ptr<RTPSenderVideo>> CreateRtpPayloadSenders(
+    const std::vector<std::unique_ptr<RtpRtcp>>& modules,
+    FlexfecSender* flexfec_sender,
+    FrameEncryptorInterface* frame_encryptor,
+    const CryptoOptions& crypto_options) {
+  RTC_DCHECK_GT(modules.size(), 0);
+  std::vector<std::unique_ptr<RTPSenderVideo>> senders;
+  for (auto& rtp_rtcp : modules) {
+    senders.push_back(absl::make_unique<RTPSenderVideo>(
+        Clock::GetRealTimeClock(), rtp_rtcp->rtp_sender(), flexfec_sender,
+        frame_encryptor, crypto_options.sframe.require_frame_encryption));
+  }
+  return senders;
 }
 
 bool PayloadTypeSupportsSkippingFecPackets(const std::string& payload_name) {
@@ -216,6 +234,10 @@ RtpVideoSender::RtpVideoSender(
                                         transport->keepalive_config(),
                                         frame_encryptor,
                                         crypto_options)),
+      rtp_payload_senders_(CreateRtpPayloadSenders(rtp_modules_,
+                                                   flexfec_sender_.get(),
+                                                   frame_encryptor,
+                                                   crypto_options)),
       rtp_config_(rtp_config),
       transport_(transport),
       transport_overhead_bytes_per_packet_(0),
@@ -369,16 +391,25 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
       encoded_image, codec_specific_info, shared_frame_id_);
 
   uint32_t frame_id;
-  if (!rtp_modules_[stream_index]->Sending()) {
+  if (!rtp_modules_[stream_index]->OnSendingRtpFrame(
+          encoded_image.Timestamp(), encoded_image.capture_time_ms_,
+          rtp_config_.payload_type,
+          encoded_image._frameType == kVideoFrameKey)) {
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
+  int64_t expected_retransmission_time_ms =
+      kDefaultExpectedRetransmissionTimeMs;
+  rtp_modules_[stream_index]->RTT(&expected_retransmission_time_ms, nullptr,
+                                  nullptr, nullptr);
+
+  bool send_result = rtp_payload_senders_[stream_index]->SendVideo(
       encoded_image._frameType, rtp_config_.payload_type,
       encoded_image.Timestamp(), encoded_image.capture_time_ms_,
       encoded_image.data(), encoded_image.size(), fragmentation,
-      &rtp_video_header, &frame_id);
-
+      &rtp_video_header, expected_retransmission_time_ms);
+  frame_id =
+      encoded_image.Timestamp() + rtp_modules_[stream_index]->StartTimestamp();
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[stream_index];
     if (encoded_image._frameType == kVideoFrameKey) {

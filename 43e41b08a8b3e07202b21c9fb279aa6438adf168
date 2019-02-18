@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "8ba0338e_c63e61eb",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T16:28:33Z",
+      "side": 1,
+      "message": "Use a default member initializer instead? That way, the init value and the variable declaration occur together, which makes things easier to read.",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "884ffe84_41ba7e7c",
         "filename": "pc/data_channel.cc",
         "patchSetId": 1
@@ -33,6 +50,41 @@
       "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c29fb25b_5e79b375",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T16:28:33Z",
+      "side": 1,
+      "message": "Yeah, this looks strange...",
+      "parentUuid": "5531aee4_130b8fbb",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1456853_c4a7c327",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T16:28:33Z",
+      "side": 1,
+      "message": "Can you use int64_t instead? Signed types are generally a better choice, and the style guide prefers them: https://google.github.io/styleguide/cppguide.html#Integer_Types\n\nAlso, this would be a good place for a comment describing what the new variable means. (You can essentially cut and paste from your commit message.)",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

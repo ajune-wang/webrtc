@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a743f383_7fc95f3f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-18T09:29:25Z",
+      "side": 1,
+      "message": "We should sleep min from remaining time and kStatsUpdateInterval.",
+      "range": {
+        "startLine": 201,
+        "startChar": 15,
+        "endLine": 201,
+        "endChar": 40
+      },
+      "revId": "f51f6585cb892fe222c347d9d53caeea319bdb9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd1ad355_e327a268",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-18T09:29:25Z",
+      "side": 1,
+      "message": "Why we need it as global state? I think having it in the Run() as local var will be enough. Especially when run function will be added. Also in such case we needn\u0027t call_duration_ms here.",
+      "range": {
+        "startLine": 432,
+        "startChar": 2,
+        "endLine": 432,
+        "endChar": 17
+      },
+      "revId": "f51f6585cb892fe222c347d9d53caeea319bdb9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e3c4b53_ee6e4078",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-18T09:29:25Z",
+      "side": 1,
+      "message": "Let\u0027s use Timestamp here and next.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 9
+      },
+      "revId": "f51f6585cb892fe222c347d9d53caeea319bdb9b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

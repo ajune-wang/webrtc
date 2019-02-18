@@ -240,7 +240,8 @@ class TestVideoSenderWithMockEncoder : public TestVideoSender {
   void ExpectEncodeWithFrameTypes(int intra_request_stream, bool first_frame) {
     if (intra_request_stream == -1) {
       // No intra request expected, keyframes on first frame.
-      FrameType frame_type = first_frame ? kVideoFrameKey : kVideoFrameDelta;
+      VideoFrameType frame_type =
+          first_frame ? kVideoFrameKey : kVideoFrameDelta;
       EXPECT_CALL(
           encoder_,
           Encode(_, _,
@@ -252,7 +253,7 @@ class TestVideoSenderWithMockEncoder : public TestVideoSender {
     ASSERT_FALSE(first_frame);
     ASSERT_GE(intra_request_stream, 0);
     ASSERT_LT(intra_request_stream, kNumberOfStreams);
-    std::vector<FrameType> frame_types(kNumberOfStreams, kVideoFrameDelta);
+    std::vector<VideoFrameType> frame_types(kNumberOfStreams, kVideoFrameDelta);
     frame_types[intra_request_stream] = kVideoFrameKey;
     EXPECT_CALL(
         encoder_,

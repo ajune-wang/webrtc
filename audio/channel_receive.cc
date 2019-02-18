@@ -57,7 +57,7 @@ constexpr double kAudioSampleDurationSeconds = 0.01;
 constexpr int kVoiceEngineMinMinPlayoutDelayMs = 0;
 constexpr int kVoiceEngineMaxMinPlayoutDelayMs = 10000;
 
-webrtc::FrameType WebrtcFrameTypeForMediaTransportFrameType(
+webrtc::AudioFrameType WebrtcFrameTypeForMediaTransportFrameType(
     MediaTransportEncodedAudioFrame::FrameType frame_type) {
   switch (frame_type) {
     case MediaTransportEncodedAudioFrame::FrameType::kSpeech:

@@ -339,7 +339,7 @@ int SimulcastEncoderAdapter::InitEncode(const VideoCodec* inst,
 int SimulcastEncoderAdapter::Encode(
     const VideoFrame& input_image,
     const CodecSpecificInfo* codec_specific_info,
-    const std::vector<FrameType>* frame_types) {
+    const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&encoder_queue_);
 
   if (!Initialized()) {
@@ -376,7 +376,7 @@ int SimulcastEncoderAdapter::Encode(
       continue;
     }
 
-    std::vector<FrameType> stream_frame_types;
+    std::vector<VideoFrameType> stream_frame_types;
     if (send_key_frame) {
       stream_frame_types.push_back(kVideoFrameKey);
       streaminfos_[stream_idx].key_frame_request = false;

@@ -693,7 +693,7 @@ uint32_t LibvpxVp8Encoder::FrameDropThreshold(size_t spatial_idx) const {
 
 int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
                              const CodecSpecificInfo* codec_specific_info,
-                             const std::vector<FrameType>* frame_types) {
+                             const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_EQ(frame.width(), codec_.width);
   RTC_DCHECK_EQ(frame.height(), codec_.height);
 

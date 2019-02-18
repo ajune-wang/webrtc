@@ -35,6 +35,7 @@ constexpr ExtensionInfo kExtensions[] = {
     CreateExtensionInfo<AbsoluteSendTime>(),
     CreateExtensionInfo<VideoOrientation>(),
     CreateExtensionInfo<TransportSequenceNumber>(),
+    CreateExtensionInfo<TransportSequenceNumberV2>(),
     CreateExtensionInfo<PlayoutDelayLimits>(),
     CreateExtensionInfo<VideoContentTypeExtension>(),
     CreateExtensionInfo<VideoTimingExtension>(),
@@ -47,9 +48,11 @@ constexpr ExtensionInfo kExtensions[] = {
 };
 
 // Because of kRtpExtensionNone, NumberOfExtension is 1 bigger than the actual
-// number of known extensions.
+// number of known extensions. However, TransportSequenceNumber and
+// TransportSequenceNumberV2 use the same identifier hence the +1 which gives
+// equality in the end.
 static_assert(arraysize(kExtensions) ==
-                  static_cast<int>(kRtpExtensionNumberOfExtensions) - 1,
+                  static_cast<int>(kRtpExtensionNumberOfExtensions) - 1 + 1,
               "kExtensions expect to list all known extensions");
 
 }  // namespace

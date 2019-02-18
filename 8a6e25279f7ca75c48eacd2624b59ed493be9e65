@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f165257_d10c23ed",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-18T15:27:42Z",
+      "side": 1,
+      "message": "Is it strictly needed to do this check, or could we just log the values always? If it\u0027s possible I would really prefer that. (considering it\u0027s still LS_VERBOSE)",
+      "range": {
+        "startLine": 189,
+        "startChar": 6,
+        "endLine": 189,
+        "endChar": 45
+      },
+      "revId": "8a6e25279f7ca75c48eacd2624b59ed493be9e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

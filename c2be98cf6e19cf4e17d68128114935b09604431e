@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b252f8c5_05cb2b41",
+        "filename": "rtc_base/event.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T12:02:23Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem unreasonable to round to the nearest millisecond, if that\u0027s the supported granularity (which seems reasonable, since we might sleep). But perhaps document it better---or move this very readable definition to the header file?",
+      "parentUuid": "0a875149_c8c8dbe6",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 1
+      },
+      "revId": "c2be98cf6e19cf4e17d68128114935b09604431e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "69106986_5f4f6b51",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 2
@@ -42,6 +66,23 @@
         "endLine": 202,
         "endChar": 30
       },
+      "revId": "c2be98cf6e19cf4e17d68128114935b09604431e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138d0bed_47fe0201",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-18T12:02:23Z",
+      "side": 1,
+      "message": "Don\u0027t introduce the loop until the CL where it\u0027s needed? Or is there a good reason to do it now?",
       "revId": "c2be98cf6e19cf4e17d68128114935b09604431e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

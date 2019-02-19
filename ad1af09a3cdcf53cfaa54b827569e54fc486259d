@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb105ef0_286c76be",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T14:34:40Z",
+      "side": 1,
+      "message": "Isn\u0027t it a little too big? something like 1\u003c\u003c32 would be easier to debug also, as values wouldn\u0027t be so astronomical.",
+      "range": {
+        "startLine": 100,
+        "startChar": 57,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acdbeab4_47f101fb",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T14:34:40Z",
+      "side": 1,
+      "message": "Please take here least significant bits of start_at (static_cast\u003c\u003e) or add a comment that start_at should be multiple of periods.\n\nOtherwise some unlucky start_at and first values combination may result in an incorrect behavior.",
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

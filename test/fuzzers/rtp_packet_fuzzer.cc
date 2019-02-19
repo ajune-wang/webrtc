@@ -85,6 +85,13 @@ void FuzzOneInput(const uint8_t* data, size_t size) {
         uint16_t seqnum;
         packet.GetExtension<TransportSequenceNumber>(&seqnum);
         break;
+      case kRtpExtensionTransportSequenceNumberV2: {
+        uint16_t seqnum;
+        FeedbackRequest feedback_request;
+        packet.GetExtension<TransportSequenceNumberV2>(&seqnum,
+                                                       &feedback_request);
+        break;
+      }
       case kRtpExtensionPlayoutDelay:
         PlayoutDelay playout;
         packet.GetExtension<PlayoutDelayLimits>(&playout);

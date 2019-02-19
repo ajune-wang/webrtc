@@ -68,6 +68,7 @@ class PeerConnectionE2EQualityTest
       const VideoConfig& video_config);
   void AddAudio(TestPeer* peer);
   void SetupCall();
+  void ExchangeOfferAnswer();
   void StartVideo(
       const std::vector<
           rtc::scoped_refptr<FrameGeneratorCapturerVideoTrackSource>>& sources);

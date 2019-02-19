@@ -20,6 +20,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "pc/sdp_utils.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
@@ -411,7 +412,7 @@ void PeerConnectionE2EQualityTest::AddAudio(TestPeer* peer) {
 
 void PeerConnectionE2EQualityTest::SetupCall() {
   // Connect peers.
-  ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
+  ExchangeOfferAnswer();
   // Do the SDP negotiation, and also exchange ice candidates.
   ASSERT_EQ_WAIT(alice_->signaling_state(), PeerConnectionInterface::kStable,
                  kDefaultTimeoutMs);
@@ -424,6 +425,26 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
+}
+
+void PeerConnectionE2EQualityTest::ExchangeOfferAnswer() {
+  std::string error_message;
+  auto offer = alice_->CreatePatchedOffer();
+  ASSERT_TRUE(offer);
+  bool set_local_offer = alice_->SetLocalDescription(
+      CloneSessionDescription(offer.get()), &error_message);
+  ASSERT_TRUE(set_local_offer) << error_message;
+  bool set_remote_offer =
+      bob_->SetRemoteDescription(std::move(offer), &error_message);
+  ASSERT_TRUE(set_remote_offer) << error_message;
+  auto answer = bob_->CreatePatchedAnswer();
+  ASSERT_TRUE(answer);
+  bool set_local_answer = bob_->SetLocalDescription(
+      CloneSessionDescription(answer.get()), &error_message);
+  ASSERT_TRUE(set_local_answer) << error_message;
+  bool set_remote_answer =
+      alice_->SetRemoteDescription(std::move(answer), &error_message);
+  ASSERT_TRUE(set_remote_answer) << error_message;
 }
 
 void PeerConnectionE2EQualityTest::StartVideo(

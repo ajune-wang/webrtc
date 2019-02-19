@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0aaf1ca0_8af724d5",
+        "filename": "test/pc/e2e/analyzer/audio/audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Make AudioQualityAnalyzerInterface implement StatsObserverInterface instead of using multiple inheritance.",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cead6c8b_ee751b47",
+        "filename": "test/pc/e2e/api/stats_observer_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Add inheritance on this for VideoQualityAnalyzer (with do nothing impl) and add a TODO in the default video quality analyzer to provide a real impl.",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9036dfe_915c9165",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Remove Analyzers structure in a separate CL.",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72843963_ea0239bf",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "It could be nullptr.",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 66
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f05306e_8a4c054c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Add VideoQualityAnalyzer here as well.",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 73
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a57e9529_4b29fb43",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "stats_poller",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 16
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d52cf4a_89807222",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "remaining_time",
+      "range": {
+        "startLine": 212,
+        "startChar": 14,
+        "endLine": 212,
+        "endChar": 27
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4732b1_fa10e2f5",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Call before sleep in order to avoid two back to back calls.",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 37
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ff36a8c_022cf25a",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-19T14:54:23Z",
+      "side": 1,
+      "message": "Use a map, because the label needs to be unique.",
+      "range": {
+        "startLine": 50,
+        "startChar": 14,
+        "endLine": 50,
+        "endChar": 60
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -126,12 +126,12 @@ class VCMGenericEncoder {
                      size_t max_payload_size);
   int32_t Encode(const VideoFrame& frame,
                  const CodecSpecificInfo* codec_specific,
-                 const std::vector<FrameType>& frame_types);
+                 const std::vector<VideoFrameType>& frame_types);
 
   void SetEncoderParameters(const VideoBitrateAllocation& target_bitrate,
                             uint32_t input_frame_rate);
 
-  int32_t RequestFrame(const std::vector<FrameType>& frame_types);
+  int32_t RequestFrame(const std::vector<VideoFrameType>& frame_types);
   bool InternalSource() const;
   VideoEncoder::EncoderInfo GetEncoderInfo() const;
 

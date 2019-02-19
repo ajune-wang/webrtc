@@ -139,7 +139,7 @@ class ModuleRtpRtcpImpl : public RtpRtcp, public RTCPReceiver::ModuleRtpRtcp {
 
   // Used by the codec module to deliver a video or audio frame for
   // packetization.
-  bool SendOutgoingData(FrameType frame_type,
+  bool SendOutgoingData(FrameTypeDeprecated frame_type,
                         int8_t payload_type,
                         uint32_t time_stamp,
                         int64_t capture_time_ms,

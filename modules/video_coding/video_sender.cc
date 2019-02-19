@@ -164,7 +164,7 @@ int32_t VideoSender::AddVideoFrame(
     const VideoFrame& videoFrame,
     const CodecSpecificInfo* codecSpecificInfo,
     absl::optional<VideoEncoder::EncoderInfo> encoder_info) {
-  std::vector<FrameType> next_frame_types;
+  std::vector<VideoFrameType> next_frame_types;
   bool encoder_has_internal_source = false;
   {
     rtc::CritScope lock(&params_crit_);

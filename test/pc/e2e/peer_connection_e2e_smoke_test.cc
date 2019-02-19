@@ -16,6 +16,7 @@
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/fake_network.h"
 #include "test/gtest.h"
+#include "test/pc/e2e/analyzer/audio/audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
 #include "test/pc/e2e/api/create_peerconnection_quality_test_fixture.h"
 #include "test/pc/e2e/api/peerconnection_quality_test_fixture.h"
@@ -104,6 +105,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
       absl::make_unique<DefaultVideoQualityAnalyzer>("smoke_test");
   auto* video_analyzer = static_cast<DefaultVideoQualityAnalyzer*>(
       analyzers->video_quality_analyzer.get());
+  analyzers->audio_quality_analyzer = absl::make_unique<AudioQualityAnalyzer>();
 
   auto fixture =
       CreatePeerConnectionE2EQualityTestFixture(std::move(analyzers));

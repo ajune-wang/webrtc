@@ -20,6 +20,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
@@ -27,6 +28,7 @@
 #include "system_wrappers/include/cpu_info.h"
 #include "test/pc/e2e/analyzer/video/example_video_quality_analyzer.h"
 #include "test/pc/e2e/api/video_quality_analyzer_interface.h"
+#include "test/pc/e2e/stats_poller.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
@@ -43,6 +45,8 @@ constexpr int kPeerConnectionUsedThreads = 7;
 // connection stats polling.
 constexpr int kFrameworkUsedThreads = 2;
 constexpr int kMaxVideoAnalyzerThreads = 8;
+
+constexpr TimeDelta kStatsUpdateInterval = TimeDelta::Seconds<1>();
 
 std::string VideoConfigSourcePresenceToString(const VideoConfig& video_config) {
   char buf[1024];
@@ -111,6 +115,7 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
           std::move(analyzers->video_quality_analyzer),
           encoded_image_id_controller_.get(),
           encoded_image_id_controller_.get());
+  audio_quality_analyzer_.swap(analyzers->audio_quality_analyzer);
 }
 
 void PeerConnectionE2EQualityTest::Run(
@@ -194,10 +199,24 @@ void PeerConnectionE2EQualityTest::Run(
       rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
                 this));
 
-  // TODO(bugs.webrtc.org/10138): Implement stats collection and send stats
-  // reports to analyzers every 1 second.
-  rtc::Event done;
-  done.Wait(rtc::checked_cast<int>(run_params.run_duration.ms()));
+  std::vector<StatsObserverInterface*> observers;
+  observers.push_back(
+      static_cast<AudioQualityAnalyzer*>(audio_quality_analyzer_.get()));
+  StatsPoller sp(observers, {std::make_pair("alice", alice_.get()),
+                             std::make_pair("bob", bob_.get())});
+
+  Timestamp call_stop_time =
+      Timestamp::ms(clock_->TimeInMilliseconds()) + run_params.run_duration;
+  Timestamp now = Timestamp::ms(clock_->TimeInMilliseconds());
+  while (now < call_stop_time) {
+    TimeDelta remainingTime = call_stop_time - now;
+    rtc::Event sleep;
+    sleep.Wait(rtc::checked_cast<int>(
+        std::min(remainingTime, kStatsUpdateInterval).ms()));
+    sp.PollStatsAndNotifyObservers();
+    now = Timestamp::ms(clock_->TimeInMilliseconds());
+  }
+  sp.PollStatsAndNotifyObservers();
 
   signaling_thread->Invoke<void>(
       RTC_FROM_HERE,

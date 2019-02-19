@@ -474,6 +474,30 @@
     },
     {
       "key": {
+        "uuid": "dd2f5217_07ed24d3",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-19T15:37:36Z",
+      "side": 1,
+      "message": "CreateMaxExtensionSize() uses kMaxValueSizeBytes, this code uses kMaxSizeBytes.\nIf you believe this to be an OK change nevertheless, perhaps you could introduce it in a separate CL?",
+      "parentUuid": "44cae473_9494da3b",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 83,
+        "endChar": 57
+      },
+      "revId": "ce051a01e2d3221aacf82728985ad0c705a9ce05",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c15965f7_06678653",
         "filename": "modules/rtp_rtcp/source/rtp_sender_unittest.cc",
         "patchSetId": 8

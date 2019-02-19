@@ -489,8 +489,9 @@ TEST_P(RtpSenderTestWithoutPacer, OnSendSideDelayUpdated) {
       nullptr, nullptr, &send_side_delay_observer_, &mock_rtc_event_log_,
       nullptr, nullptr, nullptr, false, nullptr, false, false));
   rtp_sender_->SetSSRC(kSsrc);
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
-                                  nullptr, false);
+                                  &playout_delay_oracle, nullptr, false);
 
   const uint8_t kPayloadType = 127;
   const char payload_name[] = "GENERIC";
@@ -1053,8 +1054,9 @@ TEST_P(RtpSenderTest, SendRedundantPayloads) {
 TEST_P(RtpSenderTestWithoutPacer, SendGenericVideo) {
   const char payload_name[] = "GENERIC";
   const uint8_t payload_type = 127;
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
-                                  nullptr, false);
+                                  &playout_delay_oracle, nullptr, false);
   rtp_sender_video.RegisterPayloadType(payload_type, payload_name);
   uint8_t payload[] = {47, 11, 32, 93, 89};
 
@@ -1108,8 +1110,10 @@ TEST_P(RtpSenderTest, SendFlexfecPackets) {
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetStorePacketsStatus(true, 10);
 
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(),
-                                  &flexfec_sender, nullptr, false);
+                                  &flexfec_sender, &playout_delay_oracle,
+                                  nullptr, false);
   rtp_sender_video.RegisterPayloadType(kMediaPayloadType, "GENERIC");
 
   // Parameters selected to generate a single FEC packet per media packet.
@@ -1179,8 +1183,10 @@ TEST_P(RtpSenderTest, NoFlexfecForTimingFrames) {
   rtp_sender_->SetSequenceNumber(kSeqNum);
   rtp_sender_->SetStorePacketsStatus(true, 10);
 
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(),
-                                  &flexfec_sender, nullptr, false);
+                                  &flexfec_sender, &playout_delay_oracle,
+                                  nullptr, false);
   rtp_sender_video.RegisterPayloadType(kMediaPayloadType, "GENERIC");
 
   // Need extension to be registered for timing frames to be sent.
@@ -1275,8 +1281,10 @@ TEST_P(RtpSenderTestWithoutPacer, SendFlexfecPackets) {
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
 
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(),
-                                  &flexfec_sender, nullptr, false);
+                                  &flexfec_sender, &playout_delay_oracle,
+                                  nullptr, false);
   rtp_sender_video.RegisterPayloadType(kMediaPayloadType, "GENERIC");
 
   // Parameters selected to generate a single FEC packet per media packet.
@@ -1402,8 +1410,10 @@ TEST_P(RtpSenderTest, FecOverheadRate) {
   rtp_sender_->SetSSRC(kMediaSsrc);
   rtp_sender_->SetSequenceNumber(kSeqNum);
 
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(),
-                                  &flexfec_sender, nullptr, false);
+                                  &flexfec_sender, &playout_delay_oracle,
+                                  nullptr, false);
   rtp_sender_video.RegisterPayloadType(kMediaPayloadType, "GENERIC");
   // Parameters selected to generate a single FEC packet per media packet.
   FecProtectionParams params;
@@ -1469,8 +1479,9 @@ TEST_P(RtpSenderTest, BitrateCallbacks) {
       &retransmission_rate_limiter_, nullptr, false, nullptr, false, false));
   rtp_sender_->SetSSRC(kSsrc);
 
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
-                                  nullptr, false);
+                                  &playout_delay_oracle, nullptr, false);
   const char payload_name[] = "GENERIC";
   const uint8_t payload_type = 127;
   rtp_sender_video.RegisterPayloadType(payload_type, payload_name);
@@ -1554,8 +1565,9 @@ TEST_P(RtpSenderTestWithoutPacer, StreamDataCountersCallbacks) {
   const uint8_t kUlpfecPayloadType = 97;
   const char payload_name[] = "GENERIC";
   const uint8_t payload_type = 127;
+  PlayoutDelayOracle playout_delay_oracle;
   RTPSenderVideo rtp_sender_video(&fake_clock_, rtp_sender_.get(), nullptr,
-                                  nullptr, false);
+                                  &playout_delay_oracle, nullptr, false);
   rtp_sender_video.RegisterPayloadType(payload_type, payload_name);
   uint8_t payload[] = {47, 11, 32, 93, 89};
   rtp_sender_->SetStorePacketsStatus(true, 1);

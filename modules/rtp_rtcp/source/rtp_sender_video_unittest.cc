@@ -91,7 +91,12 @@ class TestRtpSenderVideo : public RTPSenderVideo {
   TestRtpSenderVideo(Clock* clock,
                      RTPSender* rtp_sender,
                      FlexfecSender* flexfec_sender)
-      : RTPSenderVideo(clock, rtp_sender, flexfec_sender, nullptr, false) {}
+      : RTPSenderVideo(clock,
+                       rtp_sender,
+                       flexfec_sender,
+                       &playout_delay_oracle_,
+                       nullptr,
+                       false) {}
   ~TestRtpSenderVideo() override {}
 
   StorageType GetStorageType(const RTPVideoHeader& header,
@@ -101,6 +106,7 @@ class TestRtpSenderVideo : public RTPSenderVideo {
                                           retransmission_settings,
                                           expected_retransmission_time_ms);
   }
+  PlayoutDelayOracle playout_delay_oracle_;
 };
 
 class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {

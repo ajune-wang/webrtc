@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91899f38_583a1340",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-19T14:18:52Z",
+      "side": 0,
+      "message": "I think this is the change in behavior. It looks like the old code adds TimestampOffset() to the rtp timestamps attached to the outgoing rtp packets, but *not* to the timestamps passed to  rtcp_sender_.SetLastRtpTime. The reason seems to be that RTCPSender::BuildSR also applies the offset.",
+      "range": {
+        "startLine": 459,
+        "startChar": 2,
+        "endLine": 459,
+        "endChar": 77
+      },
+      "revId": "054db54ec47cf7a9bf9ca56d0b8c6adde2db19f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

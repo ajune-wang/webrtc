@@ -45,6 +45,30 @@
       "revId": "8cbe57d2466bf29cc2015853fe72fc84aecbd63c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e9af1c4_071106b8",
+        "filename": "test/pc/e2e/sdp/sdp_changer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T12:59:13Z",
+      "side": 1,
+      "message": "Typo, I meant \"raname to munged/patched\"",
+      "parentUuid": "eb1f0b42_656add59",
+      "range": {
+        "startLine": 170,
+        "startChar": 47,
+        "endLine": 170,
+        "endChar": 57
+      },
+      "revId": "8cbe57d2466bf29cc2015853fe72fc84aecbd63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

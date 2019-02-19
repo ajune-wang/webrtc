@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3245c2c6_31bc8253",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "Remove this handler.\n\nYou don\u0027t need any default if you handle all possible values. This has the nice benefit that the compiler will complain if someone adds a new family that is not handled here.",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 13
+      },
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2790c98_468bb1ab",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "IpAddressFamily { kIpv4, kIpv6 } (Also IP-\u003eIp in all other places in the CL)\n\nTo avoid name collisions, put this into the config struct.",
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298aad6b_678d68af",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "EndpointConfig",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 20
+      },
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f4c9132_32f2863b",
+        "filename": "test/scenario/network/network_emulation_manager.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "I suggest:\nIpAddressFamily generated_ip_family \u003d IPAddressFamily::Ipv4;\n\nThat way you don\u0027t need to document that the default is IPv4, it\u0027s obvious from the code. It makes sense that the generated IP is not used if an explicit IP is set.",
+      "range": {
+        "startLine": 49,
+        "startChar": 17,
+        "endLine": 49,
+        "endChar": 43
+      },
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa03b696_035c48a8",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "GeneratedIpv4AddressDoesNotCollide?",
+      "range": {
+        "startLine": 60,
+        "startChar": 34,
+        "endLine": 60,
+        "endChar": 55
+      },
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9efbe0e8_e28ed568",
+        "filename": "test/scenario/network/network_emulation_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:26:20Z",
+      "side": 1,
+      "message": "this value seems to be based on the code as it stands rather than on some particular requirement that we should support exactly this amount.  It\u0027s close to a \"change detector test\": https://drive.google.com/file/d/1uhYBiXDJDcMp5a2f2pt4YJLYgYCwSUmJ/view\n\nInstead, test for some reasonable upper use case bound. Something like 1000 ips maybe?",
+      "range": {
+        "startLine": 65,
+        "startChar": 22,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "a594779f56f621eb915238fe0cfa28723030014d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

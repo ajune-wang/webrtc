@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "984beb9e_032eaf5c",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "may be make it consistent with this upcoming change:\nhttps://webrtc-review.googlesource.com/c/src/+/122241/9/modules/rtp_rtcp/include/rtp_rtcp_defines.h\n\ni.e. write\n  kRtpExtensionTransportSequenceNumber01,\n  kRtpExtensionTransportSequenceNumber \u003d kRtpExtensionTransportSequenceNumber01,\n  kRtpExtensionTransportSequenceNumber02,\n\nor convince Elad to use V0 and V1 in his change.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 41
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e888f0ed_f3ebfa1c",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "this seems like overkill of reusing code (this Parse can never return false since just above size is checked)\n\nMay be just copy one line:\n*transport_sequence_number \u003d ByteReader\u003cuint16_t\u003e::ReadBigEndian(data.data());",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 0
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdce5820_6156fb74",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "May be assign instead of calling reset for better symmetry with 2 lines above:\n*feedback_request \u003d absl::nullopt;",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 30
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d77a1a7_13abb4ca",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "same as with Read:\ncopy pasting single line might be clear than calling it.",
+      "range": {
+        "startLine": 208,
+        "startChar": 2,
+        "endLine": 210,
+        "endChar": 33
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a417077_7418ffd7",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "comparing value to a bit looks strange.\nwould it make more sense to do same compare differently:\nRTC_DCHECK_EQ(feedback_request-\u003esequence_count \u0026 kIncludeTimestampsBit, 0);",
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c32e58e_f3458a5d",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "do not remove parameter name",
+      "range": {
+        "startLine": 86,
+        "startChar": 33,
+        "endLine": 86,
+        "endChar": 35
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6a94a37_3ca4945c",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "why this constant is public?",
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc606bf1_551237a1",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "do not omit parameter name, instead comment it out:\nuint16_t /* transport_sequence_number */,\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Declarations_and_Definitions\n\"Unused parameters that might not be obvious should comment out the variable name in the function definition\"",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbc34a7f_5ab626ae",
+        "filename": "modules/rtp_rtcp/source/rtp_header_extensions.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "remove this const\nhttps://abseil.io/tips/109",
+      "range": {
+        "startLine": 110,
+        "startChar": 20,
+        "endLine": 110,
+        "endChar": 26
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca371a13_20b488b6",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "it seems previous tests already switched to more natural \nEXPECT_EQ(value, constant).\nI would recommend follow that order in these new tests too",
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e21e3bb4_ab9e86cd",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "why EXPECT_TRUE a constant?",
+      "range": {
+        "startLine": 881,
+        "startChar": 2,
+        "endLine": 881,
+        "endChar": 13
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da200013_a7f094f8",
+        "filename": "modules/rtp_rtcp/source/rtp_packet_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T11:28:48Z",
+      "side": 1,
+      "message": "ASSERT_TRUE\n(to avoid crashing test if that expectation fails)",
+      "range": {
+        "startLine": 882,
+        "startChar": 2,
+        "endLine": 882,
+        "endChar": 13
+      },
+      "revId": "ce138e5751156c0c3f2ced48daed992d09b49c35",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

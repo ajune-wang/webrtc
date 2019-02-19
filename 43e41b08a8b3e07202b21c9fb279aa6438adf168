@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e75ff09_368af65c",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-19T22:02:24Z",
+      "side": 1,
+      "message": "I think it\u0027s more readable to initialize it this way, to be consistent with the rest of the code.",
+      "parentUuid": "8ba0338e_c63e61eb",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "884ffe84_41ba7e7c",
         "filename": "pc/data_channel.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-18T15:58:02Z",
       "side": 1,
       "message": "Note: Possible side-effect is that this can fire the event more often when multiple buffers are queued, but that is more correct. For example, in Chrome, JavaScript\u0027s thread and DataChannel\u0027s thread typically run in parallel.",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab0f85c0_5d078e1c",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-19T22:02:24Z",
+      "side": 1,
+      "message": "Yes exactly.",
+      "parentUuid": "884ffe84_41ba7e7c",
       "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -71,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "5396f558_20cecdd4",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-19T22:02:24Z",
+      "side": 1,
+      "message": "Indeed, looking also at the original CL introducing buffered amount[1] this looks like an oversight. I think it makes more sense to check start_buffered_amount + buffer.size(), I updated it.\n\n[1] https://codereview.webrtc.org/1207613006/patch/140001/150001",
+      "parentUuid": "c29fb25b_5e79b375",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c1456853_c4a7c327",
         "filename": "pc/data_channel.h",
         "patchSetId": 1
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "a32cff9a_cbbc93e2",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-19T22:02:24Z",
+      "side": 1,
+      "message": "No because the type needs to match the type specified in the standard in the DataChannel WebIDL interface[1]. This value is returned in DataChannel::buffered_amount() getter and DataChannelObserver::OnBufferedAmountChange().\n\nI added the comment.\n\n[1]https://w3c.github.io/webrtc-pc/#rtcdatachannel",
+      "parentUuid": "c1456853_c4a7c327",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68513e6f_92c903ad",
         "filename": "pc/data_channel_unittest.cc",
         "patchSetId": 1
@@ -102,6 +174,24 @@
       "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f4940a9_d22a41ba",
+        "filename": "pc/data_channel_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-19T22:02:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68513e6f_92c903ad",
+      "revId": "43e41b08a8b3e07202b21c9fb279aa6438adf168",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3df52528_507b1416",
+        "filename": "test/pc/e2e/sdp/sdp_changer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T12:58:33Z",
+      "side": 1,
+      "message": "It looks very suspicious. Why isn\u0027t it a standart 96 97 98 99? Why 98 and 97 are switched?",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "8cbe57d2466bf29cc2015853fe72fc84aecbd63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1f0b42_656add59",
+        "filename": "test/pc/e2e/sdp/sdp_changer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T12:58:33Z",
+      "side": 1,
+      "message": "Nit: remove munged/patched SDP here and in all other tests.",
+      "range": {
+        "startLine": 170,
+        "startChar": 47,
+        "endLine": 170,
+        "endChar": 57
+      },
+      "revId": "8cbe57d2466bf29cc2015853fe72fc84aecbd63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

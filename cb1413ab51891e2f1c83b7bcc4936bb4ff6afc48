@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db2645be_dcb33b7d",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-19T16:39:43Z",
+      "side": 1,
+      "message": "This one will never point into encoded_data_, right? Because that would be bad in combination with the COW...",
+      "revId": "cb1413ab51891e2f1c83b7bcc4936bb4ff6afc48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

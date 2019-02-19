@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5662fb17_6610c9b3",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T08:58:06Z",
+      "side": 1,
+      "message": "I don\u0027t get it, how is it simulcast? Where do you set several streams to be used?",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "191d81c6f535a5a55ba386c81ac2098872dc83f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

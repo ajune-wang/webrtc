@@ -263,6 +263,8 @@ public class MediaCodecVideoEncoder {
     return staticEglBase == null ? null : staticEglBase.getEglBaseContext();
   }
 
+  private final VideoFrameDrawer videoFrameDrawer = new VideoFrameDrawer();
+
   // List of supported HW VP8 encoders.
   private static final MediaCodecProperties qcomVp8HwProperties = new MediaCodecProperties(
       "OMX.qcom.", Build.VERSION_CODES.KITKAT, BitrateAdjustmentType.NO_ADJUSTMENT);
@@ -743,7 +745,7 @@ public class MediaCodecVideoEncoder {
         // TODO(perkj): glClear() shouldn't be necessary since every pixel is covered anyway,
         // but it's a workaround for bug webrtc:5147.
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        VideoFrameDrawer.drawTexture(drawer, textureBuffer, new Matrix() /* renderMatrix */, width,
+        videoFrameDrawer.drawTexture(drawer, textureBuffer, new Matrix() /* renderMatrix */, width,
             height, 0 /* viewportX */, 0 /* viewportY */, width, height);
         eglBase.swapBuffers(TimeUnit.MICROSECONDS.toNanos(presentationTimestampUs));
       } else {
@@ -838,6 +840,7 @@ public class MediaCodecVideoEncoder {
       inputSurface.release();
       inputSurface = null;
     }
+    videoFrameDrawer.release();
     runningInstance = null;
 
     if (stopHung) {

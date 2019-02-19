@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55f28fc7_5a1a6192",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "If anything is using the JsepTransport while it is being destroyed that is a race no matter what you do, locks or not. What does this lock achieve? I suspect you can remove it. IF it achieves anything, we have a problem.",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "976580f1_6741f91e",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "You\u0027re locking before calling SetLocalIceParameters(). Should SetLocalIceParameters() have a RTC_GUARDED_BY(accessor_lock_)?\n\nWhat about SetRemoteIceParameters()?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa942937_18421dd2",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "Why do we guard SetLocalIceParameters() but not SetRemoteIceParameters()?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69906861_0367c714",
+        "filename": "pc/jsep_transport.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "Why doesn\u0027t it complain about not having the lock here?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59222ef1_c31bde3f",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "Why no thread check?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7617167_e626fed8",
+        "filename": "pc/jsep_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-19T12:07:00Z",
+      "side": 1,
+      "message": "Should rtp_dtls_transport_ also be guarded? By the network thread or the lock?",
+      "revId": "a9e23a8ca2d0811aa5162b72988ab58444bf4965",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

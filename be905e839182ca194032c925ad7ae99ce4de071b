@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "9f655497_d201138c",
+        "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T08:57:47Z",
+      "side": 1,
+      "message": "there are other options for shorter name, but that is up to you.\nI just wanted free functions to be in the unnamed namespace.",
+      "parentUuid": "1b909b8d_2ba124f7",
+      "range": {
+        "startLine": 64,
+        "startChar": 5,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "480b7ee5_c543dd60",
         "filename": "modules/rtp_rtcp/source/rtp_generic_frame_descriptor_extension_unittest.cc",
         "patchSetId": 6
@@ -284,6 +308,30 @@
     },
     {
       "key": {
+        "uuid": "135e55d9_798b1563",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T08:57:47Z",
+      "side": 1,
+      "message": "yep, I find this use of v common enough. I was referring just to descriptor.",
+      "parentUuid": "870cfb9f_9893e370",
+      "range": {
+        "startLine": 534,
+        "startChar": 21,
+        "endLine": 534,
+        "endChar": 26
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81f7f242_b4f69d06",
         "filename": "video/rtp_video_stream_receiver.cc",
         "patchSetId": 6
@@ -375,6 +423,30 @@
       "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f652bdc_e04af1e9",
+        "filename": "video/rtp_video_stream_receiver.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-19T08:57:47Z",
+      "side": 1,
+      "message": "I think it is debatable which one is better. I leave it to you which way to choose (e.g. leave as is)\n\ntechnically it is valid to send both, that why I suggest to support it and proposed simple way to resolve (i.e. do not bother comparing, just prioritize later version over older)\n\nI\u0027m trying to come up with a scenario where it would make sense to use both:\nE.g. there are 3 participants in a conference. two support both V00 and V01, third one only support V00.\nThen it might make sense to send both V0 and V1 to have better communication between 1st two participant, but still support third one.\n\nOn the other side sending both of the versions is more likely a negotiation error. Dropping such packets would make it more visible and thus faster to detect.\n\nWhen there will be a known use case to send both, then this code can be updated to do it.\nOn the other side, it is receiver, so for forward-compatibility it is better to support such case sooner than later.",
+      "parentUuid": "823bb1ab_e9279685",
+      "range": {
+        "startLine": 542,
+        "startChar": 4,
+        "endLine": 542,
+        "endChar": 10
+      },
+      "revId": "be905e839182ca194032c925ad7ae99ce4de071b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

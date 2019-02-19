@@ -16,6 +16,7 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "pc/sdp_utils.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
 #include "system_wrappers/include/cpu_info.h"
@@ -317,7 +318,7 @@ void PeerConnectionE2EQualityTest::AddAudio(TestPeer* peer) {
 
 void PeerConnectionE2EQualityTest::SetupCall() {
   // Connect peers.
-  ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
+  ExchangeOfferAnswer();
   // Do the SDP negotiation, and also exchange ice candidates.
   ASSERT_EQ_WAIT(alice_->signaling_state(), PeerConnectionInterface::kStable,
                  kDefaultTimeoutMs);
@@ -325,11 +326,31 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   ASSERT_TRUE_WAIT(bob_->IsIceGatheringDone(), kDefaultTimeoutMs);
 
   // Connect an ICE candidate pairs.
-  ASSERT_TRUE(bob_->AddIceCandidates(alice_->observer()->GetAllCandidates()));
-  ASSERT_TRUE(alice_->AddIceCandidates(bob_->observer()->GetAllCandidates()));
+  RTC_DCHECK(bob_->AddIceCandidates(alice_->observer()->GetAllCandidates()));
+  RTC_DCHECK(alice_->AddIceCandidates(bob_->observer()->GetAllCandidates()));
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
+}
+
+void PeerConnectionE2EQualityTest::ExchangeOfferAnswer() {
+  std::string error_message;
+  auto offer = alice_->CreatePatchedOffer();
+  RTC_DCHECK(offer);
+  bool set_local_offer = alice_->SetLocalDescription(
+      CloneSessionDescription(offer.get()), &error_message);
+  RTC_DCHECK(set_local_offer) << error_message;
+  bool set_remote_offer =
+      bob_->SetRemoteDescription(std::move(offer), &error_message);
+  RTC_DCHECK(set_remote_offer) << error_message;
+  auto answer = bob_->CreatePatchedAnswer();
+  RTC_DCHECK(answer);
+  bool set_local_answer = bob_->SetLocalDescription(
+      CloneSessionDescription(answer.get()), &error_message);
+  RTC_DCHECK(set_local_answer) << error_message;
+  bool set_remote_answer =
+      alice_->SetRemoteDescription(std::move(answer), &error_message);
+  RTC_DCHECK(set_remote_answer) << error_message;
 }
 
 void PeerConnectionE2EQualityTest::WaitForTransceiversSetup(

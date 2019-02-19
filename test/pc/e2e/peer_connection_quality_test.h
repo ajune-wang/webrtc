@@ -63,6 +63,7 @@ class PeerConnectionE2EQualityTest
       const VideoConfig& video_config);
   void AddAudio(TestPeer* peer);
   void SetupCall();
+  void ExchangeOfferAnswer();
   void WaitForTransceiversSetup(Params* params, TestPeer* remote_peer);
   void SetupVideoSink(Params* params, TestPeer* remote_peer);
   void StartVideo();

@@ -291,6 +291,22 @@ bool TestPeer::AddIceCandidates(
   return success;
 }
 
+std::unique_ptr<SessionDescriptionInterface> TestPeer::CreatePatchedOffer() {
+  std::unique_ptr<SessionDescriptionInterface> offer =
+      PeerConnectionWrapper::CreateOffer();
+  SdpChanger offer_changer(std::move(offer));
+  PatchSessionDescriptionVideoCodecs(&offer_changer);
+  return offer_changer.ReleaseSessionDescription();
+}
+
+std::unique_ptr<SessionDescriptionInterface> TestPeer::CreatePatchedAnswer() {
+  std::unique_ptr<SessionDescriptionInterface> answer =
+      PeerConnectionWrapper::CreateAnswer();
+  SdpChanger answer_changer(std::move(answer));
+  PatchSessionDescriptionVideoCodecs(&answer_changer);
+  return answer_changer.ReleaseSessionDescription();
+}
+
 TestPeer::TestPeer(
     rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
     rtc::scoped_refptr<PeerConnectionInterface> pc,
@@ -302,6 +318,14 @@ TestPeer::TestPeer(
                                                    std::move(observer)),
       params_(std::move(params)),
       network_manager_(std::move(network_manager)) {}
+
+void TestPeer::PatchSessionDescriptionVideoCodecs(
+    webrtc::test::SdpChanger* sdp_changer) {
+  for (auto& video_config : params_->video_configs) {
+    sdp_changer->ForceVideoCodec(*video_config.stream_label,
+                                 video_config.codec_name);
+  }
+}
 
 }  // namespace test
 }  // namespace webrtc

@@ -25,6 +25,7 @@
 #include "test/pc/e2e/analyzer/video/encoded_image_id_injector.h"
 #include "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.h"
 #include "test/pc/e2e/api/peerconnection_quality_test_fixture.h"
+#include "test/pc/e2e/sdp/sdp_changer.h"
 
 namespace webrtc {
 namespace test {
@@ -63,12 +64,16 @@ class TestPeer final : public PeerConnectionWrapper {
   bool AddIceCandidates(
       rtc::ArrayView<const IceCandidateInterface* const> candidates);
 
+  std::unique_ptr<SessionDescriptionInterface> CreatePatchedOffer();
+  std::unique_ptr<SessionDescriptionInterface> CreatePatchedAnswer();
+
  private:
   TestPeer(rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory,
            rtc::scoped_refptr<PeerConnectionInterface> pc,
            std::unique_ptr<MockPeerConnectionObserver> observer,
            std::unique_ptr<Params> params,
            std::unique_ptr<rtc::NetworkManager> network_manager);
+  void PatchSessionDescriptionVideoCodecs(SdpChanger* sdp_changer);
 
   std::unique_ptr<Params> params_;
   // Test peer will take ownership of network manager and keep it during the

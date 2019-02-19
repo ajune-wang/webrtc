@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3c9452f0_7a0269cd",
+        "filename": "test/pc/e2e/sdp/sdp_changer_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-19T14:24:23Z",
+      "side": 1,
+      "message": "In that case, please create 3-4 separate video strings:\nOne - standard input and 2-3 are expected changed strings.\nMaybe also comment them, that only video codec payload type is expected to be moved up front.",
+      "parentUuid": "b7f63738_0fd86541",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 41
+      },
+      "revId": "8cbe57d2466bf29cc2015853fe72fc84aecbd63c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb1f0b42_656add59",
         "filename": "test/pc/e2e/sdp/sdp_changer_unittest.cc",
         "patchSetId": 4

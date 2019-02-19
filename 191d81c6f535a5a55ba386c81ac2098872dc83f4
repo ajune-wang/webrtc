@@ -22,6 +22,30 @@
       "revId": "191d81c6f535a5a55ba386c81ac2098872dc83f4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9586256c_9e0d0e21",
+        "filename": "test/scenario/video_stream_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-19T16:33:40Z",
+      "side": 1,
+      "message": "You are completely right, I seems to have misplaced the line enabling multiple spatial layers.. Thanks for spotting!",
+      "parentUuid": "5662fb17_6610c9b3",
+      "range": {
+        "startLine": 22,
+        "startChar": 22,
+        "endLine": 22,
+        "endChar": 48
+      },
+      "revId": "191d81c6f535a5a55ba386c81ac2098872dc83f4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

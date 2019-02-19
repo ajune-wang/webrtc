@@ -21,6 +21,7 @@
 #include "modules/rtp_rtcp/include/rtp_rtcp.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
 #include "modules/rtp_rtcp/source/rtp_sender.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/utility/include/process_thread.h"
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/checks.h"
@@ -48,6 +49,7 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     RtpTransportControllerSendInterface* transport,
     RtcpRttStats* rtt_stats,
     FlexfecSender* flexfec_sender,
+    RtcpAckObserver* ack_observer,
     BitrateStatisticsObserver* bitrate_observer,
     RtcpPacketTypeCounterObserver* rtcp_type_observer,
     SendSideDelayObserver* send_delay_observer,
@@ -79,6 +81,7 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
   configuration.event_log = event_log;
   configuration.retransmission_rate_limiter = retransmission_rate_limiter;
   configuration.overhead_observer = overhead_observer;
+  configuration.ack_observer = ack_observer;
   configuration.keepalive_config = keepalive_config;
   configuration.frame_encryptor = frame_encryptor;
   configuration.require_frame_encryption =
@@ -103,6 +106,23 @@ std::vector<std::unique_ptr<RtpRtcp>> CreateRtpRtcpModules(
     modules.push_back(std::move(rtp_rtcp));
   }
   return modules;
+}
+
+std::vector<std::unique_ptr<RTPSenderVideo>> CreateRtpPayloadSenders(
+    const std::vector<std::unique_ptr<RtpRtcp>>& modules,
+    FlexfecSender* flexfec_sender,
+    PlayoutDelayOracle* playout_delay_oracle,
+    FrameEncryptorInterface* frame_encryptor,
+    const CryptoOptions& crypto_options) {
+  RTC_DCHECK_GT(modules.size(), 0);
+  std::vector<std::unique_ptr<RTPSenderVideo>> senders;
+  for (auto& rtp_rtcp : modules) {
+    senders.push_back(absl::make_unique<RTPSenderVideo>(
+        Clock::GetRealTimeClock(), rtp_rtcp->rtp_sender(), flexfec_sender,
+        playout_delay_oracle, frame_encryptor,
+        crypto_options.sframe.require_frame_encryption));
+  }
+  return senders;
 }
 
 bool PayloadTypeSupportsSkippingFecPackets(const std::string& payload_name) {
@@ -206,6 +226,7 @@ RtpVideoSender::RtpVideoSender(
                                         transport,
                                         observers.rtcp_rtt_stats,
                                         flexfec_sender_.get(),
+                                        &playout_delay_oracle_,
                                         observers.bitrate_observer,
                                         observers.rtcp_type_observer,
                                         observers.send_delay_observer,
@@ -216,6 +237,11 @@ RtpVideoSender::RtpVideoSender(
                                         transport->keepalive_config(),
                                         frame_encryptor,
                                         crypto_options)),
+      rtp_payload_senders_(CreateRtpPayloadSenders(rtp_modules_,
+                                                   flexfec_sender_.get(),
+                                                   &playout_delay_oracle_,
+                                                   frame_encryptor,
+                                                   crypto_options)),
       rtp_config_(rtp_config),
       transport_(transport),
       transport_overhead_bytes_per_packet_(0),
@@ -273,12 +299,16 @@ RtpVideoSender::RtpVideoSender(
   // TODO(pbos): Should we set CNAME on all RTP modules?
   rtp_modules_.front()->SetCNAME(rtp_config.c_name.c_str());
 
-  for (auto& rtp_rtcp : rtp_modules_) {
+  for (size_t i = 0; i < rtp_modules_.size(); ++i) {
+    auto& rtp_rtcp = rtp_modules_[i];
+    auto& rtp_sender = rtp_payload_senders_[i];
     rtp_rtcp->RegisterRtcpStatisticsCallback(observers.rtcp_stats);
     rtp_rtcp->RegisterSendChannelRtpStatisticsCallback(observers.rtp_stats);
     rtp_rtcp->SetMaxRtpPacketSize(rtp_config.max_packet_size);
-    rtp_rtcp->RegisterVideoSendPayload(rtp_config.payload_type,
-                                       rtp_config.payload_name.c_str());
+    rtp_rtcp->RegisterSendPayloadFrequency(rtp_config.payload_type,
+                                           kVideoPayloadTypeFrequency);
+    rtp_sender->RegisterPayloadType(rtp_config.payload_type,
+                                    rtp_config.payload_name);
   }
   // Currently, both ULPFEC and FlexFEC use the same FEC rate calculation logic,
   // so enable that logic if either of those FEC schemes are enabled.
@@ -368,17 +398,28 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   RTPVideoHeader rtp_video_header = params_[stream_index].GetRtpVideoHeader(
       encoded_image, codec_specific_info, shared_frame_id_);
 
-  uint32_t frame_id;
-  if (!rtp_modules_[stream_index]->Sending()) {
+  uint32_t rtp_timestamp =
+      encoded_image.Timestamp() + rtp_modules_[stream_index]->StartTimestamp();
+
+  // RTCPSender has it's own copy of the timestamp offset, added in
+  // RTCPSender::BuildSR, hence we must not add the in the offset for this call.
+  // TODO(nisse): Delete RTCPSender:timestamp_offset_, and see if we can confine
+  // knowledge of the offset to a single place.
+  if (!rtp_modules_[stream_index]->OnSendingRtpFrame(
+          encoded_image.Timestamp(), encoded_image.capture_time_ms_,
+          rtp_config_.payload_type,
+          encoded_image._frameType == kVideoFrameKey)) {
     // The payload router could be active but this module isn't sending.
     return Result(Result::ERROR_SEND_FAILED);
   }
-  bool send_result = rtp_modules_[stream_index]->SendOutgoingData(
-      encoded_image._frameType, rtp_config_.payload_type,
-      encoded_image.Timestamp(), encoded_image.capture_time_ms_,
-      encoded_image.data(), encoded_image.size(), fragmentation,
-      &rtp_video_header, &frame_id);
+  int64_t expected_retransmission_time_ms =
+      rtp_modules_[stream_index]->ExpectedRetransmissionTimeMs();
 
+  bool send_result = rtp_payload_senders_[stream_index]->SendVideo(
+      encoded_image._frameType, rtp_config_.payload_type, rtp_timestamp,
+      encoded_image.capture_time_ms_, encoded_image.data(),
+      encoded_image.size(), fragmentation, &rtp_video_header,
+      expected_retransmission_time_ms);
   if (frame_count_observer_) {
     FrameCounts& counts = frame_counts_[stream_index];
     if (encoded_image._frameType == kVideoFrameKey) {
@@ -394,7 +435,7 @@ EncodedImageCallback::Result RtpVideoSender::OnEncodedImage(
   if (!send_result)
     return Result(Result::ERROR_SEND_FAILED);
 
-  return Result(Result::OK, frame_id);
+  return Result(Result::OK, rtp_timestamp);
 }
 
 void RtpVideoSender::OnBitrateAllocationUpdated(
@@ -474,11 +515,12 @@ void RtpVideoSender::ConfigureProtection(const RtpConfig& rtp_config) {
     DisableRedAndUlpfec();
   }
 
-  for (auto& rtp_rtcp : rtp_modules_) {
+  for (size_t i = 0; i < rtp_modules_.size(); ++i) {
     // Set NACK.
-    rtp_rtcp->SetStorePacketsStatus(true, kMinSendSidePacketHistorySize);
+    rtp_modules_[i]->SetStorePacketsStatus(true, kMinSendSidePacketHistorySize);
     // Set RED/ULPFEC information.
-    rtp_rtcp->SetUlpfecConfig(red_payload_type, ulpfec_payload_type);
+    rtp_payload_senders_[i]->SetUlpfecConfig(red_payload_type,
+                                             ulpfec_payload_type);
   }
 }
 
@@ -497,9 +539,10 @@ bool RtpVideoSender::NackEnabled() const {
 
 uint32_t RtpVideoSender::GetPacketizationOverheadRate() const {
   uint32_t packetization_overhead_bps = 0;
-  for (auto& rtp_rtcp : rtp_modules_) {
-    if (rtp_rtcp->SendingMedia()) {
-      packetization_overhead_bps += rtp_rtcp->PacketizationOverheadBps();
+  for (size_t i = 0; i < rtp_modules_.size(); ++i) {
+    if (rtp_modules_[i]->SendingMedia()) {
+      packetization_overhead_bps +=
+          rtp_payload_senders_[i]->PacketizationOverheadBps();
     }
   }
   return packetization_overhead_bps;
@@ -698,17 +741,19 @@ int RtpVideoSender::ProtectionRequest(const FecProtectionParams* delta_params,
   *sent_video_rate_bps = 0;
   *sent_nack_rate_bps = 0;
   *sent_fec_rate_bps = 0;
-  for (auto& rtp_rtcp : rtp_modules_) {
+  for (size_t i = 0; i < rtp_modules_.size(); i++) {
+    auto& rtp_rtcp = rtp_modules_[i];
+    auto& sender = rtp_payload_senders_[i];
     uint32_t not_used = 0;
     uint32_t module_video_rate = 0;
     uint32_t module_fec_rate = 0;
     uint32_t module_nack_rate = 0;
-    rtp_rtcp->SetFecParameters(*delta_params, *key_params);
+    sender->SetFecParameters(*delta_params, *key_params);
+    *sent_video_rate_bps += sender->VideoBitrateSent();
+    *sent_fec_rate_bps += sender->FecOverheadRate();
     rtp_rtcp->BitrateSent(&not_used, &module_video_rate, &module_fec_rate,
                           &module_nack_rate);
-    *sent_video_rate_bps += module_video_rate;
     *sent_nack_rate_bps += module_nack_rate;
-    *sent_fec_rate_bps += module_fec_rate;
   }
   return 0;
 }

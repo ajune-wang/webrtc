@@ -456,5 +456,16 @@ class StreamDataCountersCallback {
                                    uint32_t ssrc) = 0;
 };
 
+class RtcpAckObserver {
+ public:
+  // This method is called on received report blocks matching the sender ssrc.
+  // TODO(nisse): Use of "extended" sequence number is a bit brittle, since
+  // the observer for this callback typically has its own seqnence number
+  // unwrappers, and there's no guarantee that they are in sync.
+  virtual void OnReceivedAck(int64_t extended_highest_sequence_number) = 0;
+
+  virtual ~RtcpAckObserver() = default;
+};
+
 }  // namespace webrtc
 #endif  // MODULES_RTP_RTCP_INCLUDE_RTP_RTCP_DEFINES_H_

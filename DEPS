@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '55c117dd14bc83345a805226fa6c13b679c241ab',
+  'chromium_revision': '471b176f2974ae8e4eed599c4b5aab6b0880818b',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -64,7 +64,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + 'd4f8a56efafcce551e48bd314cc9147bf3cceaaa',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'e3b6b30863009d57e76ac076b5f3794748b9897d',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'fdae50df41a9d57176c8e918f2cd64dc4842ea8e',
 
   'src/buildtools/clang_format/script':
     Var('chromium_git') + '/chromium/llvm-project/cfe/tools/clang-format.git' + '@' + '96636aa0e9f047f17447f2d45a094d0b59ed7917',

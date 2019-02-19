@@ -22,12 +22,24 @@ namespace test {
 namespace {
 
 constexpr int64_t kPacketProcessingIntervalMs = 1;
+// uint32_t representation of 192.168.0.0 address
+constexpr uint32_t kMinIPv4Address = 0xC0A80000;
+// uint32_t representation of 192.168.255.255 address
+constexpr uint32_t kMaxIPv4Address = 0xC0A8FFFF;
 
 }  // namespace
+
+EnpointConfig::EnpointConfig() = default;
+EnpointConfig::~EnpointConfig() = default;
+EnpointConfig::EnpointConfig(EnpointConfig&) = default;
+EnpointConfig& EnpointConfig::operator=(EnpointConfig&) = default;
+EnpointConfig::EnpointConfig(EnpointConfig&&) = default;
+EnpointConfig& EnpointConfig::operator=(EnpointConfig&&) = default;
 
 NetworkEmulationManager::NetworkEmulationManager()
     : clock_(Clock::GetRealTimeClock()),
       next_node_id_(1),
+      next_ip4_address_(kMinIPv4Address),
       task_queue_("network_emulation_manager") {
   process_task_handle_ = RepeatingTaskHandle::Start(&task_queue_, [this] {
     ProcessNetworkPackets();
@@ -55,8 +67,31 @@ EmulatedNetworkNode* NetworkEmulationManager::CreateEmulatedNode(
   return out;
 }
 
-EndpointNode* NetworkEmulationManager::CreateEndpoint(rtc::IPAddress ip) {
-  auto node = absl::make_unique<EndpointNode>(next_node_id_++, ip, clock_);
+EndpointNode* NetworkEmulationManager::CreateEndpoint(EnpointConfig config) {
+  RTC_CHECK(!(config.ip_family && config.ip));
+  if (!config.ip_family && !config.ip) {
+    config.ip_family = IPAddressFamily::kIPv4;
+  }
+  absl::optional<rtc::IPAddress> ip = config.ip;
+  if (!ip) {
+    switch (*config.ip_family) {
+      case IPAddressFamily::kIPv4:
+        ip = GetNextIPv4Address();
+        RTC_CHECK(ip) << "All auto generated IPv4 addresses exhausted";
+        break;
+      case IPAddressFamily::kIPv6:
+        ip = GetNextIPv4Address();
+        RTC_CHECK(ip) << "All auto generated IPv6 addresses exhausted";
+        ip = ip->AsIPv6Address();
+        break;
+      default:
+        RTC_NOTREACHED() << "Unsupported IPAddressFamily";
+    }
+  }
+
+  bool res = used_ip_addresses_.insert(*ip).second;
+  RTC_CHECK(res) << "IP=" << ip->ToString() << " already in use";
+  auto node = absl::make_unique<EndpointNode>(next_node_id_++, *ip, clock_);
   EndpointNode* out = node.get();
   endpoints_.push_back(std::move(node));
   return out;
@@ -98,7 +133,7 @@ void NetworkEmulationManager::ClearRoute(
 TrafficRoute* NetworkEmulationManager::CreateTrafficRoute(
     std::vector<EmulatedNetworkNode*> via_nodes) {
   RTC_CHECK(!via_nodes.empty());
-  EndpointNode* endpoint = CreateEndpoint(rtc::IPAddress(next_node_id_++));
+  EndpointNode* endpoint = CreateEndpoint(EnpointConfig());
 
   // Setup a route via specified nodes.
   EmulatedNetworkNode* cur_node = via_nodes[0];
@@ -169,6 +204,22 @@ FakeNetworkSocketServer* NetworkEmulationManager::CreateSocketServer(
   FakeNetworkSocketServer* out = socket_server.get();
   socket_servers_.push_back(std::move(socket_server));
   return out;
+}
+
+absl::optional<rtc::IPAddress> NetworkEmulationManager::GetNextIPv4Address() {
+  uint32_t addresses_count = kMaxIPv4Address - kMinIPv4Address;
+  for (uint32_t i = 0; i < addresses_count; i++) {
+    rtc::IPAddress ip(next_ip4_address_);
+    if (next_ip4_address_ == kMaxIPv4Address) {
+      next_ip4_address_ = kMinIPv4Address;
+    } else {
+      next_ip4_address_++;
+    }
+    if (used_ip_addresses_.find(ip) == used_ip_addresses_.end()) {
+      return ip;
+    }
+  }
+  return absl::nullopt;
 }
 
 void NetworkEmulationManager::ProcessNetworkPackets() {

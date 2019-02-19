@@ -57,6 +57,32 @@ class SocketReader : public sigslot::has_slots<> {
   int received_count_ RTC_GUARDED_BY(lock_) = 0;
 };
 
+TEST(NetworkEmulationManagerTest, CreateEndpointAllIPv4) {
+  NetworkEmulationManager network_manager;
+  std::set<rtc::IPAddress> ips;
+  EnpointConfig config;
+  config.ip_family = IPAddressFamily::kIPv4;
+  for (int i = 0; i < 65536; i++) {
+    EndpointNode* endpoint = network_manager.CreateEndpoint(config);
+    ASSERT_EQ(endpoint->GetPeerLocalAddress().family(), AF_INET);
+    bool result = ips.insert(endpoint->GetPeerLocalAddress()).second;
+    ASSERT_TRUE(result);
+  }
+}
+
+TEST(NetworkEmulationManagerTest, CreateEndpointAllIPv6) {
+  NetworkEmulationManager network_manager;
+  std::set<rtc::IPAddress> ips;
+  EnpointConfig config;
+  config.ip_family = IPAddressFamily::kIPv6;
+  for (int i = 0; i < 65536; i++) {
+    EndpointNode* endpoint = network_manager.CreateEndpoint(config);
+    ASSERT_EQ(endpoint->GetPeerLocalAddress().family(), AF_INET6);
+    bool result = ips.insert(endpoint->GetPeerLocalAddress()).second;
+    ASSERT_TRUE(result);
+  }
+}
+
 TEST(NetworkEmulationManagerTest, Run) {
   NetworkEmulationManager network_manager;
 
@@ -65,9 +91,8 @@ TEST(NetworkEmulationManagerTest, Run) {
   EmulatedNetworkNode* bob_node = network_manager.CreateEmulatedNode(
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
   EndpointNode* alice_endpoint =
-      network_manager.CreateEndpoint(rtc::IPAddress(1));
-  EndpointNode* bob_endpoint =
-      network_manager.CreateEndpoint(rtc::IPAddress(2));
+      network_manager.CreateEndpoint(EnpointConfig());
+  EndpointNode* bob_endpoint = network_manager.CreateEndpoint(EnpointConfig());
   network_manager.CreateRoute(alice_endpoint, {alice_node}, bob_endpoint);
   network_manager.CreateRoute(bob_endpoint, {bob_node}, alice_endpoint);
 

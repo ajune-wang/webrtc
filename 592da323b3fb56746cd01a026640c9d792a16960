@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58848017_3ec70016",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "This is potentially tricky because after TearDownCallOnSignalingThread TestPeers are destroyed. We can probably check that in the callback executed by the RepeatingTaskHandle but I need to spend a few more minutes thinking about potential race conditions.",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 28
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

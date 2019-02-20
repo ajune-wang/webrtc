@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b4c5513d_2577d9c8",
+        "filename": "test/pc/e2e/analyzer/audio/audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aaf1ca0_8af724d5",
+      "range": {
+        "startLine": 22,
+        "startChar": 29,
+        "endLine": 22,
+        "endChar": 58
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cead6c8b_ee751b47",
         "filename": "test/pc/e2e/api/stats_observer_interface.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "c56b551738279951519c414ccc938003b1f46c4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "854d86ec_3dfe77db",
+        "filename": "test/pc/e2e/api/stats_observer_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cead6c8b_ee751b47",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 28
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "15533170_19e580a7",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9036dfe_915c9165",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 40
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72843963_ea0239bf",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "2a64e5fb_92579d73",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72843963_ea0239bf",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 66
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f05306e_8a4c054c",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-19T14:54:23Z",
       "side": 1,
       "message": "Add VideoQualityAnalyzer here as well.",
+      "range": {
+        "startLine": 202,
+        "startChar": 2,
+        "endLine": 204,
+        "endChar": 73
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18b5c93_68c0e4bf",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "I will do it in the next patch set, let\u0027s validate the usage of RepeatingTaskHandle first.",
+      "parentUuid": "2f05306e_8a4c054c",
       "range": {
         "startLine": 202,
         "startChar": 2,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "64e09e88_bad8ccfd",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a57e9529_4b29fb43",
+      "range": {
+        "startLine": 205,
+        "startChar": 14,
+        "endLine": 205,
+        "endChar": 16
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d52cf4a_89807222",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -160,6 +304,30 @@
       "revId": "c56b551738279951519c414ccc938003b1f46c4a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3108bd53_23bae895",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "This has been removed by the usage of RepeatingTaskHandle.",
+      "parentUuid": "7d52cf4a_89807222",
+      "range": {
+        "startLine": 212,
+        "startChar": 14,
+        "endLine": 212,
+        "endChar": 27
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "17697ae1_a983292d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "This has been removed by the usage of RepeatingTaskHandle.",
+      "parentUuid": "6f4732b1_fa10e2f5",
+      "range": {
+        "startLine": 216,
+        "startChar": 4,
+        "endLine": 216,
+        "endChar": 37
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ff36a8c_022cf25a",
         "filename": "test/pc/e2e/stats_poller.h",
         "patchSetId": 1
@@ -197,6 +389,30 @@
       "writtenOn": "2019-02-19T14:54:23Z",
       "side": 1,
       "message": "Use a map, because the label needs to be unique.",
+      "range": {
+        "startLine": 50,
+        "startChar": 14,
+        "endLine": 50,
+        "endChar": 60
+      },
+      "revId": "c56b551738279951519c414ccc938003b1f46c4a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "623ca64e_11cb2d68",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-20T18:24:17Z",
+      "side": 1,
+      "message": "I will do it in the next patch set, let\u0027s validate the usage of RepeatingTaskHandle first.",
+      "parentUuid": "3ff36a8c_022cf25a",
       "range": {
         "startLine": 50,
         "startChar": 14,

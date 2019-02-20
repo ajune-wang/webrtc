@@ -22,6 +22,29 @@
       "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "254e5624_50777b34",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-20T15:44:56Z",
+      "side": 1,
+      "message": "this bug doesn\u0027t explain why it\u0027s not necessarily safe. Can you comment? (can it deadlock?)",
+      "range": {
+        "startLine": 1089,
+        "startChar": 10,
+        "endLine": 1089,
+        "endChar": 31
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

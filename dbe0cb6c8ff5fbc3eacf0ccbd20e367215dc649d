@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f61dcc0f_21119954",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-20T18:26:50Z",
+      "side": 1,
+      "message": "Could also do:\n\nif (absl::c_none_of(description-\u003estreams(), [\u0026stream_label](const cricket::StreamParams\u0026 stream) {\n    return stream.id \u003d\u003d stream_label;\n})) {\n  continue;\n}",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80180106_b364eb97",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-20T18:26:50Z",
+      "side": 1,
+      "message": "Note that the StreamParams is really better known as a track so the id is actually the track id.\n\nIf you care about the stream label in particular, that\u0027s stored in the stream_ids() getter. There can be 0 or many stream labels for a particular track.",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 19
+      },
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ad670f6_57b747b1",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-20T18:26:50Z",
+      "side": 1,
+      "message": "Could do something like this instead:\n\nauto it \u003d absl::c_find_if(codecs, [\u0026codec_name](const cricket::VideoCodec\u0026 codec) {\n  return codec.name \u003d\u003d codec_name;\n});\nRTC_CHECK(it !\u003d codecs.end()) \u003c\u003c \"unsupported ...\nstd::rotate(codecs.begin(), it, it + 1);",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f1f1bf0c_7ba192b0",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-20T18:26:50Z",
+      "side": 1,
+      "message": "One thing to note is that certain codecs (namely H264) are not uniquely identified by name since there can be multiple variants (e.g., parameterized by profile id or packetization mode).",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

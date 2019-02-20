@@ -63,12 +63,6 @@ enum { kMaxDecodedLogFrames = 10 };
 // Maximum amount of encoded frames for which per-frame logging is enabled.
 enum { kMaxEncodedLogFrames = 10 };
 
-static inline void AllowBlockingCalls() {
-  rtc::Thread* current_thread = rtc::Thread::Current();
-  if (current_thread != NULL)
-    current_thread->SetAllowBlockingCalls(true);
-}
-
 // Checks for any Java exception, prints stack backtrace and clears
 // currently thrown exception.
 static inline bool CheckException(JNIEnv* jni) {

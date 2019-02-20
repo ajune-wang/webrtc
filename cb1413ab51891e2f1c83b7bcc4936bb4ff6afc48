@@ -16,6 +16,24 @@
       "revId": "cb1413ab51891e2f1c83b7bcc4936bb4ff6afc48",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c4cbea2_4cc791bf",
+        "filename": "api/video/encoded_image.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T07:40:34Z",
+      "side": 1,
+      "message": "It should never do that. It could happen if the class is misused and some code calls encoded_image.set_buffer(encoded_image.data(), ...), but noone should be doing that.",
+      "parentUuid": "db2645be_dcb33b7d",
+      "revId": "cb1413ab51891e2f1c83b7bcc4936bb4ff6afc48",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

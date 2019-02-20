@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb9a6065_1d5f92c6",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T16:12:00Z",
+      "side": 1,
+      "message": "This construction (and similarly in the function below) is a bit clumsy. Can we use a better type than |std::vector\u003cPlayoutDelayOracle\u003e*| ? \n\n|std::vector\u003cPlayoutDelayOracle\u003e\u0026| would make the code locally more pretty, but is against the styleguide (for reasons I agree with). Would it be better to pass the iterator |playout_delay_oracles_.begin()| ? Any other alternatives?",
+      "range": {
+        "startLine": 101,
+        "startChar": 33,
+        "endLine": 101,
+        "endChar": 53
+      },
+      "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

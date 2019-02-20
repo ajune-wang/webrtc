@@ -23,7 +23,7 @@ if (is_android) {
   import("//build/config/android/rules.gni")
 }
 
-if (!build_with_chromium) {
+if (!(build_with_chromium || build_with_any_gn)) {
   # This target should (transitively) cause everything to be built; if you run
   # 'ninja default' and then 'ninja all', the second build should do no work.
   group("default") {
@@ -121,8 +121,12 @@ config("common_inherited_config") {
   } else {
     defines += [ "WEBRTC_NON_STATIC_TRACE_EVENT_HANDLERS=0" ]
   }
+
   if (build_with_chromium) {
     defines += [ "WEBRTC_CHROMIUM_BUILD" ]
+  }
+
+  if ((build_with_chromium || build_with_any_gn)) {
     include_dirs = [
       # The overrides must be included first as that is the mechanism for
       # selecting the override headers in Chromium.
@@ -375,8 +379,16 @@ config("common_objc") {
 if (!build_with_chromium) {
   # Target to build all the WebRTC production code.
   rtc_static_library("webrtc") {
-    # Only the root target should depend on this.
-    visibility = [ "//:default" ]
+    if (build_with_any_gn) {
+      visibility = [ "*" ]
+      allow_poison = [
+        "audio_codecs",
+        "software_video_codecs",
+      ]
+    } else {
+      # Only the root target should depend on this on standalone mode.
+      visibility = [ "//:default" ]
+    }
 
     sources = []
     complete_static_lib = true
@@ -429,6 +441,19 @@ if (!build_with_chromium) {
     if (rtc_enable_protobuf) {
       defines += [ "ENABLE_RTC_EVENT_LOG" ]
       deps += [ "logging:rtc_event_log_proto" ]
+    }
+    if (build_with_any_gn) {
+      # TODO: currently webrtc the library does not have public deps
+      # which obviously is not how a library should be defined (API-less static
+      # library is not a useful library).
+      public_deps = deps
+      # TODO: API public headers use json.h, so we need to expose public header
+      # rules and link rules that exclaim that.
+      public_deps += [
+        "rtc_base:rtc_json",
+        "media:rtc_media_base"
+      ]
+      deps = []
     }
   }
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b3e2c15_5e35757d",
+        "filename": "modules/audio_coding/neteq/histogram.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-20T09:07:31Z",
+      "side": 1,
+      "message": "It\u0027s a bit awkward to have a \"reverse\" quantile function (the name is very ambiguous). But didn\u0027t want to change too much in this refactoring.",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "6851d5d91a26a8de38d11209a970e5da59204fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

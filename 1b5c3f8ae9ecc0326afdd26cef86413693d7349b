@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c8808a17_c69d43b9",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-20T14:47:53Z",
+      "side": 1,
+      "message": "If you use three bytes, don\u0027t you need to know endianness to determine which bytes  that were used as configuration, index 0-2 or index 1-3?",
+      "parentUuid": "4378390d_92c9eef2",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d11981c_f1979a8a",
         "filename": "test/fuzzers/rtp_header_fuzzer.cc",
         "patchSetId": 2
@@ -60,6 +84,30 @@
       "writtenOn": "2019-02-20T14:28:14Z",
       "side": 1,
       "message": "i.e.\nstatic_cast\u003cRTPExtensionType\u003e(0) \u003d\u003d ExtensionNone which is not a valid type.\njust start i with 1 (not sure when it was changed to 0 disregarding the comment)",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 71
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c51cfd_4fd32c12",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-20T14:47:53Z",
+      "side": 1,
+      "message": "I\u0027ll change the loop to start at 1, but I guess I\u0027ll remove the condition in the if case as well then?",
+      "parentUuid": "6d11981c_f1979a8a",
       "range": {
         "startLine": 38,
         "startChar": 4,

@@ -120,6 +120,53 @@
     },
     {
       "key": {
+        "uuid": "48b62f52_8402a0ce",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T14:55:58Z",
+      "side": 1,
+      "message": "hm, yep, that check is not needed then. The code [was/is] indeed redundant.",
+      "parentUuid": "78c51cfd_4fd32c12",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 71
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ff1bb6_b46bc03e",
+        "filename": "test/fuzzers/rtp_packet_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T14:55:58Z",
+      "side": 1,
+      "message": "btw, since id can now clearly be more than 14, may be configure extensions to support two-byte header extensions.",
+      "range": {
+        "startLine": 36,
+        "startChar": 38,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9e4252ca_497e961a",
         "filename": "test/fuzzers/rtp_packet_fuzzer.cc",
         "patchSetId": 2

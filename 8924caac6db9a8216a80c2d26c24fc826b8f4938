@@ -228,6 +228,24 @@
       "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1113d28_e398a4c2",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T20:13:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b371041_d8a56b29",
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

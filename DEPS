@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': '554be8c5f4dfc501ae0825504ffe64440f32387a',
+  'chromium_revision': 'a0f33db861e698291899f6d3fc95ce58e162a55d',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -46,9 +46,9 @@ deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '5cc6e87244d60feb18f4545c12102369606f056d',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '95bf368258c260f5b7f33848580144d920bb8e4b',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '2a59d4809ee965f59054ffffbde56d1ce564c438',
+    Var('chromium_git') + '/chromium/src/build' + '@' + '70b32e52577189f7f8eeaf4aace8f2ee1a209db2',
   'src/buildtools':
     Var('chromium_git') + '/chromium/src/buildtools' + '@' + 'daac513c763aacc52c54e6d4d8a52d0183c736a5',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
@@ -58,13 +58,13 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '80ba3017cf4b68f3f9b035e75ff6ec3ca55aeb53',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '6754fd5333326b26439c8efc0f7d7251f53eca3e',
     'condition': 'checkout_ios',
   },
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '56c95dc50ecef043dd45f798e91742b8503c6a24',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'a3ec565a0823d837f32da02f51421e9fb5bac818',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'f186ce32e63dd8635d700161680312a7b1b00d01',
 
   'src/buildtools/clang_format/script':
     Var('chromium_git') + '/chromium/llvm-project/cfe/tools/clang-format.git' + '@' + '96636aa0e9f047f17447f2d45a094d0b59ed7917',

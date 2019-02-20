@@ -22,6 +22,76 @@
       "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4378390d_92c9eef2",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T14:28:14Z",
+      "side": 1,
+      "message": "not sure what endianness has to do with it, but I understand that 4 bytes is simpler.",
+      "parentUuid": "b320f953_2f54e679",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d11981c_f1979a8a",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T14:28:14Z",
+      "side": 1,
+      "message": "i.e.\nstatic_cast\u003cRTPExtensionType\u003e(0) \u003d\u003d ExtensionNone which is not a valid type.\njust start i with 1 (not sure when it was changed to 0 disregarding the comment)",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 71
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4252ca_497e961a",
+        "filename": "test/fuzzers/rtp_packet_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T14:28:14Z",
+      "side": 1,
+      "message": "please do not use 0 extension type here too.",
+      "range": {
+        "startLine": 39,
+        "startChar": 15,
+        "endLine": 39,
+        "endChar": 16
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

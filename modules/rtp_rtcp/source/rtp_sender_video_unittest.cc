@@ -24,7 +24,6 @@
 #include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "rtc_base/arraysize.h"
 #include "rtc_base/rate_limiter.h"
-#include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -93,8 +92,14 @@ class TestRtpSenderVideo : public RTPSenderVideo {
  public:
   TestRtpSenderVideo(Clock* clock,
                      RTPSender* rtp_sender,
-                     FlexfecSender* flexfec_sender)
-      : RTPSenderVideo(clock, rtp_sender, flexfec_sender, nullptr, false) {}
+                     FlexfecSender* flexfec_sender,
+                     const WebRtcKeyValueConfig& field_trials)
+      : RTPSenderVideo(clock,
+                       rtp_sender,
+                       flexfec_sender,
+                       nullptr,
+                       false,
+                       field_trials) {}
   ~TestRtpSenderVideo() override {}
 
   StorageType GetStorageType(const RTPVideoHeader& header,
@@ -106,11 +111,25 @@ class TestRtpSenderVideo : public RTPSenderVideo {
   }
 };
 
+class FieldTrials : public WebRtcKeyValueConfig {
+ public:
+  FieldTrials(bool use_send_side_bwe_with_overhead)
+      : use_send_side_bwe_with_overhead_(use_send_side_bwe_with_overhead) {}
+
+  std::string Lookup(absl::string_view key) const override {
+    return use_send_side_bwe_with_overhead_
+               ? "WebRTC-SendSideBwe-WithOverhead/Enabled/"
+               : "";
+  }
+
+ private:
+  bool use_send_side_bwe_with_overhead_;
+};
+
 class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
  public:
   RtpSenderVideoTest()
-      : field_trials_(GetParam() ? "WebRTC-SendSideBwe-WithOverhead/Enabled/"
-                                 : ""),
+      : field_trials_(GetParam()),
         fake_clock_(kStartTime),
         retransmission_rate_limiter_(&fake_clock_, 1000),
         // TODO(pbos): Set up to use pacer.
@@ -130,8 +149,9 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
                     false,
                     nullptr,
                     false,
-                    false),
-        rtp_sender_video_(&fake_clock_, &rtp_sender_, nullptr) {
+                    false,
+                    field_trials_),
+        rtp_sender_video_(&fake_clock_, &rtp_sender_, nullptr, field_trials_) {
     rtp_sender_.SetSequenceNumber(kSeqNum);
     rtp_sender_.SetTimestampOffset(0);
     rtp_sender_.SetSSRC(kSsrc);
@@ -140,7 +160,7 @@ class RtpSenderVideoTest : public ::testing::TestWithParam<bool> {
   }
 
  protected:
-  test::ScopedFieldTrials field_trials_;
+  FieldTrials field_trials_;
   SimulatedClock fake_clock_;
   LoopbackTransportTest transport_;
   RateLimiter retransmission_rate_limiter_;

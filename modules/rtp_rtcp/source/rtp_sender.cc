@@ -102,7 +102,8 @@ RTPSender::RTPSender(
     bool populate_network2_timestamp,
     FrameEncryptorInterface* frame_encryptor,
     bool require_frame_encryption,
-    bool extmap_allow_mixed)
+    bool extmap_allow_mixed,
+    const WebRtcKeyValueConfig& field_trials)
     : clock_(clock),
       // TODO(holmer): Remove this conversion?
       clock_delta_ms_(clock_->TimeInMilliseconds() - rtc::TimeMillis()),
@@ -146,7 +147,8 @@ RTPSender::RTPSender(
       overhead_observer_(overhead_observer),
       populate_network2_timestamp_(populate_network2_timestamp),
       send_side_bwe_with_overhead_(
-          webrtc::field_trial::IsEnabled("WebRTC-SendSideBwe-WithOverhead")) {
+          field_trials.Lookup("WebRTC-SendSideBwe-WithOverhead")
+              .find("Enabled") == 0) {
   // This random initialization is not intended to be cryptographic strong.
   timestamp_offset_ = random_.Rand<uint32_t>();
   // Random start, 16 bits. Can't be 0.

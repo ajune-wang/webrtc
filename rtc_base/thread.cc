@@ -29,6 +29,7 @@
 
 #include "rtc_base/checks.h"
 #include "rtc_base/critical_section.h"
+#include "rtc_base/foo.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/null_socket_server.h"
 #include "rtc_base/time_utils.h"
@@ -198,6 +199,7 @@ std::unique_ptr<Thread> Thread::Create() {
 }
 
 bool Thread::SleepMs(int milliseconds) {
+  RTC_CHECK(ThreadMayBlock());
   AssertBlockingIsAllowedOnCurrentThread();
 
 #if defined(WEBRTC_WIN)
@@ -391,6 +393,7 @@ void Thread::Send(const Location& posted_from,
     return;
   }
 
+  RTC_CHECK(ThreadMayBlock());
   AssertBlockingIsAllowedOnCurrentThread();
 
   AutoThread thread;
@@ -519,6 +522,7 @@ void Thread::Clear(MessageHandler* phandler,
 }
 
 bool Thread::ProcessMessages(int cmsLoop) {
+  RTC_CHECK(ThreadMayBlock());
   // Using ProcessMessages with a custom clock for testing and a time greater
   // than 0 doesn't work, since it's not guaranteed to advance the custom
   // clock's time, and may get stuck in an infinite loop.

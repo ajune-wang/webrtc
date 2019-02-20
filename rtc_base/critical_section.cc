@@ -14,6 +14,7 @@
 
 #include "rtc_base/atomic_ops.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/foo.h"
 #include "rtc_base/platform_thread_types.h"
 #include "rtc_base/system/unused.h"
 
@@ -61,6 +62,7 @@ CriticalSection::~CriticalSection() {
 }
 
 void CriticalSection::Enter() const RTC_EXCLUSIVE_LOCK_FUNCTION() {
+  // RTC_CHECK(ThreadMayBlock());
 #if defined(WEBRTC_WIN)
   EnterCriticalSection(&crit_);
 #elif defined(WEBRTC_POSIX)

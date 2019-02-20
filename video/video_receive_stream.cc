@@ -39,6 +39,7 @@
 #include "modules/video_coding/timing.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/foo.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_file.h"
@@ -486,6 +487,7 @@ void VideoReceiveStream::SetMinimumPlayoutDelay(int delay_ms) {
 }
 
 void VideoReceiveStream::DecodeThreadFunction(void* ptr) {
+  rtc::ThreadMayBlock(false);
   while (static_cast<VideoReceiveStream*>(ptr)->Decode()) {
   }
 }

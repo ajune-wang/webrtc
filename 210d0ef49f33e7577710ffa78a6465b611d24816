@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ec2244b_135c7c05",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-02-20T15:51:32Z",
+      "side": 1,
+      "message": "Can we skip this change? Seems like much more than just semicolons.",
+      "range": {
+        "startLine": 149,
+        "startChar": 9,
+        "endLine": 149,
+        "endChar": 14
+      },
+      "revId": "210d0ef49f33e7577710ffa78a6465b611d24816",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2b728000_f36272b7",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-20T15:30:30Z",
+      "side": 1,
+      "message": "Do we even have any wrapping field which has a period not a power of 2.\n\nEither way, just make a default unwrapped value something like M*100, and in a constructor make last value |start_at % M|.",
+      "parentUuid": "a485b241_9616e969",
+      "range": {
+        "startLine": 97,
+        "startChar": 68,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb105ef0_286c76be",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 1
@@ -59,6 +83,24 @@
       "writtenOn": "2019-02-19T14:34:40Z",
       "side": 1,
       "message": "Please take here least significant bits of start_at (static_cast\u003c\u003e) or add a comment that start_at should be multiple of periods.\n\nOtherwise some unlucky start_at and first values combination may result in an incorrect behavior.",
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd53214_02af4cf4",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-20T15:30:30Z",
+      "side": 1,
+      "message": "update: make it\nlast_value_(start_at % (M ? M : std::numeric_limits\u003cT\u003e::max())",
+      "parentUuid": "acdbeab4_47f101fb",
       "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -38,8 +38,10 @@ VideoRtpReceiver::VideoRtpReceiver(
     const std::string& receiver_id,
     const std::vector<rtc::scoped_refptr<MediaStreamInterface>>& streams)
     : worker_thread_(worker_thread),
+      main_thread_(rtc::Thread::Current()),
+      // factory_(this),
       id_(receiver_id),
-      source_(new RefCountedObject<VideoRtpTrackSource>()),
+      source_(new RefCountedObject<VideoRtpTrackSource>(worker_thread_)),
       track_(VideoTrackProxy::Create(
           rtc::Thread::Current(),
           worker_thread,
@@ -123,10 +125,12 @@ void VideoRtpReceiver::Stop() {
     // media channel has already been deleted.
     SetSink(nullptr);
   }
+  source_->Stop();
   stopped_ = true;
 }
 
 void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
+  rtc::CritScope lock(&lock_);
   if (!media_channel_) {
     RTC_LOG(LS_ERROR)
         << "VideoRtpReceiver::SetupMediaChannel: No video channel exists.";
@@ -142,6 +146,8 @@ void VideoRtpReceiver::SetupMediaChannel(uint32_t ssrc) {
   // Attach any existing frame decryptor to the media channel.
   MaybeAttachFrameDecryptorToMediaChannel(
       ssrc_, worker_thread_, frame_decryptor_, media_channel_, stopped_);
+
+  source_->Start(media_channel_, ssrc);
 }
 
 void VideoRtpReceiver::set_stream_ids(std::vector<std::string> stream_ids) {
@@ -190,6 +196,7 @@ void VideoRtpReceiver::SetObserver(RtpReceiverObserverInterface* observer) {
 }
 
 void VideoRtpReceiver::SetMediaChannel(cricket::MediaChannel* media_channel) {
+  rtc::CritScope lock(&lock_);
   RTC_DCHECK(media_channel == nullptr ||
              media_channel->media_type() == media_type());
   media_channel_ = static_cast<cricket::VideoMediaChannel*>(media_channel);
@@ -203,6 +210,7 @@ void VideoRtpReceiver::NotifyFirstPacketReceived() {
 }
 
 std::vector<RtpSource> VideoRtpReceiver::GetSources() const {
+  rtc::CritScope lock(&lock_);
   if (!media_channel_ || !ssrc_ || stopped_) {
     return {};
   }

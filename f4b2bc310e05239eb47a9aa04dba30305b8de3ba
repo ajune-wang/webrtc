@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "974698a2_2e90d0d8",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-20T08:54:51Z",
+      "side": 1,
+      "message": "This comment currently only says what the code does. We should explain why. (because we don\u0027t want to build queues in the pacer due to congestion window pushback?)",
+      "range": {
+        "startLine": 636,
+        "startChar": 66,
+        "endLine": 636,
+        "endChar": 74
+      },
+      "revId": "f4b2bc310e05239eb47a9aa04dba30305b8de3ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

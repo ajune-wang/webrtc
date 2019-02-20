@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "751c18cf_0668eb5f",
+        "filename": "test/pc/e2e/api/video_quality_analyzer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Probably we also need it in webrtc namespace, because it will be part of public API, looks like. And in such case we have to think about naming more carefully to avoid clashing with observers from PeerConnection API, WDYT?",
+      "range": {
+        "startLine": 52,
+        "startChar": 45,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e399064_f6745b5c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Maybe also name it as DefaultAudioQualityAnalyzer, WDYT?",
+      "range": {
+        "startLine": 116,
+        "startChar": 47,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fec5a76_6f19a3fb",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Add video quality analyzer to this vector too",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 11
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f43e777_53da609b",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Remove static cast here",
+      "range": {
+        "startLine": 204,
+        "startChar": 18,
+        "endLine": 204,
+        "endChar": 39
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "58848017_3ec70016",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 2
@@ -18,6 +110,145 @@
         "startChar": 2,
         "endLine": 218,
         "endChar": 28
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8203f7f1_749d15e8",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Maybe we should do it in sync way, otherwise it can poll stats after shut down.",
+      "parentUuid": "58848017_3ec70016",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 28
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f16f92_cc211151",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "move?",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "456fd248_dee1bb5f",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "move?",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2cd94ec_950dec87",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Move to cc file?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efdf58aa_da6cb81e",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "A bit confused here, because we don\u0027t know will it change the state of observer... So from compiler side it probably can be const, but it can change state of underlying objects.",
+      "range": {
+        "startLine": 53,
+        "startChar": 37,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca8f1ccb_fd4422a3",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-20T19:54:13Z",
+      "side": 1,
+      "message": "Maybe move it into InternalStatsObserver and add method \nvoid PollStats() {\n  peer-\u003epc()-\u003eGetStats(\n        this, nullptr,\n        webrtc::PeerConnectionInterface::StatsOutputLevel::\n            kStatsOutputLevelStandard);\n}",
+      "range": {
+        "startLine": 56,
+        "startChar": 67,
+        "endLine": 56,
+        "endChar": 76
       },
       "revId": "592da323b3fb56746cd01a026640c9d792a16960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

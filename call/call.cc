@@ -1251,7 +1251,9 @@ void Call::ConfigureSync(const std::string& sync_group) {
     // Only sync the first A/V pair within this sync group.
     if (num_synced_streams == 1) {
       // sync_audio_stream may be null and that's ok.
-      video_stream->SetSync(sync_audio_stream);
+      // NOT FOR THE COMITTING!
+      video_stream->SetSync(nullptr);
+      // video_stream->SetSync(sync_audio_stream);
     } else {
       video_stream->SetSync(nullptr);
     }

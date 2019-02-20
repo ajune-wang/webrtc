@@ -76,6 +76,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   void AddSecondarySink(RtpPacketSinkInterface* sink) override;
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink) override;
 
+  bool SetBaseMinimumPlayoutDelayMs(int delay_ms) override;
+  int GetBaseMinimumPlayoutDelayMs() const override;
+
   // Implements rtc::VideoSinkInterface<VideoFrame>.
   void OnFrame(const VideoFrame& video_frame) override;
 

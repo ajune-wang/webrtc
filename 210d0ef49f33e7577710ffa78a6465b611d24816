@@ -22,6 +22,30 @@
       "revId": "210d0ef49f33e7577710ffa78a6465b611d24816",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bf43de6_16119552",
+        "filename": "api/stats/rtc_stats.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5509
+      },
+      "writtenOn": "2019-02-20T15:58:14Z",
+      "side": 1,
+      "message": "All expansions of WEBRTC_RTCSTATS_DECL() have a semicolon after them, and this is a \"declare\" macro, so the macro needs to be structured in a way that it requires a semicolon after it. The simplest way to do this is to swap the \"protected:\" and \"public:\" branches so that the last declaration in the public branch can just not have a semicolon after it. This should be behavior preserving and harmless.",
+      "parentUuid": "4ec2244b_135c7c05",
+      "range": {
+        "startLine": 149,
+        "startChar": 9,
+        "endLine": 149,
+        "endChar": 14
+      },
+      "revId": "210d0ef49f33e7577710ffa78a6465b611d24816",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

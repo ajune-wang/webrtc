@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca7fad65_1c616521",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "what auto stands for?\nlooking that modules is a const\u0026 to a vector, I would expect individual reference are const too,\nso using non-const reference is misleading.\n\nmay be const auto\u0026 (though const std::unique_ptr\u003cRtpRtcp\u003e\u0026 probably better)",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 11
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a77541af_de6fa558",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "can single playout_delay_oracle_ handle multiple ssrcs?",
+      "range": {
+        "startLine": 229,
+        "startChar": 41,
+        "endLine": 229,
+        "endChar": 62
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a19eea41_bb4896e1",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "not_used too?",
+      "range": {
+        "startLine": 754,
+        "startChar": 38,
+        "endLine": 754,
+        "endChar": 55
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4374d91_b19d9bbb",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "prefer #include over forward declaration",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 21
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3491922b_8e00593b",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "prefer #include",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf323c7_fba86ef3",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "Prefer name this function as RegularFunction:\n\nchromium explicitly ban accessor style naming for virtual functions:\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#inline-functions",
+      "range": {
+        "startLine": 249,
+        "startChar": 2,
+        "endLine": 249,
+        "endChar": 31
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c922fd9d_1a18c9e6",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "what should be TODONE about it?",
+      "range": {
+        "startLine": 462,
+        "startChar": 17,
+        "endLine": 464,
+        "endChar": 64
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa7bc712_da658290",
+        "filename": "modules/rtp_rtcp/source/nack_rtx_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "is RTPSenderVideo actually needed for these tests or just makes the change smaller/streight forward?\nin latter case may be add a TODO to test nack functionality of the rtp_rtcp_module_ directly.",
+      "range": {
+        "startLine": 139,
+        "startChar": 42,
+        "endLine": 139,
+        "endChar": 56
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8723b32f_0f42ca88",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "in this file it is more common not to put {} around single line (e.g. see 4 lines above)\nif you still prefer to, make this function consistent.",
+      "range": {
+        "startLine": 452,
+        "startChar": 62,
+        "endLine": 452,
+        "endChar": 63
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d21ca42c_d837c885",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-20T12:36:39Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 363,
+        "startChar": 18,
+        "endLine": 363,
+        "endChar": 19
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

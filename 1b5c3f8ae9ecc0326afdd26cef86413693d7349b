@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b320f953_2f54e679",
+        "filename": "test/fuzzers/rtp_header_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-20T13:58:35Z",
+      "side": 1,
+      "message": "I increased to four bytes to not have to care about endianness.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "1b5c3f8ae9ecc0326afdd26cef86413693d7349b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

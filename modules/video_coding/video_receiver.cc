@@ -420,6 +420,20 @@ int32_t VideoReceiver::SetMinimumPlayoutDelay(uint32_t minPlayoutDelayMs) {
   return VCM_OK;
 }
 
+bool VideoReceiver::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
+  // In contrast to SetMinimumPlayoutDelay this runs on the construction_thread.
+  // |_timing| is protected through critical section internally.
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  return _timing->SetBaseMinimumPlayoutDelay(delay_ms);
+}
+
+int VideoReceiver::GetBaseMinimumPlayoutDelayMs() const {
+  // In contrast to SetMinimumPlayoutDelay this runs on the construction_thread.
+  // |_timing| is protected through critical section internally.
+  RTC_DCHECK_RUN_ON(&construction_thread_checker_);
+  return _timing->GetBaseMinimumPlayoutDelay();
+}
+
 // The estimated delay caused by rendering, defaults to
 // kDefaultRenderDelayMs = 10 ms
 int32_t VideoReceiver::SetRenderDelay(uint32_t timeMS) {

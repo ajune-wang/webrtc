@@ -16,6 +16,24 @@
       "revId": "ed4eeb0f471600299fce4fcb90d0effad6b58793",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42b8a99_fd547b6a",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-02-20T10:31:59Z",
+      "side": 1,
+      "message": "This field mirrors the bufferedamount defined in the standard [1], I added a bit more context to the comment.\n\n[1] https://w3c.github.io/webrtc-pc/#dom-datachannel-bufferedamount",
+      "parentUuid": "10bf46c0_50d08be1",
+      "revId": "ed4eeb0f471600299fce4fcb90d0effad6b58793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

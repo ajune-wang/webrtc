@@ -16,6 +16,24 @@
       "revId": "ce4d60b364c7d382d1fff0b99d93824a190a97e5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20f6af5_8af08602",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-02-20T08:37:55Z",
+      "side": 1,
+      "message": "True, but it\u0027s a good practice to keep a DCHECK close to an operation that can fail if some conditions are not met. In this case, the DCHECK ensures that std::copy won\u0027t fail (no mem stomping).",
+      "parentUuid": "adb5a85b_35cbdaa8",
+      "revId": "ce4d60b364c7d382d1fff0b99d93824a190a97e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

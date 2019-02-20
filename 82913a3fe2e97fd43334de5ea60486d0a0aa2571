@@ -16,6 +16,24 @@
       "revId": "82913a3fe2e97fd43334de5ea60486d0a0aa2571",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ebd64eb_dbc9d7dc",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-20T11:13:54Z",
+      "side": 1,
+      "message": "A DCHECK is a good idea.\n\nThis is exactly the sort of thing that\u0027s behind the general recommendation to used signed integer types...",
+      "parentUuid": "5e4cebb1_4b6ae708",
+      "revId": "82913a3fe2e97fd43334de5ea60486d0a0aa2571",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

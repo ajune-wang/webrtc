@@ -210,6 +210,24 @@
       "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b371041_d8a56b29",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-20T15:07:47Z",
+      "side": 1,
+      "message": "\u003e In case of sender discarding some frames due to lack of bandwidth, it makes sense for the receiver to receive nothing, because in the test we want to see the performance of one particular spatial layer.\nThe first part makes sense to me (that we discard on the sender due to lack of bandwidth).\nAs to the second one, is this purely driven by the complexity/prioritization?\n\nIf a certain layer is discarded, we would still like to measure the perceived quality by the receiver; and so take into the account the lower layer that was actually sent.\n\nBut then, similarly, we would like to see that a lower layer is delivered if the receivers bandwidth is lower.\n\nWhat\u0027s the value of the test that checks the quality of a single layer? Wouldn\u0027t it be better to not have this code, instead of having extra complexity for little benefit? (since we are not testing different layers themselves?). \n\nOr is the plan to introduce some kind of SFU to the quality tests?",
+      "parentUuid": "ff027fd2_58dff3ce",
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

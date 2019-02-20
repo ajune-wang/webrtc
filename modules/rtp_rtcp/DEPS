@@ -3,4 +3,5 @@ include_rules = [
   "+common_video",
   "+logging/rtc_event_log",
   "+system_wrappers",
+  "-system_wrappers:field_trial",
 ]

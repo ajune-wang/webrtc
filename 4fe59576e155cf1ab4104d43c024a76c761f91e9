@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b49d23f_9a3a6cfb",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T15:33:06Z",
+      "side": 1,
+      "message": "Document ownership of generic_encoder_ (in header file, not here).",
+      "range": {
+        "startLine": 603,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 33
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53da7592_5d6be01e",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T15:33:06Z",
+      "side": 1,
+      "message": "Is this still relevant?",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 62
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f134bb2_3cacc714",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T15:33:06Z",
+      "side": 1,
+      "message": "Do we really need two flags for this? If I\u0027m not missing something, this is the only place codec_info_ is read, otherwise it is a write-only member.\n\nIf we really need to keep the value from encoder_factory-\u003eQueryVideoEncoder, can we copy it to encoder_info_.has_internal_source close to those calls, and delete the codec_info_ member?\n\nWhen can it happen that the two values |codec_info_.has_internal_source| and |encoder_info_.has_internal_source| are different?",
+      "range": {
+        "startLine": 1602,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 78
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

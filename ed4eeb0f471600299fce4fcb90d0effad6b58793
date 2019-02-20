@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10bf46c0_50d08be1",
+        "filename": "pc/data_channel.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-20T05:57:21Z",
+      "side": 1,
+      "message": "Does it count the number of messages? As opposed to, e.g., the number of bytes? (Just saying \"increased by 1\" and \"decreased by 1\" would make things clear in the former case.)",
+      "revId": "ed4eeb0f471600299fce4fcb90d0effad6b58793",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -192,6 +192,24 @@
       "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff027fd2_58dff3ce",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_encoder.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-20T08:40:49Z",
+      "side": 1,
+      "message": "In case of sender discarding some frames due to lack of bandwidth, it makes sense for the receiver to receive nothing, because in the test we want to see the performance of one particular spatial layer.\n\nThe frames are discarded by the receiver to measure the quality of a single layer. Switching between available layers is out of scope for this test, it should include some real Network Filtering Unit.",
+      "parentUuid": "ffc3c7a4_4c996c8f",
+      "revId": "8924caac6db9a8216a80c2d26c24fc826b8f4938",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

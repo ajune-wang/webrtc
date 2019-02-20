@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d7f875dc_a61fe4db",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "This pattern is used many times in this file, to loop over the instance variable rtp_modules_. I\u0027d prefer to leave unchanged for now; could do a followup cl to consistently replace auto by explicit types?\n\nRegarding const, the vector is const because it is set on construction, but objects it points to  are not const.",
+      "parentUuid": "ca7fad65_1c616521",
+      "range": {
+        "startLine": 119,
+        "startChar": 7,
+        "endLine": 119,
+        "endChar": 11
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a77541af_de6fa558",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-20T12:36:39Z",
       "side": 1,
       "message": "can single playout_delay_oracle_ handle multiple ssrcs?",
+      "range": {
+        "startLine": 229,
+        "startChar": 41,
+        "endLine": 229,
+        "endChar": 62
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537f4bd0_1dba4113",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "I don\u0027t think so. Good catch. We need a separate instance for each rtp rtcp module.",
+      "parentUuid": "a77541af_de6fa558",
       "range": {
         "startLine": 229,
         "startChar": 41,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4f698e7e_d7d0d5fe",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 754,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Changed to pass nullptr for those two arguments, and updated ModuleRtpRtcpImpl::BitrateSent to tolerate that.\n\nI could change ModuleRtpRtcpImpl::BitrateSent to not have the useless arguments, should that be in this cl?",
+      "parentUuid": "a19eea41_bb4896e1",
+      "range": {
+        "startLine": 754,
+        "startChar": 38,
+        "endLine": 754,
+        "endChar": 55
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4374d91_b19d9bbb",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 9
@@ -91,6 +163,30 @@
       "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "680286b8_8020790e",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4374d91_b19d9bbb",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 21
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4cb14201_6c86b1e5",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3491922b_8e00593b",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcf323c7_fba86ef3",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e48fde6_3e3ab6e3",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Renaming to RtpSender(). Ok, or do you prefer GetRtpSender?\n\nI suspect I need rtp_sender() as alias somewhere, to not break downstream code.",
+      "parentUuid": "dcf323c7_fba86ef3",
+      "range": {
+        "startLine": 249,
+        "startChar": 2,
+        "endLine": 249,
+        "endChar": 31
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "0bae574f_2795b284",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp_defines.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Change to raw sequence number (with less subtly difficulties...), possible augmented by timestamp, if available. Updated comment.",
+      "parentUuid": "c922fd9d_1a18c9e6",
+      "range": {
+        "startLine": 462,
+        "startChar": 17,
+        "endLine": 464,
+        "endChar": 64
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa7bc712_da658290",
         "filename": "modules/rtp_rtcp/source/nack_rtx_unittest.cc",
         "patchSetId": 9
@@ -183,6 +351,30 @@
       "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8763d16_e5da2c19",
+        "filename": "modules/rtp_rtcp/source/nack_rtx_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "It\u0027s not clear to me if the functionality under test (both nack and rtx) really depends on RTPSenderVideo or not. Can you suggest a sentence for a TODO item?\n\nFor this cl, the intention is to not change the operation of the test.",
+      "parentUuid": "aa7bc712_da658290",
+      "range": {
+        "startLine": 139,
+        "startChar": 42,
+        "endLine": 139,
+        "endChar": 56
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "151a4b06_3826a045",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Deleted {}.",
+      "parentUuid": "8723b32f_0f42ca88",
+      "range": {
+        "startLine": 452,
+        "startChar": 62,
+        "endLine": 452,
+        "endChar": 63
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d21ca42c_d837c885",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
         "patchSetId": 9
@@ -229,6 +445,30 @@
       "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31cf61d1_3b85c181",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-20T13:17:13Z",
+      "side": 1,
+      "message": "Done. Also make |remote_bitrate_| just above  const.",
+      "parentUuid": "d21ca42c_d837c885",
+      "range": {
+        "startLine": 363,
+        "startChar": 18,
+        "endLine": 363,
+        "endChar": 19
+      },
+      "revId": "33cddec771d0bb7396fbb73adaa8364becaf1f40",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

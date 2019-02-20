@@ -46,6 +46,30 @@
       "revId": "8a6e25279f7ca75c48eacd2624b59ed493be9e65",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7387491a_d1fbe5a6",
+        "filename": "modules/pacing/paced_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 8683
+      },
+      "writtenOn": "2019-02-20T10:05:27Z",
+      "side": 1,
+      "message": "From my tests, this if didn\u0027t do anything in the current usage. Removed.",
+      "parentUuid": "3ac52bca_9a26ced5",
+      "range": {
+        "startLine": 189,
+        "startChar": 6,
+        "endLine": 189,
+        "endChar": 45
+      },
+      "revId": "8a6e25279f7ca75c48eacd2624b59ed493be9e65",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

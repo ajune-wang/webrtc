@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76bc97aa_0165cb90",
+        "filename": "modules/rtp_rtcp/source/rtp_sender.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-20T10:18:49Z",
+      "side": 1,
+      "message": "I suggest moving this closer to where it\u0027s used and maybe using a ternary for it.",
+      "range": {
+        "startLine": 671,
+        "startChar": 4,
+        "endLine": 671,
+        "endChar": 48
+      },
+      "revId": "8da2a21e613311a53918a8dd80854ae7940cb740",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

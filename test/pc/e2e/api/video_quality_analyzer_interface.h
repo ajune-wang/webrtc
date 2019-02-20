@@ -14,10 +14,12 @@
 #include <memory>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_encoder.h"
+#include "test/pc/e2e/api/stats_observer_interface.h"
 
 namespace webrtc {
 
@@ -47,9 +49,9 @@ namespace webrtc {
 // | Sink  |     | Stack  |     | Decoder |
 //  ¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯¯
 // The analyzer will be injected in all points from A to F.
-class VideoQualityAnalyzerInterface {
+class VideoQualityAnalyzerInterface : public test::StatsObserverInterface {
  public:
-  virtual ~VideoQualityAnalyzerInterface() = default;
+  ~VideoQualityAnalyzerInterface() override = default;
 
   // Will be called by framework before test. |threads_count| is number of
   // threads that analyzer can use for heavy calculations. Analyzer can perform
@@ -93,6 +95,9 @@ class VideoQualityAnalyzerInterface {
   // Tells analyzer that analysis complete and it should calculate final
   // statistics.
   virtual void Stop() {}
+
+  void OnStatsReports(absl::string_view pc_label,
+                      const StatsReports& stats_reports) override {}
 };
 
 }  // namespace webrtc

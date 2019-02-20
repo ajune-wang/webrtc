@@ -11,11 +11,13 @@
 #ifndef TEST_PC_E2E_API_AUDIO_QUALITY_ANALYZER_INTERFACE_H_
 #define TEST_PC_E2E_API_AUDIO_QUALITY_ANALYZER_INTERFACE_H_
 
+#include "test/pc/e2e/api/stats_observer_interface.h"
+
 namespace webrtc {
 
-class AudioQualityAnalyzerInterface {
+class AudioQualityAnalyzerInterface : public test::StatsObserverInterface {
  public:
-  virtual ~AudioQualityAnalyzerInterface() = default;
+  ~AudioQualityAnalyzerInterface() override = default;
 };
 
 }  // namespace webrtc

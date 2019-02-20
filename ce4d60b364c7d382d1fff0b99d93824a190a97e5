@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adb5a85b_35cbdaa8",
+        "filename": "modules/audio_processing/agc2/rnn_vad/fft_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7967
+      },
+      "writtenOn": "2019-02-20T08:34:36Z",
+      "side": 1,
+      "message": "Isn\u0027t this redundant?\ndst.size is equal to  kFrameSize20ms24kHz / 2 + 1, checked above.\n\noutput_buf_ is a private class member and created in the constructor with size kFrameSize20ms24kHz.",
+      "revId": "ce4d60b364c7d382d1fff0b99d93824a190a97e5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

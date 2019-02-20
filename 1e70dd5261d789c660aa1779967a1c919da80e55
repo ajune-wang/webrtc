@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4e3212f_6b4545e0",
+        "filename": "pc/remote_audio_source.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-20T15:23:05Z",
+      "side": 1,
+      "message": "Here, can we remove excessive testing of the caching behavior from the RemoteAudioSource in the rtp_sender_receiver_unittest.cc as this logic is now tested in playout_latency_unittest.cc?",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

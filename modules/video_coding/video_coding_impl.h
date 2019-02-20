@@ -126,6 +126,14 @@ class VideoReceiver : public Module {
                          size_t payloadLength,
                          const WebRtcRTPHeader& rtpInfo);
   int32_t SetMinimumPlayoutDelay(uint32_t minPlayoutDelayMs);
+
+  // The base minimum playout delay sets lower bound on minimum playout
+  // delay. The max of base minimum delay and minimum delay is used as lower
+  // bound on actual delay. Returns true if value was successfully set, false
+  // overwise.
+  bool SetBaseMinimumPlayoutDelayMs(int delay_ms);
+  int GetBaseMinimumPlayoutDelayMs() const;
+
   int32_t SetRenderDelay(uint32_t timeMS);
   int32_t Delay() const;
 

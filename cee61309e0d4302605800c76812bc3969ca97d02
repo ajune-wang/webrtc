@@ -16,6 +16,24 @@
       "revId": "cee61309e0d4302605800c76812bc3969ca97d02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b92780cc_2bb5983b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-02-20T13:19:33Z",
+      "side": 1,
+      "message": "Let\u0027s land this as it is, and do the additional clean-up in a later CL.",
+      "parentUuid": "d6018554_a89a915a",
+      "revId": "cee61309e0d4302605800c76812bc3969ca97d02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

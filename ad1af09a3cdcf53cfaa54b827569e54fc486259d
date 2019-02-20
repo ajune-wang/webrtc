@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a485b241_9616e969",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-20T15:06:07Z",
+      "side": 1,
+      "message": "This is true for values that wraps at powers of 2, but not true otherwise.\n\nMaybe it\u0027s better if I change the SeqNumUnwrapper to return int64_t instead, then we can have 0 as a default start value.",
+      "range": {
+        "startLine": 97,
+        "startChar": 68,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb105ef0_286c76be",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 1

@@ -27,6 +27,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
+#include "media/base/media_constants.h"
 #include "rtc_base/network.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/ssl_certificate.h"
@@ -117,6 +118,9 @@ class PeerConnectionE2EQualityTestFixture {
     int32_t fps;
     // Have to be unique among all specified configs for all peers in the call.
     absl::optional<std::string> stream_label;
+    // Video codec name. You can find valid names in
+    // media/base/media_constants.h
+    std::string codec_name = cricket::kVp8CodecName;
     // Only single from 3 next fields can be specified.
     // If specified generator with this name will be used as input.
     absl::optional<VideoGeneratorType> generator;

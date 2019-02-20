@@ -45,6 +45,30 @@
       "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e857af9c_109e221b",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-02-20T17:22:52Z",
+      "side": 1,
+      "message": "It\u0027s not actually synchronized, is it?  It\u0027s just guarded by a race checker, so there\u0027s nothing to prevent a race, it will just try to tell us if there was one.\n\nWithout actual synchronization, it\u0027s technically UB.  Since all we apparently need to do is check one bool on the network thread, can we make this one an atomic bool?  We can leave the TODO for future cleanup if that\u0027s not ideal.",
+      "parentUuid": "254e5624_50777b34",
+      "range": {
+        "startLine": 1089,
+        "startChar": 10,
+        "endLine": 1089,
+        "endChar": 31
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -63,6 +63,8 @@ struct BuiltInNetworkBehaviorConfig {
   int avg_burst_loss_length = -1;
   // Additional bytes to add to packet size.
   int packet_overhead = 0;
+  // Apply CoDel.
+  bool codel_active_queue_management = false;
 };
 
 class NetworkBehaviorInterface {

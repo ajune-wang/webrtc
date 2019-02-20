@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21712c49_7637e3e2",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-20T15:27:13Z",
+      "side": 1,
+      "message": "this doesn\u0027t need to run on the same thread as OnLocalSenderAdded ?",
+      "range": {
+        "startLine": 668,
+        "startChar": 7,
+        "endLine": 668,
+        "endChar": 27
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

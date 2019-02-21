@@ -303,6 +303,13 @@ TEST(CriticalSectionTest, Basic) {
   EXPECT_EQ(0, runner.shared_value());
 }
 
+TEST(CriticalSectionTest, Reentrancy) {
+  // Test that it is recursive lock by trying to enter twice.
+  CriticalSection cs;
+  EXPECT_TRUE(cs.TryEnter());
+  EXPECT_TRUE(cs.TryEnter());
+}
+
 class PerfTestData {
  public:
   PerfTestData(int expected_count, Event* event)

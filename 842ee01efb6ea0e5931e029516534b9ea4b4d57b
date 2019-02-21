@@ -117,6 +117,30 @@
       "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3862971a_501b0afa",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-02-21T18:57:18Z",
+      "side": 1,
+      "message": "Makes sense--regardless of whether we use atomic\u003cbool\u003e or not, it can change at any time and it could be out-of-date at the moment it\u0027s used.\n\nThe updated comment seems clearer to me.",
+      "parentUuid": "23e216bc_80730d92",
+      "range": {
+        "startLine": 1089,
+        "startChar": 10,
+        "endLine": 1089,
+        "endChar": 31
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

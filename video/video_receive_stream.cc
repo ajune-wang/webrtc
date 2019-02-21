@@ -393,6 +393,16 @@ void VideoReceiveStream::RemoveSecondarySink(
   rtp_video_stream_receiver_.RemoveSecondarySink(sink);
 }
 
+bool VideoReceiveStream::SetBaseMinimumPlayoutDelayMs(int delay_ms) {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_sequence_checker_);
+  return video_receiver_.SetBaseMinimumPlayoutDelayMs(delay_ms);
+}
+
+int VideoReceiveStream::GetBaseMinimumPlayoutDelayMs() const {
+  RTC_DCHECK_CALLED_SEQUENTIALLY(&worker_sequence_checker_);
+  return video_receiver_.GetBaseMinimumPlayoutDelayMs();
+}
+
 // TODO(tommi): This method grabs a lock 6 times.
 void VideoReceiveStream::OnFrame(const VideoFrame& video_frame) {
   int64_t sync_offset_ms;

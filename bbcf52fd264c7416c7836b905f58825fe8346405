@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b60e56f_81abcd1b",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T13:12:41Z",
+      "side": 1,
+      "message": "Controller?",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e94e62de_ab46a681",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T13:12:41Z",
+      "side": 1,
+      "message": "Why is the destructor not public? That will make it impossible to destroy via pointer to the base class: https://godbolt.org/z/pe2syy",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6e2f906_213b363d",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T13:12:41Z",
+      "side": 1,
+      "message": "module_common_types.h has traditionally been a dumping ground for all sorts of odds and ends. It\u0027s now much shorter than it used to be, so it would be nice to not put more stuff here.\n\nI would suggest either putting it in its own header, or in loss_notification_controller.h.",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

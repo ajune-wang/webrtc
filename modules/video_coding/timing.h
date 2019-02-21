@@ -35,6 +35,11 @@ class VCMTiming {
   // Set the amount of time needed to render an image. Defaults to 10 ms.
   void set_render_delay(int render_delay_ms);
 
+  // Sets the base minimum playout delay. Returns true if value was
+  // successfully set, false overwise.
+  bool SetBaseMinimumPlayoutDelay(int delay_ms);
+  int GetBaseMinimumPlayoutDelay() const;
+
   // Set the minimum time the video must be delayed on the receiver to
   // get the desired jitter buffer level.
   void SetJitterDelay(int required_delay_ms);
@@ -106,12 +111,19 @@ class VCMTiming {
   int TargetDelayInternal() const RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_sect_);
 
  private:
+  bool IsValidBaseMinimumPlayoutDelay(int delay_ms);
   rtc::CriticalSection crit_sect_;
   Clock* const clock_;
   bool master_ RTC_GUARDED_BY(crit_sect_);
   TimestampExtrapolator* ts_extrapolator_ RTC_GUARDED_BY(crit_sect_);
   std::unique_ptr<VCMCodecTimer> codec_timer_ RTC_GUARDED_BY(crit_sect_);
   int render_delay_ms_ RTC_GUARDED_BY(crit_sect_);
+
+  // The base minimum playout delay sets lower bound on minimum playout
+  // delay. The max of base minimum delay and minimum delay is used as lower
+  // bound on actual delay.
+  int base_minimum_playout_delay_ms_ RTC_GUARDED_BY(crit_sect_);
+
   // Best-effort playout delay range for frames from capture to render.
   // The receiver tries to keep the delay between |min_playout_delay_ms_|
   // and |max_playout_delay_ms_| taking the network jitter into account.

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f42fe60_99bfdf59",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T13:26:46Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "8b60e56f_81abcd1b",
+      "range": {
+        "startLine": 100,
+        "startChar": 37,
+        "endLine": 100,
+        "endChar": 43
+      },
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e94e62de_ab46a681",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "7add80ff_da023d9d",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T13:26:46Z",
+      "side": 1,
+      "message": "Copy/pasted from KeyFrameRequestSender (see above). I assumed this was done because a pointer to LossNotificationSender is passed without passing ownership, and this protected destructor makes mistakes about ownership less likely. Looked like a good idea to me. Wdyt?",
+      "parentUuid": "e94e62de_ab46a681",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6e2f906_213b363d",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2019-02-21T13:12:41Z",
       "side": 1,
       "message": "module_common_types.h has traditionally been a dumping ground for all sorts of odds and ends. It\u0027s now much shorter than it used to be, so it would be nice to not put more stuff here.\n\nI would suggest either putting it in its own header, or in loss_notification_controller.h.",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e8b067_eb74f5c5",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T13:26:46Z",
+      "side": 1,
+      "message": "Agreed in general, but so long as KeyFrameRequestSender is here, and given that the two are so related, perhaps we should make an exception?",
+      "parentUuid": "b6e2f906_213b363d",
       "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

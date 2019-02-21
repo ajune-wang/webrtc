@@ -493,9 +493,11 @@ if (rtc_include_tests) {
     ]
   }
 
-  rtc_test("fake_network_unittests") {
+  rtc_source_set("fake_network_unittests") {
+    testonly = true
+
     sources = [
-      "test/fake_network_pipe_unittest.cc",
+      "fake_network_pipe_unittest.cc",
     ]
     deps = [
       ":call_interfaces",
@@ -504,8 +506,6 @@ if (rtc_include_tests) {
       "../modules/rtp_rtcp",
       "../rtc_base:rtc_base_approved",
       "../system_wrappers",
-      "../test:test_common",
-      "../test:test_main",
       "../test:test_support",
       "//testing/gtest",
       "//third_party/abseil-cpp/absl/memory",

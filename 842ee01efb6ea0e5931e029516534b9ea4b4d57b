@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb88b37c_a9197b8f",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T10:39:28Z",
+      "side": 1,
+      "message": "Quite possibly. In this CL, I\u0027ve just added a RTC_GUARDED_BY annotation to configuration_, and let the compiler tell me where I need to add thread checker calls or use RTC_RUN_ON. As I annotate more member variables (in future CLs), the compiler will ask me to annotate more methods.",
+      "parentUuid": "21712c49_7637e3e2",
+      "range": {
+        "startLine": 668,
+        "startChar": 7,
+        "endLine": 668,
+        "endChar": 27
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "254e5624_50777b34",
         "filename": "pc/peer_connection.h",
         "patchSetId": 4
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "It\u0027s not actually synchronized, is it?  It\u0027s just guarded by a race checker, so there\u0027s nothing to prevent a race, it will just try to tell us if there was one.\n\nWithout actual synchronization, it\u0027s technically UB.  Since all we apparently need to do is check one bool on the network thread, can we make this one an atomic bool?  We can leave the TODO for future cleanup if that\u0027s not ideal.",
       "parentUuid": "254e5624_50777b34",
+      "range": {
+        "startLine": 1089,
+        "startChar": 10,
+        "endLine": 1089,
+        "endChar": 31
+      },
+      "revId": "842ee01efb6ea0e5931e029516534b9ea4b4d57b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23e216bc_80730d92",
+        "filename": "pc/peer_connection.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T10:39:28Z",
+      "side": 1,
+      "message": "That\u0027s right, a race checker doesn\u0027t provide any synchronization. It will just blow up if it detects an actual race. The theory is that this won\u0027t happen because some other part of the system is synchronizing.\n\nAs to using atomic\u003cbool\u003e: The problem is that this bool is derived from a bunch of other state, and I don\u0027t know if it\u0027s safe to use an out-of-date value. Using atomic\u003cbool\u003e will mask the problem, while using a race checker (covering the entire body of the function that accesses the bool) has a decent chance of actually detecting races if they exist.\n\nWould the following comment be an improvement?\n\n  // TODO(bugs.webrtc.org/9987): Caching just this bool and allowing the data it\u0027s derived from to change is not necessarily sound. Stop doing it.",
+      "parentUuid": "e857af9c_109e221b",
       "range": {
         "startLine": 1089,
         "startChar": 10,

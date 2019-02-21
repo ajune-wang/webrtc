@@ -260,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "9fb9d793_811915d5",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-21T16:08:35Z",
+      "side": 1,
+      "message": "I believe so, yes.",
+      "parentUuid": "4b8e75a2_0872b697",
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dd3ff2a_ef44567a",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 3
@@ -342,6 +360,30 @@
       "side": 1,
       "message": "Yes. IMHO, it is confusing to have \"received frame\" mean \"assembled frame\", and also the concept of \"complete(d?) frame\".\nI will produce a separate CL to rename OnReceivedFrameCallback with \"assembled\" instead of \"received\".",
       "parentUuid": "4f792926_0a78ae74",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9e6d26c_edec7580",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-02-21T16:08:35Z",
+      "side": 1,
+      "message": "sg",
+      "parentUuid": "6cac1057_d66e171f",
       "range": {
         "startLine": 36,
         "startChar": 9,

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28a487e8_33cc90c7",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-02-21T17:20:20Z",
+      "side": 0,
+      "message": "thanks :)",
+      "range": {
+        "startLine": 1094,
+        "startChar": 25,
+        "endLine": 1094,
+        "endChar": 47
+      },
+      "revId": "826f2e7f340cc40914ae4561625f7bb6d6e8c87b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -126,6 +126,7 @@ class VideoReceiver : public Module {
                          size_t payloadLength,
                          const WebRtcRTPHeader& rtpInfo);
   int32_t SetMinimumPlayoutDelay(uint32_t minPlayoutDelayMs);
+
   int32_t SetRenderDelay(uint32_t timeMS);
   int32_t Delay() const;
 

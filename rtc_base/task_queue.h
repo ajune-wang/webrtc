@@ -19,6 +19,7 @@
 #include "absl/memory/memory.h"
 #include "api/scoped_refptr.h"
 #include "api/task_queue/queued_task.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/task_queue/task_queue_priority.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/system/rtc_export.h"
@@ -144,7 +145,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // TaskQueue priority levels. On some platforms these will map to thread
   // priorities, on others such as Mac and iOS, GCD queue priorities.
   using Priority = ::webrtc::TaskQueuePriority;
-  class Impl;
 
   explicit TaskQueue(const char* queue_name,
                      Priority priority = Priority::NORMAL);
@@ -188,15 +188,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   }
 
  private:
-  // TODO(danilchap): Remove when external implementaions of TaskQueue remove
-  // these two functions.
-  void PostTaskAndReply(std::unique_ptr<QueuedTask> task,
-                        std::unique_ptr<QueuedTask> reply,
-                        TaskQueue* reply_queue);
-  void PostTaskAndReply(std::unique_ptr<QueuedTask> task,
-                        std::unique_ptr<QueuedTask> reply);
-
-  const scoped_refptr<Impl> impl_;
+  webrtc::TaskQueueBase* const impl_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(TaskQueue);
 };

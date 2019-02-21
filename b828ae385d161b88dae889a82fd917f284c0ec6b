@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f21822f_10431639",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "webrtc::rtcp::LossNotification::decodability_flag() has the comment. (Some other places have a comment, too.) I think it would be best not to comment here. I see this interface as plumbing - code that knows what a LossNotification is, wants to send one, and this pipe allows it to communicate to a module that knows how to write a LossNotification to the wire. The knowledge of the semantics is at the edges, and uninteresting in between.",
+      "parentUuid": "37eff5ff_a81fb096",
+      "range": {
+        "startLine": 108,
+        "startChar": 41,
+        "endLine": 108,
+        "endChar": 58
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d495808f_20947eff",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b3c68feb_0635f928",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "I think it\u0027s clearer like this. There\u0027s nothing set-specific here, and the template makes that apparent. If you don\u0027t have a strong objection, I\u0027d rather keep this.",
+      "parentUuid": "d495808f_20947eff",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 8
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea397dfb_a66a389d",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 3
@@ -62,6 +110,24 @@
       "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad3519c9_6d500fd3",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea397dfb_a66a389d",
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "2326954b_e4c08f0f",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Comment added.",
+      "parentUuid": "1181ca86_43454481",
+      "range": {
+        "startLine": 85,
+        "startChar": 60,
+        "endLine": 85,
+        "endChar": 67
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47b8e73e_f5650ad5",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 3
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "a3e3ad8d_71a21c47",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Resolved by aforementioned comment.",
+      "parentUuid": "47b8e73e_f5650ad5",
+      "range": {
+        "startLine": 87,
+        "startChar": 6,
+        "endLine": 87,
+        "endChar": 71
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c07c65f3_9f5e9687",
         "filename": "modules/video_coding/loss_notification_controller.cc",
         "patchSetId": 3
@@ -122,6 +236,24 @@
       "writtenOn": "2019-02-21T14:10:20Z",
       "side": 1,
       "message": "Key frames are also decodable?",
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8e75a2_0872b697",
+        "filename": "modules/video_coding/loss_notification_controller.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Key frames are intra frames by definition, right?",
+      "parentUuid": "c07c65f3_9f5e9687",
       "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "7648e78a_2a0e23ad",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "I do have a slight tendency to verbosity, I must admit. Perhaps it would be best for me to accept your advice and produce terser prose. I have now removed this part of the comment which you have pointed out, while keeping the rest intact.",
+      "parentUuid": "3dd3ff2a_ef44567a",
+      "range": {
+        "startLine": 30,
+        "startChar": 50,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f792926_0a78ae74",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 3
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "6cac1057_d66e171f",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Yes. IMHO, it is confusing to have \"received frame\" mean \"assembled frame\", and also the concept of \"complete(d?) frame\".\nI will produce a separate CL to rename OnReceivedFrameCallback with \"assembled\" instead of \"received\".",
+      "parentUuid": "4f792926_0a78ae74",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0060770e_fad2bba1",
         "filename": "modules/video_coding/loss_notification_controller.h",
         "patchSetId": 3
@@ -188,6 +368,24 @@
       "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41a7fbb3_762d2ba1",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0060770e_fad2bba1",
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "1904cf4d_96c2b95e",
+        "filename": "modules/video_coding/loss_notification_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68e60a95_4af988ae",
+      "range": {
+        "startLine": 95,
+        "startChar": 28,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d30155b_a2084732",
         "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
         "patchSetId": 3
@@ -225,6 +447,30 @@
       "writtenOn": "2019-02-21T14:10:20Z",
       "side": 1,
       "message": "Nice tests!",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 5
+      },
+      "revId": "b828ae385d161b88dae889a82fd917f284c0ec6b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c59831e_dc56cc0d",
+        "filename": "modules/video_coding/loss_notification_controller_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-21T15:27:40Z",
+      "side": 1,
+      "message": "Thanks! :-)",
+      "parentUuid": "6d30155b_a2084732",
       "range": {
         "startLine": 49,
         "startChar": 0,

@@ -145,7 +145,6 @@ MediaCodecVideoDecoder::MediaCodecVideoDecoder(JNIEnv* jni,
 
   ALOGD << "MediaCodecVideoDecoder ctor. Use surface: " << use_surface_;
   memset(&codec_, 0, sizeof(codec_));
-  AllowBlockingCalls();
 }
 
 MediaCodecVideoDecoder::~MediaCodecVideoDecoder() {

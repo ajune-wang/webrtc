@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f78d268_9d045da1",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T12:10:52Z",
+      "side": 1,
+      "message": "Why not\n\n  std::shared_ptr\u003cconst WebRtcKeyValueConfig\u003e\n\nsince the raw pointer was pointer-to-const?",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "1b393c089f02e3fb28b8478ef836780f25cd9641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d6ac21_11a21161",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T12:10:52Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 72,
+        "startChar": 24,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "1b393c089f02e3fb28b8478ef836780f25cd9641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8ba8986_bb7dcf69",
+        "filename": "modules/congestion_controller/include/send_side_congestion_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T12:10:52Z",
+      "side": 1,
+      "message": "Again, const here? (There are more cases of this below.)",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 42
+      },
+      "revId": "1b393c089f02e3fb28b8478ef836780f25cd9641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

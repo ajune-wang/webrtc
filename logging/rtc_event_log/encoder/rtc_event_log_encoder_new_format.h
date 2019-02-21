@@ -52,6 +52,8 @@ class RtpPacket;
 class RtcEventGenericAckReceived;
 class RtcEventGenericPacketReceived;
 class RtcEventGenericPacketSent;
+class RtcEventPromptAntennaSwitch;
+class RtcEventVideoSendPaused;
 
 class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
  public:
@@ -139,6 +141,12 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
       rtclog2::EventStream* event_stream);
   void EncodeIceCandidatePairEvent(
       rtc::ArrayView<const RtcEventIceCandidatePair*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodePromptAntSwitch(
+      rtc::ArrayView<const RtcEventPromptAntennaSwitch*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodeVideoSendPaused(
+      rtc::ArrayView<const RtcEventVideoSendPaused*> batch,
       rtclog2::EventStream* event_stream);
 };
 

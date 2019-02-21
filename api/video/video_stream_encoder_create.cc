@@ -18,9 +18,11 @@ namespace webrtc {
 std::unique_ptr<VideoStreamEncoderInterface> CreateVideoStreamEncoder(
     uint32_t number_of_cores,
     VideoStreamEncoderObserver* encoder_stats_observer,
-    const VideoStreamEncoderSettings& settings) {
+    const VideoStreamEncoderSettings& settings,
+    RtcEventLog* event_log) {
   return absl::make_unique<VideoStreamEncoder>(
       number_of_cores, encoder_stats_observer, settings,
-      absl::make_unique<OveruseFrameDetector>(encoder_stats_observer));
+      absl::make_unique<OveruseFrameDetector>(encoder_stats_observer),
+      event_log);
 }
 }  // namespace webrtc

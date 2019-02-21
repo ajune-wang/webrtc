@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "91d7da70_434b0ef6",
+        "filename": "media/base/delayable.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8aebd2d9_f5c444e0",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf4ce8c1_0a0635d7",
         "filename": "media/engine/fake_webrtc_call.cc",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2019-02-21T06:46:20Z",
       "side": 1,
       "message": "nit: GetVideoReceiveStreamByRemoteSsrc\n\nsince I would usually expect the ssrc to be the local ssrc",
+      "range": {
+        "startLine": 413,
+        "startChar": 40,
+        "endLine": 413,
+        "endChar": 61
+      },
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fb83d10_eeafa91a",
+        "filename": "media/engine/fake_webrtc_call.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "I don\u0027t mind it but I cloned this method from the GetAudioReceiveStream. If we change this one, we need to change other one for consistency.\n\nAnd can you please explain the difference:\nhttps://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/call/video_receive_stream.h?rcl\u003d234527948\u0026g\u003d0\u0026l\u003d147\n\nHere local ssrc is the ssrc of sending stream, right?\nWhile remote ssrc is the ssrc of receiving stream, isn\u0027t it?",
+      "parentUuid": "bf4ce8c1_0a0635d7",
       "range": {
         "startLine": 413,
         "startChar": 40,
@@ -56,6 +98,24 @@
       "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a5f5a71_5f870b66",
+        "filename": "media/engine/fake_webrtc_call.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f65caed_20febe2f",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +159,48 @@
     },
     {
       "key": {
+        "uuid": "5070cad0_ba0d860b",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "My bad, the reset of code is actually written in the way so it doesn\u0027t lock twice on single thread, critical_section_unittest doesn\u0027t test that behavior, and I am not that familiar with pthreads, so I thought pthread_mutex_t is non-recursive.\nIn reality it depends on how you initialize it or compile it.\nI have compiled it so it locks its twice on the same thread and it works, so you are right - it is re-entrant.\nI removed the comment, however can I please leave it on the same place for my own calm? I have tested it only on Linux and for other platforms the locking is very different. Plus the missing recursive test case in critical_section_unittest looks a bit suspicious.",
+      "parentUuid": "06deed6c_6845c8e2",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd50aa11_8a7e4258",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "951fc00c_da1080f1",
+      "range": {
+        "startLine": 1502,
+        "startChar": 56,
+        "endLine": 1502,
+        "endChar": 68
+      },
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e6299ef_002624b4",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 6
@@ -113,6 +215,24 @@
       "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e2afd4c_34456592",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Oh, it is actually my mistake. receive_streams_ can\u0027t contain 0 as their key, and if default_ssrc is present I don\u0027t update its value and actually just returning instead. I will fix it.",
+      "parentUuid": "9e6299ef_002624b4",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +368,24 @@
     },
     {
       "key": {
+        "uuid": "fad6fb94_d6dd18a5",
+        "filename": "pc/test/mock_delayable.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Can it remain here, as it this mock only is used for tests in pc? It is also logical from BUILD file structure point of view.",
+      "parentUuid": "f0c32b02_df1347d4",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5761796_9bd0a2fb",
         "filename": "pc/video_rtp_receiver.cc",
         "patchSetId": 6
@@ -299,6 +437,24 @@
       "writtenOn": "2019-02-21T06:46:20Z",
       "side": 1,
       "message": "I don\u0027t think we need a lock since all accesses happen on the same thread.",
+      "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dee74063_c560ed53",
+        "filename": "pc/video_rtp_receiver.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:06:25Z",
+      "side": 1,
+      "message": "Yes, sorry, it is just remnant from the time when I was trying to figure out how threading is organized.",
+      "parentUuid": "a4a01684_258fd975",
       "revId": "1e70dd5261d789c660aa1779967a1c919da80e55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

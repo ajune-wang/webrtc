@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e8fc281_b6780fc7",
+        "filename": "test/pc/e2e/api/video_quality_analyzer_interface.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "We talked by person and we decided to move everything into webrtc::test instead of keeping api/ interfaces into ::webrtc.",
+      "parentUuid": "751c18cf_0668eb5f",
+      "range": {
+        "startLine": 52,
+        "startChar": 45,
+        "endLine": 52,
+        "endChar": 51
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e399064_f6745b5c",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "592da323b3fb56746cd01a026640c9d792a16960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e68b1d_210ec35d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e399064_f6745b5c",
+      "range": {
+        "startLine": 116,
+        "startChar": 47,
+        "endLine": 116,
+        "endChar": 67
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9fec6936_f34aab37",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done, but I turned observers into a class member so I can add analyzers to it before injecting the video quality analyzer.",
+      "parentUuid": "2fec5a76_6f19a3fb",
+      "range": {
+        "startLine": 203,
+        "startChar": 2,
+        "endLine": 203,
+        "endChar": 11
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f43e777_53da609b",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "592da323b3fb56746cd01a026640c9d792a16960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "468ddb23_e699563f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f43e777_53da609b",
+      "range": {
+        "startLine": 204,
+        "startChar": 18,
+        "endLine": 204,
+        "endChar": 39
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -141,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "34c8e9d6_fb274913",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8203f7f1_749d15e8",
+      "range": {
+        "startLine": 218,
+        "startChar": 2,
+        "endLine": 218,
+        "endChar": 28
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43f16f92_cc211151",
         "filename": "test/pc/e2e/stats_poller.h",
         "patchSetId": 2
@@ -187,6 +307,54 @@
     },
     {
       "key": {
+        "uuid": "b7b2b081_4b6d03dc",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "456fd248_dee1bb5f",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00999c57_91d69ad9",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43f16f92_cc211151",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 31,
+        "endChar": 49
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2cd94ec_950dec87",
         "filename": "test/pc/e2e/stats_poller.h",
         "patchSetId": 2
@@ -207,6 +375,30 @@
       "revId": "592da323b3fb56746cd01a026640c9d792a16960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24c65c3c_e146cb60",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2cd94ec_950dec87",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -233,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "59757284_fc664411",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efdf58aa_da6cb81e",
+      "range": {
+        "startLine": 53,
+        "startChar": 37,
+        "endLine": 53,
+        "endChar": 42
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca8f1ccb_fd4422a3",
         "filename": "test/pc/e2e/stats_poller.h",
         "patchSetId": 2
@@ -253,6 +469,30 @@
       "revId": "592da323b3fb56746cd01a026640c9d792a16960",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef412b01_1e13b718",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-21T16:36:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca8f1ccb_fd4422a3",
+      "range": {
+        "startLine": 56,
+        "startChar": 67,
+        "endLine": 56,
+        "endChar": 76
+      },
+      "revId": "592da323b3fb56746cd01a026640c9d792a16960",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

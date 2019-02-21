@@ -67,9 +67,9 @@ class AudioAllocationSettings {
       bool has_dscp,
       int transport_seq_num_extension_header_id) const;
 
-  // Returns the min bitrate for audio rate allocation, potentially including
-  // overhead.
+  // Returns the min bitrate for audio rate allocation
   int MinBitrateBps() const;
+
   // Returns the max bitrate for audio rate allocation, potentially including
   // overhead. |rtp_parameter_max_bitrate_bps| max bitrate as configured in rtp
   // parameters, excluding overhead.

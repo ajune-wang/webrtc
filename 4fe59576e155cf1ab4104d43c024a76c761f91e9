@@ -140,6 +140,30 @@
       "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6ba2ad1_1da2abab",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T10:18:22Z",
+      "side": 1,
+      "message": "Ok, can you write a brief comment on that transition here?",
+      "parentUuid": "23817099_dd8ca3a1",
+      "range": {
+        "startLine": 1602,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 78
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

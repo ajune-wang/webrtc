@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "48fb992f_e98cbb95",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T13:37:41Z",
+      "side": 1,
+      "message": "I suspect it\u0027s overengineering; since we ~always use smart pointers to handle ownership, there should be no risk.\n\nIf you want to keep it anyway, please add a comment that explains.",
+      "parentUuid": "7add80ff_da023d9d",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b6e2f906_213b363d",
         "filename": "modules/include/module_common_types.h",
         "patchSetId": 1
@@ -116,6 +134,24 @@
       "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1274c8d3_df4cb5f5",
+        "filename": "modules/include/module_common_types.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T13:37:41Z",
+      "side": 1,
+      "message": "Mmm. Very well.",
+      "parentUuid": "28e8b067_eb74f5c5",
+      "revId": "bbcf52fd264c7416c7836b905f58825fe8346405",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

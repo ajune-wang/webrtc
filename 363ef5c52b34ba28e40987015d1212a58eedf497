@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "44992af1_99971901",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T11:56:11Z",
+      "side": 1,
+      "message": "\u003e How about something like\n\u003e struct RtpSuite {  // Obviously name should be better:\n\u003e // RtpStream? SimulcastStream? TrackSender? RtpChannel\n\u003e   PlayoutDelayOracle observer;\n\u003e   std::unique_ptr\u003cRtpRtcp\u003e packet_sender;\n\u003e   std::unique_ptr\u003cRTPSenderVideo\u003e frame_sender;\n\u003e };\n\nI think that will make things simpler. RtpStreamSender may be a reasonable name.\n\n\u003e std::vector\u003cRtpSuite\u003e CreateRtpRtcpModules(...);\n\u003e though pointer to PlayoutDelayOracle must be stable, so keeping it by value in a vector seems error-prone\n\nGood point, I\u0027ll allocate it separately, then.",
+      "parentUuid": "c8c1d9aa_45317492",
+      "range": {
+        "startLine": 101,
+        "startChar": 33,
+        "endLine": 101,
+        "endChar": 53
+      },
+      "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edf6c2c0_40dc8497",
         "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
         "patchSetId": 11
@@ -60,6 +84,30 @@
       "writtenOn": "2019-02-21T09:15:32Z",
       "side": 1,
       "message": "I wouldn\u0027t mind if you change EXPECT_EQ(true, ...); to EXPECT_TRUE(...)\nwhile changing this line.",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 20
+      },
+      "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f9af2e_20e680cd",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T11:56:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edf6c2c0_40dc8497",
       "range": {
         "startLine": 250,
         "startChar": 4,

@@ -25,6 +25,8 @@
 #include "call/rtp_video_sender_interface.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/rtp_rtcp/include/flexfec_sender.h"
+#include "modules/rtp_rtcp/source/playout_delay_oracle.h"
+#include "modules/rtp_rtcp/source/rtp_sender_video.h"
 #include "modules/rtp_rtcp/source/rtp_video_header.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/constructor_magic.h"
@@ -47,6 +49,21 @@ class RtpVideoSender : public RtpVideoSenderInterface,
                        public VCMProtectionCallback,
                        public PacketFeedbackObserver {
  public:
+  // RTP state for a single simulcast stream. Internal to the implementation,
+  // but declared public here for visibility in internal utility functions.
+  struct RtpStreamSender {
+    RtpStreamSender();
+    RtpStreamSender(RtpStreamSender&&);
+    RtpStreamSender& operator=(RtpStreamSender&&);
+
+    ~RtpStreamSender();
+
+    // Note: Needs pointer stability.
+    std::unique_ptr<PlayoutDelayOracle> playout_delay_oracle;
+    std::unique_ptr<RtpRtcp> rtp_rtcp;
+    std::unique_ptr<RTPSenderVideo> sender_video;
+  };
+
   // Rtp modules are assumed to be sorted in simulcast index order.
   RtpVideoSender(
       std::map<uint32_t, RtpState> suspended_ssrcs,
@@ -145,7 +162,7 @@ class RtpVideoSender : public RtpVideoSenderInterface,
   std::unique_ptr<FlexfecSender> flexfec_sender_;
   std::unique_ptr<FecController> fec_controller_;
   // Rtp modules are assumed to be sorted in simulcast index order.
-  const std::vector<std::unique_ptr<RtpRtcp>> rtp_modules_;
+  const std::vector<RtpStreamSender> rtp_streams_;
   const RtpConfig rtp_config_;
   RtpTransportControllerSendInterface* const transport_;
 

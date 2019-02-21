@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50efdd77_3796498e",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "nit: maybe a typedef for this would help with readability?",
+      "range": {
+        "startLine": 24,
+        "startChar": 39,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10d89c0d_293abc61",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "prefer initializer list syntax",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c39e3a64_ed2e01e7",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "The default dtor should be adequate here.",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 32
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f58405d4_c8961e1d",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "Why are we resetting the completion handler here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 23
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e8cb47_a1b60609",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "If we expect this never to happen it would be good to add an RTC_NOTREACHED() to make that explicit.",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56be22b2_cebc197e",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "why the copy?",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29f24487_3e66cf17",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "This can be written more tersely as `for (const auto\u0026 stat : report)`",
+      "range": {
+        "startLine": 154,
+        "startChar": 9,
+        "endLine": 154,
+        "endChar": 89
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6f579e2_28389122",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-21T12:27:10Z",
+      "side": 1,
+      "message": "same here, why copy?",
+      "range": {
+        "startLine": 158,
+        "startChar": 34,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

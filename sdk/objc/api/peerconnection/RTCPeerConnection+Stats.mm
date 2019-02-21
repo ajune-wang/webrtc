@@ -12,11 +12,31 @@
 
 #import "RTCLegacyStatsReport+Private.h"
 #import "RTCMediaStreamTrack+Private.h"
+#import "RTCStatisticsReport+Private.h"
 #import "helpers/NSString+StdString.h"
 
 #include "rtc_base/checks.h"
 
 namespace webrtc {
+
+class StatsCollectorCallbackAdaptor : public RTCStatsCollectorCallback {
+ public:
+  StatsCollectorCallbackAdaptor(void (^completionHandler)(RTCStatisticsReport *)) {
+    completion_handler_ = completionHandler;
+  }
+
+  ~StatsCollectorCallbackAdaptor() override { completion_handler_ = nil; }
+
+  void OnStatsDelivered(const rtc::scoped_refptr<const RTCStatsReport> &report) override {
+    RTC_DCHECK(completion_handler_);
+    RTCStatisticsReport *statisticsReport = [[RTCStatisticsReport alloc] initWithReport:*report];
+    completion_handler_(statisticsReport);
+    completion_handler_ = nil;
+  }
+
+ private:
+  void (^completion_handler_)(RTCStatisticsReport *);
+};
 
 class StatsObserverAdapter : public StatsObserver {
  public:
@@ -45,6 +65,12 @@ class StatsObserverAdapter : public StatsObserver {
 }  // namespace webrtc
 
 @implementation RTCPeerConnection (Stats)
+
+- (void)statisticsWithCompletionHandler:(void (^)(RTCStatisticsReport *))completionHandler {
+  rtc::scoped_refptr<webrtc::StatsCollectorCallbackAdaptor> collector(
+      new rtc::RefCountedObject<webrtc::StatsCollectorCallbackAdaptor>(completionHandler));
+  self.nativePeerConnection->GetStats(collector);
+}
 
 - (void)statsForTrack:(RTCMediaStreamTrack *)mediaStreamTrack
      statsOutputLevel:(RTCStatsOutputLevel)statsOutputLevel

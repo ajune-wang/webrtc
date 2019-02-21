@@ -16,6 +16,11 @@
 #include "rtc_base/time/timestamp_extrapolator.h"
 #include "system_wrappers/include/clock.h"
 
+namespace {
+constexpr int kMinBaseMinimumDelayMs = 0;
+constexpr int kMaxBaseMinimumDelayMs = 10000;
+}  // namespace
+
 namespace webrtc {
 
 VCMTiming::VCMTiming(Clock* clock, VCMTiming* master_timing)
@@ -24,6 +29,7 @@ VCMTiming::VCMTiming(Clock* clock, VCMTiming* master_timing)
       ts_extrapolator_(),
       codec_timer_(new VCMCodecTimer()),
       render_delay_ms_(kDefaultRenderDelayMs),
+      base_minimum_playout_delay_ms_(0),
       min_playout_delay_ms_(0),
       max_playout_delay_ms_(10000),
       jitter_delay_ms_(0),
@@ -60,6 +66,26 @@ void VCMTiming::Reset() {
 void VCMTiming::set_render_delay(int render_delay_ms) {
   rtc::CritScope cs(&crit_sect_);
   render_delay_ms_ = render_delay_ms;
+}
+
+bool VCMTiming::SetBaseMinimumPlayoutDelay(int delay_ms) {
+  if (!IsValidBaseMinimumPlayoutDelay(delay_ms)) {
+    return false;
+  }
+
+  rtc::CritScope cs(&crit_sect_);
+  base_minimum_playout_delay_ms_ = delay_ms;
+  return true;
+}
+
+bool VCMTiming::IsValidBaseMinimumPlayoutDelay(int delay_ms) {
+  return kMinBaseMinimumDelayMs <= delay_ms &&
+         delay_ms <= kMaxBaseMinimumDelayMs;
+}
+
+int VCMTiming::GetBaseMinimumPlayoutDelay() const {
+  rtc::CritScope cs(&crit_sect_);
+  return base_minimum_playout_delay_ms_;
 }
 
 void VCMTiming::set_min_playout_delay(int min_playout_delay_ms) {
@@ -174,7 +200,8 @@ int64_t VCMTiming::RenderTimeMs(uint32_t frame_timestamp,
 
 int64_t VCMTiming::RenderTimeMsInternal(uint32_t frame_timestamp,
                                         int64_t now_ms) const {
-  if (min_playout_delay_ms_ == 0 && max_playout_delay_ms_ == 0) {
+  if (min_playout_delay_ms_ == 0 && max_playout_delay_ms_ == 0 &&
+      base_minimum_playout_delay_ms_ == 0) {
     // Render as soon as possible.
     return 0;
   }
@@ -186,7 +213,9 @@ int64_t VCMTiming::RenderTimeMsInternal(uint32_t frame_timestamp,
 
   // Make sure the actual delay stays in the range of |min_playout_delay_ms_|
   // and |max_playout_delay_ms_|.
-  int actual_delay = std::max(current_delay_ms_, min_playout_delay_ms_);
+  int lower_bound_delay =
+      std::max(min_playout_delay_ms_, base_minimum_playout_delay_ms_);
+  int actual_delay = std::max(current_delay_ms_, lower_bound_delay);
   actual_delay = std::min(actual_delay, max_playout_delay_ms_);
   return estimated_complete_time_ms + actual_delay;
 }

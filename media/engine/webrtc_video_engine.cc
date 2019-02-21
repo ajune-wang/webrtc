@@ -418,10 +418,17 @@ UnsignalledSsrcHandler::Action DefaultUnsignalledSsrcHandler::OnUnsignalledSsrc(
 
   RTC_LOG(LS_INFO) << "Creating default receive stream for SSRC=" << ssrc
                    << ".";
-  if (!channel->AddRecvStream(sp, true)) {
+  if (!channel->AddRecvStream(sp, /*default_stream=*/true)) {
     RTC_LOG(LS_WARNING) << "Could not create default receive stream.";
   }
 
+  // SSRC 0 returns default_recv_base_minimum_delay_ms.
+  const int unsignaled_ssrc = 0;
+  int default_recv_base_minimum_delay_ms =
+      channel->GetBaseMinimumPlayoutDelayMs(unsignaled_ssrc).value_or(0);
+  // Set base minimum delay if it was set before for the default receive stream.
+  channel->SetBaseMinimumPlayoutDelayMs(ssrc,
+                                        default_recv_base_minimum_delay_ms);
   channel->SetSink(ssrc, default_sink_);
   return kDeliverPacket;
 }
@@ -1492,6 +1499,51 @@ void WebRtcVideoChannel::SetFrameEncryptor(
   }
 }
 
+bool WebRtcVideoChannel::SetBaseMinimumPlayoutDelayMs(uint32_t ssrc,
+                                                      int delay_ms) {
+  absl::optional<uint32_t> default_ssrc = GetDefaultReceiveStreamSsrc();
+  rtc::CritScope stream_lock(&stream_crit_);
+
+  // SSRC of 0 represents the default receive stream.
+  if (ssrc == 0) {
+    default_recv_base_minimum_delay_ms_ = delay_ms;
+  }
+
+  if (ssrc == 0 && !default_ssrc) {
+    return true;
+  }
+
+  if (ssrc == 0 && default_ssrc) {
+    ssrc = default_ssrc.value();
+  }
+
+  auto stream = receive_streams_.find(ssrc);
+  if (stream != receive_streams_.end()) {
+    stream->second->SetBaseMinimumPlayoutDelayMs(delay_ms);
+    return true;
+  } else {
+    RTC_LOG(LS_ERROR) << "No stream found to set base minimum playout delay";
+    return false;
+  }
+}
+
+absl::optional<int> WebRtcVideoChannel::GetBaseMinimumPlayoutDelayMs(
+    uint32_t ssrc) const {
+  rtc::CritScope stream_lock(&stream_crit_);
+  // SSRC of 0 represents the default receive stream.
+  if (ssrc == 0) {
+    return default_recv_base_minimum_delay_ms_;
+  }
+
+  auto stream = receive_streams_.find(ssrc);
+  if (stream != receive_streams_.end()) {
+    return stream->second->GetBaseMinimumPlayoutDelayMs();
+  } else {
+    RTC_LOG(LS_ERROR) << "No stream found to get base minimum playout delay";
+    return absl::nullopt;
+  }
+}
+
 absl::optional<uint32_t> WebRtcVideoChannel::GetDefaultReceiveStreamSsrc() {
   rtc::CritScope stream_lock(&stream_crit_);
   absl::optional<uint32_t> ssrc;
@@ -2390,6 +2442,10 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
   config.rtp.protected_by_flexfec = (flexfec_stream_ != nullptr);
   config.stream_id = stream_params_.id;
   stream_ = call_->CreateVideoReceiveStream(std::move(config));
+  if (base_minimum_playout_delay_ms_) {
+    stream_->SetBaseMinimumPlayoutDelayMs(
+        base_minimum_playout_delay_ms_.value());
+  }
   MaybeAssociateFlexfecWithVideo();
   stream_->Start();
 }
@@ -2450,6 +2506,22 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFrameDecryptor(
   if (stream_) {
     RecreateWebRtcVideoStream();
   }
+}
+
+bool WebRtcVideoChannel::WebRtcVideoReceiveStream::SetBaseMinimumPlayoutDelayMs(
+    int delay_ms) {
+  if (stream_ && stream_->SetBaseMinimumPlayoutDelayMs(delay_ms)) {
+    // Memorize only valid delays.
+    base_minimum_playout_delay_ms_ = delay_ms;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+int WebRtcVideoChannel::WebRtcVideoReceiveStream::GetBaseMinimumPlayoutDelayMs()
+    const {
+  return stream_ ? stream_->GetBaseMinimumPlayoutDelayMs() : 0;
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetSink(

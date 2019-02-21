@@ -151,7 +151,7 @@ TEST(RtpPayloadParamsTest, InfoMappedToRtpVideoHeader_H264) {
 
   EncodedImage encoded_image;
   CodecSpecificInfo codec_info;
-  CodecSpecificInfoH264 *h264info = &codec_info.codecSpecific.H264;
+  CodecSpecificInfoH264* h264info = &codec_info.codecSpecific.H264;
   memset(&codec_info, 0, sizeof(CodecSpecificInfo));
   codec_info.codecType = kVideoCodecH264;
   h264info->packetization_mode = H264PacketizationMode::SingleNalUnit;

@@ -283,18 +283,18 @@ TEST_P(RtpSenderVideoTest, CheckH264FrameMarking) {
   hdr.frame_marking.temporal_id = kNoTemporalIdx;
   hdr.frame_marking.tl0_pic_idx = 99;
   hdr.frame_marking.base_layer_sync = true;
-  rtp_sender_video_.SendVideo(kVideoFrameDelta, kPayload,
-                               kTimestamp, 0, kFrame, sizeof(kFrame), &frag,
-                               &hdr, kDefaultExpectedRetransmissionTimeMs);
+  rtp_sender_video_.SendVideo(kVideoFrameDelta, kPayload, kTimestamp, 0, kFrame,
+                              sizeof(kFrame), &frag, &hdr,
+                              kDefaultExpectedRetransmissionTimeMs);
 
   FrameMarking fm;
   EXPECT_FALSE(
       transport_.last_sent_packet().GetExtension<FrameMarkingExtension>(&fm));
 
   hdr.frame_marking.temporal_id = 0;
-  rtp_sender_video_.SendVideo(kVideoFrameDelta, kPayload,
-                               kTimestamp + 1, 0, kFrame, sizeof(kFrame), &frag,
-                               &hdr, kDefaultExpectedRetransmissionTimeMs);
+  rtp_sender_video_.SendVideo(kVideoFrameDelta, kPayload, kTimestamp + 1, 0,
+                              kFrame, sizeof(kFrame), &frag, &hdr,
+                              kDefaultExpectedRetransmissionTimeMs);
 
   EXPECT_TRUE(
       transport_.last_sent_packet().GetExtension<FrameMarkingExtension>(&fm));

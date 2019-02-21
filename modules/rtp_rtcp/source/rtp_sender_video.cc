@@ -444,8 +444,9 @@ bool RTPSenderVideo::SendVideo(FrameType frame_type,
   int32_t retransmission_settings;
   bool set_video_rotation;
   bool set_color_space = false;
-  bool set_frame_marking = video_header->codec == kVideoCodecH264 &&
-        video_header->frame_marking.temporal_id != kNoTemporalIdx;
+  bool set_frame_marking =
+      video_header->codec == kVideoCodecH264 &&
+      video_header->frame_marking.temporal_id != kNoTemporalIdx;
 
   const absl::optional<PlayoutDelay> playout_delay =
       playout_delay_oracle_.PlayoutDelayToSend(video_header->playout_delay);

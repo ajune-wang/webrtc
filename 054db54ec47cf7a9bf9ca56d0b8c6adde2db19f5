@@ -22,6 +22,29 @@
       "revId": "054db54ec47cf7a9bf9ca56d0b8c6adde2db19f5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b825e5d9_7ec5ba59",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-21T09:15:32Z",
+      "side": 0,
+      "message": "please keep these inline (non-virtual) accessors",
+      "range": {
+        "startLine": 319,
+        "startChar": 55,
+        "endLine": 319,
+        "endChar": 0
+      },
+      "revId": "054db54ec47cf7a9bf9ca56d0b8c6adde2db19f5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

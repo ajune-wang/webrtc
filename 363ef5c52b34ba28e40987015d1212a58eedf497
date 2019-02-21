@@ -22,6 +22,53 @@
       "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8c1d9aa_45317492",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-21T09:15:32Z",
+      "side": 1,
+      "message": "How about something like\nstruct RtpSuite {  // Obviously name should be better:\n// RtpStream? SimulcastStream? TrackSender? RtpChannel\n  PlayoutDelayOracle observer;\n  std::unique_ptr\u003cRtpRtcp\u003e packet_sender;\n  std::unique_ptr\u003cRTPSenderVideo\u003e frame_sender;\n};\n\nstd::vector\u003cRtpSuite\u003e CreateRtpRtcpModules(...);\nthough pointer to PlayoutDelayOracle must be stable, so keeping it by value in a vector seems error-prone\n\n\nOr add a TODO to move both the Oracle and ptr\u003cRtpRtcp\u003e as RTPSenderVideo members\nwith the goal to have std::vector\u003cstd::unique_ptr\u003cRTPSenderVideo\u003e\u003e CreateRtpRtcpModules(...);",
+      "parentUuid": "eb9a6065_1d5f92c6",
+      "range": {
+        "startLine": 101,
+        "startChar": 33,
+        "endLine": 101,
+        "endChar": 53
+      },
+      "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edf6c2c0_40dc8497",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl_unittest.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-21T09:15:32Z",
+      "side": 1,
+      "message": "I wouldn\u0027t mind if you change EXPECT_EQ(true, ...); to EXPECT_TRUE(...)\nwhile changing this line.",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 20
+      },
+      "revId": "363ef5c52b34ba28e40987015d1212a58eedf497",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

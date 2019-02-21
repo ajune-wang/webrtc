@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3f86cb2b_7e8edf16",
+        "filename": "modules/audio_coding/neteq/delay_manager.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-21T13:59:38Z",
+      "side": 1,
+      "message": "Ah, right, we do 100-x inside histogram also.",
+      "parentUuid": "7afffd2d_377f1286",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 71
+      },
+      "revId": "6851d5d91a26a8de38d11209a970e5da59204fe6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d502f6a3_acc02eda",
         "filename": "modules/audio_coding/neteq/histogram.cc",
         "patchSetId": 5

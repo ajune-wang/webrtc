@@ -32,11 +32,13 @@
 #include "logging/rtc_event_log/events/rtc_event_probe_cluster_created.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_failure.h"
 #include "logging/rtc_event_log/events/rtc_event_probe_result_success.h"
+#include "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtcp_packet_outgoing.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_incoming.h"
 #include "logging/rtc_event_log/events/rtc_event_rtp_packet_outgoing.h"
 #include "logging/rtc_event_log/events/rtc_event_video_receive_stream_config.h"
+#include "logging/rtc_event_log/events/rtc_event_video_send_paused.h"
 #include "logging/rtc_event_log/events/rtc_event_video_send_stream_config.h"
 #include "logging/rtc_event_log/rtc_stream_config.h"
 #include "modules/audio_coding/audio_network_adaptor/include/audio_network_adaptor_config.h"
@@ -693,6 +695,8 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     std::vector<const RtcEventGenericPacketReceived*> generic_packets_received;
     std::vector<const RtcEventGenericPacketSent*> generic_packets_sent;
     std::vector<const RtcEventGenericAckReceived*> generic_acks_received;
+    std::vector<const RtcEventPromptAntennaSwitch*> prompt_ant_switch;
+    std::vector<const RtcEventVideoSendPaused*> video_send_paused;
 
     for (auto it = begin; it != end; ++it) {
       switch ((*it)->GetType()) {
@@ -843,6 +847,18 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
           generic_acks_received.push_back(rtc_event);
           break;
         }
+        case RtcEvent::Type::PromptAntennaSwitch: {
+          auto* rtc_event =
+              static_cast<const RtcEventPromptAntennaSwitch* const>(it->get());
+          prompt_ant_switch.push_back(rtc_event);
+          break;
+        }
+        case RtcEvent::Type::VideoSendPaused: {
+          auto* rtc_event =
+              static_cast<const RtcEventVideoSendPaused* const>(it->get());
+          video_send_paused.push_back(rtc_event);
+          break;
+        }
       }
     }
 
@@ -870,6 +886,8 @@ std::string RtcEventLogEncoderNewFormat::EncodeBatch(
     EncodeGenericPacketsReceived(generic_packets_received, &event_stream);
     EncodeGenericPacketsSent(generic_packets_sent, &event_stream);
     EncodeGenericAcksReceived(generic_acks_received, &event_stream);
+    EncodePromptAntSwitch(prompt_ant_switch, &event_stream);
+    EncodeVideoSendPaused(video_send_paused, &event_stream);
   }  // Deallocate the temporary vectors.
 
   return event_stream.SerializeAsString();
@@ -1627,6 +1645,17 @@ void RtcEventLogEncoderNewFormat::EncodeIceCandidatePairEvent(
     proto_batch->set_transaction_id(base_event->transaction_id());
   }
   // TODO(terelius): Should we delta-compress this event type?
+}
+
+void RtcEventLogEncoderNewFormat::EncodePromptAntSwitch(
+    rtc::ArrayView<const RtcEventPromptAntennaSwitch*> batch,
+    rtclog2::EventStream* event_stream) {
+  // Currently not logged to EventStream
+}
+void RtcEventLogEncoderNewFormat::EncodeVideoSendPaused(
+    rtc::ArrayView<const RtcEventVideoSendPaused*> batch,
+    rtclog2::EventStream* event_stream) {
+  // Currently not logged to EventStream
 }
 
 }  // namespace webrtc

@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "cce5e751_ff363fee",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-21T15:33:01Z",
+      "side": 1,
+      "message": "good point, forward declare indeed doesn\u0027t work in this case.",
+      "parentUuid": "048b6134_753be67b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "d68e9368d5b8581a29de96e3dbf4fdf57949fe62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0cc887c_f3c2c761",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 12

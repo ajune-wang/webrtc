@@ -20,6 +20,7 @@
 
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/units/data_rate.h"
 #include "api/units/timestamp.h"
 #include "modules/bitrate_controller/include/bitrate_controller.h"
@@ -88,9 +89,10 @@ DEPRECATED_SendSideCongestionController::
         Observer* observer,
         RtcEventLog* event_log,
         PacedSender* pacer,
-        const WebRtcKeyValueConfig* key_value_config)
-    : key_value_config_(key_value_config ? key_value_config
-                                         : &field_trial_config_),
+        std::shared_ptr<const WebRtcKeyValueConfig> key_value_config)
+    : key_value_config_(key_value_config
+                            ? key_value_config
+                            : std::make_shared<FieldTrialBasedConfig>()),
       clock_(clock),
       observer_(observer),
       event_log_(event_log),
@@ -98,8 +100,10 @@ DEPRECATED_SendSideCongestionController::
       bitrate_controller_(
           BitrateController::CreateBitrateController(clock_, event_log)),
       acknowledged_bitrate_estimator_(
-          absl::make_unique<AcknowledgedBitrateEstimator>(key_value_config_)),
-      probe_controller_(new ProbeController(key_value_config_, event_log)),
+          absl::make_unique<AcknowledgedBitrateEstimator>(
+              key_value_config_.get())),
+      probe_controller_(
+          new ProbeController(key_value_config_.get(), event_log)),
       retransmission_rate_limiter_(
           new RateLimiter(clock, kRetransmitWindowSizeMs)),
       transport_feedback_adapter_(clock_),
@@ -111,16 +115,16 @@ DEPRECATED_SendSideCongestionController::
       pacer_paused_(false),
       min_bitrate_bps_(congestion_controller::GetMinBitrateBps()),
       probe_bitrate_estimator_(new ProbeBitrateEstimator(event_log_)),
-      delay_based_bwe_(new DelayBasedBwe(key_value_config_, event_log_)),
+      delay_based_bwe_(new DelayBasedBwe(key_value_config_.get(), event_log_)),
       was_in_alr_(false),
       send_side_bwe_with_overhead_(
           key_value_config_->Lookup("WebRTC-SendSideBwe-WithOverhead")
               .find("Enabled") == 0),
       transport_overhead_bytes_per_packet_(0),
       pacer_pushback_experiment_(
-          IsPacerPushbackExperimentEnabled(key_value_config_)) {
+          IsPacerPushbackExperimentEnabled(key_value_config_.get())) {
   RateControlSettings experiment_params =
-      RateControlSettings::ParseFromKeyValueConfig(key_value_config);
+      RateControlSettings::ParseFromKeyValueConfig(key_value_config_.get());
   if (experiment_params.UseCongestionWindow()) {
     cwnd_experiment_parameter_ =
         experiment_params.GetCongestionWindowAdditionalTimeMs();
@@ -128,7 +132,7 @@ DEPRECATED_SendSideCongestionController::
   if (experiment_params.UseCongestionWindowPushback()) {
     congestion_window_pushback_controller_ =
         absl::make_unique<CongestionWindowPushbackController>(
-            key_value_config_);
+            key_value_config_.get());
   }
   delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps_));
 }
@@ -149,7 +153,7 @@ void DEPRECATED_SendSideCongestionController::EnableCongestionWindowPushback(
   cwnd_experiment_parameter_ = accepted_queue_ms;
   congestion_window_pushback_controller_ =
       absl::make_unique<CongestionWindowPushbackController>(
-          key_value_config_, min_pushback_target_bitrate_bps);
+          key_value_config_.get(), min_pushback_target_bitrate_bps);
 }
 
 void DEPRECATED_SendSideCongestionController::SetAlrLimitedBackoffExperiment(
@@ -244,9 +248,10 @@ void DEPRECATED_SendSideCongestionController::OnNetworkRouteChanged(
     transport_overhead_bytes_per_packet_ = network_route.packet_overhead;
     min_bitrate_bps_ = min_bitrate_bps;
     probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
-    delay_based_bwe_.reset(new DelayBasedBwe(key_value_config_, event_log_));
+    delay_based_bwe_.reset(
+        new DelayBasedBwe(key_value_config_.get(), event_log_));
     acknowledged_bitrate_estimator_.reset(
-        new AcknowledgedBitrateEstimator(key_value_config_));
+        new AcknowledgedBitrateEstimator(key_value_config_.get()));
     if (bitrate_bps > 0) {
       delay_based_bwe_->SetStartBitrate(DataRate::bps(bitrate_bps));
     }

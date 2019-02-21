@@ -32,6 +32,9 @@ class TargetTransferRateObserver {
 // Configuration sent to factory create function. The parameters here are
 // optional to use for a network controller implementation.
 struct NetworkControllerConfig {
+  NetworkControllerConfig();
+  NetworkControllerConfig(const NetworkControllerConfig&);
+  ~NetworkControllerConfig();
   // The initial constraints to start with, these can be changed at any later
   // time by calls to OnTargetRateConstraints. Note that the starting rate
   // has to be set initially to provide a starting state for the network
@@ -41,9 +44,9 @@ struct NetworkControllerConfig {
   // by calls to OnStreamsConfig.
   StreamsConfig stream_based_config;
 
-  // Optional override of configuration of WebRTC internals. Using nullptr here
-  // indicates that the field trial API will be used.
-  const WebRtcKeyValueConfig* key_value_config = nullptr;
+  // Optional override of configuration of WebRTC internals.
+  // Empty value indicates that the field trial API will be used.
+  std::shared_ptr<const WebRtcKeyValueConfig> key_value_config;
 };
 
 // NetworkControllerInterface is implemented by network controllers. A network

@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "absl/memory/memory.h"
+#include "api/transport/field_trial_based_config.h"
 #include "api/units/time_delta.h"
 #include "modules/congestion_controller/goog_cc/acknowledged_bitrate_estimator.h"
 #include "modules/congestion_controller/goog_cc/alr_detector.h"
@@ -90,8 +91,9 @@ int64_t GetBpsOrDefault(const absl::optional<DataRate>& rate,
 GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
                                                  NetworkControllerConfig config,
                                                  bool feedback_only)
-    : key_value_config_(config.key_value_config ? config.key_value_config
-                                                : &trial_based_config_),
+    : key_value_config_(config.key_value_config
+                            ? config.key_value_config
+                            : std::make_shared<FieldTrialBasedConfig>()),
       event_log_(event_log),
       packet_feedback_only_(feedback_only),
       safe_reset_on_route_change_("Enabled"),
@@ -102,21 +104,23 @@ GoogCcNetworkController::GoogCcNetworkController(RtcEventLog* event_log,
       fall_back_to_probe_rate_(
           key_value_config_->Lookup("WebRTC-Bwe-ProbeRateFallback")
               .find("Enabled") == 0),
-      rate_control_settings_(
-          RateControlSettings::ParseFromKeyValueConfig(key_value_config_)),
-      probe_controller_(new ProbeController(key_value_config_, event_log)),
+      rate_control_settings_(RateControlSettings::ParseFromKeyValueConfig(
+          key_value_config_.get())),
+      probe_controller_(
+          new ProbeController(key_value_config_.get(), event_log)),
       congestion_window_pushback_controller_(
           rate_control_settings_.UseCongestionWindowPushback()
               ? absl::make_unique<CongestionWindowPushbackController>(
-                    key_value_config_)
+                    key_value_config_.get())
               : nullptr),
       bandwidth_estimation_(
           absl::make_unique<SendSideBandwidthEstimation>(event_log_)),
       alr_detector_(absl::make_unique<AlrDetector>()),
       probe_bitrate_estimator_(new ProbeBitrateEstimator(event_log)),
-      delay_based_bwe_(new DelayBasedBwe(key_value_config_, event_log_)),
+      delay_based_bwe_(new DelayBasedBwe(key_value_config_.get(), event_log_)),
       acknowledged_bitrate_estimator_(
-          absl::make_unique<AcknowledgedBitrateEstimator>(key_value_config_)),
+          absl::make_unique<AcknowledgedBitrateEstimator>(
+              key_value_config_.get())),
       initial_config_(config),
       last_raw_target_rate_(*config.constraints.starting_rate),
       last_pushback_target_rate_(last_raw_target_rate_),
@@ -175,14 +179,15 @@ NetworkControlUpdate GoogCcNetworkController::OnNetworkRouteChange(
   }
 
   acknowledged_bitrate_estimator_.reset(
-      new AcknowledgedBitrateEstimator(key_value_config_));
+      new AcknowledgedBitrateEstimator(key_value_config_.get()));
   probe_bitrate_estimator_.reset(new ProbeBitrateEstimator(event_log_));
 
-    delay_based_bwe_.reset(new DelayBasedBwe(key_value_config_, event_log_));
-    if (msg.constraints.starting_rate)
-      delay_based_bwe_->SetStartBitrate(*msg.constraints.starting_rate);
-    // TODO(srte): Use original values instead of converted.
-    delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps));
+  delay_based_bwe_.reset(
+      new DelayBasedBwe(key_value_config_.get(), event_log_));
+  if (msg.constraints.starting_rate)
+    delay_based_bwe_->SetStartBitrate(*msg.constraints.starting_rate);
+  // TODO(srte): Use original values instead of converted.
+  delay_based_bwe_->SetMinBitrate(DataRate::bps(min_bitrate_bps));
 
   bandwidth_estimation_->OnRouteChange();
   bandwidth_estimation_->SetBitrates(

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e5060e8_eec376a4",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-02-21T21:55:42Z",
+      "side": 1,
+      "message": "With this interface, you can not pass MediaTransportAudioReceiver to AudioReceiveStream, because you want sink to come to AudioReceiveStream directly. Do you plan to pass media transport to audio send stream and stream will create audio receiver?",
+      "revId": "14daeb75aa3c4bef2255325a3625191a7b8053f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e4a4c6e_bd7fb2da",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 8020
+      },
+      "writtenOn": "2019-02-21T21:55:42Z",
+      "side": 1,
+      "message": "Should it include \n\nvirtual size_t GetAudioPacketOverhead() const; ?",
+      "revId": "14daeb75aa3c4bef2255325a3625191a7b8053f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

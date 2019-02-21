@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4520ca3d_6d42e2ab",
+        "filename": "modules/video_coding/timing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-21T15:24:50Z",
+      "side": 1,
+      "message": "These functions are duplicates of:\n\n  // Set/get the minimum playout delay from capture to render in ms.\n  void set_min_playout_delay(int min_playout_delay_ms);\n  int min_playout_delay();\n\nSee line 48 in this file.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a536cb_95bb9dd1",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-21T15:24:50Z",
+      "side": 1,
+      "message": "The |timing_| object lives in the VideoReceiveStream, so you don\u0027t need to implement a VideoReceiver::SetBaseMinimumPlayoutDelayMs function. You can call \n\n  timing_-\u003eset_min_playout_delay(delay_ms);\n\nfrom here.",
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3187cbb3_14dc4f89",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-21T15:24:50Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 403,
+        "startChar": 2,
+        "endLine": 403,
+        "endChar": 56
+      },
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

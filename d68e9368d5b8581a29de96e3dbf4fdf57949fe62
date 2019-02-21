@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ed57bd5_07ca188d",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T15:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f77b02c_a44822b5",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 331,
+        "endChar": 0
+      },
+      "revId": "d68e9368d5b8581a29de96e3dbf4fdf57949fe62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce51335_1dbae0ed",
         "filename": "call/rtp_video_sender.h",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "048b6134_753be67b",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T15:21:08Z",
+      "side": 1,
+      "message": "If I forward declare, I can no longer type the rtp_streams_ member as a std::vector\u003cRtpStreamSender\u003e, I\u0027d need yet another indirection (but I could make playout_delay_oracle and sender_video non-pointer members, I guess, with double indirection only for RtpRtcp).\n\nI\u0027ll give that a try.",
+      "parentUuid": "5ce51335_1dbae0ed",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "d68e9368d5b8581a29de96e3dbf4fdf57949fe62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0cc887c_f3c2c761",
         "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
         "patchSetId": 12
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-21T13:20:41Z",
       "side": 1,
       "message": "may be move it above keepalive_config to keep next to other observers",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "d68e9368d5b8581a29de96e3dbf4fdf57949fe62",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef30cdb_5d503a53",
+        "filename": "modules/rtp_rtcp/include/rtp_rtcp.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T15:21:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0cc887c_f3c2c761",
       "range": {
         "startLine": 98,
         "startChar": 0,

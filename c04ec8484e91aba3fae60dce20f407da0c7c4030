@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "29e3b757_dd442148",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5249
+      },
+      "writtenOn": "2019-02-21T14:42:54Z",
+      "side": 1,
+      "message": "Adapter?",
+      "range": {
+        "startLine": 22,
+        "startChar": 28,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "c04ec8484e91aba3fae60dce20f407da0c7c4030",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

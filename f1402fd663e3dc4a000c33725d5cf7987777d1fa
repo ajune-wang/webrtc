@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "4fec197f_95cebc16",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-21T18:56:57Z",
+      "side": 1,
+      "message": "to do that, the rtc::PacketTransportInternal* should get \u0027GetOverhead\u0027 (or \u0027SetOverheadObserver\u0027) method.\n\nIt\u0027s not a media transport\u0027s business to know what\u0027s the transport overhead - e.g. it may be ipv4/ipv6, or maybe you would tunnel the traffic through ipsec, or maybe it would use DNS tunelling. MediaTransport can\u0027t possibly know those overheads, if they are not reported by the PacketTransportInternal. We should add a TODO on that interface as well (or maybe implement it right away).\n\nBut best - since media trasnport doesn\u0027t own rtc::PacketTransportInternal*, should media transport add the packet transport overhead, or should it be added by someone else?",
+      "revId": "f1402fd663e3dc4a000c33725d5cf7987777d1fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a283d162_7137dcdc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 1

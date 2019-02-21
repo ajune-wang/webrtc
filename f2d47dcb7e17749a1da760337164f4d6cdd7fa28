@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c147e91e_2a14fc77",
+        "filename": "modules/video_coding/timing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-21T16:16:57Z",
+      "side": 1,
+      "message": "Things regarding playout delay constraints are a bit messy. We have three sources of constraints:\n 1. Javascript land\n 2. A/V Synchronization\n 3. RTP playout delay extension.\n\nHow these should interact is unclear.\n\nThe VCMTiming is a low level class that has a well defined purpose, which is to calculate the render time of each frame. To keep it clean we should not make it aware of high level APIs and their interactions, so I think the actual minimum playout should be calculated at a higher level.\n\nI think VideoReceiveStream is a better place to do this.",
+      "parentUuid": "1e55c78b_d820480c",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56a536cb_95bb9dd1",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9

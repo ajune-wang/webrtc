@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6c258e0_c06266a1",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-21T08:28:54Z",
+      "side": 1,
+      "message": "nit: \"Loosely based\". Just to reduce confusion, as at a first look it is quite hard to see that it derives from there.",
+      "range": {
+        "startLine": 29,
+        "startChar": 44,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "4af6d4e9c8d02eca1d982b5e4c2b45dca730f79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da0efc7e_ae6cc013",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-21T08:28:54Z",
+      "side": 1,
+      "message": "nit: kNotReceived?",
+      "range": {
+        "startLine": 58,
+        "startChar": 42,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "4af6d4e9c8d02eca1d982b5e4c2b45dca730f79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6788330c_864dba67",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-21T08:28:54Z",
+      "side": 1,
+      "message": "kNotReceived?",
+      "range": {
+        "startLine": 112,
+        "startChar": 38,
+        "endLine": 112,
+        "endChar": 40
+      },
+      "revId": "4af6d4e9c8d02eca1d982b5e4c2b45dca730f79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ead995d_50566274",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-21T08:28:54Z",
+      "side": 1,
+      "message": "Make this a const, kCheckInterval",
+      "range": {
+        "startLine": 121,
+        "startChar": 36,
+        "endLine": 121,
+        "endChar": 54
+      },
+      "revId": "4af6d4e9c8d02eca1d982b5e4c2b45dca730f79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bce953cb_1ab528f6",
+        "filename": "call/simulated_network_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-21T08:28:54Z",
+      "side": 1,
+      "message": "Think cast is cleaner.",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 38
+      },
+      "revId": "4af6d4e9c8d02eca1d982b5e4c2b45dca730f79c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

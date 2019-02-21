@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e55c78b_d820480c",
+        "filename": "modules/video_coding/timing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:50:24Z",
+      "side": 1,
+      "message": "Yes, from the implementation they are identical, and do the same thing. But I need to keep them separate so the highest of them takes precedence, in case user provides a value and audiovideo synchronization enabled as well. Otherwise they would be competing for the same variable.",
+      "parentUuid": "4520ca3d_6d42e2ab",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56a536cb_95bb9dd1",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5934d2c6_3055b891",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:50:24Z",
+      "side": 1,
+      "message": "You are right, didn\u0027t notice that.",
+      "parentUuid": "56a536cb_95bb9dd1",
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3187cbb3_14dc4f89",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 9
@@ -53,6 +95,30 @@
       "writtenOn": "2019-02-21T15:24:50Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 403,
+        "startChar": 2,
+        "endLine": 403,
+        "endChar": 56
+      },
+      "revId": "f2d47dcb7e17749a1da760337164f4d6cdd7fa28",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96bdbda8_c4dcf003",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-21T15:50:24Z",
+      "side": 1,
+      "message": "You are right, didn\u0027t notice that",
+      "parentUuid": "3187cbb3_14dc4f89",
       "range": {
         "startLine": 403,
         "startChar": 2,

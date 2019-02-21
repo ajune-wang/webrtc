@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d7893ba_c4256131",
+        "filename": "api/transport/network_control.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-21T14:28:51Z",
+      "side": 1,
+      "message": "Consider what it would take to make this a unique_ptr, and the config move-only.\n\nIn earlier discussions, it was argued that one virtue of std::shared_ptr over rtc::scoped_refptr is that application can inject a unique_ptr, and the implementation can construct a shared_ptr out of it, if that is the best fit for how it is used internally, without the application being aware of that.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 63
+      },
+      "revId": "3428bdebd24383ee3a15880f579964d22eefdca7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

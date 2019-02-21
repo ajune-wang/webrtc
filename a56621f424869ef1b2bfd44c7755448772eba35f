@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "114ca09c_bb56a943",
+        "filename": "rtc_base/critical_section_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-21T23:38:46Z",
+      "side": 1,
+      "message": "I think you\u0027d need to do something like this (untested)\n\n  CriticalSection cs;\n  const bool one \u003d cs.TryEnter();\n  EXPECT_TRUE(one);\n  if (one) {\n    const bool two \u003d cs.TryEnter();\n    EXPECT_TRUE(two);\n    if (two) {\n      cs.Leave();\n    }\n    cs.Leave();\n  }\n\nBecause I\u0027m pretty sure that (1) TSan will check that you leave as many times as you enter, and (2) the static thread safety analysis knows that the return value of TryLock() determines whether the caller now holds the mutex or not.\n\nI also suspect that the static thread safety analysis may not be written with recursive mutexes in mind, so if you run into strange problems, that might be the problem. In that case, structure your code so that the static analysis can\u0027t see that it\u0027s recursive.",
+      "revId": "a56621f424869ef1b2bfd44c7755448772eba35f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

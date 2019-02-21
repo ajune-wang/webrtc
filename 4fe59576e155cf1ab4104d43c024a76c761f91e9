@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ae019fbd_b15c656b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-21T08:58:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b49d23f_9a3a6cfb",
+      "range": {
+        "startLine": 603,
+        "startChar": 0,
+        "endLine": 603,
+        "endChar": 33
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53da7592_5d6be01e",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b65fb028_714d8e9c",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-21T08:58:28Z",
+      "side": 1,
+      "message": "Perhaps not, let\u0027s remove this comment.",
+      "parentUuid": "53da7592_5d6be01e",
+      "range": {
+        "startLine": 1129,
+        "startChar": 4,
+        "endLine": 1129,
+        "endChar": 62
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f134bb2_3cacc714",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-20T15:33:06Z",
       "side": 1,
       "message": "Do we really need two flags for this? If I\u0027m not missing something, this is the only place codec_info_ is read, otherwise it is a write-only member.\n\nIf we really need to keep the value from encoder_factory-\u003eQueryVideoEncoder, can we copy it to encoder_info_.has_internal_source close to those calls, and delete the codec_info_ member?\n\nWhen can it happen that the two values |codec_info_.has_internal_source| and |encoder_info_.has_internal_source| are different?",
+      "range": {
+        "startLine": 1602,
+        "startChar": 0,
+        "endLine": 1602,
+        "endChar": 78
+      },
+      "revId": "4fe59576e155cf1ab4104d43c024a76c761f91e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23817099_dd8ca3a1",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1602,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-21T08:58:28Z",
+      "side": 1,
+      "message": "\u003e Do we really need two flags for this? If I\u0027m not missing something, this is the only place codec_info_ is read, otherwise it is a write-only member.\n\nThe current code really only looks as CodecInfo (apart from one place that maybe should).\nWe\u0027re in the process of removing CodecInfo, but it\u0027s in transition. This will allow us to support EncoderInfo as well until all codec factories stop using this flag.\n\n\u003e If we really need to keep the value from encoder_factory-\u003eQueryVideoEncoder, can we copy it to encoder_info_.has_internal_source close to those calls, and delete the codec_info_ member?\n|encoder_info_| is overwritten on every frame, |codec_info_| is updated only when recreating the encoders. Having to remember on of the fields seems fragile.\n\n\u003e When can it happen that the two values |codec_info_.has_internal_source| and |encoder_info_.has_internal_source| are different?\nDepends on if the factory and/or encoder has been updated.\nWorking on removing codec_info_, but that\u0027s not for this cl.",
+      "parentUuid": "2f134bb2_3cacc714",
       "range": {
         "startLine": 1602,
         "startChar": 0,

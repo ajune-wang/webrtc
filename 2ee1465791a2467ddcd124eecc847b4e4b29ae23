@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5547bda1_b7562495",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50efdd77_3796498e",
+      "range": {
+        "startLine": 24,
+        "startChar": 39,
+        "endLine": 24,
+        "endChar": 56
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10d89c0d_293abc61",
         "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "bb9fba30_cccb5341",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c39e3a64_ed2e01e7",
+      "range": {
+        "startLine": 28,
+        "startChar": 3,
+        "endLine": 28,
+        "endChar": 32
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f58405d4_c8961e1d",
         "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
         "patchSetId": 2
@@ -91,6 +139,30 @@
       "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "815c5631_595d0c78",
+        "filename": "sdk/objc/api/peerconnection/RTCPeerConnection+Stats.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "Clearing out the completion handler seems like a good protection against any bug that would cause OnStatsDelivered to be called more than once. Analogous to the legacy StatsObserverAdapter.",
+      "parentUuid": "f58405d4_c8961e1d",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 23
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "a080a31f_9833c0c9",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2e8cb47_a1b60609",
+      "range": {
+        "startLine": 94,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56be22b2_cebc197e",
         "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
         "patchSetId": 2
@@ -137,6 +233,30 @@
       "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d87d62f_b0e15e78",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "The dictionary copies are there to make them immutable per the API.",
+      "parentUuid": "56be22b2_cebc197e",
+      "range": {
+        "startLine": 121,
+        "startChar": 22,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "70b9cf25_26903f47",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29f24487_3e66cf17",
+      "range": {
+        "startLine": 154,
+        "startChar": 9,
+        "endLine": 154,
+        "endChar": 89
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6f579e2_28389122",
         "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
         "patchSetId": 2
@@ -183,6 +327,30 @@
       "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcabe5e2_bc3bf4bb",
+        "filename": "sdk/objc/api/peerconnection/RTCStatisticsReport.mm",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-21T13:29:15Z",
+      "side": 1,
+      "message": "The dictionary copies are there to make them immutable per the API.",
+      "parentUuid": "c6f579e2_28389122",
+      "range": {
+        "startLine": 158,
+        "startChar": 34,
+        "endLine": 158,
+        "endChar": 38
+      },
+      "revId": "2ee1465791a2467ddcd124eecc847b4e4b29ae23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

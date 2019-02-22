@@ -94,6 +94,30 @@
       "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9b63e6_ea5a5922",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-22T13:38:02Z",
+      "side": 1,
+      "message": "Oh, it could be actually. I think you are right.\n\nHmm, isn\u0027t there a way to \"clobber\" it?",
+      "parentUuid": "bcf01d18_d025071a",
+      "range": {
+        "startLine": 496,
+        "startChar": 18,
+        "endLine": 496,
+        "endChar": 40
+      },
+      "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

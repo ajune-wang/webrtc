@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'a77f654a3cd543e1b84ac7464f73cc042afd382a',
+  'chromium_revision': 'dfa5e75bf237a62785f6993f90250a070b527081',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': 'a74495a2956d6bfb592db832406acc93113ddda7',
+  'catapult_revision': '0a94c0324d4217c753b090c0878b941dd4b110f4',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -64,7 +64,7 @@ deps = {
   'src/testing':
     Var('chromium_git') + '/chromium/src/testing' + '@' + '22c79184e4fa1f24b2d8e13434118cc378ce11b8',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '54ddfab62dbccddef324575d7a34863e18d9cc46',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '95f323c0404ddbd74c0a60f7646a607738a59ced',
 
   'src/buildtools/clang_format/script':
     Var('chromium_git') + '/chromium/llvm-project/cfe/tools/clang-format.git' + '@' + '96636aa0e9f047f17447f2d45a094d0b59ed7917',
@@ -121,7 +121,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'c0546b9817eea795277e517d5dac382d6b69b778',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'b1b14cdf2beef6b4746ca73237cc5efc60fdaae6',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',

@@ -25,6 +25,7 @@
 #include "rtc_base/event_tracer.h"
 #include "rtc_base/thread.h"
 #include "sdk/android/generated_peerconnection_jni/jni/PeerConnectionFactory_jni.h"
+#include "sdk/android/native_api/audio_device_module/audio_device_android.h"
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/native_api/stacktrace/stacktrace.h"
 #include "sdk/android/src/jni/jni_helpers.h"
@@ -288,6 +289,11 @@ ScopedJavaLocalRef<jobject> CreatePeerConnectionFactoryForJava(
   std::unique_ptr<CallFactoryInterface> call_factory(CreateCallFactory());
   std::unique_ptr<RtcEventLogFactoryInterface> rtc_event_log_factory(
       CreateRtcEventLogFactory());
+
+  // No ADM supplied? Create a default one.
+  if (!audio_device_module) {
+    audio_device_module = CreateJavaAudioDeviceModule(jni, jcontext.obj());
+  }
 
   std::unique_ptr<cricket::MediaEngineInterface> media_engine(CreateMediaEngine(
       audio_device_module, audio_encoder_factory, audio_decoder_factory,

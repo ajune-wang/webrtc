@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dbe9a51_9c4d3257",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "Hi Andrew. Since this is the first time I see you committing to WebRTC, I am assuming you could miss - as I did at first - the non-inline comments. So I\u0027m adding this inline comment to alert you to their existence. :-)",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42cfb36_f1853e84",
+        "filename": "api/video/video_stream_encoder_create.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "RtcEventLogOutput is in api/, but RtcEventLog isn\u0027t. I wonder if we want to change this. Adding kwiberg@ and terelius@ - what do you guys think?",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "631c4c2a_9ac94581",
+        "filename": "api/video/video_stream_encoder_create.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "Default arguments are generally discouraged. (I routinely ignore this guideline for unit tests, though.)\n\nhttps://google.github.io/styleguide/cppguide.html#Default_Arguments\n\n\"prefer overloaded functions if the readability gained with default arguments doesn\u0027t outweigh the downsides below\"",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40da0c3c_d943f9ca",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "Could you please take this opportunity to sort the list alphabetically? To spare you the trouble:\n\nclass RtcEventAlrState;\nclass RtcEventAudioNetworkAdaptation;\nclass RtcEventAudioPlayout;\nclass RtcEventAudioReceiveStreamConfig;\nclass RtcEventAudioSendStreamConfig;\nclass RtcEventBweUpdateDelayBased;\nclass RtcEventBweUpdateLossBased;\nclass RtcEventDtlsTransportState;\nclass RtcEventDtlsWritableState;\nclass RtcEventGenericAckReceived;\nclass RtcEventGenericPacketReceived;\nclass RtcEventGenericPacketSent;\nclass RtcEventIceCandidatePair;\nclass RtcEventIceCandidatePairConfig;\nclass RtcEventLoggingStarted;\nclass RtcEventLoggingStopped;\nclass RtcEventProbeClusterCreated;\nclass RtcEventProbeResultFailure;\nclass RtcEventProbeResultSuccess;\nclass RtcEventPromptAntennaSwitch;\nclass RtcEventRtcpPacketIncoming;\nclass RtcEventRtcpPacketOutgoing;\nclass RtcEventRtpPacketIncoming;\nclass RtcEventRtpPacketOutgoing;\nclass RtcEventVideoReceiveStreamConfig;\nclass RtcEventVideoSendPaused;\nclass RtcEventVideoSendStreamConfig;\nclass RtpPacket;",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80612548_790dad4d",
+        "filename": "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "(I\u0027m not suggesting alphabetizing this too, because it\u0027s too much trouble. Similarly in some other places.)",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4018c743_848e8508",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "You\u0027ve been working on this CL for a while. ;-)\n(The other three files, too.)",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32df30c4_31c2caee",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "1. Perhaps some more types? WebRTC is supported on desktops, too, and those are often connected by Ethernet.\n2. Personally, I much prefer this notation which you\u0027re using, but it seems like kWiFi and kCellular would be more in line with the current style in WebRTC in general and this module in particular. Please see IceCandidatePairEventType as an example.",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16fd9e2e_135c0779",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "connection_type please.",
+      "range": {
+        "startLine": 22,
+        "startChar": 54,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b47c99c_72b14737",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "This event will be used to signal video being resumed, too, right? So maybe we could use a name that does not lean towards only one of the states? Maybe PauseResumeState or something? (I am not suggesting \"PauseResumeState\", I am only using it to more clearly indicate what\u0027s bothering me about the current name.)",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e93e9eb_dbdc21ea",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "The style is generally like_this in these files.",
+      "range": {
+        "startLine": 20,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 48
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b3a7393_1887ee3e",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "Other events don\u0027t have this. Could we avoid it? (Similarly for RtcEventPromptAntennaSwitch.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 80
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8eb4b5f_160901dc",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "To keep the style consistent, I think it would be best to s/isPaused_/is_paused_, and then s/isPaused()/is_paused().\n\nAlso, some people might prefer simply paused() here. I have no strong preference, but I am leaning towards paused(). Just FYI about my preference.",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0228067_61bc5b97",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "I think the preference is currently for #including the header file.",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42cf1e5c_f8092cdb",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-22T10:12:58Z",
+      "side": 1,
+      "message": "nit: I prefer putting const members prior to non-const members, unless another order is more natural for some reason, like them being closely related to a non-const-member. In this case, I see you\u0027re passing event_log to the ctor right after overuse_detector. Perhaps event_log_ could sit right after overuse_detector_? Perhaps actually after quality_scaler_, because I think quality_scaler_ and overuse_detector_ are somewhat logically related?",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 32
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

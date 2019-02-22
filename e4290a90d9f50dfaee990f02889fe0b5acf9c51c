@@ -46,6 +46,30 @@
       "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bc505ac_9cbfa190",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-22T13:30:01Z",
+      "side": 1,
+      "message": "It fixes the problem: https://ci.chromium.org/p/webrtc/builders/luci.webrtc.try/ios_compile_arm_dbg/4020.\n\nBut I am not sure I understand why. :)",
+      "parentUuid": "6dd0d5f1_a7756975",
+      "range": {
+        "startLine": 496,
+        "startChar": 18,
+        "endLine": 496,
+        "endChar": 40
+      },
+      "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

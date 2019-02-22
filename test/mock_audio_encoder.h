@@ -32,6 +32,7 @@ class MockAudioEncoder : public AudioEncoder {
   MOCK_CONST_METHOD0(NumChannels, size_t());
   MOCK_CONST_METHOD0(RtpTimestampRateHz, int());
   MOCK_CONST_METHOD0(Num10MsFramesInNextPacket, size_t());
+  MOCK_CONST_METHOD0(Min10MsFramesInAPacket, size_t());
   MOCK_CONST_METHOD0(Max10MsFramesInAPacket, size_t());
   MOCK_CONST_METHOD0(GetTargetBitrate, int());
   MOCK_METHOD0(Reset, void());

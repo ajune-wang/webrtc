@@ -37,6 +37,10 @@ constexpr int kDefaultOpusRate = 32000;
 constexpr int kDefaultOpusPacSize = 960;
 constexpr int64_t kInitialTimeUs = 12345678;
 
+constexpr int kMinSupportedFrameLengthMs = 10;
+constexpr int kMaxSupportedFrameLengthMs =
+    WEBRTC_OPUS_SUPPORT_120MS_PTIME ? 120 : 60;
+
 AudioEncoderOpusConfig CreateConfigWithParameters(
     const SdpAudioFormat::Parameters& params) {
   const SdpAudioFormat format("opus", 48000, 2, params);
@@ -753,15 +757,11 @@ TEST(AudioEncoderOpusTest, TestConfigFromParams) {
   const auto config13 = CreateConfigWithParameters({{"ptime", "40"}});
   EXPECT_EQ(40, config13.frame_size_ms);
 
-  constexpr int kMinSupportedFrameLength = 10;
-  constexpr int kMaxSupportedFrameLength =
-      WEBRTC_OPUS_SUPPORT_120MS_PTIME ? 120 : 60;
-
   const auto config14 = CreateConfigWithParameters({{"ptime", "1"}});
-  EXPECT_EQ(kMinSupportedFrameLength, config14.frame_size_ms);
+  EXPECT_EQ(kMinSupportedFrameLengthMs, config14.frame_size_ms);
 
   const auto config15 = CreateConfigWithParameters({{"ptime", "2000"}});
-  EXPECT_EQ(kMaxSupportedFrameLength, config15.frame_size_ms);
+  EXPECT_EQ(kMaxSupportedFrameLengthMs, config15.frame_size_ms);
 }
 
 TEST(AudioEncoderOpusTest, TestConfigFromInvalidParams) {
@@ -959,6 +959,14 @@ TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
 
   // Maximum number of consecutive non-speech packets should exceed 20.
   EXPECT_GT(max_nonspeech_frames, 20);
+}
+
+TEST(AudioEncoderOpusTest, SupportedDefaultFrameSizes) {
+  auto states = CreateCodec(2);
+  EXPECT_EQ(static_cast<size_t>(kMinSupportedFrameLengthMs),
+            states->encoder->Min10MsFramesInAPacket() * 10);
+  EXPECT_EQ(static_cast<size_t>(kMaxSupportedFrameLengthMs),
+            states->encoder->Max10MsFramesInAPacket() * 10);
 }
 
 }  // namespace webrtc

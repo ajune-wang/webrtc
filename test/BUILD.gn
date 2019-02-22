@@ -608,6 +608,7 @@ rtc_source_set("single_threaded_task_queue") {
 
 rtc_source_set("fake_video_codecs") {
   allow_poison = [ "software_video_codecs" ]
+  defines = []
   visibility = [ "*" ]
   sources = [
     "configurable_frame_size_encoder.cc",
@@ -641,7 +642,6 @@ rtc_source_set("fake_video_codecs") {
     "../modules/video_coding:video_coding_utility",
     "../modules/video_coding:webrtc_h264",
     "../modules/video_coding:webrtc_vp8",
-    "../modules/video_coding:webrtc_vp9",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../rtc_base:rtc_task_queue",
@@ -649,10 +649,16 @@ rtc_source_set("fake_video_codecs") {
     "../system_wrappers",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ "../modules/video_coding:webrtc_vp9" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 }
 
 rtc_source_set("test_common") {
   testonly = true
+  defines = []
   sources = [
     "call_test.cc",
     "call_test.h",
@@ -738,7 +744,6 @@ rtc_source_set("test_common") {
     "../modules/video_coding:webrtc_h264",
     "../modules/video_coding:webrtc_multiplex",
     "../modules/video_coding:webrtc_vp8",
-    "../modules/video_coding:webrtc_vp9",
     "../rtc_base:checks",
     "../rtc_base:rtc_base_approved",
     "../system_wrappers",
@@ -748,6 +753,12 @@ rtc_source_set("test_common") {
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ "../modules/video_coding:webrtc_vp9" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
+
   if (!is_android && !build_with_chromium) {
     deps += [ "../modules/video_capture:video_capture_internal_impl" ]
   }

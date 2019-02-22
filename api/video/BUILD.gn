@@ -220,6 +220,7 @@ rtc_source_set("video_stream_encoder_create") {
 }
 
 rtc_static_library("builtin_video_bitrate_allocator_factory") {
+  defines = []
   visibility = [ "*" ]
   sources = [
     "builtin_video_bitrate_allocator_factory.cc",
@@ -234,9 +235,13 @@ rtc_static_library("builtin_video_bitrate_allocator_factory") {
     "../../api:scoped_refptr",
     "../../media:rtc_media_base",
     "../../modules/video_coding:video_coding_utility",
-    "../../modules/video_coding:webrtc_vp9_helpers",
     "../../rtc_base/system:fallthrough",
     "../video_codecs:video_codecs_api",
     "//third_party/abseil-cpp/absl/memory",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ "../../modules/video_coding:webrtc_vp9_helpers" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 }

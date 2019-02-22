@@ -57,6 +57,14 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
                      PacketRouter* packet_router,
                      VideoReceiveStream::Config config,
                      ProcessThread* process_thread,
+                     CallStats* call_stats,
+                     Clock* clock,
+                     VCMTiming* timing);
+  VideoReceiveStream(RtpStreamReceiverControllerInterface* receiver_controller,
+                     int num_cpu_cores,
+                     PacketRouter* packet_router,
+                     VideoReceiveStream::Config config,
+                     ProcessThread* process_thread,
                      CallStats* call_stats);
   ~VideoReceiveStream() override;
 
@@ -75,6 +83,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   void AddSecondarySink(RtpPacketSinkInterface* sink) override;
   void RemoveSecondarySink(const RtpPacketSinkInterface* sink) override;
+
+  bool SetBaseMinimumPlayoutDelayMs(int delay_ms) override;
+  int GetBaseMinimumPlayoutDelayMs() const override;
 
   // Implements rtc::VideoSinkInterface<VideoFrame>.
   void OnFrame(const VideoFrame& video_frame) override;
@@ -111,6 +122,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
  private:
   static void DecodeThreadFunction(void* ptr);
   bool Decode();
+  void UpdateMinimumPlayoutDelay() const RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
+  void UpdatePlayoutDelays(const PlayoutDelay& frame);
+  bool IsValidBaseMinimumPlayoutDelay(int delay_ms) const;
 
   rtc::SequencedTaskChecker worker_sequence_checker_;
   rtc::SequencedTaskChecker module_process_sequence_checker_;
@@ -158,6 +172,21 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   int64_t last_keyframe_request_ms_ = 0;
   int64_t last_complete_frame_time_ms_ = 0;
+
+  rtc::CriticalSection lock_;
+
+  // All of them tries to change current min_playout_delay on |timing_| but
+  // source of the change request is different in each case. Among them the
+  // biggest delay is used.
+  //
+  // |frame_minimum_playout_delay_ms_| comes from frame sent by server.
+  int frame_minimum_playout_delay_ms_ RTC_GUARDED_BY(lock_) = 0;
+  // |base_minimum_playout_delay_ms_| from webrtc/api level and requested by
+  // user cod. For e.g. blink/js layer in Chromium.
+  int base_minimum_playout_delay_ms_ RTC_GUARDED_BY(lock_) = 0;
+  // |syncable_minimum_playout_delay_ms_| comes from audio video
+  // synchronization feature.
+  int syncable_minimum_playout_delay_ms_ RTC_GUARDED_BY(lock_) = 0;
 };
 }  // namespace internal
 }  // namespace webrtc

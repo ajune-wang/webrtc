@@ -46,6 +46,30 @@
       "revId": "950ab7401cac5f52f3a9f7f3b774140d1ed9a05e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cdbcf14_6b749bc7",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-22T10:28:25Z",
+      "side": 1,
+      "message": "Yup. It\u0027s essentially only relevant for screencasting.\nI\u0027ve tried to keep this code as close to the original as possible. See https://cs.chromium.org/chromium/src/third_party/webrtc/modules/video_coding/video_sender.cc?q\u003dvideo_sender.cc\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026rcl\u003d71aee3a116cbc5900102d4c659fc1992bff14743\u0026l\u003d206",
+      "parentUuid": "14dea781_768b2c73",
+      "range": {
+        "startLine": 1139,
+        "startChar": 7,
+        "endLine": 1139,
+        "endChar": 18
+      },
+      "revId": "950ab7401cac5f52f3a9f7f3b774140d1ed9a05e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

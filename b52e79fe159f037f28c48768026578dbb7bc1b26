@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b3010652_ab1c7248",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Just I\u0027m clear, you\u0027re referring to the main reply-comments about updating rtc_event_log2.proto and consulting with Björn, yeah?",
+      "parentUuid": "3dbe9a51_9c4d3257",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b42cfb36_f1853e84",
         "filename": "api/video/video_stream_encoder_create.h",
         "patchSetId": 4
@@ -116,6 +134,30 @@
     },
     {
       "key": {
+        "uuid": "3de2cfb0_c9f49571",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ha! Actually I just copied the copyright notice from the other events. Should I bump this and the others to 2019?",
+      "parentUuid": "4018c743_848e8508",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32df30c4_31c2caee",
         "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
         "patchSetId": 4
@@ -130,6 +172,24 @@
       "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7356f21_0f78ebfb",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "32df30c4_31c2caee",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "ce6e6996_bf69ea6f",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16fd9e2e_135c0779",
+      "range": {
+        "startLine": 22,
+        "startChar": 54,
+        "endLine": 22,
+        "endChar": 68
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b47c99c_72b14737",
         "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
         "patchSetId": 4
@@ -176,6 +260,30 @@
       "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2ac904_ac632547",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1b47c99c_72b14737",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +310,30 @@
     },
     {
       "key": {
+        "uuid": "653fda02_f7c36422",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6e93e9eb_dbdc21ea",
+      "range": {
+        "startLine": 20,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 48
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b3a7393_1887ee3e",
         "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
         "patchSetId": 4
@@ -213,6 +345,30 @@
       "writtenOn": "2019-02-22T10:12:58Z",
       "side": 1,
       "message": "Other events don\u0027t have this. Could we avoid it? (Similarly for RtcEventPromptAntennaSwitch.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 80
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f34b4e6_930cc6c9",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "The reason this exists is that in some of our product code we check the RtcEventType and check to determine how to pass it across a jni boundary. Rather than hard coding RtcEvent::Type::VideoSendPaused at that callsite I use this function. I could hard code it to RtcEvent::Type::VideoSendPaused but that feels icky. If there\u0027s strong opposition to this I\u0027ll remove it.",
+      "parentUuid": "9b3a7393_1887ee3e",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -242,6 +398,24 @@
     },
     {
       "key": {
+        "uuid": "7df70dc1_5e94da11",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "The style in the event classes seems to be inconsistent. In RtcEventRtpPacketIncoming, for example, I\u0027m seeing functions called IsConfigEvent() and packet_length(). I chose the former because it\u0027s consistent with our style guide. \n\nI\u0027m happy to comply and use the latter if this is the direction the codebase is going :).",
+      "parentUuid": "b8eb4b5f_160901dc",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f0228067_61bc5b97",
         "filename": "video/video_stream_encoder.h",
         "patchSetId": 4
@@ -256,6 +430,24 @@
       "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3de79c31_d7ac2a24",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0228067_61bc5b97",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -279,6 +471,30 @@
       "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ccc503_57f670fa",
+        "filename": "video/video_stream_encoder.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-22T23:24:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "42cf1e5c_f8092cdb",
+      "range": {
+        "startLine": 306,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 32
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

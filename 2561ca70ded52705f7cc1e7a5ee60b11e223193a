@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0091a472_06d1653e",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-22T14:30:06Z",
+      "side": 1,
+      "message": "Functions should have CamelCase names.",
+      "range": {
+        "startLine": 42,
+        "startChar": 25,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "120e5369_b8053bc9",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-22T14:30:06Z",
+      "side": 1,
+      "message": "And member variables should have snake_case_ names.",
+      "range": {
+        "startLine": 48,
+        "startChar": 25,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afadcfe6_86472aa2",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-22T14:30:06Z",
+      "side": 1,
+      "message": "There\u0027s no way to set the two optional member variables, is there?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

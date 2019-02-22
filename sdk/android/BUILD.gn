@@ -338,11 +338,13 @@ if (is_android) {
       ":base_java",
       ":builtin_audio_codecs_java",
       ":default_video_codec_factory_java",
+
+      #TODO(bugs.webrtc.org/7452): Make injection mandatory and remove this dep.
+      ":java_audio_device_module_java",
       ":logging_java",
       ":swcodecs_java",
       ":video_api_java",
       ":video_java",
-      "//modules/audio_device:audio_device_java",
       "//rtc_base:base_java",
       "//third_party/android_deps:android_support_annotations_java",
     ]
@@ -753,6 +755,7 @@ if (is_android) {
       ":generated_external_classes_jni",
       ":generated_peerconnection_jni",
       ":logging_jni",
+      ":native_api_audio_device_module",
       ":native_api_jni",
       ":native_api_stacktrace",
       "..:media_constraints",

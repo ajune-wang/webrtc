@@ -16,7 +16,7 @@ adds the first use.
 * `absl::optional` and related stuff from `absl/types/optional.h`.
 * `absl::string_view`
 * The functions in `absl/strings/ascii.h`, `absl/strings/match.h`,
-  and `absl/strings/str_replace.h`.
+  `absl/strings/str_join.h` and `absl/strings/str_replace.h`.
 * `absl::is_trivially_copy_constructible`,
   `absl::is_trivially_copy_assignable`, and
   `absl::is_trivially_destructible` from `absl/meta/type_traits.h`.

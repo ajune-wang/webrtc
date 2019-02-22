@@ -118,6 +118,30 @@
       "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b144879c_ef5c4ca7",
+        "filename": "call/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5106
+      },
+      "writtenOn": "2019-02-22T13:42:18Z",
+      "side": 1,
+      "message": "chromium has such feature called landmine.\nhttps://cs.chromium.org/chromium/src/DEPS?l\u003d2067\u0026rcl\u003d58409dceaa0121ff710533cce42dc9b6485597cb",
+      "parentUuid": "df9b63e6_ea5a5922",
+      "range": {
+        "startLine": 496,
+        "startChar": 18,
+        "endLine": 496,
+        "endChar": 40
+      },
+      "revId": "e4290a90d9f50dfaee990f02889fe0b5acf9c51c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

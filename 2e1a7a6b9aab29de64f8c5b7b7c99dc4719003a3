@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34322356_ab03dc2d",
+        "filename": "sdk/objc/components/renderer/metal/RTCMTLRenderer.mm",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5670
+      },
+      "writtenOn": "2019-02-22T09:42:57Z",
+      "side": 1,
+      "message": "Would it make sense to add\nelse {\n  dispatch_semaphore_signal(block_semaphore);\n}",
+      "range": {
+        "startLine": 322,
+        "startChar": 4,
+        "endLine": 322,
+        "endChar": 5
+      },
+      "revId": "2e1a7a6b9aab29de64f8c5b7b7c99dc4719003a3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -14,12 +14,15 @@
 #include <memory>
 #include <string>
 
+#include "absl/strings/string_view.h"
 #include "absl/types/optional.h"
 #include "api/video/encoded_image.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_encoder.h"
+#include "test/pc/e2e/api/stats_observer_interface.h"
 
 namespace webrtc {
+namespace test {
 
 // Base interface for video quality analyzer for peer connection level end-2-end
 // tests. Interface has only one abstract method, which have to return frame id.
@@ -47,9 +50,9 @@ namespace webrtc {
 // | Sink  |     | Stack  |     | Decoder |
 //  ¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯¯
 // The analyzer will be injected in all points from A to F.
-class VideoQualityAnalyzerInterface {
+class VideoQualityAnalyzerInterface : public StatsObserverInterface {
  public:
-  virtual ~VideoQualityAnalyzerInterface() = default;
+  ~VideoQualityAnalyzerInterface() override = default;
 
   // Will be called by framework before test. |threads_count| is number of
   // threads that analyzer can use for heavy calculations. Analyzer can perform
@@ -95,8 +98,12 @@ class VideoQualityAnalyzerInterface {
   virtual void Stop() {}
 
   virtual std::string GetStreamLabel(uint16_t frame_id) = 0;
+
+  void OnStatsReports(absl::string_view pc_label,
+                      const StatsReports& stats_reports) override {}
 };
 
+}  // namespace test
 }  // namespace webrtc
 
 #endif  // TEST_PC_E2E_API_VIDEO_QUALITY_ANALYZER_INTERFACE_H_

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71d0ea7d_b309ad5b",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-22T12:07:17Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "954e190f_ea5e5785",
+      "range": {
+        "startLine": 1095,
+        "startChar": 30,
+        "endLine": 1095,
+        "endChar": 60
+      },
+      "revId": "4aec95f808f58e98b74a7b2473355935a2717e2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8d02ae1_46fc4946",
         "filename": "pc/media_session.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9c6dd5ba_1705bb5c",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-22T12:07:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d02ae1_46fc4946",
+      "range": {
+        "startLine": 1109,
+        "startChar": 16,
+        "endLine": 1109,
+        "endChar": 18
+      },
+      "revId": "4aec95f808f58e98b74a7b2473355935a2717e2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2117a64b_5144d97e",
         "filename": "pc/media_session.cc",
         "patchSetId": 2
@@ -62,6 +110,24 @@
       "revId": "4aec95f808f58e98b74a7b2473355935a2717e2b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60680c7c_6afbb559",
+        "filename": "pc/media_session.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-22T12:07:17Z",
+      "side": 1,
+      "message": "Yes, that\u0027s a good idea.",
+      "parentUuid": "2117a64b_5144d97e",
+      "revId": "4aec95f808f58e98b74a7b2473355935a2717e2b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "15e467d521c93dadf332e2a98ce14a2a65f09c3a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8562da3c_5b044342",
+        "filename": "pc/peer_connection_integrationtest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 3927,
+      "author": {
+        "id": 6547
+      },
+      "writtenOn": "2019-02-22T10:16:41Z",
+      "side": 1,
+      "message": "Oh yeah, good call.",
+      "parentUuid": "ce7b600a_6fc67bbe",
+      "revId": "15e467d521c93dadf332e2a98ce14a2a65f09c3a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

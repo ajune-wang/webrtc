@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "734aa418_6c2e45f0",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:23:47Z",
+      "side": 1,
+      "message": "Can we keep observers list only inside poller?",
+      "range": {
+        "startLine": 203,
+        "startChar": 27,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e366a29f_85a6a553",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:23:47Z",
+      "side": 1,
+      "message": "Maybe stats_polling_task_?",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 208,
+        "endChar": 18
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39d10210_644b6ca7",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:23:47Z",
+      "side": 1,
+      "message": "If we starting it on the same task queue we can omit this parameter",
+      "range": {
+        "startLine": 209,
+        "startChar": 35,
+        "endLine": 209,
+        "endChar": 47
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c4cdc8_f4daaaea",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:23:47Z",
+      "side": 1,
+      "message": "Don\u0027t put it into check, some one can accidentally change it into DCHECK and then it will be broken",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 68
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d812b36d_557f3fd1",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:23:47Z",
+      "side": 1,
+      "message": "Maybe we can have just std::vector\u003cInternalStatsObserver\u003e pollers_? Or unique pointer otherwise, because it is the only owner of these observers.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 65
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

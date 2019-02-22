@@ -22,6 +22,30 @@
       "revId": "950ab7401cac5f52f3a9f7f3b774140d1ed9a05e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14dea781_768b2c73",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-02-22T10:01:54Z",
+      "side": 1,
+      "message": "Recent addition. See https://webrtc-review.googlesource.com/c/src/+/123102",
+      "parentUuid": "285a0973_0d733888",
+      "range": {
+        "startLine": 1139,
+        "startChar": 7,
+        "endLine": 1139,
+        "endChar": 18
+      },
+      "revId": "950ab7401cac5f52f3a9f7f3b774140d1ed9a05e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

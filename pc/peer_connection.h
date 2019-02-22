@@ -26,6 +26,7 @@
 #include "pc/peer_connection_internal.h"
 #include "pc/rtc_stats_collector.h"
 #include "pc/rtp_transceiver.h"
+#include "pc/sctp_transport.h"
 #include "pc/stats_collector.h"
 #include "pc/stream_collection.h"
 #include "pc/webrtc_session_description_factory.h"
@@ -987,7 +988,7 @@ class PeerConnection : public PeerConnectionInternal,
   // rejected).
   bool OnTransportChanged(const std::string& mid,
                           RtpTransportInternal* rtp_transport,
-                          cricket::DtlsTransportInternal* dtls_transport,
+                          rtc::scoped_refptr<DtlsTransport> dtls_transport,
                           MediaTransportInterface* media_transport) override;
 
   // Returns the observer. Will crash on CHECK if the observer is removed.
@@ -1111,7 +1112,10 @@ class PeerConnection : public PeerConnectionInternal,
   // when using SCTP.
   cricket::RtpDataChannel* rtp_data_channel_ = nullptr;
 
-  std::unique_ptr<cricket::SctpTransportInternal> sctp_transport_;
+  cricket::SctpTransportInternal* cricket_sctp_transport() {
+    return sctp_transport_->internal();
+  }
+  rtc::scoped_refptr<SctpTransport> sctp_transport_;
   // |sctp_mid_| is the content name (MID) in SDP.
   absl::optional<std::string> sctp_mid_;
   // Value cached on signaling thread. Only updated when SctpReadyToSendData

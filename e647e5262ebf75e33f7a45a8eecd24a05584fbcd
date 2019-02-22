@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbd63032_b353fcc7",
+        "filename": "api/audio_codecs/audio_encoder.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "Should this value be 1? I do not think we have any codecs that ever go below 20 ms. Opus cannot for sure.",
+      "range": {
+        "startLine": 109,
+        "startChar": 9,
+        "endLine": 109,
+        "endChar": 11
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b097855_79d1e024",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "nit: still",
+      "range": {
+        "startLine": 821,
+        "startChar": 53,
+        "endLine": 821,
+        "endChar": 54
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cf80bdf_e9565470",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "A comment why there are two different methods here would be useful. I actually do not get it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 74
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e05a450_2f19e002",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 35
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "Could add that we choose the conservative IPV6 assumption as \nstarting at higher ptime, then switch down is less prone to lead to jitterbuffer underrun than the reverse adaption.",
+      "range": {
+        "startLine": 217,
+        "startChar": 6,
+        "endLine": 218,
+        "endChar": 51
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ade801e3_b12ff65a",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "Confused. Shouldn\u0027t this be  (*supported_frame_lengths_ms().cend()) / 10;\n?",
+      "range": {
+        "startLine": 504,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 1
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2416e353_1bd97d22",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "(*supported_frame_lengths_ms().cbegin()) / 10;\n?",
+      "range": {
+        "startLine": 508,
+        "startChar": 8,
+        "endLine": 508,
+        "endChar": 53
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1093c14_62a1f6bb",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-22T09:28:53Z",
+      "side": 1,
+      "message": "Why delete the clamping? It probably should not be necessary, but it is a really good save to have.",
+      "range": {
+        "startLine": 630,
+        "startChar": 3,
+        "endLine": 630,
+        "endChar": 62
+      },
+      "revId": "e647e5262ebf75e33f7a45a8eecd24a05584fbcd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

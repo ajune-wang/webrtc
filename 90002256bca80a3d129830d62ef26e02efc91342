@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0fe66a2_28553a1d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-22T11:27:08Z",
+      "side": 1,
+      "message": "Should we check, that logging is turned on?",
+      "range": {
+        "startLine": 459,
+        "startChar": 14,
+        "endLine": 459,
+        "endChar": 29
+      },
+      "revId": "90002256bca80a3d129830d62ef26e02efc91342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

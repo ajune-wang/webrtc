@@ -112,6 +112,7 @@ WEBRTC_DEFINE_bool(
     false,
     "Run the send-side bandwidth estimator with the outgoing rtp and "
     "incoming rtcp and plot the resulting estimate.");
+WEBRTC_DEFINE_bool(plot_simulated_goog_cc, false, "Simulate GoogCC");
 WEBRTC_DEFINE_bool(
     plot_network_delay_feedback,
     true,
@@ -364,6 +365,9 @@ int main(int argc, char* argv[]) {
   }
   if (FLAG_plot_simulated_sendside_bwe) {
     analyzer.CreateSendSideBweSimulationGraph(collection->AppendNewPlot());
+  }
+  if (FLAG_plot_simulated_goog_cc) {
+    analyzer.CreateGoogCcSimulationGraph(collection->AppendNewPlot());
   }
   if (FLAG_plot_network_delay_feedback) {
     analyzer.CreateNetworkDelayFeedbackGraph(collection->AppendNewPlot());

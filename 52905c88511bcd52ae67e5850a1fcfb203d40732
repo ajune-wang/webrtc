@@ -22,6 +22,30 @@
       "revId": "52905c88511bcd52ae67e5850a1fcfb203d40732",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbcb49dd_698edca2",
+        "filename": "modules/congestion_controller/goog_cc/goog_cc_network_control.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-22T13:56:49Z",
+      "side": 1,
+      "message": "It could happen in downstream usages of the class since it\u0027s part of the API.",
+      "parentUuid": "c1d9ba04_9991291f",
+      "range": {
+        "startLine": 258,
+        "startChar": 31,
+        "endLine": 258,
+        "endChar": 43
+      },
+      "revId": "52905c88511bcd52ae67e5850a1fcfb203d40732",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

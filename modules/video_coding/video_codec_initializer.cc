@@ -19,7 +19,9 @@
 #include "api/video/video_bitrate_allocation.h"
 #include "api/video_codecs/video_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
+#if defined(RTC_ENABLE_VP9)
 #include "modules/video_coding/codecs/vp9/svc_config.h"
+#endif
 #include "modules/video_coding/include/video_coding_defines.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
@@ -31,7 +33,11 @@ bool VideoCodecInitializer::SetupCodec(const VideoEncoderConfig& config,
                                        VideoCodec* codec) {
   if (config.codec_type == kVideoCodecMultiplex) {
     VideoEncoderConfig associated_config = config.Copy();
+#if defined(RTC_ENABLE_VP9)
     associated_config.codec_type = kVideoCodecVP9;
+#else
+    associated_config.codec_type = kVideoCodecVP8;
+#endif
     if (!SetupCodec(associated_config, streams, codec)) {
       RTC_LOG(LS_ERROR) << "Failed to create stereo encoder configuration.";
       return false;
@@ -156,6 +162,7 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
 
       break;
     }
+#if defined(RTC_ENABLE_VP9)
     case kVideoCodecVP9: {
       if (!config.encoder_specific_settings) {
         *video_codec.VP9() = VideoEncoder::GetDefaultVp9Settings();
@@ -219,8 +226,8 @@ VideoCodec VideoCodecInitializer::VideoEncoderConfigToVideoCodec(
       RTC_DCHECK_GE(video_codec.VP9()->numberOfTemporalLayers, 1);
       RTC_DCHECK_LE(video_codec.VP9()->numberOfTemporalLayers,
                     kMaxTemporalStreams);
-
       break;
+#endif
     }
     case kVideoCodecH264: {
       if (!config.encoder_specific_settings)

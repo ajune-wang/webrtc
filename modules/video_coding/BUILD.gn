@@ -81,6 +81,7 @@ rtc_static_library("packet") {
 }
 
 rtc_static_library("video_coding") {
+  defines = []
   visibility = [ "*" ]
   deps = [
     "..:module_fec_api",
@@ -165,7 +166,6 @@ rtc_static_library("video_coding") {
     ":packet",
     ":video_codec_interface",
     ":video_coding_utility",
-    ":webrtc_vp9_helpers",
     "..:module_api",
     "..:module_api_public",
     "../..:webrtc_common",
@@ -198,6 +198,11 @@ rtc_static_library("video_coding") {
     "//third_party/abseil-cpp/absl/types:optional",
     "//third_party/abseil-cpp/absl/types:variant",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ ":webrtc_vp9_helpers" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 }
 
 rtc_source_set("video_codec_interface") {
@@ -219,13 +224,18 @@ rtc_source_set("video_codec_interface") {
 }
 
 rtc_source_set("codec_globals_headers") {
+  defines = []
   visibility = [ "*" ]
   sources = [
     "codecs/h264/include/h264_globals.h",
     "codecs/interface/common_constants.h",
     "codecs/vp8/include/vp8_globals.h",
-    "codecs/vp9/include/vp9_globals.h",
   ]
+
+  if (rtc_enable_vp9) {
+    sources += [ "codecs/vp9/include/vp9_globals.h" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 
   deps = [
     "../../rtc_base:checks",
@@ -233,6 +243,7 @@ rtc_source_set("codec_globals_headers") {
 }
 
 rtc_source_set("video_coding_utility") {
+  defines = []
   visibility = [ "*" ]
   sources = [
     "utility/decoded_frames_history.cc",
@@ -253,9 +264,15 @@ rtc_source_set("video_coding_utility") {
     "utility/simulcast_utility.h",
     "utility/vp8_header_parser.cc",
     "utility/vp8_header_parser.h",
-    "utility/vp9_uncompressed_header_parser.cc",
-    "utility/vp9_uncompressed_header_parser.h",
   ]
+
+  if (rtc_enable_vp9) {
+    sources += [
+      "utility/vp9_uncompressed_header_parser.cc",
+      "utility/vp9_uncompressed_header_parser.h",
+    ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -615,6 +632,7 @@ if (rtc_include_tests) {
   }
 
   rtc_source_set("video_codecs_test_framework") {
+    defines = []
     testonly = true
     sources = [
       "codecs/test/video_codec_unittest.cc",
@@ -633,7 +651,6 @@ if (rtc_include_tests) {
       ":video_codec_interface",
       ":video_coding",
       ":video_coding_utility",
-      ":webrtc_vp9_helpers",
       "..:module_api",
       "../..:webrtc_common",
       "../../api:scoped_refptr",
@@ -660,6 +677,11 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/types:optional",
       "//third_party/libyuv",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":webrtc_vp9_helpers" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
   }
 
   video_coding_modules_tests_resources = []
@@ -698,6 +720,7 @@ if (rtc_include_tests) {
   }
 
   rtc_source_set("videocodec_test_impl") {
+    defines = []
     testonly = true
     sources = [
       "codecs/test/videocodec_test_fixture_impl.cc",
@@ -710,7 +733,6 @@ if (rtc_include_tests) {
       ":video_codec_interface",
       ":video_codecs_test_framework",
       ":video_coding_utility",
-      ":webrtc_vp9_helpers",
       "../..:webrtc_common",
       "../../api:array_view",
       "../../api:videocodec_test_fixture_api",
@@ -738,6 +760,12 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":webrtc_vp9_helpers" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
+
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
       suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
@@ -756,8 +784,13 @@ if (rtc_include_tests) {
       "codecs/test/videocodec_test_parameterized.cc",
       "codecs/vp8/test/mock_libvpx_interface.h",
       "codecs/vp8/test/vp8_impl_unittest.cc",
-      "codecs/vp9/test/vp9_impl_unittest.cc",
     ]
+
+    if (rtc_enable_vp9) {
+      sources += [ "codecs/vp9/test/vp9_impl_unittest.cc" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
+
     if (rtc_use_h264) {
       sources += [ "codecs/test/videocodec_test_openh264.cc" ]
     }
@@ -770,8 +803,6 @@ if (rtc_include_tests) {
       ":webrtc_h264",
       ":webrtc_multiplex",
       ":webrtc_vp8",
-      ":webrtc_vp9",
-      ":webrtc_vp9_helpers",
       "../..:webrtc_common",
       "../../api:create_videocodec_test_fixture_api",
       "../../api:mock_video_codec_factory",
@@ -791,7 +822,6 @@ if (rtc_include_tests) {
       "../../media:rtc_internal_video_codecs",
       "../../media:rtc_media_base",
       "../../media:rtc_simulcast_encoder_adapter",
-      "../../media:rtc_vp9_profile",
       "../../rtc_base:rtc_base",
       "../../test:field_trial",
       "../../test:fileutils",
@@ -802,6 +832,15 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/types:optional",
       "//third_party/libyuv",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [
+        ":webrtc_vp9",
+        ":webrtc_vp9_helpers",
+        "../../media:rtc_vp9_profile",
+      ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
 
     data = video_coding_modules_tests_resources
 
@@ -832,6 +871,7 @@ if (rtc_include_tests) {
   }
 
   rtc_source_set("video_coding_unittests") {
+    defines = []
     testonly = true
 
     sources = [
@@ -841,8 +881,6 @@ if (rtc_include_tests) {
       "codecs/vp8/default_temporal_layers_unittest.cc",
       "codecs/vp8/libvpx_vp8_simulcast_test.cc",
       "codecs/vp8/screenshare_layers_unittest.cc",
-      "codecs/vp9/svc_config_unittest.cc",
-      "codecs/vp9/svc_rate_allocator_unittest.cc",
       "decoding_state_unittest.cc",
       "fec_controller_unittest.cc",
       "frame_buffer2_unittest.cc",
@@ -872,6 +910,15 @@ if (rtc_include_tests) {
       "video_receiver_unittest.cc",
       "video_sender_unittest.cc",
     ]
+
+    if (rtc_enable_vp9) {
+      sources += [
+        "codecs/vp9/svc_config_unittest.cc",
+        "codecs/vp9/svc_rate_allocator_unittest.cc",
+      ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
+
     if (rtc_use_h264) {
       sources += [
         "codecs/h264/h264_encoder_impl_unittest.cc",
@@ -893,8 +940,6 @@ if (rtc_include_tests) {
       ":webrtc_h264",
       ":webrtc_vp8",
       ":webrtc_vp8_temporal_layers",
-      ":webrtc_vp9",
-      ":webrtc_vp9_helpers",
       "..:module_api",
       "..:module_fec_api",
       "../..:webrtc_common",
@@ -940,6 +985,15 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/types:optional",
       "//third_party/abseil-cpp/absl/types:variant",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [
+        ":webrtc_vp9",
+        ":webrtc_vp9_helpers",
+      ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
+
     if (rtc_build_libvpx) {
       deps += [ rtc_libvpx_dir ]
     }

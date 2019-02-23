@@ -7248,4 +7248,35 @@ TEST_F(WebRtcVideoChannelTestWithClock, GetContributingSources) {
   EXPECT_EQ(0u, channel_->GetSources(kCsrc).size());
 }
 
+TEST_F(WebRtcVideoEngineTest, SetsRidsOnSendStream) {
+  const int kNumLayers = 3;
+  encoder_factory_->AddSupportedVideoCodecType("VP8");
+  FakeCall* fake_call = new FakeCall();
+  call_.reset(fake_call);
+  std::unique_ptr<VideoMediaChannel> channel(
+      SetSendParamsWithAllSupportedCodecs());
+
+  rtc::UniqueRandomIdGenerator ssrc_generator;
+  StreamParams sp;
+  sp.cname = "cname";
+  sp.GenerateSsrcs(kNumLayers, false, false, &ssrc_generator);
+  std::vector<cricket::RidDescription> rids;
+  std::vector<std::string> rid_values;
+  rtc::UniqueStringGenerator rid_generator;
+  for (int i = 0; i < kNumLayers; ++i) {
+    cricket::RidDescription rid(rid_generator(), cricket::RidDirection::kSend);
+    rid_values.push_back(rid.rid);
+    rids.push_back(rid);
+  }
+  sp.set_rids(rids);
+
+  ASSERT_TRUE(channel->AddSendStream(sp));
+  const auto& streams = fake_call->GetVideoSendStreams();
+  ASSERT_EQ(1u, streams.size());
+  auto stream = streams[0];
+  ASSERT_NE(stream, nullptr);
+  const auto& config = stream->GetConfig();
+  EXPECT_THAT(config.rtp.rids, ::testing::ElementsAreArray(rid_values));
+}
+
 }  // namespace cricket

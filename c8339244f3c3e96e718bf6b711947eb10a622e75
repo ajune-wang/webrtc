@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9e2c88d_252c841e",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-02-23T19:38:48Z",
+      "side": 0,
+      "message": "I\u0027m not sure you can remove this code, due to clients depending on this. Not all clients go through the Java PeerConnection interface. Try the internal test bot. If it passes and we can remove this, we still need to sent out a PSA first.",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 47
+      },
+      "revId": "c8339244f3c3e96e718bf6b711947eb10a622e75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

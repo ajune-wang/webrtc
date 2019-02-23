@@ -961,4 +961,19 @@ TEST(AudioEncoderOpusTest, OpusFlagDtxAsNonSpeech) {
   EXPECT_GT(max_nonspeech_frames, 20);
 }
 
+TEST(AudioEncoderOpusTest, MinMaxFramesInAPacket) {
+  auto states = CreateCodec(2);
+
+  auto supported_frame_lengths_ms =
+      states->encoder->supported_frame_lengths_ms();
+
+  RTC_DCHECK(std::is_sorted(supported_frame_lengths_ms.begin(),
+                            supported_frame_lengths_ms.end()));
+
+  EXPECT_EQ(static_cast<size_t>(*supported_frame_lengths_ms.begin() / 10),
+            states->encoder->Min10MsFramesInAPacket());
+  EXPECT_EQ(static_cast<size_t>(*supported_frame_lengths_ms.end() / 10),
+            states->encoder->Max10MsFramesInAPacket());
+}
+
 }  // namespace webrtc

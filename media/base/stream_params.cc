@@ -14,55 +14,11 @@
 #include <list>
 
 #include "absl/algorithm/container.h"
+#include "absl/strings/str_join.h"
 #include "api/array_view.h"
 #include "rtc_base/strings/string_builder.h"
 
 namespace cricket {
-namespace {
-
-void AppendSsrcs(rtc::ArrayView<const uint32_t> ssrcs,
-                 rtc::SimpleStringBuilder* sb) {
-  *sb << "ssrcs:[";
-  const char* delimiter = "";
-  for (uint32_t ssrc : ssrcs) {
-    *sb << delimiter << ssrc;
-    delimiter = ",";
-  }
-  *sb << "]";
-}
-
-void AppendSsrcGroups(rtc::ArrayView<const SsrcGroup> ssrc_groups,
-                      rtc::SimpleStringBuilder* sb) {
-  *sb << "ssrc_groups:";
-  const char* delimiter = "";
-  for (const SsrcGroup& ssrc_group : ssrc_groups) {
-    *sb << delimiter << ssrc_group.ToString();
-    delimiter = ",";
-  }
-}
-
-void AppendStreamIds(rtc::ArrayView<const std::string> stream_ids,
-                     rtc::SimpleStringBuilder* sb) {
-  *sb << "stream_ids:";
-  const char* delimiter = "";
-  for (const std::string& stream_id : stream_ids) {
-    *sb << delimiter << stream_id;
-    delimiter = ",";
-  }
-}
-
-void AppendRids(rtc::ArrayView<const RidDescription> rids,
-                rtc::SimpleStringBuilder* sb) {
-  *sb << "rids:[";
-  const char* delimiter = "";
-  for (const RidDescription& rid : rids) {
-    *sb << delimiter << rid.rid;
-    delimiter = ",";
-  }
-  *sb << "]";
-}
-
-}  // namespace
 
 const char kFecSsrcGroupSemantics[] = "FEC";
 const char kFecFrSsrcGroupSemantics[] = "FEC-FR";
@@ -97,7 +53,7 @@ std::string SsrcGroup::ToString() const {
   rtc::SimpleStringBuilder sb(buf);
   sb << "{";
   sb << "semantics:" << semantics << ";";
-  AppendSsrcs(ssrcs, &sb);
+  sb << "ssrcs:[" << absl::StrJoin(ssrcs, ",") << "]";
   sb << "}";
   return sb.str();
 }
@@ -127,18 +83,25 @@ std::string StreamParams::ToString() const {
   if (!id.empty()) {
     sb << "id:" << id << ";";
   }
-  AppendSsrcs(ssrcs, &sb);
+  sb << "ssrcs:[" << absl::StrJoin(ssrcs, ",") << "]";
   sb << ";";
-  AppendSsrcGroups(ssrc_groups, &sb);
-  sb << ";";
+  sb << "ssrc_groups:"
+     << absl::StrJoin(ssrc_groups, ",",
+                      [](std::string* out, const SsrcGroup& ssrc_group) {
+                        out->append(ssrc_group.ToString());
+                      })
+     << ";";
   if (!cname.empty()) {
     sb << "cname:" << cname << ";";
   }
-  AppendStreamIds(stream_ids_, &sb);
-  sb << ";";
+  sb << "stream_ids:" << absl::StrJoin(stream_ids_, ",") << ";";
   if (!rids_.empty()) {
-    AppendRids(rids_, &sb);
-    sb << ";";
+    sb << "rids:["
+       << absl::StrJoin(rids_, ",",
+                        [](std::string* out, const RidDescription& rid) {
+                          out->append(rid.rid);
+                        })
+       << ";";
   }
   sb << "}";
   return sb.str();

@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7d91069_e5bb68a2",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 74
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "373cf22a_26417f45",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "This does not look right. If we call this function from the network thread than this is not true. Not really necessary either since you have a lock.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 60
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1bffb9_00f9a9f8",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52e8015b_0e6ee72a",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "I would recommend having a |frame_maximum_playout_delay_| member as well, then we can have a UpdatePlayoutDelays() function instead that just grabs the lock, figures out which delay that has been updated and updates the timing class with that/those values.",
+      "range": {
+        "startLine": 622,
+        "startChar": 25,
+        "endLine": 622,
+        "endChar": 44
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da5cfefd_b7258c3f",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "If this function is only called from one place I think we should remove it.",
+      "range": {
+        "startLine": 635,
+        "startChar": 25,
+        "endLine": 635,
+        "endChar": 55
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6a6c1a4_d4108a84",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "WDYT about SetLatencyMinimumPlayoutDelayMs?\n\nPlease add a comment about when this is called",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3624cdec_d702301e",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Add a comment that this function is only called for A/V sync.",
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dabac247_f7fe8678",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Something like |playout_delay_lock_| is clearer.",
+      "range": {
+        "startLine": 176,
+        "startChar": 23,
+        "endLine": 176,
+        "endChar": 29
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b53508_d2a6db1b",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Minimum delay as decided by the RTP playout delay extension.",
+      "range": {
+        "startLine": 182,
+        "startChar": 5,
+        "endLine": 182,
+        "endChar": 71
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f555f518_84e2f1f6",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Minimum delay as decided by the setLatency function in javascript land.",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 185,
+        "endChar": 51
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "938f7689_3520cc68",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-02-25T15:28:03Z",
+      "side": 1,
+      "message": "Minimum delay as decided by the A/V synchronization feature.",
+      "range": {
+        "startLine": 187,
+        "startChar": 5,
+        "endLine": 188,
+        "endChar": 29
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20ebed47_7d60c271",
+        "filename": "sdk/android/api/org/webrtc/SurfaceTextureHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-25T14:05:58Z",
+      "side": 1,
+      "message": "nit: Add javadoc",
+      "range": {
+        "startLine": 80,
+        "startChar": 37,
+        "endLine": 80,
+        "endChar": 43
+      },
+      "revId": "ace4c2113e480d100f80068d14b03921209c7b5f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

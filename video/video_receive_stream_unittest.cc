@@ -59,6 +59,13 @@ class MockVideoDecoder : public VideoDecoder {
   const char* ImplementationName() const { return "MockVideoDecoder"; }
 };
 
+class FrameObjectFake : public video_coding::EncodedFrame {
+ public:
+  int64_t ReceivedTime() const override { return 0; }
+
+  int64_t RenderTime() const override { return _renderTimeMs; }
+};
+
 }  // namespace
 
 class VideoReceiveStreamTest : public testing::Test {
@@ -88,9 +95,12 @@ class VideoReceiveStreamTest : public testing::Test {
     null_decoder.decoder_factory = &null_decoder_factory_;
     config_.decoders.push_back(null_decoder);
 
+    Clock* clock = Clock::GetRealTimeClock();
+    timing_ = new VCMTiming(clock);
+
     video_receive_stream_.reset(new webrtc::internal::VideoReceiveStream(
         &rtp_stream_receiver_controller_, kDefaultNumCpuCores, &packet_router_,
-        config_.Copy(), process_thread_.get(), &call_stats_));
+        config_.Copy(), process_thread_.get(), &call_stats_, clock, timing_));
   }
 
  protected:
@@ -106,6 +116,7 @@ class VideoReceiveStreamTest : public testing::Test {
   PacketRouter packet_router_;
   RtpStreamReceiverController rtp_stream_receiver_controller_;
   std::unique_ptr<webrtc::internal::VideoReceiveStream> video_receive_stream_;
+  VCMTiming* timing_;
 };
 
 TEST_F(VideoReceiveStreamTest, CreateFrameFromH264FmtpSpropAndIdr) {
@@ -134,6 +145,35 @@ TEST_F(VideoReceiveStreamTest, CreateFrameFromH264FmtpSpropAndIdr) {
   EXPECT_CALL(mock_h264_video_decoder_, Release());
   // Make sure the decoder thread had a chance to run.
   init_decode_event_.Wait(kDefaultTimeOutMs);
+}
+
+TEST_F(VideoReceiveStreamTest, PlayoutDelay) {
+  const PlayoutDelay kPlayoutDelayMs = {123, 321};
+  std::unique_ptr<FrameObjectFake> test_frame(new FrameObjectFake());
+  test_frame->id.picture_id = 0;
+  test_frame->SetPlayoutDelay(kPlayoutDelayMs);
+
+  video_receive_stream_->OnCompleteFrame(std::move(test_frame));
+  EXPECT_EQ(kPlayoutDelayMs.min_ms, timing_->min_playout_delay());
+  EXPECT_EQ(kPlayoutDelayMs.max_ms, timing_->max_playout_delay());
+
+  // Check that the biggest minimum delay is chosen.
+  video_receive_stream_->SetMinimumPlayoutDelay(400);
+  EXPECT_EQ(400, timing_->min_playout_delay());
+
+  // Check base minimum delay validation.
+  EXPECT_FALSE(video_receive_stream_->SetBaseMinimumPlayoutDelayMs(12345));
+  EXPECT_FALSE(video_receive_stream_->SetBaseMinimumPlayoutDelayMs(-1));
+  EXPECT_TRUE(video_receive_stream_->SetBaseMinimumPlayoutDelayMs(500));
+  EXPECT_EQ(500, timing_->min_playout_delay());
+
+  // Check that intermidiate values are remembered and the biggest remembered
+  // is chosen.
+  video_receive_stream_->SetBaseMinimumPlayoutDelayMs(0);
+  EXPECT_EQ(400, timing_->min_playout_delay());
+
+  video_receive_stream_->SetMinimumPlayoutDelay(0);
+  EXPECT_EQ(123, timing_->min_playout_delay());
 }
 
 }  // namespace webrtc

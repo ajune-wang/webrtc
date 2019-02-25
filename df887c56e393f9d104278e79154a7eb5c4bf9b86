@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d2d3913_b22dd9d2",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-25T22:04:58Z",
+      "side": 1,
+      "message": "It\u0027ll be used in a separate commit. The location we use to send this event no longer exists in on the latest master (we plugged it in on a fairly old version... because reasons :( ) and I haven\u0027t finished plugging this back in yet on master. \n\nI included this file here simply because I was sending the other event. I could group this in with that separate commit.",
+      "parentUuid": "d02be5cd_01662d51",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "df887c56e393f9d104278e79154a7eb5c4bf9b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9992d737_6785adb6",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "df887c56e393f9d104278e79154a7eb5c4bf9b86",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09d31a5b_b85e904b",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-02-25T22:04:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9992d737_6785adb6",
+      "revId": "df887c56e393f9d104278e79154a7eb5c4bf9b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

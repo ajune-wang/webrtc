@@ -22,6 +22,30 @@
       "revId": "90002256bca80a3d129830d62ef26e02efc91342",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61761231_9c6c09d7",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T10:24:36Z",
+      "side": 1,
+      "message": "I removed these lines in the next patchset. It turns out that PeerConnection::Close resets the event_log_ (https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?l\u003d3727-3732\u0026rcl\u003df58e43e2a69764702016d3fa4358a53257a5662c) which means that the event log is automatically closed by its dtor (https://cs.chromium.org/chromium/src/third_party/webrtc/logging/rtc_event_log/rtc_event_log_impl.cc?l\u003d162\u0026rcl\u003d5c2f1f053f20d73b8b1869cde12e490e85e6abe6).",
+      "parentUuid": "f0fe66a2_28553a1d",
+      "range": {
+        "startLine": 459,
+        "startChar": 14,
+        "endLine": 459,
+        "endChar": 29
+      },
+      "revId": "90002256bca80a3d129830d62ef26e02efc91342",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

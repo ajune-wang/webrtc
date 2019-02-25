@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cbf768b_73e9ed41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-02-25T07:18:48Z",
+      "side": 1,
+      "message": "I dont know what CoDel is. Can you add a link to something that describe what it means ?",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 10
+      },
+      "revId": "c593d7b5d94214e7d4f45564c346f621608e70de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17f0b56a_12a62cd7",
+        "filename": "api/test/simulated_network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-02-25T07:18:48Z",
+      "side": 1,
+      "message": "CoDel ? Link to something more descriptive or add description here.",
+      "range": {
+        "startLine": 66,
+        "startChar": 11,
+        "endLine": 66,
+        "endChar": 16
+      },
+      "revId": "c593d7b5d94214e7d4f45564c346f621608e70de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebf1023c_e0506f53",
+        "filename": "call/simulated_network.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5578
+      },
+      "writtenOn": "2019-02-25T07:18:48Z",
+      "side": 1,
+      "message": "nit: Maybe add a comment about threading assumptions.",
+      "range": {
+        "startLine": 33,
+        "startChar": 30,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "c593d7b5d94214e7d4f45564c346f621608e70de",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

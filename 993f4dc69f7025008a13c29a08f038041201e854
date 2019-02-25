@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ec1ba39_1e0f3d5f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T19:36:35Z",
+      "side": 1,
+      "message": "In theory yes (I actually would like to do that), but I have to take analyzers pointers and the video analyzer is wrapped into VideoQualityAnalyzerInjectionHelper. The alternative is to add a method on VideoQualityAnalyzerInjectionHelper to get a raw pointer to the wrapped analyzer.\n\nAnother alternative is to make VideoQualityAnalyzerInjectionHelper implement StatsObserverInterface and then route them to the wrapped analyzer.",
+      "parentUuid": "734aa418_6c2e45f0",
+      "range": {
+        "startLine": 203,
+        "startChar": 27,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e366a29f_85a6a553",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "993f4dc69f7025008a13c29a08f038041201e854",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f451153_b7ee62c8",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T19:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e366a29f_85a6a553",
+      "range": {
+        "startLine": 208,
+        "startChar": 4,
+        "endLine": 208,
+        "endChar": 18
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "51f244f0_142e662e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T19:36:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d10210_644b6ca7",
+      "range": {
+        "startLine": 209,
+        "startChar": 35,
+        "endLine": 209,
+        "endChar": 47
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2c4cdc8_f4daaaea",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bebf29dc_b2f50c22",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T19:36:35Z",
+      "side": 1,
+      "message": "Nice catch! Thanks!",
+      "parentUuid": "e2c4cdc8_f4daaaea",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 68
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d812b36d_557f3fd1",
         "filename": "test/pc/e2e/stats_poller.h",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-22T11:23:47Z",
       "side": 1,
       "message": "Maybe we can have just std::vector\u003cInternalStatsObserver\u003e pollers_? Or unique pointer otherwise, because it is the only owner of these observers.",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 65
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321df436_db1c4733",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T19:36:35Z",
+      "side": 1,
+      "message": "Yes, that would be nice but InternalStatsObserver is inheriting from StatsObserver which needs to implement rtc::RefCountInterface, that\u0027s why I am using scoped_refptrs.",
+      "parentUuid": "d812b36d_557f3fd1",
       "range": {
         "startLine": 58,
         "startChar": 2,

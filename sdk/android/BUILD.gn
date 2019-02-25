@@ -31,6 +31,7 @@ if (is_android) {
     _target_dir_name = get_label_info(":$target_name", "dir")
     output = "${root_out_dir}/lib.java${_target_dir_name}/${target_name}.jar"
     direct_deps_only = true
+    defines = []
     use_unprocessed_jars = true
     requires_android = true
     no_build_hooks = true
@@ -47,7 +48,6 @@ if (is_android) {
       ":libjingle_peerconnection_java",
       ":libjingle_peerconnection_metrics_default_java",
       ":libvpx_vp8_java",
-      ":libvpx_vp9_java",
       ":logging_java",
       ":peerconnection_java",
       ":screencapturer_java",
@@ -58,6 +58,11 @@ if (is_android) {
       "../../modules/audio_device:audio_device_java",
       "../../rtc_base:base_java",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":libvpx_vp9_java" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
   }
 
   # The native API is currently experimental and may change without notice.
@@ -515,6 +520,8 @@ if (is_android) {
   }
 
   rtc_android_library("swcodecs_java") {
+    defines = []
+
     java_files = [
       "api/org/webrtc/SoftwareVideoDecoderFactory.java",
       "api/org/webrtc/SoftwareVideoEncoderFactory.java",
@@ -523,12 +530,16 @@ if (is_android) {
     deps = [
       ":base_java",
       ":libvpx_vp8_java",
-      ":libvpx_vp9_java",
       ":video_api_java",
       ":video_java",
       "//rtc_base:base_java",
       "//third_party/android_deps:android_support_annotations_java",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":libvpx_vp9_java" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
   }
 
   ################################
@@ -828,10 +839,16 @@ if (is_android) {
   }
 
   rtc_static_library("swcodecs_jni") {
+    defines = []
+
     deps = [
       ":libvpx_vp8_jni",
-      ":libvpx_vp9_jni",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":libvpx_vp9_jni" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
   }
 
   ######################

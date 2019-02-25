@@ -122,7 +122,6 @@ rtc_static_library("rtc_media_base") {
   deps += [
     ":rtc_h264_profile_id",
     ":rtc_media_config",
-    ":rtc_vp9_profile",
     "..:webrtc_common",
     "../api:libjingle_peerconnection_api",
     "../api/audio_codecs:audio_codecs_api",
@@ -141,6 +140,11 @@ rtc_static_library("rtc_media_base") {
     "//third_party/abseil-cpp/absl/strings",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ ":rtc_vp9_profile" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 
   if (!build_with_mozilla) {
     deps += [ "../p2p" ]
@@ -265,7 +269,6 @@ rtc_static_library("rtc_internal_video_codecs") {
     "../modules/video_coding:webrtc_h264",
     "../modules/video_coding:webrtc_multiplex",
     "../modules/video_coding:webrtc_vp8",
-    "../modules/video_coding:webrtc_vp9",
     "../rtc_base:checks",
     "../rtc_base:deprecation",
     "../rtc_base:rtc_base_approved",
@@ -273,6 +276,11 @@ rtc_static_library("rtc_internal_video_codecs") {
     "../test:fake_video_codecs",
     "//third_party/abseil-cpp/absl/strings",
   ]
+
+  if (rtc_enable_vp9) {
+    deps += [ "../modules/video_coding:webrtc_vp9" ]
+    defines += [ "RTC_ENABLE_VP9" ]
+  }
 }
 
 rtc_static_library("rtc_audio_video") {
@@ -610,7 +618,6 @@ if (rtc_include_tests) {
       ":rtc_media_base",
       ":rtc_media_tests_utils",
       ":rtc_simulcast_encoder_adapter",
-      ":rtc_vp9_profile",
       "../api:create_simulcast_test_fixture_api",
       "../api:libjingle_peerconnection_api",
       "../api:mock_video_bitrate_allocator",
@@ -642,5 +649,10 @@ if (rtc_include_tests) {
       "../test:video_test_common",
       "//third_party/abseil-cpp/absl/algorithm:container",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ ":rtc_vp9_profile" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
   }
 }

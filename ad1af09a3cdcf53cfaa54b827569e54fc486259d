@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "27619143_7b2799a7",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-02-25T14:30:20Z",
+      "side": 1,
+      "message": "As far as I can see, there are no uses of this class for M !\u003d 2^n.\n\nWhat do you think of the following pragmatic approach.\n\n1. Add a Wrap function that would return the least significant bits. \n2. Include a static assert in this function so that it cannot be called unless M is a power of 2. Add a TODO to implement support for M !\u003d 2^n. This could be done by an alternative implementation that is something like (unwrapped - starting_value) % M.",
+      "parentUuid": "2b728000_f36272b7",
+      "range": {
+        "startLine": 97,
+        "startChar": 68,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb105ef0_286c76be",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 1

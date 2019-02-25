@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "947e2f33_5c616cce",
+        "filename": "BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-25T11:07:04Z",
+      "side": 1,
+      "message": "Can you also add the same guard to other places where proto_library.gni is imported?\n\nhttps://cs.chromium.org/search/?q\u003d%22import(%5C%22//third_party/protobuf/proto_library.gni%5C%22)%22+file:%5Esrc/third_party/webrtc/+package:%5Echromium$\u0026type\u003dcs\n\nThey are:\n- rtc_tools/BUILD.gn\n- rtc_tools/network_tester/BUILD.gn",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "48b694d1669a29873e34bac9df19f683f70e3258",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c44aabf_7163ad84",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-25T10:29:49Z",
+      "side": 1,
+      "message": "Can we move it to SetupOnSignalingThread before adding media to the call, or even into Run, if running on signaling thread is not required",
+      "range": {
+        "startLine": 410,
+        "startChar": 2,
+        "endLine": 410,
+        "endChar": 34
+      },
+      "revId": "c29d3d46bbf3f258994e7ab53b25992228809155",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

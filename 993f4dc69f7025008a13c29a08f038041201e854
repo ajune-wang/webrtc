@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "140ee3e2_75897baf",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-25T23:05:24Z",
+      "side": 1,
+      "message": "StatsObserverInterface on VideoQualityAnalyzerInjectionHelper looks good to me.",
+      "parentUuid": "3ec1ba39_1e0f3d5f",
+      "range": {
+        "startLine": 203,
+        "startChar": 27,
+        "endLine": 203,
+        "endChar": 43
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e366a29f_85a6a553",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -234,6 +258,30 @@
       "revId": "993f4dc69f7025008a13c29a08f038041201e854",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9426fbc6_e3f8d0f9",
+        "filename": "test/pc/e2e/stats_poller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-25T23:05:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "321df436_db1c4733",
+      "range": {
+        "startLine": 58,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 65
+      },
+      "revId": "993f4dc69f7025008a13c29a08f038041201e854",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

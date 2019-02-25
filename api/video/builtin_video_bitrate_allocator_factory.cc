@@ -14,7 +14,9 @@
 #include "api/video/video_bitrate_allocator.h"
 #include "api/video_codecs/video_codec.h"
 #include "common_types.h"  // NOLINT(build/include)
+#if defined(RTC_ENABLE_VP9)
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
+#endif
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
 #include "modules/video_coding/utility/simulcast_rate_allocator.h"
 #include "rtc_base/system/fallthrough.h"
@@ -38,9 +40,11 @@ class BuiltinVideoBitrateAllocatorFactory
       case kVideoCodecH264:
         rate_allocator.reset(new SimulcastRateAllocator(codec));
         break;
+#if defined(RTC_ENABLE_VP9)
       case kVideoCodecVP9:
         rate_allocator.reset(new SvcRateAllocator(codec));
         break;
+#endif
       default:
         rate_allocator.reset(new DefaultVideoBitrateAllocator(codec));
     }

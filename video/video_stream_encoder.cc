@@ -19,7 +19,9 @@
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
+#if defined(RTC_ENABLE_VP9)
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
+#endif
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_coding.h"
 #include "modules/video_coding/utility/default_video_bitrate_allocator.h"
@@ -560,6 +562,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
       settings_.bitrate_allocator_factory->CreateVideoBitrateAllocator(codec);
 
   // Set min_bitrate_bps, max_bitrate_bps, and max padding bit rate for VP9.
+#if defined(RTC_ENABLE_VP9)
   if (encoder_config_.codec_type == kVideoCodecVP9) {
     // Lower max bitrate to the level codec actually can produce.
     streams[0].max_bitrate_bps = std::min<int>(
@@ -569,6 +572,7 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     streams[0].target_bitrate_bps =
         SvcRateAllocator::GetPaddingBitrateBps(codec);
   }
+#endif
 
   codec.startBitrate =
       std::max(encoder_start_bitrate_bps_ / 1000, codec.minBitrate);
@@ -627,8 +631,10 @@ void VideoStreamEncoder::ReconfigureEncoder() {
   int num_layers;
   if (codec.codecType == kVideoCodecVP8) {
     num_layers = codec.VP8()->numberOfTemporalLayers;
+#if defined(RTC_ENABLE_VP9)
   } else if (codec.codecType == kVideoCodecVP9) {
     num_layers = codec.VP9()->numberOfTemporalLayers;
+#endif
   } else if (codec.codecType == kVideoCodecH264) {
     num_layers = codec.H264()->numberOfTemporalLayers;
   } else if (codec.codecType == kVideoCodecGeneric &&
@@ -1104,9 +1110,13 @@ EncodedImageCallback::Result VideoStreamEncoder::OnEncodedImage(
 
   int temporal_index = 0;
   if (codec_specific_info) {
+#if defined(RTC_ENABLE_VP9)
     if (codec_specific_info->codecType == kVideoCodecVP9) {
       temporal_index = codec_specific_info->codecSpecific.VP9.temporal_idx;
     } else if (codec_specific_info->codecType == kVideoCodecVP8) {
+#else
+    if (codec_specific_info->codecType == kVideoCodecVP8) {
+#endif
       temporal_index = codec_specific_info->codecSpecific.VP8.temporalIdx;
     }
   }

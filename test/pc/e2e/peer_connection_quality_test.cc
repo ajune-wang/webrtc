@@ -18,6 +18,8 @@
 #include "api/peer_connection_interface.h"
 #include "api/scoped_refptr.h"
 #include "api/units/time_delta.h"
+#include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
@@ -405,6 +407,20 @@ void PeerConnectionE2EQualityTest::AddAudio(TestPeer* peer) {
 }
 
 void PeerConnectionE2EQualityTest::SetupCall() {
+  // Start RTCEventLogs recording.
+  if (alice_->params()->rtc_event_log_path) {
+    auto alice_rtc_event_log = absl::make_unique<webrtc::RtcEventLogOutputFile>(
+        alice_->params()->rtc_event_log_path.value());
+    alice_->pc()->StartRtcEventLog(std::move(alice_rtc_event_log),
+                                   webrtc::RtcEventLog::kImmediateOutput);
+  }
+  if (bob_->params()->rtc_event_log_path) {
+    auto bob_rtc_event_log = absl::make_unique<webrtc::RtcEventLogOutputFile>(
+        bob_->params()->rtc_event_log_path.value());
+    bob_->pc()->StartRtcEventLog(std::move(bob_rtc_event_log),
+                                 webrtc::RtcEventLog::kImmediateOutput);
+  }
+
   // Connect peers.
   ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
   // Do the SDP negotiation, and also exchange ice candidates.

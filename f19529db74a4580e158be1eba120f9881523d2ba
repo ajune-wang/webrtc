@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f2386444_1526a9aa",
+        "filename": "common_types.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-25T16:19:06Z",
+      "side": 1,
+      "message": "To clarify, delete either maxBitrate or targetBitrate? One of them is going to be needed :)",
+      "range": {
+        "startLine": 233,
+        "startChar": 18,
+        "endLine": 233,
+        "endChar": 24
+      },
+      "revId": "f19529db74a4580e158be1eba120f9881523d2ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c85eb513_284ec6e7",
+        "filename": "modules/video_coding/codecs/h264/h264_encoder_impl.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-25T16:19:06Z",
+      "side": 1,
+      "message": "Looks like it, but perhaps set it to UNSPECIFIED_BIT_RATE\nhttps://github.com/cisco/openh264/blob/master/codec/api/svc/codec_app_def.h#L60\nI don\u0027t know this code that well, perhaps ask a contributor here how it should be treated. Maybe it should be same as targetBitrate?",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 56
+      },
+      "revId": "f19529db74a4580e158be1eba120f9881523d2ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9470f655_e8fe371d",
+        "filename": "modules/video_coding/utility/simulcast_rate_allocator.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-02-25T16:19:06Z",
+      "side": 1,
+      "message": "This needs some looking into. How are external encoders handling this?",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 48
+      },
+      "revId": "f19529db74a4580e158be1eba120f9881523d2ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -45,9 +45,13 @@ std::unique_ptr<RtpPacketizer> RtpPacketizer::Create(
       return absl::make_unique<RtpPacketizerVp8>(payload, limits, vp8);
     }
     case kVideoCodecVP9: {
+#if defined(RTC_ENABLE_VP9)
       const auto& vp9 =
           absl::get<RTPVideoHeaderVP9>(rtp_video_header.video_type_header);
       return absl::make_unique<RtpPacketizerVp9>(payload, limits, vp9);
+#else
+      ABSL_FALLTHROUGH_INTENDED;
+#endif
     }
     default: {
       return absl::make_unique<RtpPacketizerGeneric>(
@@ -140,7 +144,11 @@ RtpDepacketizer* RtpDepacketizer::Create(VideoCodecType type) {
     case kVideoCodecVP8:
       return new RtpDepacketizerVp8();
     case kVideoCodecVP9:
+#if defined(RTC_ENABLE_VP9)
       return new RtpDepacketizerVp9();
+#else
+      ABSL_FALLTHROUGH_INTENDED;
+#endif
     default:
       return new RtpDepacketizerGeneric();
   }

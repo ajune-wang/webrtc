@@ -47,6 +47,7 @@ if (is_ios) {
 }
 if (rtc_include_tests) {
   rtc_source_set("scenario") {
+    defines = []
     testonly = true
     sources = [
       "audio_stream.cc",
@@ -120,7 +121,6 @@ if (rtc_include_tests) {
       "../../modules/video_coding:webrtc_h264",
       "../../modules/video_coding:webrtc_multiplex",
       "../../modules/video_coding:webrtc_vp8",
-      "../../modules/video_coding:webrtc_vp9",
       "../../rtc_base:checks",
       "../../rtc_base:rtc_base",
       "../../rtc_base:rtc_base_approved",
@@ -136,6 +136,12 @@ if (rtc_include_tests) {
       "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
+
+    if (rtc_enable_vp9) {
+      deps += [ "../../modules/video_coding:webrtc_vp9" ]
+      defines += [ "RTC_ENABLE_VP9" ]
+    }
+
     if (is_android) {
       deps += [ "../../modules/video_coding:android_codec_factory_helper" ]
     } else if (is_ios || is_mac) {

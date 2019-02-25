@@ -13,7 +13,9 @@
 #include "absl/algorithm/container.h"
 #include "absl/strings/match.h"
 #include "media/base/h264_profile_level_id.h"
+#if defined(RTC_ENABLE_VP9)
 #include "media/base/vp9_profile.h"
+#endif
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/string_encode.h"
@@ -270,8 +272,10 @@ bool VideoCodec::Matches(const VideoCodec& other) const {
   if (absl::EqualsIgnoreCase(name, kH264CodecName))
     return webrtc::H264::IsSameH264Profile(params, other.params) &&
            IsSameH264PacketizationMode(params, other.params);
+#if defined(RTC_ENABLE_VP9)
   if (absl::EqualsIgnoreCase(name, kVp9CodecName))
     return webrtc::IsSameVP9Profile(params, other.params);
+#endif
   return true;
 }
 
@@ -383,8 +387,10 @@ bool IsSameCodec(const std::string& name1,
   // For every format besides H264 and VP9, comparing names is enough.
   if (absl::EqualsIgnoreCase(name1, kH264CodecName))
     return webrtc::H264::IsSameH264Profile(params1, params2);
+#if defined(RTC_ENABLE_VP9)
   if (absl::EqualsIgnoreCase(name1, kVp9CodecName))
     return webrtc::IsSameVP9Profile(params1, params2);
+#endif
   return true;
 }
 

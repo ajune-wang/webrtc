@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "fcdc12a0_df658842",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "Please add :)",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21f8df99_050e3f77",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "This value does not exist in the spec. Why does it exist here?\nhttps://w3c.github.io/webrtc-pc/#dom-rtcsctptransportstate",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a640e2b_0aa952eb",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "\"SCTP transport\" or \"SctpTransport\", not \"SCTPTransport\"",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "650f57b0_54816ab1",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "Even if you don\u0027t intend to surface maxMessageSize and maxChannels in this CL I suggest making the constructor complete to allow setting them. Otherwise I suggest not including them, though I don\u0027t feel too strongly about this.",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0091a472_06d1653e",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 4
@@ -128,6 +196,159 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14e27051_d0872e74",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "Its implementation will likely live cross-threads. Any assumptions or gotchas worth documenting?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d773f44_166631aa",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "Should this be a const method?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb3c6cd7_167c8352",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "Should this be a const method?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019e9d4b_626aa011",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6953,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "When does the transport change? Is this expected under normal operation, or only if you do SDP munging magic? I would have suggested making the transport const but that is apparently not the case.",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0750bb6b_5a04f2f7",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98950d4_b86bf32d",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "How about DCHECKing that owner thread is the same as internal_sctp_trasnport_\u0027s owning thread? At the expense of exposing a getter",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b19b6f0_56006afe",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "DCHECK !observer_ before this line since multiple registrations doesn\u0027t work and a new registration would clear the old registration",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb538d20_13b398a0",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "2019 :)",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72540dc7_b6c9ca8d",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:20:39Z",
+      "side": 1,
+      "message": "nit: This should be ~SctpTransport() override, right?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

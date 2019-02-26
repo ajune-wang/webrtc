@@ -22,6 +22,30 @@
       "revId": "c8339244f3c3e96e718bf6b711947eb10a622e75",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7176d0ad_aa4b5967",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2019-02-26T12:38:34Z",
+      "side": 0,
+      "message": "Shouldn\u0027t all Android clients at least go through sdk/android/../peer_connection_factory.cc though? I create the ADM there since we have easy access to the JNI env and app context, which is required for the Java ADM.",
+      "parentUuid": "b9e2c88d_252c841e",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 242,
+        "endChar": 47
+      },
+      "revId": "c8339244f3c3e96e718bf6b711947eb10a622e75",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

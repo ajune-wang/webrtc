@@ -53,6 +53,10 @@ namespace rtc {
 // Locking methods (Enter, TryEnter, Leave)are const to permit protecting
 // members inside a const context without requiring mutable CriticalSections
 // everywhere.
+// CriticalSection is reentrant lock. You may get compile time warnings if you
+// for e.g. try to |Enter| twice inside the same method without calling |Leave|
+// first because clang currently doesn't differentiate between standard and
+// reentrant locks.
 class RTC_LOCKABLE CriticalSection {
  public:
   CriticalSection();

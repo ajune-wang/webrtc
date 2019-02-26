@@ -152,6 +152,74 @@
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dccc9ba6_9c11e216",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:42:15Z",
+      "side": 1,
+      "message": "FakeSctpTransportInternal and remove the \"fake / mock\" comment?",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ef039d4_1e110d2a",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:42:15Z",
+      "side": 1,
+      "message": "nit: Remove \"private:\"",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc42a80_8f4b23a6",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:42:15Z",
+      "side": 1,
+      "message": "Public variables should be \"state\", though because this is class-like and not struct-like I think you should use accessor method instead for the sake of style-guide, even though it\u0027s just for testing. Also you could implement StateChangeCalled() as !states_.empty()",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df286ac4_192ea8e0",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:42:15Z",
+      "side": 1,
+      "message": "kwiberg@ made a point at https://webrtc-review.googlesource.com/c/src/+/121408/1/rtc_base/post_message_with_functor_unittest.cc#49 about preferring TEST to TEST_F:\n\"Skip the test fixture, and use a plain utility class instead? This is almost always a good idea, and it would solve your specific problem here. See https://abseil.io/tips/122 for details if you have the time.\"\nI liked that style (and you can see how I applied it at the final version: https://webrtc-review.googlesource.com/c/src/+/121408/7/rtc_base/post_message_with_functor_unittest.cc).\n\nWould you consider doing something similar here? You can still use helper functions *if* that avoids some bloat, but each helper does one particular thing. With test fixtures it\u0027s harder to tell what the consequences of something is",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

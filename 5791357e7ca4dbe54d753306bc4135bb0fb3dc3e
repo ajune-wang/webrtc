@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "595ccc2f_6c8bfaac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-26T19:02:48Z",
+      "side": 1,
+      "message": "I would expect the problem was with both build_with_mozilla\u003dtrue and rtc_enable_protobuf\u003dtrue (build_with_mozilla\u003dtrue used to mean no import while rtc_enable_protobuf\u003dtrue means the proto_library target is defined).",
+      "range": {
+        "startLine": 15,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "5791357e7ca4dbe54d753306bc4135bb0fb3dc3e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

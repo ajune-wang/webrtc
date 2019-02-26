@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0adfb8b2_291199f6",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done. There\u0027s a bunch of those in this file by now.... doesn\u0027t seem to be right linking this to the implementation bug, but there\u0027s no general cleanup bug, is there?",
+      "parentUuid": "40eed026_3494bdac",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d045368_a9569fca",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-26T11:43:44Z",
       "side": 1,
       "message": "When would you want to call this from other threads? The SctpTransportInformation contains a snapshot of the DTLS transport - do you ever need the DTLS transport on a non-owning thread outside of snapshots?\n\nPresumably you would want to fetch the Information of all related objects in one go, to avoid objects with inconsistent states (e.g. avoid state changes where object A is viewed before X, and object B is viewed after event X).",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4689a0_4a1b9520",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Good question. Since the info object and dtls_transport member variables are kept in sync, it\u0027s really a shorthand for Information().dtls_transport().\n\nThe obvious cross-thread use case is in the signal handler for OnSLD/SRDComplete, which is where all this locking stuff started.",
+      "parentUuid": "1d045368_a9569fca",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d4ee19a9_2b7f7540",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Older language than mine. I\u0027m not going to update all usage of \"channel\" in cricket, despite the fact that it would be a readability improvement (see TODO on line 62).",
+      "parentUuid": "4397cc9d_2b9cdd1a",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c8951f42_d58c8fc1",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-26T11:43:44Z",
       "side": 1,
       "message": "How can we have an SCTP transport without having a DTLS transport?\nIn the spec the DTLS transport is not optional and there\u0027s no such thing as \"new\".",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7424d721_5b1f073d",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "As previously commented: The code has code paths that clear and reset it.\nIn the spec, there\u0027s no language saying that it needs to be either present or consistent; I don\u0027t think this has been thought through.",
+      "parentUuid": "c8951f42_d58c8fc1",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "77d4c9b3_4920328d",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "I don\u0027t think we should send updates at destruction. If we have destruction and still have someone who wants our updates, there\u0027s bizarre logic going on.\n\nThis stuff was wrong; UpdateInformation will send the state change without any code here.",
+      "parentUuid": "cc7e3e00_3a5ab9a0",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bde913f_ca153a9a",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 6
@@ -98,6 +188,24 @@
       "writtenOn": "2019-02-26T11:43:44Z",
       "side": 1,
       "message": "Is a side-effect of this that when Clear() is called, or possibly other SDP updates and transport gets cleared, that we may revert to the \"connecting\" state?\nPerhaps this doesn\u0027t happen if we unregister in time, but so far I\u0027m not entirely sure of all uses of this stuff.\n\nI believe falling back to \"connecting\" when we are tearing down, if observable in JS, is a bug.",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56b044c7_461a8a71",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "We can\u0027t go back to kConnecting without passing this line, which means that we only get here if we\u0027re called before Clear() and with a non-null transport.\nIf we replace the transport, it seems to me that going back to kConnecting is the right thing to do (we have to run the setup protocol on the new connection, so we\u0027re not kConnected any more).",
+      "parentUuid": "0bde913f_ca153a9a",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "f540032e_ecd83bf6",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "As per comment above, I don\u0027t think so.\nI\u0027m not even sure we should block reverting from kClosed, since I don\u0027t know if we might want to reopen the SCTP connection when the transport is first closed by remote and then has its transport restored.",
+      "parentUuid": "a671f323_a43b9f39",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f82b3d24_e4a92d06",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 6
@@ -132,6 +258,24 @@
       "writtenOn": "2019-02-26T11:43:44Z",
       "side": 1,
       "message": "TODOs should have bug numbers",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7810190f_54cfa675",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Took a look, and it does not appear trivial. Bug filed.",
+      "parentUuid": "f82b3d24_e4a92d06",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "3075d21b_330db92f",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Moved to class comment and improved. The note about Information() is already in the api/ file and doesn\u0027t need to be repeated here.",
+      "parentUuid": "bb8cabe7_e130caac",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dccc9ba6_9c11e216",
         "filename": "pc/sctp_transport_unittest.cc",
         "patchSetId": 6
@@ -166,6 +328,24 @@
       "writtenOn": "2019-02-26T12:42:15Z",
       "side": 1,
       "message": "FakeSctpTransportInternal and remove the \"fake / mock\" comment?",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d87d198_02a5a9c1",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "OK, fake it is. Never sure what to call it - and there\u0027s a FakeSctpTransport thing out there already (have to remember to remove its #include...)",
+      "parentUuid": "dccc9ba6_9c11e216",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

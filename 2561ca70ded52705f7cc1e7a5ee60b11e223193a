@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "bbd8a539_670f16d4",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Because the spec assumes that SctpTransports are created in the \"connecting\" state, while the code in webrtc allows for SctpTransports to exist before connection has started. It seemed valuable to not have to lie about the state inside webrtc.\n\nAdded note that it\u0027s non-standard.",
+      "parentUuid": "21f8df99_050e3f77",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a640e2b_0aa952eb",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 4
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "2d2841cc_d75646c9",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a640e2b_0aa952eb",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "650f57b0_54816ab1",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 4
@@ -67,6 +103,24 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13a57eb8_5bdcc57c",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650f57b0_54816ab1",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -216,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "a4a47a9c_5162e10c",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "None I can think of regarding this interface object. Added a note that the callback will be called on the network thread.",
+      "parentUuid": "14e27051_d0872e74",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d773f44_166631aa",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 4
@@ -230,6 +302,24 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9131717_768f6858",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d773f44_166631aa",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -250,6 +340,24 @@
     },
     {
       "key": {
+        "uuid": "a4c2db6d_c44e2709",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb3c6cd7_167c8352",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "019e9d4b_626aa011",
         "filename": "pc/peer_connection.cc",
         "patchSetId": 4
@@ -261,6 +369,24 @@
       "writtenOn": "2019-02-26T11:20:39Z",
       "side": 1,
       "message": "When does the transport change? Is this expected under normal operation, or only if you do SDP munging magic? I would have suggested making the transport const but that is apparently not the case.",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b492e1c_002254a3",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6953,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "It\u0027s called from https://cs.chromium.org/chromium/src/third_party/webrtc/pc/peer_connection.cc?sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d6948 which is called from 3 other places. I did not dare assume that it never changed.\n\nThe function is used in some places to clear the transport.",
+      "parentUuid": "019e9d4b_626aa011",
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -284,6 +410,24 @@
     },
     {
       "key": {
+        "uuid": "943c79f2_a6988f9e",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0750bb6b_5a04f2f7",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e98950d4_b86bf32d",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 4
@@ -295,6 +439,24 @@
       "writtenOn": "2019-02-26T11:20:39Z",
       "side": 1,
       "message": "How about DCHECKing that owner thread is the same as internal_sctp_trasnport_\u0027s owning thread? At the expense of exposing a getter",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f860265_5f3cd9a6",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "I\u0027d prefer not to expose this implementation detail on the cricket::SctpTransportInternal interface. I suspect we\u0027ll crash soon enough if it\u0027s false, since the signal handlers all check that they\u0027re called on the proper thread.",
+      "parentUuid": "e98950d4_b86bf32d",
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -315,6 +477,24 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c8d50b_ec4d0476",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "Done. Don\u0027t see much use in attempting to support rapid hopping between observers.",
+      "parentUuid": "9b19b6f0_56006afe",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -346,6 +526,24 @@
       "writtenOn": "2019-02-26T11:20:39Z",
       "side": 1,
       "message": "nit: This should be ~SctpTransport() override, right?",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73b62f2_9edebbf4",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-26T13:26:39Z",
+      "side": 1,
+      "message": "actually the interface classes don\u0027t seem to have destructors, either virtual or non-virtual.\nNot sure I understand why.",
+      "parentUuid": "72540dc7_b6c9ca8d",
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

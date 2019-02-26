@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "0d6ab38d_3cee9533",
+        "filename": "modules/video_coding/frame_buffer2.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36c4e8bd_14c78713",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 441,
+        "endChar": 74
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "373cf22a_26417f45",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 13
@@ -84,6 +108,30 @@
       "writtenOn": "2019-02-25T15:28:03Z",
       "side": 1,
       "message": "This does not look right. If we call this function from the network thread than this is not true. Not really necessary either since you have a lock.",
+      "range": {
+        "startLine": 421,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 60
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb7346c_f84f9088",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "Yes, if it is called from the network thread then it would be fine as well due to lock. This is just an help to the developer to see from which thread this function is called. Such things help me to understand the threading model as it is done half implicitly through webrtc/api/proxy.h in webrtc (from signaling thread to either network thread or working thread).",
+      "parentUuid": "373cf22a_26417f45",
       "range": {
         "startLine": 421,
         "startChar": 0,
@@ -159,6 +207,30 @@
     },
     {
       "key": {
+        "uuid": "a97167c0_7a719a44",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "da5cfefd_b7258c3f",
+      "range": {
+        "startLine": 635,
+        "startChar": 25,
+        "endLine": 635,
+        "endChar": 55
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6a6c1a4_d4108a84",
         "filename": "video/video_receive_stream.h",
         "patchSetId": 13
@@ -170,6 +242,30 @@
       "writtenOn": "2019-02-25T15:28:03Z",
       "side": 1,
       "message": "WDYT about SetLatencyMinimumPlayoutDelayMs?\n\nPlease add a comment about when this is called",
+      "range": {
+        "startLine": 87,
+        "startChar": 7,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a265e267_abb1689c",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "I have added comment about when it is called.\nBut I am strongly against \"SetLatencyMinimumPlayoutDelayMs\" as it would cause interface change, and for consistency I would have to rename all the audio names as well. If you really insist on that, then I suggest to do that in the separate CL.",
+      "parentUuid": "c6a6c1a4_d4108a84",
       "range": {
         "startLine": 87,
         "startChar": 7,
@@ -199,6 +295,24 @@
     },
     {
       "key": {
+        "uuid": "40b72251_d0d84304",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3624cdec_d702301e",
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dabac247_f7fe8678",
         "filename": "video/video_receive_stream.h",
         "patchSetId": 13
@@ -219,6 +333,30 @@
       "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af309d81_fea2b38c",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dabac247_f7fe8678",
+      "range": {
+        "startLine": 176,
+        "startChar": 23,
+        "endLine": 176,
+        "endChar": 29
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -256,6 +394,30 @@
       "writtenOn": "2019-02-25T15:28:03Z",
       "side": 1,
       "message": "Minimum delay as decided by the setLatency function in javascript land.",
+      "range": {
+        "startLine": 184,
+        "startChar": 5,
+        "endLine": 185,
+        "endChar": 51
+      },
+      "revId": "b0f68064cc08a4dbf5a6651a3f3c9da6673c5e33",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9c9df91_120ee032",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-26T12:25:36Z",
+      "side": 1,
+      "message": "I will rename with \"webrtc/api\" setLatency instead of javascript land as we are currently pushing standard to support this functionality for video. Currently it supports audio only.",
+      "parentUuid": "f555f518_84e2f1f6",
       "range": {
         "startLine": 184,
         "startChar": 5,

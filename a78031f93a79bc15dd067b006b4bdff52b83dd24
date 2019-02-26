@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40eed026_3494bdac",
+        "filename": "api/peer_connection_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "TODO to make this \"\u003d 0;\"?\nShould this be a const method?",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d045368_a9569fca",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "When would you want to call this from other threads? The SctpTransportInformation contains a snapshot of the DTLS transport - do you ever need the DTLS transport on a non-owning thread outside of snapshots?\n\nPresumably you would want to fetch the Information of all related objects in one go, to avoid objects with inconsistent states (e.g. avoid state changes where object A is viewed before X, and object B is viewed after event X).",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4397cc9d_2b9cdd1a",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "Here you are referring to it as \"channel\", but in the .cc file you are referring to it as \"transport\".",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8951f42_d58c8fc1",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "How can we have an SCTP transport without having a DTLS transport?\nIn the spec the DTLS transport is not optional and there\u0027s no such thing as \"new\".",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc7e3e00_3a5ab9a0",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "This is always true, updates will be sent at destruction unless we UnregisterObserver()?",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bde913f_ca153a9a",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "Is a side-effect of this that when Clear() is called, or possibly other SDP updates and transport gets cleared, that we may revert to the \"connecting\" state?\nPerhaps this doesn\u0027t happen if we unregister in time, but so far I\u0027m not entirely sure of all uses of this stuff.\n\nI believe falling back to \"connecting\" when we are tearing down, if observable in JS, is a bug.",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a671f323_a43b9f39",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "If the above comment is true, should we DCHECK that we never revert to this state?",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82b3d24_e4a92d06",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "TODOs should have bug numbers",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb8cabe7_e130caac",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T11:43:44Z",
+      "side": 1,
+      "message": "This partially looks like a class comment (threading assumptions other than construction).",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

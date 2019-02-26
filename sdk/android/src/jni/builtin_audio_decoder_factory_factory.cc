@@ -12,7 +12,8 @@
 #include "sdk/android/native_api/jni/java_types.h"
 #include "sdk/android/src/jni/jni_helpers.h"
 
-#include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/audio_codecs/audio_decoder_factory_template.h"
+#include "api/audio_codecs/opus/audio_decoder_opus.h"
 
 namespace webrtc {
 namespace jni {
@@ -20,7 +21,8 @@ namespace jni {
 static jlong
 JNI_BuiltinAudioDecoderFactoryFactory_CreateBuiltinAudioDecoderFactory(
     JNIEnv* env) {
-  return NativeToJavaPointer(CreateBuiltinAudioDecoderFactory().release());
+  return NativeToJavaPointer(
+      CreateAudioDecoderFactory<AudioDecoderOpus>().release());
 }
 
 }  // namespace jni

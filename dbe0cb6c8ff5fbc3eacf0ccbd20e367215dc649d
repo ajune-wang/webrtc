@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cbf40839_48b167fd",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "The SDP might list the codec multiple times, such as when there are multiple profiles. Each set of codec preferences would be listed as its own \"codec\". If you want a unique identifier, you might want to define this by payload type (this is the \"codec number\").",
+      "parentUuid": "ba60c70a_20986bda",
+      "range": {
+        "startLine": 123,
+        "startChar": 16,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f61dcc0f_21119954",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 6
@@ -105,6 +129,57 @@
     },
     {
       "key": {
+        "uuid": "be1813fa_affd8ade",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "+orphis would be a good reviewer for this. He has a WIP CL for setCodecPreferences() I believe, which if it landed would mean you would no longer need to modify the SDP but you could use that API instead. I added him in case he wants to comment",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44da0934_9602f68b",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "I would express this as setting the codec preference. You are not truly forcing the codec if the SDP is the offer SDP. Basically:\n- The codec order that the offerer presents SHOULD be the order that the answerer replies with unless the answerer has a codec preference.\n- If the answerer has a codec preference, this order OVERRIDES the offerer\u0027s order.\n- Based on the final codec order, the first codec on the list SHOULD be the one that both endpoints use. However, both endpoints have declared that they are prepared for any codec in the list, and SHOULD thus be prepared for a different codec (but our implementation can certainly expect the first one to be used when talking to itself).\n\nIf you truly want to \"force\" the codec, what you need to do is to remove all codecs other than the first one on the list. This has the side-effect that the negotiation will fail if both endpoints don\u0027t support the same codec (nothing to worry about in a loopback with itself) and you the SDP may require some additional cleaning up.",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625a05c8_90e6727f",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "I think this method should take payload type as argument since that is the unique identifier. In order to get the payload type you can have a helper function that returns payload type based on steam_label and codec_name, and perhaps for now getting the first occurrence is all you need, but that would allow you to in the future distinguish between different profiles for the same codec if you cared to.",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ff723ad3_1d5a7574",
         "filename": "test/pc/e2e/sdp/sdp_changer.h",
         "patchSetId": 6
@@ -122,6 +197,40 @@
         "endLine": 36,
         "endChar": 37
       },
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a143e38_6242d105",
+        "filename": "test/pc/e2e/test_peer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "Where does the params_ come from? (I\u0027m new to this part of the code)\n\nYou might want to make forcing video codecs optional. For example, if the Answerer forces a video codec it doesn\u0027t matter what the Offerer\u0027s preference was.",
+      "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bf6fc64_02a8c75e",
+        "filename": "test/pc/e2e/test_peer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-26T12:57:44Z",
+      "side": 1,
+      "message": "Please document what patching an offer/answer means. (\"How is this different from CreateOffer()?\")",
       "revId": "dbe0cb6c8ff5fbc3eacf0ccbd20e367215dc649d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

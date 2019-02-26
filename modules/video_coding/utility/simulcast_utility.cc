@@ -10,6 +10,8 @@
 
 #include <algorithm>
 
+#include <cmath>
+
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/video_coding/utility/simulcast_utility.h"
 #include "rtc_base/checks.h"
@@ -61,6 +63,17 @@ bool SimulcastUtility::ValidSimulcastResolutions(const VideoCodec& codec,
           codec.simulcastStream[i - 1].width * 2) {
         return false;
       }
+    }
+  }
+  return true;
+}
+
+bool SimulcastUtility::ValidSimulcastFrameRates(const VideoCodec& codec,
+                                                int num_streams) {
+  for (int i = 1; i < num_streams; ++i) {
+    if (fabs(codec.simulcastStream[i].maxFramerate -
+             codec.simulcastStream[i - 1].maxFramerate) > 1e-9) {
+      return false;
     }
   }
   return true;

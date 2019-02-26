@@ -21,6 +21,8 @@ class SimulcastUtility {
  public:
   static uint32_t SumStreamMaxBitrate(int streams, const VideoCodec& codec);
   static int NumberOfSimulcastStreams(const VideoCodec& codec);
+  static bool ValidSimulcastFrameRates(const VideoCodec& codec,
+                                       int num_streams);
   static bool ValidSimulcastResolutions(const VideoCodec& codec,
                                         int num_streams);
   static bool ValidSimulcastTemporalLayers(const VideoCodec& codec,

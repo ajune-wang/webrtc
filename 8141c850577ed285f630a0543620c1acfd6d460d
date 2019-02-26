@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0978b264_323b9907",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-26T16:00:21Z",
+      "side": 1,
+      "message": "I don\u0027t fully understand this change. What was wrong with a transceiver-\u003ereceiver()-\u003etrack()-\u003eid()? Why transceiver-\u003ereceiver()-\u003estream_ids().front() is better?",
+      "range": {
+        "startLine": 308,
+        "startChar": 31,
+        "endLine": 308,
+        "endChar": 43
+      },
+      "revId": "8141c850577ed285f630a0543620c1acfd6d460d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

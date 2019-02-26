@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "62864008_4c4ca0ce",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-02-26T22:21:05Z",
+      "side": 1,
+      "message": "It\u0027s a good point and I was thinking about it myself. I think we can refactor the old code in Reconfigure not to block. I do not think it\u0027s blocking issue because overhead does not change often, but I agree we should fix it.\n\nOne solution would be to reschedule all calls into AudioSendStream to worker queue. This will also reduce locks. What do you think?\n\nI added TODO in AudioSendStream::ConfigureBitrateObserver.",
+      "parentUuid": "80f52858_c39a482a",
+      "range": {
+        "startLine": 520,
+        "startChar": 2,
+        "endLine": 520,
+        "endChar": 28
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e237a232_bf220969",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 39
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "de71248d_ca5fe7df",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-02-26T22:21:05Z",
+      "side": 1,
+      "message": "Yes it is safe, because reconfiguration is already done on worker queue. \n\nIt is necessary because transport overhead is not set on worker queue, so it will be either reschedule or lock. Since we already reschedule reconfiguration, it worked for me and I just deleted thread checker.",
+      "parentUuid": "e237a232_bf220969",
+      "range": {
+        "startLine": 879,
+        "startChar": 2,
+        "endLine": 879,
+        "endChar": 50
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709da189_efcf9a02",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 39
@@ -68,6 +116,30 @@
       "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7388cb9_b830cf1c",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-02-26T22:21:05Z",
+      "side": 1,
+      "message": "Replied above.",
+      "parentUuid": "709da189_efcf9a02",
+      "range": {
+        "startLine": 909,
+        "startChar": 1,
+        "endLine": 909,
+        "endChar": 31
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

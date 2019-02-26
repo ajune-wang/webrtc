@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a34fcf2a_5dc2e82c",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-26T07:46:15Z",
+      "side": 1,
+      "message": "It seems NetworkEmulationManager::CreateEndpoint only supports IPv4 at the moment. Is it OK to return an IPv4 address when the EndpointConfig asked for an IPv6 one?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "06054599bdc82f0f112e0cc17fd82be42c32d235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

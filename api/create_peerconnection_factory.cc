@@ -31,6 +31,9 @@
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/thread.h"
 
+#include "api/audio_codecs/builtin_audio_decoder_factory.h"
+#include "api/audio_codecs/builtin_audio_encoder_factory.h"
+
 namespace webrtc {
 
 rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
@@ -64,6 +67,8 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
   dependencies.media_engine = std::move(media_engine);
   dependencies.call_factory = std::move(call_factory);
   dependencies.event_log_factory = std::move(event_log_factory);
+  RTC_CHECK(CreateBuiltinAudioDecoderFactory());
+  RTC_CHECK(CreateBuiltinAudioEncoderFactory());
   return CreateModularPeerConnectionFactory(std::move(dependencies));
 }
 

@@ -26,7 +26,7 @@ namespace webrtc {
 namespace test {
 
 // Injects frame id and discard flag into EncodedImage payload buffer. The
-// payload buffer will be prepended in the injector with 2 bytes frame id and 4
+// payload buffer will be appended in the injector with 2 bytes frame id and 4
 // bytes original buffer length. Discarded flag will be put into the highest bit
 // of the length. It is assumed, that frame's data can't be more then 2^31
 // bytes. In the decoder, frame id and discard flag will be extracted and the
@@ -34,26 +34,33 @@ namespace test {
 //
 // The data in the EncodedImage on encoder side after injection will look like
 // this:
-//        4 bytes frame length + discard flag
-//   _ _ _↓_ _ _ _________________
-//  |   |       | original buffer |
-//   ¯↑¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-//    2 bytes frame id
+//                         4 bytes frame length + discard flag
+//  _________________ _ _ _↓_ _ _
+// | original buffer |   |       |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ ¯↑¯ ¯ ¯ ¯ ¯
+//                     2 bytes frame id
 //
 // But on decoder side multiple payloads can be concatenated into single
 // EncodedImage in jitter buffer and its payload will look like this:
-//        _ _ _ _ _ _ _________ _ _ _ _ _ _ _________ _ _ _ _ _ _ _________
-//  buf: |   |       | payload |   |       | payload |   |       | payload |
-//        ¯ ¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯
+//        _________ _ _ _ _ _ _ _________ _ _ _ _ _ _ _________ _ _ _ _ _ _
+//  buf: | payload |   |       | payload |   |       | payload |   |       |
+//        ¯¯¯¯¯¯¯¯¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯ ¯ ¯ ¯ ¯ ¯ ¯ ¯¯¯¯¯¯¯¯¯ ¯ ¯ ¯ ¯ ¯ ¯
 // To correctly restore such images we will extract id by this algorithm:
-//   1. pos = 0
-//   2. Extract id from buf[pos] and buf[pos + 1]
-//   3. Extract length from buf[pos + 2]..buf[pos + 5]
-//   4. Extract discard flag from length highest bit.
-//   5. If discard flag is False, copy |length| bytes starting from buf[pos + 6]
-//   to output buffer.
-//   6. pos = pos + length + 6
-//   7. If pos < buf.length - go to the step 2.
+//   1. Make a pass from end to begin of the buffer
+//     1.1. cur_pos = size - 1
+//     1.1. Extract frame id from buf[cur_pos - 5] and buf[cur_pos - 4]
+//     1.2. Extract length from buf[cur_pos - 3]..buf[cur_pos]
+//     1.3. Extract discard flag from length highest bit.
+//     1.4. Store extracted data
+//     1.4. Move cur_pos back on extracted length + 6
+//   2. If all discard flags are true - discard this encoded image
+//   3. Make a pass from begin to end copying data to the output
+//     3.1. cur_pos = 0
+//     3.2. get next extracted data
+//     3.3. if discard flag is False, copy |length| bytes starting from
+//          buf[cur_pos] to output buffer.
+//     3.4. cur_pos = cur_pos + length + 6
+//     3.5. If cur_pos_pos < buf.length - go to the step 2.
 // Also it will check, that all extracted ids are equals.
 //
 // Because EncodedImage doesn't take ownership of its buffer, injector will keep

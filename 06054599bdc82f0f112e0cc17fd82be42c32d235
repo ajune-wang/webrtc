@@ -46,6 +46,30 @@
       "revId": "06054599bdc82f0f112e0cc17fd82be42c32d235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51743e04_9b1a29ed",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-26T08:00:14Z",
+      "side": 1,
+      "message": "Yep, \"Returns this address as an IPv6 address\". Sorry for the noise. :)",
+      "parentUuid": "49aacb03_555f53ed",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "06054599bdc82f0f112e0cc17fd82be42c32d235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

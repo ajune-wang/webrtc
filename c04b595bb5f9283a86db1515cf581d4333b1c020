@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b68eaa5_ae999250",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-26T15:34:44Z",
+      "side": 1,
+      "message": "please add a comment that these bytes cannot be prepended, because something (what) uses the first bytes, and prepending it would cause failures in the webrtc stack.",
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bee912e_3d9bd19e",
+        "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-26T15:34:44Z",
+      "side": 1,
+      "message": "I think at the high level comment it is enough to skip this info. This should be self-evident from the code, and the illustrations above make it clear what\u0027s stored where.\n\nThe only thing I would mention is that the discard flag is the highest bit.",
+      "range": {
+        "startLine": 50,
+        "startChar": 6,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388c1846_28812c82",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-26T15:34:44Z",
+      "side": 1,
+      "message": "there is no \"second\", so maybe remove \"first\" :-)\n\nAlso, consider moving it to the method and skip the comment :)\nstd::vector\u003cExtractionInfo\u003e infos \u003d ExtractAllInfos(buffer)",
+      "range": {
+        "startLine": 77,
+        "startChar": 5,
+        "endLine": 77,
+        "endChar": 10
+      },
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a898acf1_21aadc53",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-02-26T15:34:44Z",
+      "side": 1,
+      "message": "go",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

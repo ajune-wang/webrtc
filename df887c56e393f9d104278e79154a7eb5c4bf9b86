@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8870cb29_f8034e33",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-02-26T09:40:07Z",
+      "side": 1,
+      "message": "I think it will be inadvisable to submit the RtcEventPromptAntennaSwitch code without the code logging it. First, we can more accurately review the CL this way. Second, this would eliminate the risk of other work getting in the way, the code using RtcEventPromptAntennaSwitch never being submitted, and this being left as a relic.\n\nBy the way, concerning your two events - I think it would be best for you to submit the events separately, so as not to have one blocked by comments to the other. This time, the effort to separate the two seems minimal. But it\u0027s up to you.",
+      "parentUuid": "2d2d3913_b22dd9d2",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "df887c56e393f9d104278e79154a7eb5c4bf9b86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9992d737_6785adb6",
         "filename": "video/video_stream_encoder.cc",
         "patchSetId": 3

@@ -22,6 +22,30 @@
       "revId": "06054599bdc82f0f112e0cc17fd82be42c32d235",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49aacb03_555f53ed",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-26T07:58:19Z",
+      "side": 1,
+      "message": "If I understand this correctly, the ip \u003d ip-\u003eAsIPv6Address() should solve this, right?",
+      "parentUuid": "a34fcf2a_5dc2e82c",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "06054599bdc82f0f112e0cc17fd82be42c32d235",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

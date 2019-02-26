@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0e644245_e4dfa5d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-26T15:56:28Z",
+      "side": 1,
+      "message": "Maybe instead just specify what problem is being solved.\n\nE.g.\n\nIn encoded image data injectors use the last bytes of the payload, instead of the first.\n\nRewriting first bytes of the video frames payload caused problems as somewhere first bytes are used to check if the frame is key-frame and also to parse QP values.",
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5b68eaa5_ae999250",
         "filename": "test/pc/e2e/analyzer/video/default_encoded_image_data_injector.h",
         "patchSetId": 3
@@ -81,6 +98,29 @@
         "startChar": 11,
         "endLine": 77,
         "endChar": 15
+      },
+      "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab508e16_77dc3d9a",
+        "filename": "test/pc/e2e/analyzer/video/single_process_encoded_image_data_injector.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-02-26T15:56:28Z",
+      "side": 1,
+      "message": "nit: memcpy here, since there\u0027s no possiblity of source and destination to overlap.",
+      "range": {
+        "startLine": 130,
+        "startChar": 6,
+        "endLine": 130,
+        "endChar": 13
       },
       "revId": "c04b595bb5f9283a86db1515cf581d4333b1c020",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

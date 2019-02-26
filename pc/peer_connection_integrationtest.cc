@@ -60,7 +60,6 @@
 #include "pc/test/fake_rtc_certificate_generator.h"
 #include "pc/test/fake_video_track_renderer.h"
 #include "pc/test/mock_peer_connection_observers.h"
-#include "rtc_base/fake_clock.h"
 #include "rtc_base/fake_network.h"
 #include "rtc_base/firewall_socket_server.h"
 #include "rtc_base/gunit.h"
@@ -1748,6 +1747,50 @@ TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithDtls) {
   EXPECT_EQ(0, webrtc::metrics::NumEvents("WebRTC.PeerConnection.KeyProtocol",
                                           webrtc::kEnumCounterKeyProtocolSdes));
 }
+
+
+  // Test that audio and video flow end-to-end when codec names don't use the
+  // expected casing, given that they're supposed to be case insensitive. To test
+  // this, all but one codec is removed from each media description, and its
+  // casing is changed.
+  //
+  // In the past, this has regressed and caused crashes/black video, due to the
+  // fact that code at some layers was doing case-insensitive comparisons and
+  // code at other layers was not.
+TEST_P(PeerConnectionIntegrationTest, MultiChannelOpusIsMultiChannel) {
+  ASSERT_TRUE(CreatePeerConnectionWrappers());
+  ConnectFakeSignaling();
+  // ONE WAY audio call.
+  caller()->AddAudioTrack();
+
+  // Remove all but one audio codec (opus), and increase the number of channels.
+  auto munge_munge = [](cricket::SessionDescription* description) {
+                       cricket::AudioContentDescription* audio =
+                           GetFirstAudioContentDescription(description);
+                       ASSERT_NE(nullptr, audio);
+                       auto audio_codecs = audio->codecs();
+                       audio_codecs.erase(std::remove_if(audio_codecs.begin(), audio_codecs.end(),
+                                                         [](const cricket::AudioCodec& codec) {
+                                                           return codec.name != "opus";
+                                                         }),
+                                          audio_codecs.end());
+                       ASSERT_EQ(1u, audio_codecs.size());
+                       audio_codecs[0].channels = 4;
+                       audio->set_codecs(audio_codecs);
+                     };
+
+  caller()->SetGeneratedSdpMunger(munge_munge);
+  callee()->SetGeneratedSdpMunger(munge_munge);
+
+  caller()->CreateAndSetAndSignalOffer();
+  ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+
+  // Verify frames are still received end-to-end.
+  MediaExpectations media_expectations;
+  media_expectations.CalleeExpectsSomeAudio();
+  ASSERT_TRUE(ExpectNewFrames(media_expectations));
+}
+
 
 // Uses SDES instead of DTLS for key agreement.
 TEST_P(PeerConnectionIntegrationTest, EndToEndCallWithSdes) {
@@ -3809,10 +3852,9 @@ class PeerConnectionIntegrationIceStatesTest
 // states, induced by putting a firewall between the peers and waiting for them
 // to time out.
 TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
-  rtc::ScopedFakeClock fake_clock;
-  // Some things use a time of "0" as a special value, so we need to start out
-  // the fake clock at a nonzero time.
-  fake_clock.AdvanceTime(TimeDelta::seconds(1));
+  // TODO(bugs.webrtc.org/8295): When using a ScopedFakeClock, this test will
+  // sometimes hit a DCHECK in platform_thread.cc about the PacerThread being
+  // too busy. For now, revert to running without a fake clock.
 
   const SocketAddress kStunServerAddress =
       SocketAddress("99.99.99.1", cricket::STUN_SERVER_PORT);
@@ -3870,22 +3912,20 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied";
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
-                           caller()->ice_connection_state(), kDefaultTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
-                           caller()->standardized_ice_connection_state(),
-                           kDefaultTimeout, fake_clock);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
+                 caller()->ice_connection_state(), kDefaultTimeout);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionDisconnected,
+                 caller()->standardized_ice_connection_state(),
+                 kDefaultTimeout);
 
   // Let ICE re-establish by removing the firewall rules.
   firewall()->ClearRules();
   RTC_LOG(LS_INFO) << "Firewall rules cleared";
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
-                           caller()->ice_connection_state(), kDefaultTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionConnected,
-                           caller()->standardized_ice_connection_state(),
-                           kDefaultTimeout, fake_clock);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionCompleted,
+                 caller()->ice_connection_state(), kDefaultTimeout);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionConnected,
+                 caller()->standardized_ice_connection_state(),
+                 kDefaultTimeout);
 
   // According to RFC7675, if there is no response within 30 seconds then the
   // peer should consider the other side to have rejected the connection. This
@@ -3895,54 +3935,11 @@ TEST_P(PeerConnectionIntegrationIceStatesTest, VerifyIceStates) {
     firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
   }
   RTC_LOG(LS_INFO) << "Firewall rules applied again";
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->ice_connection_state(), kConsentTimeout,
-                           fake_clock);
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->standardized_ice_connection_state(),
-                           kConsentTimeout, fake_clock);
-
-  // We need to manually close the peerconnections before the fake clock goes
-  // out of scope, or we trigger a DCHECK in rtp_sender.cc when we briefly
-  // return to using non-faked time.
-  delete SetCallerPcWrapperAndReturnCurrent(nullptr);
-  delete SetCalleePcWrapperAndReturnCurrent(nullptr);
-}
-
-// Tests that if the connection doesn't get set up properly we eventually reach
-// the "failed" iceConnectionState.
-TEST_P(PeerConnectionIntegrationIceStatesTest, IceStateSetupFailure) {
-  rtc::ScopedFakeClock fake_clock;
-  // Some things use a time of "0" as a special value, so we need to start out
-  // the fake clock at a nonzero time.
-  fake_clock.AdvanceTime(TimeDelta::seconds(1));
-
-  // Block connections to/from the caller and wait for ICE to become
-  // disconnected.
-  for (const auto& caller_address : CallerAddresses()) {
-    firewall()->AddRule(false, rtc::FP_ANY, rtc::FD_ANY, caller_address);
-  }
-
-  ASSERT_TRUE(CreatePeerConnectionWrappers());
-  ConnectFakeSignaling();
-  SetPortAllocatorFlags();
-  SetUpNetworkInterfaces();
-  caller()->AddAudioVideoTracks();
-  caller()->CreateAndSetAndSignalOffer();
-
-  // According to RFC7675, if there is no response within 30 seconds then the
-  // peer should consider the other side to have rejected the connection. This
-  // is signaled by the state transitioning to "failed".
-  constexpr int kConsentTimeout = 30000;
-  ASSERT_EQ_SIMULATED_WAIT(PeerConnectionInterface::kIceConnectionFailed,
-                           caller()->standardized_ice_connection_state(),
-                           kConsentTimeout, fake_clock);
-
-  // We need to manually close the peerconnections before the fake clock goes
-  // out of scope, or we trigger a DCHECK in rtp_sender.cc when we briefly
-  // return to using non-faked time.
-  delete SetCallerPcWrapperAndReturnCurrent(nullptr);
-  delete SetCalleePcWrapperAndReturnCurrent(nullptr);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
+                 caller()->ice_connection_state(), kConsentTimeout);
+  ASSERT_EQ_WAIT(PeerConnectionInterface::kIceConnectionFailed,
+                 caller()->standardized_ice_connection_state(),
+                 kConsentTimeout);
 }
 
 // Tests that the best connection is set to the appropriate IPv4/IPv6 connection

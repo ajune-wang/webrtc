@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e237a232_bf220969",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-26T08:55:33Z",
+      "side": 1,
+      "message": "The deletion of the RTC_DCHECK(worker_thread_checker_.CalledOnValidThread()); scares me a bit. Is it necessary? If so, is it safe?",
+      "range": {
+        "startLine": 879,
+        "startChar": 2,
+        "endLine": 879,
+        "endChar": 50
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "709da189_efcf9a02",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 5845
+      },
+      "writtenOn": "2019-02-26T08:55:33Z",
+      "side": 1,
+      "message": "As above, diff vs. patchset 35.",
+      "range": {
+        "startLine": 909,
+        "startChar": 1,
+        "endLine": 909,
+        "endChar": 31
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

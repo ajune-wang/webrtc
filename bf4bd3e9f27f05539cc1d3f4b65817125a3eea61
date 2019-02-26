@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "80f52858_c39a482a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 39
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-02-26T09:08:35Z",
+      "side": 1,
+      "message": "This will post a task and wait on it, this is not safe to do from for instance another task queue as it can cause a dead lock if we use a thread pool for task queues.\n\nIn general it\u0027s good to avoid blocking waits on task queues and it\u0027s something we try to get away from. However, it is somewhat fine to do if we know that the source thread is safe to do such things from. This was guaranteed before by the thread checker, by removing it we risk introducing hard to find thread race issues.\n\nIf the source threads calling SetTransportOverhead and OnOverheadChanged safely can block waiting for a task to execute, we should add checks that ensures that this holds. Even then, consider that the timing overhead of the blocking wait is quite significant and something that we really want to avoid introducing.",
+      "range": {
+        "startLine": 520,
+        "startChar": 2,
+        "endLine": 520,
+        "endChar": 28
+      },
+      "revId": "bf4bd3e9f27f05539cc1d3f4b65817125a3eea61",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e237a232_bf220969",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 39

@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d25e73b3_99eb304c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "nit: Remove this section or express it as a note e.g. \"AddTrack() is used instead of AddTransceiver() because...\", as-is this realization does not tie in to what the CL is doing.",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710d3223_7ce4cce3",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Do you have to explicitly set this?\nI\u0027m thinking either everything should be kDefault/nullopt by default and you set the things you want to set, or things have to be initialized, in which case Params should have a constructor so that you can\u0027t end up with things not initialized properly.",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca588c25_e750e0e9",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Would it be better to have a constructor or setters? Moving/adding members of the struct could subtly affect calling places that are implicit",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b558c113_bfcbee75",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "(Me not knowing this part of the code): How is the video_analyzer_ptr tied to the transceivers? How does it know about stream labels?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6f1334f_582a83e4",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "This creates a transceiver that is ready to \"sendrecv\", even though the sender\u0027s track is null. If you AddTrack() *after* this, the AddTrack() should recycle that transceiver and it all works as expected. But if you don\u0027t intend to send, this will still negotiate a sendrecv m\u003d section (as opposed to a recvonly m\u003d section), and the other endpoint might be surprised to find that it has an RTP stream that isn\u0027t receiving anything (a sendrecv/sendonly transciever with a sender.track \u003d\u003d null is silent).\n\nYou might want to add a second argument: RtpTransceiverInit with direction \u003d kRecvOnly",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b611418_843eb89d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Same comment as above",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6395c4a0_d461ea40",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Should these be called MaybeAddMedia()?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf79efd6_8c1f5b15",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Does this ALWAYS add video? Shouldn\u0027t this be behind if peer-\u003eparams()-\u003evideo_config as well?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "159e222d_7f9f8027",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T15:10:51Z",
+      "side": 1,
+      "message": "Why does AddAudio use a hardcoded string but AddVideo uses video_config.stream_label?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3be6691b_9793fae5",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "If spec-compliant, you would expect a single state change:\n\"connecting\" -\u003e \"connected\"\n\nIf the way it is, you would expect two:\n\"new\" -\u003e \"connecting\"\n\"connecting\" -\u003e \"connected\"\n\nYet the test only waits for a single state change. Is this test secretly baking in assumptions that perhaps are not what we want to test, like both of the state changes happening synchronously? Otherwise this test would be racy if we stop waiting as soon as \"new\" -\u003e \"connecting\".\n\nShould this test wait for \"connected\" instead? (If so StateChangeCalled() is no longer used and could be removed.)",
+      "revId": "637c413b72dcd2815404f0cfba3c68a03871a171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

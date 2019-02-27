@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "b1297028_3ff41790",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "I\u0027d be concerned that, reading these states from the signaling thread (at SLD/SRDComplete) without blocking the network thread, we may in edge cases get inconsistent snapshots. It may be one of those \"oh well, so what?\", or it may lead to observable contradictions between different connection/transport states (RTCPeerConnectionState, RTCIceConnectionState and RTCDtlsTransportState are all entagled) which could make WPTs flaky. Worst case we may need to do a blocking-invoke as a temporary workaround that takes care of reading all the transports\u0027 snapshots all in one go, delivering all of the snapshots back to the signaling thread before continuing the SRDComplete steps that carry all of this to Chrome. But I\u0027ll let us worry about that in the future. And like you I really dislike the blocking invokes so I hope it doesn\u0027t come to that.",
+      "parentUuid": "7e4689a0_4a1b9520",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4397cc9d_2b9cdd1a",
         "filename": "media/sctp/sctp_transport.h",
         "patchSetId": 6
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Older language than mine. I\u0027m not going to update all usage of \"channel\" in cricket, despite the fact that it would be a readability improvement (see TODO on line 62).",
       "parentUuid": "4397cc9d_2b9cdd1a",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c7256c1_8609b924",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "I\u0027m not asking you to update all the usage, but I am asking you to have the variable names of the declaration in a .h to be the same as the definition in the .cc.",
+      "parentUuid": "d4ee19a9_2b7f7540",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -139,6 +175,24 @@
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "597c2ab4_d5eb7905",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7424d721_5b1f073d",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +263,24 @@
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a89ec995_9bdf842d",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "56b044c7_461a8a71",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

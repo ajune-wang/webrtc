@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "22d5cda5_3b29faf4",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bbd8a539_670f16d4",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a640e2b_0aa952eb",
         "filename": "api/sctp_transport_interface.h",
         "patchSetId": 4
@@ -393,6 +411,24 @@
     },
     {
       "key": {
+        "uuid": "3191208a_808d0ff7",
+        "filename": "pc/peer_connection.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 6953,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3b492e1c_002254a3",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0750bb6b_5a04f2f7",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 4
@@ -460,6 +496,24 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e603e854_0af86f2e",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7f860265_5f3cd9a6",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -544,6 +598,24 @@
       "side": 1,
       "message": "actually the interface classes don\u0027t seem to have destructors, either virtual or non-virtual.\nNot sure I understand why.",
       "parentUuid": "72540dc7_b6c9ca8d",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e170d8f_4e600ab8",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T09:41:56Z",
+      "side": 1,
+      "message": "If my C++ understanding serves me well, interfaces need to have virtual destructors to ensure they are called, not listing them as virtual is a foot-gun:\nhttps://stackoverflow.com/questions/461203/when-to-use-virtual-destructors",
+      "parentUuid": "c73b62f2_9edebbf4",
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

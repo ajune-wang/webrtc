@@ -29,7 +29,6 @@
 #include "media/engine/apm_helpers.h"
 #include "media/engine/payload_type_mapper.h"
 #include "media/engine/webrtc_media_engine.h"
-#include "modules/audio_device/audio_device_impl.h"
 #include "modules/audio_mixer/audio_mixer_impl.h"
 #include "modules/audio_processing/aec_dump/aec_dump_factory.h"
 #include "modules/audio_processing/include/audio_processing.h"
@@ -233,13 +232,6 @@ void WebRtcVoiceEngine::Init() {
     RTC_LOG(LS_INFO) << ToString(codec);
   }
 
-#if defined(WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE)
-  // No ADM supplied? Create a default one.
-  if (!adm_) {
-    adm_ = webrtc::AudioDeviceModule::Create(
-        webrtc::AudioDeviceModule::kPlatformDefaultAudio);
-  }
-#endif  // WEBRTC_INCLUDE_INTERNAL_AUDIO_DEVICE
   RTC_CHECK(adm());
   webrtc::adm_helpers::Init(adm());
   webrtc::apm_helpers::Init(apm());

@@ -17,7 +17,7 @@ import java.util.List;
 import org.webrtc.Logging.Severity;
 import org.webrtc.PeerConnection;
 import org.webrtc.audio.AudioDeviceModule;
-import org.webrtc.audio.LegacyAudioDeviceModule;
+import org.webrtc.audio.JavaAudioDeviceModule;
 
 /**
  * Java wrapper for a C++ PeerConnectionFactoryInterface.  Main entry point to
@@ -164,7 +164,7 @@ public class PeerConnectionFactory {
 
   public static class Builder {
     @Nullable private Options options;
-    @Nullable private AudioDeviceModule audioDeviceModule = new LegacyAudioDeviceModule();
+    @Nullable private AudioDeviceModule audioDeviceModule;
     private AudioEncoderFactoryFactory audioEncoderFactoryFactory =
         new BuiltinAudioEncoderFactoryFactory();
     private AudioDecoderFactoryFactory audioDecoderFactoryFactory =
@@ -241,6 +241,10 @@ public class PeerConnectionFactory {
 
     public PeerConnectionFactory createPeerConnectionFactory() {
       checkInitializeHasBeenCalled();
+      if (audioDeviceModule == null) {
+        audioDeviceModule = JavaAudioDeviceModule.builder(ContextUtils.getApplicationContext())
+                                .createAudioDeviceModule();
+      }
       return nativeCreatePeerConnectionFactory(ContextUtils.getApplicationContext(), options,
           audioDeviceModule == null ? 0 : audioDeviceModule.getNativeAudioDeviceModulePointer(),
           audioEncoderFactoryFactory.createNativeAudioEncoderFactory(),

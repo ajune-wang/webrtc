@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74aa409e_f76dd997",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-27T12:53:09Z",
+      "side": 1,
+      "message": "Two things about this class:\n\n  1. Can it be a simple struct instead? It doesn\u0027t seem like you actually need anything other than the four member variables.\n\n  2. Please document the member variables. This is especially important for the latter two, whose type doesn\u0027t provide any significant implicit documentation.",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4199b58_0eb23884",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-27T12:53:09Z",
+      "side": 1,
+      "message": "Why do you need *both* a mutex and a thread check? One or the other is usually sufficient.",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3294402f_0508663f",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-27T12:53:09Z",
+      "side": 1,
+      "message": "These two seem dodgy. Is it really safe to access the returned pointer after releasing lock_?",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c299a369_928d7858",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-27T12:53:09Z",
+      "side": 1,
+      "message": "How many of these can be const?\n\n(Ask yourself this question whenever you write a class. For example, it\u0027s often the case that pointer members can be const even if they point to non-const things.\n\n`const` is a great help when reading code, and the longer the lifetime of the variable (measured in lines of code), the more helpful it is.)",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

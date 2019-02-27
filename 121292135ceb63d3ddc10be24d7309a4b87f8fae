@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e9abcc1c_8a5c6ee9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d25e73b3_99eb304c",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "710d3223_7ce4cce3",
         "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3bac336_6d31ac85",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll address it and next comment in follow up CLs.",
+      "parentUuid": "710d3223_7ce4cce3",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "77e6d96d_b7b177c7",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ca588c25_e750e0e9",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b558c113_bfcbee75",
         "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "115fdf04_7c3c04af",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Discussed offline. Basically video quality analyzer have no connections to SDP and offer/answer exchange",
+      "parentUuid": "b558c113_bfcbee75",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "2ae84df7_56b23826",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "397e4e90_10c0a0c3",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6f1334f_582a83e4",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -101,6 +191,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06734429_d214e810",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6f1334f_582a83e4",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "403a97cc_efd4caae",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be90eb6e_a98b2d9d",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b611418_843eb89d",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -135,6 +261,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59dd91e4_017eecfc",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b611418_843eb89d",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "5a2f1a89_a6e75d93",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6395c4a0_d461ea40",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61d40543_f5a73bd1",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -169,6 +331,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c31de54_31109be8",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61d40543_f5a73bd1",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -207,6 +387,24 @@
     },
     {
       "key": {
+        "uuid": "74e883a3_a6c7082c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be3f7f97_13f52278",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "159e222d_7f9f8027",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -221,6 +419,24 @@
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de4772b7_b924b6ea",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T17:10:56Z",
+      "side": 1,
+      "message": "I\u0027ll address it in follow up CL by adding optional stream label to the audio config too to provide to user ability to name it.",
+      "parentUuid": "159e222d_7f9f8027",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

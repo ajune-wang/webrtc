@@ -66,7 +66,7 @@ class SctpTransport : public SctpTransportInternal,
   // |network_thread| is where packets will be processed and callbacks from
   // this transport will be posted, and is the only thread on which public
   // methods can be called.
-  // |channel| is required (must not be null).
+  // |channel| is not required (can be null).
   SctpTransport(rtc::Thread* network_thread,
                 rtc::PacketTransportInternal* channel);
   ~SctpTransport() override;

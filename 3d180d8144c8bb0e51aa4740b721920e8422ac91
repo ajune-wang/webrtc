@@ -46,6 +46,52 @@
       "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de654807_5064310a",
+        "filename": "sdk/android/native_unittests/application_context_provider.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-27T13:13:52Z",
+      "side": 1,
+      "message": "I don\u0027t think this helper is good to have. It is very easy to leak memory this way.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e636c2d0_3459e58b",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-02-27T13:13:52Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary right? There is already a check on the Java side?",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 3
+      },
+      "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

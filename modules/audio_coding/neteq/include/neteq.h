@@ -74,6 +74,8 @@ struct NetEqLifetimeStatistics {
   // Below stat is not part of the spec.
   uint64_t voice_concealed_samples = 0;
   uint64_t delayed_packet_outage_samples = 0;
+  uint64_t relative_packet_arrival_delay = 0;
+  uint64_t jitter_buffer_received_packets = 0;
 };
 
 // Metrics that describe the operations performed in NetEq, and the internal

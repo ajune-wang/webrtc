@@ -16,6 +16,24 @@
       "revId": "637c413b72dcd2815404f0cfba3c68a03871a171",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82a68751_4ee1bacc",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T11:23:37Z",
+      "side": 1,
+      "message": "Yes, it should wait for \"connected\".\nIn this case, there are two state changes because the observer is added before the DTLS transport is connected. In spec-compliant usage in Chrome, we expect the transport to be surfaced after it\u0027s already in \"connecting\" state, so no more than one transition is observable.",
+      "parentUuid": "3be6691b_9793fae5",
+      "revId": "637c413b72dcd2815404f0cfba3c68a03871a171",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

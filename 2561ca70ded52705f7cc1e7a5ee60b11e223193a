@@ -619,6 +619,24 @@
       "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf1d4814_c1bf93f7",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T11:23:37Z",
+      "side": 1,
+      "message": "Aha!\nFrom that stackoverflow, quote:\n\n\"If you want to prevent the deletion of an instance through a base class pointer, you can make the base class destructor protected and nonvirtual; by doing so, the compiler won\u0027t let you call delete on a base class pointer.\"\n\n\"From the Herb Sutter\u0027s article: \"Guideline #4: A base class destructor should be either public and virtual, or protected and nonvirtual.\"\n\nBut in this case, the protected virtual destructor is in rtc::RefCountedObject, so this destructor should indeed be \"override\". Strange that everything else warns of missing overrides, but this one doesn\u0027t....",
+      "parentUuid": "8e170d8f_4e600ab8",
+      "revId": "2561ca70ded52705f7cc1e7a5ee60b11e223193a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

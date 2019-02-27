@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "765d15cf_59c5ffe8",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T11:23:37Z",
+      "side": 1,
+      "message": "Yes, that\u0027s a worry.\nIf the signaling thread reads the state and the dtls_transport in two separate calls (or even reads the state twice), the networking thread can get in between those to make changes.\nI\u0027d prefer a function on the networking thread that pushes a pass-by-value snapshot of all the states together - if the signalling thread wasn\u0027t invoked in a blocking manner, this could be triggered by the signalling thread deciding that \"I need those states, I\u0027ll schedule a task to do whatever I need to do with them when the message comes back\".\nAs you say - needs redesign, it\u0027s not in this CL.",
+      "parentUuid": "b1297028_3ff41790",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4397cc9d_2b9cdd1a",
         "filename": "media/sctp/sctp_transport.h",
         "patchSetId": 6
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "I\u0027m not asking you to update all the usage, but I am asking you to have the variable names of the declaration in a .h to be the same as the definition in the .cc.",
       "parentUuid": "d4ee19a9_2b7f7540",
+      "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519bfd45_4cecb8d0",
+        "filename": "media/sctp/sctp_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T11:23:37Z",
+      "side": 1,
+      "message": "Hm. Reviewed the use of \"channel\" again, and have substituted \"transport\" where appropriate. The change seems to have been ALMOST done earlier.\n\nAlso found that my closing-procedure operations were wrong (those signals are fired when a datachannel closes, not when the SCTP transport closes). Will remove and add a TODO for closing.",
+      "parentUuid": "2c7256c1_8609b924",
       "revId": "a78031f93a79bc15dd067b006b4bdff52b83dd24",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "26fa258f_bef6d0cb",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T13:21:22Z",
+      "side": 1,
+      "message": "1. I\u0027m following the pattern I started in DtlsTransport - this is intended to be a snapshot, and allowing changes after initialization should be an error. A struct with only const members would be approximately the same thing - is that even allowed?\nI\u0027m eager to not start new patterns if not required.\n\n2. I\u0027ll link to the spec - these exactly reflect spec attributes, so that should be good enough.",
+      "parentUuid": "74aa409e_f76dd997",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4199b58_0eb23884",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2019-02-27T12:53:09Z",
       "side": 1,
       "message": "Why do you need *both* a mutex and a thread check? One or the other is usually sufficient.",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfc3a119_3427b424",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T13:21:22Z",
+      "side": 1,
+      "message": "Good question!\nI thought dtls_transport_ was accessed by off-thread functions, but it isn\u0027t. Switched to RTC_GUARDED_BY(owner_thread_).\n\n(I want RTC_DCHECK_RUN_ON(owner_thread_) on all functions that are not explicitly marked as accessible off-thread, to avoid thread entanglement growing worse. If they access the shared variables, they have to have lock_ too.)",
+      "parentUuid": "a4199b58_0eb23884",
       "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e61dab36_8762f0be",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T13:21:22Z",
+      "side": 1,
+      "message": "The lock guards the pointer, not the struct, and it\u0027s return-by-value. As for DtlsTransport, this should really be thread-locked, not accessor-locked, because off-thread access to raw pointers is generally a Bad Thing, but doing so would require more redesign up in JsepTransport.",
+      "parentUuid": "3294402f_0508663f",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c299a369_928d7858",
         "filename": "pc/sctp_transport.h",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-27T12:53:09Z",
       "side": 1,
       "message": "How many of these can be const?\n\n(Ask yourself this question whenever you write a class. For example, it\u0027s often the case that pointer members can be const even if they point to non-const things.\n\n`const` is a great help when reading code, and the longer the lifetime of the variable (measured in lines of code), the more helpful it is.)",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "945f5305_aa46fe40",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T13:21:22Z",
+      "side": 1,
+      "message": "Not observer_.\nNot lock_.\nNot info_.\nNot internal_sctp_transport_ (touched in Clear().\nNot dtls_transport_ (touched in SetDtlsTransport).\n\nI added the const qualifier on the thread.\nAgree that const is great, and we should design for more use of it.",
+      "parentUuid": "c299a369_928d7858",
       "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -19,9 +19,9 @@
 #include "rtc_base/event.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/time_utils.h"
-#include "sdk/android/generated_native_unittests_jni/jni/ApplicationContextProvider_jni.h"
 #include "sdk/android/generated_native_unittests_jni/jni/BuildInfo_jni.h"
 #include "sdk/android/native_api/audio_device_module/audio_device_android.h"
+#include "sdk/android/native_unittests/application_context_provider.h"
 #include "sdk/android/src/jni/audio_device/audio_common.h"
 #include "sdk/android/src/jni/audio_device/audio_device_module.h"
 #include "sdk/android/src/jni/audio_device/opensles_common.h"
@@ -475,15 +475,10 @@ class AudioDeviceTest : public ::testing::Test {
 
   int total_delay_ms() const { return 10; }
 
-  jobject context() {
-    return jni::NewGlobalRef(
-        jni_, Java_ApplicationContextProvider_getApplicationContextForTest(jni_)
-                  .obj());
-  }
+  jobject context() { return NewGlobalRef(jni_, context_javaref().obj()); }
 
   ScopedJavaLocalRef<jobject> context_javaref() {
-    return ScopedJavaLocalRef<jobject>(
-        Java_ApplicationContextProvider_getApplicationContextForTest(jni_));
+    return test::GetAppContextForTest(jni_);
   }
 
   void UpdateParameters() {
@@ -1136,8 +1131,7 @@ TEST_F(AudioDeviceTest, DISABLED_MeasureLoopbackLatency) {
 
 TEST(JavaAudioDeviceTest, TestRunningTwoAdmsSimultaneously) {
   JNIEnv* jni = AttachCurrentThreadIfNeeded();
-  ScopedJavaLocalRef<jobject> context =
-      Java_ApplicationContextProvider_getApplicationContextForTest(jni);
+  ScopedJavaLocalRef<jobject> context = test::GetAppContextForTest(jni);
 
   // Create and start the first ADM.
   rtc::scoped_refptr<AudioDeviceModule> adm_1 =

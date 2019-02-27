@@ -104,4 +104,18 @@ TEST(StatisticsCalculator, ExpandedSamplesCorrection) {
   EXPECT_EQ((50u << 14) / k10MsSamples, stats_output.speech_expand_rate);
 }
 
+TEST(StatisticsCalculator, RelativePacketArrivalDelay) {
+  StatisticsCalculator stats;
+
+  stats.RelativePacketArrivalDelay(50);
+  NetEqLifetimeStatistics stats_output = stats.GetLifetimeStatistics();
+  EXPECT_EQ(50u, stats_output.relative_packet_arrival_delay);
+  EXPECT_EQ(1u, stats_output.jitter_buffer_received_packets);
+
+  stats.RelativePacketArrivalDelay(20);
+  stats_output = stats.GetLifetimeStatistics();
+  EXPECT_EQ(70u, stats_output.relative_packet_arrival_delay);
+  EXPECT_EQ(2u, stats_output.jitter_buffer_received_packets);
+}
+
 }  // namespace webrtc

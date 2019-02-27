@@ -258,6 +258,11 @@ void StatisticsCalculator::FlushedPacketBuffer() {
   buffer_full_counter_.RegisterSample();
 }
 
+void StatisticsCalculator::RelativePacketArrivalDelay(size_t delay_ms) {
+  lifetime_stats_.relative_packet_arrival_delay += delay_ms;
+  lifetime_stats_.jitter_buffer_received_packets += 1;
+}
+
 void StatisticsCalculator::LogDelayedPacketOutageEvent(int num_samples,
                                                        int fs_hz) {
   int outage_duration_ms = num_samples / (fs_hz / 1000);

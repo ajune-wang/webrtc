@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "385846ac_2ff71195",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-27T13:53:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "972d089d_b7d7bcb8",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 474,
+        "endChar": 75
+      },
+      "revId": "43edb2021dcc4149b33675fc8ca3b39b5938aefb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35b940c2_f4f86735",
         "filename": "video/video_receive_stream.cc",
         "patchSetId": 16
@@ -200,6 +224,30 @@
       "writtenOn": "2019-02-26T16:07:21Z",
       "side": 1,
       "message": "Why are these changes needed? Wasn\u0027t this correctly implemented before?",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 0
+      },
+      "revId": "43edb2021dcc4149b33675fc8ca3b39b5938aefb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e6946a0_98c330ee",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 8286
+      },
+      "writtenOn": "2019-02-27T13:53:01Z",
+      "side": 1,
+      "message": "This is shifted from JitterBuffer2 as it is easier to control delay from one place.",
+      "parentUuid": "35b940c2_f4f86735",
       "range": {
         "startLine": 482,
         "startChar": 0,

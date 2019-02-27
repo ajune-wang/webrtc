@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d92208a_9fa552d3",
+        "filename": "sdk/android/api/org/webrtc/PeerConnectionFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5091
+      },
+      "writtenOn": "2019-02-27T11:38:42Z",
+      "side": 1,
+      "message": "Can never happen, right?",
+      "range": {
+        "startLine": 249,
+        "startChar": 10,
+        "endLine": 249,
+        "endChar": 35
+      },
+      "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

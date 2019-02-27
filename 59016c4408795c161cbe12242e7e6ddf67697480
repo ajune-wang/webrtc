@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7f047fce_ab2da478",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T08:45:21Z",
+      "side": 1,
+      "message": "You\u0027re right. We shouldn\u0027t do that. But that requires taking an extra copy of info_. Oh, well.",
+      "parentUuid": "92b8cd60_2d6b97d6",
+      "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7417b940_68ef955b",
         "filename": "pc/sctp_transport.h",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8e94bea7_bc576e3d",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T08:45:21Z",
+      "side": 1,
+      "message": "Could, but I\u0027ve been burned in the past by having to revert out the thread checker when it turned out I actually needed access to the thread - thread checkers don\u0027t have accessors for the thread.",
+      "parentUuid": "7417b940_68ef955b",
+      "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ead532e8_5a85507b",
         "filename": "pc/sctp_transport_unittest.cc",
         "patchSetId": 7
@@ -50,6 +86,24 @@
       "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1185d9b0_e535f113",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T08:45:21Z",
+      "side": 1,
+      "message": "Tried that first, but it turned out to mock stuff I didn\u0027t care about and not mock stuff that I cared about, so I followed the principle of \"fakes should be the simplest possible for what you\u0027re testing\" and wrote my own.",
+      "parentUuid": "ead532e8_5a85507b",
+      "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -73,6 +127,54 @@
       "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "814af792_2f70719d",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T08:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8dfafce_a21a3238",
+      "range": {
+        "startLine": 142,
+        "startChar": 2,
+        "endLine": 142,
+        "endChar": 18
+      },
+      "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0df921f3_51267aa9",
+        "filename": "pc/sctp_transport_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-02-27T08:45:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8dfafce_a21a3238",
+      "range": {
+        "startLine": 142,
+        "startChar": 2,
+        "endLine": 142,
+        "endChar": 18
+      },
+      "revId": "59016c4408795c161cbe12242e7e6ddf67697480",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

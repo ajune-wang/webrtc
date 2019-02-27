@@ -70,6 +70,23 @@
     },
     {
       "key": {
+        "uuid": "397e4e90_10c0a0c3",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T16:14:21Z",
+      "side": 1,
+      "message": "if (bob_-\u003eparams()-\u003eaudio_config)",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6f1334f_582a83e4",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -81,6 +98,23 @@
       "writtenOn": "2019-02-27T15:10:51Z",
       "side": 1,
       "message": "This creates a transceiver that is ready to \"sendrecv\", even though the sender\u0027s track is null. If you AddTrack() *after* this, the AddTrack() should recycle that transceiver and it all works as expected. But if you don\u0027t intend to send, this will still negotiate a sendrecv m\u003d section (as opposed to a recvonly m\u003d section), and the other endpoint might be surprised to find that it has an RTP stream that isn\u0027t receiving anything (a sendrecv/sendonly transciever with a sender.track \u003d\u003d null is silent).\n\nYou might want to add a second argument: RtpTransceiverInit with direction \u003d kRecvOnly",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be90eb6e_a98b2d9d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T16:14:21Z",
+      "side": 1,
+      "message": "Loop bob_-\u003eparams()-\u003evideo_configs.size() times",
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -121,6 +155,23 @@
     },
     {
       "key": {
+        "uuid": "61d40543_f5a73bd1",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T16:14:21Z",
+      "side": 1,
+      "message": "Make this MaybeAddAudio for consistency?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cf79efd6_8c1f5b15",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -132,6 +183,24 @@
       "writtenOn": "2019-02-27T15:10:51Z",
       "side": 1,
       "message": "Does this ALWAYS add video? Shouldn\u0027t this be behind if peer-\u003eparams()-\u003evideo_config as well?",
+      "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3f7f97_13f52278",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-27T16:14:21Z",
+      "side": 1,
+      "message": "MaybeAddVideo",
+      "parentUuid": "cf79efd6_8c1f5b15",
       "revId": "121292135ceb63d3ddc10be24d7309a4b87f8fae",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

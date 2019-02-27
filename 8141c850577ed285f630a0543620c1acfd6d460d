@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "534587bf_3c91d42f",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T12:31:30Z",
+      "side": 1,
+      "message": "Track id is different. It is auto generated string, as I understand, but stream id is id provided by user, when media was added to the transceiver with AddTrack",
+      "parentUuid": "f65da7a5_06ccadc6",
+      "range": {
+        "startLine": 308,
+        "startChar": 31,
+        "endLine": 308,
+        "endChar": 43
+      },
+      "revId": "8141c850577ed285f630a0543620c1acfd6d460d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30053362_ef441e48",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "8141c850577ed285f630a0543620c1acfd6d460d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc08cd9b_4bd44560",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-27T12:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30053362_ef441e48",
+      "range": {
+        "startLine": 328,
+        "startChar": 54,
+        "endLine": 328,
+        "endChar": 64
+      },
+      "revId": "8141c850577ed285f630a0543620c1acfd6d460d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

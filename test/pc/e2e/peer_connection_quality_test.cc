@@ -331,15 +331,16 @@ void PeerConnectionE2EQualityTest::SetupVideoSink(
     return;
   }
 
+  RTC_CHECK_EQ(transceiver->receiver()->stream_ids().size(), 1);
+  std::string stream_label = transceiver->receiver()->stream_ids().front();
   VideoConfig* video_config = nullptr;
   for (auto& config : remote_video_configs) {
-    if (config.stream_label == track->id()) {
+    if (config.stream_label == stream_label) {
       video_config = &config;
       break;
     }
   }
   RTC_CHECK(video_config);
-
   VideoFrameWriter* writer = MaybeCreateVideoWriter(
       video_config->output_dump_file_name, *video_config);
   // It is safe to cast here, because it is checked above that
@@ -352,6 +353,20 @@ void PeerConnectionE2EQualityTest::SetupVideoSink(
 }
 
 void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread() {
+  // First we have to add transceivers for all media streams, both Alice's and
+  // Bob's to Alice, so Alice's offer contains media sections for all of them,
+  // because it is forbidden to add new media sections in answer in the unified
+  // plan.
+  if (alice_->params()->audio_config || bob_->params()->audio_config) {
+    // Setup audio transceiver if any peer has audio to send.
+    alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_AUDIO);
+  }
+  for (size_t i = 0; i < std::max(alice_->params()->video_configs.size(),
+                                  bob_->params()->video_configs.size());
+       ++i) {
+    alice_->AddTransceiver(cricket::MediaType::MEDIA_TYPE_VIDEO);
+  }
+  // Then add media
   alice_video_sources_ = AddMedia(alice_.get());
   bob_video_sources_ = AddMedia(bob_.get());
 
@@ -402,7 +417,7 @@ PeerConnectionE2EQualityTest::AddVideo(TestPeer* peer) {
     rtc::scoped_refptr<VideoTrackInterface> track =
         peer->pc_factory()->CreateVideoTrack(video_config.stream_label.value(),
                                              source);
-    peer->AddTransceiver(track);
+    peer->AddTrack(track, {video_config.stream_label.value()});
   }
   return out;
 }
@@ -448,7 +463,7 @@ void PeerConnectionE2EQualityTest::AddAudio(TestPeer* peer) {
           peer->params()->audio_config->audio_options);
   rtc::scoped_refptr<AudioTrackInterface> track =
       peer->pc_factory()->CreateAudioTrack("audio", source);
-  peer->AddTransceiver(track);
+  peer->AddTrack(track, {"audio"});
 }
 
 void PeerConnectionE2EQualityTest::SetupCall() {

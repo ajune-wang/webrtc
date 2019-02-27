@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c180cff6_d2806ccd",
+        "filename": "sdk/android/native_unittests/application_context_provider.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2019-02-27T14:36:52Z",
+      "side": 1,
+      "message": "Ok, removed.",
+      "parentUuid": "de654807_5064310a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 1
+      },
+      "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e636c2d0_3459e58b",
         "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
         "patchSetId": 4
@@ -92,6 +116,30 @@
       "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b061786_6508cecf",
+        "filename": "sdk/android/src/jni/pc/peer_connection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2019-02-27T14:36:52Z",
+      "side": 1,
+      "message": "Yes, I thought this one could be called independently but it seems like it can\u0027t. Removed.",
+      "parentUuid": "e636c2d0_3459e58b",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 3
+      },
+      "revId": "3d180d8144c8bb0e51aa4740b721920e8422ac91",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

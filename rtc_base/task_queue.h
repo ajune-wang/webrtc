@@ -147,6 +147,9 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
 
   explicit TaskQueue(const char* queue_name,
                      Priority priority = Priority::NORMAL);
+  TaskQueue(webrtc::TaskQueueFactory& factory,
+            const char* queue_name,
+            Priority priority = Priority::NORMAL);
   ~TaskQueue();
 
   static TaskQueue* Current();

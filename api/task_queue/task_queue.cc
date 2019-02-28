@@ -15,9 +15,12 @@
 namespace rtc {
 
 TaskQueue::TaskQueue(const char* queue_name, Priority priority)
-    : impl_(webrtc::GlobalTaskQueueFactory()
-                .CreateTaskQueue(queue_name, priority)
-                .release()) {
+    : TaskQueue(webrtc::GlobalTaskQueueFactory(), queue_name, priority) {}
+
+TaskQueue::TaskQueue(webrtc::TaskQueueFactory& factory,
+                     const char* queue_name,
+                     TaskQueue::Priority priority)
+    : impl_(factory.CreateTaskQueue(queue_name, priority).release()) {
   impl_->task_queue_ = this;
 }
 

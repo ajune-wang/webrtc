@@ -188,6 +188,13 @@ class JsepTransportController : public sigslot::has_slots<> {
   void SetMediaTransportSettings(bool use_media_transport_for_media,
                                  bool use_media_transport_for_data_channels);
 
+  // If media transport is present enabled and supported,
+  // when this method is called, it creates a media transport and generates its
+  // offer. The new offer is then returned, and the created media transport will
+  // subsequently be used.
+  absl::optional<cricket::SessionDescription::MediaTransportSetting>
+  GenerateMediaTransportOffer();
+
   // All of these signals are fired on the signaling thread.
 
   // If any transport failed => failed,
@@ -289,13 +296,15 @@ class JsepTransportController : public sigslot::has_slots<> {
       const cricket::SessionDescription& description);
 
   // Creates media transport if config wants to use it, and pre-shared key is
-  // provided in content info. It modifies the config to disable media transport
-  // if pre-shared key is not provided.
+  // provided in content info (or x-mt line). It modifies the config to disable
+  // media transport if pre-shared key is not provided. Returned
+  // MediaTransportInterface is not connected, and must be connected to ICE.
+  // You must call |GenerateMediaTransportOffer| on the caller before calling
+  // MaybeCreateMediaTransport.
   std::unique_ptr<webrtc::MediaTransportInterface> MaybeCreateMediaTransport(
       const cricket::ContentInfo& content_info,
       const cricket::SessionDescription& description,
-      bool local,
-      cricket::IceTransportInternal* ice_transport);
+      bool local);
   void MaybeDestroyJsepTransport(const std::string& mid);
   void DestroyAllJsepTransports_n();
 
@@ -377,6 +386,16 @@ class JsepTransportController : public sigslot::has_slots<> {
   // (the factory needs to be provided in the config, and config must allow for
   // media transport).
   bool is_media_transport_factory_enabled_ = true;
+
+  // Early on in the call we don't know if media transport is going to be used,
+  // but we need to get the server-supported parameters to add to an SDP.
+  // This server media transport will be promoted to the used media transport
+  // after the local description is set, and the ownership will be transferred
+  // to the actual JsepTransport.
+  // This "offer" media transport will be discarded if the transport controller
+  // is asked to create transport for a remote offer.
+  std::unique_ptr<MediaTransportInterface> offer_media_transport_ = nullptr;
+
   const cricket::SessionDescription* local_desc_ = nullptr;
   const cricket::SessionDescription* remote_desc_ = nullptr;
   absl::optional<bool> initial_offerer_;

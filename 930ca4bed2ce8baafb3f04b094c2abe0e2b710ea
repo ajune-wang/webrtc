@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff13f62d_719c5e01",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-02-28T11:56:51Z",
+      "side": 1,
+      "message": "For some reason the diff here is completely messed up. The only change of note is this: Most targets are moved out of the if(!build_with_chromium) block.\n\nThis is done because chromium compiles the webrtc tests, and they now depend on stuff from here. The consequences of this are not clear to me, so someone who understands can let me know if this is a no-go.",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 183,
+        "endChar": 26
+      },
+      "revId": "930ca4bed2ce8baafb3f04b094c2abe0e2b710ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -46,6 +46,30 @@
       "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "592c9e13_188666a0",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-28T09:51:32Z",
+      "side": 1,
+      "message": "Do you mean that it would be better to count packet-\u003etimestamp - prev_timestamp?",
+      "parentUuid": "36e19a05_ab072030",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 0
+      },
+      "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

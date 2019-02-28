@@ -142,6 +142,30 @@
       "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6344783f_fdfc6641",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-28T12:32:37Z",
+      "side": 1,
+      "message": "We have broken down the problem into 3:\n\n1) Over count packets multiple times. This is what the cl fixes.\n2) Packet loss. This is already handled, the loop will exit if we have packet loss on line 1930.\n3) Packets with overlapping timestamps. In this case we will count the total duration of all of the packets, even though all of the samples will not be put into the sync buffer eventually. I think this is the correct behavior given that we track the delay per-packet and weigh the packets on the sample duration. The samples eventually received by the receiver is a different metric, `totalSamplesReceived`.",
+      "parentUuid": "53af5e01_f897d681",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 0
+      },
+      "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

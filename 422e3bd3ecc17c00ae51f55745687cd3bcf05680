@@ -118,6 +118,30 @@
       "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53af5e01_f897d681",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-28T11:39:48Z",
+      "side": 1,
+      "message": "good point. Then the original formula is kind of to protect timestamp overlaps? and then your proposal can overestimate (in a different way than the overestimate in the original formula), can\u0027t it?",
+      "parentUuid": "9f70559d_42a5f1ae",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 0
+      },
+      "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

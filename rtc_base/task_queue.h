@@ -22,62 +22,15 @@
 #include "api/task_queue/task_queue_factory.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/system/rtc_export.h"
+#include "rtc_base/task_utils/post_task.h"
 #include "rtc_base/thread_annotations.h"
 
 namespace rtc {
 
 // TODO(danilchap): Remove the alias when all of webrtc is updated to use
 // webrtc::QueuedTask directly.
+using ::webrtc::NewClosure;
 using ::webrtc::QueuedTask;
-
-// Simple implementation of QueuedTask for use with rtc::Bind and lambdas.
-template <class Closure>
-class ClosureTask : public QueuedTask {
- public:
-  explicit ClosureTask(Closure&& closure)
-      : closure_(std::forward<Closure>(closure)) {}
-
- private:
-  bool Run() override {
-    closure_();
-    return true;
-  }
-
-  typename std::remove_const<
-      typename std::remove_reference<Closure>::type>::type closure_;
-};
-
-// Extends ClosureTask to also allow specifying cleanup code.
-// This is useful when using lambdas if guaranteeing cleanup, even if a task
-// was dropped (queue is too full), is required.
-template <class Closure, class Cleanup>
-class ClosureTaskWithCleanup : public ClosureTask<Closure> {
- public:
-  ClosureTaskWithCleanup(Closure&& closure, Cleanup&& cleanup)
-      : ClosureTask<Closure>(std::forward<Closure>(closure)),
-        cleanup_(std::forward<Cleanup>(cleanup)) {}
-  ~ClosureTaskWithCleanup() { cleanup_(); }
-
- private:
-  typename std::remove_const<
-      typename std::remove_reference<Cleanup>::type>::type cleanup_;
-};
-
-// Convenience function to construct closures that can be passed directly
-// to methods that support std::unique_ptr<QueuedTask> but not template
-// based parameters.
-template <class Closure>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure) {
-  return absl::make_unique<ClosureTask<Closure>>(
-      std::forward<Closure>(closure));
-}
-
-template <class Closure, class Cleanup>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure,
-                                              Cleanup&& cleanup) {
-  return absl::make_unique<ClosureTaskWithCleanup<Closure, Cleanup>>(
-      std::forward<Closure>(closure), std::forward<Cleanup>(cleanup));
-}
 
 // Implements a task queue that asynchronously executes tasks in a way that
 // guarantees that they're executed in FIFO order and that tasks never overlap.
@@ -162,33 +115,19 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // TODO(tommi): For better debuggability, implement RTC_FROM_HERE.
 
   // Ownership of the task is passed to PostTask.
-  void PostTask(std::unique_ptr<QueuedTask> task);
+  template <typename Task>
+  void PostTask(Task task) {
+    webrtc::PostTask(impl_, std::forward<Task>(task));
+  }
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds (although 8 would be
   // more likely). This can be mitigated by limiting the use of delayed tasks.
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds);
-
-  // std::enable_if is used here to make sure that calls to PostTask() with
-  // std::unique_ptr<SomeClassDerivedFromQueuedTask> would not end up being
-  // caught by this template.
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
-  void PostTask(Closure&& closure) {
-    PostTask(NewClosure(std::forward<Closure>(closure)));
-  }
-
-  // See documentation above for performance expectations.
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
-  void PostDelayedTask(Closure&& closure, uint32_t milliseconds) {
-    PostDelayedTask(NewClosure(std::forward<Closure>(closure)), milliseconds);
+  template <typename Task>
+  void PostDelayedTask(Task task, uint32_t milliseconds) {
+    webrtc::PostDelayedTask(impl_, std::forward<Task>(task), milliseconds);
   }
 
  private:

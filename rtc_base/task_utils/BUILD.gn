@@ -19,6 +19,7 @@ rtc_source_set("repeating_task") {
     "..:sequenced_task_checker",
     "..:thread_checker",
     "..:timeutils",
+    "../../api/task_queue",
     "../../api/units:time_delta",
     "../../api/units:timestamp",
     "//third_party/abseil-cpp/absl/memory",
@@ -34,6 +35,7 @@ if (rtc_include_tests) {
     deps = [
       ":repeating_task",
       "..:rtc_base_approved",
+      "..:rtc_task_queue",
       "../../test:test_support",
       "//third_party/abseil-cpp/absl/memory",
     ]

@@ -747,6 +747,7 @@ class PeerConnectionWrapper : public webrtc::PeerConnectionObserver,
     SdpType type = desc->GetType();
     std::string sdp;
     EXPECT_TRUE(desc->ToString(&sdp));
+    RTC_LOG(LS_INFO) << sdp;
     pc()->SetLocalDescription(observer, desc.release());
     if (sdp_semantics_ == SdpSemantics::kUnifiedPlan) {
       RemoveUnusedVideoRenderers();
@@ -3465,6 +3466,8 @@ TEST_P(PeerConnectionIntegrationTest,
 // channel.
 TEST_P(PeerConnectionIntegrationTest, MediaTransportDataChannelEndToEnd) {
   PeerConnectionInterface::RTCConfiguration rtc_config;
+  rtc_config.rtcp_mux_policy = PeerConnectionInterface::kRtcpMuxPolicyRequire;
+  rtc_config.bundle_policy = PeerConnectionInterface::kBundlePolicyMaxBundle;
   rtc_config.use_media_transport_for_data_channels = true;
   rtc_config.enable_dtls_srtp = false;  // SDES is required for media transport.
   ASSERT_TRUE(CreatePeerConnectionWrappersWithConfigAndMediaTransportFactory(

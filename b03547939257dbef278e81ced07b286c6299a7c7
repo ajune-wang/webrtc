@@ -22,6 +22,30 @@
       "revId": "b03547939257dbef278e81ced07b286c6299a7c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bfdf2f6_006b87d7",
+        "filename": "sdk/android/native_unittests/audio_device/audio_device_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 6589
+      },
+      "writtenOn": "2019-02-28T13:09:42Z",
+      "side": 1,
+      "message": "Done. Turned out to be an easy fix.",
+      "parentUuid": "6fcc4658_4329182f",
+      "range": {
+        "startLine": 478,
+        "startChar": 29,
+        "endLine": 478,
+        "endChar": 41
+      },
+      "revId": "b03547939257dbef278e81ced07b286c6299a7c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

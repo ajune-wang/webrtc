@@ -12,8 +12,11 @@
 #define MODULES_VIDEO_CAPTURE_MAIN_SOURCE_WINDOWS_SINK_FILTER_DS_H_
 
 #include <streams.h>  // Include base DS filter header files
+#include <memory>
 
 #include "modules/video_capture/video_capture_defines.h"
+#include "rtc_base/critical_section.h"
+#include "rtc_base/thread_annotations.h"
 
 namespace webrtc {
 namespace videocapturemodule {
@@ -26,69 +29,61 @@ class CaptureSinkFilter;
  */
 class CaptureInputPin : public CBaseInputPin {
  public:
-  VideoCaptureCapability _requestedCapability;
-  VideoCaptureCapability _resultingCapability;
-  HANDLE _threadHandle;
-
-  CaptureInputPin(IN TCHAR* szName,
-                  IN CaptureSinkFilter* pFilter,
-                  IN CCritSec* pLock,
-                  OUT HRESULT* pHr,
-                  IN LPCWSTR pszName);
+  CaptureInputPin(LPCTSTR object_name,
+                  CaptureSinkFilter* filter,
+                  CCritSec* lock,
+                  HRESULT* hr,
+                  LPCWSTR name);
   ~CaptureInputPin() override;
 
-  HRESULT GetMediaType(IN int iPos, OUT CMediaType* pmt) override;
-  HRESULT CheckMediaType(IN const CMediaType* pmt) override;
-  STDMETHODIMP Receive(IN IMediaSample*) override;
+  HRESULT GetMediaType(int pos, CMediaType* media_type) override;
+  HRESULT CheckMediaType(const CMediaType* media_type) override;
   HRESULT SetMatchingMediaType(const VideoCaptureCapability& capability);
+
+  STDMETHOD(Receive)(IN IMediaSample*) override;
+
+ private:
+  VideoCaptureCapability requested_capability_;
+  VideoCaptureCapability resulting_capability_;
+  HANDLE thread_handle_ = nullptr;
 };
 
 class CaptureSinkFilter : public CBaseFilter {
  public:
-  CaptureSinkFilter(const IN TCHAR* tszName,
-                    IN LPUNKNOWN punk,
-                    OUT HRESULT* phr,
-                    VideoCaptureExternal& captureObserver);
+  CaptureSinkFilter(LPCTSTR object_name,
+                    IUnknown* unknown,
+                    HRESULT* hr,
+                    VideoCaptureExternal* capture_observer);
   ~CaptureSinkFilter() override;
 
-  //  --------------------------------------------------------------------
-  //  class methods
-
-  void ProcessCapturedFrame(unsigned char* pBuffer,
+  void ProcessCapturedFrame(unsigned char* buffer,
                             size_t length,
-                            const VideoCaptureCapability& frameInfo);
-  //  explicit receiver lock aquisition and release
-  void LockReceive() { m_crtRecv.Lock(); }
-  void UnlockReceive() { m_crtRecv.Unlock(); }
-  //  explicit filter lock aquisition and release
-  void LockFilter() { m_crtFilter.Lock(); }
-  void UnlockFilter() { m_crtFilter.Unlock(); }
-  void SetFilterGraph(IGraphBuilder* graph);  // Used if EVR
+                            const VideoCaptureCapability& frame_info)
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(receiver_lock_);
 
   //  --------------------------------------------------------------------
   //  COM interfaces
   STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override;
   STDMETHOD_(ULONG, AddRef)() override;
   STDMETHOD_(ULONG, Release)() override;
-
   STDMETHOD(SetMatchingMediaType)(const VideoCaptureCapability& capability);
 
   //  --------------------------------------------------------------------
   //  CBaseFilter methods
   int GetPinCount() override;
   CBasePin* GetPin(IN int Index) override;
+
   STDMETHOD(Pause)() override;
   STDMETHOD(Stop)() override;
-  STDMETHOD(GetClassID)(OUT CLSID* pCLSID) override;
-  //  --------------------------------------------------------------------
-  //  class factory calls this
-  static CUnknown* CreateInstance(IN LPUNKNOWN punk, OUT HRESULT* phr);
+  STDMETHOD(GetClassID)(CLSID* clsid) override;
+
+  // TODO(tommi): Is this lock needed?
+  const rtc::CriticalSection receiver_lock_;
 
  private:
-  CCritSec m_crtFilter;  //  filter lock
-  CCritSec m_crtRecv;    //  receiver lock; always acquire before filter lock
-  CaptureInputPin* m_pInput;
-  VideoCaptureExternal& _captureObserver;
+  CCritSec filter_lock_;
+  const std::unique_ptr<CaptureInputPin> input_pin_;
+  VideoCaptureExternal* capture_observer_;
 };
 }  // namespace videocapturemodule
 }  // namespace webrtc

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1318a46c_77c39cdf",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-28T09:09:04Z",
+      "side": 1,
+      "message": "nit: \"receive-only transceivers\"",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39a91a64_211a77ee",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-28T09:09:04Z",
+      "side": 1,
+      "message": "language-nit: \"in Unified Plan\"\nUnified Plan is the name of the SDP semantics, it\u0027s not really a \"plan\" that is described as \"unified\", so it shouldn\u0027t be referred to \"the plan\" or \"the unified plan\". Upper case it like a name.",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7cc8cdd_9c8ef421",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-28T09:09:04Z",
+      "side": 1,
+      "message": "Can you add a TODO or NOTE saying something like \"if we want to support multiple audio tracks, we need to add one audio transceiver per track that Bob wants to send\"",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77cace1b_bbc6bc0c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-28T09:09:04Z",
+      "side": 1,
+      "message": "Another nitty comment that is outside this CL, but from the name it is not clear that a list of video configs represent a list of tracks that we want to send. One might just think it\u0027s a list of possible configs to use (just like SDP contains a list of supported codecs). Might I suggest \"video_send_tracks_configs\"? Feel free to ignore this comment",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b66381d6_922b18bb",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-02-28T09:09:04Z",
+      "side": 1,
+      "message": "Curious: Why do we return the video track sources but not the audio track sources? Should there be a TODO here?",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

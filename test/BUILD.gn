@@ -49,10 +49,14 @@ rtc_source_set("video_test_common") {
     "frame_utils.h",
     "test_video_capturer.cc",
     "test_video_capturer.h",
-    "vcm_capturer.cc",
-    "vcm_capturer.h",
     "video_codec_settings.h",
   ]
+  if (!is_mac) {
+    sources += [
+      "vcm_capturer.cc",
+      "vcm_capturer.h",
+    ]
+  }
 
   if (!build_with_chromium && is_clang) {
     # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
@@ -79,6 +83,28 @@ rtc_source_set("video_test_common") {
     "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
+}
+
+if (is_mac) {
+  rtc_source_set("video_test_mac") {
+    visibility = [ "*" ]
+    testonly = true
+    sources = [
+      "mac/mac_capturer.h",
+      "mac/mac_capturer.mm",
+    ]
+    deps = [
+      ":video_test_common",
+      "../api:libjingle_peerconnection_api",
+      "../api:scoped_refptr",
+      "../modules/video_capture:video_capture_module",
+      "../rtc_base:rtc_base",
+      "../sdk:base_objc",
+      "../sdk:native_api",
+      "../sdk:native_video",
+      "../sdk:videocapture_objc",
+    ]
+  }
 }
 
 rtc_source_set("rtp_test_utils") {

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ac384b7_3a410585",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T09:22:37Z",
+      "side": 1,
+      "message": "Nit: The methods are a mic of snake_case and CamelCase. Can you pick one or the other?",
+      "revId": "d2070b7f34cfbf01642493da033b888cd0c03411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e85b37e9_d6c88f60",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T09:22:37Z",
+      "side": 1,
+      "message": "Optional nit: Blank line before lines 63 and 67?",
+      "revId": "d2070b7f34cfbf01642493da033b888cd0c03411",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

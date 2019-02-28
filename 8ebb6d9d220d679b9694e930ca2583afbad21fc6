@@ -34,6 +34,24 @@
       "revId": "8ebb6d9d220d679b9694e930ca2583afbad21fc6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20dd5950_b832962c",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T09:22:37Z",
+      "side": 1,
+      "message": "Thanks! (And note how this exercise made it easy to see that one variable was missing a GUARDED_BY annotation...)",
+      "parentUuid": "c1991350_2c5bb863",
+      "revId": "8ebb6d9d220d679b9694e930ca2583afbad21fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

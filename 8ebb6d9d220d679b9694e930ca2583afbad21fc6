@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee39edda_f533d615",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T06:25:30Z",
+      "side": 1,
+      "message": "Could you group the member variables into one group that\u0027s protected by the mutex, and one group that\u0027s protected by the thread? And document this fact?",
+      "revId": "8ebb6d9d220d679b9694e930ca2583afbad21fc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

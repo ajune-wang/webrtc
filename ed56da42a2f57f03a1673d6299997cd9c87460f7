@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "28f21fdc_66b05f23",
+        "filename": "api/sctp_transport_interface.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T06:25:30Z",
+      "side": 1,
+      "message": "Re the link: OK. Although the spec doesn\u0027t really provide a concise description of these, AFAICT... Also, I\u0027d say it\u0027s very dodgy C++ to represent an integer size as a double...\n\nRe struct: Consider e.g. std::vector::size(). It returns a value that says something about the current state of the vector. Nothing prevents the caller from mutating that value after they get it, but there\u0027s no need to---it\u0027s just a value, so there\u0027s no expectation that mutating it should have any effect on the vector. If you returned a plain struct here, the same reasoning would apply.",
+      "parentUuid": "26fa258f_bef6d0cb",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4199b58_0eb23884",
         "filename": "pc/sctp_transport.cc",
         "patchSetId": 10
@@ -69,6 +87,24 @@
       "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c67f0d_0b281440",
+        "filename": "pc/sctp_transport.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T06:25:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bfc3a119_3427b424",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +175,24 @@
       "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a469daa_d93a74f6",
+        "filename": "pc/sctp_transport.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T06:25:30Z",
+      "side": 1,
+      "message": "Yes---this is one more case where not initializing once and for all in the constructor hurts us...",
+      "parentUuid": "945f5305_aa46fe40",
+      "revId": "ed56da42a2f57f03a1673d6299997cd9c87460f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

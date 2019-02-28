@@ -13,6 +13,8 @@
 #include <memory>
 
 #include "api/task_queue/queued_task.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 
 // TODO(bugs.webrtc.org/10191): Remove when
 // rtc::TaskQueue* rtc::TaskQueue::Current() is unused.
@@ -21,6 +23,21 @@ class TaskQueue;
 }  // namespace rtc
 
 namespace webrtc {
+
+class RepeatingTaskInterface {
+ public:
+  virtual ~RepeatingTaskInterface() = default;
+  // Runs the underlying task and returns the time until the next time it should
+  // be called.
+  virtual TimeDelta Run(Timestamp at_time) = 0;
+};
+
+class TaskHandleInterface {
+ public:
+  virtual ~TaskHandleInterface() = default;
+  // Stops the task, called at most once.
+  virtual void Stop() = 0;
+};
 
 // Asynchronously executes tasks in a way that guarantees that they're executed
 // in FIFO order and that tasks never overlap. Tasks may always execute on the
@@ -55,6 +72,12 @@ class TaskQueueBase {
   // been used up, can be off by as much as 15 millseconds.
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
+
+  // Repeat the task. The task will not be destroyed until it is explicitly
+  // stopped or the task queue is destroyed.
+  virtual TaskHandleInterface* Repeat(
+      TimeDelta initial_delay,
+      std::unique_ptr<RepeatingTaskInterface> task);
 
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.

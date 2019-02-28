@@ -18,7 +18,6 @@
 #include "media/base/fake_frame_source.h"
 #include "media/base/video_broadcaster.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 
 namespace webrtc {
 
@@ -50,7 +49,7 @@ class FakePeriodicVideoSource final
     frame_source_.SetRotation(config.rotation);
 
     TimeDelta frame_interval = TimeDelta::ms(config.frame_interval_ms);
-    RepeatingTaskHandle::Start(task_queue_.get(), [this, frame_interval] {
+    task_queue_->Repeat([this, frame_interval] {
       if (broadcaster_.wants().rotation_applied) {
         broadcaster_.OnFrame(frame_source_.GetFrameRotationApplied());
       } else {

@@ -1001,6 +1001,19 @@ bool PeerConnection::Initialize(
       return false;
     }
 
+    if (configuration.use_media_transport ||
+        configuration.use_media_transport_for_data_channels) {
+      // TODO: This check will eventually go away, when RTP media transport is
+      // introduced. But until then, we require SDES to be enabled.
+      RTC_DCHECK(!configuration.enable_dtls_srtp.has_value() ||
+                 !configuration.enable_dtls_srtp.value())
+          << "When media transport is used, SDES must be enabled. Set "
+             "configuration.enable_dtls_srtp to false. use_media_transport="
+          << configuration.use_media_transport
+          << ", use_media_transport_for_data_channels="
+          << configuration.use_media_transport_for_data_channels;
+    }
+
     config.use_media_transport_for_media = configuration.use_media_transport;
     config.use_media_transport_for_data_channels =
         configuration.use_media_transport_for_data_channels;
@@ -4140,6 +4153,11 @@ void PeerConnection::GetOptionsForOffer(
                     port_allocator_.get()));
   session_options->offer_extmap_allow_mixed =
       configuration_.offer_extmap_allow_mixed;
+
+  if (configuration_.enable_dtls_srtp) {
+    session_options->media_transport_settings =
+        transport_controller_->GenerateMediaTransportOffer();
+  }
 }
 
 void PeerConnection::GetOptionsForPlanBOffer(

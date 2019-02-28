@@ -27,8 +27,13 @@ namespace webrtc {
 // could unit test audio / video integration.
 class FakeMediaTransport : public MediaTransportInterface {
  public:
-  explicit FakeMediaTransport(const MediaTransportSettings& settings)
-      : settings_(settings) {}
+  explicit FakeMediaTransport(
+      const MediaTransportSettings& settings,
+      const absl::optional<std::string>& transport_offer = "",
+      const absl::optional<std::string>& remote_transport_parameters = "")
+      : settings_(settings),
+        transport_offer_(transport_offer),
+        remote_transport_parameters_(remote_transport_parameters) {}
   ~FakeMediaTransport() = default;
 
   RTCError SendAudioFrame(uint64_t channel_id,
@@ -101,16 +106,28 @@ class FakeMediaTransport : public MediaTransportInterface {
   // Settings that were passed down to fake media transport.
   const MediaTransportSettings& settings() { return settings_; }
 
+  absl::optional<std::string> GetTransportParametersOffer() const override {
+    return transport_offer_;
+  }
+
+  const absl::optional<std::string>& remote_transport_parameters() {
+    return remote_transport_parameters_;
+  }
+
  private:
   const MediaTransportSettings settings_;
-  MediaTransportStateCallback* state_callback_;
+  MediaTransportStateCallback* state_callback_ = nullptr;
   std::vector<webrtc::TargetTransferRateObserver*> target_rate_observers_;
+  const absl::optional<std::string> transport_offer_;
+  const absl::optional<std::string> remote_transport_parameters_;
 };
 
 // Fake media transport factory creates fake media transport.
 class FakeMediaTransportFactory : public MediaTransportFactory {
  public:
-  FakeMediaTransportFactory() = default;
+  explicit FakeMediaTransportFactory(
+      const absl::optional<std::string>& transport_offer = "")
+      : transport_offer_(transport_offer) {}
   ~FakeMediaTransportFactory() = default;
 
   std::string GetTransportName() const override { return "fake"; }
@@ -120,9 +137,21 @@ class FakeMediaTransportFactory : public MediaTransportFactory {
       rtc::Thread* network_thread,
       const MediaTransportSettings& settings) override {
     std::unique_ptr<MediaTransportInterface> media_transport =
-        absl::make_unique<FakeMediaTransport>(settings);
+        absl::make_unique<FakeMediaTransport>(settings, transport_offer_);
     return std::move(media_transport);
   }
+
+  RTCErrorOr<std::unique_ptr<MediaTransportInterface>> CreateMediaTransport(
+      rtc::Thread* network_thread,
+      const MediaTransportSettings& settings) override {
+    std::unique_ptr<MediaTransportInterface> media_transport =
+        absl::make_unique<FakeMediaTransport>(
+            settings, transport_offer_, settings.remote_transport_parameters);
+    return std::move(media_transport);
+  }
+
+ private:
+  const absl::optional<std::string> transport_offer_;
 };
 
 }  // namespace webrtc

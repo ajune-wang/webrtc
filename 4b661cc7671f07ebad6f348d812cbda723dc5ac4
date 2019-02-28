@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "14ce99fa_810bc265",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T15:30:33Z",
+      "side": 1,
+      "message": "Comment was about next 3 fields, not enum values. Updated it to make it more clear.",
+      "parentUuid": "a0f74e8e_821d4c25",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 55
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53e42e31_8ba33143",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "afda8f5c_2bce74fd",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T15:30:33Z",
+      "side": 1,
+      "message": "Yes and it is checked in ValidateParams",
+      "parentUuid": "53e42e31_8ba33143",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 276,
+        "endChar": 7
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b23136a_24baae5e",
         "filename": "test/pc/e2e/peer_connection_quality_test.h",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9dc7159b_1fa5fd5d",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T15:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b23136a_24baae5e",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -285,6 +285,9 @@ if (rtc_include_tests) {
       "../test:video_test_support",
       "//third_party/abseil-cpp/absl/memory:memory",
     ]
+    if (is_mac || is_ios) {
+      deps += [ "../test:video_test_mac" ]
+    }
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
       suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
@@ -322,10 +325,11 @@ if (rtc_include_tests) {
     }
   }
 
-  rtc_executable("video_loopback") {
+  rtc_static_library("video_loopback_lib") {
     testonly = true
     sources = [
       "video_loopback.cc",
+      "video_loopback.h",
     ]
     deps = [
       ":video_quality_test",
@@ -349,6 +353,29 @@ if (rtc_include_tests) {
     if (!build_with_chromium && is_clang) {
       # Suppress warnings from the Chromium Clang plugin (bugs.webrtc.org/163).
       suppressed_configs += [ "//build/config/clang:find_bad_constructs" ]
+    }
+  }
+
+  if (is_mac) {
+    mac_app_bundle("video_loopback") {
+      testonly = true
+      sources = [
+        "video_loopback_main.mm",
+      ]
+      info_plist = "../test/mac/Info.plist"
+      deps = [
+        ":video_loopback_lib",
+      ]
+    }
+  } else {
+    rtc_executable("video_loopback") {
+      testonly = true
+      sources = [
+        "video_loopback_main.cc",
+      ]
+      deps = [
+        ":video_loopback_lib",
+      ]
     }
   }
 

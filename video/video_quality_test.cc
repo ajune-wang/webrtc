@@ -37,7 +37,11 @@
 #include "rtc_base/strings/string_builder.h"
 #include "test/run_loop.h"
 #include "test/testsupport/file_utils.h"
+#if defined(WEBRTC_MAC)
+#include "test/mac_capturer.h"
+#else
 #include "test/vcm_capturer.h"
+#endif
 #include "test/video_renderer.h"
 #include "video/frame_dumping_decoder.h"
 #ifdef WEBRTC_WIN
@@ -1074,10 +1078,17 @@ void VideoQualityTest::CreateCapturers() {
             test::FrameGenerator::OutputType::I010, absl::nullopt,
             params_.video[video_idx].fps, clock_));
       } else if (params_.video[video_idx].clip_name.empty()) {
+#if defined(WEBRTC_MAC)
+        video_sources_[video_idx].reset(test::MacCapturer::Create(
+            params_.video[video_idx].width, params_.video[video_idx].height,
+            params_.video[video_idx].fps,
+            params_.video[video_idx].capture_device_index));
+#else
         video_sources_[video_idx].reset(test::VcmCapturer::Create(
             params_.video[video_idx].width, params_.video[video_idx].height,
             params_.video[video_idx].fps,
             params_.video[video_idx].capture_device_index));
+#endif
         if (!video_sources_[video_idx]) {
           // Failed to get actual camera, use chroma generator as backup.
           video_sources_[video_idx].reset(test::FrameGeneratorCapturer::Create(

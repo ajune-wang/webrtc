@@ -117,7 +117,8 @@ class PeerConnectionE2EQualityTestFixture {
     int32_t fps;
     // Have to be unique among all specified configs for all peers in the call.
     absl::optional<std::string> stream_label;
-    // Only single from 3 next fields can be specified.
+    // Only single from 3 next fields can be specified. If none is specified,
+    // then |generator| will be set to VideoGeneratorType::kDefault.
     // If specified generator with this name will be used as input.
     absl::optional<VideoGeneratorType> generator;
     // If specified this file will be used as input. Input video will be played
@@ -156,7 +157,7 @@ class PeerConnectionE2EQualityTestFixture {
       kGenerated,
       kFile,
     };
-    Mode mode;
+    Mode mode = kGenerated;
     // Have to be specified only if mode = kFile
     absl::optional<std::string> input_file_name;
     // If specified the input stream will be also copied to specified file.

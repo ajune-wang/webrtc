@@ -12,6 +12,7 @@
 #define API_TEST_LOOPBACK_MEDIA_TRANSPORT_H_
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -24,19 +25,31 @@
 
 namespace webrtc {
 
-// Wrapper used to hand out unique_ptrs to loopback media transports without
-// ownership changes to the underlying transport.
+// Wrapper used to hand out unique_ptrs to loopback media
+// traWrapperMediaTransportFactorys without ownership changes to the underlying
+// transport.
 class WrapperMediaTransportFactory : public MediaTransportFactory {
  public:
   explicit WrapperMediaTransportFactory(MediaTransportInterface* wrapped);
+  explicit WrapperMediaTransportFactory(MediaTransportFactory* wrapped);
 
   RTCErrorOr<std::unique_ptr<MediaTransportInterface>> CreateMediaTransport(
       rtc::PacketTransportInternal* packet_transport,
       rtc::Thread* network_thread,
       const MediaTransportSettings& settings) override;
 
+  RTCErrorOr<std::unique_ptr<MediaTransportInterface>> CreateMediaTransport(
+      rtc::Thread* network_thread,
+      const MediaTransportSettings& settings) override;
+
+  std::string GetTransportName() const override;
+
+  int created_transport_count() const;
+
  private:
   MediaTransportInterface* wrapped_;
+  MediaTransportFactory* wrapped_factory_ = nullptr;
+  int created_transport_count_ = 0;
 };
 
 // Contains two MediaTransportsInterfaces that are connected to each other.
@@ -50,19 +63,19 @@ class MediaTransportPair {
     int received_video_frames = 0;
   };
 
-  explicit MediaTransportPair(rtc::Thread* thread)
-      : first_(thread, &second_), second_(thread, &first_) {}
+  explicit MediaTransportPair(rtc::Thread* thread);
+  ~MediaTransportPair();
 
   // Ownership stays with MediaTransportPair
   MediaTransportInterface* first() { return &first_; }
   MediaTransportInterface* second() { return &second_; }
 
   std::unique_ptr<MediaTransportFactory> first_factory() {
-    return absl::make_unique<WrapperMediaTransportFactory>(&first_);
+    return absl::make_unique<WrapperMediaTransportFactory>(&first_factory_);
   }
 
   std::unique_ptr<MediaTransportFactory> second_factory() {
-    return absl::make_unique<WrapperMediaTransportFactory>(&second_);
+    return absl::make_unique<WrapperMediaTransportFactory>(&second_factory_);
   }
 
   void SetState(MediaTransportState state) {
@@ -77,6 +90,14 @@ class MediaTransportPair {
 
   Stats FirstStats() { return first_.GetStats(); }
   Stats SecondStats() { return second_.GetStats(); }
+
+  int first_factory_transport_count() const {
+    return first_factory_.created_transport_count();
+  }
+
+  int second_factory_transport_count() const {
+    return second_factory_.created_transport_count();
+  }
 
  private:
   class LoopbackMediaTransport : public MediaTransportInterface {
@@ -130,6 +151,8 @@ class MediaTransportPair {
     void SetAllocatedBitrateLimits(
         const MediaTransportAllocatedBitrateLimits& limits) override;
 
+    absl::optional<std::string> GetTransportParametersOffer() const override;
+
    private:
     void OnData(uint64_t channel_id, MediaTransportEncodedAudioFrame frame);
 
@@ -178,6 +201,8 @@ class MediaTransportPair {
 
   LoopbackMediaTransport first_;
   LoopbackMediaTransport second_;
+  WrapperMediaTransportFactory first_factory_;
+  WrapperMediaTransportFactory second_factory_;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55a23782_9c21e925",
+        "filename": "api/task_queue/task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T09:07:56Z",
+      "side": 1,
+      "message": "Can we avoid this .release(), and instead have the unique_ptr as a member? And get rid of the manual destruction in TaskQueue::~TaskQueue()?",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "161bd1b10b84fd919343599d4db7e5f492b0ce02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99dd0f21_35e9e4e6",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-02-28T09:07:56Z",
+      "side": 1,
+      "message": "When would this accessor be useful?",
+      "revId": "161bd1b10b84fd919343599d4db7e5f492b0ce02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

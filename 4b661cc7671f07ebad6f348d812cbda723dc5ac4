@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a0f74e8e_821d4c25",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-28T12:44:55Z",
+      "side": 1,
+      "message": "I think this is redundant, the type should be enough to know that kDefault, kI420A and kI010 are the only accepted values.",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 55
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53e42e31_8ba33143",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-28T12:44:55Z",
+      "side": 1,
+      "message": "Is providing a generator type and an input_file_name considered an error?",
+      "range": {
+        "startLine": 273,
+        "startChar": 6,
+        "endLine": 276,
+        "endChar": 7
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b23136a_24baae5e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-02-28T12:44:55Z",
+      "side": 1,
+      "message": "I think \"Missing\" is a better fit in this case (the same in the comment above).",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 32
+      },
+      "revId": "4b661cc7671f07ebad6f348d812cbda723dc5ac4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

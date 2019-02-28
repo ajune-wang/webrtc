@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9044b4c0_198d4575",
+        "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-28T09:20:53Z",
+      "side": 1,
+      "message": "Do you think it would be better to count received_packets at the start of InsertPacket in neteq_impl so that if the delay manager is not updated then the delay for that packet will effectively be 0?",
+      "range": {
+        "startLine": 263,
+        "startChar": 2,
+        "endLine": 263,
+        "endChar": 54
+      },
+      "revId": "ceb732b889990477b1261fd24e1de67b39b160c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb13fdf9_b216d9aa",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-28T08:41:52Z",
+      "side": 1,
+      "message": "This functionality is sure needed.\n\nbut I think it would be cleaner to inject result of the factory rather than factory:\nexplicit TaskQueue(std::unique_ptr\u003cTaskQueueBase, TaskQueueDeleter\u003e task_queue);\n\nthen it can be used both like this\nTaskQueue queue(factory.CreateTaskQueue(queue_name, priority));\n\nor like this:\nTaskQueue queue(my_own_factory.CreateTaskQueue(custom_parameter));\nTaskQueue queue(std::unique_ptr\u003cTaskQueueBase, TaskQueueDeleter\u003e(new MyOwnTaskQueue(custom_parameter1, custom_parameter3)));\n\nI\u0027ve created a counter-proposal:\nhttps://webrtc-review.googlesource.com/c/src/+/124826",
+      "revId": "b14529b02f88dc3a23966c9ec5ab8401cd1b5329",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

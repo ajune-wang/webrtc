@@ -94,6 +94,30 @@
       "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f70559d_42a5f1ae",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-02-28T10:07:01Z",
+      "side": 1,
+      "message": "There is a check on line 1930 so that there will not be a timestamp or sequence number gap between extracted packets.",
+      "parentUuid": "cbb93845_121ce332",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 0
+      },
+      "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

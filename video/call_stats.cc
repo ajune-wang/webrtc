@@ -177,14 +177,14 @@ int64_t CallStats::LastProcessedRtt() const {
 
 void CallStats::OnRttUpdate(int64_t rtt) {
   int64_t now_ms = clock_->TimeInMilliseconds();
-  process_thread_->PostTask(rtc::NewClosure([rtt, now_ms, this]() {
+  PostTask(process_thread_, [rtt, now_ms, this]() {
     RTC_DCHECK_RUN_ON(&process_thread_checker_);
     reports_.push_back(RttTime(rtt, now_ms));
     if (time_of_first_rtt_ms_ == -1)
       time_of_first_rtt_ms_ = now_ms;
 
     process_thread_->WakeUp(this);
-  }));
+  });
 }
 
 void CallStats::UpdateHistograms() {

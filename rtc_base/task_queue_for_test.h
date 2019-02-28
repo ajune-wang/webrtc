@@ -34,11 +34,12 @@ class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
   void SendTask(Closure* task) {
     RTC_DCHECK(!IsCurrent());
     rtc::Event event;
-    PostTask(rtc::NewClosure(
+    webrtc::PostTask(
+        this,
         [&task]() {
           RTC_CHECK_EQ(false, static_cast<QueuedTask*>(task)->Run());
         },
-        [&event]() { event.Set(); }));
+        [&event]() { event.Set(); });
     event.Wait(rtc::Event::kForever);
   }
 
@@ -48,7 +49,7 @@ class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
   void SendTask(Closure&& task) {
     RTC_DCHECK(!IsCurrent());
     rtc::Event event;
-    PostTask(rtc::NewClosure(std::move(task), [&event]() { event.Set(); }));
+    webrtc::PostTask(this, std::move(task), [&event]() { event.Set(); });
     event.Wait(rtc::Event::kForever);
   }
 

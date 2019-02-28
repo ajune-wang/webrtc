@@ -41,8 +41,8 @@ RtcpTransceiver::~RtcpTransceiver() {
 
 void RtcpTransceiver::Stop(std::function<void()> on_destroyed) {
   RTC_DCHECK(rtcp_transceiver_);
-  task_queue_->PostTask(rtc::NewClosure(
-      Destructor{std::move(rtcp_transceiver_)}, std::move(on_destroyed)));
+  PostTask(task_queue_->Get(), Destructor{std::move(rtcp_transceiver_)},
+           std::move(on_destroyed));
   RTC_DCHECK(!rtcp_transceiver_);
 }
 
@@ -65,8 +65,7 @@ void RtcpTransceiver::RemoveMediaReceiverRtcpObserver(
   auto remove = [ptr, remote_ssrc, observer] {
     ptr->RemoveMediaReceiverRtcpObserver(remote_ssrc, observer);
   };
-  task_queue_->PostTask(
-      rtc::NewClosure(std::move(remove), std::move(on_removed)));
+  PostTask(task_queue_->Get(), std::move(remove), std::move(on_removed));
 }
 
 void RtcpTransceiver::SetReadyToSend(bool ready) {

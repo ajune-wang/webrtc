@@ -92,7 +92,8 @@ VideoSendStream::VideoSendStream(
   // TODO(srte): Initialization should not be done posted on a task queue.
   // Note that the posted task must not outlive this scope since the closure
   // references local variables.
-  worker_queue_->PostTask(rtc::NewClosure(
+  PostTask(
+      worker_queue_->Get(),
       [this, call_stats, transport, bitrate_allocator, send_delay_stats,
        event_log, &suspended_ssrcs, &encoder_config, &suspended_payload_states,
        &fec_controller]() {
@@ -104,7 +105,7 @@ VideoSendStream::VideoSendStream(
             suspended_payload_states, encoder_config.content_type,
             std::move(fec_controller), config_.media_transport));
       },
-      [this]() { thread_sync_event_.Set(); }));
+      [this]() { thread_sync_event_.Set(); });
 
   // Wait for ConstructionTask to complete so that |send_stream_| can be used.
   // |module_process_thread| must be registered and deregistered on the thread

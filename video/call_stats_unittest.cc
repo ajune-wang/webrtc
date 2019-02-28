@@ -168,7 +168,7 @@ TEST_F(CallStatsTest, MultipleObservers) {
   // Flush the queue on the process thread to make sure we return after
   // Process() has been called.
   rtc::Event event;
-  process_thread_->PostTask(rtc::NewClosure([&event]() { event.Set(); }));
+  PostTask(process_thread_, [&event]() { event.Set(); });
   event.Wait(rtc::Event::kForever);
 }
 

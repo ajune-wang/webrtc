@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cc65b23b_13e2caa0",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T09:25:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1318a46c_77c39cdf",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39a91a64_211a77ee",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21cb8a22_f86b7431",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T09:25:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a91a64_211a77ee",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6f2f4df2_85cd93b1",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T09:25:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7cc8cdd_9c8ef421",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "77cace1b_bbc6bc0c",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5438eb1e_1e2feb95",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T09:25:46Z",
+      "side": 1,
+      "message": "From framework API and doc it should be clear. Because basically framework user won\u0027t see SDP itself.",
+      "parentUuid": "77cace1b_bbc6bc0c",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b66381d6_922b18bb",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 5
@@ -84,6 +156,24 @@
       "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3aed6bf_1cfbfebb",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-02-28T09:25:46Z",
+      "side": 1,
+      "message": "Audio and video injection works in a different way. Audio is inject on ADM level and video on track level, so we need explicitly start video sources and needn\u0027t to do the same with audio.",
+      "parentUuid": "b66381d6_922b18bb",
+      "revId": "a567ee26bcd8ebe39612b055980a6cda2d01217c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

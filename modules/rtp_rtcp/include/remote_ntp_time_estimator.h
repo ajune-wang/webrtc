@@ -13,9 +13,9 @@
 
 #include <stdint.h>
 
+#include "modules/rtp_rtcp/rtp_to_ntp_estimator.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/numerics/moving_median_filter.h"
-#include "system_wrappers/include/rtp_to_ntp_estimator.h"
 
 namespace webrtc {
 

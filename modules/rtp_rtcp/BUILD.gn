@@ -117,6 +117,8 @@ rtc_static_library("rtp_rtcp") {
     "include/rtp_header_parser.h",
     "include/rtp_rtcp.h",
     "include/ulpfec_receiver.h",
+    "rtp_to_ntp_estimator.cc",
+    "rtp_to_ntp_estimator.h",
     "source/contributing_sources.cc",
     "source/contributing_sources.h",
     "source/dtmf_queue.cc",
@@ -359,6 +361,7 @@ if (rtc_include_tests) {
     testonly = true
 
     sources = [
+      "rtp_to_ntp_estimator_unittest.cc",
       "source/byte_io_unittest.cc",
       "source/contributing_sources_unittest.cc",
       "source/fec_private_tables_bursty_unittest.cc",

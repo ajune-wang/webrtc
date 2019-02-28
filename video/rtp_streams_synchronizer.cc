@@ -12,10 +12,10 @@
 
 #include "absl/types/optional.h"
 #include "call/syncable.h"
+#include "modules/rtp_rtcp/rtp_to_ntp_estimator.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
-#include "system_wrappers/include/rtp_to_ntp_estimator.h"
 
 namespace webrtc {
 namespace {

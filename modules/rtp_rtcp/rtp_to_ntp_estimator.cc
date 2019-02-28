@@ -8,7 +8,7 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "system_wrappers/include/rtp_to_ntp_estimator.h"
+#include "modules/rtp_rtcp/rtp_to_ntp_estimator.h"
 
 #include <stddef.h>
 #include <cmath>

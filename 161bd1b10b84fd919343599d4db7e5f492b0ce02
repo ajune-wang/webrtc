@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1b9603ed_d11ee06c",
+        "filename": "api/task_queue/task_queue.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-28T09:22:30Z",
+      "side": 1,
+      "message": "need to wait at least until rtc::TaskQueue::Current is gone.\nUntil then there can be race between ~TaskQueue and calling TaskQueue::Current()-\u003ePostTask() from the TaskQueue, i.e. race between destructing unique_ptr and accessing it with TaskQueue::PostTask()\nPartially restored the comment in the ~TaskQueue about that scenario.\n\nTaskQueueBase::Current()-\u003ePostTask() probably doesn\u0027t have that issue, but I will need to double,triple check.",
+      "parentUuid": "55a23782_9c21e925",
+      "range": {
+        "startLine": 19,
+        "startChar": 22,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "161bd1b10b84fd919343599d4db7e5f492b0ce02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "99dd0f21_35e9e4e6",
         "filename": "rtc_base/task_queue.h",
         "patchSetId": 1
@@ -60,6 +84,24 @@
       "writtenOn": "2019-02-28T09:07:56Z",
       "side": 1,
       "message": "When would this accessor be useful?",
+      "revId": "161bd1b10b84fd919343599d4db7e5f492b0ce02",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbd42580_05f9922b",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-02-28T09:22:30Z",
+      "side": 1,
+      "message": "Mostly during transition from TaskQueue::Current() to TaskQueueBase::Current():\ne.g. when RepeatedTask is converted to use TaskQueueBase* (instead of TaskQueue*), but RtcpTransceiver that uses RepeatedTask still only has rtc::TaskQueue*\n\nBut probably later too:\nIn more general case where class that use task queue without owning it \nused by class that owns TaskQueueBase with rtc::TaskQueue",
+      "parentUuid": "99dd0f21_35e9e4e6",
       "revId": "161bd1b10b84fd919343599d4db7e5f492b0ce02",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

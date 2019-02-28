@@ -244,7 +244,8 @@ class AudioProcessingImpl : public AudioProcessing {
   void InitializeResidualEchoDetector()
       RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   void InitializeLowCutFilter() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
-  void InitializeEchoController() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
+  void InitializeEchoControl()
+      RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_render_, crit_capture_);
   void InitializeGainController2() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void InitializePreAmplifier() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
   void InitializePostProcessor() RTC_EXCLUSIVE_LOCKS_REQUIRED(crit_capture_);
@@ -452,6 +453,17 @@ class AudioProcessingImpl : public AudioProcessing {
       agc_render_signal_queue_;
   std::unique_ptr<SwapQueue<std::vector<float>, RenderQueueItemVerifier<float>>>
       red_render_signal_queue_;
+
+  struct LegacyAecConfig {
+    explicit LegacyAecConfig(const webrtc::Config& config)
+        : use_extended_filter(config.Get<ExtendedFilter>().enabled),
+          use_delay_agnostic(config.Get<DelayAgnostic>().enabled),
+          use_refined_adaptive_filter(
+              config.Get<RefinedAdaptiveFilter>().enabled) {}
+    const bool use_extended_filter;
+    const bool use_delay_agnostic;
+    const bool use_refined_adaptive_filter;
+  } legacy_aec_config_;
 };
 
 }  // namespace webrtc

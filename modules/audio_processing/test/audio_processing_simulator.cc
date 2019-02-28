@@ -370,27 +370,29 @@ void AudioProcessingSimulator::CreateAudioProcessor() {
         settings_.pre_amplifier_gain_factor;
   }
 
-  bool use_aec2 = settings_.use_aec && *settings_.use_aec;
-  bool use_aec3 = settings_.use_aec3 && *settings_.use_aec3;
+  bool use_legacy_aec = settings_.use_aec && *settings_.use_aec &&
+                        settings_.use_legacy_aec && *settings_.use_legacy_aec;
+  bool use_aec = settings_.use_aec && *settings_.use_aec;
   bool use_aecm = settings_.use_aecm && *settings_.use_aecm;
-  if (use_aec2 || use_aec3 || use_aecm) {
+  if (use_legacy_aec || use_aec || use_aecm) {
     apm_config.echo_canceller.enabled = true;
     apm_config.echo_canceller.mobile_mode = use_aecm;
+    apm_config.echo_canceller.use_legacy_aec = use_legacy_aec;
   }
 
-  if (settings_.use_aec3 && *settings_.use_aec3) {
+  if (settings_.use_aec && *settings_.use_aec) {
     EchoCanceller3Config cfg;
-    if (settings_.aec3_settings_filename) {
+    if (settings_.aec_settings_filename) {
       if (settings_.use_verbose_logging) {
-        std::cout << "Reading AEC3 Parameters from JSON input." << std::endl;
+        std::cout << "Reading AEC Parameters from JSON input." << std::endl;
       }
-      cfg = ReadAec3ConfigFromJsonFile(*settings_.aec3_settings_filename);
+      cfg = ReadAec3ConfigFromJsonFile(*settings_.aec_settings_filename);
+      echo_control_factory.reset(new EchoCanceller3Factory(cfg));
     }
-    echo_control_factory.reset(new EchoCanceller3Factory(cfg));
 
-    if (settings_.print_aec3_parameter_values) {
+    if (settings_.print_aec_parameter_values) {
       if (!settings_.use_quiet_output) {
-        std::cout << "AEC3 settings:" << std::endl;
+        std::cout << "AEC settings:" << std::endl;
       }
       std::cout << Aec3ConfigToJsonString(cfg) << std::endl;
     }

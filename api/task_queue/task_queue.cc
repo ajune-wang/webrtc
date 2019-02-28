@@ -14,12 +14,15 @@
 
 namespace rtc {
 
-TaskQueue::TaskQueue(const char* queue_name, Priority priority)
-    : impl_(webrtc::GlobalTaskQueueFactory()
-                .CreateTaskQueue(queue_name, priority)
-                .release()) {
+TaskQueue::TaskQueue(
+    std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter> task_queue)
+    : impl_(task_queue.release()) {
   impl_->task_queue_ = this;
 }
+
+TaskQueue::TaskQueue(const char* queue_name, Priority priority)
+    : TaskQueue(webrtc::GlobalTaskQueueFactory().CreateTaskQueue(queue_name,
+                                                                 priority)) {}
 
 TaskQueue::~TaskQueue() {
   impl_->Delete();

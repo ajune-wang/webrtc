@@ -12,6 +12,7 @@
 #define API_TEST_LOOPBACK_MEDIA_TRANSPORT_H_
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -34,6 +35,12 @@ class WrapperMediaTransportFactory : public MediaTransportFactory {
       rtc::PacketTransportInternal* packet_transport,
       rtc::Thread* network_thread,
       const MediaTransportSettings& settings) override;
+
+  RTCErrorOr<std::unique_ptr<MediaTransportInterface>> CreateMediaTransport(
+      rtc::Thread* network_thread,
+      const MediaTransportSettings& settings) override;
+
+  std::string GetTransportName() const override;
 
  private:
   MediaTransportInterface* wrapped_;
@@ -129,6 +136,8 @@ class MediaTransportPair {
 
     void SetAllocatedBitrateLimits(
         const MediaTransportAllocatedBitrateLimits& limits) override;
+
+    absl::optional<std::string> GetTransportParametersOffer() const override;
 
    private:
     void OnData(uint64_t channel_id, MediaTransportEncodedAudioFrame frame);

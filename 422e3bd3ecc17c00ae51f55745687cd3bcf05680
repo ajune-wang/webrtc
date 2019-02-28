@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c68c0223_d8d31861",
+        "filename": "modules/audio_coding/neteq/neteq_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1917,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-02-28T09:29:01Z",
+      "side": 1,
+      "message": "I think this may lead to underestimate if there are missing packets.\n\nI think we may need to do something like\nstats_.JitterBufferDelay(newly_extracted_sample, waiting_time_ms);",
+      "range": {
+        "startLine": 1917,
+        "startChar": 0,
+        "endLine": 1917,
+        "endChar": 0
+      },
+      "revId": "422e3bd3ecc17c00ae51f55745687cd3bcf05680",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

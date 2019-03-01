@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 
+#include "rtc_base/async_invoker.h"
 #include "rtc_base/mdns_responder_interface.h"
 
 #include "rtc_base/helpers.h"

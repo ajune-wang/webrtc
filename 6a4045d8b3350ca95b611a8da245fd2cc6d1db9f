@@ -16,6 +16,24 @@
       "revId": "6a4045d8b3350ca95b611a8da245fd2cc6d1db9f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30b620c0_0af951c3",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-01T01:25:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "332488e2_e58eb12b",
+      "revId": "6a4045d8b3350ca95b611a8da245fd2cc6d1db9f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

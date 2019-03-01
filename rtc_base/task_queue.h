@@ -237,6 +237,10 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // Ownership of the task is passed to PostTask.
   void PostTask(std::unique_ptr<QueuedTask> task);
 
+  // Avoid this at all costs! It is dangerous and can cause thread pool
+  // exhaustion.
+  void UnsafeBlockingInvokeTask(std::unique_ptr<QueuedTask> task);
+
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
@@ -253,6 +257,14 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
                 std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
   void PostTask(Closure&& closure) {
     PostTask(NewClosure(std::forward<Closure>(closure)));
+  }
+
+  template <class Closure,
+            typename std::enable_if<!std::is_convertible<
+                Closure,
+                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
+  void UnsafeBlockingInvokeTask(Closure&& closure) {
+    UnsafeBlockingInvokeTask(NewClosure(std::forward<Closure>(closure)));
   }
 
   // See documentation above for performance expectations.

@@ -80,6 +80,11 @@ void TaskQueue::PostTask(std::unique_ptr<QueuedTask> task) {
   return impl_->PostTask(std::move(task));
 }
 
+void TaskQueue::UnsafeBlockingInvokeTask(
+    std::unique_ptr<webrtc::QueuedTask> task) {
+  impl_->UnsafeBlockingInvokeTask(std::move(task));
+}
+
 void TaskQueue::PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                 uint32_t milliseconds) {
   return impl_->PostDelayedTask(std::move(task), milliseconds);

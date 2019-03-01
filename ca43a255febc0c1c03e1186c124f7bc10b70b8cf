@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "512fe1c8_7ab78a34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T13:16:19Z",
+      "side": 1,
+      "message": "Since it currently support blocking behavior, and blocking behavior is widely used in the code base, I don\u0027t see how it would be harmful to explicitly provide an interface for it. I agree that it would be ideal if we could avoid blocking behavior, but there is a lot of unit tests and probably plenty of production code that assumes synchronous behavior in the API at different levels.",
+      "parentUuid": "c70463e6_f0deb83d",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2019-03-01T11:29:57Z",
       "side": 1,
       "message": "Is the problem that you\u0027re planning to use a pool of size 1 for all task queues in the system, and we have code that makes blocking calls from one task queue to another? And you plan to work around the problem by letting the single, \"blocked\" thread do other work for the pool while it waits?\n\nAn alternative that\u0027s simpler for the TQ implementations would be to have TQBase methods called e.g. StartBlockingOperation() and EndBlockingOperation() that you call around the Wait(). Defaulting to no-ops, but implementations could e.g. use them to temporarily increase their pool size by 1.",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c859aaed_676e4454",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T13:16:19Z",
+      "side": 1,
+      "message": "I\u0027ll mix different threading primitives in the same time controller (too keep things synchronized). So it might be a ProcessThread calling a TaskQueue for instance. So yess, the workaround will be that it will process all pending task up to the posted task\n\nNot sure how the start-stop thing helps here. We would still need to post the task to satisfy queue checkers etc, right?",
+      "parentUuid": "b9d869a2_ee7332d7",
       "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -77,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "e2bb3145_a86c0237",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T13:16:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c69f0c7_8aa5051a",
+      "range": {
+        "startLine": 63,
+        "startChar": 15,
+        "endLine": 63,
+        "endChar": 21
+      },
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "26d3d697_5b331fd6",
         "filename": "rtc_base/task_queue.h",
         "patchSetId": 1
@@ -91,6 +151,24 @@
       "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ace27b56_72fa6d78",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T13:16:19Z",
+      "side": 1,
+      "message": "Yeah I agree, I just wanted a placeholder. I do think that it\u0027s something that we want to minimize, but when it\u0027s needed it should obviously be used.\n\nUpdated the name and comment.",
+      "parentUuid": "26d3d697_5b331fd6",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

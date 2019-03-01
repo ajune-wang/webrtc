@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c70463e6_f0deb83d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T11:54:06Z",
+      "side": 1,
+      "message": "there is TaskQueueForTest that is one of the attempts to centralize that.\n\nTaskQueue is by design asynchronous. Introducing blocking method (even though called unsafe) seems like giving up on the main idea of the TaskQueue.\n\nI think it would be helpful to create and discuss a design doc how TaskQueue interface suppose to look like before adding new functions into it.\n\nA different design can produce a plan how to reduce/eliminate number of blocking calls.\nCentralizing that usage can be a step towards that goal, but it is only a step.\nWithout bigger picture it looks harmful.",
+      "parentUuid": "51e5ee08_84ea439d",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

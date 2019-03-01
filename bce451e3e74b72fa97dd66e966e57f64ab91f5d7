@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "743f68f6_716bc80d",
+        "filename": "rtc_base/critical_section_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-01T15:27:04Z",
+      "side": 1,
+      "message": "thanks for updating these :)",
+      "range": {
+        "startLine": 376,
+        "startChar": 9,
+        "endLine": 376,
+        "endChar": 12
+      },
+      "revId": "bce451e3e74b72fa97dd66e966e57f64ab91f5d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

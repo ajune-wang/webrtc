@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6db37e1_3b11c37a",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T14:52:39Z",
+      "side": 1,
+      "message": "is there ABSL_DIE_IF_NULL(network_manager) in webrtc? (or something similar?)",
+      "range": {
+        "startLine": 77,
+        "startChar": 26,
+        "endLine": 77,
+        "endChar": 41
+      },
+      "revId": "b07529ca416368eafe5d240dd8e2243070ba84e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

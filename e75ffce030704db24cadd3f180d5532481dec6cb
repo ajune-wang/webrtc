@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "af0a03bb_d0df89ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Done, here and in 2 places in the code.",
+      "parentUuid": "58d65124_7564acf9",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7bd6b78b_0bb6236d",
         "filename": "api/test/fake_media_transport.h",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef2a12c_f7f728da",
+        "filename": "api/test/fake_media_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Yes, (in FakeMediaTransport connect is a no-op (other than a check), so it wasn\u0027t necessary).\nAdded. I also added a check to FakeTransport::GetTransportParametersOffer to verify that it wasn\u0027t connected yet.",
+      "parentUuid": "7bd6b78b_0bb6236d",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 38
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "681451b9_8252db2d",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "No - on the callee \nmedia_transport_created_once_ \u003d true,\nbut\nmedia_transport_created_once_ \u003d nullopt;\n\n(at this time we only offer media transport from the caller).",
+      "parentUuid": "4a4ab151_766ede16",
+      "range": {
+        "startLine": 1503,
+        "startChar": 0,
+        "endLine": 1503,
+        "endChar": 43
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43994893_757d8b36",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 12
@@ -85,6 +157,24 @@
       "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b67344_17365c1c",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Exactly. \nThe only better idea I had was in the design doc under \"other considerations\":\n\n* MediaTransportFactory signature changes:\ntransport_server_local_config \u003d string CreateMediaTransportConfig();\nMediaTransportInterface* CreateMediaTransport(transport_server_local_config, settings)\n\n* expose the configuration (private config/and public config) in CreateMediaTransportConfig\n\nThis way we can create config, and then based on that config we can create new transport. This config, however, would contain a private key (because CreateMediaTransport would need to know what key to use), and would require special care.\n\nBut it would be more aligned to what SDP is doing.",
+      "parentUuid": "43994893_757d8b36",
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "30b9f393_66f680eb",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33be3c1e_f77a43e9",
+      "range": {
+        "startLine": 760,
+        "startChar": 56,
+        "endLine": 760,
+        "endChar": 60
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "529bb295_df2bd7fe",
         "filename": "pc/peer_connection_data_channel_unittest.cc",
         "patchSetId": 12
@@ -134,6 +248,53 @@
     },
     {
       "key": {
+        "uuid": "79530201_38553ad9",
+        "filename": "pc/peer_connection_data_channel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Done: now the PeerConnection::Initialize  will return false, but not DCHECK. I renamed this test as well.\n\n\nOriginally: in Debug mode, it will get an error right away. In Prod mode, it will get an error as in this test.\n\nIt\u0027s a tradeoff: I can remove the DCHECK. DCHECK happens earlier (in the constructor), this happens later.\n\nThe error  \"Failed to create data channel.\" is not that meaningful (it\u0027s not clear why, and doesn\u0027t blame the DCHECK).",
+      "parentUuid": "529bb295_df2bd7fe",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 68
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1893035e_b222523e",
+        "filename": "pc/peer_connection_data_channel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "DCHECK happens here, even before SetLocalDescription.",
+      "range": {
+        "startLine": 413,
+        "startChar": 16,
+        "endLine": 413,
+        "endChar": 51
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b42a8fd5_0201f7a0",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 12
@@ -154,6 +315,30 @@
       "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2be8264c_d4995522",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T19:18:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b42a8fd5_0201f7a0",
+      "range": {
+        "startLine": 4440,
+        "startChar": 2,
+        "endLine": 4440,
+        "endChar": 11
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -127,7 +127,7 @@ struct ConfigHelper {
   ConfigHelper(bool audio_bwe_enabled, bool expect_set_encoder_call)
       : stream_config_(/*send_transport=*/nullptr, /*media_transport=*/nullptr),
         audio_processing_(new rtc::RefCountedObject<MockAudioProcessing>()),
-        bitrate_allocator_(&limit_observer_),
+        bitrate_allocator_(Clock::GetRealTimeClock(), &limit_observer_),
         worker_queue_("ConfigHelper_worker_queue"),
         audio_encoder_(nullptr) {
     using testing::Invoke;

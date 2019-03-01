@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b42a8fd5_0201f7a0",
+        "filename": "pc/webrtc_sdp_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4440,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-01T18:49:03Z",
+      "side": 1,
+      "message": "ASSERT_EQ",
+      "range": {
+        "startLine": 4440,
+        "startChar": 2,
+        "endLine": 4440,
+        "endChar": 11
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

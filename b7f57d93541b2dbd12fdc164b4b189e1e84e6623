@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4cf5fa0a_d2d47e00",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-01T04:16:21Z",
+      "side": 1,
+      "message": "Why is this class here, and not in queued_task.h?",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "868cd60b_f2b8f4f1",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-01T04:16:21Z",
+      "side": 1,
+      "message": "Document what threads etc. it may be called from?",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "292adacf_43a1d378",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-01T04:16:21Z",
+      "side": 1,
+      "message": "Since QueuedTask and RepeatingTaskInterface are siblings, it would be unfortunate if they used different naming schemes.\n\n  1. Both or none should have the \"Interface\" suffix.\n\n  2. They\u0027re both queued, the difference is in whether they\u0027re run once or repeatedly.\n\nThere\u0027s also the question of how to clean up QueuedTask, now that its return value isn\u0027t needed anymore. From a backwards compat perspective, it\u0027s probably easier to replace QueuedTask with a new class (whose Run() returns void). The two could be called RepeatingTask and OnceTask, for example. (If we go this route, OnceTask could be added in a separate CL.)\n\nAlternatively, make just one new class, called e.g. SequencedTask, whose Run() returns optional\u003cTimeDelta\u003e. A null return value would mean to not schedule the task again. This is appealing because it seems the most general and the least amount of code.",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

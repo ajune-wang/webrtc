@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f037696e_95825047",
+        "filename": "webrtc.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5114
+      },
+      "writtenOn": "2019-03-01T08:53:46Z",
+      "side": 1,
+      "message": "Probably can just set `rtc_remove_configs` once \nlike here\nhttps://cs.chromium.org/chromium/src/v8/gni/v8.gni?q\u003dfind_bad_constructs",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 298,
+        "endChar": 72
+      },
+      "revId": "0f864efba88be40e909466ddfaf8b549997ed244",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b3d6925_ff0d935c",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-01T12:22:10Z",
+      "side": 1,
+      "message": "Probably not a change to how things used to be, but, does this need to be synchronous?",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 49
+      },
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe26b2de_f61de329",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-01T12:22:10Z",
+      "side": 1,
+      "message": "It\u0027s a bit iffy calling UpdateOverheadForEncoder outside of the lock, since other changes may sneak in between setting either overhead_per_packet_bytes_ and actually updating. Shouldn\u0027t be unsafe, though.",
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a4af7d3_3f5bbec4",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-01T12:22:10Z",
+      "side": 1,
+      "message": "What\u0027s the significance of this? Nobody seems to be waiting for this event.",
+      "range": {
+        "startLine": 772,
+        "startChar": 6,
+        "endLine": 772,
+        "endChar": 29
+      },
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

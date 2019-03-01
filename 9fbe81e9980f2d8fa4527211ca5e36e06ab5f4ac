@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52003952_a2035321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-01T09:16:16Z",
+      "side": 1,
+      "message": "State that we want to get rid of the \"complex constructor\" etc. warnings because we don\u0027t find them useful enough, and that we can get the other warnings from clang-tidy?",
+      "revId": "9fbe81e9980f2d8fa4527211ca5e36e06ab5f4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77aa30e_1aa5119a",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-01T09:16:16Z",
+      "side": 1,
+      "message": "Is this bug reference still relevant, given that we no longer intend to fix the find_bad_constructs violations? I would have thought that after this CL, we could close that bug.",
+      "range": {
+        "startLine": 291,
+        "startChar": 56,
+        "endLine": 291,
+        "endChar": 75
+      },
+      "revId": "9fbe81e9980f2d8fa4527211ca5e36e06ab5f4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

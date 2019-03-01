@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "7729d1f9_66cda8df",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T01:22:43Z",
+      "side": 1,
+      "message": "Yes. You are correct. I am not repeating the x-mt line in subsequent offers; but I can see how that can be useful.\n\nI can change it to GenerateOrGetLastMediaTransportOffer() in order to repeat it.",
+      "parentUuid": "a05865c9_59d9de0e",
+      "range": {
+        "startLine": 1499,
+        "startChar": 4,
+        "endLine": 1501,
+        "endChar": 25
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1b46f7a_767d455c",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 10
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "f705723c_ce272e31",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T01:22:43Z",
+      "side": 1,
+      "message": "This is the same random generator that a\u003dcrypto line uses.\n\nHere is what CreateRandomString does: if (!Rng().Generate(bytes.get(), len)) {\n\nand here is what CreateRandomData does (that one is used in a\u003dcrypto line)\n  return Rng().Generate(\u0026data-\u003eat(0), length);\n\nSo pretty much the same thing. Adding Ben to CC in case if he disagrees, but I don\u0027t think he will :)",
+      "parentUuid": "b1b46f7a_767d455c",
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "619d4282_57157000",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 10
@@ -99,6 +141,24 @@
       "writtenOn": "2019-03-01T01:15:20Z",
       "side": 1,
       "message": "Do we really need to DCHECK this?  Isn\u0027t it the semantics of ErrorOr that either the value is set or there\u0027s an error?",
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8fae27f_0839ac6d",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T01:22:43Z",
+      "side": 1,
+      "message": "fair point, will change.",
+      "parentUuid": "619d4282_57157000",
       "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

@@ -125,6 +125,30 @@
       "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cee68864_b10080fb",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T01:17:07Z",
+      "side": 1,
+      "message": "No. offer_media_transport_ gets std::move() into jseptransport after the SetLocalDescription.\n\nBut after negotiation (ICE Restart, or in the test I added a new stream), a new offer is created (with new streams). In such case offer_media_transport_ is already null (because the ownership was moved to the JsepTransport), but we do not want to recreate it.\n\nDoes it make sense? I will add a comment like that if it does.",
+      "parentUuid": "ea773742_ed071162",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 403,
+        "endChar": 45
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

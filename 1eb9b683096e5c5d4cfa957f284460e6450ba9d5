@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acfb4272_53071d43",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Maybe \"is now in use\" or \"has now been activated\"?",
+      "range": {
+        "startLine": 978,
+        "startChar": 56,
+        "endLine": 978,
+        "endChar": 77
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89d2fc6c_eea19b2f",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Or what?",
+      "range": {
+        "startLine": 982,
+        "startChar": 72,
+        "endLine": 982,
+        "endChar": 76
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a05865c9_59d9de0e",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Does this mean the x-mt line will be absent from any subsequent offers?  That doesn\u0027t seem right to me, but I\u0027m not sure if it will actually cause any problems.",
+      "range": {
+        "startLine": 1499,
+        "startChar": 4,
+        "endLine": 1501,
+        "endChar": 25
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b46f7a_767d455c",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Is this a cryptographic random number generator?\n\nCan we get Ben to comment on this?",
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619d4282_57157000",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Do we really need to DCHECK this?  Isn\u0027t it the semantics of ErrorOr that either the value is set or there\u0027s an error?",
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea773742_ed071162",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T01:15:20Z",
+      "side": 1,
+      "message": "Is it not enough that offer_media_transport_ already exists?",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 403,
+        "endChar": 45
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

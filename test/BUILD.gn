@@ -630,6 +630,7 @@ rtc_source_set("fake_video_codecs") {
   deps = [
     "..:webrtc_common",
     "../api:scoped_refptr",
+    "../api/task_queue",
     "../api/video:encoded_image",
     "../api/video:video_bitrate_allocation",
     "../api/video:video_frame",
@@ -649,6 +650,7 @@ rtc_source_set("fake_video_codecs") {
     "../rtc_base:rtc_task_queue",
     "../rtc_base:sequenced_task_checker",
     "../system_wrappers",
+    "//third_party/abseil-cpp/absl/memory",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b7dfb3f_02c5faf5",
+        "filename": "rtc_base/fake_mdns_responder.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-01T14:34:06Z",
+      "side": 1,
+      "message": "kwiberg@: I am relying on the dependency on rtc_base to get these but in the future these should be provided by small and focused build targets.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "e1c9df6d6e1c260182b643f28b9584f13394a9d7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

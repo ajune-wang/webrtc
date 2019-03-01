@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f1023f4_ff301cb8",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "Added comment.",
+      "parentUuid": "3955a38c_ae7aa904",
+      "range": {
+        "startLine": 32,
+        "startChar": 34,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4cf5fa0a_d2d47e00",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c842ce9_d7336941",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cf5fa0a_d2d47e00",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "e74c91c7_e850af7f",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6bfc7931_77beddbe",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "868cd60b_f2b8f4f1",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 1
@@ -79,6 +145,24 @@
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242f9f39_3970b795",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "868cd60b_f2b8f4f1",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +206,48 @@
     },
     {
       "key": {
+        "uuid": "92ca978e_5e169019",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "The value is that an implementation _can_ override the functionality. It doesn\u0027t have to do it, since there\u0027s a default implementation provided. In this case, it allows the implementation to optionally keep track of the timing internally. The current implementation relies on a global rtc::TimeMillis() call. It is possible to do a global override of that, but in practice that slowed things down significantly (due to locking) and as it\u0027s global nature makes it not ideal for test code.\n\nI agree that we want to keep interfaces and implementations as simple as possible, but there\u0027s also value in having abstractions that fits well with our usages, even if it means a somewhat larger, by providing reasonable defaults we don\u0027t have to maintain each combination, but we can improve things for implementations where it matters.",
+      "parentUuid": "28e04a79_bbe89c9e",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8732a19_f197ae72",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "Clarified the comment.",
+      "parentUuid": "61abf5de_47cdf8cb",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "292adacf_43a1d378",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 1
@@ -150,6 +276,24 @@
       "writtenOn": "2019-03-01T08:17:24Z",
       "side": 1,
       "message": "PostTask(task_runs_once)\nI consider the main functionality of the interface and would prefer if it would have less features.\nMaking that task return void instead of bool is a step towards that goal.\nMaking that task return composed type optional\u003cTimeDelta\u003e is a step away from it.\n\nLifetime of run once and run multiple times are also different. So having two interfaces with similar, but distinct names is probably better, something like:\nclass RunOnceTask { virtual void Run() \u003d 0; }\nclass RepeatableTask { virtual TimeDelta Run(Timestamp now) \u003d 0 ;}",
+      "parentUuid": "292adacf_43a1d378",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab8384b_90ed96a0",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T09:49:44Z",
+      "side": 1,
+      "message": "I like the OnceTask idea, and I agree that it makes sense to keep them both in the same place. Not having an explicit stop (only return value) would prohibit early cleanup of the task as it is being stopped rather than on next execution. While this makes sense for a task queue implementation where posted tasks can\u0027t be removed, for other it makes sense to remove the task immediately IMO.",
       "parentUuid": "292adacf_43a1d378",
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

@@ -461,4 +461,38 @@ TEST_F(PeerConnectionSimulcastTests,
   EXPECT_TRUE(ValidateTransceiverParameters(transceiver, expected_layers));
 }
 
+TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers({"1", "2", "3"}, true);
+  auto expected_layers = CreateLayers({"1"}, true);
+  auto transceiver = AddTransceiver(local.get(), layers);
+  auto offer = local->CreateOfferAndSetAsLocal();
+  // Remove simulcast as the second peer connection won't support it.
+  auto removed_simulcast = RemoveSimulcast(offer.get());
+  std::string err;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &err)) << err;
+  auto answer = remote->CreateAnswerAndSetAsLocal();
+  // Setup the answer to look like a server response.
+  // Drop the RID header extension.
+  auto mcd_answer = answer->description()->contents()[0].media_description();
+  auto& receive_layers = mcd_answer->simulcast_description().receive_layers();
+  for (const SimulcastLayer& layer : layers) {
+    receive_layers.AddLayer(layer);
+  }
+  cricket::RtpHeaderExtensions extensions;
+  for (auto extension : mcd_answer->rtp_header_extensions()) {
+    if (extension.uri != RtpExtension::kRidUri) {
+      extensions.push_back(extension);
+    }
+  }
+  mcd_answer->set_rtp_header_extensions(extensions);
+  EXPECT_EQ(layers.size(), mcd_answer->simulcast_description()
+                               .receive_layers()
+                               .GetAllLayers()
+                               .size());
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err)) << err;
+  EXPECT_TRUE(ValidateTransceiverParameters(transceiver, expected_layers));
+}
+
 }  // namespace webrtc

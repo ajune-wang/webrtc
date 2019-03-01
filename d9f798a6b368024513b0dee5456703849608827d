@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d169c4d0_c2ad12f7",
+        "filename": "rtc_base/fake_network.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-01T14:26:07Z",
+      "side": 0,
+      "message": "Quite interestingly, clang-tidy cannot complain about this because it uses the compilation database and it has \"-Winconsistent-missing-override\" followed by \"-Wno-inconsistent-missing-override\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 2,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "d9f798a6b368024513b0dee5456703849608827d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

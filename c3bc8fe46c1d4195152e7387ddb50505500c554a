@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42f811f1_ff857400",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T12:58:41Z",
+      "side": 1,
+      "message": "Yes, there are tests that assumes that side effects of the task being posted have appeared. I started a project a while ago to remove the synchronization, but it\u0027s a bit complex. For now we\u0027ll have to keep it as is.",
+      "parentUuid": "7b3d6925_ff0d935c",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 325,
+        "endChar": 49
+      },
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe26b2de_f61de329",
         "filename": "audio/audio_send_stream.cc",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00d453b8_8bbed0ec",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T12:58:41Z",
+      "side": 1,
+      "message": "You have a point, reverted this behavior to avoid changing the flakiness profile.",
+      "parentUuid": "fe26b2de_f61de329",
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe5d6d66_478d937a",
+        "filename": "audio/audio_send_stream.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-01T12:58:41Z",
+      "side": 1,
+      "message": "That\u0027s an error, thanks for spotting!",
+      "parentUuid": "6a4af7d3_3f5bbec4",
+      "range": {
+        "startLine": 772,
+        "startChar": 6,
+        "endLine": 772,
+        "endChar": 29
+      },
+      "revId": "c3bc8fe46c1d4195152e7387ddb50505500c554a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

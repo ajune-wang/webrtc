@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecbcc835_cdfbeead",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2019-03-01T01:50:35Z",
+      "side": 1,
+      "message": "Should ssl_max_version_ also be removed when you do that? This flag seems to cause it to be ignored. Then again, I guess you\u0027ll eventually want (D)TLS 1.3? Dunno how you want to organize that.",
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06a06f5e_5fcf45cc",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2019-03-01T01:50:35Z",
+      "side": 1,
+      "message": "Nit: Rather than make another copy of the constructor bits, you have this be : SSLStreamAdapterTestDTLS(/*legacy_tls_protocols\u003d*/false).",
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1376a64_abb1eb41",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5602
+      },
+      "writtenOn": "2019-03-01T01:50:35Z",
+      "side": 1,
+      "message": "1.0?",
+      "range": {
+        "startLine": 1509,
+        "startChar": 8,
+        "endLine": 1509,
+        "endChar": 11
+      },
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

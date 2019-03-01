@@ -27,7 +27,8 @@ class Clock;
 
 class FlexfecReceiver {
  public:
-  FlexfecReceiver(uint32_t ssrc,
+  FlexfecReceiver(Clock* clock,
+                  uint32_t ssrc,
                   uint32_t protected_media_ssrc,
                   RecoveredPacketReceiver* recovered_packet_receiver);
   ~FlexfecReceiver();

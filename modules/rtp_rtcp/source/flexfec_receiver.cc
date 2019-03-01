@@ -33,6 +33,7 @@ constexpr int kPacketLogIntervalMs = 10000;
 }  // namespace
 
 FlexfecReceiver::FlexfecReceiver(
+    Clock* clock,
     uint32_t ssrc,
     uint32_t protected_media_ssrc,
     RecoveredPacketReceiver* recovered_packet_receiver)
@@ -41,7 +42,7 @@ FlexfecReceiver::FlexfecReceiver(
       erasure_code_(
           ForwardErrorCorrection::CreateFlexfec(ssrc, protected_media_ssrc)),
       recovered_packet_receiver_(recovered_packet_receiver),
-      clock_(Clock::GetRealTimeClock()),
+      clock_(clock),
       last_recovered_packet_ms_(-1) {
   // It's OK to create this object on a different thread/task queue than
   // the one used during main operation.

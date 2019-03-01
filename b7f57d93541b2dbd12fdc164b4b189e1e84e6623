@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3955a38c_ae7aa904",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T08:17:24Z",
+      "side": 1,
+      "message": "what that parameter is?\ncurrent time as seen by the TaskQueue?\ntime that Repeating Task should do nothing until?",
+      "range": {
+        "startLine": 32,
+        "startChar": 34,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4cf5fa0a_d2d47e00",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 1
@@ -13,6 +36,29 @@
       "writtenOn": "2019-03-01T04:16:21Z",
       "side": 1,
       "message": "Why is this class here, and not in queued_task.h?",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfc7931_77beddbe",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T08:17:24Z",
+      "side": 1,
+      "message": "document if destructor auto-Stops the task (it doesn\u0027t?)\nSeems both designs are natural in their own way.",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 30
+      },
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -36,6 +82,46 @@
     },
     {
       "key": {
+        "uuid": "61abf5de_47cdf8cb",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T08:17:24Z",
+      "side": 1,
+      "message": "what are lifetime guarantees of the returned pointer?\ne.g., can it outlive the TaskQueue?",
+      "range": {
+        "startLine": 78,
+        "startChar": 10,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e04a79_bbe89c9e",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T08:17:24Z",
+      "side": 1,
+      "message": "TaskQueue[Base] is a multi-threading primitive. Those are quite hard to maintain, extra functions make it even costier.\nMoreover, this is an interface, so all costs are multiplied by number of implementations.\nAre you ready to spend time updating all implementation you have access to?\n\nSo before adding a new function to this interface I would like to understand how much values it adds, what benefits to have it inside interface instead of keeping as it is now: a dedicated [and also private] helper that relies on PostDelayedTask.\n\nRunning with simulated time seems possible without this extra function.\nnot using bool value as return type for tasks seems a bit orthogonal to that goal, so I would prefer if that would be addressed by itself. \n(Goal of not using bool return value to control ownerships I understand)",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "292adacf_43a1d378",
         "filename": "api/task_queue/task_queue_base.h",
         "patchSetId": 1
@@ -47,6 +133,24 @@
       "writtenOn": "2019-03-01T04:16:21Z",
       "side": 1,
       "message": "Since QueuedTask and RepeatingTaskInterface are siblings, it would be unfortunate if they used different naming schemes.\n\n  1. Both or none should have the \"Interface\" suffix.\n\n  2. They\u0027re both queued, the difference is in whether they\u0027re run once or repeatedly.\n\nThere\u0027s also the question of how to clean up QueuedTask, now that its return value isn\u0027t needed anymore. From a backwards compat perspective, it\u0027s probably easier to replace QueuedTask with a new class (whose Run() returns void). The two could be called RepeatingTask and OnceTask, for example. (If we go this route, OnceTask could be added in a separate CL.)\n\nAlternatively, make just one new class, called e.g. SequencedTask, whose Run() returns optional\u003cTimeDelta\u003e. A null return value would mean to not schedule the task again. This is appealing because it seems the most general and the least amount of code.",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d81553e5_04fb8706",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-01T08:17:24Z",
+      "side": 1,
+      "message": "PostTask(task_runs_once)\nI consider the main functionality of the interface and would prefer if it would have less features.\nMaking that task return void instead of bool is a step towards that goal.\nMaking that task return composed type optional\u003cTimeDelta\u003e is a step away from it.\n\nLifetime of run once and run multiple times are also different. So having two interfaces with similar, but distinct names is probably better, something like:\nclass RunOnceTask { virtual void Run() \u003d 0; }\nclass RepeatableTask { virtual TimeDelta Run(Timestamp now) \u003d 0 ;}",
+      "parentUuid": "292adacf_43a1d378",
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

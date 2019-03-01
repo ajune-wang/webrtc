@@ -39,6 +39,30 @@
       "revId": "9fbe81e9980f2d8fa4527211ca5e36e06ab5f4ac",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bc1fc87_77a4ac10",
+        "filename": "webrtc.gni",
+        "patchSetId": 3
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-01T09:48:13Z",
+      "side": 1,
+      "message": "Well, yes we should probably close that. :)\n\nI was thinking to open a bug to make it possible to enable/disable these diagnostics and block bugs/webrtc.org/163 on that but that will probably stay there forever without adding any value.\n\nLet\u0027s close it.",
+      "parentUuid": "b77aa30e_1aa5119a",
+      "range": {
+        "startLine": 291,
+        "startChar": 56,
+        "endLine": 291,
+        "endChar": 75
+      },
+      "revId": "9fbe81e9980f2d8fa4527211ca5e36e06ab5f4ac",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

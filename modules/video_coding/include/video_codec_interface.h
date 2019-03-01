@@ -105,6 +105,7 @@ struct CodecSpecificInfo {
   }
   VideoCodecType codecType;
   CodecSpecificInfoUnion codecSpecific;
+  bool must_be_true = true;
 };
 
 }  // namespace webrtc

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5d2439f_44348a5b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5800
+      },
+      "writtenOn": "2019-03-01T21:00:27Z",
+      "side": 1,
+      "message": "nit: This isn\u0027t used, and it\u0027s the SimulcastDescription object before layers were removed. It looks like in other tests you used this to get the layers from the sender, but in this case you already have them (layers), so it\u0027s unnecessary.",
+      "range": {
+        "startLine": 472,
+        "startChar": 7,
+        "endLine": 472,
+        "endChar": 24
+      },
+      "revId": "bb6d0afd19334764120cabfa004ae187f7058d80",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

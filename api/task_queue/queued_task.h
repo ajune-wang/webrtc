@@ -9,6 +9,8 @@
  */
 #ifndef API_TASK_QUEUE_QUEUED_TASK_H_
 #define API_TASK_QUEUE_QUEUED_TASK_H_
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 
 namespace webrtc {
 
@@ -27,6 +29,14 @@ class QueuedTask {
   virtual bool Run() = 0;
 };
 
+// Base interface for asynchronously executed repeating tasks.
+class QueuedRepeatingTask {
+ public:
+  virtual ~QueuedRepeatingTask() = default;
+  // Runs the underlying task and returns the time until the next time it should
+  // be called.
+  virtual TimeDelta Run(Timestamp at_time) = 0;
+};
 }  // namespace webrtc
 
 #endif  // API_TASK_QUEUE_QUEUED_TASK_H_

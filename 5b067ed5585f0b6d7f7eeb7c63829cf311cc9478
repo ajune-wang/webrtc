@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b537a2a_f9df5aa7",
+        "filename": "call/call.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-03-01T14:06:13Z",
+      "side": 1,
+      "message": "This seems to go unused?",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 62
+      },
+      "revId": "5b067ed5585f0b6d7f7eeb7c63829cf311cc9478",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

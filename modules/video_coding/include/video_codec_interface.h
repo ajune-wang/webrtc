@@ -103,8 +103,12 @@ struct CodecSpecificInfo {
   CodecSpecificInfo() : codecType(kVideoCodecGeneric) {
     memset(&codecSpecific, 0, sizeof(codecSpecific));
   }
+
+  ~CodecSpecificInfo() { RTC_CHECK(must_be_true); }
+
   VideoCodecType codecType;
   CodecSpecificInfoUnion codecSpecific;
+  bool must_be_true = true;
 };
 
 }  // namespace webrtc

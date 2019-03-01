@@ -43,6 +43,7 @@ if (rtc_enable_protobuf) {
     deps = [
       ":network_tester_config_proto",
       ":network_tester_packet_proto",
+      "../../api/task_queue",
       "../../p2p",
       "../../rtc_base:checks",
       "../../rtc_base:protobuf_utils",
@@ -51,6 +52,7 @@ if (rtc_enable_protobuf) {
       "../../rtc_base:rtc_task_queue",
       "../../rtc_base:sequenced_task_checker",
       "../../rtc_base/third_party/sigslot:sigslot",
+      "//third_party/abseil-cpp/absl/memory",
       "//third_party/abseil-cpp/absl/types:optional",
     ]
 

@@ -52,6 +52,7 @@ rtc_static_library("audio") {
     "../api/audio:audio_frame_api",
     "../api/audio:audio_mixer_api",
     "../api/audio_codecs:audio_codecs_api",
+    "../api/task_queue",
     "../call:bitrate_allocator",
     "../call:call_interfaces",
     "../call:rtp_interfaces",
@@ -265,6 +266,7 @@ if (rtc_include_tests) {
     ]
     deps = [
       "../api:simulated_network_api",
+      "../api/task_queue",
       "../call:fake_network",
       "../call:simulated_network",
       "../common_audio",

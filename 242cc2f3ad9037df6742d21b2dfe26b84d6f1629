@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "6c0f56e7_f91bed41",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-01T07:40:48Z",
+      "side": 1,
+      "message": "Should we update the PSA about this? https://groups.google.com/forum/#!topic/discuss-webrtc/yr6gbAgWsKo mentions M74.",
+      "range": {
+        "startLine": 95,
+        "startChar": 74,
+        "endLine": 96,
+        "endChar": 54
+      },
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06a06f5e_5fcf45cc",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 2

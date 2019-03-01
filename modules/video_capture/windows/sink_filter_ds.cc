@@ -19,12 +19,6 @@
 #include <dvdmedia.h>  // VIDEOINFOHEADER2
 #include <initguid.h>
 
-#define DELETE_RESET(p) \
-  {                     \
-    delete (p);         \
-    (p) = NULL;         \
-  }
-
 DEFINE_GUID(CLSID_SINKFILTER,
             0x88cdbbdc,
             0xa73b,
@@ -40,40 +34,95 @@ DEFINE_GUID(CLSID_SINKFILTER,
 
 namespace webrtc {
 namespace videocapturemodule {
+namespace {
+// Simple enumeration implementation that enumerates over a single pin :-/
+class EnumPins : public IEnumPins {
+ public:
+  EnumPins(IPin* pin) : pin_(pin) {}
 
-typedef struct tagTHREADNAME_INFO {
-  DWORD dwType;      // must be 0x1000
-  LPCSTR szName;     // pointer to name (in user addr space)
-  DWORD dwThreadID;  // thread ID (-1=caller thread)
-  DWORD dwFlags;     // reserved for future use, must be zero
-} THREADNAME_INFO;
+ private:
+  virtual ~EnumPins() {}
 
-CaptureInputPin::CaptureInputPin(IN TCHAR* szName,
-                                 IN CaptureSinkFilter* pFilter,
-                                 IN CCritSec* pLock,
-                                 OUT HRESULT* pHr,
-                                 IN LPCWSTR pszName)
-    : CBaseInputPin(szName, pFilter, pLock, pHr, pszName),
-      _requestedCapability(),
-      _resultingCapability() {
-  _threadHandle = NULL;
-}
+  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override {
+    if (riid == IID_IUnknown || riid == IID_IEnumPins) {
+      *ppv = static_cast<IEnumPins*>(this);
+      AddRef();
+      return S_OK;
+    }
+    return E_NOINTERFACE;
+  }
+
+  STDMETHOD_(ULONG, AddRef)() override { return ++ref_count_; }
+
+  STDMETHOD_(ULONG, Release)() override {
+    ULONG ret = --ref_count_;
+    if (!ret)
+      delete this;
+    return ret;
+  }
+
+  STDMETHOD(Clone)(IEnumPins** pins) {
+    RTC_DCHECK(false);
+    return E_NOTIMPL;
+  }
+
+  STDMETHOD(Next)(ULONG count, IPin** pins, ULONG* fetched) {
+    RTC_DCHECK(count > 0);
+    RTC_DCHECK(pins);
+    // fetched may be NULL.
+
+    if (pos_ > 0) {
+      if (fetched)
+        *fetched = 0;
+      return S_FALSE;
+    }
+
+    ++pos_;
+    pins[0] = pin_.get();
+    pins[0]->AddRef();
+    if (fetched)
+      *fetched = 1;
+
+    return count == 1 ? S_OK : S_FALSE;
+  }
+
+  STDMETHOD(Skip)(ULONG cPins) {
+    RTC_DCHECK(false);
+    return E_NOTIMPL;
+  }
+
+  STDMETHOD(Reset)() {
+    pos_ = 0;
+    return S_OK;
+  }
+
+  ULONG ref_count_ = 0;
+  rtc::scoped_refptr<IPin> pin_;
+  int pos_ = 0;
+};
+}  // namespace
+
+CaptureInputPin::CaptureInputPin(LPCTSTR object_name,
+                                 CaptureSinkFilter* filter,
+                                 CCritSec* lock,
+                                 HRESULT* hr,
+                                 LPCWSTR name)
+    : CBaseInputPin(object_name, filter, lock, hr, name) {}
 
 CaptureInputPin::~CaptureInputPin() {}
 
-HRESULT
-CaptureInputPin::GetMediaType(IN int iPosition, OUT CMediaType* pmt) {
+HRESULT CaptureInputPin::GetMediaType(int pos, CMediaType* media_type) {
   // reset the thread handle
-  _threadHandle = NULL;
+  thread_handle_ = nullptr;
 
-  if (iPosition < 0)
+  if (pos < 0)
     return E_INVALIDARG;
 
-  VIDEOINFOHEADER* pvi =
-      (VIDEOINFOHEADER*)pmt->AllocFormatBuffer(sizeof(VIDEOINFOHEADER));
-  if (NULL == pvi) {
+  VIDEOINFOHEADER* pvi = reinterpret_cast<VIDEOINFOHEADER*>(
+      media_type->AllocFormatBuffer(sizeof(VIDEOINFOHEADER)));
+  if (!pvi) {
     RTC_LOG(LS_INFO) << "CheckMediaType VIDEOINFOHEADER is NULL. Returning.";
-    return (E_OUTOFMEMORY);
+    return E_OUTOFMEMORY;
   }
 
   ZeroMemory(pvi, sizeof(VIDEOINFOHEADER));
@@ -81,108 +130,106 @@ CaptureInputPin::GetMediaType(IN int iPosition, OUT CMediaType* pmt) {
   pvi->bmiHeader.biPlanes = 1;
   pvi->bmiHeader.biClrImportant = 0;
   pvi->bmiHeader.biClrUsed = 0;
-  if (_requestedCapability.maxFPS != 0) {
-    pvi->AvgTimePerFrame = 10000000 / _requestedCapability.maxFPS;
+  if (requested_capability_.maxFPS != 0) {
+    pvi->AvgTimePerFrame = 10000000 / requested_capability_.maxFPS;
   }
 
   SetRectEmpty(&(pvi->rcSource));  // we want the whole image area rendered.
   SetRectEmpty(&(pvi->rcTarget));  // no particular destination rectangle
 
-  pmt->SetType(&MEDIATYPE_Video);
-  pmt->SetFormatType(&FORMAT_VideoInfo);
-  pmt->SetTemporalCompression(FALSE);
+  media_type->SetType(&MEDIATYPE_Video);
+  media_type->SetFormatType(&FORMAT_VideoInfo);
+  media_type->SetTemporalCompression(FALSE);
 
   int32_t positionOffset = 1;
-  switch (iPosition + positionOffset) {
+  switch (pos + positionOffset) {
     case 0: {
       pvi->bmiHeader.biCompression = MAKEFOURCC('I', '4', '2', '0');
       pvi->bmiHeader.biBitCount = 12;  // bit per pixel
-      pvi->bmiHeader.biWidth = _requestedCapability.width;
-      pvi->bmiHeader.biHeight = _requestedCapability.height;
+      pvi->bmiHeader.biWidth = requested_capability_.width;
+      pvi->bmiHeader.biHeight = requested_capability_.height;
       pvi->bmiHeader.biSizeImage =
-          3 * _requestedCapability.height * _requestedCapability.width / 2;
-      pmt->SetSubtype(&MEDIASUBTYPE_I420);
+          3 * requested_capability_.height * requested_capability_.width / 2;
+      media_type->SetSubtype(&MEDIASUBTYPE_I420);
     } break;
     case 1: {
       pvi->bmiHeader.biCompression = MAKEFOURCC('Y', 'U', 'Y', '2');
-      ;
       pvi->bmiHeader.biBitCount = 16;  // bit per pixel
-      pvi->bmiHeader.biWidth = _requestedCapability.width;
-      pvi->bmiHeader.biHeight = _requestedCapability.height;
+      pvi->bmiHeader.biWidth = requested_capability_.width;
+      pvi->bmiHeader.biHeight = requested_capability_.height;
       pvi->bmiHeader.biSizeImage =
-          2 * _requestedCapability.width * _requestedCapability.height;
-      pmt->SetSubtype(&MEDIASUBTYPE_YUY2);
+          2 * requested_capability_.width * requested_capability_.height;
+      media_type->SetSubtype(&MEDIASUBTYPE_YUY2);
     } break;
     case 2: {
       pvi->bmiHeader.biCompression = BI_RGB;
       pvi->bmiHeader.biBitCount = 24;  // bit per pixel
-      pvi->bmiHeader.biWidth = _requestedCapability.width;
-      pvi->bmiHeader.biHeight = _requestedCapability.height;
+      pvi->bmiHeader.biWidth = requested_capability_.width;
+      pvi->bmiHeader.biHeight = requested_capability_.height;
       pvi->bmiHeader.biSizeImage =
-          3 * _requestedCapability.height * _requestedCapability.width;
-      pmt->SetSubtype(&MEDIASUBTYPE_RGB24);
+          3 * requested_capability_.height * requested_capability_.width;
+      media_type->SetSubtype(&MEDIASUBTYPE_RGB24);
     } break;
     case 3: {
       pvi->bmiHeader.biCompression = MAKEFOURCC('U', 'Y', 'V', 'Y');
       pvi->bmiHeader.biBitCount = 16;  // bit per pixel
-      pvi->bmiHeader.biWidth = _requestedCapability.width;
-      pvi->bmiHeader.biHeight = _requestedCapability.height;
+      pvi->bmiHeader.biWidth = requested_capability_.width;
+      pvi->bmiHeader.biHeight = requested_capability_.height;
       pvi->bmiHeader.biSizeImage =
-          2 * _requestedCapability.height * _requestedCapability.width;
-      pmt->SetSubtype(&MEDIASUBTYPE_UYVY);
+          2 * requested_capability_.height * requested_capability_.width;
+      media_type->SetSubtype(&MEDIASUBTYPE_UYVY);
     } break;
     case 4: {
       pvi->bmiHeader.biCompression = MAKEFOURCC('M', 'J', 'P', 'G');
       pvi->bmiHeader.biBitCount = 12;  // bit per pixel
-      pvi->bmiHeader.biWidth = _requestedCapability.width;
-      pvi->bmiHeader.biHeight = _requestedCapability.height;
+      pvi->bmiHeader.biWidth = requested_capability_.width;
+      pvi->bmiHeader.biHeight = requested_capability_.height;
       pvi->bmiHeader.biSizeImage =
-          3 * _requestedCapability.height * _requestedCapability.width / 2;
-      pmt->SetSubtype(&MEDIASUBTYPE_MJPG);
+          3 * requested_capability_.height * requested_capability_.width / 2;
+      media_type->SetSubtype(&MEDIASUBTYPE_MJPG);
     } break;
     default:
       return VFW_S_NO_MORE_ITEMS;
   }
-  pmt->SetSampleSize(pvi->bmiHeader.biSizeImage);
-  RTC_LOG(LS_INFO) << "GetMediaType position " << iPosition << ", width "
-                   << _requestedCapability.width << ", height "
-                   << _requestedCapability.height << ", biCompression 0x"
+
+  media_type->SetSampleSize(pvi->bmiHeader.biSizeImage);
+  RTC_LOG(LS_INFO) << "GetMediaType position " << pos << ", width "
+                   << requested_capability_.width << ", height "
+                   << requested_capability_.height << ", biCompression 0x"
                    << rtc::ToHex(pvi->bmiHeader.biCompression);
-  return NOERROR;
+
+  return S_OK;
 }
 
-HRESULT
-CaptureInputPin::CheckMediaType(IN const CMediaType* pMediaType) {
+HRESULT CaptureInputPin::CheckMediaType(const CMediaType* media_type) {
   // reset the thread handle
-  _threadHandle = NULL;
+  thread_handle_ = NULL;
 
-  const GUID* type = pMediaType->Type();
+  const GUID* type = media_type->Type();
   if (*type != MEDIATYPE_Video)
     return E_INVALIDARG;
 
-  const GUID* formatType = pMediaType->FormatType();
+  const GUID* formatType = media_type->FormatType();
 
   // Check for the subtypes we support
-  const GUID* SubType = pMediaType->Subtype();
-  if (SubType == NULL) {
+  const GUID* SubType = media_type->Subtype();
+  if (SubType == NULL)
     return E_INVALIDARG;
-  }
 
   if (*formatType == FORMAT_VideoInfo) {
-    VIDEOINFOHEADER* pvi = (VIDEOINFOHEADER*)pMediaType->Format();
-    if (pvi == NULL) {
+    VIDEOINFOHEADER* pvi = (VIDEOINFOHEADER*)media_type->Format();
+    if (pvi == NULL)
       return E_INVALIDARG;
-    }
 
     // Store the incoming width and height
-    _resultingCapability.width = pvi->bmiHeader.biWidth;
+    resulting_capability_.width = pvi->bmiHeader.biWidth;
 
     // Store the incoming height,
     // for RGB24 we assume the frame to be upside down
     if (*SubType == MEDIASUBTYPE_RGB24 && pvi->bmiHeader.biHeight > 0) {
-      _resultingCapability.height = -(pvi->bmiHeader.biHeight);
+      resulting_capability_.height = -(pvi->bmiHeader.biHeight);
     } else {
-      _resultingCapability.height = abs(pvi->bmiHeader.biHeight);
+      resulting_capability_.height = abs(pvi->bmiHeader.biHeight);
     }
 
     RTC_LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
@@ -192,127 +239,119 @@ CaptureInputPin::CheckMediaType(IN const CMediaType* pMediaType) {
 
     if (*SubType == MEDIASUBTYPE_MJPG &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('M', 'J', 'P', 'G')) {
-      _resultingCapability.videoType = VideoType::kMJPEG;
+      resulting_capability_.videoType = VideoType::kMJPEG;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_I420 &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('I', '4', '2', '0')) {
-      _resultingCapability.videoType = VideoType::kI420;
+      resulting_capability_.videoType = VideoType::kI420;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_YUY2 &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('Y', 'U', 'Y', '2')) {
-      _resultingCapability.videoType = VideoType::kYUY2;
+      resulting_capability_.videoType = VideoType::kYUY2;
       ::Sleep(60);  // workaround for bad driver
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_UYVY &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('U', 'Y', 'V', 'Y')) {
-      _resultingCapability.videoType = VideoType::kUYVY;
+      resulting_capability_.videoType = VideoType::kUYVY;
       return S_OK;  // This format is acceptable.
     }
 
     if (*SubType == MEDIASUBTYPE_HDYC) {
-      _resultingCapability.videoType = VideoType::kUYVY;
+      resulting_capability_.videoType = VideoType::kUYVY;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_RGB24 &&
         pvi->bmiHeader.biCompression == BI_RGB) {
-      _resultingCapability.videoType = VideoType::kRGB24;
+      resulting_capability_.videoType = VideoType::kRGB24;
       return S_OK;  // This format is acceptable.
     }
   }
+
   if (*formatType == FORMAT_VideoInfo2) {
     // VIDEOINFOHEADER2 that has dwInterlaceFlags
-    VIDEOINFOHEADER2* pvi = (VIDEOINFOHEADER2*)pMediaType->Format();
-
-    if (pvi == NULL) {
+    VIDEOINFOHEADER2* pvi =
+        reinterpret_cast<VIDEOINFOHEADER2*>(media_type->Format());
+    if (pvi == NULL)
       return E_INVALIDARG;
-    }
 
     RTC_LOG(LS_INFO) << "CheckMediaType width:" << pvi->bmiHeader.biWidth
                      << " height:" << pvi->bmiHeader.biHeight
                      << " Compression:0x"
                      << rtc::ToHex(pvi->bmiHeader.biCompression);
 
-    _resultingCapability.width = pvi->bmiHeader.biWidth;
+    resulting_capability_.width = pvi->bmiHeader.biWidth;
 
     // Store the incoming height,
     // for RGB24 we assume the frame to be upside down
     if (*SubType == MEDIASUBTYPE_RGB24 && pvi->bmiHeader.biHeight > 0) {
-      _resultingCapability.height = -(pvi->bmiHeader.biHeight);
+      resulting_capability_.height = -(pvi->bmiHeader.biHeight);
     } else {
-      _resultingCapability.height = abs(pvi->bmiHeader.biHeight);
+      resulting_capability_.height = abs(pvi->bmiHeader.biHeight);
     }
 
     if (*SubType == MEDIASUBTYPE_MJPG &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('M', 'J', 'P', 'G')) {
-      _resultingCapability.videoType = VideoType::kMJPEG;
+      resulting_capability_.videoType = VideoType::kMJPEG;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_I420 &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('I', '4', '2', '0')) {
-      _resultingCapability.videoType = VideoType::kI420;
+      resulting_capability_.videoType = VideoType::kI420;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_YUY2 &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('Y', 'U', 'Y', '2')) {
-      _resultingCapability.videoType = VideoType::kYUY2;
+      resulting_capability_.videoType = VideoType::kYUY2;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_UYVY &&
         pvi->bmiHeader.biCompression == MAKEFOURCC('U', 'Y', 'V', 'Y')) {
-      _resultingCapability.videoType = VideoType::kUYVY;
+      resulting_capability_.videoType = VideoType::kUYVY;
       return S_OK;  // This format is acceptable.
     }
 
     if (*SubType == MEDIASUBTYPE_HDYC) {
-      _resultingCapability.videoType = VideoType::kUYVY;
+      resulting_capability_.videoType = VideoType::kUYVY;
       return S_OK;  // This format is acceptable.
     }
     if (*SubType == MEDIASUBTYPE_RGB24 &&
         pvi->bmiHeader.biCompression == BI_RGB) {
-      _resultingCapability.videoType = VideoType::kRGB24;
+      resulting_capability_.videoType = VideoType::kRGB24;
       return S_OK;  // This format is acceptable.
     }
   }
+
   return E_INVALIDARG;
 }
 
-HRESULT
-CaptureInputPin::Receive(IN IMediaSample* pIMediaSample) {
-  HRESULT hr = S_OK;
-
+HRESULT CaptureInputPin::Receive(IMediaSample* media_sample) {
   RTC_DCHECK(m_pFilter);
-  RTC_DCHECK(pIMediaSample);
+  CaptureSinkFilter* const filter = static_cast<CaptureSinkFilter*>(m_pFilter);
 
   // get the thread handle of the delivering thread inc its priority
-  if (_threadHandle == NULL) {
-    HANDLE handle = GetCurrentThread();
-    SetThreadPriority(handle, THREAD_PRIORITY_HIGHEST);
-    _threadHandle = handle;
-
+  if (!thread_handle_) {
+    thread_handle_ = GetCurrentThread();
+    SetThreadPriority(thread_handle_, THREAD_PRIORITY_HIGHEST);
     rtc::SetCurrentThreadName("webrtc_video_capture");
   }
 
-  reinterpret_cast<CaptureSinkFilter*>(m_pFilter)->LockReceive();
-  hr = CBaseInputPin::Receive(pIMediaSample);
+  rtc::CritScope receive_lock(&filter->receiver_lock_);
+  HRESULT hr = CBaseInputPin::Receive(media_sample);
 
   if (SUCCEEDED(hr)) {
-    const LONG length = pIMediaSample->GetActualDataLength();
+    const LONG length = media_sample->GetActualDataLength();
     RTC_DCHECK(length >= 0);
 
-    unsigned char* pBuffer = NULL;
-    if (S_OK != pIMediaSample->GetPointer(&pBuffer)) {
-      reinterpret_cast<CaptureSinkFilter*>(m_pFilter)->UnlockReceive();
+    unsigned char* buffer = nullptr;
+    if (S_OK != media_sample->GetPointer(&buffer)) {
       return S_FALSE;
     }
 
-    // NOTE: filter unlocked within Send call
-    reinterpret_cast<CaptureSinkFilter*>(m_pFilter)->ProcessCapturedFrame(
-        pBuffer, static_cast<size_t>(length), _resultingCapability);
-  } else {
-    reinterpret_cast<CaptureSinkFilter*>(m_pFilter)->UnlockReceive();
+    filter->ProcessCapturedFrame(buffer, static_cast<size_t>(length),
+                                 resulting_capability_);
   }
 
   return hr;
@@ -321,111 +360,197 @@ CaptureInputPin::Receive(IN IMediaSample* pIMediaSample) {
 // called under LockReceive
 HRESULT CaptureInputPin::SetMatchingMediaType(
     const VideoCaptureCapability& capability) {
-  _requestedCapability = capability;
-  _resultingCapability = VideoCaptureCapability();
+  requested_capability_ = capability;
+  resulting_capability_ = VideoCaptureCapability();
   return S_OK;
 }
-//  ----------------------------------------------------------------------------
-CaptureSinkFilter::CaptureSinkFilter(const IN TCHAR* tszName,
-                                     IN LPUNKNOWN punk,
-                                     OUT HRESULT* phr,
-                                     VideoCaptureExternal& captureObserver)
-    : CBaseFilter(tszName, punk, &m_crtFilter, CLSID_SINKFILTER),
-      m_pInput(NULL),
-      _captureObserver(captureObserver) {
-  (*phr) = S_OK;
-  TCHAR inputPinName[] = L"VideoCaptureInputPin";
-  m_pInput = new CaptureInputPin(inputPinName, this, &m_crtFilter, phr,
-                                 L"VideoCapture");
-  if (m_pInput == NULL || FAILED(*phr)) {
-    (*phr) = FAILED(*phr) ? (*phr) : E_OUTOFMEMORY;
-    goto cleanup;
-  }
-cleanup:
-  return;
-}
 
-CaptureSinkFilter::~CaptureSinkFilter() {
-  delete m_pInput;
+//  ----------------------------------------------------------------------------
+
+CaptureSinkFilter::CaptureSinkFilter(const TCHAR* object_name,
+                                     IUnknown* unknown,
+                                     HRESULT* hr,
+                                     VideoCaptureExternal* capture_observer)
+    : CBaseFilter(object_name, unknown, &lock_, CLSID_SINKFILTER),
+      input_pin_(new CaptureInputPin(L"VideoCaptureInputPin",
+                                     this,
+                                     &lock_,
+                                     hr,
+                                     L"VideoCapture")),
+      capture_observer_(capture_observer) {}
+
+CaptureSinkFilter::~CaptureSinkFilter() {}
+
+HRESULT CaptureSinkFilter::SetMatchingMediaType(
+    const VideoCaptureCapability& capability) {
+  // Called on the same thread as capture is started on.
+  rtc::CritScope receive_lock(&receiver_lock_);  // needed?
+  return input_pin_->SetMatchingMediaType(capability);
 }
 
 int CaptureSinkFilter::GetPinCount() {
+  RTC_CHECK(false);
   return 1;
 }
 
-CBasePin* CaptureSinkFilter::GetPin(IN int Index) {
-  CBasePin* pPin;
-  LockFilter();
-  if (Index == 0) {
-    pPin = m_pInput;
-  } else {
-    pPin = NULL;
-  }
-  UnlockFilter();
-  return pPin;
+CBasePin* CaptureSinkFilter::GetPin(int index) {
+  RTC_CHECK(false);
+  if (index == 0)
+    return input_pin_.get();
+  return nullptr;
+}
+
+HRESULT CaptureSinkFilter::StreamTime(CRefTime& ref_time) {
+  RTC_CHECK(false);  // this method doesn't appear to be called (or needed).
+  return CBaseFilter::StreamTime(ref_time);
+}
+
+STDMETHODIMP CaptureSinkFilter::GetState(DWORD msecs, FILTER_STATE* state) {
+  *state = m_State;
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::SetSyncSource(IReferenceClock* clock) {
+  // Always called on the same thread?
+  CAutoLock cObjectLock(m_pLock);
+
+  if (clock)
+    clock->AddRef();
+  if (m_pClock)
+    m_pClock->Release();
+
+  m_pClock = clock;
+
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::GetSyncSource(IReferenceClock** clock) {
+  // Always called on the same thread?
+  CAutoLock cObjectLock(m_pLock);
+
+  if (m_pClock)
+    m_pClock->AddRef();
+  *clock = m_pClock;
+  return S_OK;
 }
 
 STDMETHODIMP CaptureSinkFilter::Pause() {
-  LockReceive();
-  LockFilter();
+  rtc::CritScope receive_lock(&receiver_lock_);  // needed?
   if (m_State == State_Stopped) {
     //  change the state, THEN activate the input pin
     m_State = State_Paused;
-    if (m_pInput && m_pInput->IsConnected()) {
-      m_pInput->Active();
-    }
-    if (m_pInput && !m_pInput->IsConnected()) {
+    if (input_pin_->IsConnected())
+      input_pin_->Active();
+    if (!input_pin_->IsConnected())
       m_State = State_Running;
-    }
   } else if (m_State == State_Running) {
     m_State = State_Paused;
   }
-  UnlockFilter();
-  UnlockReceive();
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::Run(REFERENCE_TIME tStart) {
+  CAutoLock cObjectLock(&lock_);
+
+  m_tStart = tStart;
+  if (m_State == State_Stopped)
+    Pause();
+
+  m_State = State_Running;
+
   return S_OK;
 }
 
 STDMETHODIMP CaptureSinkFilter::Stop() {
-  LockReceive();
-  LockFilter();
+  rtc::CritScope receive_lock(&receiver_lock_);
 
-  //  set the state
+  // set the state
   m_State = State_Stopped;
+  // inactivate the pins
+  input_pin_->Inactive();
 
-  //  inactivate the pins
-  if (m_pInput)
-    m_pInput->Inactive();
-
-  UnlockFilter();
-  UnlockReceive();
   return S_OK;
 }
 
-void CaptureSinkFilter::SetFilterGraph(IGraphBuilder* graph) {
-  LockFilter();
-  m_pGraph = graph;
-  UnlockFilter();
+STDMETHODIMP CaptureSinkFilter::EnumPins(IEnumPins** pins) {
+  *pins = new class EnumPins(input_pin_.get());
+  (*pins)->AddRef();
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::FindPin(LPCWSTR id, IPin** pin) {
+  if (lstrcmpW(input_pin_->Name(), id) == 0) {
+    *pin = input_pin_.get();
+    (*pin)->AddRef();
+    return S_OK;
+  }
+
+  return VFW_E_NOT_FOUND;
+}
+
+STDMETHODIMP CaptureSinkFilter::QueryFilterInfo(FILTER_INFO* info) {
+  ZeroMemory(info, sizeof(*info));
+  if (m_pName)
+    lstrcpyW(info->achName, m_pName);
+  info->pGraph = m_pGraph;
+  if (m_pGraph)
+    m_pGraph->AddRef();
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::JoinFilterGraph(IFilterGraph* graph,
+                                                LPCWSTR name) {
+  CAutoLock cObjectLock(m_pLock);
+  // Note, since a reference to the filter is held by the graph manager,
+  // filters must not hold a reference to the graph. If they would, we'd have
+  // a circular reference. Instead, a pointer to the graph can be held without
+  // reference. See documentation for IBaseFilter::JoinFilterGraph for more.
+  m_pGraph = graph;  // No AddRef().
+  m_pSink = nullptr;
+  if (m_pGraph) {
+    HRESULT hr = m_pGraph->QueryInterface(IID_IMediaEventSink,
+                                          reinterpret_cast<void**>(&m_pSink));
+    if (SUCCEEDED(hr)) {
+      // make sure we don't hold on to the reference we got.
+      // Note that this assumes the same object identity, but so be it.
+      m_pSink->Release();
+    }
+  }
+
+  if (m_pName) {
+    delete[] m_pName;
+    m_pName = nullptr;
+  }
+
+  if (name) {
+    size_t len = lstrlenW(name);
+    m_pName = new WCHAR[len + 1];
+    lstrcpyW(m_pName, name);
+  }
+
+  return S_OK;
+}
+
+STDMETHODIMP CaptureSinkFilter::QueryVendorInfo(LPWSTR* vendor_info) {
+  return E_NOTIMPL;
 }
 
 void CaptureSinkFilter::ProcessCapturedFrame(
-    unsigned char* pBuffer,
+    unsigned char* buffer,
     size_t length,
-    const VideoCaptureCapability& frameInfo) {
+    const VideoCaptureCapability& frame_info) {
   //  we have the receiver lock
-  if (m_State == State_Running) {
-    _captureObserver.IncomingFrame(pBuffer, length, frameInfo);
-
-    // trying to hold it since it's only a memcpy
-    // IMPROVEMENT if this work move critsect
-    UnlockReceive();
-    return;
-  }
-  UnlockReceive();
-  return;
+  if (m_State == State_Running)
+    capture_observer_->IncomingFrame(buffer, length, frame_info);
 }
 
 STDMETHODIMP CaptureSinkFilter::QueryInterface(REFIID riid, void** ppv) {
-  return GetOwner()->QueryInterface(riid, ppv);
+  if (riid == IID_IUnknown || riid == IID_IPersist || riid == IID_IBaseFilter) {
+    *ppv = static_cast<IBaseFilter*>(this);
+    AddRef();
+    return S_OK;
+  }
+  return E_NOINTERFACE;
 }
 
 STDMETHODIMP_(ULONG) CaptureSinkFilter::AddRef() {
@@ -436,23 +561,8 @@ STDMETHODIMP_(ULONG) CaptureSinkFilter::Release() {
   return GetOwner()->Release();
 }
 
-STDMETHODIMP CaptureSinkFilter::SetMatchingMediaType(
-    const VideoCaptureCapability& capability) {
-  LockReceive();
-  LockFilter();
-  HRESULT hr;
-  if (m_pInput) {
-    hr = m_pInput->SetMatchingMediaType(capability);
-  } else {
-    hr = E_UNEXPECTED;
-  }
-  UnlockFilter();
-  UnlockReceive();
-  return hr;
-}
-
-STDMETHODIMP CaptureSinkFilter::GetClassID(OUT CLSID* pCLSID) {
-  (*pCLSID) = CLSID_SINKFILTER;
+STDMETHODIMP CaptureSinkFilter::GetClassID(CLSID* clsid) {
+  *clsid = CLSID_SINKFILTER;
   return S_OK;
 }
 

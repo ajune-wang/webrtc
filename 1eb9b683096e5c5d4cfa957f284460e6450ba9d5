@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70d9c5a6_50996506",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T15:29:20Z",
+      "side": 1,
+      "message": "Offered media transport has now been activated.",
+      "parentUuid": "acfb4272_53071d43",
+      "range": {
+        "startLine": 978,
+        "startChar": 56,
+        "endLine": 978,
+        "endChar": 77
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89d2fc6c_eea19b2f",
         "filename": "pc/jsep_transport_controller.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0118ee_8543561a",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T15:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89d2fc6c_eea19b2f",
+      "range": {
+        "startLine": 982,
+        "startChar": 72,
+        "endLine": 982,
+        "endChar": 76
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -92,6 +140,30 @@
       "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c658d35f_aa5a9673",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T15:29:20Z",
+      "side": 1,
+      "message": "Done. On the caller(offerer), it will return the same offer on repeated offers for consistency with existing codebase.",
+      "parentUuid": "7729d1f9_66cda8df",
+      "range": {
+        "startLine": 1499,
+        "startChar": 4,
+        "endLine": 1501,
+        "endChar": 25
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -165,6 +237,24 @@
     },
     {
       "key": {
+        "uuid": "2c030025_68221b2c",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1521,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T15:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8fae27f_0839ac6d",
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea773742_ed071162",
         "filename": "pc/jsep_transport_controller.h",
         "patchSetId": 10
@@ -209,6 +299,30 @@
       "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87eba34b_7927eac0",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-01T15:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cee68864_b10080fb",
+      "range": {
+        "startLine": 399,
+        "startChar": 2,
+        "endLine": 403,
+        "endChar": 45
+      },
+      "revId": "1eb9b683096e5c5d4cfa957f284460e6450ba9d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

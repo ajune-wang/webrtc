@@ -67,6 +67,7 @@ std::string AudioReceiveStream::Config::ToString() const {
 namespace internal {
 namespace {
 std::unique_ptr<voe::ChannelReceiveInterface> CreateChannelReceive(
+    Clock* clock,
     webrtc::AudioState* audio_state,
     ProcessThread* module_process_thread,
     const webrtc::AudioReceiveStream::Config& config,
@@ -75,7 +76,7 @@ std::unique_ptr<voe::ChannelReceiveInterface> CreateChannelReceive(
   internal::AudioState* internal_audio_state =
       static_cast<internal::AudioState*>(audio_state);
   return voe::CreateChannelReceive(
-      module_process_thread, internal_audio_state->audio_device_module(),
+      clock, module_process_thread, internal_audio_state->audio_device_module(),
       config.media_transport, config.rtcp_send_transport, event_log,
       config.rtp.remote_ssrc, config.jitter_buffer_max_packets,
       config.jitter_buffer_fast_accelerate, config.jitter_buffer_min_delay_ms,
@@ -85,6 +86,7 @@ std::unique_ptr<voe::ChannelReceiveInterface> CreateChannelReceive(
 }  // namespace
 
 AudioReceiveStream::AudioReceiveStream(
+    Clock* clock,
     RtpStreamReceiverControllerInterface* receiver_controller,
     PacketRouter* packet_router,
     ProcessThread* module_process_thread,
@@ -96,7 +98,8 @@ AudioReceiveStream::AudioReceiveStream(
                          config,
                          audio_state,
                          event_log,
-                         CreateChannelReceive(audio_state.get(),
+                         CreateChannelReceive(clock,
+                                              audio_state.get(),
                                               module_process_thread,
                                               config,
                                               event_log)) {}

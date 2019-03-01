@@ -21,6 +21,7 @@
 #include "call/syncable.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/thread_checker.h"
+#include "system_wrappers/include/clock.h"
 
 namespace webrtc {
 class PacketRouter;
@@ -41,7 +42,8 @@ class AudioReceiveStream final : public webrtc::AudioReceiveStream,
                                  public AudioMixer::Source,
                                  public Syncable {
  public:
-  AudioReceiveStream(RtpStreamReceiverControllerInterface* receiver_controller,
+  AudioReceiveStream(Clock* clock,
+                     RtpStreamReceiverControllerInterface* receiver_controller,
                      PacketRouter* packet_router,
                      ProcessThread* module_process_thread,
                      const webrtc::AudioReceiveStream::Config& config,

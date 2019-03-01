@@ -25,14 +25,9 @@
 #include "rtc_base/thread_annotations.h"
 
 namespace rtc {
-
-// TODO(danilchap): Remove the alias when all of webrtc is updated to use
-// webrtc::QueuedTask directly.
-using ::webrtc::QueuedTask;
-
 // Simple implementation of QueuedTask for use with rtc::Bind and lambdas.
 template <class Closure>
-class ClosureTask : public QueuedTask {
+class ClosureTask : public webrtc::QueuedTask {
  public:
   explicit ClosureTask(Closure&& closure)
       : closure_(std::forward<Closure>(closure)) {}
@@ -67,14 +62,14 @@ class ClosureTaskWithCleanup : public ClosureTask<Closure> {
 // to methods that support std::unique_ptr<QueuedTask> but not template
 // based parameters.
 template <class Closure>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure) {
+std::unique_ptr<webrtc::QueuedTask> NewClosure(Closure&& closure) {
   return absl::make_unique<ClosureTask<Closure>>(
       std::forward<Closure>(closure));
 }
 
 template <class Closure, class Cleanup>
-static std::unique_ptr<QueuedTask> NewClosure(Closure&& closure,
-                                              Cleanup&& cleanup) {
+std::unique_ptr<webrtc::QueuedTask> NewClosure(Closure&& closure,
+                                               Cleanup&& cleanup) {
   return absl::make_unique<ClosureTaskWithCleanup<Closure, Cleanup>>(
       std::forward<Closure>(closure), std::forward<Cleanup>(cleanup));
 }
@@ -162,14 +157,15 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // TODO(tommi): For better debuggability, implement RTC_FROM_HERE.
 
   // Ownership of the task is passed to PostTask.
-  void PostTask(std::unique_ptr<QueuedTask> task);
+  void PostTask(std::unique_ptr<webrtc::QueuedTask> task);
 
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
   // been used up, can be off by as much as 15 millseconds (although 8 would be
   // more likely). This can be mitigated by limiting the use of delayed tasks.
-  void PostDelayedTask(std::unique_ptr<QueuedTask> task, uint32_t milliseconds);
+  void PostDelayedTask(std::unique_ptr<webrtc::QueuedTask> task,
+                       uint32_t milliseconds);
 
   // std::enable_if is used here to make sure that calls to PostTask() with
   // std::unique_ptr<SomeClassDerivedFromQueuedTask> would not end up being
@@ -177,7 +173,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   template <class Closure,
             typename std::enable_if<!std::is_convertible<
                 Closure,
-                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
+                std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
   void PostTask(Closure&& closure) {
     PostTask(NewClosure(std::forward<Closure>(closure)));
   }
@@ -186,7 +182,7 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   template <class Closure,
             typename std::enable_if<!std::is_convertible<
                 Closure,
-                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
+                std::unique_ptr<webrtc::QueuedTask>>::value>::type* = nullptr>
   void PostDelayedTask(Closure&& closure, uint32_t milliseconds) {
     PostDelayedTask(NewClosure(std::forward<Closure>(closure)), milliseconds);
   }

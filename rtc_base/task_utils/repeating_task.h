@@ -15,6 +15,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "api/task_queue/queued_task.h"
 #include "api/units/time_delta.h"
 #include "api/units/timestamp.h"
 #include "rtc_base/sequenced_task_checker.h"
@@ -26,7 +27,7 @@ namespace webrtc {
 class RepeatingTaskHandle;
 
 namespace webrtc_repeating_task_impl {
-class RepeatingTaskBase : public rtc::QueuedTask {
+class RepeatingTaskBase : public QueuedTask {
  public:
   RepeatingTaskBase(rtc::TaskQueue* task_queue, TimeDelta first_delay);
   ~RepeatingTaskBase() override;

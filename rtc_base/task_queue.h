@@ -24,6 +24,79 @@
 #include "rtc_base/system/rtc_export.h"
 #include "rtc_base/thread_annotations.h"
 
+namespace webrtc {
+namespace task_queue_impl {
+template <class Closure>
+class RepeatingTaskWrapper;
+
+template <class Closure>
+class RepeatingTaskWrapper<TimeDelta (Closure::*)(Timestamp) const>
+    : public QueuedRepeatingTask {
+ public:
+  explicit RepeatingTaskWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(at_time); }
+  typename std::remove_const<
+      typename std::remove_reference<Closure>::type>::type closure_;
+};
+
+template <class Closure>
+class RepeatingTaskWrapper<TimeDelta (Closure::*)(Timestamp)>
+    : public QueuedRepeatingTask {
+ public:
+  explicit RepeatingTaskWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(at_time); }
+  typename std::remove_const<
+      typename std::remove_reference<Closure>::type>::type closure_;
+};
+
+template <class Closure>
+class RepeatingTaskWrapper<TimeDelta (Closure::*)() const>
+    : public QueuedRepeatingTask {
+ public:
+  explicit RepeatingTaskWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(); }
+  typename std::remove_const<
+      typename std::remove_reference<Closure>::type>::type closure_;
+};
+
+template <class Closure>
+class RepeatingTaskWrapper<TimeDelta (Closure::*)()>
+    : public QueuedRepeatingTask {
+ public:
+  explicit RepeatingTaskWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(); }
+  typename std::remove_const<
+      typename std::remove_reference<Closure>::type>::type closure_;
+};
+
+}  // namespace task_queue_impl
+
+// Represents a repeating task that can be stopped. When it has been assigned a
+// task it is in the running stage. It's always ok to call Stop, but it will not
+// do anything in the non-running state.
+class RepeatingTaskHandle {
+ public:
+  RepeatingTaskHandle();
+  ~RepeatingTaskHandle();
+  RepeatingTaskHandle(RepeatingTaskHandle&& other);
+  RepeatingTaskHandle& operator=(RepeatingTaskHandle&& other);
+  RepeatingTaskHandle(const RepeatingTaskHandle&) = delete;
+  RepeatingTaskHandle& operator=(const RepeatingTaskHandle&) = delete;
+  // Stops the task, must be called from the same task runner it's running on.
+  void Stop();
+  // Indicates that this task is running and has not been stopped.
+  bool Running() const;
+
+ private:
+  friend class rtc::TaskQueue;
+  explicit RepeatingTaskHandle(TaskQueueBase::TaskHandleBase* handle);
+  TaskQueueBase::TaskHandleBase* handle_ = nullptr;
+};
+}  // namespace webrtc
 namespace rtc {
 
 // TODO(danilchap): Remove the alias when all of webrtc is updated to use
@@ -189,6 +262,35 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
                 std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
   void PostDelayedTask(Closure&& closure, uint32_t milliseconds) {
     PostDelayedTask(NewClosure(std::forward<Closure>(closure)), milliseconds);
+  }
+
+  // Posts a task to repeat |closure| on the underlying task queue.
+  // The task will be repeated with a delay indicated by the TimeDelta return
+  // value of |closure|. |closure| can optionally receive a Timestamp indicating
+  // the time when it's run.
+  template <class Closure>
+  webrtc::RepeatingTaskHandle Repeat(Closure&& closure) {
+    auto* rep_task = impl_->Repeat(
+        webrtc::TimeDelta::Zero(),
+        absl::WrapUnique(
+            new webrtc::task_queue_impl::RepeatingTaskWrapper<decltype(
+                &Closure::operator())>(std::forward<Closure>(closure))));
+    return webrtc::RepeatingTaskHandle(rep_task);
+  }
+
+  // Posts a task to repeat |closure| on the underlying task queue after the
+  // given |delay| has passed. The task will be repeated with a delay indicated
+  // by the TimeDelta return value of |closure|. |closure| can optionally
+  // receive a Timestamp indicating the time when it's run.
+  template <class Closure>
+  webrtc::RepeatingTaskHandle RepeatDelayed(webrtc::TimeDelta first_delay,
+                                            Closure&& closure) {
+    auto* rep_task = impl_->Repeat(
+        first_delay,
+        absl::WrapUnique(
+            new webrtc::task_queue_impl::RepeatingTaskWrapper<decltype(
+                &Closure::operator())>(std::forward<Closure>(closure))));
+    return webrtc::RepeatingTaskHandle(rep_task);
   }
 
  private:

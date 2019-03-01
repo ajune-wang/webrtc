@@ -91,7 +91,7 @@ QualityScaler::QualityScaler(AdaptationObserverInterface* observer,
     qp_smoother_low_.reset(new QpSmoother(config_.alpha_low));
   }
   RTC_DCHECK(observer_ != nullptr);
-  check_qp_task_ = RepeatingTaskHandle::DelayedStart(
+  check_qp_task_ = rtc::TaskQueue::Current()->RepeatDelayed(
       TimeDelta::ms(GetSamplingPeriodMs()), [this]() {
         CheckQp();
         return TimeDelta::ms(GetSamplingPeriodMs());

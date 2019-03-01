@@ -11,6 +11,37 @@
 
 #include "api/task_queue/global_task_queue_factory.h"
 #include "api/task_queue/task_queue_base.h"
+namespace webrtc {
+RepeatingTaskHandle::RepeatingTaskHandle(TaskQueueBase::TaskHandleBase* handle)
+    : handle_(handle) {}
+
+RepeatingTaskHandle::RepeatingTaskHandle() {}
+
+RepeatingTaskHandle::~RepeatingTaskHandle() {}
+
+RepeatingTaskHandle::RepeatingTaskHandle(RepeatingTaskHandle&& other)
+    : handle_(other.handle_) {
+  other.handle_ = nullptr;
+}
+
+RepeatingTaskHandle& RepeatingTaskHandle::operator=(
+    RepeatingTaskHandle&& other) {
+  handle_ = other.handle_;
+  other.handle_ = nullptr;
+  return *this;
+}
+
+void RepeatingTaskHandle::Stop() {
+  if (handle_) {
+    handle_->Stop();
+    handle_ = nullptr;
+  }
+}
+
+bool RepeatingTaskHandle::Running() const {
+  return handle_ != nullptr;
+}
+}  // namespace webrtc
 
 namespace rtc {
 

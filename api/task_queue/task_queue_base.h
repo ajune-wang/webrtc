@@ -21,13 +21,24 @@ class TaskQueue;
 }  // namespace rtc
 
 namespace webrtc {
-
 // Asynchronously executes tasks in a way that guarantees that they're executed
 // in FIFO order and that tasks never overlap. Tasks may always execute on the
 // same worker thread and they may not. To DCHECK that tasks are executing on a
 // known task queue, use IsCurrent().
 class TaskQueueBase {
  public:
+  // Represents a task that can be stopped.
+  class TaskHandleBase {
+   public:
+    // Stops the task, called at most once. Must be called on the task queue
+    // that owns the task that is being stopped.
+    virtual void Stop() = 0;
+
+   protected:
+    // Destroyed by the owning task queue after being stopped or on destruction
+    // of the task queue.
+    virtual ~TaskHandleBase() = default;
+  };
   // Starts destruction of the task queue.
   // On return ensures no task are running and no new tasks are able to start
   // on the task queue.
@@ -55,6 +66,11 @@ class TaskQueueBase {
   // been used up, can be off by as much as 15 millseconds.
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
+
+  // Repeat the task. The returned pointer will be destroyed after its stop
+  // function has been called or when the task queue is destroyed.
+  virtual TaskHandleBase* Repeat(TimeDelta initial_delay,
+                                 std::unique_ptr<QueuedRepeatingTask> task);
 
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.

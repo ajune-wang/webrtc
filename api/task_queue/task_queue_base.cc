@@ -9,9 +9,14 @@
  */
 #include "api/task_queue/task_queue_base.h"
 
+#include <algorithm>
+#include <utility>
+
 #include "absl/base/attributes.h"
 #include "absl/base/config.h"
+#include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/time_utils.h"
 
 #if defined(ABSL_HAVE_THREAD_LOCAL)
 
@@ -20,7 +25,70 @@ namespace {
 
 ABSL_CONST_INIT thread_local TaskQueueBase* current = nullptr;
 
+class RepeatingTaskWrapper : public QueuedTask,
+                             public TaskQueueBase::TaskHandleBase {
+ public:
+  RepeatingTaskWrapper(TaskQueueBase* task_queue,
+                       TimeDelta initial_delay,
+                       std::unique_ptr<QueuedRepeatingTask> task)
+      : task_queue_(task_queue),
+        next_run_time_(Timestamp::us(rtc::TimeMicros()) + initial_delay),
+        task_(std::move(task)) {}
+
+  bool Run() override {
+    // Return true to tell the TaskQueue to destruct this object.
+    if (next_run_time_.IsPlusInfinity())
+      return true;
+
+    TimeDelta delay = task_->Run(Timestamp::us(rtc::TimeMicros()));
+
+    // The closure might have stopped this task, in which case we return true to
+    // destruct this object.
+    if (next_run_time_.IsPlusInfinity())
+      return true;
+
+    // We do not allow the task to destroy itself since that would invalidate
+    // any existing references to the task.
+    RTC_DCHECK(delay.IsFinite());
+
+    TimeDelta lost_time = Timestamp::us(rtc::TimeMicros()) - next_run_time_;
+    next_run_time_ += delay;
+    delay -= lost_time;
+    delay = std::max(delay, TimeDelta::Zero());
+
+    task_queue_->PostDelayedTask(absl::WrapUnique(this), delay.ms());
+
+    // Return false to tell the TaskQueue to not destruct this object since we
+    // have taken ownership with absl::WrapUnique.
+    return false;
+  }
+
+  void Stop() override {
+    RTC_DCHECK(task_queue_->IsCurrent());
+    RTC_DCHECK(next_run_time_.IsFinite());
+    next_run_time_ = Timestamp::PlusInfinity();
+  }
+
+ private:
+  TaskQueueBase* const task_queue_;
+  Timestamp next_run_time_;
+  std::unique_ptr<QueuedRepeatingTask> task_;
+};
 }  // namespace
+
+TaskQueueBase::TaskHandleBase* TaskQueueBase::Repeat(
+    TimeDelta initial_delay,
+    std::unique_ptr<QueuedRepeatingTask> task) {
+  auto handle = absl::make_unique<RepeatingTaskWrapper>(this, initial_delay,
+                                                        std::move(task));
+  TaskHandleBase* handle_ptr = handle.get();
+  if (initial_delay == TimeDelta::Zero()) {
+    PostTask(std::move(handle));
+  } else {
+    PostDelayedTask(std::move(handle), initial_delay.ms());
+  }
+  return handle_ptr;
+}
 
 TaskQueueBase* TaskQueueBase::Current() {
   return current;

@@ -19,7 +19,7 @@
 #include "rtc_base/experiments/quality_scaling_experiment.h"
 #include "rtc_base/numerics/moving_average.h"
 #include "rtc_base/sequenced_task_checker.h"
-#include "rtc_base/task_utils/repeating_task.h"
+#include "rtc_base/task_queue.h"
 
 namespace webrtc {
 

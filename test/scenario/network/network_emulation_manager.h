@@ -47,6 +47,25 @@ struct EndpointConfig {
   absl::optional<rtc::IPAddress> ip;
 };
 
+class NetworkControllerInterface {
+ public:
+  virtual rtc::Thread* network_thread() const = 0;
+  virtual rtc::NetwrokManager* network_manager() const = 0;
+}
+
+class EmulatedNetworkController : public NetworkControllerInterface {
+ public:
+  EmulatedNetworkController(std::vector<EndpointNode*> endpoints);
+
+  rtc::Thread* network_thread() const override;
+  rtc::NetwrokManager* network_manager() const override;
+
+  // Provides ability to dynamically change set of endpoint nodes for this
+  // controller.
+  void AddEndpointNode(EndpointNode* endpoint);
+  void RemoveEndpointNode(EndpointNode* endpoint);
+}
+
 class NetworkEmulationManager {
  public:
   NetworkEmulationManager();
@@ -72,6 +91,7 @@ class NetworkEmulationManager {
       TrafficRoute* traffic_route,
       PulsedPeaksConfig config);
 
+  NetworkControllerInterface* CreateNetworkController(std::vector<EndpointNode*> endpoints);
   rtc::Thread* CreateNetworkThread(std::vector<EndpointNode*> endpoints);
 
  private:

@@ -2,6 +2,138 @@
   "comments": [
     {
       "key": {
+        "uuid": "58d65124_7564acf9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "Nit:  offerer",
+      "range": {
+        "startLine": 20,
+        "startChar": 26,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bd6b78b_0bb6236d",
+        "filename": "api/test/fake_media_transport.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "Should this overload call Connect() before returning?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 38
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a4ab151_766ede16",
+        "filename": "pc/jsep_transport_controller.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1503,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "Now that we have this, do we still need media_transport_created_once_?\n\nThis is an optional, right?  So we can just do:\n\nif (media_transport_offer_settings_) {\n  return media_transport_offer_settings_;\n}",
+      "range": {
+        "startLine": 1503,
+        "startChar": 0,
+        "endLine": 1503,
+        "endChar": 43
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43994893_757d8b36",
+        "filename": "pc/jsep_transport_controller.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "I\u0027m not particularly enthusiastic about is having to create and store the media transport here before moving it into the JsepTransport.\n\nIt feels like we\u0027re creating a circular dependency:  we need a media transport to generate a local offer, and we need a local offer before we create everything that goes around the media transport (eg. JsepTransport).\n\nUnfortunately, I\u0027m not sure I have a better idea.  We\u0027d either need to construct the whole JsepTransport before generating the offer (which isn\u0027t how this works) or generate the media transport parameters separately and pass them into media transport (which is not how that works).",
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33be3c1e_f77a43e9",
+        "filename": "pc/jsep_transport_controller_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "Callee",
+      "range": {
+        "startLine": 760,
+        "startChar": 56,
+        "endLine": 760,
+        "endChar": 60
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "529bb295_df2bd7fe",
+        "filename": "pc/peer_connection_data_channel_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-01T18:50:09Z",
+      "side": 1,
+      "message": "And if an app tries this?  What do we expect to happen?\n\nIt would be better to return a useful error, if that\u0027s possible.",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 68
+      },
+      "revId": "e75ffce030704db24cadd3f180d5532481dec6cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b42a8fd5_0201f7a0",
         "filename": "pc/webrtc_sdp_unittest.cc",
         "patchSetId": 12

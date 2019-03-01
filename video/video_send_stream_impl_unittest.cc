@@ -19,7 +19,7 @@
 #include "modules/video_coding/fec_controller_default.h"
 #include "rtc_base/experiments/alr_experiment.h"
 #include "rtc_base/fake_clock.h"
-#include "rtc_base/task_queue_for_test.h"
+#include "rtc_base/task_utils/send_task.h"
 #include "test/field_trial.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
@@ -141,7 +141,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
   RtcEventLogNullImpl event_log_;
   VideoSendStream::Config config_;
   SendDelayStats send_delay_stats_;
-  rtc::test::TaskQueueForTest test_queue_;
+  rtc::TaskQueue test_queue_;
   std::unique_ptr<ProcessThread> process_thread_;
   CallStats call_stats_;
   SendStatisticsProxy stats_proxy_;
@@ -150,7 +150,7 @@ class VideoSendStreamImplTest : public ::testing::Test {
 };
 
 TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
@@ -174,7 +174,7 @@ TEST_F(VideoSendStreamImplTest, RegistersAsBitrateObserverOnStart) {
 }
 
 TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChange) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
@@ -235,7 +235,7 @@ TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChange) {
 }
 
 TEST_F(VideoSendStreamImplTest, UpdatesObserverOnConfigurationChangeWithAlr) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     config_.track_id = "test";
     const bool kSuspend = false;
     config_.suspend_below_min_bitrate = kSuspend;
@@ -303,7 +303,7 @@ TEST_F(VideoSendStreamImplTest,
   test::ScopedFieldTrials hysteresis_experiment(
       "WebRTC-VideoRateControl/video_hysteresis:1.25/");
 
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
         VideoEncoderConfig::ContentType::kRealtimeVideo);
@@ -358,7 +358,7 @@ TEST_F(VideoSendStreamImplTest,
 TEST_F(VideoSendStreamImplTest, SetsScreensharePacingFactorWithFeedback) {
   test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
 
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     constexpr int kId = 1;
     config_.rtp.extensions.emplace_back(
         RtpExtension::kTransportSequenceNumberUri, kId);
@@ -375,7 +375,7 @@ TEST_F(VideoSendStreamImplTest, SetsScreensharePacingFactorWithFeedback) {
 
 TEST_F(VideoSendStreamImplTest, DoesNotSetPacingFactorWithoutFeedback) {
   test::ScopedFieldTrials alr_experiment(GetAlrProbingExperimentString());
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     EXPECT_CALL(transport_controller_, SetPacingFactor(_)).Times(0);
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
@@ -386,7 +386,7 @@ TEST_F(VideoSendStreamImplTest, DoesNotSetPacingFactorWithoutFeedback) {
 }
 
 TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationWhenEnabled) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     EXPECT_CALL(transport_controller_, SetPacingFactor(_)).Times(0);
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
@@ -430,7 +430,7 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationWhenEnabled) {
 }
 
 TEST_F(VideoSendStreamImplTest, ThrottlesVideoBitrateAllocationWhenTooSimilar) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
         VideoEncoderConfig::ContentType::kScreen);
@@ -484,7 +484,7 @@ TEST_F(VideoSendStreamImplTest, ThrottlesVideoBitrateAllocationWhenTooSimilar) {
 }
 
 TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationOnLayerChange) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     auto vss_impl = CreateVideoSendStreamImpl(
         kDefaultInitialBitrateBps, kDefaultBitratePriority,
         VideoEncoderConfig::ContentType::kScreen);
@@ -525,7 +525,7 @@ TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationOnLayerChange) {
 }
 
 TEST_F(VideoSendStreamImplTest, ForwardsVideoBitrateAllocationAfterTimeout) {
-  test_queue_.SendTask([this] {
+  SendTask(&test_queue_, [this] {
     rtc::ScopedFakeClock fake_clock;
     fake_clock.SetTimeMicros(clock_.TimeInMicroseconds());
 

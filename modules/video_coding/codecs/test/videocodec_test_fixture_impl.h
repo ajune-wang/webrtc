@@ -15,6 +15,7 @@
 #include <string>
 #include <vector>
 
+#include "api/task_queue/task_queue_base.h"
 #include "api/test/videocodec_test_fixture.h"
 #include "api/video_codecs/video_decoder_factory.h"
 #include "api/video_codecs/video_encoder_factory.h"
@@ -23,7 +24,6 @@
 #include "modules/video_coding/codecs/test/videocodec_test_stats_impl.h"
 #include "modules/video_coding/codecs/test/videoprocessor.h"
 #include "modules/video_coding/utility/ivf_file_writer.h"
-#include "rtc_base/task_queue_for_test.h"
 #include "test/testsupport/frame_reader.h"
 #include "test/testsupport/frame_writer.h"
 
@@ -62,10 +62,10 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
 
   void CreateEncoderAndDecoder();
   void DestroyEncoderAndDecoder();
-  void SetUpAndInitObjects(rtc::test::TaskQueueForTest* task_queue,
+  void SetUpAndInitObjects(TaskQueueBase* task_queue,
                            int initial_bitrate_kbps,
                            int initial_framerate_fps);
-  void ReleaseAndCloseObjects(rtc::test::TaskQueueForTest* task_queue);
+  void ReleaseAndCloseObjects(TaskQueueBase* task_queue);
 
   void ProcessAllFrames(rtc::TaskQueue* task_queue,
                         const std::vector<RateProfile>& rate_profiles);
@@ -83,7 +83,7 @@ class VideoCodecTestFixtureImpl : public VideoCodecTestFixture {
       size_t target_bitrate_kbps,
       float input_framerate_fps);
 
-  void PrintSettings(rtc::test::TaskQueueForTest* task_queue) const;
+  void PrintSettings(TaskQueueBase* task_queue) const;
 
   // Codecs.
   const std::unique_ptr<VideoEncoderFactory> encoder_factory_;

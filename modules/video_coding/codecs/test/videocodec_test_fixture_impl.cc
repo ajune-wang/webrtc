@@ -40,6 +40,7 @@
 #include "rtc_base/cpu_time.h"
 #include "rtc_base/event.h"
 #include "rtc_base/strings/string_builder.h"
+#include "rtc_base/task_utils/send_task.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/cpu_info.h"
 #include "system_wrappers/include/sleep.h"
@@ -403,14 +404,14 @@ void VideoCodecTestFixtureImpl::RunTest(
 
   // To emulate operation on a production VideoStreamEncoder, we call the
   // codecs on a task queue.
-  rtc::test::TaskQueueForTest task_queue("VidProc TQ");
+  rtc::TaskQueue task_queue("VidProc TQ");
 
-  SetUpAndInitObjects(&task_queue,
+  SetUpAndInitObjects(task_queue.Get(),
                       static_cast<const int>(rate_profiles[0].target_kbps),
                       static_cast<const int>(rate_profiles[0].input_fps));
-  PrintSettings(&task_queue);
+  PrintSettings(task_queue.Get());
   ProcessAllFrames(&task_queue, rate_profiles);
-  ReleaseAndCloseObjects(&task_queue);
+  ReleaseAndCloseObjects(task_queue.Get());
 
   AnalyzeAllFrames(rate_profiles, rc_thresholds, quality_thresholds,
                    bs_thresholds);
@@ -594,10 +595,9 @@ VideoCodecTestStats& VideoCodecTestFixtureImpl::GetStats() {
   return stats_;
 }
 
-void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
-    rtc::test::TaskQueueForTest* task_queue,
-    int initial_bitrate_kbps,
-    int initial_framerate_fps) {
+void VideoCodecTestFixtureImpl::SetUpAndInitObjects(TaskQueueBase* task_queue,
+                                                    int initial_bitrate_kbps,
+                                                    int initial_framerate_fps) {
   config_.codec_settings.minBitrate = 0;
   config_.codec_settings.startBitrate = initial_bitrate_kbps;
   config_.codec_settings.maxFramerate = initial_framerate_fps;
@@ -640,7 +640,7 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
 
   cpu_process_time_.reset(new CpuProcessTime(config_));
 
-  task_queue->SendTask([this]() {
+  SendTask(task_queue, [this]() {
     CreateEncoderAndDecoder();
     processor_ = absl::make_unique<VideoProcessor>(
         encoder_.get(), &decoders_, source_frame_reader_.get(), config_,
@@ -651,8 +651,8 @@ void VideoCodecTestFixtureImpl::SetUpAndInitObjects(
 }
 
 void VideoCodecTestFixtureImpl::ReleaseAndCloseObjects(
-    rtc::test::TaskQueueForTest* task_queue) {
-  task_queue->SendTask([this]() {
+    TaskQueueBase* task_queue) {
+  SendTask(task_queue, [this]() {
     processor_.reset();
     // The VideoProcessor must be destroyed before the codecs.
     DestroyEncoderAndDecoder();
@@ -671,15 +671,14 @@ void VideoCodecTestFixtureImpl::ReleaseAndCloseObjects(
   decoded_frame_writers_.clear();
 }
 
-void VideoCodecTestFixtureImpl::PrintSettings(
-    rtc::test::TaskQueueForTest* task_queue) const {
+void VideoCodecTestFixtureImpl::PrintSettings(TaskQueueBase* task_queue) const {
   printf("==> Config\n");
   printf("%s\n", config_.ToString().c_str());
 
   printf("==> Codec names\n");
   std::string encoder_name;
   std::string decoder_name;
-  task_queue->SendTask([this, &encoder_name, &decoder_name] {
+  SendTask(task_queue, [this, &encoder_name, &decoder_name] {
     encoder_name = encoder_->GetEncoderInfo().implementation_name;
     decoder_name = decoders_.at(0)->ImplementationName();
   });

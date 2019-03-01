@@ -22,7 +22,7 @@
 #include "rtc_base/bind.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/strings/string_builder.h"
-#include "rtc_base/task_queue_for_test.h"
+#include "rtc_base/task_utils/send_task.h"
 #include "test/gmock.h"
 #include "test/gtest.h"
 
@@ -372,9 +372,9 @@ TEST(AudioMixer, RampedOutSourcesShouldNotBeMarkedMixed) {
 // This test checks that the initialization and participant addition
 // can be done on a different thread.
 TEST(AudioMixer, ConstructFromOtherThread) {
-  rtc::test::TaskQueueForTest init_queue("init");
+  rtc::TaskQueue init_queue("init");
   rtc::scoped_refptr<AudioMixer> mixer;
-  init_queue.SendTask([&mixer]() { mixer = AudioMixerImpl::Create(); });
+  SendTask(&init_queue, [&mixer] { mixer = AudioMixerImpl::Create(); });
 
   MockMixerAudioSource participant;
   EXPECT_CALL(participant, PreferredSampleRate())
@@ -382,9 +382,9 @@ TEST(AudioMixer, ConstructFromOtherThread) {
 
   ResetFrame(participant.fake_frame());
 
-  rtc::test::TaskQueueForTest participant_queue("participant");
-  participant_queue.SendTask(
-      [&mixer, &participant]() { mixer->AddSource(&participant); });
+  rtc::TaskQueue participant_queue("participant");
+  SendTask(&participant_queue,
+           [&mixer, &participant] { mixer->AddSource(&participant); });
 
   EXPECT_CALL(participant, GetAudioFrameWithInfo(kDefaultSampleRateHz, _))
       .Times(Exactly(1));

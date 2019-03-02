@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6f66790c_f6265321",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-02T09:37:47Z",
+      "side": 1,
+      "message": "There\u0027s also the point that making blocking calls *to* a TQ and making blocking calls *from* a TQ are two different things. IIUC your immediate problem was with the latter, Sebastian?",
+      "parentUuid": "512fe1c8_7ab78a34",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

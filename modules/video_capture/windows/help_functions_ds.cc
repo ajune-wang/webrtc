@@ -101,5 +101,27 @@ BOOL PinMatchesCategory(IPin* pPin, REFGUID Category) {
   }
   return bFound;
 }
+
+void FreeMediaType(AM_MEDIA_TYPE* media_type) {
+  if (!media_type)
+    return;
+  if (media_type->cbFormat != 0) {
+    CoTaskMemFree(media_type->pbFormat);
+    media_type->cbFormat = 0;
+    media_type->pbFormat = nullptr;
+  }
+  if (media_type->pUnk) {
+    media_type->pUnk->Release();
+    media_type->pUnk = nullptr;
+  }
+}
+
+void DeallocateMediaType(AM_MEDIA_TYPE* media_type) {
+  if (!media_type)
+    return;
+  FreeMediaType(media_type);
+  CoTaskMemFree(media_type);
+}
+
 }  // namespace videocapturemodule
 }  // namespace webrtc

@@ -51,6 +51,10 @@ LONGLONG GetMaxOfFrameArray(LONGLONG* maxFps, long size);
 IPin* GetInputPin(IBaseFilter* filter);
 IPin* GetOutputPin(IBaseFilter* filter, REFGUID Category);
 BOOL PinMatchesCategory(IPin* pPin, REFGUID Category);
+void FreeMediaType(AM_MEDIA_TYPE* media_type);
+void DeallocateMediaType(AM_MEDIA_TYPE* media_type);
+HRESULT CopyMediaType(AM_MEDIA_TYPE* target, const AM_MEDIA_TYPE* source);
+wchar_t* DuplicateWideString(const wchar_t* str);
 
 }  // namespace videocapturemodule
 }  // namespace webrtc

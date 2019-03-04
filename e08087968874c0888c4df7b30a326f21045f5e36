@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42f4b942_4737494d",
+        "filename": "api/audio/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T10:29:06Z",
+      "side": 1,
+      "message": "The \":audio_processing\" part is redundant, \"../../modules/audio_processing\" is enough.\n\nWe should enforce it somehow at pre-submit time (I also forget about this rule sometimes) but we usually omit the target name if it is identical to the package name (https://cs.chromium.org/search/?q\u003d%22modules/audio_processing%5C%22%22+f:BUILD.gn\u0026sq\u003dpackage:chromium\u0026type\u003dcs).",
+      "range": {
+        "startLine": 77,
+        "startChar": 35,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "e08087968874c0888c4df7b30a326f21045f5e36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e60c82_9a4b6d35",
+        "filename": "modules/audio_processing/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T10:29:06Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 260,
+        "startChar": 23,
+        "endLine": 260,
+        "endChar": 36
+      },
+      "revId": "e08087968874c0888c4df7b30a326f21045f5e36",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

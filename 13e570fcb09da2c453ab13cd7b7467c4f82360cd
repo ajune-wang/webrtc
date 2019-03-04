@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69fcd1c1_7e4193b3",
+        "filename": "modules/audio_processing/aec3/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T10:29:06Z",
+      "side": 0,
+      "message": "Is it really needed to remove this target and merge it with \"modules/audio_processing\" in order to achieve the goal of making \"AEC3 the default desktop AEC option in WebRTC\"?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "13e570fcb09da2c453ab13cd7b7467c4f82360cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "1decf24f_5df4e5d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T08:19:03Z",
+      "side": 1,
+      "message": "My issue is with making a blocking call to a TQ, but from the same thread as the TQ. In practice, the solution would also allow posting from a TQ, but that is not something I expect that we\u0027ll use.",
+      "parentUuid": "6f66790c_f6265321",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

@@ -15,14 +15,18 @@
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
 #include "api/create_peerconnection_factory.h"
+#include "api/jsep_session_description.h"
 #include "api/rtp_transceiver_interface.h"
+#include "api/uma_metrics.h"
 #include "api/video_codecs/builtin_video_decoder_factory.h"
 #include "api/video_codecs/builtin_video_encoder_factory.h"
 #include "pc/peer_connection.h"
 #include "pc/peer_connection_wrapper.h"
 #include "pc/test/fake_audio_capture_module.h"
 #include "pc/test/mock_peer_connection_observers.h"
+#include "pc/webrtc_sdp.h"
 #include "rtc_base/gunit.h"
+#include "system_wrappers/include/metrics.h"
 #include "test/gmock.h"
 
 using ::testing::Contains;
@@ -71,6 +75,25 @@ std::vector<SimulcastLayer> CreateLayers(const std::vector<std::string>& rids,
                                          bool active) {
   return CreateLayers(rids, std::vector<bool>(rids.size(), active));
 }
+
+std::vector<SimulcastLayer> CreateLayers(int num_layers, bool active) {
+  rtc::UniqueStringGenerator rid_generator;
+  std::vector<std::string> rids;
+  for (int i = 0; i < num_layers; ++i) {
+    rids.push_back(rid_generator());
+  }
+  return CreateLayers(rids, active);
+}
+
+// TODO(amithi): consider moving this to common test infrastructure.
+struct ScopedTestErrorChecker {
+  ScopedTestErrorChecker() : had_errors_before_(CurrentStatus()) {}
+  operator bool() const { return had_errors_before_ || !CurrentStatus(); }
+
+ private:
+  bool CurrentStatus() const { return ::testing::Test::HasFailure(); }
+  bool had_errors_before_;
+};
 
 }  // namespace
 namespace webrtc {
@@ -166,7 +189,7 @@ class PeerConnectionSimulcastTests : public testing::Test {
   bool ValidateTransceiverParameters(
       rtc::scoped_refptr<RtpTransceiverInterface> transceiver,
       const std::vector<SimulcastLayer>& layers) {
-    bool errors_before = ::testing::Test::HasFailure();
+    ScopedTestErrorChecker error;
     auto parameters = transceiver->sender()->GetParameters();
     std::vector<SimulcastLayer> result_layers;
     absl::c_transform(parameters.encodings, std::back_inserter(result_layers),
@@ -174,13 +197,19 @@ class PeerConnectionSimulcastTests : public testing::Test {
                         return SimulcastLayer(encoding.rid, !encoding.active);
                       });
     EXPECT_THAT(result_layers, ElementsAreArray(layers));
-    // If there were errors before this code ran, we cannot tell if this
-    // validation succeeded or not.
-    return errors_before || !::testing::Test::HasFailure();
+    return error;
   }
 
  private:
   rtc::scoped_refptr<PeerConnectionFactoryInterface> pc_factory_;
+};
+
+// This class is used to test the metrics emitted for simulcast.
+class PeerConnectionSimulcastMetricsTests
+    : public PeerConnectionSimulcastTests,
+      public ::testing::WithParamInterface<int> {
+ protected:
+  PeerConnectionSimulcastMetricsTests() { webrtc::metrics::Reset(); }
 };
 
 // Validates that RIDs are supported arguments when adding a transceiver.
@@ -461,6 +490,8 @@ TEST_F(PeerConnectionSimulcastTests,
   EXPECT_TRUE(ValidateTransceiverParameters(transceiver, expected_layers));
 }
 
+// Tests that simulcast is disabled if the RID extension is not negotiated
+// regardless of if the RIDs and simulcast attribute were negotiated properly.
 TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
   auto local = CreatePeerConnectionWrapper();
   auto remote = CreatePeerConnectionWrapper();
@@ -494,5 +525,189 @@ TEST_F(PeerConnectionSimulcastTests, NegotiationDoesNotHaveRidExtension) {
   EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &err)) << err;
   EXPECT_TRUE(ValidateTransceiverParameters(transceiver, expected_layers));
 }
+
+// Validates that the simulcast API metrics have the provided values.
+// |local| indicates if we should check the local or remote description metrics.
+bool ValidateSimulcastApiMetrics(bool local,
+                                 int num_invocations,
+                                 int none,
+                                 int legacy,
+                                 int spec) {
+  ScopedTestErrorChecker error;
+  const char* name =
+      local ? "WebRTC.PeerConnection.Simulcast.ApplyLocalDescription"
+            : "WebRTC.PeerConnection.Simulcast.ApplyRemoteDescription";
+  EXPECT_EQ(num_invocations, metrics::NumSamples(name));
+  EXPECT_EQ(none, metrics::NumEvents(name, kSimulcastApiVersionNone));
+  EXPECT_EQ(legacy, metrics::NumEvents(name, kSimulcastApiVersionLegacy));
+  EXPECT_EQ(spec, metrics::NumEvents(name, kSimulcastApiVersionSpecCompliant));
+  return error;
+}
+
+// Checks the logged metrics when simulcast is not used.
+TEST_F(PeerConnectionSimulcastMetricsTests, NoSimulcastUsageIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers(0, true);
+  AddTransceiver(local.get(), layers);
+  ExchangeOfferAnswer(local.get(), remote.get(), layers);
+
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 2, 0, 0));
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 2, 0, 0));
+}
+
+// Checks the logged metrics when spec-compliant simulcast is used.
+TEST_F(PeerConnectionSimulcastMetricsTests, SpecComplianceIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers(3, true);
+  AddTransceiver(local.get(), layers);
+  ExchangeOfferAnswer(local.get(), remote.get(), layers);
+
+  // Expecting 2 invocations of each, because we have 2 peer connections.
+  // Only the local peer connection will be aware of simulcast.
+  // The remote peer connection will think that there is no simulcast.
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 1, 0, 1));
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 1, 0, 1));
+}
+
+// Checks the logged metrics when and incoming request to send spec-compliant
+// simulcast is received from the remote party.
+TEST_F(PeerConnectionSimulcastMetricsTests, IncomingSimulcastIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers(3, true);
+  AddTransceiver(local.get(), layers);
+  auto offer = local->CreateOfferAndSetAsLocal();
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 1, 0, 0, 1));
+
+  // Remove simulcast as a sender and set it up as a receiver.
+  RemoveSimulcast(offer.get());
+  AddRequestToReceiveSimulcast(layers, offer.get());
+  std::string error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 1, 0, 0, 1));
+
+  auto transceiver = remote->pc()->GetTransceivers()[0];
+  transceiver->SetDirection(RtpTransceiverDirection::kSendRecv);
+  EXPECT_TRUE(remote->CreateAnswerAndSetAsLocal());
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 0, 0, 2));
+}
+
+// Checks that a spec-compliant simulcast offer that is rejected is logged.
+TEST_F(PeerConnectionSimulcastMetricsTests, RejectedSimulcastIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers({"1", "2", "3"}, true);
+  AddTransceiver(local.get(), layers);
+  auto offer = local->CreateOfferAndSetAsLocal();
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 1, 0, 0, 1));
+  RemoveSimulcast(offer.get());
+  std::string error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 1, 1, 0, 0));
+
+  auto answer = remote->CreateAnswerAndSetAsLocal();
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 1, 0, 1));
+
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 2, 0, 0));
+}
+
+// Checks the logged metrics when legacy munging simulcast technique is used.
+TEST_F(PeerConnectionSimulcastMetricsTests, LegacySimulcastIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers(0, true);
+  AddTransceiver(local.get(), layers);
+  auto offer = local->CreateOffer();
+  const JsepSessionDescription* jsep =
+      static_cast<const JsepSessionDescription*>(offer.get());
+  // Munge the SDP to set up legacy simulcast.
+  const std::string end_line = "\r\n";
+  rtc::StringBuilder sdp(SdpSerialize(*jsep));
+  sdp << "a=ssrc:1111 cname:slimshady" << end_line;
+  sdp << "a=ssrc:2222 cname:slimshady" << end_line;
+  sdp << "a=ssrc:3333 cname:slimshady" << end_line;
+  sdp << "a=ssrc-group:SIM 1111 2222 3333" << end_line;
+  auto sd = absl::make_unique<JsepSessionDescription>(
+      SdpType::kOffer, absl::make_unique<cricket::SessionDescription>(), "1",
+      "0");
+  SdpParseError parse_error;
+  ASSERT_TRUE(SdpDeserialize(sdp.str(), sd.get(), &parse_error))
+      << parse_error.line << parse_error.description;
+  std::string error;
+  EXPECT_TRUE(local->SetLocalDescription(std::move(sd), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 1, 0, 1, 0));
+
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 1, 1, 0, 0));
+
+  auto answer = remote->CreateAnswerAndSetAsLocal();
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 1, 1, 0));
+
+  // Legacy simulcast is not signaled in remote description.
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 2, 0, 0));
+}
+
+// Checks that disabling simulcast is logged in the metrics.
+TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers({"1", "2", "3"}, true);
+  AddTransceiver(local.get(), layers);
+  auto offer = local->CreateOfferAndSetAsLocal();
+  RemoveSimulcast(offer.get());
+  std::string error;
+  EXPECT_TRUE(remote->SetRemoteDescription(std::move(offer), &error)) << error;
+  auto answer = remote->CreateAnswerAndSetAsLocal();
+  EXPECT_TRUE(local->SetRemoteDescription(std::move(answer), &error)) << error;
+
+  EXPECT_EQ(1, webrtc::metrics::NumSamples(
+                   "WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_EQ(1, webrtc::metrics::NumEvents(
+                   "WebRTC.PeerConnection.Simulcast.Disabled", 1));
+  EXPECT_EQ(0, webrtc::metrics::NumEvents(
+                   "WebRTC.PeerConnection.Simulcast.Disabled", 0));
+}
+
+// Checks that the disabled metric is not logged if simulcast is not disabled.
+TEST_F(PeerConnectionSimulcastMetricsTests, SimulcastDisabledIsNotLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto remote = CreatePeerConnectionWrapper();
+  auto layers = CreateLayers({"1", "2", "3"}, true);
+  AddTransceiver(local.get(), layers);
+  ExchangeOfferAnswer(local.get(), remote.get(), layers);
+
+  EXPECT_EQ(0, webrtc::metrics::NumSamples(
+                   "WebRTC.PeerConnection.Simulcast.Disabled"));
+  EXPECT_EQ(0, webrtc::metrics::NumEvents(
+                   "WebRTC.PeerConnection.Simulcast.Disabled", 1));
+  EXPECT_EQ(0, webrtc::metrics::NumEvents(
+                   "WebRTC.PeerConnection.Simulcast.Disabled", 0));
+}
+
+const int kMaxLayersInMetricsTest = 8;
+
+// Checks that the number of send encodings is logged in a metric.
+TEST_P(PeerConnectionSimulcastMetricsTests, NumberOfSendEncodingsIsLogged) {
+  auto local = CreatePeerConnectionWrapper();
+  auto num_layers = GetParam();
+  auto layers = CreateLayers(num_layers, true);
+  AddTransceiver(local.get(), layers);
+  EXPECT_EQ(1, webrtc::metrics::NumSamples(
+                   "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings"));
+  for (int i = 0; i < kMaxLayersInMetricsTest; ++i) {
+    int expected_value = i == num_layers ? 1 : 0;
+    EXPECT_EQ(expected_value,
+              webrtc::metrics::NumEvents(
+                  "WebRTC.PeerConnection.Simulcast.NumberOfSendEncodings", i));
+  }
+}
+
+INSTANTIATE_TEST_SUITE_P(NumberOfSendEncodings,
+                         PeerConnectionSimulcastMetricsTests,
+                         ::testing::Range(0, kMaxLayersInMetricsTest));
 
 }  // namespace webrtc

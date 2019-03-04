@@ -16,6 +16,24 @@
       "revId": "3ce3171c2b45c05fb1592c7e9fce06bd7ffaccc1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0eb769d_9d2b8930",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T13:28:47Z",
+      "side": 1,
+      "message": "I partly did the opposite a patchset ago, changing to a vector of unique_ptr. \n\nIf you really want me to, I can move the class to an implementation namespace, say, webrtc_internal_rtp_video_sender::RtpStreamSender. Fully declared in the header file. The current way is a compromise, keeping the details out of the header file, at the cost of some extra indirection.",
+      "parentUuid": "cc21e04d_bc44eb18",
+      "revId": "3ce3171c2b45c05fb1592c7e9fce06bd7ffaccc1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

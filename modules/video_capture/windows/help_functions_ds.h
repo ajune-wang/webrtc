@@ -13,6 +13,11 @@
 
 #include <dshow.h>
 
+#include <type_traits>
+#include <utility>
+
+#include "rtc_base/ref_counter.h"
+
 DEFINE_GUID(MEDIASUBTYPE_I420,
             0x30323449,
             0x0000,
@@ -51,6 +56,40 @@ LONGLONG GetMaxOfFrameArray(LONGLONG* maxFps, long size);
 IPin* GetInputPin(IBaseFilter* filter);
 IPin* GetOutputPin(IBaseFilter* filter, REFGUID Category);
 BOOL PinMatchesCategory(IPin* pPin, REFGUID Category);
+void FreeMediaType(AM_MEDIA_TYPE* media_type);
+void DeallocateMediaType(AM_MEDIA_TYPE* media_type);
+HRESULT CopyMediaType(AM_MEDIA_TYPE* target, const AM_MEDIA_TYPE* source);
+
+// Provides a reference count implementation for COM (IUnknown derived) classes.
+// The implementation uses atomics for managing the ref count.
+template <class T>
+class ComRefCount : public T {
+ public:
+  ComRefCount() {}
+
+  template <class P0>
+  explicit ComRefCount(P0&& p0) : T(std::forward<P0>(p0)) {}
+
+  STDMETHOD_(ULONG, AddRef)() override {
+    ref_count_.IncRef();
+    return 1;
+  }
+
+  STDMETHOD_(ULONG, Release)() override {
+    const auto status = ref_count_.DecRef();
+    if (status == rtc::RefCountReleaseStatus::kDroppedLastRef) {
+      delete this;
+      return 0;
+    }
+    return 1;
+  }
+
+ protected:
+  ~ComRefCount() {}
+
+ private:
+  webrtc::webrtc_impl::RefCounter ref_count_{0};
+};
 
 }  // namespace videocapturemodule
 }  // namespace webrtc

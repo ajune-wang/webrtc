@@ -101,7 +101,8 @@ int32_t VideoCaptureDS::Init(const char* deviceUniqueIdUTF8) {
   }
 
   // Create the sink filte used for receiving Captured frames.
-  _sinkFilter = new CaptureSinkFilter(SINK_FILTER_NAME, NULL, &hr, *this);
+  hr = S_OK;
+  _sinkFilter = new ComRefCount<CaptureSinkFilter>(this);
   if (hr != S_OK) {
     RTC_LOG(LS_INFO) << "Failed to create send filter";
     return -1;

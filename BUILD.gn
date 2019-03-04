@@ -474,6 +474,7 @@ if (rtc_include_tests) {
     deps = [
       ":webrtc_common",
       "api:rtc_api_unittests",
+      "api:test_unittests",
       "api/audio/test:audio_api_unittests",
       "api/audio_codecs/test:audio_codecs_api_unittests",
       "api/task_queue:global_task_queue_factory",

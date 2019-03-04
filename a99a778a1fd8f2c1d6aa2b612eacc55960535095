@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "af656809_906d9230",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-04T15:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f886a4d_484cd3aa",
+      "range": {
+        "startLine": 79,
+        "startChar": 66,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be312a78_92075d3f",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-04T15:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbdab0b7_91a06565",
+      "range": {
+        "startLine": 79,
+        "startChar": 5,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae548a55_cb50f881",
         "filename": "modules/audio_coding/neteq/include/neteq.h",
         "patchSetId": 5
@@ -68,6 +116,30 @@
       "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af6f728_b8808d38",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-04T15:04:34Z",
+      "side": 1,
+      "message": "1. Reworded it to \"sender timestamps\" (i.e. rtp timestamps) which is what we actually use.\n2. Added a definition of the reference packet which describes how we choose it.",
+      "parentUuid": "ae548a55_cb50f881",
+      "range": {
+        "startLine": 82,
+        "startChar": 54,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

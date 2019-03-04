@@ -22,6 +22,30 @@
       "revId": "544208eb74b29cbd3079d7e417a7e7debeed2338",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1449afa5_90051b45",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-04T15:37:59Z",
+      "side": 1,
+      "message": "Because we don\u0027t want to fully emulate Selective Forwarding Unit (SFU) in the test, cause it will be hard, we\u0027ll emulate it\u0027s behavior on receiver side to make it as close as possible to real SFU behavior. So it is why we will send all streams from sender side and filterout irrelevant streams on receiver and won\u0027t pass these streams to the video analyzer and decoder.\n\nAlso in next CL I\u0027ll SDP modification to convert multiple simulcast streams into separate tracks, to not confuse peer connection with 3 streams per track, because it isn\u0027t expected by receiver.",
+      "parentUuid": "7b3a8930_d6fddfff",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 68
+      },
+      "revId": "544208eb74b29cbd3079d7e417a7e7debeed2338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

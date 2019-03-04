@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a00f934_ffd85168",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "We\u0027re not going to support microsecond resolution in the new format, so I\u0027d prefer not adding the _us method (unless it is needed by e.g. existing templatized code that\u0027s using old microsecond timestamps.)",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 55
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7e1541f_b293c07c",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "Same.",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 62
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d98d069_4d9ea90b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "For consistency, please capitalize the labels, i.e \"Simulated ...\"",
+      "range": {
+        "startLine": 1161,
+        "startChar": 27,
+        "endLine": 1161,
+        "endChar": 28
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e2fec5_c04695e3",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "L",
+      "range": {
+        "startLine": 1163,
+        "startChar": 26,
+        "endLine": 1163,
+        "endChar": 27
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a894d26_88e50e37",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "L",
+      "range": {
+        "startLine": 1165,
+        "startChar": 25,
+        "endLine": 1165,
+        "endChar": 26
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea30d12c_2868670d",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "L",
+      "range": {
+        "startLine": 1167,
+        "startChar": 28,
+        "endLine": 1167,
+        "endChar": 29
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49e95aec_f5f65fce",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "Would it be possible to add the acknowledged bitrate estimate, and possibly the delay-based and loss-based components to the simulation?",
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b6b5c4_f536a100",
+        "filename": "rtc_tools/event_log_visualizer/log_simulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "This is much nicer than the old simulation code!",
+      "range": {
+        "startLine": 170,
+        "startChar": 42,
+        "endLine": 170,
+        "endChar": 60
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e84514_c3d5088c",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "Please add this flag to SetAllPlotFlags().",
+      "range": {
+        "startLine": 115,
+        "startChar": 19,
+        "endLine": 115,
+        "endChar": 41
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "485d6468_57207f80",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T17:55:04Z",
+      "side": 1,
+      "message": "I think the description could be improved.",
+      "range": {
+        "startLine": 115,
+        "startChar": 51,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "83ce61e7_12f388dd",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-04T11:48:22Z",
+      "side": 1,
+      "message": "The new mac camera access APIs require an app to provide an Info.plist file in the application bundle that specifies why permission to access the camera is necessary. This is technically possible to achieve with just a binary, but it\u0027s hard to do within our existing build situation. Making it an app bundle is simpler more in line with what Apple expects.",
+      "parentUuid": "85ac8f98_82066da6",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 18
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "941d308f_299a93c8",
         "filename": "video/video_loopback_main.mm",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ca851743_2f095167",
+        "filename": "video/video_loopback_main.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-04T11:48:22Z",
+      "side": 1,
+      "message": "The reason this is here is basically because of the clang chromium plugins. It\u0027s not possible to suppress them in the mac_application target, so I needed to make a separate main function anyway for the executable target.\n\nThe @autoreleasepool is still necessary under ARC, though the autorelease method is indeed a thing of the past. @autoreleasepools are needed for every thread, and can be used to have more granular control over when things get dealloced under ARC, and are useful for example in tight loops where big objects get allocated.\n\nWe can\u0027t really in a clean way move this down into the mac capturer impl.",
+      "parentUuid": "941d308f_299a93c8",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ffb4b91_4db2e422",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-04T09:38:21Z",
       "side": 1,
       "message": "I take it this a good step towards deleting modules/video_capture/objc/. Do you intend to do something similar for examples/peerconnection/client/? Again, I\u0027d prefer of the mac-specifics could be moved a bit down.\n\nWe ought write a new cross-platform interface to create a capturer, for use in test and example code. Current state, where examples/peerconnection/ depends on test::VcmCapturer isn\u0027t so pretty.\n\nOne possibility would be to rename test::VcmCapturer, and let it have a mac-specific implementation that doesn\u0027t refer to modules/video_capture or VideoCaptureModule. Or turn the Create method into a free function.",
+      "range": {
+        "startLine": 1081,
+        "startChar": 0,
+        "endLine": 1091,
+        "endChar": 6
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "562f8e7f_bc5f5946",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5520
+      },
+      "writtenOn": "2019-03-04T11:48:22Z",
+      "side": 1,
+      "message": "That sounds like a reasonable solution. I can rename and move test::VcmCapturer to examples, but I\u0027m worried that would be a lot of work.",
+      "parentUuid": "8ffb4b91_4db2e422",
       "range": {
         "startLine": 1081,
         "startChar": 0,

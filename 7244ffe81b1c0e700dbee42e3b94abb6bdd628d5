@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "690c10d5_acd52320",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T16:14:54Z",
+      "side": 1,
+      "message": "Add a TODO item to move vcm_capturer.{h,cc} and its dependencies from the video_test_common target to an else clause in this target?",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "7244ffe81b1c0e700dbee42e3b94abb6bdd628d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0721637a_33ce45ad",
+        "filename": "test/platform_video_capturer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T16:14:54Z",
+      "side": 1,
+      "message": "Prefer absl::WrapUnique, here and below.\n\nOr make the new test::MacCapturer::Create return a unique_ptr directly?",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "7244ffe81b1c0e700dbee42e3b94abb6bdd628d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

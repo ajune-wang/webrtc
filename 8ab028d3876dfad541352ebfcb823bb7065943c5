@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3b5c877d_80c55167",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-04T13:51:32Z",
+      "side": 1,
+      "message": "Right, yes, I think it should be added for consistency.",
+      "parentUuid": "c84531d2_d89acfc1",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b391aa9c_3d8842db",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Agree\u0027d, we have been talking about having some kind of RtcContext struct that would contain some of the fields provided here, that would improve the situation.\n\nSince it\u0027s provided from Call, it\u0027s not only provided in tests.",
       "parentUuid": "b391aa9c_3d8842db",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b881469a_4072c27c",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-04T13:51:32Z",
+      "side": 1,
+      "message": "Understood.",
+      "parentUuid": "96cf273f_9a5f3055",
       "range": {
         "startLine": 42,
         "startChar": 18,

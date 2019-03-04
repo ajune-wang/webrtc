@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2f48bcc5_ac6e20c0",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T13:19:17Z",
+      "side": 1,
+      "message": "This is redundant (there is a discussion on the bug, so maybe it will come back but for now you can remove it).",
+      "range": {
+        "startLine": 288,
+        "startChar": 6,
+        "endLine": 292,
+        "endChar": 7
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85ac8f98_82066da6",
         "filename": "video/BUILD.gn",
         "patchSetId": 3

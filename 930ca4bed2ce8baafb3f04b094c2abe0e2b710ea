@@ -46,6 +46,30 @@
       "revId": "930ca4bed2ce8baafb3f04b094c2abe0e2b710ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7acec11f_b1ecd0f4",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T13:19:17Z",
+      "side": 1,
+      "message": "Chromium should not compile WebRTC tests (https://cs.chromium.org/chromium/src/third_party/webrtc/webrtc.gni?l\u003d243\u0026rcl\u003dfc52b912a3324c4ff228aa5c3cd969458714de3a). I suspect some test are not guarded by \"rtc_include_tests\" and as a result you end-up having this interaction with \"build_with_chromium\".\n\nThat said, I think these build targets were guarded by \"build_with_chromium\" to avoid to compile them since Chromium never uses them.",
+      "parentUuid": "f95ca7ba_afc04f64",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 183,
+        "endChar": 26
+      },
+      "revId": "930ca4bed2ce8baafb3f04b094c2abe0e2b710ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

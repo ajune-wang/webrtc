@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "875e3249_7cf9d377",
+        "filename": "video/video_loopback_main.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T12:10:43Z",
+      "side": 1,
+      "message": "Ack. But see also https://webrtc-review.googlesource.com/c/src/+/125088",
+      "parentUuid": "ca851743_2f095167",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ffb4b91_4db2e422",
         "filename": "video/video_quality_test.cc",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "That sounds like a reasonable solution. I can rename and move test::VcmCapturer to examples, but I\u0027m worried that would be a lot of work.",
       "parentUuid": "8ffb4b91_4db2e422",
+      "range": {
+        "startLine": 1081,
+        "startChar": 0,
+        "endLine": 1091,
+        "endChar": 6
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "350e589d_7e092845",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T12:10:43Z",
+      "side": 1,
+      "message": "For this cl, I think it might be reasonable with a function \n\n  std::unique_ptr\u003cTestVideoCapturer\u003e test::CreateVideoCapturer(...)\n\nwhich would create a MacCapturer or VcmCapturer depending on platform. Later, we can consider if and how to move that facility to somewhere under api/.",
+      "parentUuid": "562f8e7f_bc5f5946",
       "range": {
         "startLine": 1081,
         "startChar": 0,

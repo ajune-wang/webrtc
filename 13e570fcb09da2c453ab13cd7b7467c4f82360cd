@@ -22,6 +22,30 @@
       "revId": "13e570fcb09da2c453ab13cd7b7467c4f82360cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d3fb640_ce3bc2f9",
+        "filename": "modules/audio_processing/aec3/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-04T12:21:31Z",
+      "side": 0,
+      "message": "I think we should consider some alternative solution.\n\nThe \"modules/audio_processing:audio_processing\" target is a bit bloated, which is what forces this CL to merge :aec3 into :audio_procesing.\nRunning this:\nsaza@saza:~/webrtc/src/modules/audio_processing/aec3$ grep -rh \"^#include.*audio_processing/[^/]*$\" -o | sort | uniq\n\nshows that aec3 actually only requires one file in :audio_processing.\n#include \"modules/audio_processing/audio_buffer.h\"\n\nBy moving that file and its dependencies (audio_buffer.*, splitting_filter.* and three_band_filter_band.*) into a new build target, aec3 can remain separate from the mega-audio_processing target.\n\n\n\nWe are in general working toward breaking :audio_processing up into smaller units. Having large targets muddles the dependencies of the code. For example, merging :aec3 and :audio_processing makes it unclear what code needs these build target switches:\n\n  if (rtc_build_with_neon \u0026\u0026 current_cpu !\u003d \"arm64\") {\n    suppressed_configs +\u003d [ \"//build/config/compiler:compiler_arm_fpu\" ]\n    cflags \u003d [ \"-mfpu\u003dneon\" ]\n  }\n\nWith separate targets, it is clear that these compilation flags are only needed by aec3.\n\nFor another example, the utility code in audio_processing:aec_core was clarified by https://webrtc-review.googlesource.com/c/src/+/87141/. agc2 and aec3 seemed to depend on a lot of core code of aecm and aec2, even though they were only using the FFT.",
+      "parentUuid": "69fcd1c1_7e4193b3",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "13e570fcb09da2c453ab13cd7b7467c4f82360cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "f807d7ea_5ae41496",
+        "filename": "api/video/video_stream_encoder_create.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T21:05:25Z",
+      "side": 1,
+      "message": "Yes, the event log should move to api/. I made a CL some time ago, but it will probably have a million merge conflicts by now. https://webrtc-review.googlesource.com/c/src/+/118443",
+      "parentUuid": "b42cfb36_f1853e84",
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "631c4c2a_9ac94581",
         "filename": "api/video/video_stream_encoder_create.h",
         "patchSetId": 4
@@ -242,6 +260,53 @@
     },
     {
       "key": {
+        "uuid": "cdaa3702_09c7fbdf",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T21:05:25Z",
+      "side": 1,
+      "message": "Please don\u0027t \"Ack\" actionable comments as it makes Gerrit treat the comment as resolved. The common approach is to upload a new patch set with the suggestions fixed and replying \"Done\" to the comments. We usually only use \"Ack\" to close comments that don\u0027t request any change, such as \"In the future, consider X\".",
+      "parentUuid": "f9386329_9f6455d8",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91b926de_cd649a3f",
+        "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T21:05:25Z",
+      "side": 1,
+      "message": "What information does this convey that you don\u0027t get from the selected ICE candidate pair?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "32df30c4_31c2caee",
         "filename": "logging/rtc_event_log/events/rtc_event_prompt_antenna_switch.h",
         "patchSetId": 4
@@ -368,6 +433,29 @@
       "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "341f30b5_736f3afb",
+        "filename": "logging/rtc_event_log/events/rtc_event_video_send_paused.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-04T21:05:25Z",
+      "side": 1,
+      "message": "In a simulcast scenario where one of the layers have been disabled because the bandwidth is too low to support all layers, do you want emit this event? In that case, should the event contain an SSRC?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "b52e79fe159f037f28c48768026578dbb7bc1b26",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     },
     {
       "key": {

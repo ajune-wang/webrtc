@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f66eac44_66d322c3",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-04T13:40:41Z",
+      "side": 1,
+      "message": "I think the name does not reflect that fact that this is all relative delays add up together.\n\nBut yes, you can argue that jitter_buffer_delay_ms or some others do not reflect that fact either. So, it that sense it is good.\n\nAnd add some definition of it.\n\nI don\u0027t know exact how to work it, but I may give some draft for you to consider.\n\nThis is sum of relative packet arrival delays of received packets so far. Since end-to-end delay of a packet is difficult to measure and is not necessary for measuring jitter buffer performance, we introduce a relative packet arrival delay. The relative packet arrival delay of a packet is defined as the arrival delay of that packet, given that the first packet has zero delay. To avoid clock drift, the \"first\" packet can be make dynamic.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 45
+      },
+      "revId": "ceb732b889990477b1261fd24e1de67b39b160c2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9044b4c0_198d4575",
         "filename": "modules/audio_coding/neteq/statistics_calculator.cc",
         "patchSetId": 2

@@ -22,6 +22,30 @@
       "revId": "930ca4bed2ce8baafb3f04b094c2abe0e2b710ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95ca7ba_afc04f64",
+        "filename": "sdk/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T09:38:21Z",
+      "side": 1,
+      "message": "If all else fails, maybe post git diff -b of problematic files as comments, to ease review?",
+      "parentUuid": "ff13f62d_719c5e01",
+      "range": {
+        "startLine": 183,
+        "startChar": 7,
+        "endLine": 183,
+        "endChar": 26
+      },
+      "revId": "930ca4bed2ce8baafb3f04b094c2abe0e2b710ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85ac8f98_82066da6",
+        "filename": "video/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T09:38:21Z",
+      "side": 1,
+      "message": "Out of curiosity, why can\u0027t it be an rtc_executable on mac?",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 18
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "941d308f_299a93c8",
+        "filename": "video/video_loopback_main.mm",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T09:38:21Z",
+      "side": 1,
+      "message": "Is there any way to move the mac/objc-specific things out of main, and into the mac capturer code? (I had the impression that release pools and the autorelease method were an old thing, replaced by reference counting, aka ARC).",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ffb4b91_4db2e422",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1091,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T09:38:21Z",
+      "side": 1,
+      "message": "I take it this a good step towards deleting modules/video_capture/objc/. Do you intend to do something similar for examples/peerconnection/client/? Again, I\u0027d prefer of the mac-specifics could be moved a bit down.\n\nWe ought write a new cross-platform interface to create a capturer, for use in test and example code. Current state, where examples/peerconnection/ depends on test::VcmCapturer isn\u0027t so pretty.\n\nOne possibility would be to rename test::VcmCapturer, and let it have a mac-specific implementation that doesn\u0027t refer to modules/video_capture or VideoCaptureModule. Or turn the Create method into a free function.",
+      "range": {
+        "startLine": 1081,
+        "startChar": 0,
+        "endLine": 1091,
+        "endChar": 6
+      },
+      "revId": "854c2780be76ff356cd73694441ee1de6cb5dfe3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

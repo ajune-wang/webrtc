@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "d9bc0bc6_48251414",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-04T10:27:25Z",
+      "side": 1,
+      "message": "I have now made the starting value dependent on if M is a power of 2 or not. I think that there are two cases where there can be a benefit of having a particular starting value, and that is if M is a power of 2 or if M is a power of 10. The code should handle both these cases.",
+      "parentUuid": "79de95b6_0c293038",
+      "range": {
+        "startLine": 97,
+        "startChar": 68,
+        "endLine": 99,
+        "endChar": 53
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb105ef0_286c76be",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 1
@@ -108,6 +132,30 @@
       "writtenOn": "2019-02-19T14:34:40Z",
       "side": 1,
       "message": "Isn\u0027t it a little too big? something like 1\u003c\u003c32 would be easier to debug also, as values wouldn\u0027t be so astronomical.",
+      "range": {
+        "startLine": 100,
+        "startChar": 57,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68dee867_83f360dc",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-04T10:27:25Z",
+      "side": 1,
+      "message": "As described in the comment, the idea to use this number is to get an unwrapper that can unwrap in both directions.",
+      "parentUuid": "eb105ef0_286c76be",
       "range": {
         "startLine": 100,
         "startChar": 57,
@@ -152,6 +200,24 @@
       "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "042641df_5728b9b8",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-04T10:27:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd53214_02af4cf4",
+      "revId": "ad1af09a3cdcf53cfaa54b827569e54fc486259d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

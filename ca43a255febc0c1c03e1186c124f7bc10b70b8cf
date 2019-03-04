@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "064a816b_03c10cf8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-04T08:37:11Z",
+      "side": 1,
+      "message": "So the code is making a blocking call from task queue A to task queue B, and you run into problems because you try to use a single thread to drive both A and B?\n\nI completely agree that this is something we want to avoid anyway---the fundamental problem is *not* that you\u0027re doing something unusual. Blocking calls in general, and blocking calls *from* a task queue in particular, is something we\u0027d really like to avoid.\n\nThat said, I think the cleanest way to solve your immediate problem, without having to rearchitect the WebRTC threading model first, would be to bump the thread pool size by 1 for the duration of the blocking call. And ideally, we\u0027d do this without polluting the public API.",
+      "parentUuid": "1decf24f_5df4e5d7",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

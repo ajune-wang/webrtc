@@ -34,6 +34,24 @@
       "revId": "82913a3fe2e97fd43334de5ea60486d0a0aa2571",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2ee4dda_499a0aa1",
+        "filename": "pc/data_channel.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 8594
+      },
+      "writtenOn": "2019-03-04T14:53:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ebd64eb_dbc9d7dc",
+      "revId": "82913a3fe2e97fd43334de5ea60486d0a0aa2571",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

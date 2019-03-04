@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f886a4d_484cd3aa",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-04T14:46:55Z",
+      "side": 1,
+      "message": "report",
+      "range": {
+        "startLine": 79,
+        "startChar": 66,
+        "endLine": 79,
+        "endChar": 75
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbdab0b7_91a06565",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-04T14:46:55Z",
+      "side": 1,
+      "message": "necessarily",
+      "range": {
+        "startLine": 79,
+        "startChar": 5,
+        "endLine": 79,
+        "endChar": 14
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae548a55_cb50f881",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-04T14:46:55Z",
+      "side": 1,
+      "message": "This may need some revision.\n\n1. \"send time\" is unknown (and it is not strictly proportional to samples, due to latency of encoding of network card etc)\n\n2. \"a previously received reference\" is vague. I think it is good to say \"first packet\" or something clearer defined. You may feel afraid of divergence of current implementation from the wording. I think in some interpretation, they are the same. But with \"first\" the definition is clearer.\n\nI may point you to another stat \"startNtpTime\", see https://cs.corp.google.com/piper///depot/google3/third_party/webrtc/files/stable/webrtc/api/stats_types.cc?sq\u003dpackage:piper+file://depot/google3+-file:google3/experimental\u0026g\u003d0\u0026l\u003d547\n\nThe stat reports an estimate of the call start time. The estimate changes during the entire call. It feels unnatural that \"start\" time can change. I am not saying that the same situation applies here, but it feels to me that there is some similarities.",
+      "range": {
+        "startLine": 82,
+        "startChar": 54,
+        "endLine": 84,
+        "endChar": 14
+      },
+      "revId": "a99a778a1fd8f2c1d6aa2b612eacc55960535095",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

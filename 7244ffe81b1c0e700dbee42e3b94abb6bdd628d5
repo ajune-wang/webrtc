@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "579e069b_37f0185c",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-04T18:46:47Z",
+      "side": 1,
+      "message": "Is this actually needed (same on line 109)?\n\nIf this is only needed inside WebRTC code it is better to remove the \"*\" visibility and just keep the default one.",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "7244ffe81b1c0e700dbee42e3b94abb6bdd628d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "690c10d5_acd52320",
         "filename": "test/BUILD.gn",
         "patchSetId": 6

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a178b7b_dc9bf329",
+        "filename": "call/rtp_video_sender.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-04T16:01:19Z",
+      "side": 1,
+      "message": "I\u0027d like to delete copy constructor and assignment, and make the below members const. But I can\u0027t get the compiler to accept that. There\u0027s only a single place where instances are created explicitly, \n\n    rtp_streams.emplace_back(std::move(playout_delay_oracle),\n                             std::move(rtp_rtcp), std::move(sender_video));\n\nand that seems to want a copy constructor.\n\nAnd then the resulting vector is returned, hopefully without any copying.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 58
+      },
+      "revId": "7c227d16c9438942a9a49c2f2dc9d00260f6558b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

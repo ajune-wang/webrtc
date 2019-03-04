@@ -46,6 +46,47 @@
       "revId": "544208eb74b29cbd3079d7e417a7e7debeed2338",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2fbcd2b_687aca51",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-03-04T18:59:11Z",
+      "side": 1,
+      "message": "1/ This point about the absence of mocked SFU requiring filtering should be in the comment or the CL description as well!\n2/ I don\u0027t get why a black frame is used, instead of marking the frame as discarded, or not triggering the callback at all. These solutions even use less CPU :)",
+      "parentUuid": "1449afa5_90051b45",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 68
+      },
+      "revId": "544208eb74b29cbd3079d7e417a7e7debeed2338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7d988ea_6702222b",
+        "filename": "test/pc/e2e/analyzer/video/quality_analyzing_video_decoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-03-04T18:59:11Z",
+      "side": 1,
+      "message": "Why I420Buffer? I guess that\u0027s the only one providing a convenient SetBlack() methode.\nWorth a comment (otherwise it appears quite arbitrary).",
+      "revId": "544208eb74b29cbd3079d7e417a7e7debeed2338",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

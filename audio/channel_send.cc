@@ -42,6 +42,7 @@
 #include "rtc_base/task_queue.h"
 #include "rtc_base/thread_checker.h"
 #include "rtc_base/time_utils.h"
+#include "system_wrappers/include/clock.h"
 #include "system_wrappers/include/field_trial.h"
 #include "system_wrappers/include/metrics.h"
 
@@ -86,7 +87,8 @@ class ChannelSend
   // declaration.
   friend class VoERtcpObserver;
 
-  ChannelSend(rtc::TaskQueue* encoder_queue,
+  ChannelSend(Clock* clock,
+              rtc::TaskQueue* encoder_queue,
               ProcessThread* module_process_thread,
               MediaTransportInterface* media_transport,
               OverheadObserver* overhead_observer,
@@ -629,7 +631,8 @@ int32_t ChannelSend::SendMediaTransportAudio(
   return 0;
 }
 
-ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
+ChannelSend::ChannelSend(Clock* clock,
+                         rtc::TaskQueue* encoder_queue,
                          ProcessThread* module_process_thread,
                          MediaTransportInterface* media_transport,
                          OverheadObserver* overhead_observer,
@@ -651,8 +654,8 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
       feedback_observer_proxy_(new TransportFeedbackProxy()),
       seq_num_allocator_proxy_(new TransportSequenceNumberProxy()),
       rtp_packet_sender_proxy_(new RtpPacketSenderProxy()),
-      retransmission_rate_limiter_(new RateLimiter(Clock::GetRealTimeClock(),
-                                                   kMaxRetransmissionWindowMs)),
+      retransmission_rate_limiter_(
+          new RateLimiter(clock, kMaxRetransmissionWindowMs)),
       use_twcc_plr_for_ana_(
           webrtc::field_trial::FindFullName("UseTwccPlrForAna") == "Enabled"),
       encoder_queue_(encoder_queue),
@@ -682,6 +685,7 @@ ChannelSend::ChannelSend(rtc::TaskQueue* encoder_queue,
     configuration.transport_feedback_callback = feedback_observer_proxy_.get();
   }
 
+  configuration.clock = clock;
   configuration.audio = true;
   configuration.outgoing_transport = rtp_transport;
 
@@ -1238,6 +1242,7 @@ void ChannelSend::OnReceivedRtt(int64_t rtt_ms) {
 }  // namespace
 
 std::unique_ptr<ChannelSendInterface> CreateChannelSend(
+    Clock* clock,
     rtc::TaskQueue* encoder_queue,
     ProcessThread* module_process_thread,
     MediaTransportInterface* media_transport,
@@ -1250,9 +1255,10 @@ std::unique_ptr<ChannelSendInterface> CreateChannelSend(
     bool extmap_allow_mixed,
     int rtcp_report_interval_ms) {
   return absl::make_unique<ChannelSend>(
-      encoder_queue, module_process_thread, media_transport, overhead_observer,
-      rtp_transport, rtcp_rtt_stats, rtc_event_log, frame_encryptor,
-      crypto_options, extmap_allow_mixed, rtcp_report_interval_ms);
+      clock, encoder_queue, module_process_thread, media_transport,
+      overhead_observer, rtp_transport, rtcp_rtt_stats, rtc_event_log,
+      frame_encryptor, crypto_options, extmap_allow_mixed,
+      rtcp_report_interval_ms);
 }
 
 }  // namespace voe

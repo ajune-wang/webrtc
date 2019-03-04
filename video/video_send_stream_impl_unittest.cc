@@ -118,11 +118,11 @@ class VideoSendStreamImplTest : public ::testing::Test {
     std::map<uint32_t, RtpState> suspended_ssrcs;
     std::map<uint32_t, RtpPayloadState> suspended_payload_states;
     return absl::make_unique<VideoSendStreamImpl>(
-        &stats_proxy_, &test_queue_, &call_stats_, &transport_controller_,
-        &bitrate_allocator_, &send_delay_stats_, &video_stream_encoder_,
-        &event_log_, &config_, initial_encoder_max_bitrate,
-        initial_encoder_bitrate_priority, suspended_ssrcs,
-        suspended_payload_states, content_type,
+        &clock_, &stats_proxy_, &test_queue_, &call_stats_,
+        &transport_controller_, &bitrate_allocator_, &send_delay_stats_,
+        &video_stream_encoder_, &event_log_, &config_,
+        initial_encoder_max_bitrate, initial_encoder_bitrate_priority,
+        suspended_ssrcs, suspended_payload_states, content_type,
         absl::make_unique<FecControllerDefault>(&clock_),
         /*media_transport=*/nullptr);
   }

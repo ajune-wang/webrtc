@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dea78fab_2a6b1d52",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a00f934_ffd85168",
+      "range": {
+        "startLine": 494,
+        "startChar": 0,
+        "endLine": 494,
+        "endChar": 55
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7e1541f_b293c07c",
         "filename": "logging/rtc_event_log/logged_events.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "646901f895c6e51ba44ed9053308861d552db09a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7826af01_0b60204e",
+        "filename": "logging/rtc_event_log/logged_events.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7e1541f_b293c07c",
+      "range": {
+        "startLine": 511,
+        "startChar": 0,
+        "endLine": 511,
+        "endChar": 62
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c69749bd_0d888f8a",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d98d069_4d9ea90b",
+      "range": {
+        "startLine": 1161,
+        "startChar": 27,
+        "endLine": 1161,
+        "endChar": 28
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89e2fec5_c04695e3",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "646901f895c6e51ba44ed9053308861d552db09a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0933fb1e_73ec02c7",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89e2fec5_c04695e3",
+      "range": {
+        "startLine": 1163,
+        "startChar": 26,
+        "endLine": 1163,
+        "endChar": 27
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b442fd18_8faaec41",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a894d26_88e50e37",
+      "range": {
+        "startLine": 1165,
+        "startChar": 25,
+        "endLine": 1165,
+        "endChar": 26
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea30d12c_2868670d",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f043a28f_ebdfbc1b",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea30d12c_2868670d",
+      "range": {
+        "startLine": 1167,
+        "startChar": 28,
+        "endLine": 1167,
+        "endChar": 29
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "49e95aec_f5f65fce",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 1
@@ -154,6 +298,24 @@
       "revId": "646901f895c6e51ba44ed9053308861d552db09a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d1a5535_ba344ef8",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Currently there\u0027s no way to extract the components from the controller since the interface don\u0027t expose implementation specific details. But I agree that it would be nice if we could. Since it would require some refactoring it should go in a separate CL.",
+      "parentUuid": "49e95aec_f5f65fce",
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -177,6 +339,30 @@
       "revId": "646901f895c6e51ba44ed9053308861d552db09a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e961e0b_80a6e3df",
+        "filename": "rtc_tools/event_log_visualizer/log_simulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "The RtcEventProcessor makes these things so much more pleasant to write!",
+      "parentUuid": "88b6b5c4_f536a100",
+      "range": {
+        "startLine": 170,
+        "startChar": 42,
+        "endLine": 170,
+        "endChar": 60
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -223,6 +409,54 @@
       "revId": "646901f895c6e51ba44ed9053308861d552db09a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "029c7b6b_e2878477",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "485d6468_57207f80",
+      "range": {
+        "startLine": 115,
+        "startChar": 51,
+        "endLine": 115,
+        "endChar": 66
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bd9c1d1_0244cdef",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T18:15:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e84514_c3d5088c",
+      "range": {
+        "startLine": 115,
+        "startChar": 19,
+        "endLine": 115,
+        "endChar": 41
+      },
+      "revId": "646901f895c6e51ba44ed9053308861d552db09a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

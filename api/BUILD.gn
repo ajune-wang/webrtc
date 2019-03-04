@@ -662,4 +662,42 @@ if (rtc_include_tests) {
       "units:units_unittests",
     ]
   }
+
+  rtc_source_set("test_unittests") {
+    testonly = true
+
+    sources = [
+      "test/mock_unittest.cc",
+    ]
+
+    deps = [
+      ":audioproc_f_api",
+      ":create_simulcast_test_fixture_api",
+      ":create_video_quality_test_fixture_api",
+      ":create_videocodec_test_fixture_api",
+      ":fake_frame_decryptor",
+      ":fake_frame_encryptor",
+      ":fake_media_transport",
+      ":loopback_media_transport",
+      ":mock_audio_mixer",
+      ":mock_frame_decryptor",
+      ":mock_frame_encryptor",
+      ":mock_peerconnectioninterface",
+      ":mock_rtp",
+      ":mock_video_bitrate_allocator",
+      ":mock_video_bitrate_allocator_factory",
+      ":mock_video_codec_factory",
+      ":mock_video_decoder",
+      ":mock_video_encoder",
+      ":neteq_simulator_api",
+      ":neteq_simulator_factory",
+      ":rtc_api_unittests",
+      ":simulated_network_api",
+      ":simulcast_test_fixture_api",
+      ":test_dependency_factory",
+      ":video_quality_test_fixture_api",
+      ":videocodec_test_fixture_api",
+      "units:units_unittests",
+    ]
+  }
 }

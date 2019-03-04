@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fc933ef_1063bfb1",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "What\u0027s the difference between this and just returning ::testing::Test::HasFailure?",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98886a1f_7afe47a2",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "I don\u0027t like that this helper significantly reduces readability in the tests. Here\u0027s my attempt at trying to do better:\n\n\n\ndiff --git a/pc/peer_connection_simulcast_unittest.cc b/pc/peer_connection_simulcast_unittest.cc\nindex fd707fd099..6d38562c9d 100644\n--- a/pc/peer_connection_simulcast_unittest.cc\n+++ b/pc/peer_connection_simulcast_unittest.cc\n@@ -544,6 +544,38 @@ bool ValidateSimulcastApiMetrics(bool local,\n   return error;\n }\n\n+static bool ValidateSimulcastApiMetrics(\n+    const char* metric_name,\n+    std::initializer_list\u003cstd::pair\u003cSimulcastApiVersion, int\u003e\u003e\n+        expected_samples) {\n+  ScopedTestErrorChecker error;\n+  int total_samples \u003d 0;\n+  for (const auto\u0026 entry : expected_samples) {\n+    SimulcastApiVersion value \u003d entry.first;\n+    int samples \u003d entry.second;\n+    EXPECT_EQ(samples, metrics::NumEvents(metric_name, value)) \u003c\u003c value;\n+    total_samples +\u003d samples;\n+  }\n+  EXPECT_EQ(total_samples, metrics::NumSamples(metric_name));\n+  return error;\n+}\n+\n+static bool ValidateLocalDescriptionMetrics(\n+    std::initializer_list\u003cstd::pair\u003cSimulcastApiVersion, int\u003e\u003e\n+        expected_samples) {\n+  return ValidateSimulcastApiMetrics(\n+      \"WebRTC.PeerConnection.Simulcast.ApplyLocalDescription\",\n+      std::move(expected_samples));\n+}\n+\n+static bool ValidateRemoteDescriptionMetrics(\n+    std::initializer_list\u003cstd::pair\u003cSimulcastApiVersion, int\u003e\u003e\n+        expected_samples) {\n+  return ValidateSimulcastApiMetrics(\n+      \"WebRTC.PeerConnection.Simulcast.ApplyRemoteDescription\",\n+      std::move(expected_samples));\n+}\n+\n // Checks the logged metrics when simulcast is not used.\n TEST_F(PeerConnectionSimulcastMetricsTests, NoSimulcastUsageIsLogged) {\n   auto local \u003d CreatePeerConnectionWrapper();\n@@ -552,8 +584,9 @@ TEST_F(PeerConnectionSimulcastMetricsTests, NoSimulcastUsageIsLogged) {\n   AddTransceiver(local.get(), layers);\n   ExchangeOfferAnswer(local.get(), remote.get(), layers);\n\n-  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 2, 0, 0));\n-  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 2, 0, 0));\n+  EXPECT_TRUE(ValidateLocalDescriptionMetrics({{kSimulcastApiVersionNone, 2}}));\n+  EXPECT_TRUE(\n+      ValidateRemoteDescriptionMetrics({{kSimulcastApiVersionNone, 2}}));\n }\n\n // Checks the logged metrics when spec-compliant simulcast is used.\n@@ -567,8 +600,10 @@ TEST_F(PeerConnectionSimulcastMetricsTests, SpecComplianceIsLogged) {\n   // Expecting 2 invocations of each, because we have 2 peer connections.\n   // Only the local peer connection will be aware of simulcast.\n   // The remote peer connection will think that there is no simulcast.\n-  EXPECT_TRUE(ValidateSimulcastApiMetrics(true, 2, 1, 0, 1));\n-  EXPECT_TRUE(ValidateSimulcastApiMetrics(false, 2, 1, 0, 1));\n+  EXPECT_TRUE(ValidateLocalDescriptionMetrics(\n+      {{kSimulcastApiVersionNone, 1}, {kSimulcastApiVersionSpecCompliant, 1}}));\n+  EXPECT_TRUE(ValidateRemoteDescriptionMetrics(\n+      {{kSimulcastApiVersionNone, 1}, {kSimulcastApiVersionSpecCompliant, 1}}));\n }",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "175abb2f_b4ce1412",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "offer-\u003eToString(\u0026string);",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "980683c4_f1e9b8f4",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "auto sd \u003d CreateSessionDescription(SdpType::kOffer, sdp.str(), \u0026parse_error);",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62bd3a95_dd168d3b",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "I think this is just testing the metrics framework, so I would leave it off.",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e967461c_32f6d412",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "This line is enough. The others are just testing the metrics framework.",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7430d6a7_4a8bf8da",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-04T21:37:46Z",
+      "side": 1,
+      "message": "Only need to verify the one that has a value. The others are implicitly 0.",
+      "revId": "5d8502e31b695684ae878d0491232be93e933f07",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

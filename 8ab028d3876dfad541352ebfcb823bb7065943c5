@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c84531d2_d89acfc1",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T13:47:35Z",
+      "side": 1,
+      "message": "There was no need to, should I add it for consistency?",
+      "parentUuid": "dc6fd48a_fb17c6a4",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b391aa9c_3d8842db",
         "filename": "audio/audio_send_stream.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96cf273f_9a5f3055",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-04T13:47:35Z",
+      "side": 1,
+      "message": "Agree\u0027d, we have been talking about having some kind of RtcContext struct that would contain some of the fields provided here, that would improve the situation.\n\nSince it\u0027s provided from Call, it\u0027s not only provided in tests.",
+      "parentUuid": "b391aa9c_3d8842db",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

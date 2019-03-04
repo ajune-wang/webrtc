@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dc6fd48a_fb17c6a4",
+        "filename": "audio/audio_receive_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-04T13:39:40Z",
+      "side": 1,
+      "message": "Why is the Clock not injectable here?",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b391aa9c_3d8842db",
+        "filename": "audio/audio_send_stream.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-04T13:39:40Z",
+      "side": 1,
+      "message": "Not your fault, but this constructor is beginning to look quite messy. Would it make sense to only inject Clock in the \"unit test\" constructor, below?",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "8ab028d3876dfad541352ebfcb823bb7065943c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

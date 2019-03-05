@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "a4ed6554_417db817",
+        "filename": "crypto/OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-05T06:41:51Z",
+      "side": 1,
+      "message": "I agree with this. It also worth noting few more things:\n\n* Code ownership is a potentially time consuming task, so we should ask all the people in this list before adding them.\n* Root OWNERS can still LGTM the CL so there is no need to repeat them here (unless they want to directly own this code).\n\nA good example of a strict OWNERS file is https://cs.chromium.org/chromium/src/ipc/OWNERS. Please note how it is possible to use \"set noparent\" to remove the possibility to LGTM from OWNERS of parent directories (this can be a blanket rule of on a per-file basis).",
+      "parentUuid": "039287ff_7d671113",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85744556_7f0173cf",
         "filename": "crypto/README.md",
         "patchSetId": 5

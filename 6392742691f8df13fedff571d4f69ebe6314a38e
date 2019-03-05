@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b92bf029_547ef00b",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-05T10:58:50Z",
+      "side": 1,
+      "message": "Should no longer be needed here, right?",
+      "range": {
+        "startLine": 68,
+        "startChar": 1,
+        "endLine": 68,
+        "endChar": 52
+      },
+      "revId": "6392742691f8df13fedff571d4f69ebe6314a38e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

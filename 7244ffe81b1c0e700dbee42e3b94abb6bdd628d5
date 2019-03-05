@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2b5608b0_837792c4",
+        "filename": "test/BUILD.gn",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-05T10:58:50Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "29e9cb18_88b5b5d8",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "7244ffe81b1c0e700dbee42e3b94abb6bdd628d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "690c10d5_acd52320",
         "filename": "test/BUILD.gn",
         "patchSetId": 6

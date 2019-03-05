@@ -52,7 +52,7 @@ class VCMPacket {
   bool markerBit;
   int timesNacked;
 
-  FrameType frameType;
+  VideoFrameType frameType;
 
   VCMNaluCompleteness completeNALU;  // Default is kNaluIncomplete.
   bool insertStartCode;  // True if a start code should be inserted before this

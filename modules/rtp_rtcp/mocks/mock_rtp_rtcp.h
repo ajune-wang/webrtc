@@ -88,7 +88,7 @@ class MockRtpRtcp : public RtpRtcp {
   MOCK_CONST_METHOD1(EstimatedReceiveBandwidth,
                      int(uint32_t* available_bandwidth));
   MOCK_METHOD9(SendOutgoingData,
-               bool(FrameType frame_type,
+               bool(FrameTypeDeprecated frame_type,
                     int8_t payload_type,
                     uint32_t timestamp,
                     int64_t capture_time_ms,

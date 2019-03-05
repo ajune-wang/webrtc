@@ -23,6 +23,7 @@
 #include "modules/video_coding/codecs/vp8/include/vp8.h"
 #include "modules/video_coding/codecs/vp8/libvpx_interface.h"
 #include "modules/video_coding/include/video_codec_interface.h"
+#include "modules/video_coding/utility/framerate_controller.h"
 #include "rtc_base/experiments/cpu_speed_experiment.h"
 #include "rtc_base/experiments/rate_control_settings.h"
 
@@ -83,6 +84,8 @@ class LibvpxVp8Encoder : public VideoEncoder {
 
   uint32_t FrameDropThreshold(size_t spatial_idx) const;
 
+  size_t IdealFrameSize(int sid, int tid);
+
   const std::unique_ptr<LibvpxInterface> libvpx_;
 
   const absl::optional<std::vector<CpuSpeedExperiment::Config>>
@@ -106,6 +109,11 @@ class LibvpxVp8Encoder : public VideoEncoder {
   std::vector<vpx_codec_ctx_t> encoders_;
   std::vector<vpx_codec_enc_cfg_t> configurations_;
   std::vector<vpx_rational_t> downsampling_factors_;
+
+  // Variable frame-rate screencast related fields.
+  FramerateController framerate_controller_;
+  int num_steady_state_frames_;
+  bool variable_framerate_experiment_enabled_;
 };
 
 }  // namespace webrtc

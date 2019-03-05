@@ -162,6 +162,23 @@ inline Val<CheckArgType::kVoidP, const void*> MakeVal(const void* x) {
   return {x};
 }
 
+template <>
+struct Val<CheckArgType::kStdString, std::string> {
+  static constexpr CheckArgType Type() { return CheckArgType::kStdString; }
+  const std::string* GetVal() const { return &val; }
+  std::string val;
+};
+template <
+    typename T,
+    typename T1 =
+        typename std::remove_cv<typename std::remove_reference<T>::type>::type,
+    typename std::enable_if<std::is_class<T1>::value &&
+                            !std::is_same<T1, std::string>::value>::type* =
+        nullptr>
+Val<CheckArgType::kStdString, std::string> MakeVal(const T& x) {
+  return {ToString(x)};
+}
+
 // Ephemeral type that represents the result of the logging << operator.
 template <typename... Ts>
 class LogStreamer;

@@ -52,6 +52,10 @@
 #include <utility>
 
 #include "absl/strings/string_view.h"
+#include "api/units/data_rate.h"
+#include "api/units/data_size.h"
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/deprecation.h"
 #include "rtc_base/strings/string_builder.h"
@@ -166,6 +170,10 @@ enum class LogArgType : int8_t {
   kULongLong,
   kDouble,
   kLongDouble,
+  kTimestamp,
+  kTimeDelta,
+  kDataSize,
+  kDataRate,
   kCharP,
   kStdString,
   kStringView,
@@ -223,6 +231,23 @@ inline Val<LogArgType::kLongDouble, long double> MakeVal(long double x) {
   return {x};
 }
 
+inline Val<LogArgType::kTimestamp, ::webrtc::Timestamp> MakeVal(
+    const ::webrtc::Timestamp& x) {
+  return {x};
+}
+inline Val<LogArgType::kTimestamp, ::webrtc::TimeDelta> MakeVal(
+    const ::webrtc::TimeDelta& x) {
+  return {x};
+}
+inline Val<LogArgType::kDataSize, ::webrtc::DataSize> MakeVal(
+    const ::webrtc::DataSize& x) {
+  return {x};
+}
+inline Val<LogArgType::kDataRate, ::webrtc::DataRate> MakeVal(
+    const ::webrtc::DataRate& x) {
+  return {x};
+}
+
 inline Val<LogArgType::kCharP, const char*> MakeVal(const char* x) {
   return {x};
 }
@@ -265,6 +290,10 @@ template <
     typename std::enable_if<
         std::is_class<T1>::value && !std::is_same<T1, std::string>::value &&
         !std::is_same<T1, LogMetadata>::value &&
+        !std::is_same<T1, ::webrtc::Timestamp>::value &&
+        !std::is_same<T1, ::webrtc::TimeDelta>::value &&
+        !std::is_same<T1, ::webrtc::DataSize>::value &&
+        !std::is_same<T1, ::webrtc::DataRate>::value &&
 #ifdef WEBRTC_ANDROID
         !std::is_same<T1, LogMetadataTag>::value &&
 #endif

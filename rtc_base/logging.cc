@@ -531,6 +531,18 @@ void Log(const LogArgType* fmt, ...) {
       case LogArgType::kLongDouble:
         log_message.stream() << va_arg(args, long double);
         break;
+      case LogArgType::kTimestamp:
+        log_message.stream() << ToString(va_arg(args, webrtc::Timestamp));
+        break;
+      case LogArgType::kTimeDelta:
+        log_message.stream() << ToString(va_arg(args, webrtc::TimeDelta));
+        break;
+      case LogArgType::kDataSize:
+        log_message.stream() << ToString(va_arg(args, webrtc::DataSize));
+        break;
+      case LogArgType::kDataRate:
+        log_message.stream() << ToString(va_arg(args, webrtc::DataRate));
+        break;
       case LogArgType::kCharP: {
         const char* s = va_arg(args, const char*);
         log_message.stream() << (s ? s : "(null)");

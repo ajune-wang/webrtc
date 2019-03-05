@@ -42,7 +42,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   AudioSendStream(Clock* clock,
                   const webrtc::AudioSendStream::Config& config,
                   const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
-                  rtc::TaskQueue* worker_queue,
+                  TaskQueueFactory* task_queue_factory,
                   ProcessThread* module_process_thread,
                   RtpTransportControllerSendInterface* rtp_transport,
                   BitrateAllocatorInterface* bitrate_allocator,
@@ -53,7 +53,7 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   AudioSendStream(Clock* clock,
                   const webrtc::AudioSendStream::Config& config,
                   const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
-                  rtc::TaskQueue* worker_queue,
+                  TaskQueueFactory* task_queue_factory,
                   RtpTransportControllerSendInterface* rtp_transport,
                   BitrateAllocatorInterface* bitrate_allocator,
                   RtcEventLog* event_log,
@@ -142,7 +142,6 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   rtc::ThreadChecker worker_thread_checker_;
   rtc::ThreadChecker pacer_thread_checker_;
   rtc::RaceChecker audio_capture_race_checker_;
-  rtc::TaskQueue* worker_queue_;
   const AudioAllocationSettings allocation_settings_;
   webrtc::AudioSendStream::Config config_;
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;

@@ -13,6 +13,7 @@
 #include "api/audio_codecs/audio_encoder_factory_template.h"
 #include "api/audio_codecs/opus/audio_decoder_opus.h"
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "api/task_queue/global_task_queue_factory.h"
 #include "api/test/loopback_media_transport.h"
 #include "api/test/mock_audio_mixer.h"
 #include "audio/audio_receive_stream.h"
@@ -121,8 +122,8 @@ TEST(AudioWithMediaTransport, DeliversAudio) {
   std::unique_ptr<ProcessThread> send_process_thread =
       ProcessThread::Create("audio send thread");
   webrtc::internal::AudioSendStream send_stream(
-      Clock::GetRealTimeClock(), send_config, audio_state, &send_tq,
-      send_process_thread.get(),
+      Clock::GetRealTimeClock(), send_config, audio_state,
+      &GlobalTaskQueueFactory(), send_process_thread.get(),
       /*transport=*/nullptr, &bitrate_allocator, null_event_log.get(),
       /*rtcp_rtt_stats=*/nullptr, absl::optional<RtpState>());
 

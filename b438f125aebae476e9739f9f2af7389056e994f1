@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4a91b21_0c2a2882",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-05T09:32:28Z",
+      "side": 1,
+      "message": "yvesg@ suspects this is the culprit for the failures on x86. Can we try to comment it out and run tests again?",
+      "range": {
+        "startLine": 675,
+        "startChar": 6,
+        "endLine": 675,
+        "endChar": 47
+      },
+      "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca586f35_f3618c59",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5492
+      },
+      "writtenOn": "2019-03-05T13:17:53Z",
+      "side": 0,
+      "message": "Use RTC_CHECK(header_parser_-\u003eParse()); here if it is not expected to fail in the test?",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "4e5f5eddeff482cea3745c13153b9f079f073ffe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

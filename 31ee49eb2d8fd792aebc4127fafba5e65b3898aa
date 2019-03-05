@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2da80c82_9d6c8e68",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T11:58:41Z",
+      "side": 1,
+      "message": "Does this have to be a `Val`? Or would the following work just as well?\n\n  // Case for when we need to construct a temp string and then print that.\n  // (We can\u0027t use Val\u003cCheckArgType::kStdString, const std::string*\u003e\n  // because we need somewhere to store the temp string.)\n  struct ToStringVal{\n    static constexpr CheckArgType Type() { return CheckArgType::kStdString; }\n    const std::string* GetVal() const { return \u0026val; }\n    std::string val;\n  };\n\nAsking because doing template specialization is more complex than not doing it...",
+      "revId": "31ee49eb2d8fd792aebc4127fafba5e65b3898aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

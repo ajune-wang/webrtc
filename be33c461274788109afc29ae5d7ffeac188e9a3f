@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faa9e415_e65ba55e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T04:00:06Z",
+      "side": 1,
+      "message": "You still say \"security\" instead of \"crypto\" on lines 12 and 16. Is that on purpose?",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b56540e_4409ccef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T04:00:06Z",
+      "side": 1,
+      "message": "Yes, hopefully this will be the case. Improved modularization won\u0027t magically appear just because of the new directory though. :-)",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f6590a6_4778b19a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T04:00:06Z",
+      "side": 1,
+      "message": "Likewise.",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "039287ff_7d671113",
+        "filename": "crypto/OWNERS",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T04:00:06Z",
+      "side": 1,
+      "message": "There are still too many owners---you didn\u0027t even remove me, even though I explicitly disqualified myself.\n\nSpecifically, don\u0027t feel like you would offend anyone by omitting them. (Human nature being what it is I can\u0027t promise that you won\u0027t, but try not to feel it.) OWNERS is supposed to be a list of people well suited to review CLs touching a specific subtree, and filling it with people who don\u0027t actually know the subtree all that well isn\u0027t doing anyone any favors.\n\nIn the absence of a better idea, err on the side of parsimony and populate the list with just the people who will be actively working to migrate stuff to the new directory. Additional owners can easily be added later, as you identify specific individuals that really ought to be in the list.",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85744556_7f0173cf",
+        "filename": "crypto/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T04:00:06Z",
+      "side": 1,
+      "message": "This sounds like a good (and specific enough) charter to me, but you\u0027ll want confirmation from someone who\u0027s familiar with how we implement the alphabet soup in the first paragraph. I\u0027m reasonably familiar with the alphabet soup in the second paragraph, and I agree that those things don\u0027t belong in crypto/.",
+      "revId": "be33c461274788109afc29ae5d7ffeac188e9a3f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

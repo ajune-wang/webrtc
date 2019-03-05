@@ -46,6 +46,30 @@
       "revId": "13e570fcb09da2c453ab13cd7b7467c4f82360cd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e999b89d_df4afb10",
+        "filename": "modules/audio_processing/aec3/BUILD.gn",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-05T12:52:54Z",
+      "side": 0,
+      "message": "Thanks! You are definitely both right. I\u0027ve now re-added the aec3 build target and created a new target for the audio buffer.",
+      "parentUuid": "6d3fb640_ce3bc2f9",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 28
+      },
+      "revId": "13e570fcb09da2c453ab13cd7b7467c4f82360cd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

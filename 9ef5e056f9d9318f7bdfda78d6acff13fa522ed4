@@ -22,6 +22,30 @@
       "revId": "9ef5e056f9d9318f7bdfda78d6acff13fa522ed4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec86802_ed9ded81",
+        "filename": "modules/audio_processing/test/debug_dump_test.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-05T15:27:55Z",
+      "side": 0,
+      "message": "The tricky thing is that it requires the use of the legacy AEC, and that is not stored as part of the aecdump. That means that the aecdump replayer won\u0027t activate the legacy AEC as part of the replaying. \nThat could probably be tweaked for this test but I don\u0027t think it is worth doing, in particular as toggling the delay agnostic AEC is not something ever done in real calls.",
+      "parentUuid": "2f0947ef_e9a1dff3",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 47
+      },
+      "revId": "9ef5e056f9d9318f7bdfda78d6acff13fa522ed4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

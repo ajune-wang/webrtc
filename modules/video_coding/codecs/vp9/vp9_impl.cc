@@ -50,6 +50,9 @@ int kMaxNumTiles4kVideo = 8;
 // Maximum allowed PID difference for variable frame-rate mode.
 const int kMaxAllowedPidDIff = 30;
 
+constexpr int kSteadyStateQp = 32;
+constexpr int kSteadyStateUndershootPercentage = 30;
+
 // Only positive speeds, range for real-time coding currently is: 5 - 8.
 // Lower means slower/better quality, higher means fastest/lower quality.
 int GetCpuSpeed(int width, int height) {
@@ -173,7 +176,9 @@ VP9EncoderImpl::VP9EncoderImpl(const cricket::VideoCodec& codec)
       full_superframe_drop_(true),
       first_frame_in_picture_(true),
       ss_info_needed_(false),
-      is_flexible_mode_(false) {
+      is_flexible_mode_(false),
+      variable_framerate_experiment_enabled_(
+          field_trial::IsEnabled("WebRTC-VP9VariableFramerateScreenshare")) {
   codec_ = {};
   memset(&svc_params_, 0, sizeof(vpx_svc_extra_cfg_t));
 }
@@ -748,6 +753,14 @@ int VP9EncoderImpl::Encode(const VideoFrame& input_image,
         } else {
           break;
         }
+      }
+
+      if (variable_framerate_experiment_enabled_ &&
+          num_steady_state_frames_ >= 5 && layer_id.spatial_layer_id > 0) {
+        // The first layer is skipped on all frames exceeding 5 fps rate.
+        // We want to skip such frames fully in the steady state, to limit
+        // framerate.
+        layer_id.spatial_layer_id = num_active_spatial_layers_;
       }
     }
 
@@ -1328,14 +1341,29 @@ void VP9EncoderImpl::DeliverBufferedFrame(bool end_of_picture) {
 
     encoded_complete_callback_->OnEncodedImage(encoded_image_, &codec_specific_,
                                                &frag_info);
-    encoded_image_.set_size(0);
 
     if (codec_.mode == VideoCodecMode::kScreensharing) {
       const uint8_t spatial_idx = encoded_image_.SpatialIndex().value_or(0);
       const uint32_t frame_timestamp_ms =
           1000 * encoded_image_.Timestamp() / kVideoPayloadTypeFrequency;
       framerate_controller_[spatial_idx].AddFrame(frame_timestamp_ms);
+
+      const size_t steady_state_size =
+          (100 - kSteadyStateUndershootPercentage) *
+          IdealFrameSize(spatial_idx,
+                         codec_specific_.codecSpecific.VP9.temporal_idx) /
+          100;
+
+      if (codec_.spatialLayers[spatial_idx].maxFramerate > 5) {
+        if (encoded_image_.qp_ <= kSteadyStateQp &&
+            encoded_image_.size() <= steady_state_size) {
+          ++num_steady_state_frames_;
+        } else {
+          num_steady_state_frames_ = 0;
+        }
+      }
     }
+    encoded_image_.set_size(0);
   }
 }
 
@@ -1370,6 +1398,13 @@ VideoEncoder::EncoderInfo VP9EncoderImpl::GetEncoderInfo() const {
     }
   }
   return info;
+}
+
+size_t VP9EncoderImpl::IdealFrameSize(int sid, int tid) {
+  const size_t bitrate_bps = current_bitrate_allocation_.GetBitrate(
+      sid, tid == kNoTemporalIdx ? 0 : tid);
+  const float fps = codec_.spatialLayers[sid].maxFramerate;
+  return static_cast<size_t>(bitrate_bps / (8 * fps) + 0.5);
 }
 
 VP9DecoderImpl::VP9DecoderImpl()

@@ -95,6 +95,8 @@ class VP9EncoderImpl : public VP9Encoder {
   //                            percentage of the per frame bandwidth
   uint32_t MaxIntraTarget(uint32_t optimal_buffer_size);
 
+  size_t IdealFrameSize(int sid, int tid);
+
   EncodedImage encoded_image_;
   CodecSpecificInfo codec_specific_;
   EncodedImageCallback* encoded_complete_callback_;
@@ -128,6 +130,8 @@ class VP9EncoderImpl : public VP9Encoder {
   absl::optional<VideoBitrateAllocation> requested_bitrate_allocation_;
   bool ss_info_needed_;
 
+  int num_steady_state_frames_;
+
   std::vector<FramerateController> framerate_controller_;
 
   // Used for flexible mode.
@@ -151,6 +155,8 @@ class VP9EncoderImpl : public VP9Encoder {
     size_t temporal_layer_id = 0;
   };
   std::map<size_t, RefFrameBuffer> ref_buf_;
+
+  bool variable_framerate_experiment_enabled_;
 };
 
 class VP9DecoderImpl : public VP9Decoder {

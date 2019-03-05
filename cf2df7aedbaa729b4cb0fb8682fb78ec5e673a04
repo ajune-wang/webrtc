@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a120305e_1cc76fa8",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-05T01:09:04Z",
+      "side": 1,
+      "message": "I think you could actually just get away with scoping the metric \u0026 expected dictionary and avoid the SCOPED_TRACE in the call sites.",
+      "revId": "cf2df7aedbaa729b4cb0fb8682fb78ec5e673a04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2149e314_14892501",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-05T01:09:04Z",
+      "side": 1,
+      "message": "I think you might want to scope the metric name",
+      "revId": "cf2df7aedbaa729b4cb0fb8682fb78ec5e673a04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f059d1c4_ace9d9c2",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-05T01:09:04Z",
+      "side": 1,
+      "message": "Why not:\n\nstd::map\u003cint, int\u003e expected{{kSimulcastApiVersionNone, 1}, {kSimulcastApiVersionSpecCompliant, 1}};",
+      "revId": "cf2df7aedbaa729b4cb0fb8682fb78ec5e673a04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e26296a_b76652d8",
+        "filename": "pc/peer_connection_simulcast_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-05T01:09:04Z",
+      "side": 1,
+      "message": "I don\u0027t really like building the expectation this way as it requires reading the entire test to know what is actually being asserted here. Even if it\u0027s slightly more code to repeat the total expectation each time I think it\u0027s more readable overall.",
+      "revId": "cf2df7aedbaa729b4cb0fb8682fb78ec5e673a04",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

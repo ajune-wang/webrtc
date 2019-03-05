@@ -45,6 +45,98 @@
       "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "960bc685_8102141b",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2695,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-05T14:07:10Z",
+      "side": 1,
+      "message": "This looks upside-down, should we not equate use_legacy_aec with use_AEC2?",
+      "range": {
+        "startLine": 2695,
+        "startChar": 0,
+        "endLine": 2695,
+        "endChar": 55
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38038b7c_6fed0041",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-05T14:07:10Z",
+      "side": 1,
+      "message": "As hinted by the flag descriptions in audioproc_float_impl.cc, shouldn\u0027t use_legacy_aec be separate from use_aec? Like this:\n\nbool use_legacy_aec \u003d settings_.use_legacy_aec \u0026\u0026 *settings_.use_legacy_aec;\nRTC_CHECK(!use_aec || !use_legacy_aec);",
+      "range": {
+        "startLine": 373,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 57
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e850cae6_5f85d566",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-05T14:07:10Z",
+      "side": 1,
+      "message": "Isn\u0027t this just |use_aec|?",
+      "range": {
+        "startLine": 383,
+        "startChar": 6,
+        "endLine": 383,
+        "endChar": 45
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63bf55b5_b4b989fe",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-05T14:07:10Z",
+      "side": 1,
+      "message": "It is impossible to enable aec2 without hitting this: |use_aec| is a necessary condition for |use_legacy_aec| to be true.\n\nIf intentional, how about changing the condition to:\nif(use_aec \u0026\u0026 !use_legacy_aec) { ... }",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 64
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

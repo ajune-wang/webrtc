@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "32a03b47_6b7b6665",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-03-05T02:03:04Z",
+      "side": 1,
+      "message": "Nope, no changes to this interface for now. Later we can consider combining overhead in the media transport as discussed earlier.",
+      "parentUuid": "0bdfafe0_173706ab",
+      "revId": "f1402fd663e3dc4a000c33725d5cf7987777d1fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a283d162_7137dcdc",
         "filename": "api/media_transport_interface.h",
         "patchSetId": 1
@@ -114,6 +132,30 @@
       "side": 1,
       "message": "Will do.",
       "parentUuid": "f7356bf6_f152d957",
+      "range": {
+        "startLine": 271,
+        "startChar": 15,
+        "endLine": 271,
+        "endChar": 39
+      },
+      "revId": "f1402fd663e3dc4a000c33725d5cf7987777d1fa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d28e1180_1665d93d",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-03-05T02:03:04Z",
+      "side": 1,
+      "message": "Or we can add GetVideoOverhead API -- we are blocked on video progress and if it helps to integrate video overhead quicker we can do it. But either way is fine, please resolve and I will approve.",
+      "parentUuid": "4cbb91f3_f092396a",
       "range": {
         "startLine": 271,
         "startChar": 15,

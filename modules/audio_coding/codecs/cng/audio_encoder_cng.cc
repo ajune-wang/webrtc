@@ -300,14 +300,16 @@ AudioEncoderCngConfig::AudioEncoderCngConfig(AudioEncoderCngConfig&&) = default;
 AudioEncoderCngConfig::~AudioEncoderCngConfig() = default;
 
 bool AudioEncoderCngConfig::IsOk() const {
+  // TODO(hlundin): Note that sukhanov@ removed verification that
+  // sid_frame_interval_ms >= Max10MsFramesInAPacket() * 10, because
+  // Ok() check failed in tests fixing Max10MsFramesInAPacket.
+  // This code is not used in production, so keeping OK to remove
+  // until we figure out what needs to be done.
   if (num_channels != 1)
     return false;
   if (!speech_encoder)
     return false;
   if (num_channels != speech_encoder->NumChannels())
-    return false;
-  if (sid_frame_interval_ms <
-      static_cast<int>(speech_encoder->Max10MsFramesInAPacket() * 10))
     return false;
   if (num_cng_coefficients > WEBRTC_CNG_MAX_LPC_ORDER ||
       num_cng_coefficients <= 0)

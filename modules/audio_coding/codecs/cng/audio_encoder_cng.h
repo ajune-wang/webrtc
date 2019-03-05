@@ -31,7 +31,7 @@ struct AudioEncoderCngConfig {
   int payload_type = 13;
   std::unique_ptr<AudioEncoder> speech_encoder;
   Vad::Aggressiveness vad_mode = Vad::kVadNormal;
-  int sid_frame_interval_ms = 100;
+  int sid_frame_interval_ms = 120;
   int num_cng_coefficients = 8;
   // The Vad pointer is mainly for testing. If a NULL pointer is passed, the
   // AudioEncoderCng creates (and destroys) a Vad object internally. If an

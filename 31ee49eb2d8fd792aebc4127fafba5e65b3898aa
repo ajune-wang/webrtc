@@ -34,6 +34,24 @@
       "revId": "31ee49eb2d8fd792aebc4127fafba5e65b3898aa",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5097ffd_6a701185",
+        "filename": "rtc_base/checks.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-05T13:38:52Z",
+      "side": 1,
+      "message": "Can you make the same change in logging.h as well? There\u0027s no reason for them to be different.",
+      "parentUuid": "87eedf03_b9c8cd53",
+      "revId": "31ee49eb2d8fd792aebc4127fafba5e65b3898aa",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

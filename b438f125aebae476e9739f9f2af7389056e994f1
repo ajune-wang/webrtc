@@ -92,6 +92,24 @@
       "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5343d781_6a022caf",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-05T14:07:10Z",
+      "side": 1,
+      "message": "\u003e for a reason yet to be determined.\n\n% gn path out/debugx86 api:create_video_quality_test_fixture_api test:test_renderer_generic\n//api:create_video_quality_test_fixture_api --[private]--\u003e\n//video:video_quality_test --[private]--\u003e\n//test:test_renderer --[public]--\u003e\n//test:test_renderer_generic\n\nThe latter explicitly requires GL: https://cs.chromium.org/chromium/src/third_party/webrtc/test/BUILD.gn?rcl\u003dc8eeb18d41d8c986707ddd7699fdf5a799c14b2e\u0026l\u003d792",
+      "parentUuid": "512aa514_27b1c1b2",
+      "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

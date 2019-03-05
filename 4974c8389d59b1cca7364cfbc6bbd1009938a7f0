@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c209180d_dd3bb835",
+        "filename": "modules/audio_coding/neteq/include/neteq.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-05T11:42:16Z",
+      "side": 1,
+      "message": "Made the description less implementation specific, PTAL.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 32
+      },
+      "revId": "4974c8389d59b1cca7364cfbc6bbd1009938a7f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "45e9fd84_a29c6e91",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-05T10:29:43Z",
+      "side": 1,
+      "message": "Seems I had not completed the rename to compile_all_headers. Now done.",
+      "parentUuid": "19289f46_1057bc36",
+      "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4a91b21_0c2a2882",
         "filename": "api/BUILD.gn",
         "patchSetId": 1
@@ -53,6 +71,24 @@
       "writtenOn": "2019-03-05T09:38:35Z",
       "side": 1,
       "message": "This is the problematic one, pulling libGL for a reason yet to be determined.",
+      "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "512aa514_27b1c1b2",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-05T10:29:43Z",
+      "side": 1,
+      "message": "Thanks, dropped and commented!",
+      "parentUuid": "628e0b85_dba73847",
       "revId": "b438f125aebae476e9739f9f2af7389056e994f1",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

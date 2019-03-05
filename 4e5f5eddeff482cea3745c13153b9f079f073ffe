@@ -22,6 +22,30 @@
       "revId": "4e5f5eddeff482cea3745c13153b9f079f073ffe",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92b1d813_f6a86037",
+        "filename": "test/scenario/call_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-05T13:24:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "ca586f35_f3618c59",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 18
+      },
+      "revId": "4e5f5eddeff482cea3745c13153b9f079f073ffe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

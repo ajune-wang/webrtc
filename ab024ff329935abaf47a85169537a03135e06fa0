@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fa531dc_402e41db",
+        "filename": "modules/audio_coding/codecs/cng/audio_encoder_cng.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-03-05T08:41:51Z",
+      "side": 1,
+      "message": "Nit: I go by the username henrik.lundin in WebRTC.",
+      "range": {
+        "startLine": 303,
+        "startChar": 10,
+        "endLine": 303,
+        "endChar": 17
+      },
+      "revId": "ab024ff329935abaf47a85169537a03135e06fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba19f9a8_04bca7c6",
+        "filename": "modules/audio_coding/codecs/cng/audio_encoder_cng.cc",
+        "patchSetId": 43
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5100
+      },
+      "writtenOn": "2019-03-05T08:41:51Z",
+      "side": 1,
+      "message": "I think CNG is used in production, if you select for instance iSAC and add comfort noise to it, this class will be used.",
+      "range": {
+        "startLine": 306,
+        "startChar": 5,
+        "endLine": 306,
+        "endChar": 40
+      },
+      "revId": "ab024ff329935abaf47a85169537a03135e06fa0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

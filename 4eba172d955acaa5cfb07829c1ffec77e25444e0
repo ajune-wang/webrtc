@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a12d3092_936659fb",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-05T17:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b663110_634435fc",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0bf70232_a2b87c77",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9ea8470_7c09e815",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-05T17:22:33Z",
+      "side": 1,
+      "message": "It\u0027s unneded in the final CL. reverted.",
+      "parentUuid": "0bf70232_a2b87c77",
+      "range": {
+        "startLine": 362,
+        "startChar": 30,
+        "endLine": 362,
+        "endChar": 42
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ca203bf0_3d29cda2",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-05T17:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc2be81c_8e6d1d83",
+      "range": {
+        "startLine": 725,
+        "startChar": 21,
+        "endLine": 725,
+        "endChar": 24
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43e9a44b_066a7648",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "bad691c5_0b1654c9",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-05T17:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e9a44b_066a7648",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 30
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e691c73_d8bb89f1",
         "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
         "patchSetId": 4
@@ -114,6 +210,30 @@
       "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac0420e_e5e47431",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-05T17:22:33Z",
+      "side": 1,
+      "message": "Nowhere in modules/video_coding. Some files redefine it as a constant locally, I\u0027ve done the same.",
+      "parentUuid": "3e691c73_d8bb89f1",
+      "range": {
+        "startLine": 760,
+        "startChar": 60,
+        "endLine": 760,
+        "endChar": 62
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

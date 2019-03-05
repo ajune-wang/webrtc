@@ -63,6 +63,18 @@ MediaTransportInterface::GetTransportParametersOffer() const {
 void MediaTransportInterface::Connect(
     rtc::PacketTransportInternal* packet_transport) {}
 
+std::unique_ptr<MediaTransportAudioSender>
+MediaTransportInterface::CreateAudioSender(uint64_t channel_id) {
+  return nullptr;
+}
+
+std::unique_ptr<MediaTransportAudioReceiver>
+MediaTransportInterface::CreateAudioReceiver(
+    uint64_t channel_id,
+    MediaTransportAudioSinkInterface* sink) {
+  return nullptr;
+}
+
 void MediaTransportInterface::SetKeyFrameRequestCallback(
     MediaTransportKeyFrameRequestCallback* callback) {}
 

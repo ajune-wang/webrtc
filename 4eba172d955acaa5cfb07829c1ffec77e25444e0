@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b663110_634435fc",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-05T15:31:25Z",
+      "side": 1,
+      "message": "What do you think about making these configurable? I mean using FieldTrialParser so that an experiment can be launched using field trial for instance\nWebRTC-VP8VariableFramerateScreenshare/min_qp:15,min_fps:5.0,undershoot:30/",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bf70232_a2b87c77",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-05T15:31:25Z",
+      "side": 1,
+      "message": "Is this ever non-zero? If so should we overwrite it?\nIt think the plan is to remove codec_.maxFramerate",
+      "range": {
+        "startLine": 362,
+        "startChar": 30,
+        "endLine": 362,
+        "endChar": 42
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc2be81c_8e6d1d83",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-05T15:31:25Z",
+      "side": 1,
+      "message": "size_t ? Or change return type to int",
+      "range": {
+        "startLine": 725,
+        "startChar": 21,
+        "endLine": 725,
+        "endChar": 24
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e9a44b_066a7648",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-05T15:31:25Z",
+      "side": 1,
+      "message": "If you parse the config as mentioned above, you can store an optional\u003cstruct Settings\u003e and just poll that here, no need to re-parse",
+      "range": {
+        "startLine": 759,
+        "startChar": 8,
+        "endLine": 759,
+        "endChar": 30
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e691c73_d8bb89f1",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-05T15:31:25Z",
+      "side": 1,
+      "message": "Isn\u0027t there a constant for this?",
+      "range": {
+        "startLine": 760,
+        "startChar": 60,
+        "endLine": 760,
+        "endChar": 62
+      },
+      "revId": "4eba172d955acaa5cfb07829c1ffec77e25444e0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -298,6 +298,24 @@
       "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8aa30bd_ad85f6b3",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-06T20:01:46Z",
+      "side": 1,
+      "message": "I went with the SequencedTask version, it made things much nicer IMO, see if you agree. We should be able to replace the old QueuedTask with that provided proper wrapping code in rtc::TaskQueue.",
+      "parentUuid": "7ab8384b_90ed96a0",
+      "revId": "b7f57d93541b2dbd12fdc164b4b189e1e84e6623",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

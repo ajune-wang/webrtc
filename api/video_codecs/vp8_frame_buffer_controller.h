@@ -119,6 +119,12 @@ class Vp8FrameBufferController {
                             bool is_keyframe,
                             int qp,
                             CodecSpecificInfo* info) = 0;
+
+  // Called by the encoder when the packet loss rate changes.
+  virtual void OnPacketLossRateUpdate(float packet_loss_rate) = 0;
+
+  // Called by the encoder when the round trip time changes.
+  virtual void OnRttUpdate(int64_t rtt_ms) = 0;
 };
 
 }  // namespace webrtc

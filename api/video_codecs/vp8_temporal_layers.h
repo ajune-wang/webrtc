@@ -44,6 +44,10 @@ class Vp8TemporalLayers : public Vp8FrameBufferController {
                     bool is_keyframe,
                     int qp,
                     CodecSpecificInfo* info) override = 0;
+
+  void OnPacketLossRateUpdate(float packet_loss_rate) override;
+
+  void OnRttUpdate(int64_t rtt_ms) override;
 };
 
 }  // namespace webrtc

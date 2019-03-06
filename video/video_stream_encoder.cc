@@ -1439,6 +1439,11 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
     has_seen_first_significant_bwe_change_ = true;
   }
 
+  if (encoder_) {
+    encoder_->OnPacketLossRateUpdate(static_cast<float>(fraction_lost) / 256.f);
+    encoder_->OnRttUpdate(round_trip_time_ms);
+  }
+
   uint32_t framerate_fps = GetInputFramerateFps();
   frame_dropper_.SetRates((bitrate_bps + 500) / 1000, framerate_fps);
   SetEncoderRates(

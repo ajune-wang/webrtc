@@ -315,8 +315,10 @@ rtc_source_set("default_audio_quality_analyzer") {
   ]
 
   deps = [
+    "../..:perf_test",
     "../../../api:libjingle_peerconnection_api",
     "../../../rtc_base:logging",
+    "../../../rtc_base:rtc_numerics",
     "api:audio_quality_analyzer_api",
     "api:stats_observer_interface",
     "//third_party/abseil-cpp/absl/strings",

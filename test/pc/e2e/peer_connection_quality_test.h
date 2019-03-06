@@ -10,6 +10,7 @@
 #ifndef TEST_PC_E2E_PEER_CONNECTION_QUALITY_TEST_H_
 #define TEST_PC_E2E_PEER_CONNECTION_QUALITY_TEST_H_
 
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -102,6 +103,7 @@ class PeerConnectionE2EQualityTest
   std::vector<std::unique_ptr<VideoFrameWriter>> video_writers_;
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
       output_video_sinks_;
+  std::map<std::string, std::string> track_stream_map_;
 
   RepeatingTaskHandle stats_polling_task_ RTC_GUARDED_BY(&task_queue_);
   // Must be the last field, so it will be deleted first, because tasks

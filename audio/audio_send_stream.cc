@@ -85,7 +85,7 @@ AudioSendStream::AudioSendStream(
     Clock* clock,
     const webrtc::AudioSendStream::Config& config,
     const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
-    rtc::TaskQueue* worker_queue,
+    TaskQueueFactory* task_queue_factory,
     ProcessThread* module_process_thread,
     RtpTransportControllerSendInterface* rtp_transport,
     BitrateAllocatorInterface* bitrate_allocator,
@@ -95,14 +95,14 @@ AudioSendStream::AudioSendStream(
     : AudioSendStream(clock,
                       config,
                       audio_state,
-                      worker_queue,
+                      task_queue_factory,
                       rtp_transport,
                       bitrate_allocator,
                       event_log,
                       rtcp_rtt_stats,
                       suspended_rtp_state,
                       voe::CreateChannelSend(clock,
-                                             worker_queue,
+                                             task_queue_factory,
                                              module_process_thread,
                                              config.media_transport,
                                              /*overhead_observer=*/this,
@@ -118,7 +118,7 @@ AudioSendStream::AudioSendStream(
     Clock* clock,
     const webrtc::AudioSendStream::Config& config,
     const rtc::scoped_refptr<webrtc::AudioState>& audio_state,
-    rtc::TaskQueue* worker_queue,
+    TaskQueueFactory* task_queue_factory,
     RtpTransportControllerSendInterface* rtp_transport,
     BitrateAllocatorInterface* bitrate_allocator,
     RtcEventLog* event_log,
@@ -126,7 +126,6 @@ AudioSendStream::AudioSendStream(
     const absl::optional<RtpState>& suspended_rtp_state,
     std::unique_ptr<voe::ChannelSendInterface> channel_send)
     : clock_(clock),
-      worker_queue_(worker_queue),
       config_(Config(/*send_transport=*/nullptr,
                      /*media_transport=*/nullptr)),
       audio_state_(audio_state),
@@ -140,10 +139,12 @@ AudioSendStream::AudioSendStream(
       rtp_rtcp_module_(nullptr),
       suspended_rtp_state_(suspended_rtp_state) {
   RTC_LOG(LS_INFO) << "AudioSendStream: " << config.rtp.ssrc;
-  RTC_DCHECK(worker_queue_);
   RTC_DCHECK(audio_state_);
   RTC_DCHECK(channel_send_);
   RTC_DCHECK(bitrate_allocator_);
+  // Currently we require the rtp transport even when media transport is used.
+  RTC_DCHECK(rtp_transport);
+
   // TODO(nisse): Eventually, we should have only media_transport. But for the
   // time being, we can have either. When media transport is injected, there
   // should be no rtp_transport, and below check should be strengthened to XOR
@@ -770,7 +771,7 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   RTC_DCHECK_GE(max_bitrate_bps, min_bitrate_bps);
   rtc::Event thread_sync_event;
-  worker_queue_->PostTask([&] {
+  rtp_transport_->GetWorkerQueue()->PostTask([&] {
     // We may get a callback immediately as the observer is registered, so make
     // sure the bitrate limits in config_ are up-to-date.
     config_.min_bitrate_bps = min_bitrate_bps;
@@ -791,7 +792,7 @@ void AudioSendStream::ConfigureBitrateObserver(int min_bitrate_bps,
 void AudioSendStream::RemoveBitrateObserver() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
   rtc::Event thread_sync_event;
-  worker_queue_->PostTask([this, &thread_sync_event] {
+  rtp_transport_->GetWorkerQueue()->PostTask([this, &thread_sync_event] {
     bitrate_allocator_->RemoveObserver(this);
     thread_sync_event.Set();
   });

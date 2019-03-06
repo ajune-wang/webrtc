@@ -58,9 +58,14 @@ bool RtcpTransceiverConfig::Validate() const {
                       << "ms between reports should be positive.";
     return false;
   }
-  if (schedule_periodic_compound_packets && !task_queue) {
+  if (schedule_periodic_compound_packets && task_queue == nullptr &&
+      queue == nullptr) {
     RTC_LOG(LS_ERROR) << debug_id
                       << "missing task queue for periodic compound packets";
+    return false;
+  }
+  if (task_queue != nullptr && queue != nullptr && task_queue->Get() != queue) {
+    RTC_LOG(LS_ERROR) << debug_id << "Two different task queues are provided.";
     return false;
   }
   if (rtcp_mode != RtcpMode::kCompound && rtcp_mode != RtcpMode::kReducedSize) {

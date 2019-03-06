@@ -28,7 +28,7 @@ struct Destructor {
 }  // namespace
 
 RtcpTransceiver::RtcpTransceiver(const RtcpTransceiverConfig& config)
-    : task_queue_(config.task_queue),
+    : task_queue_(config.task_queue ? config.task_queue->Get() : config.queue),
       rtcp_transceiver_(absl::make_unique<RtcpTransceiverImpl>(config)) {
   RTC_DCHECK(task_queue_);
 }
@@ -36,7 +36,7 @@ RtcpTransceiver::RtcpTransceiver(const RtcpTransceiverConfig& config)
 RtcpTransceiver::~RtcpTransceiver() {
   if (!rtcp_transceiver_)
     return;
-  task_queue_->PostTask(Destructor{std::move(rtcp_transceiver_)});
+  task_queue_->PostTask(ToQueuedTask(Destructor{std::move(rtcp_transceiver_)}));
   RTC_DCHECK(!rtcp_transceiver_);
 }
 
@@ -52,9 +52,9 @@ void RtcpTransceiver::AddMediaReceiverRtcpObserver(
     MediaReceiverRtcpObserver* observer) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, remote_ssrc, observer] {
+  task_queue_->PostTask(ToQueuedTask([ptr, remote_ssrc, observer] {
     ptr->AddMediaReceiverRtcpObserver(remote_ssrc, observer);
-  });
+  }));
 }
 
 void RtcpTransceiver::RemoveMediaReceiverRtcpObserver(
@@ -72,26 +72,22 @@ void RtcpTransceiver::RemoveMediaReceiverRtcpObserver(
 void RtcpTransceiver::SetReadyToSend(bool ready) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, ready] {
-      ptr->SetReadyToSend(ready);
-  });
+  task_queue_->PostTask(
+      ToQueuedTask([ptr, ready] { ptr->SetReadyToSend(ready); }));
 }
 
 void RtcpTransceiver::ReceivePacket(rtc::CopyOnWriteBuffer packet) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
   int64_t now_us = rtc::TimeMicros();
-  task_queue_->PostTask([ptr, packet, now_us] {
-      ptr->ReceivePacket(packet, now_us);
-  });
+  task_queue_->PostTask(ToQueuedTask(
+      [ptr, packet, now_us] { ptr->ReceivePacket(packet, now_us); }));
 }
 
 void RtcpTransceiver::SendCompoundPacket() {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr] {
-      ptr->SendCompoundPacket();
-  });
+  task_queue_->PostTask(ToQueuedTask([ptr] { ptr->SendCompoundPacket(); }));
 }
 
 void RtcpTransceiver::SetRemb(int64_t bitrate_bps,
@@ -107,16 +103,14 @@ void RtcpTransceiver::SetRemb(int64_t bitrate_bps,
     int64_t bitrate_bps;
     std::vector<uint32_t> ssrcs;
   };
-  task_queue_->PostTask(
-      SetRembClosure{rtcp_transceiver_.get(), bitrate_bps, std::move(ssrcs)});
+  task_queue_->PostTask(ToQueuedTask(
+      SetRembClosure{rtcp_transceiver_.get(), bitrate_bps, std::move(ssrcs)}));
 }
 
 void RtcpTransceiver::UnsetRemb() {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr] {
-      ptr->UnsetRemb();
-  });
+  task_queue_->PostTask(ToQueuedTask([ptr] { ptr->UnsetRemb(); }));
 }
 
 uint32_t RtcpTransceiver::SSRC() const {
@@ -133,7 +127,8 @@ bool RtcpTransceiver::SendFeedbackPacket(
     RtcpTransceiverImpl* ptr;
     rtc::Buffer raw_packet;
   };
-  task_queue_->PostTask(Closure{rtcp_transceiver_.get(), packet.Build()});
+  task_queue_->PostTask(
+      ToQueuedTask(Closure{rtcp_transceiver_.get(), packet.Build()}));
   return true;
 }
 
@@ -150,28 +145,28 @@ void RtcpTransceiver::SendNack(uint32_t ssrc,
     uint32_t ssrc;
     std::vector<uint16_t> sequence_numbers;
   };
-  task_queue_->PostTask(
-      Closure{rtcp_transceiver_.get(), ssrc, std::move(sequence_numbers)});
+  task_queue_->PostTask(ToQueuedTask(
+      Closure{rtcp_transceiver_.get(), ssrc, std::move(sequence_numbers)}));
 }
 
 void RtcpTransceiver::SendPictureLossIndication(uint32_t ssrc) {
   RTC_CHECK(rtcp_transceiver_);
   RtcpTransceiverImpl* ptr = rtcp_transceiver_.get();
-  task_queue_->PostTask([ptr, ssrc] { ptr->SendPictureLossIndication(ssrc); });
+  task_queue_->PostTask(
+      ToQueuedTask([ptr, ssrc] { ptr->SendPictureLossIndication(ssrc); }));
 }
 
 void RtcpTransceiver::SendFullIntraRequest(std::vector<uint32_t> ssrcs) {
   RTC_CHECK(rtcp_transceiver_);
   // TODO(danilchap): Replace with lambda with move capture when available.
   struct Closure {
-    void operator()() {
-        ptr->SendFullIntraRequest(ssrcs);
-    }
+    void operator()() { ptr->SendFullIntraRequest(ssrcs); }
 
     RtcpTransceiverImpl* ptr;
     std::vector<uint32_t> ssrcs;
   };
-  task_queue_->PostTask(Closure{rtcp_transceiver_.get(), std::move(ssrcs)});
+  task_queue_->PostTask(
+      ToQueuedTask(Closure{rtcp_transceiver_.get(), std::move(ssrcs)}));
 }
 
 }  // namespace webrtc

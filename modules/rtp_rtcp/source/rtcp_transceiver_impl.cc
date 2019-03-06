@@ -14,6 +14,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/call/transport.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -33,6 +34,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
+#include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -42,6 +44,14 @@ struct SenderReportTimes {
   int64_t local_received_time_us;
   NtpTime remote_sent_time;
 };
+
+RtcpTransceiverConfig CopyAndSetTaskQueue(const RtcpTransceiverConfig& config) {
+  RtcpTransceiverConfig result = config;
+  if (result.task_queue != nullptr && result.queue == nullptr) {
+    result.queue = result.task_queue->Get();
+  }
+  return result;
+}
 
 }  // namespace
 
@@ -88,19 +98,20 @@ class RtcpTransceiverImpl::PacketSender {
 };
 
 RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
-    : config_(config), ready_to_send_(config.initial_ready_to_send) {
+    : config_(CopyAndSetTaskQueue(config)),
+      ready_to_send_(config.initial_ready_to_send) {
   RTC_CHECK(config_.Validate());
   if (ready_to_send_ && config_.schedule_periodic_compound_packets) {
-    config_.task_queue->PostTask([this] {
+    config_.queue->PostTask(ToQueuedTask([this] {
       SchedulePeriodicCompoundPackets(config_.initial_report_delay_ms);
-    });
+    }));
   }
 }
 
 RtcpTransceiverImpl::~RtcpTransceiverImpl() {
   // If RtcpTransceiverImpl is destroyed off task queue, assume it is destroyed
   // after TaskQueue. In that case there is no need to Cancel periodic task.
-  if (config_.task_queue == rtc::TaskQueue::Current()) {
+  if (config_.queue == TaskQueueBase::Current()) {
     periodic_task_handle_.Stop();
   }
 }
@@ -333,7 +344,7 @@ void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {
 
 void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
   periodic_task_handle_ = RepeatingTaskHandle::DelayedStart(
-      config_.task_queue->Get(), TimeDelta::ms(delay_ms), [this] {
+      config_.queue, TimeDelta::ms(delay_ms), [this] {
         RTC_DCHECK(config_.schedule_periodic_compound_packets);
         RTC_DCHECK(ready_to_send_);
         SendPeriodicCompoundPacket();

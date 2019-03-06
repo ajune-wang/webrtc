@@ -88,26 +88,45 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   void OnPacketFeedbackVector(
       const std::vector<PacketFeedback>& packet_feedback_vector) override;
 
+  // Transport overhead, includes ipv4/ipv6 overhead, UDP overhead and TURN.
+  // Reported by transport / ICE layer. This overhead should be added to
+  // packetization overhead reported in OnOverheadChanged to calculate
+  // total overhead per audio frame.
   void SetTransportOverhead(int transport_overhead_per_packet_bytes);
 
   // OverheadObserver override reports audio packetization overhead from
-  // RTP/RTCP module or Media Transport.
+  // RTP/RTCP module or Media Transport. This overhead includes RTP headers
+  // and should be added to transport overhead, reported in SetTransportOverhead
+  // to calculate total overhead per audio frame.
   void OnOverheadChanged(size_t overhead_bytes_per_packet_bytes) override;
 
   RtpState GetRtpState() const;
   const voe::ChannelSendInterface* GetChannel() const;
 
   // Returns combined per-packet overhead.
-  size_t TestOnlyGetPerPacketOverheadBytes() const
+  size_t GetPerPacketOverheadBytes() const
       RTC_LOCKS_EXCLUDED(overhead_per_packet_lock_);
 
  private:
   class TimedTransport;
 
+  // TODO(sukhanov): These overheads values are used in legacy overhead
+  // calculations and to set initial overhead before actual overhead is
+  // reported. Remove after we switch to new overhead  calculations by default.
+  // New overhead calculations use current reported transport and
+  // packetization overheads instead of hardcoded values that
+  // do not take into account ipv4 vs ipv6, TURN overhead, etc.
+  static constexpr int kIpV4OverheadBytes = 20;
+  static constexpr int kIpV6OverheadBytes = 40;
+  static constexpr int kUdpOverheadBytes = 8;
+  static constexpr int kSrtpOverheadBytes = 10;
+  static constexpr int kRtpOverheadBytes = 12;
+
   internal::AudioState* audio_state();
   const internal::AudioState* audio_state() const;
 
-  void StoreEncoderProperties(int sample_rate_hz, size_t num_channels);
+  void StoreEncoderProperties(int sample_rate_hz,
+                              size_t num_channels);
 
   // These are all static to make it less likely that (the old) config_ is
   // accessed unintentionally.
@@ -122,22 +141,41 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   static void ReconfigureBitrateObserver(AudioSendStream* stream,
                                          const Config& new_config);
 
+  // Helper function to calculate minimum and maximum bitrate limits taking
+  // into account overhead. If field trial WebRTC-SendSideBwe-WithOverhead is
+  // not enabled, returns min and max bitrate from config_.
+  void GetMinMaxBitrateWithOverhead(size_t overhead_per_packet_bytes,
+                                    int* min_bitrate_bps_with_overhead,
+                                    int* max_bitrate_bps_with_overhead) const;
+
   void ConfigureBitrateObserver(int min_bitrate_bps,
                                 int max_bitrate_bps,
-                                double bitrate_priority);
+                                double bitrate_priority,
+                                int overhead_per_packet_bytes);
+
   void RemoveBitrateObserver();
 
   // Sets per-packet overhead on encoded (for ANA) based on current known values
   // of transport and packetization overheads.
-  void UpdateOverheadForEncoder()
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(overhead_per_packet_lock_);
-
-  // Returns combined per-packet overhead.
-  size_t GetPerPacketOverheadBytes() const
-      RTC_EXCLUSIVE_LOCKS_REQUIRED(overhead_per_packet_lock_);
+  void UpdateOverheadForEncoder();
 
   void RegisterCngPayloadType(int payload_type, int clockrate_hz);
   Clock* clock_;
+
+  // Field trial WebRTC-SendSideBwe-WithOverhead.
+  //
+  // Adds hardcoded overhead bitrate to both min_bitrate_bps and
+  // max_bitrate_bps, based on 50 byte overhead (ipv4, no TURN) and opus
+  // maximum frame size 60ms or 120ms.
+  const bool send_side_bwe_with_overhead_;
+
+  // Field trial WebRTC-AudioActualOverheads.
+  //
+  // Option for WebRTC-SendSideBwe-WithOverhead to add minimum overhead
+  // to min_bitrate_bps and maximum overhead to max_bitrate_bps. The overhead
+  // is calculated based on current transport and packetization overhead and
+  // minimum / maximum supported encoder frame size.
+  const bool audio_actual_overheads_;
 
   rtc::ThreadChecker worker_thread_checker_;
   rtc::ThreadChecker pacer_thread_checker_;
@@ -145,6 +183,10 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   rtc::TaskQueue* worker_queue_;
   const AudioAllocationSettings allocation_settings_;
   webrtc::AudioSendStream::Config config_;
+
+  // Overhead bytes used in most recent bitrate allocator configuration.
+  size_t configured_overhead_per_packet_bytes_ = 0;
+
   rtc::scoped_refptr<webrtc::AudioState> audio_state_;
   const std::unique_ptr<voe::ChannelSendInterface> channel_send_;
   RtcEventLog* const event_log_;
@@ -180,8 +222,15 @@ class AudioSendStream final : public webrtc::AudioSendStream,
   rtc::CriticalSection overhead_per_packet_lock_;
 
   // Current transport overhead (ICE, TURN, etc.)
-  size_t transport_overhead_per_packet_bytes_
-      RTC_GUARDED_BY(overhead_per_packet_lock_) = 0;
+  // Default overhead (until we get overhead notification callback) is based on
+  // RTP transport overhead with IPV6 without TURN. We use conservative IPV6
+  // assumption to get higher initial ptime (with ANA) and lower encoder bitrate
+  // to make sure we do not overshoot available bandwidth.
+  // TODO(sukhanov): Consider setting default overhead to zero, but we have to
+  // make sure that actual overhead is already set before audio starts.
+  size_t transport_overhead_per_packet_bytes_ RTC_GUARDED_BY(
+      overhead_per_packet_lock_) = kIpV6OverheadBytes + kUdpOverheadBytes
+                                   + kSrtpOverheadBytes + kRtpOverheadBytes;
 
   // Current audio packetization overhead (RTP or Media Transport).
   size_t audio_overhead_per_packet_bytes_

@@ -69,11 +69,6 @@ class AudioEncoderCngTest : public ::testing::Test {
     if (config.speech_encoder) {
       EXPECT_CALL(*mock_encoder_, SampleRateHz())
           .WillRepeatedly(Return(sample_rate_hz_));
-      // Max10MsFramesInAPacket() is just used to verify that the SID frame
-      // period is not too small. The return value does not matter that much,
-      // as long as it is smaller than 10.
-      EXPECT_CALL(*mock_encoder_, Max10MsFramesInAPacket())
-          .WillOnce(Return(1u));
     }
     cng_ = CreateComfortNoiseEncoder(std::move(config));
   }

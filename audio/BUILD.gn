@@ -36,7 +36,12 @@ rtc_static_library("audio") {
     "transport_feedback_packet_loss_tracker.cc",
     "transport_feedback_packet_loss_tracker.h",
   ]
-
+  defines = []
+  if (rtc_opus_support_120ms_ptime) {
+    defines += [ "WEBRTC_OPUS_SUPPORT_120MS_PTIME=1" ]
+  } else {
+    defines += [ "WEBRTC_OPUS_SUPPORT_120MS_PTIME=0" ]
+  }
   deps = [
     "../api:array_view",
     "../api:call_api",

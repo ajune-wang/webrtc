@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a894947e_18097c73",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-06T12:55:31Z",
+      "side": 1,
+      "message": "A possible solution should be to change the API of the AudioQualityAnalyzer in order to be:\n\nDefaultAudioQualityAnalyzer::OnStatsReports(absl::string_view stream_label, const StatsReports\u0026 stats_reports);\n\nThis way, there is no need to keep the member variable `track_stream_map_` in `peer_connection_quality_test.cc`, it can be passed to the StatsPoller instead of the analyzer and the design should be a bit cleaner.\n\nThe analyzer will store stats for all the audio streams coming from the poller (no need to configure beforehand).",
+      "range": {
+        "startLine": 168,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 1
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

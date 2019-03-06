@@ -261,7 +261,6 @@ rtc_source_set("video_coding_utility") {
     "../../rtc_base/experiments:rate_control_settings",
     "../../rtc_base/system:arch",
     "../../rtc_base/system:file_wrapper",
-    "../../rtc_base/task_utils:repeating_task",
     "../../system_wrappers",
     "../../system_wrappers:field_trial",
     "../rtp_rtcp:rtp_rtcp_format",

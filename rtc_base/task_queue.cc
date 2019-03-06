@@ -11,6 +11,58 @@
 
 #include "api/task_queue/global_task_queue_factory.h"
 #include "api/task_queue/task_queue_base.h"
+namespace webrtc {
+namespace task_queue_impl {
+void StoppableTaskWrapper::Stop() {
+  task_.reset();
+}
+
+StoppableTaskWrapper::StoppableTaskWrapper(std::unique_ptr<SequencedTask> task)
+    : task_(std::move(task)) {}
+
+TimeDelta StoppableTaskWrapper::Run(Timestamp at_time) {
+  if (task_) {
+    TimeDelta delay = task_->Run(at_time);
+    RTC_DCHECK(delay.IsFinite());
+    return delay;
+  } else {
+    return TimeDelta::PlusInfinity();
+  }
+}
+
+}  // namespace task_queue_impl
+
+RepeatingTaskHandle::RepeatingTaskHandle(
+    task_queue_impl::StoppableTaskWrapper* handle)
+    : handle_(handle) {}
+
+RepeatingTaskHandle::RepeatingTaskHandle() {}
+
+RepeatingTaskHandle::~RepeatingTaskHandle() {}
+
+RepeatingTaskHandle::RepeatingTaskHandle(RepeatingTaskHandle&& other)
+    : handle_(other.handle_) {
+  other.handle_ = nullptr;
+}
+
+RepeatingTaskHandle& RepeatingTaskHandle::operator=(
+    RepeatingTaskHandle&& other) {
+  handle_ = other.handle_;
+  other.handle_ = nullptr;
+  return *this;
+}
+
+void RepeatingTaskHandle::Stop() {
+  if (handle_) {
+    handle_->Stop();
+    handle_ = nullptr;
+  }
+}
+
+bool RepeatingTaskHandle::Running() const {
+  return handle_ != nullptr;
+}
+}  // namespace webrtc
 
 namespace rtc {
 

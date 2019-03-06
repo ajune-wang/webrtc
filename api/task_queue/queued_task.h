@@ -9,6 +9,8 @@
  */
 #ifndef API_TASK_QUEUE_QUEUED_TASK_H_
 #define API_TASK_QUEUE_QUEUED_TASK_H_
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 
 namespace webrtc {
 
@@ -27,6 +29,15 @@ class QueuedTask {
   virtual bool Run() = 0;
 };
 
+// Base interface for asynchronously executed tasks.
+class SequencedTask {
+ public:
+  virtual ~SequencedTask() = default;
+  // Runs the underlying task and returns the time until the next time it should
+  // be called. Returning PlusInfinity stops and destroys the task.
+  // |at_time| is the time when Run is called, as seen by the task queue.
+  virtual TimeDelta Run(Timestamp at_time) = 0;
+};
 }  // namespace webrtc
 
 #endif  // API_TASK_QUEUE_QUEUED_TASK_H_

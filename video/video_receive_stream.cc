@@ -554,6 +554,7 @@ void VideoReceiveStream::SetMinimumPlayoutDelay(int delay_ms) {
 
 void VideoReceiveStream::DecodeThreadFunction(void* ptr) {
   WatchdogTimer wt(RTC_FROM_HERE);
+  ScopedBlameWatchdogTimerOnCurrentThread wt_thread(&wt);
   while (static_cast<VideoReceiveStream*>(ptr)->Decode()) {
     wt.Poke();
   }

@@ -47,4 +47,7 @@ rtc_source_set("watchdog_timer") {
     "..:rtc_base_approved",
     "//third_party/abseil-cpp/absl/base:core_headers",
   ]
+  if (is_android) {
+    deps += [ "../../sdk/android:native_api_stacktrace" ]
+  }
 }

@@ -538,6 +538,7 @@ OveruseFrameDetector::OveruseFrameDetector(
 OveruseFrameDetector::~OveruseFrameDetector() {}
 
 void OveruseFrameDetector::StartCheckForOveruse(
+    rtc::TaskQueue* task_queue,
     const CpuOveruseOptions& options,
     AdaptationObserverInterface* overuse_observer) {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&task_checker_);
@@ -545,7 +546,7 @@ void OveruseFrameDetector::StartCheckForOveruse(
   RTC_DCHECK(overuse_observer != nullptr);
 
   SetOptions(options);
-  check_overuse_task_ = RepeatingTaskHandle::DelayedStart(
+  check_overuse_task_ = task_queue->RepeatDelayed(
       TimeDelta::ms(kTimeToFirstCheckForOveruseMs), [this, overuse_observer] {
         CheckForOveruse(overuse_observer);
         return TimeDelta::ms(kCheckForOveruseIntervalMs);

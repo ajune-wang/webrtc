@@ -36,7 +36,6 @@
 #include "modules/video_coding/include/video_codec_interface.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/weak_ptr.h"
 #include "video/call_stats.h"

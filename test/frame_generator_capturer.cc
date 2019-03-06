@@ -22,7 +22,6 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/time_utils.h"
 #include "system_wrappers/include/clock.h"
 
@@ -139,10 +138,8 @@ bool FrameGeneratorCapturer::Init() {
   // not crash because a file moved.
   if (frame_generator_.get() == nullptr)
     return false;
-
-  RepeatingTaskHandle::DelayedStart(
-      &task_queue_, TimeDelta::seconds(1) / GetCurrentConfiguredFramerate(),
-      [this] {
+  task_queue_.RepeatDelayed(
+      TimeDelta::seconds(1) / GetCurrentConfiguredFramerate(), [this] {
         InsertFrame();
         return TimeDelta::seconds(1) / GetCurrentConfiguredFramerate();
       });

@@ -8,23 +8,6 @@
 
 import("../../webrtc.gni")
 
-rtc_source_set("repeating_task") {
-  sources = [
-    "repeating_task.cc",
-    "repeating_task.h",
-  ]
-  deps = [
-    "..:logging",
-    "..:rtc_task_queue",
-    "..:sequenced_task_checker",
-    "..:thread_checker",
-    "..:timeutils",
-    "../../api/units:time_delta",
-    "../../api/units:timestamp",
-    "//third_party/abseil-cpp/absl/memory",
-  ]
-}
-
 rtc_source_set("to_queued_task") {
   sources = [
     "to_queued_task.h",
@@ -42,8 +25,8 @@ if (rtc_include_tests) {
       "repeating_task_unittest.cc",
     ]
     deps = [
-      ":repeating_task",
       "..:rtc_base_approved",
+      "..:rtc_task_queue",
       "../../test:test_support",
       "//third_party/abseil-cpp/absl/memory",
     ]

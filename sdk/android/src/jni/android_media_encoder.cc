@@ -14,6 +14,8 @@
 #include <string>
 #include <utility>
 
+#include "absl/memory/memory.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/video_codecs/sdp_video_format.h"
 #include "api/video_codecs/video_encoder.h"
 #include "common_types.h"  // NOLINT(build/include)
@@ -31,7 +33,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/sequenced_task_checker.h"
-#include "rtc_base/task_queue.h"
 #include "rtc_base/thread.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/weak_ptr.h"
@@ -416,11 +417,11 @@ bool MediaCodecVideoEncoder::EncodeTask::Run() {
 
   // If there aren't more frames to deliver, we can start polling at lower rate.
   if (encoder_->input_frame_infos_.empty()) {
-    rtc::TaskQueue::Current()->PostDelayedTask(
-        std::unique_ptr<rtc::QueuedTask>(this), kMediaCodecPollNoFramesMs);
+    TaskQueueBase::Current()->PostDelayedTask(absl::WrapUnique(this),
+                                              kMediaCodecPollNoFramesMs);
   } else {
-    rtc::TaskQueue::Current()->PostDelayedTask(
-        std::unique_ptr<rtc::QueuedTask>(this), kMediaCodecPollMs);
+    TaskQueueBase::Current()->PostDelayedTask(absl::WrapUnique(this),
+                                              kMediaCodecPollMs);
   }
 
   return false;
@@ -741,8 +742,8 @@ int32_t MediaCodecVideoEncoder::Encode(
 
   // Start the polling loop if it is not started.
   if (encode_task_) {
-    rtc::TaskQueue::Current()->PostDelayedTask(std::move(encode_task_),
-                                               kMediaCodecPollMs);
+    TaskQueueBase::Current()->PostDelayedTask(std::move(encode_task_),
+                                              kMediaCodecPollMs);
   }
 
   if (!DeliverPendingOutputs(jni)) {

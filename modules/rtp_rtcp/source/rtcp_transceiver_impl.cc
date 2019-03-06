@@ -14,6 +14,7 @@
 
 #include "absl/memory/memory.h"
 #include "api/call/transport.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/video/video_bitrate_allocation.h"
 #include "modules/rtp_rtcp/include/receive_statistics.h"
 #include "modules/rtp_rtcp/include/rtp_rtcp_defines.h"
@@ -100,7 +101,9 @@ RtcpTransceiverImpl::RtcpTransceiverImpl(const RtcpTransceiverConfig& config)
 RtcpTransceiverImpl::~RtcpTransceiverImpl() {
   // If RtcpTransceiverImpl is destroyed off task queue, assume it is destroyed
   // after TaskQueue. In that case there is no need to Cancel periodic task.
-  if (config_.task_queue == rtc::TaskQueue::Current()) {
+  // TODO(danilchap): task_queue might be already destroyed. Do not call it in
+  // that case.
+  if (config_.task_queue->IsCurrent()) {
     periodic_task_handle_.Stop();
   }
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d244d96b_8c08304a",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-06T14:51:12Z",
+      "side": 1,
+      "message": "Would it make sense to collect these into a struct? We probably already have some similar struct somewhere else...\n\nDo I get it right, that if headroom \u003e 0, encoder is not constrained by the network, but by a maximum bitrate configured by the application. I.e., our total send rate onto the network is application limited?",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "83d3811a4844eaed19ff85aeec8c9e4c0fc521b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

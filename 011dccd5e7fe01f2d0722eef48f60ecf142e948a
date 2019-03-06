@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "e6949a46_52f842d3",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-06T07:33:31Z",
+      "side": 1,
+      "message": "Thanks! Fully agree. I rewrote that, and a bit more accordingly. PTAL",
+      "parentUuid": "515ee8fd_73782235",
+      "range": {
+        "startLine": 383,
+        "startChar": 6,
+        "endLine": 383,
+        "endChar": 45
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63bf55b5_b4b989fe",
         "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
         "patchSetId": 15
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "I am confused :/\nIsn\u0027t the check for an aec3 param file not until two lines further down?\n\n387    if (settings_.aec_settings_filename) {",
       "parentUuid": "9c7242a0_9a33422d",
+      "range": {
+        "startLine": 384,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 64
+      },
+      "revId": "011dccd5e7fe01f2d0722eef48f60ecf142e948a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1ae3b8b_16aedfb6",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-06T07:33:31Z",
+      "side": 1,
+      "message": "Ah, yes, you are definitely right! I messed that up fully. Thanks!",
+      "parentUuid": "57df6916_fadb2ca9",
       "range": {
         "startLine": 384,
         "startChar": 0,

@@ -15,12 +15,17 @@
 
 #include "rtc_base/location.h"
 
+#ifdef WEBRTC_ANDROID
+#include <unistd.h>
+#endif
+
 namespace webrtc {
 
 // A watchdog timer, useful for discovering when threads are stuck. In your
 // thread, do something like this:
 //
 //   WatchdogTimer wt(RTC_FROM_HERE);
+//   ScopedBlameWatchdogTimerOnCurrentThread wt_thread(&wt);
 //   while (true) {
 //     DoSomething();
 //     wt.Poke();
@@ -60,12 +65,59 @@ class WatchdogTimer {
   static void CheckAll();
 
  private:
+  friend class ScopedBlameWatchdogTimerOnCurrentThread;
+
   // Have we been poked recently, or do we need poking?
   std::atomic<bool> needs_poking_;
 
   // Debug info that we log in case CheckAll() discovers that this instance
   // hasn't been poked.
   const rtc::Location created_here_;
+
+#ifdef WEBRTC_ANDROID
+  // Thread ID of the thread that's responsible for poking this watchdog timer.
+  std::atomic<int> thread_id_;
+#endif
+};
+
+// When an instance of this class is created, it squirrels away the previous
+// thread ID stored in the watchdog timer, and replaces it with that of the
+// current thread. It restores the old thread ID when destroyed.
+class ScopedBlameWatchdogTimerOnCurrentThread {
+ public:
+  explicit ScopedBlameWatchdogTimerOnCurrentThread(WatchdogTimer* wd)
+#ifdef WEBRTC_ANDROID
+      : watchdog_(wd),
+        previous_thread_id_(
+            wd->thread_id_.exchange(gettid(), std::memory_order_relaxed))
+#endif
+  {
+  }
+
+  // Shouldn't be copied or moved.
+  ScopedBlameWatchdogTimerOnCurrentThread(
+      const ScopedBlameWatchdogTimerOnCurrentThread&) = delete;
+  ScopedBlameWatchdogTimerOnCurrentThread(
+      ScopedBlameWatchdogTimerOnCurrentThread&&) = delete;
+  ScopedBlameWatchdogTimerOnCurrentThread& operator=(
+      const ScopedBlameWatchdogTimerOnCurrentThread&) = delete;
+  ScopedBlameWatchdogTimerOnCurrentThread& operator=(
+      ScopedBlameWatchdogTimerOnCurrentThread&&) = delete;
+
+  ~ScopedBlameWatchdogTimerOnCurrentThread()
+#ifdef WEBRTC_ANDROID
+  {
+    watchdog_->thread_id_.store(previous_thread_id_, std::memory_order_relaxed);
+  }
+#else
+      = default;
+#endif
+
+ private:
+#ifdef WEBRTC_ANDROID
+  WatchdogTimer* const watchdog_;
+  const int previous_thread_id_;
+#endif
 };
 
 }  // namespace webrtc

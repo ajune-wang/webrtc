@@ -16,6 +16,10 @@
 #include "rtc_base/critical_section.h"
 #include "rtc_base/logging.h"
 
+#ifdef WEBRTC_ANDROID
+#include "sdk/android/native_api/stacktrace/stacktrace.h"
+#endif
+
 namespace webrtc {
 
 namespace {
@@ -33,6 +37,10 @@ WatchdogTimer::WatchdogTimer(rtc::Location location) : created_here_(location) {
   // Relaxed memory order is sufficient here, since we only need to sequence the
   // values of this one variable, and not any other parts of memory.
   needs_poking_.store(false, std::memory_order_relaxed);
+
+#ifdef WEBRTC_ANDROID
+  thread_id_.store(-1, std::memory_order_relaxed);
+#endif
 
   if (g_watchdogs == nullptr) {
     g_watchdogs = new std::set<WatchdogTimer*>();
@@ -65,6 +73,14 @@ void WatchdogTimer::CheckAll() {
       ++num_problems;
       RTC_LOG(LS_ERROR) << "Timeout for webrtc::WatchdogTimer created at "
                         << wd->created_here_.ToString();
+#ifdef WEBRTC_ANDROID
+      const int thread_id = wd->thread_id_.load(std::memory_order_relaxed);
+      if (thread_id != -1) {
+        RTC_LOG(LS_ERROR) << "(no stack trace available)";
+      } else {
+        RTC_LOG(LS_ERROR) << StackTraceToString(GetStackTrace(thread_id));
+      }
+#endif
     }
   }
   if (num_problems == 0) {

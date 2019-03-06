@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f9904855_2ae8e784",
+        "filename": "rtc_base/openssl_stream_adapter.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-06T19:47:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f479cf9_ce6e3a8e",
+      "range": {
+        "startLine": 986,
+        "startChar": 4,
+        "endLine": 986,
+        "endChar": 11
+      },
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecbcc835_cdfbeead",
         "filename": "rtc_base/openssl_stream_adapter.h",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2019-03-01T01:50:35Z",
       "side": 1,
       "message": "Should ssl_max_version_ also be removed when you do that? This flag seems to cause it to be ignored. Then again, I guess you\u0027ll eventually want (D)TLS 1.3? Dunno how you want to organize that.",
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d34f2a2_87e8178a",
+        "filename": "rtc_base/openssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-06T19:47:15Z",
+      "side": 1,
+      "message": "ssl_max_version_ will be used to enable DTLS 1.2, 1.3 comparability.",
+      "parentUuid": "ecbcc835_cdfbeead",
       "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -62,6 +104,30 @@
       "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f033780_70991aae",
+        "filename": "rtc_base/ssl_stream_adapter.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-06T19:47:15Z",
+      "side": 1,
+      "message": "This is completely disabled from the Chrome side so I think this should be fine for now. Mostly this is just in case we see large outages and need to roll it back. I don\u0027t want users relying on this flag.",
+      "parentUuid": "6c0f56e7_f91bed41",
+      "range": {
+        "startLine": 95,
+        "startChar": 74,
+        "endLine": 96,
+        "endChar": 54
+      },
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -100,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "1b8fc8a3_49d8546c",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 793,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-06T19:47:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "052570de_87971054",
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1376a64_abb1eb41",
         "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
         "patchSetId": 2
@@ -120,6 +204,30 @@
       "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "361a0f25_2efc0d41",
+        "filename": "rtc_base/ssl_stream_adapter_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-06T19:47:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1376a64_abb1eb41",
+      "range": {
+        "startLine": 1509,
+        "startChar": 8,
+        "endLine": 1509,
+        "endChar": 11
+      },
+      "revId": "242cc2f3ad9037df6742d21b2dfe26b84d6f1629",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

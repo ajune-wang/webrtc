@@ -22,6 +22,30 @@
       "revId": "83d3811a4844eaed19ff85aeec8c9e4c0fc521b3",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dc5a25a_40afa5e1",
+        "filename": "api/video/video_stream_encoder_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-06T15:36:17Z",
+      "side": 1,
+      "message": "\u003e Would it make sense to collect these into a struct? We probably already have some similar struct somewhere else...\n\nWe have a struct BitrateAllocationUpdate that\u0027s forwarded from BitrateAllocator to VideoSendStream, but contains too and too little, so we can\u0027t directly pass it to VideoStreamEncoder at the moment. I\u0027m note sure these four values are worth a struct yet? Partly because that makes testing more difficult.\n\n\u003e Do I get it right, that if headroom \u003e 0, encoder is not constrained by the network, but by a maximum bitrate configured by the application. I.e., our total send rate onto the network is application limited?\n\nYes, that\u0027s essentially it.",
+      "parentUuid": "d244d96b_8c08304a",
+      "range": {
+        "startLine": 83,
+        "startChar": 32,
+        "endLine": 86,
+        "endChar": 58
+      },
+      "revId": "83d3811a4844eaed19ff85aeec8c9e4c0fc521b3",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

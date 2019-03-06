@@ -125,6 +125,14 @@ int32_t VideoEncoder::SetRateAllocation(
   return SetRates(allocation.get_sum_kbps(), framerate);
 }
 
+int32_t VideoEncoder::OnPacketLossRateUpdate(float packet_loss_rate) {
+  return 0;  // WEBRTC_VIDEO_CODEC_OK (Avoiding cyclical dependency.)
+}
+
+int32_t VideoEncoder::OnRttUpdate(int64_t rtt_ms) {
+  return 0;  // WEBRTC_VIDEO_CODEC_OK (Avoiding cyclical dependency.)
+}
+
 // TODO(webrtc:9722): Remove and make pure virtual.
 VideoEncoder::EncoderInfo VideoEncoder::GetEncoderInfo() const {
   return EncoderInfo();

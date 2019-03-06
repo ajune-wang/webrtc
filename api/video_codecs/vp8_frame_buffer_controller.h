@@ -119,6 +119,12 @@ class Vp8FrameBufferController {
                             bool is_keyframe,
                             int qp,
                             CodecSpecificInfo* info) = 0;
+
+  // TODO: !!!
+  virtual void OnPacketLossRateUpdate(float packet_loss_rate) = 0;
+
+  // TODO: !!!
+  virtual void OnRttUpdate(int64_t rtt_ms) = 0;
 };
 
 }  // namespace webrtc

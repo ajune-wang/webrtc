@@ -227,7 +227,7 @@ void PeerConnectionE2EQualityTest::Run(
 
   task_queue_.PostTask([&stats_poller, this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
-    stats_polling_task_ = RepeatingTaskHandle::Start([this, &stats_poller]() {
+    stats_polling_task_ = task_queue_.Repeat([this, &stats_poller]() {
       RTC_DCHECK_RUN_ON(&task_queue_);
       stats_poller.PollStatsAndNotifyObservers();
       return kStatsUpdateInterval;

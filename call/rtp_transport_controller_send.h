@@ -29,7 +29,6 @@
 #include "rtc_base/network_route.h"
 #include "rtc_base/race_checker.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 
 namespace webrtc {
 class Clock;

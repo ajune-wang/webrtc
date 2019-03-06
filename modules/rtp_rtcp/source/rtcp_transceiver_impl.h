@@ -24,7 +24,7 @@
 #include "modules/rtp_rtcp/source/rtcp_packet/report_block.h"
 #include "modules/rtp_rtcp/source/rtcp_packet/target_bitrate.h"
 #include "modules/rtp_rtcp/source/rtcp_transceiver_config.h"
-#include "rtc_base/task_utils/repeating_task.h"
+#include "rtc_base/task_queue.h"
 #include "system_wrappers/include/ntp_time.h"
 
 namespace webrtc {

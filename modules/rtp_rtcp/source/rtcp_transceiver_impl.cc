@@ -32,7 +32,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
@@ -332,8 +331,8 @@ void RtcpTransceiverImpl::ReschedulePeriodicCompoundPackets() {
 }
 
 void RtcpTransceiverImpl::SchedulePeriodicCompoundPackets(int64_t delay_ms) {
-  periodic_task_handle_ = RepeatingTaskHandle::DelayedStart(
-      config_.task_queue->Get(), TimeDelta::ms(delay_ms), [this] {
+  periodic_task_handle_ =
+      config_.task_queue->RepeatDelayed(TimeDelta::ms(delay_ms), [this] {
         RTC_DCHECK(config_.schedule_periodic_compound_packets);
         RTC_DCHECK(ready_to_send_);
         SendPeriodicCompoundPacket();

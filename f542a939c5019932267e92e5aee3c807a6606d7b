@@ -46,6 +46,30 @@
       "revId": "f542a939c5019932267e92e5aee3c807a6606d7b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2d25e3b_7f44260a",
+        "filename": "api/stats/rtcstats_objects.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-06T09:07:45Z",
+      "side": 1,
+      "message": "yes, okej, many durations and jitter_buffer_delay seems to be implicitly measured in seconds.",
+      "parentUuid": "d6389c99_b82cc2e2",
+      "range": {
+        "startLine": 317,
+        "startChar": 36,
+        "endLine": 317,
+        "endChar": 65
+      },
+      "revId": "f542a939c5019932267e92e5aee3c807a6606d7b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "495379bf_c1828cb0",
+        "filename": "modules/video_coding/codecs/vp9/vp9_impl.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-06T14:54:02Z",
+      "side": 1,
+      "message": "nit: Since this is only used here, maybe move the rest of these calculations into the method and rename it SteadyStateSize() ?",
+      "range": {
+        "startLine": 1372,
+        "startChar": 10,
+        "endLine": 1372,
+        "endChar": 24
+      },
+      "revId": "7bbd1806cb49a50cb378c585d98182d3cedcf8bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5969656b_0c8bbf20",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-07T15:19:31Z",
+      "side": 1,
+      "message": "I had some problems getting that to work with some of the corner cases that are tested in the unit tests.\nWill change the name of the function and also remove extra support of power of 10 wrapping periods.",
+      "parentUuid": "0d719797_7a22ac68",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 5
+      },
+      "revId": "e5186727eb9e01ee08e32691a9f97f97e1973696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db753f16_aac3f017",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 6

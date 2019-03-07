@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3dba72e0_e9e84826",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Good point. Done.",
+      "parentUuid": "d6ff1a66_3149b6cf",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 11
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c86c6e5_22809f36",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "45da24c6_d3c84033",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c86c6e5_22809f36",
+      "range": {
+        "startLine": 47,
+        "startChar": 55,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05754cff_8b2e5ca8",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-06T13:46:58Z",
       "side": 1,
       "message": "If you getting it for modification, I think, it\u0027s better to have a pointer here, because it will explicitly show, that value can be updated.",
+      "range": {
+        "startLine": 62,
+        "startChar": 20,
+        "endLine": 62,
+        "endChar": 21
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "230cce5f_72928809",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Isn\u0027t that kind of information conveyed by that fact that it is a \"ref\" and not a \"const ref\"?\n\nI can change to a pointer but I would like to understand if we have a convention to follow about refs. Do you have other examples I can look at?",
+      "parentUuid": "05754cff_8b2e5ca8",
       "range": {
         "startLine": 62,
         "startChar": 20,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "4356abf3_fc46de66",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "I actually forgot to remove this. :)",
+      "parentUuid": "45e62fea_488fccfb",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 34
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e1564ab_3eed6e02",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
         "patchSetId": 1
@@ -114,6 +210,30 @@
       "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8652d507_b9412f02",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e1564ab_3eed6e02",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 22
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +283,54 @@
     },
     {
       "key": {
+        "uuid": "90608c41_f84264a4",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "I asked Ivo and he said it is ok to keep rates as \"unitless\".",
+      "parentUuid": "18cc707b_1824aab8",
+      "range": {
+        "startLine": 127,
+        "startChar": 9,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33eb4846_2d7186cf",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b635860_cc646199",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 127,
+        "endChar": 41
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "749c937b_23f861c4",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
         "patchSetId": 1
@@ -183,6 +351,30 @@
       "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba83292d_de94ce13",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "749c937b_23f861c4",
+      "range": {
+        "startLine": 164,
+        "startChar": 9,
+        "endLine": 164,
+        "endChar": 17
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -256,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "d405d570_bf33e3c9",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "208155a1_6c7a7fbc",
+      "range": {
+        "startLine": 46,
+        "startChar": 77,
+        "endLine": 46,
+        "endChar": 78
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7f2c536_0cf592d8",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
         "patchSetId": 1
@@ -276,6 +492,30 @@
       "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2becdf46_5b383158",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "This cannot be const because it returns a ref to an instance of AudioStreamStats that needs to be modified.",
+      "parentUuid": "a7f2c536_0cf592d8",
+      "range": {
+        "startLine": 47,
+        "startChar": 66,
+        "endLine": 47,
+        "endChar": 67
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -302,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "b04813b3_49995b54",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42832124_8f98800a",
+      "range": {
+        "startLine": 48,
+        "startChar": 62,
+        "endLine": 48,
+        "endChar": 63
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2815b7c3_82774713",
         "filename": "test/pc/e2e/api/audio_quality_analyzer_interface.h",
         "patchSetId": 1
@@ -322,6 +586,30 @@
       "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e2828b3_39817e66",
+        "filename": "test/pc/e2e/api/audio_quality_analyzer_interface.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2815b7c3_82774713",
+      "range": {
+        "startLine": 32,
+        "startChar": 49,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -359,6 +647,30 @@
       "writtenOn": "2019-03-06T13:46:58Z",
       "side": 1,
       "message": "Should we have a locking here?",
+      "range": {
+        "startLine": 454,
+        "startChar": 4,
+        "endLine": 454,
+        "endChar": 21
+      },
+      "revId": "79c71f5aa1aaf8ded68403eb48e32c19e8f3bdfb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5fa1b0e_c64adb1c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T08:49:10Z",
+      "side": 1,
+      "message": "Yes, we should. I will do this change in the next patch set together with the refactoring to the helper to get the stream_label from the track_id as discussed yesterday.",
+      "parentUuid": "f94588d8_9ef9dbb4",
       "range": {
         "startLine": 454,
         "startChar": 4,

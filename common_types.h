@@ -14,6 +14,8 @@
 #include <stddef.h>  // For size_t
 #include <cstdint>
 
+#include "rtc_base/deprecation.h"
+
 // TODO(bugs.webrtc.org/7660): Delete include once downstream code is updated.
 #include "api/video/video_codec_type.h"
 
@@ -25,13 +27,21 @@
 
 namespace webrtc {
 
-enum FrameType {
+// TODO(bugs.webrtc.org/6883): This type should be split into separate types for
+// audio and video, and then moved out of this file.
+enum FrameTypeDeprecated {
   kEmptyFrame = 0,
   kAudioFrameSpeech = 1,
   kAudioFrameCN = 2,
   kVideoFrameKey = 3,
   kVideoFrameDelta = 4,
 };
+
+RTC_DEPRECATED
+typedef FrameTypeDeprecated FrameType;
+
+using AudioFrameType = FrameTypeDeprecated;
+using VideoFrameType = FrameTypeDeprecated;
 
 // Statistics for RTCP packet types.
 struct RtcpPacketTypeCounter {

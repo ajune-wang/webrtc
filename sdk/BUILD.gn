@@ -366,6 +366,7 @@ if (is_ios || is_mac) {
         "..:common_objc",
         ":used_from_extension",
       ]
+      libs = [ "CoreVideo.framework" ]
     }
 
     rtc_static_library("video_objc") {
@@ -379,7 +380,7 @@ if (is_ios || is_mac) {
         "objc/components/renderer/opengl/RTCShader.mm",
         "objc/components/renderer/opengl/RTCVideoViewShading.h",
       ]
-      libs = []
+      libs = [ "CoreVideo.framework" ]
       if (is_ios) {
         sources += [
           "objc/components/renderer/opengl/RTCNV12TextureCache.h",
@@ -393,7 +394,6 @@ if (is_ios || is_mac) {
       } else if (is_mac) {
         libs += [
           "CoreMedia.framework",
-          "CoreVideo.framework",
           "OpenGL.framework",
         ]
       }
@@ -523,7 +523,10 @@ if (is_ios || is_mac) {
           "objc/components/capturer/RTCFileVideoCapturer.m",
         ]
       }
-      libs = [ "AVFoundation.framework" ]
+      libs = [
+        "AVFoundation.framework",
+        "CoreVideo.framework",
+      ]
 
       configs += [ "..:common_objc" ]
 

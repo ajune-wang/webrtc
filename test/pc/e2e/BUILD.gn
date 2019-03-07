@@ -36,6 +36,7 @@ if (rtc_include_tests) {
     deps = [
       ":default_encoded_image_data_injector_unittest",
       ":peer_connection_e2e_smoke_test",
+      ":sdp_changer_unittest",
       ":single_process_encoded_image_data_injector_unittest",
     ]
   }
@@ -203,6 +204,7 @@ if (rtc_include_tests) {
     deps = [
       ":default_audio_quality_analyzer",
       ":default_video_quality_analyzer",
+      ":sdp_changer",
       ":single_process_encoded_image_data_injector",
       ":stats_poller",
       ":test_peer",
@@ -213,6 +215,7 @@ if (rtc_include_tests) {
       "../../../logging:rtc_event_log_api",
       "../../../logging:rtc_event_log_impl_output",
       "../../../pc:pc_test_utils",
+      "../../../pc:peerconnection",
       "../../../rtc_base:gunit_helpers",
       "../../../rtc_base:rtc_base",
       "../../../rtc_base:rtc_base_approved",
@@ -363,6 +366,37 @@ rtc_source_set("default_video_quality_analyzer") {
     "../../../rtc_base:rtc_numerics",
     "../../../system_wrappers:system_wrappers",
     "api:video_quality_analyzer_api",
+    "//third_party/abseil-cpp/absl/memory:memory",
+  ]
+}
+
+rtc_source_set("sdp_changer") {
+  visibility = [ "*" ]
+  testonly = true
+  sources = [
+    "sdp/sdp_changer.cc",
+    "sdp/sdp_changer.h",
+  ]
+  deps = [
+    "../../../api:libjingle_peerconnection_api",
+    "../../../media:rtc_media_base",
+    "../../../pc:rtc_pc_base",
+    "../../../rtc_base:stringutils",
+  ]
+}
+
+rtc_source_set("sdp_changer_unittest") {
+  testonly = true
+  sources = [
+    "sdp/sdp_changer_unittest.cc",
+  ]
+  deps = [
+    ":sdp_changer",
+    "../../../api:libjingle_peerconnection_api",
+    "../../../pc:peerconnection",
+    "../../../pc:rtc_pc_base",
+    "../../../rtc_base:stringutils",
+    "../../../test:test_support",
     "//third_party/abseil-cpp/absl/memory:memory",
   ]
 }

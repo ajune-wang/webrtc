@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d68915bd_d7ed100c",
+        "filename": "test/pc/e2e/api/analyzer_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T11:14:28Z",
+      "side": 1,
+      "message": "We can add some state and check this method is called only after the framework declared it safe (e.g. after all internal state is set). WDYT?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b853457_6155a3c2",
+        "filename": "test/pc/e2e/api/analyzer_helper.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T11:14:28Z",
+      "side": 1,
+      "message": "If you have a better name please let me know. :)\n\nI have placed this inside api/ because Start needs to be aware of it. I am not sure it is a good idea but I don\u0027t want to complicate code too much, we can always change it in the next few weeks when requirements around stats will be more clear.",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74376c0c_901db783",
+        "filename": "test/pc/e2e/api/audio_quality_analyzer_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T11:14:28Z",
+      "side": 1,
+      "message": "Note to myself: remove this.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

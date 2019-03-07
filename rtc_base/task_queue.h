@@ -90,8 +90,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
                      Priority priority = Priority::NORMAL);
   ~TaskQueue();
 
-  static TaskQueue* Current();
-
   // Used for DCHECKing the current queue.
   bool IsCurrent() const;
 

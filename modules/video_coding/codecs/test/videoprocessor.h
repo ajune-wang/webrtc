@@ -17,7 +17,10 @@
 #include <memory>
 #include <vector>
 
+#include "absl/memory/memory.h"
 #include "absl/types/optional.h"
+#include "api/task_queue/queued_task.h"
+#include "api/task_queue/task_queue_base.h"
 #include "api/test/videocodec_test_fixture.h"
 #include "api/test/videocodec_test_stats.h"
 #include "api/video/encoded_image.h"
@@ -34,7 +37,6 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/sequenced_task_checker.h"
-#include "rtc_base/task_queue.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/thread_checker.h"
 #include "test/testsupport/frame_reader.h"
@@ -79,7 +81,7 @@ class VideoProcessor {
     explicit VideoProcessorEncodeCompleteCallback(
         VideoProcessor* video_processor)
         : video_processor_(video_processor),
-          task_queue_(rtc::TaskQueue::Current()) {
+          task_queue_(TaskQueueBase::Current()) {
       RTC_DCHECK(video_processor_);
       RTC_DCHECK(task_queue_);
     }
@@ -92,9 +94,8 @@ class VideoProcessor {
 
       // Post the callback to the right task queue, if needed.
       if (!task_queue_->IsCurrent()) {
-        task_queue_->PostTask(
-            std::unique_ptr<rtc::QueuedTask>(new EncodeCallbackTask(
-                video_processor_, encoded_image, codec_specific_info)));
+        task_queue_->PostTask(absl::make_unique<EncodeCallbackTask>(
+            video_processor_, encoded_image, codec_specific_info));
         return Result(Result::OK, 0);
       }
 
@@ -103,7 +104,7 @@ class VideoProcessor {
     }
 
    private:
-    class EncodeCallbackTask : public rtc::QueuedTask {
+    class EncodeCallbackTask : public QueuedTask {
      public:
       EncodeCallbackTask(VideoProcessor* video_processor,
                          const webrtc::EncodedImage& encoded_image,
@@ -126,7 +127,7 @@ class VideoProcessor {
     };
 
     VideoProcessor* const video_processor_;
-    rtc::TaskQueue* const task_queue_;
+    TaskQueueBase* const task_queue_;
   };
 
   class VideoProcessorDecodeCompleteCallback
@@ -137,7 +138,7 @@ class VideoProcessor {
         size_t simulcast_svc_idx)
         : video_processor_(video_processor),
           simulcast_svc_idx_(simulcast_svc_idx),
-          task_queue_(rtc::TaskQueue::Current()) {
+          task_queue_(TaskQueueBase::Current()) {
       RTC_DCHECK(video_processor_);
       RTC_DCHECK(task_queue_);
     }
@@ -158,7 +159,7 @@ class VideoProcessor {
    private:
     VideoProcessor* const video_processor_;
     const size_t simulcast_svc_idx_;
-    rtc::TaskQueue* const task_queue_;
+    TaskQueueBase* const task_queue_;
   };
 
   // Invoked by the callback adapter when a frame has completed encoding.

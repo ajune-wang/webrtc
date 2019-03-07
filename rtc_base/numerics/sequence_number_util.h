@@ -19,6 +19,16 @@
 #include "rtc_base/checks.h"
 #include "rtc_base/numerics/mod_ops.h"
 
+namespace {
+constexpr bool IsPowerOf2(uint64_t n) {
+  return (n & (n - 1)) == 0;
+}
+
+constexpr bool IsPowerOf10(uint64_t n) {
+  return n >= 10 ? IsPowerOf10(n / 10) && n % 10 == 0 : n == 1;
+}
+}  // namespace
+
 namespace webrtc {
 
 // Test if the sequence number |a| is ahead or at sequence number |b|.
@@ -82,7 +92,8 @@ struct DescendingSeqNumComp {
 };
 
 // A sequencer number unwrapper where the start value of the unwrapped sequence
-// can be set. The unwrapped value is not allowed to wrap.
+// can be set. The unwrapped value is not allowed to wrap. See comment below for
+// details on the behavior.
 template <typename T, T M = 0>
 class SeqNumUnwrapper {
   // Use '<' instead of rtc::SafeLt to avoid crbug.com/753488
@@ -92,34 +103,61 @@ class SeqNumUnwrapper {
       "Type unwrapped must be an unsigned integer smaller than uint64_t.");
 
  public:
-  // We want a default value that is close to 2^62 for a two reasons. Firstly,
-  // we can unwrap wrapping numbers in either direction, and secondly, the
-  // unwrapped numbers can be stored in either int64_t or uint64_t. We also want
-  // the default value to be human readable, which makes a power of 10 suitable.
-  static constexpr uint64_t kDefaultStartValue = 1000000000000000000UL;
+  // Start value
+  // ===========
+  // We want a default start value that is close to 2^62 for two reasons.
+  // Firstly, we can unwrap wrapping numbers in either direction, and secondly,
+  // the unwrapped numbers can be stored in either int64_t or uint64_t.
+  // If the wrapping period is a power of 2 we use 2^62 as default start
+  // value. Otherwise we use a default start value that is 10^18. This is 2^62
+  // rounded down to the closest power of 10.
+  //
+  // Unwrapped to wrapped
+  // ====================
+  // If the wrapping period is a power of 2, any start value that is also a
+  // power of 2 and greater than the wrapping period will give unwrapped values
+  // where the least significant bits are equal to the wrapped value.
+  //
+  // If the wrapping period is a power of 10, any start value greater than the
+  // wrapping period will give unwrapped values where the least significant
+  // digits are equal to the wrapped value.
+  static constexpr uint64_t kPeriod =
+      M == 0 ? static_cast<uint64_t>(std::numeric_limits<T>::max()) + 1 : M;
+  static constexpr uint64_t kDefaultStartValue =
+      IsPowerOf2(kPeriod) ? (uint64_t{1} << 62) : 1000000000000000000UL;
 
-  SeqNumUnwrapper() : last_unwrapped_(kDefaultStartValue) {}
+  SeqNumUnwrapper() : SeqNumUnwrapper(kDefaultStartValue) {}
   explicit SeqNumUnwrapper(uint64_t start_at) : last_unwrapped_(start_at) {}
 
   uint64_t Unwrap(T value) {
-    if (!last_value_)
-      last_value_.emplace(value);
-
     uint64_t unwrapped = 0;
-    if (AheadOrAt<T, M>(value, *last_value_)) {
-      unwrapped = last_unwrapped_ + ForwardDiff<T, M>(*last_value_, value);
-      RTC_CHECK_GE(unwrapped, last_unwrapped_);
+    if (!last_value_) {
+      unwrapped = Initialization(last_unwrapped_, value);
     } else {
-      unwrapped = last_unwrapped_ - ReverseDiff<T, M>(*last_value_, value);
-      RTC_CHECK_LT(unwrapped, last_unwrapped_);
+      if (AheadOrAt<T, M>(value, *last_value_)) {
+        unwrapped = last_unwrapped_ + ForwardDiff<T, M>(*last_value_, value);
+        RTC_CHECK_GE(unwrapped, last_unwrapped_);
+      } else {
+        unwrapped = last_unwrapped_ - ReverseDiff<T, M>(*last_value_, value);
+        RTC_CHECK_LT(unwrapped, last_unwrapped_);
+      }
     }
 
-    *last_value_ = value;
+    last_value_ = value;
     last_unwrapped_ = unwrapped;
     return last_unwrapped_;
   }
 
  private:
+  uint64_t Initialization(uint64_t start_at, T value) {
+    if (IsPowerOf2(kPeriod)) {
+      return start_at | value;
+    } else if (IsPowerOf10(kPeriod)) {
+      return start_at + value;
+    }
+    return start_at;
+  }
+
   uint64_t last_unwrapped_;
   absl::optional<T> last_value_;
 };

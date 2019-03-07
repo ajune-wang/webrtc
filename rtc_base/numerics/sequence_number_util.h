@@ -94,34 +94,41 @@ class SeqNumUnwrapper {
  public:
   // We want a default value that is close to 2^62 for a two reasons. Firstly,
   // we can unwrap wrapping numbers in either direction, and secondly, the
-  // unwrapped numbers can be stored in either int64_t or uint64_t. We also want
-  // the default value to be human readable, which makes a power of 10 suitable.
-  static constexpr uint64_t kDefaultStartValue = 1000000000000000000UL;
+  // unwrapped numbers can be stored in either int64_t or uint64_t.
+  // * If the wrapping period is a power of 2 we use 2^62 as default start
+  //   value, so that we can get back to the original value by simply reading
+  //   out the least significant bits.
+  // * Otherwise we use a default start value that is 10^18. This is 2^62
+  //   rounded down to the closest power of 10. For M=10^n this means that we
+  //   can get back to the original value by reading out the last n digits in
+  //   decimal form.
+  static constexpr uint64_t kPeriod =
+      M == 0 ? static_cast<uint64_t>(std::numeric_limits<T>::max()) + 1 : M;
+  static constexpr uint64_t kDefaultStartValue =
+      (kPeriod & (kPeriod - 1)) == 0 ? (1UL << 62) : 1000000000000000000UL;
 
-  SeqNumUnwrapper() : last_unwrapped_(kDefaultStartValue) {}
-  explicit SeqNumUnwrapper(uint64_t start_at) : last_unwrapped_(start_at) {}
+  SeqNumUnwrapper() : SeqNumUnwrapper(kDefaultStartValue) {}
+  explicit SeqNumUnwrapper(uint64_t start_at)
+      : last_unwrapped_(start_at), last_value_(start_at % kPeriod) {}
 
   uint64_t Unwrap(T value) {
-    if (!last_value_)
-      last_value_.emplace(value);
-
     uint64_t unwrapped = 0;
-    if (AheadOrAt<T, M>(value, *last_value_)) {
-      unwrapped = last_unwrapped_ + ForwardDiff<T, M>(*last_value_, value);
+    if (AheadOrAt<T, M>(value, last_value_)) {
+      unwrapped = last_unwrapped_ + ForwardDiff<T, M>(last_value_, value);
       RTC_CHECK_GE(unwrapped, last_unwrapped_);
     } else {
-      unwrapped = last_unwrapped_ - ReverseDiff<T, M>(*last_value_, value);
+      unwrapped = last_unwrapped_ - ReverseDiff<T, M>(last_value_, value);
       RTC_CHECK_LT(unwrapped, last_unwrapped_);
     }
 
-    *last_value_ = value;
+    last_value_ = value;
     last_unwrapped_ = unwrapped;
     return last_unwrapped_;
   }
 
  private:
   uint64_t last_unwrapped_;
-  absl::optional<T> last_value_;
+  T last_value_;
 };
 
 }  // namespace webrtc

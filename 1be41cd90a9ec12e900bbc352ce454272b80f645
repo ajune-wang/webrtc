@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ca1d5aa_042d3bbe",
+        "filename": "api/video_codecs/video_encoder.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-07T08:10:51Z",
+      "side": 1,
+      "message": "Do we really need this return value? I\u0027d be more inclined to start removing it from other methods, rather than add new ones for the sake of consistency.",
+      "range": {
+        "startLine": 272,
+        "startChar": 10,
+        "endLine": 272,
+        "endChar": 17
+      },
+      "revId": "1be41cd90a9ec12e900bbc352ce454272b80f645",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e35f35_bec65996",
+        "filename": "api/video_codecs/vp8_frame_buffer_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-07T08:10:51Z",
+      "side": 1,
+      "message": "Nit: Clarify unit. This is expressed as a fraction, right? Not percent?",
+      "range": {
+        "startLine": 123,
+        "startChar": 48,
+        "endLine": 123,
+        "endChar": 52
+      },
+      "revId": "1be41cd90a9ec12e900bbc352ce454272b80f645",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

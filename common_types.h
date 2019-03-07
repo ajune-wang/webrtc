@@ -39,7 +39,6 @@ enum FrameTypeDeprecated {
 typedef FrameTypeDeprecated FrameType;
 
 using AudioFrameType = FrameTypeDeprecated;
-using VideoFrameType = FrameTypeDeprecated;
 
 // Statistics for RTCP packet types.
 struct RtcpPacketTypeCounter {

@@ -123,7 +123,7 @@ std::unique_ptr<AugmentedPacket> AugmentedPacketGenerator::NextPacket(
   for (size_t i = 0; i < length; ++i)
     packet->data[i + kRtpHeaderSize] = offset + i;
   packet->length = length + kRtpHeaderSize;
-  packet->header.frameType = kVideoFrameDelta;
+  packet->header.frameType = VideoFrameType::kVideoFrameDelta;
   packet->header.header.headerLength = kRtpHeaderSize;
   packet->header.header.markerBit = (num_packets_ == 1);
   packet->header.header.payloadType = kVp8PayloadType;

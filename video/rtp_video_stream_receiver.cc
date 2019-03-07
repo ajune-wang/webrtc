@@ -247,7 +247,7 @@ int32_t RtpVideoStreamReceiver::OnReceivedPayloadData(
   if (nack_module_) {
     const bool is_keyframe =
         rtp_header->video_header().is_first_packet_in_frame &&
-        rtp_header->frameType == kVideoFrameKey;
+        rtp_header->frameType == VideoFrameType::kVideoFrameKey;
 
     packet.timesNacked = nack_module_->OnReceivedPacket(
         rtp_header->header.sequenceNumber, is_keyframe, is_recovered);
@@ -427,7 +427,7 @@ void RtpVideoStreamReceiver::OnAssembledFrame(
         descriptor->FrameDependenciesDiffs());
   } else if (!has_received_frame_) {
     // Request a key frame as soon as possible.
-    if (frame->FrameType() != kVideoFrameKey) {
+    if (frame->FrameType() != VideoFrameType::kVideoFrameKey) {
       keyframe_request_sender_->RequestKeyFrame();
     }
   }
@@ -564,7 +564,7 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
   webrtc_rtp_header.video_header().color_space =
       packet.GetExtension<ColorSpaceExtension>();
   if (webrtc_rtp_header.video_header().color_space ||
-      webrtc_rtp_header.frameType == kVideoFrameKey) {
+      webrtc_rtp_header.frameType == VideoFrameType::kVideoFrameKey) {
     // Store color space since it's only transmitted when changed or for key
     // frames. Color space will be cleared if a key frame is transmitted without
     // color space information.
@@ -604,8 +604,8 @@ void RtpVideoStreamReceiver::ReceivePacket(const RtpPacketReceived& packet) {
     if (generic_descriptor_wire->FirstPacketInSubFrame()) {
       webrtc_rtp_header.frameType =
           generic_descriptor_wire->FrameDependenciesDiffs().empty()
-              ? kVideoFrameKey
-              : kVideoFrameDelta;
+              ? VideoFrameType::kVideoFrameKey
+              : VideoFrameType::kVideoFrameDelta;
     }
 
     webrtc_rtp_header.video_header().width = generic_descriptor_wire->Width();

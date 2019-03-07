@@ -11,6 +11,9 @@
 #ifndef TEST_PC_E2E_API_AUDIO_QUALITY_ANALYZER_INTERFACE_H_
 #define TEST_PC_E2E_API_AUDIO_QUALITY_ANALYZER_INTERFACE_H_
 
+#include <map>
+#include <string>
+
 #include "test/pc/e2e/api/stats_observer_interface.h"
 
 namespace webrtc {
@@ -24,6 +27,16 @@ class AudioQualityAnalyzerInterface : public StatsObserverInterface {
   // |test_case_name| is name of test case, that should be used to report all
   // audio metrics.
   virtual void Start(std::string test_case_name) = 0;
+
+  // Will be called by the framework at the end of the test. The analyzer
+  // has to finalize all its stats and it should report them.
+  // TODO(mbonadei): Discuss about the API of this method. It is not clear
+  // what does it mean for an analyzer to finalize its stats.
+  // E.g. The current interpretation is that the analyzer will have to call
+  // webrtc::test::PrintResult or similar in this method.
+  virtual void Stop() = 0;
+
+  virtual void SetTrackStreamMap(std::map<std::string, std::string>&) = 0;
 };
 
 }  // namespace test

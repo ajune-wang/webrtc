@@ -221,12 +221,16 @@ void PeerConnectionE2EQualityTest::Run(
       rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
                 this));
 
+  audio_quality_analyzer_->SetTrackStreamMap(track_stream_map_);
+
   StatsPoller stats_poller({audio_quality_analyzer_.get(),
                             video_quality_analyzer_injection_helper_.get()},
                            {{"alice", alice_.get()}, {"bob", bob_.get()}});
 
   task_queue_.PostTask([&stats_poller, this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
+    // TODO(mbonadei): Maybe use DelayedStart in order to avoid the empty
+    // stats report at the beginning of the call?
     stats_polling_task_ = RepeatingTaskHandle::Start([this, &stats_poller]() {
       RTC_DCHECK_RUN_ON(&task_queue_);
       stats_poller.PollStatsAndNotifyObservers();
@@ -252,6 +256,7 @@ void PeerConnectionE2EQualityTest::Run(
       rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
                 this));
 
+  audio_quality_analyzer_->Stop();
   video_quality_analyzer_injection_helper_->Stop();
 
   // Ensuring that TestPeers have been destroyed in order to correctly close
@@ -445,7 +450,8 @@ PeerConnectionE2EQualityTest::MaybeAddVideo(TestPeer* peer) {
     rtc::scoped_refptr<VideoTrackInterface> track =
         peer->pc_factory()->CreateVideoTrack(video_config.stream_label.value(),
                                              source);
-    peer->AddTrack(track, {video_config.stream_label.value()});
+    auto result = peer->AddTrack(track, {video_config.stream_label.value()});
+    track_stream_map_.insert({result->id(), video_config.stream_label.value()});
   }
   return out;
 }
@@ -493,7 +499,8 @@ void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {
       peer->pc_factory()->CreateAudioSource(audio_config.audio_options);
   rtc::scoped_refptr<AudioTrackInterface> track =
       peer->pc_factory()->CreateAudioTrack(*audio_config.stream_label, source);
-  peer->AddTrack(track, {*audio_config.stream_label});
+  auto result = peer->AddTrack(track, {*audio_config.stream_label});
+  track_stream_map_.insert({result->id(), *audio_config.stream_label});
 }
 
 void PeerConnectionE2EQualityTest::SetupCall() {

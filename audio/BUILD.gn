@@ -247,6 +247,7 @@ if (rtc_include_tests) {
       "test/audio_bwe_integration_test.h",
     ]
     deps = [
+      "../../api/task_queue",
       "../api:simulated_network_api",
       "../call:fake_network",
       "../call:simulated_network",

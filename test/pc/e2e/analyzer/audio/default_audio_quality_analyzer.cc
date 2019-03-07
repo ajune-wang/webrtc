@@ -10,19 +10,148 @@
 
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 
+#include <string.h>
+
+#include "api/stats_types.h"
 #include "rtc_base/logging.h"
+#include "test/testsupport/perf_test.h"
 
 namespace webrtc {
 namespace test {
 
-void DefaultAudioQualityAnalyzer::Start(std::string test_case_name) {
-  test_case_name_ = std::move(test_case_name);
+namespace {
+
+static const char* kStatsAudioMediaType = "audio";
+
+}  // namespace
+
+bool AudioStreamStats::IsEmpty() const {
+  return expand_rate.IsEmpty() && accelerate_rate.IsEmpty() &&
+         preemptive_rate.IsEmpty() && speech_expand_rate.IsEmpty() &&
+         preferred_buffer_size_ms.IsEmpty();
 }
 
+void DefaultAudioQualityAnalyzer::Start(std::string test_case_name,
+                                        AnalyzerHelper* analyzer_helper) {
+  test_case_name_ = std::move(test_case_name);
+  analyzer_helper_ = analyzer_helper;
+}
+
+// TODO(mbonadei): pc_label is not useful anymore, the analyzer will work on
+// the concept of stream.
 void DefaultAudioQualityAnalyzer::OnStatsReports(
     absl::string_view pc_label,
     const StatsReports& stats_reports) {
-  // TODO(bugs.webrtc.org/10138): Implement audio stats collection.
+  for (const StatsReport* stats_report : stats_reports) {
+    // NetEq stats are only present in kStatsReportTypeSsrc reports, so all
+    // other reports are just ignored.
+    if (stats_report->type() != StatsReport::StatsType::kStatsReportTypeSsrc) {
+      continue;
+    }
+    // Ignoring stats reports of "video" SSRC.
+    auto* value_media_type = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNameMediaType);
+    RTC_CHECK(value_media_type);
+    if (strcmp(value_media_type->static_string_val(), kStatsAudioMediaType) !=
+        0) {
+      continue;
+    }
+    auto* packets_received = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNamePacketsReceived);
+    // TODO(mbonadei): This could be a problem in case no packets are received
+    // during a call. We want to measure stats also in that case, so the
+    // check == 0 should be replaced with something else.
+    if (!packets_received || packets_received->int_val() == 0) {
+      // Discarding stats about send-side SSRC since NetEq stats are only
+      // available in recv-side SSRC.
+      continue;
+    }
+
+    const std::string& stream_label =
+        GetStreamLabelFromStatsReport(stats_report);
+    AudioStreamStats& audio_stream_stats = GetAudioStreamStats(stream_label);
+    auto* expand_rate = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNameExpandRate);
+    auto* accelerate_rate = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNameAccelerateRate);
+    auto* preemptive_rate = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNamePreemptiveExpandRate);
+    auto* speech_expand_rate = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNameSpeechExpandRate);
+    auto* preferred_buffer_size_ms = stats_report->FindValue(
+        StatsReport::StatsValueName::kStatsValueNamePreferredJitterBufferMs);
+    RTC_CHECK(expand_rate);
+    RTC_CHECK(accelerate_rate);
+    RTC_CHECK(preemptive_rate);
+    RTC_CHECK(speech_expand_rate);
+    RTC_CHECK(preferred_buffer_size_ms);
+    audio_stream_stats.expand_rate.AddSample(expand_rate->float_val());
+    audio_stream_stats.accelerate_rate.AddSample(accelerate_rate->float_val());
+    audio_stream_stats.preemptive_rate.AddSample(preemptive_rate->float_val());
+    audio_stream_stats.speech_expand_rate.AddSample(
+        speech_expand_rate->float_val());
+    audio_stream_stats.preferred_buffer_size_ms.AddSample(
+        preferred_buffer_size_ms->int_val());
+  }
+}
+
+const std::string& DefaultAudioQualityAnalyzer::GetStreamLabelFromStatsReport(
+    const StatsReport* stats_report) const {
+  auto* report_track_id = stats_report->FindValue(
+      StatsReport::StatsValueName::kStatsValueNameTrackId);
+  RTC_CHECK(report_track_id);
+  return analyzer_helper_->GetStreamLabelFromTrackId(
+      report_track_id->string_val());
+}
+
+AudioStreamStats& DefaultAudioQualityAnalyzer::GetAudioStreamStats(
+    const std::string& stream_label) {
+  auto stream_stats = streams_stats_.find(stream_label);
+  if (stream_stats == streams_stats_.end()) {
+    auto inserted_stream_stats =
+        streams_stats_.insert({stream_label, AudioStreamStats()});
+    RTC_CHECK(inserted_stream_stats.second);
+    return inserted_stream_stats.first->second;
+  }
+  return stream_stats->second;
+}
+
+std::string DefaultAudioQualityAnalyzer::GetTestCaseName(
+    const std::string& stream_label) const {
+  return test_case_name_ + "/" + stream_label;
+}
+
+void DefaultAudioQualityAnalyzer::Stop() {
+  for (auto& item : streams_stats_) {
+    if (item.second.IsEmpty()) {
+      // TODO(mbonadei): change the API of the audio analyzer in order to
+      // explicitly set the streams we need to track.
+      // This is a prototype only workaround.
+      continue;
+    }
+    ReportResult("expand_rate", item.first, item.second.expand_rate,
+                 "unitless");
+    ReportResult("accelerate_rate", item.first, item.second.accelerate_rate,
+                 "unitless");
+    ReportResult("preemptive_rate", item.first, item.second.preemptive_rate,
+                 "unitless");
+    ReportResult("speech_expand_rate", item.first,
+                 item.second.speech_expand_rate, "unitless");
+    ReportResult("preferred_buffer_size_ms", item.first,
+                 item.second.preferred_buffer_size_ms, "unitless");
+  }
+}
+
+void DefaultAudioQualityAnalyzer::ReportResult(
+    const std::string& metric_name,
+    const std::string& stream_label,
+    const SamplesStatsCounter& counter,
+    const std::string& unit) const {
+  test::PrintResultMeanAndError(
+      metric_name, /*modifier=*/"", GetTestCaseName(stream_label),
+      counter.IsEmpty() ? 0 : counter.GetAverage(),
+      counter.IsEmpty() ? 0 : counter.GetStandardDeviation(), unit,
+      /*important=*/false);
 }
 
 }  // namespace test

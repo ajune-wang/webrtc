@@ -89,8 +89,7 @@ class StatsPollTask : public rtc::QueuedTask {
     RTC_CHECK(sender_call_);
     Call::Stats call_stats = sender_call_->GetStats();
     EXPECT_GT(call_stats.send_bandwidth_bps, 25000);
-    rtc::TaskQueue::Current()->PostDelayedTask(
-        std::unique_ptr<QueuedTask>(this), 100);
+    TaskQueueBase::Current()->PostDelayedTask(absl::WrapUnique(this), 100);
     return false;
   }
   Call* sender_call_;

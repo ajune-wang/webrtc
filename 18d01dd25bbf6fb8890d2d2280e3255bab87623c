@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0a85088_bfbe83b3",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-07T16:11:24Z",
+      "side": 1,
+      "message": "Sorry if I was unclear, but I think you should always do this on initialization :)\n\n  unwrapped \u003d int64_t{1} \u003c\u003c 62 | value;",
+      "revId": "18d01dd25bbf6fb8890d2d2280e3255bab87623c",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

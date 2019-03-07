@@ -11,6 +11,8 @@
 #include <iostream>
 #include <string>
 
+#include "absl/strings/string_view.h"
+#include "absl/types/optional.h"
 #include "modules/audio_coding/neteq/tools/neteq_test.h"
 #include "modules/audio_coding/neteq/tools/neteq_test_factory.h"
 #include "rtc_base/flags.h"
@@ -117,6 +119,10 @@ WEBRTC_DEFINE_int(video_content_type,
 WEBRTC_DEFINE_int(video_timing,
                   TestConfig::default_video_timing(),
                   "Extension ID for video timing");
+WEBRTC_DEFINE_string(output_files_base_name,
+                     "",
+                     "Custom path used as prefix for the output files - i.e., "
+                     "matlab plot, python plot, text log.");
 WEBRTC_DEFINE_bool(matlabplot,
                    false,
                    "Generates a matlab script for plotting the delay profile");
@@ -210,6 +216,51 @@ void PrintCodecMapping() {
   PrintCodecMappingEntry("comfort noise (48 kHz)", FLAG_cn_swb48);
 }
 
+bool ValidateOutputFilesOptions(bool textlog,
+                                bool plotting,
+                                absl::string_view output_files_base_name,
+                                absl::string_view output_audio_filename) {
+  bool output_files_base_name_specified = !output_files_base_name.empty();
+  if (!textlog && !plotting && output_files_base_name_specified) {
+    std::cout << "Error: --output_files_base_name cannot be used without at "
+              << "least one of the following flags: --textlog, --matlabplot, "
+              << "--pythonplot." << std::endl;
+    return false;
+  }
+  // Without |output_audio_filename|, |output_files_base_name| is required when
+  // one or more output files must be generated (in order to form a valid output
+  // file name).
+  if (output_audio_filename.empty() && (textlog || plotting) &&
+      !output_files_base_name_specified) {
+    std::cout << "Error: when no output audio file is specified and --textlog, "
+              << "--matlabplot and/or --pythonplot are used, "
+              << "--output_files_base_name must be also used." << std::endl;
+    return false;
+  }
+  return true;
+}
+
+absl::optional<std::string> CreateOptionalOutputFileName(
+    bool output_requested,
+    // TODO(alessiob): Switch to absl::string_view when absl::StrCat available.
+    const std::string& basename,
+    const std::string& output_audio_filename,
+    const std::string& suffix) {
+  if (!output_requested) {
+    return absl::nullopt;
+  }
+  if (!basename.empty()) {
+    // Override the automatic assignment.
+    return basename + suffix;
+  }
+  if (!output_audio_filename.empty()) {
+    // Automatically assign name.
+    return output_audio_filename + suffix;
+  }
+  std::cout << "Error: invalid text log file parameters.";
+  return absl::nullopt;
+}
+
 }  // namespace
 
 int main(int argc, char* argv[]) {
@@ -221,7 +272,7 @@ int main(int argc, char* argv[]) {
       program_name +
       " --help for usage.\n"
       "Example usage:\n" +
-      program_name + " input.rtp output.{pcm, wav}\n";
+      program_name + " input.rtp [output.{pcm, wav}]\n";
   if (rtc::FlagList::SetFlagsFromCommandLine(&argc, argv, true)) {
     exit(1);
   }
@@ -234,11 +285,16 @@ int main(int argc, char* argv[]) {
     PrintCodecMapping();
     exit(0);
   }
-  if (argc != 3) {
+  if (argc < 2 || argc > 3) {  // Output file is optional.
     // Print usage information.
     std::cout << usage;
     exit(0);
   }
+  const std::string output_audio_filename((argc == 3) ? argv[2] : "");
+  const std::string output_files_base_name(FLAG_output_files_base_name);
+  RTC_CHECK(ValidateOutputFilesOptions(
+      FLAG_textlog, FLAG_matlabplot || FLAG_pythonplot, output_files_base_name,
+      output_audio_filename));
   RTC_CHECK(ValidatePayloadType(FLAG_pcmu));
   RTC_CHECK(ValidatePayloadType(FLAG_pcma));
   RTC_CHECK(ValidatePayloadType(FLAG_ilbc));
@@ -297,10 +353,19 @@ int main(int argc, char* argv[]) {
   config.video_timing = FLAG_video_timing;
   config.matlabplot = FLAG_matlabplot;
   config.pythonplot = FLAG_pythonplot;
-  config.textlog = FLAG_textlog;
   config.concealment_events = FLAG_concealment_events;
   config.max_nr_packets_in_buffer = FLAG_max_nr_packets_in_buffer;
   config.enable_fast_accelerate = FLAG_enable_fast_accelerate;
+  if (!output_audio_filename.empty()) {
+    config.output_audio_filename = output_audio_filename;
+  }
+  config.textlog_filename =
+      CreateOptionalOutputFileName(FLAG_textlog, output_files_base_name,
+                                   output_audio_filename, ".text_log.txt");
+  config.plot_scripts_basename = CreateOptionalOutputFileName(
+      FLAG_matlabplot || FLAG_pythonplot, output_files_base_name,
+      output_audio_filename, "");
+
   // Check if an SSRC value was provided.
   if (strlen(FLAG_ssrc) > 0) {
     uint32_t ssrc;
@@ -308,8 +373,8 @@ int main(int argc, char* argv[]) {
     config.ssrc_filter = absl::make_optional(ssrc);
   }
 
-  std::unique_ptr<webrtc::test::NetEqTest> test =
-      factory.InitializeTest(argv[1], argv[2], config);
+  std::unique_ptr<webrtc::test::NetEqTest> test = factory.InitializeTest(
+      /*input_filename=*/argv[1], config);
   test->Run();
   return 0;
 }

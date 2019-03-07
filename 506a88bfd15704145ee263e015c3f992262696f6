@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb5b487f_44af3b64",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-07T15:27:06Z",
+      "side": 1,
+      "message": "Unfortunately this will not happen soon, see: https://webrtc.googlesource.com/src/+/HEAD/abseil-in-webrtc.md#disallowed.\n\nOn the other hand, rtc::SimpleStringBuilder [1] supports absl::string_view so maybe you can already switch to it.\n\n[1] - https://cs.chromium.org/chromium/src/third_party/webrtc/rtc_base/strings/string_builder.h",
+      "range": {
+        "startLine": 245,
+        "startChar": 51,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

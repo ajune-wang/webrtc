@@ -235,8 +235,8 @@ TEST(SeqNumUnwrapper, NoForwardWrap) {
 
 TEST(SeqNumUnwrapper, ForwardWrap) {
   SeqNumUnwrapper<uint8_t> unwrapper(0);
-  EXPECT_EQ(0U, unwrapper.Unwrap(255));
-  EXPECT_EQ(1U, unwrapper.Unwrap(0));
+  EXPECT_EQ(255U, unwrapper.Unwrap(255));
+  EXPECT_EQ(256U, unwrapper.Unwrap(0));
 }
 
 TEST(SeqNumUnwrapper, ForwardWrapWithDivisor) {
@@ -317,6 +317,31 @@ TEST(SeqNumUnwrapper, ManyBackwardWraps) {
     expected -= kMaxStep;
     next_unwrap = (next_unwrap + kMaxStep + 1) % kLargeNumber;
   }
+}
+
+TEST(SeqNumUnwrapper, LeastSignificantBitsPreservedForPowerOf2) {
+  uint8_t kBitMask256 = 0xff;
+  SeqNumUnwrapper<uint8_t> unwrapper_256;
+
+  EXPECT_EQ(10U, unwrapper_256.Unwrap(10) & kBitMask256);
+  EXPECT_EQ(22U, unwrapper_256.Unwrap(22) & kBitMask256);
+  EXPECT_EQ(34U, unwrapper_256.Unwrap(34) & kBitMask256);
+  EXPECT_EQ(55U, unwrapper_256.Unwrap(55) & kBitMask256);
+  EXPECT_EQ(78U, unwrapper_256.Unwrap(78) & kBitMask256);
+  EXPECT_EQ(170U, unwrapper_256.Unwrap(170) & kBitMask256);
+  EXPECT_EQ(221U, unwrapper_256.Unwrap(221) & kBitMask256);
+  EXPECT_EQ(11U, unwrapper_256.Unwrap(11) & kBitMask256);
+
+  uint8_t kBitMask32 = 0x1f;
+  SeqNumUnwrapper<uint8_t, 32> unwrapper_32;
+  EXPECT_EQ(10U, unwrapper_32.Unwrap(10) & kBitMask32);
+  EXPECT_EQ(22U, unwrapper_32.Unwrap(22) & kBitMask32);
+  EXPECT_EQ(31U, unwrapper_32.Unwrap(31) & kBitMask32);
+  EXPECT_EQ(0U, unwrapper_32.Unwrap(0) & kBitMask32);
+  EXPECT_EQ(4U, unwrapper_32.Unwrap(4) & kBitMask32);
+  EXPECT_EQ(13U, unwrapper_32.Unwrap(13) & kBitMask32);
+  EXPECT_EQ(24U, unwrapper_32.Unwrap(24) & kBitMask32);
+  EXPECT_EQ(1U, unwrapper_32.Unwrap(1) & kBitMask32);
 }
 
 }  // namespace webrtc

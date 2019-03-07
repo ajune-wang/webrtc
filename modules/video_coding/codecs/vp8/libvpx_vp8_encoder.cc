@@ -293,6 +293,18 @@ int LibvpxVp8Encoder::SetRateAllocation(const VideoBitrateAllocation& bitrate,
   return WEBRTC_VIDEO_CODEC_OK;
 }
 
+void LibvpxVp8Encoder::OnPacketLossRateUpdate(float packet_loss_rate) {
+  for (auto& frame_buffer_controller : frame_buffer_controllers_) {
+    frame_buffer_controller->OnPacketLossRateUpdate(packet_loss_rate);
+  }
+}
+
+void LibvpxVp8Encoder::OnRttUpdate(int64_t rtt_ms) {
+  for (auto& frame_buffer_controller : frame_buffer_controllers_) {
+    frame_buffer_controller->OnRttUpdate(rtt_ms);
+  }
+}
+
 void LibvpxVp8Encoder::SetStreamState(bool send_stream, int stream_idx) {
   if (send_stream && !send_stream_[stream_idx]) {
     // Need a key frame if we have not sent this stream before.

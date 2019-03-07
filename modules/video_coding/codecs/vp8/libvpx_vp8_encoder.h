@@ -53,6 +53,10 @@ class LibvpxVp8Encoder : public VideoEncoder {
   int SetRateAllocation(const VideoBitrateAllocation& bitrate,
                         uint32_t new_framerate) override;
 
+  void OnPacketLossRateUpdate(float packet_loss_rate) override;
+
+  void OnRttUpdate(int64_t rtt_ms) override;
+
   EncoderInfo GetEncoderInfo() const override;
 
   static vpx_enc_frame_flags_t EncodeFlags(const Vp8FrameConfig& references);

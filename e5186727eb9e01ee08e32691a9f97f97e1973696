@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d719797_7a22ac68",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-07T12:02:51Z",
+      "side": 1,
+      "message": "Nit: Why the start can\u0027t be processed like any other case. If you make last_value_ to be initialized to 0, then the first wrapped value may be unwrapped to either 2^62+x or 2^62-Period+x, but it doesn\u0027t matter.\n\nIf you want to have the first value to be unwrapped to 2^62+x, please rename Initialize() to something like FirstUnwrappedValue()",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 5
+      },
+      "revId": "e5186727eb9e01ee08e32691a9f97f97e1973696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "db753f16_aac3f017",
+        "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-07T12:02:51Z",
+      "side": 1,
+      "message": "Nit: If you change the first unwrap logic, you will need to change start value to e.g. 256 or just don\u0027t pass anything. The unwrapped values will change accordingly.",
+      "range": {
+        "startLine": 237,
+        "startChar": 37,
+        "endLine": 239,
+        "endChar": 39
+      },
+      "revId": "e5186727eb9e01ee08e32691a9f97f97e1973696",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

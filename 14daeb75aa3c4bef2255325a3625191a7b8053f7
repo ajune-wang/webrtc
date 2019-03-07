@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4ab658ac_f299aa68",
+        "filename": "api/media_transport_interface.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-03-07T02:24:33Z",
+      "side": 1,
+      "message": "OK, let\u0027s pass both for now.",
+      "parentUuid": "4843a5a4_34ecce94",
+      "revId": "14daeb75aa3c4bef2255325a3625191a7b8053f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e4a4c6e_bd7fb2da",
         "filename": "api/transport/media/audio_transport.h",
         "patchSetId": 1
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Do you want me to add it in this cl? Any other remaining issues?",
       "parentUuid": "952b6312_b191719b",
+      "revId": "14daeb75aa3c4bef2255325a3625191a7b8053f7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b49695de_40b44bea",
+        "filename": "api/transport/media/audio_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 7565
+      },
+      "writtenOn": "2019-03-07T02:24:33Z",
+      "side": 1,
+      "message": "Since you are already adding observers in your other CL, I think it makes sense to add here.",
+      "parentUuid": "51cad84c_a6dea85c",
       "revId": "14daeb75aa3c4bef2255325a3625191a7b8053f7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

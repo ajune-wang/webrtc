@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e7e92e88_a75dc7aa",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-07T16:24:00Z",
+      "side": 1,
+      "message": "An alternative way to achieve this would be to add a flag called --no_output_audio, and when that flag is set we only use the output file name as a base for other output files. So you could use it like:\n\nneteq_rtpplay --no_output_audio --pythonplot my/input/file my/output/file\n\nThis would only create my/output/file.py\n\nWDYT?",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb5b487f_44af3b64",
         "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
         "patchSetId": 3

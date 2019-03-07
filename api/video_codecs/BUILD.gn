@@ -31,6 +31,7 @@ rtc_source_set("video_codecs_api") {
     "vp8_frame_buffer_controller.h",
     "vp8_frame_config.cc",
     "vp8_frame_config.h",
+    "vp8_temporal_layers.cc",
     "vp8_temporal_layers.h",
   ]
 

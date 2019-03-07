@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b744b004_a5b0603f",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5147
+      },
+      "writtenOn": "2019-03-07T18:00:36Z",
+      "side": 1,
+      "message": "I think we can replace this with a DCHECK, actually. If you agree, I will.",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 55
+      },
+      "revId": "8b19d976e6255b4dc9e9721822ba1b320dde0837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

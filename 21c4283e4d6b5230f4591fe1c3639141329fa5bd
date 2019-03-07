@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "328b6f8d_49051944",
+        "filename": "api/task_queue/queued_task.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "I think it is better with the vertical space between guard macros and include block.\nStyle guide suggest to minimize, not eliminate vertical spaces:\n\"A blank line serves like a paragraph break in prose: visually separating two thoughts.\"\n\n(also it is for local consistency - in neighbor files #include block is separated from guard macros)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8533756e_ad0a211e",
+        "filename": "api/task_queue/queued_task.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "since what time?\nwhen I read the comment, I assume \u0027Since Run returned\u0027\nAnother interpretation, \u0027Since Run started, since at_time\u0027\nbut reading the code I see it \u0027Since time Run suppose to have started\u0027\n\nwhen Run is instant and Queue is accurate/not busy, then all these 3 times are the same, but which one intended when they are different?",
+      "range": {
+        "startLine": 36,
+        "startChar": 46,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41daf197_7a0d5573",
+        "filename": "api/task_queue/task_queue_base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "I think beeing more verbose would help here, something like\nSchedules a task that may reposts itself after completion.\n\nsame for the function name:\nPostRepeatingTask sounds better to me.",
+      "range": {
+        "startLine": 60,
+        "startChar": 5,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a614dfad_2547cb04",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "chromium style suggest to avoid else after return:\nhttps://chromium.googlesource.com/chromium/src/+/master/styleguide/c++/c++.md#code-formatting\n\nif (task_) {\n ...\n  return delay;\n}\nreturn PlusInfinity();",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e639451_070604e2",
+        "filename": "rtc_base/task_queue.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "prefer \u003d default (same for destructor)\nhttps://abseil.io/tips/131",
+      "range": {
+        "startLine": 39,
+        "startChar": 42,
+        "endLine": 39,
+        "endChar": 45
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0520b521_6defc4fd",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "can you reduce duplication by templetizing just the part that is different (otherwise it is hard to spot what is the difference between these 4 cases).\n\nmay be you do not even need the template magic and overloading is enough:\n\nTimeDelta RunClosure(TimeDelta (Closure::*)(Timestamp) closure, Timestamp at_time) {\n  return closure(at_time);\n}\n\nTimeDelta RunClosure(TimeDelta (Closure::*)() closure, Timestamp /* at_time */) {\n  return closure();\n}\n\ntemplate \u003ctypename Closure\u003e\nclass RepeatingTaskWrapper {\n...\nTimeDelta Run(Timestamp at_time) override { return RunClosure(\u0026closure_, at_time); }\n...\n}\n\nAnother alternative is to only support closures that take the parameter.",
+      "range": {
+        "startLine": 51,
+        "startChar": 6,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "997487a0_dfc063ce",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "may be\ntypename std::decay\u003cClosure\u003e::type closure_;\nor\ntypename absl::decay_t\u003cClosure\u003e closure_;",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4aa516a0_0688dc3e",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "is it ok to call methods from any thread, or should this class be used from asociated TaskQueue only?",
+      "range": {
+        "startLine": 98,
+        "startChar": 6,
+        "endLine": 98,
+        "endChar": 25
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2858ef5_e680b649",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "nit: prefer to put destructor after copy\u0026assignment\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order\n\nWithin each section ... generally prefer the following order: ... , constructors, assignment operators, destructor, ...",
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da8fa559_6bb7da32",
+        "filename": "rtc_base/task_queue.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-07T12:16:26Z",
+      "side": 1,
+      "message": "task queue?",
+      "range": {
+        "startLine": 106,
+        "startChar": 50,
+        "endLine": 106,
+        "endChar": 61
+      },
+      "revId": "21c4283e4d6b5230f4591fe1c3639141329fa5bd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

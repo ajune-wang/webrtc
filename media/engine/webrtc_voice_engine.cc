@@ -980,10 +980,34 @@ class WebRtcVoiceMediaChannel::WebRtcAudioSendStream
         config_.send_codec_spec &&
         absl::EqualsIgnoreCase(config_.send_codec_spec->format.name,
                                kOpusCodecName);
-    if (is_opus && allocation_settings_.ConfigureRateAllocationRange()) {
-      config_.min_bitrate_bps = allocation_settings_.MinBitrateBps();
-      config_.max_bitrate_bps = allocation_settings_.MaxBitrateBps(
-          rtp_parameters_.encodings[0].max_bitrate_bps);
+    if (is_opus) {
+      // The order of precedence (from lowest to highest is)
+      // - fixed target bitrate from codec
+      // - bitrate from the allocation settings, if we're doing Send Side BWE
+      // - bitrate configured in the rtp_parameter encodings settings
+      if (config_.send_codec_spec &&
+          config_.send_codec_spec->target_bitrate_bps) {
+        config_.min_bitrate_bps = *config_.send_codec_spec->target_bitrate_bps;
+        config_.max_bitrate_bps = *config_.send_codec_spec->target_bitrate_bps;
+      }
+
+      // When we're using transport sequence numbers, the values from the
+      // allocation settings take precedence over fixed target bitrate
+      // TODO(dklee): Should this be gated on
+      // allocation_settings_.ShouldSendTransportSequenceNumber(...) instead?
+      if (allocation_settings_.ConfigureRateAllocationRange()) {
+        config_.min_bitrate_bps = allocation_settings_.MinBitrateBps();
+        config_.max_bitrate_bps = allocation_settings_.MaxBitrateBps(
+            rtp_parameters_.encodings[0].max_bitrate_bps);
+      }
+
+      // Explicit bitrates from the rtp_parameter encodings take precedence.
+      if (rtp_parameters_.encodings[0].min_bitrate_bps) {
+        config_.min_bitrate_bps = *rtp_parameters_.encodings[0].min_bitrate_bps;
+      }
+      if (rtp_parameters_.encodings[0].max_bitrate_bps) {
+        config_.max_bitrate_bps = *rtp_parameters_.encodings[0].max_bitrate_bps;
+      }
     }
   }
 

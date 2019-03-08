@@ -123,6 +123,39 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
   audio_quality_analyzer_.swap(audio_quality_analyzer);
 }
 
+void PeerConnectionE2EQualityTest::ExecuteAt(
+    TimeDelta target_time_since_start,
+    std::function<void(Timestamp)> func) {
+  RTC_CHECK(target_time_since_start.IsFinite());
+  rtc::CritScope crit(&lock_);
+  if (start_time_.IsMinusInfinity()) {
+    scheduled_activities_.emplace_back(func, target_time_since_start);
+  } else {
+    TimeDelta time_passed_since_start = Now() - start_time_;
+    RTC_CHECK(target_time_since_start - time_passed_since_start >
+              TimeDelta::Zero());
+    task_queue_.PostDelayedTask(
+        [func, this]() { func(Now()); },
+        (target_time_since_start - time_passed_since_start).ms());
+  }
+}
+
+void PeerConnectionE2EQualityTest::ExecuteEvery(
+    TimeDelta interval,
+    std::function<void(Timestamp)> func) {
+  RTC_CHECK(interval.IsFinite());
+  rtc::CritScope crit(&lock_);
+  if (start_time_.IsMinusInfinity()) {
+    scheduled_repeated_activities_.emplace_back(func, interval);
+  } else {
+    repeating_task_handles_.push_back(
+        RepeatingTaskHandle::Start(task_queue_.Get(), [func, interval, this]() {
+          func(Now());
+          return interval;
+        }));
+  }
+}
+
 void PeerConnectionE2EQualityTest::Run(
     std::unique_ptr<InjectableComponents> alice_components,
     std::unique_ptr<Params> alice_params,
@@ -220,6 +253,21 @@ void PeerConnectionE2EQualityTest::Run(
       RTC_FROM_HERE,
       rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
                 this));
+  {
+    rtc::CritScope crit(&lock_);
+    start_time_ = Now();
+    for (auto& activity : scheduled_repeated_activities_) {
+      repeating_task_handles_.push_back(
+          RepeatingTaskHandle::Start(task_queue_.Get(), [activity, this]() {
+            activity.func(Now());
+            return activity.interval;
+          }));
+    }
+  }
+  for (auto& activity : scheduled_activities_) {
+    task_queue_.PostDelayedTask([activity, this]() { activity.func(Now()); },
+                                activity.target_time_since_start.ms());
+  }
 
   StatsPoller stats_poller({audio_quality_analyzer_.get(),
                             video_quality_analyzer_injection_helper_.get()},
@@ -506,8 +554,8 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   ASSERT_TRUE_WAIT(bob_->IsIceGatheringDone(), kDefaultTimeoutMs);
 
   // Connect an ICE candidate pairs.
-  ASSERT_TRUE(bob_->AddIceCandidates(alice_->observer()->GetAllCandidates()));
-  ASSERT_TRUE(alice_->AddIceCandidates(bob_->observer()->GetAllCandidates()));
+  RTC_DCHECK(bob_->AddIceCandidates(alice_->observer()->GetAllCandidates()));
+  RTC_DCHECK(alice_->AddIceCandidates(bob_->observer()->GetAllCandidates()));
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
@@ -557,6 +605,21 @@ VideoFrameWriter* PeerConnectionE2EQualityTest::MaybeCreateVideoWriter(
   video_writers_.push_back(std::move(video_writer));
   return out;
 }
+
+Timestamp PeerConnectionE2EQualityTest::Now() const {
+  return Timestamp::us(clock_->TimeInMicroseconds());
+}
+
+PeerConnectionE2EQualityTest::ScheduledActivity::ScheduledActivity(
+    std::function<void(Timestamp)> func,
+    TimeDelta target_time_since_start)
+    : func(std::move(func)),
+      target_time_since_start(std::move(target_time_since_start)) {}
+
+PeerConnectionE2EQualityTest::ScheduledRepeatedActivity::
+    ScheduledRepeatedActivity(std::function<void(Timestamp)> func,
+                              TimeDelta interval)
+    : func(std::move(func)), interval(std::move(interval)) {}
 
 }  // namespace test
 }  // namespace webrtc

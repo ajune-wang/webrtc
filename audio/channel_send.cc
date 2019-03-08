@@ -21,6 +21,7 @@
 #include "api/array_view.h"
 #include "api/call/transport.h"
 #include "api/crypto/frame_encryptor_interface.h"
+#include "api/task_queue/queued_task.h"
 #include "audio/utility/audio_frame_operations.h"
 #include "call/rtp_transport_controller_send_interface.h"
 #include "logging/rtc_event_log/events/rtc_event_audio_playout.h"
@@ -473,7 +474,7 @@ class VoERtcpObserver : public RtcpBandwidthObserver {
   RtcpBandwidthObserver* bandwidth_observer_ RTC_GUARDED_BY(crit_);
 };
 
-class ChannelSend::ProcessAndEncodeAudioTask : public rtc::QueuedTask {
+class ChannelSend::ProcessAndEncodeAudioTask : public QueuedTask {
  public:
   ProcessAndEncodeAudioTask(std::unique_ptr<AudioFrame> audio_frame,
                             ChannelSend* channel)
@@ -1123,8 +1124,8 @@ void ChannelSend::ProcessAndEncodeAudio(
   // Profile time between when the audio frame is added to the task queue and
   // when the task is actually executed.
   audio_frame->UpdateProfileTimeStamp();
-  encoder_queue_->PostTask(std::unique_ptr<rtc::QueuedTask>(
-      new ProcessAndEncodeAudioTask(std::move(audio_frame), this)));
+  encoder_queue_->PostTask(absl::make_unique<ProcessAndEncodeAudioTask>(
+      std::move(audio_frame), this));
 }
 
 void ChannelSend::ProcessAndEncodeAudioOnTaskQueue(AudioFrame* audio_input) {

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9826ede3_e0bc7dc5",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T10:08:06Z",
+      "side": 1,
+      "message": "I am not sure about this, but is it possible to explicitly mention the ICE status (connected, completed, etc..)?",
+      "range": {
+        "startLine": 212,
+        "startChar": 67,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "2124bc22d737536200f036fb6efb2a97c3447e25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8334eda_7161e2ee",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T10:08:06Z",
+      "side": 1,
+      "message": "Not related to the api, so a nit. I suggest we log these environment changes somehow.",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 130,
+        "endChar": 22
+      },
+      "revId": "2124bc22d737536200f036fb6efb2a97c3447e25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

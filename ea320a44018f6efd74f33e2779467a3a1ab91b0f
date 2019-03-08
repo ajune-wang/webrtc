@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4e715_5f48d7bf",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-08T15:08:44Z",
+      "side": 1,
+      "message": "what about out-of-band streams? I believe there was one more thing we were supposed to check before deciding that we don\u0027t need it.\n\nShould we have an asynchronous stream creation? (even if the callback is immediate)\n\nCreateReceiver();\n-\u003e OnReceiverCreated(int channel_id, MediaTransportVideoReceiver);\n\nCreateSender();\n-\u003e OnSenderCreated(int channel_id, MediaTransportVideoSender);\n\n\nThis would allow us to have the out-of-band streams (unsignaled streams).",
+      "range": {
+        "startLine": 228,
+        "startChar": 55,
+        "endLine": 228,
+        "endChar": 74
+      },
+      "revId": "ea320a44018f6efd74f33e2779467a3a1ab91b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -51,6 +51,10 @@ void EncoderKeyFrameCallback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   video_stream_encoder_->SendKeyFrame();
 }
 
+void EncoderKeyFrameCallback::OnKeyFrameRequested() {
+  video_stream_encoder_->SendKeyFrame();
+}
+
 void EncoderKeyFrameCallback::OnKeyFrameRequested(uint64_t channel_id) {
   if (channel_id != ssrcs_[0]) {
     RTC_LOG(LS_INFO) << "Key frame request on unknown channel id " << channel_id

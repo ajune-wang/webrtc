@@ -35,6 +35,7 @@ class EncoderKeyFrameCallback : public RtcpIntraFrameObserver,
   void OnReceivedIntraFrameRequest(uint32_t ssrc) override;
 
   // Implements MediaTransportKeyFrameRequestCallback
+  void OnKeyFrameRequested() override;
   void OnKeyFrameRequested(uint64_t channel_id) override;
 
  private:

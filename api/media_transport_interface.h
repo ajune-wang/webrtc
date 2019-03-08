@@ -213,6 +213,22 @@ class MediaTransportInterface {
   // TODO(psla): Make abstract.
   virtual void Connect(rtc::PacketTransportInternal* packet_transport);
 
+  // Creates an object representing the send end-point of a video stream using
+  // this transport.
+  // TODO(bugs.webrtc.org/9719): Make pure virtual after downstream
+  // implementations are updated.
+  virtual std::unique_ptr<MediaTransportVideoSender> CreateVideoSender(
+      uint64_t channel_id,
+      MediaTransportKeyFrameRequestCallback* callback);
+
+  // Creates an object representing the receive end-point of a video stream
+  // using this transport.
+  // TODO(bugs.webrtc.org/9719): Make pure virtual after downstream
+  // implementations are updated.
+  virtual std::unique_ptr<MediaTransportVideoReceiver> CreateVideoReceiver(
+      uint64_t channel_id,
+      MediaTransportVideoSinkInterface* sink);
+
   // Start asynchronous send of audio frame. The status returned by this method
   // only pertains to the synchronous operations (e.g.
   // serialization/packetization), not to the asynchronous operation.
@@ -220,6 +236,8 @@ class MediaTransportInterface {
   virtual RTCError SendAudioFrame(uint64_t channel_id,
                                   MediaTransportEncodedAudioFrame frame) = 0;
 
+  // TODO(nisse): Deprecated. Delete when all code is updated to use
+  // MediaTransportVideoSender.
   // Start asynchronous send of video frame. The status returned by this method
   // only pertains to the synchronous operations (e.g.
   // serialization/packetization), not to the asynchronous operation.
@@ -227,10 +245,17 @@ class MediaTransportInterface {
       uint64_t channel_id,
       const MediaTransportEncodedVideoFrame& frame) = 0;
 
+  // TODO(nisse): Deprecated. Delete when all code is updated to use
+  // MediaTransportVideoSender. During the transition, the transport must call
+  // this callback for any received frames that don't match a receiver created
+  // with CreateVideoReceiver().
+
   // Used by video sender to be notified on key frame requests.
   virtual void SetKeyFrameRequestCallback(
       MediaTransportKeyFrameRequestCallback* callback);
 
+  // TODO(nisse): Deprecated. Delete when all code is updated to use
+  // MediaTransportVideoReceiver.
   // Requests a keyframe for the particular channel (stream). The caller should
   // check that the keyframe is not present in a jitter buffer already (i.e.
   // don't request a keyframe if there is one that you will get from the jitter
@@ -240,6 +265,11 @@ class MediaTransportInterface {
   // Sets audio sink. Sink must be unset by calling SetReceiveAudioSink(nullptr)
   // before the media transport is destroyed or before new sink is set.
   virtual void SetReceiveAudioSink(MediaTransportAudioSinkInterface* sink) = 0;
+
+  // TODO(nisse): Deprecated. Delete when all code is updated to use
+  // MediaTransportVideoSender. During the transition, the transport must call
+  // this callback for any received frames that don't match a receiver created
+  // with CreateVideoReceiver().
 
   // Registers a video sink. Before destruction of media transport, you must
   // pass a nullptr.

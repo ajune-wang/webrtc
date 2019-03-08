@@ -111,6 +111,7 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
   // OnCompleteFrameCallback
   void OnData(uint64_t channel_id,
               MediaTransportEncodedVideoFrame frame) override;
+  void OnData(MediaTransportEncodedVideoFrame frame) override;
 
   // Implements CallStatsObserver::OnRttUpdate
   void OnRttUpdate(int64_t avg_rtt_ms, int64_t max_rtt_ms) override;

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2bae6cf_e1cac577",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-08T09:40:01Z",
+      "side": 1,
+      "message": "This one is inside logging string",
+      "parentUuid": "7d46fbc8_fb2aeb28",
+      "range": {
+        "startLine": 36,
+        "startChar": 49,
+        "endLine": 36,
+        "endChar": 52
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bfe8549_e991e601",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56a81568_2dee6bf1",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-08T09:40:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bfe8549_e991e601",
+      "range": {
+        "startLine": 67,
+        "startChar": 10,
+        "endLine": 67,
+        "endChar": 24
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

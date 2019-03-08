@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31ffaea2_2120583b",
+        "filename": "modules/audio_device/include/test_audio_device.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-08T13:25:32Z",
+      "side": 1,
+      "message": "Won\u0027t this busy wait for almost a whole millisecond, if we\u0027re unlucky? Would it be fine if the sleep overshot a bit (i.e. rounding up rather than down)?\n\nAlso, do we want to always break if a signal is sent to the process?",
+      "revId": "afacd3550456df91a6694e9c12b0c88e71f3ee24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

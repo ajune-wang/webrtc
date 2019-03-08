@@ -1725,6 +1725,47 @@ void TestDtmfFromSenderToReceiver(PeerConnectionWrapper* sender,
   // TODO(deadbeef): Verify the tones were actually received end-to-end.
 }
 
+// TEST_P(PeerConnectionIntegrationTest, L16CodecIsUsedWhenYouAskForIt) {
+//   ASSERT_TRUE(CreatePeerConnectionWrappers());
+//   ConnectFakeSignaling();
+//   caller()->AddAudioTrack();
+
+//   // Comment out for ONE WAY audio calls:
+//   // callee()->AddAudioTrack();
+
+//   // Remove all but one audio codec (opus), and increase the number of
+//   channels. auto munge_munge = [](cricket::SessionDescription* description) {
+//     cricket::AudioContentDescription* audio =
+//         GetFirstAudioContentDescription(description);
+//     // RTC_CHECK_NE(nullptr, audio);
+//     auto audio_codecs = audio->codecs();
+//     // RTC_CHECK_GT(audio_codecs.size(), 0);
+//     audio_codecs.clear();
+//     audio_codecs.push_back(
+//         // Constants taken from RFC 3551. They don't work. L16 can only do
+//         8k,
+//         // 16k, 32k, 48k. cricket::AudioCodec(11, "L16", 44100, 0, 1));
+//         cricket::AudioCodec(11, "L16", 48000, 0, 1));
+//     RTC_CHECK_EQ(1u, audio_codecs.size());
+//     audio->set_codecs(audio_codecs);
+//   };
+
+//   caller()->SetGeneratedSdpMunger(munge_munge);
+//   callee()->SetGeneratedSdpMunger(munge_munge);
+
+//   caller()->CreateAndSetAndSignalOffer();
+//   ASSERT_TRUE_WAIT(SignalingStateStable(), kDefaultTimeout);
+
+//   // Verify frames are still received end-to-end.
+//   MediaExpectations media_expectations;
+//   media_expectations.CalleeExpectsSomeAudio();
+
+//   // Comment out for ONE WAY audio calls:
+//   // media_expectations.CallerExpectsSomeAudio();
+
+//   ASSERT_TRUE(ExpectNewFrames(media_expectations));
+// }
+
 // Verifies the DtmfSenderObserver callbacks for a DtmfSender (one in each
 // direction).
 TEST_P(PeerConnectionIntegrationTest, DtmfSenderObserver) {

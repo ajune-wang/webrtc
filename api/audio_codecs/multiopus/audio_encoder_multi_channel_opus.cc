@@ -8,34 +8,34 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
-#include "api/audio_codecs/opus/audio_encoder_opus.h"
+#include "api/audio_codecs/multiopus/audio_encoder_multi_channel_opus.h"
 
 #include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/opus/audio_encoder_opus.h"
 
 namespace webrtc {
 
-absl::optional<AudioEncoderOpusConfig> AudioEncoderOpus::SdpToConfig(
-    const SdpAudioFormat& format) {
+absl::optional<AudioEncoderOpusConfig>
+AudioEncoderMultiChannelOpus::SdpToConfig(const SdpAudioFormat& format) {
   // AudioEncoderOpusImpl supports both 'opus' and 'multiopus'. But in this
-  // codec layer, we only allow 'opus'.
-  if (!absl::EqualsIgnoreCase(format.name, "opus")) {
+  // codec layer, we only allow 'multiopus'.
+  if (!absl::EqualsIgnoreCase(format.name, "multiopus")) {
     return absl::nullopt;
   }
   return AudioEncoderOpusImpl::SdpToConfig(format);
 }
 
-void AudioEncoderOpus::AppendSupportedEncoders(
+void AudioEncoderMultiChannelOpus::AppendSupportedEncoders(
     std::vector<AudioCodecSpec>* specs) {
   AudioEncoderOpusImpl::AppendSupportedEncoders(specs);
 }
 
-AudioCodecInfo AudioEncoderOpus::QueryAudioEncoder(
+AudioCodecInfo AudioEncoderMultiChannelOpus::QueryAudioEncoder(
     const AudioEncoderOpusConfig& config) {
   return AudioEncoderOpusImpl::QueryAudioEncoder(config);
 }
 
-std::unique_ptr<AudioEncoder> AudioEncoderOpus::MakeAudioEncoder(
+std::unique_ptr<AudioEncoder> AudioEncoderMultiChannelOpus::MakeAudioEncoder(
     const AudioEncoderOpusConfig& config,
     int payload_type,
     absl::optional<AudioCodecPairId> /*codec_pair_id*/) {

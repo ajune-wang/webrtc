@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd950957_c4402dc4",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-08T13:39:31Z",
+      "side": 1,
+      "message": "This could be simplified to:\n\n  static_assert((M \u0026 (M - 1)) \u003d\u003d 0, \"The wrapping period must be a power of 2\");",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 61
+      },
+      "revId": "86aee3c512c2ff5f1ca251831ca516cae8ceef01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5663c814_804df81b",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-08T13:39:31Z",
+      "side": 1,
+      "message": "While I still want the change made to kDefaultStartValue, I think you should use \"int64_t{1} \u003c\u003c 62 | value\" here and remove the second static_assert.",
+      "range": {
+        "startLine": 141,
+        "startChar": 26,
+        "endLine": 141,
+        "endChar": 67
+      },
+      "revId": "86aee3c512c2ff5f1ca251831ca516cae8ceef01",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

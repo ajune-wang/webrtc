@@ -27,6 +27,7 @@
 #include "api/video_codecs/video_encoder.h"
 #include "api/video_codecs/video_encoder_factory.h"
 #include "logging/rtc_event_log/rtc_event_log_factory_interface.h"
+#include "media/base/media_constants.h"
 #include "rtc_base/network.h"
 #include "rtc_base/rtc_certificate_generator.h"
 #include "rtc_base/ssl_certificate.h"
@@ -202,6 +203,18 @@ class PeerConnectionE2EQualityTestFixture {
   // Contains parameters, that describe how long framework should run quality
   // test.
   struct RunParams {
+    RunParams(TimeDelta run_duration) : run_duration(run_duration) {}
+
+    // Next two fields are used to specify concrete video codec, that should be
+    // used in the test. Video code will be negotiated in SDP during offer/
+    // answer exchange.
+    // Video codec name. You can find valid names in
+    // media/base/media_constants.h
+    std::string video_codec_name = cricket::kVp8CodecName;
+    // Specify which params have to be specified on the video codec in SDP.
+    // If empty then only name will be used to match the codec.
+    std::map<std::string, std::string> video_codec_required_params;
+
     // Specifies how long the test should be run. This time shows how long
     // the media should flow after connection was established and before
     // it will be shut downed.

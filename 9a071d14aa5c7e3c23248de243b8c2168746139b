@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dbdfe79_f6d325c0",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5039
+      },
+      "writtenOn": "2019-03-08T22:03:14Z",
+      "side": 0,
+      "message": "This assertion was added recently and turned out to be incorrect, but it pointed to this unsynchronized member access.",
+      "revId": "9a071d14aa5c7e3c23248de243b8c2168746139b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

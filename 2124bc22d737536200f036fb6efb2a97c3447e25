@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1151b9e_3655a330",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-08T16:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9826ede3_e0bc7dc5",
+      "range": {
+        "startLine": 212,
+        "startChar": 67,
+        "endLine": 213,
+        "endChar": 9
+      },
+      "revId": "2124bc22d737536200f036fb6efb2a97c3447e25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8334eda_7161e2ee",
         "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2124bc22d737536200f036fb6efb2a97c3447e25",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "647b9571_6a9de14e",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-08T16:27:12Z",
+      "side": 1,
+      "message": "I think user can log it if it will be required. For framework we actually can\u0027t log anything meaningful...",
+      "parentUuid": "c8334eda_7161e2ee",
+      "range": {
+        "startLine": 126,
+        "startChar": 21,
+        "endLine": 130,
+        "endChar": 22
+      },
+      "revId": "2124bc22d737536200f036fb6efb2a97c3447e25",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

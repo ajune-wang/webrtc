@@ -22,6 +22,30 @@
       "revId": "8b19d976e6255b4dc9e9721822ba1b320dde0837",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af305582_a7cd608b",
+        "filename": "modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-08T08:29:17Z",
+      "side": 1,
+      "message": "Actually CHECK, instead of DCHECK would be better. Better crash here in release build than accessing some random memory and crash anyway.\n\nPlease put one here.",
+      "parentUuid": "b744b004_a5b0603f",
+      "range": {
+        "startLine": 698,
+        "startChar": 0,
+        "endLine": 698,
+        "endChar": 55
+      },
+      "revId": "8b19d976e6255b4dc9e9721822ba1b320dde0837",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

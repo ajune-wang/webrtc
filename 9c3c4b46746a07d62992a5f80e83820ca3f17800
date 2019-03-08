@@ -45,6 +45,30 @@
       "revId": "9c3c4b46746a07d62992a5f80e83820ca3f17800",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a34f048_410c8aee",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-08T16:09:59Z",
+      "side": 1,
+      "message": "Hmm, on second thought the value_or function comes in handy here:\n\nstats_plotter_ \u003d absl::make_unique\u003cNetEqStatsPlotter\u003e(\n    config.matlabplot, config.pythonplot, config.concealment_events,\n    config.plot_scripts_basename.value_or(\"\"));",
+      "parentUuid": "8dbac287_32fe7ae7",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 260,
+        "endChar": 3
+      },
+      "revId": "9c3c4b46746a07d62992a5f80e83820ca3f17800",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

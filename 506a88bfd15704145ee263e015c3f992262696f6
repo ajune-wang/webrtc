@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9899f592_5862cecb",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-08T16:14:26Z",
+      "side": 1,
+      "message": "I agree: the cleanest way is adding a flag for each output file path.\n\nI also found odd that . are replaced with _ in neteq_stats_plotter.cc (line 38).\nAnyways, I didn\u0027t clean up because I don\u0027t want to break existing scripts using neteq_rtpplay (I wanted a retro-compatible change).\n\nI will leave as it is and consider cleaning-up in a follow-up CL if you think it\u0027s safe.",
+      "parentUuid": "fd5f1882_4e10df61",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5b487f_44af3b64",
         "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
         "patchSetId": 3

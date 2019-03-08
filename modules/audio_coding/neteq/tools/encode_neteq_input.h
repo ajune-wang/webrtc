@@ -34,7 +34,7 @@ class EncodeNetEqInput : public NetEqInput {
   // The source will end after the given input duration.
   EncodeNetEqInput(std::unique_ptr<Generator> generator,
                    std::unique_ptr<AudioEncoder> encoder,
-                   int64_t input_duration_ms);
+                   int64_t input_duration_us);
   ~EncodeNetEqInput() override;
 
   absl::optional<int64_t> NextPacketTime() const override;
@@ -59,9 +59,9 @@ class EncodeNetEqInput : public NetEqInput {
   std::unique_ptr<PacketData> packet_data_;
   uint32_t rtp_timestamp_ = 0;
   int16_t sequence_number_ = 0;
-  int64_t next_packet_time_ms_ = 0;
-  int64_t next_output_event_ms_ = 0;
-  const int64_t input_duration_ms_;
+  int64_t next_packet_time_us_ = 0;
+  int64_t next_output_event_us_ = 0;
+  const int64_t input_duration_us_;
 };
 
 }  // namespace test

@@ -21,7 +21,7 @@ NetEqInput::PacketData::~PacketData() = default;
 std::string NetEqInput::PacketData::ToString() const {
   rtc::StringBuilder ss;
   ss << "{"
-     << "time_ms: " << static_cast<int64_t>(time_ms) << ", "
+     << "time_ms: " << static_cast<int64_t>(time_us) << ", "
      << "header: {"
      << "pt: " << static_cast<int>(header.payloadType) << ", "
      << "sn: " << header.sequenceNumber << ", "
@@ -32,10 +32,10 @@ std::string NetEqInput::PacketData::ToString() const {
 }
 
 TimeLimitedNetEqInput::TimeLimitedNetEqInput(std::unique_ptr<NetEqInput> input,
-                                             int64_t duration_ms)
+                                             int64_t duration_us)
     : input_(std::move(input)),
-      start_time_ms_(input_->NextEventTime()),
-      duration_ms_(duration_ms) {}
+      start_time_us_(input_->NextEventTime()),
+      duration_us_(duration_us) {}
 
 TimeLimitedNetEqInput::~TimeLimitedNetEqInput() = default;
 
@@ -72,8 +72,8 @@ absl::optional<RTPHeader> TimeLimitedNetEqInput::NextHeader() const {
 }
 
 void TimeLimitedNetEqInput::MaybeSetEnded() {
-  if (NextEventTime() && start_time_ms_ &&
-      *NextEventTime() - *start_time_ms_ > duration_ms_) {
+  if (NextEventTime() && start_time_us_ &&
+      *NextEventTime() - *start_time_us_ > duration_us_) {
     ended_ = true;
   }
 }

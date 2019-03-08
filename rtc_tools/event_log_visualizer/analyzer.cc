@@ -1764,7 +1764,7 @@ class NetEqStreamInput : public test::NetEqInput {
     }
     std::unique_ptr<PacketData> packet_data(new PacketData());
     packet_data->header = packet_stream_it_->rtp.header;
-    packet_data->time_ms = packet_stream_it_->rtp.log_time_ms();
+    packet_data->time_us = packet_stream_it_->rtp.log_time_ms();
 
     // This is a header-only "dummy" packet. Set the payload to all zeros, with
     // length according to the virtual length.

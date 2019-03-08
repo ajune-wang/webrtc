@@ -11,6 +11,7 @@
 #include "modules/audio_coding/neteq/tools/neteq_event_log_input.h"
 
 #include <limits>
+#include <memory>
 
 #include "modules/audio_coding/neteq/tools/rtc_event_log_source.h"
 #include "rtc_base/checks.h"
@@ -18,26 +19,40 @@
 namespace webrtc {
 namespace test {
 
-NetEqEventLogInput::NetEqEventLogInput(const std::string& file_name,
-                                       absl::optional<uint32_t> ssrc_filter)
-    : source_(RtcEventLogSource::Create(file_name, ssrc_filter)) {
-  LoadNextPacket();
-  AdvanceOutputEvent();
+NetEqEventLogInput* NetEqEventLogInput::CreateFromFile(
+    const std::string& file_name,
+    absl::optional<uint32_t> ssrc_filter) {
+  return new NetEqEventLogInput(std::unique_ptr<RtcEventLogSource>(
+      RtcEventLogSource::CreateFromFile(file_name, ssrc_filter)));
+}
+
+NetEqEventLogInput* NetEqEventLogInput::CreateFromString(
+    const std::string& file_contents,
+    absl::optional<uint32_t> ssrc_filter) {
+  return new NetEqEventLogInput(std::unique_ptr<RtcEventLogSource>(
+      RtcEventLogSource::CreateFromString(file_contents, ssrc_filter)));
 }
 
 absl::optional<int64_t> NetEqEventLogInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
+  return next_output_event_us_;
 }
 
 void NetEqEventLogInput::AdvanceOutputEvent() {
-  next_output_event_ms_ = source_->NextAudioOutputEventMs();
-  if (*next_output_event_ms_ == std::numeric_limits<int64_t>::max()) {
-    next_output_event_ms_ = absl::nullopt;
+  next_output_event_us_ = source_->NextAudioOutputEventUs();
+  if (*next_output_event_us_ == std::numeric_limits<int64_t>::max()) {
+    next_output_event_us_ = absl::nullopt;
   }
 }
 
 PacketSource* NetEqEventLogInput::source() {
   return source_.get();
+}
+
+NetEqEventLogInput::NetEqEventLogInput(
+    std::unique_ptr<RtcEventLogSource> source)
+    : source_(std::move(source)) {
+  LoadNextPacket();
+  AdvanceOutputEvent();
 }
 
 }  // namespace test

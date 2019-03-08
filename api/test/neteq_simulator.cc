@@ -13,11 +13,6 @@
 namespace webrtc {
 namespace test {
 
-NetEqSimulator::SimulationStepResult::SimulationStepResult() = default;
-NetEqSimulator::SimulationStepResult::SimulationStepResult(
-    const NetEqSimulator::SimulationStepResult& other) = default;
-NetEqSimulator::SimulationStepResult::~SimulationStepResult() = default;
-
 NetEqSimulator::NetEqState::NetEqState() = default;
 NetEqSimulator::NetEqState::NetEqState(const NetEqState& other) = default;
 NetEqSimulator::NetEqState::~NetEqState() = default;

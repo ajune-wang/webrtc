@@ -40,27 +40,27 @@ void NetEqStatsGetter::BeforeGetAudio(NetEq* neteq) {
   }
 }
 
-void NetEqStatsGetter::AfterGetAudio(int64_t time_now_ms,
+void NetEqStatsGetter::AfterGetAudio(int64_t time_now_us,
                                      const AudioFrame& audio_frame,
                                      bool muted,
                                      NetEq* neteq) {
   // TODO(minyue): Get stats should better not be called as a call back after
   // get audio. It is called independently from get audio in practice.
   const auto lifetime_stat = neteq->GetLifetimeStatistics();
-  if (last_stats_query_time_ms_ == 0 ||
-      rtc::TimeDiff(time_now_ms, last_stats_query_time_ms_) >=
-          stats_query_interval_ms_) {
+  if (last_stats_query_time_us_ == 0 ||
+      rtc::TimeDiff(time_now_us, last_stats_query_time_us_) >=
+          stats_query_interval_us_) {
     NetEqNetworkStatistics stats;
     RTC_CHECK_EQ(neteq->NetworkStatistics(&stats), 0);
-    stats_.push_back(std::make_pair(time_now_ms, stats));
-    lifetime_stats_.push_back(std::make_pair(time_now_ms, lifetime_stat));
-    last_stats_query_time_ms_ = time_now_ms;
+    stats_.push_back(std::make_pair(time_now_us, stats));
+    lifetime_stats_.push_back(std::make_pair(time_now_us, lifetime_stat));
+    last_stats_query_time_us_ = time_now_us;
   }
 
   if (current_concealment_event_ != lifetime_stat.concealment_events &&
       voice_concealed_samples_until_last_event_ <
           lifetime_stat.voice_concealed_samples) {
-    if (last_event_end_time_ms_ > 0) {
+    if (last_event_end_time_us_ > 0) {
       // Do not account for the first event to avoid start of the call
       // skewing.
       ConcealmentEvent concealment_event;
@@ -72,19 +72,19 @@ void NetEqStatsGetter::AfterGetAudio(int64_t time_now_ms,
                                       (audio_frame.sample_rate_hz_ / 1000);
       concealment_event.concealment_event_number = current_concealment_event_;
       concealment_event.time_from_previous_event_end_ms =
-          time_now_ms - last_event_end_time_ms_;
+          (time_now_us - last_event_end_time_us_) / 1000;
       concealment_events_.emplace_back(concealment_event);
       voice_concealed_samples_until_last_event_ =
           lifetime_stat.voice_concealed_samples;
     }
-    last_event_end_time_ms_ = time_now_ms;
+    last_event_end_time_us_ = time_now_us;
     voice_concealed_samples_until_last_event_ =
         lifetime_stat.voice_concealed_samples;
     current_concealment_event_ = lifetime_stat.concealment_events;
   }
 
   if (delay_analyzer_) {
-    delay_analyzer_->AfterGetAudio(time_now_ms, audio_frame, muted, neteq);
+    delay_analyzer_->AfterGetAudio(time_now_us, audio_frame, muted, neteq);
   }
 }
 

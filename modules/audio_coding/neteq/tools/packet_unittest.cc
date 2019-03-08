@@ -64,7 +64,7 @@ TEST(TestPacket, RegularPacket) {
   EXPECT_EQ(kPacketLengthBytes, packet.virtual_packet_length_bytes());
   EXPECT_EQ(kPacketLengthBytes - kHeaderLengthBytes,
             packet.virtual_payload_length_bytes());
-  EXPECT_EQ(kPacketTime, packet.time_ms());
+  EXPECT_EQ(kPacketTime, packet.time_us() / 1000);
 }
 
 TEST(TestPacket, DummyPacket) {
@@ -93,7 +93,7 @@ TEST(TestPacket, DummyPacket) {
   EXPECT_EQ(kVirtualPacketLengthBytes, packet.virtual_packet_length_bytes());
   EXPECT_EQ(kVirtualPacketLengthBytes - kHeaderLengthBytes,
             packet.virtual_payload_length_bytes());
-  EXPECT_EQ(kPacketTime, packet.time_ms());
+  EXPECT_EQ(kPacketTime, packet.time_us() / 1000);
 }
 
 namespace {
@@ -170,7 +170,7 @@ TEST(TestPacket, RED) {
   EXPECT_EQ(kPacketLengthBytes, packet.virtual_packet_length_bytes());
   EXPECT_EQ(kPacketLengthBytes - kHeaderLengthBytes,
             packet.virtual_payload_length_bytes());
-  EXPECT_EQ(kPacketTime, packet.time_ms());
+  EXPECT_EQ(kPacketTime, packet.time_us() / 1000);
   std::list<RTPHeader*> red_headers;
   EXPECT_TRUE(packet.ExtractRedHeaders(&red_headers));
   EXPECT_EQ(kRedBlocks, static_cast<int>(red_headers.size()));

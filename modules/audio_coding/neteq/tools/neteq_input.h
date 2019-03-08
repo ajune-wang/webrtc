@@ -33,20 +33,20 @@ class NetEqInput {
 
     RTPHeader header;
     rtc::Buffer payload;
-    int64_t time_ms;
+    int64_t time_us;
   };
 
   virtual ~NetEqInput() = default;
 
-  // Returns at what time (in ms) NetEq::InsertPacket should be called next, or
+  // Returns at what time (in us) NetEq::InsertPacket should be called next, or
   // empty if the source is out of packets.
   virtual absl::optional<int64_t> NextPacketTime() const = 0;
 
-  // Returns at what time (in ms) NetEq::GetAudio should be called next, or
+  // Returns at what time (in us) NetEq::GetAudio should be called next, or
   // empty if no more output events are available.
   virtual absl::optional<int64_t> NextOutputEventTime() const = 0;
 
-  // Returns the time (in ms) for the next event from either NextPacketTime()
+  // Returns the time (in us) for the next event from either NextPacketTime()
   // or NextOutputEventTime(), or empty if both are out of events.
   absl::optional<int64_t> NextEventTime() const {
     const auto a = NextPacketTime();
@@ -97,8 +97,8 @@ class TimeLimitedNetEqInput : public NetEqInput {
   void MaybeSetEnded();
 
   std::unique_ptr<NetEqInput> input_;
-  const absl::optional<int64_t> start_time_ms_;
-  const int64_t duration_ms_;
+  const absl::optional<int64_t> start_time_us_;
+  const int64_t duration_us_;
   bool ended_ = false;
 };
 

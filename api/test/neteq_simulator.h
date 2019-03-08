@@ -24,45 +24,59 @@ class NetEqSimulator {
 
   enum class Action { kNormal, kExpand, kAccelerate, kPreemptiveExpand };
 
-  // The results of one simulation step.
-  struct SimulationStepResult {
-    SimulationStepResult();
-    SimulationStepResult(const SimulationStepResult& other);
-    ~SimulationStepResult();
-
-    bool is_simulation_finished = false;
-    // The amount of audio produced (in ms) with the actions in this time step.
-    std::map<Action, int> action_times_ms;
-    // The amount of wall clock time (in ms) that elapsed since the previous
-    // event. This is not necessarily equal to the sum of the values in
-    // action_times_ms.
-    int64_t simulation_step_ms = 0;
+  struct RtpPacketInfo {
+    // Arrival time in microseconds.
+    int64_t arrival_time_us = 0;
+    // RTP sequence number
+    int sequence_number = 0;
+    // Indicate if this is a padding packet or not.
+    bool padding = false;
+    // Indicate if this packet contains DTX.
+    bool dtx_packet = false;
+    // Amount of audio in this packet in samples.
+    int audio_content_samples = 0;
+    // The RTP timestamp from the header of the packet. This corresponds to the
+    // number of the first sample in the packet.
+    uint32_t rtp_timestamp = 0;
   };
 
   struct NetEqState {
     NetEqState();
     NetEqState(const NetEqState& other);
     ~NetEqState();
+    // Current simulation time in microseconds.
+    int64_t current_simulation_time_us = 0;
     // The sum of the packet buffer and sync buffer delay.
     int current_delay_ms = 0;
-    // An indicator that packet loss occurred since the last GetAudio event.
-    bool packet_loss_occurred = false;
     // An indicator that the packet buffer has been flushed since the last
     // GetAudio event.
     bool packet_buffer_flushed = false;
-    // Indicates if the next needed packet is available in the buffer.
-    bool next_packet_available = false;
-    // The inter-arrival times in ms of the packets that have arrived since the
-    // last GetAudio event.
-    std::vector<int> packet_iat_ms;
-    // The current packet size in ms.
-    int packet_size_ms = 0;
+    // Information about the packet that arrived since the last GetAudio event.
+    std::vector<RtpPacketInfo> arrived_packets;
+    // The current buffer size in samples.
+    int buffer_size_samples = 0;
+    // The sequence number of the last decoded packet.
+    int last_decoded_timestamp = 0;
+    // Total samples sent to sound card.
+    int64_t total_playout_samples = 0;
+    // Total discarded samples due to late arrivals and buffer flushes.
+    int64_t total_discarded_samples = 0;
+    // Total concealed samples due to buffer underruns.
+    int64_t total_concealed_samples = 0;
+    // Total concealed samples during non-silent audio playout due to buffer
+    // underruns.
+    int64_t total_concealed_nonsilent_samples = 0;
+    // Total removed samples due to increasing the playout speed.
+    int64_t total_accelerated_samples = 0;
+    // Total added samples due to decreasing the playout speed.
+    int64_t total_decelerated_samples = 0;
+    // The audio sample rate in hertz.
+    int sample_rate_hz = 0;
   };
 
   // Runs the simulation until we hit the next GetAudio event. If the simulation
-  // is finished, is_simulation_finished will be set to true in the returned
-  // SimulationStepResult.
-  virtual SimulationStepResult RunToNextGetAudio() = 0;
+  // has reached the end, this function will return false.
+  virtual bool RunToNextGetAudio() = 0;
 
   // Set the next action to be taken by NetEq. This will override any action
   // that NetEq would normally decide to take.

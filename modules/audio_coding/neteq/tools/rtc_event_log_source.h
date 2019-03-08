@@ -33,23 +33,28 @@ class RtcEventLogSource : public PacketSource {
  public:
   // Creates an RtcEventLogSource reading from |file_name|. If the file cannot
   // be opened, or has the wrong format, NULL will be returned.
-  static RtcEventLogSource* Create(const std::string& file_name,
-                                   absl::optional<uint32_t> ssrc_filter);
+  static RtcEventLogSource* CreateFromFile(
+      const std::string& file_name,
+      absl::optional<uint32_t> ssrc_filter);
+  // Same as above, but uses a string with the file contents.
+  static RtcEventLogSource* CreateFromString(
+      const std::string& file_contents,
+      absl::optional<uint32_t> ssrc_filter);
 
   virtual ~RtcEventLogSource();
 
   std::unique_ptr<Packet> NextPacket() override;
 
-  // Returns the timestamp of the next audio output event, in milliseconds. The
+  // Returns the timestamp of the next audio output event, in microseconds. The
   // maximum value of int64_t is returned if there are no more audio output
   // events available.
-  int64_t NextAudioOutputEventMs();
+  int64_t NextAudioOutputEventUs();
 
  private:
   RtcEventLogSource();
 
-  bool OpenFile(const std::string& file_name,
-                absl::optional<uint32_t> ssrc_filter);
+  bool Initialize(const ParsedRtcEventLog& parsed_log,
+                  absl::optional<uint32_t> ssrc_filter);
 
   std::vector<std::unique_ptr<Packet>> rtp_packets_;
   size_t rtp_packet_index_ = 0;

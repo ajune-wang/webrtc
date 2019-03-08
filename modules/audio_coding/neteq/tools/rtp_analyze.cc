@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
     // correct packet sizes are printed also for RTP header-only dumps.
     fprintf(out_file, "%5u %10u %10u %5i %5i %2i %#08X",
             packet->header().sequenceNumber, packet->header().timestamp,
-            static_cast<unsigned int>(packet->time_ms()),
+            static_cast<unsigned int>(packet->time_us() / 1000),
             static_cast<int>(packet->virtual_packet_length_bytes()),
             packet->header().payloadType, packet->header().markerBit,
             packet->header().ssrc);
@@ -157,7 +157,8 @@ int main(int argc, char* argv[]) {
         webrtc::RTPHeader* red = red_headers.front();
         assert(red);
         fprintf(out_file, "* %5u %10u %10u %5i\n", red->sequenceNumber,
-                red->timestamp, static_cast<unsigned int>(packet->time_ms()),
+                red->timestamp,
+                static_cast<unsigned int>(packet->time_us() / 1000),
                 red->payloadType);
         red_headers.pop_front();
         delete red;

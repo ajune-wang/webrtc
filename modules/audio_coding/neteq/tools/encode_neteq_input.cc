@@ -20,10 +20,10 @@ namespace test {
 
 EncodeNetEqInput::EncodeNetEqInput(std::unique_ptr<Generator> generator,
                                    std::unique_ptr<AudioEncoder> encoder,
-                                   int64_t input_duration_ms)
+                                   int64_t input_duration_us)
     : generator_(std::move(generator)),
       encoder_(std::move(encoder)),
-      input_duration_ms_(input_duration_ms) {
+      input_duration_us_(input_duration_us) {
   CreatePacket();
 }
 
@@ -31,11 +31,11 @@ EncodeNetEqInput::~EncodeNetEqInput() = default;
 
 absl::optional<int64_t> EncodeNetEqInput::NextPacketTime() const {
   RTC_DCHECK(packet_data_);
-  return static_cast<int64_t>(packet_data_->time_ms);
+  return static_cast<int64_t>(packet_data_->time_us);
 }
 
 absl::optional<int64_t> EncodeNetEqInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
+  return next_output_event_us_;
 }
 
 std::unique_ptr<NetEqInput::PacketData> EncodeNetEqInput::PopPacket() {
@@ -49,11 +49,11 @@ std::unique_ptr<NetEqInput::PacketData> EncodeNetEqInput::PopPacket() {
 }
 
 void EncodeNetEqInput::AdvanceOutputEvent() {
-  next_output_event_ms_ += kOutputPeriodMs;
+  next_output_event_us_ += kOutputPeriodMs * 1000;
 }
 
 bool EncodeNetEqInput::ended() const {
-  return next_output_event_ms_ > input_duration_ms_;
+  return next_output_event_us_ > input_duration_us_;
 }
 
 absl::optional<RTPHeader> EncodeNetEqInput::NextHeader() const {
@@ -86,8 +86,8 @@ void EncodeNetEqInput::CreatePacket() {
   packet_data_->header.timestamp = info.encoded_timestamp;
   packet_data_->header.payloadType = info.payload_type;
   packet_data_->header.sequenceNumber = sequence_number_++;
-  packet_data_->time_ms = next_packet_time_ms_;
-  next_packet_time_ms_ += num_blocks * kOutputPeriodMs;
+  packet_data_->time_us = next_packet_time_us_;
+  next_packet_time_us_ += num_blocks * kOutputPeriodMs * 1000;
 }
 
 }  // namespace test

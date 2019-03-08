@@ -17,6 +17,7 @@
 #include <utility>
 
 #include "absl/memory/memory.h"
+#include "absl/strings/string_view.h"
 #include "logging/rtc_event_log/rtc_event_processor.h"
 #include "modules/audio_coding/neteq/tools/packet.h"
 #include "rtc_base/checks.h"
@@ -36,11 +37,23 @@ bool ShouldSkipStream(ParsedRtcEventLog::MediaType media_type,
 }
 }  // namespace
 
-RtcEventLogSource* RtcEventLogSource::Create(
+RtcEventLogSource* RtcEventLogSource::CreateFromFile(
     const std::string& file_name,
     absl::optional<uint32_t> ssrc_filter) {
   RtcEventLogSource* source = new RtcEventLogSource();
-  RTC_CHECK(source->OpenFile(file_name, ssrc_filter));
+  ParsedRtcEventLog parsed_log;
+  RTC_CHECK(parsed_log.ParseFile(file_name));
+  RTC_CHECK(source->Initialize(parsed_log, ssrc_filter));
+  return source;
+}
+
+RtcEventLogSource* RtcEventLogSource::CreateFromString(
+    const std::string& file_contents,
+    absl::optional<uint32_t> ssrc_filter) {
+  RtcEventLogSource* source = new RtcEventLogSource();
+  ParsedRtcEventLog parsed_log;
+  RTC_CHECK(parsed_log.ParseString(file_contents));
+  RTC_CHECK(source->Initialize(parsed_log, ssrc_filter));
   return source;
 }
 
@@ -54,7 +67,7 @@ std::unique_ptr<Packet> RtcEventLogSource::NextPacket() {
   return packet;
 }
 
-int64_t RtcEventLogSource::NextAudioOutputEventMs() {
+int64_t RtcEventLogSource::NextAudioOutputEventUs() {
   if (audio_output_index_ >= audio_outputs_.size())
     return std::numeric_limits<int64_t>::max();
 
@@ -64,12 +77,8 @@ int64_t RtcEventLogSource::NextAudioOutputEventMs() {
 
 RtcEventLogSource::RtcEventLogSource() : PacketSource() {}
 
-bool RtcEventLogSource::OpenFile(const std::string& file_name,
-                                 absl::optional<uint32_t> ssrc_filter) {
-  ParsedRtcEventLog parsed_log;
-  if (!parsed_log.ParseFile(file_name))
-    return false;
-
+bool RtcEventLogSource::Initialize(const ParsedRtcEventLog& parsed_log,
+                                   absl::optional<uint32_t> ssrc_filter) {
   const auto first_log_end_time_us =
       parsed_log.stop_log_events().empty()
           ? std::numeric_limits<int64_t>::max()
@@ -84,7 +93,7 @@ bool RtcEventLogSource::OpenFile(const std::string& file_name,
           rtp_packets_.emplace_back(absl::make_unique<Packet>(
               incoming.rtp.header, incoming.rtp.total_length,
               incoming.rtp.total_length - incoming.rtp.header_length,
-              static_cast<double>(incoming.log_time_ms())));
+              static_cast<double>(incoming.log_time_us())));
           packet_ssrcs.insert(rtp_packets_.back()->header().ssrc);
         }
       };
@@ -95,7 +104,7 @@ bool RtcEventLogSource::OpenFile(const std::string& file_name,
        &ignored_ssrcs](const webrtc::LoggedAudioPlayoutEvent& audio_playout) {
         if (audio_playout.log_time_us() < first_log_end_time_us) {
           if (packet_ssrcs.count(audio_playout.ssrc) > 0) {
-            audio_outputs_.emplace_back(audio_playout.log_time_ms());
+            audio_outputs_.emplace_back(audio_playout.log_time_us());
           } else {
             ignored_ssrcs.insert(audio_playout.ssrc);
           }

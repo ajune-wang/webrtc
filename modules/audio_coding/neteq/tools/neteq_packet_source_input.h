@@ -33,13 +33,13 @@ class NetEqPacketSourceInput : public NetEqInput {
   absl::optional<int64_t> NextPacketTime() const override;
   std::unique_ptr<PacketData> PopPacket() override;
   absl::optional<RTPHeader> NextHeader() const override;
-  bool ended() const override { return !next_output_event_ms_; }
+  bool ended() const override { return !next_output_event_us_; }
 
  protected:
   virtual PacketSource* source() = 0;
   void LoadNextPacket();
 
-  absl::optional<int64_t> next_output_event_ms_;
+  absl::optional<int64_t> next_output_event_us_;
 
  private:
   std::unique_ptr<Packet> packet_;

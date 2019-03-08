@@ -128,11 +128,19 @@ class NetEqTestFactory {
     bool enable_fast_accelerate = false;
   };
 
-  std::unique_ptr<NetEqTest> InitializeTest(std::string input_filename,
-                                            std::string output_filename,
-                                            const Config& config);
+  std::unique_ptr<NetEqTest> InitializeTestFromFile(
+      const std::string& input_filename,
+      const std::string& output_filename,
+      const Config& config);
+  std::unique_ptr<NetEqTest> InitializeTestFromString(
+      const std::string& input_string,
+      const std::string& output_filename,
+      const Config& config);
 
  private:
+  std::unique_ptr<NetEqTest> InitializeTest(std::unique_ptr<NetEqInput> input,
+                                            const std::string& output_file_name,
+                                            const Config& config);
   std::unique_ptr<SsrcSwitchDetector> ssrc_switch_detector_;
   std::unique_ptr<NetEqStatsPlotter> stats_plotter_;
 };

@@ -29,12 +29,12 @@ class Packet {
   // Creates a packet, with the packet payload (including header bytes) in
   // |packet_memory|. The length of |packet_memory| is |allocated_bytes|.
   // The new object assumes ownership of |packet_memory| and will delete it
-  // when the Packet object is deleted. The |time_ms| is an extra time
+  // when the Packet object is deleted. The |time_us| is an extra time
   // associated with this packet, typically used to denote arrival time.
   // The first bytes in |packet_memory| will be parsed using |parser|.
   Packet(uint8_t* packet_memory,
          size_t allocated_bytes,
-         double time_ms,
+         double time_us,
          const RtpHeaderParser& parser);
 
   // Same as above, but with the extra argument |virtual_packet_length_bytes|.
@@ -46,7 +46,7 @@ class Packet {
   Packet(uint8_t* packet_memory,
          size_t allocated_bytes,
          size_t virtual_packet_length_bytes,
-         double time_ms,
+         double time_us,
          const RtpHeaderParser& parser);
 
   // Same as above, but creates the packet from an already parsed RTPHeader.
@@ -57,18 +57,18 @@ class Packet {
   Packet(const RTPHeader& header,
          size_t virtual_packet_length_bytes,
          size_t virtual_payload_length_bytes,
-         double time_ms);
+         double time_us);
 
   // The following constructors are the same as the first two, but without a
   // parser. Note that when the object is constructed using any of these
   // methods, the header will be parsed using a default RtpHeaderParser object.
   // In particular, RTP header extensions won't be parsed.
-  Packet(uint8_t* packet_memory, size_t allocated_bytes, double time_ms);
+  Packet(uint8_t* packet_memory, size_t allocated_bytes, double time_us);
 
   Packet(uint8_t* packet_memory,
          size_t allocated_bytes,
          size_t virtual_packet_length_bytes,
-         double time_ms);
+         double time_us);
 
   virtual ~Packet();
 
@@ -98,8 +98,8 @@ class Packet {
 
   const RTPHeader& header() const { return header_; }
 
-  void set_time_ms(double time) { time_ms_ = time; }
-  double time_ms() const { return time_ms_; }
+  void set_time_us(double time) { time_us_ = time; }
+  double time_us() const { return time_us_; }
   bool valid_header() const { return valid_header_; }
 
  private:
@@ -115,7 +115,7 @@ class Packet {
   // Virtual lengths are used when parsing RTP header files (dummy RTP files).
   const size_t virtual_packet_length_bytes_;
   size_t virtual_payload_length_bytes_;
-  double time_ms_;     // Used to denote a packet's arrival time.
+  double time_us_;     // Used to denote a packet's arrival time.
   bool valid_header_;  // Set by the RtpHeaderParser.
 
   RTC_DISALLOW_COPY_AND_ASSIGN(Packet);

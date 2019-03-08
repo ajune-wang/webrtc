@@ -96,7 +96,7 @@ void AcmReceiveTestOldApi::Run() {
   for (std::unique_ptr<Packet> packet(packet_source_->NextPacket()); packet;
        packet = packet_source_->NextPacket()) {
     // Pull audio until time to insert packet.
-    while (clock_.TimeInMilliseconds() < packet->time_ms()) {
+    while (clock_.TimeInMilliseconds() < packet->time_us() / 1000) {
       AudioFrame output_frame;
       bool muted;
       EXPECT_EQ(0,

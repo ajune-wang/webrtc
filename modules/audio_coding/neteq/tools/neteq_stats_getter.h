@@ -56,13 +56,13 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
   // valid value.
   explicit NetEqStatsGetter(std::unique_ptr<NetEqDelayAnalyzer> delay_analyzer);
 
-  void set_stats_query_interval_ms(int64_t stats_query_interval_ms) {
-    stats_query_interval_ms_ = stats_query_interval_ms;
+  void set_stats_query_interval_us(int64_t stats_query_interval_us) {
+    stats_query_interval_us_ = stats_query_interval_us;
   }
 
   void BeforeGetAudio(NetEq* neteq) override;
 
-  void AfterGetAudio(int64_t time_now_ms,
+  void AfterGetAudio(int64_t time_now_us,
                      const AudioFrame& audio_frame,
                      bool muted,
                      NetEq* neteq) override;
@@ -90,14 +90,14 @@ class NetEqStatsGetter : public NetEqGetAudioCallback {
 
  private:
   std::unique_ptr<NetEqDelayAnalyzer> delay_analyzer_;
-  int64_t stats_query_interval_ms_ = 1000;
-  int64_t last_stats_query_time_ms_ = 0;
+  int64_t stats_query_interval_us_ = 1000000;
+  int64_t last_stats_query_time_us_ = 0;
   std::vector<std::pair<int64_t, NetEqNetworkStatistics>> stats_;
   std::vector<std::pair<int64_t, NetEqLifetimeStatistics>> lifetime_stats_;
   size_t current_concealment_event_ = 1;
   uint64_t voice_concealed_samples_until_last_event_ = 0;
   std::vector<ConcealmentEvent> concealment_events_;
-  int64_t last_event_end_time_ms_ = 0;
+  int64_t last_event_end_time_us_ = 0;
 };
 
 }  // namespace test

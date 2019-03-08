@@ -32,7 +32,7 @@ NetEqReplacementInput::NetEqReplacementInput(
 
 absl::optional<int64_t> NetEqReplacementInput::NextPacketTime() const {
   return packet_
-             ? absl::optional<int64_t>(static_cast<int64_t>(packet_->time_ms))
+             ? absl::optional<int64_t>(static_cast<int64_t>(packet_->time_us))
              : absl::nullopt;
 }
 

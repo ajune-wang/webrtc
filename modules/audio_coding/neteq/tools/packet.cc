@@ -30,7 +30,7 @@ Packet::Packet(uint8_t* packet_memory,
       payload_length_bytes_(0),
       virtual_packet_length_bytes_(allocated_bytes),
       virtual_payload_length_bytes_(0),
-      time_ms_(time_ms) {
+      time_us_(time_ms) {
   valid_header_ = ParseHeader(parser);
 }
 
@@ -45,7 +45,7 @@ Packet::Packet(uint8_t* packet_memory,
       payload_length_bytes_(0),
       virtual_packet_length_bytes_(virtual_packet_length_bytes),
       virtual_payload_length_bytes_(0),
-      time_ms_(time_ms) {
+      time_us_(time_ms) {
   valid_header_ = ParseHeader(parser);
 }
 
@@ -60,7 +60,7 @@ Packet::Packet(const RTPHeader& header,
       payload_length_bytes_(0),
       virtual_packet_length_bytes_(virtual_packet_length_bytes),
       virtual_payload_length_bytes_(virtual_payload_length_bytes),
-      time_ms_(time_ms),
+      time_us_(time_ms),
       valid_header_(true) {}
 
 Packet::Packet(uint8_t* packet_memory, size_t allocated_bytes, double time_ms)
@@ -70,7 +70,7 @@ Packet::Packet(uint8_t* packet_memory, size_t allocated_bytes, double time_ms)
       payload_length_bytes_(0),
       virtual_packet_length_bytes_(allocated_bytes),
       virtual_payload_length_bytes_(0),
-      time_ms_(time_ms) {
+      time_us_(time_ms) {
   std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
   valid_header_ = ParseHeader(*parser);
 }
@@ -85,7 +85,7 @@ Packet::Packet(uint8_t* packet_memory,
       payload_length_bytes_(0),
       virtual_packet_length_bytes_(virtual_packet_length_bytes),
       virtual_payload_length_bytes_(0),
-      time_ms_(time_ms) {
+      time_us_(time_ms) {
   std::unique_ptr<RtpHeaderParser> parser(RtpHeaderParser::Create());
   valid_header_ = ParseHeader(*parser);
 }

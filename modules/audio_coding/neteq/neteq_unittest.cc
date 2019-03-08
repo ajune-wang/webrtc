@@ -333,7 +333,7 @@ void NetEqDecodingTest::OpenInputFile(const std::string& rtp_file) {
 
 void NetEqDecodingTest::Process() {
   // Check if time to receive.
-  while (packet_ && sim_clock_ >= packet_->time_ms()) {
+  while (packet_ && sim_clock_ >= packet_->time_us() / 1000) {
     if (packet_->payload_length_bytes() > 0) {
 #ifndef WEBRTC_CODEC_ISAC
       // Ignore payload type 104 (iSAC-swb) if ISAC is not supported.
@@ -344,8 +344,8 @@ void NetEqDecodingTest::Process() {
                       packet_->header(),
                       rtc::ArrayView<const uint8_t>(
                           packet_->payload(), packet_->payload_length_bytes()),
-                      static_cast<uint32_t>(packet_->time_ms() *
-                                            (output_sample_rate_ / 1000))));
+                      static_cast<uint32_t>(packet_->time_us() *
+                                            (output_sample_rate_ / 1000000))));
     }
     // Get next packet.
     packet_ = rtp_source_->NextPacket();

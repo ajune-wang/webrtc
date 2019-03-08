@@ -19,11 +19,11 @@
 namespace webrtc {
 namespace test {
 
-NetEqPacketSourceInput::NetEqPacketSourceInput() : next_output_event_ms_(0) {}
+NetEqPacketSourceInput::NetEqPacketSourceInput() : next_output_event_us_(0) {}
 
 absl::optional<int64_t> NetEqPacketSourceInput::NextPacketTime() const {
   return packet_
-             ? absl::optional<int64_t>(static_cast<int64_t>(packet_->time_ms()))
+             ? absl::optional<int64_t>(static_cast<int64_t>(packet_->time_us()))
              : absl::nullopt;
 }
 
@@ -51,7 +51,7 @@ std::unique_ptr<NetEqInput::PacketData> NetEqPacketSourceInput::PopPacket() {
     packet_data->payload.SetData(packet_->payload(),
                                  packet_->payload_length_bytes());
   }
-  packet_data->time_ms = packet_->time_ms();
+  packet_data->time_us = packet_->time_us();
 
   LoadNextPacket();
 
@@ -69,15 +69,15 @@ NetEqRtpDumpInput::NetEqRtpDumpInput(const std::string& file_name,
 }
 
 absl::optional<int64_t> NetEqRtpDumpInput::NextOutputEventTime() const {
-  return next_output_event_ms_;
+  return next_output_event_us_;
 }
 
 void NetEqRtpDumpInput::AdvanceOutputEvent() {
-  if (next_output_event_ms_) {
-    *next_output_event_ms_ += kOutputPeriodMs;
+  if (next_output_event_us_) {
+    *next_output_event_us_ += kOutputPeriodMs * 1000;
   }
   if (!NextPacketTime()) {
-    next_output_event_ms_ = absl::nullopt;
+    next_output_event_us_ = absl::nullopt;
   }
 }
 

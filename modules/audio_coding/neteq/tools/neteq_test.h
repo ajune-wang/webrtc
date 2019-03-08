@@ -50,7 +50,7 @@ class NetEqGetAudioCallback {
  public:
   virtual ~NetEqGetAudioCallback() = default;
   virtual void BeforeGetAudio(NetEq* neteq) = 0;
-  virtual void AfterGetAudio(int64_t time_now_ms,
+  virtual void AfterGetAudio(int64_t time_now_us,
                              const AudioFrame& audio_frame,
                              bool muted,
                              NetEq* neteq) = 0;
@@ -91,9 +91,8 @@ class NetEqTest : public NetEqSimulator {
   // Runs the test. Returns the duration of the produced audio in ms.
   int64_t Run();
   // Runs the simulation until we hit the next GetAudio event. If the simulation
-  // is finished, is_simulation_finished will be set to true in the returned
-  // SimulationStepResult.
-  SimulationStepResult RunToNextGetAudio() override;
+  // is finished, this function will return false, otherwise true.
+  bool RunToNextGetAudio() override;
 
   void SetNextAction(Action next_operation) override;
   NetEqState GetNetEqState() override;
@@ -107,7 +106,7 @@ class NetEqTest : public NetEqSimulator {
  private:
   void RegisterDecoders(const DecoderMap& codecs);
   absl::optional<Action> next_action_;
-  absl::optional<int> last_packet_time_ms_;
+  absl::optional<int> last_packet_time_us_;
   std::unique_ptr<NetEq> neteq_;
   std::unique_ptr<NetEqInput> input_;
   std::unique_ptr<AudioSink> output_;

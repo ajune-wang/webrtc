@@ -505,8 +505,12 @@ void VideoReceiveStream::OnCompleteFrame(
     rtp_video_stream_receiver_.FrameContinuous(last_continuous_pid);
 }
 
-void VideoReceiveStream::OnData(uint64_t channel_id,
+void VideoReceiveStream::OnData(uint64_t /* channel_id */,
                                 MediaTransportEncodedVideoFrame frame) {
+  OnData(frame);
+}
+
+void VideoReceiveStream::OnData(MediaTransportEncodedVideoFrame frame) {
   OnCompleteFrame(
       absl::make_unique<EncodedFrameForMediaTransport>(std::move(frame)));
 }

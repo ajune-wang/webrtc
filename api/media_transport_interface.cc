@@ -63,6 +63,20 @@ MediaTransportInterface::GetTransportParametersOffer() const {
 void MediaTransportInterface::Connect(
     rtc::PacketTransportInternal* packet_transport) {}
 
+std::unique_ptr<MediaTransportVideoSender>
+MediaTransportInterface::CreateVideoSender(
+    uint64_t channel_id,
+    MediaTransportKeyFrameRequestCallback* callback) {
+  return nullptr;
+}
+
+std::unique_ptr<MediaTransportVideoReceiver>
+MediaTransportInterface::CreateVideoReceiver(
+    uint64_t channel_id,
+    MediaTransportVideoSinkInterface* sink) {
+  return nullptr;
+}
+
 void MediaTransportInterface::SetKeyFrameRequestCallback(
     MediaTransportKeyFrameRequestCallback* callback) {}
 

@@ -83,9 +83,14 @@ class MediaTransportVideoSinkInterface {
  public:
   virtual ~MediaTransportVideoSinkInterface() = default;
 
-  // Called when new encoded video frame is received.
+  // Called when new encoded video frame is received. Deprecated.
   virtual void OnData(uint64_t channel_id,
-                      MediaTransportEncodedVideoFrame frame) = 0;
+                      MediaTransportEncodedVideoFrame frame) {
+    OnData(frame);
+  }
+  // Called when new encoded video frame is received.
+  // TODO(nisse): Rename, maybe OnEncodedFrame?
+  virtual void OnData(MediaTransportEncodedVideoFrame frame) {}
 };
 
 // Interface for video sender to be notified of received key frame request.
@@ -95,6 +100,27 @@ class MediaTransportKeyFrameRequestCallback {
 
   // Called when a key frame request is received on the transport.
   virtual void OnKeyFrameRequested(uint64_t channel_id) = 0;
+};
+
+class MediaTransportVideoSender {
+ public:
+  virtual ~MediaTransportVideoSender() = default;
+
+  // Start asynchronous send of video frame.
+  virtual void SendVideoFrame(MediaTransportEncodedVideoFrame frame) = 0;
+};
+
+// Similar to RtpStreamReceiverInterface, only owns the association with the
+// demuxer.
+class MediaTransportVideoReceiver {
+ public:
+  // Requests a keyframe for the stream. The caller should check that the
+  // keyframe is not present in a jitter buffer already (i.e. don't request a
+  // keyframe if there is one that you will get from the jitter buffer in a
+  // moment).
+  virtual void RequestKeyFrame() = 0;
+
+  virtual ~MediaTransportVideoReceiver() = default;
 };
 
 }  // namespace webrtc

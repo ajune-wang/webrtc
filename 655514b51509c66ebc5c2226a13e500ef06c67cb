@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b3a9a5b_d1bdb367",
+        "filename": "api/test/videocodec_test_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-08T10:50:11Z",
+      "side": 1,
+      "message": "This used to work with the old type. Was that just implicit conversion to int, or is there some ToString method for the old type somewhere? I could tried explicit conversion to int.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "655514b51509c66ebc5c2226a13e500ef06c67cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "825c2ed3_9f9f5e97",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-08T10:50:11Z",
+      "side": 1,
+      "message": "Can\u0027t use _EQ, since it wants a way to print the values.",
+      "range": {
+        "startLine": 443,
+        "startChar": 6,
+        "endLine": 443,
+        "endChar": 19
+      },
+      "revId": "655514b51509c66ebc5c2226a13e500ef06c67cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

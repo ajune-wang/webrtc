@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "935f094a_37c273ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-08T16:44:38Z",
+      "side": 1,
+      "message": "As discussed offline, bumping thread pool wont help here since I got none.\n\nI still don\u0027t follow why we think it\u0027s better to do blocking calls using Event that an explicit API. Intependently of potential workaround I could use (currently it\u0027s leaning towards having to maintain a fork of webrtc with this feature",
+      "parentUuid": "064a816b_03c10cf8",
+      "revId": "ca43a255febc0c1c03e1186c124f7bc10b70b8cf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b9d869a2_ee7332d7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1

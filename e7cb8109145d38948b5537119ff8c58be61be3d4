@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62e19a1a_81ed446e",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-08T22:36:30Z",
+      "side": 1,
+      "message": "I believe that these should be virtual methods.\ni\u0027m not sure why the convention seems to be that if the backing store for the object is in the class the methods are not marked as virtual, but i feel that it is incorrect.",
+      "range": {
+        "startLine": 285,
+        "startChar": 25,
+        "endLine": 285,
+        "endChar": 38
+      },
+      "revId": "e7cb8109145d38948b5537119ff8c58be61be3d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9e6aa7f_2312dd67",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-08T22:36:30Z",
+      "side": 1,
+      "message": "the term \u0027preferred\u0027 is confusing in this context.\nit could mean \u0027the default if not specified\u0027\nit could mean \u0027the one i want, but the platform can ignore me\u0027\nit could mean \u0027the one to use\u0027\n\nit seems that you are also setting Dscp via a call to UpdateDscp() making it more confusing (you are updating it and not setting it?)\n\nis it possible to clarify?",
+      "range": {
+        "startLine": 290,
+        "startChar": 2,
+        "endLine": 291,
+        "endChar": 62
+      },
+      "revId": "e7cb8109145d38948b5537119ff8c58be61be3d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fe3e94f_12c962b1",
+        "filename": "media/base/media_channel.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 8244
+      },
+      "writtenOn": "2019-03-08T22:36:30Z",
+      "side": 1,
+      "message": "this is a double lock. i\u0027m assuming crit_scope knows how to handle this.\nbecause the member is private, you have absolute control over call sites. if there is only one, you can remove critscope and comment that this should be locked by caller.",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 48
+      },
+      "revId": "e7cb8109145d38948b5537119ff8c58be61be3d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

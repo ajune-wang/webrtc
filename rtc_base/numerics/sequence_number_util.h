@@ -92,11 +92,10 @@ class SeqNumUnwrapper {
       "Type unwrapped must be an unsigned integer smaller than uint64_t.");
 
  public:
-  // We want a default value that is close to 2^62 for a two reasons. Firstly,
-  // we can unwrap wrapping numbers in either direction, and secondly, the
-  // unwrapped numbers can be stored in either int64_t or uint64_t. We also want
-  // the default value to be human readable, which makes a power of 10 suitable.
-  static constexpr uint64_t kDefaultStartValue = 1000000000000000000UL;
+  // We use a default value that is equal to 2^62 for two reasons. Firstly, we
+  // can unwrap wrapping numbers in either direction, and secondly, the
+  // unwrapped numbers can be stored in either int64_t or uint64_t.
+  static constexpr uint64_t kDefaultStartValue = uint64_t{1} << 62;
 
   SeqNumUnwrapper() : last_unwrapped_(kDefaultStartValue) {}
   explicit SeqNumUnwrapper(uint64_t start_at) : last_unwrapped_(start_at) {}
@@ -122,6 +121,31 @@ class SeqNumUnwrapper {
  private:
   uint64_t last_unwrapped_;
   absl::optional<T> last_value_;
+};
+
+// A sequence number unwrapper made for wrapping periods that are a power of 2.
+// This unwrapper will preserve the least significant bits of the wrapped value.
+template <typename T, T M = 0>
+class PowerOf2SeqNumUnwrapper {
+ public:
+  constexpr static uint64_t kPeriod =
+      M == 0 ? std::numeric_limits<T>::max() + 1 : M;
+  static_assert(((kPeriod - 1) & kPeriod) == 0,
+                "The wrapping period must be a power of 2.");
+  static_assert(((kPeriod - 1) & SeqNumUnwrapper<T, M>::kDefaultStartValue) ==
+                    0,
+                "The least significant bits of the default start value must be"
+                "zero for all bits that are used by the wrapping sequence.");
+  uint64_t Unwrap(T value) {
+    if (!unwrapper_) {
+      uint64_t start_at = SeqNumUnwrapper<T, M>::kDefaultStartValue | value;
+      unwrapper_.emplace(start_at);
+    }
+    return unwrapper_->Unwrap(value);
+  }
+
+ private:
+  absl::optional<SeqNumUnwrapper<T, M> > unwrapper_;
 };
 
 }  // namespace webrtc

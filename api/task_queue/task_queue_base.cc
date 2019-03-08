@@ -16,6 +16,7 @@
 #include "absl/base/config.h"
 #include "absl/memory/memory.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/event.h"
 #include "rtc_base/time_utils.h"
 
 #if defined(ABSL_HAVE_THREAD_LOCAL)
@@ -65,6 +66,26 @@ void TaskQueueBase::PostRepeatingTask(TimeDelta initial_delay,
   } else {
     PostDelayedTask(std::move(handle), initial_delay.ms());
   }
+}
+
+void TaskQueueBase::BlockingInvokeTask(std::unique_ptr<QueuedTask> task) {
+  RTC_DCHECK(!IsCurrent());
+  rtc::Event done;
+  class InvokeWrapper : public QueuedTask {
+   public:
+    InvokeWrapper(std::unique_ptr<QueuedTask> task, rtc::Event* done)
+        : task_(std::move(task)), done_(done) {}
+    bool Run() override {
+      bool res = task_->Run();
+      RTC_CHECK_EQ(res, true);
+      return res;
+    }
+    ~InvokeWrapper() override { done_->Set(); }
+    std::unique_ptr<QueuedTask> task_;
+    rtc::Event* done_;
+  };
+  PostTask(absl::make_unique<InvokeWrapper>(std::move(task), &done));
+  done.Wait(rtc::Event::kForever);
 }
 
 TaskQueueBase* TaskQueueBase::Current() {

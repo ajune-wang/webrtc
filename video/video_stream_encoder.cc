@@ -483,7 +483,7 @@ VideoStreamEncoder::~VideoStreamEncoder() {
 void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   source_proxy_->SetSource(nullptr, DegradationPreference());
-  encoder_queue_.PostTask([this] {
+  encoder_queue_.BlockingInvokeTask([this] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     overuse_detector_->StopCheckForOveruse();
     rate_allocator_ = nullptr;
@@ -492,8 +492,6 @@ void VideoStreamEncoder::Stop() {
     quality_scaler_ = nullptr;
     shutdown_event_.Set();
   });
-
-  shutdown_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoStreamEncoder::SetBitrateAllocationObserver(

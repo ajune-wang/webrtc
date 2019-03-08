@@ -93,7 +93,7 @@ VideoSendStream::VideoSendStream(
   // TODO(srte): Initialization should not be done posted on a task queue.
   // Note that the posted task must not outlive this scope since the closure
   // references local variables.
-  worker_queue_->PostTask(ToQueuedTask(
+  worker_queue_->BlockingInvokeTask(
       [this, clock, call_stats, transport, bitrate_allocator, send_delay_stats,
        event_log, &suspended_ssrcs, &encoder_config, &suspended_payload_states,
        &fec_controller]() {
@@ -104,13 +104,9 @@ VideoSendStream::VideoSendStream(
             encoder_config.bitrate_priority, suspended_ssrcs,
             suspended_payload_states, encoder_config.content_type,
             std::move(fec_controller), config_.media_transport));
-      },
-      [this]() { thread_sync_event_.Set(); }));
-
-  // Wait for ConstructionTask to complete so that |send_stream_| can be used.
+      });
   // |module_process_thread| must be registered and deregistered on the thread
   // it was created on.
-  thread_sync_event_.Wait(rtc::Event::kForever);
   send_stream_->RegisterProcessThread(module_process_thread);
   // TODO(sprang): Enable this also for regular video calls by default, if it
   // works well.
@@ -132,27 +128,19 @@ void VideoSendStream::UpdateActiveSimulcastLayers(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::UpdateActiveSimulcastLayers";
   VideoSendStreamImpl* send_stream = send_stream_.get();
-  worker_queue_->PostTask([this, send_stream, active_layers] {
+  worker_queue_->BlockingInvokeTask([send_stream, active_layers] {
     send_stream->UpdateActiveSimulcastLayers(active_layers);
-    thread_sync_event_.Set();
   });
-
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::Start() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   RTC_LOG(LS_INFO) << "VideoSendStream::Start";
   VideoSendStreamImpl* send_stream = send_stream_.get();
-  worker_queue_->PostTask([this, send_stream] {
-    send_stream->Start();
-    thread_sync_event_.Set();
-  });
-
   // It is expected that after VideoSendStream::Start has been called, incoming
   // frames are not dropped in VideoStreamEncoder. To ensure this, Start has to
   // be synchronized.
-  thread_sync_event_.Wait(rtc::Event::kForever);
+  worker_queue_->BlockingInvokeTask([send_stream] { send_stream->Start(); });
 }
 
 void VideoSendStream::Stop() {
@@ -196,14 +184,12 @@ void VideoSendStream::StopPermanentlyAndGetRtpStates(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   video_stream_encoder_->Stop();
   send_stream_->DeRegisterProcessThread();
-  worker_queue_->PostTask([this, rtp_state_map, payload_state_map]() {
+  worker_queue_->BlockingInvokeTask([this, rtp_state_map, payload_state_map]() {
     send_stream_->Stop();
     *rtp_state_map = send_stream_->GetRtpStates();
     *payload_state_map = send_stream_->GetRtpPayloadStates();
     send_stream_.reset();
-    thread_sync_event_.Set();
   });
-  thread_sync_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoSendStream::DeliverRtcp(const uint8_t* packet, size_t length) {

@@ -31,7 +31,6 @@
 #include "modules/pacing/packet_router.h"
 #include "modules/utility/include/process_thread.h"
 #include "rtc_base/checks.h"
-#include "rtc_base/event.h"
 #include "rtc_base/format_macros.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
@@ -760,13 +759,10 @@ void ChannelSend::StopSend() {
   }
   sending_ = false;
 
-  rtc::Event flush;
-  encoder_queue_.PostTask([this, &flush]() {
+  encoder_queue_.BlockingInvokeTask([this]() {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     encoder_queue_is_active_ = false;
-    flush.Set();
   });
-  flush.Wait(rtc::Event::kForever);
 
   // Reset sending SSRC and sequence number and triggers direct transmission
   // of RTCP BYE

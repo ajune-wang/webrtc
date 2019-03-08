@@ -44,6 +44,12 @@ class RTC_LOCKABLE TaskQueueBase {
   // lifetimes of pending tasks should not be made.
   virtual void PostTask(std::unique_ptr<QueuedTask> task) = 0;
 
+  // Posts a task and waits for it to finish before continuing. The posted task
+  // must not return true to avoid destruction. The default implementation is
+  // sufficient for task queue implementations with unlimited thread count or
+  // when it is not called from a posted task.
+  virtual void BlockingInvokeTask(std::unique_ptr<QueuedTask> task);
+
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have

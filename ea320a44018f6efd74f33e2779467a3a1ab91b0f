@@ -46,6 +46,30 @@
       "revId": "ea320a44018f6efd74f33e2779467a3a1ab91b0f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9998560_5a7bce4c",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-08T17:03:49Z",
+      "side": 1,
+      "message": "Ideally we would only have one way to create streams (so either a callback, or a getter, hopefully not both; but maybe both are required - in which case we should document what happens if we CreateVideoReceiver() -- does the callback still triggers?). We should at least document what the expectation is for those unsignaled streams.",
+      "parentUuid": "f6b74e21_a169057c",
+      "range": {
+        "startLine": 228,
+        "startChar": 55,
+        "endLine": 228,
+        "endChar": 74
+      },
+      "revId": "ea320a44018f6efd74f33e2779467a3a1ab91b0f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

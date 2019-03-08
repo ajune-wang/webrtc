@@ -14,6 +14,8 @@
 #include <string>
 #include <vector>
 
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "pc/test/frame_generator_capturer_video_track_source.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
@@ -54,7 +56,27 @@ class PeerConnectionE2EQualityTest
            std::unique_ptr<Params> bob_params,
            RunParams run_params) override;
 
+  void ExecuteAt(TimeDelta target_time_since_start,
+                 std::function<void(Timestamp)> func) override;
+  void ExecuteEvery(TimeDelta interval,
+                    std::function<void(Timestamp)> func) override;
+
  private:
+  struct ScheduledActivity {
+    ScheduledActivity(std::function<void(Timestamp)> func,
+                      TimeDelta target_time_since_start);
+
+    std::function<void(Timestamp)> func;
+    TimeDelta target_time_since_start;
+  };
+  struct ScheduledRepeatedActivity {
+    ScheduledRepeatedActivity(std::function<void(Timestamp)> func,
+                              TimeDelta interval);
+
+    std::function<void(Timestamp)> func;
+    TimeDelta interval;
+  };
+
   // Set missing params to default values if it is required:
   //  * Generate video stream labels if some of them missed
   //  * Generate audio stream labels if some of them missed
@@ -83,6 +105,7 @@ class PeerConnectionE2EQualityTest
   VideoFrameWriter* MaybeCreateVideoWriter(
       absl::optional<std::string> file_name,
       const VideoConfig& config);
+  Timestamp Now() const;
 
   Clock* const clock_;
   std::string test_case_name_;
@@ -102,6 +125,13 @@ class PeerConnectionE2EQualityTest
   std::vector<std::unique_ptr<VideoFrameWriter>> video_writers_;
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
       output_video_sinks_;
+
+  rtc::CriticalSection lock_;
+  Timestamp start_time_ RTC_GUARDED_BY(lock_) = Timestamp::MinusInfinity();
+  std::vector<ScheduledActivity> scheduled_activities_;
+  std::vector<ScheduledRepeatedActivity> scheduled_repeated_activities_;
+  std::vector<RepeatingTaskHandle> repeating_task_handles_
+      RTC_GUARDED_BY(lock_);
 
   RepeatingTaskHandle stats_polling_task_ RTC_GUARDED_BY(&task_queue_);
   // Must be the last field, so it will be deleted first, because tasks

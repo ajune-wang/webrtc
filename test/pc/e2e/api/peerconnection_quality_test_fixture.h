@@ -208,6 +208,16 @@ class PeerConnectionE2EQualityTestFixture {
     TimeDelta run_duration;
   };
 
+  // Add activity that will be executed after |time_since_start| after call
+  // will be set up (after offer/answer exchange and ICE gathering will be
+  // done).
+  virtual void ExecuteAt(TimeDelta target_time_since_start,
+                         std::function<void(Timestamp)> func) = 0;
+  // Add activity that will be executed every |interval| with first execution
+  // after call will be set up (after all participants will be connected).
+  virtual void ExecuteEvery(TimeDelta interval,
+                            std::function<void(Timestamp)> func) = 0;
+
   virtual void Run(std::unique_ptr<InjectableComponents> alice_components,
                    std::unique_ptr<Params> alice_params,
                    std::unique_ptr<InjectableComponents> bob_components,

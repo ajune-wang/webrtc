@@ -20,6 +20,7 @@
 #include "api/units/time_delta.h"
 #include "logging/rtc_event_log/output/rtc_event_log_output_file.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
+#include "pc/sdp_utils.h"
 #include "pc/test/mock_peer_connection_observers.h"
 #include "rtc_base/bind.h"
 #include "rtc_base/gunit.h"
@@ -28,6 +29,7 @@
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
 #include "test/pc/e2e/api/video_quality_analyzer_interface.h"
+#include "test/pc/e2e/sdp/sdp_changer.h"
 #include "test/pc/e2e/stats_poller.h"
 #include "test/testsupport/file_utils.h"
 
@@ -218,8 +220,8 @@ void PeerConnectionE2EQualityTest::Run(
 
   signaling_thread->Invoke<void>(
       RTC_FROM_HERE,
-      rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
-                this));
+      rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread, this,
+                run_params));
 
   StatsPoller stats_poller({audio_quality_analyzer_.get(),
                             video_quality_analyzer_injection_helper_.get()},
@@ -379,7 +381,8 @@ void PeerConnectionE2EQualityTest::SetupVideoSink(
   output_video_sinks_.push_back(std::move(video_sink));
 }
 
-void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread() {
+void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread(
+    const RunParams& run_params) {
   // We need receive-only transceivers for Bob's media stream, so there will
   // be media section in SDP for that streams in Alice's offer, because it is
   // forbidden to add new media sections in answer in Unified Plan.
@@ -400,7 +403,7 @@ void PeerConnectionE2EQualityTest::SetupCallOnSignalingThread() {
   alice_video_sources_ = MaybeAddMedia(alice_.get());
   bob_video_sources_ = MaybeAddMedia(bob_.get());
 
-  SetupCall();
+  SetupCall(run_params);
 }
 
 void PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread() {
@@ -496,9 +499,9 @@ void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {
   peer->AddTrack(track, {*audio_config.stream_label});
 }
 
-void PeerConnectionE2EQualityTest::SetupCall() {
+void PeerConnectionE2EQualityTest::SetupCall(const RunParams& run_params) {
   // Connect peers.
-  ASSERT_TRUE(alice_->ExchangeOfferAnswerWith(bob_.get()));
+  ExchangeOfferAnswer(run_params);
   // Do the SDP negotiation, and also exchange ice candidates.
   ASSERT_EQ_WAIT(alice_->signaling_state(), PeerConnectionInterface::kStable,
                  kDefaultTimeoutMs);
@@ -511,6 +514,35 @@ void PeerConnectionE2EQualityTest::SetupCall() {
   // This means that ICE and DTLS are connected.
   ASSERT_TRUE_WAIT(bob_->IsIceConnected(), kDefaultTimeoutMs);
   ASSERT_TRUE_WAIT(alice_->IsIceConnected(), kDefaultTimeoutMs);
+}
+
+void PeerConnectionE2EQualityTest::ExchangeOfferAnswer(
+    const RunParams& run_params) {
+  std::string error_message;
+  std::unique_ptr<SessionDescriptionInterface> offer = alice_->CreateOffer();
+  ASSERT_TRUE(offer);
+
+  ForceVideoCodec(offer.get(), run_params.video_codec_name,
+                  run_params.video_codec_required_params);
+
+  bool set_local_offer = alice_->SetLocalDescription(
+      CloneSessionDescription(offer.get()), &error_message);
+  ASSERT_TRUE(set_local_offer) << error_message;
+  bool set_remote_offer =
+      bob_->SetRemoteDescription(std::move(offer), &error_message);
+  ASSERT_TRUE(set_remote_offer) << error_message;
+  std::unique_ptr<SessionDescriptionInterface> answer = bob_->CreateAnswer();
+  ASSERT_TRUE(answer);
+
+  ForceVideoCodec(answer.get(), run_params.video_codec_name,
+                  run_params.video_codec_required_params);
+
+  bool set_local_answer = bob_->SetLocalDescription(
+      CloneSessionDescription(answer.get()), &error_message);
+  ASSERT_TRUE(set_local_answer) << error_message;
+  bool set_remote_answer =
+      alice_->SetRemoteDescription(std::move(answer), &error_message);
+  ASSERT_TRUE(set_remote_answer) << error_message;
 }
 
 void PeerConnectionE2EQualityTest::StartVideo(

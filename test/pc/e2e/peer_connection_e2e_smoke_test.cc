@@ -116,12 +116,13 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   std::unique_ptr<AudioQualityAnalyzerInterface> audio_quality_analyzer =
       absl::make_unique<DefaultAudioQualityAnalyzer>();
 
+  RunParams run_params(TimeDelta::seconds(5));
+  run_params.video_codec_name = cricket::kVp9CodecName;
   auto fixture = CreatePeerConnectionE2EQualityTestFixture(
       "smoke_test", std::move(audio_quality_analyzer),
       std::move(video_quality_analyzer));
   fixture->Run(std::move(alice_components), std::move(alice_params),
-               std::move(bob_components), std::move(bob_params),
-               RunParams{TimeDelta::seconds(5)});
+               std::move(bob_components), std::move(bob_params), run_params);
 
   PrintFrameCounters("Global", video_analyzer_ptr->GetGlobalCounters());
   for (auto stream_label : video_analyzer_ptr->GetKnownVideoStreams()) {

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ccad48af_19c858ce",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-08T10:55:17Z",
+      "side": 1,
+      "message": "Yes, that\u0027s possible too.\nI don\u0027t have a strong preference. On one hand, my version is a bit more complex than what you\u0027re proposing. On the other hand, I find the alternative a bit odd since 2 arguments are needed when we can avoid them at all.\n\nLet me know what you prefer.",
+      "parentUuid": "e7e92e88_a75dc7aa",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5b487f_44af3b64",
         "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "506a88bfd15704145ee263e015c3f992262696f6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4441520a_37b8a715",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-08T10:55:17Z",
+      "side": 1,
+      "message": "Good to learn that string_view is supported, thanks!\nI used rtc::StringBuilder since it\u0027s perfectly fine to have a heap allocation here and I avoid any limitations with long file paths.",
+      "parentUuid": "cb5b487f_44af3b64",
+      "range": {
+        "startLine": 245,
+        "startChar": 51,
+        "endLine": 245,
+        "endChar": 78
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -16,6 +16,24 @@
       "revId": "05dbd612a545a738eb35c8ec5dc44186d195e12f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf3e5c6b_eea8109d",
+        "filename": "api/test/video_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-08T09:54:46Z",
+      "side": 1,
+      "message": "Yep. I think that\u0027s a good thing though, because it makes it clearer that the semantics have changed.\n\n(Within webrtc.org, we seem to always create this struct with aggregate initialization, which I\u0027m not a huge fan of.)\n\nI can do a PSA to discuss-webrtc, if you think that\u0027s warranted?",
+      "parentUuid": "a396d4e8_108332b7",
+      "revId": "05dbd612a545a738eb35c8ec5dc44186d195e12f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

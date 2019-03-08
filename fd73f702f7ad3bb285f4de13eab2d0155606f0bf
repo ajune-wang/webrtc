@@ -1,0 +1,327 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebe2d401_c285f211",
+        "filename": "modules/video_capture/windows/help_functions_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "As a new reader, it is not clear to me (without having to read the implementation) what the difference between FreeMediaType and DeallocateMediaType is. \n\nChanging the names as follows would probably have given me a better idea:\n FreeMediaType -\u003e ResetMediaType\n DeallocateMediaType -\u003e either keep, or call this FreeMediaType. The \"free\" part makes sence here since it calls CoTaskMemFree.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d03ec00_e4d03622",
+        "filename": "modules/video_capture/windows/help_functions_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "I am surprised to see that scoped_refptr\u003c\u003e works with IUnknown at all. I have never seen it being used like that in Chromium. Because of this, it took me a while to figure out what this method is trying to achieve, i.e. to store the result of a QueryInterface() in a smart pointer for automatic Release() when finished using.\n\nIs there a reason why we cannot simply use Microsoft::WRL::ComPtr from \u003cwrl/client.h\u003e? Is it because we need to support versions of Windows where this is not available?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9483927a_a071d92b",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Suggestion: IsMediaTypePartialMatch",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6449179d_3e1806a6",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "naming suggestion: IsMediaTypeOnlyPartiallySpecified, or maybe inverse to IsMediaTypeFullySpecified to avoid double negative at line 407.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fff0c1bb_c00c918f",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Suggestion: EnsureMediaTypeFormatBufferHasLength",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae944ff7_869775ee",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Do we need to check for out of memory here?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c83451aa_ff909d7b",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Do we need to check for out of memory here?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c37f351_9b7212a1",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Naming suggestions: TranslateMediaTypeToVideoCaptureCapability, then add a comment to the declaration saying \"Returns false if media type is not supported, true otherwise\".\n\nAlso, it seems this method does not depend on any member field of CaptureInputPin. Please consider making it a free file-scope function here, or if it needs to be called from outside, either a public static method, or move to a separate pair of files.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "078baf33_dd5cbe29",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Naming suggestion: SetRequestedCapability",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6113137_26bbc264",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "This seems counter-intuitive. Why would receive_pin-\u003eReceiveConnection() require the connecting pin to appear already connected?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea9c1fad_840e0ad1",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Here I can confirm that on first read the name FreeMediaType made me think that we are releasing/deallocating the object. +1 for the suggestion to call this ResetMediaType().",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "112e6a3a_56493fd5",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "This check is redundant with the DCHECK at line 551. It does not seem to make sense to have both.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db13ab6e_4023ed8a",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "It looks like |info._achName| is never set anywhere. Intentional?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ed9d9b5_e3e6ff01",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Since we are accessing |resulting_capability_| in line 637, let us add a RTC_DCHECK(Filter()-\u003eIsStopped()); here.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0e2383a_da57ce34",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Do we want to add RTC_DCHECK(!Filter()-\u003eIsStopped()); here since we are accessing |resulting_capability_| on the capture thread?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4b4cb73_0c7dfe5d",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Why not call these \"Activate\" and \"Deactivate\". If that is what the methods do, the names would also serve as the (otherwise missing) documentation for that.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acd40d9f_766baa1c",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "The names of methods AgreeMediaType() and TryMediaTypes() do not convey well what they are actually doing. And what they are actually doing is difficult to convey in a method name, because what they do is a lot of mixed things.\n\nThis could be solved by restructuring as follows:\n* In the cc file, move the attempt to connect when the format is fully specified from line 406 into method Connect().\n* Also in method Connect(), if the format is not fully specified, call a new method DetermineCandidateFormats() that produces a std::vector\u003cAM_MEDIA_TYPE*\u003e of candidate media types to subsequently try. Part of the logic for determining these candidates is currently at line 412, and the other part is at line 495.\n* Also in method Connect(), loop over the vector and call AttemptConnection() for each candidate.\n\nWith this, methods AgreeMediaType() and TryMediaTypes() would go away and instead there would be a new method DetermineCandidateFormats().",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a6a577c_575ad239",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Suggestion: \"Accessed on the main thread when Filter()-\u003eIsStopped(), otherwise accessed on the capture thread.\"",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "426df57c_041ee768",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-08T21:45:44Z",
+      "side": 1,
+      "message": "Is this |ref_count_| still needed here? Looks like at the usage in video_capture_ds.cc:102, CaptureSinkFilter is wrapped in a ComRefCount\u003c\u003e.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

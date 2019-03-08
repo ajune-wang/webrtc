@@ -40,6 +40,7 @@ struct StreamsConfig {
     RTC_DEPRECATED absl::optional<DataRate> min_pacing_rate;
   };
   absl::optional<DataRate> max_padding_rate;
+  absl::optional<DataRate> start_probing_over_rate_;
   absl::optional<DataRate> max_total_allocated_bitrate;
 };
 

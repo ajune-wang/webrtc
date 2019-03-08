@@ -123,6 +123,59 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
   audio_quality_analyzer_.swap(audio_quality_analyzer);
 }
 
+void PeerConnectionE2EQualityTest::ExecuteAt(
+    TimeDelta target_time_since_start,
+    std::function<void(Timestamp)> func) {
+  ExecuteTask(target_time_since_start, absl::nullopt, func);
+}
+
+void PeerConnectionE2EQualityTest::ExecuteEvery(
+    TimeDelta initial_delay_since_start,
+    TimeDelta interval,
+    std::function<void(Timestamp)> func) {
+  ExecuteTask(initial_delay_since_start, interval, func);
+}
+
+void PeerConnectionE2EQualityTest::ExecuteTask(
+    TimeDelta initial_delay_since_start,
+    absl::optional<TimeDelta> interval,
+    std::function<void(Timestamp)> func) {
+  RTC_CHECK(initial_delay_since_start.IsFinite() &&
+            initial_delay_since_start >= TimeDelta::Zero());
+  RTC_CHECK(!interval ||
+            (interval->IsFinite() && *interval > TimeDelta::Zero()));
+  rtc::CritScope crit(&lock_);
+  ScheduledActivity activity(initial_delay_since_start, interval, func);
+  if (start_time_.IsInfinite()) {
+    scheduled_activities_.push_back(std::move(activity));
+  } else {
+    PostTask(std::move(activity));
+  }
+}
+
+void PeerConnectionE2EQualityTest::PostTask(ScheduledActivity activity) {
+  if (!activity.interval) {
+    task_queue_.PostDelayedTask([activity, this]() { activity.func(Now()); },
+                                activity.initial_delay_since_start.ms());
+    return;
+  }
+  if (activity.initial_delay_since_start == TimeDelta::Zero()) {
+    repeating_task_handles_.push_back(
+        RepeatingTaskHandle::Start(task_queue_.Get(), [activity, this]() {
+          activity.func(Now());
+          return *activity.interval;
+        }));
+    return;
+  }
+
+  repeating_task_handles_.push_back(RepeatingTaskHandle::DelayedStart(
+      task_queue_.Get(), activity.initial_delay_since_start,
+      [activity, this]() {
+        activity.func(Now());
+        return *activity.interval;
+      }));
+}
+
 void PeerConnectionE2EQualityTest::Run(
     std::unique_ptr<InjectableComponents> alice_components,
     std::unique_ptr<Params> alice_params,
@@ -220,6 +273,14 @@ void PeerConnectionE2EQualityTest::Run(
       RTC_FROM_HERE,
       rtc::Bind(&PeerConnectionE2EQualityTest::SetupCallOnSignalingThread,
                 this));
+  {
+    rtc::CritScope crit(&lock_);
+    start_time_ = Now();
+    while (!scheduled_activities_.empty()) {
+      PostTask(std::move(scheduled_activities_.front()));
+      scheduled_activities_.pop_front();
+    }
+  }
 
   StatsPoller stats_poller({audio_quality_analyzer_.get(),
                             video_quality_analyzer_injection_helper_.get()},
@@ -557,6 +618,18 @@ VideoFrameWriter* PeerConnectionE2EQualityTest::MaybeCreateVideoWriter(
   video_writers_.push_back(std::move(video_writer));
   return out;
 }
+
+Timestamp PeerConnectionE2EQualityTest::Now() const {
+  return Timestamp::us(clock_->TimeInMicroseconds());
+}
+
+PeerConnectionE2EQualityTest::ScheduledActivity::ScheduledActivity(
+    TimeDelta initial_delay_since_start,
+    absl::optional<TimeDelta> interval,
+    std::function<void(Timestamp)> func)
+    : initial_delay_since_start(initial_delay_since_start),
+      interval(std::move(interval)),
+      func(std::move(func)) {}
 
 }  // namespace test
 }  // namespace webrtc

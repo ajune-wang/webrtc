@@ -10,10 +10,13 @@
 #ifndef TEST_PC_E2E_PEER_CONNECTION_QUALITY_TEST_H_
 #define TEST_PC_E2E_PEER_CONNECTION_QUALITY_TEST_H_
 
+#include <list>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "api/units/time_delta.h"
+#include "api/units/timestamp.h"
 #include "pc/test/frame_generator_capturer_video_track_source.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/repeating_task.h"
@@ -54,7 +57,27 @@ class PeerConnectionE2EQualityTest
            std::unique_ptr<Params> bob_params,
            RunParams run_params) override;
 
+  void ExecuteAt(TimeDelta target_time_since_start,
+                 std::function<void(Timestamp)> func) override;
+  void ExecuteEvery(TimeDelta initial_delay_since_start,
+                    TimeDelta interval,
+                    std::function<void(Timestamp)> func) override;
+
  private:
+  struct ScheduledActivity {
+    ScheduledActivity(TimeDelta initial_delay_since_start,
+                      absl::optional<TimeDelta> interval,
+                      std::function<void(Timestamp)> func);
+
+    TimeDelta initial_delay_since_start;
+    absl::optional<TimeDelta> interval;
+    std::function<void(Timestamp)> func;
+  };
+
+  void ExecuteTask(TimeDelta initial_delay_since_start,
+                   absl::optional<TimeDelta> interval,
+                   std::function<void(Timestamp)> func);
+  void PostTask(ScheduledActivity activity) RTC_EXCLUSIVE_LOCKS_REQUIRED(lock_);
   // Set missing params to default values if it is required:
   //  * Generate video stream labels if some of them missed
   //  * Generate audio stream labels if some of them missed
@@ -83,6 +106,7 @@ class PeerConnectionE2EQualityTest
   VideoFrameWriter* MaybeCreateVideoWriter(
       absl::optional<std::string> file_name,
       const VideoConfig& config);
+  Timestamp Now() const;
 
   Clock* const clock_;
   std::string test_case_name_;
@@ -102,6 +126,12 @@ class PeerConnectionE2EQualityTest
   std::vector<std::unique_ptr<VideoFrameWriter>> video_writers_;
   std::vector<std::unique_ptr<rtc::VideoSinkInterface<VideoFrame>>>
       output_video_sinks_;
+
+  rtc::CriticalSection lock_;
+  Timestamp start_time_ RTC_GUARDED_BY(lock_) = Timestamp::MinusInfinity();
+  std::list<ScheduledActivity> scheduled_activities_;
+  std::vector<RepeatingTaskHandle> repeating_task_handles_
+      RTC_GUARDED_BY(lock_);
 
   RepeatingTaskHandle stats_polling_task_ RTC_GUARDED_BY(&task_queue_);
   // Must be the last field, so it will be deleted first, because tasks

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b9a6bf_dc6bf021",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-08T09:52:03Z",
+      "side": 1,
+      "message": "IMO, this should be conditional on these being explicitly configured with the available field trial. If it requires us to add them for audio calls we can do that. If we are not doing send side BWE, the values aren\u0027t used either way.",
+      "range": {
+        "startLine": 986,
+        "startChar": 49,
+        "endLine": 986,
+        "endChar": 77
+      },
+      "revId": "40d8efdf3f96d5c1e2d01dacff434166d502c080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d37989_ef0df320",
+        "filename": "media/engine/webrtc_voice_engine.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-08T09:52:03Z",
+      "side": 1,
+      "message": "Should these override the settings from the allocationsettings?\n\nMy suggestions would be to only set based on 1 and 3 here, then when the AllocationSettings in AudioSendStream to set 2 (based on the min and max being explicitely set), overriding 1 and 3. (generally it\u0027s easiest to reason about systems where trials override everything else, and if you want to fallback, you can just remove the field trial)",
+      "range": {
+        "startLine": 987,
+        "startChar": 10,
+        "endLine": 987,
+        "endChar": 69
+      },
+      "revId": "40d8efdf3f96d5c1e2d01dacff434166d502c080",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

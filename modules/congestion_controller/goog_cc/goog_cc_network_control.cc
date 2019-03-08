@@ -396,6 +396,7 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   }
 
   if (max_feedback_rtt.IsFinite()) {
+    RTC_DCHECK_GE(max_feedback_rtt.ms(), 0);
     feedback_max_rtts_.push_back(max_feedback_rtt.ms());
     const size_t kMaxFeedbackRttWindow = 32;
     if (feedback_max_rtts_.size() > kMaxFeedbackRttWindow)

@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "c165ed25_54999d74",
+        "filename": "test/pc/e2e/BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T09:45:49Z",
+      "side": 1,
+      "message": "Is this something we want to keep public? If not, I suggest we remove the line and keep default visibility.",
+      "range": {
+        "startLine": 374,
+        "startChar": 2,
+        "endLine": 374,
+        "endChar": 22
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4591a725_14950bd6",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T09:45:49Z",
+      "side": 1,
+      "message": "This is called only two times so maybe it is not a big issue, but IIUC the set is only required to check if a codec is known or not. In that case a static array and linear search are probably better (due to memory locality).",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e102586_1a0938c0",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T09:45:49Z",
+      "side": 1,
+      "message": "Should we use std::map\u003cstd::string, std::string\u003e\u0026 ?",
+      "range": {
+        "startLine": 33,
+        "startChar": 10,
+        "endLine": 33,
+        "endChar": 44
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d46fbc8_fb2aeb28",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 7
@@ -93,6 +162,29 @@
       "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5748dffe_d370fed5",
+        "filename": "test/pc/e2e/sdp/sdp_changer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-08T09:45:49Z",
+      "side": 1,
+      "message": "Can we use absl::string_view? (https://abseil.io/tips/1)",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 22
+      },
+      "revId": "524f24fdd7fd29395ec9b45389d679060b504b55",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

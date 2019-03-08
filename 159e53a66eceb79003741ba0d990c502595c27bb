@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8ef52f1_e57d4088",
+        "filename": "modules/rtp_rtcp/source/rtp_rtcp_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-08T12:52:34Z",
+      "side": 0,
+      "message": "this function is no longer used within webrtc in favor of the factory just above (that one requires the clock already)\n\nit might be better to keep this old one as is for backward compatibility (afaik there are uses of it that do not pass the clock)",
+      "range": {
+        "startLine": 49,
+        "startChar": 18,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fd5f1882_4e10df61",
+        "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-08T16:01:55Z",
+      "side": 1,
+      "message": "I guess it\u0027s subjective which option is better. A --no_output_audio flag fits a little better with the existing approach of (ab)using the output filename to decide how to name other output files, which is not a super nice approach to be honest. \nAnother alternative could be to always pass the output audio filename as a flag, and pass the filename for other files into their flags as well, for example:\n\nneteq_rtpplay --output_audio\u003dmy/output/audio --pythonplot\u003dmy/python/plot.py my/input/file\n\nI\u0027ll leave the choice to you, keeping your current approach is also okay.",
+      "parentUuid": "ccad48af_19c858ce",
+      "range": {
+        "startLine": 122,
+        "startChar": 21,
+        "endLine": 122,
+        "endChar": 43
+      },
+      "revId": "506a88bfd15704145ee263e015c3f992262696f6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb5b487f_44af3b64",
         "filename": "modules/audio_coding/neteq/tools/neteq_rtpplay.cc",
         "patchSetId": 3

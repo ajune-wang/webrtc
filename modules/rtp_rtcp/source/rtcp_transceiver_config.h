@@ -65,6 +65,8 @@ struct RtcpTransceiverConfig {
   Transport* outgoing_transport = nullptr;
 
   // Queue for scheduling delayed tasks, e.g. sending periodic compound packets.
+  TaskQueueBase* queue = nullptr;
+  // TODO(danilchap): Remove this member when callers set queue member above.
   rtc::TaskQueue* task_queue = nullptr;
 
   // Rtcp report block generator for outgoing receiver reports.

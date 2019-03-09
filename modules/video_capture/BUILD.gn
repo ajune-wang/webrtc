@@ -143,8 +143,6 @@ if (!build_with_chromium) {
           "windows/BasePin.cpp",
           "windows/MediaType.cpp",
         ]
-      } else {
-        deps += [ "//third_party/winsdk_samples" ]
       }
     }
     if (is_ios || is_mac) {

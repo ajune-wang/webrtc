@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7ae22063_6f3da1be",
+        "filename": "modules/video_capture/windows/help_functions_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Agreed, these names are terribly confusing :) While porting the code over, I needed function names that were compatible with the previous implementation and didn\u0027t change them. Fixed now.",
+      "parentUuid": "ebe2d401_c285f211",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1d03ec00_e4d03622",
         "filename": "modules/video_capture/windows/help_functions_ds.h",
         "patchSetId": 18
@@ -33,6 +51,24 @@
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3878461_fbd8a0b4",
+        "filename": "modules/video_capture/windows/help_functions_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "It was actually used for many years in Chromium before we switched over to Microsoft::WRL::ComPtr.\n\nThere used to be a class in Chromium that I wrote, named ScopedComPtr. That class was initially based on scoped_refptr mostly to avoid having multiple implementations that dealt with reference counting. So, while scoped_refptr hasn\u0027t been used for COM interfaces in Chromium since 2017, it was being used for that purpose for many (9?) years before :)\n\nscoped_refptr itself and reference counting concepts in Chromium, borrow from IUnknown (AddRef/Release), which is why they\u0027re compatible at the template level.\n\nThe reason I\u0027m choosing not to use ComPtr in this CL is to not introduce that dependency in this CL. I\u0027m not sure what side effects that might have. scoped_refptr is already in there, so I don\u0027t expect a problem due to that.",
+      "parentUuid": "1d03ec00_e4d03622",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e1885be9_d1faf145",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9483927a_a071d92b",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6449179d_3e1806a6",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "bb4f1e58_be82fafd",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6449179d_3e1806a6",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fff0c1bb_c00c918f",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -81,6 +153,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "Suggestion: EnsureMediaTypeFormatBufferHasLength",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d70949_606d22a2",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the \"Ensure\" part. We don\u0027t check for current \u003e\u003d length, which would satisfy an \u0027ensure\u0027 check and we may fail the allocation in which case we may end up with a nullptr for a type that might have a buffer allocated. Further still, the caller should not assume that the buffer contains whatever data may have been there before such as \u0027ensure\u0027 methods may guarantee.",
+      "parentUuid": "fff0c1bb_c00c918f",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "70cd5e48_37b78c7d",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "I decided against it. If we can\u0027t allocate this much memory, it\u0027s very likely that something unexpected will happen and I\u0027d rather crash on a nullptr than risk that.",
+      "parentUuid": "ae944ff7_869775ee",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c83451aa_ff909d7b",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -115,6 +223,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "Do we need to check for out of memory here?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9d0baaf_ac9d32b9",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "same here",
+      "parentUuid": "c83451aa_ff909d7b",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "a5cc9074_23a7a1a1",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c37f351_9b7212a1",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "078baf33_dd5cbe29",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -152,6 +296,24 @@
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bdb61b4_36d4e01e",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "078baf33_dd5cbe29",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -172,6 +334,24 @@
     },
     {
       "key": {
+        "uuid": "40f1b192_36f70130",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Agree. This is inherited complexity that probably doesn\u0027t make sense anymore. Fixed.",
+      "parentUuid": "a6113137_26bbc264",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea9c1fad_840e0ad1",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -186,6 +366,24 @@
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a60a678_572095f7",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea9c1fad_840e0ad1",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "4d94f5c9_90539a78",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "112e6a3a_56493fd5",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db13ab6e_4023ed8a",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -217,6 +433,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "It looks like |info._achName| is never set anywhere. Intentional?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b538e26d_71cff1c1",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "The name/id is not needed as is. The previous implementation had it and for simplicity sake, I decided to keep the info_ struct to hold the pin info, which includes the name, correct buffer sizes etc. This here doesn\u0027t make a difference except that it doesn\u0027t fail and it returns a valid, yet empty string as is. If we end up using the name for something more, this won\u0027t need to change.",
+      "parentUuid": "db13ab6e_4023ed8a",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -240,6 +474,42 @@
     },
     {
       "key": {
+        "uuid": "5d0984c0_7e02a750",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ed9d9b5_e3e6ff01",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "69d9d16c_f6469b69",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ed9d9b5_e3e6ff01",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0e2383a_da57ce34",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -251,6 +521,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "Do we want to add RTC_DCHECK(!Filter()-\u003eIsStopped()); here since we are accessing |resulting_capability_| on the capture thread?",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffa4c861_ba6b92b9",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "That means testing the flag on a thread that it should not be touched on - i.e. a race, and we can\u0027t use RTC_GUARDED_BY. Since we\u0027re getting callbacks though, that in itself should suffice.",
+      "parentUuid": "e0e2383a_da57ce34",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -274,6 +562,24 @@
     },
     {
       "key": {
+        "uuid": "239b089a_8fddc969",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "These are notifications and not actually activations/deactivations. The filter is what gets activated and notifies the pin. The pin doesn\u0027t really have a say :)\n\nFor notifications, it\u0027s common to use the prefix \"On\" but I could rename this to something like OnFilterActivated?",
+      "parentUuid": "c4b4cb73_0c7dfe5d",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "acd40d9f_766baa1c",
         "filename": "modules/video_capture/windows/sink_filter_ds.h",
         "patchSetId": 18
@@ -285,6 +591,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "The names of methods AgreeMediaType() and TryMediaTypes() do not convey well what they are actually doing. And what they are actually doing is difficult to convey in a method name, because what they do is a lot of mixed things.\n\nThis could be solved by restructuring as follows:\n* In the cc file, move the attempt to connect when the format is fully specified from line 406 into method Connect().\n* Also in method Connect(), if the format is not fully specified, call a new method DetermineCandidateFormats() that produces a std::vector\u003cAM_MEDIA_TYPE*\u003e of candidate media types to subsequently try. Part of the logic for determining these candidates is currently at line 412, and the other part is at line 495.\n* Also in method Connect(), loop over the vector and call AttemptConnection() for each candidate.\n\nWith this, methods AgreeMediaType() and TryMediaTypes() would go away and instead there would be a new method DetermineCandidateFormats().",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd10d56f_8407705a",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Agreed - in case you\u0027re wondering, these names come from the period while I had to maintain compatibility with the previous implementation, see:\nhttps://docs.microsoft.com/en-us/windows/desktop/directshow/cbasepin-trymediatypes\nhttps://docs.microsoft.com/en-us/windows/desktop/directshow/cbasepin-agreemediatype\nhttps://docs.microsoft.com/en-us/windows/desktop/directshow/cbasepin-attemptconnection\n\nBut I\u0027m all for less code. There\u0027s a slight difference in the current approach vs that suggestion, which is that the current code enumerates only as many types as are necessary whereas the new approach enumerates all, but that should be fine.\n\nDone",
+      "parentUuid": "acd40d9f_766baa1c",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -308,6 +632,24 @@
     },
     {
       "key": {
+        "uuid": "4c727b04_3a0b8497",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a6a577c_575ad239",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "426df57c_041ee768",
         "filename": "modules/video_capture/windows/sink_filter_ds.h",
         "patchSetId": 18
@@ -319,6 +661,24 @@
       "writtenOn": "2019-03-08T21:45:44Z",
       "side": 1,
       "message": "Is this |ref_count_| still needed here? Looks like at the usage in video_capture_ds.cc:102, CaptureSinkFilter is wrapped in a ComRefCount\u003c\u003e.",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5537b5be_8a9dea3a",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-09T21:13:45Z",
+      "side": 1,
+      "message": "ah thanks. yeah this was left over from the refactoring process.",
+      "parentUuid": "426df57c_041ee768",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

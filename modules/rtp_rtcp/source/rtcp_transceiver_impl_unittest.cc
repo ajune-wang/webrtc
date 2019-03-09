@@ -140,7 +140,7 @@ TEST(RtcpTransceiverImplTest, NeedToStopPeriodicTaskToDestroyOnTaskQueue) {
   FakeRtcpTransport transport;
   rtc::TaskQueue queue("rtcp");
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.task_queue = &queue;
+  config.task_queue_base = queue.Get();
   config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   auto* rtcp_transceiver = new RtcpTransceiverImpl(config);
@@ -160,7 +160,7 @@ TEST(RtcpTransceiverImplTest, CanDestroyAfterTaskQueue) {
   FakeRtcpTransport transport;
   auto* queue = new rtc::TaskQueue("rtcp");
   RtcpTransceiverConfig config = DefaultTestConfig();
-  config.task_queue = queue;
+  config.task_queue_base = queue->Get();
   config.schedule_periodic_compound_packets = true;
   config.outgoing_transport = &transport;
   auto* rtcp_transceiver = new RtcpTransceiverImpl(config);
@@ -177,7 +177,7 @@ TEST(RtcpTransceiverImplTest, DelaysSendingFirstCompondPacket) {
   RtcpTransceiverConfig config;
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 10;
-  config.task_queue = &queue;
+  config.task_queue_base = queue.Get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
 
   int64_t started_ms = rtc::TimeMillis();
@@ -203,7 +203,7 @@ TEST(RtcpTransceiverImplTest, PeriodicallySendsPackets) {
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 0;
   config.report_period_ms = kReportPeriodMs;
-  config.task_queue = &queue;
+  config.task_queue_base = queue.Get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
   int64_t time_just_before_1st_packet_ms = 0;
   queue.PostTask([&] {
@@ -237,7 +237,7 @@ TEST(RtcpTransceiverImplTest, SendCompoundPacketDelaysPeriodicSendPackets) {
   config.outgoing_transport = &transport;
   config.initial_report_delay_ms = 0;
   config.report_period_ms = kReportPeriodMs;
-  config.task_queue = &queue;
+  config.task_queue_base = queue.Get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
   queue.PostTask([&] { rtcp_transceiver.emplace(config); });
 
@@ -323,7 +323,7 @@ TEST(RtcpTransceiverImplTest, SendsPeriodicRtcpWhenNetworkStateIsUp) {
   config.schedule_periodic_compound_packets = true;
   config.initial_ready_to_send = false;
   config.outgoing_transport = &transport;
-  config.task_queue = &queue;
+  config.task_queue_base = queue.Get();
   absl::optional<RtcpTransceiverImpl> rtcp_transceiver;
   rtcp_transceiver.emplace(config);
 

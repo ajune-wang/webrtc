@@ -171,9 +171,11 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
   // Note that the MuteFactor is in Q14, so a value of 16384 corresponds to 1.
   if ((prev_mode == kModeExpand || prev_mode == kModeCodecPlc) &&
       expand.MuteFactor(0) < 16384 / 2 &&
-      cur_size_samples < static_cast<size_t>(
-              delay_manager_->TargetLevel() * packet_length_samples_ *
-              kPostponeDecodingLevel / 100) >> 8 &&
+      packet_buffer_.GetDuration() <
+          static_cast<size_t>(delay_manager_->TargetLevel() *
+                              packet_length_samples_ * kPostponeDecodingLevel /
+                              100) >>
+          8 &&
       !packet_buffer_.ContainsDtxOrCngPacket(decoder_database_)) {
     return kExpand;
   }

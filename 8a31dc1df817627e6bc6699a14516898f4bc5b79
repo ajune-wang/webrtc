@@ -190,6 +190,144 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c85bc765_0e8c689b",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "Nit: 50% is basically a dysfunctional network. Maybe choose some smaller value.",
+      "range": {
+        "startLine": 128,
+        "startChar": 45,
+        "endLine": 128,
+        "endChar": 47
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4fc8f0_c64c0e16",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "Since the interface accepts time since start, but PostTask accepts delay since the current time, you need to adjust the initial delay here. E.g. if 10second after the call start, the user request to execute something at 20 seconds after the call start, here you should post the task with 10 seconds delay.\n\nAlso, drop old tasks and reschedule repeating tasks accordingly to the repeat period.\n\nAlternatively, Don\u0027t allow scheduling any tasks after the call have started.",
+      "range": {
+        "startLine": 151,
+        "startChar": 9,
+        "endLine": 151,
+        "endChar": 10
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c44faa8_62f6a916",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "Does absolute time make any sense to the function? You should subtract the start_time_ here.",
+      "range": {
+        "startLine": 158,
+        "startChar": 67,
+        "endLine": 158,
+        "endChar": 72
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1041f8db_35ad6e56",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 165,
+        "startChar": 24,
+        "endLine": 165,
+        "endChar": 29
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b40e6bc_164f2ae6",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 174,
+        "startChar": 22,
+        "endLine": 174,
+        "endChar": 27
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9f81589_bfdb8224",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T13:00:02Z",
+      "side": 1,
+      "message": "The main argument in favor of this approach was that no task is scheduled then custom injectable components are destroyed.\n\nThis is not true here. Then you tear the call down you don\u0027t destroy or stop the task_queue_, but remove the peers. So, if an unlucky task is scheduled to be executed exactly after TearDownCall() is called but before the task queue is destroyed, you will get segfault.\n\nOne solution is to have the task_queue_ as an unique_pointer and destroy it first.\nNote, that destruction and creation of the queue should be done from the same thread.",
+      "range": {
+        "startLine": 587,
+        "startChar": 35,
+        "endLine": 587,
+        "endChar": 47
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

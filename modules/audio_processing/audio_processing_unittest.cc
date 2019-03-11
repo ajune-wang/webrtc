@@ -182,17 +182,21 @@ void EnableAllAPComponents(AudioProcessing* ap) {
   apm_config.echo_canceller.enabled = true;
 #if defined(WEBRTC_AUDIOPROC_FIXED_PROFILE)
   apm_config.echo_canceller.mobile_mode = true;
-  EXPECT_NOERR(ap->gain_control()->set_mode(GainControl::kAdaptiveDigital));
-  EXPECT_NOERR(ap->gain_control()->Enable(true));
+
+  apm_config.gain_controller1.enabled = true;
+  apm_config.gain_controller1.mode =
+      AudioProcessing::Config::GainController1::kAdaptiveDigital;
 #elif defined(WEBRTC_AUDIOPROC_FLOAT_PROFILE)
   // TODO(peah): Update tests to instead use AEC3.
   apm_config.echo_canceller.use_legacy_aec = true;
   apm_config.echo_canceller.mobile_mode = false;
   apm_config.echo_canceller.legacy_moderate_suppression_level = true;
 
-  EXPECT_NOERR(ap->gain_control()->set_mode(GainControl::kAdaptiveAnalog));
-  EXPECT_NOERR(ap->gain_control()->set_analog_level_limits(0, 255));
-  EXPECT_NOERR(ap->gain_control()->Enable(true));
+  apm_config.gain_controller1.enabled = true;
+  apm_config.gain_controller1.mode =
+      AudioProcessing::Config::GainController1::kAdaptiveAnalog;
+  apm_config.gain_controller1.analog_level_minimum = 0;
+  apm_config.gain_controller1.analog_level_maximum = 255;
 #endif
 
   apm_config.high_pass_filter.enabled = true;
@@ -958,12 +962,7 @@ TEST_F(ApmTest, GainControl) {
         apm_->gain_control()->set_mode(mode[i]));
     EXPECT_EQ(mode[i], apm_->gain_control()->mode());
   }
-  // Testing invalid target levels
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_target_level_dbfs(-3));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_target_level_dbfs(-40));
-  // Testing valid target levels
+  // Testing target levels
   EXPECT_EQ(apm_->kNoError,
       apm_->gain_control()->set_target_level_dbfs(
       apm_->gain_control()->target_level_dbfs()));
@@ -975,13 +974,7 @@ TEST_F(ApmTest, GainControl) {
     EXPECT_EQ(level_dbfs[i], apm_->gain_control()->target_level_dbfs());
   }
 
-  // Testing invalid compression gains
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_compression_gain_db(-1));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_compression_gain_db(100));
-
-  // Testing valid compression gains
+  // Testing compression gains
   EXPECT_EQ(apm_->kNoError,
       apm_->gain_control()->set_compression_gain_db(
       apm_->gain_control()->compression_gain_db()));
@@ -999,19 +992,7 @@ TEST_F(ApmTest, GainControl) {
   EXPECT_EQ(apm_->kNoError, apm_->gain_control()->enable_limiter(true));
   EXPECT_TRUE(apm_->gain_control()->is_limiter_enabled());
 
-  // Testing invalid level limits
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_analog_level_limits(-1, 512));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_analog_level_limits(100000, 512));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_analog_level_limits(512, -1));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_analog_level_limits(512, 100000));
-  EXPECT_EQ(apm_->kBadParameterError,
-      apm_->gain_control()->set_analog_level_limits(512, 255));
-
-  // Testing valid level limits
+  // Testing level limits
   EXPECT_EQ(apm_->kNoError,
       apm_->gain_control()->set_analog_level_limits(
       apm_->gain_control()->analog_level_minimum(),

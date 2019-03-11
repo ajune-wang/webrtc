@@ -14,7 +14,6 @@
 #include "modules/audio_processing/agc/agc_manager_direct.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "rtc_base/constructor_magic.h"
-#include "rtc_base/critical_section.h"
 #include "rtc_base/thread_checker.h"
 
 namespace webrtc {
@@ -35,8 +34,7 @@ class ApmDataDumper;
 class GainControlForExperimentalAgc : public GainControl,
                                       public VolumeCallbacks {
  public:
-  GainControlForExperimentalAgc(GainControl* gain_control,
-                                rtc::CriticalSection* crit_capture);
+  GainControlForExperimentalAgc(GainControl* gain_control);
   ~GainControlForExperimentalAgc() override;
 
   // GainControl implementation.
@@ -67,7 +65,6 @@ class GainControlForExperimentalAgc : public GainControl,
   std::unique_ptr<ApmDataDumper> data_dumper_;
   GainControl* real_gain_control_;
   int volume_;
-  rtc::CriticalSection* crit_capture_;
   bool do_log_level_ = true;
   static int instance_counter_;
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(GainControlForExperimentalAgc);

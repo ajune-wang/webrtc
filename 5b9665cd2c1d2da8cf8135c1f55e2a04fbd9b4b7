@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "68f1f089_017181b4",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-11T14:09:14Z",
+      "side": 1,
+      "message": "The starting value was used to avoid having the unwrapper value wrap, so the absolute value is not really required. We would not need this if we returned int64_t.",
+      "parentUuid": "bfb1dfb4_e85d2b54",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

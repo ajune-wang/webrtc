@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "40a08d7c_3962a1a2",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-11T11:57:15Z",
+      "side": 1,
+      "message": "I agree, it might be a good reason to make this more generic so that you always preserve the input value mod M. This is close to one of the initial approaches. The bad thing is that you change the meaning of start_at of SeqNumUnwrapper. \nPerhaps, you could change so that SeqNumUnwrapper will preserve the value mod M unless you specify a starting number??\n\nI\u0027m not sure I understand your complaint of the name. It\u0027s named as a special case unwrapper for power of 2 wrapping periods. The behavior is not really changed, only how it\u0027s initialized.\n\nRegarding, using int64_t, I know this is something Philip has been thinking about. The problem as I see it is that you might get negative values. For example if you unwrap 0 followed by the late arrival of 65534 or if the sequence is going backwards. I think it\u0027s good to preserve the sign so that a sequence of positive numbers remains a sequence of positive numbers. But perhaps, this is still a good idea. Just have to make sure that the code using it makes any assumptions of the number being positive.\n\n\nThe options as I see it:\n* Change SeqNumUnwrapper to always preserve the input value mod M by changing how the starting value is calculated.\n* Change Power2SeqNumUnwrapper to a generic mod-M preserving unwrapper that uses SeqNumUnwrapper.\n* Use int64_t and unwrap first value to itself.\n* Keep this CL as is :) The motivation to do this would be that 2^n wrapping periods are by far the most useful case.\n\nWhat do you think?",
+      "parentUuid": "e57bd1aa_871cb436",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

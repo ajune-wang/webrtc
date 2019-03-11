@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1b7a3aa9_e12d2a0d",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 0,
+      "message": "If I understand well, you\u0027re removing these test (and similar ones below) because GainControlConfigProxy masks these calls and makes them happen through ApplyConfig() (and the latter calls ApplyAgc1Config()). As a consequence, we unavoidably miss the validation result through the returned value.\n\nHowever, AudioProcessingImpl::ApplyAgc1Config uses RTC_DCHECK_EQ, so instead of removing completely these tests, we can add a death test.",
+      "range": {
+        "startLine": 962,
+        "startChar": 0,
+        "endLine": 965,
+        "endChar": 56
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee2b4d30_1195b1a9",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 0,
+      "message": "Removing locks is the objective of your work, but the CL description doesn\u0027t say anything about this lock clean-up. It\u0027d be great to mention that you\u0027re removing this and briefly say why this is now possible. If I understand correctly, it\u0027s thanks to the config proxy which acquires the lock.",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 43
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e0dd06b_9185bea1",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 0,
+      "message": "same comment I added in gain_control_for_experimental_agc.cc applies here - i.e., mention this important clean-up in the CL description",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

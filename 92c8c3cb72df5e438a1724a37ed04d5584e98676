@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39812a10_5c706dae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "You didn\u0027t say anything about the removed locks; I think that\u0027s an important change.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e50d0770_95ddceb1",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "if you remove this, the compiler will fail if new values are added to GainController1::Mode",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 23
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e0ba020_46178da0",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "[nit] config is enough",
+      "range": {
+        "startLine": 772,
+        "startChar": 35,
+        "endLine": 772,
+        "endChar": 45
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf190ed1_2fac63aa",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "rmv",
+      "range": {
+        "startLine": 773,
+        "startChar": 2,
+        "endLine": 777,
+        "endChar": 29
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "698d6f34_adc40ace",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "What about internal_agc1()?\n\n\"_pointer\" is not used in the other getters that return a pointer (see https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/audio_processing_impl.h?rcl\u003dc0c3e966d34b12bc776040f3d1fb7d0aa1987d8d\u0026l\u003d120).\n\nSimilarly, \"internal_\" doesn\u0027t add much IMO - the method is private.\n\nSo, I would also consider just agc1().",
+      "range": {
+        "startLine": 265,
+        "startChar": 15,
+        "endLine": 265,
+        "endChar": 36
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e41f71cf_53ae4501",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "rmv",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "694e7bc8_5e4ab727",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "(connected to the comment in audio_processing_unittest.cc)\nRTC_DCHECK_EQ(..., kNoError) to fail at runtime when an invalid config is applied\nin this way you\u0027re also consistent with AudioProcessingImpl::ApplyAgc1Config",
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d10026e6_60dd67bc",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "auto as you\u0027ve done in GainControlConfigProxy::Enable()\n(same in all the other setters below)",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5e9225_ca0e4894",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "This is deprecated; use instead:\n\nGainControlConfigProxy(const GainControlConfigProxy\u0026) \u003d delete;\nGainControlConfigProxy\u0026 operator\u003d(const GainControlConfigProxy\u0026) \u003d delete;\n\n(place between ctor and dtor)",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb967fe_213acb86",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "explicit",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1b14d7c_dbce2083",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "[nit] maybe clean-up this",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 68
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "933b6b51_527faa08",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "AGC1 is (should be) always enabled together with the experimental AGC.\nThe latter masks all the calls to the setters (see e.g., https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_processing/gain_control_for_experimental_agc.cc?rcl\u003dc0c3e966d34b12bc776040f3d1fb7d0aa1987d8d\u0026l\u003d84).\n\nIt can be a good idea to document this or, even better, deprecate or even remove params in GainController1 that never change - even if the API suggests that changes are possible.\n\nWDYT?",
+      "range": {
+        "startLine": 276,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 28
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fa22118_383edee7",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-11T14:10:05Z",
+      "side": 1,
+      "message": "- Mark as deprecated\n- Add \"TODO(https://crbug.com/webrtc/9878): Remove.\"",
+      "range": {
+        "startLine": 621,
+        "startChar": 2,
+        "endLine": 621,
+        "endChar": 48
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

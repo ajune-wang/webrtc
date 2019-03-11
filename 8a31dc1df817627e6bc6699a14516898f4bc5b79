@@ -328,6 +328,57 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c56a656f_11e138dc",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T14:01:55Z",
+      "side": 1,
+      "message": "Document what start_time_ means, including the special value -inf?\n\nIn general, it\u0027s much more useful to document data than code.",
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c998fa_a12ad286",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T14:01:55Z",
+      "side": 1,
+      "message": "If all you need is a queue where you can add at the back and remove from the front, use std::queue instead?\n\nAlso, should this too be RTC_GUARDED_BY(lock_)?\n\nAlso, please document.",
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "839a8817_465636f4",
+        "filename": "test/pc/e2e/peer_connection_quality_test.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T14:01:55Z",
+      "side": 1,
+      "message": "And document this one too.",
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

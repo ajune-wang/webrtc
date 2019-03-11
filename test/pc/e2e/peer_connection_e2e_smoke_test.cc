@@ -51,26 +51,10 @@ void PrintFrameCounters(const std::string& name,
 }  // namespace
 
 TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
-  using Params = PeerConnectionE2EQualityTestFixture::Params;
   using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
   using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
   using AudioConfig = PeerConnectionE2EQualityTestFixture::AudioConfig;
-  using InjectableComponents =
-      PeerConnectionE2EQualityTestFixture::InjectableComponents;
-
-  auto alice_params = absl::make_unique<Params>();
-  VideoConfig alice_video_config(1280, 720, 30);
-  alice_video_config.stream_label = "alice-video";
-
-  alice_params->video_configs.push_back(alice_video_config);
-  alice_params->audio_config = AudioConfig();
-
-  auto bob_params = absl::make_unique<Params>();
-  VideoConfig bob_video_config(1280, 720, 30);
-  bob_video_config.stream_label = "bob-video";
-
-  bob_params->video_configs.push_back(bob_video_config);
-  bob_params->audio_config = AudioConfig();
+  using PeerArgs = PeerConnectionE2EQualityTestFixture::PeerArgs;
 
   // Setup emulated network
   NetworkEmulationManager network_emulation_manager;
@@ -94,16 +78,28 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   rtc::Thread* bob_network_thread =
       network_emulation_manager.CreateNetworkThread({bob_endpoint});
 
-  // Setup components. We need to provide rtc::NetworkManager compatible with
-  // emulated network layer.
+  // Params
   std::unique_ptr<rtc::NetworkManager> alice_network_manager =
       CreateFakeNetworkManager({alice_endpoint});
-  auto alice_components = absl::make_unique<InjectableComponents>(
-      alice_network_thread, alice_network_manager.get());
+  auto alice_args = absl::make_unique<PeerArgs>(alice_network_thread,
+                                                alice_network_manager.get());
+
+  VideoConfig alice_video_config(1280, 720, 30);
+  alice_video_config.stream_label = "alice-video";
+
+  alice_args->AddVideoConfig(std::move(alice_video_config))
+      ->SetAudioConfig(AudioConfig());
+
   std::unique_ptr<rtc::NetworkManager> bob_network_manager =
       CreateFakeNetworkManager({bob_endpoint});
-  auto bob_components = absl::make_unique<InjectableComponents>(
-      bob_network_thread, bob_network_manager.get());
+  auto bob_args = absl::make_unique<PeerArgs>(bob_network_thread,
+                                              bob_network_manager.get());
+
+  VideoConfig bob_video_config(1280, 720, 30);
+  bob_video_config.stream_label = "bob-video";
+
+  bob_args->AddVideoConfig(std::move(bob_video_config))
+      ->SetAudioConfig(AudioConfig());
 
   // Create analyzers.
   std::unique_ptr<VideoQualityAnalyzerInterface> video_quality_analyzer =
@@ -119,8 +115,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   auto fixture = CreatePeerConnectionE2EQualityTestFixture(
       "smoke_test", std::move(audio_quality_analyzer),
       std::move(video_quality_analyzer));
-  fixture->Run(std::move(alice_components), std::move(alice_params),
-               std::move(bob_components), std::move(bob_params),
+  fixture->Run(std::move(alice_args), std::move(bob_args),
                RunParams{TimeDelta::seconds(5)});
 
   PrintFrameCounters("Global", video_analyzer_ptr->GetGlobalCounters());

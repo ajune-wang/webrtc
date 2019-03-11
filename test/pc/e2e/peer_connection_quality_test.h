@@ -40,6 +40,7 @@ class PeerConnectionE2EQualityTest
       PeerConnectionE2EQualityTestFixture::VideoGeneratorType;
   using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
   using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
+  using PeerArgs = PeerConnectionE2EQualityTestFixture::PeerArgs;
 
   PeerConnectionE2EQualityTest(
       std::string test_case_name,
@@ -48,10 +49,8 @@ class PeerConnectionE2EQualityTest
 
   ~PeerConnectionE2EQualityTest() override = default;
 
-  void Run(std::unique_ptr<InjectableComponents> alice_components,
-           std::unique_ptr<Params> alice_params,
-           std::unique_ptr<InjectableComponents> bob_components,
-           std::unique_ptr<Params> bob_params,
+  void Run(std::unique_ptr<PeerArgs> alice_args,
+           std::unique_ptr<PeerArgs> bob_args,
            RunParams run_params) override;
 
  private:

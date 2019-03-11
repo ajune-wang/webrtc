@@ -46,6 +46,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "279285ef_db7c4994",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-11T09:47:49Z",
+      "side": 1,
+      "message": "Yes, I agree it is too powerful of a tool. On the other hand, as Artem has written I am not sure there is another way to achieve this (if we want the framework to be in control of these actions). The framework basically executes actions on behalf of the test writer. Artem, do we you have other examples of \"environment changing\" actions?",
+      "parentUuid": "8d4c4e5c_0b8b6bad",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

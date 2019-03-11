@@ -70,6 +70,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8afceb_1136ff54",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-11T10:28:23Z",
+      "side": 1,
+      "message": "I didn\u0027t have any concrete ones, but as I told even network ones are specific for each network implementation, so we can\u0027t provide single interface there, even in network layer framework. Also I can imagine cases where you can measure something specific during the call, especially in the injectable components",
+      "parentUuid": "279285ef_db7c4994",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

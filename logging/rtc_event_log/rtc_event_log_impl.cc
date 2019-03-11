@@ -25,12 +25,12 @@
 #include "logging/rtc_event_log/encoder/rtc_event_log_encoder_new_format.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/constructor_magic.h"
-#include "rtc_base/event.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/numerics/safe_conversions.h"
 #include "rtc_base/numerics/safe_minmax.h"
 #include "rtc_base/sequenced_task_checker.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/blocking_invoke_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 
@@ -209,21 +209,15 @@ void RtcEventLogImpl::StopLogging() {
   RTC_DCHECK_CALLED_SEQUENTIALLY(&owner_sequence_checker_);
 
   RTC_LOG(LS_INFO) << "Stopping WebRTC event log.";
-
-  rtc::Event output_stopped;
-
   // Binding to |this| is safe because |this| outlives the |task_queue_|.
-  task_queue_->PostTask([this, &output_stopped]() {
+  BlockingInvokeTask(task_queue_->Get(), [this]() {
     RTC_DCHECK_RUN_ON(task_queue_.get());
     if (event_output_) {
       RTC_DCHECK(event_output_->IsActive());
       LogEventsFromMemoryToOutput();
     }
     StopLoggingInternal();
-    output_stopped.Set();
   });
-
-  output_stopped.Wait(rtc::Event::kForever);
 
   RTC_LOG(LS_INFO) << "WebRTC event log successfully stopped.";
 }

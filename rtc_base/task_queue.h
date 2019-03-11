@@ -198,13 +198,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
   // Ownership of the task is passed to PostTask.
   void PostTask(std::unique_ptr<QueuedTask> task);
 
-  // Posts a task and waits for it to finish before continuing. This can incur a
-  // large runtime cost and if it is called from another task on a thread pool
-  // it can cause a deadlock. Be careful when using this and ask for advice if
-  // you think you need to add this in a new place but feel uncertain about the
-  // implications.
-  void BlockingInvokeTask(std::unique_ptr<QueuedTask> task);
-
   // Schedules a task to execute a specified number of milliseconds from when
   // the call is made. The precision should be considered as "best effort"
   // and in some cases, such as on Windows when all high precision timers have
@@ -221,14 +214,6 @@ class RTC_LOCKABLE RTC_EXPORT TaskQueue {
                 std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
   void PostTask(Closure&& closure) {
     PostTask(webrtc::ToQueuedTask(std::forward<Closure>(closure)));
-  }
-
-  template <class Closure,
-            typename std::enable_if<!std::is_convertible<
-                Closure,
-                std::unique_ptr<QueuedTask>>::value>::type* = nullptr>
-  void BlockingInvokeTask(Closure&& closure) {
-    BlockingInvokeTask(webrtc::ToQueuedTask(std::forward<Closure>(closure)));
   }
 
   // See documentation above for performance expectations.

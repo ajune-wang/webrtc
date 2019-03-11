@@ -142,6 +142,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10cc13d8_f3a886ed",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T11:40:21Z",
+      "side": 1,
+      "message": "\u003e Basically because SimulatedNetwork is only one implementation of network simulation and we can have other with different APIs. \n\nIf there\u0027s no common API for different network implementations, instead of embedding arbitrary code in the framework, that same arbitrary code can be implemented in each separate network implementation. \n\nBasically, the framework doesn\u0027t support network manipulation at all. Manipulation is done by user externally. You\u0027ve implemented a helper wrapper around a task queue for scheduling user\u0027s code. Then you embedded that helper in the test framework. At the very least, the wrapper should be separated from the test framework, as it\u0027s a general class which isn\u0027t interacting with the framework at all.\n\n\u003e Also in the test there are multiple nodes usually, so it will be better to manage all of them from single place.\n\nThe code you pass to ExecuteAt(), will reference all the nodes individually either way, as i see in the smoke_test. So for the user there\u0027s no difference. Instead of calling ExecuteAt with a reference to some node, they would just call SetConfigAt() at the same node.\n\nIn the end, both the code to use the SimulcatedNetwork in tests and the code in this CL would be simpler and shorter, if you implement this in SimulatedNetwork instead.",
+      "parentUuid": "a14f6d98_4f98ba62",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

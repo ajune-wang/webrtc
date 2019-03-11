@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e57bd1aa_871cb436",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T11:07:25Z",
+      "side": 1,
+      "message": "But why not always guarantee that you preserve the first input\u0027s value mod M? It won\u0027t even be expensive at run time, because you can find a multiple of M close to 2^62 at compile time.\n\n(The root of my complaint is the name: The new class changes the behavior and adds a constraint on M for ease of implementation reasons, and it seems odd to name it only after the second change. Much better to fix SeqNumUnwrapper so that the naming issue goes away...)\n\n(Design note: If the unwrapped numbers had been int64_t, we could have simply ensured that Unwrap(n) \u003d\u003d n for the first input. Dead easy to implement and to explain. And we don\u0027t want unwrapped sequence numbers to ever wrap---do we?---so signed should be the right choice.)",
+      "parentUuid": "cf61085a_417e932a",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

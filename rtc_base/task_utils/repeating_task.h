@@ -24,97 +24,82 @@
 
 namespace webrtc {
 
-class RepeatingTaskHandle;
-
 namespace webrtc_repeating_task_impl {
-class RepeatingTaskBase : public QueuedTask {
+
+// Represents a task that can be stopped.
+class RepeatingTaskBase : public SequencedTask {
  public:
-  RepeatingTaskBase(TaskQueueBase* task_queue, TimeDelta first_delay);
-  ~RepeatingTaskBase() override;
-  virtual TimeDelta RunClosure() = 0;
+  explicit RepeatingTaskBase(std::unique_ptr<SequencedTask> task);
+  // Destroyed by the owning task queue after being stopped or on destruction
+  // of the task queue.
+  virtual ~RepeatingTaskBase();
+
+  // Implements SequencedTask
+  TimeDelta Run(Timestamp at_time) override;
+
+  // Stops the task, called at most once. Must be called on the task queue
+  // that owns the task that is being stopped.
+  void Stop();
 
  private:
-  friend class ::webrtc::RepeatingTaskHandle;
-
-  bool Run() final;
-  void Stop() RTC_RUN_ON(task_queue_);
-  void PostStop();
-
-  TaskQueueBase* const task_queue_;
-  // This is always finite, except for the special case where it's PlusInfinity
-  // to signal that the task should stop.
-  Timestamp next_run_time_ RTC_GUARDED_BY(task_queue_);
+  std::unique_ptr<SequencedTask> task_;
 };
 
-// The template closure pattern is based on rtc::ClosureTask.
+// Helper class to wrap lambda closures.
 template <class Closure>
-class RepeatingTaskImpl final : public RepeatingTaskBase {
+class RepeatingClosureWrapper;
+
+template <class Closure>
+class RepeatingClosureWrapper<TimeDelta (Closure::*)(Timestamp)>
+    : public SequencedTask {
  public:
-  RepeatingTaskImpl(TaskQueueBase* task_queue,
-                    TimeDelta first_delay,
-                    Closure&& closure)
-      : RepeatingTaskBase(task_queue, first_delay),
-        closure_(std::forward<Closure>(closure)) {
-    static_assert(
-        std::is_same<TimeDelta,
-                     typename std::result_of<decltype (&Closure::operator())(
-                         Closure)>::type>::value,
-        "");
-  }
-
-  TimeDelta RunClosure() override { return closure_(); }
-
- private:
-  typename std::remove_const<
-      typename std::remove_reference<Closure>::type>::type closure_;
+  explicit RepeatingClosureWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(at_time); }
+  typename std::decay<Closure>::type closure_;
 };
+
+template <class Closure>
+class RepeatingClosureWrapper<TimeDelta (Closure::*)()> : public SequencedTask {
+ public:
+  explicit RepeatingClosureWrapper(Closure&& closure)
+      : closure_(std::forward<Closure>(closure)) {}
+  TimeDelta Run(Timestamp at_time) override { return closure_(); }
+  typename std::decay<Closure>::type closure_;
+};
+
+template <class>
+struct StripConst;
+template <class R, class C, class... Args>
+struct StripConst<R (C::*)(Args...)> {
+  using type = R (C::*)(Args...);
+};
+template <class R, class C, class... Args>
+struct StripConst<R (C::*)(Args...) const> {
+  using type = R (C::*)(Args...);
+};
+
+template <class Closure, class CallSignature = decltype(&Closure::operator())>
+std::unique_ptr<SequencedTask> WrapRepeatingClosure(Closure&& closure) {
+  return absl::make_unique<
+      RepeatingClosureWrapper<typename StripConst<CallSignature>::type>>(
+      std::forward<Closure>(closure));
+}
+
 }  // namespace webrtc_repeating_task_impl
 
-// Allows starting tasks that repeat themselves on a TaskQueue indefinately
-// until they are stopped or the TaskQueue is destroyed. It allows starting and
-// stopping multiple times, but you must stop one task before starting another
-// and it can only be stopped when in the running state. The public interface is
-// not thread safe.
+// Represents a repeating task that can be stopped. When it has been assigned a
+// task it is in the running stage. It's always ok to call Stop, but it will not
+// do anything in the non-running state. All members must be called from the
+// task queue the target is running on.
 class RepeatingTaskHandle {
  public:
   RepeatingTaskHandle();
-  ~RepeatingTaskHandle();
   RepeatingTaskHandle(RepeatingTaskHandle&& other);
-  RepeatingTaskHandle& operator=(RepeatingTaskHandle&& other);
   RepeatingTaskHandle(const RepeatingTaskHandle&) = delete;
+  RepeatingTaskHandle& operator=(RepeatingTaskHandle&& other);
   RepeatingTaskHandle& operator=(const RepeatingTaskHandle&) = delete;
-
-  // Start can be used to start a task that will be reposted with a delay
-  // determined by the return value of the provided closure. The actual task is
-  // owned by the TaskQueue and will live until it has been stopped or the
-  // TaskQueue is destroyed. Note that this means that trying to stop the
-  // repeating task after the TaskQueue is destroyed is an error. However, it's
-  // perfectly fine to destroy the handle while the task is running, since the
-  // repeated task is owned by the TaskQueue.
-  template <class Closure>
-  static RepeatingTaskHandle Start(TaskQueueBase* task_queue,
-                                   Closure&& closure) {
-    auto repeating_task = absl::make_unique<
-        webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
-        task_queue, TimeDelta::Zero(), std::forward<Closure>(closure));
-    auto* repeating_task_ptr = repeating_task.get();
-    task_queue->PostTask(std::move(repeating_task));
-    return RepeatingTaskHandle(repeating_task_ptr);
-  }
-
-  // DelayedStart is equivalent to Start except that the first invocation of the
-  // closure will be delayed by the given amount.
-  template <class Closure>
-  static RepeatingTaskHandle DelayedStart(TaskQueueBase* task_queue,
-                                          TimeDelta first_delay,
-                                          Closure&& closure) {
-    auto repeating_task = absl::make_unique<
-        webrtc_repeating_task_impl::RepeatingTaskImpl<Closure>>(
-        task_queue, first_delay, std::forward<Closure>(closure));
-    auto* repeating_task_ptr = repeating_task.get();
-    task_queue->PostDelayedTask(std::move(repeating_task), first_delay.ms());
-    return RepeatingTaskHandle(repeating_task_ptr);
-  }
+  ~RepeatingTaskHandle();
 
   // Stops future invocations of the repeating task closure. Can only be called
   // from the TaskQueue where the task is running. The closure is guaranteed to
@@ -122,23 +107,53 @@ class RepeatingTaskHandle {
   // closure itself.
   void Stop();
 
-  // Stops future invocations of the repeating task closure. The closure might
-  // still be running when PostStop() returns, but there will be no future
-  // invocation.
-  void PostStop();
-
-  // Returns true if Start() or DelayedStart() was called most recently. Returns
-  // false initially and if Stop() or PostStop() was called most recently.
+  // Indicates that this task is running and has not been stopped.
   bool Running() const;
 
+  // Posts a task to repeat |closure| on the provided task queue.
+  // The task will be repeated with a delay indicated by the TimeDelta return
+  // value of |closure|. |closure| can optionally receive a Timestamp indicating
+  // the time when it's run. The actual task is owned by the TaskQueue and will
+  // live until it has been stopped or the TaskQueue is destroyed. Note that
+  // this means that trying to stop the repeating task after the TaskQueue is
+  // destroyed is an error. However, it's perfectly fine to destroy the handle
+  // while the task is running, since the repeated task is owned by the
+  // TaskQueue.
+  template <class Closure>
+  static RepeatingTaskHandle Start(TaskQueueBase* task_queue,
+                                   Closure&& closure) {
+    return CreateRepeatHandle(task_queue, TimeDelta::Zero(),
+                              webrtc_repeating_task_impl::WrapRepeatingClosure(
+                                  std::forward<Closure>(closure)));
+  }
+
+  // DelayedStart is equivalent to Start except that the first invocation will
+  // be delayed by |first_delay|.
+  template <class Closure>
+  static RepeatingTaskHandle DelayedStart(TaskQueueBase* task_queue,
+                                          TimeDelta first_delay,
+                                          Closure&& closure) {
+    return CreateRepeatHandle(task_queue, first_delay,
+                              webrtc_repeating_task_impl::WrapRepeatingClosure(
+                                  std::forward<Closure>(closure)));
+  }
+
+
  private:
-  explicit RepeatingTaskHandle(
-      webrtc_repeating_task_impl::RepeatingTaskBase* repeating_task);
+  using RepeatingTaskBase = webrtc_repeating_task_impl::RepeatingTaskBase;
+  explicit RepeatingTaskHandle(RepeatingTaskBase* handle);
+  static RepeatingTaskHandle CreateRepeatHandle(
+      TaskQueueBase* task_queue,
+      TimeDelta first_delay,
+      std::unique_ptr<SequencedTask> task) {
+    auto stoppable = absl::make_unique<RepeatingTaskBase>(std::move(task));
+    auto* stoppable_ptr = stoppable.get();
+    task_queue->PostRepeatingTask(first_delay, std::move(stoppable));
+    return RepeatingTaskHandle(stoppable_ptr);
+  }
   rtc::SequencedTaskChecker sequence_checker_;
   // Owned by the task queue.
-  webrtc_repeating_task_impl::RepeatingTaskBase* repeating_task_
-      RTC_GUARDED_BY(sequence_checker_) = nullptr;
+  RepeatingTaskBase* repeating_task_ = nullptr;
 };
-
 }  // namespace webrtc
 #endif  // RTC_BASE_TASK_UTILS_REPEATING_TASK_H_

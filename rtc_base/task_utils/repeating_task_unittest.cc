@@ -60,6 +60,16 @@ class MoveOnlyClosure {
  private:
   MockClosure* mock_;
 };
+
+class TaskHandleStoppper {
+ public:
+  explicit TaskHandleStoppper(RepeatingTaskHandle handle)
+      : handle_(std::move(handle)) {}
+  void operator()() { handle_.Stop(); }
+
+ private:
+  RepeatingTaskHandle handle_;
+};
 }  // namespace
 
 TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
@@ -79,7 +89,7 @@ TEST(RepeatingTaskTest, TaskIsStoppedOnStop) {
   Sleep(kShortInterval * (kShortIntervalCount + kMargin));
   EXPECT_EQ(counter.load(), kShortIntervalCount);
 
-  handle.PostStop();
+  task_queue.PostTask(TaskHandleStoppper(std::move(handle)));
   // Sleep long enough that the task would run at least once more if not
   // stopped.
   Sleep(kLongInterval * 2);
@@ -132,7 +142,7 @@ TEST(RepeatingTaskTest, CancelDelayedTaskBeforeItRuns) {
   rtc::TaskQueue task_queue("queue");
   auto handle = RepeatingTaskHandle::DelayedStart(
       task_queue.Get(), TimeDelta::ms(100), MoveOnlyClosure(&mock));
-  handle.PostStop();
+  task_queue.PostTask(TaskHandleStoppper(std::move(handle)));
   EXPECT_TRUE(done.Wait(kTimeout.ms()));
 }
 
@@ -144,7 +154,7 @@ TEST(RepeatingTaskTest, CancelTaskAfterItRuns) {
   rtc::TaskQueue task_queue("queue");
   auto handle =
       RepeatingTaskHandle::Start(task_queue.Get(), MoveOnlyClosure(&mock));
-  handle.PostStop();
+  task_queue.PostTask(TaskHandleStoppper(std::move(handle)));
   EXPECT_TRUE(done.Wait(kTimeout.ms()));
 }
 
@@ -211,9 +221,9 @@ TEST(RepeatingTaskTest, Example) {
   RepeatingTaskHandle handle;
   object->StartPeriodicTask(&handle, task_queue.Get());
   // Restart the task
-  handle.PostStop();
+  task_queue.PostTask(TaskHandleStoppper(std::move(handle)));
   object->StartPeriodicTask(&handle, task_queue.Get());
-  handle.PostStop();
+  task_queue.PostTask(TaskHandleStoppper(std::move(handle)));
   struct Destructor {
     void operator()() { object.reset(); }
     std::unique_ptr<ObjectOnTaskQueue> object;

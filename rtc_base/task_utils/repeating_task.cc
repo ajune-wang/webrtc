@@ -16,56 +16,28 @@
 
 namespace webrtc {
 namespace webrtc_repeating_task_impl {
-RepeatingTaskBase::RepeatingTaskBase(TaskQueueBase* task_queue,
-                                     TimeDelta first_delay)
-    : task_queue_(task_queue),
-      next_run_time_(Timestamp::us(rtc::TimeMicros()) + first_delay) {}
+
+RepeatingTaskBase::RepeatingTaskBase(std::unique_ptr<SequencedTask> task)
+    : task_(std::move(task)) {}
 
 RepeatingTaskBase::~RepeatingTaskBase() = default;
 
-bool RepeatingTaskBase::Run() {
-  RTC_DCHECK_RUN_ON(task_queue_);
-  // Return true to tell the TaskQueue to destruct this object.
-  if (next_run_time_.IsPlusInfinity())
-    return true;
-
-  TimeDelta delay = RunClosure();
-  RTC_DCHECK(delay.IsFinite());
-
-  // The closure might have stopped this task, in which case we return true to
-  // destruct this object.
-  if (next_run_time_.IsPlusInfinity())
-    return true;
-
-  TimeDelta lost_time = Timestamp::us(rtc::TimeMicros()) - next_run_time_;
-  next_run_time_ += delay;
-  delay -= lost_time;
-  delay = std::max(delay, TimeDelta::Zero());
-
-  task_queue_->PostDelayedTask(absl::WrapUnique(this), delay.ms());
-
-  // Return false to tell the TaskQueue to not destruct this object since we
-  // have taken ownership with absl::WrapUnique.
-  return false;
+TimeDelta RepeatingTaskBase::Run(Timestamp at_time) {
+  if (task_) {
+    TimeDelta delay = task_->Run(at_time);
+    if (task_) {
+      RTC_DCHECK(delay.IsFinite());
+      return delay;
+    }
+  }
+  return TimeDelta::PlusInfinity();
 }
 
 void RepeatingTaskBase::Stop() {
-  RTC_DCHECK(next_run_time_.IsFinite());
-  next_run_time_ = Timestamp::PlusInfinity();
+  task_.reset();
 }
-
-void RepeatingTaskBase::PostStop() {
-  if (task_queue_->IsCurrent()) {
-    RTC_DLOG(LS_INFO) << "Using PostStop() from the task queue running the "
-                         "repeated task. Consider calling Stop() instead.";
-  }
-  task_queue_->PostTask(ToQueuedTask([this] {
-    RTC_DCHECK_RUN_ON(task_queue_);
-    Stop();
-  }));
-}
-
 }  // namespace webrtc_repeating_task_impl
+
 RepeatingTaskHandle::RepeatingTaskHandle() {
   sequence_checker_.Detach();
 }
@@ -90,23 +62,13 @@ RepeatingTaskHandle& RepeatingTaskHandle::operator=(
   return *this;
 }
 
-RepeatingTaskHandle::RepeatingTaskHandle(
-    webrtc_repeating_task_impl::RepeatingTaskBase* repeating_task)
+RepeatingTaskHandle::RepeatingTaskHandle(RepeatingTaskBase* repeating_task)
     : repeating_task_(repeating_task) {}
 
 void RepeatingTaskHandle::Stop() {
   RTC_DCHECK_RUN_ON(&sequence_checker_);
   if (repeating_task_) {
-    RTC_DCHECK_RUN_ON(repeating_task_->task_queue_);
     repeating_task_->Stop();
-    repeating_task_ = nullptr;
-  }
-}
-
-void RepeatingTaskHandle::PostStop() {
-  RTC_DCHECK_RUN_ON(&sequence_checker_);
-  if (repeating_task_) {
-    repeating_task_->PostStop();
     repeating_task_ = nullptr;
   }
 }

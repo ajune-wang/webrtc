@@ -51,6 +51,12 @@ class RTC_LOCKABLE TaskQueueBase {
   virtual void PostDelayedTask(std::unique_ptr<QueuedTask> task,
                                uint32_t milliseconds) = 0;
 
+  // Schedules a task that may repost itself after completion. The returned
+  // pointer will be destroyed after its stop function has been called or when
+  // the task queue is destroyed.
+  virtual void PostRepeatingTask(TimeDelta initial_delay,
+                                 std::unique_ptr<SequencedTask> task);
+
   // Returns the task queue that is running the current thread.
   // Returns nullptr if this thread is not associated with any task queue.
   static TaskQueueBase* Current();

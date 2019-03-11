@@ -32,7 +32,6 @@
 #include "rtc_base/random.h"
 #include "rtc_base/ref_counted_object.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
 
@@ -92,7 +91,7 @@ class TestAudioDeviceModuleImpl
         absl::make_unique<rtc::TaskQueue>(task_queue_factory_->CreateTaskQueue(
             "TestAudioDeviceModuleImpl", TaskQueueFactory::Priority::NORMAL));
 
-    RepeatingTaskHandle::Start(task_queue_->Get(), [this]() {
+    task_queue_->PostRepeatingTask([this]() {
       ProcessAudio();
       return TimeDelta::us(process_interval_us_);
     });

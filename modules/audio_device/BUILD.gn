@@ -214,7 +214,6 @@ rtc_source_set("audio_device_impl") {
     "../../rtc_base:rtc_task_queue",
     "../../rtc_base/system:arch",
     "../../rtc_base/system:file_wrapper",
-    "../../rtc_base/task_utils:repeating_task",
     "../../system_wrappers",
     "../../system_wrappers:metrics",
     "../utility",

@@ -20,7 +20,6 @@
 #include "api/units/timestamp.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/task_queue.h"
-#include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/clock.h"
 #include "test/scenario/network/cross_traffic.h"

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6ec357b4_284b42ab",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-11T10:23:39Z",
+      "side": 1,
+      "message": "Shouldn\u0027t git cl format fix this then?\n\nSeqNumWrapper is instantiated with a starting number. Since we want to preserve the least significant bits, we need to set this starting number based on the first value that is seen, so that\u0027s why the initialization is delayed.\n\nDuring the work with this CL I tried various approaches where SeqNumWrapper was modified. Finally I ended up with this solution where the implementation of SeqNumWrapper is unchanged and PowerOf2SeqNumWrapper is a wrapper around this class.",
+      "parentUuid": "7ca07aa0_2ebb8a5a",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16
@@ -36,6 +60,24 @@
       "writtenOn": "2019-03-11T09:55:54Z",
       "side": 1,
       "message": "These tests only verify the low 8 and 5 bits, respectively. Shouldn\u0027t they also test that the entire unwrapped value is correct?",
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fac7133_8ec5952f",
+        "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-11T10:23:39Z",
+      "side": 1,
+      "message": "I was thinking that it\u0027s already tested in the tests for SeqNumUnwrapper.\nBut perhaps it\u0027s good to have some additional tests.",
+      "parentUuid": "83d1ccc2_0ae6d972",
       "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

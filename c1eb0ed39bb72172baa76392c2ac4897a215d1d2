@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2880a0db_18f31e97",
+        "filename": "api/audio_codecs/builtin_audio_encoder_factory.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-11T14:55:52Z",
+      "side": 1,
+      "message": "I think this may just live in .../opus/...",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0154b3b7_f3f0ce60",
+        "filename": "api/audio_codecs/multiopus/audio_decoder_multi_channel_opus.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-11T14:55:52Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right. Why do we announce it as 2 channel when it only supports 4, 6 or 8. In fact, why do we announce it at all? Instead of wrapping it in NotAdvertised it should be fine to just leave this function empty for now. At least until we settle on how to signal this.",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4e4e1ad_56c4a40b",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-11T14:55:52Z",
+      "side": 1,
+      "message": "1. Why?\n2. Did you implement them differently (i.e. by calling different methods?). If so, perhaps they should be broken into two implementations, one for regular Opus and one for multichannel streaming. It could be easier to work on extra multichannel stuff that way - not risking stepping on the normal Opus code.",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0673a5d_027866b3",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-11T14:55:52Z",
+      "side": 1,
+      "message": "See my previous comment. Should probably split them apart and strip out all the complexities with ANA etc. for the multichannel variant.",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

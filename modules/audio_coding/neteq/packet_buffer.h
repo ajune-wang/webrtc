@@ -121,6 +121,8 @@ class PacketBuffer {
   // duplicate and redundant packets.
   virtual size_t NumSamplesInBuffer(size_t last_decoded_length) const;
 
+  virtual int GetDuration() const;
+
   // Returns true if the packet buffer contains any DTX or CNG packets.
   virtual bool ContainsDtxOrCngPacket(
       const DecoderDatabase* decoder_database) const;

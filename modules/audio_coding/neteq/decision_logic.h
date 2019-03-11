@@ -130,7 +130,9 @@ class DecisionLogic final {
   Operations NoPacket(bool play_dtmf);
 
   // Returns the operation to do given that the expected packet is available.
-  Operations ExpectedPacketAvailable(Modes prev_mode, bool play_dtmf);
+  Operations ExpectedPacketAvailable(Modes prev_mode,
+                                     bool play_dtmf,
+                                     const Expand& expand);
 
   // Returns the operation to do given that the expected packet is not
   // available, but a packet further into the future is at hand.

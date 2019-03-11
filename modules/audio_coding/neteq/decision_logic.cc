@@ -162,27 +162,11 @@ Operations DecisionLogic::GetDecision(const SyncBuffer& sync_buffer,
     return kNormal;
   }
 
-  // Make sure we don't restart audio too soon after an expansion to avoid
-  // running out of data right away again. We should only wait if there are no
-  // DTX or CNG packets in the buffer (otherwise we should just play out what we
-  // have, since we cannot know the exact duration of DTX or CNG packets), and
-  // if the mute factor is low enough (otherwise the expansion was short enough
-  // to not be noticable).
-  // Note that the MuteFactor is in Q14, so a value of 16384 corresponds to 1.
-  if ((prev_mode == kModeExpand || prev_mode == kModeCodecPlc) &&
-      expand.MuteFactor(0) < 16384 / 2 &&
-      cur_size_samples < static_cast<size_t>(
-              delay_manager_->TargetLevel() * packet_length_samples_ *
-              kPostponeDecodingLevel / 100) >> 8 &&
-      !packet_buffer_.ContainsDtxOrCngPacket(decoder_database_)) {
-    return kExpand;
-  }
-
   const uint32_t five_seconds_samples =
       static_cast<uint32_t>(5 * 8000 * fs_mult_);
   // Check if the required packet is available.
   if (target_timestamp == available_timestamp) {
-    return ExpectedPacketAvailable(prev_mode, play_dtmf);
+    return ExpectedPacketAvailable(prev_mode, play_dtmf, expand);
   } else if (!PacketBuffer::IsObsoleteTimestamp(
                  available_timestamp, target_timestamp, five_seconds_samples)) {
     return FuturePacketAvailable(
@@ -278,7 +262,25 @@ Operations DecisionLogic::NoPacket(bool play_dtmf) {
 }
 
 Operations DecisionLogic::ExpectedPacketAvailable(Modes prev_mode,
-                                                  bool play_dtmf) {
+                                                  bool play_dtmf,
+                                                  const Expand& expand) {
+  // Make sure we don't restart audio too soon after an expansion to avoid
+  // running out of data right away again. We should only wait if there are no
+  // DTX or CNG packets in the buffer (otherwise we should just play out what we
+  // have, since we cannot know the exact duration of DTX or CNG packets), and
+  // if the mute factor is low enough (otherwise the expansion was short enough
+  // to not be noticable).
+  // Note that the MuteFactor is in Q14, so a value of 16384 corresponds to 1.
+  if ((prev_mode == kModeExpand || prev_mode == kModeCodecPlc) &&
+      expand.MuteFactor(0) < 16384 / 2 &&
+      packet_buffer_.GetDuration() <
+          (static_cast<int>(delay_manager_->TargetLevel() *
+                            packet_length_samples_ * kPostponeDecodingLevel /
+                            100) >> 8) &&
+      !packet_buffer_.ContainsDtxOrCngPacket(decoder_database_)) {
+    return kExpand;
+  }
+
   if (!disallow_time_stretching_ && prev_mode != kModeExpand && !play_dtmf) {
     // Check criterion for time-stretching.
     int low_limit, high_limit;

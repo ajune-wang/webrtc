@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "b7dfb867_07ed7c69",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T14:20:36Z",
+      "side": 1,
+      "message": "OK, then I suggest that we go with option 1, plus remove the ability to set the start value (it can be set to 0 unconditionally). Nice!",
+      "parentUuid": "68f1f089_017181b4",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

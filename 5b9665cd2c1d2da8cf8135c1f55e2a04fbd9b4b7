@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ca07aa0_2ebb8a5a",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T09:55:54Z",
+      "side": 1,
+      "message": "This extra space isn\u0027t needed in C++11 and later.\n\nAlso, why is the SeqNumUnwrapper instantiated on demand? That\u0027s different from how SeqNumUnwrapper works.",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83d1ccc2_0ae6d972",
+        "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T09:55:54Z",
+      "side": 1,
+      "message": "These tests only verify the low 8 and 5 bits, respectively. Shouldn\u0027t they also test that the entire unwrapped value is correct?",
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

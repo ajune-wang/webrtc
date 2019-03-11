@@ -287,6 +287,16 @@ size_t PacketBuffer::NumSamplesInBuffer(size_t last_decoded_length) const {
   return num_samples;
 }
 
+size_t PacketBuffer::GetDuration() const {
+  if (buffer_.size() > 1) {
+    return buffer_.back().frame->Duration() + buffer_.back().timestamp -
+           buffer_.front().timestamp;
+  } else if (buffer_.size() == 1) {
+    return buffer_.back().frame->Duration();
+  }
+  return 0;
+}
+
 bool PacketBuffer::ContainsDtxOrCngPacket(
     const DecoderDatabase* decoder_database) const {
   RTC_DCHECK(decoder_database);

@@ -11,6 +11,8 @@
 #ifndef MODULES_AUDIO_PROCESSING_TEST_AEC_DUMP_BASED_SIMULATOR_H_
 #define MODULES_AUDIO_PROCESSING_TEST_AEC_DUMP_BASED_SIMULATOR_H_
 
+#include <fstream>
+
 #include "modules/audio_processing/test/audio_processing_simulator.h"
 
 #include "rtc_base/constructor_magic.h"
@@ -59,6 +61,8 @@ class AecDumpBasedSimulator final : public AudioProcessingSimulator {
   std::unique_ptr<ChannelBufferWavReader> artificial_nearend_buffer_reader_;
   bool artificial_nearend_eof_reported_ = false;
   InterfaceType interface_used_ = InterfaceType::kNotSpecified;
+  std::unique_ptr<std::ofstream> output_custom_call_order_file_;
+  bool output_custom_call_order_file_started_ = false;
 
   RTC_DISALLOW_IMPLICIT_CONSTRUCTORS(AecDumpBasedSimulator);
 };

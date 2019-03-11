@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "absl/memory/memory.h"
 #include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
@@ -69,7 +70,12 @@ bool VerifyFloatBitExactness(const webrtc::audioproc::Stream& msg,
 AecDumpBasedSimulator::AecDumpBasedSimulator(
     const SimulationSettings& settings,
     std::unique_ptr<AudioProcessingBuilder> ap_builder)
-    : AudioProcessingSimulator(settings, std::move(ap_builder)) {}
+    : AudioProcessingSimulator(settings, std::move(ap_builder)) {
+  if (settings.output_custom_call_order_filename.has_value()) {
+    output_custom_call_order_file_ = absl::make_unique<std::ofstream>(
+        *settings.output_custom_call_order_filename);
+  }
+}
 
 AecDumpBasedSimulator::~AecDumpBasedSimulator() = default;
 
@@ -474,6 +480,13 @@ void AecDumpBasedSimulator::HandleMessage(const webrtc::audioproc::Init& msg) {
   RTC_CHECK(msg.has_num_input_channels());
   RTC_CHECK(msg.has_num_reverse_channels());
   RTC_CHECK(msg.has_reverse_sample_rate());
+  if (output_custom_call_order_file_ &&
+      output_custom_call_order_file_started_) {
+    std::cout << "Warning: Stopping the custom call order file because an init"
+                 " was found during the simulation."
+              << std::endl;
+    output_custom_call_order_file_.reset(nullptr);
+  }
 
   if (settings_.use_verbose_logging) {
     std::cout << "Init at frame:" << std::endl;
@@ -525,6 +538,10 @@ void AecDumpBasedSimulator::HandleMessage(const webrtc::audioproc::Init& msg) {
 
 void AecDumpBasedSimulator::HandleMessage(
     const webrtc::audioproc::Stream& msg) {
+  if (output_custom_call_order_file_) {
+    *output_custom_call_order_file_ << "c";
+    output_custom_call_order_file_started_ = true;
+  }
   PrepareProcessStreamCall(msg);
   ProcessStream(interface_used_ == InterfaceType::kFixedInterface);
   VerifyProcessStreamBitExactness(msg);
@@ -532,6 +549,10 @@ void AecDumpBasedSimulator::HandleMessage(
 
 void AecDumpBasedSimulator::HandleMessage(
     const webrtc::audioproc::ReverseStream& msg) {
+  if (output_custom_call_order_file_) {
+    *output_custom_call_order_file_ << "r";
+    output_custom_call_order_file_started_ = true;
+  }
   PrepareReverseProcessStreamCall(msg);
   ProcessReverseStream(interface_used_ == InterfaceType::kFixedInterface);
 }

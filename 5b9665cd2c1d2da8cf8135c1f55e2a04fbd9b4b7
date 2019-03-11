@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "909d8023_00e6d32c",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T10:33:29Z",
+      "side": 1,
+      "message": "\u003e Shouldn\u0027t git cl format fix this then?\n\nArguably yes. Feel free to post a bug.\n\n\u003e SeqNumWrapper is instantiated with a starting number. Since we want to preserve the least significant bits, we need to set this starting number based on the first value that is seen, so that\u0027s why the initialization is delayed.\n\u003e \n\u003e During the work with this CL I tried various approaches where SeqNumWrapper was modified. Finally I ended up with this solution where the implementation of SeqNumWrapper is unchanged and PowerOf2SeqNumWrapper is a wrapper around this class.\n\nSo basically, PowerOf2SeqNumUnwrapper is a SeqNumUnwrapper that doesn\u0027t require a starting value, and that incidentally only works for powers of two because you haven\u0027t implemented the not-power-of-two case?",
+      "parentUuid": "6ec357b4_284b42ab",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

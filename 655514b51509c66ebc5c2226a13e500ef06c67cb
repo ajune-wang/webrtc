@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3b4242eb_23398428",
+        "filename": "api/test/videocodec_test_stats.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T11:21:21Z",
+      "side": 1,
+      "message": "Non-class enums convert to integers implicitly, so that could certainly have been it.\n\nStringBuilder::operator\u003c\u003c doesn\u0027t take arbitrary arguments that have a ToString method. I guess it\u0027s possible that there\u0027s a non-member operator\u003c\u003c that caters to this case, though, but I doubt it.",
+      "parentUuid": "5b3a9a5b_d1bdb367",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 37
+      },
+      "revId": "655514b51509c66ebc5c2226a13e500ef06c67cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "825c2ed3_9f9f5e97",
         "filename": "call/rtp_video_sender.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-08T10:50:11Z",
       "side": 1,
       "message": "Can\u0027t use _EQ, since it wants a way to print the values.",
+      "range": {
+        "startLine": 443,
+        "startChar": 6,
+        "endLine": 443,
+        "endChar": 19
+      },
+      "revId": "655514b51509c66ebc5c2226a13e500ef06c67cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8477befd_647bbb42",
+        "filename": "call/rtp_video_sender.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T11:21:21Z",
+      "side": 1,
+      "message": "OK. Then use just RTC_DCHECK---it\u0027s almost as good.",
+      "parentUuid": "825c2ed3_9f9f5e97",
       "range": {
         "startLine": 443,
         "startChar": 6,

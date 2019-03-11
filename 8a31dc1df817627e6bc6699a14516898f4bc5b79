@@ -118,6 +118,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a14f6d98_4f98ba62",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-11T11:08:11Z",
+      "side": 1,
+      "message": "Basically because SimulatedNetwork is only one implementation of network simulation and we can have other with different APIs. Also in the test there are multiple nodes usually, so it will be better to manage all of them from single place.",
+      "parentUuid": "8919c3cc_eb5e8cf7",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

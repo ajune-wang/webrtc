@@ -94,6 +94,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8919c3cc_eb5e8cf7",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T10:46:20Z",
+      "side": 1,
+      "message": "Then suggestion: move it to the network implementation. Currently we have only one, right?\n\nIf someone re-implements the network, they also would have to implement a scenario behavior there.\n\nWhy can\u0027t you add this to SimulatedNetwork? It already has SecConfig, add a SetConfigAfter(.., delay_ms). Then you don\u0027t even need any task queue, just update the config each time in |SimulatedNetwork::GetConfigState|. Have a priority queue there or something.\n\nAssuming the network config won\u0027t be changing for every other packet, it should work great.",
+      "parentUuid": "2d8afceb_1136ff54",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

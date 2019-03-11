@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "081186c4_9945927c",
+        "filename": "api/audio_codecs/builtin_audio_decoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "not needed...",
+      "range": {
+        "startLine": 25,
+        "startChar": 77,
+        "endLine": 25,
+        "endChar": 86
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c661cef_428c3b6b",
+        "filename": "api/audio_codecs/builtin_audio_encoder_factory.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 25,
+        "startChar": 77,
+        "endLine": 25,
+        "endChar": 86
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57c2f766_6dc7194f",
+        "filename": "api/audio_codecs/multiopus/audio_decoder_multi_channel_opus.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "Copied from \u0027audio_decoder_opus.cc\u0027",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "939f5631_e161bf09",
+        "filename": "api/audio_codecs/multiopus/audio_decoder_multi_channel_opus.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "fix",
+      "range": {
+        "startLine": 21,
+        "startChar": 35,
+        "endLine": 21,
+        "endChar": 60
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d630c1fe_abda59a5",
+        "filename": "modules/audio_coding/acm2/audio_coding_module_unittest.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "MultiChannel",
+      "range": {
+        "startLine": 1517,
+        "startChar": 24,
+        "endLine": 1517,
+        "endChar": 40
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34164a59_ddc6d50e",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "Simplify somehow?",
+      "range": {
+        "startLine": 341,
+        "startChar": 14,
+        "endLine": 346,
+        "endChar": 26
+      },
+      "revId": "cbda2b0376db570b2b0d56ca9f62004dfa96f7a0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

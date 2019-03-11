@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "d8aa0cd9_04d11ca8",
+        "filename": "api/audio_codecs/multiopus/audio_decoder_multi_channel_opus.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "Ouch, sorry. Copied AudioDecoderOpus code without thinking. Thanks",
+      "parentUuid": "0154b3b7_f3f0ce60",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a4e4e1ad_56c4a40b",
         "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
         "patchSetId": 12
@@ -47,6 +65,24 @@
       "writtenOn": "2019-03-11T14:55:52Z",
       "side": 1,
       "message": "1. Why?\n2. Did you implement them differently (i.e. by calling different methods?). If so, perhaps they should be broken into two implementations, one for regular Opus and one for multichannel streaming. It could be easier to work on extra multichannel stuff that way - not risking stepping on the normal Opus code.",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e82433be_b6ccaf1d",
+        "filename": "api/audio_codecs/opus/audio_encoder_opus.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "AudioEncoderOpusImpl is 900 LOC. Most of it should be shared across opus-2-channels and opus-4-channels. I guess it\u0027s possible to refactor it and break out what\u0027s common and what\u0027s different. But reusing it this way seemed simpler. But maybe you\u0027re right... I\u0027ll think about it.",
+      "parentUuid": "a4e4e1ad_56c4a40b",
       "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -67,6 +103,24 @@
       "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f301355_2fd9aa46",
+        "filename": "modules/audio_coding/codecs/opus/audio_encoder_opus_unittest.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5124
+      },
+      "writtenOn": "2019-03-11T15:22:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b0673a5d_027866b3",
+      "revId": "c1eb0ed39bb72172baa76392c2ac4897a215d1d2",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

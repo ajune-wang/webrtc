@@ -21,6 +21,7 @@
 #include "api/transport/webrtc_key_value_config.h"
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/constructor_magic.h"
+#include "rtc_base/experiments/field_trial_parser.h"
 #include "rtc_base/system/unused.h"
 
 namespace webrtc {
@@ -63,9 +64,6 @@ class ProbeController {
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> RequestProbe(
       int64_t at_time_ms);
 
-  RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig>
-  InitiateCapacityProbing(int64_t bitrate_bps, int64_t at_time_ms);
-
   // Sets a new maximum probing bitrate, without generating a new probe cluster.
   void SetMaxBitrate(int64_t max_bitrate_bps);
 
@@ -90,7 +88,7 @@ class ProbeController {
   InitiateExponentialProbing(int64_t at_time_ms);
   RTC_WARN_UNUSED_RESULT std::vector<ProbeClusterConfig> InitiateProbing(
       int64_t now_ms,
-      std::initializer_list<int64_t> bitrates_to_probe,
+      std::vector<int64_t> bitrates_to_probe,
       bool probe_further);
 
   bool network_available_;
@@ -107,6 +105,27 @@ class ProbeController {
   int64_t time_of_last_large_drop_ms_;
   int64_t bitrate_before_last_large_drop_bps_;
   int64_t max_total_allocated_bitrate_;
+
+  // These parameters configure the initial probes. First we send one or two
+  // probes of sizes p1 * start_bitrate_bps_ and p2 * start_bitrate_bps_. The
+  // second one is only sent if p2 > 0.
+  // Then whenever we get a bitrate estimate of at least further_probe_threshold
+  // times the size of the last sent probe we'll send another one of size
+  // step_size times the sew estimate.
+  FieldTrialParameter<double> first_exponential_probe_scale_ =
+      FieldTrialParameter<double>("p1", 3.0);
+  FieldTrialParameter<double> second_exponential_probe_scale_ =
+      FieldTrialParameter<double>("p2", 6.0);
+  FieldTrialParameter<double> further_exponential_probe_scale_ =
+      FieldTrialParameter<double>("step_size", 2);
+  FieldTrialParameter<double> further_probe_threshold =
+      FieldTrialParameter<double>("further_probe_threshold", 0.7);
+
+  // Configures how often we send ALR probes and how big they are.
+  FieldTrialParameter<int> alr_probing_interval_ms_ =
+      FieldTrialParameter<int>("alr_interval_ms", 5000);
+  FieldTrialParameter<double> alr_probe_scale_ =
+      FieldTrialParameter<double>("alr_scale", 2);
 
   const bool in_rapid_recovery_experiment_;
   const bool limit_probes_with_allocateable_rate_;

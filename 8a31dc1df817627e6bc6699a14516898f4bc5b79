@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "615b2b17_0912888f",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-11T09:17:27Z",
+      "side": 1,
+      "message": "This is just too powerful of a tool. If the intent is only to configure the network, more fine grained interface is desirable. Maybe some set-up call which takes an array of events, where each one has a timestamp and network settings to be set at that time?",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -22,6 +22,30 @@
       "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4c4e5c_0b8b6bad",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-11T09:21:01Z",
+      "side": 1,
+      "message": "I didn\u0027t want to strict only to network changes. Also the way, how network will be changed is also unpredictable. Framework itself has no knowledge about network layer, so it can\u0027t provide API for it. And the way of network configuration depends on network emulation implementation.",
+      "parentUuid": "615b2b17_0912888f",
+      "range": {
+        "startLine": 215,
+        "startChar": 25,
+        "endLine": 215,
+        "endChar": 38
+      },
+      "revId": "8a31dc1df817627e6bc6699a14516898f4bc5b79",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

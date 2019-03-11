@@ -145,6 +145,30 @@
     },
     {
       "key": {
+        "uuid": "bfb1dfb4_e85d2b54",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-11T12:11:29Z",
+      "side": 1,
+      "message": "I like option 3 best. The absolute values of unwrapped sequence numbers aren\u0027t meaningful, only the diffs are, so negative values should be no problem. The code will get simpler, and the unwrapped numbers will be easier for humans to deal with.\n\nOption 1 is my second choice. As you said, it\u0027s possible to keep the current behavior when the user gives an explicit starting value, and change only the implicit starting value used when the user doesn\u0027t supply one. (Although I must point out that a user-supplied starting value smells of the absolute values of unwrapped numbers not being insignificant. When do we need to use this?)",
+      "parentUuid": "40a08d7c_3962a1a2",
+      "range": {
+        "startLine": 144,
+        "startChar": 38,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "5b9665cd2c1d2da8cf8135c1f55e2a04fbd9b4b7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "83d1ccc2_0ae6d972",
         "filename": "rtc_base/numerics/sequence_number_util_unittest.cc",
         "patchSetId": 16

@@ -37,6 +37,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/audio_format_to_string.h"
 #include "rtc_base/task_queue.h"
+#include "rtc_base/task_utils/blocking_invoke_task.h"
 #include "system_wrappers/include/field_trial.h"
 
 namespace webrtc {
@@ -184,9 +185,7 @@ AudioSendStream::~AudioSendStream() {
   }
   // Blocking call to synchronize state with worker queue to ensure that there
   // are no pending tasks left that keeps references to audio.
-  rtc::Event thread_sync_event;
-  worker_queue_->PostTask([&] { thread_sync_event.Set(); });
-  thread_sync_event.Wait(rtc::Event::kForever);
+  BlockingInvokeTask(worker_queue_->Get(), [] {});
 }
 
 const webrtc::AudioSendStream::Config& AudioSendStream::GetConfig() const {
@@ -328,13 +327,10 @@ void AudioSendStream::Start() {
           TransportSeqNumId(config_))) {
     rtp_transport_->packet_sender()->SetAccountForAudioPackets(true);
     rtp_rtcp_module_->SetAsPartOfAllocation(true);
-    rtc::Event thread_sync_event;
-    worker_queue_->PostTask([&] {
+    BlockingInvokeTask(worker_queue_->Get(), [&] {
       RTC_DCHECK_RUN_ON(worker_queue_);
       ConfigureBitrateObserver();
-      thread_sync_event.Set();
     });
-    thread_sync_event.Wait(rtc::Event::kForever);
   } else {
     rtp_rtcp_module_->SetAsPartOfAllocation(false);
   }
@@ -772,8 +768,7 @@ void AudioSendStream::ReconfigureBitrateObserver(
           new_config.min_bitrate_bps, new_config.max_bitrate_bps,
           new_config.has_dscp, TransportSeqNumId(new_config))) {
     stream->rtp_transport_->packet_sender()->SetAccountForAudioPackets(true);
-    rtc::Event thread_sync_event;
-    stream->worker_queue_->PostTask([&] {
+    BlockingInvokeTask(stream->worker_queue_->Get(), [&] {
       RTC_DCHECK_RUN_ON(stream->worker_queue_);
       stream->registered_with_allocator_ = true;
       // We may get a callback immediately as the observer is registered, so
@@ -783,9 +778,7 @@ void AudioSendStream::ReconfigureBitrateObserver(
       stream->config_.max_bitrate_bps = new_config.max_bitrate_bps;
       stream->config_.bitrate_priority = new_config.bitrate_priority;
       stream->ConfigureBitrateObserver();
-      thread_sync_event.Set();
     });
-    thread_sync_event.Wait(rtc::Event::kForever);
     stream->rtp_rtcp_module_->SetAsPartOfAllocation(true);
   } else {
     stream->rtp_transport_->packet_sender()->SetAccountForAudioPackets(false);
@@ -807,14 +800,11 @@ void AudioSendStream::ConfigureBitrateObserver() {
 
 void AudioSendStream::RemoveBitrateObserver() {
   RTC_DCHECK(worker_thread_checker_.CalledOnValidThread());
-  rtc::Event thread_sync_event;
-  worker_queue_->PostTask([this, &thread_sync_event] {
+  BlockingInvokeTask(worker_queue_->Get(), [this] {
     RTC_DCHECK_RUN_ON(worker_queue_);
     registered_with_allocator_ = false;
     bitrate_allocator_->RemoveObserver(this);
-    thread_sync_event.Set();
   });
-  thread_sync_event.Wait(rtc::Event::kForever);
 }
 
 void AudioSendStream::RegisterCngPayloadType(int payload_type,

@@ -32,6 +32,7 @@
 #include "rtc_base/logging.h"
 #include "rtc_base/strings/string_builder.h"
 #include "rtc_base/system/fallthrough.h"
+#include "rtc_base/task_utils/blocking_invoke_task.h"
 #include "rtc_base/time_utils.h"
 #include "rtc_base/trace_event.h"
 #include "system_wrappers/include/field_trial.h"
@@ -483,7 +484,7 @@ VideoStreamEncoder::~VideoStreamEncoder() {
 void VideoStreamEncoder::Stop() {
   RTC_DCHECK_RUN_ON(&thread_checker_);
   source_proxy_->SetSource(nullptr, DegradationPreference());
-  encoder_queue_.PostTask([this] {
+  BlockingInvokeTask(encoder_queue_.Get(), [this] {
     RTC_DCHECK_RUN_ON(&encoder_queue_);
     overuse_detector_->StopCheckForOveruse();
     rate_allocator_ = nullptr;
@@ -492,8 +493,6 @@ void VideoStreamEncoder::Stop() {
     quality_scaler_ = nullptr;
     shutdown_event_.Set();
   });
-
-  shutdown_event_.Wait(rtc::Event::kForever);
 }
 
 void VideoStreamEncoder::SetBitrateAllocationObserver(

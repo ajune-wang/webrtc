@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b49ac38c_6e95d155",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-03-12T17:43:22Z",
+      "side": 1,
+      "message": "exercise",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "d9d1c17d55d68aea3da77bc1451cf417056c6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42056608_5236cb27",
+        "filename": "test/fuzzers/sctp_utils_fuzzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6646
+      },
+      "writtenOn": "2019-03-12T17:43:22Z",
+      "side": 1,
+      "message": "Please update.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 57
+      },
+      "revId": "d9d1c17d55d68aea3da77bc1451cf417056c6efe",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

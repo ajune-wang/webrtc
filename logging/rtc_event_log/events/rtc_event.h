@@ -52,7 +52,9 @@ class RtcEvent {
     VideoSendStreamConfig,
     GenericPacketSent,
     GenericPacketReceived,
-    GenericAckReceived
+    GenericAckReceived,
+    VideoSendPaused,
+    PromptAntennaSwitch
   };
 
   RtcEvent() : timestamp_us_(rtc::TimeMicros()) {}

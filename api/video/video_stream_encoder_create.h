@@ -21,11 +21,13 @@
 #include "api/video/video_stream_encoder_settings.h"
 
 namespace webrtc {
+class RtcEventLog;
 
 std::unique_ptr<VideoStreamEncoderInterface> CreateVideoStreamEncoder(
     uint32_t number_of_cores,
     VideoStreamEncoderObserver* encoder_stats_observer,
-    const VideoStreamEncoderSettings& settings);
+    const VideoStreamEncoderSettings& settings,
+    RtcEventLog* event_log = nullptr);
 
 }  // namespace webrtc
 

@@ -37,6 +37,7 @@
 #include "video/overuse_frame_detector.h"
 
 namespace webrtc {
+class RtcEventLog;
 
 // VideoStreamEncoder represent a video encoder that accepts raw video frames as
 // input and produces an encoded bit stream.
@@ -54,7 +55,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   VideoStreamEncoder(uint32_t number_of_cores,
                      VideoStreamEncoderObserver* encoder_stats_observer,
                      const VideoStreamEncoderSettings& settings,
-                     std::unique_ptr<OveruseFrameDetector> overuse_detector);
+                     std::unique_ptr<OveruseFrameDetector> overuse_detector,
+                     RtcEventLog* event_log);
   ~VideoStreamEncoder() override;
 
   void SetSource(rtc::VideoSourceInterface<VideoFrame>* source,
@@ -300,6 +302,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   // All public methods are proxied to |encoder_queue_|. It must must be
   // destroyed first to make sure no tasks are run that use other members.
   rtc::TaskQueue encoder_queue_;
+
+  RtcEventLog* const event_log_;
 
   RTC_DISALLOW_COPY_AND_ASSIGN(VideoStreamEncoder);
 };

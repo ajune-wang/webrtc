@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2554152a_c8ebccd4",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-12T11:53:03Z",
+      "side": 1,
+      "message": "I think the if-statement is not needed. We already know that the buffer size is \u003e 0 here, and if the buffer size is 1 the code still works (it just adds 0). I think it would be a little clearer to write it like this:\n\nsize_t span \u003d buffer_.back().timestamp - buffer_.front().timestamp;\nif (buffer_.back().frame \u0026\u0026 buffer_.back().frame-\u003eDuration() \u003e 0) {\n  span +\u003d buffer_.back().frame-\u003eDuration()\n} else {\n  span +\u003d last_decoded_length;\n}",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 3
+      },
+      "revId": "2f327cbee56ebf85533284c1a3c9059027e70dee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

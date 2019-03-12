@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dd1e69ec_d349c68e",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-12T08:58:56Z",
+      "side": 1,
+      "message": "Removed. I think that the \u0027mutually agreeable\u0027 part of the comment didn\u0027t actually add any information. This is just about finding the closest match, so in a way the comment made it sound more complex than it is.",
+      "parentUuid": "e35f81f3_971156bd",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23ea9ffd_bc81959a",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 19
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "99f9405f_7ae8da9e",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-12T08:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23ea9ffd_bc81959a",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0f2a2_b614b3e4",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 19
@@ -50,6 +86,24 @@
       "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "093a7308_88cbf09a",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-12T08:58:56Z",
+      "side": 1,
+      "message": "Removed the word \"currently\". Looks like you may have read it as \"concurrently\", which understandably would be confusing. The comment was more of a note to self, but I\u0027ll leave just the \"Called on the capture thread.\" part there, for future readers.",
+      "parentUuid": "7af0f2a2_b614b3e4",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

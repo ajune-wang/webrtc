@@ -103,6 +103,7 @@ void AdjustNonConvergedFrequencies(
 int SuppressionGain::instance_count_ = 0;
 
 float SuppressionGain::UpperBandsGain(
+    const std::array<float, kFftLengthBy2Plus1>& suppressor_input_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& echo_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& comfort_noise_spectrum,
     const absl::optional<int>& narrow_peak_band,
@@ -350,9 +351,9 @@ void SuppressionGain::GetGain(
   const absl::optional<int> narrow_peak_band =
       render_signal_analyzer.NarrowPeakBand();
 
-  *high_bands_gain =
-      UpperBandsGain(echo_spectrum, comfort_noise_spectrum, narrow_peak_band,
-                     aec_state.SaturatedEcho(), render, *low_band_gain);
+  *high_bands_gain = UpperBandsGain(
+      suppressor_input_spectrum, echo_spectrum, comfort_noise_spectrum,
+      narrow_peak_band, aec_state.SaturatedEcho(), render, *low_band_gain);
   if (cfg.enforce_empty_higher_bands) {
     *high_bands_gain = 0.f;
   }

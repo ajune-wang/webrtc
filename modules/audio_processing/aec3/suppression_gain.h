@@ -54,6 +54,7 @@ class SuppressionGain {
  private:
   // Computes the gain to apply for the bands beyond the first band.
   float UpperBandsGain(
+      const std::array<float, kFftLengthBy2Plus1>& suppressor_input_spectrum,
       const std::array<float, kFftLengthBy2Plus1>& echo_spectrum,
       const std::array<float, kFftLengthBy2Plus1>& comfort_noise_spectrum,
       const absl::optional<int>& narrow_peak_band,

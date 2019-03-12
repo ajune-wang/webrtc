@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "c7911985_41422b3f",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-12T11:58:34Z",
+      "side": 1,
+      "message": "I think since the chance is that we merge the two functions, it would be good that we can put them into one, and it does not seem difficult for me. Consider my outlooking of it:\n\n--  for (const Packet\u0026 packet : buffer_) {\n++  for (std::list\u003cPacket\u003e::const_iterator it \u003d buffer_.cbegin(), it !\u003d buffer_.cend(); ++it)\n++  const auto\u0026 packet \u003d *it;\n    if (packet.frame) {\n      // TODO(hlundin): Verify that it\u0027s fine to count all packets and remove\n      // this check.\n      if (packet.priority !\u003d Packet::Priority(0, 0)) {\n        continue;\n      }\n      size_t duration \u003d packet.frame-\u003eDuration();\n      if (duration \u003e 0) {\n        last_duration \u003d duration;  // Save the most up-to-date (valid) duration.\n      }\n    }\n++    num_samples +\u003d last_duration;\n++    if (count_gaps \u0026\u0026 it + 1!\u003d buffer_.cend()) {\n++      int gap \u003d (it + 1)-\u003etimestamp - packet.timestamp - last_duration;\n++      if (gap \u003e 0) {\n++        num_samples +\u003d gap;\n++      }\n++    }\n  }",
+      "parentUuid": "045e25de_2b0778dc",
+      "range": {
+        "startLine": 290,
+        "startChar": 21,
+        "endLine": 290,
+        "endChar": 32
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3056359_9dc647bc",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 4

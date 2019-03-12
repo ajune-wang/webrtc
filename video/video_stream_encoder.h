@@ -24,6 +24,7 @@
 #include "api/video/video_stream_encoder_observer.h"
 #include "api/video/video_stream_encoder_settings.h"
 #include "api/video_codecs/video_encoder.h"
+#include "logging/rtc_event_log/rtc_event_log.h"
 #include "modules/video_coding/utility/frame_dropper.h"
 #include "modules/video_coding/utility/quality_scaler.h"
 #include "modules/video_coding/video_coding_impl.h"
@@ -54,7 +55,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   VideoStreamEncoder(uint32_t number_of_cores,
                      VideoStreamEncoderObserver* encoder_stats_observer,
                      const VideoStreamEncoderSettings& settings,
-                     std::unique_ptr<OveruseFrameDetector> overuse_detector);
+                     std::unique_ptr<OveruseFrameDetector> overuse_detector,
+                     RtcEventLog* event_log);
   ~VideoStreamEncoder() override;
 
   void SetSource(rtc::VideoSourceInterface<VideoFrame>* source,
@@ -206,6 +208,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
       RTC_PT_GUARDED_BY(&encoder_queue_);
   std::unique_ptr<QualityScaler> quality_scaler_ RTC_GUARDED_BY(&encoder_queue_)
       RTC_PT_GUARDED_BY(&encoder_queue_);
+
+  RtcEventLog* const event_log_;
 
   VideoStreamEncoderObserver* const encoder_stats_observer_;
   // |thread_checker_| checks that public methods that are related to lifetime

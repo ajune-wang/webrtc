@@ -88,6 +88,76 @@
     },
     {
       "key": {
+        "uuid": "559c7184_3c2cf632",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-12T10:03:32Z",
+      "side": 1,
+      "message": "Sorry, I should\u0027ve provided a reasonable value myself. Artem, please make it 5.",
+      "parentUuid": "ba3e9806_9bbe9314",
+      "range": {
+        "startLine": 128,
+        "startChar": 45,
+        "endLine": 128,
+        "endChar": 47
+      },
+      "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82bbd846_31c28972",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-12T10:03:32Z",
+      "side": 1,
+      "message": "Why do you need this local variable?",
+      "range": {
+        "startLine": 158,
+        "startChar": 2,
+        "endLine": 158,
+        "endChar": 37
+      },
+      "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57052732_53c3d507",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-12T10:03:32Z",
+      "side": 1,
+      "message": "Looks reversed. You are subtracting a negative value, increasing the initial delay.",
+      "range": {
+        "startLine": 161,
+        "startChar": 44,
+        "endLine": 161,
+        "endChar": 67
+      },
+      "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08b31ec5_8eb975de",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 4
@@ -104,6 +174,52 @@
         "startChar": 4,
         "endLine": 163,
         "endChar": 15
+      },
+      "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe8ab84e_afe3bfaa",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-12T10:03:32Z",
+      "side": 1,
+      "message": "Reversed here too.",
+      "range": {
+        "startLine": 178,
+        "startChar": 44,
+        "endLine": 178,
+        "endChar": 63
+      },
+      "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c19511_bc3ed07e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5117
+      },
+      "writtenOn": "2019-03-12T10:03:32Z",
+      "side": 1,
+      "message": "Add here comment about why is it done here. E.g.\n\ntask queue is destroyed before the call is teared down, so any user provided tasks ans stats polling tasks are stopped and wouldn\u0027t try to access destroyed components.",
+      "range": {
+        "startLine": 322,
+        "startChar": 5,
+        "endLine": 322,
+        "endChar": 27
       },
       "revId": "4773877d922a1a7958727bea47b8e561c2451b0a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

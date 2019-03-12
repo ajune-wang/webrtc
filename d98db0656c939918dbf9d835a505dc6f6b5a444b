@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "227cbfca_5ed5aaa7",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T17:04:18Z",
+      "side": 1,
+      "message": "Do we need to accept a vector here or could we use initializer_list?",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 15
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f04cbea4_086a1d2c",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T17:04:18Z",
+      "side": 1,
+      "message": "Could this be done by injecting the list in the constructor instead?",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 3
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "425a5813_1b91ce8d",
+        "filename": "test/scenario/network/network_emulation_pc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T17:04:18Z",
+      "side": 1,
+      "message": "Please move the name change to a separate CL.",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

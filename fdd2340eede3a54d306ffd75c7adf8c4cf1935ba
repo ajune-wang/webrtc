@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e35f81f3_971156bd",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "With the latest change, I feel that this block of comments can probably be removed. The code block below now itself conveys the same information on the same level of abstraction. Except for maybe the \"mutually agreeable\" part, but we could put that into method name DetermineMutuallyAgreeableCandidateFormats().",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ea9ffd_bc81959a",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "assigned to",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7af0f2a2_b614b3e4",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "I am confused. Concurrently with what?\nIf there is only one capture thread, as suggested by the RTC_DCHECK_RUN_ON(\u0026capture_checker_); in the pin implementation, it cannot mean concurrently with itself.",
+      "revId": "fdd2340eede3a54d306ffd75c7adf8c4cf1935ba",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

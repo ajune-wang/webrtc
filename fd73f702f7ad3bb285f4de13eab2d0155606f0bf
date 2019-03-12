@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "66943f24_16e22063",
+        "filename": "modules/video_capture/windows/help_functions_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "7ae22063_6f3da1be",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d03ec00_e4d03622",
         "filename": "modules/video_capture/windows/help_functions_ds.h",
         "patchSetId": 18
@@ -177,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "ae508357_3504c5c6",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Good point. EnsureMediaTypeFormatBufferHasLength really does not express well what this method does either. I am unable to come up with anything better than AllocMediaTypeFormatBuffer().",
+      "parentUuid": "96d70949_606d22a2",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae944ff7_869775ee",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -206,6 +242,24 @@
       "side": 1,
       "message": "I decided against it. If we can\u0027t allocate this much memory, it\u0027s very likely that something unexpected will happen and I\u0027d rather crash on a nullptr than risk that.",
       "parentUuid": "ae944ff7_869775ee",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee76a141_67adbf44",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Agreed that crashing is probably a valid way of handling this here.\nIn that case, where do we crash? Is it safe to assume that the ZeroMemory() call in line 214 will induce the crash for us, or should we add some RTC_CHECK()?\n\nJust want to make sure we would crash quickly here instead of running into unexpected behavior.",
+      "parentUuid": "70cd5e48_37b78c7d",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -457,6 +511,24 @@
     },
     {
       "key": {
+        "uuid": "83eb74ca_e34dd7c1",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b538e26d_71cff1c1",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ed9d9b5_e3e6ff01",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18
@@ -545,6 +617,24 @@
     },
     {
       "key": {
+        "uuid": "ad2c592f_31b18c25",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Oh, yes that would indeed be problematic. Thanks.\nLet\u0027s leave it as is.",
+      "parentUuid": "ffa4c861_ba6b92b9",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4b4cb73_0c7dfe5d",
         "filename": "modules/video_capture/windows/sink_filter_ds.h",
         "patchSetId": 18
@@ -574,6 +664,24 @@
       "side": 1,
       "message": "These are notifications and not actually activations/deactivations. The filter is what gets activated and notifies the pin. The pin doesn\u0027t really have a say :)\n\nFor notifications, it\u0027s common to use the prefix \"On\" but I could rename this to something like OnFilterActivated?",
       "parentUuid": "c4b4cb73_0c7dfe5d",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "589ac105_26731c4d",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Ah, okay makes sense now. Yes, I think OnFilterActivated() and OnFilterDeactivated() would make it more clear to me as a reader. I might even propose to then also remove the comments that would otherwise be redundant.",
+      "parentUuid": "239b089a_8fddc969",
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -612,6 +720,24 @@
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d120031_5bdbbe5f",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Agreed, what I proposed is a bit less efficient, but hopefully without any significant impact.\nThanks.",
+      "parentUuid": "dd10d56f_8407705a",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -682,6 +808,24 @@
       "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "500c0fc9_5a1a151c",
+        "filename": "modules/video_capture/windows/sink_filter_ds.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6011
+      },
+      "writtenOn": "2019-03-12T00:09:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5537b5be_8a9dea3a",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

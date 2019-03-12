@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ca200be_74e97108",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-12T16:45:18Z",
+      "side": 1,
+      "message": "Maybe \"Logged delay-based estimate\"?",
+      "range": {
+        "startLine": 1163,
+        "startChar": 26,
+        "endLine": 1163,
+        "endChar": 44
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a806cf51_0ccac438",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-12T16:45:18Z",
+      "side": 1,
+      "message": "Maybe \"Logged loss-based estimate\"?",
+      "range": {
+        "startLine": 1165,
+        "startChar": 25,
+        "endLine": 1165,
+        "endChar": 42
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d3e90c_2dac6777",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-12T16:45:18Z",
+      "side": 1,
+      "message": "s/. A/a/",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 29
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

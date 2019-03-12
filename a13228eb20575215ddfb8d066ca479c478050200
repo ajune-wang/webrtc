@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd95f41b_5b9749f1",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 8795
+      },
+      "writtenOn": "2019-03-12T22:27:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t belong here but it seems as if latest master produces an error when generating the project since link_deps is not used. I include it here for discussion.",
+      "revId": "a13228eb20575215ddfb8d066ca479c478050200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

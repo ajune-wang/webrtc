@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61a3117a_b8c78d15",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-12T07:58:44Z",
+      "side": 1,
+      "message": "My guess is that this message needs similar handling as the Init message.",
+      "range": {
+        "startLine": 271,
+        "startChar": 29,
+        "endLine": 271,
+        "endChar": 35
+      },
+      "revId": "92a102fcfd30bb7ad27153994869799ab04cfcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91ec6423_a183fa98",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-12T07:58:44Z",
+      "side": 1,
+      "message": "What about instead having a behavior such that the call order output file is reset to start from the beginning when there is an init. Or, alternatively, create a new output file that starts after the init?\n\nAlso, since the user has specified that an output file should be created I think a more abrupt handling of this condition is warranted. As it is now, if the user fails to see the message the user will end up with an incorrect call order output file.\nWhat about a CHECK instead?",
+      "range": {
+        "startLine": 485,
+        "startChar": 9,
+        "endLine": 485,
+        "endChar": 13
+      },
+      "revId": "92a102fcfd30bb7ad27153994869799ab04cfcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc3e81fa_8ffca612",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-12T07:58:44Z",
+      "side": 1,
+      "message": "Does not reset() without any parameter work?",
+      "range": {
+        "startLine": 488,
+        "startChar": 41,
+        "endLine": 488,
+        "endChar": 48
+      },
+      "revId": "92a102fcfd30bb7ad27153994869799ab04cfcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb6835d6_bb3e35ca",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-12T07:58:44Z",
+      "side": 1,
+      "message": "This is a fairly long variable name. Furthermore, if this is named output, I think the former needs to be renamed to input.\n\nWhat about\ncall_order_input_filename\ncall_order_output_filename",
+      "range": {
+        "startLine": 100,
+        "startChar": 30,
+        "endLine": 100,
+        "endChar": 63
+      },
+      "revId": "92a102fcfd30bb7ad27153994869799ab04cfcc6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

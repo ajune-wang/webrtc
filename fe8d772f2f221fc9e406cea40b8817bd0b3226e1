@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac26d274_35628179",
+        "filename": "modules/remote_bitrate_estimator/remote_bitrate_estimator_unittest_helper.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-12T09:08:53Z",
+      "side": 1,
+      "message": "Peripherally related comment update.",
+      "range": {
+        "startLine": 169,
+        "startChar": 25,
+        "endLine": 169,
+        "endChar": 34
+      },
+      "revId": "fe8d772f2f221fc9e406cea40b8817bd0b3226e1",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

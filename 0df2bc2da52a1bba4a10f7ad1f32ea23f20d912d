@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "27daef66_e688106e",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-12T09:35:32Z",
+      "side": 1,
+      "message": "Should we add the contents of the sync buffer here?",
+      "range": {
+        "startLine": 174,
+        "startChar": 6,
+        "endLine": 174,
+        "endChar": 34
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc2f2dcf_26f16257",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 4
@@ -41,6 +64,29 @@
         "startChar": 33,
         "endLine": 292,
         "endChar": 41
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6b97135_e86d494c",
+        "filename": "modules/audio_coding/neteq/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-12T09:35:32Z",
+      "side": 1,
+      "message": "The name \u0027Duration\u0027 makes me think this would be measured in time, but it is actually measured in samples. I would suggest renaming to GetDurationSamples or something like GetBufferSpanSamples",
+      "range": {
+        "startLine": 126,
+        "startChar": 17,
+        "endLine": 126,
+        "endChar": 28
       },
       "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

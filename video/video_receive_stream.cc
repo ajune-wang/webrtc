@@ -369,7 +369,9 @@ void VideoReceiveStream::Start() {
   // |video_stream_decoder_|.
   call_stats_->RegisterStatsObserver(this);
 
+#if 0
   process_thread_->RegisterModule(&video_receiver_, RTC_FROM_HERE);
+#endif
 
   // Start the decode thread
   video_receiver_.DecoderThreadStarting();
@@ -387,8 +389,9 @@ void VideoReceiveStream::Stop() {
 
   frame_buffer_->Stop();
   call_stats_->DeregisterStatsObserver(this);
+#if 0
   process_thread_->DeRegisterModule(&video_receiver_);
-
+#endif
   if (decode_thread_.IsRunning()) {
     // TriggerDecoderShutdown will release any waiting decoder thread and make
     // it stop immediately, instead of waiting for a timeout. Needs to be called

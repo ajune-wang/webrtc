@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "739535fa_67eb94f1",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T18:17:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ca200be_74e97108",
+      "range": {
+        "startLine": 1163,
+        "startChar": 26,
+        "endLine": 1163,
+        "endChar": 44
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a806cf51_0ccac438",
         "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9db91709_c5131e9e",
+        "filename": "rtc_tools/event_log_visualizer/analyzer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T18:17:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a806cf51_0ccac438",
+      "range": {
+        "startLine": 1165,
+        "startChar": 25,
+        "endLine": 1165,
+        "endChar": 42
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95d3e90c_2dac6777",
         "filename": "rtc_tools/event_log_visualizer/main.cc",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86857592_3f15323d",
+        "filename": "rtc_tools/event_log_visualizer/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T18:17:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95d3e90c_2dac6777",
+      "range": {
+        "startLine": 118,
+        "startChar": 26,
+        "endLine": 118,
+        "endChar": 29
+      },
+      "revId": "ce75e750add725b4d3d33887a5d045dfbada490f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

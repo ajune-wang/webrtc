@@ -558,3 +558,15 @@ webrtc_fuzzer_test("url_decode_fuzzer") {
     "../../rtc_base:rtc_base_approved",
   ]
 }
+
+webrtc_fuzzer_test("sctp_utils_fuzzer") {
+  sources = [
+    "sctp_utils_fuzzer.cc",
+  ]
+  deps = [
+    "../../api:libjingle_peerconnection_api",
+    "../../pc:libjingle_peerconnection",
+    "../../pc:peerconnection",
+    "../../rtc_base:rtc_base_approved",
+  ]
+}

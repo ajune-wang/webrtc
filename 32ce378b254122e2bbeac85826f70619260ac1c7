@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c0d1b12_363c4ea9",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5399
+      },
+      "writtenOn": "2019-03-12T14:05:01Z",
+      "side": 1,
+      "message": "Is the intent that this one be deprecated and the other callsites updated?",
+      "revId": "32ce378b254122e2bbeac85826f70619260ac1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

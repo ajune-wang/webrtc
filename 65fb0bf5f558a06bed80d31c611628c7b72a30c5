@@ -73,6 +73,64 @@
     },
     {
       "key": {
+        "uuid": "a323aed0_b4b080c2",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-12T13:36:57Z",
+      "side": 1,
+      "message": "Agreeing that \"how to setup X\" and \"whether or not X functions properly\" can be tested differently, but there is also value in integrationtest that has as much of the \"real\" stuff as possible. I can go either way.\n\nHopefully we\u0027ll soon have SetCodecPreferences() and don\u0027t have to do SDP munging ourselves.",
+      "parentUuid": "a24c4134_250fa9b3",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164d0137_0878add9",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-12T13:36:57Z",
+      "side": 1,
+      "message": "Why assume this? Why not just remove everything except the thing you want to specify?",
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ee34b30_6311fd50",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-12T13:36:57Z",
+      "side": 1,
+      "message": "Why? Then the test may end up with codecs it has no idea about.",
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9616a380_0f7e1f1c",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 10

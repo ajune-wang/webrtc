@@ -35,23 +35,25 @@ class RtcEventBweUpdateDelayBased;
 class RtcEventBweUpdateLossBased;
 class RtcEventDtlsTransportState;
 class RtcEventDtlsWritableState;
+class RtcEventGenericAckReceived;
+class RtcEventGenericPacketReceived;
+class RtcEventGenericPacketSent;
+class RtcEventIceCandidatePair;
+class RtcEventIceCandidatePairConfig;
 class RtcEventLoggingStarted;
 class RtcEventLoggingStopped;
 class RtcEventProbeClusterCreated;
 class RtcEventProbeResultFailure;
 class RtcEventProbeResultSuccess;
+class RtcEventPromptAntennaSwitch;
 class RtcEventRtcpPacketIncoming;
 class RtcEventRtcpPacketOutgoing;
 class RtcEventRtpPacketIncoming;
 class RtcEventRtpPacketOutgoing;
 class RtcEventVideoReceiveStreamConfig;
+class RtcEventVideoSendPausedResumedState;
 class RtcEventVideoSendStreamConfig;
-class RtcEventIceCandidatePairConfig;
-class RtcEventIceCandidatePair;
 class RtpPacket;
-class RtcEventGenericAckReceived;
-class RtcEventGenericPacketReceived;
-class RtcEventGenericPacketSent;
 
 class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
  public:
@@ -139,6 +141,12 @@ class RtcEventLogEncoderNewFormat final : public RtcEventLogEncoder {
       rtclog2::EventStream* event_stream);
   void EncodeIceCandidatePairEvent(
       rtc::ArrayView<const RtcEventIceCandidatePair*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodePromptAntSwitch(
+      rtc::ArrayView<const RtcEventPromptAntennaSwitch*> batch,
+      rtclog2::EventStream* event_stream);
+  void EncodeVideoSendPausedResumedState(
+      rtc::ArrayView<const RtcEventVideoSendPausedResumedState*> batch,
       rtclog2::EventStream* event_stream);
 };
 

@@ -365,6 +365,8 @@ std::string RtcEventLogEncoderLegacy::Encode(const RtcEvent& event) {
     case RtcEvent::Type::GenericPacketReceived:
     case RtcEvent::Type::GenericPacketSent:
     case RtcEvent::Type::GenericAckReceived:
+    case RtcEvent::Type::VideoSendPausedResumedState:
+    case RtcEvent::Type::PromptAntennaSwitch:
       // These are unsupported in the old format, but shouldn't crash.
       return "";
   }

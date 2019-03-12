@@ -267,10 +267,12 @@ size_t PacketBuffer::NumPacketsInBuffer() const {
   return buffer_.size();
 }
 
-size_t PacketBuffer::NumSamplesInBuffer(size_t last_decoded_length) const {
+// TODO(jakobi): Simplify once all callers use |count_gaps|.
+size_t PacketBuffer::NumSamplesInBuffer(size_t last_decoded_length, bool count_gaps) const {
   size_t num_samples = 0;
   size_t last_duration = last_decoded_length;
-  for (const Packet& packet : buffer_) {
+  for (auto it = buffer_.cbegin(); it != buffer_.cend(); ++it) {
+    const Packet& packet = *it;
     if (packet.frame) {
       // TODO(hlundin): Verify that it's fine to count all packets and remove
       // this check.
@@ -283,6 +285,14 @@ size_t PacketBuffer::NumSamplesInBuffer(size_t last_decoded_length) const {
       }
     }
     num_samples += last_duration;
+    auto next_it = it;
+    ++next_it;
+    if (count_gaps && next_it != buffer_.cend()) {
+      int gap = next_it->timestamp - packet.timestamp - last_duration;
+      if (gap > 0) {
+        num_samples += gap;
+      }
+    }
   }
   return num_samples;
 }

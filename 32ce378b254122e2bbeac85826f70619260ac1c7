@@ -16,6 +16,24 @@
       "revId": "32ce378b254122e2bbeac85826f70619260ac1c7",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf43399d_f62b3769",
+        "filename": "modules/audio_device/include/test_audio_device.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-12T14:16:45Z",
+      "side": 1,
+      "message": "I don\u0027t have any such plans since it\u0027s used in downstream projects. I think a good path forward would be to make downstream usages use higher level APIs, then this constructor can be naturally deprecated.",
+      "parentUuid": "1c0d1b12_363c4ea9",
+      "revId": "32ce378b254122e2bbeac85826f70619260ac1c7",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

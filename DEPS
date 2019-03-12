@@ -250,7 +250,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '73b61e26a1f2ff2036c8daaed1e3a69369ed6eea',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + '75b8edbe4ecdc12cd386b0e5b2513f0f3266c951',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 

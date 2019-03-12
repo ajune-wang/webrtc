@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "9836d621_a94ad152",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-12T14:01:35Z",
+      "side": 1,
+      "message": "I discussed with Artem yesterday too, and his take was that re-initializing encoder factory and peer connection factory would make the test more difficult to understand/more complex. I am for simplicity, so if this is simpler, we should keep it :) \n\nMarking as resolved.",
+      "parentUuid": "a323aed0_b4b080c2",
+      "range": {
+        "startLine": 45,
+        "startChar": 5,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "164d0137_0878add9",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 10

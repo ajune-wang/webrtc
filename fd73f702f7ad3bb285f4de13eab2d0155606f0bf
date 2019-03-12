@@ -266,6 +266,24 @@
     },
     {
       "key": {
+        "uuid": "a9805c3e_fc09a576",
+        "filename": "modules/video_capture/windows/sink_filter_ds.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5508
+      },
+      "writtenOn": "2019-03-12T09:07:48Z",
+      "side": 1,
+      "message": "ZeroMemory is a macro that maps to memset() and will crash on a null pointer, so I think that\u0027s alright.",
+      "parentUuid": "ee76a141_67adbf44",
+      "revId": "fd73f702f7ad3bb285f4de13eab2d0155606f0bf",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c83451aa_ff909d7b",
         "filename": "modules/video_capture/windows/sink_filter_ds.cc",
         "patchSetId": 18

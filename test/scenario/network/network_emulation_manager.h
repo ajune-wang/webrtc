@@ -47,10 +47,10 @@ struct EndpointConfig {
   absl::optional<rtc::IPAddress> ip;
 };
 
-class NetworkEmulationManager {
+class NetworkEmulationManagerImpl {
  public:
-  NetworkEmulationManager();
-  ~NetworkEmulationManager();
+  NetworkEmulationManagerImpl();
+  ~NetworkEmulationManagerImpl();
 
   EmulatedNetworkNode* CreateEmulatedNode(
       std::unique_ptr<NetworkBehaviorInterface> network_behavior);

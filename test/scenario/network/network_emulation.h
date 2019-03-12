@@ -150,7 +150,7 @@ class EmulatedEndpoint : public EmulatedNetworkReceiverInterface {
   void OnPacketReceived(EmulatedIpPacket packet) override;
 
  protected:
-  friend class NetworkEmulationManager;
+  friend class NetworkEmulationManagerImpl;
 
   EmulatedNetworkNode* GetSendNode() const;
   void SetConnectedEndpointId(uint64_t endpoint_id);

@@ -73,7 +73,7 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   bob_params->audio_config = AudioConfig();
 
   // Setup emulated network
-  NetworkEmulationManager network_emulation_manager;
+  NetworkEmulationManagerImpl network_emulation_manager;
 
   EmulatedNetworkNode* alice_node =
       network_emulation_manager.CreateEmulatedNode(

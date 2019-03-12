@@ -91,7 +91,7 @@ public class SurfaceTextureHelper {
   private final EglBase eglBase;
   private final SurfaceTexture surfaceTexture;
   private final int oesTextureId;
-  private final YuvConverter yuvConverter;
+  private YuvConverter yuvConverter;
   @Nullable private final TimestampAligner timestampAligner;
 
   // These variables are only accessed from the |handler| thread.
@@ -211,6 +211,14 @@ public class SurfaceTextureHelper {
   /** Set the rotation of the delivered frames. */
   public void setFrameRotation(int rotation) {
     handler.post(() -> this.frameRotation = rotation);
+  }
+
+  /** Set the YuvConverter of the delivered frames. */
+  public void setYuvConverter(YuvConverter yuvConverter) {
+    handler.post(() -> {
+      this.yuvConverter.release();
+      this.yuvConverter = yuvConverter;
+    });
   }
 
   /**

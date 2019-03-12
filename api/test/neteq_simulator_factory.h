@@ -12,6 +12,7 @@
 #define API_TEST_NETEQ_SIMULATOR_FACTORY_H_
 
 #include <memory>
+#include <string>
 
 #include "api/test/neteq_simulator.h"
 
@@ -24,8 +25,22 @@ class NetEqSimulatorFactory {
  public:
   NetEqSimulatorFactory();
   ~NetEqSimulatorFactory();
+  struct Config {
+    int max_nr_packets_in_buffer = 0;
+  };
   // This function takes the same arguments as the neteq_rtpplay utility.
   std::unique_ptr<NetEqSimulator> CreateSimulator(int argc, char* argv[]);
+  std::unique_ptr<NetEqSimulator> CreateSimulatorFromFile(
+      std::string event_log_file,
+      std::string replacement_audio_file,
+      std::string output_file,
+      Config simulation_config);
+  // The same as above, but pass the file contents as a string.
+  std::unique_ptr<NetEqSimulator> CreateSimulatorFromString(
+      std::string event_log_file_contents,
+      std::string replacement_audio_file,
+      std::string output_file,
+      Config simulation_config);
 
  private:
   std::unique_ptr<NetEqTestFactory> factory_;

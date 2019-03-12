@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "e96319a2_0d2e97bd",
+        "filename": "modules/audio_coding/neteq/decision_logic.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-12T11:40:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6fe395f_3f8fabd8",
+      "range": {
+        "startLine": 174,
+        "startChar": 6,
+        "endLine": 174,
+        "endChar": 34
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc2f2dcf_26f16257",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 4
@@ -108,6 +132,30 @@
       "writtenOn": "2019-03-12T09:15:42Z",
       "side": 1,
       "message": "I think this is similar to NumSamplesInBuffer, and can probably be merged into that by adding \"bool count_gaps\"",
+      "range": {
+        "startLine": 290,
+        "startChar": 21,
+        "endLine": 290,
+        "endChar": 32
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "045e25de_2b0778dc",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-12T11:40:14Z",
+      "side": 1,
+      "message": "Merging into NumSamplesInBuffer would be a lot more complicated (what if we have overlapping timestamps?).",
+      "parentUuid": "cc2f2dcf_26f16257",
       "range": {
         "startLine": 290,
         "startChar": 21,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "38aa7c75_f4af9dc0",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-12T11:40:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3056359_9dc647bc",
+      "range": {
+        "startLine": 292,
+        "startChar": 33,
+        "endLine": 292,
+        "endChar": 41
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6b97135_e86d494c",
         "filename": "modules/audio_coding/neteq/packet_buffer.h",
         "patchSetId": 4
@@ -163,6 +235,30 @@
       "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7245a106_57b0493e",
+        "filename": "modules/audio_coding/neteq/packet_buffer.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 8038
+      },
+      "writtenOn": "2019-03-12T11:40:14Z",
+      "side": 1,
+      "message": "Renamed to `GetSpanSamples`.",
+      "parentUuid": "e6b97135_e86d494c",
+      "range": {
+        "startLine": 126,
+        "startChar": 17,
+        "endLine": 126,
+        "endChar": 28
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1195d3e1_99edac26",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-12T12:57:41Z",
+      "side": 1,
+      "message": "Is there any way to DCHECK or compile-time assert() this to be the case?",
+      "revId": "dd21936a046a35b318958ad7d2ce79c0b77b5344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

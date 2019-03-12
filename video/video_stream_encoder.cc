@@ -19,6 +19,7 @@
 #include "api/video/encoded_image.h"
 #include "api/video/i420_buffer.h"
 #include "api/video/video_bitrate_allocator_factory.h"
+#include "logging/rtc_event_log/events/rtc_event_video_send_paused_resumed_state.h"
 #include "modules/video_coding/codecs/vp9/svc_rate_allocator.h"
 #include "modules/video_coding/include/video_codec_initializer.h"
 #include "modules/video_coding/include/video_coding.h"
@@ -355,7 +356,8 @@ VideoStreamEncoder::VideoStreamEncoder(
     uint32_t number_of_cores,
     VideoStreamEncoderObserver* encoder_stats_observer,
     const VideoStreamEncoderSettings& settings,
-    std::unique_ptr<OveruseFrameDetector> overuse_detector)
+    std::unique_ptr<OveruseFrameDetector> overuse_detector,
+    RtcEventLog* event_log)
     : shutdown_event_(true /* manual_reset */, false),
       number_of_cores_(number_of_cores),
       initial_framedrop_(0),
@@ -368,7 +370,7 @@ VideoStreamEncoder::VideoStreamEncoder(
       rate_control_settings_(RateControlSettings::ParseFromFieldTrials()),
       video_sender_(Clock::GetRealTimeClock(), this),
       overuse_detector_(std::move(overuse_detector)),
-      encoder_stats_observer_(encoder_stats_observer),
+      event_log_(event_log) encoder_stats_observer_(encoder_stats_observer),
       max_framerate_(-1),
       pending_encoder_reconfiguration_(false),
       pending_encoder_creation_(false),
@@ -1153,6 +1155,11 @@ void VideoStreamEncoder::OnBitrateUpdated(uint32_t bitrate_bps,
   if (video_suspension_changed) {
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "
                      << (video_is_suspended ? "suspended" : "not suspended");
+    if (event_log_) {
+      event_log_->Log(
+          absl::make_unique<webrtc::RtcEventVideoSendPausedResumedState>(
+              video_is_suspended));
+    }
     encoder_stats_observer_->OnSuspendChange(video_is_suspended);
   }
   if (video_suspension_changed && !video_is_suspended && pending_frame_ &&

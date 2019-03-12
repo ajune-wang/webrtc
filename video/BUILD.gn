@@ -195,6 +195,8 @@ rtc_source_set("video_stream_encoder_impl") {
     "../api/video:video_stream_encoder",
     "../api/video_codecs:video_codecs_api",
     "../common_video:common_video",
+    "../logging:rtc_event_log_api",
+    "../logging:rtc_event_video",
     "../modules/video_coding",
     "../modules/video_coding:video_coding_utility",
     "../modules/video_coding:webrtc_vp9_helpers",

@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "absl/memory/memory.h"
 #include "modules/audio_processing/echo_cancellation_impl.h"
 #include "modules/audio_processing/echo_control_mobile_impl.h"
 #include "modules/audio_processing/test/aec_dump_based_simulator.h"
@@ -69,7 +70,9 @@ bool VerifyFloatBitExactness(const webrtc::audioproc::Stream& msg,
 AecDumpBasedSimulator::AecDumpBasedSimulator(
     const SimulationSettings& settings,
     std::unique_ptr<AudioProcessingBuilder> ap_builder)
-    : AudioProcessingSimulator(settings, std::move(ap_builder)) {}
+    : AudioProcessingSimulator(settings, std::move(ap_builder)) {
+  MaybeOpenCallOrderFile();
+}
 
 AecDumpBasedSimulator::~AecDumpBasedSimulator() = default;
 
@@ -474,6 +477,10 @@ void AecDumpBasedSimulator::HandleMessage(const webrtc::audioproc::Init& msg) {
   RTC_CHECK(msg.has_num_input_channels());
   RTC_CHECK(msg.has_num_reverse_channels());
   RTC_CHECK(msg.has_reverse_sample_rate());
+  if (call_order_output_file_ && (num_process_stream_calls_ > 0 ||
+                                  num_reverse_process_stream_calls_ > 0)) {
+    MaybeOpenCallOrderFile();
+  }
 
   if (settings_.use_verbose_logging) {
     std::cout << "Init at frame:" << std::endl;
@@ -525,6 +532,9 @@ void AecDumpBasedSimulator::HandleMessage(const webrtc::audioproc::Init& msg) {
 
 void AecDumpBasedSimulator::HandleMessage(
     const webrtc::audioproc::Stream& msg) {
+  if (call_order_output_file_) {
+    *call_order_output_file_ << "c";
+  }
   PrepareProcessStreamCall(msg);
   ProcessStream(interface_used_ == InterfaceType::kFixedInterface);
   VerifyProcessStreamBitExactness(msg);
@@ -532,6 +542,9 @@ void AecDumpBasedSimulator::HandleMessage(
 
 void AecDumpBasedSimulator::HandleMessage(
     const webrtc::audioproc::ReverseStream& msg) {
+  if (call_order_output_file_) {
+    *call_order_output_file_ << "r";
+  }
   PrepareReverseProcessStreamCall(msg);
   ProcessReverseStream(interface_used_ == InterfaceType::kFixedInterface);
 }
@@ -540,6 +553,17 @@ void AecDumpBasedSimulator::HandleMessage(
     const webrtc::audioproc::RuntimeSetting& msg) {
   RTC_CHECK(ap_.get());
   ReplayRuntimeSetting(ap_.get(), msg);
+}
+
+void AecDumpBasedSimulator::MaybeOpenCallOrderFile() {
+  if (settings_.call_order_output_filename.has_value()) {
+    const std::string filename = settings_.store_intermediate_output
+                                     ? *settings_.call_order_output_filename +
+                                           "_" +
+                                           std::to_string(output_reset_counter_)
+                                     : *settings_.call_order_output_filename;
+    call_order_output_file_ = absl::make_unique<std::ofstream>(filename);
+  }
 }
 
 }  // namespace test

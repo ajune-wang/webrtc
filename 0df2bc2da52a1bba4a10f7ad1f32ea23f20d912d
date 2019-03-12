@@ -264,6 +264,30 @@
     },
     {
       "key": {
+        "uuid": "19bfefcd_eef417fe",
+        "filename": "modules/audio_coding/neteq/packet_buffer.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-12T13:59:07Z",
+      "side": 1,
+      "message": "Did I mislead you? then apologies. I think your thoughts on the computation efficiency for GetSpanSamples make good sense, and it is better to add this other function.",
+      "parentUuid": "c1713d8f_56502ac5",
+      "range": {
+        "startLine": 290,
+        "startChar": 21,
+        "endLine": 290,
+        "endChar": 32
+      },
+      "revId": "0df2bc2da52a1bba4a10f7ad1f32ea23f20d912d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3056359_9dc647bc",
         "filename": "modules/audio_coding/neteq/packet_buffer.cc",
         "patchSetId": 4

@@ -49,5 +49,29 @@ std::unique_ptr<NetEqSimulator> NetEqSimulatorFactory::CreateSimulator(
   return factory_->InitializeTest(argv[1], argv[2], config);
 }
 
+std::unique_ptr<NetEqSimulator> NetEqSimulatorFactory::CreateSimulatorFromFile(
+    std::string event_log_file,
+    std::string replacement_audio_file,
+    std::string output_file,
+    Config simulation_config) {
+  NetEqTestFactory::Config config;
+  config.replacement_audio_file = replacement_audio_file;
+  config.max_nr_packets_in_buffer = simulation_config.max_nr_packets_in_buffer;
+  return factory_->InitializeTestFromFile(event_log_file, output_file, config);
+}
+
+std::unique_ptr<NetEqSimulator>
+NetEqSimulatorFactory::CreateSimulatorFromString(
+    std::string event_log_file_contents,
+    std::string replacement_audio_file,
+    std::string output_file,
+    Config simulation_config) {
+  NetEqTestFactory::Config config;
+  config.replacement_audio_file = replacement_audio_file;
+  config.max_nr_packets_in_buffer = simulation_config.max_nr_packets_in_buffer;
+  return factory_->InitializeTestFromString(event_log_file_contents,
+                                            output_file, config);
+}
+
 }  // namespace test
 }  // namespace webrtc

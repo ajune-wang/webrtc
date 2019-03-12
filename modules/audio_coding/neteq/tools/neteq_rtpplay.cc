@@ -309,7 +309,7 @@ int main(int argc, char* argv[]) {
   }
 
   std::unique_ptr<webrtc::test::NetEqTest> test =
-      factory.InitializeTest(argv[1], argv[2], config);
+      factory.InitializeTestFromFile(argv[1], argv[2], config);
   test->Run();
   return 0;
 }

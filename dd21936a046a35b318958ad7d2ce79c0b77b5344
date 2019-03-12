@@ -16,6 +16,24 @@
       "revId": "dd21936a046a35b318958ad7d2ce79c0b77b5344",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5b5a33d_bb202900",
+        "filename": "modules/video_coding/codecs/h264/h264_decoder_impl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-12T13:23:50Z",
+      "side": 1,
+      "message": "Not entirely sure what you ask. If this cl is landed, there will be no zero padding.\n\nIf you ask if we could fail early if ffmpeg wasn\u0027t configured with CONFIG_SAFE_BITSTREAM_READER, then I agree that would be nice, but I see no easy way to do that.",
+      "parentUuid": "1195d3e1_99edac26",
+      "revId": "dd21936a046a35b318958ad7d2ce79c0b77b5344",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

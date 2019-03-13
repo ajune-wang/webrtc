@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "284e47a0_97e123b7",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T17:20:40Z",
+      "side": 1,
+      "message": "Added comment.",
+      "parentUuid": "ecb7150c_0e1962b5",
+      "range": {
+        "startLine": 121,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47c986ef_d82ceff4",
         "filename": "test/scenario/scenario.cc",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-13T16:11:54Z",
       "side": 1,
       "message": "What is expected behavior if func will be executed before RunFor/RunUntil will be invoked? The same question for next 2 methods",
+      "range": {
+        "startLine": 297,
+        "startChar": 15,
+        "endLine": 297,
+        "endChar": 20
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a60fcdcc_178c10c9",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T17:20:40Z",
+      "side": 1,
+      "message": "Good question, in general we would not expect initialization to take more time than the interval, which would mean that it wouldn\u0027t execute before. But of course it\u0027s possible, generally, this should cause any issues, there is of course a small risk of variation in metrics due to this (for instance if SendVideoStream::GetStats() is called before SendVideoStream::Start()) but metrics variation should be generally expected in real time tests anyway.\n\nSince this source of variation will be simple to avoid by running in fully simulated time, I think it\u0027s a reasonable trade off to allow this variation in real time to keep the code simple for now. If we find that we actually need reliable real time tests in the future, a better solution would be to implement a real time/simulated time hybrid that runs in deterministic real time.",
+      "parentUuid": "47c986ef_d82ceff4",
       "range": {
         "startLine": 297,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f3964558_3879a62b",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T17:20:40Z",
+      "side": 1,
+      "message": "Added DCHECK",
+      "parentUuid": "6e88a800_906e8436",
+      "range": {
+        "startLine": 315,
+        "startChar": 40,
+        "endLine": 315,
+        "endChar": 72
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7d976036_5bb727ff",
         "filename": "test/scenario/scenario.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "664d321d154afdc79563e829717060de03e0c15d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eae92a08_da8da678",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T17:20:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d976036_5bb727ff",
+      "range": {
+        "startLine": 333,
+        "startChar": 2,
+        "endLine": 334,
+        "endChar": 44
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

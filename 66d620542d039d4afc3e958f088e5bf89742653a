@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e9d9e07_35b2346b",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-13T09:21:28Z",
+      "side": 1,
+      "message": "I think \"filename\" is clearer, also other places",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "035327ee_3f58e944",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-13T09:21:28Z",
+      "side": 1,
+      "message": "will const std::string\u0026 work here?",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab0d73d8_7a157664",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-13T09:21:28Z",
+      "side": 1,
+      "message": "needed?",
+      "range": {
+        "startLine": 1157,
+        "startChar": 0,
+        "endLine": 1157,
+        "endChar": 54
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c1f8292_e530755c",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-13T09:21:28Z",
+      "side": 1,
+      "message": "needed?",
+      "range": {
+        "startLine": 20,
+        "startChar": 23,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "000b90c3_3cfacded",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-13T09:21:28Z",
+      "side": 1,
+      "message": "use smart pointer",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

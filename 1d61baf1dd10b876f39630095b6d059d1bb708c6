@@ -46,6 +46,30 @@
       "revId": "1d61baf1dd10b876f39630095b6d059d1bb708c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bba196a_54b1fb43",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T15:49:30Z",
+      "side": 1,
+      "message": "Reason: It\u0027s unusual have a member that is a Module (i.e., with Process and TimeUntilNextProcess methods) and not register it on any ProcessThread.",
+      "parentUuid": "4655e1f9_a00c1810",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 19
+      },
+      "revId": "1d61baf1dd10b876f39630095b6d059d1bb708c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

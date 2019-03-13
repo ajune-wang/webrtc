@@ -22,6 +22,30 @@
       "revId": "a7c7680c7f8f540fba407239eb681469d7bf33d4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05b3bfe5_6fbcbbb5",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T16:53:23Z",
+      "side": 1,
+      "message": "Could this be added to the auto formatter? Generally it\u0027s not very productive to spend review time on formatting issues.",
+      "parentUuid": "6da35cdd_4a472e1f",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 7
+      },
+      "revId": "a7c7680c7f8f540fba407239eb681469d7bf33d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

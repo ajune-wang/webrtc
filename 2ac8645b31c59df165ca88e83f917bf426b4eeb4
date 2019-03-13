@@ -22,6 +22,30 @@
       "revId": "2ac8645b31c59df165ca88e83f917bf426b4eeb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7baabea_db142ab1",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T16:53:23Z",
+      "side": 1,
+      "message": "Since it uses a custom deleter, make_unique doesn\u0027t work. Merged the functions to avoid the raw pointer return.\n\nSince it\u0027s the interface that is broken (CreateTaskQueue should not be const as it\u0027s not reasonable to expect that creating a task queue is side effect free) I think it makes more sense to to the casting in the interface implementation rather than making runners_ mutable. Making runners mutable would allow other inconsistencies unrelated to the broken interface.\n\nThe real solution would of course be to fix the interface, but my \"arguing about TaskQueueBase-budget\" has been more than spent on this project already. :)",
+      "parentUuid": "822b6ff0_1137f57d",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 1
+      },
+      "revId": "2ac8645b31c59df165ca88e83f917bf426b4eeb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

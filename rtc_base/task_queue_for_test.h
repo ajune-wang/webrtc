@@ -11,18 +11,22 @@
 #ifndef RTC_BASE_TASK_QUEUE_FOR_TEST_H_
 #define RTC_BASE_TASK_QUEUE_FOR_TEST_H_
 
+#include <utility>
+
 #include "rtc_base/checks.h"
-#include "rtc_base/constructor_magic.h"
 #include "rtc_base/event.h"
 #include "rtc_base/task_queue.h"
 #include "rtc_base/task_utils/to_queued_task.h"
 #include "rtc_base/thread_annotations.h"
 
-namespace rtc {
-namespace test {
-class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
+namespace webrtc {
+
+class RTC_LOCKABLE TaskQueueForTest : public rtc::TaskQueue {
  public:
-  using TaskQueue::TaskQueue;
+  explicit TaskQueueForTest(absl::string_view name = "TestQueue",
+                            Priority priority = Priority::NORMAL);
+  TaskQueueForTest(const TaskQueueForTest&) = delete;
+  TaskQueueForTest& operator=(const TaskQueueForTest&) = delete;
   ~TaskQueueForTest();
 
   // A convenience, test-only method that blocks the current thread while
@@ -34,11 +38,9 @@ class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
   void SendTask(Closure* task) {
     RTC_DCHECK(!IsCurrent());
     rtc::Event event;
-    PostTask(webrtc::ToQueuedTask(
-        [&task]() {
-          RTC_CHECK_EQ(false, static_cast<webrtc::QueuedTask*>(task)->Run());
-        },
-        [&event]() { event.Set(); }));
+    PostTask(ToQueuedTask(
+        [&task] { RTC_CHECK_EQ(false, static_cast<QueuedTask*>(task)->Run()); },
+        [&event] { event.Set(); }));
     event.Wait(rtc::Event::kForever);
   }
 
@@ -48,15 +50,12 @@ class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
   void SendTask(Closure&& task) {
     RTC_DCHECK(!IsCurrent());
     rtc::Event event;
-    PostTask(webrtc::ToQueuedTask(std::forward<Closure>(task),
-                                  [&event] { event.Set(); }));
+    PostTask(
+        ToQueuedTask(std::forward<Closure>(task), [&event] { event.Set(); }));
     event.Wait(rtc::Event::kForever);
   }
-
- private:
-  RTC_DISALLOW_COPY_AND_ASSIGN(TaskQueueForTest);
 };
-}  // namespace test
-}  // namespace rtc
+
+}  // namespace webrtc
 
 #endif  // RTC_BASE_TASK_QUEUE_FOR_TEST_H_

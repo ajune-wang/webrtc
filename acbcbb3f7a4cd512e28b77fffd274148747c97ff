@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c0b1160_7750d304",
+        "filename": "test/scenario/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T09:50:13Z",
+      "side": 1,
+      "message": "Maybe add it into test/BUILD.gn?",
+      "range": {
+        "startLine": 169,
+        "startChar": 7,
+        "endLine": 169,
+        "endChar": 51
+      },
+      "revId": "acbcbb3f7a4cd512e28b77fffd274148747c97ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7e097a4_ea6a02fc",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T09:50:13Z",
+      "side": 1,
+      "message": "nit: Can you add empty line after destructor?",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "acbcbb3f7a4cd512e28b77fffd274148747c97ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

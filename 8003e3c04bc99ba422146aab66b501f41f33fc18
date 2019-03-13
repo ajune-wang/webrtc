@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "975e9aa3_b915bb65",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-13T12:55:42Z",
+      "side": 1,
+      "message": "That\u0027s a good point. I removed the if-statement completely now (since the function already has a check to see if it should open the file).",
+      "parentUuid": "abfccc51_ac326ce0",
+      "revId": "8003e3c04bc99ba422146aab66b501f41f33fc18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dd2d73b_2599b756",
         "filename": "modules/audio_processing/test/audio_processing_simulator.h",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "8003e3c04bc99ba422146aab66b501f41f33fc18",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59194a96_a9faa482",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-13T12:55:42Z",
+      "side": 1,
+      "message": "I want to access these members in AecDumpBasedSimulator, which is a sub-class of this class. Classes are not allowed to access private members of classes they inherit from, but they are allowed to access protected members. \nWith the changes in this revision only the output_reset_counter_ needs to be protected, so I\u0027ve moved the others back to the private section.",
+      "parentUuid": "0dd2d73b_2599b756",
+      "range": {
+        "startLine": 187,
+        "startChar": 1,
+        "endLine": 187,
+        "endChar": 10
+      },
+      "revId": "8003e3c04bc99ba422146aab66b501f41f33fc18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

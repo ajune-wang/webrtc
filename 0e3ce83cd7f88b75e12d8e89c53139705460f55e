@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c05cd80d_0675b214",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-13T21:27:44Z",
+      "side": 1,
+      "message": "consider swapping conditions.\n\nif(activity.interval)\n { do with interval; }\n\n\nif(activity.initial_delay_since_start \u003d\u003d Zero) {\n  PushBack()\n}\n\nTimeDelta left_delay \u003d\n      activity.initial_delay_since_start - (Now() - start_time_);\n\nif (!activity.interval) {\n  post_delayed();\n}\n\npush_back;",
+      "revId": "0e3ce83cd7f88b75e12d8e89c53139705460f55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cbd3d36_f991a74a",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-13T21:27:44Z",
+      "side": 1,
+      "message": "is this check correct?\n\nwhat if there was a very-long context switch after PostTask but before this line executes?\n\nIf it was the end-user code, I would suggest switching to DCHECK, we don\u0027t want to crash the app.\n\nI get the idea that you don\u0027t expect users to say\nPostTask(1 millisecond from now);\n\nbut rather\n(PostTask(2 secs from now))",
+      "revId": "0e3ce83cd7f88b75e12d8e89c53139705460f55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5395235d_93d4cff0",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-13T21:27:44Z",
+      "side": 1,
+      "message": "nit: maybe remaining_delay? Left cannot be used as an adjective, so delay_left, or remaining_delay IMO :)",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 12
+      },
+      "revId": "0e3ce83cd7f88b75e12d8e89c53139705460f55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb38acab_7527ce00",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-13T21:27:44Z",
+      "side": 1,
+      "message": "DejaVu. Maybe replace branching, and compute it after the first if?",
+      "revId": "0e3ce83cd7f88b75e12d8e89c53139705460f55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1267ed8_617abe58",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-13T21:27:44Z",
+      "side": 1,
+      "message": "ditto. If it\u0027s \u003c 0, wouldn\u0027t it be better to simply execute with no delay?",
+      "revId": "0e3ce83cd7f88b75e12d8e89c53139705460f55e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

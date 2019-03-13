@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95f2a35b_840c8a5c",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T09:30:57Z",
+      "side": 1,
+      "message": "Discuss offline. Will keep it as is, cause this API will be removed when dynamic endpoints CL will be finalized and landed.",
+      "parentUuid": "227cbfca_5ed5aaa7",
+      "range": {
+        "startLine": 197,
+        "startChar": 9,
+        "endLine": 197,
+        "endChar": 15
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f04cbea4_086a1d2c",
         "filename": "test/scenario/network/network_emulation_manager.cc",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7d217da9_ff1cc899",
+        "filename": "test/scenario/network/network_emulation_manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T09:30:57Z",
+      "side": 1,
+      "message": "FakeNetworkManager can\u0027t accept a list into constructor and looks like we will replace this one with different implementation soon, so I don\u0027t want to change that one in such case for temp step. WDYT?",
+      "parentUuid": "f04cbea4_086a1d2c",
+      "range": {
+        "startLine": 199,
+        "startChar": 2,
+        "endLine": 202,
+        "endChar": 3
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "425a5813_1b91ce8d",
         "filename": "test/scenario/network/network_emulation_pc_unittest.cc",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e8569bc_73b97fc2",
+        "filename": "test/scenario/network/network_emulation_pc_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T09:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "425a5813_1b91ce8d",
+      "range": {
+        "startLine": 103,
+        "startChar": 26,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "d98db0656c939918dbf9d835a505dc6f6b5a444b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

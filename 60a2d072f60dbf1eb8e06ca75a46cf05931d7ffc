@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf045b7b_4fb80a7d",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T15:04:05Z",
+      "side": 1,
+      "message": "I wouldn\u0027t say that this is some key feature, it\u0027s an ugly workaround against the bad WebRTC policy that all task queues must accept that there might be situations where the caller waits on any posted task to finish executing before continuing.\n\nTried to clarify.",
+      "parentUuid": "fd9691ab_27428f1a",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 36
+      },
+      "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a07f88d9_a35b086d",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322fc4ef_75b99504",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T15:04:05Z",
+      "side": 1,
+      "message": "std::unique_ptr\u003cTaskQueueBase, TaskQueueDeleter\u003e\nSimulatedTimeControllerImpl::CreateTaskQueue(\n    absl::string_view name,\n    TaskQueueFactory::Priority priority) const {\n  // TODO(srte): Remove the const cast when the interface is made mutable.\n  return std::unique_ptr\u003cTaskQueueBase, TaskQueueDeleter\u003e(\n      const_cast\u003cSimulatedTimeControllerImpl*\u003e(this)-\u003eCreateTaskQueue(name));\n}",
+      "parentUuid": "a07f88d9_a35b086d",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

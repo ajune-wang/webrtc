@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8ed640d8_a9a303fc",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "Completely removed this code section. This is a heavily modified version of video_replay for fuzzing so this wasn\u0027t required.",
+      "parentUuid": "8bafc602_419bb051",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 21
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06c83385_72d3fb28",
         "filename": "test/fuzzers/utils/rtp_replayer.cc",
         "patchSetId": 10
@@ -45,6 +69,30 @@
       "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9be8e99_b021800b",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "Completely removed this class.",
+      "parentUuid": "06c83385_72d3fb28",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b16b5e78_8a0c0023",
+        "filename": "test/fuzzers/vp8_replay_fuzzer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "Agreed refactored the replayer to handle this by object construction.",
+      "parentUuid": "932af409_e39334ac",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 9
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70cc579c_aa52b9bc",
         "filename": "test/rtp_file_reader.cc",
         "patchSetId": 10
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c4b2a9b9_4b0a0213",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "I had a go at this refactor but there are several functions not supported by our wrapper that are used by some of the reader implementations.\n\nI have filed: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10408 and I think we can probably do a second pass and refactor this entire code path into a simple library with proper tests.",
+      "parentUuid": "70cc579c_aa52b9bc",
+      "range": {
+        "startLine": 66,
+        "startChar": 20,
+        "endLine": 66,
+        "endChar": 25
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70992e28_44d2399c",
         "filename": "test/rtp_file_reader.cc",
         "patchSetId": 10
@@ -105,6 +201,30 @@
       "writtenOn": "2019-03-12T08:30:01Z",
       "side": 1,
       "message": "How large are these files? One disadvantage of tmpfile is that it doesn\u0027t obey any environment variable, in particular, doesn\u0027t use $TMPDIR.",
+      "range": {
+        "startLine": 647,
+        "startChar": 15,
+        "endLine": 647,
+        "endChar": 22
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8347c416_4af013ea",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "These files are going to be around 500kb. This implementation in my opinion is not ideal, fmemopen is perfect for this without requiring a deeper refactoring. However Apple and Windows don\u0027t support POSIX-2008.\n\nPOSIX-2001 - tmpfile() from my understanding isn\u0027t even required to create a real file on disk and can operate directly on memory as there is no way to get the file back after the program exits. This patch is really just to bootstrap this class to work with the Clusterfuzz mutation fuzzers which only provide (data,size) as input and can\u0027t work directly on on-disk files.",
+      "parentUuid": "70992e28_44d2399c",
       "range": {
         "startLine": 647,
         "startChar": 15,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "f5aac502_2192a3e3",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2131f101_e9860bc7",
+      "range": {
+        "startLine": 652,
+        "startChar": 2,
+        "endLine": 652,
+        "endChar": 8
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38699c8d_d7f09548",
         "filename": "test/rtp_file_reader.h",
         "patchSetId": 10
@@ -160,6 +304,30 @@
       "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86c4783d_9b5cf429",
+        "filename": "test/rtp_file_reader.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T20:43:19Z",
+      "side": 1,
+      "message": "Filed: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10408\n\nThis entire class should probably be re-written. If we could provide this as a standalone library it might have value on its own for building tools. Maybe we take it out of test?",
+      "parentUuid": "38699c8d_d7f09548",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 64
+      },
+      "revId": "8b70e0d1b6e8de66a3173979157479c4fe51f0e9",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

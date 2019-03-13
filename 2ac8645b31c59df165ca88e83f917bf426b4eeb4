@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "822b6ff0_1137f57d",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T15:35:12Z",
+      "side": 1,
+      "message": "Prefer to use unique_ptr (and absl::make_unique) for both return value and the task_queue variable.\n\nYou could consider marking |runnable_| mutable; not sure what is least ugly, mutable or the above const_cast.\n\nOr you could solve problem by an extra level of indirection, either moving the runners_ list to some object pointed to from this object, or by putting the TaskQueueFactory implementation in a separate object with a pointer to SimulatedTimeControllerImpl. But probably not worth the effort.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 1
+      },
+      "revId": "2ac8645b31c59df165ca88e83f917bf426b4eeb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

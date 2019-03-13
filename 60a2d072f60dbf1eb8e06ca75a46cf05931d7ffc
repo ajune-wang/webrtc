@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7cbf54f1_00f9c586",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T15:35:12Z",
+      "side": 1,
+      "message": "Thanks, that\u0027s clearer. The way I think about this method is:\n\n1. We aim to run the tasks on the caller\u0027s thread, hence the normal case is that we first run any pending tasks, and then we run the task being posted, and then we return to the caller.\n\n2. However, if the caller is a running task on this task queue, we can\u0027t do that, since nested tasks violates task queue sequence. In this case, we have to just post the task to the queue and rely on it being run sometime later.\n\nThat should cover the single-threaded case, which if I\u0027ve understood you correctly is the main usecase for this. We\u0027d may have to add another case to get sane behavior with multiple threads:\n\n3. In case some other thread is currently serving the queue, we also can\u0027t run the task immediately, we\u0027ll have to just post it. Don\u0027t know if that is subtle. One possibility is to pass around some token with the meaning that the thread holding the token is serving the queue, other threads can only post tasks, but not run any.",
+      "parentUuid": "cf045b7b_4fb80a7d",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 36
+      },
+      "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a07f88d9_a35b086d",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 5

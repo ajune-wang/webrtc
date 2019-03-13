@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dc844d1_556bfd59",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T15:42:22Z",
+      "side": 1,
+      "message": "This single line change does what\u0027s described in the commit message, right?",
+      "range": {
+        "startLine": 1384,
+        "startChar": 27,
+        "endLine": 1384,
+        "endChar": 46
+      },
+      "revId": "b926d53b89baf816c769cbab2a08be0fb591557e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

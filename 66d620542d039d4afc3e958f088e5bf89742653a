@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "67f32fb3_e51e0e2d",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T09:28:37Z",
+      "side": 1,
+      "message": "In general,\n\n  * Pass strings as by-value std::string if the callee is going to keep the string; that way it can be moved, and no new string has to be allocated unless the caller wants to keep a copy.\n\n  * Otherwise, use absl::string_view.\n\nThis advice works well in upwards of 95% of cases.",
+      "parentUuid": "035327ee_3f58e944",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab0d73d8_7a157664",
         "filename": "modules/audio_coding/BUILD.gn",
         "patchSetId": 2

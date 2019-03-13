@@ -611,3 +611,24 @@ webrtc_fuzzer_test("sctp_utils_fuzzer") {
   ]
 }
 
+webrtc_fuzzer_test("vp8_replay_fuzzer") {
+  sources = [
+    "vp8_replay_fuzzer.cc",
+  ]
+  deps = [
+    "../../rtc_base:rtc_base_approved",
+    "utils:rtp_replayer",
+  ]
+  seed_corpus = "corpora/rtpdump-corpus/vp8"
+}
+
+webrtc_fuzzer_test("vp9_replay_fuzzer") {
+  sources = [
+    "vp9_replay_fuzzer.cc",
+  ]
+  deps = [
+    "../../rtc_base:rtc_base_approved",
+    "utils:rtp_replayer",
+  ]
+  seed_corpus = "corpora/rtpdump-corpus/vp9"
+}

@@ -230,7 +230,6 @@ int DelayManager::Update(uint16_t sequence_number,
       iat_packets -= packet_offset;
       iat_packets = std::max(iat_packets, 0);
       iat_ms -= packet_offset * packet_len_ms;
-      iat_ms = std::max(iat_ms, 0);
     } else if (!IsNewerSequenceNumber(sequence_number, last_seq_no_)) {
       int packet_offset =
           static_cast<uint16_t>(last_seq_no_ + 1 - sequence_number);

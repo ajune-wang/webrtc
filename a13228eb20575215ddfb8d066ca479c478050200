@@ -16,6 +16,24 @@
       "revId": "a13228eb20575215ddfb8d066ca479c478050200",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a7aca79_10f836b4",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-13T06:46:23Z",
+      "side": 1,
+      "message": "This has recently changed from \"deps\" to \"link_deps\", the dependency between the two protos exists (see: https://cs.chromium.org/chromium/src/third_party/webrtc/modules/audio_coding/audio_network_adaptor/debug_dump.proto?l\u003d5\u0026rcl\u003dbb547203bfebcc478b263c4e9ca173c6fd5a0c5d).\n\nAre you using the latest version of https://cs.chromium.org/chromium/src/third_party/protobuf/proto_library.gni?q\u003dthird_party/protobuf/proto_library.gni? In that case \"proto_library\" should use \"link_deps\".",
+      "parentUuid": "dd95f41b_5b9749f1",
+      "revId": "a13228eb20575215ddfb8d066ca479c478050200",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

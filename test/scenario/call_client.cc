@@ -48,7 +48,8 @@ CallClientFakeAudio InitAudio() {
   return setup;
 }
 
-Call* CreateCall(CallClientConfig config,
+Call* CreateCall(TimeController* time_controller,
+                 CallClientConfig config,
                  LoggingNetworkControllerFactory* network_controller_factory_,
                  rtc::scoped_refptr<AudioState> audio_state) {
   CallConfig call_config(network_controller_factory_->GetEventLog());
@@ -60,18 +61,23 @@ Call* CreateCall(CallClientConfig config,
       config.transport.rates.start_rate.bps();
   call_config.network_controller_factory = network_controller_factory_;
   call_config.audio_state = audio_state;
-  return Call::Create(call_config);
+  return Call::Create(call_config, time_controller->GetClock(),
+                      time_controller->CreateProcessThread("CallModules"),
+                      time_controller->CreateProcessThread("Pacer"),
+                      time_controller->GetTaskQueueFactory());
 }
 }
 
 LoggingNetworkControllerFactory::LoggingNetworkControllerFactory(
+    TaskQueueFactory* task_queue_factory,
     LogWriterFactoryInterface* log_writer_factory,
     TransportControllerConfig config) {
   std::unique_ptr<RtcEventLogOutput> cc_out;
   if (!log_writer_factory) {
     event_log_ = RtcEventLog::CreateNull();
   } else {
-    event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy);
+    event_log_ = RtcEventLog::Create(RtcEventLog::EncodingType::Legacy,
+                                     task_queue_factory);
     bool success = event_log_->StartLogging(
         log_writer_factory->Create(".rtc.dat"), RtcEventLog::kImmediateOutput);
     RTC_CHECK(success);
@@ -140,21 +146,33 @@ TimeDelta LoggingNetworkControllerFactory::GetProcessInterval() const {
 }
 
 CallClient::CallClient(
-    Clock* clock,
+    TimeController* time_controller,
     std::unique_ptr<LogWriterFactoryInterface> log_writer_factory,
     CallClientConfig config)
-    : clock_(clock),
+    : time_controller_(time_controller),
+      clock_(time_controller->GetClock()),
       log_writer_factory_(std::move(log_writer_factory)),
-      network_controller_factory_(log_writer_factory_.get(), config.transport),
-      fake_audio_setup_(InitAudio()),
-      call_(CreateCall(config,
-                       &network_controller_factory_,
-                       fake_audio_setup_.audio_state)),
-      transport_(clock_, call_.get()),
-      header_parser_(RtpHeaderParser::Create()) {}
+      network_controller_factory_(time_controller->GetTaskQueueFactory(),
+                                  log_writer_factory_.get(),
+                                  config.transport),
+      header_parser_(RtpHeaderParser::Create()),
+      task_queue_(time_controller->GetTaskQueueFactory()->CreateTaskQueue(
+          "CallClient",
+          TaskQueueFactory::Priority::NORMAL)) {
+  task_queue_.SendTask([&] {
+    fake_audio_setup_ = InitAudio();
+    call_.reset(CreateCall(time_controller, config,
+                           &network_controller_factory_,
+                           fake_audio_setup_.audio_state));
+    transport_ = absl::make_unique<NetworkNodeTransport>(clock_, call_.get());
+  });
+}
 
 CallClient::~CallClient() {
-  delete header_parser_;
+  task_queue_.SendTask([&] {
+    call_.reset();
+    fake_audio_setup_ = {};
+  });
 }
 
 ColumnPrinter CallClient::StatsPrinter() {
@@ -185,8 +203,16 @@ void CallClient::OnPacketReceived(EmulatedIpPacket packet) {
     RTC_CHECK(ssrc.has_value());
     media_type = ssrc_media_types_[*ssrc];
   }
-  call_->Receiver()->DeliverPacket(media_type, packet.data,
-                                   packet.arrival_time.us());
+  struct Closure {
+    void operator()() {
+      call->Receiver()->DeliverPacket(media_type, packet.data,
+                                      packet.arrival_time.us());
+    }
+    Call* call;
+    MediaType media_type;
+    EmulatedIpPacket packet;
+  };
+  task_queue_.PostTask(Closure{call_.get(), media_type, std::move(packet)});
 }
 
 std::unique_ptr<RtcEventLogOutput> CallClient::GetLogWriter(std::string name) {

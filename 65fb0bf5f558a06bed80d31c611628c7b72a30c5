@@ -138,6 +138,24 @@
     },
     {
       "key": {
+        "uuid": "6e41ca4c_2ca2c295",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T14:56:49Z",
+      "side": 1,
+      "message": "We want to keep RTX and codecs that are related to FEC and staff like this",
+      "parentUuid": "164d0137_0878add9",
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ee34b30_6311fd50",
         "filename": "test/pc/e2e/sdp/sdp_changer.cc",
         "patchSetId": 10
@@ -152,6 +170,24 @@
       "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a464df_7babd894",
+        "filename": "test/pc/e2e/sdp/sdp_changer.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T14:56:49Z",
+      "side": 1,
+      "message": "We will always put a specified codec on the first place and will fail, is there no such codec, but we want to keep \"technical\" RTX, FEC and other codecs in the list.",
+      "parentUuid": "8ee34b30_6311fd50",
+      "revId": "65fb0bf5f558a06bed80d31c611628c7b72a30c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

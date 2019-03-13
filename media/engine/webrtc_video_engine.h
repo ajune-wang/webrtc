@@ -29,6 +29,7 @@
 #include "call/video_receive_stream.h"
 #include "call/video_send_stream.h"
 #include "media/base/media_engine.h"
+#include "media/engine/unhandled_packets_buffer.h"
 #include "rtc_base/async_invoker.h"
 #include "rtc_base/critical_section.h"
 #include "rtc_base/network_route.h"
@@ -539,6 +540,11 @@ class WebRtcVideoChannel : public VideoMediaChannel, public webrtc::Transport {
   // Per peer connection crypto options that last for the lifetime of the peer
   // connection.
   const webrtc::CryptoOptions crypto_options_ RTC_GUARDED_BY(thread_checker_);
+
+  // Buffer for unhandled packets.
+  const bool buffer_unknown_ssrc_packets_ RTC_GUARDED_BY(thread_checker_);
+  UnhandledPacketsBuffer unknown_ssrc_packet_buffer_
+      RTC_GUARDED_BY(thread_checker_);
 };
 
 class EncoderStreamFactory

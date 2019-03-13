@@ -528,7 +528,11 @@ WebRtcVideoChannel::WebRtcVideoChannel(
       last_stats_log_ms_(-1),
       discard_unknown_ssrc_packets_(webrtc::field_trial::IsEnabled(
           "WebRTC-Video-DiscardPacketsWithUnknownSsrc")),
-      crypto_options_(crypto_options) {
+      crypto_options_(crypto_options),
+      buffer_unknown_ssrc_packets_(webrtc::field_trial::IsEnabled(
+          "WebRTC-Video-BufferPacketsWithUnknownSsrc")),
+      unknown_ssrc_packet_buffer_(webrtc::field_trial::IsEnabled(
+          "WebRTC-Video-BufferPacketsWithUnknownSsrc")) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
 
   rtcp_receiver_report_ssrc_ = kDefaultRtcpReceiverReportSsrc;
@@ -1186,6 +1190,8 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
       call_, sp, std::move(config), decoder_factory_, default_stream,
       recv_codecs_, flexfec_config);
 
+  unknown_ssrc_packet_buffer_.BackfillPackets(sp.ssrcs, call_->Receiver());
+
   return true;
 }
 
@@ -1375,12 +1381,17 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
       break;
   }
 
-  if (discard_unknown_ssrc_packets_) {
+  uint32_t ssrc = 0;
+  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
     return;
   }
 
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
+  if (buffer_unknown_ssrc_packets_) {
+    unknown_ssrc_packet_buffer_.AddPacket(ssrc, packet);
+    return;
+  }
+
+  if (discard_unknown_ssrc_packets_) {
     return;
   }
 

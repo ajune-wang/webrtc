@@ -1401,41 +1401,6 @@ class ChannelTest : public testing::Test, public sigslot::has_slots<> {
                      absl::nullopt);
   }
 
-  // Test that when a channel gets new RtpTransport with a call to
-  // |SetRtpTransport|, the socket options from the old RtpTransport is merged
-  // with the options on the new one.
-
-  // For example, audio and video may use separate socket options, but initially
-  // be unbundled, then later become bundled. When this happens, their preferred
-  // socket options should be merged to the underlying transport they share.
-  void SocketOptionsMergedOnSetTransport() {
-    constexpr int kSndBufSize = 4000;
-    constexpr int kRcvBufSize = 8000;
-
-    CreateChannels(DTLS, DTLS);
-
-    channel1_->SetOption(cricket::BaseChannel::ST_RTP,
-                         rtc::Socket::Option::OPT_SNDBUF, kSndBufSize);
-    channel2_->SetOption(cricket::BaseChannel::ST_RTP,
-                         rtc::Socket::Option::OPT_RCVBUF, kRcvBufSize);
-
-    new_rtp_transport_ = CreateDtlsSrtpTransport(
-        static_cast<DtlsTransportInternal*>(channel2_->rtp_packet_transport()),
-        static_cast<DtlsTransportInternal*>(
-            channel2_->rtcp_packet_transport()));
-    channel1_->SetRtpTransport(new_rtp_transport_.get());
-
-    int option_val;
-    ASSERT_TRUE(
-        static_cast<DtlsTransportInternal*>(channel1_->rtp_packet_transport())
-            ->GetOption(rtc::Socket::Option::OPT_SNDBUF, &option_val));
-    EXPECT_EQ(kSndBufSize, option_val);
-    ASSERT_TRUE(
-        static_cast<DtlsTransportInternal*>(channel1_->rtp_packet_transport())
-            ->GetOption(rtc::Socket::Option::OPT_RCVBUF, &option_val));
-    EXPECT_EQ(kRcvBufSize, option_val);
-  }
-
   void CreateSimulcastContent(const std::vector<std::string>& rids,
                               typename T::Content* content) {
     std::vector<RidDescription> rid_descriptions;
@@ -1819,10 +1784,6 @@ TEST_F(VoiceChannelSingleThreadTest, DefaultMaxBitrateIsUnlimited) {
   Base::DefaultMaxBitrateIsUnlimited();
 }
 
-TEST_F(VoiceChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
-}
-
 // VoiceChannelDoubleThreadTest
 TEST_F(VoiceChannelDoubleThreadTest, TestInit) {
   Base::TestInit();
@@ -1968,10 +1929,6 @@ TEST_F(VoiceChannelDoubleThreadTest, DefaultMaxBitrateIsUnlimited) {
   Base::DefaultMaxBitrateIsUnlimited();
 }
 
-TEST_F(VoiceChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
-}
-
 // VideoChannelSingleThreadTest
 TEST_F(VideoChannelSingleThreadTest, TestInit) {
   Base::TestInit();
@@ -2113,10 +2070,6 @@ TEST_F(VideoChannelSingleThreadTest, TestOnTransportReadyToSend) {
 
 TEST_F(VideoChannelSingleThreadTest, DefaultMaxBitrateIsUnlimited) {
   Base::DefaultMaxBitrateIsUnlimited();
-}
-
-TEST_F(VideoChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
 }
 
 TEST_F(VideoChannelSingleThreadTest, UpdateLocalStreamsWithSimulcast) {
@@ -2266,10 +2219,6 @@ TEST_F(VideoChannelDoubleThreadTest, DefaultMaxBitrateIsUnlimited) {
   Base::DefaultMaxBitrateIsUnlimited();
 }
 
-TEST_F(VideoChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
-}
-
 // RtpDataChannelSingleThreadTest
 class RtpDataChannelSingleThreadTest : public ChannelTest<DataTraits> {
  public:
@@ -2395,10 +2344,6 @@ TEST_F(RtpDataChannelSingleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
 }
 
-TEST_F(RtpDataChannelSingleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
-}
-
 TEST_F(RtpDataChannelSingleThreadTest, TestSendData) {
   CreateChannels(0, 0);
   EXPECT_TRUE(SendInitiate());
@@ -2473,10 +2418,6 @@ TEST_F(RtpDataChannelDoubleThreadTest, SendRtpToRtpOnThread) {
 
 TEST_F(RtpDataChannelDoubleThreadTest, SendWithWritabilityLoss) {
   Base::SendWithWritabilityLoss();
-}
-
-TEST_F(RtpDataChannelDoubleThreadTest, SocketOptionsMergedOnSetTransport) {
-  Base::SocketOptionsMergedOnSetTransport();
 }
 
 TEST_F(RtpDataChannelDoubleThreadTest, TestSendData) {

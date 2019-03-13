@@ -6234,7 +6234,6 @@ cricket::VoiceChannel* PeerConnection::CreateVoiceChannel(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
   voice_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
-  voice_channel->SetRtpTransport(rtp_transport);
 
   return voice_channel;
 }
@@ -6259,7 +6258,6 @@ cricket::VideoChannel* PeerConnection::CreateVideoChannel(
       this, &PeerConnection::OnDtlsSrtpSetupFailure);
   video_channel->SignalSentPacket.connect(this,
                                           &PeerConnection::OnSentPacket_w);
-  video_channel->SetRtpTransport(rtp_transport);
 
   return video_channel;
 }
@@ -6306,7 +6304,6 @@ bool PeerConnection::CreateDataChannel(const std::string& mid) {
           this, &PeerConnection::OnDtlsSrtpSetupFailure);
       rtp_data_channel_->SignalSentPacket.connect(
           this, &PeerConnection::OnSentPacket_w);
-      rtp_data_channel_->SetRtpTransport(rtp_transport);
       return true;
   }
 

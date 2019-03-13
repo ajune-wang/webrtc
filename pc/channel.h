@@ -113,12 +113,6 @@ class BaseChannel : public ChannelInterface,
 
   bool writable() const { return writable_; }
 
-  // Set an RTP level transport which could be an RtpTransport without
-  // encryption, an SrtpTransport for SDES or a DtlsSrtpTransport for DTLS-SRTP.
-  // This can be called from any thread and it hops to the network thread
-  // internally. It would replace the |SetTransports| and its variants.
-  bool SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) override;
-
   // Channel control
   bool SetLocalContent(const MediaContentDescription* content,
                        webrtc::SdpType type,
@@ -300,6 +294,11 @@ class BaseChannel : public ChannelInterface,
   bool has_received_packet_ = false;
 
  private:
+  // Set an RTP level transport which could be an RtpTransport without
+  // encryption, an SrtpTransport for SDES or a DtlsSrtpTransport for DTLS-SRTP.
+  // This can be called from any thread and it hops to the network thread
+  // internally.
+  bool SetRtpTransport(webrtc::RtpTransportInternal* rtp_transport) override;
   bool ConnectToRtpTransport();
   void DisconnectFromRtpTransport();
   void SignalSentPacket_n(const rtc::SentPacket& sent_packet);

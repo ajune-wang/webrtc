@@ -16,6 +16,24 @@
       "revId": "9699f09eb36e2f576081ec74a58207e3efcc78db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8f559e1_609ef966",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1344,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-13T15:52:41Z",
+      "side": 0,
+      "message": "You\u0027re talking about the alr/simulcast bits in the content type extension?\nWe might be able to drop the alr-part, but content type and simulcast id would be good to keep.\nThat sounds like a separate cl though :)\n\nIf you\u0027re talking about frame_encoder_timer_.FillTimingInfo()\nthen that part _must_ be done before sink_-\u003eOnEncodedImage() as that information may be used\nthere to populate rtp header extensions.",
+      "parentUuid": "fdb9f610_61cd86b3",
+      "revId": "9699f09eb36e2f576081ec74a58207e3efcc78db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

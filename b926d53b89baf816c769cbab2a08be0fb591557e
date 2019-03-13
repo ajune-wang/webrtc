@@ -22,6 +22,30 @@
       "revId": "b926d53b89baf816c769cbab2a08be0fb591557e",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d1b3562_da8e4aad",
+        "filename": "video/video_stream_encoder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5524
+      },
+      "writtenOn": "2019-03-13T15:52:41Z",
+      "side": 1,
+      "message": "Yes. Well, frame_encoder_timer_.FillTimingInfo() change above is also needed since we have always done that timestamping right after encoding is done.",
+      "parentUuid": "8dc844d1_556bfd59",
+      "range": {
+        "startLine": 1384,
+        "startChar": 27,
+        "endLine": 1384,
+        "endChar": 46
+      },
+      "revId": "b926d53b89baf816c769cbab2a08be0fb591557e",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

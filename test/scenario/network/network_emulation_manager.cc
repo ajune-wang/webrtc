@@ -59,8 +59,8 @@ NetworkEmulationManager::~NetworkEmulationManager() = default;
 
 EmulatedNetworkNode* NetworkEmulationManager::CreateEmulatedNode(
     std::unique_ptr<NetworkBehaviorInterface> network_behavior) {
-  auto node =
-      absl::make_unique<EmulatedNetworkNode>(std::move(network_behavior));
+  auto node = absl::make_unique<EmulatedNetworkNode>(
+      clock_, &task_queue_, std::move(network_behavior));
   EmulatedNetworkNode* out = node.get();
 
   struct Closure {
@@ -248,9 +248,6 @@ void NetworkEmulationManager::ProcessNetworkPackets() {
   }
   for (auto& traffic : pulsed_cross_traffics_) {
     traffic->Process(current_time);
-  }
-  for (auto& node : network_nodes_) {
-    node->Process(current_time);
   }
 }
 

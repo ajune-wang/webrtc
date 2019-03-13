@@ -21,11 +21,10 @@
 #include "absl/types/optional.h"
 #include "api/test/simulated_network.h"
 #include "api/units/timestamp.h"
-#include "rtc_base/async_socket.h"
 #include "rtc_base/copy_on_write_buffer.h"
-#include "rtc_base/critical_section.h"
 #include "rtc_base/socket_address.h"
-#include "rtc_base/thread.h"
+#include "rtc_base/task_queue_for_test.h"
+#include "rtc_base/task_utils/repeating_task.h"
 #include "system_wrappers/include/clock.h"
 
 namespace webrtc {
@@ -72,13 +71,16 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
   // Creates node based on |network_behavior|. The specified |packet_overhead|
   // is added to the size of each packet in the information provided to
   // |network_behavior|.
+  // |task_queue| is used to process packets and to forward the packets when
+  // they are ready.
   explicit EmulatedNetworkNode(
+      Clock* clock,
+      rtc::test::TaskQueueForTest* task_queue,
       std::unique_ptr<NetworkBehaviorInterface> network_behavior);
   ~EmulatedNetworkNode() override;
   RTC_DISALLOW_COPY_AND_ASSIGN(EmulatedNetworkNode);
 
   void OnPacketReceived(EmulatedIpPacket packet) override;
-  void Process(Timestamp at_time);
   void SetReceiver(uint64_t dest_endpoint_id,
                    EmulatedNetworkReceiverInterface* receiver);
   void RemoveReceiver(uint64_t dest_endpoint_id);
@@ -92,20 +94,24 @@ class EmulatedNetworkNode : public EmulatedNetworkReceiverInterface {
                          std::vector<EmulatedNetworkNode*> nodes);
 
  private:
+  TimeDelta Process() RTC_RUN_ON(task_queue_);
+  void Process(Timestamp at_time) RTC_RUN_ON(task_queue_);
+  void HandlePacketReceived(EmulatedIpPacket packet) RTC_RUN_ON(task_queue_);
   struct StoredPacket {
     uint64_t id;
     EmulatedIpPacket packet;
     bool removed;
   };
-
-  rtc::CriticalSection lock_;
+  Clock* const clock_;
+  rtc::test::TaskQueueForTest* const task_queue_;
+  RepeatingTaskHandle process_task_;
   std::map<uint64_t, EmulatedNetworkReceiverInterface*> routing_
-      RTC_GUARDED_BY(lock_);
+      RTC_GUARDED_BY(task_queue_);
   const std::unique_ptr<NetworkBehaviorInterface> network_behavior_
-      RTC_GUARDED_BY(lock_);
-  std::deque<StoredPacket> packets_ RTC_GUARDED_BY(lock_);
+      RTC_GUARDED_BY(task_queue_);
+  std::deque<StoredPacket> packets_ RTC_GUARDED_BY(task_queue_);
 
-  uint64_t next_packet_id_ RTC_GUARDED_BY(lock_) = 1;
+  uint64_t next_packet_id_ RTC_GUARDED_BY(task_queue_) = 1;
 };
 
 // Represents single network interface on the device.

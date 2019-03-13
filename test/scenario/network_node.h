@@ -22,6 +22,7 @@
 #include "call/simulated_network.h"
 #include "rtc_base/constructor_magic.h"
 #include "rtc_base/copy_on_write_buffer.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "test/scenario/column_printer.h"
 #include "test/scenario/network/network_emulation.h"
 #include "test/scenario/scenario_config.h"
@@ -55,10 +56,15 @@ class SimulationNode : public EmulatedNetworkNode {
  private:
   friend class Scenario;
 
-  SimulationNode(NetworkNodeConfig config,
+  SimulationNode(Clock* clock,
+                 rtc::test::TaskQueueForTest* task_queue,
+                 NetworkNodeConfig config,
                  std::unique_ptr<NetworkBehaviorInterface> behavior,
                  SimulatedNetwork* simulation);
-  static std::unique_ptr<SimulationNode> Create(NetworkNodeConfig config);
+  static std::unique_ptr<SimulationNode> Create(
+      Clock* clock,
+      rtc::test::TaskQueueForTest* task_queue,
+      NetworkNodeConfig config);
 
   SimulatedNetwork* const simulated_network_;
   NetworkNodeConfig config_;
@@ -77,6 +83,7 @@ class NetworkNodeTransport : public Transport {
   void Connect(EmulatedNetworkNode* send_node,
                uint64_t receiver_id,
                DataSize packet_overhead);
+  void Disconnect();
 
   DataSize packet_overhead() {
     rtc::CritScope crit(&crit_sect_);

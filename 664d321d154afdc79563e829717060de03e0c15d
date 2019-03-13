@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecb7150c_0e1962b5",
+        "filename": "test/scenario/call_client.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T16:11:54Z",
+      "side": 1,
+      "message": "Can new fields be added after it?",
+      "range": {
+        "startLine": 121,
+        "startChar": 30,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47c986ef_d82ceff4",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T16:11:54Z",
+      "side": 1,
+      "message": "What is expected behavior if func will be executed before RunFor/RunUntil will be invoked? The same question for next 2 methods",
+      "range": {
+        "startLine": 297,
+        "startChar": 15,
+        "endLine": 297,
+        "endChar": 20
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e88a800_906e8436",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T16:11:54Z",
+      "side": 1,
+      "message": "What if it is negative?",
+      "range": {
+        "startLine": 315,
+        "startChar": 40,
+        "endLine": 315,
+        "endChar": 72
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d976036_5bb727ff",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T16:11:54Z",
+      "side": 1,
+      "message": "What if target_time_since_start\u003d10s and check_interval\u003d9s, then we will run for 18s instead of 10s.",
+      "range": {
+        "startLine": 333,
+        "startChar": 2,
+        "endLine": 334,
+        "endChar": 44
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

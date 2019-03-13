@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d822b963_43fd70b0",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7641
+      },
+      "writtenOn": "2019-03-13T11:36:42Z",
+      "side": 1,
+      "message": "Should this be int64_t now perhaps? It doesn\u0027t make much difference in practice, but in the case someone comes up with a uint63_t.",
+      "range": {
+        "startLine": 88,
+        "startChar": 62,
+        "endLine": 88,
+        "endChar": 70
+      },
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ada05090_c73a803e",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 4

@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ada05090_c73a803e",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T11:11:17Z",
+      "side": 1,
+      "message": "Remove this and swap the if and else blocks?",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 9
+      },
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35716761_cb2962b0",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T11:11:17Z",
+      "side": 1,
+      "message": "Consider\n\n  last_unwrapped_ \u003d {value};\n\ninstead. That way, the compiler will complain if this is a narrowing conversion (since we use -Wc++11-narrowing).",
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8e7161c_a40e3296",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T11:11:17Z",
+      "side": 1,
+      "message": "Better with\n\n  constexpr int64_t kBackwardAdjustment \u003d\n      {M \u003d\u003d 0 ? int64_t{std::numeric_limits\u003cT\u003e::max()} + 1 : M};\n\n? For those of us who are paranoid...",
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d09014c8_980940e6",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T11:11:17Z",
+      "side": 1,
+      "message": "Say \u003d0 here, and you won\u0027t have to declare a constructor at all.",
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

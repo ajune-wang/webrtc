@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c81ef7d8_8c8391ec",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-13T11:11:17Z",
+      "side": 0,
+      "message": "Except for the \"where the start value of the unwrapped sequence can be set\" part, this comment still holds, right?\n\nAlso, document (here or with Unwrap) that the first unwrapped value is unwrapped to itself?",
+      "revId": "4f779c6aec770277d45c9d0ebce40a8c2a680f18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

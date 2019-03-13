@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abfccc51_ac326ce0",
+        "filename": "modules/audio_processing/test/aec_dump_based_simulator.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-13T09:54:27Z",
+      "side": 1,
+      "message": "Nit: Is it needed for there to be render or capture calls for creating an output file? Would an empty file not be ok?\n\nA way to view it is that it is a bit counter intuitive that no output is produced when the user asks for it. And an empty file actually conveys the information that no calls were made.",
+      "revId": "8003e3c04bc99ba422146aab66b501f41f33fc18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd2d73b_2599b756",
+        "filename": "modules/audio_processing/test/audio_processing_simulator.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5125
+      },
+      "writtenOn": "2019-03-13T09:54:27Z",
+      "side": 1,
+      "message": "Why does the follow members need to be protected?",
+      "range": {
+        "startLine": 187,
+        "startChar": 1,
+        "endLine": 187,
+        "endChar": 10
+      },
+      "revId": "8003e3c04bc99ba422146aab66b501f41f33fc18",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

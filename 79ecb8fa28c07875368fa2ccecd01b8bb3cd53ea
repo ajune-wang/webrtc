@@ -16,6 +16,29 @@
       "revId": "79ecb8fa28c07875368fa2ccecd01b8bb3cd53ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ed7c2b9_fcf7ec77",
+        "filename": "api/test/compile_all_headers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-13T08:22:35Z",
+      "side": 1,
+      "message": "As a step forward on this CL, what about only #including mock_ files?\n\nThis should improve the situation while keeping unneeded complexity out of scope.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 48
+      },
+      "revId": "79ecb8fa28c07875368fa2ccecd01b8bb3cd53ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

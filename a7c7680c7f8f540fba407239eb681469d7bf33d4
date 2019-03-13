@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da35cdd_4a472e1f",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-13T15:45:15Z",
+      "side": 1,
+      "message": "nit: Can you add empty line between methods and fields?",
+      "range": {
+        "startLine": 52,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 7
+      },
+      "revId": "a7c7680c7f8f540fba407239eb681469d7bf33d4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -381,6 +381,10 @@ NetworkControlUpdate GoogCcNetworkController::OnTransportPacketsFeedback(
   for (const auto& feedback : feedbacks) {
     TimeDelta feedback_rtt =
         report.feedback_time - feedback.sent_packet.send_time;
+    if (feedback_rtt.ms() < 0)
+      RTC_LOG(LS_ERROR) << "negative rtt detected send_time_ms="
+                        << feedback.sent_packet.send_time.ms()
+                        << " feedback_time_ms=" << report.feedback_time.ms();
     TimeDelta min_pending_time = feedback.receive_time - max_recv_time;
     TimeDelta propagation_rtt = feedback_rtt - min_pending_time;
     max_feedback_rtt = std::max(max_feedback_rtt, feedback_rtt);

@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9384abde_8d49ed19",
+        "filename": "test/scenario/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T13:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c0b1160_7750d304",
+      "range": {
+        "startLine": 169,
+        "startChar": 7,
+        "endLine": 169,
+        "endChar": 51
+      },
+      "revId": "acbcbb3f7a4cd512e28b77fffd274148747c97ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7e097a4_ea6a02fc",
         "filename": "test/time_controller/simulated_time_controller.h",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "acbcbb3f7a4cd512e28b77fffd274148747c97ff",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d40413dd_75dbbf10",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-13T13:19:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7e097a4_ea6a02fc",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "acbcbb3f7a4cd512e28b77fffd274148747c97ff",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

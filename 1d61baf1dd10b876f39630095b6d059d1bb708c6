@@ -22,6 +22,30 @@
       "revId": "1d61baf1dd10b876f39630095b6d059d1bb708c6",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4655e1f9_a00c1810",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-13T15:01:12Z",
+      "side": 1,
+      "message": "After offline discussion - we should keep this comment.",
+      "parentUuid": "fd11b22a_eb9b73d7",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 19
+      },
+      "revId": "1d61baf1dd10b876f39630095b6d059d1bb708c6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

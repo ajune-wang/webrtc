@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efddeb37_6c4871ac",
+        "filename": "test/time_controller/real_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T10:39:19Z",
+      "side": 1,
+      "message": "I\u0027d prefer some kind of sleep call, instead of Event::Wait. But not sure what\u0027s the right utility to use is. There\u0027s rtc::Thread::Sleep and SleepMs (from system_wrappers/include/sleep.h).\n\nAnd Sleep may be a better name for the method; I associate \"Wait\" with waiting for something more interesting than just the passage of time.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 32
+      },
+      "revId": "a33f41bef928fa9c5fafc4a595d73168011453e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4cb0c4dd_5cfdcb28",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T10:39:19Z",
+      "side": 1,
+      "message": "In the override_global_clock case, I think it would be better to let GetClock() return the Clock::GetRealTimeClock (since that is implemented on top of the clock replaced by ScopedFakeClock).\n\nIt might be cleaner to provide the two different behaviors using separate classes rather than a bool construction argument (moving the logic related to the TaskQueueFactory implementation out to its own class would help a bit, I guess).",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 3
+      },
+      "revId": "a33f41bef928fa9c5fafc4a595d73168011453e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45554fd2_a094490f",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T10:39:19Z",
+      "side": 1,
+      "message": "Private inheritance is discouraged. Do you have a good reason to use it, rather than a separate class and a member SimulatedTaskQueueFactory?",
+      "range": {
+        "startLine": 33,
+        "startChar": 32,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "a33f41bef928fa9c5fafc4a595d73168011453e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2fbc188_78d36285",
+        "filename": "test/time_controller/simulated_time_controller_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T10:39:19Z",
+      "side": 1,
+      "message": "This class deserves a brief comment. And there\u0027s one p too much in the name.\n\nI take it it\u0027s yet another case of missing move support in plain lambda?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 26
+      },
+      "revId": "a33f41bef928fa9c5fafc4a595d73168011453e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

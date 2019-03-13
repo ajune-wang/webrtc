@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f76519a_83de748a",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7332
+      },
+      "writtenOn": "2019-03-13T16:41:23Z",
+      "side": 1,
+      "message": "This way of computing variance is notoriously unstable. So you should either explain why it is good enough here (and add test with real life samples) or switch to a more stable method.\n\nCf Welford, Knuth or https://www.johndcook.com/blog/standard_deviation/",
+      "revId": "e6f6a0cb8df38b720d1984407db0ad0c816c89cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

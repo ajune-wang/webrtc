@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0082879e_4ecc122e",
+        "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T22:05:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d714bae_b76b0560",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "f3ffa249e0a96447c994854629d40b2cc9b4095f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b35f5f7_e1154baa",
         "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "f3ffa249e0a96447c994854629d40b2cc9b4095f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e25db9_12d91e81",
+        "filename": "test/fuzzers/rtp_header_parser_fuzzer.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-13T22:05:04Z",
+      "side": 1,
+      "message": "This is just to semi randomize the set of extensions which are added. We need to check the size here as we are just setting up the randomization of the extensions.",
+      "parentUuid": "1b35f5f7_e1154baa",
+      "range": {
+        "startLine": 31,
+        "startChar": 20,
+        "endLine": 31,
+        "endChar": 39
+      },
+      "revId": "f3ffa249e0a96447c994854629d40b2cc9b4095f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd9691ab_27428f1a",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T13:36:36Z",
+      "side": 1,
+      "message": "This seems to be the key feature, but I\u0027m having a hard time following it. It\u0027s not so clear to me what \"pending task\", \"posting tasks\" and \"originating task queue\" refers to.",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 36
+      },
+      "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a07f88d9_a35b086d",
+        "filename": "test/time_controller/simulated_time_controller.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-13T13:36:36Z",
+      "side": 1,
+      "message": "How does this relate to the public CreateTaskQueue?",
+      "range": {
+        "startLine": 50,
+        "startChar": 17,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "60a2d072f60dbf1eb8e06ca75a46cf05931d7ffc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

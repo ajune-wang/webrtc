@@ -598,3 +598,25 @@ webrtc_fuzzer_test("rtp_rtcp_demuxer_helper_fuzzer") {
   ]
   seed_corpus = "corpora/rtcp-corpus"
 }
+
+webrtc_fuzzer_test("vp8_replay_fuzzer") {
+  sources = [
+    "vp8_replay_fuzzer.cc",
+  ]
+  deps = [
+    "../../rtc_base:rtc_base_approved",
+    "utils:rtp_replayer",
+  ]
+  seed_corpus = "corpora/rtpdump-corpus/vp8"
+}
+
+webrtc_fuzzer_test("vp9_replay_fuzzer") {
+  sources = [
+    "vp9_replay_fuzzer.cc",
+  ]
+  deps = [
+    "../../rtc_base:rtc_base_approved",
+    "utils:rtp_replayer",
+  ]
+  seed_corpus = "corpora/rtpdump-corpus/vp9"
+}

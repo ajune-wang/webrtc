@@ -117,6 +117,30 @@
       "revId": "697616725585296db016bb17c4a53aa54822f954",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "782e27b3_98d0d286",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T16:31:56Z",
+      "side": 1,
+      "message": "Per offline discussion: The behavior in this regard was not really change, InvokeTask calls Run() in the same manner as was done here before.",
+      "parentUuid": "68416da2_ea53bf52",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 192,
+        "endChar": 19
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

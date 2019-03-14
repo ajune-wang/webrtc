@@ -87,9 +87,7 @@ struct RTC_EXPORT EchoCanceller3Config {
   } erle;
 
   struct EpStrength {
-    float lf = 1.f;
-    float mf = 1.f;
-    float hf = 1.f;
+    float default_gain = 1.f;
     float default_len = 0.83f;
     bool reverb_based_on_render = true;
     bool echo_can_saturate = true;
@@ -114,11 +112,6 @@ struct RTC_EXPORT EchoCanceller3Config {
   } render_levels;
 
   struct EchoRemovalControl {
-    struct GainRampup {
-      float initial_gain = 0.0f;
-      int non_zero_gain_blocks = 187;
-      int full_gain_blocks = 312;
-    } gain_rampup;
     bool has_clock_drift = false;
     bool linear_and_stable_echo_path = false;
   } echo_removal_control;
@@ -128,7 +121,7 @@ struct RTC_EXPORT EchoCanceller3Config {
     EchoModel(const EchoModel& e);
     size_t noise_floor_hold = 50;
     float min_noise_floor_power = 1638400.f;
-    float stationary_gate_slope = 10.f;
+    float stationary_gate_slopea = 10.f;
     float noise_gate_power = 27509.42f;
     float noise_gate_slope = 0.3f;
     size_t render_pre_window_size = 1;

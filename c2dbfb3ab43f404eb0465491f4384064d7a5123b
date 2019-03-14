@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3b13087f_77c3f4ac",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-14T20:42:40Z",
+      "side": 1,
+      "message": "Wait, what\u0027s the difference between these two?  Aside from one has a starting bitrate that\u0027s not in the other, they look almost the same.  Can/should they be combined into one struct with all four parameters?\n\nOr is there some subtle difference between min/max bitrate and min_pacing/max_padding rates?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 2
+      },
+      "revId": "c2dbfb3ab43f404eb0465491f4384064d7a5123b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94cafa33_93042188",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3928,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-14T20:42:40Z",
+      "side": 1,
+      "message": "Duplicate line?",
+      "revId": "c2dbfb3ab43f404eb0465491f4384064d7a5123b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

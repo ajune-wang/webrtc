@@ -483,6 +483,11 @@ void VideoProcessor::FrameDecoded(const VideoFrame& decoded_frame,
       GetElapsedTimeMicroseconds(frame_stat->decode_start_ns, decode_stop_ns);
   frame_stat->decoded_width = decoded_frame.width();
   frame_stat->decoded_height = decoded_frame.height();
+  if (config_.print_frame_level_stats) {
+    printf("\nsl_idx %zu start_ns %zi stop_ns %zi diff %zi", spatial_idx,
+           frame_stat->decode_start_ns, decode_stop_ns,
+           decode_stop_ns - frame_stat->decode_start_ns);
+  }
 
   // Skip quality metrics calculation to not affect CPU usage.
   if (!config_.measure_cpu) {

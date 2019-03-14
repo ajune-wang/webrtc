@@ -31,6 +31,7 @@ rtc_source_set("audio_quality_analyzer_api") {
   ]
 
   deps = [
+    ":analyzer_helper",
     ":stats_observer_interface",
   ]
 }
@@ -44,6 +45,18 @@ rtc_source_set("stats_observer_interface") {
   deps = [
     "../../../../api:libjingle_peerconnection_api",
     "//third_party/abseil-cpp/absl/strings",
+  ]
+}
+
+rtc_source_set("analyzer_helper") {
+  visibility = [ "*" ]
+  sources = [
+    "analyzer_helper.cc",
+    "analyzer_helper.h",
+  ]
+  deps = [
+    "../../../../rtc_base:criticalsection",
+    "../../../../rtc_base:macromagic",
   ]
 }
 

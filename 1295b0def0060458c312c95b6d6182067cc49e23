@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad97cd56_fd1185a9",
+        "filename": "logging/rtc_event_log/rtc_event_log2rtp_dump.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5150
+      },
+      "writtenOn": "2019-03-14T14:49:45Z",
+      "side": 0,
+      "message": "In general, I prefer being more explicit about types and avoiding implicit casts from object to bool.\nIf you need the change to make clangtidy happy, sure.",
+      "range": {
+        "startLine": 198,
+        "startChar": 18,
+        "endLine": 198,
+        "endChar": 21
+      },
+      "revId": "1295b0def0060458c312c95b6d6182067cc49e23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "450c09e9_4abfa83f",
+        "filename": "common_audio/wav_header.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:12:05Z",
+      "side": 0,
+      "message": "Remove the return statement if you must, but it seems better to keep the comment.",
+      "revId": "1295b0def0060458c312c95b6d6182067cc49e23",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

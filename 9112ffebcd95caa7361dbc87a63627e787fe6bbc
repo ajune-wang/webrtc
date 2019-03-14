@@ -45,6 +45,30 @@
       "revId": "9112ffebcd95caa7361dbc87a63627e787fe6bbc",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8405cf1_3d341774",
+        "filename": "test/pc/e2e/peer_connection_e2e_smoke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T20:11:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf04b14_dda9bb51",
+      "range": {
+        "startLine": 102,
+        "startChar": 5,
+        "endLine": 102,
+        "endChar": 11
+      },
+      "revId": "9112ffebcd95caa7361dbc87a63627e787fe6bbc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

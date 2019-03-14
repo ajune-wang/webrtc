@@ -353,6 +353,7 @@ TEST(VideoCodecTestLibvpx, MAYBE_MultiresVP8) {
                           1280, 720);
   const auto frame_checker = absl::make_unique<QpFrameChecker>();
   config.encoded_frame_checker = frame_checker.get();
+  config.print_frame_level_stats = true;
   auto fixture = CreateVideoCodecTestFixture(config);
 
   std::vector<RateProfile> rate_profiles = {{1500, 30, 0}};

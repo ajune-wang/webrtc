@@ -1,0 +1,76 @@
+/*
+ *  Copyright (c) 2019 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree. An additional intellectual property rights grant can be found
+ *  in the file PATENTS.  All contributing project authors may
+ *  be found in the AUTHORS file in the root of the source tree.
+ */
+
+#include "media/engine/unhandled_packets_buffer.h"
+#include "rtc_base/logging.h"
+#include "rtc_base/strings/string_builder.h"
+
+namespace cricket {
+
+UnhandledPacketsBuffer::UnhandledPacketsBuffer() {
+  buffer_.reserve(kMaxStashedPackets);
+}
+
+UnhandledPacketsBuffer::~UnhandledPacketsBuffer() = default;
+
+// Store packet in buffer.
+void UnhandledPacketsBuffer::AddPacket(uint32_t ssrc,
+                                       int64_t packet_time_us,
+                                       rtc::CopyOnWriteBuffer packet) {
+  if (buffer_.size() < kMaxStashedPackets) {
+    buffer_.emplace_back(std::make_tuple(ssrc, packet_time_us, packet));
+  } else {
+    RTC_DCHECK_LT(insert_pos_, kMaxStashedPackets);
+    buffer_[insert_pos_] = std::make_tuple(ssrc, packet_time_us, packet);
+  }
+  insert_pos_ = (insert_pos_ + 1) % kMaxStashedPackets;
+}
+
+// Backfill |receiver| with all stored packet related |ssrcs|.
+void UnhandledPacketsBuffer::BackfillPackets(
+    rtc::ArrayView<const uint32_t> ssrcs,
+    std::function<void(uint32_t, int64_t, rtc::CopyOnWriteBuffer)> consumer) {
+  size_t start;
+  if (buffer_.size() < kMaxStashedPackets) {
+    start = 0;
+  } else {
+    start = insert_pos_;
+  }
+
+  size_t count = 0;
+  std::vector<std::tuple<uint32_t, int64_t, rtc::CopyOnWriteBuffer>> remaining;
+  for (size_t i = 0; i < buffer_.size(); ++i) {
+    size_t pos = (i + start) % kMaxStashedPackets;
+
+    // One or maybe 2 ssrcs is expected => loop array instead of more elaborate
+    // scheme.
+    uint32_t ssrc = std::get<0>(buffer_[pos]);
+    if (std::find(ssrcs.begin(), ssrcs.end(), ssrc) != ssrcs.end()) {
+      ++count;
+      consumer(ssrc, std::get<1>(buffer_[pos]), std::get<2>(buffer_[pos]));
+    } else {
+      remaining.push_back(buffer_[pos]);
+    }
+  }
+
+  insert_pos_ = 0;
+  buffer_.swap(remaining);
+
+  rtc::StringBuilder out;
+  out << "[ ";
+  for (uint32_t ssrc : ssrcs) {
+    out << std::to_string(ssrc) << " ";
+  }
+  out << "]";
+  RTC_LOG(LS_INFO) << "Backfilled " << count
+                   << " packets for ssrcs: " << out.Release();
+}
+
+}  // namespace cricket

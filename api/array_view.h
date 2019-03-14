@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <array>
+#include <initializer_list>
 #include <type_traits>
 
 #include "rtc_base/checks.h"
@@ -213,6 +214,15 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
       : ArrayView(u.data(), u.size()) {
     static_assert(U::size() == Size, "Sizes must match exactly");
   }
+
+  // (Only if size is variable.) Construct an ArrayView from a
+  // std::initializer_list.
+  template <typename U,
+            typename std::enable_if<std::is_convertible<
+                decltype(std::declval<std::initializer_list<U>>().begin()),
+                T*>::value>::type* = nullptr>
+  ArrayView(std::initializer_list<U> list)
+      : ArrayView(list.begin(), list.size()) {}
 
   // (Only if size is variable.) Construct an ArrayView from any type U that
   // has a size() method whose return value converts implicitly to size_t, and

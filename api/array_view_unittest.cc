@@ -450,4 +450,11 @@ TEST(ArrayViewTest, TestSubViewFixed) {
   EXPECT_THAT(av.subview(1, 3), ElementsAre(2, 3));
 }
 
+TEST(ArrayViewTest, TestInitializerList) {
+  EXPECT_EQ(3u, Call<const int>({1, 2, 3}));
+  // Call<int>({1, 2, 3});  // Compile error, because can't drop const.
+  // Call<const uint8_t>({1, 2, 3});  // Compile error: incompatible types.
+  EXPECT_EQ(2u, Call<const uint8_t>({uint8_t{1}, uint8_t{2}}));
+}
+
 }  // namespace rtc

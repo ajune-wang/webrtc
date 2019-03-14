@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3823ef8a_5e61666a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T08:53:02Z",
+      "side": 1,
+      "message": "Please be a bit more explicit, mentioning the new class and its purpose.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "372ff85b_eabc0fcd",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T08:53:02Z",
+      "side": 1,
+      "message": "Consider using rtc::ArrayView (similar to absl::span)\n\nTo be difficult, I\u0027m not so fond of the name. Can you come up with something more descriptive? It seems it leaves the buffer unchanged, not removing the matching packets, which I find a bit unexpected. If that\u0027s intended, the method could be declared const.\n\nAnd maybe it would be better with a std::function/lambda for the second argument. That way, the same class could be used for audio packets, while now, you have a hardcoded webrtc::MediaType::VIDEO in the implementation.",
+      "range": {
+        "startLine": 32,
+        "startChar": 23,
+        "endLine": 32,
+        "endChar": 50
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c7afc4d_8b68eaf7",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T08:53:02Z",
+      "side": 1,
+      "message": "Does this really need to be public?\n\nUse constexpr?",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 33
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccfe78a9_614bc003",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T08:53:02Z",
+      "side": 1,
+      "message": "I seem to recall philipel@ wrote some convenience class that behaves like a vector but has a max capacity allocated upfront.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 67
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

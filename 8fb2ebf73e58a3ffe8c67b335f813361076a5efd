@@ -25,6 +25,126 @@
     },
     {
       "key": {
+        "uuid": "13d943e1_6e9555df",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "\u003d default?",
+      "range": {
+        "startLine": 21,
+        "startChar": 50,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fd1c2f5_21abb2a0",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "WDYT of RTC_CHECK_LT(insert_pos_, kMaxStashedPackets)?",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cb505fb_8bab05ce",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "++i",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62ee39a6_f4440193",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "++count",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71df18d3_1c800f7a",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "We may have a problem here... These buffered packets should not be used for BW estimation, but I think they are now.\nhttps://cs.chromium.org/chromium/src/third_party/webrtc/call/call.cc?l\u003d1456\u0026rcl\u003dcc3503248f1dc7edd3ab505b5194c69718d0f711",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a62f453_2f42eb90",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "Might as well copy? uint32_t",
+      "range": {
+        "startLine": 60,
+        "startChar": 7,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "372ff85b_eabc0fcd",
         "filename": "media/engine/unhandled_packets_buffer.h",
         "patchSetId": 2
@@ -42,6 +162,46 @@
         "endLine": 32,
         "endChar": 50
       },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d70f400_e8a7f7c8",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "Would it make sense to remove the packets from the buffer, if they were accepted by |receiver|? I guess it\u0027s not really worth the implementation complexity, but we do get some memory overhead from it. Only ~60 kB though...",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f6c28fc_edab10f8",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "receiver",
       "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
@@ -71,6 +231,29 @@
     },
     {
       "key": {
+        "uuid": "9090f590_a0ebdf8e",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "static const, and it should go above the constructors.\nhttps://google.github.io/styleguide/cppguide.html#Declaration_Order",
+      "range": {
+        "startLine": 35,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccfe78a9_614bc003",
         "filename": "media/engine/unhandled_packets_buffer.h",
         "patchSetId": 2
@@ -87,6 +270,97 @@
         "startChar": 0,
         "endLine": 39,
         "endChar": 67
+      },
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c912445_513206d6",
+        "filename": "media/engine/unhandled_packets_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "Add newline before and after.",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf995ccf_a5807091",
+        "filename": "media/engine/unhandled_packets_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "Is this needed? All calls to Create are immediately dereferenced in the tests.",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6826b026_19d25dfe",
+        "filename": "media/engine/unhandled_packets_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "Remove.",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ca759ae_875afcd7",
+        "filename": "media/engine/unhandled_packets_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "-",
+      "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33600f01_d5fdc632",
+        "filename": "media/engine/unhandled_packets_buffer_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-14T08:59:44Z",
+      "side": 1,
+      "message": "const size_t count",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 86,
+        "endChar": 12
       },
       "revId": "8fb2ebf73e58a3ffe8c67b335f813361076a5efd",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

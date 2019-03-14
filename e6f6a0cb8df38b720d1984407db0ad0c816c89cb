@@ -34,6 +34,24 @@
       "revId": "e6f6a0cb8df38b720d1984407db0ad0c816c89cb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82f2dbcc_1284f684",
+        "filename": "rtc_base/numerics/samples_stats_counter.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-14T13:57:07Z",
+      "side": 1,
+      "message": "Here you go: https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10412",
+      "parentUuid": "232b7174_459e9168",
+      "revId": "e6f6a0cb8df38b720d1984407db0ad0c816c89cb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

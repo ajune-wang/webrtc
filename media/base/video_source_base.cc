@@ -15,12 +15,15 @@
 
 namespace rtc {
 
-VideoSourceBase::VideoSourceBase() = default;
+VideoSourceBase::VideoSourceBase() {
+  thread_checker_.DetachFromThread();
+}
 VideoSourceBase::~VideoSourceBase() = default;
 
 void VideoSourceBase::AddOrUpdateSink(
     VideoSinkInterface<webrtc::VideoFrame>* sink,
     const VideoSinkWants& wants) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(sink != nullptr);
 
   SinkPair* sink_pair = FindSinkPair(sink);
@@ -32,6 +35,7 @@ void VideoSourceBase::AddOrUpdateSink(
 }
 
 void VideoSourceBase::RemoveSink(VideoSinkInterface<webrtc::VideoFrame>* sink) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(sink != nullptr);
   RTC_DCHECK(FindSinkPair(sink));
   sinks_.erase(std::remove_if(sinks_.begin(), sinks_.end(),
@@ -43,6 +47,7 @@ void VideoSourceBase::RemoveSink(VideoSinkInterface<webrtc::VideoFrame>* sink) {
 
 VideoSourceBase::SinkPair* VideoSourceBase::FindSinkPair(
     const VideoSinkInterface<webrtc::VideoFrame>* sink) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   auto sink_pair_it = absl::c_find_if(
       sinks_,
       [sink](const SinkPair& sink_pair) { return sink_pair.sink == sink; });

@@ -20,12 +20,15 @@
 
 namespace rtc {
 
-VideoBroadcaster::VideoBroadcaster() = default;
+VideoBroadcaster::VideoBroadcaster() {
+  thread_checker_.DetachFromThread();
+}
 VideoBroadcaster::~VideoBroadcaster() = default;
 
 void VideoBroadcaster::AddOrUpdateSink(
     VideoSinkInterface<webrtc::VideoFrame>* sink,
     const VideoSinkWants& wants) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(sink != nullptr);
   rtc::CritScope cs(&sinks_and_wants_lock_);
   if (!FindSinkPair(sink)) {
@@ -38,6 +41,7 @@ void VideoBroadcaster::AddOrUpdateSink(
 
 void VideoBroadcaster::RemoveSink(
     VideoSinkInterface<webrtc::VideoFrame>* sink) {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
   RTC_DCHECK(sink != nullptr);
   rtc::CritScope cs(&sinks_and_wants_lock_);
   VideoSourceBase::RemoveSink(sink);
@@ -99,6 +103,8 @@ void VideoBroadcaster::OnDiscardedFrame() {
 }
 
 void VideoBroadcaster::UpdateWants() {
+  RTC_DCHECK(thread_checker_.CalledOnValidThread());
+
   VideoSinkWants wants;
   wants.rotation_applied = false;
   for (auto& sink : sink_pairs()) {

@@ -573,6 +573,30 @@
       "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255703a2_269cf2f8",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-14T08:19:15Z",
+      "side": 1,
+      "message": "Ok, after checking I think that `result-\u003eid()` is what we need in this case because we need to map a RTPSender id with the track id associated with it.\n\nWhen the transceiver is created (on bob\u0027s side in this example) the RTPSender id is identical to the track id but when the transceiver is reused (on alice\u0027s side in this example) it seems we cannot chance the RTPSender id, and then we need to map that it with our stream_label (so when we get a stats report, googTrackId is the RTPSender id). I am still not 100% sure about the relationship among all these terms (stream, track, sender, receiver, etc..) but it seems `result-\u003eid()` is the right thing to have here. WDYT?",
+      "parentUuid": "30d38c14_8761297c",
+      "range": {
+        "startLine": 502,
+        "startChar": 51,
+        "endLine": 502,
+        "endChar": 53
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

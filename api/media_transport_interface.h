@@ -50,10 +50,18 @@ class AudioPacketReceivedObserver {
   virtual void OnFirstAudioPacketReceived(int64_t channel_id) = 0;
 };
 
+// Used to configure stream allocations.
 struct MediaTransportAllocatedBitrateLimits {
   DataRate min_pacing_rate = DataRate::Zero();
   DataRate max_padding_bitrate = DataRate::Zero();
   DataRate max_total_allocated_bitrate = DataRate::Zero();
+};
+
+// Used to configure target bitrate constraints.
+struct MediaTransportTargetRateConstraints {
+  DataRate min_bitrate = DataRate::Zero();
+  DataRate max_bitrate = DataRate::Infinity();
+  DataRate starting_bitrate = DataRate::Zero();
 };
 
 // A collection of settings for creation of media transport.
@@ -314,6 +322,11 @@ class MediaTransportInterface {
   // TODO(psla): Make abstract when downstream implementation implement it.
   virtual void SetAllocatedBitrateLimits(
       const MediaTransportAllocatedBitrateLimits& limits);
+
+  // Sets starting rate.
+  // TODO(psla): Make abstract when downstream implementation implement it.
+  virtual void SetTargetBitrateLimits(
+      const MediaTransportTargetRateConstraints& target_rate_constraints) {}
 
   // Opens a data |channel_id| for sending.  May return an error if the
   // specified |channel_id| is unusable.  Must be called before |SendData|.

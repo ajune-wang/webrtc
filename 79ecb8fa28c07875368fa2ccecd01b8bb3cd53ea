@@ -39,6 +39,30 @@
       "revId": "79ecb8fa28c07875368fa2ccecd01b8bb3cd53ea",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82284636_e6c43854",
+        "filename": "api/test/compile_all_headers.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5634
+      },
+      "writtenOn": "2019-03-14T02:10:15Z",
+      "side": 1,
+      "message": "I\u0027m now attempting to take it down to fakes and mocks. Further steps could involve gradually adding more headers, and adding .cc code that attempts to instantiate these fakes and mocks - but let\u0027s get this one submitted first.",
+      "parentUuid": "5ed7c2b9_fcf7ec77",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 48
+      },
+      "revId": "79ecb8fa28c07875368fa2ccecd01b8bb3cd53ea",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

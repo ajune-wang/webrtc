@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94525d0c_2a6590c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:03:27Z",
+      "side": 1,
+      "message": "It seems more accurate to say that only -inf (or all negative values?) are illegal; the existing check was simply wrong.",
+      "revId": "de7bc7edce6583fb7f2516ec9b78fb71cf5084d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ce4101_a88a81b7",
+        "filename": "rtc_base/task_utils/repeating_task.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:03:27Z",
+      "side": 1,
+      "message": "Swap lines 38 and 39? And also check that delay \u003e 0?",
+      "revId": "de7bc7edce6583fb7f2516ec9b78fb71cf5084d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

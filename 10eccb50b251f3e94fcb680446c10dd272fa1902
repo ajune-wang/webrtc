@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f883da5f_49fefe14",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-14T17:18:10Z",
+      "side": 1,
+      "message": "Yes, that would be really handy. For instance, webrtc::test::RemoveDir only works with empty dirs, so we have to manually delete the files one by one.\nIs there a bug opened?",
+      "parentUuid": "d6f587bd_8c0b90b6",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e40972_6a40ebe2",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16cb88f7_45d726ea",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-14T17:18:10Z",
+      "side": 1,
+      "message": "Paranoid sanity check. I don\u0027t want to invoke RemoveDir with an empty path if SetUp() has failed.",
+      "parentUuid": "67e40972_6a40ebe2",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 28
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

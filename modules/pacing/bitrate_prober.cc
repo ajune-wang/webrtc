@@ -18,6 +18,7 @@
 #include "logging/rtc_event_log/rtc_event_log.h"
 #include "rtc_base/checks.h"
 #include "rtc_base/logging.h"
+#include "system_wrappers/include/metrics.h"
 
 namespace webrtc {
 
@@ -47,11 +48,19 @@ constexpr int64_t kProbeClusterTimeoutMs = 5000;
 
 BitrateProber::BitrateProber() : BitrateProber(nullptr) {}
 
-BitrateProber::~BitrateProber() = default;
+BitrateProber::~BitrateProber() {
+  RTC_HISTOGRAM_COUNTS("WebRTC.BWE.TotalProbeClustersRequested",
+                       total_probe_count_, 0, 1000, 50);
+  RTC_HISTOGRAM_COUNTS("WebRTC.BWE.TotalFailedProbeClusters",
+                       total_failed_probe_count_, 0, 1000, 50);
+}
 
 // TODO(psla): Remove this constructor in a follow up change.
 BitrateProber::BitrateProber(RtcEventLog* event_log)
-    : probing_state_(ProbingState::kDisabled), next_probe_time_ms_(-1) {
+    : probing_state_(ProbingState::kDisabled),
+      next_probe_time_ms_(-1),
+      total_probe_count_(0),
+      total_failed_probe_count_(0) {
   SetEnabled(true);
 }
 
@@ -88,9 +97,12 @@ void BitrateProber::CreateProbeCluster(int bitrate_bps,
                                        int cluster_id) {
   RTC_DCHECK(probing_state_ != ProbingState::kDisabled);
   RTC_DCHECK_GT(bitrate_bps, 0);
+
+  total_probe_count_++;
   while (!clusters_.empty() &&
          now_ms - clusters_.front().time_created_ms > kProbeClusterTimeoutMs) {
     clusters_.pop();
+    total_failed_probe_count_++;
   }
 
   ProbeCluster cluster;
@@ -163,6 +175,13 @@ void BitrateProber::ProbeSent(int64_t now_ms, size_t bytes) {
     if (cluster->sent_bytes >= cluster->pace_info.probe_cluster_min_bytes &&
         cluster->sent_probes >= cluster->pace_info.probe_cluster_min_probes) {
       clusters_.pop();
+
+      RTC_HISTOGRAM_COUNTS_100000("WebRTC.BWE.ProbeClusterSizeInBytes",
+                                  cluster->sent_bytes);
+      RTC_HISTOGRAM_COUNTS_100("WebRTC.BWE.ProbesPerCluster",
+                               cluster->sent_probes);
+      RTC_HISTOGRAM_COUNTS_10000("WebRTC.BWE.TimePerProbeCluster",
+                                 now_ms - cluster->time_started_ms);
     }
     if (clusters_.empty())
       probing_state_ = ProbingState::kSuspended;

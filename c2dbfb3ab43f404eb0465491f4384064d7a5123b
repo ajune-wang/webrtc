@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15d84328_933d7b03",
+        "filename": "api/media_transport_interface.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-14T20:50:33Z",
+      "side": 1,
+      "message": "They look the same but aren\u0027t.\n\nAs you noticed, one has starting_rate.\n\nThe former one has \u0027max_padding_bitrate\u0027 which is not a max bitrate, but the max bitrate of the padding; but the max_total_allocated_bitrate should be the same.\n\nSo the max_padding_rate is unused in the \"TargetRateConstraints\", while starting_bitrate would be unused in \"SetAllocatedBitrateLimits\".\n\nI think this in itself warrants a separate data struct.\n\nAnd finally, I left a comment somewhere, that maybe we should just directly use TargetRateConstraints ( https://cs.chromium.org/chromium/src/third_party/webrtc/api/transport/network_types.h?l\u003d46\u0026rcl\u003dd841ea6b586a81065f78d3eae7ab82c505cda1d8 ) -- it has an extra timestamp, but otherwise it\u0027s the same.",
+      "parentUuid": "3b13087f_77c3f4ac",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 2
+      },
+      "revId": "c2dbfb3ab43f404eb0465491f4384064d7a5123b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "94cafa33_93042188",
         "filename": "media/engine/webrtc_video_engine_unittest.cc",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "c2dbfb3ab43f404eb0465491f4384064d7a5123b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8416c97b_7a6e8a6a",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 3928,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-14T20:50:33Z",
+      "side": 1,
+      "message": "Oops ;)",
+      "parentUuid": "94cafa33_93042188",
+      "revId": "c2dbfb3ab43f404eb0465491f4384064d7a5123b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

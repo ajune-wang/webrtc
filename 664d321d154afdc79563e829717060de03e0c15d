@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "537b5f8d_3005ac4c",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T09:25:24Z",
+      "side": 1,
+      "message": "I think in such case it will be good at least documents such possibility, so user will be able to schedule funcs more careful.",
+      "parentUuid": "a60fcdcc_178c10c9",
+      "range": {
+        "startLine": 297,
+        "startChar": 15,
+        "endLine": 297,
+        "endChar": 20
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6e88a800_906e8436",
         "filename": "test/scenario/scenario.cc",
         "patchSetId": 2

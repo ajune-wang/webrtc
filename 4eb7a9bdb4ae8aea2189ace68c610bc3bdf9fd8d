@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a9e6f61_afee8fd3",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T09:25:24Z",
+      "side": 1,
+      "message": "If exit function will be called more often, then user expect (I mean the case, when last sleep was shorter, than check_interval), can it cause any issues? At least this behavior should be documented.",
+      "range": {
+        "startLine": 337,
+        "startChar": 8,
+        "endLine": 337,
+        "endChar": 21
+      },
+      "revId": "4eb7a9bdb4ae8aea2189ace68c610bc3bdf9fd8d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

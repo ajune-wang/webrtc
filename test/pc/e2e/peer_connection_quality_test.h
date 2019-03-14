@@ -24,6 +24,7 @@
 #include "test/pc/e2e/analyzer/video/video_quality_analyzer_injection_helper.h"
 #include "test/pc/e2e/api/audio_quality_analyzer_interface.h"
 #include "test/pc/e2e/api/peerconnection_quality_test_fixture.h"
+#include "test/pc/e2e/peer_connection_quality_test_params.h"
 #include "test/pc/e2e/test_peer.h"
 #include "test/testsupport/video_frame_writer.h"
 
@@ -33,13 +34,14 @@ namespace test {
 class PeerConnectionE2EQualityTest
     : public PeerConnectionE2EQualityTestFixture {
  public:
-  using Params = PeerConnectionE2EQualityTestFixture::Params;
-  using InjectableComponents =
-      PeerConnectionE2EQualityTestFixture::InjectableComponents;
+  // using Params = PeerConnectionE2EQualityTestFixture::Params;
+  // using InjectableComponents =
+  // PeerConnectionE2EQualityTestFixture::InjectableComponents;
   using VideoGeneratorType =
       PeerConnectionE2EQualityTestFixture::VideoGeneratorType;
   using RunParams = PeerConnectionE2EQualityTestFixture::RunParams;
   using VideoConfig = PeerConnectionE2EQualityTestFixture::VideoConfig;
+  using PeerArgs = PeerConnectionE2EQualityTestFixture::PeerArgs;
 
   PeerConnectionE2EQualityTest(
       std::string test_case_name,
@@ -48,10 +50,8 @@ class PeerConnectionE2EQualityTest
 
   ~PeerConnectionE2EQualityTest() override = default;
 
-  void Run(std::unique_ptr<InjectableComponents> alice_components,
-           std::unique_ptr<Params> alice_params,
-           std::unique_ptr<InjectableComponents> bob_components,
-           std::unique_ptr<Params> bob_params,
+  void Run(std::unique_ptr<PeerArgs> alice_args,
+           std::unique_ptr<PeerArgs> bob_args,
            RunParams run_params) override;
 
  private:

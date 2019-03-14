@@ -30,6 +30,11 @@ CreatePeerConnectionE2EQualityTestFixture(
     std::unique_ptr<AudioQualityAnalyzerInterface> audio_quality_analyzer,
     std::unique_ptr<VideoQualityAnalyzerInterface> video_quality_analyzer);
 
+std::unique_ptr<PeerConnectionE2EQualityTestFixture::PeerArgs>
+CreatePeerConnectionE2EQualityTestFixturePeerArgs(
+    rtc::Thread* network_thread,
+    rtc::NetworkManager* network_manager);
+
 }  // namespace test
 }  // namespace webrtc
 

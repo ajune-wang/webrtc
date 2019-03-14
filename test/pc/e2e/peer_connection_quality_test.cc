@@ -123,16 +123,18 @@ PeerConnectionE2EQualityTest::PeerConnectionE2EQualityTest(
   audio_quality_analyzer_.swap(audio_quality_analyzer);
 }
 
-void PeerConnectionE2EQualityTest::Run(
-    std::unique_ptr<InjectableComponents> alice_components,
-    std::unique_ptr<Params> alice_params,
-    std::unique_ptr<InjectableComponents> bob_components,
-    std::unique_ptr<Params> bob_params,
-    RunParams run_params) {
-  RTC_CHECK(alice_components);
-  RTC_CHECK(alice_params);
-  RTC_CHECK(bob_components);
-  RTC_CHECK(bob_params);
+void PeerConnectionE2EQualityTest::Run(std::unique_ptr<PeerArgs> alice_args,
+                                       std::unique_ptr<PeerArgs> bob_args,
+                                       RunParams run_params) {
+  RTC_CHECK(alice_args);
+  RTC_CHECK(bob_args);
+
+  std::unique_ptr<InjectableComponents> alice_components =
+      alice_args->ReleaseComponents();
+  std::unique_ptr<Params> alice_params = alice_args->ReleaseParams();
+  std::unique_ptr<InjectableComponents> bob_components =
+      bob_args->ReleaseComponents();
+  std::unique_ptr<Params> bob_params = bob_args->ReleaseParams();
 
   SetDefaultValuesForMissingParams({alice_params.get(), bob_params.get()});
   ValidateParams({alice_params.get(), bob_params.get()});

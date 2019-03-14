@@ -200,7 +200,7 @@ void PeerConnectionE2EQualityTest::Run(
 
   video_quality_analyzer_injection_helper_->Start(test_case_name_,
                                                   video_analyzer_threads);
-  audio_quality_analyzer_->Start(test_case_name_);
+  audio_quality_analyzer_->Start(test_case_name_, &analyzer_helper_);
 
   // Start RTCEventLog recording if requested.
   if (alice_->params()->rtc_event_log_path) {
@@ -227,6 +227,8 @@ void PeerConnectionE2EQualityTest::Run(
 
   task_queue_.PostTask([&stats_poller, this]() {
     RTC_DCHECK_RUN_ON(&task_queue_);
+    // TODO(mbonadei): Maybe use DelayedStart in order to avoid the empty
+    // stats report at the beginning of the call?
     stats_polling_task_ =
         RepeatingTaskHandle::Start(task_queue_.Get(), [this, &stats_poller]() {
           RTC_DCHECK_RUN_ON(&task_queue_);
@@ -253,6 +255,7 @@ void PeerConnectionE2EQualityTest::Run(
       rtc::Bind(&PeerConnectionE2EQualityTest::TearDownCallOnSignalingThread,
                 this));
 
+  audio_quality_analyzer_->Stop();
   video_quality_analyzer_injection_helper_->Stop();
 
   // Ensuring that TestPeers have been destroyed in order to correctly close
@@ -446,7 +449,10 @@ PeerConnectionE2EQualityTest::MaybeAddVideo(TestPeer* peer) {
     rtc::scoped_refptr<VideoTrackInterface> track =
         peer->pc_factory()->CreateVideoTrack(video_config.stream_label.value(),
                                              source);
-    peer->AddTrack(track, {video_config.stream_label.value()});
+    rtc::scoped_refptr<RtpSenderInterface> result =
+        peer->AddTrack(track, {video_config.stream_label.value()});
+    analyzer_helper_.AddTrackToStreamMapping(result->id(),
+                                             video_config.stream_label.value());
   }
   return out;
 }
@@ -494,7 +500,10 @@ void PeerConnectionE2EQualityTest::MaybeAddAudio(TestPeer* peer) {
       peer->pc_factory()->CreateAudioSource(audio_config.audio_options);
   rtc::scoped_refptr<AudioTrackInterface> track =
       peer->pc_factory()->CreateAudioTrack(*audio_config.stream_label, source);
-  peer->AddTrack(track, {*audio_config.stream_label});
+  rtc::scoped_refptr<RtpSenderInterface> result =
+      peer->AddTrack(track, {*audio_config.stream_label});
+  analyzer_helper_.AddTrackToStreamMapping(result->id(),
+                                           *audio_config.stream_label);
 }
 
 void PeerConnectionE2EQualityTest::SetupCall() {

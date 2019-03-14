@@ -284,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "64c609a0_4f5b0e9b",
+        "filename": "test/pc/e2e/api/analyzer_helper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-14T09:02:18Z",
+      "side": 1,
+      "message": "Probably the RTC_CHECK is enough, if that triggers it means that stats are flowing before MaybeAddingMedia is completed, which should never happen or am I missing something (MaybeAddMedia happens inside SetupCallOnSignalingThread which is a blocking call).",
+      "parentUuid": "010fb625_2c2f4925",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 1
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8b853457_6155a3c2",
         "filename": "test/pc/e2e/api/analyzer_helper.h",
         "patchSetId": 3
@@ -412,6 +436,30 @@
       "writtenOn": "2019-03-07T15:46:33Z",
       "side": 1,
       "message": "We can\u0027t believe in delay, we need to develop some insurance here for this case.",
+      "range": {
+        "startLine": 230,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 49
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8d389a_8599b552",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-14T09:02:18Z",
+      "side": 1,
+      "message": "I have just realized that we already have this insurance.\n\nIn DefaultAudioQualityAnalyzer::OnStatsReport we are discarding a stats_report if packets_received is 0, since packets_received is a monotonically increasing counter, if it is 0 it means that media haven\u0027t started flowing yet so we should not measure NetEq stats.\n\nIn fact 2 stats reports are discarded at the beginning, one for alice and one for bob:\n(default_audio_quality_analyzer.cc:68): [Audio Quality Analyzer] Discarding (alice).\n(default_audio_quality_analyzer.cc:68): [Audio Quality Analyzer] Discarding (bob).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (alice).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (bob).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (alice).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (bob).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (alice).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (bob).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (alice).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (bob).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (alice).\n(default_audio_quality_analyzer.cc:98): [Audio Quality Analyzer] preferred_buffer_size_ms\u003d40 (bob).\n\nIf packets_received is 0 for the whole duration of the call we have a bigger problem, so I think we are safe here.",
+      "parentUuid": "acce412e_c00ff6fb",
       "range": {
         "startLine": 230,
         "startChar": 4,

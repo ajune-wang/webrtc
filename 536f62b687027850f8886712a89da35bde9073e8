@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33c8245b_f5ed2661",
+        "filename": "test/scenario/network/network_emulation.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T13:42:57Z",
+      "side": 1,
+      "message": "nit: Surround with { } please.",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 75
+      },
+      "revId": "536f62b687027850f8886712a89da35bde9073e8",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1e4f5050_fee1d007",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-14T20:59:17Z",
+      "side": 1,
+      "message": "I was debating that with myself. If we do this, there is a risk that MediaTransport could get destroyed by the time we dereference it. So from the safety point of view, we probably shouldn\u0027t.\n\nFrom the deadlock prevention point of view, maybe we should. Go figure ;)\n\nMy preference would be to keep holding the lock.\n\nFor example the entire Call::MediaTransportChange  happens under that lock.",
+      "parentUuid": "2f75222f_01b617dd",
+      "revId": "4b71a789f25f8cd0e6c051b01fdc9b5118ff251f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0e1b65cf_5d1f5106",
         "filename": "media/engine/webrtc_video_engine.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "4b71a789f25f8cd0e6c051b01fdc9b5118ff251f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac6d5e0_cd0406a6",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-14T20:59:17Z",
+      "side": 1,
+      "message": "Done. Good catch.",
+      "parentUuid": "0e1b65cf_5d1f5106",
+      "range": {
+        "startLine": 726,
+        "startChar": 43,
+        "endLine": 726,
+        "endChar": 44
+      },
+      "revId": "4b71a789f25f8cd0e6c051b01fdc9b5118ff251f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

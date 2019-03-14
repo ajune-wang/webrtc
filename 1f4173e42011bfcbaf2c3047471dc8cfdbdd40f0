@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33b65147_44987249",
+        "filename": "video/video_quality_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-03-14T09:05:17Z",
+      "side": 1,
+      "message": "If you want to you could add {} here.",
+      "range": {
+        "startLine": 1430,
+        "startChar": 0,
+        "endLine": 1430,
+        "endChar": 30
+      },
+      "revId": "1f4173e42011bfcbaf2c3047471dc8cfdbdd40f0",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

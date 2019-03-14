@@ -103,12 +103,19 @@ luci.bucket(
 # Commit queue definitions:
 
 luci.cq_group(
-    name = "cq",
+    name = "master_cq",
     tree_status_host = "webrtc-status.appspot.com",
-    watch = [cq.refset(
-        repo = WEBRTC_GERRIT,
-        refs = ["refs/heads/master", "refs/branch-heads/.+"],
-    )],
+    watch = [cq.refset(repo = WEBRTC_GERRIT, refs = ["refs/heads/master"])],
+    acls = [
+        acl.entry(acl.CQ_COMMITTER, groups = ["project-webrtc-committers"]),
+        acl.entry(acl.CQ_DRY_RUNNER, groups = ["project-webrtc-tryjob-access"]),
+    ],
+    retry_config = cq.RETRY_ALL_FAILURES,
+)
+
+luci.cq_group(
+    name = "branch_cq",
+    watch = [cq.refset(repo = WEBRTC_GERRIT, refs = ["refs/branch-heads/.+"])],
     acls = [
         acl.entry(acl.CQ_COMMITTER, groups = ["project-webrtc-committers"]),
         acl.entry(acl.CQ_DRY_RUNNER, groups = ["project-webrtc-tryjob-access"]),
@@ -118,10 +125,7 @@ luci.cq_group(
 
 luci.cq_group(
     name = "infra_cq",
-    watch = [cq.refset(
-        repo = WEBRTC_GERRIT,
-        refs = ["refs/heads/infra/config"],
-    )],
+    watch = [cq.refset(repo = WEBRTC_GERRIT, refs = ["refs/heads/infra/config"])],
     acls = [
         acl.entry(acl.CQ_COMMITTER, groups = ["project-webrtc-admins"]),
         acl.entry(acl.CQ_DRY_RUNNER, groups = ["project-webrtc-tryjob-access"]),
@@ -241,14 +245,21 @@ def try_builder(
         properties = {},
         dimensions = {},
         cq = {},
+        branch_cq = True,
         **kwargs):
     add_milo(name, {"try": try_cat, "fyi": fyi_cat})
     if cq != None:
         luci.cq_tryjob_verifier(
             builder = name,
-            cq_group = "cq",
+            cq_group = "master_cq",
             **cq
         )
+        if branch_cq:
+            luci.cq_tryjob_verifier(
+                builder = name,
+                cq_group = "branch_cq",
+                **cq
+            )
 
     return webrtc_builder(
         name = name,
@@ -384,7 +395,7 @@ android_builder("Android32 Builder x86", "Android|x86|rel")
 android_try_job("android_compile_x86_rel")
 android_builder("Android32 (more configs)", "Android|arm|more", recipe = "more_configs")
 android_try_job("android_arm_more_configs", recipe = "more_configs")
-android_try_job("android_chromium_compile", recipe = "chromium_trybot")
+android_try_job("android_chromium_compile", recipe = "chromium_trybot", branch_cq = False)
 
 ios_builder("iOS32 Debug", "iOS|arm|dbg")
 ios_try_job("ios_compile_arm_dbg")
@@ -439,7 +450,7 @@ linux_builder("Linux64 Release (Libfuzzer)", "Linux|x64|fuzz", recipe = "libfuzz
 linux_try_job("linux_libfuzzer_rel", recipe = "libfuzzer")
 linux_builder("Linux (more configs)", "Linux|x64|more", recipe = "more_configs")
 linux_try_job("linux_more_configs", recipe = "more_configs")
-linux_try_job("linux_chromium_compile", recipe = "chromium_trybot")
+linux_try_job("linux_chromium_compile", recipe = "chromium_trybot", branch_cq = False)
 
 mac_builder("Mac64 Debug", "Mac|x64|dbg")
 mac_try_job("mac_dbg", cq = None)
@@ -451,7 +462,7 @@ mac_builder("Mac64 Builder", ci_cat = None, perf_cat = "Mac|x64|Builder|")
 perf_builder("Perf Mac 10.11", "Mac|x64|Tester|10.11", triggered_by = ["Mac64 Builder"])
 mac_builder("Mac Asan", "Mac|x64|asan")
 mac_try_job("mac_asan")
-mac_try_job("mac_chromium_compile", recipe = "chromium_trybot", dimensions = {"cores": "8"})
+mac_try_job("mac_chromium_compile", recipe = "chromium_trybot", dimensions = {"cores": "8"}, branch_cq = False)
 
 win_builder("Win32 Debug", "Win MSVC|x86|dbg")
 win_try_job("win_x86_msvc_dbg")
@@ -487,7 +498,7 @@ win_builder("Win64 UWP", ci_cat = None, fyi_cat = "")
 win_try_job("win_x64_uwp", cq = None, try_cat = None, fyi_cat = "")
 win_builder("Win (more configs)", "Win Clang|x86|more", recipe = "more_configs")
 win_try_job("win_x86_more_configs", recipe = "more_configs")
-win_try_job("win_chromium_compile", recipe = "chromium_trybot")
+win_try_job("win_chromium_compile", recipe = "chromium_trybot", branch_cq = False)
 
 linux_try_job(
     "presubmit",
@@ -500,7 +511,7 @@ linux_try_job("noop", recipe = "noop", cq = {
     "equivalent_builder": "external/*/g3.webrtc-internal.try/internal_compile_lite",
     "equivalent_builder_percentage": 100,
     "equivalent_builder_whitelist": "project-webrtc-internal-tryjob-access",
-})
+}, branch_cq = False)
 
 cron_builder(
     "Auto-roll - WebRTC DEPS",

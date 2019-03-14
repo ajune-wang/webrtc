@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d974ed4b_f3d65325",
+        "filename": "test/fuzzers/utils/rtp_replayer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-14T22:01:21Z",
+      "side": 1,
+      "message": "I will add some logging here. In this case we don\u0027t really want to propagate these errors because we are specifically targeting the receive stream code path. Since libFuzzer is a coverage guided fuzzer we want it to spend more time getting interesting coverage on the lower layers of the stack.\n\nMore information can be found here.\nhttps://llvm.org/docs/LibFuzzer.html#id24",
+      "parentUuid": "96d7b008_86e38a21",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 10
+      },
+      "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48b792dd_6def388a",
         "filename": "test/fuzzers/utils/rtp_replayer.h",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f41f6d9b_c6426dcc",
+        "filename": "test/fuzzers/utils/rtp_replayer.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-14T22:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b792dd_6def388a",
+      "range": {
+        "startLine": 65,
+        "startChar": 53,
+        "endLine": 65,
+        "endChar": 62
+      },
+      "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "206d9b71_1c4a4f40",
+        "filename": "test/fuzzers/vp8_replay_fuzzer.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-14T22:01:21Z",
+      "side": 1,
+      "message": "These need to match the rtpdumps.\n\nWe are working on a more generalized corpus format of SDP + RTPDump which will be useful for messing with SDPS and RTPDumps together. This format is better designed to test rtp streams in isolation.",
+      "parentUuid": "924c28ed_b03d3284",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e3447a9_534789a6",
         "filename": "test/rtp_file_reader.cc",
         "patchSetId": 15
@@ -91,6 +163,30 @@
       "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d63491b8_ba095e5c",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 6930
+      },
+      "writtenOn": "2019-03-14T22:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3447a9_534789a6",
+      "range": {
+        "startLine": 397,
+        "startChar": 19,
+        "endLine": 397,
+        "endChar": 35
+      },
+      "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

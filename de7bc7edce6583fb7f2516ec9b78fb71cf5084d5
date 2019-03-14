@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6f36d3f4_1dc946b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T07:58:11Z",
+      "side": 1,
+      "message": "Not really, with this interface, returning +inf without calling Stop() is still illegal as it can cause dangling pointer.",
+      "parentUuid": "94525d0c_2a6590c8",
+      "revId": "de7bc7edce6583fb7f2516ec9b78fb71cf5084d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09ce4101_a88a81b7",
         "filename": "rtc_base/task_utils/repeating_task.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "de7bc7edce6583fb7f2516ec9b78fb71cf5084d5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963e02bc_e0fac3ad",
+        "filename": "rtc_base/task_utils/repeating_task.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T07:58:11Z",
+      "side": 1,
+      "message": "Done\n\nReturning +inf without calling Stop() is still illegal as it can cause dangling pointer.",
+      "parentUuid": "09ce4101_a88a81b7",
+      "revId": "de7bc7edce6583fb7f2516ec9b78fb71cf5084d5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

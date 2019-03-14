@@ -16,6 +16,24 @@
       "revId": "ce79cc7a7b23dc5577dd50b8d678b56cb76d83db",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f39d74f_b33595bf",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T12:19:53Z",
+      "side": 1,
+      "message": "We can\u0027t always run PostTask synchronously since it can break synchronization guarantees. This triggers TSAN checks where locks are taken in varying order.\n\nThis can be alleviated by making calls made from TaskQueues async and other calls sync, but SendTask should be allowed to be called on a task queue, so in that situation we want to override the implementation.",
+      "parentUuid": "c6b79034_99ce907a",
+      "revId": "ce79cc7a7b23dc5577dd50b8d678b56cb76d83db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

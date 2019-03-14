@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1a1945f6_f322d993",
+        "filename": "test/scenario/scenario.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T12:06:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "537b5f8d_3005ac4c",
+      "range": {
+        "startLine": 297,
+        "startChar": 15,
+        "endLine": 297,
+        "endChar": 20
+      },
+      "revId": "664d321d154afdc79563e829717060de03e0c15d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e88a800_906e8436",
         "filename": "test/scenario/scenario.cc",
         "patchSetId": 2

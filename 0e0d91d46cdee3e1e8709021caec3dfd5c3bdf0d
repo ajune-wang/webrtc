@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "52c248cb_82bac435",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:33:13Z",
+      "side": 1,
+      "message": "I find that reducing the number of negations improves readability. But OK, it isn\u0027t a big deal.",
+      "parentUuid": "e77ac216_7fbac9a9",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 9
+      },
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35716761_cb2962b0",
         "filename": "rtc_base/numerics/sequence_number_util.h",
         "patchSetId": 4
@@ -125,6 +149,24 @@
       "side": 1,
       "message": "Given the static_assert narrowing can not happen. Added it anyway (best practice I guess).",
       "parentUuid": "35716761_cb2962b0",
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8f262cc_0621ea30",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:33:13Z",
+      "side": 1,
+      "message": "Yes, it\u0027s a free check, so treat it as compiler-verified documentation if you will.",
+      "parentUuid": "faf346f1_b13dc98a",
       "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
@@ -163,6 +205,24 @@
       "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed4dac41_c7ea8273",
+        "filename": "rtc_base/numerics/sequence_number_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T01:33:13Z",
+      "side": 1,
+      "message": "Ah well. The change you did make is probably sufficient.",
+      "parentUuid": "0d7663be_20b06cff",
+      "revId": "0e0d91d46cdee3e1e8709021caec3dfd5c3bdf0d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2f75222f_01b617dd",
+        "filename": "call/call.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-14T20:47:49Z",
+      "side": 1,
+      "message": "Should we release the lock before calling media transport?",
+      "revId": "4b71a789f25f8cd0e6c051b01fdc9b5118ff251f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e1b65cf_5d1f5106",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5599
+      },
+      "writtenOn": "2019-03-14T20:47:49Z",
+      "side": 1,
+      "message": "Should this fix be moved into the previous cl?",
+      "range": {
+        "startLine": 726,
+        "startChar": 43,
+        "endLine": 726,
+        "endChar": 44
+      },
+      "revId": "4b71a789f25f8cd0e6c051b01fdc9b5118ff251f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

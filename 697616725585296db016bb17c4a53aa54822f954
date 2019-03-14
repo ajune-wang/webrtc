@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25d6b9ac_b3666361",
+        "filename": "test/time_controller/real_time_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T09:12:25Z",
+      "side": 1,
+      "message": "Maybe better to postpone to a followup? It\u0027s not mentioned in commit message, and it\u0027s unclear why it needs to return a function, instead of just being a method to do the blocking invoke. I think we can postpone that discussion until the main part of this cl is landed.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 74
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262f03d6_067de623",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T09:12:25Z",
+      "side": 1,
+      "message": "It doesn\u0027t seem right to me to have PostTask ever calling InvokeTask.",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 192,
+        "endChar": 19
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

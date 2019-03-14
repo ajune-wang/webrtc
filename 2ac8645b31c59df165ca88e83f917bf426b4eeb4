@@ -46,6 +46,30 @@
       "revId": "2ac8645b31c59df165ca88e83f917bf426b4eeb4",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b57c295d_9200b31a",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T09:12:25Z",
+      "side": 1,
+      "message": "\u003e (CreateTaskQueue should not be const as it\u0027s not reasonable to expect that creating a task queue is side effect free)\n\nFor what it\u0027s worth, I agree with that.",
+      "parentUuid": "a7baabea_db142ab1",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 1
+      },
+      "revId": "2ac8645b31c59df165ca88e83f917bf426b4eeb4",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

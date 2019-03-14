@@ -93,6 +93,30 @@
       "revId": "697616725585296db016bb17c4a53aa54822f954",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68416da2_ea53bf52",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-14T13:11:24Z",
+      "side": 1,
+      "message": "Earlier patch set used task-\u003eRun(), and I think that\u0027s more reasonable. Provided that we preserve order and somehow exclude other tasks from running while we do that. There are two potential ways we may collide with other tasks, not sure if they need to be handled differently: (1) caller actually running as a task on the same task queue, and (2) task running on some other thread.",
+      "parentUuid": "60858030_6a098c49",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 192,
+        "endChar": 19
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

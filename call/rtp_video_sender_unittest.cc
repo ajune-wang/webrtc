@@ -27,8 +27,6 @@
 #include "video/send_statistics_proxy.h"
 
 using ::testing::_;
-using ::testing::AnyNumber;
-using ::testing::Invoke;
 using ::testing::NiceMock;
 using ::testing::Return;
 using ::testing::SaveArg;

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ecbeeca2_f9805d5e",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T13:26:24Z",
+      "side": 1,
+      "message": "Similar comment to the At with small changes",
+      "range": {
+        "startLine": 110,
+        "startChar": 55,
+        "endLine": 111,
+        "endChar": 78
+      },
+      "revId": "cbddcb26c250ee4c9d6c85afd9992c7c4b35103b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55657307_87b3bee8",
+        "filename": "test/scenario/scenario.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-14T13:26:24Z",
+      "side": 1,
+      "message": "Say here, that first check will be performed immediately.",
+      "range": {
+        "startLine": 127,
+        "startChar": 5,
+        "endLine": 127,
+        "endChar": 54
+      },
+      "revId": "cbddcb26c250ee4c9d6c85afd9992c7c4b35103b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

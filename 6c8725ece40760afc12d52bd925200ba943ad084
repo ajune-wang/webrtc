@@ -68,6 +68,29 @@
       "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3447a9_534789a6",
+        "filename": "test/rtp_file_reader.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-14T10:27:31Z",
+      "side": 1,
+      "message": "Search replace error",
+      "range": {
+        "startLine": 397,
+        "startChar": 19,
+        "endLine": 397,
+        "endChar": 35
+      },
+      "revId": "6c8725ece40760afc12d52bd925200ba943ad084",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -505,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "d6c0c566_ac1c5219",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-14T06:53:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d100cf7_41060c1c",
+      "range": {
+        "startLine": 501,
+        "startChar": 2,
+        "endLine": 501,
+        "endChar": 6
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67560828_c6ba8bd0",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3
@@ -516,6 +540,30 @@
       "writtenOn": "2019-03-07T15:46:33Z",
       "side": 1,
       "message": "track()-\u003eid()?",
+      "range": {
+        "startLine": 502,
+        "startChar": 51,
+        "endLine": 502,
+        "endChar": 53
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30d38c14_8761297c",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-14T06:53:41Z",
+      "side": 1,
+      "message": "I am a bit confused here.\n\nThis is what gets passed to the analyzer_helper while we set up the call:\n\u003cd6247301-2b59-42db-a4be-1780d07e496c, _auto_audio_stream_label_0\u003e\n\u003c_auto_audio_stream_label_1, _auto_audio_stream_label_1\u003e\n\nAnd d6247301-2b59-42db-a4be-1780d07e496c is the googTrackId I found in the stats report. The value of result-\u003etrack()-\u003eid() is _auto_audio_stream_label_0 and in that case I would add \u003c_auto_audio_stream_label_0, _auto_audio_stream_label_0\u003e to the analyzer_helper and I will not be able to read the stats report correctly.\n\nIt is interesting to note that bob\u0027s googTrackId is identical to the stream_label, so I am wondering if this is a bug or something unexpected. I would expect more symmetry here.",
+      "parentUuid": "67560828_c6ba8bd0",
       "range": {
         "startLine": 502,
         "startChar": 51,

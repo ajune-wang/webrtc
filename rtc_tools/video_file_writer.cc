@@ -24,6 +24,7 @@ namespace test {
 void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
                       const std::string& file_name,
                       int fps) {
+  RTC_CHECK(video);
   FILE* output_file = fopen(file_name.c_str(), "wb");
   if (output_file == nullptr) {
     RTC_LOG(LS_ERROR) << "Could not open file for writing: " << file_name;
@@ -41,6 +42,7 @@ void WriteVideoToFile(const rtc::scoped_refptr<Video>& video,
       fwrite(frame.c_str(), 1, 6, output_file);
     }
     rtc::scoped_refptr<I420BufferInterface> buffer = video->GetFrame(i);
+    RTC_CHECK(buffer) << "While trying to create: " << file_name;
     const uint8_t* data_y = buffer->DataY();
     int stride = buffer->StrideY();
     for (int i = 0; i < video->height(); ++i) {

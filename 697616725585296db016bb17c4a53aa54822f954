@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a103865_a966bdd6",
+        "filename": "test/time_controller/real_time_controller.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T11:13:22Z",
+      "side": 1,
+      "message": "It\u0027s a fundamental piece to allow usage of the class, not sure it makes that much sense to land an incomplete implementation.",
+      "parentUuid": "25d6b9ac_b3666361",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 74
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "262f03d6_067de623",
         "filename": "test/time_controller/simulated_time_controller.cc",
         "patchSetId": 11
@@ -45,6 +69,30 @@
       "revId": "697616725585296db016bb17c4a53aa54822f954",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60858030_6a098c49",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-14T11:13:22Z",
+      "side": 1,
+      "message": "I agree, but that is the defacto interface of PostTask that must be supported by all implementations that want\u0027s to run AudioSendStream etc. It\u0027s expected to immediately execute if rtc::Event is used to create a blocking task. I\u0027d prefer an explicit API for it, but I couldn\u0027t get buy in for that. Since I can\u0027t know if rtc::Event is used to create a blocking task, I have to assume that it is.",
+      "parentUuid": "262f03d6_067de623",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 192,
+        "endChar": 19
+      },
+      "revId": "697616725585296db016bb17c4a53aa54822f954",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

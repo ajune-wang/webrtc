@@ -23,6 +23,11 @@ namespace test {
 class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
  public:
   using TaskQueue::TaskQueue;
+
+  TaskQueueForTest(
+      std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter>
+          task_queue,
+      std::function<void(webrtc::TaskQueueBase*, webrtc::QueuedTask*)> sender);
   ~TaskQueueForTest();
 
   // A convenience, test-only method that blocks the current thread while
@@ -46,15 +51,22 @@ class RTC_LOCKABLE TaskQueueForTest : public TaskQueue {
   // a task executes on the task queue.
   template <class Closure>
   void SendTask(Closure&& task) {
-    RTC_DCHECK(!IsCurrent());
-    rtc::Event event;
-    PostTask(webrtc::ToQueuedTask(std::forward<Closure>(task),
-                                  [&event] { event.Set(); }));
-    event.Wait(rtc::Event::kForever);
+    if (sender_) {
+      auto queued_task = webrtc::ToQueuedTask(std::forward<Closure>(task));
+      sender_(Get(), queued_task.get());
+    } else {
+      RTC_DCHECK(!IsCurrent());
+      rtc::Event event;
+      PostTask(webrtc::ToQueuedTask(std::forward<Closure>(task),
+                                    [&event] { event.Set(); }));
+      event.Wait(rtc::Event::kForever);
+    }
   }
 
  private:
   RTC_DISALLOW_COPY_AND_ASSIGN(TaskQueueForTest);
+  const std::function<void(webrtc::TaskQueueBase*, webrtc::QueuedTask*)>
+      sender_;
 };
 }  // namespace test
 }  // namespace rtc

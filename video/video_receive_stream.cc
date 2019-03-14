@@ -39,6 +39,7 @@
 #include "modules/video_coding/timing.h"
 #include "modules/video_coding/utility/vp8_header_parser.h"
 #include "rtc_base/checks.h"
+#include "rtc_base/experiments/keyframe_interval_settings.h"
 #include "rtc_base/location.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/platform_file.h"
@@ -57,6 +58,27 @@ namespace webrtc {
 namespace {
 constexpr int kMinBaseMinimumDelayMs = 0;
 constexpr int kMaxBaseMinimumDelayMs = 10000;
+
+constexpr int kMaxWaitForKeyFrameMs = 200;
+constexpr int kMaxWaitForFrameMs = 3000;
+
+int MaxWaitForKeyframeMs() {
+  const absl::optional<int> override =
+      KeyframeIntervalSettings::ParseFromFieldTrials().MaxWaitForKeyframeMs();
+  if (override) {
+    return *override;
+  }
+  return kMaxWaitForKeyFrameMs;
+}
+
+int MaxWaitForFrameMs() {
+  const absl::optional<int> override =
+      KeyframeIntervalSettings::ParseFromFieldTrials().MaxWaitForFrameMs();
+  if (override) {
+    return *override;
+  }
+  return kMaxWaitForFrameMs;
+}
 
 VideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {
   VideoCodec codec;
@@ -205,7 +227,9 @@ VideoReceiveStream::VideoReceiveStream(
                                  this,  // KeyFrameRequestSender
                                  this,  // OnCompleteFrameCallback
                                  config_.frame_decryptor),
-      rtp_stream_sync_(this) {
+      rtp_stream_sync_(this),
+      max_wait_for_keyframe_ms_(MaxWaitForKeyframeMs()),
+      max_wait_for_frame_ms_(MaxWaitForFrameMs()) {
   RTC_LOG(LS_INFO) << "VideoReceiveStream: " << config_.ToString();
 
   RTC_DCHECK(config_.renderer);
@@ -564,10 +588,9 @@ void VideoReceiveStream::DecodeThreadFunction(void* ptr) {
 
 bool VideoReceiveStream::Decode() {
   TRACE_EVENT0("webrtc", "VideoReceiveStream::Decode");
-  static const int kMaxWaitForFrameMs = 3000;
-  static const int kMaxWaitForKeyFrameMs = 200;
 
-  int wait_ms = keyframe_required_ ? kMaxWaitForKeyFrameMs : kMaxWaitForFrameMs;
+  int wait_ms =
+      keyframe_required_ ? max_wait_for_frame_ms_ : max_wait_for_frame_ms_;
   std::unique_ptr<video_coding::EncodedFrame> frame;
   // TODO(philipel): Call NextFrame with |keyframe_required| argument when
   //                 downstream project has been fixed.
@@ -601,7 +624,7 @@ bool VideoReceiveStream::Decode() {
       if (decode_result == WEBRTC_VIDEO_CODEC_OK_REQUEST_KEYFRAME)
         RequestKeyFrame();
     } else if (!frame_decoded_ || !keyframe_required_ ||
-               (last_keyframe_request_ms_ + kMaxWaitForKeyFrameMs < now_ms)) {
+               (last_keyframe_request_ms_ + max_wait_for_frame_ms_ < now_ms)) {
       keyframe_required_ = true;
       // TODO(philipel): Remove this keyframe request when downstream project
       //                 has been fixed.
@@ -626,7 +649,7 @@ bool VideoReceiveStream::Decode() {
     // we assume a keyframe is currently being received.
     bool receiving_keyframe =
         last_keyframe_packet_ms &&
-        now_ms - *last_keyframe_packet_ms < kMaxWaitForKeyFrameMs;
+        now_ms - *last_keyframe_packet_ms < max_wait_for_frame_ms_;
 
     if (stream_is_active && !receiving_keyframe &&
         (!config_.crypto_options.sframe.require_frame_encryption ||

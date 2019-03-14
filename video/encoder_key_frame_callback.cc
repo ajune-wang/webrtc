@@ -10,11 +10,27 @@
 
 #include "video/encoder_key_frame_callback.h"
 
+#include "absl/types/optional.h"
 #include "rtc_base/checks.h"
-
-static const int kMinKeyFrameRequestIntervalMs = 300;
+#include "rtc_base/experiments/keyframe_interval_settings.h"
 
 namespace webrtc {
+
+namespace {
+
+constexpr int kMinKeyFrameRequestIntervalMs = 300;
+
+int MinKeyFrameRequestIntervalMs() {
+  const absl::optional<int> override =
+      KeyframeIntervalSettings::ParseFromFieldTrials()
+          .MinKeyFrameRequestIntervalMs();
+  if (override) {
+    return *override;
+  }
+  return kMinKeyFrameRequestIntervalMs;
+}
+
+}  // namespace
 
 EncoderKeyFrameCallback::EncoderKeyFrameCallback(
     Clock* clock,
@@ -23,7 +39,8 @@ EncoderKeyFrameCallback::EncoderKeyFrameCallback(
     : clock_(clock),
       ssrcs_(ssrcs),
       video_stream_encoder_(encoder),
-      time_last_intra_request_ms_(-1) {
+      time_last_intra_request_ms_(-1),
+      min_keyframe_request_interval_ms_(MinKeyFrameRequestIntervalMs()) {
   RTC_DCHECK(!ssrcs.empty());
 }
 
@@ -41,7 +58,8 @@ void EncoderKeyFrameCallback::OnReceivedIntraFrameRequest(uint32_t ssrc) {
   {
     int64_t now_ms = clock_->TimeInMilliseconds();
     rtc::CritScope lock(&crit_);
-    if (time_last_intra_request_ms_ + kMinKeyFrameRequestIntervalMs > now_ms) {
+    if (time_last_intra_request_ms_ + min_keyframe_request_interval_ms_ >
+        now_ms) {
       return;
     }
     time_last_intra_request_ms_ = now_ms;

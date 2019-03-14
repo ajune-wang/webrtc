@@ -200,6 +200,9 @@ class VideoReceiveStream : public webrtc::VideoReceiveStream,
 
   // Maximum delay as decided by the RTP playout delay extension.
   int frame_maximum_playout_delay_ms_ RTC_GUARDED_BY(playout_delay_lock_) = -1;
+
+  const int max_wait_for_keyframe_ms_;
+  const int max_wait_for_frame_ms_;
 };
 }  // namespace internal
 }  // namespace webrtc

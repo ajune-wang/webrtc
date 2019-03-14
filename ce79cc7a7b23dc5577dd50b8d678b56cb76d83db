@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6b79034_99ce907a",
+        "filename": "rtc_base/task_queue_for_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-14T11:09:25Z",
+      "side": 1,
+      "message": "Why allow users to override SendTask? Isn\u0027t it enough if PostTask() runs the task synchronously?",
+      "revId": "ce79cc7a7b23dc5577dd50b8d678b56cb76d83db",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

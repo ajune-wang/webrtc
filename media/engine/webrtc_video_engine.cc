@@ -723,7 +723,7 @@ bool WebRtcVideoChannel::SetSendParameters(const VideoSendParameters& params) {
         constraints.max_bitrate =
             webrtc::DataRate::bps(bitrate_config_.max_bitrate_bps);
       }
-      if (bitrate_config_.min_bitrate_bps > 0) {
+      if (bitrate_config_.min_bitrate_bps >= 0) {
         constraints.min_bitrate =
             webrtc::DataRate::bps(bitrate_config_.min_bitrate_bps);
       }

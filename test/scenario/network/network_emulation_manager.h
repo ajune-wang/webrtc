@@ -20,7 +20,7 @@
 #include "api/units/timestamp.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/network.h"
-#include "rtc_base/task_queue.h"
+#include "rtc_base/task_queue_for_test.h"
 #include "rtc_base/task_utils/repeating_task.h"
 #include "rtc_base/thread.h"
 #include "system_wrappers/include/clock.h"
@@ -103,7 +103,7 @@ class NetworkEmulationManager {
 
   // Must be the last field, so it will be deleted first, because tasks
   // in the TaskQueue can access other fields of the instance of this class.
-  rtc::TaskQueue task_queue_;
+  rtc::test::TaskQueueForTest task_queue_;
 };
 
 }  // namespace test

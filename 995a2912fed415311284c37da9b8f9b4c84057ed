@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "d8634d3c_c85a4999",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-15T14:24:53Z",
+      "side": 1,
+      "message": "How would changing the names make things worse? The change to enum class already forces everyone to add the AudioFrameType:: prefix.",
+      "parentUuid": "95649c81_a913633a",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a6d4aae_3a51e3de",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
         "patchSetId": 2

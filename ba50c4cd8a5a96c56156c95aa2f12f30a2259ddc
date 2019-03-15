@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cddd1141_85de8184",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T09:31:14Z",
+      "side": 1,
+      "message": "I think this should have a name more different from a plain local varible. Maybe \n\ngThreadLocalIsInvoking\n\nAlternatively, move it inside SCopedInvokeState and add a static accessor method, something like\n\n  ScopedInvokeState::IsInvoking()\n\nAnd consider renaming for consistency with SendTask (which in itself I think is a poor name).",
+      "range": {
+        "startLine": 27,
+        "startChar": 34,
+        "endLine": 27,
+        "endChar": 45
+      },
+      "revId": "ba50c4cd8a5a96c56156c95aa2f12f30a2259ddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a760a91c_07e88db6",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T09:31:14Z",
+      "side": 1,
+      "message": "Can you move ScopedInvokeState here? Now it\u0027s a few levels up the call chain, if I managed to follow it.\n\nIt seems a bit related with CurrentTaskQueueSetter, which also modifies thread-local state.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "ba50c4cd8a5a96c56156c95aa2f12f30a2259ddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c7fe9b2_6eca68c8",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T09:31:14Z",
+      "side": 1,
+      "message": "I think this is correct, but unobvious. The key is that RunPendingTasks takes a snapshot of the queue, which ensures that the task of interest is run before any new tasks being posted during the processing.\n\nNot sure what to do about that, besides documenting RunPendingTasks.\n\nI would also suggest deleting the return value from this method, and let it take full ownership of the passed in task.",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 33
+      },
+      "revId": "ba50c4cd8a5a96c56156c95aa2f12f30a2259ddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "388f61d4_4fa331ff",
+        "filename": "test/time_controller/simulated_time_controller.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T09:31:14Z",
+      "side": 1,
+      "message": "Since this is subtle, I\u0027d like to have comment explaining how the different cases are handled. In particular:\n\nFirst, the call SendTask when |is_invoking| is true seems dangerous; |is_invoking| means that we have entered SimulatedTimeControllerImpl::SendTask, and caller is likely working through the queue and running tasks. Then SendTask can\u0027t work, if it tries to ensure proper order, it will deadlock. I think the right behavior is to add the task at the tail of the queue, and leave to the loop in the caller to run it after preceding tasks.\n\nNot sure if you can detect the problematic conditions and fail with a clear error message, but in any case, I think either deadlocking or crashing is preferable to running tasks out of sequence.\n\nSecond, the meaning of the second half, (Current() \u003d\u003d nullptr \u0026\u0026 handler_-\u003eOnCurrentThread()), isn\u0027t clear to me.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 77
+      },
+      "revId": "ba50c4cd8a5a96c56156c95aa2f12f30a2259ddc",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

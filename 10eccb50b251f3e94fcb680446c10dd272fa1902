@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "97d032d3_e69ad6e1",
+        "filename": "rtc_tools/video_file_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-15T07:58:31Z",
+      "side": 1,
+      "message": "This is triggering on some android bots:\n\nC  300.087s Main  # Fatal error in: ../../rtc_tools/video_file_writer.cc, line 45\nC  300.087s Main  # last system error: 2\nC  300.087s Main  # Check failed: buffer\nC  300.088s Main  # While trying to create: /sdcard/chromium_tests_root//test_videoi39qKB/test_video_file2.y4m[ CRASHED      ]\n\nhttps://ci.chromium.org/p/webrtc/builders/try/android_arm_rel/5338",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 65
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d6f587bd_8c0b90b6",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1

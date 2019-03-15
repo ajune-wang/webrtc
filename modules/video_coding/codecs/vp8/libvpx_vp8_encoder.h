@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "api/video/encoded_image.h"
@@ -33,7 +34,7 @@
 
 namespace webrtc {
 
-class LibvpxVp8Encoder : public VideoEncoder {
+class LibvpxVp8Encoder : public VideoEncoder, private EncodedImageCallback {
  public:
   LibvpxVp8Encoder();
   explicit LibvpxVp8Encoder(std::unique_ptr<LibvpxInterface> interface);
@@ -48,6 +49,10 @@ class LibvpxVp8Encoder : public VideoEncoder {
   int Encode(const VideoFrame& input_image,
              const std::vector<VideoFrameType>* frame_types) override;
 
+  std::pair<int, std::vector<const EncodedImage*>> SyncEncode(
+      const VideoFrame& frame,
+      const std::vector<VideoFrameType>* frame_types) override;
+
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
 
   int SetRateAllocation(const VideoBitrateAllocation& bitrate,
@@ -58,6 +63,11 @@ class LibvpxVp8Encoder : public VideoEncoder {
   static vpx_enc_frame_flags_t EncodeFlags(const Vp8FrameConfig& references);
 
  private:
+  EncodedImageCallback::Result OnEncodedImage(
+      const EncodedImage& encoded_image,
+      const CodecSpecificInfo* codec_specific_info,
+      const RTPFragmentationHeader* fragmentation) override;
+
   void SetupTemporalLayers(const VideoCodec& codec);
 
   // Get the cpu_speed setting for encoder based on resolution and/or platform.
@@ -107,6 +117,7 @@ class LibvpxVp8Encoder : public VideoEncoder {
   std::vector<int> cpu_speed_;
   std::vector<vpx_image_t> raw_images_;
   std::vector<EncodedImage> encoded_images_;
+  std::vector<const EncodedImage*> current_images_;
   std::vector<vpx_codec_ctx_t> encoders_;
   std::vector<vpx_codec_enc_cfg_t> configurations_;
   std::vector<vpx_rational_t> downsampling_factors_;

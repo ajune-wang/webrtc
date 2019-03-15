@@ -14,6 +14,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "absl/container/inlined_vector.h"
@@ -248,6 +249,13 @@ class RTC_EXPORT VideoEncoder {
   virtual int32_t Encode(const VideoFrame& frame,
                          const CodecSpecificInfo* codec_specific_info,
                          const std::vector<VideoFrameType>* frame_types);
+
+  virtual std::pair<int, std::vector<const EncodedImage*>> SyncEncode(
+      const VideoFrame& frame,
+      const std::vector<VideoFrameType>* frame_types) {
+    RTC_NOTREACHED();
+    return {};
+  }
 
   // Inform the encoder about the new target bit rate.
   //

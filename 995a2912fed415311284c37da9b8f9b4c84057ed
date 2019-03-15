@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c2587c3a_c4f22c82",
+        "filename": "modules/audio_coding/acm2/acm_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T14:01:54Z",
+      "side": 1,
+      "message": "Fixed. I think CHECK_EQ fails, but EXPECT_EQ works fine.",
+      "parentUuid": "7fed930d_0746e5ca",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 65
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5ade10d_fdbc28cf",
         "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-15T12:32:10Z",
       "side": 1,
       "message": "since this is enum _class_ now, values no longer need to repeat the type, so may be rename them to something like\n{kEmpty, kSpeech, kComfortNoise}",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95649c81_a913633a",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T14:01:54Z",
+      "side": 1,
+      "message": "We\u0027d need aliases, to not break downstream code (and similarly for VideoFrameType). Not sure it\u0027s worth the effort. I\u0027d prefer to leave names unchanged in this cl.",
+      "parentUuid": "d5ade10d_fdbc28cf",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -68,6 +116,30 @@
       "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae36f38d_c5b80c45",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T14:01:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a6d4aae_3a51e3de",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

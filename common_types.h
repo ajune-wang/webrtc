@@ -38,7 +38,6 @@ enum FrameTypeDeprecated {
 // Can't use RTC_DEPRECATED until Chromium is updated.
 typedef FrameTypeDeprecated FrameType;
 
-using AudioFrameType = FrameTypeDeprecated;
 using VideoFrameType = FrameTypeDeprecated;
 
 // Statistics for RTCP packet types.

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d639eb30_2c91c648",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T13:46:43Z",
+      "side": 1,
+      "message": "Ok to keep this message? Or should I drop this part of the cl?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "e26648df74831503cd0dab7f8a2ab38679dd8305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

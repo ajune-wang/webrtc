@@ -13,5 +13,11 @@
 namespace rtc {
 namespace test {
 TaskQueueForTest::~TaskQueueForTest() = default;
+
+TaskQueueForTest::TaskQueueForTest(
+    std::unique_ptr<webrtc::TaskQueueBase, webrtc::TaskQueueDeleter> task_queue,
+    std::function<void(webrtc::TaskQueueBase*, webrtc::QueuedTask*)> sender)
+    : TaskQueue(std::move(task_queue)), sender_(sender) {}
+
 }  // namespace test
 }  // namespace rtc

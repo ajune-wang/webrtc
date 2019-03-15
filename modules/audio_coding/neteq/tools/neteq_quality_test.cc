@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <cmath>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "modules/audio_coding/neteq/tools/neteq_quality_test.h"
@@ -284,7 +285,7 @@ void NetEqQualityTest::SetUp() {
       // (1 - unit_loss_rate) ^ (block_duration_ms_ / kPacketLossTimeUnitMs) ==
       // 1 - packet_loss_rate.
       double unit_loss_rate =
-          (1.0f - pow(1.0f - 0.01f * packet_loss_rate_, 1.0f / units));
+          (1.0f - std::pow(1.0f - 0.01f * packet_loss_rate_, 1.0f / units));
       loss_model_.reset(new UniformLoss(unit_loss_rate));
       break;
     }

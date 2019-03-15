@@ -25,20 +25,20 @@ class VideoFileWriterTest : public ::testing::Test {
  public:
   void SetUp() override {
     const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file.y4m";
+        TempFilename(webrtc::test::OutputPath(), "test_video_file.y4m");
 
     // Create simple test video of size 6x4.
     FILE* file = fopen(filename.c_str(), "wb");
     ASSERT_TRUE(file != nullptr);
     fprintf(file, "YUV4MPEG2 W6 H4 F60:1 C420 dummyParam\n");
-    fprintf(file, "FRAME\n");
 
     const int i420_size = width * height * 3 / 2;
     // First frame.
+    fprintf(file, "FRAME\n");
     for (int i = 0; i < i420_size; ++i)
       fputc(static_cast<char>(i), file);
-    fprintf(file, "FRAME\n");
     // Second frame.
+    fprintf(file, "FRAME\n");
     for (int i = 0; i < i420_size; ++i)
       fputc(static_cast<char>(i + i420_size), file);
     fclose(file);
@@ -46,23 +46,44 @@ class VideoFileWriterTest : public ::testing::Test {
     // Open the newly created file.
     video = webrtc::test::OpenY4mFile(filename);
     ASSERT_TRUE(video);
+    ASSERT_EQ(video->number_of_frames(), 2u);
+  }
+
+  void TearDown() override {
+    if (!video_filename.empty()) {
+      RemoveFile(video_filename);
+    }
+    if (!written_video_filename.empty()) {
+      RemoveFile(written_video_filename);
+    }
   }
 
   // Write and read Y4M file.
   void WriteVideoY4m() {
-    const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file2.y4m";
-    webrtc::test::WriteVideoToFile(video, filename, fps);
-    written_video = webrtc::test::OpenY4mFile(filename);
+    // Cleanup existing file if any.
+    if (!written_video_filename.empty()) {
+      RemoveFile(written_video_filename);
+    }
+    // Create an unique filename, e.g. test_video_file2.y4mZapata.
+    written_video_filename =
+        TempFilename(webrtc::test::OutputPath(), "test_video_file2.y4m");
+    webrtc::test::WriteY4mVideoToFile(video, written_video_filename, fps);
+    written_video = webrtc::test::OpenY4mFile(written_video_filename);
     ASSERT_TRUE(written_video);
   }
 
   // Write and read YUV file.
   void WriteVideoYuv() {
-    const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file2.yuv";
-    webrtc::test::WriteVideoToFile(video, filename, fps);
-    written_video = webrtc::test::OpenYuvFile(filename, width, height);
+    // Cleanup existing file if any.
+    if (!written_video_filename.empty()) {
+      RemoveFile(written_video_filename);
+    }
+    // Create an unique filename, e.g. test_video_file2.yuvZapata.
+    written_video_filename =
+        TempFilename(webrtc::test::OutputPath(), "test_video_file2.yuv");
+    webrtc::test::WriteYuvVideoToFile(video, written_video_filename, fps);
+    written_video =
+        webrtc::test::OpenYuvFile(written_video_filename, width, height);
     ASSERT_TRUE(written_video);
   }
 
@@ -71,6 +92,9 @@ class VideoFileWriterTest : public ::testing::Test {
   const int fps = 60;
   rtc::scoped_refptr<webrtc::test::Video> video;
   rtc::scoped_refptr<webrtc::test::Video> written_video;
+  // Each video object must be backed by file!
+  std::string video_filename;
+  std::string written_video_filename;
 };
 
 TEST_F(VideoFileWriterTest, TestParsingFileHeaderY4m) {

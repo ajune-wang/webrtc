@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6df02a9_14e98300",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T10:17:43Z",
+      "side": 1,
+      "message": "Could we use the same struct, and delete this conversion code?",
+      "range": {
+        "startLine": 597,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 3
+      },
+      "revId": "f2049700348e524e3066d288f2bd28ccb441b641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

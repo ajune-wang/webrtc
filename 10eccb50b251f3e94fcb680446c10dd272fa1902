@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "8c93efe1_a011fd98",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T08:28:25Z",
+      "side": 1,
+      "message": "Not sure if that refactoring is worth the effort. But for lack of scoped temp dir, maybe it\u0027s easiest to use webrtc::test::TempFilename for each file?\n\nI don\u0027t think GenerateTempFilename is ever a good idea; deleting the file and recreating it defeats the efforts to avoid races in TempFilename.\n\nIt might also make sense to change WriteVideoToFile to take a FILE* rather than a filename, then one could consider using the plain C tmpfile function.",
+      "parentUuid": "84fb0f2f_ff25bebb",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e40972_6a40ebe2",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1

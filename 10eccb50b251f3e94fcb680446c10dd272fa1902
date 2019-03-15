@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "cd9793af_4275851e",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-15T14:11:13Z",
+      "side": 1,
+      "message": "TempFilename adds the random bits as a suffix (e.g. \"video.y4ms8fena\") which prevents the writter to \"detect\" the format via the extension.\n\nI find the deletion by GenerateTempFilename a bit confusing, but I don\u0027t see how it makes it more \"racy\". In both case we rely on the uniqueness of the name.",
+      "parentUuid": "8c93efe1_a011fd98",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e40972_6a40ebe2",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1

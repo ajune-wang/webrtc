@@ -22,6 +22,30 @@
       "revId": "f2049700348e524e3066d288f2bd28ccb441b641",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa2fb6d0_56b2f357",
+        "filename": "call/call.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-15T14:28:29Z",
+      "side": 1,
+      "message": "const BitrateSettings is a different struct with different units (e.g. ms instead of optional\u003cDataRate\u003e and is passed down from PeerConnection), so this conversion would still have to happen in peer connection class if not here.",
+      "parentUuid": "b6df02a9_14e98300",
+      "range": {
+        "startLine": 597,
+        "startChar": 0,
+        "endLine": 609,
+        "endChar": 3
+      },
+      "revId": "f2049700348e524e3066d288f2bd28ccb441b641",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

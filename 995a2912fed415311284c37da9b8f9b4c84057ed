@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7fed930d_0746e5ca",
+        "filename": "modules/audio_coding/acm2/acm_receiver_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-15T12:32:10Z",
+      "side": 1,
+      "message": "if EXPECT_EQ works, prefer to keep EXPECT_EQ\n(few linkes below I see ASSERT_EQ suggesting it should work)",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 65
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5ade10d_fdbc28cf",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-15T12:32:10Z",
+      "side": 1,
+      "message": "since this is enum _class_ now, values no longer need to repeat the type, so may be rename them to something like\n{kEmpty, kSpeech, kComfortNoise}",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a6d4aae_3a51e3de",
+        "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-15T12:32:10Z",
+      "side": 1,
+      "message": "May be move the default case of of the switch (now that all cases of the enum are handled).to get compiler error if a new case would be added.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 0
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

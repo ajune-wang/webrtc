@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d94fd27_065d1cd1",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-15T15:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e9d9e07_35b2346b",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 30
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "035327ee_3f58e944",
         "filename": "api/test/neteq_simulator_factory.cc",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a06f0bc4_458c34fa",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-15T15:28:47Z",
+      "side": 1,
+      "message": "I\u0027ve changed this API to use absl::string_view now, to avoid having to change the API when we want to use it in the future. Internally I immediately convert to a std::string though, since we currently need to pass these as const std::string\u0026 in various low-level functions. Does that sound like a reasonable solution?",
+      "parentUuid": "67f32fb3_e51e0e2d",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab0d73d8_7a157664",
         "filename": "modules/audio_coding/BUILD.gn",
         "patchSetId": 2
@@ -92,6 +140,30 @@
       "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f5b1cd8_576cb8fe",
+        "filename": "modules/audio_coding/BUILD.gn",
+        "patchSetId": 2
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-15T15:28:47Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "ab0d73d8_7a157664",
+      "range": {
+        "startLine": 1157,
+        "startChar": 0,
+        "endLine": 1157,
+        "endChar": 54
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -118,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "c5a93790_d7c98919",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-15T15:28:47Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "4c1f8292_e530755c",
+      "range": {
+        "startLine": 20,
+        "startChar": 23,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "000b90c3_3cfacded",
         "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
         "patchSetId": 2
@@ -138,6 +234,30 @@
       "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c8c718b_95f48f0f",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-15T15:28:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "000b90c3_3cfacded",
+      "range": {
+        "startLine": 36,
+        "startChar": 9,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

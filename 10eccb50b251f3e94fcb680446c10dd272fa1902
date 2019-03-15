@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "23b7294d_501b8d40",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T15:02:01Z",
+      "side": 1,
+      "message": "\u003e I find the deletion by GenerateTempFilename a bit confusing, but I don\u0027t see how it makes it more \"racy\". In both case we rely on the uniqueness of the name.\n\nMultiple processes or threads calling TempFilename (backed by mkstemp) are guaranteed to never interfere with other\u0027s files, *even* if they\u0027re unlucky with the randomly added characters. Since the O_EXCL | O_CREAT flags are passed to the open syscall. Then open might fail with EEXIST, and in that case mkstemp will either fail, or try again with a new random name (not sure which).\n\nIf you delete and reopen the file, that guarantee is lost. And evil processes might also interfere, e.g., using the window between delete and reopen to create a symlink to some important file, which the unsuspecting application using a \"temporary\" file will then overwrite.\n\nNow, I think CreateDir has an implied O_CREAT, so maybe this case isn\u0027t a security problem. But there\u0027s still a race between multiple processes.\n\nBottom line: Secure creation of temporary files is a bit subtle, in particular if there\u0027s a possibility that one is using a world-writable directory like /tmp. So I think it\u0027s best to stick to the known-good patterns, including mkstemp and mkdtemp.",
+      "parentUuid": "cd9793af_4275851e",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e40972_6a40ebe2",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1

@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "537bc074_7c68b097",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-15T15:15:18Z",
+      "side": 1,
+      "message": "Yes of course! I don\u0027t know why I thought GenerateTempFilename somehow reserved the name. Thanks for spelling it out. And you\u0027re right that the method is misleading. Going to remove it in a subsequent CL.",
+      "parentUuid": "23b7294d_501b8d40",
+      "range": {
+        "startLine": 27,
+        "startChar": 36,
+        "endLine": 27,
+        "endChar": 62
+      },
+      "revId": "10eccb50b251f3e94fcb680446c10dd272fa1902",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e40972_6a40ebe2",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 1

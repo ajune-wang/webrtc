@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e946f98_ac50616a",
+        "filename": "test/pc/e2e/api/peerconnection_quality_test_fixture.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-15T08:57:13Z",
+      "side": 1,
+      "message": "I am wondering if we can have something like \"test/pc/e2e/api/internal\" and move frameworks\u0027 internal details there (this is a pattern followed by absl as well, see https://cs.chromium.org/chromium/src/third_party/abseil-cpp/absl/strings/internal/str_format/bind.h and what they say about it here: https://abseil.io/about/compatibility).\n\nIn that case, we can #include these internal only types here and avoid the forward declaration.\n\nIf we like this option (and I guess it gives us more flexibility because we can define boundaries without worrying to much about transitive includes) I would also suggest we provide PeerArgs\u0027 implementation in the API instead of hiding it. At the end of the day, we only care that users pass std::unique_ptr\u003cPeerArgs\u003e into Run (e.g. do we really need the CreatePeerConnectionE2EQualityTestFixturePeerArgs indirection?)",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "bd25179f3c6a5f092098959d4c695273f7581044",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

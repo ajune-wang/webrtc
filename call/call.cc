@@ -1355,6 +1355,29 @@ PacketReceiver::DeliveryStatus Call::DeliverRtp(MediaType media_type,
     // which is being torned down.
     return DELIVERY_UNKNOWN_SSRC;
   }
+
+  if (webrtc::field_trial::IsEnabled(
+          "WebRTC-Video-BufferPacketsWithUnknownSsrc")) {
+    // Check if packet arrives for a stream that requires decryption
+    // but does not yet have a FrameDecryptor.
+    // In that case buffer the packet and replay it when the frame decryptor
+    // is set.
+    // TODO(bugs.webrtc.org/10416) : Remove this check once FrameDecryptor
+    // is created as part of creating receive stream.
+    uint32_t ssrc = parsed_packet.Ssrc();
+    auto vrs = std::find_if(
+        video_receive_streams_.begin(), video_receive_streams_.end(),
+        [&](const VideoReceiveStream* stream) {
+          return (stream->config().rtp.remote_ssrc == ssrc ||
+                  stream->config().rtp.rtx_ssrc == ssrc);
+        });
+    if (vrs != video_receive_streams_.end() &&
+        (*vrs)->config().crypto_options.sframe.require_frame_encryption &&
+        (*vrs)->config().frame_decryptor == nullptr) {
+      return DELIVERY_UNKNOWN_SSRC;
+    }
+  }
+
   parsed_packet.IdentifyExtensions(it->second.extensions);
 
   NotifyBweOfReceivedPacket(parsed_packet, media_type);

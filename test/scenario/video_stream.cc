@@ -339,7 +339,8 @@ SendVideoStream::SendVideoStream(CallClient* sender,
     : sender_(sender), config_(config) {
   video_capturer_ = absl::make_unique<FrameGeneratorCapturer>(
       sender_->clock_, CreateFrameGenerator(sender_->clock_, config.source),
-      config.source.framerate);
+      config.source.framerate,
+      *sender->time_controller_->GetTaskQueueFactory());
   video_capturer_->Init();
 
   using Encoder = VideoStreamConfig::Encoder;
@@ -384,35 +385,40 @@ SendVideoStream::SendVideoStream(CallClient* sender,
   send_config.encoder_settings.bitrate_allocator_factory =
       bitrate_allocator_factory_.get();
 
-  send_stream_ = sender_->call_->CreateVideoSendStream(
-      std::move(send_config), std::move(encoder_config));
-  std::vector<std::function<void(const VideoFrameQualityInfo&)> >
-      frame_info_handlers;
-  if (config.analyzer.frame_quality_handler)
-    frame_info_handlers.push_back(config.analyzer.frame_quality_handler);
+  sender_->task_queue_.SendTask([&] {
+    send_stream_ = sender_->call_->CreateVideoSendStream(
+        std::move(send_config), std::move(encoder_config));
+    std::vector<std::function<void(const VideoFrameQualityInfo&)> >
+        frame_info_handlers;
+    if (config.analyzer.frame_quality_handler)
+      frame_info_handlers.push_back(config.analyzer.frame_quality_handler);
 
-  if (analyzer->Active()) {
-    frame_tap_.reset(new ForwardingCapturedFrameTap(sender_->clock_, analyzer,
-                                                    video_capturer_.get()));
-    send_stream_->SetSource(frame_tap_.get(),
-                            config.encoder.degradation_preference);
-  } else {
-    send_stream_->SetSource(video_capturer_.get(),
-                            config.encoder.degradation_preference);
-  }
+    if (analyzer->Active()) {
+      frame_tap_.reset(new ForwardingCapturedFrameTap(sender_->clock_, analyzer,
+                                                      video_capturer_.get()));
+      send_stream_->SetSource(frame_tap_.get(),
+                              config.encoder.degradation_preference);
+    } else {
+      send_stream_->SetSource(video_capturer_.get(),
+                              config.encoder.degradation_preference);
+    }
+  });
 }
 
 SendVideoStream::~SendVideoStream() {
-  sender_->call_->DestroyVideoSendStream(send_stream_);
+  sender_->task_queue_.SendTask(
+      [this] { sender_->call_->DestroyVideoSendStream(send_stream_); });
 }
 
 void SendVideoStream::Start() {
-  send_stream_->Start();
-  sender_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  sender_->task_queue_.SendTask([this] {
+    send_stream_->Start();
+    sender_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  });
 }
 
 void SendVideoStream::Stop() {
-  send_stream_->Stop();
+  sender_->task_queue_.SendTask([this] { send_stream_->Stop(); });
 }
 
 void SendVideoStream::UpdateConfig(
@@ -508,27 +514,35 @@ ReceiveVideoStream::ReceiveVideoStream(CallClient* receiver,
         MediaType::VIDEO;
     if (config.stream.use_rtx)
       receiver_->ssrc_media_types_[recv_config.rtp.rtx_ssrc] = MediaType::VIDEO;
-    receive_streams_.push_back(
-        receiver_->call_->CreateVideoReceiveStream(std::move(recv_config)));
+    receiver_->task_queue_.SendTask([this, &recv_config] {
+      receive_streams_.push_back(
+          receiver_->call_->CreateVideoReceiveStream(std::move(recv_config)));
+    });
   }
 }
 
 ReceiveVideoStream::~ReceiveVideoStream() {
-  for (auto* recv_stream : receive_streams_)
-    receiver_->call_->DestroyVideoReceiveStream(recv_stream);
-  if (flecfec_stream_)
-    receiver_->call_->DestroyFlexfecReceiveStream(flecfec_stream_);
+  receiver_->task_queue_.SendTask([this] {
+    for (auto* recv_stream : receive_streams_)
+      receiver_->call_->DestroyVideoReceiveStream(recv_stream);
+    if (flecfec_stream_)
+      receiver_->call_->DestroyFlexfecReceiveStream(flecfec_stream_);
+  });
 }
 
 void ReceiveVideoStream::Start() {
-  for (auto* recv_stream : receive_streams_)
-    recv_stream->Start();
-  receiver_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  receiver_->task_queue_.SendTask([this] {
+    for (auto* recv_stream : receive_streams_)
+      recv_stream->Start();
+    receiver_->call_->SignalChannelNetworkState(MediaType::VIDEO, kNetworkUp);
+  });
 }
 
 void ReceiveVideoStream::Stop() {
-  for (auto* recv_stream : receive_streams_)
-    recv_stream->Stop();
+  receiver_->task_queue_.SendTask([this] {
+    for (auto* recv_stream : receive_streams_)
+      recv_stream->Stop();
+  });
 }
 
 VideoStreamPair::~VideoStreamPair() = default;
@@ -541,12 +555,12 @@ VideoStreamPair::VideoStreamPair(
     : config_(config),
       analyzer_(std::move(quality_writer),
                 config.analyzer.frame_quality_handler),
-      send_stream_(sender, config, &sender->transport_, &analyzer_),
+      send_stream_(sender, config, sender->transport_.get(), &analyzer_),
       receive_stream_(receiver,
                       config,
                       &send_stream_,
                       /*chosen_stream=*/0,
-                      &receiver->transport_,
+                      receiver->transport_.get(),
                       &analyzer_) {}
 
 }  // namespace test

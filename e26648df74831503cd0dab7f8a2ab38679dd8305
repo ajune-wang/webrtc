@@ -46,6 +46,30 @@
       "revId": "e26648df74831503cd0dab7f8a2ab38679dd8305",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f0f68a_ef1a6342",
+        "filename": "test/testsupport/perf_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T15:23:43Z",
+      "side": 1,
+      "message": "Keeping it then. I think it will provide useful context the next time something triggers this CHECK.",
+      "parentUuid": "9cb1624b_e0d5c3a8",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 66
+      },
+      "revId": "e26648df74831503cd0dab7f8a2ab38679dd8305",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "37e9d2cf_2fd3ef3d",
+        "filename": "modules/audio_coding/include/audio_coding_module_typedefs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T14:38:10Z",
+      "side": 1,
+      "message": "Current state depends on the alias\n\nusing AudioFrameType \u003d FrameTypeDeprecated;\n\nSo we need only two more steps for the current change: \n\n1: Update downstream to use AudioFrameType instead of FrameType, and use AudioFrameType::kFoo instead of FrameType::kFoo or just kFoo. (Should works just fine, thanks to the existing alias).\n\n2: Land this cl.\n\nChanging the constant names, in addition to the enum name, adds at least one additional step.\n\nIn any case, I\u0027d like to land this change first. If we think renaming the constants is worth the effort, we\u0027ll need an intermediate state with both AudioFrameType::kEmpty and AudioFrameType::kEmptyFrame, but we shouldn\u0027t add the shorter name to an old fashioned cl where it becomes a leaf in the webrtc namespace.",
+      "parentUuid": "d8634d3c_c85a4999",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "995a2912fed415311284c37da9b8f9b4c84057ed",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a6d4aae_3a51e3de",
         "filename": "modules/rtp_rtcp/source/rtp_sender_audio.cc",
         "patchSetId": 2

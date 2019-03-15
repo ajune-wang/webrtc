@@ -520,6 +520,30 @@
     },
     {
       "key": {
+        "uuid": "27ab0bc9_823dec60",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-15T11:17:33Z",
+      "side": 1,
+      "message": "My current understanding about VQA stats is that if we will read stats from kStatsReportTypeSsrc this packets_received \u003d 0 check will work as well.\n\nFor VQA we will also look at kStatsReportTypeBwe (or we will call the new GetStats, I still have to check this) and in that case I would say that if all the fields are 0 (included googTargetEncBitrate and googAvailableSendBandwidth) we can consider this the first report. But more investigation will be needed in that case.",
+      "parentUuid": "5f9aae22_5d82362f",
+      "range": {
+        "startLine": 230,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 49
+      },
+      "revId": "9c3e22de9a5a72574e21b775aff0d4739b8afc8f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edb6c8e2_3727a579",
         "filename": "test/pc/e2e/peer_connection_quality_test.cc",
         "patchSetId": 3

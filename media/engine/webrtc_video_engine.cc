@@ -528,7 +528,12 @@ WebRtcVideoChannel::WebRtcVideoChannel(
       last_stats_log_ms_(-1),
       discard_unknown_ssrc_packets_(webrtc::field_trial::IsEnabled(
           "WebRTC-Video-DiscardPacketsWithUnknownSsrc")),
-      crypto_options_(crypto_options) {
+      crypto_options_(crypto_options),
+      unknown_ssrc_packet_buffer_(
+          webrtc::field_trial::IsEnabled(
+              "WebRTC-Video-BufferPacketsWithUnknownSsrc")
+              ? new UnhandledPacketsBuffer()
+              : nullptr) {
   RTC_DCHECK(thread_checker_.CalledOnValidThread());
 
   rtcp_receiver_report_ssrc_ = kDefaultRtcpReceiverReportSsrc;
@@ -1183,7 +1188,7 @@ bool WebRtcVideoChannel::AddRecvStream(const StreamParams& sp,
   }
 
   receive_streams_[ssrc] = new WebRtcVideoReceiveStream(
-      call_, sp, std::move(config), decoder_factory_, default_stream,
+      this, call_, sp, std::move(config), decoder_factory_, default_stream,
       recv_codecs_, flexfec_config);
 
   return true;
@@ -1375,12 +1380,17 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
       break;
   }
 
-  if (discard_unknown_ssrc_packets_) {
+  uint32_t ssrc = 0;
+  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
     return;
   }
 
-  uint32_t ssrc = 0;
-  if (!GetRtpSsrc(packet.cdata(), packet.size(), &ssrc)) {
+  if (unknown_ssrc_packet_buffer_) {
+    unknown_ssrc_packet_buffer_->AddPacket(ssrc, packet_time_us, packet);
+    return;
+  }
+
+  if (discard_unknown_ssrc_packets_) {
     return;
   }
 
@@ -1417,6 +1427,20 @@ void WebRtcVideoChannel::OnPacketReceived(rtc::CopyOnWriteBuffer packet,
       webrtc::PacketReceiver::DELIVERY_OK) {
     RTC_LOG(LS_WARNING) << "Failed to deliver RTP packet on re-delivery.";
     return;
+  }
+}
+
+void WebRtcVideoChannel::BackfillBufferedPackets(
+    rtc::ArrayView<const uint32_t> ssrcs) {
+  RTC_DCHECK_RUN_ON(&thread_checker_);
+  if (unknown_ssrc_packet_buffer_) {
+    webrtc::PacketReceiver* receiver = this->call_->Receiver();
+    unknown_ssrc_packet_buffer_->BackfillPackets(
+        ssrcs, [&receiver](uint32_t ssrc, int64_t packet_time_us,
+                           rtc::CopyOnWriteBuffer packet) {
+          receiver->DeliverPacket(webrtc::MediaType::VIDEO, packet,
+                                  packet_time_us);
+        });
   }
 }
 
@@ -1909,6 +1933,9 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::SetFrameEncryptor(
   RTC_DCHECK_RUN_ON(&thread_checker_);
   parameters_.config.frame_encryptor = frame_encryptor;
   if (stream_) {
+    RTC_LOG(LS_INFO)
+        << "RecreateWebRtcStream (send) because of SetFrameEncryptor, ssrc="
+        << parameters_.config.rtp.ssrcs[0];
     RecreateWebRtcStream();
   }
 }
@@ -2237,6 +2264,7 @@ void WebRtcVideoChannel::WebRtcVideoSendStream::RecreateWebRtcStream() {
 }
 
 WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
+    WebRtcVideoChannel* channel,
     webrtc::Call* call,
     const StreamParams& sp,
     webrtc::VideoReceiveStream::Config config,
@@ -2244,7 +2272,8 @@ WebRtcVideoChannel::WebRtcVideoReceiveStream::WebRtcVideoReceiveStream(
     bool default_stream,
     const std::vector<VideoCodecSettings>& recv_codecs,
     const webrtc::FlexfecReceiveStream::Config& flexfec_config)
-    : call_(call),
+    : channel_(channel),
+      call_(call),
       stream_params_(sp),
       stream_(NULL),
       default_stream_(default_stream),
@@ -2440,6 +2469,16 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::RecreateWebRtcVideoStream() {
   }
   MaybeAssociateFlexfecWithVideo();
   stream_->Start();
+
+  if (webrtc::field_trial::IsEnabled(
+          "WebRTC-Video-BufferPacketsWithUnknownSsrc")) {
+    // TODO(bugs.webrtc.org/10416) : Remove this check and backfill
+    // when the stream is created (i.e remote check for frame_decryptor)
+    // once FrameDecryptor is created as part of creating receive stream.
+    if (config_.frame_decryptor) {
+      channel_->BackfillBufferedPackets(stream_params_.ssrcs);
+    }
+  }
 }
 
 void WebRtcVideoChannel::WebRtcVideoReceiveStream::
@@ -2496,6 +2535,9 @@ void WebRtcVideoChannel::WebRtcVideoReceiveStream::SetFrameDecryptor(
     rtc::scoped_refptr<webrtc::FrameDecryptorInterface> frame_decryptor) {
   config_.frame_decryptor = frame_decryptor;
   if (stream_) {
+    RTC_LOG(LS_INFO)
+        << "RecreateWebRtcStream (recv) because of SetFrameDecryptor, "
+        << "remote_ssrc=" << config_.rtp.remote_ssrc;
     RecreateWebRtcVideoStream();
   }
 }

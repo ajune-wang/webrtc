@@ -24,21 +24,22 @@ namespace test {
 class VideoFileWriterTest : public ::testing::Test {
  public:
   void SetUp() override {
-    const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file.y4m";
+    temp_dir = GenerateTempFilename(webrtc::test::OutputPath(), "test_video");
+    ASSERT_TRUE(CreateDir(temp_dir));
+    std::string filename = JoinFilename(temp_dir, "video_file.y4m");
 
     // Create simple test video of size 6x4.
     FILE* file = fopen(filename.c_str(), "wb");
     ASSERT_TRUE(file != nullptr);
     fprintf(file, "YUV4MPEG2 W6 H4 F60:1 C420 dummyParam\n");
-    fprintf(file, "FRAME\n");
 
     const int i420_size = width * height * 3 / 2;
     // First frame.
+    fprintf(file, "FRAME\n");
     for (int i = 0; i < i420_size; ++i)
       fputc(static_cast<char>(i), file);
-    fprintf(file, "FRAME\n");
     // Second frame.
+    fprintf(file, "FRAME\n");
     for (int i = 0; i < i420_size; ++i)
       fputc(static_cast<char>(i + i420_size), file);
     fclose(file);
@@ -46,29 +47,38 @@ class VideoFileWriterTest : public ::testing::Test {
     // Open the newly created file.
     video = webrtc::test::OpenY4mFile(filename);
     ASSERT_TRUE(video);
+    ASSERT_EQ(video->number_of_frames(), 2u);
+    RemoveFile(filename);
+  }
+
+  void TearDown() override {
+    if (!temp_dir.empty()) {
+      webrtc::test::RemoveDir(temp_dir);
+    }
   }
 
   // Write and read Y4M file.
   void WriteVideoY4m() {
-    const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file2.y4m";
+    const std::string filename = JoinFilename(temp_dir, "test_video_file2.y4m");
     webrtc::test::WriteVideoToFile(video, filename, fps);
     written_video = webrtc::test::OpenY4mFile(filename);
     ASSERT_TRUE(written_video);
+    RemoveFile(filename);
   }
 
   // Write and read YUV file.
   void WriteVideoYuv() {
-    const std::string filename =
-        webrtc::test::OutputPath() + "test_video_file2.yuv";
+    const std::string filename = JoinFilename(temp_dir, "test_video_file2.yuv");
     webrtc::test::WriteVideoToFile(video, filename, fps);
     written_video = webrtc::test::OpenYuvFile(filename, width, height);
     ASSERT_TRUE(written_video);
+    RemoveFile(filename);
   }
 
   const int width = 6;
   const int height = 4;
   const int fps = 60;
+  std::string temp_dir;
   rtc::scoped_refptr<webrtc::test::Video> video;
   rtc::scoped_refptr<webrtc::test::Video> written_video;
 };

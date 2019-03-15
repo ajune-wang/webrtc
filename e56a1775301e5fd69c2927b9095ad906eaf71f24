@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "689ed68b_cfdba4c5",
+        "filename": "test/testsupport/scoped_temp_dir.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-15T08:07:32Z",
+      "side": 1,
+      "message": "Checking related man pages, I noticed that on posix there\u0027s the mkdtemp function (similar to mkstemp, but creating a directory rather than a file).",
+      "parentUuid": "6c6ee3d9_aacb6389",
+      "range": {
+        "startLine": 33,
+        "startChar": 25,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "e56a1775301e5fd69c2927b9095ad906eaf71f24",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b403af2f_814bb182",
         "filename": "test/testsupport/scoped_temp_dir.h",
         "patchSetId": 1

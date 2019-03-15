@@ -1,0 +1,279 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd378ea6_ef819929",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "or SetFrameDecryptor",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39cfef33_5e26ff28",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "UnknownOrUndecryptable ?",
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d74b9b1_dcc4e665",
+        "filename": "call/call.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1368,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "const uint32_t",
+      "range": {
+        "startLine": 1368,
+        "startChar": 4,
+        "endLine": 1368,
+        "endChar": 12
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad3d0007_dc6bb638",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "I think emplace_back forwards the arguments, so I think you can remove the call to make_tuple? Or just change to push_back?",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 40
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f860a69e_b4b56952",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "consumer",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 21
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08795708_54f28683",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "Should we call .reserve() on this one too?",
+      "range": {
+        "startLine": 48,
+        "startChar": 69,
+        "endLine": 48,
+        "endChar": 78
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "875b8203_998a6653",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "const",
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9599b6a9_13568ae6",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "const",
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d0f0348_983c7044",
+        "filename": "media/engine/unhandled_packets_buffer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "I don\u0027t really understand this. Should this not be remaining.size() ?",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00f49a3b_8774bbc8",
+        "filename": "media/engine/unhandled_packets_buffer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "I think it would be more readable with:\nusing PacketWithMetadata \u003d std::tuple\u003cuint3_t, int64_t, rtc::COW\u003e;\nstd::vector\u003cPacketWithMetadata\u003e buffer_;\nand then use the alias in the cc file too. And maybe do something similar for the functor type?",
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aeba9be2_a9fd0257",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "See comment in call.cc.",
+      "range": {
+        "startLine": 534,
+        "startChar": 28,
+        "endLine": 534,
+        "endChar": 56
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "730ab24b_0173d64f",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1433,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "MaybeBackfill?",
+      "range": {
+        "startLine": 1433,
+        "startChar": 25,
+        "endLine": 1433,
+        "endChar": 33
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f73559f_5276a386",
+        "filename": "media/engine/webrtc_video_engine.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1441,
+      "author": {
+        "id": 5023
+      },
+      "writtenOn": "2019-03-15T14:20:25Z",
+      "side": 1,
+      "message": "Unrelated to this CL, but it\u0027s sad that we are parsing the SSRC at this level, just to throw it away and then re-parse it Call...",
+      "range": {
+        "startLine": 1441,
+        "startChar": 20,
+        "endLine": 1441,
+        "endChar": 33
+      },
+      "revId": "62f9a2f0cb8c613c53b152307d32747695213254",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    }
+  ]
+}

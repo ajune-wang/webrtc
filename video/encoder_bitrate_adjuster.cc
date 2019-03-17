@@ -11,13 +11,33 @@
 #include "video/encoder_bitrate_adjuster.h"
 
 #include <algorithm>
+#include <vector>
 
 #include "absl/memory/memory.h"
 #include "rtc_base/logging.h"
 #include "rtc_base/time_utils.h"
 
 namespace webrtc {
+namespace {
+// Helper struct with metadata for a single spatial layer.
+struct LayerRateInfo {
+  double link_utilization_factor = 0.0;
+  double media_utilization_factor = 0.0;
+  DataRate target_rate = DataRate::Zero();
 
+  DataRate WantedOvershoot() const {
+    // If there is headroom, allow bitrate to go up to media rate limit.
+    // Still limit media utilization to 1.0, so we don't overshoot over long
+    // runs even if we have headroom.
+    const double max_media_utilization =
+        std::max(1.0, media_utilization_factor);
+    if (link_utilization_factor > max_media_utilization) {
+      return (link_utilization_factor - max_media_utilization) * target_rate;
+    }
+    return DataRate::Zero();
+  }
+};
+}  // namespace
 constexpr int64_t EncoderBitrateAdjuster::kWindowSizeMs;
 constexpr size_t EncoderBitrateAdjuster::kMinFramesSinceLayoutChange;
 constexpr double EncoderBitrateAdjuster::kDefaultUtilizationFactor;
@@ -80,84 +100,162 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
   // Next poll the overshoot detectors and populate the adjusted allocation.
   const int64_t now_ms = rtc::TimeMillis();
   VideoBitrateAllocation adjusted_allocation;
+  std::vector<LayerRateInfo> layer_infos;
+  DataRate undershoot_sum = DataRate::Zero();
+  DataRate wanted_overshoot_sum = DataRate::Zero();
+
   for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
-    const uint32_t spatial_layer_bitrate_bps =
-        bitrate_allocation.GetSpatialLayerSum(si);
+    layer_infos.emplace_back();
+    LayerRateInfo& layer_info = layer_infos.back();
+
+    layer_info.target_rate =
+        DataRate::bps(bitrate_allocation.GetSpatialLayerSum(si));
 
     // Adjustment is done per spatial layer only (not per temporal layer).
-    double utilization_factor;
     if (frames_since_layout_change_ < kMinFramesSinceLayoutChange) {
-      utilization_factor = kDefaultUtilizationFactor;
-    } else if (active_tls_[si] == 0 || spatial_layer_bitrate_bps == 0) {
+      layer_info.link_utilization_factor = kDefaultUtilizationFactor;
+      layer_info.media_utilization_factor = kDefaultUtilizationFactor;
+    } else if (active_tls_[si] == 0 ||
+               layer_info.target_rate == DataRate::Zero()) {
       // No signaled temporal layers, or no bitrate set. Could either be unused
       // spatial layer or bitrate dynamic mode; pass bitrate through without any
       // change.
-      utilization_factor = 1.0;
+      layer_info.link_utilization_factor = 1.0;
+      layer_info.media_utilization_factor = 1.0;
     } else if (active_tls_[si] == 1) {
       // A single active temporal layer, this might mean single layer or that
       // encoder does not support temporal layers. Merge target bitrates for
       // this spatial layer.
       RTC_DCHECK(overshoot_detectors_[si][0]);
-      utilization_factor =
-          overshoot_detectors_[si][0]->GetUtilizationFactor(now_ms).value_or(
-              kDefaultUtilizationFactor);
-    } else if (spatial_layer_bitrate_bps > 0) {
+      layer_info.link_utilization_factor =
+          overshoot_detectors_[si][0]
+              ->GetNetworkRateUtilizationFactor(now_ms)
+              .value_or(kDefaultUtilizationFactor);
+      layer_info.media_utilization_factor =
+          overshoot_detectors_[si][0]
+              ->GetMediaRateUtilizationFactor(now_ms)
+              .value_or(kDefaultUtilizationFactor);
+    } else if (layer_info.target_rate > DataRate::Zero()) {
       // Multiple temporal layers enabled for this spatial layer. Update rate
       // for each of them and make a weighted average of utilization factors,
       // with bitrate fraction used as weight.
       // If any layer is missing a utilization factor, fall back to default.
-      utilization_factor = 0.0;
+      layer_info.link_utilization_factor = 0.0;
+      layer_info.media_utilization_factor = 0.0;
       for (size_t ti = 0; ti < active_tls_[si]; ++ti) {
         RTC_DCHECK(overshoot_detectors_[si][ti]);
-        const absl::optional<double> ti_utilization_factor =
-            overshoot_detectors_[si][ti]->GetUtilizationFactor(now_ms);
-        if (!ti_utilization_factor) {
-          utilization_factor = kDefaultUtilizationFactor;
+        const absl::optional<double> ti_link_utilization_factor =
+            overshoot_detectors_[si][ti]->GetNetworkRateUtilizationFactor(
+                now_ms);
+        const absl::optional<double> ti_media_utilization_factor =
+            overshoot_detectors_[si][ti]->GetMediaRateUtilizationFactor(now_ms);
+        if (!ti_link_utilization_factor || !ti_media_utilization_factor) {
+          layer_info.link_utilization_factor = kDefaultUtilizationFactor;
+          layer_info.media_utilization_factor = kDefaultUtilizationFactor;
           break;
         }
         const double weight =
             static_cast<double>(bitrate_allocation.GetBitrate(si, ti)) /
-            spatial_layer_bitrate_bps;
-        utilization_factor += weight * ti_utilization_factor.value();
+            layer_info.target_rate.bps();
+        layer_info.link_utilization_factor +=
+            weight * ti_link_utilization_factor.value();
+        layer_info.media_utilization_factor +=
+            weight * ti_media_utilization_factor.value();
       }
     } else {
       RTC_NOTREACHED();
     }
 
-    // Don't boost target bitrate if encoder is under-using.
-    utilization_factor = std::max(utilization_factor, 1.0);
+    if (frames_since_layout_change_ >= kMinFramesSinceLayoutChange &&
+        layer_info.link_utilization_factor < 1.0) {
+      // Encoder is under-using link, add the unutilized bits to
+      // |undershoot_sum| in case other layers can use those.
+      undershoot_sum +=
+          DataRate::bps(layer_info.target_rate.bps() *
+                        (1.0 - layer_info.link_utilization_factor));
 
-    // Don't reduce encoder target below 50%, in which case the frame dropper
-    // should kick in instead.
-    utilization_factor = std::min(utilization_factor, 2.0);
+      // Don't boost target bitrate if encoder is under-using.
+      layer_info.link_utilization_factor =
+          std::max(layer_info.link_utilization_factor, 1.0);
+    } else {
+      // Don't reduce encoder target below 50%, in which case the frame dropper
+      // should kick in instead.
+      layer_info.link_utilization_factor =
+          std::min(layer_info.link_utilization_factor, 2.0);
 
-    if (min_bitrates_bps_[si] > 0 && spatial_layer_bitrate_bps > 0 &&
-        min_bitrates_bps_[si] < spatial_layer_bitrate_bps) {
-      // Make sure rate adjuster doesn't push target bitrate below minimum.
-      utilization_factor = std::min(
-          utilization_factor, static_cast<double>(spatial_layer_bitrate_bps) /
-                                  min_bitrates_bps_[si]);
+      // Keep track of sum of desired overshoot bitrate.
+      wanted_overshoot_sum += layer_info.WantedOvershoot();
+    }
+  }
+
+  // Avilable headroom that can be used to fill wanted overshoot consists of
+  // both any spatial layer undershoot plus link headroom.
+  DataRate available_headroom =
+      undershoot_sum + bitrate_allocation.GetHeadroom();
+
+  for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
+    LayerRateInfo& layer_info = layer_infos[si];
+    double utilization_factor = layer_info.link_utilization_factor;
+
+    const DataRate wanted_overshoot = layer_info.WantedOvershoot();
+    if (wanted_overshoot > DataRate::Zero() &&
+        available_headroom > DataRate::Zero()) {
+      // We can fulfill some wanted overshoot. First calculate how large a
+      // fraction of the total overshoot this spatial layer requested.
+      const double wanted_fraction =
+          wanted_overshoot.bps<double>() / wanted_overshoot_sum.bps<double>();
+      // Grant |wanted_fraction|, up to the total requested, of the available
+      // bitrate.
+      const DataRate granted_overshoot =
+          std::min(wanted_overshoot,
+                   DataRate::bps(wanted_fraction * available_headroom.bps()));
+      // Transform overshoot in bps to overshoot factor.
+      const double allowed_overshoot = (granted_overshoot.bps<double>() +
+                                        layer_info.target_rate.bps<double>()) /
+                                       layer_info.target_rate.bps<double>();
+      // Scale utilization factor by the allowd overshoot factor.
+      utilization_factor /= allowed_overshoot;
     }
 
-    if (spatial_layer_bitrate_bps > 0) {
-      RTC_LOG(LS_VERBOSE) << "Utilization factor for spatial index " << si
-                          << ": " << utilization_factor;
+    if (min_bitrates_bps_[si] > 0 &&
+        layer_info.target_rate > DataRate::Zero() &&
+        DataRate::bps(min_bitrates_bps_[si]) < layer_info.target_rate) {
+      // Make sure rate adjuster doesn't push target bitrate below minimum.
+      utilization_factor =
+          std::min(utilization_factor, layer_info.target_rate.bps<double>() /
+                                           min_bitrates_bps_[si]);
+    }
+
+    if (layer_info.target_rate > DataRate::Zero()) {
+      RTC_LOG(LS_VERBOSE) << "Utilization factors for spatial index " << si
+                          << ": link = " << layer_info.link_utilization_factor
+                          << ", media = " << layer_info.media_utilization_factor
+                          << ", wanted overshoot = "
+                          << layer_info.WantedOvershoot().bps()
+                          << " bps, total utilization factor = "
+                          << utilization_factor;
     }
 
     // Populate the adjusted allocation with determined utilization factor.
     if (active_tls_[si] == 1 &&
-        spatial_layer_bitrate_bps > bitrate_allocation.GetBitrate(si, 0)) {
+        layer_info.target_rate >
+            DataRate::bps(bitrate_allocation.GetBitrate(si, 0))) {
       // Bitrate allocation indicates temporal layer usage, but encoder
       // does not seem to support it. Pipe all bitrate into a single
       // overshoot detector.
-      uint32_t adjusted_layer_bitrate_bps = static_cast<uint32_t>(
-          spatial_layer_bitrate_bps / utilization_factor + 0.5);
+      uint32_t adjusted_layer_bitrate_bps =
+          std::min(static_cast<uint32_t>(
+                       layer_info.target_rate.bps() / utilization_factor + 0.5),
+                   layer_info.target_rate.bps<uint32_t>());
       adjusted_allocation.SetBitrate(si, 0, adjusted_layer_bitrate_bps);
     } else {
       for (size_t ti = 0; ti < kMaxTemporalStreams; ++ti) {
         if (bitrate_allocation.HasBitrate(si, ti)) {
-          uint32_t adjusted_layer_bitrate_bps = static_cast<uint32_t>(
-              bitrate_allocation.GetBitrate(si, ti) / utilization_factor + 0.5);
+          uint32_t adjusted_layer_bitrate_bps = std::min(
+              static_cast<uint32_t>(bitrate_allocation.GetBitrate(si, ti) /
+                                        utilization_factor +
+                                    0.5),
+              bitrate_allocation.GetBitrate(si, ti));
           adjusted_allocation.SetBitrate(si, ti, adjusted_layer_bitrate_bps);
         }
       }
@@ -167,7 +265,7 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
     // constraint has been met.
     const uint32_t adjusted_spatial_layer_sum =
         adjusted_allocation.GetSpatialLayerSum(si);
-    if (spatial_layer_bitrate_bps > 0 &&
+    if (layer_info.target_rate > DataRate::Zero() &&
         adjusted_spatial_layer_sum < min_bitrates_bps_[si]) {
       adjusted_allocation.SetBitrate(si, 0,
                                      adjusted_allocation.GetBitrate(si, 0) +
@@ -194,6 +292,12 @@ VideoBitrateAllocation EncoderBitrateAdjuster::AdjustRateAllocation(
       }
     }
   }
+
+  // Subtract utilized headroom before passing it to encoders.
+  adjusted_allocation.SetHeadroom(
+      std::max(DataRate::Zero(),
+               bitrate_allocation.GetHeadroom() -
+                   std::min(wanted_overshoot_sum, available_headroom)));
 
   return adjusted_allocation;
 }

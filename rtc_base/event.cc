@@ -13,6 +13,7 @@
 #if defined(WEBRTC_WIN)
 #include <windows.h>
 #elif defined(WEBRTC_POSIX)
+#include <errno.h>
 #include <pthread.h>
 #include <sys/time.h>
 #include <time.h>
@@ -21,6 +22,7 @@
 #endif
 
 #include "rtc_base/checks.h"
+#include "rtc_base/system/warn_current_thread_is_deadlocked.h"
 
 namespace rtc {
 
@@ -101,43 +103,64 @@ void Event::Reset() {
   pthread_mutex_unlock(&event_mutex_);
 }
 
-bool Event::Wait(int milliseconds) {
-  int error = 0;
+namespace {
 
-  struct timespec ts;
-  if (milliseconds != kForever) {
+timespec GetTimespec(const int milliseconds_from_now) {
+  timespec ts;
+
+  // Get the current time.
 #if USE_CLOCK_GETTIME
-    clock_gettime(CLOCK_MONOTONIC, &ts);
+  clock_gettime(CLOCK_MONOTONIC, &ts);
 #else
-    struct timeval tv;
-    gettimeofday(&tv, nullptr);
-    ts.tv_sec = tv.tv_sec;
-    ts.tv_nsec = tv.tv_usec * 1000;
+  timeval tv;
+  gettimeofday(&tv, nullptr);
+  ts.tv_sec = tv.tv_sec;
+  ts.tv_nsec = tv.tv_usec * 1000;
 #endif
 
-    ts.tv_sec += (milliseconds / 1000);
-    ts.tv_nsec += (milliseconds % 1000) * 1000000;
+  // Add the specified number of milliseconds to it.
+  ts.tv_sec += (milliseconds_from_now / 1000);
+  ts.tv_nsec += (milliseconds_from_now % 1000) * 1000000;
 
-    // Handle overflow.
-    if (ts.tv_nsec >= 1000000000) {
-      ts.tv_sec++;
-      ts.tv_nsec -= 1000000000;
-    }
+  // Normalize.
+  if (ts.tv_nsec >= 1000000000) {
+    ts.tv_sec++;
+    ts.tv_nsec -= 1000000000;
   }
 
+  return ts;
+}
+
+}  // namespace
+
+bool Event::Wait(const int milliseconds) {
+  // Set a timeout for the given number of milliseconds, or 3000 ms if the
+  // caller asked for kForever.
+  const timespec ts =
+      GetTimespec(milliseconds == kForever ? 3000 : milliseconds);
+
   pthread_mutex_lock(&event_mutex_);
-  if (milliseconds != kForever) {
-    while (!event_status_ && error == 0) {
+
+  // Wait for the event to trigger or the timeout to expire, whichever comes
+  // first.
+  int error = 0;
+  while (!event_status_ && error == 0) {
 #if USE_PTHREAD_COND_TIMEDWAIT_MONOTONIC_NP
-      error =
-          pthread_cond_timedwait_monotonic_np(&event_cond_, &event_mutex_, &ts);
+    error =
+        pthread_cond_timedwait_monotonic_np(&event_cond_, &event_mutex_, &ts);
 #else
-      error = pthread_cond_timedwait(&event_cond_, &event_mutex_, &ts);
+    error = pthread_cond_timedwait(&event_cond_, &event_mutex_, &ts);
 #endif
-    }
-  } else {
-    while (!event_status_ && error == 0)
+  }
+
+  if (milliseconds == kForever && error == ETIMEDOUT) {
+    // Our 3000 ms timeout expired, but the caller asked us to wait forever, so
+    // do that.
+    webrtc::WarnThatTheCurrentThreadIsProbablyDeadlocked(RTC_FROM_HERE);
+    error = 0;
+    while (!event_status_ && error == 0) {
       error = pthread_cond_wait(&event_cond_, &event_mutex_);
+    }
   }
 
   // NOTE(liulk): Exactly one thread will auto-reset this event. All

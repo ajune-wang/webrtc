@@ -67,6 +67,16 @@ rtc_source_set("compile_assert_c") {
   ]
 }
 
+rtc_source_set("location") {
+  sources = [
+    "location.cc",
+    "location.h",
+  ]
+  deps = [
+    ":macromagic",
+  ]
+}
+
 # The subset of rtc_base approved for use outside of libjingle.
 # TODO(bugs.webrtc.org/9838): Create small and focused build targets and remove
 # the old concept of rtc_base and rtc_base_approved.
@@ -109,8 +119,6 @@ rtc_source_set("rtc_base_approved") {
     "flags.h",
     "function_view.h",
     "ignore_wundef.h",
-    "location.cc",
-    "location.h",
     "message_buffer_reader.h",
     "numerics/histogram_percentile_counter.cc",
     "numerics/histogram_percentile_counter.h",
@@ -783,6 +791,7 @@ rtc_static_library("rtc_base") {
   defines = []
   deps = [
     ":checks",
+    ":location",
     ":stringutils",
     "..:webrtc_common",
     "../api:array_view",
@@ -1096,6 +1105,7 @@ rtc_source_set("rtc_base_tests_utils") {
   ]
   deps = [
     ":checks",
+    ":location",
     ":rtc_base",
     "../api/units:time_delta",
     "third_party/sigslot",
@@ -1170,6 +1180,7 @@ if (rtc_include_tests) {
     deps = [
       ":checks",
       ":gunit_helpers",
+      ":location",
       ":rtc_base",
       ":rtc_base_tests_main",
       ":rtc_base_tests_utils",
@@ -1238,6 +1249,7 @@ if (rtc_include_tests) {
     deps = [
       ":checks",
       ":gunit_helpers",
+      ":location",
       ":rate_limiter",
       ":rtc_base",
       ":rtc_base_approved",

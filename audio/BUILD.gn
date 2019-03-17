@@ -70,6 +70,7 @@ rtc_static_library("audio") {
     "../modules/utility",
     "../rtc_base:audio_format_to_string",
     "../rtc_base:checks",
+    "../rtc_base:location",
     "../rtc_base:rate_limiter",
     "../rtc_base:rtc_base",
     "../rtc_base:rtc_base_approved",

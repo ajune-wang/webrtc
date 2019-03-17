@@ -183,6 +183,7 @@ if (rtc_include_tests) {
       "../../../p2p:rtc_p2p",
       "../../../pc:pc_test_utils",
       "../../../pc:peerconnection_wrapper",
+      "../../../rtc_base:location",
       "../../../rtc_base:rtc_base",
       "../../../rtc_base:rtc_base_approved",
       "../../../test:copy_to_file_audio_capturer",

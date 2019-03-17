@@ -29,6 +29,7 @@ rtc_static_library("utility") {
     "../../api/task_queue",
     "../../common_audio",
     "../../rtc_base:checks",
+    "../../rtc_base:location",
     "../../rtc_base:rtc_base_approved",
     "../../rtc_base/system:arch",
     "../../system_wrappers",
@@ -43,6 +44,7 @@ rtc_source_set("mock_process_thread") {
   ]
   deps = [
     ":utility",
+    "../../rtc_base:location",
     "../../rtc_base:rtc_base_approved",
     "../../test:test_support",
   ]
@@ -59,6 +61,7 @@ if (rtc_include_tests) {
       ":utility",
       "..:module_api",
       "../../api/task_queue",
+      "../../rtc_base:location",
       "../../rtc_base:rtc_base_approved",
       "../../test:test_support",
     ]

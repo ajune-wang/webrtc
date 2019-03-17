@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "bb369775_86f0cdc4",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-17T06:30:13Z",
+      "side": 1,
+      "message": "Yes---provided the copying is cheap enough. It sounds like we won\u0027t be calling this often, but are the strings small? `event_log_file_contents` sounds like it might be expensive to copy...",
+      "parentUuid": "a06f0bc4_458c34fa",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab0d73d8_7a157664",
         "filename": "modules/audio_coding/BUILD.gn",
         "patchSetId": 2

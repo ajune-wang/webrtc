@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "absl/types/optional.h"
+#include "api/units/data_rate.h"
 #include "api/video/video_codec_constants.h"
 
 namespace webrtc {
@@ -76,11 +77,19 @@ class VideoBitrateAllocation {
     return !(*this == other);
   }
 
+  // The headroom indicates the extra bitrate available (on the link) for the
+  // media this rate allocation represents. If this value is zero, it means we
+  // are link constrained. If it is positive, we have some headroom - which can
+  // be used to eg tune optimal buffers levels.
+  void SetHeadroom(DataRate headroom);
+  DataRate GetHeadroom() const;
+
   std::string ToString() const;
 
  private:
   uint32_t sum_;
   absl::optional<uint32_t> bitrates_[kMaxSpatialLayers][kMaxTemporalStreams];
+  DataRate headroom_;
 };
 
 }  // namespace webrtc

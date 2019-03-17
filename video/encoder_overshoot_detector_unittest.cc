@@ -52,7 +52,7 @@ class EncoderOvershootDetectorTest : public ::testing::Test {
     }
 
     absl::optional<double> utilization_factor =
-        detector_.GetUtilizationFactor(rtc::TimeMillis());
+        detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis());
     EXPECT_NEAR(utilization_factor.value_or(-1), expected_utilization_factor,
                 allowed_error);
   }
@@ -71,11 +71,13 @@ TEST_F(EncoderOvershootDetectorTest, NoUtilizationIfNoRate) {
                           rtc::TimeMillis());
 
   // No data points, can't determine overshoot rate.
-  EXPECT_FALSE(detector_.GetUtilizationFactor(rtc::TimeMillis()).has_value());
+  EXPECT_FALSE(
+      detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis()).has_value());
 
   detector_.OnEncodedFrame(frame_size_bytes, rtc::TimeMillis());
   clock_.AdvanceTimeMicros(rtc::kNumMicrosecsPerMillisec * time_interval_ms);
-  EXPECT_TRUE(detector_.GetUtilizationFactor(rtc::TimeMillis()).has_value());
+  EXPECT_TRUE(
+      detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis()).has_value());
 }
 
 TEST_F(EncoderOvershootDetectorTest, OptimalSize) {
@@ -146,7 +148,7 @@ TEST_F(EncoderOvershootDetectorTest, PartialOvershoot) {
   }
 
   absl::optional<double> utilization_factor =
-      detector_.GetUtilizationFactor(rtc::TimeMillis());
+      detector_.GetNetworkRateUtilizationFactor(rtc::TimeMillis());
   EXPECT_NEAR(utilization_factor.value_or(-1), 1.05, 0.01);
 }
 

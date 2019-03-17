@@ -82,7 +82,7 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void SendKeyFrame() override;
 
   void OnBitrateUpdated(DataRate target_bitrate,
-                        DataRate target_headroom,
+                        DataRate link_headroom,
                         uint8_t fraction_lost,
                         int64_t round_trip_time_ms) override;
 
@@ -141,7 +141,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   void TraceFrameDropEnd();
 
   VideoBitrateAllocation GetBitrateAllocationAndNotifyObserver(
-      const uint32_t target_bitrate_bps,
+      DataRate target_bitrate,
+      DataRate link_headroom,
       uint32_t framerate_fps) RTC_RUN_ON(&encoder_queue_);
   uint32_t GetInputFramerateFps() RTC_RUN_ON(&encoder_queue_);
   void SetEncoderRates(const VideoBitrateAllocation& bitrate_allocation,
@@ -242,7 +243,8 @@ class VideoStreamEncoder : public VideoStreamEncoderInterface,
   int crop_height_ RTC_GUARDED_BY(&encoder_queue_);
   uint32_t encoder_start_bitrate_bps_ RTC_GUARDED_BY(&encoder_queue_);
   size_t max_data_payload_length_ RTC_GUARDED_BY(&encoder_queue_);
-  uint32_t last_observed_bitrate_bps_ RTC_GUARDED_BY(&encoder_queue_);
+  DataRate last_observed_bitrate_ RTC_GUARDED_BY(&encoder_queue_);
+  DataRate last_observed_link_headroom_ RTC_GUARDED_BY(&encoder_queue_);
   bool encoder_paused_and_dropped_frame_ RTC_GUARDED_BY(&encoder_queue_);
   Clock* const clock_;
   // Counters used for deciding if the video resolution or framerate is

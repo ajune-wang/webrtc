@@ -445,7 +445,8 @@ VideoStreamEncoder::VideoStreamEncoder(
       crop_height_(0),
       encoder_start_bitrate_bps_(0),
       max_data_payload_length_(0),
-      last_observed_bitrate_bps_(0),
+      last_observed_bitrate_(DataRate::Zero()),
+      last_observed_link_headroom_(DataRate::Zero()),
       encoder_paused_and_dropped_frame_(false),
       clock_(clock),
       degradation_preference_(DegradationPreference::DISABLED),
@@ -779,12 +780,13 @@ void VideoStreamEncoder::ReconfigureEncoder() {
     bitrate_adjuster_->OnEncoderInfo(info);
   }
 
-  if (rate_allocator_ && last_observed_bitrate_bps_ > 0) {
+  if (rate_allocator_ && last_observed_bitrate_ > DataRate::Zero()) {
     // We have a new rate allocator instance and already configured target
     // bitrate. Update the rate allocation and notify observsers.
     const uint32_t framerate_fps = GetInputFramerateFps();
     SetEncoderRates(GetBitrateAllocationAndNotifyObserver(
-                        last_observed_bitrate_bps_, framerate_fps),
+                        last_observed_bitrate_, last_observed_link_headroom_,
+                        framerate_fps),
                     framerate_fps);
   }
 
@@ -942,8 +944,8 @@ bool VideoStreamEncoder::EncoderPaused() const {
   // Pause video if paused by caller or as long as the network is down or the
   // pacer queue has grown too large in buffered mode.
   // If the pacer queue has grown too large or the network is down,
-  // last_observed_bitrate_bps_ will be 0.
-  return last_observed_bitrate_bps_ == 0;
+  // last_observed_bitrate_ will be 0.
+  return last_observed_bitrate_ == DataRate::Zero();
 }
 
 void VideoStreamEncoder::TraceFrameDropStart() {
@@ -966,15 +968,17 @@ void VideoStreamEncoder::TraceFrameDropEnd() {
 
 VideoBitrateAllocation
 VideoStreamEncoder::GetBitrateAllocationAndNotifyObserver(
-    const uint32_t target_bitrate_bps,
+    DataRate target_bitrate,
+    DataRate link_headroom,
     uint32_t framerate_fps) {
   // Only call allocators if bitrate > 0 (ie, not suspended), otherwise they
   // might cap the bitrate to the min bitrate configured.
   VideoBitrateAllocation bitrate_allocation;
-  if (rate_allocator_ && target_bitrate_bps > 0) {
+  if (rate_allocator_ && target_bitrate > DataRate::Zero()) {
     bitrate_allocation =
-        rate_allocator_->GetAllocation(target_bitrate_bps, framerate_fps);
+        rate_allocator_->GetAllocation(target_bitrate.bps(), framerate_fps);
   }
+  bitrate_allocation.SetHeadroom(link_headroom);
 
   if (bitrate_observer_ && bitrate_allocation.get_sum_bps() > 0) {
     bitrate_observer_->OnBitrateAllocationUpdated(bitrate_allocation);
@@ -984,7 +988,7 @@ VideoStreamEncoder::GetBitrateAllocationAndNotifyObserver(
     VideoBitrateAllocation adjusted_allocation =
         bitrate_adjuster_->AdjustRateAllocation(bitrate_allocation,
                                                 framerate_fps);
-    RTC_LOG(LS_VERBOSE) << "Adjusting allocation, fps = " << framerate_fps
+    RTC_LOG(LS_WARNING) << "Adjusting allocation, fps = " << framerate_fps
                         << ", from " << bitrate_allocation.ToString() << ", to "
                         << adjusted_allocation.ToString();
     return adjusted_allocation;
@@ -1078,7 +1082,8 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
              now_ms - *last_parameters_update_ms_ >=
                  vcm::VCMProcessTimer::kDefaultProcessIntervalMs) {
     SetEncoderRates(GetBitrateAllocationAndNotifyObserver(
-                        last_observed_bitrate_bps_, framerate_fps),
+                        last_observed_bitrate_, last_observed_link_headroom_,
+                        framerate_fps),
                     framerate_fps);
     last_parameters_update_ms_.emplace(now_ms);
   }
@@ -1141,7 +1146,7 @@ void VideoStreamEncoder::MaybeEncodeVideoFrame(const VideoFrame& video_frame,
   frame_dropper_.Enable(frame_dropping_enabled);
   if (frame_dropping_enabled && frame_dropper_.DropFrame()) {
     RTC_LOG(LS_VERBOSE) << "Drop Frame: "
-                        << "target bitrate " << last_observed_bitrate_bps_
+                        << "target bitrate " << last_observed_bitrate_.bps()
                         << ", input frame rate " << framerate_fps;
     OnDroppedFrame(
         EncodedImageCallback::DropReason::kDroppedByMediaOptimizations);
@@ -1423,13 +1428,13 @@ void VideoStreamEncoder::OnDroppedFrame(DropReason reason) {
 }
 
 void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
-                                          DataRate target_headroom,
+                                          DataRate link_headroom,
                                           uint8_t fraction_lost,
                                           int64_t round_trip_time_ms) {
   if (!encoder_queue_.IsCurrent()) {
-    encoder_queue_.PostTask([this, target_bitrate, target_headroom,
-                             fraction_lost, round_trip_time_ms] {
-      OnBitrateUpdated(target_bitrate, target_headroom, fraction_lost,
+    encoder_queue_.PostTask([this, target_bitrate, link_headroom, fraction_lost,
+                             round_trip_time_ms] {
+      OnBitrateUpdated(target_bitrate, link_headroom, fraction_lost,
                        round_trip_time_ms);
     });
     return;
@@ -1438,7 +1443,7 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
   RTC_DCHECK(sink_) << "sink_ must be set before the encoder is active.";
 
   RTC_LOG(LS_VERBOSE) << "OnBitrateUpdated, bitrate " << target_bitrate.bps()
-                      << " headroom = " << target_headroom.bps()
+                      << " link headroom = " << link_headroom.bps()
                       << " packet loss " << static_cast<int>(fraction_lost)
                       << " rtt " << round_trip_time_ms;
   // On significant changes to BWE at the start of the call,
@@ -1457,8 +1462,8 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
 
   uint32_t framerate_fps = GetInputFramerateFps();
   frame_dropper_.SetRates((target_bitrate.bps() + 500) / 1000, framerate_fps);
-  SetEncoderRates(GetBitrateAllocationAndNotifyObserver(target_bitrate.bps(),
-                                                        framerate_fps),
+  SetEncoderRates(GetBitrateAllocationAndNotifyObserver(
+                      target_bitrate, link_headroom, framerate_fps),
                   framerate_fps);
 
   encoder_start_bitrate_bps_ = target_bitrate.bps() != 0
@@ -1466,7 +1471,8 @@ void VideoStreamEncoder::OnBitrateUpdated(DataRate target_bitrate,
                                    : encoder_start_bitrate_bps_;
   bool video_is_suspended = target_bitrate == DataRate::Zero();
   bool video_suspension_changed = video_is_suspended != EncoderPaused();
-  last_observed_bitrate_bps_ = target_bitrate.bps();
+  last_observed_bitrate_ = target_bitrate;
+  last_observed_link_headroom_ = link_headroom;
 
   if (video_suspension_changed) {
     RTC_LOG(LS_INFO) << "Video suspend state changed to: "

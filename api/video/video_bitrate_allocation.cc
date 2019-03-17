@@ -18,7 +18,8 @@
 
 namespace webrtc {
 
-VideoBitrateAllocation::VideoBitrateAllocation() : sum_(0) {}
+VideoBitrateAllocation::VideoBitrateAllocation()
+    : sum_(0), headroom_(DataRate::Zero()) {}
 
 bool VideoBitrateAllocation::SetBitrate(size_t spatial_index,
                                         size_t temporal_index,
@@ -111,13 +112,20 @@ VideoBitrateAllocation::GetSimulcastAllocations() const {
   std::vector<absl::optional<VideoBitrateAllocation>> bitrates;
   for (size_t si = 0; si < kMaxSpatialLayers; ++si) {
     absl::optional<VideoBitrateAllocation> layer_bitrate;
+    DataRate spatial_layer_sum = DataRate::Zero();
     if (IsSpatialLayerUsed(si)) {
       layer_bitrate = VideoBitrateAllocation();
       for (int tl = 0; tl < kMaxTemporalStreams; ++tl) {
-        if (HasBitrate(si, tl))
-          layer_bitrate->SetBitrate(0, tl, GetBitrate(si, tl));
+        if (HasBitrate(si, tl)) {
+          const DataRate temporal_rate = DataRate::bps(GetBitrate(si, tl));
+          layer_bitrate->SetBitrate(0, tl, temporal_rate.bps<uint32_t>());
+          spatial_layer_sum += temporal_rate;
+        }
       }
     }
+    // Assign headroom proportional to target bitrate.
+    layer_bitrate->headroom_ =
+        DataRate::bps((headroom_.bps() * spatial_layer_sum.bps()) / sum_);
     bitrates.push_back(layer_bitrate);
   }
   return bitrates;
@@ -131,7 +139,15 @@ bool VideoBitrateAllocation::operator==(
         return false;
     }
   }
-  return true;
+  return headroom_ == other.headroom_;
+}
+
+void VideoBitrateAllocation::SetHeadroom(DataRate headroom) {
+  headroom_ = headroom;
+}
+
+DataRate VideoBitrateAllocation::GetHeadroom() const {
+  return headroom_;
 }
 
 std::string VideoBitrateAllocation::ToString() const {
@@ -177,7 +193,8 @@ std::string VideoBitrateAllocation::ToString() const {
   }
 
   RTC_DCHECK_EQ(spatial_cumulator, sum_);
-  ssb << " ]";
+  ssb << " ] (headroom = ";
+  ssb << headroom_.bps() << " bps)";
   return ssb.str();
 }
 

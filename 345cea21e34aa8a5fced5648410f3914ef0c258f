@@ -46,6 +46,30 @@
       "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7f22e2_175a4870",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-17T22:25:32Z",
+      "side": 1,
+      "message": "Is patch set 2 better? It uses a mutable local variable, but is otherwise quite readable I think.",
+      "parentUuid": "cd863d4d_b3a12489",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

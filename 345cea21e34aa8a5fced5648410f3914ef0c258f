@@ -22,6 +22,30 @@
       "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd863d4d_b3a12489",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-17T14:20:58Z",
+      "side": 1,
+      "message": "Yes, but I\u0027ve tried to make the code reasonably easy to read. The named variable for the result is probably the most important readability aid, but the comments likely help too.\n\nWould you like me to trim it down a bit?",
+      "parentUuid": "d0834cd8_c62318d4",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

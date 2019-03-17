@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0834cd8_c62318d4",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-03-17T13:29:49Z",
+      "side": 1,
+      "message": "Isn\u0027t this the same as:\nwhile (blocked_.test_and_set(std::memory_order_acquire)) {\n}\n?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

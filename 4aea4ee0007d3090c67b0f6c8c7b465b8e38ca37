@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65ca14cc_c1d77050",
+        "filename": "rtc_tools/video_file_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-18T09:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08f09498_f0538f91",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1f72372_5e949721",
         "filename": "rtc_tools/video_file_writer.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58b700c3_fce5faea",
+        "filename": "rtc_tools/video_file_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-18T09:39:15Z",
+      "side": 1,
+      "message": "Done. I\u0027ve dropped that due to the closeness of the helper, but I guess it doesn\u0027t hurt!",
+      "parentUuid": "b1f72372_5e949721",
+      "range": {
+        "startLine": 78,
+        "startChar": 42,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65d63243_aac483e1",
+        "filename": "rtc_tools/video_file_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-18T09:39:15Z",
+      "side": 1,
+      "message": "Yes it\u0027s used by a CLI tool where you pass the filename as an argument.\nWe\u0027ll regain test coverage with a proper \"temporary dir\" helper.",
+      "parentUuid": "b6bf989d_d8ba0852",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 79
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9608ca80_60a7da74",
         "filename": "rtc_tools/video_file_writer_unittest.cc",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c69f5ba_8ed16518",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-18T09:39:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9608ca80_60a7da74",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 37
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

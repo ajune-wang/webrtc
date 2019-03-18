@@ -22,6 +22,30 @@
       "revId": "f1c9e21366b6e1c633e06fcab921154a8a29bb8b",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44c3c0e9_9fb1b3ff",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2019-03-18T09:39:15Z",
+      "side": 0,
+      "message": "Done. I thought it was clearer, plus that smalls cleanups didn\u0027t deserve their own CL.",
+      "parentUuid": "e126a525_429b1e1a",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "f1c9e21366b6e1c633e06fcab921154a8a29bb8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

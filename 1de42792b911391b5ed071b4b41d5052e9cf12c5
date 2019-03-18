@@ -152,6 +152,24 @@
       "revId": "1de42792b911391b5ed071b4b41d5052e9cf12c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "466e30b6_7d9faff6",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3904,
+      "author": {
+        "id": 5531
+      },
+      "writtenOn": "2019-03-18T16:23:09Z",
+      "side": 1,
+      "message": "Mocks generally are easier to maintain than fakes and easier to read for people who don\u0027t know the specifics of the fake. Fakes has a tendency to grow in scope over time. A mock is quite explicitly limited in a way making them less prone to the anti-pattern where the systems is basically re-implemented in test code.",
+      "parentUuid": "4d973ed9_abca448b",
+      "revId": "1de42792b911391b5ed071b4b41d5052e9cf12c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

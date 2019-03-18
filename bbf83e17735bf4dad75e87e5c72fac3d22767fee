@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bdd32d3_51a5a1c2",
+        "filename": "sdk/android/api/org/webrtc/EglBase10.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-03-18T14:00:05Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "bbf83e17735bf4dad75e87e5c72fac3d22767fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c175936c_a3ce985f",
+        "filename": "sdk/android/api/org/webrtc/EglBase14.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5112
+      },
+      "writtenOn": "2019-03-18T14:00:05Z",
+      "side": 1,
+      "message": "nit: typo",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "bbf83e17735bf4dad75e87e5c72fac3d22767fee",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

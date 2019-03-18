@@ -37,6 +37,10 @@ rtc_source_set("callfactory_api") {
 
 rtc_static_library("create_peerconnection_factory") {
   visibility = [ "*" ]
+  defines = []
+  if (rtc_include_builtin_audio_processing) {
+    defines += [ "WEBRTC_USE_BUILTIN_AUDIO_PROCESSING" ]
+  }
   sources = [
     "create_peerconnection_factory.cc",
     "create_peerconnection_factory.h",

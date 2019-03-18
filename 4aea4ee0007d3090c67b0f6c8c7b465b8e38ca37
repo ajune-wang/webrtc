@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1f72372_5e949721",
+        "filename": "rtc_tools/video_file_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-18T07:34:45Z",
+      "side": 1,
+      "message": "Should we specify the name of the param in a comment (see: https://abseil.io/tips/94).",
+      "range": {
+        "startLine": 78,
+        "startChar": 42,
+        "endLine": 78,
+        "endChar": 46
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

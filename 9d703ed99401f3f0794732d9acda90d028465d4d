@@ -22,6 +22,30 @@
       "revId": "9d703ed99401f3f0794732d9acda90d028465d4d",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6778aedc_42d556af",
+        "filename": "api/test/fake_media_transport.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-18T17:25:22Z",
+      "side": 1,
+      "message": "Good catch. I wish clang complained :)",
+      "parentUuid": "cbc18123_5d1f9dc4",
+      "range": {
+        "startLine": 106,
+        "startChar": 2,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "9d703ed99401f3f0794732d9acda90d028465d4d",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -182,37 +182,12 @@ NetworkEmulationManagerImpl::CreatePulsedPeaksCrossTraffic(
   return out;
 }
 
-rtc::Thread* NetworkEmulationManagerImpl::CreateNetworkThread(
+EmulatedNetworkController* NetworkEmulationManagerImpl::CreateNetworkController(
     const std::vector<EmulatedEndpoint*>& endpoints) {
-  FakeNetworkSocketServer* socket_server = CreateSocketServer(endpoints);
-  std::unique_ptr<rtc::Thread> network_thread =
-      absl::make_unique<rtc::Thread>(socket_server);
-  network_thread->SetName("network_thread" + std::to_string(threads_.size()),
-                          nullptr);
-  network_thread->Start();
-  rtc::Thread* out = network_thread.get();
-  threads_.push_back(std::move(network_thread));
-  return out;
-}
-
-rtc::NetworkManager* NetworkEmulationManagerImpl::CreateNetworkManager(
-    const std::vector<EmulatedEndpoint*>& endpoints) {
-  auto network_manager = absl::make_unique<rtc::FakeNetworkManager>();
-  for (auto* endpoint : endpoints) {
-    network_manager->AddInterface(
-        rtc::SocketAddress(endpoint->GetPeerLocalAddress(), /*port=*/0));
-  }
-  rtc::NetworkManager* out = network_manager.get();
-  managers_.push_back(std::move(network_manager));
-  return out;
-}
-
-FakeNetworkSocketServer* NetworkEmulationManagerImpl::CreateSocketServer(
-    const std::vector<EmulatedEndpoint*>& endpoints) {
-  auto socket_server =
-      absl::make_unique<FakeNetworkSocketServer>(clock_, endpoints);
-  FakeNetworkSocketServer* out = socket_server.get();
-  socket_servers_.push_back(std::move(socket_server));
+  auto controller =
+      absl::make_unique<EmulatedNetworkControllerImpl>(clock_, endpoints);
+  EmulatedNetworkController* out = controller.get();
+  controllers_.push_back(std::move(controller));
   return out;
 }
 

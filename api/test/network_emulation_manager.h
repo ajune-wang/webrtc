@@ -48,6 +48,20 @@ struct EmulatedEndpointConfig {
   absl::optional<rtc::IPAddress> ip;
 };
 
+// TODO(titovartem) add documentation
+class EmulatedNetworkController {
+ public:
+  virtual ~EmulatedNetworkController() = default;
+
+  virtual rtc::Thread* network_thread() const = 0;
+  virtual rtc::NetworkManager* network_manager() const = 0;
+
+  // Provides ability to dynamically change set of endpoint nodes for this
+  // controller.
+  virtual void AddEmulatedEndpoint(EmulatedEndpoint* endpoint) = 0;
+  virtual void RemoveEmulatedEndpoint(EmulatedEndpoint* endpoint) = 0;
+};
+
 // Provides an API for creating and configuring emulated network layer.
 // All objects returned by this API are owned by NetworkEmulationManager itself
 // and will be deleted when manager will be deleted.
@@ -88,16 +102,8 @@ class NetworkEmulationManager {
   // removed earlier.
   virtual void ClearRoute(EmulatedRoute* route) = 0;
 
-  // Creates rtc::Thread that should be used as network thread for peer
-  // connection. Created thread contains special rtc::SocketServer inside it
-  // to enable correct integration between peer connection and emulated network
-  // layer.
-  virtual rtc::Thread* CreateNetworkThread(
-      const std::vector<EmulatedEndpoint*>& endpoints) = 0;
-  // Creates rtc::NetworkManager that should be used inside
-  // cricket::PortAllocator for peer connection to provide correct list of
-  // network interfaces, that exists in emulated network later.
-  virtual rtc::NetworkManager* CreateNetworkManager(
+  // TODO(titovartem) add documentation
+  virtual EmulatedNetworkController* CreateNetworkController(
       const std::vector<EmulatedEndpoint*>& endpoints) = 0;
 };
 

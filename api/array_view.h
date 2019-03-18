@@ -260,6 +260,21 @@ class ArrayView final : public impl::ArrayViewBase<T, Size> {
   ArrayView<T> subview(size_t offset) const {
     return subview(offset, this->size());
   }
+
+  // Only for primitive types that have the same size.
+  // Allow reinterpret cast of the array view to another primitive type of the
+  // same size.
+  template <typename U>
+  ArrayView<U, Size> reinterpret() const {
+    static_assert(sizeof(U) == sizeof(T),
+                  "ArrayView reinterpret_cast is only supported for casting "
+                  "between types of the same size");
+    static_assert(
+        std::is_fundamental<T>::value && std::is_fundamental<U>::value,
+        "ArrayView reinterpret_cast is only supported for casting between "
+        "fundamental types.");
+    return ArrayView<U, Size>(reinterpret_cast<U*>(this->data()), this->size());
+  }
 };
 
 // Comparing two ArrayViews compares their (pointer,size) pairs; it does *not*

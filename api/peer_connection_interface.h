@@ -996,8 +996,9 @@ class PeerConnectionInterface : public rtc::RefCountInterface {
   };
 
   // SetBitrate limits the bandwidth allocated for all RTP streams sent by
-  // this PeerConnection. Other limitations might affect these limits and
-  // are respected (for example "b=AS" in SDP).
+  // this PeerConnection. Other SDP limitations (for example "b=AS") might
+  // affect these limits and  can override these values when
+  // SetRemoteDescription is called.
   //
   // Setting |current_bitrate_bps| will reset the current bitrate estimate
   // to the provided value.

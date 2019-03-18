@@ -1631,13 +1631,62 @@ TEST_F(WebRtcVoiceEngineTestFake, SetMaxSendBandwidthForAudioDoesntAffectBwe) {
   SetSendCodecsShouldWorkForBitrates("100", 100000, "150", 150000, "200",
                                      200000);
   send_parameters_.max_bandwidth_bps = 100000;
-  // Setting max bitrate should keep previous min bitrate
-  // Setting max bitrate should not reset start bitrate.
+  // Calling SetSendParameters with a changed max bitrate should not propagate
+  // to the underlying transport controller.
+  EXPECT_CALL(*call_.GetMockTransportControllerSend(),
+              SetSdpBitrateParameters(_))
+      .Times(0);
+  SetSendParameters(send_parameters_);
+}
+
+TEST_F(WebRtcVoiceEngineTestFake,
+       SetSendParametersWithoutNewCodecDoesNotAffectBwe) {
+  EXPECT_TRUE(SetupSendStream());
+  auto& codecs = send_parameters_.codecs;
+  codecs.clear();
+  codecs.push_back(kOpusCodec);
+  codecs[0].params[cricket::kCodecParamMinBitrate] = "100";
+  codecs[0].params[cricket::kCodecParamStartBitrate] = "150";
+  codecs[0].params[cricket::kCodecParamMaxBitrate] = "200";
+  // The transport controller should only be updated once.
   EXPECT_CALL(*call_.GetMockTransportControllerSend(),
               SetSdpBitrateParameters(
                   AllOf(Field(&BitrateConstraints::min_bitrate_bps, 100000),
-                        Field(&BitrateConstraints::start_bitrate_bps, -1),
-                        Field(&BitrateConstraints::max_bitrate_bps, 200000))));
+                        Field(&BitrateConstraints::start_bitrate_bps, 150000),
+                        Field(&BitrateConstraints::max_bitrate_bps, 200000))))
+      .Times(1);
+
+  SetSendParameters(send_parameters_);
+  SetSendParameters(send_parameters_);
+}
+
+TEST_F(WebRtcVoiceEngineTestFake,
+       SetSendParametersTwiceWithNewCodecAffectsBwe) {
+  EXPECT_TRUE(SetupSendStream());
+  auto& codecs = send_parameters_.codecs;
+  codecs.clear();
+  codecs.push_back(kOpusCodec);
+  codecs[0].params[cricket::kCodecParamMinBitrate] = "100";
+  codecs[0].params[cricket::kCodecParamStartBitrate] = "150";
+  codecs[0].params[cricket::kCodecParamMaxBitrate] = "200";
+  // The transport controller gets updated with the codec bitrate parameter
+  // change.
+  EXPECT_CALL(*call_.GetMockTransportControllerSend(),
+              SetSdpBitrateParameters(
+                  AllOf(Field(&BitrateConstraints::min_bitrate_bps, 100000),
+                        Field(&BitrateConstraints::start_bitrate_bps, 150000),
+                        Field(&BitrateConstraints::max_bitrate_bps, 200000))))
+      .Times(1);
+  EXPECT_CALL(*call_.GetMockTransportControllerSend(),
+              SetSdpBitrateParameters(
+                  AllOf(Field(&BitrateConstraints::min_bitrate_bps, 100000),
+                        Field(&BitrateConstraints::start_bitrate_bps, 150000),
+                        Field(&BitrateConstraints::max_bitrate_bps, 500000))))
+      .Times(1);
+
+  SetSendParameters(send_parameters_);
+
+  codecs[0].params[cricket::kCodecParamMaxBitrate] = "500";
   SetSendParameters(send_parameters_);
 }
 

@@ -47,8 +47,8 @@
     fragmentationHeader->fragmentationOffset[i] = (size_t)self.fragmentationOffset[i].unsignedIntValue;
     fragmentationHeader->fragmentationLength[i] = (size_t)self.fragmentationLength[i].unsignedIntValue;
     fragmentationHeader->fragmentationTimeDiff[i] =
-        (uint16_t)self.fragmentationOffset[i].unsignedIntValue;
-    fragmentationHeader->fragmentationPlType[i] = (uint8_t)self.fragmentationOffset[i].unsignedIntValue;
+        (uint16_t)self.fragmentationTimeDiff[i].unsignedIntValue;
+    fragmentationHeader->fragmentationPlType[i] = (uint8_t)self.fragmentationPlType[i].unsignedIntValue;
   }
 
   return fragmentationHeader;

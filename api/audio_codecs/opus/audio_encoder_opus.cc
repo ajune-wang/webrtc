@@ -10,12 +10,18 @@
 
 #include "api/audio_codecs/opus/audio_encoder_opus.h"
 
+#include "absl/strings/match.h"
 #include "modules/audio_coding/codecs/opus/audio_encoder_opus.h"
 
 namespace webrtc {
 
 absl::optional<AudioEncoderOpusConfig> AudioEncoderOpus::SdpToConfig(
     const SdpAudioFormat& format) {
+  // AudioEncoderOpusImpl supports both 'opus' and 'multiopus'. But in this
+  // codec layer, we only allow 'opus'.
+  if (!absl::EqualsIgnoreCase(format.name, "opus")) {
+    return absl::nullopt;
+  }
   return AudioEncoderOpusImpl::SdpToConfig(format);
 }
 

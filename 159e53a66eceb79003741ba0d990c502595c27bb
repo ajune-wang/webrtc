@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8901bdcd_56b808af",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 0,
+      "message": "Thank you, I had forgotten that we have death tests.\n\nAdded a set of ApmTest.GainControlInvalid* tests.",
+      "parentUuid": "1b7a3aa9_e12d2a0d",
+      "range": {
+        "startLine": 962,
+        "startChar": 0,
+        "endLine": 965,
+        "endChar": 56
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee2b4d30_1195b1a9",
         "filename": "modules/audio_processing/gain_control_for_experimental_agc.cc",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "50d568b2_81b143b1",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 0,
+      "message": "Done. This is not as significant as one might think, since any calls to apm-\u003egain_control() functions will still take the same lock, but it does simplify the code (and the locks will disappear together with the proxy, instead of having to clean them up afterwards).",
+      "parentUuid": "ee2b4d30_1195b1a9",
+      "range": {
+        "startLine": 42,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 43
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e0dd06b_9185bea1",
         "filename": "modules/audio_processing/gain_control_impl.h",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b3f20b0_9f782890",
+        "filename": "modules/audio_processing/gain_control_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "3e0dd06b_9185bea1",
+      "range": {
+        "startLine": 71,
+        "startChar": 2,
+        "endLine": 71,
+        "endChar": 43
+      },
+      "revId": "159e53a66eceb79003741ba0d990c502595c27bb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "4fd0a47f_69eaab3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Very good point, done!",
+      "parentUuid": "39812a10_5c706dae",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "740cad13_e8fff5d4",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "It was discussed removing this helper in a previous CL [1], let\u0027s do it while we\u0027re here.\n[1] https://codereview.webrtc.org/2985633002/diff/60001/webrtc/media/engine/webrtcvoiceengine_unittest.cc",
+      "range": {
+        "startLine": 741,
+        "startChar": 11,
+        "endLine": 741,
+        "endChar": 41
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e50d0770_95ddceb1",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 2
@@ -45,6 +92,30 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba01eff6_1475b770",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Neat, done.",
+      "parentUuid": "e50d0770_95ddceb1",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 23
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "b123ade7_481c102c",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e0ba020_46178da0",
+      "range": {
+        "startLine": 772,
+        "startChar": 35,
+        "endLine": 772,
+        "endChar": 45
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf190ed1_2fac63aa",
         "filename": "modules/audio_processing/audio_processing_impl.cc",
         "patchSetId": 2
@@ -91,6 +186,30 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98b14713_1248ef69",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Oops, embarrassing! Thank you.",
+      "parentUuid": "cf190ed1_2fac63aa",
+      "range": {
+        "startLine": 773,
+        "startChar": 2,
+        "endLine": 777,
+        "endChar": 29
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "042f7e55_9ecf1916",
+        "filename": "modules/audio_processing/audio_processing_impl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Good points. Naming it agc1() makes it hard to discern from gain_control() though (until that one is deleted), which is what I was trying to alleviate with the \"internal_\" prefix.\n\nI\u0027ll go with agc1(). I think the only good solution is for me to get rid of gain_control as soon as possible...",
+      "parentUuid": "698d6f34_adc40ace",
+      "range": {
+        "startLine": 265,
+        "startChar": 15,
+        "endLine": 265,
+        "endChar": 36
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e41f71cf_53ae4501",
         "filename": "modules/audio_processing/gain_control_config_proxy.cc",
         "patchSetId": 2
@@ -140,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "93a15830_c36788dc",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e41f71cf_53ae4501",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "694e7bc8_5e4ab727",
         "filename": "modules/audio_processing/gain_control_config_proxy.cc",
         "patchSetId": 2
@@ -154,6 +321,24 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b7c424b_66da2f74",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "I added the DCHECK in AudioProcessing::set_stream_analog_level(), and corresponding tests in audioprocessing_unittest.cc",
+      "parentUuid": "694e7bc8_5e4ab727",
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "38ca64d2_dfb51720",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d10026e6_60dd67bc",
+      "range": {
+        "startLine": 61,
+        "startChar": 2,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d5e9225_ca0e4894",
         "filename": "modules/audio_processing/gain_control_config_proxy.h",
         "patchSetId": 2
@@ -200,6 +409,30 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58437bf0_cf7efed1",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d5e9225_ca0e4894",
+      "range": {
+        "startLine": 57,
+        "startChar": 2,
+        "endLine": 57,
+        "endChar": 61
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "e061ab33_3988aa3e",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "5cb967fe_213acb86",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 31
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1b14d7c_dbce2083",
         "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
         "patchSetId": 2
@@ -246,6 +503,30 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fe8ba91_5e821a5a",
+        "filename": "modules/audio_processing/gain_control_for_experimental_agc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1b14d7c_dbce2083",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 68
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -272,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "ea74e64d_4c9b9339",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "As per offline discussions, we do seem to have some users who explicitly disable the experimental AGC. I\u0027ll leave this in. Under other circumstances, I am all for removing redundant options :)",
+      "parentUuid": "933b6b51_527faa08",
+      "range": {
+        "startLine": 276,
+        "startChar": 4,
+        "endLine": 282,
+        "endChar": 28
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3fa22118_383edee7",
         "filename": "modules/audio_processing/include/audio_processing.h",
         "patchSetId": 2
@@ -292,6 +597,30 @@
       "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6870c9d4_b2f0c71f",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5119
+      },
+      "writtenOn": "2019-03-18T15:09:01Z",
+      "side": 1,
+      "message": "I added the TODO.\n\nUsing macro annotations to mark it as deprecated is a build error, not a warning, so it would fail automated downstream builds.",
+      "parentUuid": "3fa22118_383edee7",
+      "range": {
+        "startLine": 621,
+        "startChar": 2,
+        "endLine": 621,
+        "endChar": 48
+      },
+      "revId": "92c8c3cb72df5e438a1724a37ed04d5584e98676",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

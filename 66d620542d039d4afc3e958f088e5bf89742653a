@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "9346115f_23fc0aee",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T14:18:05Z",
+      "side": 1,
+      "message": "The copying of this string is not cheap, but in our application it won\u0027t make a difference because there will be a string copy here either way. Since it doesn\u0027t make a difference for us, and it\u0027s only temporary until we can use string_view in the whole chain, isn\u0027t it better to avoid having to change the API again later?",
+      "parentUuid": "bb369775_86f0cdc4",
+      "range": {
+        "startLine": 65,
+        "startChar": 9,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "66d620542d039d4afc3e958f088e5bf89742653a",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ab0d73d8_7a157664",
         "filename": "modules/audio_coding/BUILD.gn",
         "patchSetId": 2

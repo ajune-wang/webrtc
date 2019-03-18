@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "975bd76f_9aac9b4f",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d075c39b_f6994d09",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81b0d3d3_54af8bf1",
         "filename": "api/test/neteq_simulator_factory.cc",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "dfde11e6b5f820455703df779be7e2654535b116",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f324bf8a_83696447",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81b0d3d3_54af8bf1",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "cd2a27d9_6cd9c2f4",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "string_view doesn\u0027t implicitly convert to std::string (but std::string does convert to string_view). I think this is because the conversion causes a copy of the string to be made, which can potentially be expensive.",
+      "parentUuid": "241be60e_a525c554",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 46
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08b07d22_cf2bdd94",
         "filename": "api/test/neteq_simulator_factory.cc",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "dfde11e6b5f820455703df779be7e2654535b116",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e217a01_5c689c7b",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08b07d22_cf2bdd94",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1f20d592_452d3e82",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "It can be, but the issue is that RtcEventLogParser only accepts const std::string\u0026, so we will have to convert to a std::string anyway in this CL. I can convert all these functions to string_view in a follow-up CL.",
+      "parentUuid": "6123cd27_d5d49c25",
+      "range": {
+        "startLine": 112,
+        "startChar": 15,
+        "endLine": 112,
+        "endChar": 21
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04b1d87b_bdae05d1",
         "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "dfde11e6b5f820455703df779be7e2654535b116",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "228a5bbd_86d68838",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-18T15:44:33Z",
+      "side": 1,
+      "message": "I will do this in a follow-up CL.",
+      "parentUuid": "04b1d87b_bdae05d1",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

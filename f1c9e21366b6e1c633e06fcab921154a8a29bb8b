@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e126a525_429b1e1a",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-18T08:12:33Z",
+      "side": 0,
+      "message": "Any reason to move these fprints around? If not, please drop from cl.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "f1c9e21366b6e1c633e06fcab921154a8a29bb8b",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

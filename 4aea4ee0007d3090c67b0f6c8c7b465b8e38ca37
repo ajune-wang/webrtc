@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "08f09498_f0538f91",
+        "filename": "rtc_tools/video_file_writer.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-18T08:12:33Z",
+      "side": 1,
+      "message": "This override seems missing in the header file. Either declare it in the header file, or move definition to the anonymous namespace.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1f72372_5e949721",
         "filename": "rtc_tools/video_file_writer.cc",
         "patchSetId": 6
@@ -18,6 +41,52 @@
         "startChar": 42,
         "endLine": 78,
         "endChar": 46
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6bf989d_d8ba0852",
+        "filename": "rtc_tools/video_file_writer.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-18T08:12:33Z",
+      "side": 1,
+      "message": "We lose test coverage for this feature? Do we really need it?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 79
+      },
+      "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9608ca80_60a7da74",
+        "filename": "rtc_tools/video_file_writer_unittest.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5234
+      },
+      "writtenOn": "2019-03-18T08:12:33Z",
+      "side": 1,
+      "message": "Coding style wants trailing _ on member variable names. But perhaps best fixed in a separate cl.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 37
       },
       "revId": "4aea4ee0007d3090c67b0f6c8c7b465b8e38ca37",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",

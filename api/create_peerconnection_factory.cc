@@ -44,8 +44,13 @@ rtc::scoped_refptr<PeerConnectionFactoryInterface> CreatePeerConnectionFactory(
     std::unique_ptr<VideoDecoderFactory> video_decoder_factory,
     rtc::scoped_refptr<AudioMixer> audio_mixer,
     rtc::scoped_refptr<AudioProcessing> audio_processing) {
-  if (!audio_processing)
+  if (!audio_processing) {
+#if defined(WEBRTC_USE_BUILTIN_AUDIO_PROCESSING)
     audio_processing = AudioProcessingBuilder().Create();
+#else
+    RTC_CHECK(0) << "audio_processing should be supplied for peer connection";
+#endif
+  }
 
   std::unique_ptr<cricket::MediaEngineInterface> media_engine =
       cricket::WebRtcMediaEngineFactory::Create(

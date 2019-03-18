@@ -49,6 +49,13 @@ int EncoderSimulcastProxy::Encode(
   return encoder_->Encode(input_image, frame_types);
 }
 
+std::pair<int, std::vector<const EncodedImage*>>
+webrtc::EncoderSimulcastProxy::SyncEncode(
+    const VideoFrame& frame,
+    const std::vector<VideoFrameType>* frame_types) {
+  return encoder_->SyncEncode(frame, frame_types);
+}
+
 int EncoderSimulcastProxy::RegisterEncodeCompleteCallback(
     EncodedImageCallback* callback) {
   callback_ = callback;

@@ -17,6 +17,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "modules/video_coding/codecs/vp9/include/vp9.h"
@@ -31,7 +32,7 @@
 
 namespace webrtc {
 
-class VP9EncoderImpl : public VP9Encoder {
+class VP9EncoderImpl : public VP9Encoder, private EncodedImageCallback {
  public:
   explicit VP9EncoderImpl(const cricket::VideoCodec& codec);
 
@@ -46,6 +47,10 @@ class VP9EncoderImpl : public VP9Encoder {
   int Encode(const VideoFrame& input_image,
              const std::vector<VideoFrameType>* frame_types) override;
 
+  std::pair<int, std::vector<const EncodedImage*>> SyncEncode(
+      const VideoFrame& frame,
+      const std::vector<VideoFrameType>* frame_types) override;
+
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
 
   int SetRateAllocation(const VideoBitrateAllocation& bitrate_allocation,
@@ -54,6 +59,10 @@ class VP9EncoderImpl : public VP9Encoder {
   EncoderInfo GetEncoderInfo() const override;
 
  private:
+  EncodedImageCallback::Result OnEncodedImage(
+      const EncodedImage& encoded_image,
+      const CodecSpecificInfo* codec_specific_info,
+      const RTPFragmentationHeader* fragmentation) override;
   // Determine number of encoder threads to use.
   int NumberOfThreads(int width, int height, int number_of_cores);
 
@@ -98,6 +107,8 @@ class VP9EncoderImpl : public VP9Encoder {
   size_t SteadyStateSize(int sid, int tid);
 
   EncodedImage encoded_image_;
+  std::vector<EncodedImage> encoded_images_;
+
   CodecSpecificInfo codec_specific_;
   EncodedImageCallback* encoded_complete_callback_;
   VideoCodec codec_;

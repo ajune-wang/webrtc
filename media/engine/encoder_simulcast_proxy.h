@@ -15,6 +15,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include "api/video/video_bitrate_allocation.h"
@@ -47,6 +48,9 @@ class EncoderSimulcastProxy : public VideoEncoder {
                  size_t max_payload_size) override;
   int Encode(const VideoFrame& input_image,
              const std::vector<VideoFrameType>* frame_types) override;
+  std::pair<int, std::vector<const EncodedImage*>> SyncEncode(
+      const VideoFrame& frame,
+      const std::vector<VideoFrameType>* frame_types) override;
   int RegisterEncodeCompleteCallback(EncodedImageCallback* callback) override;
   int SetRateAllocation(const VideoBitrateAllocation& bitrate,
                         uint32_t new_framerate) override;

@@ -712,6 +712,28 @@ uint32_t VP9EncoderImpl::MaxIntraTarget(uint32_t optimal_buffer_size) {
   return (target_pct < min_intra_size) ? min_intra_size : target_pct;
 }
 
+std::pair<int, std::vector<const EncodedImage*>> VP9EncoderImpl::SyncEncode(
+    const VideoFrame& frame,
+    const std::vector<VideoFrameType>* frame_types) {
+  encoded_images_.clear();
+  EncodedImageCallback* previous_callback = encoded_complete_callback_;
+  encoded_complete_callback_ = this;
+  std::pair<int, std::vector<const EncodedImage*>> res;
+  res.first = Encode(frame, frame_types);
+  for (EncodedImage& encoded : encoded_images_)
+    res.second.push_back(&encoded);
+  encoded_complete_callback_ = previous_callback;
+  return res;
+}
+
+EncodedImageCallback::Result VP9EncoderImpl::OnEncodedImage(
+    const EncodedImage& encoded_image,
+    const CodecSpecificInfo* codec_specific_info,
+    const RTPFragmentationHeader* fragmentation) {
+  encoded_images_.push_back(encoded_image);
+  return Result(Result::Error::OK);
+}
+
 int VP9EncoderImpl::Encode(const VideoFrame& input_image,
                            const std::vector<VideoFrameType>* frame_types) {
   if (!inited_) {

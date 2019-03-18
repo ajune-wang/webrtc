@@ -734,6 +734,27 @@ size_t LibvpxVp8Encoder::SteadyStateSize(int sid, int tid) {
       0.5);
 }
 
+std::pair<int, std::vector<const EncodedImage*>> LibvpxVp8Encoder::SyncEncode(
+    const VideoFrame& frame,
+    const std::vector<VideoFrameType>* frame_types) {
+  current_images_.clear();
+  EncodedImageCallback* previous_callback = encoded_complete_callback_;
+  encoded_complete_callback_ = this;
+  std::pair<int, std::vector<const EncodedImage*>> res;
+  res.first = Encode(frame, frame_types);
+  res.second = current_images_;
+  encoded_complete_callback_ = previous_callback;
+  return res;
+}
+
+EncodedImageCallback::Result LibvpxVp8Encoder::OnEncodedImage(
+    const EncodedImage& encoded_image,
+    const CodecSpecificInfo* codec_specific_info,
+    const RTPFragmentationHeader* fragmentation) {
+  current_images_.push_back(&encoded_image);
+  return Result(Result::Error::OK);
+}
+
 int LibvpxVp8Encoder::Encode(const VideoFrame& frame,
                              const std::vector<VideoFrameType>* frame_types) {
   RTC_DCHECK_EQ(frame.width(), codec_.width);

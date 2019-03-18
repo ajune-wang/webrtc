@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d075c39b_f6994d09",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "filename?",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81b0d3d3_54af8bf1",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "filename?",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 58,
+        "endChar": 44
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "241be60e_a525c554",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "I think string_view does implicit conversion. so no need to put it.",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 46
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08b07d22_cf2bdd94",
+        "filename": "api/test/neteq_simulator_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "filename?",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 44
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6123cd27_d5d49c25",
+        "filename": "modules/audio_coding/neteq/tools/neteq_test_factory.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "can this be string_view also?",
+      "range": {
+        "startLine": 112,
+        "startChar": 15,
+        "endLine": 112,
+        "endChar": 21
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b1d87b_bdae05d1",
+        "filename": "modules/audio_coding/neteq/tools/rtc_event_log_source.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7015
+      },
+      "writtenOn": "2019-03-18T14:27:32Z",
+      "side": 1,
+      "message": "can this also be string_view?",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "dfde11e6b5f820455703df779be7e2654535b116",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

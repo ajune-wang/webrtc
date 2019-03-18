@@ -70,6 +70,30 @@
       "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e7d2782_7c15d305",
+        "filename": "sdk/android/native_unittests/stacktrace/stacktrace_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5098
+      },
+      "writtenOn": "2019-03-18T06:30:34Z",
+      "side": 1,
+      "message": "Yeah, this is better even though I personally think \u0027while (is_waiting_.test_and_set()) {}\u0027 is more readable, but I don\u0027t care strongly about this.",
+      "parentUuid": "1b7f22e2_175a4870",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 5
+      },
+      "revId": "345cea21e34aa8a5fced5648410f3914ef0c258f",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

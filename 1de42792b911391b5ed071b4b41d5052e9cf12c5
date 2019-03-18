@@ -170,6 +170,24 @@
       "revId": "1de42792b911391b5ed071b4b41d5052e9cf12c5",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb51786_053f2a0e",
+        "filename": "media/engine/webrtc_video_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3904,
+      "author": {
+        "id": 7704
+      },
+      "writtenOn": "2019-03-18T16:34:39Z",
+      "side": 1,
+      "message": "That is definitely an good argument (that fakes tend to grow). But I don\u0027t feel the same sentiment about mocks being easier to read - they aren\u0027t always easier to read, and in this context I found \"ExpectSetBitrateParameters(100000, 200000, 300000);\" to be actually harder to reason about: you had to navigate to the method (just like with the fake) to understand why is the expectation configured before the SetSendParameters.\n\nHow strongly do you feel about this? :\u003e",
+      "parentUuid": "466e30b6_7d9faff6",
+      "revId": "1de42792b911391b5ed071b4b41d5052e9cf12c5",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

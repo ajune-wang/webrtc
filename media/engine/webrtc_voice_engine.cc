@@ -260,10 +260,6 @@ void WebRtcVoiceEngine::Init() {
   // Connect the ADM to our audio path.
   adm()->RegisterAudioCallback(audio_state()->audio_transport());
 
-  // Save the default AGC configuration settings. This must happen before
-  // calling ApplyOptions or the default will be overwritten.
-  default_agc_config_ = webrtc::apm_helpers::GetAgcConfig(apm());
-
   // Set default engine options.
   {
     AudioOptions options;
@@ -428,24 +424,6 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
             << "Disabling AGC since built-in AGC will be used instead";
       }
     }
-    webrtc::apm_helpers::SetAgcStatus(apm(), *options.auto_gain_control);
-  }
-
-  if (options.tx_agc_target_dbov || options.tx_agc_digital_compression_gain ||
-      options.tx_agc_limiter) {
-    // Override default_agc_config_. Generally, an unset option means "leave
-    // the VoE bits alone" in this function, so we want whatever is set to be
-    // stored as the new "default". If we didn't, then setting e.g.
-    // tx_agc_target_dbov would reset digital compression gain and limiter
-    // settings.
-    default_agc_config_.targetLeveldBOv = options.tx_agc_target_dbov.value_or(
-        default_agc_config_.targetLeveldBOv);
-    default_agc_config_.digitalCompressionGaindB =
-        options.tx_agc_digital_compression_gain.value_or(
-            default_agc_config_.digitalCompressionGaindB);
-    default_agc_config_.limiterEnable =
-        options.tx_agc_limiter.value_or(default_agc_config_.limiterEnable);
-    webrtc::apm_helpers::SetAgcConfig(apm(), default_agc_config_);
   }
 
   if (options.noise_suppression) {
@@ -523,6 +501,8 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
   }
 
   webrtc::AudioProcessing::Config apm_config = apm()->GetConfig();
+
+  webrtc::apm_helpers::UpdateAgcConfig(options, &apm_config.gain_controller1);
 
   if (options.highpass_filter) {
     apm_config.high_pass_filter.enabled = *options.highpass_filter;

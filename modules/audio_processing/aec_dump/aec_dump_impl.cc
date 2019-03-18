@@ -188,6 +188,9 @@ void AecDumpImpl::WriteRuntimeSetting(
       setting->set_custom_render_processing_setting(x);
       break;
     }
+    case AudioProcessing::RuntimeSetting::Type::kCaptureCompressionGain:
+      // Runtime AGC1 compression gain is ignored.
+      break;
     case AudioProcessing::RuntimeSetting::Type::kNotSpecified:
       RTC_NOTREACHED();
       break;

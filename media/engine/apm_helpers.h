@@ -13,27 +13,21 @@
 
 #include <cstdint>
 
-namespace webrtc {
+#include "api/audio_options.h"
+#include "modules/audio_processing/include/audio_processing.h"
 
-class AudioProcessing;
+namespace webrtc {
 
 enum EcModes {
   kEcConference,  // Conferencing default (aggressive AEC).
   kEcAecm,        // AEC mobile.
 };
 
-struct AgcConfig {
-  uint16_t targetLeveldBOv;
-  uint16_t digitalCompressionGaindB;
-  bool limiterEnable;
-};
-
 namespace apm_helpers {
 
 void Init(AudioProcessing* apm);
-AgcConfig GetAgcConfig(AudioProcessing* apm);
-void SetAgcConfig(AudioProcessing* apm, const AgcConfig& config);
-void SetAgcStatus(AudioProcessing* apm, bool enable);
+void UpdateAgcConfig(const cricket::AudioOptions& options,
+                     AudioProcessing::Config::GainController1* agc_config);
 void SetEcStatus(AudioProcessing* apm, bool enable, EcModes mode);
 void SetEcMetricsStatus(AudioProcessing* apm, bool enable);
 void SetAecmMode(AudioProcessing* apm, bool enable_cng);

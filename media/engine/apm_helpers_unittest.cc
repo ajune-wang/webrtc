@@ -10,6 +10,7 @@
 
 #include "media/engine/apm_helpers.h"
 
+#include "api/audio_options.h"
 #include "api/scoped_refptr.h"
 #include "modules/audio_processing/include/audio_processing.h"
 #include "test/gmock.h"
@@ -17,8 +18,6 @@
 
 namespace webrtc {
 namespace {
-
-constexpr AgcConfig kDefaultAgcConfig = {3, 9, true};
 
 struct TestHelper {
   TestHelper() {
@@ -39,61 +38,69 @@ struct TestHelper {
 };
 }  // namespace
 
-TEST(ApmHelpersTest, AgcConfig_DefaultConfiguration) {
+TEST(ApmHelpersTest, Agc_DefaultConfiguration) {
   TestHelper helper;
-  AgcConfig agc_config = apm_helpers::GetAgcConfig(helper.apm());
+  using AgcConfig = AudioProcessing::Config::GainController1;
+  AgcConfig agc_config = helper.apm()->GetConfig().gain_controller1;
+  cricket::AudioOptions options;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
 
-  EXPECT_EQ(kDefaultAgcConfig.targetLeveldBOv, agc_config.targetLeveldBOv);
-  EXPECT_EQ(kDefaultAgcConfig.digitalCompressionGaindB,
-            agc_config.digitalCompressionGaindB);
-  EXPECT_EQ(kDefaultAgcConfig.limiterEnable, agc_config.limiterEnable);
-}
-
-TEST(ApmHelpersTest, AgcConfig_GetAndSet) {
-  const AgcConfig agc_config = {11, 17, false};
-
-  TestHelper helper;
-  apm_helpers::SetAgcConfig(helper.apm(), agc_config);
-  AgcConfig actual_config = apm_helpers::GetAgcConfig(helper.apm());
-
-  EXPECT_EQ(agc_config.digitalCompressionGaindB,
-            actual_config.digitalCompressionGaindB);
-  EXPECT_EQ(agc_config.limiterEnable, actual_config.limiterEnable);
-  EXPECT_EQ(agc_config.targetLeveldBOv, actual_config.targetLeveldBOv);
-}
-
-TEST(ApmHelpersTest, AgcStatus_DefaultMode) {
-  TestHelper helper;
-  GainControl* gc = helper.apm()->gain_control();
-  EXPECT_FALSE(gc->is_enabled());
+  EXPECT_FALSE(agc_config.enabled);
 #if defined(TARGET_IPHONE_SIMULATOR) && TARGET_IPHONE_SIMULATOR
-  EXPECT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
+  EXPECT_EQ(AgcConfig::kAdaptiveAnalog, agc_config.mode);
 #elif defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
-  EXPECT_EQ(GainControl::kFixedDigital, gc->mode());
+  EXPECT_EQ(AgcConfig::kFixedDigital, agc_config.mode);
 #else
-  EXPECT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
+  EXPECT_EQ(AgcConfig::kAdaptiveAnalog, agc_config.mode);
 #endif
+  EXPECT_EQ(3, agc_config.target_level_dbfs);
+  EXPECT_EQ(9, agc_config.compression_gain_db);
+  EXPECT_TRUE(agc_config.enable_limiter);
 }
 
-TEST(ApmHelpersTest, AgcStatus_EnableDisable) {
-  TestHelper helper;
-  GainControl* gc = helper.apm()->gain_control();
-#if defined(WEBRTC_IOS) || defined(WEBRTC_ANDROID)
-  apm_helpers::SetAgcStatus(helper.apm(), false);
-  EXPECT_FALSE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kFixedDigital, gc->mode());
+TEST(ApmHelpersTest, UpdateAgcConfig_NoOptionsNoChange) {
+  AudioProcessing::Config::GainController1 kDefaultAgcConfig;
+  AudioProcessing::Config::GainController1 agc_config;
+  cricket::AudioOptions options;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
 
-  apm_helpers::SetAgcStatus(helper.apm(), true);
-  EXPECT_TRUE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kFixedDigital, gc->mode());
-#else
-  apm_helpers::SetAgcStatus(helper.apm(), false);
-  EXPECT_FALSE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
-  apm_helpers::SetAgcStatus(helper.apm(), true);
-  EXPECT_TRUE(gc->is_enabled());
-  EXPECT_EQ(GainControl::kAdaptiveAnalog, gc->mode());
-#endif
+  EXPECT_EQ(kDefaultAgcConfig.enabled, agc_config.enabled);
+  EXPECT_EQ(kDefaultAgcConfig.mode, agc_config.mode);
+  EXPECT_EQ(kDefaultAgcConfig.target_level_dbfs, agc_config.target_level_dbfs);
+  EXPECT_EQ(kDefaultAgcConfig.compression_gain_db,
+            agc_config.compression_gain_db);
+  EXPECT_EQ(kDefaultAgcConfig.enable_limiter, agc_config.enable_limiter);
+}
+
+TEST(ApmHelpersTest, UpdateAgcConfig_SetAndForgetOptions) {
+  AudioProcessing::Config::GainController1 agc_config;
+  cricket::AudioOptions options;
+
+  options.auto_gain_control = true;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
+  EXPECT_TRUE(agc_config.enabled);
+
+  options.tx_agc_target_dbov = 5;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
+  EXPECT_EQ(5, agc_config.target_level_dbfs);
+  options.tx_agc_target_dbov = absl::nullopt;
+
+  options.tx_agc_digital_compression_gain = 10;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
+  EXPECT_EQ(10, agc_config.compression_gain_db);
+  options.tx_agc_digital_compression_gain = absl::nullopt;
+
+  options.tx_agc_limiter = false;
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
+  EXPECT_FALSE(agc_config.enable_limiter);
+  options.tx_agc_limiter = absl::nullopt;
+
+  apm_helpers::UpdateAgcConfig(options, &agc_config);
+  // Expect all options to have been preserved.
+  EXPECT_TRUE(agc_config.enabled);
+  EXPECT_EQ(5, agc_config.target_level_dbfs);
+  EXPECT_EQ(10, agc_config.compression_gain_db);
+  EXPECT_FALSE(agc_config.enable_limiter);
 }
 
 TEST(ApmHelpersTest, EcStatus_DefaultMode) {

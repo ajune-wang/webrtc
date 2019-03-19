@@ -15,7 +15,6 @@
 #include <stdint.h>
 #include <vector>
 
-#include "api/rtp_headers.h"
 #include "common_types.h"  // NOLINT(build/include)
 #include "modules/include/module_common_types_public.h"
 #include "modules/include/module_fec_types.h"
@@ -23,18 +22,6 @@
 #include "rtc_base/system/rtc_export.h"
 
 namespace webrtc {
-
-struct WebRtcRTPHeader {
-  RTPVideoHeader& video_header() { return video; }
-  const RTPVideoHeader& video_header() const { return video; }
-  RTPVideoHeader video;
-
-  RTPHeader header;
-  // Used for video only.
-  VideoFrameType frameType;
-  // NTP time of the capture time in local timebase in milliseconds.
-  int64_t ntp_time_ms;
-};
 
 class RTC_EXPORT RTPFragmentationHeader {
  public:

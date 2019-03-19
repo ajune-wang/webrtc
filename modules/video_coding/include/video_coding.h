@@ -12,6 +12,7 @@
 #define MODULES_VIDEO_CODING_INCLUDE_VIDEO_CODING_H_
 
 #include "api/fec_controller.h"
+#include "api/rtp_headers.h"
 #include "api/video/video_frame.h"
 #include "api/video_codecs/video_codec.h"
 #include "modules/include/module.h"
@@ -26,6 +27,18 @@ class EncodedImageCallback;
 class VideoDecoder;
 class VideoEncoder;
 struct CodecSpecificInfo;
+
+struct WebRtcRTPHeader {
+  RTPVideoHeader& video_header() { return video; }
+  const RTPVideoHeader& video_header() const { return video; }
+  RTPVideoHeader video;
+
+  RTPHeader header;
+  // Used for video only.
+  VideoFrameType frameType;
+  // NTP time of the capture time in local timebase in milliseconds.
+  int64_t ntp_time_ms;
+};
 
 class VideoCodingModule : public Module {
  public:

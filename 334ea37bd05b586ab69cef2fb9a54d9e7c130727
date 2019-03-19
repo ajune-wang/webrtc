@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "335bfb4c_815e4ecc",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Maybe move the EXPECT_* into a new function called VerifyGainControlConfig().",
+      "range": {
+        "startLine": 201,
+        "startChar": 4,
+        "endLine": 204,
+        "endChar": 61
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0936de2_c1f56013",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Consider replacing with \".Times(testing::AtLeast(1))\" or, if 5 is relevant, add a comment to explain why, since that values comes out of the blue to a first time reader.",
+      "range": {
+        "startLine": 2312,
+        "startChar": 13,
+        "endLine": 2312,
+        "endChar": 14
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a381cda_0324dd18",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2320,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Maybe move the EXPECT_* into a new function called VerifyGainControlConfig().",
+      "range": {
+        "startLine": 2317,
+        "startChar": 0,
+        "endLine": 2320,
+        "endChar": 41
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "851b5bae_4574e93f",
+        "filename": "media/engine/webrtc_voice_engine_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3002,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Now I understand why you didn\u0027t put all the EXPECT_* calls in VerifyGainControlEnabledCorrectly().\n\nAnd that\u0027s why I proposed to add VerifyGainControlConfig() instead of merging everything into VerifyGainControlEnabledCorrectly().",
+      "range": {
+        "startLine": 3002,
+        "startChar": 2,
+        "endLine": 3002,
+        "endChar": 38
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ccb5f173_f18069bc",
+        "filename": "modules/audio_processing/aec_dump/aec_dump_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Let\u0027s have an offline discussion on this.\nI think we should at least add a TODO and implement in a follow up CL, since these events should be recorded in aec dumps and be replayed with audioproc_f.",
+      "range": {
+        "startLine": 192,
+        "startChar": 6,
+        "endLine": 192,
+        "endChar": 50
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6c69f2_296558a3",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "This should never happen according to what you wrote in audio_processing.h line 322.\nI would remove this and add a DCHECK.",
+      "range": {
+        "startLine": 705,
+        "startChar": 6,
+        "endLine": 706,
+        "endChar": 53
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87e59e92_7e8e047f",
+        "filename": "modules/audio_processing/audio_processing_impl.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "Not sure why you\u0027re not using GainControlConfigProxy::set_compression_gain_db() here.",
+      "range": {
+        "startLine": 984,
+        "startChar": 8,
+        "endLine": 985,
+        "endChar": 76
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "295114b3_ee761d8d",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "do we need this inside the loop?",
+      "range": {
+        "startLine": 986,
+        "startChar": 4,
+        "endLine": 986,
+        "endChar": 39
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917a86b0_83702bd7",
+        "filename": "modules/audio_processing/audio_processing_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "I like TooLow/TooHigh more, as you\u0027ve done for the analog level with ApmDiesOnTooLowAnalogLevel.\nI would be consistent and add the \"Too\" prefix here and in the death tests below.",
+      "range": {
+        "startLine": 1028,
+        "startChar": 33,
+        "endLine": 1028,
+        "endChar": 37
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0bf1cc3_33410024",
+        "filename": "modules/audio_processing/gain_control_config_proxy.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "nice!",
+      "range": {
+        "startLine": 73,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 70
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a881e17_f6ad6dce",
+        "filename": "modules/audio_processing/gain_control_config_proxy.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "I wonder if we should add a unit test for this class.\n\nIn this way, I\u0027m fine with your changes in media/engine/webrtc_voice_engine_unittest.cc, which only tests that the default AGC config is applied ignoring the existence of GainControlConfigProxy - before it was using mocking to check that the setters of the AGC sub-module were called.\n\nI think that GainControlConfigProxy can be easily tested with mocks, since the ctor uses the interfaces for APM and AGC (namely, AudioProcessing and GainControl).\n\nWDYT?",
+      "range": {
+        "startLine": 23,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0bbb1be_707ae5d8",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "thanks for adding this, +1!",
+      "range": {
+        "startLine": 243,
+        "startChar": 2,
+        "endLine": 246,
+        "endChar": 41
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a123abac_7b45abf2",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "I wonder if we can detect changes of this param that are not done via RuntimeSetting.\nWe could DCHECK in ApplyConfig that compression_gain_db has not changed, since changes must always go through the RuntimeSetting path (see my new comment in audio_processing_impl.cc line 706).\n\nDoing what I propose however conflicts with another comment I added in audio_processing_impl.cc line 984 in which I proposed to use GainControlConfigProxy::set_compression_gain_db() in there.\n\nI would recommend to ignore the comment in audio_processing_impl.cc and do something for this one.",
+      "range": {
+        "startLine": 322,
+        "startChar": 6,
+        "endLine": 323,
+        "endChar": 34
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6d9e47_4fa7287d",
+        "filename": "modules/audio_processing/include/audio_processing.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5122
+      },
+      "writtenOn": "2019-03-19T14:22:49Z",
+      "side": 1,
+      "message": "I would remove this since there\u0027s no such a recommendation for compression_gain_db and we might still keep this for AGC2 with the same interface (unlikely, but I wouldn\u0027t speculate now).",
+      "range": {
+        "startLine": 407,
+        "startChar": 4,
+        "endLine": 407,
+        "endChar": 74
+      },
+      "revId": "334ea37bd05b586ab69cef2fb9a54d9e7c130727",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

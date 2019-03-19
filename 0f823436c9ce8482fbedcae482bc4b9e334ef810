@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8278603c_ccdd5a6a",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-19T16:57:36Z",
+      "side": 1,
+      "message": "Does it need to be public? The changes you make suggest that it doesn\u0027t, since they would break any users.",
+      "range": {
+        "startLine": 1107,
+        "startChar": 18,
+        "endLine": 1107,
+        "endChar": 19
+      },
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3acc6a7_877bd193",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-19T16:57:36Z",
+      "side": 1,
+      "message": "Still needed?",
+      "range": {
+        "startLine": 1116,
+        "startChar": 5,
+        "endLine": 1116,
+        "endChar": 17
+      },
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4ed8ab_0f640a08",
+        "filename": "rtc_base/task_queue_for_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5126
+      },
+      "writtenOn": "2019-03-19T16:57:36Z",
+      "side": 1,
+      "message": "Do these two need to be here, or can they be in the header instead?",
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

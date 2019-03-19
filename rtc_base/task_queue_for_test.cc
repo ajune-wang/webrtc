@@ -10,8 +10,14 @@
 
 #include "rtc_base/task_queue_for_test.h"
 
-namespace rtc {
-namespace test {
+#include "api/task_queue/default_task_queue_factory.h"
+
+namespace webrtc {
+
+TaskQueueForTest::TaskQueueForTest(absl::string_view name, Priority priority)
+    : TaskQueue(
+          CreateDefaultTaskQueueFactory()->CreateTaskQueue(name, priority)) {}
+
 TaskQueueForTest::~TaskQueueForTest() = default;
-}  // namespace test
-}  // namespace rtc
+
+}  // namespace webrtc

@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1391f50d_1402b88f",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-19T09:37:55Z",
+      "side": 1,
+      "message": "unitless? I think this would be \"samples/second\" or \"buffer length (ms) per second\"? Not sure, ivoc@ might know.",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3adbfb62_691ba0c8",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-19T09:37:55Z",
+      "side": 1,
+      "message": "Can you add a TODO with a link to a bug about migrating this code to new getStats() when it\u0027s ready? You can make it blocked on https://crbug.com/webrtc/10428.\n\n(Alternatives for expand_rate, accelerate_rate, preemptive_rate and speech_expand_rate have been proposed already, but not yet preferred_buffer_size_ms.)",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08f258da_cd6787d8",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-19T09:37:55Z",
+      "side": 1,
+      "message": "Always document ownership assumptions when passing raw pointers around, e.g. that the caller is responsible for ensuring the helper outlives the analyzer. Alternatively: std::unique_ptr, rtc::scoped_refptr.",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e01c6a3_6d411156",
+        "filename": "test/pc/e2e/api/analyzer_helper.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-19T09:37:55Z",
+      "side": 1,
+      "message": "Please add a class comment documenting the purpose of this.",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "077af382_82d1d33e",
+        "filename": "test/pc/e2e/peer_connection_quality_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5142
+      },
+      "writtenOn": "2019-03-19T09:37:55Z",
+      "side": 1,
+      "message": "Hmmm, are stream IDs not available in goog stats?",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

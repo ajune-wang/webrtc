@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "302563d7_b2feeeb2",
+        "filename": "video/encoder_key_frame_callback.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-19T11:14:42Z",
+      "side": 1,
+      "message": "return KeyframeIntervalSettings::ParseFromFieldTrials().MinKeyframeSendIntervalMs().value_or(kMinKeyframeSendIntervalMs);",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "f25c917be8ce018d607ab0dccbe439211d7a1d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12b758e3_8d97e205",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-19T11:14:42Z",
+      "side": 1,
+      "message": "Simplify",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 39
+      },
+      "revId": "f25c917be8ce018d607ab0dccbe439211d7a1d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8dd364_c454a764",
+        "filename": "video/video_receive_stream.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-19T11:14:42Z",
+      "side": 1,
+      "message": "Simplify",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 36
+      },
+      "revId": "f25c917be8ce018d607ab0dccbe439211d7a1d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3554dfa4_fb090cb0",
+        "filename": "video/video_receive_stream.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5527
+      },
+      "writtenOn": "2019-03-19T11:14:42Z",
+      "side": 1,
+      "message": "I suggest you change max_wait_for_received_frame_ms_ to max_wait_for_decodable_frame_ or just max_wait_for_frame_ms_.\n\nIf you change it also change max_wait_for_received_keyframe_ms_ to max_wait_for_keyframe_ms_.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 44
+      },
+      "revId": "f25c917be8ce018d607ab0dccbe439211d7a1d86",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

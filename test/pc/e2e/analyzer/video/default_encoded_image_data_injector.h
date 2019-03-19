@@ -55,13 +55,6 @@ namespace test {
 //      previously extracted length
 // Also it will check, that all extracted ids are equals.
 //
-// Because EncodedImage doesn't take ownership of its buffer, injector will keep
-// ownership of the buffers that will be used for EncodedImages with injected
-// data. This is needed because there is no way to inform the injector that
-// a buffer can be disposed. To address this issue injector will use a pool
-// of buffers in round robin manner and will assume, that when it overlaps
-// the buffer can be disposed.
-//
 // Because single injector can be used for different coding entities (encoders
 // or decoders), it will store a |coding_entity_id| in the set for each
 // coding entity seen and if the new one arrives, it will extend its buffers
@@ -82,22 +75,6 @@ class DefaultEncodedImageDataInjector : public EncodedImageDataInjector,
                           int coding_entity_id) override;
   EncodedImageExtractionResult ExtractData(const EncodedImage& source,
                                            int coding_entity_id) override;
-
- private:
-  void ExtendIfRequired(int coding_entity_id) RTC_LOCKS_EXCLUDED(lock_);
-  std::vector<uint8_t>* NextBuffer() RTC_LOCKS_EXCLUDED(lock_);
-
-  // Because single injector will be used for all encoder and decoders in one
-  // peer and in case of the single process for all encoders and decoders in
-  // another peer, it can be called from different threads. So we need to ensure
-  // that buffers are given consecutively from pools and pool extension won't
-  // be interrupted by getting buffer in other thread.
-  rtc::CriticalSection lock_;
-
-  // Store coding entities for which buffers pool have been already extended.
-  std::set<int> coding_entities_ RTC_GUARDED_BY(lock_);
-  std::deque<std::unique_ptr<std::vector<uint8_t>>> bufs_pool_
-      RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace test

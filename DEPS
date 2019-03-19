@@ -7,7 +7,7 @@ vars = {
   'checkout_configuration': 'default',
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'chromium_revision': 'fc637deb511059129c296585e4c96bf899752f1d',
+  'chromium_revision': '6abc3675fba3160dabe86894f869f900d2056a65',
   'boringssl_git': 'https://boringssl.googlesource.com',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling swarming_client
@@ -24,7 +24,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling catapult
   # and whatever else without interference from each other.
-  'catapult_revision': '2afe880da0ce34181cbfbc2d95550aa6e589537a',
+  'catapult_revision': '0a33de82760c4a3f8cb7089d5817cdea2b674291',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling libFuzzer
   # and whatever else without interference from each other.
@@ -36,21 +36,25 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling HarfBuzz
   # and whatever else without interference from each other.
-  'harfbuzz_revision': '4f37ab63de9705d7bf74ee75364747e41b7c06a1',
+  'harfbuzz_revision': '8aaab78efcac81a05ec919be13792c98741ea1b5',
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling luci-go CIPD package version
   # and whatever else without interference from each other.
   'luci_go': 'git_revision:25958d48e89e980e2a97daeddc977fb5e2e1fb8c',
+  # Three lines of non-changing comments so that
+  # the commit queue can handle CLs rolling GN CIPD package version
+  # and whatever else without interference from each other.
+  'gn_version': 'git_revision:0790d3043387c762a6bacb1ae0a9ebe883188ab2',
 }
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
   'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '584001facece9aa061ecd6410b71e737f11f52ed',
+    Var('chromium_git') + '/chromium/src/base' + '@' + '246c069eb158c4e379e9c091871168db08bc2b1a',
   'src/build':
-    Var('chromium_git') + '/chromium/src/build' + '@' + '2678ddc6fc31604dfda65d1d49ee0d3a1e11bfb4',
+    Var('chromium_git') + '/chromium/src/build' + '@' + 'f89a8d1d0f9a5f6105cf2deebe6a977943440ad2',
   'src/buildtools':
-    Var('chromium_git') + '/chromium/src/buildtools' + '@' + '44579472d1c913b46b13c4b358d6099f6d654f97',
+    Var('chromium_git') + '/chromium/src/buildtools' + '@' + 'c79f3482c8152172a31e5c17823a27835a511dac',
   # Gradle 4.3-rc4. Used for testing Android Studio project generation for WebRTC.
   'src/examples/androidtests/third_party/gradle': {
     'url': Var('chromium_git') + '/external/github.com/gradle/gradle.git' + '@' +
@@ -58,13 +62,44 @@ deps = {
     'condition': 'checkout_android',
   },
   'src/ios': {
-    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '4a091ba968e0cd6d63131c0272dade61439c7755',
+    'url': Var('chromium_git') + '/chromium/src/ios' + '@' + '4ea1caf4a52734b91101f626c32bd739440e5015',
     'condition': 'checkout_ios',
   },
   'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '508791909a28913c782cb4aebcc96a0358cc2f87',
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '00f6ad162561bef9747d85122e5771080e8e9225',
   'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + '86d240affe0a0762ec1011c7eb613b39adfe842f',
+    Var('chromium_git') + '/chromium/src/third_party' + '@' + '345968dc5db2cd479a86e5a93af14c141d31f3a0',
+
+  'src/buildtools/linux64': {
+    'packages': [
+      {
+        'package': 'gn/gn/linux-amd64',
+        'version': Var('gn_version'),
+      }
+    ],
+    'dep_type': 'cipd',
+    'condition': 'checkout_linux',
+  },
+  'src/buildtools/mac': {
+    'packages': [
+      {
+        'package': 'gn/gn/mac-amd64',
+        'version': Var('gn_version'),
+      }
+    ],
+    'dep_type': 'cipd',
+    'condition': 'checkout_mac',
+  },
+  'src/buildtools/win': {
+    'packages': [
+      {
+        'package': 'gn/gn/windows-amd64',
+        'version': Var('gn_version'),
+      }
+    ],
+    'dep_type': 'cipd',
+    'condition': 'checkout_win',
+  },
 
   'src/buildtools/clang_format/script':
     Var('chromium_git') + '/chromium/llvm-project/cfe/tools/clang-format.git' + '@' + '96636aa0e9f047f17447f2d45a094d0b59ed7917',
@@ -132,7 +167,7 @@ deps = {
   'src/third_party/colorama/src':
     Var('chromium_git') + '/external/colorama.git' + '@' + '799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8',
   'src/third_party/depot_tools':
-    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + '40c19421b4ba13579d1d8cbfecc7cb610eca3269',
+    Var('chromium_git') + '/chromium/tools/depot_tools.git' + '@' + 'e5c289fde0a115ef91448242729d61b4f7174517',
   'src/third_party/errorprone/lib': {
       'url': Var('chromium_git') + '/chromium/third_party/errorprone.git' + '@' + '980d49e839aa4984015efed34b0134d4b2c9b6d7',
       'condition': 'checkout_android',
@@ -183,7 +218,7 @@ deps = {
   'src/third_party/libsrtp':
     Var('chromium_git') + '/chromium/deps/libsrtp.git' + '@' + '650611720ecc23e0e6b32b0e3100f8b4df91696c',
   'src/third_party/libvpx/source/libvpx':
-    Var('chromium_git') + '/webm/libvpx.git' + '@' +  '8256c8b297c8b7c7ee4de24edff82ed67d6ef207',
+    Var('chromium_git') + '/webm/libvpx.git' + '@' +  '1533bd84f12e5b24b5c2e41d1729942c7aa218ad',
   'src/third_party/libyuv':
     Var('chromium_git') + '/libyuv/libyuv.git' + '@' + 'b36c86fdfe746d7be904c3a565b047b24d58087e',
   'src/third_party/lss': {
@@ -198,7 +233,7 @@ deps = {
   # Used by boringssl.
   'src/third_party/nasm': {
       'url': Var('chromium_git') + '/chromium/deps/nasm.git' + '@' +
-      '4ee6a69ce33be1e96fd3c44a6e3ae3d8177453da'
+      '076332ea7c414313ab9d6d5b56396641051df5ea'
   },
 
   'src/third_party/openh264/src':
@@ -237,11 +272,6 @@ deps = {
   },
   'src/third_party/usrsctp/usrsctplib':
     Var('chromium_git') + '/external/github.com/sctplab/usrsctp' + '@' + '7a8bc9a90ca96634aa56ee712856d97f27d903f8',
-  # WebRTC-only dependency (not present in Chromium).
-  'src/third_party/winsdk_samples': {
-    'url': Var('webrtc_git') + '/deps/third_party/winsdk_samples_v71' + '@' + 'a9ac2ba82fd54721ec3c229593bcb524beea81a7',
-    'condition': 'checkout_win',
-  },
   # Dependency used by libjpeg-turbo.
   'src/third_party/yasm/binaries': {
     'url': Var('chromium_git') + '/chromium/deps/yasm/binaries.git' + '@' + '52f9b3f4b0aa06da24ef8b123058bb61ee468881',
@@ -250,7 +280,7 @@ deps = {
   'src/third_party/yasm/source/patched-yasm':
     Var('chromium_git') + '/chromium/deps/yasm/patched-yasm.git' + '@' + '720b70524a4424b15fc57e82263568c8ba0496ad',
   'src/tools':
-    Var('chromium_git') + '/chromium/src/tools' + '@' + '61b1f4bc90c2cd7e4aed04fb546cf6ee769160e5',
+    Var('chromium_git') + '/chromium/src/tools' + '@' + 'e5edaf20264ca6f31cc3f3924515691173f0d558',
   'src/tools/swarming_client':
     Var('chromium_git') + '/infra/luci/client-py.git' + '@' +  Var('swarming_revision'),
 
@@ -1340,43 +1370,6 @@ hooks = [
     'pattern': '.',
     'action': ['python', 'src/build/util/lastchange.py',
                '-o', 'src/build/util/LASTCHANGE'],
-  },
-  # Pull GN binaries.
-  {
-    'name': 'gn_win',
-    'pattern': '.',
-    'condition': 'host_os == "win"',
-    'action': [ 'download_from_google_storage',
-                '--no_resume',
-                '--platform=win32',
-                '--no_auth',
-                '--bucket', 'chromium-gn',
-                '-s', 'src/buildtools/win/gn.exe.sha1',
-    ],
-  },
-  {
-    'name': 'gn_mac',
-    'pattern': '.',
-    'condition': 'host_os == "mac"',
-    'action': [ 'download_from_google_storage',
-                '--no_resume',
-                '--platform=darwin',
-                '--no_auth',
-                '--bucket', 'chromium-gn',
-                '-s', 'src/buildtools/mac/gn.sha1',
-    ],
-  },
-  {
-    'name': 'gn_linux64',
-    'pattern': '.',
-    'condition': 'host_os == "linux"',
-    'action': [ 'download_from_google_storage',
-                '--no_resume',
-                '--platform=linux*',
-                '--no_auth',
-                '--bucket', 'chromium-gn',
-                '-s', 'src/buildtools/linux64/gn.sha1',
-    ],
   },
   # Pull clang-format binaries using checked-in hashes.
   {

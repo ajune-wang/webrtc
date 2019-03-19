@@ -12,14 +12,14 @@
 #include <memory>
 
 #include "absl/memory/memory.h"
+#include "api/test/create_network_emulation_manager.h"
+#include "api/test/network_emulation_manager.h"
 #include "call/simulated_network.h"
 #include "test/gtest.h"
 #include "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h"
 #include "test/pc/e2e/analyzer/video/default_video_quality_analyzer.h"
 #include "test/pc/e2e/api/create_peerconnection_quality_test_fixture.h"
 #include "test/pc/e2e/api/peerconnection_quality_test_fixture.h"
-#include "test/scenario/network/network_emulation.h"
-#include "test/scenario/network/network_emulation_manager.h"
 #include "test/testsupport/file_utils.h"
 
 namespace webrtc {
@@ -47,49 +47,53 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
       PeerConnectionE2EQualityTestFixture::InjectableComponents;
 
   auto alice_params = absl::make_unique<Params>();
-  VideoConfig alice_video_config(1280, 720, 30);
+  VideoConfig alice_video_config(640, 360, 30);
   alice_video_config.stream_label = "alice-video";
 
   alice_params->video_configs.push_back(alice_video_config);
   alice_params->audio_config = AudioConfig();
 
   auto bob_params = absl::make_unique<Params>();
-  VideoConfig bob_video_config(1280, 720, 30);
+  VideoConfig bob_video_config(640, 360, 30);
   bob_video_config.stream_label = "bob-video";
 
   bob_params->video_configs.push_back(bob_video_config);
   bob_params->audio_config = AudioConfig();
 
   // Setup emulated network
-  NetworkEmulationManager network_emulation_manager;
+  std::unique_ptr<NetworkEmulationManager> network_emulation_manager =
+      CreateNetworkEmulationManager();
 
+  auto alice_network_behavior =
+      absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig());
+  SimulatedNetwork* alice_network_behavior_ptr = alice_network_behavior.get();
   EmulatedNetworkNode* alice_node =
-      network_emulation_manager.CreateEmulatedNode(
-          absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
-  EmulatedNetworkNode* bob_node = network_emulation_manager.CreateEmulatedNode(
+      network_emulation_manager->CreateEmulatedNode(
+          std::move(alice_network_behavior));
+  EmulatedNetworkNode* bob_node = network_emulation_manager->CreateEmulatedNode(
       absl::make_unique<SimulatedNetwork>(BuiltInNetworkBehaviorConfig()));
   EmulatedEndpoint* alice_endpoint =
-      network_emulation_manager.CreateEndpoint(EmulatedEndpointConfig());
+      network_emulation_manager->CreateEndpoint(EmulatedEndpointConfig());
   EmulatedEndpoint* bob_endpoint =
-      network_emulation_manager.CreateEndpoint(EmulatedEndpointConfig());
-  network_emulation_manager.CreateRoute(alice_endpoint, {alice_node},
-                                        bob_endpoint);
-  network_emulation_manager.CreateRoute(bob_endpoint, {bob_node},
-                                        alice_endpoint);
+      network_emulation_manager->CreateEndpoint(EmulatedEndpointConfig());
+  network_emulation_manager->CreateRoute(alice_endpoint, {alice_node},
+                                         bob_endpoint);
+  network_emulation_manager->CreateRoute(bob_endpoint, {bob_node},
+                                         alice_endpoint);
 
   rtc::Thread* alice_network_thread =
-      network_emulation_manager.CreateNetworkThread({alice_endpoint});
+      network_emulation_manager->CreateNetworkThread({alice_endpoint});
   rtc::Thread* bob_network_thread =
-      network_emulation_manager.CreateNetworkThread({bob_endpoint});
+      network_emulation_manager->CreateNetworkThread({bob_endpoint});
 
   // Setup components. We need to provide rtc::NetworkManager compatible with
   // emulated network layer.
   rtc::NetworkManager* alice_network_manager =
-      network_emulation_manager.CreateNetworkManager({alice_endpoint});
+      network_emulation_manager->CreateNetworkManager({alice_endpoint});
   auto alice_components = absl::make_unique<InjectableComponents>(
       alice_network_thread, alice_network_manager);
   rtc::NetworkManager* bob_network_manager =
-      network_emulation_manager.CreateNetworkManager({bob_endpoint});
+      network_emulation_manager->CreateNetworkManager({bob_endpoint});
   auto bob_components = absl::make_unique<InjectableComponents>(
       bob_network_thread, bob_network_manager);
 
@@ -107,6 +111,12 @@ TEST(PeerConnectionE2EQualityTestSmokeTest, RunWithEmulatedNetwork) {
   auto fixture = CreatePeerConnectionE2EQualityTestFixture(
       "smoke_test", std::move(audio_quality_analyzer),
       std::move(video_quality_analyzer));
+  fixture->ExecuteAt(TimeDelta::seconds(2),
+                     [alice_network_behavior_ptr](TimeDelta) {
+                       BuiltInNetworkBehaviorConfig config;
+                       config.loss_percent = 5;
+                       alice_network_behavior_ptr->SetConfig(config);
+                     });
   fixture->Run(std::move(alice_components), std::move(alice_params),
                std::move(bob_components), std::move(bob_params),
                RunParams{TimeDelta::seconds(5)});

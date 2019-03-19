@@ -63,6 +63,22 @@ rtc_static_library("create_peerconnection_factory") {
   ]
 }
 
+# TODO(nisse): Unclear if this should be in api/ at all. RTPHeader is
+# a legacy class.
+rtc_source_set("rtp_headers") {
+  visibility = [ "*" ]
+  sources = [
+    "rtp_headers.cc",
+    "rtp_headers.h",
+  ]
+  deps = [
+    ":array_view",
+    "..:webrtc_common",
+    "video:video_frame",
+    "//third_party/abseil-cpp/absl/types:optional",
+  ]
+}
+
 rtc_static_library("libjingle_peerconnection_api") {
   visibility = [ "*" ]
   cflags = []
@@ -103,8 +119,6 @@ rtc_static_library("libjingle_peerconnection_api") {
     "proxy.h",
     "rtc_error.cc",
     "rtc_error.h",
-    "rtp_headers.cc",
-    "rtp_headers.h",
     "rtp_parameters.cc",
     "rtp_parameters.h",
     "rtp_receiver_interface.cc",
@@ -252,6 +266,7 @@ rtc_source_set("ortc_api") {
 
   deps = [
     ":libjingle_peerconnection_api",
+    ":rtp_headers",
     "//third_party/abseil-cpp/absl/types:optional",
   ]
 }

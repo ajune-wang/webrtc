@@ -331,10 +331,6 @@ void RtpTransportControllerSend::SetSdpBitrateParameters(
         UpdateInitialConstraints(msg);
       }
     });
-  } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetSdpBitrateParameters: "
-        << "nothing to update";
   }
 }
 
@@ -352,12 +348,9 @@ void RtpTransportControllerSend::SetClientBitratePreferences(
         UpdateInitialConstraints(msg);
       }
     });
-  } else {
-    RTC_LOG(LS_VERBOSE)
-        << "WebRTC.RtpTransportControllerSend.SetClientBitratePreferences: "
-        << "nothing to update";
   }
 }
+}  // namespace webrtc
 
 void RtpTransportControllerSend::OnTransportOverheadChanged(
     size_t transport_overhead_bytes_per_packet) {
@@ -571,5 +564,4 @@ void RtpTransportControllerSend::OnReceivedRtcpReceiverReportBlocks(
     PostUpdates(controller_->OnTransportLossReport(msg));
   last_report_block_time_ = now;
 }
-
 }  // namespace webrtc

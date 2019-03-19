@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68f4c17f_402b331a",
+        "filename": "api/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-19T11:52:41Z",
+      "side": 1,
+      "message": "Removing it altogether is probably a different issue.\nI do not think this TODO is relevant to this change.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 17
+      },
+      "revId": "ae0f89a8e9d3bc3cceff406a71f1a0e76be340a6",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

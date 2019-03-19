@@ -85,7 +85,6 @@ class DefaultEncodedImageDataInjector : public EncodedImageDataInjector,
 
  private:
   void ExtendIfRequired(int coding_entity_id) RTC_LOCKS_EXCLUDED(lock_);
-  std::vector<uint8_t>* NextBuffer() RTC_LOCKS_EXCLUDED(lock_);
 
   // Because single injector will be used for all encoder and decoders in one
   // peer and in case of the single process for all encoders and decoders in
@@ -96,8 +95,6 @@ class DefaultEncodedImageDataInjector : public EncodedImageDataInjector,
 
   // Store coding entities for which buffers pool have been already extended.
   std::set<int> coding_entities_ RTC_GUARDED_BY(lock_);
-  std::deque<std::unique_ptr<std::vector<uint8_t>>> bufs_pool_
-      RTC_GUARDED_BY(lock_);
 };
 
 }  // namespace test

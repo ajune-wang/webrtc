@@ -55,12 +55,7 @@ EncodedImage DefaultEncodedImageDataInjector::InjectData(
   ExtendIfRequired(coding_entity_id);
 
   EncodedImage out = source;
-  out.Retain();
-  std::vector<uint8_t>* buffer = NextBuffer();
-  if (buffer->size() < source.size() + kEncodedImageBufferExpansion) {
-    buffer->resize(source.size() + kEncodedImageBufferExpansion);
-  }
-  out.set_buffer(buffer->data(), buffer->size());
+  out.Allocate(source.size() + kEncodedImageBufferExpansion);
   out.set_size(source.size() + kEncodedImageBufferExpansion);
   memcpy(out.data(), source.data(), source.size());
   size_t insertion_pos = source.size();
@@ -84,11 +79,10 @@ EncodedImageExtractionResult DefaultEncodedImageDataInjector::ExtractData(
   ExtendIfRequired(coding_entity_id);
 
   EncodedImage out = source;
-  std::vector<uint8_t>* buffer = NextBuffer();
   if (buffer->size() < source.capacity() - kEncodedImageBufferExpansion) {
     buffer->resize(source.capacity() - kEncodedImageBufferExpansion);
   }
-  out.set_buffer(buffer->data(), buffer->size());
+  out.Allocate(source.sizebuffer->data(), buffer->size());
 
   size_t source_pos = source.size() - 1;
   absl::optional<uint16_t> id = absl::nullopt;

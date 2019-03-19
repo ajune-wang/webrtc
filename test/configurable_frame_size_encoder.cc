@@ -29,9 +29,9 @@ ConfigurableFrameSizeEncoder::ConfigurableFrameSizeEncoder(
     : callback_(NULL),
       max_frame_size_(max_frame_size),
       current_frame_size_(max_frame_size),
-      buffer_(new uint8_t[max_frame_size]),
+      buffer_(max_frame_size),
       codec_type_(kVideoCodecGeneric) {
-  memset(buffer_.get(), 0, max_frame_size);
+  memset(buffer_.data(), 0, max_frame_size);
 }
 
 ConfigurableFrameSizeEncoder::~ConfigurableFrameSizeEncoder() {}
@@ -46,8 +46,9 @@ int32_t ConfigurableFrameSizeEncoder::InitEncode(
 int32_t ConfigurableFrameSizeEncoder::Encode(
     const VideoFrame& inputImage,
     const std::vector<VideoFrameType>* frame_types) {
-  EncodedImage encodedImage(buffer_.get(), current_frame_size_,
-                            max_frame_size_);
+  EncodedImage encodedImage;
+  encodedImage.set_buffer(buffer_, 0, max_frame_size_);
+  encodedImage.set_size(current_frame_size_);
   encodedImage._completeFrame = true;
   encodedImage._encodedHeight = inputImage.height();
   encodedImage._encodedWidth = inputImage.width();

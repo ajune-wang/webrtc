@@ -55,8 +55,9 @@ rtc_source_set("encoded_image_data_injector_api") {
 rtc_source_set("default_encoded_image_data_injector") {
   visibility = [ "*" ]
   sources = [
-    "analyzer/video/default_encoded_image_data_injector.cc",
-    "analyzer/video/default_encoded_image_data_injector.h",
+    # XXX Needs update.
+    #    "analyzer/video/default_encoded_image_data_injector.cc",
+    #    "analyzer/video/default_encoded_image_data_injector.h",
   ]
 
   deps = [
@@ -246,7 +247,7 @@ if (rtc_include_tests) {
   rtc_source_set("default_encoded_image_data_injector_unittest") {
     testonly = true
     sources = [
-      "analyzer/video/default_encoded_image_data_injector_unittest.cc",
+      #      "analyzer/video/default_encoded_image_data_injector_unittest.cc",
     ]
     deps = [
       ":default_encoded_image_data_injector",

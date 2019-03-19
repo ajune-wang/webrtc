@@ -61,7 +61,7 @@ class ConfigurableFrameSizeEncoder : public VideoEncoder {
 
   const size_t max_frame_size_;
   size_t current_frame_size_;
-  std::unique_ptr<uint8_t[]> buffer_;
+  rtc::CopyOnWriteBuffer buffer_;
   VideoCodecType codec_type_;
 };
 

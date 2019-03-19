@@ -207,9 +207,9 @@ void PacedSender::SetPacingRates(uint32_t pacing_rate_bps,
   pacing_bitrate_kbps_ = pacing_rate_bps / 1000;
   padding_budget_.set_target_rate_kbps(padding_rate_bps / 1000);
 
-  RTC_LOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
-                      << pacing_bitrate_kbps_
-                      << " padding_budget_kbps=" << padding_rate_bps / 1000;
+  RTC_DLOG(LS_VERBOSE) << "bwe:pacer_updated pacing_kbps="
+                       << pacing_bitrate_kbps_
+                       << " padding_budget_kbps=" << padding_rate_bps / 1000;
 }
 
 void PacedSender::InsertPacket(RtpPacketSender::Priority priority,
@@ -354,8 +354,8 @@ void PacedSender::Process() {
             static_cast<int>(queue_size_bytes * 8 / avg_time_left_ms);
         if (min_bitrate_needed_kbps > target_bitrate_kbps) {
           target_bitrate_kbps = min_bitrate_needed_kbps;
-          RTC_LOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
-                              << target_bitrate_kbps;
+          RTC_DLOG(LS_VERBOSE) << "bwe:large_pacing_queue pacing_rate_kbps="
+                               << target_bitrate_kbps;
         }
       }
     }

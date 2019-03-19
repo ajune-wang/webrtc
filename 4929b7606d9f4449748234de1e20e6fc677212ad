@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1e9ca4f_575d989c",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5087
+      },
+      "writtenOn": "2019-03-19T15:08:33Z",
+      "side": 1,
+      "message": "I saw a comment on the bug that proposes to achieve this with mandatory dependency injection instead of using a build flag (https://bugs.chromium.org/p/webrtc/issues/detail?id\u003d10424#c1).\n\nI general, I prefer that against build flags proliferation.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

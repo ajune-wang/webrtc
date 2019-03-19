@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ed5ca5_1ecb0943",
+        "filename": "test/scenario/network/emulated_network_controller.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6337
+      },
+      "writtenOn": "2019-03-19T09:54:36Z",
+      "side": 1,
+      "message": "Probably we can merge interface with implementation actually",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 35
+      },
+      "revId": "9b4192f8f3e4b3c865e6de25fc2c1e5d995dcf13",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    }
+  ]
+}

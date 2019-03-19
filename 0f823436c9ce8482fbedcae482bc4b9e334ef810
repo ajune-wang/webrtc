@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8e83857_e35ffcdf",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1107,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-19T17:14:06Z",
+      "side": 1,
+      "message": "nope, doesn\u0027t need to be. Better hide sooner than suffer later. Done.",
+      "parentUuid": "8278603c_ccdd5a6a",
+      "range": {
+        "startLine": 1107,
+        "startChar": 18,
+        "endLine": 1107,
+        "endChar": 19
+      },
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3acc6a7_877bd193",
         "filename": "rtc_base/BUILD.gn",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9bce9d69_9c4dc841",
+        "filename": "rtc_base/BUILD.gn",
+        "patchSetId": 5
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-19T17:14:06Z",
+      "side": 1,
+      "message": "yes, thread_annotation RTC_LOCKABLE lives in that target.",
+      "parentUuid": "b3acc6a7_877bd193",
+      "range": {
+        "startLine": 1116,
+        "startChar": 5,
+        "endLine": 1116,
+        "endChar": 17
+      },
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a4ed8ab_0f640a08",
         "filename": "rtc_base/task_queue_for_test.cc",
         "patchSetId": 5
@@ -62,6 +110,24 @@
       "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86759cf1_9505ee11",
+        "filename": "rtc_base/task_queue_for_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5019
+      },
+      "writtenOn": "2019-03-19T17:14:06Z",
+      "side": 1,
+      "message": "with bugs.webrtc.org/163 abandoned no, not really needed.\nMoved default non-trivial destructor to the header.\n\nBut I still prefer to hide constructor details into .cc file, in particular would like to avoid leaking default_task_queue_factory header.",
+      "parentUuid": "7a4ed8ab_0f640a08",
+      "revId": "0f823436c9ce8482fbedcae482bc4b9e334ef810",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15abaf88_9c6906f6",
+        "filename": "api/create_peerconnection_factory.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8760
+      },
+      "writtenOn": "2019-03-19T15:25:03Z",
+      "side": 1,
+      "message": "I agree mandatory dependency injection is right way, but doesn\u0027t that require the audio_processing to be passed in via this api and hence a api change (not sure if its ok to change apis). \nSorry, I am not too familiar and may not be understanding the \u0027mandatory dependency injection.\n\nOther option is to not use CreatePeerConnectionFactory and copy over this code in our app layer, and app can do whatever it wants.",
+      "parentUuid": "c1e9ca4f_575d989c",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 48
+      },
+      "revId": "4929b7606d9f4449748234de1e20e6fc677212ad",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
     }
   ]
 }

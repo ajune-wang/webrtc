@@ -103,6 +103,7 @@ void AdjustNonConvergedFrequencies(
 int SuppressionGain::instance_count_ = 0;
 
 float SuppressionGain::UpperBandsGain(
+    const std::array<float, kFftLengthBy2Plus1>& suppressor_input_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& echo_spectrum,
     const std::array<float, kFftLengthBy2Plus1>& comfort_noise_spectrum,
     const absl::optional<int>& narrow_peak_band,
@@ -128,7 +129,7 @@ float SuppressionGain::UpperBandsGain(
     return std::min(0.001f, gain_below_8_khz);
   }
 
-  // Compute the upper and lower band energies.
+  // Compute the upper and lower band render energies.
   const auto sum_of_squares = [](float a, float b) { return a + b * b; };
   const float low_band_energy =
       std::accumulate(render[0].begin(), render[0].end(), 0.f, sum_of_squares);
@@ -158,7 +159,7 @@ float SuppressionGain::UpperBandsGain(
     RTC_DCHECK_LE(16, spectrum.size());
     return std::accumulate(spectrum.begin() + 1, spectrum.begin() + 16, 0.f);
   };
-  const float echo_sum = low_frequency_energy(echo_spectrum);
+  const float echo_sum = low_frequency_energy(suppressor_input_spectrum);
   const float noise_sum = low_frequency_energy(comfort_noise_spectrum);
   const auto& cfg = config_.suppressor.high_bands_suppression;
   float gain_bound = 1.f;
@@ -350,9 +351,9 @@ void SuppressionGain::GetGain(
   const absl::optional<int> narrow_peak_band =
       render_signal_analyzer.NarrowPeakBand();
 
-  *high_bands_gain =
-      UpperBandsGain(echo_spectrum, comfort_noise_spectrum, narrow_peak_band,
-                     aec_state.SaturatedEcho(), render, *low_band_gain);
+  *high_bands_gain = UpperBandsGain(
+      suppressor_input_spectrum, echo_spectrum, comfort_noise_spectrum,
+      narrow_peak_band, aec_state.SaturatedEcho(), render, *low_band_gain);
   if (cfg.enforce_empty_higher_bands) {
     *high_bands_gain = 0.f;
   }

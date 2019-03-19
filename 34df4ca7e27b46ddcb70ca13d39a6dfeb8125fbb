@@ -19,6 +19,47 @@
     },
     {
       "key": {
+        "uuid": "f72c1790_5f79e0eb",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-19T16:01:25Z",
+      "side": 1,
+      "message": "The current non-standard stat is a percentage, so unitless sounds ok to me.",
+      "parentUuid": "1391f50d_1402b88f",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "699be7bf_24ddab33",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-19T16:01:25Z",
+      "side": 1,
+      "message": "This should be \u0027ms\u0027.",
+      "range": {
+        "startLine": 136,
+        "startChar": 56,
+        "endLine": 136,
+        "endChar": 64
+      },
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3adbfb62_691ba0c8",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
         "patchSetId": 7
@@ -36,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "6b0d534d_9506a452",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-19T16:01:25Z",
+      "side": 1,
+      "message": "How about adding preferred_buffer_size_ms (or something similar) as a non-standard stat on the new API?",
+      "parentUuid": "3adbfb62_691ba0c8",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "afaf2fb1_f399180f",
         "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
         "patchSetId": 7
@@ -47,6 +106,24 @@
       "writtenOn": "2019-03-19T09:47:04Z",
       "side": 1,
       "message": "Is googPreferredJitterBufferMs needed for quality analyzer given that we have googJitterBufferMs and the expand/accelerate/decelerate metrics already?\n+ivoc",
+      "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
+      "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db21727_34996877",
+        "filename": "test/pc/e2e/analyzer/audio/default_audio_quality_analyzer.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5607
+      },
+      "writtenOn": "2019-03-19T16:01:25Z",
+      "side": 1,
+      "message": "I think it could still be useful to track, and it might be helpful to analyze what\u0027s happening when regressions occur.",
+      "parentUuid": "afaf2fb1_f399180f",
       "revId": "34df4ca7e27b46ddcb70ca13d39a6dfeb8125fbb",
       "serverId": "58829da1-049c-39fb-b951-ebdcd0984767",
       "unresolved": true

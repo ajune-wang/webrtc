@@ -226,13 +226,13 @@ void VideoEncoderWrapper::OnEncodedFrame(JNIEnv* jni,
       static_cast<uint8_t*>(jni->GetDirectBufferAddress(j_buffer.obj()));
   const size_t buffer_size = jni->GetDirectBufferCapacity(j_buffer.obj());
 
-  std::vector<uint8_t> buffer_copy(buffer_size);
+  rtc::CopyOnWriteBuffer buffer_copy(buffer_size);
   memcpy(buffer_copy.data(), buffer, buffer_size);
   const int qp = JavaToNativeOptionalInt(jni, j_qp).value_or(-1);
 
   struct Lambda {
     VideoEncoderWrapper* video_encoder_wrapper;
-    std::vector<uint8_t> task_buffer;
+    rtc::CopyOnWriteBuffer task_buffer;
     int qp;
     jint encoded_width;
     jint encoded_height;
@@ -270,8 +270,9 @@ void VideoEncoderWrapper::OnEncodedFrame(JNIEnv* jni,
 
       RTPFragmentationHeader header =
           video_encoder_wrapper->ParseFragmentationHeader(task_buffer);
-      EncodedImage frame(const_cast<uint8_t*>(task_buffer.data()),
-                         task_buffer.size(), task_buffer.size());
+      EncodedImage frame;
+      frame.set_buffer(task_buffer, 0, task_buffer.size());
+      frame.set_size(task_buffer.size());
       frame._encodedWidth = encoded_width;
       frame._encodedHeight = encoded_height;
       frame.SetTimestamp(frame_extra_info.timestamp_rtp);
@@ -329,7 +330,7 @@ int32_t VideoEncoderWrapper::HandleReturnCode(JNIEnv* jni,
 }
 
 RTPFragmentationHeader VideoEncoderWrapper::ParseFragmentationHeader(
-    const std::vector<uint8_t>& buffer) {
+    rtc::ArrayView<const uint8_t> buffer) {
   RTPFragmentationHeader header;
   if (codec_settings_.codecType == kVideoCodecH264) {
     h264_bitstream_parser_.ParseBitstream(buffer.data(), buffer.size());
@@ -361,7 +362,7 @@ RTPFragmentationHeader VideoEncoderWrapper::ParseFragmentationHeader(
   return header;
 }
 
-int VideoEncoderWrapper::ParseQp(const std::vector<uint8_t>& buffer) {
+int VideoEncoderWrapper::ParseQp(rtc::ArrayView<const uint8_t> buffer) {
   int qp;
   bool success;
   switch (codec_settings_.codecType) {
